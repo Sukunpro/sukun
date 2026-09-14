@@ -5338,7 +5338,7 @@ body[data-focus="1"] .zCtl{
 /* Superseded by the single r698 visual authority below. */
 </style>
 
-<style id="sukun-r828-mobile-layout-authority">
+<style id="sukun-r829-mobile-layout-authority">
 /* r828 — 28/99 Seyir + mobile player final layout authority.
    Amaç: eski absolute/flex/grid katmanları veya yarım yüklenmiş skinler yüzünden
    kontrollerin sayfaya dağılmasını engellemek. Ses/state mantığına dokunmaz. */
@@ -5367,7 +5367,7 @@ body[data-focus="1"] .zCtl{
 </style>
 
 
-<style id="sukun-r828-zikir-settings-visibility">
+<style id="sukun-r829-zikir-settings-visibility">
 /* r828: Zikir Ayarları her görünümde erişilebilir kalsın. */
 html.sukun-jewel-r798 body #r679ZikirAyarBox{
   display:block!important;visibility:visible!important;opacity:1!important;
@@ -6478,7 +6478,7 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.77 — build 2026-09-14-r828</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.78 — build 2026-09-14-r829</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -73521,7 +73521,8 @@ function stateCat(){
 function journeyBerhet(){
   const x=safe(()=>window.SukunBerhetiyyeSeyir?.state?.()||window.BERHET_SEYIR||null,null);
   if(!x)return false;
-  return !!(x.run||x.running||x.active||x.playing||x.paused||x.current>=0||x.i>=0);
+  /* r829: i/current sadece son konumu gösterir; aktif seyir kanıtı değildir. */
+  return !!(x.run||x.running||x.active||x.playing||x.paused);
 }
 function heroBerhet(){
   return [
@@ -73533,8 +73534,12 @@ function heroBerhet(){
 }
 function resolve(){
   const s=selected(),st=stateCat();
-  if(lastExplicit && lastExplicit!=='fav' && lastExplicit!=='berhet') return 'generic';
-  if(s==='berhet'||st==='berhet'||journeyBerhet()||heroBerhet())return 'berhet';
+  /* r829: seçili kategori en yüksek otorite.
+     Esma/dua/salavat vb. seçildiyse geçmiş Berhetiyye state'i görseli kilitleyemez. */
+  if(s && s!=='fav') return s==='berhet' ? 'berhet' : 'generic';
+  if(st && st!=='fav') return st==='berhet' ? 'berhet' : 'generic';
+  if(lastExplicit && lastExplicit!=='fav') return lastExplicit==='berhet' ? 'berhet' : 'generic';
+  if(journeyBerhet()||heroBerhet()) return 'berhet';
   return 'generic';
 }
 function removeLegacyRuntime(){
@@ -73740,53 +73745,54 @@ window.SukunR820TekkeAuthority=Object.freeze({version:'r821',derive,render,snaps
 </body>
 </html>
 
-<style id="sukun-r828-contextual-zikir-visuals">
+<style id="sukun-r829-contextual-zikir-visuals">
 /* r828 — Normal zikir / Berhetiyye görsel bağlamını yeniden ayırır. */
-html[data-r828-bgmode="generic"] body.sukun-zikir-tab{
+html[data-r829-bgmode="generic"] body.sukun-zikir-tab{
   background:
     linear-gradient(180deg,rgba(1,10,16,.14),rgba(0,12,18,.26)),
     url('./assets/sukun-sanctuary-r717.webp') center top/cover fixed no-repeat!important;
 }
-html[data-r828-bgmode="berhet"] body.sukun-zikir-tab{
+html[data-r829-bgmode="berhet"] body.sukun-zikir-tab{
   background:
     linear-gradient(180deg,rgba(2,8,18,.09),rgba(0,12,25,.22)),
-    var(--r828-berhet-bg) center top/cover fixed no-repeat!important;
+    var(--r829-berhet-bg) center top/cover fixed no-repeat!important;
 }
 /* Normal zikre dönüldüğünde saray/jewel body authority kalmasın. */
-html[data-r828-bgmode="generic"] body.sukun-zikir-tab.r778-berhet-palace{background-image:linear-gradient(180deg,rgba(1,10,16,.14),rgba(0,12,18,.26)),url('./assets/sukun-sanctuary-r717.webp')!important}
-html[data-r828-bgmode="generic"] body.sukun-zikir-tab #r679ZikirAyarBox{display:block!important;visibility:visible!important;opacity:1!important}
-html[data-r828-bgmode="berhet"] body.sukun-zikir-tab #r679ZikirAyarBox{display:block!important;visibility:visible!important;opacity:1!important}
-#r828BerhetSceneBox{display:none;margin:12px 0 2px;padding:12px;border:1px solid rgba(229,197,116,.24);border-radius:15px;background:rgba(3,17,35,.68);box-shadow:inset 0 0 18px rgba(79,154,211,.06)}
-html[data-r828-bgmode="berhet"] #r828BerhetSceneBox{display:block}
-#r828BerhetSceneBox .r828SceneHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px;color:#f0d791;font-weight:800;font-size:12px}
-#r828BerhetSceneBox .r828SceneHead small{color:#9db7c9;font-weight:500;font-size:9px}
-#r828BerhetScenes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
-#r828BerhetScenes button{min-height:44px;padding:6px 5px;border:1px solid rgba(124,182,222,.20);border-radius:12px;background:rgba(4,24,48,.72);color:#dfeaf0;font:700 9px/1.15 system-ui;white-space:normal}
-#r828BerhetScenes button[aria-pressed="true"]{border-color:rgba(235,203,117,.62);color:#fff0bf;background:linear-gradient(180deg,rgba(89,54,110,.66),rgba(7,38,67,.84));box-shadow:0 0 0 1px rgba(235,203,117,.08),0 0 16px rgba(145,82,220,.12)}
-#r828BerhetScenes button:first-child{grid-column:1/-1;min-height:38px}
-@media(max-width:370px){#r828BerhetScenes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+html[data-r829-bgmode="generic"] body.sukun-zikir-tab.r778-berhet-palace{background-image:linear-gradient(180deg,rgba(1,10,16,.14),rgba(0,12,18,.26)),url('./assets/sukun-sanctuary-r717.webp')!important}
+html[data-r829-bgmode="generic"] body.sukun-zikir-tab #r679ZikirAyarBox{display:block!important;visibility:visible!important;opacity:1!important}
+html[data-r829-bgmode="berhet"] body.sukun-zikir-tab #r679ZikirAyarBox{display:block!important;visibility:visible!important;opacity:1!important}
+#r829BerhetSceneBox{display:none;margin:12px 0 2px;padding:12px;border:1px solid rgba(229,197,116,.24);border-radius:15px;background:rgba(3,17,35,.68);box-shadow:inset 0 0 18px rgba(79,154,211,.06)}
+html[data-r829-bgmode="berhet"] #r829BerhetSceneBox{display:block}
+#r829BerhetSceneBox .r829SceneHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px;color:#f0d791;font-weight:800;font-size:12px}
+#r829BerhetSceneBox .r829SceneHead small{color:#9db7c9;font-weight:500;font-size:9px}
+#r829BerhetScenes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+#r829BerhetScenes button{min-height:44px;padding:6px 5px;border:1px solid rgba(124,182,222,.20);border-radius:12px;background:rgba(4,24,48,.72);color:#dfeaf0;font:700 9px/1.15 system-ui;white-space:normal}
+#r829BerhetScenes button[aria-pressed="true"]{border-color:rgba(235,203,117,.62);color:#fff0bf;background:linear-gradient(180deg,rgba(89,54,110,.66),rgba(7,38,67,.84));box-shadow:0 0 0 1px rgba(235,203,117,.08),0 0 16px rgba(145,82,220,.12)}
+#r829BerhetScenes button:first-child{grid-column:1/-1;min-height:38px}
+@media(max-width:370px){#r829BerhetScenes{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
-<script id="sukun-r828-contextual-zikir-visuals-script">
+<script id="sukun-r829-contextual-zikir-visuals-script">
 (()=>{
 'use strict';
-if(window.SukunR828Visuals)return;
+if(window.SukunR829Visuals)return;
 const root=document.documentElement;
-const KEY='sukun.berhet.background.r828';
+const KEY='sukun.berhet.background.r829';
 const scenes=[
   {id:'auto',label:'✦ Otomatik',url:''},
-  {id:'palace',label:'Billur Saray',url:"url('./assets/berhetiyye-premium/berhetiyye-palace.png')"},
-  {id:'seal',label:'Mühr-ü Süleyman',url:"url('./assets/berhetiyye-cosmic/berhetiyye-01.webp')"},
-  {id:'wind',label:'Rüzgâr',url:"url('./assets/berhetiyye-cosmic/berhetiyye-03.webp')"},
-  {id:'crystal',label:'Billur Geçit',url:"url('./assets/berhetiyye-cosmic/berhetiyye-05.webp')"},
-  {id:'night',label:'Gece Sarayı',url:"url('./assets/berhetiyye-cosmic/berhetiyye-09.webp')"},
-  {id:'hudhud',label:'Hüdhüd Yolu',url:"url('./assets/berhetiyye-cosmic/berhetiyye-14.webp')"}
+  {id:'palace',label:'Billur Saray',url:"linear-gradient(180deg,rgba(4,18,30,.10),rgba(1,13,25,.28)),url('./assets/sukun-sanctuary-r717.webp')"},
+  {id:'seal',label:'Mühr-ü Süleyman',url:"radial-gradient(circle at 50% 32%,rgba(237,200,92,.18),transparent 24%),conic-gradient(from 30deg at 50% 36%,rgba(223,185,79,.08),rgba(60,130,178,.03),rgba(137,75,183,.08),rgba(223,185,79,.08)),url('./assets/sukun-sanctuary-r717.webp')"},
+  {id:'wind',label:'Rüzgâr',url:"linear-gradient(115deg,rgba(103,214,255,.10),transparent 28%,rgba(210,235,255,.07) 46%,transparent 63%),url('./assets/sukun-sanctuary-r717.webp')"},
+  {id:'crystal',label:'Billur Geçit',url:"radial-gradient(ellipse at 18% 34%,rgba(106,234,255,.12),transparent 24%),radial-gradient(ellipse at 82% 42%,rgba(173,91,255,.13),transparent 26%),url('./assets/sukun-sanctuary-r717.webp')"},
+  {id:'night',label:'Gece Sarayı',url:"linear-gradient(180deg,rgba(0,3,18,.36),rgba(8,2,28,.30)),url('./assets/sukun-sanctuary-r717.webp')"},
+  {id:'hudhud',label:'Hüdhüd Yolu',url:"radial-gradient(circle at 72% 24%,rgba(245,194,74,.14),transparent 18%),linear-gradient(140deg,rgba(30,8,18,.12),rgba(0,30,47,.12)),url('./assets/sukun-sanctuary-r717.webp')"}
 ];
 const safe=(fn,fb='')=>{try{return fn()}catch(_){return fb}};
 const norm=v=>String(v||'').trim().toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ı/g,'i');
 function isBerhet(){
-  if(root.dataset.r819Counter==='berhet'||root.dataset.r811Berhet==='1')return true;
+  /* r829: counter-core tek görsel bağlam otoritesidir. */
+  if(root.dataset.r819Counter) return root.dataset.r819Counter==='berhet';
   const c=norm(safe(()=>typeof Z!=='undefined'?Z.cat:''));
-  if(c==='berhet')return true;
+  if(c && c!=='fav') return c==='berhet';
   const st=safe(()=>window.SukunBerhetiyyeSeyir?.state?.()||window.BERHET_SEYIR||null,null);
   return !!(st&&(st.run||st.running||st.active||st.playing||st.paused));
 }
@@ -73806,12 +73812,12 @@ function picked(){
 }
 function ensureChooser(){
   const box=document.getElementById('r679ZikirAyarBox'); if(!box)return;
-  let host=document.getElementById('r828BerhetSceneBox');
+  let host=document.getElementById('r829BerhetSceneBox');
   if(!host){
-    host=document.createElement('div');host.id='r828BerhetSceneBox';
-    host.innerHTML='<div class="r828SceneHead"><span>✦ Berhetiyye Arka Planı</span><small>Süleyman (a.s.) sahneleri</small></div><div id="r828BerhetScenes"></div>';
+    host=document.createElement('div');host.id='r829BerhetSceneBox';
+    host.innerHTML='<div class="r829SceneHead"><span>✦ Berhetiyye Arka Planı</span><small>Süleyman (a.s.) sahneleri</small></div><div id="r829BerhetScenes"></div>';
     const body=box.querySelector('.r679SettingsBody')||box; body.appendChild(host);
-    const grid=host.querySelector('#r828BerhetScenes');
+    const grid=host.querySelector('#r829BerhetScenes');
     scenes.forEach(sc=>{const b=document.createElement('button');b.type='button';b.dataset.scene=sc.id;b.textContent=sc.label;b.addEventListener('click',()=>setPref(sc.id));grid.appendChild(b)});
   }
   const p=pref(); host.querySelectorAll('button[data-scene]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.scene===p)));
@@ -73819,16 +73825,16 @@ function ensureChooser(){
 function apply(reason='apply'){
   ensureChooser();
   const ber=isBerhet();
-  root.dataset.r828Bgmode=ber?'berhet':'generic';
+  root.dataset.r829Bgmode=ber?'berhet':'generic';
   if(ber){
-    const sc=picked();root.style.setProperty('--r828-berhet-bg',sc.url);root.dataset.r828Scene=sc.id;
+    const sc=picked();root.style.setProperty('--r829-berhet-bg',sc.url);root.dataset.r829Scene=sc.id;
   }else{
-    root.style.removeProperty('--r828-berhet-bg');delete root.dataset.r828Scene;
+    root.style.removeProperty('--r829-berhet-bg');delete root.dataset.r829Scene;
     // Eski Berhetiyye body sınıfı normal zikri sarayda bırakmasın.
     document.body?.classList.remove('r778-berhet-palace');
   }
   try{window.SukunR819CounterCore?.sync?.()}catch(_){}
-  root.dataset.r828Reason=reason;
+  root.dataset.r829Reason=reason;
 }
 let raf=0;const q=r=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;apply(r)})};
 ['DOMContentLoaded','pageshow','load','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:journey-advance','sukun:tabchange','sukun:tefekkurchange'].forEach(ev=>window.addEventListener(ev,()=>q(ev),{passive:true}));
@@ -73836,7 +73842,213 @@ document.addEventListener('click',e=>{if(e.target.closest?.('#zCats [data-c],#be
 const mo=new MutationObserver(()=>q('mutation'));
 function boot(){const scope=document.getElementById('tab-zkr')||document.body;if(scope)mo.observe(scope,{subtree:true,childList:true,attributes:true,attributeFilter:['class','data-r819-counter','data-r811-berhet']});apply('boot');setTimeout(()=>apply('late'),500)}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-window.SukunR828Visuals=Object.freeze({version:'r828',sync:()=>apply('api'),setScene:setPref,snapshot:()=>({mode:root.dataset.r828Bgmode,scene:root.dataset.r828Scene||'',pref:pref(),berhet:isBerhet()})});
+window.SukunR829Visuals=Object.freeze({version:'r829',sync:()=>apply('api'),setScene:setPref,snapshot:()=>({mode:root.dataset.r829Bgmode,scene:root.dataset.r829Scene||'',pref:pref(),berhet:isBerhet()})});
+})();
+</script>
+
+
+
+<style id="sukun-r829-final-completion-authority">
+/* 1) KENDİ SESİN — yazı kesinlikle taşmasın */
+html body #zBar #itemRecBtn{
+  min-width:0!important;width:100%!important;max-width:100%!important;
+  padding-inline:8px!important;overflow:hidden!important;
+}
+html body #zBar #itemRecBtn>span:last-child{
+  min-width:0!important;max-width:100%!important;
+  white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important;
+  font-size:clamp(7.4px,2.15vw,9.5px)!important;
+  letter-spacing:.045em!important;line-height:1!important;
+}
+
+/* 2) Seyir kontrolleri — Bitir dahil tek grid ve tek jewel dili */
+html body :is(#berhetSeyir,#esmaSeyir99) .r168Buttons{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;overflow:visible!important;
+}
+html body :is(#berhetSeyir,#esmaSeyir99) .r168Buttons .btn{
+  min-width:0!important;width:100%!important;max-width:100%!important;
+  min-height:48px!important;height:48px!important;
+  padding:0 9px!important;border:0!important;border-radius:0!important;
+  color:#fff0ce!important;text-shadow:0 2px 4px rgba(0,0,0,.76)!important;
+  overflow:hidden!important;white-space:normal!important;
+  background-position:center!important;background-repeat:no-repeat!important;background-size:100% 100%!important;
+}
+html body :is(#berhetSeyir,#esmaSeyir99) .r168Buttons :is(#bsStart,#es99Start){
+  grid-column:1/-1!important;height:58px!important;min-height:58px!important;
+  background-image:url('./assets/berhetiyye-premium/btn-primary-wide.png')!important;
+  font-size:18px!important;
+}
+html body :is(#berhetSeyir,#esmaSeyir99) .r168Buttons :is(#bsPrev,#bsNext,#es99Prev,#es99Next){
+  background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire.png')!important;
+}
+html body :is(#berhetSeyir,#esmaSeyir99) .r168Buttons :is(#bsAgain,#es99Again){
+  background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald.png')!important;
+}
+html body :is(#berhetSeyir,#esmaSeyir99) .r168Buttons :is(#bsStop,#es99Stop){
+  display:flex!important;
+  background-image:url('./assets/berhetiyye-premium/btn-secondary-amethyst.png')!important;
+  color:#fff0d5!important;font-size:11px!important;
+}
+html body :is(#berhetSeyir,#esmaSeyir99) .r168Buttons :is(#bsReset,#es99Reset){
+  grid-column:1/-1!important;
+  background-image:url('./assets/berhetiyye-premium/btn-primary-wide.png')!important;
+}
+
+/* 3) Ayarlar görünürlüğü: ana sayacın hemen üstünde kompakt kontrol şeridi */
+#r829QuickSettings{
+  display:grid;grid-template-columns:auto minmax(90px,1fr) auto auto;
+  gap:8px;align-items:center;margin:10px 0 12px;padding:9px 11px;
+  border:1px solid rgba(238,205,118,.24);border-radius:16px;
+  background:linear-gradient(180deg,rgba(7,30,38,.88),rgba(5,17,31,.82));
+  box-shadow:0 10px 26px rgba(0,0,0,.20),inset 0 1px 0 rgba(255,255,255,.04);
+}
+#r829QuickSettings .qLabel{font:800 10px/1.1 system-ui;color:#f1d78e;white-space:nowrap}
+#r829QuickSettings input[type=range]{min-width:0;width:100%}
+#r829QuickSettings .qVal{font:800 10px/1 system-ui;color:#cde7e9;min-width:44px;text-align:center}
+#r829QuickSettings .qOpen{
+  min-height:34px;padding:0 10px;border:1px solid rgba(111,218,213,.26);border-radius:11px;
+  background:rgba(13,52,62,.74);color:#e7fbf7;font:800 9px/1 system-ui
+}
+#r679ZikirAyarBox{
+  display:block!important;visibility:visible!important;opacity:1!important;
+  position:relative!important;inset:auto!important;transform:none!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  overflow:hidden!important;pointer-events:auto!important;
+}
+#r679ZikirAyarBox>summary{display:flex!important;visibility:visible!important;opacity:1!important}
+
+/* 4) Berhetiyye sahne seçici — ayar kutusuna gömülse bile ayrıca hızlı erişim */
+#r829BerhetSceneQuick{
+  display:none;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:center;
+  margin:8px 0 10px;padding:8px 10px;border:1px solid rgba(239,207,119,.20);
+  border-radius:14px;background:rgba(5,23,39,.78)
+}
+html[data-r819-counter="berhet"] #r829BerhetSceneQuick{display:grid!important}
+#r829BerhetSceneQuick label{font:800 9.5px/1.1 system-ui;color:#f0d58b}
+#r829BerhetSceneQuick select{
+  min-width:0;width:100%;height:36px;border-radius:11px;border:1px solid rgba(104,200,221,.23);
+  background:#0a2435;color:#e9f6f7;padding:0 9px;font-size:10px
+}
+
+/* 5) Berhetiyye kaynak/kart/tablo taşmaları */
+:is(#r642ZikirInfoCard,#r749EsmaSourceHub,#r749BerhAtlas,#r749InfoExtra,#r752BerhetRich,.r754Ctx,.r754Grid){
+  min-width:0!important;max-width:100%!important;overflow-x:hidden!important;
+}
+:is(#r642ZikirInfoCard,#r749EsmaSourceHub,#r749BerhAtlas,#r749InfoExtra,#r752BerhetRich,.r754Ctx,.r754Grid) *{
+  min-width:0;max-width:100%;box-sizing:border-box;
+}
+:is(#r642ZikirInfoCard,#r749EsmaSourceHub,#r749BerhAtlas,#r749InfoExtra,#r752BerhetRich,.r754Ctx,.r754Grid) :is(p,span,b,small,td,th,li,div){
+  overflow-wrap:anywhere;word-break:normal;
+}
+:is(#r642ZikirInfoCard,#r749EsmaSourceHub,#r749BerhAtlas,#r749InfoExtra,#r752BerhetRich,.r754Ctx,.r754Grid) table{
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  table-layout:fixed!important;border-collapse:collapse!important;
+}
+:is(#r642ZikirInfoCard,#r749EsmaSourceHub,#r749BerhAtlas,#r749InfoExtra,#r752BerhetRich,.r754Ctx,.r754Grid) :is(td,th){
+  white-space:normal!important;overflow-wrap:anywhere!important;word-break:break-word!important;
+  padding:6px!important;font-size:clamp(8px,2.5vw,10px)!important;line-height:1.35!important;
+}
+.r749SourceLead{grid-template-columns:minmax(54px,70px) minmax(0,1fr)!important}
+.r749SourceGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+@media(max-width:430px){
+  #r829QuickSettings{grid-template-columns:auto minmax(0,1fr) auto}
+  #r829QuickSettings .qOpen{grid-column:1/-1;width:100%}
+  .r749SourceGrid{grid-template-columns:1fr!important}
+}
+
+/* 6) Normal / Berhetiyye görsel ayrımı kesin: Esmâ normal halka, Berhetiyye mücevher halka */
+html[data-r819-counter="generic"] body #r819CounterDisc{
+  background-image:url('./assets/sukun-nur-ring-r757.png?v=r829')!important;
+}
+html[data-r819-counter="berhet"] body #r819CounterDisc{
+  background-image:url('./assets/berhetiyye-premium/berhetiyye-ring-r819.png?v=r829')!important;
+}
+</style>
+
+<script id="sukun-r829-final-completion-runtime">
+(()=>{
+'use strict';
+if(window.SukunR829Completion)return;
+const $=id=>document.getElementById(id);
+
+function installQuickSettings(){
+  const settings=$('r679ZikirAyarBox'), cnt=$('cntSub');
+  if(!settings||!cnt)return;
+  let q=$('r829QuickSettings');
+  if(!q){
+    q=document.createElement('div');q.id='r829QuickSettings';
+    q.innerHTML='<span class="qLabel">TEMPO</span><input id="r829Tempo" type="range" min="0.8" max="6" step="0.1"><span class="qVal" id="r829TempoVal">1.0 sn</span><button class="qOpen" type="button">⚙ Zikir Ayarları</button>';
+    cnt.insertAdjacentElement('afterend',q);
+    const mirror=q.querySelector('#r829Tempo'), real=$('tempoSld');
+    const syncFromReal=()=>{
+      if(!real)return;
+      mirror.value=real.value;
+      q.querySelector('#r829TempoVal').textContent=(Number(real.value)||1).toFixed(1)+' sn';
+    };
+    mirror.addEventListener('input',()=>{
+      if(!real)return;
+      real.value=mirror.value;
+      real.dispatchEvent(new Event('input',{bubbles:true}));
+      real.dispatchEvent(new Event('change',{bubbles:true}));
+      syncFromReal();
+    });
+    real?.addEventListener('input',syncFromReal,{passive:true});
+    q.querySelector('.qOpen').addEventListener('click',()=>{
+      settings.open=true;
+      settings.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+    syncFromReal();
+  }
+}
+
+const sceneLabels=[
+  ['auto','✦ Otomatik'],['palace','Billur Saray'],['seal','Mühr-ü Süleyman'],
+  ['wind','Rüzgâr'],['crystal','Billur Geçit'],['night','Gece Sarayı'],['hudhud','Hüdhüd Yolu']
+];
+function installSceneQuick(){
+  const bar=$('zBar')||$('cntSub'); if(!bar)return;
+  let q=$('r829BerhetSceneQuick');
+  if(!q){
+    q=document.createElement('div');q.id='r829BerhetSceneQuick';
+    q.innerHTML='<label for="r829SceneSel">SÜLEYMAN (A.S.) SAHNESİ</label><select id="r829SceneSel"></select>';
+    bar.insertAdjacentElement('afterend',q);
+    const s=q.querySelector('select');
+    sceneLabels.forEach(([v,t])=>{const o=document.createElement('option');o.value=v;o.textContent=t;s.appendChild(o)});
+    try{s.value=localStorage.getItem('sukun.berhet.background.r829')||'auto'}catch(_){}
+    s.addEventListener('change',()=>window.SukunR829Visuals?.setScene?.(s.value));
+  }
+}
+
+function forceVisualSync(){
+  try{window.SukunR819CounterCore?.sync?.()}catch(_){}
+  try{window.SukunR829Visuals?.sync?.()}catch(_){}
+}
+
+function boot(){
+  installQuickSettings();installSceneQuick();forceVisualSync();
+  setTimeout(()=>{installQuickSettings();installSceneQuick();forceVisualSync()},450);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+
+['sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:journey-advance','pageshow'].forEach(ev=>
+  window.addEventListener(ev,()=>setTimeout(forceVisualSync,0),{passive:true})
+);
+document.addEventListener('click',e=>{
+  if(e.target.closest?.('#zCats [data-c],#berhetSeyir,#esmaSeyir99'))setTimeout(forceVisualSync,20);
+},{capture:true,passive:true});
+
+window.SukunR829Completion=Object.freeze({
+  version:'r829',
+  sync:forceVisualSync,
+  snapshot:()=>({
+    counter:document.documentElement.dataset.r819Counter||'',
+    bg:document.documentElement.dataset.r829Bgmode||'',
+    scene:document.documentElement.dataset.r829Scene||'',
+    settings:!!$('r679ZikirAyarBox'),
+    quick:!!$('r829QuickSettings')
+  })
+});
 })();
 </script>
 
