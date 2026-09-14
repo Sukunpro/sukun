@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="sukun-build" content="r820">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>SÜKÛN r820</title>
+<style>html,body{margin:0;min-height:100%;background:#061b27;color:#e9dfbd;font:600 16px/1.5 system-ui,sans-serif}body{min-height:100vh;display:grid;place-items:center;text-align:center}.seal{font-size:42px}.small{opacity:.7;font-size:13px}</style>
+</head>
+<body><main><div class="seal">۞</div><div>SÜKÛN r820 hazırlanıyor…</div><div class="small">Eski önbellek kabuğu bırakılıyor.</div></main>
+<script>
+(async()=>{
+ const target='./nero.html?v=r820&boot='+Date.now();
+ try{
+   if('serviceWorker' in navigator){
+     const regs=await navigator.serviceWorker.getRegistrations();
+     await Promise.allSettled(regs.map(r=>r.unregister()));
+   }
+   if('caches' in window){
+     const keys=await caches.keys();
+     await Promise.allSettled(keys.filter(k=>/^sukun-/i.test(k)).map(k=>caches.delete(k)));
+   }
+ }catch(e){}
+ location.replace(target);
+})();
+</script></body></html>
