@@ -1,13 +1,13 @@
-/* SÜKÛN r822 — Berhetiyye Counter Ring + Update Recovery
+/* SÜKÛN r823 — Berhetiyye Counter Ring + Update Recovery
    Amaç: yeni sürümün "waiting/install mismatch" yüzünden eski shell'de
    kilitlenmesini önlemek. Controller değişimi aktif sesi kendiliğinden
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r822';
-const CACHE = 'sukun-r822-20260914a';
-const CACHE_META = './__sukun_cache_meta_r822__.json';
-const BUILD_MARKER = './__sukun_build_r822__.json';
+const SURUM = 'r823';
+const CACHE = 'sukun-r823-20260914a';
+const CACHE_META = './__sukun_cache_meta_r823__.json';
+const BUILD_MARKER = './__sukun_build_r823__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
