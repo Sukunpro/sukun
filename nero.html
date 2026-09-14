@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta content="r828" name="sukun-build"/>
+<meta content="r830" name="sukun-build"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
@@ -6478,7 +6478,7 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.78 — build 2026-09-14-r829</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.79 — build 2026-09-14-r830</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -67961,13 +67961,27 @@ function enter(){
 window.SukunR708Focus=Object.freeze({version:'r708',enter,snapshot:()=>last});
 })();
 </script>
-<script id="r716-release-identity-runtime">(()=>{
+<script id="r830-release-identity-runtime">(()=>{
 'use strict';
 const meta=document.querySelector('meta[name="sukun-build"]');
-const build=meta?.content||'r821',date='2026-09-14';
-const label=document.getElementById('surumEtiket');
-if(label){const text='SÜKÛN v20.70 — build '+date+'-'+build;if(label.textContent!==text)label.textContent=text;label.dataset.sukunBuild=build;}
-window.SukunReleaseIdentity=Object.freeze({build,version:'r821',snapshot:()=>({build,footer:label?.textContent||'',meta:meta?.content||''})});
+const build=meta?.content||'r830';
+const version='v20.79';
+const date='2026-09-14';
+function sync(){
+  const label=document.getElementById('surumEtiket');
+  if(!label)return;
+  const text=`SÜKÛN ${version} — build ${date}-${build}`;
+  if(label.textContent!==text) label.textContent=text;
+  label.dataset.sukunBuild=build;
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',sync,{once:true});
+else sync();
+addEventListener('pageshow',sync,{passive:true});
+window.SukunReleaseIdentity=Object.freeze({
+  build,version,
+  sync,
+  snapshot:()=>({build,version,footer:document.getElementById('surumEtiket')?.textContent||'',meta:meta?.content||''})
+});
 })();</script>
 <style id="r709-sanctuary-style">
 /* r709 — cinematic sanctuary, solely the canonical Tefekkür surface. */
@@ -74047,6 +74061,155 @@ window.SukunR829Completion=Object.freeze({
     scene:document.documentElement.dataset.r829Scene||'',
     settings:!!$('r679ZikirAyarBox'),
     quick:!!$('r829QuickSettings')
+  })
+});
+})();
+</script>
+
+
+
+<style id="sukun-r830-final-ux-authority">
+/* r830 — NORMAL ZİKİR HALKASININ siyah PNG zemini görüntünün arkasını kapatmasın.
+   Screen blend siyahı transparan gibi davranmaya zorlar, neon/altın çizgiyi korur. */
+html[data-r819-counter="generic"] body #r819CounterDisc{
+  mix-blend-mode:screen!important;
+  background-color:transparent!important;
+  box-shadow:none!important;
+}
+html[data-r819-counter="generic"] body #r819CounterStage{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+
+/* Sayaç kartı / refined layout: arka plan görseli görünür kalsın. */
+html body #tab-zkr>.card.zCtl,
+html body #tfRefinedLayout{
+  background:transparent!important;
+}
+html body #zCountVisual{
+  background:transparent!important;
+}
+
+/* Zikir ayarları: her skin altında summary tıklanabilir ve body açıkken görünür. */
+html body #r679ZikirAyarBox{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+  overflow:visible!important;
+  position:relative!important;
+  z-index:25!important;
+}
+html body #r679ZikirAyarBox>summary{
+  display:flex!important;
+  pointer-events:auto!important;
+  cursor:pointer!important;
+  touch-action:manipulation!important;
+  user-select:none!important;
+  -webkit-user-select:none!important;
+  position:relative!important;
+  z-index:26!important;
+}
+html body #r679ZikirAyarBox>.r679SettingsBody{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+}
+html body #r679ZikirAyarBox[open]>.r679SettingsBody{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+}
+
+/* Hızlı tempo şeridi de mümkün olduğunca cam/transparent. */
+html body #r829QuickSettings{
+  background:linear-gradient(180deg,rgba(5,27,37,.46),rgba(3,15,28,.38))!important;
+  backdrop-filter:blur(9px) saturate(1.1)!important;
+  -webkit-backdrop-filter:blur(9px) saturate(1.1)!important;
+}
+
+/* Alt accordion'lar görseli örtmesin; jewel resmi kalır ama dolgu transparan. */
+html body :is(#r616ZikirNavRow,.r616ZikirNavRow,.r616SheetCard,.r616AccCard){
+  background-color:transparent!important;
+}
+
+/* Footer sürüm görünürlüğü */
+html body #surumEtiket{
+  opacity:1!important;
+  visibility:visible!important;
+}
+</style>
+
+<script id="sukun-r830-settings-runtime">
+(()=>{
+'use strict';
+if(window.SukunR830SettingsFix)return;
+
+const getBox=()=>document.getElementById('r679ZikirAyarBox');
+
+function openSettings(){
+  const box=getBox();
+  if(!box)return false;
+  box.open=true;
+  box.setAttribute('open','');
+  const body=box.querySelector('.r679SettingsBody');
+  if(body){
+    body.style.removeProperty('display');
+    body.style.removeProperty('visibility');
+    body.style.removeProperty('opacity');
+  }
+  requestAnimationFrame(()=>box.scrollIntoView({behavior:'smooth',block:'start'}));
+  return true;
+}
+
+function bind(){
+  const box=getBox();
+  if(!box)return;
+  const summary=box.querySelector(':scope > summary');
+  if(summary && !summary.dataset.r830Bound){
+    summary.dataset.r830Bound='1';
+    summary.addEventListener('click',ev=>{
+      /* Eski skinlerin preventDefault/toggle iptal etmesine karşı explicit toggle. */
+      ev.preventDefault();
+      ev.stopPropagation();
+      const next=!box.open;
+      box.open=next;
+      if(next) box.setAttribute('open',''); else box.removeAttribute('open');
+    },true);
+  }
+
+  document.querySelectorAll('#r829QuickSettings .qOpen,[data-open-zikir-settings]').forEach(btn=>{
+    if(btn.dataset.r830Bound)return;
+    btn.dataset.r830Bound='1';
+    btn.addEventListener('click',ev=>{
+      ev.preventDefault();ev.stopPropagation();openSettings();
+    },true);
+  });
+}
+
+function syncVersion(){
+  try{window.SukunReleaseIdentity?.sync?.()}catch(_){}
+}
+
+function boot(){
+  bind();syncVersion();
+  setTimeout(bind,350);
+  setTimeout(syncVersion,500);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});
+else boot();
+addEventListener('pageshow',boot,{passive:true});
+
+window.SukunR830SettingsFix=Object.freeze({
+  version:'r830',
+  open:openSettings,
+  bind,
+  snapshot:()=>({
+    build:document.querySelector('meta[name="sukun-build"]')?.content||'',
+    footer:document.getElementById('surumEtiket')?.textContent||'',
+    settingsOpen:!!getBox()?.open
   })
 });
 })();
