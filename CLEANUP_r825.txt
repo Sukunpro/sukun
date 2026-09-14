@@ -1,0 +1,19 @@
+SÜKÛN r827 production cleanup
+
+KALAN AKTİF JEWEL OTORİTESİ:
+- assets/berhetiyye-premium/
+- assets/berhetiyye-premium/ (Berhetiyye'ye özel gerekli görseller)
+
+SİLİNEN DOĞRULANMIŞ GEREKSİZ/YİNELENENLER:
+- assets/jewel-ui-r792/
+- assets/jewel-ui-r794/
+  Not: Ortak SVG'leri birebir aynı hash'e sahipti ve aktif HTML/CSS/JS referansı yoktu.
+- js/jewel-bindings-r797.js
+- css/jewel-components-r797.css
+- css/jewel-containment-r797.css
+- css/jewel-layout-r797.css
+- css/jewel-tokens-r797.css
+  Not: Bu legacy katmanlar nero.html tarafından yüklenmiyordu; aktif görünüm r798 inline/layout otoritesini kullanıyor.
+
+KULLANICI VERİLERİ:
+- localStorage / IndexedDB temizleyen hiçbir işlem eklenmedi.

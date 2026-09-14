@@ -1,7 +1,7 @@
-/* SÜKÛN r824 — resilient GitHub Pages service worker */
+/* SÜKÛN r828 — resilient GitHub Pages service worker */
 'use strict';
-const VERSION='r824';
-const CACHE='sukun-r824-20260914b';
+const VERSION='r828';
+const CACHE='sukun-r828-20260914b';
 const CORE=['./nero.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-512-maskable.png'];
 self.addEventListener('install',event=>{event.waitUntil((async()=>{const c=await caches.open(CACHE);for(const u of CORE){try{const r=await fetch(new Request(u,{cache:'reload'}));if(r&&r.ok)await c.put(u,r.clone())}catch(e){}}await self.skipWaiting()})())});
 self.addEventListener('activate',event=>{event.waitUntil((async()=>{await self.clients.claim();const keys=await caches.keys();await Promise.all(keys.filter(k=>k.startsWith('sukun-')&&k!==CACHE).map(k=>caches.delete(k)))})())});
