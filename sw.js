@@ -1,4 +1,4 @@
-/* SÜKÛN r823 — Berhetiyye Counter Ring + Update Recovery
+/* SÜKÛN r823 — GitHub Pages root/index hotfix + Update Recovery
    Amaç: yeni sürümün "waiting/install mismatch" yüzünden eski shell'de
    kilitlenmesini önlemek. Controller değişimi aktif sesi kendiliğinden
    kesmez; sayfa reload kararı istemci tarafında verilir. */
@@ -275,6 +275,17 @@ async function assetResponse(request){
 self.addEventListener('fetch',event=>{
   const req=event.request;if(req.method!=='GET')return;
   const url=new URL(req.url);if(url.origin!==self.location.origin)return;
+
+  /* GitHub Pages proje kökü ve index.html küçük yönlendirici olabilir.
+     Bunları shell doğrulamasına sokmadan doğrudan ağdan geçir. */
+  if(req.mode==='navigate' && (
+    url.pathname.endsWith('/sukun/') ||
+    url.pathname.endsWith('/sukun/index.html')
+  )){
+    event.respondWith(fetch(new Request(req,{cache:'no-store'})).catch(()=>navigationResponse(req)));
+    return;
+  }
+
   event.respondWith(req.mode==='navigate'?navigationResponse(req):assetResponse(req));
 });
 
