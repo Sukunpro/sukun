@@ -9,11 +9,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta content="r823" name="sukun-build"/>
+<meta content="r824" name="sukun-build"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r823" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r824" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -5337,6 +5337,35 @@ body[data-focus="1"] .zCtl{
 <style id="r697-canonical-cascade-final">
 /* Superseded by the single r698 visual authority below. */
 </style>
+
+<style id="sukun-r824-mobile-layout-authority">
+/* r824 — 28/99 Seyir + mobile player final layout authority.
+   Amaç: eski absolute/flex/grid katmanları veya yarım yüklenmiş skinler yüzünden
+   kontrollerin sayfaya dağılmasını engellemek. Ses/state mantığına dokunmaz. */
+#berhetSeyir,#esmaSeyir99{position:relative!important;inset:auto!important;transform:none!important;width:100%!important;max-width:100%!important;height:auto!important;min-height:0!important;overflow:hidden!important;contain:none!important}
+#berhetSeyir>.r168MiniRow,#esmaSeyir99>.r168MiniRow{position:relative!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:8px!important;align-items:end!important;width:100%!important;margin:8px 0 0!important}
+#berhetSeyir>.r168Progress,#esmaSeyir99>.r168Progress,#berhetSeyir>.r168Status,#esmaSeyir99>.r168Status{position:relative!important;inset:auto!important;transform:none!important;width:100%!important;max-width:100%!important}
+#berhetSeyir .r168Buttons,#esmaSeyir99 .r168Buttons{position:relative!important;inset:auto!important;transform:none!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:auto!important;align-items:stretch!important;justify-items:stretch!important;gap:7px!important;width:100%!important;max-width:100%!important;height:auto!important;min-height:0!important;margin:8px 0 0!important;padding:0!important;overflow:hidden!important}
+#berhetSeyir .r168Buttons .btn,#esmaSeyir99 .r168Buttons .btn{position:relative!important;inset:auto!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;transform:none!important;float:none!important;display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;min-width:0!important;max-width:100%!important;height:48px!important;min-height:48px!important;max-height:48px!important;margin:0!important;padding:0 9px!important;line-height:1.08!important;white-space:normal!important;text-align:center!important;overflow:hidden!important}
+#berhetSeyir .r168Buttons :is(#bsStart,#bsReset),#esmaSeyir99 .r168Buttons :is(#es99Start,#es99Reset){grid-column:1/-1!important}
+#berhetSeyir .r168Buttons :is(#bsStart),#esmaSeyir99 .r168Buttons :is(#es99Start){height:56px!important;min-height:56px!important;max-height:56px!important}
+#berhetSeyir .r168Buttons :is(#bsReset),#esmaSeyir99 .r168Buttons :is(#es99Reset){height:50px!important;min-height:50px!important;max-height:50px!important}
+#berhetSeyir .r168Buttons :is(#bsPause),#esmaSeyir99 .r168Buttons :is(#es99Pause){display:none!important;position:absolute!important;width:0!important;height:0!important;min-height:0!important;overflow:hidden!important}
+/* Bottom dock için gerçek içerik rezervi: kartların üzerine binmesin. */
+#tab-zkr{padding-bottom:max(118px,calc(98px + env(safe-area-inset-bottom)))!important}
+#r433DockPeek{max-width:calc(100vw - 20px)!important;left:10px!important;right:10px!important;bottom:max(8px,env(safe-area-inset-bottom))!important;margin:0 auto!important}
+@media(max-width:430px){
+  #berhetSeyir,#esmaSeyir99{margin-inline:0!important}
+  #berhetSeyir .r168Buttons,#esmaSeyir99 .r168Buttons{gap:6px!important}
+  #berhetSeyir .r168Buttons .btn,#esmaSeyir99 .r168Buttons .btn{font-size:10px!important;padding-inline:6px!important}
+}
+@media(max-width:350px){
+  #berhetSeyir>.r168MiniRow,#esmaSeyir99>.r168MiniRow{grid-template-columns:1fr!important}
+  #berhetSeyir .r168Buttons,#esmaSeyir99 .r168Buttons{grid-template-columns:1fr!important}
+  #berhetSeyir .r168Buttons .btn,#esmaSeyir99 .r168Buttons .btn{grid-column:1!important}
+}
+</style>
+
 </head>
 <body data-perf="dengeli">
 <!-- ═══ r519 — AÇILIŞ PERDESİ ═══════════════════════════════════════════
@@ -6430,7 +6459,7 @@ body[data-focus="1"] .zCtl{
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.72 — build 2026-09-14-r823</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.73 — build 2026-09-14-r824</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
