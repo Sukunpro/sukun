@@ -1,64 +1,36 @@
 [
   {
-    "v": "r799",
-    "t": "13 Eylül 2026",
+    "v": "r834",
+    "t": "15 Eylül 2026",
     "b": [
-      "Berhetiyye seçildiğinde sayaç, özel doğal kristal yüzüğe geçer; diğer kategorilerde r798 Jewel yüzüğü korunur.",
-      "Yüzükte ametist, yakut, safir ve zümrüt tonları ile kalın altın/bronze filigran gövde kullanılır.",
-      "Yalnız dekoratif halka saat yönünün tersine sabit düzlemde döner; rakamlar, hedef/kalan ve kontroller dönmez.",
-      "Ses, sayaç, pause/resume/stop, kendi kayıt ve 28/99 Seyir state sahipliği değiştirilmedi."
+      "Yedi Jewel klasörü assets/berhetiyye-premium altında tek klasörde birleştirildi.",
+      "Tekrarlanan dosyalar byte eşitliğiyle kaldırıldı; görsel kalite ve farklı görseller korunur.",
+      "HTML/CSS/Service Worker ve manifest yolları güncellendi. r833 erişim, çark ve ses davranışı korunur."
     ]
   },
   {
-    "v": "r798",
-    "title": "Berhetiyye tek görsel otorite + Jewel tamamlama",
-    "date": "2026-09-13"
+    "v": "r833",
+    "t": "15 Eylül 2026",
+    "b": [
+      "r832 Nero/index ve r798 paket varlıkları birleştirildi.",
+      "Berhetiyye çarkı ve Süleyman (a.s.) sahneleri yalnız erişim açık ve yüklenen isim Berhetiyye olduğunda görünür.",
+      "Eksik görsel yolları, sabit sahne katmanı, sayaç tekrar yazım döngüsü ve ayar düğmeleri düzeltildi.",
+      "Nero/index, manifest, Service Worker ve güncelleme işaretçisi eşitlendi."
+    ]
   },
   {
     "v": "r797",
     "t": "13 Eylül 2026",
     "b": [
-      "Jewel taşma otoritesi yeniden kuruldu: geniş overflow:visible mirası kaldırıldı, ana Zikir yüzeyleri gerçek kutu sınırlarına bağlandı.",
-      "Berhetiyye Atlası mobilde tek sütuna iner; uzun kaynak/şerh metinleri içerik yüksekliğiyle büyür ve kart dışına taşmaz.",
-      "Sayaç, -1/+1, ana CTA, Önceki/Baştan/Sonraki ve Zikir Ayarları normal document-flow içinde kilitlendi; üst üste binme engellendi.",
-      "28/99 Seyir seçim, durum, progress, bağlam ve kontrol alanlarında max-width/overflow sözleşmesi uygulandı; eski çift pseudo-frame katmanları kapatıldı.",
-      "Accordion kartları ve alt oyuncu için mobil safe-area/scroll payı eklendi; ses/queue/sayaç/seyir state motorlarına dokunulmadı."
-    ]
-  },
-  {
-    "v": "r796",
-    "t": "13 Eylül 2026",
-    "b": [
-      "Onaylanan referans yapı doğrudan DOM componentlerine bağlandı: orb → Hedef/Kalan → −1 / ana CTA / +1 → Önceki/Baştan/Sonraki.",
-      "28 İsim ve 99 Esmâ seyirleri başlık, seçim kartları, progress, status, bağlam kartı ve kontrol düğmelerinde tek r796 Jewel otoritesini kullanır.",
-      "Dinle/Döngü/Kendi Sesin/Niyet/Favori/Nasıl? 2×3 ortak Jewel gridine; Tefekküre Geç A-seviye CTA’ya bağlandı.",
-      "Akış & Seans, Kaynaklar, Araçlar, Okumalar, Seyirler ve Zikir Ayarları ornate kart ailesine geçirildi.",
-      "Dinamik yeniden mount sırasında skin kaybolmaması için yalnız Zikir köklerini gözleyen dar observer eklendi; ses/queue/sayaç/state motorları değiştirilmedi."
-    ]
-  },
-  {
-    "v": "r795",
-    "t": "13 Eylül 2026",
-    "b": [
-      "Jewel skin yaklaşımı kaldırıldı; primary/secondary/compact/round button, card, panel, stat, select, pill ve accordion tek component otoritesine bağlandı.",
-      "28 İsim ve 99 Esmâ seyirleri aynı Jewel component sözleşmesini kullanır; dinamik yeniden mount sonrasında düz cama geri düşmez.",
-      "Dinle/Döngü/Kendi Sesin/Niyet/Favori/Nasıl? araçları mobilde 2×3 ortak Jewel gridine geçti; etiketler ve tıklama hedefleri canlı DOM olarak kaldı.",
-      "Hedef/Kalan, −1/+1, ana Duraklat/Devam, Tefekküre Geç, Zikir Ayarları ve Zikir accordionları aynı görsel aileye geçirildi.",
-      "Yeni geniş MutationObserver eklenmedi; r656 DOM Hydration Bus kullanıldı. Ses, sayaç, pause/stop/resume ve 28/99 state motorlarına dokunulmadı."
+      "Jewel artık skin değil ortak UI component sistemi: primary/secondary/compact/round button, card, panel, stat, select, pill, accordion ve player sınıfları tek otoritede toplandı.",
+      "r790/r792/r794 geçici Jewel görsel otoriteleri kaldırıldı; 28 ve 99 seyir aynı component sözleşmesine bağlandı.",
+      "Ana zikir Hedef/Kalan, −1/+1, Duraklat/Devam, Önceki/Baştan/Sonraki ve Tefekküre Geç gerçek mücevher assetlerini aynı sınıflarla kullanır.",
+      "Dinle/Döngü/Kendi Sesin/Niyet/Favori/Nasıl? 2×3 mobil Jewel araç gridine geçti; metin ve hit target canlı DOM olarak kaldı.",
+      "Akış & Seans, Kaynaklar, Araçlar, Okumalar, Seyirler ve Zikir Ayarları ortak Jewel accordion sözleşmesine taşındı; ses/sayaç/seyir ownership değiştirilmedi."
     ]
   },
   {
     "v": "r794",
-    "t": "13 Eylül 2026",
-    "b": [
-      "Jewel Hard Bind: kritik mücevher SVG'leri nero.html içine data URI olarak gömüldü; asset path/cache/SW eksikliği düz cama düşüremez.",
-      "28 İsim Seyri ve Seyir Bağlamı pseudo-element bağımlılığından çıkarıldı; gerçek element arka planı kullanıyor.",
-      "99 Seyri, Hedef/Kalan, ana CTA, navigasyon, accordion, araç satırı ve Tefekkür CTA aynı hard-bind fallback sistemine alındı.",
-      "Ses/sayaç/seyir motoru işlevleri değiştirilmedi."
-    ]
-  },
-  {
-    "v": "r793",
     "t": "13 Eylül 2026",
     "b": [
       "Güncelleme deadlock’u giderildi: eski service worker artık ağda daha yeni HTML gördüğünde eski shell’i zorla geri döndürmez.",
@@ -69,148 +41,35 @@
     ]
   },
   {
-    "v": "r792",
-    "t": "13 Eylül 2026",
-    "b": [
-      "Tefekküre Geç düğmesi için mobil tap otoritesi eklendi; click yutulsa bile pointerup geometrisiyle geçiş çalışır.",
-      "Legacy r700 click handler ile çift toggle yarışı engellendi.",
-      "Tefekkür CTA z-index/hit-test katmanı yükseltildi; dekoratif glass katmanlar dokunmayı kesemez.",
-      "Jewel assetleri assets/jewel-ui-r792 altında self-contained olarak yeniden paketlendi.",
-      "Ses, sayaç, pause/stop/resume ve 28/99 seyir motorları değiştirilmedi."
-    ]
-  },
-  {
-    "v": "r791",
-    "t": "13 Eylül 2026",
-    "b": [
-      "Jewel Final Authority: assetler artık geçici Berhetiyye body classına bağlı değil.",
-      "Kendi Sesin, Favori, Nasıl? ve Tefekküre Geç eksik/okunmayan çerçeveleri düzeltildi.",
-      "Mobil zikir araç çubuğu iki sütuna alındı; etiketler tam okunur.",
-      "r700/r474 ile r789/r790 specificity çakışması kapatıldı.",
-      "Ses, sayaç ve seyir motorlarına dokunulmadı."
-    ]
-  },
-  {
-    "v": "r790",
-    "t": "13 Eylül 2026",
-    "b": [
-      "Mücevher UI Component Pass ile Zikir ekranındaki eksik çerçeveler tamamlandı.",
-      "Akış & Seans, Kaynaklar, Araçlar, Okumalar, Seyirler ve Zikir Ayarları ortak altın-safir kart sistemine alındı.",
-      "28 İsim Seyri seçim, ilerleme, durum, bilgi ve kontrol alanları aynı ailede yeniden giydirildi.",
-      "Hedef/Kalan ve ana sayaç kontrolleri bütünleştirildi; overflow kırpılması azaltıldı.",
-      "Ses sahipliği ve pause/stop/resume motorlarına dokunulmadı."
-    ]
-  },
-  {
-    "v": "r789",
-    "t": "12 Eylül 2026",
-    "b": [
-      "Berhetiyye 28 İsim Seyri düğmelerindeki cam ↔ mücevher flashing yarışı kaldırıldı; skin artık gerçek butonun ::before dekor katmanında tek sahipli çalışır.",
-      "r788 skin MutationObserver kaldırıldı. Dinamik seyir düğmeleri ek JS repaint olmadan #berhetSeyir CSS kapsamıyla otomatik giydirilir.",
-      "r778 legacy skin painter Önceki/Sonraki/Baştan/Bitir/Duraklat ve ilgili Berhetiyye kontrollerinin background/border alanına artık yazmaz.",
-      "Zikir çemberi, ses motoru, pause/stop/resume akışı ve r786 mobil geometri korunur."
-    ]
-  },
-  {
-    "v": "r788",
-    "t": "12 Eylül 2026",
-    "b": [
-      "Berhetiyye’de eski cam görünümde kalan Önceki / Baştan / Sonraki kontrolleri aynı doğal taşlı mücevher skin ailesine bağlandı.",
-      "28 İsim Seyri Önceki/Sonraki/Baştan/Bitir/Tüm seyri baştan düğmeleri ve Atlas okları dinamik oluşturulsa bile r788 skin otoritesiyle yeniden giydirilir.",
-      "Yeni r788 asset adları kullanılarak tarayıcı/service-worker eski görsel önbelleği bypass edilir; zikir çemberi ve r786 geometri düzeni değiştirilmez.",
-      "Hedef/Kalan, ±1, Duraklat, altı yardımcı aksiyon, Tefekküre Geç ve mini oynatıcı aynı tema ailesinde tutulur."
-    ]
-  },
-  {
-    "v": "r786",
-    "t": "12 Eylül 2026",
-    "b": [
-      "r786 · Berhetiyye geometry authority: dinamik kartlardan gerilen raster çerçeveler kaldırıldı; CSS cam/kontur düzenine geçirildi.",
-      "Sayaç DOM'u hedef + ring + kalan yapısına göre yeniden gridlendi; ring üstte, hedef/kalan altında hizalanır.",
-      "Alt mini oynatıcıdaki çift translate hatası düzeltildi; artık sola taşmadan ekran ortasında kalır.",
-      "Zikir yardımcı tuşları 2 kolon, seyir tuşları 2 kolon ve mobil güvenli ölçülerle yeniden düzenlendi."
-    ]
-  },
-  {
-    "v": "r785",
-    "t": "12 Eylül 2026",
-    "b": [
-      "r785 · Telefon ekran görüntüsü ölçülerine göre Berhetiyye fit-pass: sayaç, hedef/kalan, transport, bilgi kartı, seyir ve mini oynatıcı aynı mobil kolon üzerine oturtuldu.",
-      "Dinamik yüksek kartlarda raster panel germe kaldırıldı; esnek cam/kontur kullanılarak taşma ve deformasyon azaltıldı.",
-      "Mini oynatıcıdaki dikdörtgen arka plaka kaldırıldı ve içerik üstünü kapatmaması için güvenli alt boşluk ayarlandı.",
-      "r784 asset finalizasyonu, 8 Berhetiyye sahnesi ve ters saat yönlü canlı zikirmatik dönüşü korunur."
-    ]
-  },
-  {
-    "v": "r784",
-    "t": "12 Eylül 2026",
-    "b": [
-      "Yeni Berhetiyye görselleri gerçek web assetlerine dönüştürüldü: kristal yüzük, safir-altın buton ailesi ve panel çerçeveleri.",
-      "Mor Kristal Saray ile Ayasofya & Billur sahneleri arka plan seçicisine eklendi; toplam sahne sayısı 8 oldu.",
-      "Panel/isim/mini oynatıcı yüzeyleri yeni özel asset ailesine eşlendi; r783 ters yön canlı yüzük dönüşü korunur.",
-      "SW/cache/build kimliği r784 olarak yenilendi."
-    ]
-  },
-  {
-    "v": "r783",
-    "t": "12 Eylül 2026",
-    "b": [
-      "Berhetiyye katmanları SÜKÛN kabuğuna tam giydirildi; açıkta kalan yüzeyler aynı safir–ametist–altın aileye bağlandı.",
-      "Berhetiyye kartları ve bağlam yüzeylerinde transparanlık artırıldı; arka sahne daha görünür, iç kartlar daha oturmuş hale geldi.",
-      "Canlı oynatma sırasında zikirmatik yüzüğü saat yönünün tersine dönüyor; mini oynatıcı ile alt boşluk/taşma dengesi iyileştirildi.",
-      "r782 Tekke flashing düzeltmesi korunur."
-    ]
-  },
-  {
-    "v": "r782",
-    "t": "12 Eylül 2026",
-    "b": [
-      "Tekke sekmesindeki sürekli renk/parlama animasyonu kaldırıldı.",
-      "Android/touch cihazlarda kalıcı :hover nedeniyle oluşan flashing döngüsü engellendi.",
-      "Fareli cihazlarda Tekke yalnız hover sırasında statik ve hafif vurgu gösterir."
-    ]
-  },
-  {
-    "v": "r781",
-    "t": "12 Eylül 2026",
-    "b": [
-      "Berhetiyye kabuğunda açıkta kalan Dinle, Döngü, Kendi Sesin, Niyet, Favori ve Nasıl kontrolleri mücevher skin ailesine alındı.",
-      "Aktif isim/bilgi kartı, Berhetiyye Atlası ve ilgili bağlam yüzeyleri safir–ametist–altın panel assetiyle kaplandı.",
-      "Tefekküre Geç ve küçültülmüş Oynatıcıyı Göster yüzeyleri Berhetiyye kontrol skinine bağlandı; Berhetiyye dışına çıkınca normal SÜKÛN stili geri gelir."
-    ]
-  },
-  {
-    "v": "r780",
-    "t": "12 Eylül 2026",
-    "b": [
-      "Ana ekran kartları ve vakit/yolculuk yüzeylerinde transparanlık artırıldı; arka plan görselleri daha görünür hâle geldi",
-      "Berhetiyye sahneleri için #r717Scene tabanlı görünür arka plan fix’i korunarak panel karartması bir kademe daha inceltildi",
-      "SW/cache/manifest kimliği r780 olarak yenilendi"
-    ]
-  },
-  {
     "v": "r778",
     "t": "12 Eylül 2026",
     "b": [
-      "Build/meta/manifest/SW/cache senkronu r778'e yükseltildi; r775 cache'inde kalma sorunu giderildi.",
-      "Berhetiyye Billur Saray skin authority, onaylanan özel arka plan/yüzük/buton assetleriyle tam entegre edildi.",
-      "Otomatik + 6 seçilebilir Berhetiyye arka plan sahnesi eklendi; bölümden çıkınca normal SÜKÛN görünümü geri gelir."
+      "r778 · Berhetiyye Billur Saray entegrasyonu gerçek build kimliğine taşındı; meta, manifest, service worker ve cache artık aynı r778 sürümünü bildirir.",
+      "Berhetiyye için onaylanan Ayasofya + altındaki billur saray arka planı, safir/yakut/amethyst sayaç yüzüğü ve mücevher kontrol skinleri aktif görsel otoriteye bağlandı.",
+      "Berhetiyye içinde Otomatik + 6 sahnelik Arka Plan seçici eklendi; tercih cihazda saklanır ve Otomatik mod isim ilerledikçe sahne değiştirir.",
+      "Berhetiyye alanından çıkınca veya Esmâü'l-Hüsnâ gibi başka kategoriye geçince özel arka plan, yüzük ve kontrol skinleri kaldırılır; normal SÜKÛN görünümü geri gelir.",
+      "28 İsim Seyri tamamlanınca Berhetiyye visual authority kapanır; seyir yeniden başlatılırsa tekrar etkinleşir."
     ]
   },
   {
     "v": "r776",
     "t": "12 Eylül 2026",
     "b": [
-      "Berhetiyye Billur Saray visual authority eklendi.",
-      "Eski yüksek özgüllüklü kontrol ve sanctuary arka plan kuralları Berhetiyye açıkken görsel olarak eziliyor."
+      "Berhetiyye Billur Saray artık görsel otorite modunda: eski yüksek-özgüllüklü SÜKÛN kuralları inline-important skin kilidiyle geçersiz kılınır.",
+      "Gerçek saray arka planı body seviyesinde zorunlu uygulanır; tefekkür-sanctuary veya eski tema arka planı Berhetiyye açıkken onu ezemez.",
+      "Hedef/Kalan, −1/+1, Duraklat, Önceki/Baştan/Sonraki, Tefekkür gezinmesi, Atlas/Seyir ve mini oynatıcı aynı billur-altın görsel aileye bağlandı.",
+      "Tema kapandığında yalnız görsel inline değerler eski haline döner; ses, sayaç, seyir, pause/stop/resume ve event sahipliği değiştirilmedi."
     ]
   },
   {
     "v": "r775",
     "t": "11 Eylül 2026",
     "b": [
-      "Berhetiyye Billur Saray tema aktivasyonu ve tam ekran arka planı onarıldı.",
-      "Hedef/Kalan ve ana kontroller billur skin ile giydirildi."
+      "r775 · Berhetiyye Billur Saray skin sahipliği onarıldı: tema kodu artık kapanmış HTML belgesinin dışına değil gerçek document body içine yüklenir.",
+      "Berhetiyye seçildiğinde saray arka planı body seviyesinde tam ekran devreye girer; #tab-zkr ile sınırlı kalmaz ve kaydırmada kesilmez.",
+      "Hedef/Kalan, −1/+1, Duraklat, Önceki/Baştan/Sonraki, hedef ayarları, seyir kartları ve oynatıcı çekmecesi aynı billur-altın kontrol skinini kullanır.",
+      "Tema tetikleyicisi yalnız tek bir evente bağlı değildir: canlı Z.cat, seçili kategori DOM'u, 28 İsim Seyri ve aktif isim snapshot'ı birlikte izlenir.",
+      "Ses/sayaç/seyir/stop-pause-resume işlev sahipleri değişmedi; r775 yalnız görsel sahipliği ve tema aktivasyonunu düzeltir."
     ]
   },
   {
