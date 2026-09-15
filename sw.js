@@ -4,10 +4,10 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r834';
-const CACHE = 'sukun-r834-20260915a';
-const CACHE_META = './__sukun_cache_meta_r834__.json';
-const BUILD_MARKER = './__sukun_build_r834__.json';
+const SURUM = 'r835';
+const CACHE = 'sukun-r835-20260915a';
+const CACHE_META = './__sukun_cache_meta_r835__.json';
+const BUILD_MARKER = './__sukun_build_r835__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
@@ -21,6 +21,11 @@ const CORE = [
 ];
 
 const PRECACHE = [
+  './assets/berhetiyye-premium/scenes/scene-04-teras.png',
+  './assets/berhetiyye-premium/scenes/scene-03-selale.png',
+  './assets/berhetiyye-premium/scenes/scene-07-mor-kristal.png',
+  './assets/berhetiyye-premium/scenes/scene-02-asa.png',
+  './assets/berhetiyye-premium/scenes/scene-06-yuzuk.png',
   './index.html',
   './assets/berhetiyye-premium/berhetiyye-ring-r819.png',
   './assets/berhetiyye-premium/berhetiyye-palace.png',
@@ -90,6 +95,7 @@ const PRECACHE = [
 ];
 
 const NOTLAR = [
+  'r835 · Tema bağlamı, şeffaf kontroller, ayar paneli ve liste kısayolları düzeltildi.',
   'r834 · Jewel varlıkları assets/berhetiyye-premium altında tekilleştirildi; dosya yolları güncellendi.',
   'r833 · Canlı r832 ile r798 varlıkları birleştirildi; erişim ve aktif isim tabanlı tek çark/sahne otoritesi.',
   'r798 · Berhetiyye ownership fix: r778 inline !important painter is gated off Berhetiyye content surfaces; Jewel is the sole visual owner there.',
