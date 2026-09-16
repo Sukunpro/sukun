@@ -4,10 +4,10 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r835';
-const CACHE = 'sukun-r835-20260915a';
-const CACHE_META = './__sukun_cache_meta_r835__.json';
-const BUILD_MARKER = './__sukun_build_r835__.json';
+const SURUM = 'r836';
+const CACHE = 'sukun-r836-20260916a';
+const CACHE_META = './__sukun_cache_meta_r836__.json';
+const BUILD_MARKER = './__sukun_build_r836__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
@@ -95,6 +95,7 @@ const PRECACHE = [
 ];
 
 const NOTLAR = [
+  'r836 · Elle/otomatik sayım ayrımı, doğrudan tempo ve bendir ayarları.',
   'r835 · Tema bağlamı, şeffaf kontroller, ayar paneli ve liste kısayolları düzeltildi.',
   'r834 · Jewel varlıkları assets/berhetiyye-premium altında tekilleştirildi; dosya yolları güncellendi.',
   'r833 · Canlı r832 ile r798 varlıkları birleştirildi; erişim ve aktif isim tabanlı tek çark/sahne otoritesi.',
