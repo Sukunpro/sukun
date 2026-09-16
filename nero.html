@@ -9,11 +9,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r836"/>
+<meta name="sukun-build" content="r837"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r836" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r837" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6478,7 +6478,7 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.81 — build 2026-09-16-r836</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.81 — build 2026-09-16-r837</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -6499,6 +6499,16 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
      ilk kaydını buradan çıkarıp sayfaya iletir, böylece «Yenile»
      bildiriminde gerçekten NEYİN değiştiği yazabilir. -->
 <script id="surumNotlari" type="application/json">[
+  {
+    "v": "r837",
+    "t": "16 Eylül 2026",
+    "b": [
+      "Üç onaylı metinsiz arka plan eklendi: Berhetîhin / Billur Saray, Hûtîrin / Adalet ve Mühür, Kalnehûdin / Rüzgâr ve Hüdhüd.",
+      "Otomatik sahne seçimi üç isme açıkça eşlendi. Diğer isimlerin sahneleri ve elle seçilmiş tercihler korundu; Galmeşin / Altın Nur üretimi bekliyor.",
+      "Arka planlar yalnız erişimi açık Berhetiyye ismi yüklüyken kullanılır. Normal zikre dönüşte Mevlevi arka planı sürer.",
+      "Tek Berhetiyye çark tasarımı, animasyonu ve sayım motoru aynen korundu."
+    ]
+  },
   {
     "v": "r836",
     "t": "16 Eylül 2026",
@@ -74313,7 +74323,7 @@ window.SukunR830SettingsFix=Object.freeze({version:'r836',open:openSettings,bind
 
 /* NORMAL SAYAC: artık siyah kare yok. */
 html[data-r819-counter="generic"] body #r819CounterDisc{
-  background-image:url('./assets/sukun-nur-ring-r757.png?v=r836')!important;
+  background-image:url('./assets/sukun-nur-ring-r757.png?v=r837')!important;
   background-color:transparent!important;
   mix-blend-mode:normal!important;
   filter:drop-shadow(0 8px 20px rgba(0,0,0,.22))
@@ -74322,7 +74332,7 @@ html[data-r819-counter="generic"] body #r819CounterDisc{
 
 /* BERHETİYYE SAYAC: özel mücevher halka. */
 html[data-r819-counter="berhet"] body #r819CounterDisc{
-  background-image:url('./assets/berhetiyye-premium/berhetiyye-ring-r819.png?v=r836')!important;
+  background-image:url('./assets/berhetiyye-premium/berhetiyye-ring-r819.png?v=r837')!important;
   background-color:transparent!important;
   mix-blend-mode:normal!important;
 }
@@ -74380,7 +74390,7 @@ html body :is(#berhetSeyir,#esmaSeyir99) .r168Buttons :is(#bsStop,#es99Stop){
   border-radius:0!important;
   overflow:hidden!important;
   background-color:transparent!important;
-  background-image:url('./assets/berhetiyye-premium/control-exit.png?v=r836')!important;
+  background-image:url('./assets/berhetiyye-premium/control-exit.png?v=r837')!important;
   background-position:center!important;
   background-size:100% 100%!important;
   background-repeat:no-repeat!important;
@@ -74432,18 +74442,33 @@ const scenes=Object.freeze([
  {id:'crystal',label:'Kristal Sarayın Sırrı',file:A+'scenes/scene-05-kristal.png'},
  {id:'seal',label:'Mühr-ü Süleyman',file:A+'scenes/scene-06-yuzuk.png'},
  {id:'night',label:'Ametist Saray',file:A+'scenes/scene-07-mor-kristal.png'},
- {id:'interface',label:'Ayasofya · Billur Saray',file:A+'scenes/scene-08-ayasofya-billur.png'}
+ {id:'interface',label:'Ayasofya · Billur Saray',file:A+'scenes/scene-08-ayasofya-billur.png'},
+ {id:'berhetihin',label:'Berhetîhin · Billur Saray',file:A+'scenes/scene-09-berhetihin-billur-r837.png'},
+ {id:'hutirin',label:'Hûtîrin · Adalet ve Mühür',file:A+'scenes/scene-10-hutirin-adalet-r837.png'},
+ {id:'kalnehudin',label:'Kalnehûdin · Rüzgâr ve Hüdhüd',file:A+'scenes/scene-11-kalnehudin-ruzgar-r837.png'}
 ]);
 const loaded=new Map();let raf=0,lastRequest='',requestToken=0,lastError='';
-const cssUrl=f=>`url('${f}?v=r836')`;
+const cssUrl=f=>`url('${f}?v=r837')`;
 function pref(){
  let p='auto';try{p=localStorage.getItem(KEY)||localStorage.getItem('sukun.berhet.background.r829')||'auto'}catch(_){}
  return scenes.some(s=>s.id===p)?p:'auto';
 }
-function picked(ctx){return scenes.find(s=>s.id===pref()&&s.file)||scenes[1+Math.max(0,ctx.index)% (scenes.length-1)]}
+// r837: approved background bindings only. The fixed wheel has no scene dependency.
+const nameScenes=Object.freeze([
+ Object.freeze({index:0,name:'Berhetîhin',scene:'berhetihin'}),
+ Object.freeze({index:9,name:'Hûtîrin',scene:'hutirin'}),
+ Object.freeze({index:10,name:'Kalnehûdin',scene:'kalnehudin'})
+]);
+const legacyAuto=Object.freeze(['palace','secrets','staff','water','wind','crystal','seal','night','interface']);
+function picked(ctx){
+ const chosen=scenes.find(s=>s.id===pref()&&s.file);if(chosen)return chosen;
+ const binding=nameScenes.find(n=>n.index===ctx.index);
+ const id=binding?.scene||legacyAuto[Math.max(0,ctx.index)%legacyAuto.length];
+ return scenes.find(s=>s.id===id)||scenes[1];
+}
 function preload(file){
  if(!loaded.has(file))loaded.set(file,new Promise(resolve=>{
-  const img=new Image();img.onload=()=>resolve(true);img.onerror=()=>{loaded.delete(file);resolve(false)};img.src=file+'?v=r836';
+  const img=new Image();img.decoding='async';img.onload=()=>resolve(true);img.onerror=()=>{loaded.delete(file);resolve(false)};img.src=file+'?v=r837';
  }));return loaded.get(file);
 }
 function paint(file){
@@ -74516,7 +74541,7 @@ function boot(){sync('boot');window.currentZikirState?.subscribe?.(()=>queue('cu
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 ['pageshow','load','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:journey-advance','sukun:tabchange','sukun:tefekkurchange','sukun:visualcontextchange','sukun:secretaccesschange','sukun:secretpolicyready','sukun:appearancechange','sukun:domhydrate'].forEach(ev=>window.addEventListener(ev,()=>queue(ev),{passive:true}));
 document.addEventListener('change',e=>{if(e.target.closest?.('#tab-zkr'))queue('selection')},{passive:true});
-window.SukunR832VisualAuthority=Object.freeze({version:'r835',sync:()=>sync('api'),setScene,scenes,snapshot:()=>({context:window.SukunVisualContext.snapshot(),bgmode:root.dataset.r835Theme||'',scene:root.dataset.r832Scene||'',loading:root.dataset.r835SceneLoading||'',error:lastError})});
+window.SukunR832VisualAuthority=Object.freeze({version:'r837',sync:()=>sync('api'),setScene,scenes,nameScenes,snapshot:()=>({context:window.SukunVisualContext.snapshot(),bgmode:root.dataset.r835Theme||'',scene:root.dataset.r832Scene||'',loading:root.dataset.r835SceneLoading||'',error:lastError})});
 })();
 </script>
 

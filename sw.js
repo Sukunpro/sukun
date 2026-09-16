@@ -4,10 +4,10 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r836';
-const CACHE = 'sukun-r836-20260916a';
-const CACHE_META = './__sukun_cache_meta_r836__.json';
-const BUILD_MARKER = './__sukun_build_r836__.json';
+const SURUM = 'r837';
+const CACHE = 'sukun-r837-20260916a';
+const CACHE_META = './__sukun_cache_meta_r837__.json';
+const BUILD_MARKER = './__sukun_build_r837__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
@@ -21,6 +21,11 @@ const CORE = [
 ];
 
 const PRECACHE = [
+  './assets/berhetiyye-premium/scenes/scene-09-berhetihin-billur-r837.png',
+  './assets/berhetiyye-premium/scenes/scene-10-hutirin-adalet-r837.png',
+  './assets/berhetiyye-premium/scenes/scene-11-kalnehudin-ruzgar-r837.png',
+  './assets/berhetiyye-premium/backgrounds-r837.json',
+
   './assets/berhetiyye-premium/scenes/scene-04-teras.png',
   './assets/berhetiyye-premium/scenes/scene-03-selale.png',
   './assets/berhetiyye-premium/scenes/scene-07-mor-kristal.png',
@@ -95,6 +100,7 @@ const PRECACHE = [
 ];
 
 const NOTLAR = [
+  'r837 · Üç yeni arka plan isme bağlandı; tek Berhetiyye çarkı korundu.',
   'r836 · Elle/otomatik sayım ayrımı, doğrudan tempo ve bendir ayarları.',
   'r835 · Tema bağlamı, şeffaf kontroller, ayar paneli ve liste kısayolları düzeltildi.',
   'r834 · Jewel varlıkları assets/berhetiyye-premium altında tekilleştirildi; dosya yolları güncellendi.',
