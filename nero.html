@@ -9,11 +9,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r840"/>
+<meta name="sukun-build" content="r841"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r840" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r841" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6478,7 +6478,7 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.83 — build 2026-09-16-r840</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.83 — build 2026-09-16-r841</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -74371,11 +74371,12 @@ const scenes=Object.freeze([
  {id:'interface',label:'Ayasofya · Billur Saray',file:A+'scene-08-ayasofya-billur.png'},
  {id:'berhetihin',label:'Berhetîhin · Billur Saray',file:A+'scene-09-berhetihin-billur-r837.png'},
  {id:'keririn',label:'Kerîrin · Süleyman’ın Tevhid Ufku',file:A+'scene-12-keririn-tevhid-r840.png'},
+ {id:'tetlihin',label:'Tetlîhin · Mührün Muhafız Odası',file:A+'scene-13-tetlihin-muhur-r841.png'},
  {id:'hutirin',label:'Hûtîrin · Adalet ve Mühür',file:A+'scene-10-hutirin-adalet-r837.png'},
  {id:'kalnehudin',label:'Kalnehûdin · Rüzgâr ve Hüdhüd',file:A+'scene-11-kalnehudin-ruzgar-r837.png'}
 ]);
 const loaded=new Map();let raf=0,lastRequest='',requestToken=0,lastError='';
-const cssUrl=f=>`url('${f}?v=r840')`;
+const cssUrl=f=>`url('${f}?v=r841')`;
 function pref(){
  let p='auto';try{p=localStorage.getItem(KEY)||localStorage.getItem('sukun.berhet.background.r829')||'auto'}catch(_){}
  return scenes.some(s=>s.id===p)?p:'auto';
@@ -74384,6 +74385,7 @@ function pref(){
 const nameScenes=Object.freeze([
  Object.freeze({index:0,name:'Berhetîhin',scene:'berhetihin'}),
  Object.freeze({index:1,name:'Kerîrin',scene:'keririn'}),
+ Object.freeze({index:2,name:'Tetlîhin',scene:'tetlihin'}),
  Object.freeze({index:9,name:'Hûtîrin',scene:'hutirin'}),
  Object.freeze({index:10,name:'Kalnehûdin',scene:'kalnehudin'})
 ]);
@@ -74396,7 +74398,7 @@ function picked(ctx){
 }
 function preload(file){
  if(!loaded.has(file))loaded.set(file,new Promise(resolve=>{
-  const img=new Image();img.decoding='async';img.onload=()=>resolve(true);img.onerror=()=>{loaded.delete(file);resolve(false)};img.src=file+'?v=r840';
+  const img=new Image();img.decoding='async';img.onload=()=>resolve(true);img.onerror=()=>{loaded.delete(file);resolve(false)};img.src=file+'?v=r841';
  }));return loaded.get(file);
 }
 function paint(file){
