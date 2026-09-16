@@ -9,11 +9,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r838"/>
+<meta name="sukun-build" content="r840"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r838" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r840" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6478,7 +6478,7 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.81 — build 2026-09-16-r838</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.83 — build 2026-09-16-r840</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -74370,11 +74370,12 @@ const scenes=Object.freeze([
  {id:'night',label:'Ametist Saray',file:A+'scene-07-mor-kristal.png'},
  {id:'interface',label:'Ayasofya · Billur Saray',file:A+'scene-08-ayasofya-billur.png'},
  {id:'berhetihin',label:'Berhetîhin · Billur Saray',file:A+'scene-09-berhetihin-billur-r837.png'},
+ {id:'keririn',label:'Kerîrin · Süleyman’ın Tevhid Ufku',file:A+'scene-12-keririn-tevhid-r840.png'},
  {id:'hutirin',label:'Hûtîrin · Adalet ve Mühür',file:A+'scene-10-hutirin-adalet-r837.png'},
  {id:'kalnehudin',label:'Kalnehûdin · Rüzgâr ve Hüdhüd',file:A+'scene-11-kalnehudin-ruzgar-r837.png'}
 ]);
 const loaded=new Map();let raf=0,lastRequest='',requestToken=0,lastError='';
-const cssUrl=f=>`url('${f}?v=r838')`;
+const cssUrl=f=>`url('${f}?v=r840')`;
 function pref(){
  let p='auto';try{p=localStorage.getItem(KEY)||localStorage.getItem('sukun.berhet.background.r829')||'auto'}catch(_){}
  return scenes.some(s=>s.id===p)?p:'auto';
@@ -74382,6 +74383,7 @@ function pref(){
 // r837: approved background bindings only. The fixed wheel has no scene dependency.
 const nameScenes=Object.freeze([
  Object.freeze({index:0,name:'Berhetîhin',scene:'berhetihin'}),
+ Object.freeze({index:1,name:'Kerîrin',scene:'keririn'}),
  Object.freeze({index:9,name:'Hûtîrin',scene:'hutirin'}),
  Object.freeze({index:10,name:'Kalnehûdin',scene:'kalnehudin'})
 ]);
@@ -74394,7 +74396,7 @@ function picked(ctx){
 }
 function preload(file){
  if(!loaded.has(file))loaded.set(file,new Promise(resolve=>{
-  const img=new Image();img.decoding='async';img.onload=()=>resolve(true);img.onerror=()=>{loaded.delete(file);resolve(false)};img.src=file+'?v=r838';
+  const img=new Image();img.decoding='async';img.onload=()=>resolve(true);img.onerror=()=>{loaded.delete(file);resolve(false)};img.src=file+'?v=r840';
  }));return loaded.get(file);
 }
 function paint(file){
@@ -74746,3 +74748,4 @@ window.SukunR835Shortcuts=Object.freeze({sync,open:openList});
 
 </script>
 </body></html>
+\n\n<style id="sukun-r839-settings-touch-authority">\n/* r839 — gerçek telefonda Zikir Ayarları dokunma otoritesi. */\nhtml[data-r835-theme] body .zCounterActions{isolation:isolate!important;overflow:visible!important}\nhtml[data-r835-theme] body #r836CounterSettings,\nhtml[data-r835-theme] body #r829QuickSettings .qOpen,\nhtml[data-r835-theme] body #r679ZikirAyarBox>summary{\n position:relative!important;z-index:2147481200!important;pointer-events:auto!important;touch-action:manipulation!important;\n}\nbody.r839-settings-open #r835SettingsDialog{z-index:2147483000!important;pointer-events:auto!important}\n</style>\n<script id="sukun-r839-settings-touch-runtime">(()=>{\n'use strict';\nif(window.SukunR839SettingsTouch)return;\nconst isTrigger=t=>t?.closest?.('#r836CounterSettings,#r829QuickSettings .qOpen,#r679ZikirAyarBox>summary,[data-open-zikir-settings]');\nlet last=0;\nfunction openFrom(e){\n const b=isTrigger(e.target); if(!b)return;\n const now=performance.now(); if(now-last<180)return; last=now;\n e.preventDefault();e.stopPropagation();\n try{e.stopImmediatePropagation()}catch(_){}\n document.body.classList.add('r839-settings-open');\n requestAnimationFrame(()=>{\n   const ok=window.SukunR830SettingsFix?.open?.();\n   if(!ok){\n     const box=document.getElementById('r679ZikirAyarBox');\n     if(box){box.open=true;box.scrollIntoView({block:'center',behavior:'smooth'})}\n   }\n });\n}\n// pointerup is deliberately delegated at document authority: survives DOM re-hydration and skin swaps.\ndocument.addEventListener('pointerup',openFrom,true);\ndocument.addEventListener('click',e=>{if(isTrigger(e.target))openFrom(e)},true);\nwindow.addEventListener('sukun:domhydrate',()=>window.SukunR830SettingsFix?.bind?.(),{passive:true});\nwindow.SukunR839SettingsTouch=Object.freeze({version:'r839',open:()=>window.SukunR830SettingsFix?.open?.()});\n})();</script>\n
