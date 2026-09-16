@@ -1,0 +1,51 @@
+{
+  "total": 11,
+  "passed": 11,
+  "results": [
+    {
+      "name": "HTML build parser accepts either metadata attribute order",
+      "status": "PASS"
+    },
+    {
+      "name": "Matching HTML, manifest and marker form a complete shell",
+      "status": "PASS"
+    },
+    {
+      "name": "Mismatched manifest leaves shell incomplete without killing worker installation",
+      "status": "PASS"
+    },
+    {
+      "name": "Mismatched HTML is never committed as the new shell",
+      "status": "PASS"
+    },
+    {
+      "name": "Offline versioned manifest remains JSON and resolves from current cache",
+      "status": "PASS"
+    },
+    {
+      "name": "Missing images return 404, never application HTML",
+      "status": "PASS"
+    },
+    {
+      "name": "Current cached asset takes priority over older release asset",
+      "status": "PASS"
+    },
+    {
+      "name": "Offline navigation falls back to the verified current shell",
+      "status": "PASS"
+    },
+    {
+      "name": "Newer network HTML is served and not replaced with stale cached HTML",
+      "status": "PASS"
+    },
+    {
+      "name": "Failed refresh preserves the previously cached verified shell",
+      "status": "PASS"
+    },
+    {
+      "name": "Concurrent shell requests share a preparation and failures can be retried",
+      "status": "PASS"
+    }
+  ],
+  "failed": 0
+}

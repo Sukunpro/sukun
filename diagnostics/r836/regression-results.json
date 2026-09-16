@@ -1,0 +1,636 @@
+{
+  "kind": "source-vm-regression",
+  "browserRun": false,
+  "total": 126,
+  "passed": 126,
+  "results": [
+    {
+      "name": "JavaScript syntax: every executable inline module and Service Worker",
+      "status": "PASS"
+    },
+    {
+      "name": "Release metadata, manifest link, start URL and build marker agree",
+      "status": "PASS"
+    },
+    {
+      "name": "Unchanged 28-name state produces zero repeated text mutations",
+      "status": "PASS"
+    },
+    {
+      "name": "Tefekkür opens and exits while recording database never resolves",
+      "status": "PASS"
+    },
+    {
+      "name": "Tefekkür view change preserves paused speech and audio context",
+      "status": "PASS"
+    },
+    {
+      "name": "Escape exits with no retired focus button in the DOM",
+      "status": "PASS"
+    },
+    {
+      "name": "Exit cancels delayed focus instead of focusing hidden counter",
+      "status": "PASS"
+    },
+    {
+      "name": "Tefekkür does not claim or close another component fullscreen",
+      "status": "PASS"
+    },
+    {
+      "name": "Dock Pause captures all layers; Resume uses the captured session",
+      "status": "PASS"
+    },
+    {
+      "name": "28-name journey Pause/Resume never starts independent auto",
+      "status": "PASS"
+    },
+    {
+      "name": "99-name journey Pause/Resume never starts independent auto",
+      "status": "PASS"
+    },
+    {
+      "name": "Main counter resumes aggregate pause before starting another session",
+      "status": "PASS"
+    },
+    {
+      "name": "Main Stop is immediate even within the 620 ms start filter",
+      "status": "PASS"
+    },
+    {
+      "name": "Failed direct start reports false through the shared transport",
+      "status": "PASS"
+    },
+    {
+      "name": "Global Stop clears queued work and stops the aggregate once",
+      "status": "PASS"
+    },
+    {
+      "name": "Initial reading exception releases auto latch and permits retry",
+      "status": "PASS"
+    },
+    {
+      "name": "StopAll clears logical paused state of non-journey readers",
+      "status": "PASS"
+    },
+    {
+      "name": "StopAll reports an asynchronous provider failure",
+      "status": "PASS"
+    },
+    {
+      "name": "Delayed StopAll completion preserves the owner of a newer Play",
+      "status": "PASS"
+    },
+    {
+      "name": "First hidden MediaSession Pause is honored; repeated Pause is idempotent",
+      "status": "PASS"
+    },
+    {
+      "name": "MediaSession Play clears aggregate pause after native lock resume",
+      "status": "PASS"
+    },
+    {
+      "name": "Queued single/terkip stays silent during pause and resumes in FIFO order",
+      "status": "PASS"
+    },
+    {
+      "name": "Queued duplicate identity is merged; Stop cancels queued work",
+      "status": "PASS"
+    },
+    {
+      "name": "Restored session never starts audio on Exit or navigation gesture",
+      "status": "PASS"
+    },
+    {
+      "name": "Tefekkür dock drag bounds reserve a readable surface at five screen sizes",
+      "status": "PASS"
+    },
+    {
+      "name": "Missing alert drawer does not consume Escape",
+      "status": "PASS"
+    },
+    {
+      "name": "Reading surface follows live dock drag before pointer release",
+      "status": "PASS"
+    },
+    {
+      "name": "Rahmân 35/298: Stop then Play waits for real cleanup and keeps count",
+      "status": "PASS",
+      "detail": {
+        "count": 35,
+        "startCalls": 1
+      },
+      "suite": "test_restart"
+    },
+    {
+      "name": "New Stop cancels a queued restart, including after a delayed cleanup",
+      "status": "PASS",
+      "suite": "test_restart"
+    },
+    {
+      "name": "A genuine aggregate Pause resumes captured providers instead of new direct audio",
+      "status": "PASS",
+      "suite": "test_restart"
+    },
+    {
+      "name": "28 journey owns restart and never creates independent auto",
+      "status": "PASS",
+      "suite": "test_restart"
+    },
+    {
+      "name": "99 journey owns restart and never creates independent auto",
+      "status": "PASS",
+      "suite": "test_restart"
+    },
+    {
+      "name": "Main control accepts rapid fresh Play, without 620ms suppression",
+      "status": "PASS",
+      "suite": "test_restart"
+    },
+    {
+      "name": "First rep pending does not stop the scheduler or credit a phantom count",
+      "status": "PASS",
+      "suite": "test_restart"
+    },
+    {
+      "name": "First real reading exception releases auto latch and allows retry",
+      "status": "PASS",
+      "suite": "test_restart"
+    },
+    {
+      "name": "Foreground, logger and mini decorators preserve false return values",
+      "status": "PASS",
+      "suite": "test_restart"
+    },
+    {
+      "name": "Canonical diagnostic export contains bounded restart input and command trace",
+      "status": "PASS",
+      "suite": "test_restart"
+    },
+    {
+      "name": "Failed voice removes only its provisional credit and exposes retry state",
+      "status": "PASS",
+      "detail": {
+        "count": 72,
+        "reason": "play-rejected"
+      },
+      "suite": "test_failure"
+    },
+    {
+      "name": "An unfinished reading cannot be replaced by a second provisional token",
+      "status": "PASS",
+      "suite": "test_failure"
+    },
+    {
+      "name": "Terminal Stop invalidates an unfinished recording, not a completed one",
+      "status": "PASS",
+      "detail": {
+        "count": 73,
+        "stale": 1
+      },
+      "suite": "test_failure"
+    },
+    {
+      "name": "A later manual edit is not overwritten by an old recording rollback",
+      "status": "PASS",
+      "suite": "test_failure"
+    },
+    {
+      "name": "A failed independent zikir retries through the canonical Stop barrier",
+      "status": "PASS",
+      "detail": {
+        "calls": [
+          "stop-all",
+          "direct-stop",
+          "start"
+        ],
+        "count": 72
+      },
+      "suite": "test_failure"
+    },
+    {
+      "name": "New Stop cancels a queued failed-voice retry",
+      "status": "PASS",
+      "suite": "test_failure"
+    },
+    {
+      "name": "28 and 99 owners remain independent during a failed direct state",
+      "status": "PASS",
+      "suite": "test_failure"
+    },
+    {
+      "name": "No speculative target completion watchdog remains in spoken rep",
+      "status": "PASS",
+      "suite": "test_failure"
+    },
+    {
+      "name": "Stop → Play → Stop → Play retains the newest intention",
+      "status": "PASS",
+      "suite": "test_transport"
+    },
+    {
+      "name": "A failed cleanup cannot report success and start new audio",
+      "status": "PASS",
+      "suite": "test_transport"
+    },
+    {
+      "name": "Independent asynchronous stop is part of the cleanup barrier",
+      "status": "PASS",
+      "suite": "test_transport"
+    },
+    {
+      "name": "Repeated Play in one pending intention creates a single session",
+      "status": "PASS",
+      "suite": "test_transport"
+    },
+    {
+      "name": "A later Stop cancels all queued starts",
+      "status": "PASS",
+      "suite": "test_transport"
+    },
+    {
+      "name": "A cleanup failure allows a fresh, explicit retry after another cleanup",
+      "status": "PASS",
+      "suite": "test_transport"
+    },
+    {
+      "name": "An active 99 journey never becomes an independent direct session",
+      "status": "PASS",
+      "suite": "test_transport"
+    },
+    {
+      "name": "Eight activations do not open diagnostics; ninth opens once",
+      "status": "PASS",
+      "detail": {
+        "count": 0,
+        "armed": true
+      },
+      "suite": "test_ring"
+    },
+    {
+      "name": "Seven activations preserve the existing vault after the grace period",
+      "status": "PASS",
+      "suite": "test_ring"
+    },
+    {
+      "name": "Ninth activation cancels the pending seven-click vault",
+      "status": "PASS",
+      "suite": "test_ring"
+    },
+    {
+      "name": "Keyboard activation counts once and prevents the synthesized click",
+      "status": "PASS",
+      "suite": "test_ring"
+    },
+    {
+      "name": "Sequence expires and closing disarms without erasing the encrypted vault",
+      "status": "PASS",
+      "suite": "test_ring"
+    },
+    {
+      "name": "Retired public and duplicate diagnostic entry owners are absent",
+      "status": "PASS",
+      "suite": "test_ring"
+    },
+    {
+      "name": "Synchronous direct Stop exception blocks queued Play and exposes cleanup failure",
+      "status": "PASS",
+      "suite": "test_audit"
+    },
+    {
+      "name": "After a failed cleanup a new explicit attempt waits for successful cleanup",
+      "status": "PASS",
+      "suite": "test_audit"
+    },
+    {
+      "name": "Voice failure label takes precedence over a stale recording badge",
+      "status": "PASS",
+      "suite": "test_audit"
+    },
+    {
+      "name": "Old failed voice cannot hold a newly selected Esma or cancel its transition",
+      "status": "PASS",
+      "suite": "test_audit"
+    },
+    {
+      "name": "Old successful voice cannot confirm a different selected Esma",
+      "status": "PASS",
+      "suite": "test_audit"
+    },
+    {
+      "name": "Selection A → B → A does not make the old reading current again",
+      "status": "PASS",
+      "suite": "test_audit"
+    },
+    {
+      "name": "Repeated render event of the same selection preserves its pending credit",
+      "status": "PASS",
+      "suite": "test_audit"
+    },
+    {
+      "name": "Choosing a different Esma releases the previous selection failure",
+      "status": "PASS",
+      "suite": "test_audit"
+    },
+    {
+      "name": "Old lock-return reading cannot clear a newer selection failure",
+      "status": "PASS",
+      "suite": "test_audit"
+    },
+    {
+      "name": "Current lock-return reading is accepted without changing the count",
+      "status": "PASS",
+      "suite": "test_audit"
+    },
+    {
+      "name": "A → B → A invalidates a lock-return reading even without a pending count",
+      "status": "PASS",
+      "suite": "test_audit"
+    },
+    {
+      "name": "Earlier lock-return success cannot clear a later failure on the same Esma",
+      "status": "PASS",
+      "suite": "test_audit"
+    },
+    {
+      "name": "Transport SVG changes only when action changes and never replaces its button",
+      "status": "PASS",
+      "suite": "test_audit"
+    },
+    {
+      "name": "Unavailable recording database rejects export instead of producing an empty backup",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "Blocked database access reports failure instead of leaving export pending",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "Aborted read settles and closes its database",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "Unreadable recording prevents a silently incomplete backup",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "Read transaction setup exception is reported and closes the connection",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "One synchronous record write failure aborts the whole store transaction",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "Asynchronous write failure cannot be reported as restored zero records",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "Abort-only write settles as failure and does not keep its connection open",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "Failed audio decoding fails the restore before writing anything",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "Restore failure is not hidden by successful settings and leaves those settings unchanged",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "Quota failure rolls back the settings already written and reports failure",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "Oversized combined settings are rejected before the first write",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "Audio Blob, custom ambience and hybrid mix survive export and import",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "Locked records and remote audio URLs are skipped without network access",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "No record store on a fresh installation produces a valid empty backup",
+      "status": "PASS",
+      "suite": "test_storage"
+    },
+    {
+      "name": "Saved sessions, favorites, 99 progress and current appearance survive a backup round trip",
+      "status": "PASS",
+      "suite": "test_settings_queue"
+    },
+    {
+      "name": "Backup still excludes API keys, diagnostics and session permission flags",
+      "status": "PASS",
+      "suite": "test_settings_queue"
+    },
+    {
+      "name": "Legacy settings-only backups remain importable",
+      "status": "PASS",
+      "suite": "test_settings_queue"
+    },
+    {
+      "name": "Failed restore UI reports the error and never reloads or announces completion",
+      "status": "PASS",
+      "suite": "test_settings_queue"
+    },
+    {
+      "name": "Partial restore accurately reports committed recordings when the second store fails",
+      "status": "PASS",
+      "suite": "test_settings_queue"
+    },
+    {
+      "name": "New AudioResolver request during global pause waits even when no voice owner exists",
+      "status": "PASS",
+      "suite": "test_settings_queue"
+    },
+    {
+      "name": "Stop cancels a direct request that arrived while global playback was paused",
+      "status": "PASS",
+      "suite": "test_settings_queue"
+    },
+    {
+      "name": "Direct single and terkip requests resume in the same order after pause",
+      "status": "PASS",
+      "suite": "test_settings_queue"
+    },
+    {
+      "name": "Normalization writes the original record even if selection changes during decode",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "An older analysis cannot replace the current record metadata or waveform",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "A late record-list refresh preserves the newer selection",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Repeated normalization while decoding performs one write",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Silence trimming retains audio present only in the right channel",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "A wholly silent recording is not destructively replaced by a short tail",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Peak measurement detects a transient between the former sampled positions",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Rapid second recording press cancels preparation without duplicate microphone requests",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Selection change while microphone permission is pending releases the returned stream",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Recording stop saves to the captured key, not a later selected key",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Empty recording cannot overwrite the previous voice",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Recorder error followed by Stop cannot save partial audio",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "A new recording waits until the previous save completes",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Waveform context failure does not abort an otherwise working recorder",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Recorder constructor failure releases microphone resources",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Failed edit leaves controls ready and reports the write error",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Failed recording save releases its resources and keeps the error visible",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Waveform envelope includes the right channel",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Cancel during a pending microphone request releases late permission and finishes its status",
+      "status": "PASS",
+      "suite": "test_studio"
+    },
+    {
+      "name": "Fullscreen diagnostic accepts the actual r702 capability contract",
+      "status": "PASS",
+      "suite": "test_ui"
+    },
+    {
+      "name": "Fullscreen diagnostic still rejects missing setter and mismatched selected preference",
+      "status": "PASS",
+      "suite": "test_ui"
+    },
+    {
+      "name": "Fullscreen diagnostic rejects duplicate modes and multiple selected options",
+      "status": "PASS",
+      "suite": "test_ui"
+    },
+    {
+      "name": "Normal counter shows the exact selected name without changing count or target",
+      "status": "PASS",
+      "suite": "test_ui"
+    },
+    {
+      "name": "Tefekkür entry and exit retain the same name and count",
+      "status": "PASS",
+      "suite": "test_ui"
+    },
+    {
+      "name": "Private or unselected name stays hidden on the normal counter",
+      "status": "PASS",
+      "suite": "test_ui"
+    },
+    {
+      "name": "Changing the selected record refreshes the normal title independently of playback",
+      "status": "PASS",
+      "suite": "test_ui"
+    },
+    {
+      "name": "Layout diagnostic detects the supplied split Hedef/Kalan arrangement",
+      "status": "PASS",
+      "suite": "test_ui"
+    },
+    {
+      "name": "Layout diagnostic accepts one ring above aligned horizontal statistics",
+      "status": "PASS",
+      "suite": "test_ui"
+    },
+    {
+      "name": "Layout diagnostic reports overflowing name and skips hidden pages",
+      "status": "PASS",
+      "suite": "test_ui"
+    },
+    {
+      "name": "Hidden player return control stays inside a stale Android viewport measurement",
+      "status": "PASS",
+      "suite": "test_ui"
+    },
+    {
+      "name": "Peek placement settles without drift and handles visual viewport offset",
+      "status": "PASS",
+      "suite": "test_ui"
+    },
+    {
+      "name": "Invisible return control receives no geometry writes",
+      "status": "PASS",
+      "suite": "test_ui"
+    }
+  ],
+  "failed": 0
+}
