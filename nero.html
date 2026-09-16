@@ -9,11 +9,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r837"/>
+<meta name="sukun-build" content="r838"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r837" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r838" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6478,7 +6478,7 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.81 — build 2026-09-16-r837</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.81 — build 2026-09-16-r838</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -6499,6 +6499,17 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
      ilk kaydını buradan çıkarıp sayfaya iletir, böylece «Yenile»
      bildiriminde gerçekten NEYİN değiştiği yazabilir. -->
 <script id="surumNotlari" type="application/json">[
+  {
+    "v": "r838",
+    "t": "16 Eylül 2026",
+    "b": [
+      "Berhetiyye Atlası ve isim detayları dar ekranlarda sarılır; Hedef/Kalan ve −1/+1 giydirildi.",
+      "Zikir ayarları sayaç yeniden yerleşirken korunur; özgün tempo ve bendir kontrolleri açılır.",
+      "Süleyman sahneleri berhetiyye-premium altında tek klasörde; bütün sahneler güncelleme paketinde.",
+      "Ekran gezinmesi etkin zikri durdurmaz; arka plan ses devri ve duyulan tekrarların sayımı düzeltildi.",
+      "Tek Berhetiyye çarkı korundu. Android kilit ekranında fiziksel cihaz testi yapılmadı."
+    ]
+  },
   {
     "v": "r837",
     "t": "16 Eylül 2026",
@@ -15295,188 +15306,99 @@ function r481StableVoice(preferred,lang){
   }catch(e){return preferred||null}
 }
 function r476StartTtsBatch(){
-  const p=_r476Prepared;
-  if(!p.text||!('speechSynthesis'in window))return false;
-  r476StopTtsBatch();
-
-  /* Dev tek metin bazı Android TTS motorlarında kilit ekranında prosodiyi
-     bozup yüksek/ince "cüce" tınısına geçebiliyor. Her tekrar normal bir
-     utterance olarak ÖNCEDEN kuyruğa verilir; kilitte yeni JS timer gerekmez. */
-  const voice=r481StableVoice(p.voice,p.lang);
-  const rate=Math.max(.55,Math.min(1.55,(p.rate||.85)*(window.OKUMA_HIZ||1)));
-  const pitch=Math.max(.72,Math.min(1.02,p.pitch==null?.9:p.pitch));
-  const queueCount=120;
-  const b={active:true,items:[],completed:0,current:0,total:queueCount,voiceName:voice?.name||'',rate,pitch};
-  _r476Batch=b;
-
-  try{
-    for(let i=0;i<queueCount;i++){
-      const u=new SpeechSynthesisUtterance(p.text.trim());
-      u.lang=p.lang||'tr-TR';
-      if(voice)u.voice=voice;
-      u.rate=rate;
-      u.pitch=pitch;
-      try{
-        u.volume=Math.min(1,Math.max(.05,((typeof ZVOL==='number'?ZVOL:1)*(window.okumaSeviyesi?.()||1))));
-      }catch(e){u.volume=1}
-
-      u.onstart=()=>{if(b.active)b.current=i};
-      u.onend=()=>{if(b.active)b.completed=Math.max(b.completed,i+1)};
-      u.onerror=()=>{};
-      b.items.push(u);
-      speechSynthesis.speak(u);
-    }
-    return true;
-  }catch(e){
-    try{speechSynthesis.cancel()}catch(_){}
-    b.active=false;
-    return false;
+ const p=_r476Prepared;
+ if(!p.text||!('speechSynthesis'in window)||!_r476Hidden)return false;
+ r476StopTtsBatch();
+ const session=_r476Hidden,key=p.key;
+ const voice=r481StableVoice(p.voice,p.lang);
+ const rate=Math.max(.55,Math.min(1.55,(p.rate||.85)*(window.OKUMA_HIZ||1)));
+ const pitch=Math.max(.72,Math.min(1.02,p.pitch==null?.9:p.pitch));
+ const room=Z.adv&&Z.target>0?Math.max(1,Z.target-Z.count):24;
+ const queueCount=Math.min(24,room);
+ const b={active:true,items:[],completed:0,current:0,total:queueCount,voiceName:voice?.name||'',rate,pitch};
+ _r476Batch=b;
+ const valid=()=>b.active&&Z.auto&&document.hidden&&_r476Hidden===session;
+ try{
+  for(let i=0;i<queueCount;i++){
+   const u=new SpeechSynthesisUtterance(p.text.trim());u.lang=p.lang||'tr-TR';if(voice)u.voice=voice;u.rate=rate;u.pitch=pitch;
+   u.volume=Math.min(1,Math.max(.05,(typeof ZVOL==='number'?ZVOL:1)*(window.okumaSeviyesi?.()||1)));
+   u.onstart=()=>{if(valid())b.current=i;};
+   u.onend=()=>{
+    if(!valid()||key!==zikirKey())return;
+    b.completed++;session.ttsCredited=(session.ttsCredited||0)+1;
+    Promise.resolve(r476SilentApply(1)).then(async()=>{
+     if(!valid())return;
+     if(zikirKey()!==key){b.active=false;_r476Hidden=null;await r476Prepare();if(Z.auto&&document.hidden)r476BeginHidden();}
+     else if(b.completed===queueCount){session.ttsCredited=0;r476StartTtsBatch();}
+    });
+   };
+   u.onerror=e=>{if(!valid())return;b.active=false;window.dispatchEvent(new CustomEvent('sukun:diagnostic',{detail:{kind:'background-tts',message:'Cihazın konuşma motoru okumayı durdurdu',extra:String(e.error||'tts-error')}}));};
+   b.items.push(u);speechSynthesis.speak(u);
   }
+  return true;
+ }catch(e){b.active=false;return false;}
 }
+let _r838HiddenStart=null;
 async function r476BeginHidden(){
-  if(!Z.auto||!zikirSesliAktifMi()||ZIKIR_BIRLIKTE)return false;
-  if(_r476Hidden)return true;
-
-  if(!_r476Prepared.key){try{await r476Prepare()}catch(e){}}
-
-  /* Foreground kaydı ortasındaysa fazını yakala; kilit geçişi mümkün olduğunca
-     aynı yerden sürsün. */
+ if(!Z.auto||!document.hidden||!zikirSesliAktifMi()||ZIKIR_BIRLIKTE)return false;
+ if(_r476Hidden)return true;
+ if(_r838HiddenStart)return _r838HiddenStart;
+ const expected=zikirKey(),generation=window.SukunZikirTransportGate?.snapshot?.().generation;
+ const valid=()=>Z.auto&&document.hidden&&zikirKey()===expected&&!ZIKIR_BIRLIKTE&&(generation==null||generation===window.SukunZikirTransportGate?.snapshot?.().generation);
+ const task=(async()=>{
+  if(_r476Prepared.key!==expected){try{await r476Prepare()}catch(e){}}
+  if(!valid()||_r476Prepared.key!==expected)return false;
+  const prepared={..._r476Prepared},sourceUrl=prepared.fxUrl||prepared.url||'';
+  const cycleMs=Math.max(650,prepared.cycleMs||prepared.durationMs||zAutoTempoMs());
   let phaseMs=0;
-  try{
-    const playing=[...SES.ler].find(x=>x&&!x.paused&&!x.ended);
-    if(playing&&Number.isFinite(playing.currentTime)){
-      phaseMs=Math.max(0,playing.currentTime*1000/Math.max(.1,playing.playbackRate||1));
-    }
-  }catch(e){}
-
-  try{if(typeof sesDurdur==='function')sesDurdur()}catch(e){}
-  try{speechSynthesis.cancel()}catch(e){}
-
-  const sourceUrl=_r476Prepared.fxUrl||_r476Prepared.url||'';
-  const cycleMs=Math.max(650,_r476Prepared.cycleMs||_r476Prepared.durationMs||zAutoTempoMs());
-  const now=Date.now();
-  _r476Hidden={
-    startedAt:now,
-    count:+Z.count||0,devir:+Z.devir||0,total:+Z.total||0,
-    mode:sourceUrl?'recording':'tts',
-    cycleMs,
-    phaseMs:sourceUrl?(phaseMs%cycleMs):0,
-    preparedKey:_r476Prepared.key||'',
-    fx:!!_r476Prepared.fxUrl
-  };
-
-  /* ═══ r540 — KİLİTTEYKEN İSİM İLERLEMİYORDU (KÖK NEDEN) ══════════════
-     Yukarıdaki not açıkça söylüyor: kilitte tekrar başlatma yapılmaz, tek
-     native audio aynı kaydı loop eder ve «sayaç ekran geri geldiğinde
-     sessizce uzlaştırılır». Yani kilitliyken Z.count HİÇ ARTMIYOR.
-     Hedef kontrolü (count >= target) sayaca baktığı için hiç tetiklenmiyor;
-     ebced dolsa bile isim ilerlemiyordu. Ekran açılınca r476EndHidden
-     geçen süreyi cycleMs'e bölüp tekrarları toplu işliyor, sayaç hedefi
-     bir anda aşıyor ve isim ancak O ZAMAN değişiyordu.
-
-     Bu yüzden r536, r538 ve r539 tek başına yetmedi: üçü de zincirin ALT
-     halkalarıydı (geçişin işlenmesi, parçanın hazırlanması, kaynağın
-     değiştirilmesi). Üstteki halka — kilitliyken hedefe varıldığının fark
-     edilmesi — hiç yoktu.
-
-     Çözüm: kilit oturumu kurulurken kalan tekrar sayısından süre hesaplanıp
-     zamanlayıcı kuruluyor. Süre dolunca sayaç hedefe taşınıyor, normal
-     ilerleme yolu (rep) çağrılıyor — geçiş, hazırlık ve kaynak değişimi
-     zaten oradan zincirleniyor — ve sonraki isim için yeni zamanlayıcı
-     kuruluyor. Böylece kilitliyken de isimler sırayla akıyor.
-
-     Zamanlayıcı ses çaldığı sürece güvenilir: tarayıcılar ses çalan
-     sekmede zamanlayıcıyı ağır kısıtlamaz. Ses durursa zaten kilit oturumu
-     bitiyor ve zamanlayıcı temizleniyor. */
-  try{ if(_r476HedefTimer){clearTimeout(_r476HedefTimer);_r476HedefTimer=0;} }catch(e){}
-  try{
-    if(!window.__SUKUN_R692_LOCK_TARGET_AUTHORITY__ && sourceUrl && Z.adv && (+Z.target||0)>0){
-      const kalanRep=Math.max(0,(+Z.target||0)-(+Z.count||0));
-      if(kalanRep>0){
-        const faz=Math.max(0,(_r476Hidden.phaseMs||0)%cycleMs);
-        const sure=Math.max(400,kalanRep*cycleMs-faz);
-        _r476HedefTimer=setTimeout(function r476HedefVarildi(){
-          _r476HedefTimer=0;
-          try{
-            if(document.hidden!==true)return;      /* ekran açıldıysa normal yol devralır */
-            if(!_r476Hidden)return;                 /* kilit oturumu bitmiş */
-            /* Sayacı hedefe taşı ve normal ilerleme yolunu çalıştır:
-               rep() hedefi görüp geçişi işler, geçiş r476Prepare'i tetikler,
-               r476Prepare de çalan kaynağı yenisiyle değiştirir (r539). */
-            const hedef=+Z.target||0;
-            if(hedef>0&&(+Z.count||0)<hedef)Z.count=hedef-1;
-            if(typeof rep==='function')rep();
-
-            /* r634 — rep() isim kimliğini senkron değiştirir fakat yeni kayıt
-               IndexedDB'den asenkron hazırlanır. Sonraki hedef zamanlayıcısını
-               eski Kerîrin cycle/key'i ile kurma; transaction'ın başlattığı
-               preparation tamamlanınca yeni ismin gerçek cycle'ını sahiplen. */
-            const finalizeNext=()=>{
-              try{
-                if(document.hidden!==true||!_r476Hidden)return;
-                _r476Hidden.startedAt=Date.now();
-                _r476Hidden.count=+Z.count||0;
-                _r476Hidden.devir=+Z.devir||0;
-                _r476Hidden.phaseMs=0;
-                _r476Hidden.cycleMs=Math.max(650,_r476Prepared.cycleMs||cycleMs);
-                _r476Hidden.preparedKey=_r476Prepared.key||'';
-                const yeniKalan=Math.max(0,(+Z.target||0)-(+Z.count||0));
-                if(yeniKalan>0&&Z.adv){
-                  const c2=Math.max(650,_r476Hidden.cycleMs||cycleMs);
-                  _r476HedefTimer=setTimeout(r476HedefVarildi,Math.max(400,yeniKalan*c2));
-                }
-              }catch(e){}
-            };
-            const pending=window.__SUKUN_R476_PREPARE_PROMISE__;
-            if(pending&&typeof pending.then==='function')pending.finally(finalizeNext);
-            else finalizeNext();
-          }catch(e){}
-        },sure);
-      }
-    }
-  }catch(e){}
-
+  try{const playing=[...SES.ler].find(x=>x&&!x.paused&&!x.ended);if(playing)phaseMs=Math.max(0,playing.currentTime*1000/Math.max(.1,playing.playbackRate||1));}catch(e){}
   const a=r476Audio();
   if(sourceUrl){
-    try{
-      a.pause();a.loop=true;a.src=sourceUrl;
-      try{delete a.dataset.sukSilentCarrier}catch(e){}
-      /* r539: hangi ismin parçası çalıyor — kaynak değiştirme ölçütü. */
-      try{a.dataset.sukLockKey=_r476Prepared.key||'';a.dataset.sukLockFx=_r476Prepared.fxUrl?'1':'0'}catch(e){}
-      const lockRate=Math.max(.5,Math.min(2,Number(_r476Prepared.playRate)||1));
-      a.defaultPlaybackRate=lockRate;
-      a.playbackRate=lockRate;
-      try{a.preservesPitch=true}catch(e){}
-      try{a.mozPreservesPitch=true}catch(e){}
-      try{a.webkitPreservesPitch=true}catch(e){}
-      const zv=(typeof ZVOL==='number'&&isFinite(ZVOL))?ZVOL:1;
-      a.volume=Math.max(.05,Math.min(1,zv));
-      a.load();
-      const go=()=>{
-        try{
-          if(Number.isFinite(a.duration)&&a.duration>0&&_r476Hidden){
-            const srcPhase=(_r476Hidden.phaseMs/1000)*Math.max(.5,Math.min(2,Number(_r476Prepared.playRate)||1));
-            a.currentTime=Math.min(Math.max(0,srcPhase),Math.max(0,a.duration-.04));
-          }
-        }catch(e){}
-        const pp=a.play();if(pp?.catch)pp.catch(()=>{});
-        try{window.SukunNativeEchoBridge?.start?.(a,{src:sourceUrl,wet:KAYIT?.yankiMik,volume:a.volume,rate:a.playbackRate,key:_r476Prepared.key||'',mode:'lock-zikir',baked:!!_r476Prepared.fxUrl})}catch(e){}
-      };
-      if(a.readyState>=1)go();else a.addEventListener('loadedmetadata',go,{once:true});
-      r476MediaSession('recording');
-      return true;
-    }catch(e){}
+   try{
+    a.pause();a.loop=true;a.volume=0;a.src=sourceUrl;
+    delete a.dataset.sukSilentCarrier;a.dataset.sukLockKey=expected;a.dataset.sukLockFx=prepared.fxUrl?'1':'0';
+    a.defaultPlaybackRate=a.playbackRate=Math.max(.5,Math.min(2,Number(prepared.playRate)||1));a.preservesPitch=true;a.load();
+    const seek=()=>{try{if(valid()&&Number.isFinite(a.duration)&&a.duration>0)a.currentTime=Math.min(phaseMs/1000*a.playbackRate,Math.max(0,a.duration-.04));}catch(e){}};
+    if(a.readyState>=1)seek();else a.addEventListener('loadedmetadata',seek,{once:true});
+    await a.play();
+    if(!valid()){a.pause();return false;}
+    window.SukunZikirTransportGate?.invalidate?.('background-handoff');
+    window.SukunZikirTransportGate?.reset?.('background-handoff');
+    try{sesDurdur('background-handoff')}catch(e){}
+    try{speechSynthesis.cancel()}catch(e){}
+    _r476Hidden={startedAt:Date.now(),count:+Z.count||0,devir:+Z.devir||0,total:+Z.total||0,mode:'recording',cycleMs,phaseMs:phaseMs%cycleMs,preparedKey:expected,fx:!!prepared.fxUrl,audibleMs:0,audibleSince:Date.now(),credited:0};
+    a.volume=Math.max(.05,Math.min(1,typeof ZVOL==='number'?ZVOL:1));
+    try{window.SukunNativeEchoBridge?.start?.(a,{src:sourceUrl,wet:KAYIT?.yankiMik,volume:a.volume,rate:a.playbackRate,key:expected,mode:'lock-zikir',baked:!!prepared.fxUrl})}catch(e){}
+    r476MediaSession('recording');window.dispatchEvent(new CustomEvent('sukun:lock-ready'));return true;
+   }catch(error){
+    try{a.pause()}catch(e){}
+    window.dispatchEvent(new CustomEvent('sukun:diagnostic',{detail:{kind:'background-play',message:'Arka plan sesi başlatılamadı',extra:String(error?.name||error)}}));
+    const voice=window.__SUKUN_ZIKIR_VOICE_PROMISE__;
+    if(voice)Promise.resolve(voice).finally(()=>{if(valid())r476BeginHidden();}).catch(()=>{});
+    return false;
+   }
   }
-
-  /* TTS web platformunda WebAudio'ya yönlendirilemez; hız/voice korunur.
-     Uzun utterance, kilitte yeni timer çağrısı gerektirmeden speech engine'e
-     tek seferde teslim edilir. */
-  try{
-    a.loop=true;a.src=_r476SilentUrl;a.volume=1;a.load();
-    const pp=a.play();if(pp?.catch)pp.catch(()=>{});
-  }catch(e){}
-  r476MediaSession('tts');
-  return r476StartTtsBatch();
+  const voice=window.__SUKUN_ZIKIR_VOICE_PROMISE__;
+  if(voice)try{await voice}catch(e){}
+  if(!valid())return false;
+  _r476Hidden={startedAt:Date.now(),count:+Z.count||0,devir:+Z.devir||0,total:+Z.total||0,mode:'tts',cycleMs,phaseMs:0,preparedKey:expected,ttsCredited:0};
+  r476MediaSession('tts');return r476StartTtsBatch();
+ })();
+ _r838HiddenStart=task;
+ try{return await task}finally{if(_r838HiddenStart===task)_r838HiddenStart=null;if(Z.auto&&document.hidden&&zikirKey()!==expected&&!_r476Hidden)setTimeout(()=>r476BeginHidden(),0);}
+}
+function r838CaptureAudible(s,playing){
+ if(!s||s.mode!=='recording')return;
+ const now=Date.now();if(s.audibleSince!=null)s.audibleMs=(s.audibleMs||0)+Math.max(0,now-s.audibleSince);
+ s.audibleSince=playing?now:null;
+}
+function r838EarnedRepeats(s){
+ if(!s)return 0;
+ if(s.mode!=='recording')return Math.max(0,r476TtsSpoken()-(s.ttsCredited||0));
+ const a=_r476LockAudio;
+ r838CaptureAudible(s,!!a&&!a.paused&&!a.ended&&a.readyState>=2&&s.audibleSince!=null);
+ const heard=Math.max(0,Math.floor(((s.phaseMs||0)+(s.audibleMs||0))/Math.max(220,s.cycleMs||1000)));
+ const n=Math.max(0,heard-(s.credited||0));s.credited=heard;return n;
 }
 function r476TtsSpoken(){
   const b=_r476Batch;
@@ -15547,7 +15469,7 @@ async function r476SilentApply(reps){
     }else{
       for(let i=0;i<reps;i++){
         _repS();applied++;
-        if(i&&i%80===0)await new Promise(r=>requestAnimationFrame(r));
+        if(i&&i%80===0)await new Promise(r=>setTimeout(r,0));
       }
     }
   }finally{
@@ -15565,18 +15487,7 @@ async function r476EndHidden(){
   /* r540: kilit bitti, hedef zamanlayıcısı boşta kalmasın. */
   try{ if(_r476HedefTimer){clearTimeout(_r476HedefTimer);_r476HedefTimer=0;} }catch(e){}
 
-  let reps=0;
-  if(s.mode==='recording'){
-    const elapsed=Math.max(0,Date.now()-s.startedAt);
-    const cycle=Math.max(650,s.cycleMs);
-    const startPhase=Math.max(0,s.phaseMs||0)%cycle;
-    /* Gizlerken zaten sayılmış olan mevcut okuma tekrar sayılmaz.
-       Yalnız loop sınırından geçen YENİ tekrarlar sayılır. */
-    reps=Math.max(0,Math.floor((startPhase+elapsed)/cycle)-Math.floor(startPhase/cycle));
-  }else{
-    reps=r476TtsSpoken();
-  }
-
+  let reps=r838EarnedRepeats(s);
   r476StopTtsBatch();
   try{window.SukunAudioSessionRegistry?.sync?.()}catch(e){}
 
@@ -15617,6 +15528,7 @@ async function r476EndHidden(){
   }
   const t0=performance.now();
   const fade=()=>{
+    if(document.hidden||_r476Hidden)return;
     const k=Math.min(1,(performance.now()-t0)/220);
     try{a.volume=Math.max(0,oldVol*(1-k))}catch(e){}
     if(k<1)requestAnimationFrame(fade);
@@ -15808,7 +15720,7 @@ document.addEventListener('visibilitychange',()=>{
     try{zBekciDurdur()}catch(e){}
     if(Z.auto&&zikirSesliAktifMi()&&!ZIKIR_BIRLIKTE){
       r476BeginHidden();
-    }
+    }else if(Z.auto){zAutoKur(false);}
     return;
   }
   (async()=>{
@@ -16768,16 +16680,16 @@ $('#tekkeBtn').onclick=()=>{
   const bridge=window.SukunTekkeContext,ctx=bridge?.payload?.();
   if(bridge){
     if(!ctx){try{bridge.change?.()}catch(e){};try{toast('Önce bir zikir seç')}catch(e){};return;}
-    S.set('sukun.total',Z.total);hardStopAll();Tekke.open(ctx);return;
+    S.set('sukun.total',Z.total);Tekke.open(ctx);return;
   }
   const it=zItem(); let tr,ar,mean;
   if(zKat()==='esma'){const f=esmaForms(it);tr=f.tr;ar=f.ar;mean=f.mean;}
   else{tr=it.tr;ar=it.ar;mean=it.mean;}
-  S.set('sukun.total',Z.total); hardStopAll();
+  S.set('sukun.total',Z.total);
   Tekke.open({tr,ar,mean,target:Z.target>0?Z.target:33});
 };
-$('#tekkeTab').onclick=()=>{const ctx=window.SukunTekkeContext?.payload?.();S.set('sukun.total',Z.total);hardStopAll();Tekke.open(ctx||undefined);};
-$('#neuroBtn').onclick=()=>{S.set('sukun.total',Z.total);hardStopAll();Neuro.open();};
+$('#tekkeTab').onclick=()=>{const ctx=window.SukunTekkeContext?.payload?.();S.set('sukun.total',Z.total);Tekke.open(ctx||undefined);};
+$('#neuroBtn').onclick=()=>{S.set('sukun.total',Z.total);Neuro.open();};
 window.addEventListener('tekke:closed',()=>{Z.total=Math.max(Z.total,S.get('sukun.total',Z.total));zUI();});
 $('#tempoSld').addEventListener('input',e=>{
   Z.tempo=+e.target.value; setFill(e.target);
@@ -33333,6 +33245,7 @@ document.addEventListener('visibilitychange',()=>{
   else if(document.visibilityState==='hidden'&&typeof KALDI!=='undefined')KALDI.yaz();
 });
 function tkStop(){
+  const ownedAudio=tkAktif();
   if(typeof sukutDur==='function')sukutDur();
   if(typeof araSukutKes==='function')araSukutKes();
   if(running&&!SEY.done&&typeof deftereYaz==='function')deftereYaz();
@@ -33342,9 +33255,7 @@ function tkStop(){
   if(NEY){NEY.E.kill(1,NEY.out);NEY=null;}
   Object.keys(CH).forEach(k=>{CH[k].E.kill(1,CH[k].out);delete CH[k];});
   binOff(); running=false; PANELDURDU=false;
-  try{if('speechSynthesis' in window)speechSynthesis.cancel()}catch(e){}
-  lockOff();
-  S.set('sukun.total',tekTotal);
+  if(ownedAudio){try{if('speechSynthesis' in window)speechSynthesis.cancel()}catch(e){};lockOff();S.set('sukun.total',tekTotal);}
   $('#telkin').classList.remove('show');
   $('#fin').classList.remove('show');
   if(window.SesCapa)SesCapa.retitle('SÜKÛN — Frekans & Zikir');
@@ -33433,7 +33344,7 @@ function mkGecis(){
   }
   MKBAS=Date.now();
 }
-$('#gBtn').onclick=()=>{
+$('#gBtn').onclick=()=>{try{if(typeof hardStopAll==='function')hardStopAll()}catch(e){}
   ac(); if(ctx.state==='suspended')ctx.resume();
   $('#gate').classList.add('bye');
   /* r436: seans başlamadan ÖNCE dock kapalı bağlama geçsin; böylece
@@ -37204,7 +37115,7 @@ function open(){
      ilk kareden itibaren o sesi görsün. Düğmeye basıldı → user gesture var. */
   try{ initAudio(); }catch(e){}
   window.__nsT0=Date.now();
-  try{window.SesCapa&&SesCapa.start({title:'NeuroSync AI Ultra',
+  try{if(!window.SukunR698Transport?.hasJourney?.()&&!(typeof Z!=='undefined'&&Z.auto))window.SesCapa&&SesCapa.start({title:'NeuroSync AI Ultra',
     onPause:()=>{try{NS.ctx&&NS.ctx.suspend()}catch(e){}},
     onPlay:()=>{try{NS.ctx&&NS.ctx.resume()}catch(e){}},
     onStop:()=>close()})}catch(e){}
@@ -37218,7 +37129,7 @@ function stop(silent=true){
   try{if(typeof stopAll==='function')stopAll(!!silent)}catch(e){}
   try{if(typeof stopBreath==='function')stopBreath()}catch(e){}
   try{if(typeof MED!=='undefined'&&MED.scriptIdx>=0&&typeof closeMedScript==='function')closeMedScript()}catch(e){}
-  try{speechSynthesis.cancel()}catch(e){}
+  try{if(!window.SukunR698Transport?.hasJourney?.()&&!(typeof Z!=='undefined'&&Z.auto))speechSynthesis.cancel()}catch(e){}
 }
 function close(){
   stop(true);
@@ -37960,7 +37871,7 @@ function sourceLayerRender(){
 function atlasCreate(){
   if(document.getElementById('berhetAtlas'))return;
   const stage=document.getElementById('zStage');if(!stage)return;
-  const d=document.createElement('details');d.id='berhetAtlas';d.open=true;d.innerHTML=`<summary class="r168Head"><b>◈ BERHETİYYE 28 İSİM ATLASI</b><span class="r168Tag">kaynak + hesap + gözlem</span></summary><div id="berhetAtlasBody"></div>`;
+  const d=document.createElement('details');d.id='berhetAtlas';d.open=true;d.innerHTML=`<summary class="r168Head"><b>Berhetiyye Atlası</b><span class="r168Tag">28 isim · kaynak · hesap · gözlem</span></summary><div id="berhetAtlasBody"></div>`;
   stage.insertAdjacentElement('afterend',d);
 }
 function atlasRender(){
@@ -48770,7 +48681,7 @@ function restoreTefControls(){
     if(undo.parentNode!==a) a.appendChild(undo);
     if(auto.parentNode!==a) a.appendChild(auto);
     if(plus.parentNode!==a) a.appendChild(plus);
-    a.replaceChildren(undo,auto,plus);
+    a.replaceChildren(...[undo,auto,plus,document.getElementById('r836CounterSettings'),document.getElementById('r836ManualCountNotice')].filter(Boolean));
   }
   if(meta&&row&&meta.parentNode!==row.parentNode){
     row.insertAdjacentElement('afterend',meta);
@@ -50504,7 +50415,7 @@ function mount(){
   if(actions&&u&&u.parentNode!==actions)actions.appendChild(u);
   if(actions&&a&&a.parentNode!==actions)actions.appendChild(a);
   if(actions&&p&&p.parentNode!==actions)actions.appendChild(p);
-  if(actions&&u&&a&&p&&(actions.children.length!==3||actions.children[0]!==u||actions.children[1]!==a||actions.children[2]!==p))actions.replaceChildren(u,a,p);
+  if(actions&&u&&a&&p){const ordered=[u,a,p,$('r836CounterSettings'),$('r836ManualCountNotice')].filter(Boolean);if(actions.children.length!==ordered.length||ordered.some((el,i)=>actions.children[i]!==el))actions.replaceChildren(...ordered);}
   if(meta&&meta.parentNode!==metaWrap)metaWrap.appendChild(meta);
   const oldRail=$('r442StepRail');if(oldRail?.childNodes.length)oldRail.replaceChildren();
   $('r444CenterStack')?.remove();$('r444TefExit')?.remove();$('r450FocusMetaSlot')?.remove();
@@ -66536,19 +66447,20 @@ window.__SUKUN_R693_LOCK_TARGET_AUTHORITY__=1;
 /* Eski r692 kapısını da işaretle: r476BeginHidden'ın legacy r540 timerı ikinci
    bir hedef otoritesi kurmasın. */
 window.__SUKUN_R692_LOCK_TARGET_AUTHORITY__=1;
-const VERSION='r693';
+const VERSION='r838';
 const M=window.__SUKUN_R693_LOCK_TARGET_METRICS__={
   arms:0,fires:0,sourceEpochs:0,sourceSwitches:0,staleArms:0,staleFires:0,
   blocked:0,rearms:0,creditedCycles:0,catchupCaps:0,discardedCycles:0,
   lastDiscarded:0,lastKey:'',lastDelay:0,lastReason:'ready',lastAt:Date.now()
 };
-let bound=null,armed=null,token=0;
+let bound=null,armed=null,token=0,progressTimer=0,settling=false;
 const clean=v=>String(v??'').trim();
 function a(){try{return _r476LockAudio||null}catch(e){return null}}
 function hidden(){try{return !!(_r476Hidden&&document.hidden&&Z.auto&&zikirSesliAktifMi()&&!ZIKIR_BIRLIKTE)}catch(e){return false}}
 function key(){try{return clean(typeof zikirKey==='function'?zikirKey():'')}catch(e){return''}}
 function audioKey(){try{return clean(a()?.dataset?.sukLockKey||'')}catch(e){return''}}
 function clear(reason='clear'){
+  clearTimeout(progressTimer);progressTimer=0;
   try{if(_r476HedefTimer){clearTimeout(_r476HedefTimer);_r476HedefTimer=0}}catch(e){}
   armed=null;token++;M.lastReason=reason;M.lastAt=Date.now();
 }
@@ -66567,10 +66479,10 @@ function syncEpoch(reason='source-epoch'){
   const k=key();
   try{
     const prev=clean(_r476Hidden?.preparedKey||'');
-    if(prev&&prev!==k)M.sourceSwitches++;
+    if(prev&&prev!==k){M.sourceSwitches++;_r476Hidden.audibleMs=0;_r476Hidden.credited=0;_r476Hidden.audibleSince=Date.now();_r476Hidden.phaseMs=phaseMs();}
     _r476Hidden.startedAt=Date.now();
     _r476Hidden.count=+Z.count||0;_r476Hidden.devir=+Z.devir||0;_r476Hidden.total=+Z.total||0;
-    _r476Hidden.phaseMs=phaseMs();_r476Hidden.cycleMs=cycleMs();_r476Hidden.preparedKey=k;
+    _r476Hidden.cycleMs=cycleMs();_r476Hidden.preparedKey=k;
   }catch(e){}
   M.sourceEpochs++;M.lastKey=k;M.lastReason=reason;M.lastAt=Date.now();return true;
 }
@@ -66598,6 +66510,10 @@ function fire(myToken){
   const target=Math.max(0,+Z.target||0);
   if(!Z.adv||!target||target!==snap.target){M.staleFires++;M.lastReason='fire-target-stale';M.lastAt=Date.now();return false}
   try{
+    r838CaptureAudible(_r476Hidden,true);
+    const heard=Math.floor(((_r476Hidden.phaseMs||0)+(_r476Hidden.audibleMs||0))/cycleMs());
+    if(heard-(_r476Hidden.credited||0)<target-(+Z.count||0)){arm('await-audible-boundary');return false;}
+    _r476Hidden.credited=heard;
     const credited=creditToTarget(snap);
     if(!credited){M.blocked++;M.lastReason='fire-no-room';M.lastAt=Date.now();return false}
     M.fires++;M.lastReason='target-boundary';M.lastAt=Date.now();
@@ -66619,15 +66535,25 @@ function arm(reason='arm'){
   try{_r476HedefTimer=setTimeout(()=>fire(t),delay)}catch(e){armed=null;return false}
   M.arms++;M.lastKey=k;M.lastDelay=Math.round(delay);M.lastReason=reason;M.lastAt=Date.now();return true;
 }
-function bindAudio(){
-  const x=a();if(!x||x===bound)return;
-  if(bound){try{bound.removeEventListener('playing',onPlaying)}catch(e){};try{bound.removeEventListener('loadedmetadata',onMeta)}catch(e){};try{bound.removeEventListener('pause',onPause)}catch(e){}}
-  bound=x;try{x.addEventListener('playing',onPlaying,{passive:true});x.addEventListener('loadedmetadata',onMeta,{passive:true});x.addEventListener('pause',onPause,{passive:true})}catch(e){}
+async function settleProgress(){
+ if(settling||!hidden())return;
+ const session=_r476Hidden,k=key();if(session.mode!=='recording'||session.preparedKey!==k)return;
+ let n=r838EarnedRepeats(session);if(Z.adv&&Z.target>0)n=Math.min(n,Math.max(0,Z.target-Z.count));if(!n)return;
+ settling=true;try{await r476SilentApply(n);M.creditedCycles+=n;}finally{settling=false;}
 }
-function onPlaying(){if(!hidden())return;if(!physicalMatches()){M.staleArms++;return}syncEpoch('audio-playing');arm('audio-playing')}
-function onMeta(){if(hidden())setTimeout(()=>{if(syncEpoch('metadata'))arm('metadata')},0)}
-function onPause(){if(hidden()){try{if(_r476HedefTimer){clearTimeout(_r476HedefTimer);_r476HedefTimer=0}}catch(e){};armed=null;M.lastReason='audio-paused';M.lastAt=Date.now()}}
-function visibility(){bindAudio();if(document.hidden){setTimeout(()=>{bindAudio();if(syncEpoch('visibility-hidden'))arm('visibility-hidden')},40)}else clear('visible')}
+function progress(){clearTimeout(progressTimer);progressTimer=0;if(!hidden()||!physicalMatches()||_r476Hidden.audibleSince==null)return;settleProgress();progressTimer=setTimeout(progress,500);}
+function bindAudio(){
+ const x=a();if(!x||x===bound)return;
+ const bindings={playing:onPlaying,loadedmetadata:onMeta,pause:onPause,waiting:onPause,stalled:onPause,timeupdate:onTime};
+ if(bound)for(const [event,fn]of Object.entries(bindings))bound.removeEventListener(event,fn);
+ bound=x;for(const [event,fn]of Object.entries(bindings))x.addEventListener(event,fn,{passive:true});
+}
+function onPlaying(){if(!hidden()||!physicalMatches())return;r838CaptureAudible(_r476Hidden,true);syncEpoch('audio-playing');arm('audio-playing');progress();}
+function onMeta(){if(hidden())setTimeout(()=>{if(syncEpoch('metadata')){arm('metadata');progress();}},0);}
+function onPause(){if(!hidden())return;r838CaptureAudible(_r476Hidden,false);settleProgress();clear('audio-paused');}
+function onTime(){if(hidden()&&physicalMatches()&&a().readyState>=2){if(_r476Hidden.audibleSince==null)onPlaying();else settleProgress();}}
+function visibility(){bindAudio();if(document.hidden){setTimeout(()=>{bindAudio();if(syncEpoch('visibility-hidden')){arm('visibility-hidden');progress();}},40);}else clear('visible');}
+window.addEventListener('sukun:lock-ready',()=>{bindAudio();onPlaying();},{passive:true});
 document.addEventListener('visibilitychange',visibility,{passive:true});
 window.addEventListener('sukun:zikirtransaction',e=>{
   if(!document.hidden||e?.detail?.phase!=='committed')return;
@@ -66639,7 +66565,7 @@ window.addEventListener('sukun:zikirtransaction',e=>{
 window.addEventListener('pageshow',()=>{bindAudio();if(document.hidden&&syncEpoch('pageshow-hidden'))arm('pageshow-hidden')},{passive:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bindAudio,{once:true});else bindAudio();
 const snapshot=()=>Object.freeze({...M,active:hidden(),physicalMatches:physicalMatches(),key:key(),audioKey:audioKey(),count:+Z?.count||0,target:+Z?.target||0,armed:armed?{...armed,remainingMs:Math.max(0,armed.deadline-Date.now())}:null});
-const api=Object.freeze({version:VERSION,arm,snapshot});
+const api=Object.freeze({version:VERSION,arm,settle:settleProgress,snapshot});
 window.SukunLockTargetAuthorityR693=api;
 /* Diagnostics geriye uyumluluk: eski alan adı da yeni doğru snapshotı döndürür. */
 window.SukunLockTargetAuthorityR692=api;
@@ -74305,8 +74231,8 @@ function bind(){
 }
 function boot(){bind();try{window.SukunReleaseIdentity?.sync?.();}catch(_){}}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-['pageshow','sukun:domhydrate','sukun:tefekkurchange'].forEach(ev=>window.addEventListener(ev,bind,{passive:true}));
-window.SukunR830SettingsFix=Object.freeze({version:'r836',open:openSettings,bind,close:closeSettings,snapshot:()=>({settingsOpen:!!dialog?.open,settings:!!$('r679ZikirAyarBox'),tempo:!!content?.contains($('tempoSld')),bendir:!!content?.contains($('optBendir'))})});
+['pageshow','sukun:domhydrate','sukun:tefekkurchange','sukun:tabchange'].forEach(ev=>window.addEventListener(ev,bind,{passive:true}));
+window.SukunR830SettingsFix=Object.freeze({version:'r838',open:openSettings,bind,close:closeSettings,snapshot:()=>({settingsOpen:!!dialog?.open,settings:!!$('r679ZikirAyarBox'),tempo:!!content?.contains($('tempoSld')),bendir:!!content?.contains($('optBendir'))})});
 })();
 </script>
 
@@ -74323,7 +74249,7 @@ window.SukunR830SettingsFix=Object.freeze({version:'r836',open:openSettings,bind
 
 /* NORMAL SAYAC: artık siyah kare yok. */
 html[data-r819-counter="generic"] body #r819CounterDisc{
-  background-image:url('./assets/sukun-nur-ring-r757.png?v=r837')!important;
+  background-image:url('./assets/sukun-nur-ring-r757.png?v=r838')!important;
   background-color:transparent!important;
   mix-blend-mode:normal!important;
   filter:drop-shadow(0 8px 20px rgba(0,0,0,.22))
@@ -74332,7 +74258,7 @@ html[data-r819-counter="generic"] body #r819CounterDisc{
 
 /* BERHETİYYE SAYAC: özel mücevher halka. */
 html[data-r819-counter="berhet"] body #r819CounterDisc{
-  background-image:url('./assets/berhetiyye-premium/berhetiyye-ring-r819.png?v=r837')!important;
+  background-image:url('./assets/berhetiyye-premium/berhetiyye-ring-r819.png?v=r838')!important;
   background-color:transparent!important;
   mix-blend-mode:normal!important;
 }
@@ -74390,7 +74316,7 @@ html body :is(#berhetSeyir,#esmaSeyir99) .r168Buttons :is(#bsStop,#es99Stop){
   border-radius:0!important;
   overflow:hidden!important;
   background-color:transparent!important;
-  background-image:url('./assets/berhetiyye-premium/control-exit.png?v=r837')!important;
+  background-image:url('./assets/berhetiyye-premium/control-exit.png?v=r838')!important;
   background-position:center!important;
   background-size:100% 100%!important;
   background-repeat:no-repeat!important;
@@ -74435,20 +74361,20 @@ const A='./assets/berhetiyye-premium/';
 const scenes=Object.freeze([
  {id:'auto',label:'Otomatik',file:''},
  {id:'palace',label:'Billur Saray',file:A+'berhetiyye-palace.png'},
- {id:'secrets',label:'Sırlar Sarayı',file:A+'scenes/scene-01-billur.png'},
- {id:'staff',label:'Asâ',file:A+'scenes/scene-02-asa.png'},
- {id:'water',label:'Saray Şelalesi',file:A+'scenes/scene-03-selale.png'},
- {id:'wind',label:'Rüzgâr Terası',file:A+'scenes/scene-04-teras.png'},
- {id:'crystal',label:'Kristal Sarayın Sırrı',file:A+'scenes/scene-05-kristal.png'},
- {id:'seal',label:'Mühr-ü Süleyman',file:A+'scenes/scene-06-yuzuk.png'},
- {id:'night',label:'Ametist Saray',file:A+'scenes/scene-07-mor-kristal.png'},
- {id:'interface',label:'Ayasofya · Billur Saray',file:A+'scenes/scene-08-ayasofya-billur.png'},
- {id:'berhetihin',label:'Berhetîhin · Billur Saray',file:A+'scenes/scene-09-berhetihin-billur-r837.png'},
- {id:'hutirin',label:'Hûtîrin · Adalet ve Mühür',file:A+'scenes/scene-10-hutirin-adalet-r837.png'},
- {id:'kalnehudin',label:'Kalnehûdin · Rüzgâr ve Hüdhüd',file:A+'scenes/scene-11-kalnehudin-ruzgar-r837.png'}
+ {id:'secrets',label:'Sırlar Sarayı',file:A+'scene-01-billur.png'},
+ {id:'staff',label:'Asâ',file:A+'scene-02-asa.png'},
+ {id:'water',label:'Saray Şelalesi',file:A+'scene-03-selale.png'},
+ {id:'wind',label:'Rüzgâr Terası',file:A+'scene-04-teras.png'},
+ {id:'crystal',label:'Kristal Sarayın Sırrı',file:A+'scene-05-kristal.png'},
+ {id:'seal',label:'Mühr-ü Süleyman',file:A+'scene-06-yuzuk.png'},
+ {id:'night',label:'Ametist Saray',file:A+'scene-07-mor-kristal.png'},
+ {id:'interface',label:'Ayasofya · Billur Saray',file:A+'scene-08-ayasofya-billur.png'},
+ {id:'berhetihin',label:'Berhetîhin · Billur Saray',file:A+'scene-09-berhetihin-billur-r837.png'},
+ {id:'hutirin',label:'Hûtîrin · Adalet ve Mühür',file:A+'scene-10-hutirin-adalet-r837.png'},
+ {id:'kalnehudin',label:'Kalnehûdin · Rüzgâr ve Hüdhüd',file:A+'scene-11-kalnehudin-ruzgar-r837.png'}
 ]);
 const loaded=new Map();let raf=0,lastRequest='',requestToken=0,lastError='';
-const cssUrl=f=>`url('${f}?v=r837')`;
+const cssUrl=f=>`url('${f}?v=r838')`;
 function pref(){
  let p='auto';try{p=localStorage.getItem(KEY)||localStorage.getItem('sukun.berhet.background.r829')||'auto'}catch(_){}
  return scenes.some(s=>s.id===p)?p:'auto';
@@ -74468,7 +74394,7 @@ function picked(ctx){
 }
 function preload(file){
  if(!loaded.has(file))loaded.set(file,new Promise(resolve=>{
-  const img=new Image();img.decoding='async';img.onload=()=>resolve(true);img.onerror=()=>{loaded.delete(file);resolve(false)};img.src=file+'?v=r837';
+  const img=new Image();img.decoding='async';img.onload=()=>resolve(true);img.onerror=()=>{loaded.delete(file);resolve(false)};img.src=file+'?v=r838';
  }));return loaded.get(file);
 }
 function paint(file){
@@ -74487,8 +74413,8 @@ function requestScene(sc){
   delete root.dataset.r835SceneLoading;
   if(ok){paint(sc.file);root.dataset.r832Scene=sc.id;showStatus('');return}
   lastError=sc.id;root.dataset.r832Scene='palace';paint(scenes[1].file);
-  showStatus('Bu sahne yüklenemedi. Billur Saray gösteriliyor; sahneyi tekrar seçebilirsin.');
-  lastRequest='';
+  showStatus('Sahne dosyasına erişilemiyor. Güncelleme paketindeki berhetiyye-premium klasörünü eksiksiz yükleyip sahneyi yeniden seç. Geçici olarak Billur Saray gösteriliyor.');
+  // Explicit selection retries failures; count repaint does not redownload.
  });
 }
 function rebuildChooser(){
@@ -74541,7 +74467,7 @@ function boot(){sync('boot');window.currentZikirState?.subscribe?.(()=>queue('cu
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 ['pageshow','load','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:journey-advance','sukun:tabchange','sukun:tefekkurchange','sukun:visualcontextchange','sukun:secretaccesschange','sukun:secretpolicyready','sukun:appearancechange','sukun:domhydrate'].forEach(ev=>window.addEventListener(ev,()=>queue(ev),{passive:true}));
 document.addEventListener('change',e=>{if(e.target.closest?.('#tab-zkr'))queue('selection')},{passive:true});
-window.SukunR832VisualAuthority=Object.freeze({version:'r837',sync:()=>sync('api'),setScene,scenes,nameScenes,snapshot:()=>({context:window.SukunVisualContext.snapshot(),bgmode:root.dataset.r835Theme||'',scene:root.dataset.r832Scene||'',loading:root.dataset.r835SceneLoading||'',error:lastError})});
+window.SukunR832VisualAuthority=Object.freeze({version:'r838',sync:()=>sync('api'),setScene,scenes,nameScenes,snapshot:()=>({context:window.SukunVisualContext.snapshot(),bgmode:root.dataset.r835Theme||'',scene:root.dataset.r832Scene||'',loading:root.dataset.r835SceneLoading||'',error:lastError})});
 })();
 </script>
 
@@ -74747,6 +74673,41 @@ html body #r829BerhetScenes button{min-height:44px;white-space:normal}
  #r835SettingsDialog #targetPremium{position:static!important;width:100%!important;margin-top:16px!important}
  #r835SettingsDialog #usulRow{margin-bottom:12px!important}
 
+ html[data-r835-theme] body :is(#berhetAtlas,#berhetAtlasBody,#r752BerhetRich,#r754AtlasContext){box-sizing:border-box!important;min-width:0!important;max-width:100%!important;width:100%!important}
+ html[data-r835-theme] body #berhetAtlas>summary.r168Head{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:4px!important;box-sizing:border-box!important;width:100%!important;min-width:0!important;height:auto!important;min-height:100px!important;max-height:none!important;padding:23px 14%!important;white-space:normal!important;text-align:center!important;background-size:100% 100%!important;overflow:visible!important}
+ html[data-r835-theme] body #berhetAtlas>summary.r168Head>b{font:600 clamp(17px,5vw,24px)/1.25 Georgia,serif!important;letter-spacing:.02em!important;white-space:normal!important;overflow-wrap:anywhere!important;width:100%!important;max-width:100%!important}
+ html[data-r835-theme] body #berhetAtlas>summary.r168Head>.r168Tag{font:500 11px/1.35 system-ui!important;letter-spacing:0!important;white-space:normal!important;width:auto!important;max-width:100%!important;padding:0!important;border:0!important;background:none!important;text-align:center!important}
+ html[data-r835-theme] body #berhetAtlas>summary.r168Head::after{position:absolute!important;right:11%!important;top:50%!important;transform:translateY(-50%)!important}
+ html[data-r835-theme] body #berhetAtlas .r168Grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:12px!important;min-width:0!important;width:100%!important}
+ html[data-r835-theme] body #berhetAtlas .r168Cell{display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:center!important;gap:8px!important;box-sizing:border-box!important;grid-column:auto!important;min-width:0!important;width:100%!important;height:auto!important;min-height:116px!important;max-height:none!important;padding:27px 13%!important;margin:0!important;background:rgba(2,15,27,.58) url('./assets/berhetiyye-premium/card-medium.png') center/100% 100% no-repeat!important;border:0!important;border-radius:20px!important;overflow:visible!important;white-space:normal!important}
+ html[data-r835-theme] body #berhetAtlas .r168Cell :is(small,b,.r168Break){position:static!important;display:block!important;min-width:0!important;max-width:100%!important;width:auto!important;white-space:normal!important;overflow:visible!important;overflow-wrap:anywhere!important;text-overflow:clip!important;word-break:normal!important}
+ html[data-r835-theme] body #berhetAtlas .r168Cell small{font:600 10px/1.45 system-ui!important;letter-spacing:.035em!important;color:#a0e9dd!important}
+ html[data-r835-theme] body #berhetAtlas .r168Cell :is(b,.r168Break){font:500 15px/1.6 system-ui!important;color:#fff1cf!important}
+ html[data-r835-theme] body #berhetAtlas .r168Cell b[dir="rtl"]{font:400 30px/1.8 serif!important;text-align:center!important}
+ html[data-r835-theme] body :is(#berhetAtlas,#r752BerhetRich,#r754AtlasContext) :is(p,a,.r168Source,.r174Cites,.r754Mini,.r752MetaCard,.r752ProseCard,.r752Section,.r752ElementText,.r752HeroLead){min-width:0!important;max-width:100%!important;box-sizing:border-box!important;white-space:normal!important;overflow-wrap:anywhere!important;height:auto!important;max-height:none!important;line-height:1.6!important}
+ html[data-r835-theme] body :is(.r752MetaGrid,.r754MiniGrid,.r754Grid,.r752Path){display:grid!important;grid-template-columns:minmax(0,1fr)!important;width:100%!important;min-width:0!important;gap:12px!important}
+ html[data-r835-theme] body :is(.r752HeroTop,.r752SectionHead,.r754CtxTop,.r752HeroPills,.r752ChipRow){display:flex!important;flex-wrap:wrap!important;min-width:0!important;gap:8px!important}
+ html[data-r835-theme] body :is(.r752HeroPill,.r752Chip,.r754BerhetSigil){max-width:100%!important;min-width:0!important;white-space:normal!important;overflow-wrap:anywhere!important}
+ html[data-r835-theme] body :is(.r752ElementPanel,.r752Step){display:grid!important;grid-template-columns:52px minmax(0,1fr)!important;gap:10px!important;min-width:0!important;width:100%!important;box-sizing:border-box!important}
+ html[data-r835-theme] body .r752ElementGlyph{width:48px!important;height:48px!important;min-width:0!important}
+ html[data-r835-theme] body :is(.r752MetaCard,.r752ProseCard,.r752Section,.r754Mini){padding:16px!important;background:rgba(3,20,32,.68)!important;border:1px solid rgba(202,180,119,.4)!important;border-radius:18px!important}
+ html[data-r835-theme] body :is(.r752MetaCard,.r752ProseCard,.r752Section,.r754Mini) :is(b,span,small,p){min-width:0!important;max-width:100%!important;white-space:normal!important;overflow-wrap:anywhere!important}
+ html[data-r835-theme] body #r829BerhetSceneQuick{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:8px!important;width:100%!important;min-width:0!important;box-sizing:border-box!important}
+ html[data-r835-theme] body #r829BerhetSceneQuick[hidden]{display:none!important}
+ html[data-r835-theme] body #r829SceneSel{width:100%!important;max-width:100%!important;min-width:0!important;font:500 14px/1.4 system-ui!important;box-sizing:border-box!important}
+ html[data-r835-theme="berhet"] body .zCounterActions{grid-template-columns:58px minmax(0,1fr) 58px!important}
+ html[data-r835-theme="berhet"] body :is(#undoBtn,#plusBtn){height:58px!important;min-height:58px!important;border:0!important;border-radius:0!important;background:transparent url('./assets/berhetiyye-premium/btn-round-minus-exact.png') center/contain no-repeat!important;color:transparent!important;-webkit-text-fill-color:transparent!important;text-shadow:none!important}
+ html[data-r835-theme="berhet"] body #plusBtn{background-image:url('./assets/berhetiyye-premium/btn-round-plus-exact.png')!important}
+ html[data-r835-theme="berhet"] body :is(#undoBtn,#plusBtn)>*{visibility:hidden!important}
+ html[data-r835-theme="berhet"] body .zCounterSide{box-sizing:border-box!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:3px!important;min-width:0!important;max-width:100%!important;min-height:86px!important;height:auto!important;margin:0!important;padding:15px 16%!important;border:0!important;border-radius:0!important;background:transparent url('./assets/berhetiyye-premium/card-wide.png') center/100% 100% no-repeat!important}
+ html[data-r835-theme="berhet"] body .zCounterSide small{font:600 10px/1.2 system-ui!important;letter-spacing:.03em!important;color:#b9e9e7!important;margin:0!important}
+ html[data-r835-theme="berhet"] body .zCounterSide b{font:600 clamp(19px,6vw,30px)/1.1 Georgia,serif!important;max-width:100%!important;min-width:0!important;overflow-wrap:anywhere!important;color:#fff0c4!important;margin:0!important}
+ html[data-r835-theme="berhet"] body .zCounterSide em{display:none!important}
+ @media(min-width:600px){html[data-r835-theme] body #berhetAtlas .r168Grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}html[data-r835-theme] body #berhetAtlas .r168Wide{grid-column:1/-1!important}}
+ html[data-r835-theme] body #r642ZikirInfoCard{box-sizing:border-box!important;width:min(620px,calc(100vw - 24px))!important;min-width:0!important;max-width:calc(100vw - 24px)!important;padding:16px!important;overflow-x:hidden!important;overflow-y:auto!important;max-height:calc(90dvh - 20px)!important}
+ html[data-r835-theme] body #r642ZikirInfoCard :is(.r642InfoRows,.r642InfoArabic,.r642InfoNote,.r754Grid,.r754Ctx,#r749InfoExtra){box-sizing:border-box!important;min-width:0!important;max-width:100%!important;white-space:normal!important;overflow-wrap:anywhere!important}
+ html[data-r835-theme] body #r642ZikirInfoCard :is(.r642InfoRows,.r754Grid){display:grid!important;grid-template-columns:minmax(0,1fr)!important}
+ html[data-r835-theme] body #r642ZikirInfoCard :is(.r642InfoName,#r642InfoName){min-width:0!important;white-space:normal!important;overflow-wrap:anywhere!important;font-size:clamp(22px,6vw,32px)!important}
 }
 
 </style>

@@ -4,10 +4,10 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r837';
-const CACHE = 'sukun-r837-20260916a';
-const CACHE_META = './__sukun_cache_meta_r837__.json';
-const BUILD_MARKER = './__sukun_build_r837__.json';
+const SURUM = 'r838';
+const CACHE = 'sukun-r838-20260916a';
+const CACHE_META = './__sukun_cache_meta_r838__.json';
+const BUILD_MARKER = './__sukun_build_r838__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
@@ -21,22 +21,22 @@ const CORE = [
 ];
 
 const PRECACHE = [
-  './assets/berhetiyye-premium/scenes/scene-09-berhetihin-billur-r837.png',
-  './assets/berhetiyye-premium/scenes/scene-10-hutirin-adalet-r837.png',
-  './assets/berhetiyye-premium/scenes/scene-11-kalnehudin-ruzgar-r837.png',
+  './assets/berhetiyye-premium/scene-09-berhetihin-billur-r837.png',
+  './assets/berhetiyye-premium/scene-10-hutirin-adalet-r837.png',
+  './assets/berhetiyye-premium/scene-11-kalnehudin-ruzgar-r837.png',
   './assets/berhetiyye-premium/backgrounds-r837.json',
 
-  './assets/berhetiyye-premium/scenes/scene-04-teras.png',
-  './assets/berhetiyye-premium/scenes/scene-03-selale.png',
-  './assets/berhetiyye-premium/scenes/scene-07-mor-kristal.png',
-  './assets/berhetiyye-premium/scenes/scene-02-asa.png',
-  './assets/berhetiyye-premium/scenes/scene-06-yuzuk.png',
+  './assets/berhetiyye-premium/scene-04-teras.png',
+  './assets/berhetiyye-premium/scene-03-selale.png',
+  './assets/berhetiyye-premium/scene-07-mor-kristal.png',
+  './assets/berhetiyye-premium/scene-02-asa.png',
+  './assets/berhetiyye-premium/scene-06-yuzuk.png',
   './index.html',
   './assets/berhetiyye-premium/berhetiyye-ring-r819.png',
   './assets/berhetiyye-premium/berhetiyye-palace.png',
-  './assets/berhetiyye-premium/scenes/scene-05-kristal.png',
-  './assets/berhetiyye-premium/scenes/scene-01-billur.png',
-  './assets/berhetiyye-premium/scenes/scene-08-ayasofya-billur.png',
+  './assets/berhetiyye-premium/scene-05-kristal.png',
+  './assets/berhetiyye-premium/scene-01-billur.png',
+  './assets/berhetiyye-premium/scene-08-ayasofya-billur.png',
   './css/jewel-tokens-r797.css',
   './css/jewel-components-r797.css',
   './css/jewel-layout-r797.css',
@@ -169,10 +169,6 @@ function prepareShell(){
     meta.complete=meta.shell&&meta.manifest&&meta.marker;
     await writeCacheMeta(meta);
 
-    /* Görseller kurulumun kaderini belirlemez. */
-    Promise.allSettled(PRECACHE.map(async path=>{
-      try{const r=await fetchFresh(path,5000);await put(cache,path,r)}catch(e){}
-    })).catch(()=>{});
     return meta;
   })();
   prepareInFlight=p;
@@ -180,6 +176,16 @@ function prepareShell(){
   return p;
 }
 
+async function warmAssets(){
+ const cache=await caches.open(CACHE),queue=[...PRECACHE];
+ async function worker(){while(queue.length){const path=queue.shift();try{
+  const cached=await cache.match(path,{ignoreSearch:true});if(cached)continue;
+  const r=await fetchFresh(path,10000);
+  if(/\.(?:png|jpe?g|webp|svg)(?:\?|$)/i.test(path)&&!/^image\//i.test(r.headers.get('content-type')||''))continue;
+  await put(cache,path,r);
+ }catch(e){}}}
+ await Promise.all(Array.from({length:4},worker));
+}
 async function cachedShellFrom(cacheName){
   try{
     const c=await caches.open(cacheName),r=await c.match('./nero.html',{ignoreSearch:true});
@@ -215,6 +221,7 @@ self.addEventListener('activate',event=>{
     await self.clients.claim();
     try{await prepareShell()}catch(e){}
     await broadcastStatus({phase:'activated'});
+    await warmAssets();
     /* Eski cache'leri burada silmiyoruz: yeni shell henüz CDN'e yayılmadıysa
        çevrimdışı güvenlik ağı olarak kalırlar. */
   })());
@@ -274,7 +281,7 @@ async function assetResponse(request){
   if(cached)return cached;
   try{
     const res=await fetch(request);
-    if(res?.ok&&res.type!=='opaque')put(current,request,res.clone());
+    if(res?.ok&&res.type!=='opaque'&&(!/\.(?:png|jpe?g|webp|svg)$/i.test(url.pathname)||/^image\//i.test(res.headers.get('content-type')||'')))await put(current,request,res.clone());
     return res;
   }catch(e){
     const keys=(await caches.keys()).filter(k=>k.startsWith('sukun-')&&k!==CACHE).sort((a,b)=>vnum(b)-vnum(a));
