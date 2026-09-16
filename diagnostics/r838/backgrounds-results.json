@@ -1,0 +1,42 @@
+{
+  "kind": "background-context-and-loading",
+  "browserRun": false,
+  "physicalDeviceRun": false,
+  "total": 8,
+  "passed": 8,
+  "results": [
+    {
+      "name": "Three approved names resolve to their exact packaged full-resolution backgrounds",
+      "status": "PASS"
+    },
+    {
+      "name": "All other 25 names retain their previous automatic scene assignments",
+      "status": "PASS"
+    },
+    {
+      "name": "Explicit background choice survives name changes; Auto returns to the matching name",
+      "status": "PASS"
+    },
+    {
+      "name": "Locked Berhetiyye and unlocked ordinary Esma never request new premium backgrounds",
+      "status": "PASS"
+    },
+    {
+      "name": "Favorite and active smart session use the same approved source-name mapping",
+      "status": "PASS"
+    },
+    {
+      "name": "Late background response cannot overwrite a newer name or a generic context",
+      "status": "PASS"
+    },
+    {
+      "name": "Tefekkür and repeated counter notifications retain one background request and wheel flags",
+      "status": "PASS"
+    },
+    {
+      "name": "New background decode failure uses the existing fallback and supports retry",
+      "status": "PASS"
+    }
+  ],
+  "failed": 0
+}

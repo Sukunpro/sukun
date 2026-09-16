@@ -1,0 +1,66 @@
+{
+  "kind": "audio-lifecycle-state-machine",
+  "browserRun": false,
+  "physicalDeviceRun": false,
+  "total": 14,
+  "passed": 14,
+  "results": [
+    {
+      "name": "Recorded source is accepted before foreground voice stops",
+      "status": "PASS"
+    },
+    {
+      "name": "Real gate ignores aborted old voice after background handoff",
+      "status": "PASS"
+    },
+    {
+      "name": "Rejected native playback preserves foreground and count",
+      "status": "PASS"
+    },
+    {
+      "name": "Stop during preparation cancels stale handoff",
+      "status": "PASS"
+    },
+    {
+      "name": "Visible return during play does not steal foreground",
+      "status": "PASS"
+    },
+    {
+      "name": "Concurrent handoff calls create one session",
+      "status": "PASS"
+    },
+    {
+      "name": "Audible loops credit during hidden state and not again on return",
+      "status": "PASS"
+    },
+    {
+      "name": "Paused and stalled time are not credited",
+      "status": "PASS"
+    },
+    {
+      "name": "Resume preserves fractional audible progress",
+      "status": "PASS"
+    },
+    {
+      "name": "TTS handoff waits for foreground utterance",
+      "status": "PASS"
+    },
+    {
+      "name": "Completed TTS utterances credit exactly once",
+      "status": "PASS"
+    },
+    {
+      "name": "TTS batch replenishes after 24 completions",
+      "status": "PASS"
+    },
+    {
+      "name": "TTS queue caps at current name target",
+      "status": "PASS"
+    },
+    {
+      "name": "Screen navigation does not call global stop",
+      "status": "PASS"
+    }
+  ],
+  "failed": 0
+}

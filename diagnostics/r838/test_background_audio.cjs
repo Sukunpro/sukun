@@ -1,0 +1,43 @@
+'use strict';
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert/strict'),{parseHTML}=require('linkedom'),core=require('../r729/test_source.cjs');
+const root=path.resolve(__dirname,'../..'),src=core.script(root,'r514-core-zikir-sentez'),results=[];
+function section(a,b){const i=src.indexOf(a),j=src.indexOf(b,i);assert(i>=0&&j>i,a);return src.slice(i,j);}
+async function flush(){for(let i=0;i<15;i++)await Promise.resolve();}
+async function test(name,fn){try{await fn();results.push({name,status:'PASS'});}catch(e){results.push({name,status:'FAIL',error:e.stack});}}
+function fixture(recording=true){
+ const {document,window:dom}=parseHTML('<html><body></body></html>');Object.defineProperty(document,'hidden',{value:true,writable:true});Object.defineProperty(document,'readyState',{value:'complete'});
+ let now=100000,seq=0,generation=0;const timers=new Map(),events=new dom.EventTarget(),utterances=[];
+ class Audio extends dom.EventTarget{constructor(){super();Object.assign(this,{dataset:{},src:'',paused:true,ended:false,readyState:3,duration:1,currentTime:0,playbackRate:1,volume:1,reject:false,pending:null});}load(){}pause(){this.paused=true;this.dispatchEvent(new dom.Event('pause'));}play(){if(this.reject)return Promise.reject(Error('NotAllowedError'));if(this.pending)return this.pending;this.paused=false;this.dispatchEvent(new dom.Event('playing'));return Promise.resolve();}}
+ const a=new Audio();const c={document,console,Promise,Math,Date:{now:()=>now},performance:{now:()=>now},Object,Number,String,Array,Set,Map,Boolean,CustomEvent:dom.CustomEvent,
+ setTimeout:(f,ms)=>{timers.set(++seq,{f,ms});return seq;},clearTimeout:id=>timers.delete(id),requestAnimationFrame:f=>{timers.set(++seq,{f,ms:16});return seq;},cancelAnimationFrame:id=>timers.delete(id),
+ addEventListener:events.addEventListener.bind(events),dispatchEvent:events.dispatchEvent.bind(events),
+ Z:{auto:true,cat:'berhet',idx:9,count:3,total:103,target:825,adv:false},ZIKIR_BIRLIKTE:false,ZVOL:1,KAYIT:{yankiMik:0},SES:{ler:new Set()},
+ _r476Hidden:null,_r476LockAudio:a,_r476SilentUrl:'silent',_r476HedefTimer:0,_r476Batch:null,_zAutoSessizUntil:0,_zAutoSon:0,
+ _r476Prepared:{key:'berhet:9',url:recording?'recording':'',fxUrl:'',cycleMs:1000,durationMs:1000,playRate:1,text:'Yâ Hûtîrin',rate:1,pitch:.9},
+ zikirSesliAktifMi:()=>true,zAutoTempoMs:()=>1000,r476Prepare:async()=>true,r476Audio:()=>a,r476MediaSession(){},r481StableVoice:()=>null,
+ sesDurdur:()=>c.stops++,stops:0,cancels:0,zUI(){},S:{set(){}},r694CreditUsageStats(){},zikirSesBaslat:()=>Promise.resolve(true),navigator:{mediaSession:{}},
+ speechSynthesis:{cancel:()=>c.cancels++,speak:u=>utterances.push(u)},SpeechSynthesisUtterance:class{constructor(t){this.text=t;}}};
+ c.window=c;c.zikirKey=()=>c.Z.cat+':'+c.Z.idx;c._repS=()=>{c.Z.count++;c.Z.total++;if(c.Z.adv&&c.Z.count===c.Z.target){c.Z.idx++;c.Z.count=0;}};
+ c.SukunZikirTransportGate={invalidate:()=>generation++,reset(){},snapshot:()=>({generation}),captureObservation:()=>({}),observeVoice(){}};
+ const ctx=vm.createContext(c),run=code=>vm.runInContext(code,ctx,{timeout:2000});
+ run(section('function r476StopTtsBatch(){','function r481StableVoice('));run(section('function r476StartTtsBatch(){','/* r695 —'));run(section('async function r476SilentApply(reps){','function r476Stop(all=true)'));run(core.script(root,'r693-lock-target-boundary-authority'));
+ return{c,a,run,timers,utterances,advance:n=>now+=n,event:type=>a.dispatchEvent(new dom.Event(type)),flush};
+}
+(async()=>{
+ await test('Recorded source is accepted before foreground voice stops',async()=>{const f=fixture();let resolve;f.a.pending=new Promise(r=>resolve=r);const p=f.c.r476BeginHidden();await flush();assert.equal(f.c.stops,0);assert.equal(f.c._r476Hidden,null);f.a.paused=false;resolve();assert.equal(await p,true);assert.equal(f.c.stops,1);assert(f.c._r476Hidden);assert.equal(f.a.volume,1);});
+ await test('Real gate ignores aborted old voice after background handoff',async()=>{const f=fixture();f.run(core.script(root,'r640-zikir-transport-gate'));f.c.document.hidden=false;const gate=f.c.SukunZikirTransportGate,token=gate.beforeCount();f.c.Z.count++;f.c.Z.total++;f.c.SES.ler.add({paused:false,ended:false,currentTime:.4,playbackRate:1});f.c.document.hidden=true;await f.c.r476BeginHidden();assert.equal(f.c.Z.count,3);assert.equal(gate.voiceResult(token,{ok:false,reason:'aborted'},null),false);assert.equal(gate.snapshot().held,false);f.advance(600);f.event('timeupdate');await flush();assert.equal(f.c.Z.count,4);assert.equal(f.c.Z.total,104);});
+ await test('Rejected native playback preserves foreground and count',async()=>{const f=fixture();f.a.reject=true;assert.equal(await f.c.r476BeginHidden(),false);assert.equal(f.c.stops,0);assert.equal(f.c.cancels,0);assert.equal(f.c.Z.count,3);assert.equal(f.c._r476Hidden,null);});
+ await test('Stop during preparation cancels stale handoff',async()=>{const f=fixture();let resolve;f.c._r476Prepared.key='old';f.c.r476Prepare=()=>new Promise(r=>resolve=r);const p=f.c.r476BeginHidden();f.c.Z.auto=false;f.c._r476Prepared.key='berhet:9';resolve();assert.equal(await p,false);assert.equal(f.c.stops,0);assert(f.a.paused);});
+ await test('Visible return during play does not steal foreground',async()=>{const f=fixture();let resolve;f.a.pending=new Promise(r=>resolve=r);const p=f.c.r476BeginHidden();f.c.document.hidden=false;resolve();assert.equal(await p,false);assert.equal(f.c.stops,0);assert.equal(f.c._r476Hidden,null);});
+ await test('Concurrent handoff calls create one session',async()=>{const f=fixture();await Promise.all([f.c.r476BeginHidden(),f.c.r476BeginHidden(),f.c.r476BeginHidden()]);assert.equal(f.c.stops,1);});
+ await test('Audible loops credit during hidden state and not again on return',async()=>{const f=fixture();await f.c.r476BeginHidden();f.advance(3200);f.event('timeupdate');await flush();assert.equal(f.c.Z.count,6);assert.equal(f.c.Z.total,106);f.event('timeupdate');await flush();assert.equal(f.c.Z.count,6);f.c.document.hidden=false;await f.c.r476EndHidden();assert.equal(f.c.Z.count,6);});
+ await test('Paused and stalled time are not credited',async()=>{for(const event of ['pause','waiting']){const f=fixture();await f.c.r476BeginHidden();f.advance(2400);if(event==='pause')f.a.pause();else f.event(event);await flush();assert.equal(f.c.Z.count,5);f.advance(90000);f.c.document.hidden=false;await f.c.r476EndHidden();assert.equal(f.c.Z.count,5);}});
+ await test('Resume preserves fractional audible progress',async()=>{const f=fixture();await f.c.r476BeginHidden();f.advance(1400);f.a.pause();await flush();assert.equal(f.c.Z.count,4);f.advance(50000);await f.a.play();f.advance(600);f.event('timeupdate');await flush();assert.equal(f.c.Z.count,5);});
+ await test('TTS handoff waits for foreground utterance',async()=>{const f=fixture(false);let resolve;f.c.__SUKUN_ZIKIR_VOICE_PROMISE__=new Promise(r=>resolve=r);const p=f.c.r476BeginHidden();await flush();assert.equal(f.c.cancels,0);assert.equal(f.utterances.length,0);resolve();await p;assert.equal(f.utterances.length,24);assert.equal(f.c.stops,0);});
+ await test('Completed TTS utterances credit exactly once',async()=>{const f=fixture(false);await f.c.r476BeginHidden();for(let i=0;i<2;i++){f.utterances[i].onend();await flush();}assert.equal(f.c.Z.count,5);f.c.document.hidden=false;await f.c.r476EndHidden();assert.equal(f.c.Z.count,5);});
+ await test('TTS batch replenishes after 24 completions',async()=>{const f=fixture(false);await f.c.r476BeginHidden();for(let i=0;i<24;i++){f.utterances[i].onend();await flush();}assert.equal(f.utterances.length,48);assert.equal(f.c.Z.count,27);assert(f.c._r476Batch.active);});
+ await test('TTS queue caps at current name target',async()=>{const f=fixture(false);f.c.Z.adv=true;f.c.Z.target=5;await f.c.r476BeginHidden();assert.equal(f.utterances.length,2);f.utterances[0].onend();await flush();assert.equal(f.c.Z.idx,9);f.utterances[1].onend();await flush();assert.equal(f.c.Z.idx,10);assert.equal(f.c.Z.total,105);});
+ await test('Screen navigation does not call global stop',()=>{for(const id of ['tekkeTab','neuroBtn']){const line=src.split('\n').find(x=>x.includes("$('#"+id+"').onclick="));assert(line);assert(!line.includes('hardStopAll'));}});
+ const out={kind:'audio-lifecycle-state-machine',browserRun:false,physicalDeviceRun:false,total:results.length,passed:results.filter(r=>r.status==='PASS').length,results};out.failed=out.total-out.passed;
+ fs.writeFileSync(path.join(__dirname,'audio-results.json'),JSON.stringify(out,null,2));console.log(JSON.stringify({total:out.total,passed:out.passed,failed:out.failed,failures:results.filter(x=>x.status==='FAIL')},null,2));if(out.failed)process.exitCode=1;
+})();
