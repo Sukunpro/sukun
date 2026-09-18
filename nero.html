@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r858"/>
+<meta name="sukun-build" content="r859"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
@@ -6497,7 +6497,7 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r858 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r859 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -53280,10 +53280,10 @@ function load(){
   let a=[];try{a=S.get(ALERT_KEY,[])||[]}catch(e){}
   if(!Array.isArray(a))a=[];
   const lim=Date.now()-14*86400000;
-  return a.filter(x=>x&&x.id&&(+x.at||0)>=lim).slice(0,30);
+  return a.filter(x=>x&&x.id&&(+x.at||0)>=lim).slice(0,300);
 }
 let alerts=load();
-const persist=()=>{try{S.set(ALERT_KEY,alerts.map(({actionFn,...x})=>x).slice(0,30))}catch(e){}};
+const persist=()=>{try{S.set(ALERT_KEY,alerts.map(({actionFn,...x})=>x).slice(0,300))}catch(e){}};
 const berhetUnlocked=()=>!!window.SukunSecretPolicy?.unlocked?.();
 const enabled=k=>k==='esma'?S.get('sukun.notify.esma',true)!==false:
   k==='berhet'?(berhetUnlocked()&&S.get('sukun.notify.berhet',true)!==false):true;
@@ -53479,7 +53479,7 @@ function push(a){
     source:String(a.source||'').slice(0,180),actionLabel:String(a.actionLabel||'').slice(0,40),
     meta:a.meta&&typeof a.meta==='object'?a.meta:{},at:+a.at||Date.now(),read:false
   };
-  alerts.unshift(x);alerts=alerts.slice(0,30);
+  alerts.unshift(x);alerts=alerts.slice(0,300);
   if(typeof a.actionFn==='function')actions.set(x.id,a.actionFn);
   persist();ensureUI();render();
   try{window.dispatchEvent(new CustomEvent('sukun:alert',{detail:x}))}catch(e){}
@@ -53678,7 +53678,7 @@ function r554FilterState(surface){
 function r554PaintList(surface,force=false){
   const node=$(surface==='drawer'?'r554DrawerList':'r554CenterList');if(!node)return;
   const only=surface==='center'&&centerUnreadOnly,kind=filters[surface];
-  const allVisible=visibleAlerts(kind,only).slice(0,surface==='drawer'?30:30);
+  const allVisible=visibleAlerts(kind,only).slice(0,300);
   const totalPages=surface==='drawer'?Math.max(1,Math.ceil(allVisible.length/R858_PAGE_SIZE)):1;
   if(surface==='drawer')r858DrawerPage=Math.min(Math.max(1,r858DrawerPage),totalPages);
   const list=surface==='drawer'?allVisible.slice((r858DrawerPage-1)*R858_PAGE_SIZE,r858DrawerPage*R858_PAGE_SIZE):allVisible;
@@ -53733,7 +53733,7 @@ function r554Render(force=false){
 function r554Push(a){
   if(!a?.id||!enabled(a.kind)||alerts.some(x=>x.id===String(a.id)))return false;
   const x={id:String(a.id),kind:normalKind(a.kind),title:String(a.title||'Bildirim').slice(0,120),body:String(a.body||'').slice(0,600),source:String(a.source||'').slice(0,180),actionLabel:String(a.actionLabel||'').slice(0,40),meta:a.meta&&typeof a.meta==='object'?a.meta:{},at:+a.at||Date.now(),read:false};
-  alerts.unshift(x);alerts=alerts.slice(0,30);if(typeof a.actionFn==='function')actions.set(x.id,a.actionFn);persist();
+  alerts.unshift(x);alerts=alerts.slice(0,300);if(typeof a.actionFn==='function')actions.set(x.id,a.actionFn);persist();
   renderKeys.chrome=renderKeys.drawer=renderKeys.center='';r554EnsureUI();r554Render(true);
   try{window.dispatchEvent(new CustomEvent('sukun:alert',{detail:x}))}catch(e){}return true;
 }
@@ -53810,7 +53810,7 @@ function r554BindDrag(){const h=$('r447DockHandle');if(h)h.dataset.r554Drag='ret
 window.SukunAlertCenter={
   version:'r572',push:r554Push,open:r554Open,close:r554Close,toggle:r554Toggle,openCenter:r554OpenCenter,
   markAllRead:r554MarkRead,markRead:r554ReadOne,dismiss:r554Dismiss,invoke:r554Invoke,rerender:()=>{renderKeys.chrome=renderKeys.drawer=renderKeys.center='';r554EnsureUI();r554Render(true)},resetDock:r554ResetDock,
-  snapshot:()=>({version:'r572',count:visibleAlerts().length,storedCount:alerts.length,unread:unread(),counts:counts(),filters:{...filters},drawerOpen:!$('r554AlertDrawer')?.hidden,dockY:r554CurrentO(),items:visibleAlerts().slice(0,30)})
+  snapshot:()=>({version:'r572',count:visibleAlerts().length,storedCount:alerts.length,unread:unread(),counts:counts(),filters:{...filters},drawerOpen:!$('r554AlertDrawer')?.hidden,dockY:r554CurrentO(),items:visibleAlerts().slice(0,300)})
 };
 window.SukunTerkipComposer={
   version:'r557',add:r557AddTerkip,addFromAlert:r557AddAlertTerkip,indicesForAlert:r557AlertEsmaIndices,actionForAlert:r557AlertAction,
@@ -74627,7 +74627,7 @@ function sync(){const c=ctx(),on=!!c.berhet;R.dataset.r853Berhet=on?'1':'0';if(!
 function boot(){sync()}
 ['pageshow','load','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:journey-advance','sukun:tabchange','sukun:visualcontextchange','sukun:domhydrate'].forEach(ev=>window.addEventListener(ev,()=>requestAnimationFrame(boot),{passive:true}));
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-window.SukunR853Scene=Object.freeze({version:'r856',sync,files:F,names:N});
+window.SukunR853Scene=Object.freeze({version:'r859',sync,files:F,names:N});
 })();</script>
 
 \n\n\n
@@ -74727,7 +74727,7 @@ html[data-r835-theme="berhet"] body :is(#undoBtn,#plusBtn)>span{display:none!imp
 function sync(){const r=document.getElementById('itemRecBtn');if(r){const s=r.querySelector('span:last-child');if(s&&s.textContent.trim()!=='Kayıt')s.textContent='Kayıt'}const u=document.querySelector('#undoBtn>b'),p=document.querySelector('#plusBtn>b');if(u)u.textContent='−1';if(p)p.textContent='+1';}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
 ['pageshow','sukun:zikirchange','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));
-window.SukunR855UI=Object.freeze({version:'r856',sync});})();</script>
+window.SukunR855UI=Object.freeze({version:'r859',sync});})();</script>
 
 <style id="sukun-r856-skin-authority">
 /* r856 — hard separation: normal Mevlevî/Sükûn controls vs Berhetiyye jewel controls.
@@ -74863,4 +74863,20 @@ window.SukunR856UI=Object.freeze({version:'r856',sync});})();</script>
 .r858DrawerPager button:disabled{opacity:.3}.r858DrawerPager .r858Dots{color:#8fa59f;padding:0 1px}.r858DrawerPager small{margin-left:5px;color:#8fa59f;font:650 8px/1 system-ui}
 @media(max-height:760px){#r170Now.r554-alert-open{height:min(78dvh,570px)!important;max-height:min(78dvh,570px)!important}#r554DrawerList{gap:5px!important}.r858DrawerPager{min-height:34px}.r858DrawerPager button{height:29px;min-width:29px}}
 </style>
+
+<script id="sukun-r859-regression-shield">
+(()=>{'use strict';
+const VERSION='r859', root=document.documentElement;
+function mode(){return root.getAttribute('data-r853-berhet')==='1'?'berhetiyye':'normal'}
+function syncContext(reason='sync'){const m=mode();root.dataset.sukunContext=m;try{dispatchEvent(new CustomEvent('sukun:contextauthority',{detail:{version:VERSION,mode:m,reason}}))}catch(e){}return m}
+const Context=Object.freeze({version:VERSION,get mode(){return mode()},isBerhetiyye:()=>mode()==='berhetiyye',isNormal:()=>mode()==='normal',sync:syncContext});
+Object.defineProperty(window,'SukunContext',{configurable:true,value:Context});
+const mo=new MutationObserver(()=>syncContext('attribute'));mo.observe(root,{attributes:true,attributeFilter:['data-r853-berhet']});
+['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(ev=>addEventListener(ev,()=>syncContext(ev),{passive:true}));
+function audioSnapshot(){const c=window.SukunVoiceSessionCoordinator?.snapshot?.()||null;const t=window.SukunAudioTruth?.snapshot?.()||null;return{version:VERSION,coordinatorVersion:window.SukunVoiceSessionCoordinator?.version||'',owner:c?.owner||t?.owner||'',coordinator:c,truth:t}}
+function notificationSnapshot(){const a=window.SukunAlertCenter?.snapshot?.()||null;const d=window.SukunNotificationDrawerAuthority?.snapshot?.()||null;return{version:VERSION,pageSize:5,retention:300,count:a?.count??a?.storedCount??null,drawer:d}}
+window.SukunAuthorityRegistry=Object.freeze({version:VERSION,context:Context,audio:Object.freeze({snapshot:audioSnapshot}),notifications:Object.freeze({snapshot:notificationSnapshot}),snapshot:()=>({version:VERSION,context:mode(),audio:audioSnapshot(),notifications:notificationSnapshot(),scene:window.SukunR853Scene?.version||'',ui:window.SukunR855UI?.version||''})});
+syncContext('boot');
+})();
+</script>
 </body></html>
