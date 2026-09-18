@@ -6029,7 +6029,7 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
 </div>
 <div class="cntSub" id="cntSub">Hedef 33 • Devir 0</div>
 <details class="jEd r679ZikirSettings" id="r679ZikirAyarBox">
-<summary><span class="r679SettingsTitle"><b>⚙ Zikir Ayarları</b><small>Tempo · hedef · ses · okuyuş</small></span><span aria-hidden="true" class="r679SettingsChevron">⌄</span></summary>
+<summary><span class="r679SettingsTitle"><b>⚙ Tempo · Bendir · Zikir ayarları</b><small>Hedef · ses · okuyuş</small></span><span aria-hidden="true" class="r679SettingsChevron">⌄</span></summary>
 <div class="r679SettingsBody">
 <div class="sldRow" style="margin-top:10px">
 <label for="tempoSld">Tempo</label>
@@ -74145,89 +74145,7 @@ html body #surumEtiket{
 }
 </style>
 
-<script id="sukun-r830-settings-runtime">(()=>{
-'use strict';
-if(window.SukunR830SettingsFix)return;
-const $=id=>document.getElementById(id);
-let dialog=null,content=null,returnFocus=null;
-function collect(){
- const box=$('r679ZikirAyarBox');if(!box)return null;
- content=document.querySelector('.r679SettingsBody')||content;
- if(!content){content=document.createElement('div');content.className='r679SettingsBody';box.appendChild(content);}
- // Recover the original live nodes by their IDs, even after an older layout moved them.
- const tempo=$('tempoSld')?.closest('.sldRow'),target=$('targetPremium');
- const options=$('optBendir')?.closest('.zOpts')||content.querySelector('.zOpts')||document.querySelector('#r616ZikirSound .zOpts');
- for(const node of [tempo,options,target])if(node&&node.parentElement!==content)content.appendChild(node);
- if(tempo&&content.firstElementChild!==tempo)content.prepend(tempo);
- if(options&&tempo?.nextElementSibling!==options)tempo?.after(options);
- const bendir=$('optBendir')?.closest('.opt'),usul=$('usulRow');
- if(bendir){bendir.removeAttribute('data-lvl');if(options&&options.firstElementChild!==bendir)options.prepend(bendir);}
- if(bendir&&usul&&bendir.nextElementSibling!==usul)bendir.after(usul);
- return box;
-}
-function syncSwitches(){
- content?.querySelectorAll('button.sw').forEach(b=>{b.setAttribute('role','switch');b.setAttribute('aria-checked',String(b.classList.contains('on')));});
- const status=$('r836SettingsStatus');
- if(status){
-  const seconds=Number($('tempoSld')?.value),on=$('optBendir')?.classList.contains('on');
-  status.textContent=(Number.isFinite(seconds)?seconds.toFixed(1)+' sn · ':'')+'Bendir '+(on?'açık':'kapalı');
- }
-}
-function restore(){
- const box=$('r679ZikirAyarBox');
- if(box&&content&&content.parentElement!==box)box.appendChild(content);
- if(box)box.open=false;
- document.body.classList.remove('r835-settings-open');
- document.querySelectorAll('[data-open-zikir-settings]').forEach(b=>b.setAttribute('aria-expanded','false'));
- if(returnFocus?.isConnected)returnFocus.focus({preventScroll:true});
- returnFocus=null;syncSwitches();
-}
-function closeSettings(){
- if(dialog?.open&&typeof dialog.close==='function')dialog.close();else{dialog?.removeAttribute('open');restore();}
-}
-function ensure(){
- if(dialog?.isConnected)return dialog;
- dialog=document.createElement('dialog');dialog.id='r835SettingsDialog';
- dialog.setAttribute('aria-labelledby','r835SettingsTitle');
- dialog.innerHTML='<header><h2 id="r835SettingsTitle">Tempo ve Zikir Ayarları</h2><button type="button" aria-label="Ayarları kapat">×</button></header><p id="r836SettingsStatus" role="status"></p><div class="r835SettingsContent"></div>';
- dialog.querySelector('button').addEventListener('click',closeSettings);
- dialog.addEventListener('keydown',e=>{if(e.key==='Escape')e.stopPropagation();});
- dialog.addEventListener('close',restore);
- dialog.addEventListener('click',()=>Promise.resolve().then(syncSwitches));
- dialog.addEventListener('input',syncSwitches);
- document.body.appendChild(dialog);return dialog;
-}
-function openSettings(){
- const box=collect()||$('r679ZikirAyarBox');if(!box)return false;
- // r848: native accordion is the authority; no dialog and no DOM relocation.
- if(content&&content.parentElement!==box)box.appendChild(content);
- for(let p=box;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;
- box.open=true;
- document.body.classList.remove('r835-settings-open');
- document.querySelectorAll('[data-open-zikir-settings]').forEach(b=>b.setAttribute('aria-expanded','true'));
- requestAnimationFrame(()=>box.scrollIntoView({behavior:'smooth',block:'center'}));
- syncSwitches();return true;
-}
-function bind(){
- const box=$('r679ZikirAyarBox');if(!box)return;
- const actions=document.querySelector('.zCounterActions');
- if(actions&&!$('r836CounterSettings')){
-  const b=document.createElement('button');b.id='r836CounterSettings';b.type='button';b.dataset.openZikirSettings='1';
-  b.textContent='⚙ Tempo · Bendir · Zikir ayarları';b.setAttribute('aria-controls','r835SettingsDialog');b.setAttribute('aria-expanded','false');actions.appendChild(b);
- }
- const summary=box.querySelector(':scope > summary');
- const buttons=[summary,...document.querySelectorAll('#r829QuickSettings .qOpen,[data-open-zikir-settings]')];
- buttons.forEach(b=>{
-  if(!b||b.dataset.r836Bound)return;b.dataset.r836Bound='1';b.setAttribute('aria-haspopup','dialog');
-  b.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();openSettings();},true);
- });
-}
-function boot(){bind();try{window.SukunReleaseIdentity?.sync?.();}catch(_){}}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-['pageshow','sukun:domhydrate','sukun:tefekkurchange','sukun:tabchange'].forEach(ev=>window.addEventListener(ev,bind,{passive:true}));
-window.SukunR830SettingsFix=Object.freeze({version:'r838',open:openSettings,bind,close:closeSettings,snapshot:()=>({settingsOpen:!!dialog?.open,settings:!!$('r679ZikirAyarBox'),tempo:!!content?.contains($('tempoSld')),bendir:!!content?.contains($('optBendir'))})});
-})();
-</script>
+
 
 
 
@@ -74770,28 +74688,39 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 window.SukunR848=Object.freeze({version:'r848',sync,openSettings,files:F,names:N});
 })();</script>
 
-\n<style id="sukun-r848-zikir-carki-fix">\n/* r848: Zikir Ayarlari native, tek otorite. */\n#r679ZikirAyarBox{display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;overflow:visible!important}\n#r679ZikirAyarBox[open]>.r679SettingsBody{display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;max-height:none!important;height:auto!important;overflow:visible!important}\n#r848ZikirSettingsPortal{display:none}\nbody.r848-zikir-settings-open #r848ZikirSettingsPortal{display:block;position:fixed;inset:0;z-index:2147483000;background:rgba(1,5,12,.78);backdrop-filter:blur(10px);padding:calc(env(safe-area-inset-top,0px) + 18px) 12px calc(env(safe-area-inset-bottom,0px) + 18px);overflow:auto}\nbody.r848-zikir-settings-open #r679ZikirAyarBox{width:min(680px,100%)!important;margin:40px auto 80px!important;background:rgba(6,13,24,.97)!important;border:1px solid rgba(219,177,82,.65)!important;border-radius:22px!important;padding:8px!important;box-shadow:0 24px 80px #000!important}\n#r848SettingsClose{display:none}\nbody.r848-zikir-settings-open #r848SettingsClose{display:block;position:fixed;right:18px;top:calc(env(safe-area-inset-top,0px) + 14px);z-index:2147483646;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,215,128,.65);background:#101725;color:#ffe4a0;font-size:24px}\n</style>\n<script id="sukun-r848-zikir-carki-runtime">(()=>{\n'use strict';\nconst $=id=>document.getElementById(id);\nlet home=null,next=null,portal=null;\nfunction box(){return $('r679ZikirAyarBox')}\nfunction ensurePortal(){\n if(portal?.isConnected)return portal;\n portal=document.createElement('div');portal.id='r848ZikirSettingsPortal';document.body.appendChild(portal);\n let close=$('r848SettingsClose');if(!close){close=document.createElement('button');close.id='r848SettingsClose';close.type='button';close.textContent='×';close.setAttribute('aria-label','Zikir Ayarlarını kapat');document.body.appendChild(close)}\n close.onclick=closeSettings; portal.addEventListener('click',e=>{if(e.target===portal)closeSettings()}); return portal;\n}\nfunction openSettings(){\n const b=box();if(!b)return false; ensurePortal();\n if(b.parentNode!==portal){home=b.parentNode;next=b.nextSibling;portal.appendChild(b)}\n b.open=true;b.querySelector('.r679SettingsBody')?.removeAttribute('hidden');document.body.classList.add('r848-zikir-settings-open');\n document.querySelectorAll('[data-open-zikir-settings],#r836CounterSettings').forEach(x=>x.setAttribute('aria-expanded','true')); return true;\n}\nfunction closeSettings(){\n const b=box();if(b&&home&&b.parentNode===portal){if(next&&next.parentNode===home)home.insertBefore(b,next);else home.appendChild(b)}\n if(b)b.open=false;document.body.classList.remove('r848-zikir-settings-open');document.querySelectorAll('[data-open-zikir-settings],#r836CounterSettings').forEach(x=>x.setAttribute('aria-expanded','false'));\n}\nfunction replaceTrigger(old){\n if(!old||old.dataset.r848==='1')return old;const n=old.cloneNode(true);n.dataset.r848='1';n.removeAttribute('aria-haspopup');n.setAttribute('aria-controls','r679ZikirAyarBox');n.onclick=e=>{e.preventDefault();e.stopPropagation();openSettings()};old.replaceWith(n);return n;\n}\nfunction bind(){\n document.querySelectorAll('#r836CounterSettings,[data-open-zikir-settings]').forEach(replaceTrigger);\n const b=box(),sum=b?.querySelector(':scope>summary');\n if(sum&&sum.dataset.r848!=='1'){const n=sum.cloneNode(true);n.dataset.r848='1';n.onclick=e=>{e.preventDefault();e.stopPropagation();openSettings()};sum.replaceWith(n)}\n}\nfunction boot(){bind();new MutationObserver(bind).observe(document.body,{childList:true,subtree:true});}\nif(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();\nwindow.SukunR848=Object.freeze({version:'r848',openSettings,closeSettings,bind});\n})();</script>\n
+\n\n\n
 
-<style id="sukun-r849-settings-authority">
-#r679ZikirAyarBox{display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;position:relative!important;z-index:50!important;overflow:visible!important}
-#r679ZikirAyarBox>.r679SettingsBody{display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;max-height:none!important;height:auto!important;overflow:visible!important}
-#r679ZikirAyarBox>summary{pointer-events:auto!important;touch-action:manipulation!important;position:relative!important;z-index:51!important}
-#r848ZikirSettingsPortal,#r835SettingsDialog,#r848SettingsClose{display:none!important}
+
+
+
+<style id="sukun-r850-native-settings">
+/* r850 — Zikir Ayarlari: native <details>, JS click bridge yok. */
+#r836CounterSettings,#r829QuickSettings .qOpen,#r848ZikirSettingsPortal,#r848SettingsClose,#r835SettingsDialog{display:none!important}
+#r679ZikirAyarBox{display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;position:relative!important;z-index:60!important;width:100%!important;max-width:100%!important;overflow:visible!important;margin:12px 0!important}
+#r679ZikirAyarBox>summary{display:flex!important;align-items:center!important;justify-content:center!important;min-height:58px!important;padding:10px 16px!important;border:1px solid rgba(115,220,220,.38)!important;border-radius:28px!important;background:linear-gradient(180deg,rgba(4,31,42,.56),rgba(3,20,32,.42))!important;backdrop-filter:blur(10px)!important;-webkit-backdrop-filter:blur(10px)!important;color:#f4f6f7!important;cursor:pointer!important;pointer-events:auto!important;touch-action:manipulation!important;list-style:none!important;position:relative!important;z-index:61!important}
+#r679ZikirAyarBox>summary::-webkit-details-marker{display:none!important}
+#r679ZikirAyarBox>summary .r679SettingsTitle{display:block!important;max-width:none!important;text-align:center!important}
+#r679ZikirAyarBox>summary .r679SettingsTitle b{font:800 18px/1.2 system-ui!important;color:#f7f7f7!important;white-space:normal!important}
+#r679ZikirAyarBox>summary .r679SettingsTitle b::after{content:' · Tempo · Bendir'!important;font-weight:700!important}
+#r679ZikirAyarBox>summary .r679SettingsTitle small{display:none!important}
+#r679ZikirAyarBox>summary .r679SettingsChevron{display:inline-block!important;margin-left:8px!important;color:#f0d58b!important;transition:transform .2s ease!important}
+#r679ZikirAyarBox[open]>summary .r679SettingsChevron{transform:rotate(180deg)!important}
+#r679ZikirAyarBox:not([open])>.r679SettingsBody{display:none!important}
+#r679ZikirAyarBox[open]>.r679SettingsBody{display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;position:relative!important;height:auto!important;max-height:none!important;overflow:visible!important;margin-top:10px!important;padding:12px!important;border:1px solid rgba(216,185,117,.28)!important;border-radius:18px!important;background:rgba(3,16,27,.76)!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important}
 </style>
-<script id="sukun-r849-settings-runtime">(()=>{
-'use strict';
-const $=id=>document.getElementById(id);
-function force(){
- const box=$('r679ZikirAyarBox'); if(!box)return false;
- box.open=true; box.removeAttribute('hidden');
- const body=box.querySelector('.r679SettingsBody'); if(body){body.removeAttribute('hidden');body.style.display='block';body.style.visibility='visible';body.style.opacity='1';body.style.pointerEvents='auto'}
- document.body.classList.remove('r848-zikir-settings-open','r835-settings-open');
- document.querySelectorAll('.zCountTitle').forEach(x=>{if(/ZİKİR\s+SAYAÇ/i.test(x.textContent))x.innerHTML='<span>✦</span> ZİKİR ÇARKI <span>✦</span>'});
- document.querySelectorAll('#r836CounterSettings,#r829QuickSettings .qOpen,[data-open-zikir-settings]').forEach(b=>{b.setAttribute('aria-controls','r679ZikirAyarBox');b.setAttribute('aria-expanded','true');b.onclick=()=>{force();box.scrollIntoView({behavior:'smooth',block:'center'});return false}});
- return true;
+<script id="sukun-r850-native-settings-runtime">(()=>{'use strict';
+function clean(){
+ const box=document.getElementById('r679ZikirAyarBox'); if(!box)return;
+ box.removeAttribute('hidden');
+ const sum=box.querySelector(':scope>summary');
+ if(sum){sum.onclick=null;sum.removeAttribute('data-r836-bound');sum.removeAttribute('data-r848');sum.removeAttribute('aria-haspopup');}
+ document.querySelectorAll('#r836CounterSettings').forEach(x=>x.remove());
+ // Put the real native accordion directly after the counter controls.
+ const a=document.querySelector('.zCounterActions'); if(a&&a.parentElement&&a.nextElementSibling!==box)a.insertAdjacentElement('afterend',box);
 }
-function boot(){force();setTimeout(force,250);setTimeout(force,900);new MutationObserver(force).observe(document.body,{childList:true,subtree:true});}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-window.SukunR849=Object.freeze({version:'r849',openSettings:force});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean,{once:true});else clean();
+window.addEventListener('pageshow',clean,{passive:true});
+window.SukunR850=Object.freeze({version:'r850',settings:()=>document.getElementById('r679ZikirAyarBox')});
 })();</script>
+
 </body></html>
