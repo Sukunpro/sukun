@@ -9,11 +9,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r864"/>
+<meta name="sukun-build" content="r865"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r864" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r865" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -74671,7 +74671,7 @@ function sync(){const c=ctx(),on=!!c.berhet;R.dataset.r853Berhet=on?'1':'0';if(!
 function boot(){sync()}
 ['pageshow','load','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:journey-advance','sukun:tabchange','sukun:visualcontextchange','sukun:domhydrate'].forEach(ev=>window.addEventListener(ev,()=>requestAnimationFrame(boot),{passive:true}));
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-window.SukunR853Scene=Object.freeze({version:'r864',sync,files:F,names:N});
+window.SukunR853Scene=Object.freeze({version:'r865',sync,files:F,names:N});
 })();</script>
 
 \n\n\n
@@ -74712,7 +74712,7 @@ window.SukunR850=Object.freeze({version:'r850',settings:()=>document.getElementB
 
 <script id="sukun-r853-sw-identity">(()=>{
 'use strict';
-const APP='r864';
+const APP='r865';
 const el=()=>document.getElementById('surumEtiket');
 function paint(sw='—',phase=''){const e=el();if(!e)return;e.textContent=`SÜKÛN v20.91 — Uygulama ${APP} · SW ${sw}${phase?` · ${phase}`:''}`;}
 paint('denetleniyor…');
@@ -74934,7 +74934,7 @@ window.SukunR856UI=Object.freeze({version:'r856',sync});})();</script>
 
 <script id="sukun-r859-regression-shield">
 (()=>{'use strict';
-const VERSION='r864', root=document.documentElement;
+const VERSION='r865', root=document.documentElement;
 function mode(){return root.getAttribute('data-r853-berhet')==='1'?'berhetiyye':'normal'}
 function syncContext(reason='sync'){const m=mode();root.dataset.sukunContext=m;try{dispatchEvent(new CustomEvent('sukun:contextauthority',{detail:{version:VERSION,mode:m,reason}}))}catch(e){}return m}
 const Context=Object.freeze({version:VERSION,get mode(){return mode()},isBerhetiyye:()=>mode()==='berhetiyye',isNormal:()=>mode()==='normal',sync:syncContext});
@@ -75019,7 +75019,7 @@ html[data-r853-berhet="1"] body #bsStop{pointer-events:auto!important;touch-acti
 </style>
 <script id="sukun-r863-berhetiyye-behavior">
 (()=>{'use strict';
-const VERSION='r864';
+const VERSION='r865';
 let parking=false,lastEsma=0;
 function safe(fn,fallback){try{return fn()}catch(_){return fallback}}
 function rememberEsma(){
@@ -75128,7 +75128,7 @@ html[data-r853-berhet="1"] body #berhetSeyir .r168Buttons #bsStop{
 </style>
 <script id="sukun-r864-approved-journey-runtime">
 (()=>{'use strict';
-const VERSION='r864';
+const VERSION='r865';
 function syncJourneySkin(){
  const b=document.getElementById('bsStart'); if(!b)return;
  const s=window.SukunBerhetiyyeSeyir?.state?.()||{};
@@ -75139,5 +75139,48 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 window.SukunR864=Object.freeze({version:VERSION,sync:syncJourneySkin});
 })();
 </script>
+
+
+<style id="sukun-r865-mobile-jewel-correction">
+/* r865 — screenshot-driven correction. No data-r853 dependency: the visible controls themselves are the authority. */
+/* 99/28 headers: title and resume badge get separate lanes; no overlap or clipped title. */
+html body :is(#berhetSeyir,#esmaSeyir99)>summary.r168Head{
+ display:grid!important;grid-template-columns:minmax(0,1.18fr) minmax(108px,.82fr)!important;align-items:center!important;gap:8px!important;
+ min-height:78px!important;padding:11px 9%!important;overflow:hidden!important;text-align:center!important;
+}
+html body :is(#berhetSeyir,#esmaSeyir99)>summary.r168Head>b{
+ min-width:0!important;width:100%!important;margin:0!important;text-align:center!important;white-space:nowrap!important;
+ font:700 clamp(17px,5vw,23px)/1 Georgia,serif!important;letter-spacing:.01em!important;overflow:visible!important;color:#fff3d2!important;
+}
+html body :is(#berhetSeyir,#esmaSeyir99)>summary.r168Head>.r168Tag{
+ position:static!important;min-width:0!important;max-width:none!important;width:100%!important;margin:0!important;padding:5px 7px!important;
+ white-space:normal!important;text-align:center!important;font:700 clamp(8px,2.25vw,10px)/1.18 system-ui!important;overflow-wrap:anywhere!important;
+}
+/* 28-name journey: one stable jewel language. */
+html body #berhetSeyir .r168Buttons{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important;overflow:visible!important}
+html body #berhetSeyir .r168Buttons .btn{display:flex!important;align-items:center!important;justify-content:center!important;min-width:0!important;width:100%!important;height:52px!important;min-height:52px!important;padding:0 10px!important;border:0!important;border-radius:0!important;background-position:center!important;background-size:100% 100%!important;background-repeat:no-repeat!important;box-shadow:none!important;color:#fff5df!important;text-shadow:0 2px 4px rgba(0,0,0,.8)!important;overflow:hidden!important}
+/* Duraklat = mor/amethyst field + purple stones. */
+html body #berhetSeyir .r168Buttons #bsStart{grid-column:1/-1!important;height:60px!important;min-height:60px!important;background-image:linear-gradient(90deg,rgba(91,18,170,.56),rgba(138,28,201,.64),rgba(76,18,164,.56)),url('./assets/berhetiyye-premium/btn-secondary-amethyst.png?v=r865')!important;background-blend-mode:color,normal!important;font-size:19px!important}
+/* Previous/next = sapphire field AND sapphire stones. */
+html body #berhetSeyir .r168Buttons :is(#bsPrev,#bsNext){background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r864.png?v=r865')!important}
+/* Current name restart = emerald. */
+html body #berhetSeyir .r168Buttons #bsAgain{background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald.png?v=r865')!important}
+/* Finish = ruby jewel, never plain text. */
+html body #berhetSeyir .r168Buttons #bsStop{display:flex!important;visibility:visible!important;opacity:1!important;position:relative!important;inset:auto!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-ruby-r864.png?v=r865')!important;color:#fff7ed!important;pointer-events:auto!important;touch-action:manipulation!important;z-index:5!important;font-size:14px!important}
+html body #berhetSeyir .r168Buttons #bsReset{grid-column:1/-1!important;background-image:url('./assets/berhetiyye-premium/btn-primary-wide.png')!important}
+/* Berhetiyye single-name counter seen in screenshot: same visual grammar. */
+html[data-r832-bgmode="berhet"] body #autoBtn,html[data-r853-berhet="1"] body #autoBtn{
+ border:0!important;border-radius:0!important;background-image:linear-gradient(90deg,rgba(91,18,170,.56),rgba(138,28,201,.64),rgba(76,18,164,.56)),url('./assets/berhetiyye-premium/btn-secondary-amethyst.png?v=r865')!important;background-size:100% 100%!important;background-position:center!important;background-repeat:no-repeat!important;background-blend-mode:color,normal!important;box-shadow:none!important;color:#fff6e8!important}
+html[data-r832-bgmode="berhet"] body #resetBtn,html[data-r853-berhet="1"] body #resetBtn{display:flex!important;align-items:center!important;justify-content:center!important;min-height:48px!important;border:0!important;border-radius:0!important;background:url('./assets/berhetiyye-premium/btn-secondary-emerald.png?v=r865') center/100% 100% no-repeat!important;color:#fff5df!important}
+html[data-r832-bgmode="berhet"] body #r616ZikirNavRow button:not([data-action="reset"]),html[data-r853-berhet="1"] body #r616ZikirNavRow button:not([data-action="reset"]){border:0!important;border-radius:0!important;background:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r864.png?v=r865') center/100% 100% no-repeat!important;color:#fff5df!important}
+/* Hidden-player restore surface: remove the rectangular brown backing. */
+html body #r433DockPeek{background-color:transparent!important;box-shadow:none!important}
+@media(max-width:390px){
+ html body :is(#berhetSeyir,#esmaSeyir99)>summary.r168Head{grid-template-columns:minmax(0,1.12fr) minmax(104px,.88fr)!important;padding-inline:7%!important;gap:5px!important}
+ html body :is(#berhetSeyir,#esmaSeyir99)>summary.r168Head>b{font-size:clamp(16px,4.7vw,19px)!important}
+ html body #berhetSeyir .r168Buttons .btn{font-size:11px!important}
+}
+</style>
+<script id="sukun-r865-mobile-jewel-runtime">(()=>{'use strict';const V='r865';function sync(){const b=document.getElementById('bsStart');if(b){const s=window.SukunBerhetiyyeSeyir?.state?.()||{};if(s.run)b.textContent='⏸ Duraklat';else if(s.paused)b.textContent='▶ Sürdür';}document.documentElement.dataset.r865='1'}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','click','sukun:journey-advance','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));window.SukunR865=Object.freeze({version:V,sync});})();</script>
 
 </body></html>
