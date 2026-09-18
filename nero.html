@@ -9,11 +9,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r863"/>
+<meta name="sukun-build" content="r864"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r863" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r864" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -53694,7 +53694,7 @@ function r554EnsureUI(){
       if(e.target.closest?.('#r554DrawerReset')){r554ResetDock(true);return}
       const back=e.target.closest?.('[data-r862-detail-back]');if(back){r862DrawerDetailId='';renderKeys.drawer='';r554PaintList('drawer',true);return}
       const pg=e.target.closest?.('[data-r858-page]');if(pg){r862DrawerDetailId='';const v=pg.dataset.r858Page;if(v==='prev')r858DrawerPage=Math.max(1,r858DrawerPage-1);else if(v==='next')r858DrawerPage++;else r858DrawerPage=Math.max(1,+v||1);renderKeys.drawer='';r554PaintList('drawer',true);return}
-      const card=e.target.closest?.('.r554AlertItem[data-alert-id]');if(card&&!e.target.closest?.('button')){return}
+      const card=e.target.closest?.('.r554AlertItem[data-alert-id]');if(card&&!e.target.closest?.('button')){r862DrawerDetailId=String(card.dataset.alertId||'');renderKeys.drawer='';r554PaintList('drawer',true);return}
     });
     now.appendChild(d);mounted=true;
   }
@@ -74671,7 +74671,7 @@ function sync(){const c=ctx(),on=!!c.berhet;R.dataset.r853Berhet=on?'1':'0';if(!
 function boot(){sync()}
 ['pageshow','load','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:journey-advance','sukun:tabchange','sukun:visualcontextchange','sukun:domhydrate'].forEach(ev=>window.addEventListener(ev,()=>requestAnimationFrame(boot),{passive:true}));
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-window.SukunR853Scene=Object.freeze({version:'r863',sync,files:F,names:N});
+window.SukunR853Scene=Object.freeze({version:'r864',sync,files:F,names:N});
 })();</script>
 
 \n\n\n
@@ -74712,7 +74712,7 @@ window.SukunR850=Object.freeze({version:'r850',settings:()=>document.getElementB
 
 <script id="sukun-r853-sw-identity">(()=>{
 'use strict';
-const APP='r863';
+const APP='r864';
 const el=()=>document.getElementById('surumEtiket');
 function paint(sw='—',phase=''){const e=el();if(!e)return;e.textContent=`SÜKÛN v20.91 — Uygulama ${APP} · SW ${sw}${phase?` · ${phase}`:''}`;}
 paint('denetleniyor…');
@@ -74934,7 +74934,7 @@ window.SukunR856UI=Object.freeze({version:'r856',sync});})();</script>
 
 <script id="sukun-r859-regression-shield">
 (()=>{'use strict';
-const VERSION='r863', root=document.documentElement;
+const VERSION='r864', root=document.documentElement;
 function mode(){return root.getAttribute('data-r853-berhet')==='1'?'berhetiyye':'normal'}
 function syncContext(reason='sync'){const m=mode();root.dataset.sukunContext=m;try{dispatchEvent(new CustomEvent('sukun:contextauthority',{detail:{version:VERSION,mode:m,reason}}))}catch(e){}return m}
 const Context=Object.freeze({version:VERSION,get mode(){return mode()},isBerhetiyye:()=>mode()==='berhetiyye',isNormal:()=>mode()==='normal',sync:syncContext});
@@ -75019,7 +75019,7 @@ html[data-r853-berhet="1"] body #bsStop{pointer-events:auto!important;touch-acti
 </style>
 <script id="sukun-r863-berhetiyye-behavior">
 (()=>{'use strict';
-const VERSION='r863';
+const VERSION='r864';
 let parking=false,lastEsma=0;
 function safe(fn,fallback){try{return fn()}catch(_){return fallback}}
 function rememberEsma(){
@@ -75079,6 +75079,64 @@ addEventListener('sukun:zikirtransaction',e=>{
  setTimeout(()=>parkToEsma('target-complete'),80);
 },{passive:true});
 window.SukunR863Berhetiyye=Object.freeze({version:VERSION,park:parkToEsma,stop:stopJourney,snapshot:()=>({version:VERSION,lastEsma,mode:safe(()=>window.SukunContext?.mode,'')})});
+})();
+</script>
+
+
+<style id="sukun-r864-approved-journey-mockup">
+/* r864 — approved 28 İsim Seyri jewel language. One final visual authority. */
+html[data-r853-berhet="1"] body #berhetSeyir>summary.r168Head{
+ display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:8px!important;
+ min-height:82px!important;padding:13px 12%!important;overflow:hidden!important;text-align:center!important;
+}
+html[data-r853-berhet="1"] body #berhetSeyir>summary.r168Head>b{
+ min-width:0!important;width:100%!important;margin:0!important;text-align:center!important;white-space:nowrap!important;
+ font:700 clamp(18px,5.7vw,26px)/1 Georgia,serif!important;letter-spacing:.015em!important;overflow:visible!important;
+}
+html[data-r853-berhet="1"] body #berhetSeyir>summary.r168Head>.r168Tag{
+ position:static!important;max-width:118px!important;margin:0!important;padding:6px 9px!important;white-space:normal!important;text-align:center!important;
+ font:700 9px/1.15 system-ui!important;
+}
+/* Pause/start jewel is amethyst while journey is active/paused; initial start stays primary. */
+html[data-r853-berhet="1"] body #berhetSeyir .r168Buttons #bsStart.r864-pause-jewel{
+ background-image:url('./assets/berhetiyye-premium/btn-secondary-amethyst.png')!important;
+}
+/* Navigation: blue field + blue stones, no purple side gems. */
+html[data-r853-berhet="1"] body #berhetSeyir .r168Buttons :is(#bsPrev,#bsNext){
+ background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r864.png')!important;
+}
+/* Restart current name: emerald. */
+html[data-r853-berhet="1"] body #berhetSeyir .r168Buttons #bsAgain{
+ background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald.png')!important;
+}
+/* Finish: dedicated ruby jewel. */
+html[data-r853-berhet="1"] body #berhetSeyir .r168Buttons #bsStop{
+ background-image:url('./assets/berhetiyye-premium/btn-secondary-ruby-r864.png')!important;
+ color:#fff6e8!important;pointer-events:auto!important;touch-action:manipulation!important;z-index:20!important;
+}
+/* Notification list is compact. Tap a card to enter its full detail, then scroll only inside detail. */
+#r554DrawerList:not(.r862-detail-mode)>.r554AlertItem{cursor:pointer!important;min-height:76px!important;max-height:84px!important;overflow:hidden!important;padding:10px 13px!important}
+#r554DrawerList:not(.r862-detail-mode)>.r554AlertItem>p,
+#r554DrawerList:not(.r862-detail-mode)>.r554AlertItem>.r554AlertSource,
+#r554DrawerList:not(.r862-detail-mode)>.r554AlertItem>.r554AlertItemBtns{display:none!important}
+#r554DrawerList.r862-detail-mode{display:block!important;overflow-y:auto!important;overflow-x:hidden!important;touch-action:pan-y pinch-zoom!important;-webkit-overflow-scrolling:touch!important}
+#r554DrawerList.r862-detail-mode>.r554AlertItem{max-height:none!important;height:auto!important;overflow:visible!important}
+#r554DrawerList.r862-detail-mode>.r554AlertItem>p,
+#r554DrawerList.r862-detail-mode>.r554AlertItem>.r554AlertSource{display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important}
+#r554DrawerList.r862-detail-mode>.r554AlertItem>.r554AlertItemBtns{display:flex!important}
+.r862DetailBack{display:block!important;position:sticky!important;top:0!important;z-index:30!important}
+</style>
+<script id="sukun-r864-approved-journey-runtime">
+(()=>{'use strict';
+const VERSION='r864';
+function syncJourneySkin(){
+ const b=document.getElementById('bsStart'); if(!b)return;
+ const s=window.SukunBerhetiyyeSeyir?.state?.()||{};
+ b.classList.toggle('r864-pause-jewel',!!(s.run||s.paused));
+}
+['click','sukun:journey-advance','sukun:domhydrate','pageshow'].forEach(ev=>addEventListener(ev,()=>requestAnimationFrame(syncJourneySkin),{passive:true}));
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',syncJourneySkin,{once:true});else syncJourneySkin();
+window.SukunR864=Object.freeze({version:VERSION,sync:syncJourneySkin});
 })();
 </script>
 
