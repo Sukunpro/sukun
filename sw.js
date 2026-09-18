@@ -4,10 +4,10 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r850';
-const CACHE = 'sukun-r850-20260918b';
-const CACHE_META = './__sukun_cache_meta_r850__.json';
-const BUILD_MARKER = './__sukun_build_r850__.json';
+const SURUM = 'r851';
+const CACHE = 'sukun-r851-20260918c';
+const CACHE_META = './__sukun_cache_meta_r851__.json';
+const BUILD_MARKER = './__sukun_build_r851__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
@@ -219,11 +219,13 @@ self.addEventListener('install',event=>{
 self.addEventListener('activate',event=>{
   event.waitUntil((async()=>{
     await self.clients.claim();
-    try{await prepareShell()}catch(e){}
+    let prepared=null;try{prepared=await prepareShell()}catch(e){}
+    if(prepared?.complete){
+      const keys=await caches.keys();
+      await Promise.all(keys.filter(k=>k.startsWith('sukun-')&&k!==CACHE).map(k=>caches.delete(k)));
+    }
     await broadcastStatus({phase:'activated'});
     await warmAssets();
-    /* Eski cache'leri burada silmiyoruz: yeni shell henüz CDN'e yayılmadıysa
-       çevrimdışı güvenlik ağı olarak kalırlar. */
   })());
 });
 

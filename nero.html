@@ -9,11 +9,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r849"/>
+<meta name="sukun-build" content="r851"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r849" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r851" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6478,7 +6478,7 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.83 — build 2026-09-16-r843</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r851 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -74723,4 +74723,25 @@ window.addEventListener('pageshow',clean,{passive:true});
 window.SukunR850=Object.freeze({version:'r850',settings:()=>document.getElementById('r679ZikirAyarBox')});
 })();</script>
 
+
+<script id="sukun-r851-sw-identity">(()=>{
+'use strict';
+const APP='r851';
+const el=()=>document.getElementById('surumEtiket');
+function paint(sw='—',phase=''){const e=el();if(!e)return;e.textContent=`SÜKÛN v20.91 — Uygulama ${APP} · SW ${sw}${phase?` · ${phase}`:''}`;}
+paint('denetleniyor…');
+async function probe(){
+ try{
+  if(!('serviceWorker' in navigator)){paint('yok');return;}
+  const reg=await navigator.serviceWorker.getRegistration('./')||await navigator.serviceWorker.ready.catch(()=>null);
+  const w=reg?.active||navigator.serviceWorker.controller;
+  if(!w){paint('yok','yenileme bekleniyor');return;}
+  const ans=await new Promise(resolve=>{let done=false;const ch=new MessageChannel();const t=setTimeout(()=>{if(!done){done=true;resolve(null)}},1800);ch.port1.onmessage=e=>{if(done)return;done=true;clearTimeout(t);resolve(e.data)};try{w.postMessage({type:'STATUS'},[ch.port2])}catch(e){clearTimeout(t);resolve(null)}});
+  paint(ans?.v||'bilinmiyor',ans?.v===APP?'güncel':'güncelleme gerekli');
+ }catch(e){paint('hata');}
+}
+addEventListener('load',()=>setTimeout(probe,500),{once:true});
+navigator.serviceWorker?.addEventListener?.('controllerchange',()=>setTimeout(probe,150));
+window.addEventListener('sukun:swstate',()=>setTimeout(probe,80));
+})();</script>
 </body></html>
