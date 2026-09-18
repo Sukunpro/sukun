@@ -9,11 +9,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r851"/>
+<meta name="sukun-build" content="r852"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r851" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r852" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -5385,6 +5385,20 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle small{
 }
 html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px!important}
 </style>
+
+<style id="sukun-r852-zikir-settings-ui">
+#r679ZikirAyarBox .r852VoiceCard{margin-top:10px;padding:10px;border:1px solid rgba(120,235,220,.20);border-radius:16px;background:rgba(4,25,30,.34)}
+#r679ZikirAyarBox .r852VoiceHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:5px}
+#r679ZikirAyarBox .r852VoiceHead span{display:flex;flex-direction:column;gap:2px}
+#r679ZikirAyarBox .r852VoiceHead small,.r852VoiceNote{font-size:9.5px;color:var(--dim);line-height:1.5}
+#r679ZikirAyarBox .r852TestBtn{min-height:34px;padding:6px 9px;font-size:10px;white-space:nowrap}
+#r679ZikirAyarBox #arVoiceRow{display:grid!important;grid-template-columns:auto minmax(0,1fr) auto;gap:7px;align-items:center}
+#r679ZikirAyarBox #arVoiceSel{min-width:0;width:100%}
+#r679ZikirAyarBox #arVoiceSel:disabled{opacity:.72}
+#r679ZikirAyarBox .r852Advanced{margin-top:8px;border-top:1px solid rgba(255,255,255,.08);padding-top:6px}
+#r679ZikirAyarBox .r852Advanced>summary{cursor:pointer;color:var(--mut);font-size:10px;padding:5px 0}
+@media(max-width:430px){#r679ZikirAyarBox #arVoiceRow{grid-template-columns:1fr auto}#r679ZikirAyarBox #arVoiceRow>b{grid-column:1/-1}}
+</style>
 </head>
 <body data-perf="dengeli">
 <!-- ═══ r519 — AÇILIŞ PERDESİ ═══════════════════════════════════════════
@@ -6102,11 +6116,16 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
 <div class="opt"><span><span class="ico" data-ico="speaker"></span> Sesli zikir — her tesbihte cihaz sesiyle söyle</span><button aria-label="Sesli zikir" class="sw" data-tip="Her tesbihte zikri cihaz sesiyle söyler. Kendi kaydın varsa onunki çalınır — tecvid için en doğrusu budur." id="optSpeak"></button></div>
 <div class="jRow" id="spkRow" style="margin-top:6px"><b style="flex:none;color:var(--mut)">Ses / hız</b><select aria-label="Konuşma sesi" data-tip="Okuma sesi. Cihazında yüklü seslerden birini seçersin; seçim bütün okuyuculara birden işler." id="spkVoice"></select><select data-tip="Kadın ya da erkek ses tercihi. Cihazında o cinsiyette ses yoksa mevcut sesler kullanılır." id="spkGenderSel" style="margin-left:6px" title="Tüm zikir, dua ve sûre okuyucularına uygulanır (Türkçe ve Arapça)"><option value="">Tüm sesler</option><option value="f">👩 Kadın</option><option value="m">👨 Erkek</option></select><input aria-label="Konuşma hızı" data-tip="Okuma hızı. Ezber için yavaş, tekrar için normal iyi gelir." id="spkRate" max="1.2" min="0.6" step="0.05" style="flex:1;width:auto" type="range" value="0.85"/></div>
 <div style="font-size:9px;color:var(--dim);line-height:1.55;margin:3px 0 2px">👩/👨 seçimi bütün okuyuculara işler: zikir, Âyetü'l-Kürsî, Fâtiha Seyri, Nasuh Tövbesi, Salavât, Seyyidü'l-İstiğfar ve koruyucu sûreler — hem Türkçe hem Arapça ses için. Cihazında o cinsiyette ses yoksa mevcut sesler kullanılır.</div>
+<div class="r852VoiceCard" id="r852VoiceCard">
+<div class="r852VoiceHead"><span><b>🗣 Ses &amp; Okuyuş</b><small>Kendi kayıt öncelikli · cihaz sesi ikinci seçenek</small></span><button class="btn r852TestBtn" id="r852VoiceRefresh" type="button">↻ Sesleri yenile</button></div>
 <div class="opt" style="margin-top:8px"><span id="arStat">🕌 Arapça ses aranıyor…</span><button aria-label="Arapça telaffuzu tercih et" class="sw" data-tip="Zikri Arap harfli metinden okur. Cihazında Arapça ses yoksa tam okunuşuna düşer, sessiz kalmaz." id="arTgl"></button></div>
-<div class="jRow" id="arVoiceRow" style="margin-top:6px;display:none"><b style="flex:none;color:var(--mut)">Arapça ses seç</b><select aria-label="Arapça okuma sesi" data-tip="Arapça metinleri okuyacak ses. Yalnız Arapça tarafı etkiler." id="arVoiceSel" style="flex:1"></select></div>
-<div class="sldRow" style="margin-top:7px"><label for="arPitch">Ar. perde</label><input data-tip="Arapça okuma sesinin perdesi. Daha pes bir ton tilâvete yaklaştırır — ama tecvidin yerini tutmaz." id="arPitch" max="1.3" min="0.5" step="0.02" type="range" value="0.76"/><span class="valB" id="arPitchV">0.76</span></div>
-<div class="sldRow"><label for="arRate">Ar. hız</label><input data-tip="Arapça okuma hızı. Medleri duyabilmek için yavaş dene." id="arRate" max="1.1" min="0.45" step="0.02" type="range" value="0.7"/><span class="valB" id="arRateV">0.70</span></div>
-<div id="arNote" style="font-size:9.5px;color:var(--dim);margin-top:5px;line-height:1.6"></div>
+<div class="jRow" id="arVoiceRow" style="margin-top:6px"><b style="flex:none;color:var(--mut)">Arapça ses</b><select aria-label="Arapça okuma sesi" data-tip="Arapça metinleri okuyacak ses. Cihazda yoksa açıklamalı geri dönüş gösterilir." id="arVoiceSel" style="flex:1"><option value="-1">Sesler yükleniyor…</option></select><button class="btn r852TestBtn" id="r852ArTest" type="button">▶ Dene</button></div>
+<div id="arNote" class="r852VoiceNote"></div>
+<details class="r852Advanced"><summary>Gelişmiş Arapça ses ayarları</summary>
+<div class="sldRow" style="margin-top:7px"><label for="arPitch">Perde</label><input data-tip="Arapça okuma sesinin perdesi. Tecvidin yerini tutmaz." id="arPitch" max="1.3" min="0.5" step="0.02" type="range" value="0.76"/><span class="valB" id="arPitchV">0.76</span></div>
+<div class="sldRow"><label for="arRate">Hız</label><input data-tip="Arapça okuma hızı." id="arRate" max="1.1" min="0.45" step="0.02" type="range" value="0.7"/><span class="valB" id="arRateV">0.70</span></div>
+</details>
+</div>
 <div style="font-size:9.5px;color:var(--dim);margin-top:4px;line-height:1.6">📿 Not: genel amaçlı Arapça TTS motorları tecvid kurallarını (İllallah'taki kalın lâm, medler, ğunne gibi) uygulayamaz — bu kaydırıcılar sesi derinleştirip yavaşlatarak yaklaştırır, ama bir hâfız/kâri okuyuşunun yerini tutmaz.</div>
 </div>
 </div>
@@ -6478,7 +6497,7 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r851 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r852 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -19655,22 +19674,26 @@ function spkVoices(){
   if(SPK_GENDER && SPK.arVoice && voiceGender(SPK.arVoice)!==SPK_GENDER && arF.length){ SPK.arVoice=arF[0]; }
   const arSel=$('#arVoiceSel'), arRow=$('#arVoiceRow');
   if(arSel&&arRow){
-    if(SPK.arList.length>1){
-      arRow.style.display='';
+    arRow.style.display='';
+    if(!SPK.arList.length){
+      arSel.innerHTML='<option value="-1">Cihazda Arapça ses bulunamadı</option>';
+      arSel.disabled=true; SPK.arVoice=null;
+    }else{
+      arSel.disabled=false;
       arSel.innerHTML=SPK.arList.map((v,i)=>'<option value="'+i+'">'+hesc(v.name||'İsimsiz ses')+' ('+hesc(v.lang||'')+')'+(voiceGender(v)==='f'?' 👩':voiceGender(v)==='m'?' 👨':'')+'</option>').join('');
-      const cur=SPK.arList.indexOf(SPK.arVoice); if(cur>=0)arSel.value=String(cur);
-    }else arRow.style.display='none';
+      const cur=SPK.arList.indexOf(SPK.arVoice); arSel.value=String(cur>=0?cur:0);
+    }
   }
   arStatusUI();
 }
 function arStatusUI(){
   const st=$('#arStat'), nt=$('#arNote'); if(!st)return;
   if(SPK.arList.length){
-    st.textContent='🕌 Arapça ses bulundu — '+SPK.arVoice.name+' ('+SPK.arList.length+' ses arasından)';
-    nt.textContent='Açıkken Esmâ ve zikirler bu Arapça sesle, Arap harfli metinden okunur — Türkçe transkripsiyondan çok daha doğru telaffuz edilir.';
+    st.textContent=SPK.arList.length===1?'🕌 Arapça TTS hazır — '+SPK.arVoice.name:'🕌 Arapça TTS hazır — '+SPK.arVoice.name+' ('+SPK.arList.length+' seçenek)';
+    nt.textContent='Arapça okuyuş açıksa Arap harfli metin bu sesle okunur. Kendi kaydın varsa kayıt her zaman önce gelir.';
   }else{
     st.textContent='🕌 Arapça ses bulunamadı';
-    nt.textContent='Cihazına eklemek için: Ayarlar → Sistem → Diller ve girdi → Metinden konuşmaya → (motor) ayarları → Ses verisi yükle → Arapça. Bulunana dek zikirler Türkçe transkripsiyonla okunur.';
+    nt.textContent='Cihaz bu tarayıcıya Arapça TTS sesi sunmuyor. Sessiz kalmaz: kendi kaydın varsa onu, yoksa Türkçe okunuşu kullanır. Ses motoruna Arapça paket ekledikten sonra “Sesleri yenile”ye dokun.';
   }
 }
 if('speechSynthesis' in window){
@@ -19819,7 +19842,15 @@ async function spkSayZikir(interrupt){
   return await zikirTtsAwait(oku||$('#zTr').textContent,!!interrupt,'tr-TR',SPK.voice,SPK.rate,.9);
 }
 $('#spkOnce').onclick=()=>spkSayZikir(true);
-$('#arVoiceSel').addEventListener('change',e=>{SPK.arVoice=SPK.arList[+e.target.value]||SPK.arVoice;});
+$('#arVoiceSel').addEventListener('change',e=>{SPK.arVoice=SPK.arList[+e.target.value]||SPK.arVoice;saveSettings();arStatusUI();});
+$('#r852VoiceRefresh')?.addEventListener('click',()=>{spkVoices();setTimeout(spkVoices,250);});
+$('#r852ArTest')?.addEventListener('click',()=>{
+  const ar=(document.querySelector('#zAr')?.textContent||'').trim();
+  const tr=(document.querySelector('#zOku')?.textContent||document.querySelector('#zTr')?.textContent||'').trim();
+  if(SPK.arList.length&&SPK.arVoice&&ar){spkSay(ar,true,SPK.arVoice.lang||'ar-SA',SPK.arVoice,SPK.arRate,SPK.arPitch);}
+  else if(tr){spkSay(tr,true,'tr-TR',SPK.voice,SPK.rate,.9);}
+  else{try{toast('Test için önce bir zikir seç.')}catch(e){}}
+});
 $('#arTgl').onclick=()=>{SPK.arOn=!SPK.arOn;$('#arTgl').classList.toggle('on',SPK.arOn);saveSettings();};
 $('#arPitch').addEventListener('input',e=>{SPK.arPitch=+e.target.value;$('#arPitchV').textContent=SPK.arPitch.toFixed(2);setFill(e.target);saveSettings();});
 $('#arRate').addEventListener('input',e=>{SPK.arRate=+e.target.value;$('#arRateV').textContent=SPK.arRate.toFixed(2);setFill(e.target);saveSettings();});
@@ -74724,9 +74755,9 @@ window.SukunR850=Object.freeze({version:'r850',settings:()=>document.getElementB
 })();</script>
 
 
-<script id="sukun-r851-sw-identity">(()=>{
+<script id="sukun-r852-sw-identity">(()=>{
 'use strict';
-const APP='r851';
+const APP='r852';
 const el=()=>document.getElementById('surumEtiket');
 function paint(sw='—',phase=''){const e=el();if(!e)return;e.textContent=`SÜKÛN v20.91 — Uygulama ${APP} · SW ${sw}${phase?` · ${phase}`:''}`;}
 paint('denetleniyor…');
