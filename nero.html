@@ -6497,7 +6497,7 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r860 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r861 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -53272,7 +53272,7 @@ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const ALERT_KEY='sukun.alert.center.v1',DOCK_Y_KEY='sukun.dockY',actions=new Map();
 const KINDS=['esma','berhet','warning'];
 const filters={drawer:'all',center:'all'};
-let r858DrawerPage=1,r860DrawerDetailId=''; const R858_PAGE_SIZE=4;
+let r858DrawerPage=1,r861DrawerDetailId=''; const R858_PAGE_SIZE=2;
 const renderKeys={drawer:'',center:'',chrome:''};
 let centerUnreadOnly=false,preOpenOffset=null,draggedWhileOpen=false;
 
@@ -53654,9 +53654,9 @@ function r554EnsureUI(){
       if(e.target.closest?.('#r554DrawerClose')){r554Close();return}
       if(e.target.closest?.('#r554DrawerRead')){r554MarkRead(filters.drawer);return}
       if(e.target.closest?.('#r554DrawerReset')){r554ResetDock(true);return}
-      const back=e.target.closest?.('[data-r860-detail-back]');if(back){r860DrawerDetailId='';renderKeys.drawer='';r554PaintList('drawer',true);return}
-      const pg=e.target.closest?.('[data-r858-page]');if(pg){r860DrawerDetailId='';const v=pg.dataset.r858Page;if(v==='prev')r858DrawerPage=Math.max(1,r858DrawerPage-1);else if(v==='next')r858DrawerPage++;else r858DrawerPage=Math.max(1,+v||1);renderKeys.drawer='';r554PaintList('drawer',true);return}
-      const card=e.target.closest?.('.r554AlertItem[data-alert-id]');if(card&&!e.target.closest?.('button')){r860DrawerDetailId=card.dataset.alertId||'';renderKeys.drawer='';r554PaintList('drawer',true);return}
+      const back=e.target.closest?.('[data-r861-detail-back]');if(back){r861DrawerDetailId='';renderKeys.drawer='';r554PaintList('drawer',true);return}
+      const pg=e.target.closest?.('[data-r858-page]');if(pg){r861DrawerDetailId='';const v=pg.dataset.r858Page;if(v==='prev')r858DrawerPage=Math.max(1,r858DrawerPage-1);else if(v==='next')r858DrawerPage++;else r858DrawerPage=Math.max(1,+v||1);renderKeys.drawer='';r554PaintList('drawer',true);return}
+      const card=e.target.closest?.('.r554AlertItem[data-alert-id]');if(card&&!e.target.closest?.('button')){return}
     });
     now.appendChild(d);mounted=true;
   }
@@ -53668,7 +53668,7 @@ function r554SetFilter(surface,kind){
   if(surface!=='drawer'&&surface!=='center')surface='center';
   kind=(kind==='all'||KINDS.includes(kind))?kind:'all';
   if(kind==='berhet'&&!berhetUnlocked())kind='all';
-  filters[surface]=kind;if(surface==='drawer'){r858DrawerPage=1;r860DrawerDetailId='';}renderKeys[surface]='';r554Render();
+  filters[surface]=kind;if(surface==='drawer'){r858DrawerPage=1;r861DrawerDetailId='';}renderKeys[surface]='';r554Render();
 }
 
 function r554FilterState(surface){
@@ -53684,14 +53684,14 @@ function r554PaintList(surface,force=false){
   const totalPages=surface==='drawer'?Math.max(1,Math.ceil(allVisible.length/R858_PAGE_SIZE)):1;
   if(surface==='drawer')r858DrawerPage=Math.min(Math.max(1,r858DrawerPage),totalPages);
   let list=surface==='drawer'?allVisible.slice((r858DrawerPage-1)*R858_PAGE_SIZE,r858DrawerPage*R858_PAGE_SIZE):allVisible;
-  const detail=surface==='drawer'&&r860DrawerDetailId?allVisible.find(a=>String(a.id)===String(r860DrawerDetailId)):null;
-  if(surface==='drawer'&&r860DrawerDetailId&&!detail)r860DrawerDetailId='';
+  const detail=surface==='drawer'&&r861DrawerDetailId?allVisible.find(a=>String(a.id)===String(r861DrawerDetailId)):null;
+  if(surface==='drawer'&&r861DrawerDetailId&&!detail)r861DrawerDetailId='';
   if(detail)list=[detail];
   const key=[kind,only?'1':'0',berhetUnlocked()?'1':'0',surface==='drawer'?r858DrawerPage:0,totalPages,detail?.id||'',...list.map(a=>{const action=r557AlertAction(a);return`${a.id}:${a.read?'1':'0'}:${action.label}:${action.indices.join(',')}`})].join('|');
   if(!force&&renderKeys[surface]===key)return;
   const oldScroll=surface==='drawer'?(node.scrollTop||0):0;
-  node.innerHTML=(detail?`<button type="button" class="r860DetailBack" data-r860-detail-back>‹ Bildirimlere dön</button>`:'')+(list.map(r554Card).join('')||`<div class="r554AlertEmpty"><span aria-hidden="true">۞</span><b>${only?'Okunmamış bildirim yok':'Bu renkte bildirim yok'}</b><small>Yeni bir bildirim geldiğinde burada sabit kalır.</small></div>`);
-  node.classList.toggle('r860-detail-mode',!!detail);
+  node.innerHTML=(detail?`<button type="button" class="r861DetailBack" data-r861-detail-back>‹ Bildirimlere dön</button>`:'')+(list.map(r554Card).join('')||`<div class="r554AlertEmpty"><span aria-hidden="true">۞</span><b>${only?'Okunmamış bildirim yok':'Bu renkte bildirim yok'}</b><small>Yeni bir bildirim geldiğinde burada sabit kalır.</small></div>`);
+  node.classList.toggle('r861-detail-mode',!!detail);
   if(surface==='drawer'){
     node.scrollTop=0;
     const pager=document.getElementById('r858DrawerPager');
@@ -74870,19 +74870,33 @@ window.SukunR856UI=Object.freeze({version:'r856',sync});})();</script>
 @media(max-height:760px){#r170Now.r554-alert-open{height:min(78dvh,570px)!important;max-height:min(78dvh,570px)!important}#r554DrawerList{gap:5px!important}.r858DrawerPager{min-height:34px}.r858DrawerPager button{height:29px;min-width:29px}}
 </style>
 
-<style id="r860-notification-detail-authority">
-/* r860: 4 compact cards/page; tap a card for a dedicated scrollable detail view. */
-#r554DrawerList:not(.r860-detail-mode)>.r554AlertItem{cursor:pointer!important;min-height:72px!important;max-height:78px!important;padding:10px 13px!important;display:block!important;overflow:hidden!important}
-#r554DrawerList:not(.r860-detail-mode)>.r554AlertItem>p,#r554DrawerList:not(.r860-detail-mode)>.r554AlertItem>.r554AlertSource,#r554DrawerList:not(.r860-detail-mode)>.r554AlertItem>.r554AlertItemBtns{display:none!important}
-#r554DrawerList.r860-detail-mode{display:block!important;overflow-y:auto!important;overscroll-behavior:contain!important;touch-action:pan-y pinch-zoom!important;padding:3px!important}
-#r554DrawerList.r860-detail-mode>.r554AlertItem{max-height:none!important;overflow:visible!important;margin-bottom:8px!important}
-.r860DetailBack{position:sticky;top:0;z-index:5;width:100%;min-height:40px;margin:0 0 8px;border-radius:13px;border:1px solid rgba(87,228,162,.34);background:rgba(5,27,29,.94);color:#86f3bd;font:750 11px/1 system-ui;backdrop-filter:blur(12px)}
-@media(max-height:760px){#r554DrawerList:not(.r860-detail-mode)>.r554AlertItem{min-height:66px!important;max-height:72px!important}}
+<style id="r861-notification-detail-authority">
+/* r861: 4 compact cards/page; tap a card for a dedicated scrollable detail view. */
+#r554DrawerList:not(.r861-detail-mode)>.r554AlertItem{cursor:pointer!important;min-height:72px!important;max-height:78px!important;padding:10px 13px!important;display:block!important;overflow:hidden!important}
+#r554DrawerList:not(.r861-detail-mode)>.r554AlertItem>p,#r554DrawerList:not(.r861-detail-mode)>.r554AlertItem>.r554AlertSource,#r554DrawerList:not(.r861-detail-mode)>.r554AlertItem>.r554AlertItemBtns{display:none!important}
+#r554DrawerList.r861-detail-mode{display:block!important;overflow-y:auto!important;overscroll-behavior:contain!important;touch-action:pan-y pinch-zoom!important;padding:3px!important}
+#r554DrawerList.r861-detail-mode>.r554AlertItem{max-height:none!important;overflow:visible!important;margin-bottom:8px!important}
+.r861DetailBack{position:sticky;top:0;z-index:5;width:100%;min-height:40px;margin:0 0 8px;border-radius:13px;border:1px solid rgba(87,228,162,.34);background:rgba(5,27,29,.94);color:#86f3bd;font:750 11px/1 system-ui;backdrop-filter:blur(12px)}
+@media(max-height:760px){#r554DrawerList:not(.r861-detail-mode)>.r554AlertItem{min-height:66px!important;max-height:72px!important}}
+</style>
+<style id="r861-notification-mobile-authority">
+/* r861 — iki tam bildirim/sayfa. Kart metni ve eylemleri kesilmez; gerekirse yalnız liste alanı kayar. */
+#r554DrawerList{overflow-y:auto!important;overflow-x:hidden!important;scrollbar-width:thin!important;touch-action:pan-y pinch-zoom!important;overscroll-behavior:contain!important;display:block!important;padding:4px 3px 8px!important;-webkit-overflow-scrolling:touch!important}
+#r554DrawerList::-webkit-scrollbar{display:block!important;width:4px!important}
+#r554DrawerList>.r554AlertItem{cursor:default!important;min-height:0!important;max-height:none!important;height:auto!important;overflow:visible!important;display:block!important;padding:12px 14px!important;margin:0 0 9px!important}
+#r554DrawerList>.r554AlertItem>p{display:block!important;margin-top:7px!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;overflow:hidden!important}
+#r554DrawerList>.r554AlertItem>.r554AlertSource{display:block!important;margin-top:7px!important;white-space:normal!important}
+#r554DrawerList>.r554AlertItem>.r554AlertItemBtns{display:flex!important;flex-wrap:wrap!important;gap:7px!important;margin-top:10px!important}
+#r554DrawerList>.r554AlertItem>.r554AlertItemBtns>button{min-height:38px!important;flex:1 1 120px!important}
+#r554DrawerList.r861-detail-mode{display:block!important;overflow-y:auto!important}
+.r861DetailBack{display:none!important}
+.r858DrawerPager{flex:0 0 auto!important;position:relative!important;z-index:8!important;background:linear-gradient(180deg,rgba(4,18,22,.35),rgba(4,18,22,.96))!important}
+@media(max-height:760px){#r554DrawerList>.r554AlertItem{padding:10px 12px!important}#r554DrawerList>.r554AlertItem>p{-webkit-line-clamp:1!important}.r554AlertSource{font-size:9px!important}.r554AlertItemBtns>button{min-height:34px!important}}
 </style>
 
 <script id="sukun-r859-regression-shield">
 (()=>{'use strict';
-const VERSION='r860', root=document.documentElement;
+const VERSION='r861', root=document.documentElement;
 function mode(){return root.getAttribute('data-r853-berhet')==='1'?'berhetiyye':'normal'}
 function syncContext(reason='sync'){const m=mode();root.dataset.sukunContext=m;try{dispatchEvent(new CustomEvent('sukun:contextauthority',{detail:{version:VERSION,mode:m,reason}}))}catch(e){}return m}
 const Context=Object.freeze({version:VERSION,get mode(){return mode()},isBerhetiyye:()=>mode()==='berhetiyye',isNormal:()=>mode()==='normal',sync:syncContext});
@@ -74890,7 +74904,7 @@ Object.defineProperty(window,'SukunContext',{configurable:true,value:Context});
 const mo=new MutationObserver(()=>syncContext('attribute'));mo.observe(root,{attributes:true,attributeFilter:['data-r853-berhet']});
 ['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(ev=>addEventListener(ev,()=>syncContext(ev),{passive:true}));
 function audioSnapshot(){const c=window.SukunVoiceSessionCoordinator?.snapshot?.()||null;const t=window.SukunAudioTruth?.snapshot?.()||null;return{version:VERSION,coordinatorVersion:window.SukunVoiceSessionCoordinator?.version||'',owner:c?.owner||t?.owner||'',coordinator:c,truth:t}}
-function notificationSnapshot(){const a=window.SukunAlertCenter?.snapshot?.()||null;const d=window.SukunNotificationDrawerAuthority?.snapshot?.()||null;return{version:VERSION,pageSize:5,retention:300,count:a?.count??a?.storedCount??null,drawer:d}}
+function notificationSnapshot(){const a=window.SukunAlertCenter?.snapshot?.()||null;const d=window.SukunNotificationDrawerAuthority?.snapshot?.()||null;return{version:VERSION,pageSize:2,retention:300,count:a?.count??a?.storedCount??null,drawer:d}}
 window.SukunAuthorityRegistry=Object.freeze({version:VERSION,context:Context,audio:Object.freeze({snapshot:audioSnapshot}),notifications:Object.freeze({snapshot:notificationSnapshot}),snapshot:()=>({version:VERSION,context:mode(),audio:audioSnapshot(),notifications:notificationSnapshot(),scene:window.SukunR853Scene?.version||'',ui:window.SukunR855UI?.version||''})});
 syncContext('boot');
 })();
