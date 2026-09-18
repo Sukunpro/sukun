@@ -9,11 +9,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r854"/>
+<meta name="sukun-build" content="r855"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r854" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r855" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6497,7 +6497,7 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r854 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r855 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -74591,7 +74591,7 @@ function sync(){const c=ctx(),on=!!c.berhet;R.dataset.r853Berhet=on?'1':'0';if(!
 function boot(){sync()}
 ['pageshow','load','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:journey-advance','sukun:tabchange','sukun:visualcontextchange','sukun:domhydrate'].forEach(ev=>window.addEventListener(ev,()=>requestAnimationFrame(boot),{passive:true}));
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-window.SukunR853Scene=Object.freeze({version:'r854',sync,files:F,names:N});
+window.SukunR853Scene=Object.freeze({version:'r855',sync,files:F,names:N});
 })();</script>
 
 \n\n\n
@@ -74632,7 +74632,7 @@ window.SukunR850=Object.freeze({version:'r850',settings:()=>document.getElementB
 
 <script id="sukun-r853-sw-identity">(()=>{
 'use strict';
-const APP='r854';
+const APP='r855';
 const el=()=>document.getElementById('surumEtiket');
 function paint(sw='—',phase=''){const e=el();if(!e)return;e.textContent=`SÜKÛN v20.91 — Uygulama ${APP} · SW ${sw}${phase?` · ${phase}`:''}`;}
 paint('denetleniyor…');
@@ -74651,8 +74651,8 @@ navigator.serviceWorker?.addEventListener?.('controllerchange',()=>setTimeout(pr
 window.addEventListener('sukun:swstate',()=>setTimeout(probe,80));
 })();</script>
 
-<style id="sukun-r854-zikir-skin-separation">
-/* r854 — Normal Sükûn/Mevlevî and Berhetiyye controls are separate authorities. */
+<style id="sukun-r855-zikir-skin-separation">
+/* r855 — Normal Sükûn/Mevlevî and Berhetiyye controls are separate authorities. */
 html:not([data-r835-theme="berhet"]) body #zBar #itemRecBtn>span:last-child{font-size:0!important}
 html:not([data-r835-theme="berhet"]) body #zBar #itemRecBtn>span:last-child::after{content:'Kayıt';font:700 12px/1.1 system-ui;color:inherit}
 
@@ -74687,9 +74687,61 @@ html[data-r835-theme="berhet"] body #zBar #itemRecBtn>span:last-child::after{con
 html[data-r835-theme="berhet"] body :is(#undoBtn,#plusBtn)>b{display:block!important;visibility:visible!important;opacity:1!important;position:relative!important;z-index:5!important;font:800 15px/1 system-ui!important;color:#fff1cc!important;-webkit-text-fill-color:#fff1cc!important;text-shadow:0 1px 5px #001!important}
 html[data-r835-theme="berhet"] body :is(#undoBtn,#plusBtn)>span{display:none!important}
 </style>
-<script id="sukun-r854-ui-runtime">(()=>{'use strict';
+<script id="sukun-r855-ui-runtime">(()=>{'use strict';
 function sync(){const r=document.getElementById('itemRecBtn');if(r){const s=r.querySelector('span:last-child');if(s&&s.textContent.trim()!=='Kayıt')s.textContent='Kayıt'}const u=document.querySelector('#undoBtn>b'),p=document.querySelector('#plusBtn>b');if(u)u.textContent='−1';if(p)p.textContent='+1';}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
 ['pageshow','sukun:zikirchange','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));
-window.SukunR854UI=Object.freeze({version:'r854',sync});})();</script>
+window.SukunR855UI=Object.freeze({version:'r855',sync});})();</script>
+
+<style id="sukun-r855-skin-authority">
+/* r855 — hard separation: normal Mevlevî/Sükûn controls vs Berhetiyye jewel controls.
+   The reliable context flag is data-r853-berhet, maintained by the scene controller. */
+html[data-r853-berhet="0"].sukun-jewel-r798 body #zBar .spkBtn{
+  height:68px!important;min-height:68px!important;padding:8px 5px!important;border:1px solid rgba(126,219,207,.38)!important;
+  border-radius:18px!important;background:linear-gradient(145deg,rgba(5,39,48,.72),rgba(5,24,42,.68))!important;
+  box-shadow:inset 0 1px 0 rgba(239,255,248,.08),0 7px 20px rgba(0,0,0,.12)!important;
+  color:#e9f7ef!important;text-shadow:0 1px 4px rgba(0,0,0,.72)!important;
+}
+html[data-r853-berhet="0"].sukun-jewel-r798 body #zBar .spkBtn::before,
+html[data-r853-berhet="0"].sukun-jewel-r798 body #zBar .spkBtn::after{content:none!important;display:none!important}
+html[data-r853-berhet="0"].sukun-jewel-r798 body #zBar :is(#niyetRecBtn,#zBarHelp,#favBtn.on){background-image:none!important}
+html[data-r853-berhet="0"].sukun-jewel-r798 body #zBar .spkBtn :is(svg,.ico){color:#e9d28a!important;filter:drop-shadow(0 0 5px rgba(99,230,210,.28))!important}
+
+/* Normal navigation/category cards must never use Berhetiyye gemstone artwork. */
+html[data-r853-berhet="0"].sukun-jewel-r798 body #zMegaHost>.zMegaGroup>summary,
+html[data-r853-berhet="0"].sukun-jewel-r798 body #esmaSeyir99>summary.r168Head{
+  background:linear-gradient(110deg,rgba(5,43,49,.62),rgba(6,25,43,.58))!important;
+  border:1px solid rgba(126,216,205,.34)!important;border-radius:20px!important;box-shadow:inset 0 1px rgba(255,255,255,.06)!important;
+}
+html[data-r853-berhet="0"].sukun-jewel-r798 body #zMegaHost>.zMegaGroup>summary::before,
+html[data-r853-berhet="0"].sukun-jewel-r798 body #zMegaHost>.zMegaGroup>summary::after,
+html[data-r853-berhet="0"].sukun-jewel-r798 body #esmaSeyir99>summary.r168Head::before,
+html[data-r853-berhet="0"].sukun-jewel-r798 body #esmaSeyir99>summary.r168Head::after{content:none!important;display:none!important}
+
+/* 28 Berhetiyye journey remains jewel-themed even when merely listed. */
+html.sukun-jewel-r798 body #berhetSeyir>summary.r168Head{
+  border:0!important;border-radius:0!important;background:url('./assets/berhetiyye-premium/btn-primary-wide.png') center/100% 100% no-repeat!important;
+}
+
+/* Only an actually active Berhetiyye context receives jewel transport controls. */
+html[data-r853-berhet="1"].sukun-jewel-r798 body #zBar .spkBtn{
+  border:0!important;border-radius:0!important;background:url('./assets/berhetiyye-premium/btn-compact-sapphire.png') center/100% 100% no-repeat!important;
+}
+html[data-r853-berhet="1"].sukun-jewel-r798 body #zBar #niyetRecBtn{background-image:url('./assets/berhetiyye-premium/btn-compact-gold.png')!important}
+html[data-r853-berhet="1"].sukun-jewel-r798 body #zBar #zBarHelp{background-image:url('./assets/berhetiyye-premium/btn-compact-emerald.png')!important}
+
+/* Hedef / Kalan: clean gold line emblems, never black asset glyphs. */
+html[data-r853-berhet="0"] body .zCounterSide{padding-top:36px!important}
+html[data-r853-berhet="0"] body .zCounterSide::before{
+  content:''!important;display:block!important;position:absolute!important;top:8px!important;left:50%!important;transform:translateX(-50%)!important;
+  width:22px!important;height:22px!important;opacity:1!important;filter:drop-shadow(0 0 5px rgba(231,202,125,.35))!important;
+  background-color:transparent!important;background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ead38a' stroke-width='1.7'%3E%3Ccircle cx='12' cy='12' r='8'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M12 1v4M12 19v4M1 12h4M19 12h4'/%3E%3C/svg%3E")!important;
+}
+html[data-r853-berhet="0"] body .zCounterSide:last-child::before{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ead38a' stroke-width='1.7'%3E%3Cpath d='M7 3h10M7 21h10M8 3c0 5 4 5 4 9s-4 4-4 9M16 3c0 5-4 5-4 9s4 4 4 9'/%3E%3C/svg%3E")!important;
+}
+/* Manual buttons stay visible in both skins. */
+html[data-r853-berhet] body :is(#undoBtn,#plusBtn)>b{display:block!important;visibility:visible!important;opacity:1!important;position:relative!important;z-index:9!important}
+</style>
 </body></html>
