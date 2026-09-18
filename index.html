@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r856"/>
+<meta name="sukun-build" content="r857"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
@@ -6497,7 +6497,7 @@ html.sukun-jewel-r798 body #r679ZikirAyarBox .r679SettingsTitle b{font-size:16px
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r856 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r857 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -39917,11 +39917,33 @@ async function enter(){
   },90);
 }
 async function leave(alsoFullscreen=true){
+  /* r857 — Tefekkürden çıkış bir transport komutu değildir.
+     Kullanıcı çıkmadan önce Pause/Stop verdiyse görünüm değişimi bu niyeti
+     asla Play/Resume'a çeviremez. */
+  const directWasAuto=!!(typeof Z!=='undefined'&&Z.auto);
+  const pausedBefore=!!(window.AudioLife?.userPaused||window.SukunAudioSessionRegistry?.aggregateSnapshot?.()?.paused||(typeof MINI==='object'&&MINI?.paused));
+  const stoppedBefore=!directWasAuto&&!pausedBefore;
+  window.__SUKUN_TEF_EXIT_INTENT__={at:Date.now(),paused:pausedBefore,stopped:stoppedBefore};
+  if(pausedBefore){
+    try{window.AudioLife?.markUserPause?.('tef-exit-preserve')}catch(e){}
+  }
   clearTimeout(focusTimer);focusTimer=null;
   if(idleTimer){clearTimeout(idleTimer);idleTimer=null;}
   document.body.classList.remove('sukun-tefekkur-mode','sukun-focus-mode','tefekkur-idle');
   syncButton();
   if(alsoFullscreen)await leaveFs();
+
+  const preserve=()=>{
+    const g=window.__SUKUN_TEF_EXIT_INTENT__;
+    if(!g||Date.now()-g.at>1800)return;
+    if(g.stopped&&typeof Z!=='undefined'&&Z.auto){
+      try{autoStop()}catch(e){try{window.SukunDirectZikirTransportR698?.stop?.()}catch(_){}}
+    }else if(g.paused){
+      try{window.AudioLife?.markUserPause?.('tef-exit-preserve')}catch(e){}
+      try{window.SukunAudioSessionRegistry?.pauseAll?.('tef-exit-preserve')}catch(e){}
+    }
+  };
+  preserve();[80,260,700,1400].forEach(ms=>setTimeout(preserve,ms));
   return true;
 }
 async function toggle(){
