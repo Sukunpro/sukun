@@ -5437,6 +5437,83 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
+
+<style id="sukun-r875-journey-buttons-hotfix">
+/* HOTFIX: ONLY Berhetiyye journey buttons. Zikir Çarkı is intentionally untouched. */
+#berhetSeyir .r168Buttons{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+ gap:10px 8px!important;
+ align-items:stretch!important;
+ overflow:visible!important;
+}
+#berhetSeyir .r168Buttons > button{
+ position:relative!important;
+ display:flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ width:100%!important;
+ min-width:0!important;
+ min-height:54px!important;
+ margin:0!important;
+ padding:10px 14px!important;
+ border:0!important;
+ background-color:transparent!important;
+ background-repeat:no-repeat!important;
+ background-position:center!important;
+ background-size:100% 100%!important;
+ box-shadow:none!important;
+ filter:none!important;
+ transform:none!important;
+ transition:none!important;
+ overflow:hidden!important;
+ isolation:isolate!important;
+ color:#fff!important;
+ font-weight:800!important;
+ line-height:1.12!important;
+ text-align:center!important;
+ text-shadow:0 1px 3px #000!important;
+ -webkit-tap-highlight-color:transparent!important;
+}
+#berhetSeyir .r168Buttons > button::before,
+#berhetSeyir .r168Buttons > button::after{content:none!important;display:none!important}
+#berhetSeyir .r168Buttons .r866JewelImg,
+#berhetSeyir .r168Buttons img[class*="Jewel"]{display:none!important}
+
+#berhetSeyir #bsStart{
+ grid-column:1/-1!important;
+ min-height:74px!important;
+ background-image:url("./btn-primary-wide-r872.png")!important;
+ font-size:clamp(22px,6vw,31px)!important;
+}
+#berhetSeyir #bsPrev,#berhetSeyir #bsNext{
+ background-image:url("./btn-secondary-sapphire-r872.png")!important;
+}
+#berhetSeyir #bsAgain{
+ background-image:url("./btn-secondary-emerald-r872.png")!important;
+}
+#berhetSeyir #bsStop{
+ display:flex!important;
+ visibility:visible!important;
+ opacity:1!important;
+ min-height:54px!important;
+ background-image:url("./btn-secondary-ruby-r872.png")!important;
+}
+#berhetSeyir #bsReset{
+ grid-column:1/-1!important;
+ background-image:url("./btn-primary-wide-r872.png")!important;
+}
+#berhetSeyir #bsPause{
+ grid-column:1/-1!important;
+ background-image:url("./btn-secondary-amethyst-r872.png")!important;
+}
+@media(max-width:520px){
+ #berhetSeyir .r168Buttons{gap:8px 6px!important}
+ #berhetSeyir .r168Buttons > button{min-height:50px!important;padding:8px 9px!important;font-size:13px!important}
+ #berhetSeyir #bsStart{min-height:68px!important;font-size:26px!important}
+}
+</style>
+
 </head>
 <body data-perf="dengeli">
 <!-- ═══ r519 — AÇILIŞ PERDESİ ═══════════════════════════════════════════
@@ -75418,6 +75495,22 @@ function clean(){
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean,{once:true});else clean();
 addEventListener('pageshow',clean,{passive:true});
 window.SukunR875=Object.freeze({version:V,sync:clean});
+})();
+</script>
+
+
+<script id="sukun-r875-journey-buttons-cleanup">
+(()=>{"use strict";
+ const clean=()=>{
+  const r=document.querySelector("#berhetSeyir .r168Buttons"); if(!r)return;
+  r.querySelectorAll(".r866JewelImg,img[class*='Jewel']").forEach(n=>n.remove());
+  r.querySelectorAll("button").forEach(b=>{
+    b.classList.remove("r866JewelBtn");
+    ["transform","filter","box-shadow"].forEach(p=>b.style.removeProperty(p));
+  });
+ };
+ document.readyState==="loading"?document.addEventListener("DOMContentLoaded",clean,{once:true}):clean();
+ addEventListener("pageshow",clean);
 })();
 </script>
 
