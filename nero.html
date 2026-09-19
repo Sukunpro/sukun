@@ -13,7 +13,7 @@
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r873" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r875" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6927,7 +6927,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
     "t": "10 Eylül 2026",
     "b": [
       "Service Worker sürüm sözleşmesi onarıldı: HTML, manifest, worker, cache ve build marker r748 olarak eşitlendi.",
-      "r747 içindeki SURUM=r741 ve __sukun_build_r741__.json kalıntıları kaldırıldı; yeni worker kurulumunu engelleyen HTML build mismatch giderildi.",
+      "r747 içindeki SURUM=r741 ve __sukun_build_r875__.json kalıntıları kaldırıldı; yeni worker kurulumunu engelleyen HTML build mismatch giderildi.",
       "r746/r747 premium görsel entegrasyonları korunur."
     ]
   },
@@ -74682,7 +74682,7 @@ function sync(){const c=ctx(),on=!!c.berhet;R.dataset.r853Berhet=on?'1':'0';if(!
 function boot(){sync()}
 ['pageshow','load','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:journey-advance','sukun:tabchange','sukun:visualcontextchange','sukun:domhydrate'].forEach(ev=>window.addEventListener(ev,()=>requestAnimationFrame(boot),{passive:true}));
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-window.SukunR853Scene=Object.freeze({version:'r873',sync,files:F,names:N});
+window.SukunR853Scene=Object.freeze({version:'r875',sync,files:F,names:N});
 })();</script>
 
 \n\n\n
@@ -74723,7 +74723,7 @@ window.SukunR850=Object.freeze({version:'r850',settings:()=>document.getElementB
 
 <script id="sukun-r853-sw-identity">(()=>{
 'use strict';
-const APP='r873';
+const APP='r875';
 const el=()=>document.getElementById('surumEtiket');
 function paint(sw='—',phase=''){const e=el();if(!e)return;e.textContent=`SÜKÛN v20.91 — Uygulama ${APP} · SW ${sw}${phase?` · ${phase}`:''}`;}
 paint('denetleniyor…');
@@ -74945,7 +74945,7 @@ window.SukunR856UI=Object.freeze({version:'r856',sync});})();</script>
 
 <script id="sukun-r859-regression-shield">
 (()=>{'use strict';
-const VERSION='r873', root=document.documentElement;
+const VERSION='r875', root=document.documentElement;
 function mode(){return root.getAttribute('data-r853-berhet')==='1'?'berhetiyye':'normal'}
 function syncContext(reason='sync'){const m=mode();root.dataset.sukunContext=m;try{dispatchEvent(new CustomEvent('sukun:contextauthority',{detail:{version:VERSION,mode:m,reason}}))}catch(e){}return m}
 const Context=Object.freeze({version:VERSION,get mode(){return mode()},isBerhetiyye:()=>mode()==='berhetiyye',isNormal:()=>mode()==='normal',sync:syncContext});
@@ -75030,7 +75030,7 @@ html[data-r853-berhet="1"] body #bsStop{pointer-events:auto!important;touch-acti
 </style>
 <script id="sukun-r863-berhetiyye-behavior">
 (()=>{'use strict';
-const VERSION='r873';
+const VERSION='r875';
 let parking=false,lastEsma=0;
 function safe(fn,fallback){try{return fn()}catch(_){return fallback}}
 function rememberEsma(){
@@ -75139,7 +75139,7 @@ html[data-r853-berhet="1"] body #berhetSeyir .r168Buttons #bsStop{
 </style>
 <script id="sukun-r864-approved-journey-runtime">
 (()=>{'use strict';
-const VERSION='r873';
+const VERSION='r875';
 function syncJourneySkin(){
  const b=document.getElementById('bsStart'); if(!b)return;
  const s=window.SukunBerhetiyyeSeyir?.state?.()||{};
@@ -75152,8 +75152,8 @@ window.SukunR864=Object.freeze({version:VERSION,sync:syncJourneySkin});
 </script>
 
 
-<style id="sukun-r873-jewel-stability-authority">
-/* r873 — Android GPU stability: one CSS owner, reduced-size textures, no transition/animation/filter repaint. */
+<style id="sukun-r875-jewel-stability-authority">
+/* r875 — Android GPU stability: one CSS owner, reduced-size textures, no transition/animation/filter repaint. */
 #berhetSeyir .r168Buttons{isolation:isolate!important;overflow:hidden!important;contain:layout paint!important}
 #berhetSeyir .r168Buttons button{
   position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;
@@ -75172,20 +75172,20 @@ window.SukunR864=Object.freeze({version:VERSION,sync:syncJourneySkin});
 #berhetSeyir .r168Buttons img,.r866JewelImg{display:none!important}
 html body #r433DockPeek{animation:none!important;transition:none!important;filter:none!important}
 </style>
-<script id="sukun-r873-jewel-stability-runtime">(()=>{'use strict';
-const V='r873';
+<script id="sukun-r875-jewel-stability-runtime">(()=>{'use strict';
+const V='r875';
 function sync(){
  document.querySelectorAll('#berhetSeyir .r168Buttons .r866JewelImg').forEach(n=>n.remove());
  document.querySelectorAll('#berhetSeyir .r168Buttons button').forEach(b=>b.classList.remove('r866JewelBtn'));
- document.documentElement.dataset.r873='1';
+ document.documentElement.dataset.r875='1';
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
 addEventListener('pageshow',sync,{passive:true});
 window.SukunR872=Object.freeze({version:V,sync});
 })();</script>
 
-<style id="sukun-r874-mobile-layout-authority">
-/* r874 — single mobile layout authority.
+<style id="sukun-r875-mobile-layout-authority">
+/* r875 — single mobile layout authority.
    Owns only geometry/paint of the visible problem areas; audio/session logic is untouched. */
 
 /* 1) 28-name journey: one stable grid; no legacy pseudo paint, no GPU flashing. */
@@ -75403,7 +75403,7 @@ html body.r433-dock-hidden :is(#tab-zkr,#tab-amb,#tab-frq,#tab-rx,.wrap){
   #r679ZikirAyarBox .r679SettingsBody .sldRow{grid-template-columns:72px minmax(0,1fr) auto!important;gap:5px!important}
 }
 </style>
-<script id="sukun-r874-mobile-layout-runtime">
+<script id="sukun-r875-mobile-layout-runtime">
 (()=>{'use strict';
 const V='r875';
 function clean(){
