@@ -5465,47 +5465,6 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 </style>
 
 
-<style id="sukun-r875-clean-journey-dom">
-/* CLEAN DOM AUTHORITY — no pseudo jewels, no injected decoration, no runtime repaint */
-#berhetSeyir .r168Buttons{
- display:grid!important;
- grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
- grid-template-areas:"start start" "prev next" "again stop" "reset reset"!important;
- gap:10px 10px!important;
- width:100%!important;
- padding:8px 6px 12px!important;
- box-sizing:border-box!important;
- overflow:hidden!important;
- isolation:isolate!important;
-}
-#berhetSeyir .r168Buttons::before,#berhetSeyir .r168Buttons::after{content:none!important;display:none!important}
-#berhetSeyir .r168Buttons>button{
- position:relative!important;inset:auto!important;
- display:flex!important;align-items:center!important;justify-content:center!important;
- width:100%!important;min-width:0!important;height:52px!important;min-height:52px!important;max-height:52px!important;
- margin:0!important;padding:0 10px!important;box-sizing:border-box!important;
- border:0!important;border-radius:0!important;
- background-color:transparent!important;background-position:center!important;background-repeat:no-repeat!important;background-size:100% 100%!important;
- box-shadow:none!important;filter:none!important;transform:none!important;animation:none!important;transition:none!important;
- overflow:hidden!important;color:#fff8e8!important;font-weight:800!important;line-height:1.1!important;text-align:center!important;text-shadow:0 2px 4px #000!important;
-}
-#berhetSeyir .r168Buttons>button::before,#berhetSeyir .r168Buttons>button::after,
-#berhetSeyir .r168Buttons>button *::before,#berhetSeyir .r168Buttons>button *::after{content:none!important;display:none!important}
-#berhetSeyir #bsStart{grid-area:start!important;height:62px!important;min-height:62px!important;max-height:62px!important;background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png')!important;font-size:clamp(21px,5.7vw,30px)!important}
-#berhetSeyir #bsPause{grid-area:start!important;height:62px!important;min-height:62px!important;max-height:62px!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-amethyst-r872.png')!important;font-size:clamp(21px,5.7vw,30px)!important}
-#berhetSeyir #bsPause[hidden]{display:none!important}
-#berhetSeyir #bsPrev{grid-area:prev!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r872.png')!important}
-#berhetSeyir #bsNext{grid-area:next!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r872.png')!important}
-#berhetSeyir #bsAgain{grid-area:again!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald-r872.png')!important}
-#berhetSeyir #bsStop{grid-area:stop!important;display:flex!important;visibility:visible!important;opacity:1!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-ruby-r872.png')!important}
-#berhetSeyir #bsReset{grid-area:reset!important;background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png')!important}
-@media(max-width:520px){
- #berhetSeyir .r168Buttons{gap:8px 7px!important;padding-inline:4px!important}
- #berhetSeyir .r168Buttons>button{height:50px!important;min-height:50px!important;max-height:50px!important;padding-inline:7px!important;font-size:13px!important}
- #berhetSeyir #bsStart,#berhetSeyir #bsPause{height:60px!important;min-height:60px!important;max-height:60px!important}
-}
-</style>
-
 </head>
 <body data-perf="dengeli">
 <!-- ═══ r519 — AÇILIŞ PERDESİ ═══════════════════════════════════════════
@@ -75185,23 +75144,6 @@ html[data-r853-berhet="1"] body #berhetSeyir>summary.r168Head>.r168Tag{
  position:static!important;max-width:118px!important;margin:0!important;padding:6px 9px!important;white-space:normal!important;text-align:center!important;
  font:700 9px/1.15 system-ui!important;
 }
-/* Pause/start jewel is amethyst while journey is active/paused; initial start stays primary. */
-html[data-r853-berhet="1"] body #berhetSeyir .r168Buttons #bsStart.r864-pause-jewel{
- background-image:url('./assets/berhetiyye-premium/btn-secondary-amethyst.png')!important;
-}
-/* Navigation: blue field + blue stones, no purple side gems. */
-html[data-r853-berhet="1"] body #berhetSeyir .r168Buttons :is(#bsPrev,#bsNext){
- background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r864.png')!important;
-}
-/* Restart current name: emerald. */
-html[data-r853-berhet="1"] body #berhetSeyir .r168Buttons #bsAgain{
- background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald.png')!important;
-}
-/* Finish: dedicated ruby jewel. */
-html[data-r853-berhet="1"] body #berhetSeyir .r168Buttons #bsStop{
- background-image:url('./assets/berhetiyye-premium/btn-secondary-ruby-r864.png')!important;
- color:#fff6e8!important;pointer-events:auto!important;touch-action:manipulation!important;z-index:20!important;
-}
 /* Notification list is compact. Tap a card to enter its full detail, then scroll only inside detail. */
 #r554DrawerList:not(.r862-detail-mode)>.r554AlertItem{cursor:pointer!important;min-height:76px!important;max-height:84px!important;overflow:hidden!important;padding:10px 13px!important}
 #r554DrawerList:not(.r862-detail-mode)>.r554AlertItem>p,
@@ -75228,5 +75170,55 @@ window.SukunR864=Object.freeze({version:VERSION,sync:syncJourneySkin});
 })();
 </script>
 
+
+
+<style id="sukun-r875-final-journey-authority">
+/* FINAL JOURNEY AUTHORITY — intentionally last in cascade */
+html body #berhetSeyir .r168Buttons{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+ grid-template-areas:"start start" "prev next" "again stop" "reset reset"!important;
+ gap:10px 9px!important;width:100%!important;padding:8px 5px 12px!important;
+ overflow:hidden!important;isolation:isolate!important;box-sizing:border-box!important;
+}
+html body #berhetSeyir .r168Buttons::before,
+html body #berhetSeyir .r168Buttons::after{content:none!important;display:none!important}
+html body #berhetSeyir .r168Buttons>button{
+ position:relative!important;inset:auto!important;display:flex!important;
+ align-items:center!important;justify-content:center!important;
+ width:100%!important;min-width:0!important;height:52px!important;min-height:52px!important;max-height:52px!important;
+ margin:0!important;padding:0 9px!important;border:0!important;border-radius:0!important;
+ overflow:hidden!important;background-color:transparent!important;background-position:center!important;
+ background-repeat:no-repeat!important;background-size:100% 100%!important;
+ box-shadow:none!important;filter:none!important;transform:none!important;animation:none!important;transition:none!important;
+ color:#fff8e8!important;font:800 13px/1.1 system-ui!important;text-align:center!important;text-shadow:0 2px 4px #000!important;
+}
+html body #berhetSeyir .r168Buttons>button::before,
+html body #berhetSeyir .r168Buttons>button::after{content:none!important;display:none!important}
+html body #berhetSeyir #bsStart{
+ grid-area:start!important;height:62px!important;min-height:62px!important;max-height:62px!important;
+ background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png')!important;
+ font:700 clamp(22px,6vw,30px)/1 Georgia,serif!important;
+}
+html body #berhetSeyir #bsStart.r864-pause-jewel{
+ background-image:url('./assets/berhetiyye-premium/btn-secondary-amethyst-r872.png')!important;
+}
+html body #berhetSeyir #bsPause{grid-area:start!important}
+html body #berhetSeyir #bsPause[hidden]{display:none!important}
+html body #berhetSeyir #bsPrev{grid-area:prev!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r872.png')!important}
+html body #berhetSeyir #bsNext{grid-area:next!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r872.png')!important}
+html body #berhetSeyir #bsAgain{grid-area:again!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald-r872.png')!important}
+html body #berhetSeyir #bsStop{
+ grid-area:stop!important;display:flex!important;visibility:visible!important;opacity:1!important;
+ background-image:url('./assets/berhetiyye-premium/btn-secondary-ruby-r872.png')!important;
+ color:#fff8e8!important;pointer-events:auto!important;touch-action:manipulation!important;
+}
+html body #berhetSeyir #bsReset{grid-area:reset!important;background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png')!important}
+@media(max-width:520px){
+ html body #berhetSeyir .r168Buttons{gap:8px 7px!important}
+ html body #berhetSeyir .r168Buttons>button{height:50px!important;min-height:50px!important;max-height:50px!important}
+ html body #berhetSeyir #bsStart{height:60px!important;min-height:60px!important;max-height:60px!important}
+}
+</style>
 
 </body></html>
