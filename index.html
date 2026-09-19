@@ -5439,114 +5439,66 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
 
 
-<style id="sukun-r875-layout-repair">
-/* r875 targeted repair — no SW/version changes, no Zikir Çarkı changes */
 
-/* 1) Berhetiyye journey: preserve existing jewel language, repair only broken controls. */
+<style id="sukun-r875-visual-surgical-fix">
+/* Corrected paths: assets live under assets/berhetiyye-premium/. */
 #berhetSeyir .r168Buttons{
- display:grid!important;
- grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
- gap:10px 10px!important;
- align-items:stretch!important;
- overflow:visible!important;
+ display:grid!important;grid-template-columns:1fr 1fr!important;
+ gap:10px 10px!important;padding:8px 6px 12px!important;
+ overflow:hidden!important;isolation:isolate!important;
 }
 #berhetSeyir .r168Buttons > button{
- position:relative!important;
- display:flex!important;
- align-items:center!important;
- justify-content:center!important;
- width:100%!important;
- min-width:0!important;
- min-height:54px!important;
- margin:0!important;
- padding:9px 14px!important;
- border:0!important;
- background-color:transparent!important;
- background-repeat:no-repeat!important;
- background-position:center!important;
- background-size:100% 100%!important;
- box-shadow:none!important;
- filter:none!important;
- transform:none!important;
- transition:none!important;
- overflow:hidden!important;
- color:#fff!important;
- font-weight:800!important;
- line-height:1.15!important;
- text-align:center!important;
- text-shadow:0 1px 3px #000!important;
+ position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;
+ width:100%!important;min-width:0!important;height:52px!important;min-height:52px!important;max-height:52px!important;
+ margin:0!important;padding:0 10px!important;border:0!important;border-radius:0!important;
+ background-color:transparent!important;background-position:center!important;background-repeat:no-repeat!important;
+ background-size:100% 100%!important;box-shadow:none!important;filter:none!important;transform:none!important;
+ transition:none!important;animation:none!important;overflow:hidden!important;color:#fff8e8!important;
+ font-weight:800!important;text-align:center!important;text-shadow:0 2px 5px #000!important;
 }
 #berhetSeyir .r168Buttons > button::before,
 #berhetSeyir .r168Buttons > button::after,
-#berhetSeyir .r168Buttons .r866JewelImg,
-#berhetSeyir .r168Buttons img[class*="Jewel"]{
- content:none!important;display:none!important
+#berhetSeyir .r168Buttons > button *::before,
+#berhetSeyir .r168Buttons > button *::after{content:none!important;display:none!important}
+#berhetSeyir .r168Buttons > :not(button){display:none!important}
+#berhetSeyir .r168Buttons img,
+#berhetSeyir .r168Buttons .r866JewelImg{display:none!important}
+
+#berhetSeyir #bsStart{
+ grid-column:1/-1!important;height:60px!important;min-height:60px!important;max-height:60px!important;
+ background-image:url('./assets/berhetiyye-premium/btn-secondary-amethyst-r872.png')!important;
 }
-#berhetSeyir #bsStart{grid-column:1/-1!important;min-height:72px!important;background-image:url("./btn-primary-wide-r872.png")!important}
-#berhetSeyir #bsPrev,#berhetSeyir #bsNext{background-image:url("./btn-secondary-sapphire-r872.png")!important}
-#berhetSeyir #bsAgain{background-image:url("./btn-secondary-emerald-r872.png")!important}
+#berhetSeyir #bsPrev,#berhetSeyir #bsNext{
+ background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r872.png')!important;
+}
+#berhetSeyir #bsAgain{
+ background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald-r872.png')!important;
+}
 #berhetSeyir #bsStop{
  display:flex!important;visibility:visible!important;opacity:1!important;
- background-image:url("./btn-secondary-ruby-r872.png")!important
+ background:transparent url('./assets/berhetiyye-premium/btn-secondary-ruby-r872.png') center/100% 100% no-repeat!important;
 }
-#berhetSeyir #bsReset{grid-column:1/-1!important;background-image:url("./btn-primary-wide-r872.png")!important}
-#berhetSeyir #bsPause{grid-column:1/-1!important;background-image:url("./btn-primary-wide-r872.png")!important}
-
-/* 2) Detail/info cards: content owns height; text wraps instead of escaping ornate frame. */
-#berhetSeyir :is(.detail,.details,.info,.infoCard,.detailCard,.metaCard,.berhetDetail,.r168Detail),
-#berhetSeyir :is(dd,dt,p,li,.value,.desc,.description){
- max-width:100%!important;
- min-width:0!important;
- white-space:normal!important;
- overflow-wrap:anywhere!important;
- word-break:normal!important;
- box-sizing:border-box!important;
+#berhetSeyir #bsReset{
+ grid-column:1/-1!important;
+ background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png')!important;
 }
-#berhetSeyir :is(.detail,.details,.info,.infoCard,.detailCard,.metaCard,.berhetDetail,.r168Detail){
- height:auto!important;
- min-height:0!important;
- overflow:visible!important;
+#berhetSeyir #bsPause{
+ grid-column:1/-1!important;height:60px!important;min-height:60px!important;max-height:60px!important;
+ background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png')!important;
 }
 
-/* Generic ornate cards in the active Zikir/Tekke content: prevent fixed-height clipping. */
-:is(#berhetSeyir,#tekkePanel,#zikirPanel) :is(.card,.panel,.glass,.ornateCard)[style*="height"]{
- height:auto!important;
- min-height:0!important;
+/* Overflow repair: target the visible Berhetiyye source/info cards without redesign. */
+#berhetSeyir :is(.r168Body,.r168Info,.r168Meta,.r168Detail,.detail,.details,.infoCard,.detailCard){
+ height:auto!important;max-height:none!important;overflow:visible!important;min-width:0!important;max-width:100%!important;
+}
+#berhetSeyir :is(.r168Body,.r168Info,.r168Meta,.r168Detail,.detail,.details,.infoCard,.detailCard)
+ :is(p,div,span,dd,dt,li,strong){
+ max-width:100%!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;
 }
 
-/* 3) Ambiyans readability: keep art, add restrained glass behind prose. */
-:is(#ambiyans,#ambiance,#ambiyansPanel,.ambiyans-panel) :is(.content,.body,.text,.description,.info,p){
- max-width:100%!important;
- white-space:normal!important;
- overflow-wrap:anywhere!important;
- box-sizing:border-box!important;
-}
-:is(#ambiyans,#ambiance,#ambiyansPanel,.ambiyans-panel) > :is(.content,.body,.text,.description,.info){
- background:rgba(4,17,25,.72)!important;
- border:1px solid rgba(111,224,211,.16)!important;
- border-radius:18px!important;
- padding:16px!important;
- backdrop-filter:blur(7px)!important;
- -webkit-backdrop-filter:blur(7px)!important;
-}
-
-/* 4) Player restore bar must not cover final content. */
-body{padding-bottom:max(104px,calc(84px + env(safe-area-inset-bottom)))!important}
-#r433DockPeek{
- left:max(12px,env(safe-area-inset-left))!important;
- right:max(12px,env(safe-area-inset-right))!important;
- bottom:max(10px,env(safe-area-inset-bottom))!important;
- width:auto!important;
- max-width:none!important;
- box-sizing:border-box!important;
-}
-
-/* Mobile tightening without redesign. */
-@media(max-width:520px){
- #berhetSeyir .r168Buttons{gap:8px 7px!important}
- #berhetSeyir .r168Buttons > button{min-height:50px!important;padding:8px 9px!important;font-size:13px!important}
- #berhetSeyir #bsStart,#berhetSeyir #bsPause{min-height:66px!important;font-size:clamp(20px,6vw,28px)!important}
-}
+/* Player restore strip: keep clear of content. */
+body{padding-bottom:max(118px,calc(96px + env(safe-area-inset-bottom)))!important}
+#r433DockPeek{bottom:max(10px,env(safe-area-inset-bottom))!important}
 </style>
 
 </head>
@@ -75534,20 +75486,5 @@ window.SukunR875=Object.freeze({version:V,sync:clean});
 </script>
 
 
-
-<script id="sukun-r875-layout-repair-runtime">
-(()=>{"use strict";
- const clean=()=>{
-   const box=document.querySelector("#berhetSeyir .r168Buttons"); if(!box)return;
-   box.querySelectorAll(".r866JewelImg,img[class*='Jewel']").forEach(n=>n.remove());
-   box.querySelectorAll("button").forEach(b=>{
-     b.classList.remove("r866JewelBtn");
-     ["transform","filter","box-shadow"].forEach(p=>b.style.removeProperty(p));
-   });
- };
- document.readyState==="loading"?document.addEventListener("DOMContentLoaded",clean,{once:true}):clean();
- addEventListener("pageshow",clean);
-})();
-</script>
 
 </body></html>
