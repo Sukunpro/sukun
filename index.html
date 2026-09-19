@@ -5464,22 +5464,48 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 #berhetSeyir #bsReset{grid-column:1/-1!important}
 </style>
 
-<style id="sukun-r875-journey-single-authority">
-#berhetSeyir .r168Buttons{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px 9px!important;padding:8px 5px 12px!important;width:100%!important;overflow:hidden!important;isolation:isolate!important;contain:layout!important}
+
+<style id="sukun-r875-clean-journey-dom">
+/* CLEAN DOM AUTHORITY — no pseudo jewels, no injected decoration, no runtime repaint */
+#berhetSeyir .r168Buttons{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+ grid-template-areas:"start start" "prev next" "again stop" "reset reset"!important;
+ gap:10px 10px!important;
+ width:100%!important;
+ padding:8px 6px 12px!important;
+ box-sizing:border-box!important;
+ overflow:hidden!important;
+ isolation:isolate!important;
+}
 #berhetSeyir .r168Buttons::before,#berhetSeyir .r168Buttons::after{content:none!important;display:none!important}
-#berhetSeyir .r168Buttons>:not(button){display:none!important}
-#berhetSeyir .r168Buttons button{box-sizing:border-box!important;position:relative!important;inset:auto!important;display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;min-width:0!important;height:52px!important;min-height:52px!important;max-height:52px!important;margin:0!important;padding:0 10px!important;border:0!important;border-radius:0!important;overflow:hidden!important;background-color:transparent!important;background-position:center!important;background-repeat:no-repeat!important;background-size:100% 100%!important;box-shadow:none!important;filter:none!important;transform:none!important;animation:none!important;transition:none!important;will-change:auto!important;color:#fff8e8!important;font-weight:800!important;line-height:1.1!important;text-align:center!important;text-shadow:0 2px 4px #000!important}
-#berhetSeyir .r168Buttons button::before,#berhetSeyir .r168Buttons button::after,#berhetSeyir .r168Buttons button *::before,#berhetSeyir .r168Buttons button *::after{content:none!important;display:none!important}
-#berhetSeyir .r168Buttons img,#berhetSeyir .r168Buttons .r866JewelImg{display:none!important}
-#berhetSeyir .r168Buttons #bsStart{grid-column:1/-1!important;height:62px!important;min-height:62px!important;max-height:62px!important;background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png')!important;font-size:20px!important}
-#berhetSeyir .r168Buttons #bsStart.r864-pause-jewel{background-image:url('./assets/berhetiyye-premium/btn-secondary-amethyst-r872.png')!important}
-#berhetSeyir .r168Buttons :is(#bsPrev,#bsNext){background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r872.png')!important}
-#berhetSeyir .r168Buttons #bsAgain{background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald-r872.png')!important}
-#berhetSeyir .r168Buttons #bsStop{display:flex!important;visibility:visible!important;opacity:1!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-ruby-r872.png')!important}
-#berhetSeyir .r168Buttons #bsReset{grid-column:1/-1!important;background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png')!important}
-#berhetSeyir .r168Buttons #bsPause[hidden]{display:none!important}
-@media(max-width:520px){#berhetSeyir .r168Buttons{gap:8px 7px!important}#berhetSeyir .r168Buttons button{height:50px!important;min-height:50px!important;max-height:50px!important;font-size:13px!important}#berhetSeyir .r168Buttons #bsStart{height:60px!important;min-height:60px!important;max-height:60px!important}}
+#berhetSeyir .r168Buttons>button{
+ position:relative!important;inset:auto!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ width:100%!important;min-width:0!important;height:52px!important;min-height:52px!important;max-height:52px!important;
+ margin:0!important;padding:0 10px!important;box-sizing:border-box!important;
+ border:0!important;border-radius:0!important;
+ background-color:transparent!important;background-position:center!important;background-repeat:no-repeat!important;background-size:100% 100%!important;
+ box-shadow:none!important;filter:none!important;transform:none!important;animation:none!important;transition:none!important;
+ overflow:hidden!important;color:#fff8e8!important;font-weight:800!important;line-height:1.1!important;text-align:center!important;text-shadow:0 2px 4px #000!important;
+}
+#berhetSeyir .r168Buttons>button::before,#berhetSeyir .r168Buttons>button::after,
+#berhetSeyir .r168Buttons>button *::before,#berhetSeyir .r168Buttons>button *::after{content:none!important;display:none!important}
+#berhetSeyir #bsStart{grid-area:start!important;height:62px!important;min-height:62px!important;max-height:62px!important;background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png')!important;font-size:clamp(21px,5.7vw,30px)!important}
+#berhetSeyir #bsPause{grid-area:start!important;height:62px!important;min-height:62px!important;max-height:62px!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-amethyst-r872.png')!important;font-size:clamp(21px,5.7vw,30px)!important}
+#berhetSeyir #bsPause[hidden]{display:none!important}
+#berhetSeyir #bsPrev{grid-area:prev!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r872.png')!important}
+#berhetSeyir #bsNext{grid-area:next!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r872.png')!important}
+#berhetSeyir #bsAgain{grid-area:again!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald-r872.png')!important}
+#berhetSeyir #bsStop{grid-area:stop!important;display:flex!important;visibility:visible!important;opacity:1!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-ruby-r872.png')!important}
+#berhetSeyir #bsReset{grid-area:reset!important;background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png')!important}
+@media(max-width:520px){
+ #berhetSeyir .r168Buttons{gap:8px 7px!important;padding-inline:4px!important}
+ #berhetSeyir .r168Buttons>button{height:50px!important;min-height:50px!important;max-height:50px!important;padding-inline:7px!important;font-size:13px!important}
+ #berhetSeyir #bsStart,#berhetSeyir #bsPause{height:60px!important;min-height:60px!important;max-height:60px!important}
+}
 </style>
+
 </head>
 <body data-perf="dengeli">
 <!-- ═══ r519 — AÇILIŞ PERDESİ ═══════════════════════════════════════════
@@ -38013,7 +38039,15 @@ function seyirCreate(){
   const old=document.getElementById('berhetSeyir');
   if(old){try{window.SukunSeyirYerlesim?.mount?.(old)}catch(e){}return}
   const a=document.getElementById('berhetAtlas');if(!a)return;
-  const d=document.createElement('details');d.id='berhetSeyir';d.innerHTML=`<summary class="r168Head"><b>✦ 28 İSİM SEYRİ</b><span class="r168Tag">kaldığın yerden sürer</span></summary><div class="r168MiniRow"><label>Her isim <select id="bsMode"><option value="1">1 kez</option><option value="28">28 kez</option><option value="ebced">Ebcedi kadar</option><option value="custom">Özel</option></select></label><input id="bsCustom" type="number" min="1" max="9999" value="33" aria-label="Her isim için özel tekrar sayısı" style="width:78px" hidden><label>Ara <select id="bsGap"><option value="350">0.35 sn</option><option value="900" selected>0.9 sn</option><option value="2000">2 sn</option><option value="5000">5 sn</option></select></label></div><div class="r168Progress"><i id="bsBar"></i></div><div class="r168Status" id="bsStatus">Hazır · kayıt varsa kendi sesin, yoksa transliterasyon/TTS.</div><div class="r168Buttons"><button class="btn" id="bsStart">▶ Başlat / Sürdür</button><button class="btn" id="bsPause" hidden aria-hidden="true"></button><button class="btn" id="bsPrev">⏮ Önceki İsim</button><button class="btn" id="bsNext">⏭ Sonraki İsim</button><button class="btn" id="bsAgain">↻ Bu ismi baştan</button><button class="btn" id="bsStop">■ Bitir</button><button class="btn" id="bsReset">↺ Tüm seyri baştan</button></div>`;
+  const d=document.createElement('details');d.id='berhetSeyir';d.innerHTML=`<summary class="r168Head"><b>✦ 28 İSİM SEYRİ</b><span class="r168Tag">kaldığın yerden sürer</span></summary><div class="r168MiniRow"><label>Her isim <select id="bsMode"><option value="1">1 kez</option><option value="28">28 kez</option><option value="ebced">Ebcedi kadar</option><option value="custom">Özel</option></select></label><input id="bsCustom" type="number" min="1" max="9999" value="33" aria-label="Her isim için özel tekrar sayısı" style="width:78px" hidden><label>Ara <select id="bsGap"><option value="350">0.35 sn</option><option value="900" selected>0.9 sn</option><option value="2000">2 sn</option><option value="5000">5 sn</option></select></label></div><div class="r168Progress"><i id="bsBar"></i></div><div class="r168Status" id="bsStatus">Hazır · kayıt varsa kendi sesin, yoksa transliterasyon/TTS.</div><div class="r168Buttons">
+<button class="btn" id="bsStart">▶ Başlat / Sürdür</button>
+<button class="btn" id="bsPause" hidden>Ⅱ Duraklat</button>
+<button class="btn" id="bsPrev">⏮ Önceki İsim</button>
+<button class="btn" id="bsNext">⏭ Sonraki İsim</button>
+<button class="btn" id="bsAgain">↻ Bu ismi baştan</button>
+<button class="btn" id="bsStop">■ Bitir</button>
+<button class="btn" id="bsReset">↺ Tüm seyri baştan</button>
+</div>`;
   let mounted=false;try{mounted=!!window.SukunSeyirYerlesim?.mount?.(d)}catch(e){}
   if(!mounted)a.insertAdjacentElement('afterend',d);
   bindSeyir();restoreSeyir();
