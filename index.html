@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r874"/>
+<meta name="sukun-build" content="r875"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
@@ -6535,7 +6535,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r874 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r875 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -26619,7 +26619,7 @@ kat.addEventListener('click',e=>{ if(e.target===kat)kapat(); });
     });
   }
   addEventListener('load',()=>{
-    navigator.serviceWorker.register('./sw.js?v='+encodeURIComponent(SW_CLIENT_BUILD),{updateViaCache:'none'}).then(reg=>{
+    navigator.serviceWorker.register('./sw.js?v=r875'+encodeURIComponent(SW_CLIENT_BUILD),{updateViaCache:'none'}).then(reg=>{
       state.registration=reg;state.active=reg.active;state.waiting=reg.waiting;set('registered',{registration:reg,active:reg.active,waiting:reg.waiting});
       if(reg.active)status(reg.active);
       if(reg.waiting&&navigator.serviceWorker.controller){status(reg.waiting);notes(reg.waiting)}
@@ -75405,9 +75405,9 @@ html body.r433-dock-hidden :is(#tab-zkr,#tab-amb,#tab-frq,#tab-rx,.wrap){
 </style>
 <script id="sukun-r874-mobile-layout-runtime">
 (()=>{'use strict';
-const V='r874';
+const V='r875';
 function clean(){
-  document.documentElement.dataset.r874='1';
+  document.documentElement.dataset.r875='1';
   document.querySelectorAll('#berhetSeyir .r168Buttons .r866JewelImg').forEach(n=>n.remove());
   document.querySelectorAll('#berhetSeyir .r168Buttons button').forEach(b=>{
     b.classList.remove('r866JewelBtn');
@@ -75417,7 +75417,7 @@ function clean(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean,{once:true});else clean();
 addEventListener('pageshow',clean,{passive:true});
-window.SukunR874=Object.freeze({version:V,sync:clean});
+window.SukunR875=Object.freeze({version:V,sync:clean});
 })();
 </script>
 
