@@ -1,0 +1,38 @@
+{
+  "version": "r833",
+  "date": "2026-09-15",
+  "baseHtml": "r832",
+  "basePackage": "r798",
+  "deployed": false,
+  "verification": {
+    "version": "r833",
+    "total": 154,
+    "passed": 154,
+    "browserRun": false,
+    "physicalDeviceRun": false,
+    "suites": {
+      "context": {
+        "total": 17,
+        "passed": 17,
+        "failed": 0
+      },
+      "worker": {
+        "total": 11,
+        "passed": 11,
+        "failed": 0
+      },
+      "regression": {
+        "total": 126,
+        "passed": 126,
+        "failed": 0
+      }
+    },
+    "testedFiles": {
+      "nero.html": "4fd0ff3b7d623cc2028152cfe41db82f7f7dc752f5bb198364c0f7909e9794b0",
+      "index.html": "41ba449bd0570fb6afc7cdf84813a5c2ff0a89ca2a15f4fa77a6d48154c315cb",
+      "sw.js": "24992fd635b888f1e56b80d406959d70921f4d46c29c1ad2ff5b5da70c96adda",
+      "manifest.webmanifest": "792606256ccc26ef887254e535a130dbf78d97bc9d0f77064c4484ef63e20662"
+    },
+    "legacyTests": "Six pre-r798 worker checks were replaced by eleven resilient-worker contracts; legacy UI/transport contracts retained."
+  }
+}
