@@ -9,11 +9,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r872"/>
+<meta name="sukun-build" content="r873"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r865" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r873" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6535,7 +6535,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r872 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r873 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -74682,7 +74682,7 @@ function sync(){const c=ctx(),on=!!c.berhet;R.dataset.r853Berhet=on?'1':'0';if(!
 function boot(){sync()}
 ['pageshow','load','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:journey-advance','sukun:tabchange','sukun:visualcontextchange','sukun:domhydrate'].forEach(ev=>window.addEventListener(ev,()=>requestAnimationFrame(boot),{passive:true}));
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-window.SukunR853Scene=Object.freeze({version:'r872',sync,files:F,names:N});
+window.SukunR853Scene=Object.freeze({version:'r873',sync,files:F,names:N});
 })();</script>
 
 \n\n\n
@@ -74723,7 +74723,7 @@ window.SukunR850=Object.freeze({version:'r850',settings:()=>document.getElementB
 
 <script id="sukun-r853-sw-identity">(()=>{
 'use strict';
-const APP='r872';
+const APP='r873';
 const el=()=>document.getElementById('surumEtiket');
 function paint(sw='—',phase=''){const e=el();if(!e)return;e.textContent=`SÜKÛN v20.91 — Uygulama ${APP} · SW ${sw}${phase?` · ${phase}`:''}`;}
 paint('denetleniyor…');
@@ -74945,7 +74945,7 @@ window.SukunR856UI=Object.freeze({version:'r856',sync});})();</script>
 
 <script id="sukun-r859-regression-shield">
 (()=>{'use strict';
-const VERSION='r872', root=document.documentElement;
+const VERSION='r873', root=document.documentElement;
 function mode(){return root.getAttribute('data-r853-berhet')==='1'?'berhetiyye':'normal'}
 function syncContext(reason='sync'){const m=mode();root.dataset.sukunContext=m;try{dispatchEvent(new CustomEvent('sukun:contextauthority',{detail:{version:VERSION,mode:m,reason}}))}catch(e){}return m}
 const Context=Object.freeze({version:VERSION,get mode(){return mode()},isBerhetiyye:()=>mode()==='berhetiyye',isNormal:()=>mode()==='normal',sync:syncContext});
@@ -75030,7 +75030,7 @@ html[data-r853-berhet="1"] body #bsStop{pointer-events:auto!important;touch-acti
 </style>
 <script id="sukun-r863-berhetiyye-behavior">
 (()=>{'use strict';
-const VERSION='r872';
+const VERSION='r873';
 let parking=false,lastEsma=0;
 function safe(fn,fallback){try{return fn()}catch(_){return fallback}}
 function rememberEsma(){
@@ -75139,7 +75139,7 @@ html[data-r853-berhet="1"] body #berhetSeyir .r168Buttons #bsStop{
 </style>
 <script id="sukun-r864-approved-journey-runtime">
 (()=>{'use strict';
-const VERSION='r872';
+const VERSION='r873';
 function syncJourneySkin(){
  const b=document.getElementById('bsStart'); if(!b)return;
  const s=window.SukunBerhetiyyeSeyir?.state?.()||{};
@@ -75213,56 +75213,36 @@ html body #r433DockPeek{background-color:transparent!important;box-shadow:none!i
 </style>
 
 
-\n<style id="sukun-r872-journey-single-authority">
-/* r872: Berhetiyye journey has ONE visual authority. No injected IMG layers. */
-#berhetSeyir .r168Buttons{overflow:hidden!important;isolation:isolate!important}
-#berhetSeyir .r168Buttons button{position:relative!important;overflow:hidden!important;border:0!important;border-radius:0!important;box-shadow:none!important;filter:none!important;background-color:transparent!important;background-position:center!important;background-repeat:no-repeat!important;background-size:100% 100%!important;color:#fff8e8!important;text-shadow:0 2px 5px #000!important}
-#berhetSeyir .r168Buttons button::before,#berhetSeyir .r168Buttons button::after,#berhetSeyir .r168Buttons button *::before,#berhetSeyir .r168Buttons button *::after{content:none!important;display:none!important}
-#berhetSeyir .r168Buttons img{display:none!important}
-#berhetSeyir .r168Buttons #bsStart{grid-column:1/-1!important;min-height:60px!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-amethyst-r868.png?v=r872')!important}
-#berhetSeyir .r168Buttons :is(#bsPrev,#bsNext){background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r864.png?v=r872')!important}
-#berhetSeyir .r168Buttons #bsAgain{background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald-r868.png?v=r872')!important}
-#berhetSeyir .r168Buttons #bsStop{display:flex!important;visibility:visible!important;opacity:1!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-ruby-r864.png?v=r872')!important}
-#berhetSeyir .r168Buttons #bsReset{grid-column:1/-1!important;background-image:url('./assets/berhetiyye-premium/btn-primary-wide.png?v=r872')!important}
-/* remove the rectangular backing around the fixed player-peek jewel */
-html body #r433DockPeek,html[data-r835-theme] body #r433DockPeek,html[data-r811-berhet="1"] body #r433DockPeek{background:transparent url('./assets/berhetiyye-premium/control-exit.png?v=r872') center/100% 100% no-repeat!important;background-color:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important;border:0!important;border-radius:0!important;padding:0 34px!important;min-height:58px!important;overflow:visible!important}
+
+<style id="sukun-r873-jewel-stability-authority">
+/* r873 — Android GPU stability: one CSS owner, reduced-size textures, no transition/animation/filter repaint. */
+#berhetSeyir .r168Buttons{isolation:isolate!important;overflow:hidden!important;contain:layout paint!important}
+#berhetSeyir .r168Buttons button{
+  position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;
+  overflow:hidden!important;border:0!important;border-radius:0!important;box-shadow:none!important;filter:none!important;
+  animation:none!important;transition:none!important;transform:none!important;will-change:auto!important;
+  background-color:transparent!important;background-position:center!important;background-repeat:no-repeat!important;background-size:100% 100%!important;
+  color:#fff8e8!important;text-shadow:0 2px 5px #000!important;-webkit-tap-highlight-color:transparent!important;
+  backface-visibility:hidden!important;-webkit-backface-visibility:hidden!important;
+}
+#berhetSeyir .r168Buttons button:hover,#berhetSeyir .r168Buttons button:focus,#berhetSeyir .r168Buttons button:active{filter:none!important;animation:none!important;transition:none!important;transform:none!important}
+#berhetSeyir .r168Buttons #bsStart{grid-column:1/-1!important;min-height:60px!important;background-image:url('./assets/berhetiyye-premium/btn-secondary-amethyst-r872.png')!important}
+#berhetSeyir .r168Buttons :is(#bsPrev,#bsNext){background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r872.png')!important}
+#berhetSeyir .r168Buttons #bsAgain{background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald-r872.png')!important}
+#berhetSeyir .r168Buttons #bsStop{display:flex!important;visibility:visible!important;opacity:1!important;background:transparent url('./assets/berhetiyye-premium/btn-secondary-ruby-r872.png') center/100% 100% no-repeat!important}
+#berhetSeyir .r168Buttons #bsReset{grid-column:1/-1!important;background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png')!important}
+#berhetSeyir .r168Buttons img,.r866JewelImg{display:none!important}
+html body #r433DockPeek{animation:none!important;transition:none!important;filter:none!important}
 </style>
-<script id="sukun-r872-journey-single-runtime">(()=>{'use strict';
+<script id="sukun-r873-jewel-stability-runtime">(()=>{'use strict';
+const V='r873';
 function sync(){
- document.querySelectorAll('#berhetSeyir .r168Buttons .r866JewelImg').forEach(x=>x.remove());
- ['bsStart','bsPrev','bsNext','bsAgain','bsStop','bsReset'].forEach(id=>{const b=document.getElementById(id);if(b){b.classList.remove('r866JewelBtn');}});
- const b=document.getElementById('bsStart'); if(b){const st=window.SukunBerhetiyyeSeyir?.state?.()||{};b.textContent=st.run?'⏸ Duraklat':st.paused?'▶ Sürdür':'▶ Başlat';}
- document.documentElement.dataset.r872='1';
+ document.querySelectorAll('#berhetSeyir .r168Buttons .r866JewelImg').forEach(n=>n.remove());
+ document.querySelectorAll('#berhetSeyir .r168Buttons button').forEach(b=>b.classList.remove('r866JewelBtn'));
+ document.documentElement.dataset.r873='1';
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
-['pageshow','sukun:journey-advance','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));
-window.SukunR871=Object.freeze({version:'r872',sync});})();</script>\n<style id="sukun-r872-hard-inline-authority">
-/* r872 — CSS fallback only. Runtime below owns the six Berhetiyye journey controls. */
-#berhetSeyir .r168Buttons{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important;overflow:visible!important}
-#berhetSeyir .r168Buttons button{display:flex!important;align-items:center!important;justify-content:center!important;background-color:transparent!important;background-position:center!important;background-repeat:no-repeat!important;background-size:100% 100%!important;border:0!important;border-radius:0!important;box-shadow:none!important;color:#fff8e8!important;text-shadow:0 2px 5px #000!important}
-#berhetSeyir .r168Buttons #bsStart,#berhetSeyir .r168Buttons #bsReset{grid-column:1/-1!important}
-#berhetSeyir .r168Buttons #bsStart{min-height:60px!important}
-</style>
-<script id="sukun-r872-hard-inline-runtime">(()=>{'use strict';
-const V='r872', BASE='./assets/berhetiyye-premium/';
-const skin={
- bsStart:'btn-secondary-amethyst-r868.png',bsPrev:'btn-secondary-sapphire-r864.png',bsNext:'btn-secondary-sapphire-r864.png',
- bsAgain:'btn-secondary-emerald-r868.png',bsStop:'btn-secondary-ruby-r864.png',bsReset:'btn-secondary-emerald-r868.png',
- autoBtn:'btn-secondary-amethyst-r868.png',resetBtn:'btn-secondary-emerald-r868.png'
-};
-function paint(id,file){const b=document.getElementById(id);if(!b)return;b.querySelectorAll('.r866JewelImg').forEach(x=>x.remove());b.classList.remove('r866JewelBtn');
- const st=b.style;st.setProperty('background',`transparent url("${BASE+file}?v=${V}") center / 100% 100% no-repeat`,'important');st.setProperty('background-image',`url("${BASE+file}?v=${V}")`,'important');st.setProperty('background-color','transparent','important');st.setProperty('border','0','important');st.setProperty('border-radius','0','important');st.setProperty('box-shadow','none','important');st.setProperty('filter','none','important');st.setProperty('opacity','1','important');st.setProperty('visibility','visible','important');}
-function sync(){Object.entries(skin).forEach(([id,f])=>paint(id,f));
- document.querySelectorAll('#r616ZikirNavRow button:not([data-action="reset"])').forEach(b=>{const st=b.style;st.setProperty('background',`transparent url("${BASE}btn-secondary-sapphire-r864.png?v=${V}") center / 100% 100% no-repeat`,'important');st.setProperty('border','0','important');st.setProperty('border-radius','0','important');});
- const start=document.getElementById('bsStart');if(start){const q=window.SukunBerhetiyyeSeyir?.state?.()||{};start.textContent=q.run?'⏸ Duraklat':q.paused?'▶ Sürdür':'▶ Başlat';}
- const stop=document.getElementById('bsStop');if(stop)stop.textContent='■ Bitir';
- const again=document.getElementById('bsAgain');if(again)again.textContent='↻ Bu ismi baştan';
- const reset=document.getElementById('bsReset');if(reset)reset.textContent='↺ Tüm seyri baştan';
- document.documentElement.dataset.r872='1';
-}
-let queued=false;function queue(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;sync()})}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
-['pageshow','click','sukun:journey-advance','sukun:domhydrate'].forEach(e=>addEventListener(e,queue,{passive:true}));
-new MutationObserver(queue).observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style','data-r835-theme','data-r853-berhet']});
-window.SukunR872=Object.freeze({version:V,sync});})();</script>
+addEventListener('pageshow',sync,{passive:true});
+window.SukunR872=Object.freeze({version:V,sync});
+})();</script>
 </body></html>
