@@ -9,11 +9,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r876"/>
+<meta name="sukun-build" content="r877"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r876" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r877" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6638,7 +6638,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r876 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r877 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -7030,7 +7030,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
     "t": "10 Eylül 2026",
     "b": [
       "Service Worker sürüm sözleşmesi onarıldı: HTML, manifest, worker, cache ve build marker r748 olarak eşitlendi.",
-      "r747 içindeki SURUM=r741 ve __sukun_build_r876__.json kalıntıları kaldırıldı; yeni worker kurulumunu engelleyen HTML build mismatch giderildi.",
+      "r747 içindeki SURUM=r741 ve __sukun_build_r877__.json kalıntıları kaldırıldı; yeni worker kurulumunu engelleyen HTML build mismatch giderildi.",
       "r746/r747 premium görsel entegrasyonları korunur."
     ]
   },
@@ -26722,7 +26722,7 @@ kat.addEventListener('click',e=>{ if(e.target===kat)kapat(); });
     });
   }
   addEventListener('load',()=>{
-    navigator.serviceWorker.register('./sw.js?v=r876'+encodeURIComponent(SW_CLIENT_BUILD),{updateViaCache:'none'}).then(reg=>{
+    navigator.serviceWorker.register('./sw.js?v=r877'+encodeURIComponent(SW_CLIENT_BUILD),{updateViaCache:'none'}).then(reg=>{
       state.registration=reg;state.active=reg.active;state.waiting=reg.waiting;set('registered',{registration:reg,active:reg.active,waiting:reg.waiting});
       if(reg.active)status(reg.active);
       if(reg.waiting&&navigator.serviceWorker.controller){status(reg.waiting);notes(reg.waiting)}
@@ -75553,6 +75553,47 @@ window.SukunR875=Object.freeze({version:V,sync:clean});
  document.addEventListener("click",e=>{
    if(e.target.closest("#berhetSeyir,#esmaSeyir,#esmaList,#berhetiyyeList,#esmaulHusna")) setTimeout(makeRails,0);
  },true);
+})();
+</script>
+
+
+<script id="sukun-r877-sw-bootstrap">
+(()=>{"use strict";
+ if(!("serviceWorker" in navigator)) return;
+ const TARGET="r877", KEY="sukun-r877-controller-reload";
+ async function boot(){
+   try{
+     const reg=await navigator.serviceWorker.register("./sw.js?v="+TARGET,{
+       scope:"./", updateViaCache:"none"
+     });
+     try{await reg.update()}catch(_){}
+     const promote=w=>{try{w&&w.postMessage({type:"SKIP_WAITING",target:TARGET})}catch(_){}};
+     promote(reg.waiting);
+     reg.addEventListener("updatefound",()=>{
+       const w=reg.installing;
+       if(!w)return;
+       w.addEventListener("statechange",()=>{
+         if(w.state==="installed") promote(reg.waiting||w);
+       });
+     });
+     navigator.serviceWorker.addEventListener("controllerchange",()=>{
+       if(sessionStorage.getItem(KEY)==="1") return;
+       sessionStorage.setItem(KEY,"1");
+       location.reload();
+     });
+     if(navigator.serviceWorker.controller){
+       navigator.serviceWorker.controller.postMessage({type:"GET_VERSION"});
+     }
+   }catch(e){console.warn("[SUKUN r877] SW bootstrap",e)}
+ }
+ navigator.serviceWorker.addEventListener("message",e=>{
+   const d=e.data||{};
+   if(d.type==="SUKUN_SW_VERSION" && d.version===TARGET){
+     sessionStorage.removeItem(KEY);
+     document.documentElement.dataset.sukunSw=TARGET;
+   }
+ });
+ addEventListener("load",boot,{once:true});
 })();
 </script>
 
