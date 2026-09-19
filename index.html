@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r865"/>
+<meta name="sukun-build" content="r867"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
@@ -38129,6 +38129,11 @@ async function seyirLoop(token){
   while(BS.run&&!BS.paused&&token===BS.token&&BS.i<list.length){const it=list[BS.i],limit=repeatCount(it);
     if(BS.shown!==BS.i){
       Z.cat='berhet';Z.idx=BS.i;
+      /* r867: 28 İsim Seyri owns its per-name target. A stale global target
+         (e.g. 20) must never create a second devir before the journey advances. */
+      Z.target=Math.max(1,limit);
+      Z.count=0; Z.devir=0;
+      try{ensureTargetOpt(Z.target,(document.getElementById('bsMode')?.value==='ebced'?'Ebced • ':'Seyir • ')+Z.target)}catch(e){}
       /* ═══ r567 — SAYAÇ YANLIŞ EBCEDLE SAYIYORDU ═════════════════════
          Seyir ismi değiştirirken kategori ve sırayı yazıyor ama HEDEFİ
          yeniden hesaplatmıyordu. Önceki kategoriden kalan değer olduğu
@@ -38144,7 +38149,9 @@ async function seyirLoop(token){
          İsim değiştiğinde hedef yeniden uygulanıyor; sayaç sıfırlanıp o
          ismin kendi ebcedinden başlıyor. */
       try{
-        if(typeof window.zHedefSecimeUyarla==='function')window.zHedefSecimeUyarla(true);
+        /* Global targetMode may be fixed/manual. Journey target is independent. */
+        Z.target=Math.max(1,limit); Z.count=0; Z.devir=0;
+        try{ensureTargetOpt(Z.target,(document.getElementById('bsMode')?.value==='ebced'?'Ebced • ':'Seyir • ')+Z.target)}catch(_){}
       }catch(e){ try{sukunReport('seyir-hedef',e,BS.i)}catch(_){} }
       try{if(!document.hidden){renderZikir(false);zUI()}}catch(e){sukunReport('seyir-render',e,BS.i)}
       try{window.SukunSectionIdentityCommit?.commit?.('journey28',BS.i,'journey-show')}catch(e){}
@@ -38226,7 +38233,7 @@ async function seyirLoop(token){
       try{const _prevJourneyRep=window.__SUKUN_JOURNEY_REP__;window.__SUKUN_JOURNEY_REP__='journey28';try{(window.SukunZikirRep||function(){})()}finally{window.__SUKUN_JOURNEY_REP__=_prevJourneyRep||''}}catch(e){}
       autoRetries=0;staleRetries=0;BS.lastFailure='';
       BS.rep++;BS.totalDone++;seyirUI(r.source==='recording'?'🎙 Kendi sesin':'🔊 '+(r.source==='reader'?'Okuyucu':'TTS'));seyirSave();
-      const gap=+document.getElementById('bsGap')?.value||900;
+      const gap=Math.max(180,Math.round((+Z.tempo||1)*1000));
       const sonOkuma=BS.i===list.length-1&&BS.rep>=limit;
       /* r629: son duyulan okumadan sonra boş bir bekleme göstermeden
          tamamlanma mührüne geç; isimler arasındaki olağan nefes korunur. */
@@ -38248,7 +38255,11 @@ function bindSeyir(){
   const m=document.getElementById('bsMode'),c=document.getElementById('bsCustom');
   if(m)m.onchange=()=>{if(c)c.hidden=m.value!=='custom';seyirSave();seyirUI()};
   if(c)c.oninput=()=>{seyirSave();seyirUI()};
-  const g=document.getElementById('bsGap');if(g)g.onchange=seyirSave;
+  const g=document.getElementById('bsGap');if(g)g.onchange=()=>{
+    const ms=Math.max(180,+g.value||900); Z.tempo=Math.max(.8,Math.min(6,ms/1000));
+    const ts=document.getElementById('tempoSld');if(ts){ts.value=String(Z.tempo);ts.dispatchEvent(new Event('input',{bubbles:true}))}
+    seyirSave();
+  };
   /* ═══ r565 — SEYİR KONTROLLERİ TEK SAHİBE ALINDI ══════════════════
      Beş düğme üç ayrı yerden bağlanıyordu: burası (doğru olan), duraklatma
      sözleşmesi modülü ve sağlayıcı eşleme tablosu. En son bağlanan
@@ -74934,7 +74945,7 @@ window.SukunR856UI=Object.freeze({version:'r856',sync});})();</script>
 
 <script id="sukun-r859-regression-shield">
 (()=>{'use strict';
-const VERSION='r865', root=document.documentElement;
+const VERSION='r867', root=document.documentElement;
 function mode(){return root.getAttribute('data-r853-berhet')==='1'?'berhetiyye':'normal'}
 function syncContext(reason='sync'){const m=mode();root.dataset.sukunContext=m;try{dispatchEvent(new CustomEvent('sukun:contextauthority',{detail:{version:VERSION,mode:m,reason}}))}catch(e){}return m}
 const Context=Object.freeze({version:VERSION,get mode(){return mode()},isBerhetiyye:()=>mode()==='berhetiyye',isNormal:()=>mode()==='normal',sync:syncContext});
@@ -75019,7 +75030,7 @@ html[data-r853-berhet="1"] body #bsStop{pointer-events:auto!important;touch-acti
 </style>
 <script id="sukun-r863-berhetiyye-behavior">
 (()=>{'use strict';
-const VERSION='r865';
+const VERSION='r867';
 let parking=false,lastEsma=0;
 function safe(fn,fallback){try{return fn()}catch(_){return fallback}}
 function rememberEsma(){
@@ -75128,7 +75139,7 @@ html[data-r853-berhet="1"] body #berhetSeyir .r168Buttons #bsStop{
 </style>
 <script id="sukun-r864-approved-journey-runtime">
 (()=>{'use strict';
-const VERSION='r865';
+const VERSION='r867';
 function syncJourneySkin(){
  const b=document.getElementById('bsStart'); if(!b)return;
  const s=window.SukunBerhetiyyeSeyir?.state?.()||{};
@@ -75181,13 +75192,11 @@ html body #r433DockPeek{background-color:transparent!important;box-shadow:none!i
  html body #berhetSeyir .r168Buttons .btn{font-size:11px!important}
 }
 </style>
-<script id="sukun-r865-mobile-jewel-runtime">(()=>{'use strict';const V='r865';function sync(){const b=document.getElementById('bsStart');if(b){const s=window.SukunBerhetiyyeSeyir?.state?.()||{};if(s.run)b.textContent='⏸ Duraklat';else if(s.paused)b.textContent='▶ Sürdür';}document.documentElement.dataset.r865='1'}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','click','sukun:journey-advance','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));window.SukunR865=Object.freeze({version:V,sync});})();</script>
-
-
 <style id="sukun-r866-jewel-dom-authority">
 /* r866 — actual IMG layers are injected into journey controls. This bypasses the legacy .btn/background cascade entirely. */
 #berhetSeyir .r168Buttons .r866JewelBtn{position:relative!important;isolation:isolate!important;background:none!important;border:0!important;box-shadow:none!important;overflow:visible!important;color:#fff7e8!important}
-#berhetSeyir .r168Buttons .r866JewelBtn>.r866JewelImg{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:fill!important;z-index:-1!important;pointer-events:none!important;user-select:none!important}
+#berhetSeyir .r168Buttons .r866JewelBtn>.r866JewelImg{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:fill!important;z-index:0!important;pointer-events:none!important;user-select:none!important}
+#berhetSeyir .r168Buttons .r866JewelBtn>:not(.r866JewelImg){position:relative!important;z-index:2!important}
 #berhetSeyir .r168Buttons #bsStart.r866JewelBtn{grid-column:1/-1!important;min-height:60px!important;color:#fff5ff!important}
 #berhetSeyir .r168Buttons #bsReset.r866JewelBtn{grid-column:1/-1!important}
 #berhetSeyir .r168Buttons #bsStop.r866JewelBtn{display:flex!important;align-items:center!important;justify-content:center!important;min-height:52px!important;opacity:1!important;visibility:visible!important;color:#fff7ee!important}
@@ -75201,15 +75210,35 @@ html body :is(#berhetSeyir,#esmaSeyir99)>summary.r168Head>.r168Tag{font:600 clam
 @media(max-width:390px){html body :is(#berhetSeyir,#esmaSeyir99)>summary.r168Head{grid-template-columns:minmax(0,1.42fr) minmax(82px,.58fr)!important;padding-inline:7%!important}html body :is(#berhetSeyir,#esmaSeyir99)>summary.r168Head>.r168Tag{font-size:7.5px!important;max-width:92px!important}}
 </style>
 <script id="sukun-r866-jewel-dom-runtime">(()=>{'use strict';
-const V='r866';
+const V='r867';
 const A='./assets/berhetiyye-premium/';
-const map={bsStart:'btn-secondary-amethyst.png?v=r866',bsPrev:'btn-secondary-sapphire-r864.png?v=r866',bsNext:'btn-secondary-sapphire-r864.png?v=r866',bsAgain:'btn-secondary-emerald.png?v=r866',bsStop:'btn-secondary-ruby-r864.png?v=r866',bsReset:'btn-primary-wide.png?v=r866'};
-function jewel(id,file){const b=document.getElementById(id);if(!b)return; b.classList.add('r866JewelBtn'); let im=b.querySelector(':scope>.r866JewelImg');if(!im){im=document.createElement('img');im.className='r866JewelImg';im.alt='';im.setAttribute('aria-hidden','true');b.prepend(im)} if(!im.src.endsWith(file.split('?')[0]))im.src=A+file;}
+const map={bsStart:'btn-secondary-amethyst.png?v=r867',bsPrev:'btn-secondary-sapphire-r864.png?v=r867',bsNext:'btn-secondary-sapphire-r864.png?v=r867',bsAgain:'btn-secondary-emerald.png?v=r867',bsStop:'btn-secondary-ruby-r864.png?v=r867',bsReset:'btn-primary-wide.png?v=r867'};
+function jewel(id,file){const b=document.getElementById(id);if(!b)return;b.classList.add('r866JewelBtn');let im=b.querySelector(':scope>.r866JewelImg');if(!im){im=document.createElement('img');im.className='r866JewelImg';im.alt='';im.setAttribute('aria-hidden','true');b.prepend(im)}if(!im.src.endsWith(file.split('?')[0]))im.src=A+file;const texts=[...b.childNodes].filter(n=>n.nodeType===3&&n.textContent.trim());for(const n of texts){const sp=document.createElement('span');sp.className='r866JewelText';sp.textContent=n.textContent.trim();n.replaceWith(sp)}}
 function chip(){let c=document.getElementById('r866VoiceChip');if(!c){c=document.createElement('div');c.id='r866VoiceChip';c.setAttribute('aria-live','polite');const box=document.getElementById('r679ZikirAyarBox');if(box)box.insertAdjacentElement('afterend',c)}return c}
 function sourceSync(){const c=chip();if(!c)return;let own=false;try{const a=window.SukunLockTransportV2?.snapshot?.()||window.SukunLockZikir?.snapshot?.()||null;own=!!(a&&(a.source==='recording'||a.mode==='recording'||a.kind==='recording'))}catch(e){}try{own=own||!!(window._r476Hidden?.mode==='recording')}catch(e){}const txt=(document.querySelector('#bsStatus')?.textContent||'');own=own||/kendi sesin/i.test(txt);c.textContent='🎙 Kendi ses kaydın çalıyor';c.classList.toggle('on',own)}
 function sync(){Object.entries(map).forEach(([id,f])=>jewel(id,f));const b=document.getElementById('bsStart');if(b){const s=window.SukunBerhetiyyeSeyir?.state?.()||{};const text=s.run?'⏸ Duraklat':s.paused?'▶ Sürdür':'▶ Başlat';for(const n of [...b.childNodes])if(n.nodeType===3)n.remove();let t=b.querySelector('.r866JewelText');if(!t){t=document.createElement('span');t.className='r866JewelText';b.appendChild(t)}t.textContent=text}sourceSync();document.documentElement.dataset.r866='1'}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
 ['pageshow','click','sukun:journey-advance','sukun:domhydrate','sukun:sourcechange','sukun:currentzikirchange'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));setInterval(sourceSync,900);
-window.SukunR866=Object.freeze({version:V,sync});})();</script>
+window.SukunR867=Object.freeze({version:V,sync});})();</script>
+
+
+<style id="sukun-r867-authority-fix">
+#berhetSeyir .r168Buttons .r866JewelBtn{background-color:transparent!important;background-image:none!important}
+#berhetSeyir .r168Buttons .r866JewelBtn>.r866JewelImg{z-index:0!important;opacity:1!important;display:block!important;visibility:visible!important}
+#berhetSeyir .r168Buttons .r866JewelBtn>.r866JewelText,
+#berhetSeyir .r168Buttons .r866JewelBtn{font-weight:800!important;text-shadow:0 2px 5px #000!important}
+#berhetSeyir .r168Status{width:max-content!important;max-width:calc(100% - 28px)!important;margin:8px auto!important;padding:7px 13px!important;border-radius:999px!important;text-align:center!important}
+#berhetSeyir .r168Status[data-r867-recording="1"]{color:#d5fff1!important;border-color:rgba(63,235,170,.35)!important}
+</style>
+<script id="sukun-r867-journey-authority">(()=>{'use strict';
+const $=id=>document.getElementById(id);
+function syncVoice(){const st=$('bsStatus');if(!st)return;const own=/kendi sesin/i.test(st.textContent||'');if(own){st.textContent='🎙 Kendi kayıtlı sesin çalıyor';st.dataset.r867Recording='1'}else delete st.dataset.r867Recording}
+function syncTempo(){const g=$('bsGap');if(!g)return;const ms=Math.max(180,Math.round((+window.Z?.tempo||+($('tempoSld')?.value)||1)*1000));let o=[...g.options].find(x=>+x.value===ms);if(!o){o=document.createElement('option');o.value=String(ms);o.textContent=(ms/1000).toFixed(1)+' sn';o.dataset.r867='1';g.appendChild(o)}g.value=String(ms)}
+$('tempoSld')?.addEventListener('input',()=>{syncTempo()},{passive:true});
+const mo=new MutationObserver(()=>syncVoice());
+function boot(){const st=$('bsStatus');if(st)mo.observe(st,{childList:true,subtree:true,characterData:true});syncVoice();syncTempo();window.SukunR867?.sync?.()}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+['pageshow','sukun:journey-advance','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(()=>{syncVoice();syncTempo();window.SukunR867?.sync?.()}),{passive:true}));
+window.SukunR867Journey=Object.freeze({version:'r867',sync:boot});})();</script>
 
 </body></html>
