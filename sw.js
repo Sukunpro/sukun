@@ -1,29 +1,48 @@
-/* SÜKÛN r878 — emergency stable worker: NO forced reload */
-const SURUM="r878";
-const CACHE="sukun-r878-stable-20260919a";
-self.addEventListener("install",e=>{self.skipWaiting();});
-self.addEventListener("activate",e=>{
- e.waitUntil((async()=>{
-   for(const k of await caches.keys()){
-     if(k.startsWith("sukun-") && k!==CACHE) await caches.delete(k);
-   }
-   await self.clients.claim();
- })());
+/* SÜKÛN r875 SAFE ROLLBACK */
+const SURUM="r875";
+const CACHE="sukun-r875-safe-rollback-20260919";
+
+self.addEventListener("install", event => {
+  self.skipWaiting();
 });
-self.addEventListener("message",e=>{
- const d=e.data||{};
- if(d.type==="GET_VERSION"){
-   try{e.source&&e.source.postMessage({type:"SUKUN_SW_VERSION",version:SURUM,cache:CACHE})}catch(_){}
- }
+
+self.addEventListener("activate", event => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys
+      .filter(k => k.startsWith("sukun-") && k !== CACHE)
+      .map(k => caches.delete(k)));
+    await self.clients.claim();
+  })());
 });
-self.addEventListener("fetch",e=>{
- if(e.request.method!=="GET")return;
- const u=new URL(e.request.url);
- if(u.origin!==location.origin)return;
- const nav=e.request.mode==="navigate" || /\/(?:index|nero)\.html$/.test(u.pathname);
- if(nav){
-   e.respondWith(fetch(e.request,{cache:"no-store"}).catch(()=>caches.match(e.request)));
-   return;
- }
- e.respondWith(caches.match(e.request).then(c=>c||fetch(e.request)));
+
+self.addEventListener("message", event => {
+  const d=event.data||{};
+  if(d.type==="GET_VERSION"){
+    try {
+      event.source && event.source.postMessage({
+        type:"SUKUN_SW_VERSION", version:SURUM, cache:CACHE
+      });
+    } catch(_) {}
+  }
+});
+
+/* Network-first for documents. Absolutely no reload/redirect logic. */
+self.addEventListener("fetch", event => {
+  if(event.request.method!=="GET") return;
+  const url=new URL(event.request.url);
+  if(url.origin!==self.location.origin) return;
+
+  if(event.request.mode==="navigate" ||
+     /\/(?:index|nero)\.html$/.test(url.pathname)){
+    event.respondWith(
+      fetch(event.request,{cache:"no-store"})
+        .catch(()=>caches.match(event.request))
+    );
+    return;
+  }
+
+  event.respondWith(
+    caches.match(event.request).then(hit => hit || fetch(event.request))
+  );
 });
