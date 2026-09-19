@@ -5440,65 +5440,28 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 
 
 
-<style id="sukun-r875-visual-surgical-fix">
-/* Corrected paths: assets live under assets/berhetiyye-premium/. */
+
+<style id="sukun-r875-button-hardfix">
+/* HARD FIX — scoped only to Berhetiyye journey control row */
 #berhetSeyir .r168Buttons{
- display:grid!important;grid-template-columns:1fr 1fr!important;
- gap:10px 10px!important;padding:8px 6px 12px!important;
- overflow:hidden!important;isolation:isolate!important;
+ display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px 9px!important;
+ overflow:hidden!important;contain:layout paint!important;padding:8px 5px 12px!important;
+ background:none!important;
 }
+#berhetSeyir .r168Buttons::before,#berhetSeyir .r168Buttons::after{content:none!important;display:none!important}
 #berhetSeyir .r168Buttons > button{
- position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;
- width:100%!important;min-width:0!important;height:52px!important;min-height:52px!important;max-height:52px!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ position:relative!important;width:100%!important;height:54px!important;min-height:54px!important;max-height:54px!important;
  margin:0!important;padding:0 10px!important;border:0!important;border-radius:0!important;
- background-color:transparent!important;background-position:center!important;background-repeat:no-repeat!important;
- background-size:100% 100%!important;box-shadow:none!important;filter:none!important;transform:none!important;
- transition:none!important;animation:none!important;overflow:hidden!important;color:#fff8e8!important;
- font-weight:800!important;text-align:center!important;text-shadow:0 2px 5px #000!important;
+ background-color:transparent!important;background-position:center!important;background-size:100% 100%!important;background-repeat:no-repeat!important;
+ overflow:hidden!important;box-shadow:none!important;filter:none!important;transform:none!important;animation:none!important;transition:none!important;
+ color:#fff8e8!important;font-weight:800!important;text-shadow:0 2px 4px #000!important;
 }
-#berhetSeyir .r168Buttons > button::before,
-#berhetSeyir .r168Buttons > button::after,
-#berhetSeyir .r168Buttons > button *::before,
-#berhetSeyir .r168Buttons > button *::after{content:none!important;display:none!important}
+#berhetSeyir .r168Buttons > button[hidden]{display:none!important}
+#berhetSeyir .r168Buttons > button::before,#berhetSeyir .r168Buttons > button::after{content:none!important;display:none!important}
 #berhetSeyir .r168Buttons > :not(button){display:none!important}
-#berhetSeyir .r168Buttons img,
-#berhetSeyir .r168Buttons .r866JewelImg{display:none!important}
-
-#berhetSeyir #bsStart{
- grid-column:1/-1!important;height:60px!important;min-height:60px!important;max-height:60px!important;
- background-image:url('./assets/berhetiyye-premium/btn-secondary-amethyst-r872.png')!important;
-}
-#berhetSeyir #bsPrev,#berhetSeyir #bsNext{
- background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r872.png')!important;
-}
-#berhetSeyir #bsAgain{
- background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald-r872.png')!important;
-}
-#berhetSeyir #bsStop{
- display:flex!important;visibility:visible!important;opacity:1!important;
- background:transparent url('./assets/berhetiyye-premium/btn-secondary-ruby-r872.png') center/100% 100% no-repeat!important;
-}
-#berhetSeyir #bsReset{
- grid-column:1/-1!important;
- background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png')!important;
-}
-#berhetSeyir #bsPause{
- grid-column:1/-1!important;height:60px!important;min-height:60px!important;max-height:60px!important;
- background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png')!important;
-}
-
-/* Overflow repair: target the visible Berhetiyye source/info cards without redesign. */
-#berhetSeyir :is(.r168Body,.r168Info,.r168Meta,.r168Detail,.detail,.details,.infoCard,.detailCard){
- height:auto!important;max-height:none!important;overflow:visible!important;min-width:0!important;max-width:100%!important;
-}
-#berhetSeyir :is(.r168Body,.r168Info,.r168Meta,.r168Detail,.detail,.details,.infoCard,.detailCard)
- :is(p,div,span,dd,dt,li,strong){
- max-width:100%!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;
-}
-
-/* Player restore strip: keep clear of content. */
-body{padding-bottom:max(118px,calc(96px + env(safe-area-inset-bottom)))!important}
-#r433DockPeek{bottom:max(10px,env(safe-area-inset-bottom))!important}
+#berhetSeyir #bsStart{grid-column:1/-1!important;height:64px!important;min-height:64px!important;max-height:64px!important}
+#berhetSeyir #bsReset{grid-column:1/-1!important}
 </style>
 
 </head>
@@ -75486,5 +75449,54 @@ window.SukunR875=Object.freeze({version:V,sync:clean});
 </script>
 
 
+
+
+<script id="sukun-r875-button-hardfix-runtime">
+(()=>{"use strict";
+const A="./assets/berhetiyye-premium/";
+const set=(b,p,v)=>b&&b.style.setProperty(p,v,"important");
+function paint(){
+ const box=document.querySelector("#berhetSeyir .r168Buttons"); if(!box)return;
+ /* Remove every injected decorative node. Keep the real buttons/listeners intact. */
+ [...box.children].forEach(n=>{if(n.tagName!=="BUTTON")n.remove()});
+ box.querySelectorAll("img,svg,.r866JewelImg,[aria-hidden='true']:not(button)").forEach(n=>n.remove());
+
+ const start=document.getElementById("bsStart"), pause=document.getElementById("bsPause"),
+       prev=document.getElementById("bsPrev"), next=document.getElementById("bsNext"),
+       again=document.getElementById("bsAgain"), stop=document.getElementById("bsStop"),
+       reset=document.getElementById("bsReset");
+ [start,pause,prev,next,again,stop,reset].forEach(b=>{
+   if(!b)return;b.classList.remove("r866JewelBtn");
+   set(b,"background-color","transparent");set(b,"background-position","center");
+   set(b,"background-repeat","no-repeat");set(b,"background-size","100% 100%");
+   set(b,"filter","none");set(b,"transform","none");set(b,"box-shadow","none");
+ });
+ set(start,"background-image",`url('${A}btn-primary-wide-r872.png')`);
+ set(prev,"background-image",`url('${A}btn-secondary-sapphire-r872.png')`);
+ set(next,"background-image",`url('${A}btn-secondary-sapphire-r872.png')`);
+ set(again,"background-image",`url('${A}btn-secondary-emerald-r872.png')`);
+ set(reset,"background-image",`url('${A}btn-primary-wide-r872.png')`);
+ if(pause?.hidden)set(pause,"display","none");
+
+ /* Ruby first. If that file is absent on GitHub, use a guaranteed visible red-tinted
+    sapphire jewel instead of ever leaving Bitir naked. */
+ if(stop){
+   set(stop,"display","flex");set(stop,"visibility","visible");set(stop,"opacity","1");
+   const ruby=A+"btn-secondary-ruby-r872.png";
+   const fallback=`linear-gradient(rgba(150,0,28,.62),rgba(95,0,20,.70)),url('${A}btn-secondary-sapphire-r872.png')`;
+   const im=new Image();
+   im.onload=()=>{set(stop,"background-image",`url('${ruby}')`);set(stop,"background-blend-mode","normal")};
+   im.onerror=()=>{set(stop,"background-image",fallback);set(stop,"background-blend-mode","color,normal")};
+   im.src=ruby+"?r875hard=1";
+ }
+}
+const run=()=>requestAnimationFrame(()=>requestAnimationFrame(paint));
+document.readyState==="loading"?document.addEventListener("DOMContentLoaded",run,{once:true}):run();
+addEventListener("pageshow",run);
+document.addEventListener("click",e=>{if(e.target.closest("#berhetSeyir"))setTimeout(paint,0)},true);
+new MutationObserver(()=>{clearTimeout(window.__sukunHardFixT);window.__sukunHardFixT=setTimeout(paint,20)})
+ .observe(document.documentElement,{subtree:true,childList:true});
+})();
+</script>
 
 </body></html>
