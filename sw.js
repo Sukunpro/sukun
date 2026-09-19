@@ -1,8 +1,8 @@
-/* SÜKÛN r875 CLEAN RELEASE */
-const SURUM='r875';
-const CACHE='sukun-r875-clean-20260919b';
-const CORE=['./','./index.html','./nero.html','./manifest.webmanifest?v=r875',
-'./__sukun_latest__.json','./__sukun_build_r875__.json'];
+/* SÜKÛN r876 UI FIX */
+const SURUM='r876';
+const CACHE='sukun-r876-ui-20260919a';
+const CORE=['./','./index.html','./nero.html','./manifest.webmanifest?v=r876',
+'./__sukun_latest__.json','./__sukun_build_r876__.json'];
 
 self.addEventListener('install',e=>{
   self.skipWaiting();
