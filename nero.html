@@ -74671,7 +74671,7 @@ function sync(){const c=ctx(),on=!!c.berhet;R.dataset.r853Berhet=on?'1':'0';if(!
 function boot(){sync()}
 ['pageshow','load','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:journey-advance','sukun:tabchange','sukun:visualcontextchange','sukun:domhydrate'].forEach(ev=>window.addEventListener(ev,()=>requestAnimationFrame(boot),{passive:true}));
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-window.SukunR853Scene=Object.freeze({version:'r865',sync,files:F,names:N});
+window.SukunR853Scene=Object.freeze({version:'r866',sync,files:F,names:N});
 })();</script>
 
 \n\n\n
@@ -74712,7 +74712,7 @@ window.SukunR850=Object.freeze({version:'r850',settings:()=>document.getElementB
 
 <script id="sukun-r853-sw-identity">(()=>{
 'use strict';
-const APP='r865';
+const APP='r866';
 const el=()=>document.getElementById('surumEtiket');
 function paint(sw='—',phase=''){const e=el();if(!e)return;e.textContent=`SÜKÛN v20.91 — Uygulama ${APP} · SW ${sw}${phase?` · ${phase}`:''}`;}
 paint('denetleniyor…');
@@ -75182,5 +75182,34 @@ html body #r433DockPeek{background-color:transparent!important;box-shadow:none!i
 }
 </style>
 <script id="sukun-r865-mobile-jewel-runtime">(()=>{'use strict';const V='r865';function sync(){const b=document.getElementById('bsStart');if(b){const s=window.SukunBerhetiyyeSeyir?.state?.()||{};if(s.run)b.textContent='⏸ Duraklat';else if(s.paused)b.textContent='▶ Sürdür';}document.documentElement.dataset.r865='1'}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','click','sukun:journey-advance','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));window.SukunR865=Object.freeze({version:V,sync});})();</script>
+
+
+<style id="sukun-r866-jewel-dom-authority">
+/* r866 — actual IMG layers are injected into journey controls. This bypasses the legacy .btn/background cascade entirely. */
+#berhetSeyir .r168Buttons .r866JewelBtn{position:relative!important;isolation:isolate!important;background:none!important;border:0!important;box-shadow:none!important;overflow:visible!important;color:#fff7e8!important}
+#berhetSeyir .r168Buttons .r866JewelBtn>.r866JewelImg{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:fill!important;z-index:-1!important;pointer-events:none!important;user-select:none!important}
+#berhetSeyir .r168Buttons #bsStart.r866JewelBtn{grid-column:1/-1!important;min-height:60px!important;color:#fff5ff!important}
+#berhetSeyir .r168Buttons #bsReset.r866JewelBtn{grid-column:1/-1!important}
+#berhetSeyir .r168Buttons #bsStop.r866JewelBtn{display:flex!important;align-items:center!important;justify-content:center!important;min-height:52px!important;opacity:1!important;visibility:visible!important;color:#fff7ee!important}
+/* Elegant journey header: resume info is deliberately secondary. */
+html body :is(#berhetSeyir,#esmaSeyir99)>summary.r168Head{grid-template-columns:minmax(0,1.35fr) minmax(86px,.65fr)!important;gap:7px!important;padding:10px 8%!important}
+html body :is(#berhetSeyir,#esmaSeyir99)>summary.r168Head>b{font-size:clamp(16px,4.7vw,21px)!important;line-height:1.02!important;white-space:normal!important;text-align:center!important}
+html body :is(#berhetSeyir,#esmaSeyir99)>summary.r168Head>.r168Tag{font:600 clamp(7.2px,1.95vw,8.7px)/1.12 system-ui!important;letter-spacing:.015em!important;padding:4px 6px!important;opacity:.86!important;max-width:104px!important;justify-self:center!important}
+/* Playback source chip: compact, centered, content-width. */
+#r866VoiceChip{display:none;width:max-content;max-width:calc(100% - 28px);margin:7px auto 9px;padding:6px 13px;border:1px solid rgba(105,226,170,.28);border-radius:999px;background:linear-gradient(180deg,rgba(6,42,43,.78),rgba(3,25,32,.72));color:#cffff0;font:700 11px/1.2 system-ui;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.16)}
+#r866VoiceChip.on{display:block}
+@media(max-width:390px){html body :is(#berhetSeyir,#esmaSeyir99)>summary.r168Head{grid-template-columns:minmax(0,1.42fr) minmax(82px,.58fr)!important;padding-inline:7%!important}html body :is(#berhetSeyir,#esmaSeyir99)>summary.r168Head>.r168Tag{font-size:7.5px!important;max-width:92px!important}}
+</style>
+<script id="sukun-r866-jewel-dom-runtime">(()=>{'use strict';
+const V='r866';
+const A='./assets/berhetiyye-premium/';
+const map={bsStart:'btn-secondary-amethyst.png?v=r866',bsPrev:'btn-secondary-sapphire-r864.png?v=r866',bsNext:'btn-secondary-sapphire-r864.png?v=r866',bsAgain:'btn-secondary-emerald.png?v=r866',bsStop:'btn-secondary-ruby-r864.png?v=r866',bsReset:'btn-primary-wide.png?v=r866'};
+function jewel(id,file){const b=document.getElementById(id);if(!b)return; b.classList.add('r866JewelBtn'); let im=b.querySelector(':scope>.r866JewelImg');if(!im){im=document.createElement('img');im.className='r866JewelImg';im.alt='';im.setAttribute('aria-hidden','true');b.prepend(im)} if(!im.src.endsWith(file.split('?')[0]))im.src=A+file;}
+function chip(){let c=document.getElementById('r866VoiceChip');if(!c){c=document.createElement('div');c.id='r866VoiceChip';c.setAttribute('aria-live','polite');const box=document.getElementById('r679ZikirAyarBox');if(box)box.insertAdjacentElement('afterend',c)}return c}
+function sourceSync(){const c=chip();if(!c)return;let own=false;try{const a=window.SukunLockTransportV2?.snapshot?.()||window.SukunLockZikir?.snapshot?.()||null;own=!!(a&&(a.source==='recording'||a.mode==='recording'||a.kind==='recording'))}catch(e){}try{own=own||!!(window._r476Hidden?.mode==='recording')}catch(e){}const txt=(document.querySelector('#bsStatus')?.textContent||'');own=own||/kendi sesin/i.test(txt);c.textContent='🎙 Kendi ses kaydın çalıyor';c.classList.toggle('on',own)}
+function sync(){Object.entries(map).forEach(([id,f])=>jewel(id,f));const b=document.getElementById('bsStart');if(b){const s=window.SukunBerhetiyyeSeyir?.state?.()||{};const text=s.run?'⏸ Duraklat':s.paused?'▶ Sürdür':'▶ Başlat';for(const n of [...b.childNodes])if(n.nodeType===3)n.remove();let t=b.querySelector('.r866JewelText');if(!t){t=document.createElement('span');t.className='r866JewelText';b.appendChild(t)}t.textContent=text}sourceSync();document.documentElement.dataset.r866='1'}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
+['pageshow','click','sukun:journey-advance','sukun:domhydrate','sukun:sourcechange','sukun:currentzikirchange'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));setInterval(sourceSync,900);
+window.SukunR866=Object.freeze({version:V,sync});})();</script>
 
 </body></html>
