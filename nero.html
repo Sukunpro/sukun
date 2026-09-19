@@ -75199,18 +75199,6 @@ window.SukunR864=Object.freeze({version:VERSION,sync:syncJourneySkin});
 #berhetSeyir .r168Buttons img,.r866JewelImg{display:none!important}
 html body #r433DockPeek{animation:none!important;transition:none!important;filter:none!important}
 </style>
-<script id="sukun-r875-jewel-stability-runtime">(()=>{'use strict';
-const V='r875';
-function sync(){
- document.querySelectorAll('#berhetSeyir .r168Buttons .r866JewelImg').forEach(n=>n.remove());
- document.querySelectorAll('#berhetSeyir .r168Buttons button').forEach(b=>b.classList.remove('r866JewelBtn'));
- document.documentElement.dataset.r875='1';
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
-addEventListener('pageshow',sync,{passive:true});
-window.SukunR872=Object.freeze({version:V,sync});
-})();</script>
-
 <style id="sukun-r875-mobile-layout-authority">
 /* r875 — single mobile layout authority.
    Owns only geometry/paint of the visible problem areas; audio/session logic is untouched. */
@@ -75430,72 +75418,31 @@ html body.r433-dock-hidden :is(#tab-zkr,#tab-amb,#tab-frq,#tab-rx,.wrap){
   #r679ZikirAyarBox .r679SettingsBody .sldRow{grid-template-columns:72px minmax(0,1fr) auto!important;gap:5px!important}
 }
 </style>
-<script id="sukun-r875-mobile-layout-runtime">
-(()=>{'use strict';
-const V='r875';
-function clean(){
-  document.documentElement.dataset.r875='1';
-  document.querySelectorAll('#berhetSeyir .r168Buttons .r866JewelImg').forEach(n=>n.remove());
-  document.querySelectorAll('#berhetSeyir .r168Buttons button').forEach(b=>{
-    b.classList.remove('r866JewelBtn');
-    b.style.removeProperty('transform');
-    b.style.removeProperty('filter');
-  });
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean,{once:true});else clean();
-addEventListener('pageshow',clean,{passive:true});
-window.SukunR875=Object.freeze({version:V,sync:clean});
-})();
-</script>
 
-
-
-
-<script id="sukun-r875-button-hardfix-runtime">
+<script id="sukun-r875-journey-once">
 (()=>{"use strict";
 const A="./assets/berhetiyye-premium/";
-const set=(b,p,v)=>b&&b.style.setProperty(p,v,"important");
-function paint(){
+const imp=(el,p,v)=>el&&el.style.setProperty(p,v,"important");
+function once(){
  const box=document.querySelector("#berhetSeyir .r168Buttons"); if(!box)return;
- /* Remove every injected decorative node. Keep the real buttons/listeners intact. */
- [...box.children].forEach(n=>{if(n.tagName!=="BUTTON")n.remove()});
- box.querySelectorAll("img,svg,.r866JewelImg,[aria-hidden='true']:not(button)").forEach(n=>n.remove());
-
- const start=document.getElementById("bsStart"), pause=document.getElementById("bsPause"),
-       prev=document.getElementById("bsPrev"), next=document.getElementById("bsNext"),
-       again=document.getElementById("bsAgain"), stop=document.getElementById("bsStop"),
-       reset=document.getElementById("bsReset");
- [start,pause,prev,next,again,stop,reset].forEach(b=>{
-   if(!b)return;b.classList.remove("r866JewelBtn");
-   set(b,"background-color","transparent");set(b,"background-position","center");
-   set(b,"background-repeat","no-repeat");set(b,"background-size","100% 100%");
-   set(b,"filter","none");set(b,"transform","none");set(b,"box-shadow","none");
- });
- set(start,"background-image",`url('${A}btn-primary-wide-r872.png')`);
- set(prev,"background-image",`url('${A}btn-secondary-sapphire-r872.png')`);
- set(next,"background-image",`url('${A}btn-secondary-sapphire-r872.png')`);
- set(again,"background-image",`url('${A}btn-secondary-emerald-r872.png')`);
- set(reset,"background-image",`url('${A}btn-primary-wide-r872.png')`);
- if(pause?.hidden)set(pause,"display","none");
-
- /* Ruby first. If that file is absent on GitHub, use a guaranteed visible red-tinted
-    sapphire jewel instead of ever leaving Bitir naked. */
- if(stop){
-   set(stop,"display","flex");set(stop,"visibility","visible");set(stop,"opacity","1");
-   const ruby=A+"btn-secondary-ruby-r872.png";
-   const fallback=`linear-gradient(rgba(150,0,28,.62),rgba(95,0,20,.70)),url('${A}btn-secondary-sapphire-r872.png')`;
-   const im=new Image();
-   im.onload=()=>{set(stop,"background-image",`url('${ruby}')`);set(stop,"background-blend-mode","normal")};
-   im.onerror=()=>{set(stop,"background-image",fallback);set(stop,"background-blend-mode","color,normal")};
-   im.src=ruby+"?r875hard=1";
+ box.querySelectorAll(".r866JewelImg,img[class*='Jewel']").forEach(n=>n.remove());
+ const map={
+   bsStart:"btn-primary-wide-r872.png",
+   bsPrev:"btn-secondary-sapphire-r872.png",
+   bsNext:"btn-secondary-sapphire-r872.png",
+   bsAgain:"btn-secondary-emerald-r872.png",
+   bsStop:"btn-secondary-ruby-r872.png",
+   bsReset:"btn-primary-wide-r872.png"
+ };
+ for(const [id,file] of Object.entries(map)){
+   const b=document.getElementById(id); if(!b)continue;
+   b.classList.remove("r866JewelBtn");
+   imp(b,"background",`transparent url('${A+file}') center / 100% 100% no-repeat`);
+   imp(b,"filter","none"); imp(b,"transform","none");
+   imp(b,"animation","none"); imp(b,"transition","none");
  }
 }
-const run=()=>requestAnimationFrame(()=>requestAnimationFrame(paint));
-document.readyState==="loading"?document.addEventListener("DOMContentLoaded",run,{once:true}):run();
-addEventListener("pageshow",run);
-document.addEventListener("click",e=>{if(e.target.closest("#berhetSeyir"))setTimeout(paint,0)},true);
-new MutationObserver(()=>{clearTimeout(window.__sukunHardFixT);window.__sukunHardFixT=setTimeout(paint,20)})
- .observe(document.documentElement,{subtree:true,childList:true});
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",once,{once:true});else once();
 })();
 </script>
 
