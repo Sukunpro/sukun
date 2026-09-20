@@ -4,16 +4,22 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r885';
-const CACHE = 'sukun-r885-20260920b';
-const CACHE_META = './__sukun_cache_meta_r885__.json';
-const BUILD_MARKER = './__sukun_build_r885__.json';
+const SURUM = 'r886';
+const CACHE = 'sukun-r886-20260920-clean';
+const CACHE_META = './__sukun_cache_meta_r886__.json';
+const BUILD_MARKER = './__sukun_build_r886__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
    Shell doğrulaması bağımsız; geri kalan assetler best-effort pre-cache ve
    normal fetch sırasında current cache'e yazılır. */
 const CORE = [
+  './assets/berhetiyye-premium/control-round-plus-r788.png',
+  './assets/berhetiyye-premium/control-round-minus-r788.png',
+  './assets/berhetiyye-premium/control-nav-amethyst-r788.png',
+  './assets/berhetiyye-premium/control-nav-sapphire-r788.png',
+  './assets/berhetiyye-premium/control-nav-emerald-r788.png',
+  './assets/berhetiyye-premium/control-primary-r788.png',
   './nero.html',
   './manifest.webmanifest',
   BUILD_MARKER,
@@ -21,7 +27,7 @@ const CORE = [
 ];
 
 const PRECACHE = [
-  './assets/berhetiyye-premium/berhetiyye-wheel-user-r885.webp',
+  './assets/berhetiyye-premium/berhetiyye-wheel-user-r886.webp',
   './assets/berhetiyye-premium/scene-09-berhetihin-billur-r837.webp',
   './assets/berhetiyye-premium/scene-10-hutirin-adalet-r837.webp',
   './assets/berhetiyye-premium/scene-11-kalnehudin-ruzgar-r837.webp',
