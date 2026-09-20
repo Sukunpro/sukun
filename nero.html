@@ -75200,5 +75200,44 @@ window.SukunR875SessionAuthority=Object.freeze({version:'r875',refresh:queue,con
 
 
 
-\n<style id="sukun-r875-suleymanset-authority">\n/* SÜKÛN r875 — Berhetiyye SüleymanSet: tek statik görsel otoritesi. */\nhtml body #berhetSeyir .r168Buttons{\n display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;\n grid-template-areas:"start start" "prev next" "again stop" "reset reset"!important;\n gap:10px 12px!important;align-items:center!important;width:100%!important;overflow:visible!important;\n}\nhtml body #berhetSeyir .r168Buttons>button{\n box-sizing:border-box!important;display:block!important;position:relative!important;margin:0!important;padding:0!important;\n border:0!important;outline:0!important;box-shadow:none!important;border-radius:0!important;overflow:hidden!important;\n background-color:transparent!important;background-position:center!important;background-repeat:no-repeat!important;background-size:contain!important;\n color:transparent!important;font-size:0!important;text-shadow:none!important;line-height:0!important;min-width:0!important;max-width:100%!important;\n isolation:isolate!important;appearance:none!important;-webkit-appearance:none!important;\n}\nhtml body #berhetSeyir .r168Buttons>button::before,html body #berhetSeyir .r168Buttons>button::after{content:none!important;display:none!important;background:none!important}\nhtml body #berhetSeyir #bsStart,html body #berhetSeyir #bsPause{grid-area:start!important;aspect-ratio:1500/315!important;width:100%!important;height:auto!important;background-image:url('./assets/premium-berhetiye/suleymanset/baslat.png')!important}\nhtml body #berhetSeyir #bsPrev{grid-area:prev!important;aspect-ratio:760/210!important;width:100%!important;height:auto!important;background-image:url('./assets/premium-berhetiye/suleymanset/onceki.png')!important}\nhtml body #berhetSeyir #bsNext{grid-area:next!important;aspect-ratio:761/210!important;width:100%!important;height:auto!important;background-image:url('./assets/premium-berhetiye/suleymanset/sonraki.png')!important}\nhtml body #berhetSeyir #bsAgain{grid-area:again!important;aspect-ratio:760/220!important;width:100%!important;height:auto!important;background-image:url('./assets/premium-berhetiye/suleymanset/bu-ismi-bastan.png')!important}\nhtml body #berhetSeyir #bsStop{grid-area:stop!important;aspect-ratio:761/220!important;width:100%!important;height:auto!important;background-image:url('./assets/premium-berhetiye/suleymanset/bitir.png')!important;pointer-events:auto!important;touch-action:manipulation!important}\nhtml body #berhetSeyir #bsReset{grid-area:reset!important;aspect-ratio:1498/290!important;width:100%!important;height:auto!important;background-image:url('./assets/premium-berhetiye/suleymanset/tum-seyri-bastan.png')!important}\nhtml body #berhetSeyir .r168Buttons :is(img,.r866JewelBtn,.r866JewelImg,[class*="jewelImg"],[class*="jewel-btn"]){display:none!important}\n@media(max-width:430px){html body #berhetSeyir .r168Buttons{gap:8px 8px!important}}\n</style>\n
+\n\n
+<style id="sukun-r875-suleymanset-gridlock">
+/* FINAL BERHETIYYE CONTROL AUTHORITY — static only, no observer/repaint. */
+html body #berhetSeyir .r168Buttons{
+ display:grid!important;
+ grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ grid-template-rows:auto auto auto auto!important;
+ grid-template-areas:none!important;
+ gap:12px 14px!important;
+ width:100%!important;max-width:100%!important;
+ padding:8px!important;margin:0!important;
+ overflow:visible!important;align-items:center!important;
+}
+html body #berhetSeyir .r168Buttons > button{
+ position:relative!important;inset:auto!important;transform:none!important;
+ margin:0!important;padding:0!important;border:0!important;outline:0!important;
+ min-width:0!important;max-width:none!important;width:100%!important;height:auto!important;
+ border-radius:0!important;box-shadow:none!important;overflow:hidden!important;
+ background-color:transparent!important;background-position:center!important;
+ background-repeat:no-repeat!important;background-size:100% 100%!important;
+ appearance:none!important;-webkit-appearance:none!important;
+ line-height:1!important;text-shadow:none!important;
+}
+html body #berhetSeyir .r168Buttons > button[hidden]{display:none!important}
+html body #berhetSeyir #bsStart,html body #berhetSeyir #bsPause{
+ display:block!important;grid-column:1 / 3!important;grid-row:1!important;
+ aspect-ratio:1488/315!important;background-image:url('./assets/premium-berhetiye/suleymanset/baslat.png')!important;
+}
+html body #berhetSeyir #bsPause[hidden],html body #berhetSeyir #bsStart[hidden]{display:none!important}
+html body #berhetSeyir #bsPrev{display:block!important;grid-column:1!important;grid-row:2!important;aspect-ratio:755/210!important;background-image:url('./assets/premium-berhetiye/suleymanset/onceki.png')!important}
+html body #berhetSeyir #bsNext{display:block!important;grid-column:2!important;grid-row:2!important;aspect-ratio:756/210!important;background-image:url('./assets/premium-berhetiye/suleymanset/sonraki.png')!important}
+html body #berhetSeyir #bsAgain{display:block!important;grid-column:1!important;grid-row:3!important;aspect-ratio:755/220!important;background-image:url('./assets/premium-berhetiye/suleymanset/bu-ismi-bastan.png')!important}
+html body #berhetSeyir #bsStop{display:block!important;grid-column:2!important;grid-row:3!important;aspect-ratio:756/220!important;background-image:url('./assets/premium-berhetiye/suleymanset/bitir.png')!important;pointer-events:auto!important;touch-action:manipulation!important}
+html body #berhetSeyir #bsReset{display:block!important;grid-column:1 / 3!important;grid-row:4!important;aspect-ratio:1474/290!important;background-image:url('./assets/premium-berhetiye/suleymanset/tum-seyri-bastan.png')!important}
+html body #berhetSeyir .r168Buttons > :is(#bsStart,#bsPrev,#bsNext,#bsAgain,#bsStop,#bsReset){font-size:0!important;color:transparent!important}
+html body #berhetSeyir #bsPause{font-size:clamp(20px,5vw,34px)!important;color:#fff4d4!important;font-family:Georgia,'Times New Roman',serif!important;font-weight:700!important;text-shadow:0 2px 5px #000!important}
+html body #berhetSeyir .r168Buttons > button::before,html body #berhetSeyir .r168Buttons > button::after{content:none!important;display:none!important}
+html body #berhetSeyir .r168Buttons :is(img,.r866JewelBtn,.r866JewelImg,[class*="jewelImg"],[class*="jewel-btn"]){display:none!important}
+@media(max-width:430px){html body #berhetSeyir .r168Buttons{gap:9px 8px!important;padding:4px!important}}
+</style>
 </body></html>
