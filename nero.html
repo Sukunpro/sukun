@@ -38000,7 +38000,7 @@ function seyirCreate(){
   const d=document.createElement('details');d.id='berhetSeyir';d.innerHTML=`<summary class="r168Head"><b>✦ 28 İSİM SEYRİ</b><span class="r168Tag">kaldığın yerden sürer</span></summary><div class="r168MiniRow"><label>Her isim <select id="bsMode"><option value="1">1 kez</option><option value="28">28 kez</option><option value="ebced">Ebcedi kadar</option><option value="custom">Özel</option></select></label><input id="bsCustom" type="number" min="1" max="9999" value="33" aria-label="Her isim için özel tekrar sayısı" style="width:78px" hidden><label>Ara <select id="bsGap"><option value="350">0.35 sn</option><option value="900" selected>0.9 sn</option><option value="2000">2 sn</option><option value="5000">5 sn</option></select></label></div><div class="r168Progress"><i id="bsBar"></i></div><div class="r168Status" id="bsStatus">Hazır · kayıt varsa kendi sesin, yoksa transliterasyon/TTS.</div><div class="r168Buttons"><button class="btn" id="bsStart">▶ Başlat / Sürdür</button><button class="btn" id="bsPause" hidden aria-hidden="true"></button><button class="btn" id="bsPrev">⏮ Önceki İsim</button><button class="btn" id="bsNext">⏭ Sonraki İsim</button><button class="btn" id="bsAgain">↻ Bu ismi baştan</button><button class="btn" id="bsStop">■ Bitir</button><button class="btn" id="bsReset">↺ Tüm seyri baştan</button></div>`;
   let mounted=false;try{mounted=!!window.SukunSeyirYerlesim?.mount?.(d)}catch(e){}
   if(!mounted)a.insertAdjacentElement('afterend',d);
-  bindSeyir();restoreSeyir();
+  bindSeyir();restoreSeyir();try{window.SukunBerhetiyyePremiumV4?.apply?.()}catch(e){}
 }
 function repeatCount(it){const m=document.getElementById('bsMode')?.value||'1';if(m==='ebced')return Math.max(1,+it.eb||1);if(m==='custom')return Math.max(1,+document.getElementById('bsCustom')?.value||1);return +m||1}
 function seyirSave(){LS.set(BS.key,{i:BS.i,rep:BS.rep,totalDone:BS.totalDone,mode:document.getElementById('bsMode')?.value||'1',custom:+document.getElementById('bsCustom')?.value||33,gap:+document.getElementById('bsGap')?.value||900})}
@@ -75148,114 +75148,111 @@ html.sukun-jewel-r798 body #zMegaHost>.zMegaGroup>summary{min-height:82px!import
 html.sukun-jewel-r798 body #zMegaHost>.zMegaGroup>summary::before,html.sukun-jewel-r798 body #zMegaHost>.zMegaGroup>summary::after{content:none!important;display:none!important}
 @media(max-width:390px){html body #berhetSeyir .r168Buttons{column-gap:8px!important;row-gap:8px!important;padding-inline:5px!important}html body #berhetSeyir .r168Buttons>button{font-size:12px!important;padding-inline:5px!important}}
 </style>
-<style id="sukun-berhetiyye-premium-v2-final">
-#berhetSeyir .r168Buttons{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-areas:"start start" "prev next" "again stop" "reset reset"!important;gap:10px 12px!important;width:100%!important;padding:0 8px 10px!important}
-#berhetSeyir .r168Buttons::before,#berhetSeyir .r168Buttons::after,#berhetSeyir .r168Buttons>button::before,#berhetSeyir .r168Buttons>button::after{content:none!important;display:none!important}
-#berhetSeyir .r168Buttons>button{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;min-width:0!important;margin:0!important;border:0!important;background-color:transparent!important;background-repeat:no-repeat!important;background-position:center!important;background-size:100% 100%!important;filter:none!important;transform:none!important;animation:none!important;color:#fff8e8!important}
-#berhetSeyir #bsStart{grid-area:start!important;height:68px!important;background-image:url('./assets/berhetiyye-premium/premium-set/btn-start-amethyst.png?v=875p2')!important}
-#berhetSeyir #bsStart.r864-pause-jewel{background-image:url('./assets/berhetiyye-premium/premium-set/btn-pause-amethyst.png?v=875p2')!important}
-#berhetSeyir #bsPause{grid-area:start!important}#berhetSeyir #bsPause[hidden]{display:none!important}
-#berhetSeyir #bsPrev{grid-area:prev!important;height:51px!important;background-image:url('./assets/berhetiyye-premium/premium-set/btn-prev-sapphire.png?v=875p2')!important}
-#berhetSeyir #bsNext{grid-area:next!important;height:51px!important;background-image:url('./assets/berhetiyye-premium/premium-set/btn-next-sapphire.png?v=875p2')!important}
-#berhetSeyir #bsAgain{grid-area:again!important;height:51px!important;background-image:url('./assets/berhetiyye-premium/premium-set/btn-restart-emerald.png?v=875p2')!important}
-#berhetSeyir #bsStop{grid-area:stop!important;height:51px!important;background-image:url('./assets/berhetiyye-premium/premium-set/btn-stop-ruby.png?v=875p2')!important}
-#berhetSeyir #bsReset{grid-area:reset!important;height:60px!important;background-image:url('./assets/berhetiyye-premium/premium-set/btn-reset-all-topaz.png?v=875p2')!important}
-#berhetSeyir .r866JewelBtn,#berhetSeyir .r866JewelImg{display:none!important}
-</style>
-<script id="sukun-berhetiyye-premium-v2-cleanup">document.addEventListener('DOMContentLoaded',()=>{const r=document.getElementById('berhetSeyir');if(!r)return;r.querySelectorAll('.r866JewelBtn,.r866JewelImg').forEach(n=>n.remove());['bsStart','bsPause','bsPrev','bsNext','bsAgain','bsStop','bsReset'].forEach(id=>{const b=document.getElementById(id);if(!b)return;['background','background-image','background-size','background-position','background-repeat','filter','transform'].forEach(x=>b.style.removeProperty(x));});},{once:true});</script>
 
+<script id="sukun-r875-premium-v4-canonical">
+(()=>{
+'use strict';
+if(window.__SUKUN_R875_PREMIUM_V4__)return;
+window.__SUKUN_R875_PREMIUM_V4__=1;
 
-<style id="sukun-r875-premium-v3-authority">
-/* BERHETİYYE PREMIUM V3 — final static authority */
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir{
-  height:auto!important;min-height:0!important;max-height:none!important;
-  padding-bottom:14px!important;overflow:visible!important;
-}
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir .r168Buttons{
-  display:grid!important;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
-  grid-template-areas:"start start" "prev next" "again stop" "reset reset"!important;
-  grid-auto-rows:auto!important;align-items:center!important;
-  gap:10px 12px!important;width:100%!important;height:auto!important;min-height:0!important;
-  margin:14px 0 0!important;padding:0 8px 8px!important;overflow:visible!important;
-}
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir .r168Buttons::before,
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir .r168Buttons::after,
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir .r168Buttons>button::before,
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir .r168Buttons>button::after{
-  content:none!important;display:none!important;
-}
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir .r168Buttons>button{
-  position:relative!important;inset:auto!important;display:flex!important;
-  align-items:center!important;justify-content:center!important;
-  width:100%!important;min-width:0!important;margin:0!important;padding:0 8px!important;
-  border:0!important;border-radius:0!important;background-color:transparent!important;
-  background-position:center!important;background-repeat:no-repeat!important;background-size:100% 100%!important;
-  box-shadow:none!important;filter:none!important;transform:none!important;animation:none!important;
-  color:#fff8e8!important;text-shadow:0 2px 5px #000!important;
-}
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir #bsStart{
-  grid-area:start!important;height:68px!important;min-height:68px!important;max-height:68px!important;
-  background-image:url('./assets/berhetiyye-premium/premium-set/btn-start-amethyst.png?v=875p3')!important;
-  font:700 clamp(24px,6vw,31px)/1 Georgia,serif!important;
-}
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir #bsStart.r864-pause-jewel{
-  background-image:url('./assets/berhetiyye-premium/premium-set/btn-pause-amethyst.png?v=875p3')!important;
-}
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir #bsPause[hidden]{
-  display:none!important;position:absolute!important;width:0!important;height:0!important;
-}
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir #bsPrev{
-  grid-area:prev!important;height:51px!important;min-height:51px!important;max-height:51px!important;
-  background-image:url('./assets/berhetiyye-premium/premium-set/btn-prev-sapphire.png?v=875p3')!important;
-}
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir #bsNext{
-  grid-area:next!important;height:51px!important;min-height:51px!important;max-height:51px!important;
-  background-image:url('./assets/berhetiyye-premium/premium-set/btn-next-sapphire.png?v=875p3')!important;
-}
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir #bsAgain{
-  grid-area:again!important;height:51px!important;min-height:51px!important;max-height:51px!important;
-  background-image:url('./assets/berhetiyye-premium/premium-set/btn-restart-emerald.png?v=875p3')!important;
-}
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir #bsStop{
-  grid-area:stop!important;height:51px!important;min-height:51px!important;max-height:51px!important;
-  display:flex!important;visibility:visible!important;opacity:1!important;
-  background-image:url('./assets/berhetiyye-premium/premium-set/btn-stop-ruby.png?v=875p3')!important;
-}
-html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir #bsReset{
-  grid-area:reset!important;grid-column:1/-1!important;
-  display:flex!important;visibility:visible!important;opacity:1!important;
-  position:relative!important;inset:auto!important;
-  width:100%!important;height:60px!important;min-height:60px!important;max-height:60px!important;
-  background-image:url('./assets/berhetiyye-premium/premium-set/btn-reset-all-topaz.png?v=875p3')!important;
+const A='./assets/berhetiyye-premium/premium-set/';
+const img={
+ start:A+'btn-start-amethyst.png?v=875p4',
+ pause:A+'btn-pause-amethyst.png?v=875p4',
+ prev:A+'btn-prev-sapphire.png?v=875p4',
+ next:A+'btn-next-sapphire.png?v=875p4',
+ again:A+'btn-restart-emerald.png?v=875p4',
+ stop:A+'btn-stop-ruby.png?v=875p4',
+ reset:A+'btn-reset-all-topaz.png?v=875p4'
+};
+const imp=(el,k,v)=>{ if(el)el.style.setProperty(k,v,'important'); };
+
+function button(el,area,image,h){
+ if(!el)return;
+ imp(el,'position','relative'); imp(el,'inset','auto');
+ imp(el,'display','flex'); imp(el,'visibility','visible'); imp(el,'opacity','1');
+ imp(el,'align-items','center'); imp(el,'justify-content','center');
+ imp(el,'grid-area',area); imp(el,'grid-column',area==='start'||area==='reset'?'1 / -1':'auto');
+ imp(el,'width','100%'); imp(el,'min-width','0');
+ imp(el,'height',h+'px'); imp(el,'min-height',h+'px'); imp(el,'max-height',h+'px');
+ imp(el,'margin','0'); imp(el,'padding','0 8px');
+ imp(el,'border','0'); imp(el,'border-radius','0');
+ imp(el,'background-color','transparent');
+ imp(el,'background-image',`url("${image}")`);
+ imp(el,'background-repeat','no-repeat'); imp(el,'background-position','center');
+ imp(el,'background-size','100% 100%');
+ imp(el,'box-shadow','none'); imp(el,'filter','none'); imp(el,'transform','none');
+ imp(el,'animation','none'); imp(el,'overflow','visible');
+ imp(el,'color','#fff8e8'); imp(el,'text-shadow','0 2px 5px #000');
 }
 
-/* Detached legacy jewel helpers only — never real buttons. */
-html body #berhetSeyir .r866JewelBtn,
-html body #berhetSeyir .r866JewelImg{display:none!important}
+function canonicalize(){
+ const root=document.getElementById('berhetSeyir');
+ if(!root)return false;
+ const box=root.querySelector('.r168Buttons');
+ if(!box)return false;
 
-/* Player is NOT part of Berhetiyye Premium button set. */
-html[data-r811-berhet="1"] body #r433DockPeek,
-html[data-r835-theme="berhet"] body #r433DockPeek,
-html[data-r811-berhet="1"] body.r433-dock-hidden #r433DockPeek{
-  background:linear-gradient(135deg,rgba(3,28,43,.96),rgba(4,18,34,.94))!important;
-  background-image:none!important;
-  border:1px solid rgba(82,190,202,.45)!important;border-radius:18px!important;
-  box-shadow:0 10px 28px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.06)!important;
-  backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;
-  min-height:48px!important;height:48px!important;padding:8px 14px!important;
-}
-html[data-r811-berhet="1"] body #r433DockPeek::before,
-html[data-r811-berhet="1"] body #r433DockPeek::after{content:none!important;display:none!important}
+ // Preserve the real nodes and their already-bound click handlers.
+ const ids=['bsStart','bsPause','bsPrev','bsNext','bsAgain','bsStop','bsReset'];
+ const n=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
+ if(!n.bsStart||!n.bsPrev||!n.bsNext||!n.bsAgain||!n.bsStop||!n.bsReset)return false;
 
-@media(max-width:390px){
- html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir .r168Buttons{
-   gap:8px!important;padding-inline:5px!important;
+ // Remove only detached legacy decoration helpers.
+ root.querySelectorAll('.r866JewelBtn,.r866JewelImg,[data-r866-jewel]').forEach(x=>x.remove());
+
+ // Re-append the SAME nodes in canonical order. Event listeners survive.
+ [n.bsStart,n.bsPause,n.bsPrev,n.bsNext,n.bsAgain,n.bsStop,n.bsReset].forEach(x=>x&&box.appendChild(x));
+
+ imp(root,'height','auto'); imp(root,'min-height','0'); imp(root,'max-height','none');
+ imp(root,'padding-bottom','14px'); imp(root,'overflow','visible');
+
+ imp(box,'display','grid');
+ imp(box,'grid-template-columns','minmax(0,1fr) minmax(0,1fr)');
+ imp(box,'grid-template-areas','"start start" "prev next" "again stop" "reset reset"');
+ imp(box,'grid-auto-rows','auto'); imp(box,'align-items','center');
+ imp(box,'gap','10px 12px'); imp(box,'width','100%');
+ imp(box,'height','auto'); imp(box,'min-height','0'); imp(box,'max-height','none');
+ imp(box,'margin','14px 0 0'); imp(box,'padding','0 8px 8px');
+ imp(box,'overflow','visible');
+
+ const running=!!window.BERHET_SEYIR?.run && !window.BERHET_SEYIR?.paused;
+ button(n.bsStart,'start',running?img.pause:img.start,68);
+ button(n.bsPrev,'prev',img.prev,51);
+ button(n.bsNext,'next',img.next,51);
+ button(n.bsAgain,'again',img.again,51);
+ button(n.bsStop,'stop',img.stop,51);
+ button(n.bsReset,'reset',img.reset,60);
+
+ if(n.bsPause){
+   n.bsPause.hidden=true; n.bsPause.setAttribute('aria-hidden','true');
+   imp(n.bsPause,'display','none'); imp(n.bsPause,'position','absolute');
+   imp(n.bsPause,'width','0'); imp(n.bsPause,'height','0');
  }
- html[data-r811-berhet="1"][data-r835-theme="berhet"] body.sukun-jewel-r798 #berhetSeyir .r168Buttons>button{
-   font-size:12px!important;padding-inline:5px!important;
+
+ // Player peek is explicitly outside the Premium jewel family.
+ const peek=document.getElementById('r433DockPeek');
+ if(peek){
+   imp(peek,'background-image','none');
+   imp(peek,'background','linear-gradient(135deg,rgba(3,28,43,.97),rgba(4,18,34,.95))');
+   imp(peek,'border','1px solid rgba(82,190,202,.45)');
+   imp(peek,'border-radius','18px');
+   imp(peek,'box-shadow','0 10px 28px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.06)');
+   imp(peek,'min-height','48px'); imp(peek,'height','48px');
+   imp(peek,'padding','8px 14px');
  }
+ return true;
 }
-</style>
+window.SukunBerhetiyyePremiumV4={apply:canonicalize};
+
+// Existing panel may already exist.
+const boot=()=>{canonicalize(); requestAnimationFrame(canonicalize); setTimeout(canonicalize,180);};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true}); else boot();
+
+// Existing app events only; no MutationObserver / interval.
+['sukun:journeychange','sukun:playbackchange','sukun:sectionchange','sukun:zikirchange'].forEach(ev=>{
+ document.addEventListener(ev,canonicalize,{passive:true});
+});
+})();
+</script>
 
 </body></html>
