@@ -1,8 +1,9 @@
-# r875 — 99 İsim Seyri SuleymanSet entegrasyonu
+# r875 Live UX Fix
 
-- Berhetiyye’de çalışan gömülü SuleymanSet V2 görsel otoritesi 99 İsim Seyri kontrol kimliklerine de uygulandı.
-- es99Start / Prev / Next / Again / Stop / Reset aynı 1-2-2-1 yerleşim ve aynı gömülü görsel seti kullanır.
-- Eski 99 İsim kontrol CSS katmanlarının üstünde final statik otorite olarak çalışır.
-- JS davranışları ve buton ID’leri korunmuştur.
-- MutationObserver / runtime repaint eklenmedi.
-- SW ve manifest değiştirilmedi.
+- Canlı URL doğrudan web fetch katmanında cache-miss verdi; en son dağıtılan nero/index kaynağı denetlendi.
+- Kaynağın sonunda `</body></html>` sonrasına literal `\n<style...>` olarak taşmış Hedef/Kalan CSS bloğu bulundu ve belge içine alındı.
+- Berhetiyye + 99 İsim SuleymanSet mobil grid taşmaları tek final statik otorite ile sınırlandı.
+- Legacy pseudo/image jewel kırıntıları kapatıldı.
+- Oynatıcı göster mini barı viewport dışına taşmayacak şekilde sınırlandı.
+- Hedef ve Kalan ayrı ikon semantiği korundu.
+- SW/manifest/ses motoru değiştirilmedi.
