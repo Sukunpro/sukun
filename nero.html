@@ -75297,8 +75297,83 @@ function sync(){ensure();const s=st(),p=phase();host.dataset.phase=p;host.datase
 function queue(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;sync()})}
 ['DOMContentLoaded','pageshow','sukun:journey-advance','sukun:currentzikirchange','sukun:domhydrate','sukun:visualcontextchange','sukun:tabchange'].forEach(ev=>addEventListener(ev,queue,{passive:true}));document.addEventListener('click',e=>{if(e.target.closest?.('#berhetSeyir,#esmaSeyir99,#r883JourneyRemote,#r616ZikirNavRow'))setTimeout(queue,0)},{capture:true,passive:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();setInterval(queue,900);
-window.SukunJourneyController=Object.freeze({version:'r883',select:choose,target:()=>target,state:()=>({target,phase:phase(),journey:st()}),playPause:()=>dispatch('transport'),prev:()=>dispatch('prev'),next:()=>dispatch('next'),again:()=>dispatch('again'),stop:()=>dispatch('stop'),reset:()=>dispatch('reset'),sync:queue});
+window.SukunJourneyController=Object.freeze({version:'r885',select:choose,target:()=>target,state:()=>({target,phase:phase(),journey:st()}),playPause:()=>dispatch('transport'),prev:()=>dispatch('prev'),next:()=>dispatch('next'),again:()=>dispatch('again'),stop:()=>dispatch('stop'),reset:()=>dispatch('reset'),sync:queue});
 })();
 </script>
 
+
+<!-- r884 — SÜKÛN native-library Berhetiyye wheel + asset authority -->
+<style id="sukun-r884-native-library-wheel">
+#r883JourneyRemote .r884WheelWrap{display:none;position:relative;width:min(68vw,270px);aspect-ratio:1/1;margin:4px auto 10px;overflow:visible;isolation:isolate}
+#r883JourneyRemote[data-target="28"] .r884WheelWrap{display:block}
+#r883JourneyRemote .r884WheelDisc{position:absolute;inset:0;background:transparent url('./assets/berhetiyye-premium/berhetiyye-ring-r819.png?v=r884') center/contain no-repeat;filter:drop-shadow(0 9px 22px rgba(0,0,0,.35)) drop-shadow(0 0 14px rgba(155,73,255,.18));pointer-events:none;animation:r884Wheel 42s linear infinite;transform-origin:50% 50%}
+#r883JourneyRemote .r884WheelCore{position:absolute;inset:22%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff1c8;text-shadow:0 2px 7px #000,0 0 15px rgba(255,218,138,.2);pointer-events:none}
+#r883JourneyRemote .r884WheelName{max-width:100%;font:800 clamp(10px,2.8vw,13px)/1.15 system-ui;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#r883JourneyRemote .r884WheelCount{font:700 clamp(46px,14vw,70px)/.95 Georgia,serif;margin-top:5px}
+#r883JourneyRemote .r884WheelSub{font:800 10px/1.2 system-ui;color:#cce4e6;margin-top:6px}
+@keyframes r884Wheel{to{transform:rotate(-360deg)}}
+@media(prefers-reduced-motion:reduce){#r883JourneyRemote .r884WheelDisc{animation:none}}
+/* Native library fallback: if the experimental blank WebP skins fail, retain a visible jewel field. */
+#r883JourneyRemote .r883Btn{background-color:rgba(8,20,31,.82)}
+#r883JourneyRemote .r883Btn[data-act="transport"]{background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png?v=r884')}
+#r883JourneyRemote[data-phase="running"] .r883Btn[data-act="transport"],#r883JourneyRemote[data-phase="paused"] .r883Btn[data-act="transport"]{background-image:url('./assets/berhetiyye-premium/btn-secondary-amethyst-r872.png?v=r884')}
+#r883JourneyRemote .r883Btn[data-act="prev"],#r883JourneyRemote .r883Btn[data-act="next"]{background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r872.png?v=r884')}
+#r883JourneyRemote .r883Btn[data-act="again"]{background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald-r872.png?v=r884')}
+#r883JourneyRemote .r883Btn[data-act="stop"]{background-image:url('./assets/berhetiyye-premium/btn-secondary-ruby-r872.png?v=r884')}
+#r883JourneyRemote .r883Btn[data-act="reset"]{background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872.png?v=r884')}
+</style>
+<script id="sukun-r884-native-library-wheel-runtime">
+(()=>{'use strict';
+const V='r884',safe=(f,v)=>{try{return f()}catch(_){return v}};
+function ensure(){const h=document.getElementById('r883JourneyRemote');if(!h)return null;let w=h.querySelector('.r884WheelWrap');if(!w){w=document.createElement('div');w.className='r884WheelWrap';w.innerHTML='<div class="r884WheelDisc" aria-hidden="true"></div><div class="r884WheelCore"><div class="r884WheelName">BERHETİYYE</div><div class="r884WheelCount">0</div><div class="r884WheelSub">1 / 28</div></div>';const head=h.querySelector('.r883Head');head?.after(w)}return w}
+function sync(){const h=document.getElementById('r883JourneyRemote');if(!h)return;const w=ensure();if(!w)return;const target=window.SukunJourneyController?.target?.()||h.dataset.target||'99';h.dataset.target=target;if(target!=='28')return;const s=safe(()=>window.SukunBerhetiyyeSeyir?.state?.(),{})||{};const i=Math.max(0,Math.min(27,Number(s.i)||0));let item=safe(()=>window.BERHETIYYE_28?.[i],null)||safe(()=>window.ZIKIR?.berhet?.items?.[i],null)||{};const name=item.name||item.ad||item.title||item.tr||('İsim '+(i+1));const count=Number(s.count??s.n??s.repeat??safe(()=>window.Z?.count,0))||0;const targetCount=Number(s.target??s.hedef??item.ebced??0)||0;w.querySelector('.r884WheelName').textContent=String(name);w.querySelector('.r884WheelCount').textContent=String(count);w.querySelector('.r884WheelSub').textContent=(i+1)+' / 28'+(targetCount?' · hedef '+targetCount:'');
+ // Also revive the original r819 counter renderer from SÜKÛN's own library when its host is present.
+ try{document.documentElement.setAttribute('data-r819-counter','berhet');window.SukunR819CounterCore?.sync?.()}catch(_){ }
+}
+['DOMContentLoaded','pageshow','sukun:journey-advance','sukun:currentzikirchange','sukun:visualcontextchange','sukun:tabchange'].forEach(ev=>addEventListener(ev,()=>requestAnimationFrame(sync),{passive:true}));
+document.addEventListener('click',e=>{if(e.target.closest?.('#r883JourneyRemote'))setTimeout(sync,0)},{passive:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();setInterval(sync,700);
+window.SukunR884=Object.freeze({version:V,sync});
+})();
+</script>
+
+
+<!-- r885 — exact Berhetiyye jewel system: blank assets + dynamic state text + user wheel -->
+<style id="sukun-r885-berhetiyye-jewel-authority">
+/* Visual assets are decorative only; all wording/icons remain live HTML. */
+#r883JourneyRemote .r883Btn{background-color:transparent!important;background-repeat:no-repeat!important;background-position:center!important;background-size:100% 100%!important;color:#fff2c9!important;text-shadow:0 2px 4px #000,0 0 12px rgba(255,220,139,.32)!important}
+#r883JourneyRemote .r883Btn[data-act="transport"]{background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872-blank-r883.webp?v=r885')!important}
+#r883JourneyRemote[data-phase="running"] .r883Btn[data-act="transport"],#r883JourneyRemote[data-phase="paused"] .r883Btn[data-act="transport"]{background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872-blank-r883.webp?v=r885')!important}
+#r883JourneyRemote .r883Btn[data-act="prev"],#r883JourneyRemote .r883Btn[data-act="next"]{background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r872-blank-r883.webp?v=r885')!important}
+#r883JourneyRemote .r883Btn[data-act="again"]{background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald-r872-blank-r883.webp?v=r885')!important}
+#r883JourneyRemote .r883Btn[data-act="stop"]{background-image:url('./assets/berhetiyye-premium/btn-secondary-ruby-r872-blank-r883.webp?v=r885')!important}
+#r883JourneyRemote .r883Btn[data-act="reset"]{background-image:url('./assets/berhetiyye-premium/btn-compact-gold-blank-r883.webp?v=r885')!important}
+/* Exact user-approved Berhetiyye wheel. */
+#r883JourneyRemote .r884WheelDisc{background-image:url('./assets/berhetiyye-premium/berhetiyye-wheel-user-r885.webp?v=r885')!important;background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important}
+#r883JourneyRemote[data-target="28"] .r884WheelWrap{display:block!important;visibility:visible!important;opacity:1!important}
+#r883JourneyRemote[data-target="99"] .r884WheelWrap{display:none!important}
+/* Prevent legacy controls from drawing a second visual layer while preserving their event/API authority. */
+html.r883-shared-remote #berhetSeyir>.r168Buttons,html.r883-shared-remote #esmaSeyir99>.r168Buttons{display:none!important}
+</style>
+<script id="sukun-r885-state-authority">
+(()=>{'use strict';
+ const V='r885';
+ function sync(){
+   const h=document.getElementById('r883JourneyRemote'); if(!h)return;
+   const c=window.SukunJourneyController; const state=c?.state?.()||{};
+   const phase=state.phase||h.dataset.phase||'idle'; const target=c?.target?.()||h.dataset.target||'99';
+   h.dataset.phase=phase; h.dataset.target=target;
+   const b=h.querySelector('.r883Btn[data-act="transport"]');
+   if(b){
+     const x=phase==='running'?['Ⅱ','DURAKLAT']:phase==='paused'?['▶','SÜRDÜR']:['▶','BAŞLAT'];
+     b.innerHTML='<span class="ico" aria-hidden="true">'+x[0]+'</span><span>'+x[1]+'</span>'; b.setAttribute('aria-label',x[1]);
+   }
+   if(target==='28'){ try{window.SukunR884?.sync?.();window.SukunR819CounterCore?.sync?.()}catch(_){} }
+ }
+ ['DOMContentLoaded','pageshow','sukun:journey-advance','sukun:currentzikirchange','sukun:visualcontextchange','sukun:tabchange'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));
+ document.addEventListener('click',e=>{if(e.target.closest?.('#r883JourneyRemote')){setTimeout(sync,0);setTimeout(sync,180)}},{passive:true});
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
+ setInterval(sync,800); window.SukunR885=Object.freeze({version:V,sync});
+})();
+</script>
 </body></html>
