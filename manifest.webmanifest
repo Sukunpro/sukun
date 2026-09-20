@@ -1,21 +1,36 @@
 {
-  "name": "SÜKÛN",
+  "name": "SÜKÛN — Tasavvufî Ses, Zikir & Tefekkür",
   "short_name": "SÜKÛN",
-  "start_url": "./nero.html?v=r875",
+  "description": "Tasavvufî ses, zikir, sükûn, frekans ve tefekkür uygulaması.",
+  "id": "./",
+  "start_url": "./nero.html?v=r876",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#06131b",
-  "theme_color": "#071a20",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "portrait",
+  "background_color": "#061b27",
+  "theme_color": "#061b27",
+  "lang": "tr",
+  "dir": "ltr",
+  "categories": [
+    "lifestyle",
+    "music"
+  ],
   "icons": [
     {
       "src": "./icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "./icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "./icon-512-maskable.png",
@@ -23,5 +38,20 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "shortcuts": [
+    {
+      "name": "SÜKÛN'u Aç",
+      "short_name": "SÜKÛN",
+      "url": "./nero.html?v=r876",
+      "icons": [
+        {
+          "src": "./icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "version": "r876"
 }
