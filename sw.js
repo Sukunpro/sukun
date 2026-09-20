@@ -4,10 +4,10 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r879';
-const CACHE = 'sukun-r879-20260920a';
-const CACHE_META = './__sukun_cache_meta_r879__.json';
-const BUILD_MARKER = './__sukun_build_r879__.json';
+const SURUM = 'r882';
+const CACHE = 'sukun-r882-20260920a';
+const CACHE_META = './__sukun_cache_meta_r882__.json';
+const BUILD_MARKER = './__sukun_build_r882__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
@@ -21,15 +21,9 @@ const CORE = [
 ];
 
 const PRECACHE = [
-  './assets/berhetiyye-premium/r873-controls/start-r873.png',
-  './assets/berhetiyye-premium/r873-controls/prev-r873.png',
-  './assets/berhetiyye-premium/r873-controls/next-r873.png',
-  './assets/berhetiyye-premium/r873-controls/again-r873.png',
-  './assets/berhetiyye-premium/r873-controls/stop-r873.png',
-  './assets/berhetiyye-premium/r873-controls/reset-r873.png',
-  './assets/berhetiyye-premium/scene-09-berhetihin-billur-r837.png',
-  './assets/berhetiyye-premium/scene-10-hutirin-adalet-r837.png',
-  './assets/berhetiyye-premium/scene-11-kalnehudin-ruzgar-r837.png',
+  './assets/berhetiyye-premium/scene-09-berhetihin-billur-r837.webp',
+  './assets/berhetiyye-premium/scene-10-hutirin-adalet-r837.webp',
+  './assets/berhetiyye-premium/scene-11-kalnehudin-ruzgar-r837.webp',
   './assets/berhetiyye-premium/backgrounds-r837.json',
 
   './assets/berhetiyye-premium/scene-04-teras.png',
