@@ -1,6 +1,7 @@
-# r875 SuleymanSet V2 Embedded
-- Yeni üretilen temiz SuleymanSet kontrol görselleri 6 ayrı PNG olarak kırpıldı.
-- Düğmeler doğrudan index.html ve nero.html içine base64 gömüldü.
-- Berhetiyye düğme pseudo-elementleri kapatıldı; sarı ara parçalar/legacy süsler üretilemez.
-- Yerleşim: 1 / 2 / 2 / 1.
-- SW, manifest ve sürüm zinciri değiştirilmedi.
+# r875 Hedef / Kalan ikon ayrımı
+
+- Hedef: altın nişangâh / hedef simgesi.
+- Kalan: turkuaz geri-sayım / saat-döngü simgesi.
+- İkonlar inline SVG; harici asset bağımlılığı yok.
+- SuleymanSet V2, SW, manifest ve davranış motorlarına dokunulmadı.
+- Değişiklik hem index.html hem nero.html içine son CSS otoritesi olarak işlendi.
