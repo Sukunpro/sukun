@@ -75296,23 +75296,69 @@ html body #esmaSeyir99 .r168Buttons :is(img,.r866JewelBtn,.r866JewelImg,[class*=
 @media(max-width:430px){html body #esmaSeyir99 .r168Buttons{gap:9px 8px!important;padding:4px!important}}
 
 </style>
-<style id="sukun-r875-live-ux-final">
-/* LIVE UX FINAL — mobile authority. Static CSS only. */
-@media (max-width: 560px){
-  html,body{overflow-x:hidden!important;max-width:100%!important}
-  #berhetSeyir,#esmaSeyir99{box-sizing:border-box!important;max-width:calc(100vw - 28px)!important;margin-inline:auto!important;overflow:hidden!important}
-  #berhetSeyir .r168Buttons,#esmaSeyir99 .r168Buttons{box-sizing:border-box!important;width:100%!important;max-width:100%!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:8px 10px!important;padding:6px!important;overflow:hidden!important}
-  #berhetSeyir .r168Buttons>button,#esmaSeyir99 .r168Buttons>button{min-width:0!important;width:100%!important;max-width:100%!important;background-size:100% 100%!important;background-position:center!important;overflow:hidden!important}
-  #berhetSeyir :is(#bsStart,#bsPause,#bsReset),#esmaSeyir99 :is(#es99Start,#es99Pause,#es99Reset){grid-column:1/-1!important}
-  #r433DockPeek{box-sizing:border-box!important;left:12px!important;right:12px!important;width:auto!important;max-width:calc(100vw - 24px)!important;margin:0!important;transform:none!important;z-index:70!important}
-}
-/* prevent legacy jewel fragments */
-#berhetSeyir .r168Buttons>button::before,#berhetSeyir .r168Buttons>button::after,
-#esmaSeyir99 .r168Buttons>button::before,#esmaSeyir99 .r168Buttons>button::after{content:none!important;display:none!important}
-#berhetSeyir .r168Buttons :is(img,.r866JewelBtn,.r866JewelImg,[class*="jewelImg"],[class*="jewel-btn"]),
-#esmaSeyir99 .r168Buttons :is(img,.r866JewelBtn,.r866JewelImg,[class*="jewelImg"],[class*="jewel-btn"]){display:none!important}
-/* distinct Zikir Carki semantics */
-body .zCounterRow>.zCounterSide:first-of-type::before{content:''!important;display:block!important;width:30px!important;height:30px!important;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Ccircle cx='16' cy='16' r='11' stroke='%23f3d27a' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='5' stroke='%23f3d27a' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='%23fff0b0'/%3E%3Cpath d='M16 1v6M16 25v6M1 16h6M25 16h6' stroke='%23f3d27a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat!important;filter:drop-shadow(0 0 7px rgba(243,210,122,.55))!important}
-body .zCounterRow>.zCounterSide:last-of-type::before{content:''!important;display:block!important;width:30px!important;height:30px!important;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Cpath d='M16 4a12 12 0 1 1-8.49 3.51' stroke='%236ce7df' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M5 3.5v7h7' stroke='%236ce7df' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16 9v7l5 3' stroke='%23b7fff8' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat!important;filter:drop-shadow(0 0 7px rgba(108,231,223,.55))!important}
+
+<style id="sukun-r875-session-owner-fix">
+/* Journey owner arbitration: UI only. No SW/audio-engine mutation. */
+html[data-sukun-journey-owner="berhet"] body #esmaSeyir99:not([open]) > :not(summary),
+html[data-sukun-journey-owner="esma99"] body #berhetSeyir:not([open]) > :not(summary){display:none!important}
+/* Never reserve a dead player canvas. */
+html body #esmaSeyir99 .r168Buttons,
+html body #berhetSeyir .r168Buttons{min-height:0!important;height:auto!important;max-height:none!important}
+html body #esmaSeyir99 .r168Buttons:empty,
+html body #berhetSeyir .r168Buttons:empty{display:none!important}
+/* Inactive journey gets a clear compact summary state. */
+html[data-sukun-journey-owner="berhet"] body #esmaSeyir99>summary .r168Tag::after{content:" · Berhetiyye aktif";color:#73d8c7}
+html[data-sukun-journey-owner="esma99"] body #berhetSeyir>summary .r168Tag::after{content:" · 99 İsim aktif";color:#73d8c7}
 </style>
+<script id="sukun-r875-session-owner-fix-runtime">
+(()=>{'use strict';
+if(window.__SUKUN_R875_SESSION_OWNER_FIX__)return;window.__SUKUN_R875_SESSION_OWNER_FIX__=1;
+const safe=(fn,d=null)=>{try{return fn()}catch(_){return d}};
+const live=s=>!!s&&(s.run===true||s.paused===true||s.systemHold===true);
+const running=s=>!!s&&s.run===true&&!s.paused;
+const ownerHint=()=>String(safe(()=>window.SukunUniversalDock?.owner?.(),'')||'').toLowerCase();
+function states(){return {b:safe(()=>window.SukunBerhetiyyeSeyir?.state?.(),null)||safe(()=>window.BERHET_SEYIR,null),e:safe(()=>window.SukunEsma99Seyir?.state?.(),null)}}
+function resolve(){
+ const {b,e}=states(),o=ownerHint();
+ if(/journey28|berhet|28/.test(o)&&live(b))return'berhet';
+ if(/journey99|esma99|99/.test(o)&&live(e))return'esma99';
+ if(running(b)&&!running(e))return'berhet';
+ if(running(e)&&!running(b))return'esma99';
+ if(live(b)&&!live(e))return'berhet';
+ if(live(e)&&!live(b))return'esma99';
+ /* both can be paused after hand-off: foreground owner wins; otherwise 28 first only when it is actually live */
+ if(live(b)&&live(e)){
+   if(/journey99|esma99|99/.test(o))return'esma99';
+   if(/journey28|berhet|28/.test(o))return'berhet';
+ }
+ return'none';
+}
+function setQuick(owner){
+ const q=document.getElementById('r630TekkeQuick'), span=q?.querySelector('span'); if(!span)return;
+ const api=owner==='berhet'?window.SukunBerhetiyyeSeyir:owner==='esma99'?window.SukunEsma99Seyir:null;
+ const s=safe(()=>api?.state?.(),null); if(!s)return;
+ const cat=owner==='berhet'?'berhet':'esma',it=safe(()=>window.ZIKIR?.[cat]?.items?.[Math.max(0,+s.i||0)],null); if(!it)return;
+ let name=String(it.tr||it.name||it.oku||'').trim(); if(owner==='esma99'&&name&&!/^Y(?:â|a)\s+/i.test(name))name='Yâ '+name;
+ span.replaceChildren(); const b=document.createElement('b'); b.textContent=name; span.append(b,document.createTextNode(' · Tekke’de başla'));
+}
+function apply(){
+ const owner=resolve(); document.documentElement.dataset.sukunJourneyOwner=owner;
+ const b=document.getElementById('berhetSeyir'),e=document.getElementById('esmaSeyir99');
+ /* Do not let an inactive journey occupy a full-screen open player. */
+ if(owner==='berhet'&&e?.open){e.open=false;e.dataset.autoCollapsed='owner'}
+ if(owner==='esma99'&&b?.open){b.open=false;b.dataset.autoCollapsed='owner'}
+ [b,e].forEach(x=>{if(x){x.style.minHeight='0';x.style.height='auto'}});
+ setQuick(owner);
+ const peek=document.getElementById('r433DockPeek'); if(peek&&owner!=='none'){
+   const sub=peek.querySelector('.r433Sub'); if(sub)sub.textContent=(owner==='berhet'?'Berhetiyye 28 İsim Seyri':'Esmâü’l-Hüsnâ 99 İsim Seyri')+' kontrolünü geri aç';
+ }
+}
+let raf=0;const queue=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>requestAnimationFrame(apply))};
+['sukun:playbackchange','sukun:nowplayingchange','sukun:audiostate','sukun:journey-advance','sukun:currentflowchange','sukun:domhydrate','pageshow','visibilitychange'].forEach(ev=>addEventListener(ev,queue,{passive:true}));
+document.addEventListener('click',queue,{passive:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',queue,{once:true});else queue();
+window.SukunR875SessionOwnerFix=Object.freeze({refresh:queue,resolve});
+})();
+</script>
 </body></html>
+\n<style id="sukun-r875-target-remaining-icon-authority">\n/* FINAL: Hedef and Kalan must be visually distinct in Zikir Carki. */\nbody .zCounterRow>.zCounterSide:first-of-type::before{\n content:''!important;display:block!important;width:30px!important;height:30px!important;\n background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important;\n background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Ccircle cx='16' cy='16' r='11' stroke='%23f3d27a' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='5' stroke='%23f3d27a' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='%23fff0b0'/%3E%3Cpath d='M16 1v6M16 25v6M1 16h6M25 16h6' stroke='%23f3d27a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")!important;\n filter:drop-shadow(0 0 7px rgba(243,210,122,.55))!important;\n}\nbody .zCounterRow>.zCounterSide:last-of-type::before{\n content:''!important;display:block!important;width:30px!important;height:30px!important;\n background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important;\n background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Cpath d='M16 4a12 12 0 1 1-8.49 3.51' stroke='%236ce7df' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M5 3.5v7h7' stroke='%236ce7df' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16 9v7l5 3' stroke='%23b7fff8' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E")!important;\n filter:drop-shadow(0 0 7px rgba(108,231,223,.55))!important;\n}\n</style>\n

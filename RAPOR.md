@@ -1,9 +1,7 @@
-# r875 Live UX Fix
+# r875 Session Owner UX Fix
 
-- Canlı URL doğrudan web fetch katmanında cache-miss verdi; en son dağıtılan nero/index kaynağı denetlendi.
-- Kaynağın sonunda `</body></html>` sonrasına literal `\n<style...>` olarak taşmış Hedef/Kalan CSS bloğu bulundu ve belge içine alındı.
-- Berhetiyye + 99 İsim SuleymanSet mobil grid taşmaları tek final statik otorite ile sınırlandı.
-- Legacy pseudo/image jewel kırıntıları kapatıldı.
-- Oynatıcı göster mini barı viewport dışına taşmayacak şekilde sınırlandı.
-- Hedef ve Kalan ayrı ikon semantiği korundu.
-- SW/manifest/ses motoru değiştirilmedi.
+- Berhetiyye / 99 Esmâ UI ownership arbitration added.
+- Active journey keeps foreground context; inactive journey auto-collapses instead of reserving a dead full-screen player area.
+- No audio engine, SW, manifest or version-chain changes.
+- Existing SuleymanSet visuals preserved.
+- Tekke quick context and dock subtitle follow the resolved active journey.
