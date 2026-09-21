@@ -4,10 +4,10 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r908';
-const CACHE = 'sukun-r908-berhet-layout-20260921-v1';
-const CACHE_META = './__sukun_cache_meta_r908__.json';
-const BUILD_MARKER = './__sukun_build_r908__.json';
+const SURUM = 'r909';
+const CACHE = 'sukun-r909-berhet-layout-20260921-v1';
+const CACHE_META = './__sukun_cache_meta_r909__.json';
+const BUILD_MARKER = './__sukun_build_r909__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
@@ -262,7 +262,7 @@ async function navigationResponse(request){
   }catch(e){}
   const cached=await cachedShellFrom(CACHE);
   if(cached&&cached.build===SURUM)return cached.res;
-  return new Response('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SÜKÛN</title><body style="background:#05090c;color:#8fe9ff;font:16px/1.7 system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center;padding:24px"><div><div style="font-size:44px;opacity:.75">۞</div><p>SÜKÛN çevrimdışı. r908 kabuğu henüz önbelleğe alınmadı.</p></div>',{status:503,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}});
+  return new Response('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SÜKÛN</title><body style="background:#05090c;color:#8fe9ff;font:16px/1.7 system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center;padding:24px"><div><div style="font-size:44px;opacity:.75">۞</div><p>SÜKÛN çevrimdışı. r909 kabuğu henüz önbelleğe alınmadı.</p></div>',{status:503,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}});
 }
 
 async function assetResponse(request){
