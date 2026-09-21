@@ -75575,3 +75575,41 @@ function wheel(on){const h=document.getElementById('zCountVisual');if(!h)return;
 function transport(){const s=safe(()=>window.SukunBerhetiyyeSeyir?.state?.(),{})||{},j=safe(()=>window.SukunJourneyController?.state?.(),{})||{};const running=s.run===true||s.running===true||j.phase==='running',paused=s.paused===true||j.phase==='paused';return running?['Ⅱ','Duraklat']:paused?['▶','Sürdür']:['▶','Başlat']}
 function sync(){const on=wanted();R.dataset.r889Berhet=on?'1':'0';if(!on){wheel(false);return}R.dataset.r888Berhet='1';R.dataset.r887Berhet='1';R.dataset.r886Berhet='1';R.dataset.r811Berhet='1';const s=current(),i=indexOfBerhet(s);R.style.setProperty('--r889-scene',`url('${A+scenes[i%scenes.length]}?v=r889')`);wheel(true);const b=document.getElementById('autoBtn');if(b){const [ic,tx]=transport();b.innerHTML=`<span aria-hidden="true">${ic}</span><span>${tx}</span>`;b.setAttribute('aria-label',tx)}}
 ['DOMContentLoaded','load','pageshow','sukun:currentzikirchange','sukun:zikirchange','sukun:zikirselectionchange','sukun:visualcontextchange','sukun:journey-advance','sukun:tabchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));document.addEventListener('click',()=>{setTimeout(sync,0);setTimeout(sync,100);setTimeout(sync,350)},{capture:true,passive:true});setInterval(sync,650);sync();window.SukunR889=Object.freeze({version:'r889',sync,wanted,current});})();</script>
+
+<!-- r890 — BERHETIYYE PAINT AUTHORITY: paint wheel on host itself; remove duplicate visual layers -->
+<style id="sukun-r890-berhetiyye-paint-authority">
+html[data-r889-berhet="1"] body #zCountVisual,
+html[data-r890-berhet="1"] body #zCountVisual{
+  position:relative!important;
+  width:min(84vw,340px)!important;max-width:340px!important;aspect-ratio:1/1!important;
+  overflow:visible!important;border-radius:0!important;box-shadow:none!important;
+  background-color:transparent!important;
+  background-image:url('./assets/berhetiyye-premium/berhetiyye-wheel-source-r887.webp?v=r890')!important;
+  background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important;
+}
+html[data-r889-berhet="1"] body #zCountVisual::before,
+html[data-r890-berhet="1"] body #zCountVisual::before{
+  content:""!important;position:absolute!important;inset:-3%!important;display:block!important;
+  background:url('./assets/berhetiyye-premium/berhetiyye-wheel-source-r887.webp?v=r890') center/contain no-repeat!important;
+  opacity:1!important;visibility:visible!important;z-index:2!important;pointer-events:none!important;
+  filter:drop-shadow(0 10px 24px rgba(0,0,0,.48)) drop-shadow(0 0 18px rgba(169,70,255,.30))!important;
+  animation:r890Wheel 52s linear infinite!important;
+}
+html[data-r889-berhet="1"] body #zCountVisual > :not(.cntNums),
+html[data-r890-berhet="1"] body #zCountVisual > :not(.cntNums){display:none!important;opacity:0!important;visibility:hidden!important}
+html[data-r889-berhet="1"] body #zCountVisual .cntNums,
+html[data-r890-berhet="1"] body #zCountVisual .cntNums{display:flex!important;opacity:1!important;visibility:visible!important;position:relative!important;z-index:10!important}
+html[data-r889-berhet="1"] body #zCountVisual .cntPct::before,
+html[data-r889-berhet="1"] body #zCountVisual .cntPct::after,
+html[data-r890-berhet="1"] body #zCountVisual .cntPct::before,
+html[data-r890-berhet="1"] body #zCountVisual .cntPct::after{content:none!important;display:none!important}
+html[data-r889-berhet="1"] body #zCountVisual .cntPct,
+html[data-r890-berhet="1"] body #zCountVisual .cntPct{display:block!important;line-height:1.1!important;transform:none!important}
+@keyframes r890Wheel{to{transform:rotate(-360deg)}}
+@media(prefers-reduced-motion:reduce){html[data-r890-berhet="1"] body #zCountVisual::before{animation:none!important}}
+</style>
+<script id="sukun-r890-berhetiyye-paint-runtime">(()=>{'use strict';
+const R=document.documentElement;
+function sync(){const on=R.dataset.r889Berhet==='1'||R.dataset.r888Berhet==='1'||R.dataset.r887Berhet==='1';R.dataset.r890Berhet=on?'1':'0';if(!on)return;document.getElementById('r889BerhetWheel')?.remove();document.getElementById('r888BerhetWheel')?.remove();const h=document.getElementById('zCountVisual');if(h){h.querySelectorAll('#r819CounterDisc,.r884WheelWrap').forEach(x=>x.remove())}}
+['DOMContentLoaded','load','pageshow','sukun:currentzikirchange','sukun:zikirchange','sukun:visualcontextchange','sukun:tabchange'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));
+new MutationObserver(()=>requestAnimationFrame(sync)).observe(R,{attributes:true,attributeFilter:['data-r889-berhet','data-r888-berhet','data-r887-berhet']});setInterval(sync,500);sync();window.SukunR890=Object.freeze({version:'r890',sync});})();</script>
