@@ -75614,3 +75614,28 @@ const R=document.documentElement;
 function sync(){const on=R.dataset.r889Berhet==='1'||R.dataset.r888Berhet==='1'||R.dataset.r887Berhet==='1';R.dataset.r890Berhet=on?'1':'0';if(!on)return;document.getElementById('r889BerhetWheel')?.remove();document.getElementById('r888BerhetWheel')?.remove();const h=document.getElementById('zCountVisual');if(h){h.querySelectorAll('.r884WheelWrap').forEach(x=>x.remove())}}
 ['DOMContentLoaded','load','pageshow','sukun:currentzikirchange','sukun:zikirchange','sukun:visualcontextchange','sukun:tabchange'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));
 new MutationObserver(()=>requestAnimationFrame(sync)).observe(R,{attributes:true,attributeFilter:['data-r889-berhet','data-r888-berhet','data-r887-berhet']});setInterval(sync,500);sync();window.SukunR890=Object.freeze({version:'r890',sync});})();</script>
+
+<!-- r892 — BERHETIYYE DIRECT HOST AUTHORITY: one wheel, one counter, no sibling-stage dependency -->
+<style id="sukun-r892-direct-wheel-style">
+html[data-r892-berhet="1"] body #r819CounterStage{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}
+html[data-r892-berhet="1"] body #zCountVisual{position:relative!important;display:flex!important;visibility:visible!important;opacity:1!important;width:min(82vw,330px)!important;height:auto!important;aspect-ratio:1!important;overflow:visible!important;background:none!important;box-shadow:none!important;filter:none!important;isolation:isolate!important}
+html[data-r892-berhet="1"] body #zCountVisual>.zGlow,
+html[data-r892-berhet="1"] body #zCountVisual>.breathHalo,
+html[data-r892-berhet="1"] body #zCountVisual>.tsbGauge,
+html[data-r892-berhet="1"] body #zCountVisual>.rings,
+html[data-r892-berhet="1"] body #zCountVisual>.zMuhr,
+html[data-r892-berhet="1"] body #zCountVisual>.progArc{display:none!important;visibility:hidden!important;opacity:0!important}
+html[data-r892-berhet="1"] body #r892BerhetWheel{display:block!important;position:absolute!important;inset:-7%!important;width:114%!important;height:114%!important;object-fit:contain!important;z-index:1!important;pointer-events:none!important;opacity:1!important;visibility:visible!important;filter:drop-shadow(0 12px 24px rgba(0,0,0,.46)) drop-shadow(0 0 20px rgba(173,73,255,.30))!important;animation:r892Wheel 52s linear infinite!important}
+html[data-r892-berhet="1"] body #zCountVisual>.cntNums{display:flex!important;visibility:visible!important;opacity:1!important;position:relative!important;z-index:5!important;color:#fff0c5!important;text-shadow:0 2px 7px #000,0 0 16px rgba(255,224,160,.28)!important}
+html[data-r892-berhet="1"] body #zCountVisual>.cntNums small{font-size:clamp(12px,3.4vw,16px)!important;letter-spacing:.14em!important;font-weight:800!important}
+html[data-r892-berhet="1"] body #zCountVisual .cntBig{font-size:clamp(62px,19vw,92px)!important;line-height:.92!important}
+html[data-r892-berhet="1"] body #zCountVisual .cntPct{font-size:clamp(12px,3.4vw,16px)!important;line-height:1.1!important}
+@keyframes r892Wheel{to{transform:rotate(-360deg)}}
+@media(prefers-reduced-motion:reduce){html[data-r892-berhet="1"] body #r892BerhetWheel{animation:none!important}}
+</style>
+<script id="sukun-r892-direct-wheel-script">(()=>{'use strict';if(window.SukunR892)return;const R=document.documentElement,A='./assets/berhetiyye-premium/berhetiyye-wheel-transparent-r892.webp?v=r892';
+const norm=v=>String(v||'').toLocaleLowerCase('tr-TR');
+function isBerhet(){try{const s=window.currentZikirState?.snapshot?.();if(s?.cat==='berhet')return true}catch(_){}try{if(window.Z?.cat==='berhet')return true;if(typeof zItem==='function'){const i=zItem();if(i?._src==='berhet'||i?.cat==='berhet'||i?.category==='berhet')return true}}catch(_){}if(['r886Berhet','r887Berhet','r888Berhet','r889Berhet','r890Berhet','r891Berhet'].some(k=>R.dataset[k]==='1'))return true;const t=norm(document.querySelector('#zDetail,#r768ActiveGlassHost,#r611CurrentZikirHero,#berhetAtlas')?.textContent);return t.includes('berhetiyye')||t.includes('berhetiye')||t.includes('kasem-i berhetiyye')}
+function mount(on){const h=document.getElementById('zCountVisual');if(!h)return;if(!on){document.getElementById('r892BerhetWheel')?.remove();return}let im=document.getElementById('r892BerhetWheel');if(!im){im=document.createElement('img');im.id='r892BerhetWheel';im.alt='';im.setAttribute('aria-hidden','true');im.src=A;h.prepend(im)}R.dataset.r819Counter='berhet'}
+function sync(){const on=isBerhet();R.dataset.r892Berhet=on?'1':'0';mount(on)}
+new MutationObserver(()=>requestAnimationFrame(sync)).observe(document.documentElement,{subtree:true,childList:true,attributes:true});['click','pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));setInterval(sync,400);sync();window.SukunR892=Object.freeze({version:'r892',sync})})();</script>
