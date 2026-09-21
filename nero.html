@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r906"/>
+<meta name="sukun-build" content="r907"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
@@ -5437,7 +5437,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r901"/><script>window.SUKUN_BUILD='r906';document.documentElement.dataset.sukunBuild='r906';</script>
+<meta name="sukun-build" content="r907"/><script>window.SUKUN_BUILD='r907';document.documentElement.dataset.sukunBuild='r907';</script>
 </head>
 <body data-perf="dengeli">
 <!-- ═══ r519 — AÇILIŞ PERDESİ ═══════════════════════════════════════════
@@ -6536,7 +6536,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r906 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r907 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -26634,7 +26634,7 @@ kat.addEventListener('click',e=>{ if(e.target===kat)kapat(); });
     set('controller-changed');
     /* Sadece kullanıcının Yenile eylemiyle silahlandıysa otomatik reload. */
     let armed=state.reloadArmed;try{armed=armed||new RegExp('^'+SW_CLIENT_BUILD.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+':').test(sessionStorage.getItem('sukun.sw.reload')||'')}catch(e){}
-    if(armed){try{sessionStorage.removeItem('sukun.sw.reload')}catch(e){};location.reload()}
+    if(armed||navigator.serviceWorker.controller){try{sessionStorage.removeItem('sukun.sw.reload')}catch(e){};try{if(sessionStorage.getItem('sukun.r907.controllerReload')!=='1'){sessionStorage.setItem('sukun.r907.controllerReload','1');location.reload()}}catch(e){location.reload()}}
   });
   navigator.serviceWorker.addEventListener('message',e=>{
     if(e.data?.type==='SUKUN_SW_STATUS')set('message',{workerVersion:e.data.v||state.workerVersion,cache:e.data.cache||state.cache,complete:e.data.complete??state.complete});
@@ -74724,7 +74724,7 @@ window.SukunR850=Object.freeze({version:'r850',settings:()=>document.getElementB
 
 <script id="sukun-r853-sw-identity">(()=>{
 'use strict';
-const APP='r906';
+const APP='r907';
 const el=()=>document.getElementById('surumEtiket');
 function paint(sw='—',phase=''){const e=el();if(!e)return;e.textContent=`SÜKÛN v20.91 — Uygulama ${APP} · SW ${sw}${phase?` · ${phase}`:''}`;}
 paint('denetleniyor…');
@@ -75591,7 +75591,7 @@ function itemIndex(){const i=safe(()=>typeof zItem==='function'?zItem():null,nul
 function sceneIndex(){const selected=safe(()=>Number(localStorage.getItem('sukun:berhet:scene')),NaN);return Number.isFinite(selected)?selected:itemIndex()}
 function cleanLegacy(on){['r853Berhet','r886Berhet','r887Berhet','r888Berhet','r889Berhet','r890Berhet','r892Berhet','r895Berhet','r898Berhet'].forEach(k=>delete R.dataset[k]);if(on)R.dataset.r811Berhet='1';else delete R.dataset.r811Berhet}
 let lock=false;function sync(){if(lock)return;lock=true;requestAnimationFrame(()=>{lock=false;const on=isBerhet();R.dataset.r902Context=on?'berhet':'esma';R.dataset.r899Berhet=on?'1':'0';cleanLegacy(on);
- if(on){R.style.setProperty('--r902-scene',`url('${A+SC[sceneIndex()%SC.length]}?v=r906')`);R.style.setProperty('--r899-scene',`url('${A+SC[sceneIndex()%SC.length]}?v=r906')`)}else{R.style.removeProperty('--r902-scene');R.style.removeProperty('--r899-scene')}
+ if(on){R.style.setProperty('--r902-scene',`url('${A+SC[sceneIndex()%SC.length]}?v=r905')`);R.style.setProperty('--r899-scene',`url('${A+SC[sceneIndex()%SC.length]}?v=r905')`)}else{R.style.removeProperty('--r902-scene');R.style.removeProperty('--r899-scene')}
  // Exactly one canonical numeric layer / wheel.
  document.querySelectorAll('#r819CounterStage,#r819CounterNums,#r819CounterDisc,#r819CounterBig,#r819CounterPct,#r898BerhetWheel').forEach(n=>n.remove());
  const h=document.getElementById('zCountVisual');if(h){h.querySelectorAll(':scope>.cntNums').forEach((n,i)=>{if(i)n.remove()});if(!on)document.getElementById('r899BerhetWheel')?.remove();}
@@ -75602,6 +75602,8 @@ let lock=false;function sync(){if(lock)return;lock=true;requestAnimationFrame(()
 document.addEventListener('click',e=>{if(e.target.closest?.('#zList,#r883JourneyRemote,#berhetSeyir,#esmaSeyir99'))setTimeout(sync,0)},{capture:true,passive:true});
 setInterval(sync,900);document.readyState==='loading'?document.addEventListener('DOMContentLoaded',sync,{once:true}):sync();
 window.SukunR902=Object.freeze({version:'r902',sync,isBerhet});})();</script>\n
+</body>
+</html>
 
 <style id="sukun-r905-home-scene-recovery">
 /* r905: VisualContext may suppress the scene only while Zikir owns the screen.
@@ -75616,33 +75618,3 @@ html body.r716-shell:not(.sukun-zikir-tab)>#r717Scene{
  html body.r716-shell:not(.sukun-zikir-tab)>#r717Scene{background-position:center top!important;background-size:cover!important}
 }
 </style>
-
-<!-- r906 — BERHETIYYE VISUAL + CONTROL TUNING -->
-<style id="sukun-r906-berhetiyye-tuning">
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelWrap{display:block!important;width:min(66vw,252px)!important;max-width:252px!important;aspect-ratio:1!important;margin:2px auto 8px!important;overflow:visible!important;isolation:isolate!important;background:transparent!important;box-shadow:none!important;transform:none!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelWrap::before,html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelWrap::after{content:none!important;display:none!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelDisc{inset:-3%!important;background:transparent url('./assets/berhetiyye-premium/berhetiyye-wheel-r899.png?v=r906') center/contain no-repeat!important;animation:none!important;transform:none!important;filter:drop-shadow(0 9px 20px rgba(0,0,0,.34)) drop-shadow(0 0 16px rgba(135,69,255,.18))!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelCore{inset:23%!important;z-index:3!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelName{font-size:12px!important;letter-spacing:.05em!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelCount{font-size:clamp(48px,13vw,66px)!important;margin-top:2px!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelSub{font-size:10px!important;margin-top:4px!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"]{background:linear-gradient(180deg,rgba(3,18,29,.82),rgba(5,12,24,.90))!important;border-color:rgba(225,188,94,.38)!important;box-shadow:0 16px 34px rgba(0,0,0,.26),inset 0 0 34px rgba(62,131,159,.06)!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r883Grid{gap:7px 8px!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] :is(.r883Btn,.r901Ctl){border:0!important;background-color:transparent!important;background-position:center!important;background-repeat:no-repeat!important;background-size:100% 100%!important;box-shadow:none!important;color:#fff3d2!important;text-shadow:0 2px 5px rgba(0,0,0,.95),0 0 8px rgba(255,220,155,.20)!important;overflow:visible!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r901Transport{margin:0 0 2px!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r901Ctl{min-height:62px!important;padding:0 26px!important;font-size:14px!important;background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872-blank-r883.webp?v=r906')!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r883Btn{height:54px!important;min-height:54px!important;padding:0 24px!important;font-size:11.5px!important;line-height:1.05!important;white-space:nowrap!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r883Btn[data-act="prev"],html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r883Btn[data-act="next"]{background-image:url('./assets/berhetiyye-premium/btn-secondary-sapphire-r872-blank-r883.webp?v=r906')!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r883Btn[data-act="again"]{background-image:url('./assets/berhetiyye-premium/btn-secondary-emerald-r872-blank-r883.webp?v=r906')!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r883Btn[data-act="stop"]{background-image:url('./assets/berhetiyye-premium/btn-secondary-ruby-r872-blank-r883.webp?v=r906')!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r883Btn[data-act="reset"]{height:58px!important;min-height:58px!important;margin-top:1px!important;font-size:12.5px!important;background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872-blank-r883.webp?v=r906')!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r883Btn .ico{flex:0 0 auto!important;margin-right:.42em!important}
-html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r883Btn[data-act="next"] .ico{margin:0 0 0 .42em!important}
-html[data-r902-context="berhet"] body #r433DockPeek{min-height:52px!important;width:min(82vw,340px)!important;padding:0 34px!important;border:0!important;border-radius:0!important;background-color:transparent!important;background-image:url('./assets/berhetiyye-premium/btn-primary-wide-r872-blank-r883.webp?v=r906')!important;background-position:center!important;background-size:100% 100%!important;background-repeat:no-repeat!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;color:#fff4da!important}
-html[data-r902-context="berhet"] body #r433DockPeek .r433Sub,html[data-r902-context="berhet"] body #r433DockPeek .r433Ico{display:none!important}
-html[data-r902-context="berhet"] body #r433DockPeek .r433Txt{max-width:none!important;font-weight:800!important;text-shadow:0 2px 5px #000!important}
-@media(max-width:430px){html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"]{padding:10px 10px 12px!important}html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r883Head{margin-bottom:5px!important}html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelWrap{width:min(64vw,244px)!important}html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r883Btn{height:52px!important;min-height:52px!important;font-size:10.8px!important;padding-inline:20px!important}html[data-r902-context="berhet"] #r883JourneyRemote[data-target="28"] .r901Ctl{min-height:58px!important;font-size:13px!important}}
-</style>
-
-</body>
-</html>
