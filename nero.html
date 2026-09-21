@@ -75651,3 +75651,28 @@ function isBerhet(){try{const s=window.currentZikirState?.snapshot?.();if(s?.cat
 function mount(on){const h=document.getElementById('zCountVisual');if(!h)return;if(!on){document.getElementById('r892BerhetWheel')?.remove();return}let im=document.getElementById('r892BerhetWheel');if(!im){im=document.createElement('img');im.id='r892BerhetWheel';im.alt='';im.setAttribute('aria-hidden','true');im.src=A;h.prepend(im)}R.dataset.r819Counter='berhet'}
 function sync(){const on=isBerhet();R.dataset.r892Berhet=on?'1':'0';mount(on)}
 new MutationObserver(()=>requestAnimationFrame(sync)).observe(document.documentElement,{subtree:true,childList:true,attributes:true});['click','pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));setInterval(sync,400);sync();window.SukunR892=Object.freeze({version:'r892',sync})})();</script>
+
+<!-- r895 FINAL COUNTER AUTHORITY — must remain last -->
+<style id="sukun-r895-final-counter-authority">
+/* Historical mirror renderer is never allowed to paint. */
+html body #r819CounterStage,html body #r819CounterNums,html body #r819CounterDisc,
+html body #r819CounterBig,html body #r819CounterPct{
+ display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;
+}
+/* One and only one numeric layer. */
+html body #zCountVisual>.cntNums{display:flex!important;visibility:visible!important;opacity:1!important;position:relative!important;z-index:20!important}
+html body #zCountVisual>.cntNums::before,html body #zCountVisual>.cntNums::after,
+html body #zCountVisual .cntBig::before,html body #zCountVisual .cntBig::after,
+html body #zCountVisual .cntPct::before,html body #zCountVisual .cntPct::after{content:none!important;display:none!important}
+html[data-r895-berhet="1"] body #zCountVisual{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;width:min(84vw,340px)!important;max-width:340px!important;aspect-ratio:1!important;margin:4px auto 12px!important;overflow:visible!important;background:none!important;isolation:isolate!important}
+html[data-r895-berhet="1"] body #zCountVisual>#r895BerhetWheel{display:block!important;visibility:visible!important;opacity:1!important;position:absolute!important;inset:-4%!important;width:108%!important;height:108%!important;object-fit:contain!important;z-index:2!important;pointer-events:none!important;filter:drop-shadow(0 10px 22px rgba(0,0,0,.5)) drop-shadow(0 0 18px rgba(157,62,255,.34))!important;animation:r895Wheel 48s linear infinite!important}
+html[data-r895-berhet="1"] body #zCountVisual>:not(.cntNums):not(#r895BerhetWheel){display:none!important;visibility:hidden!important;opacity:0!important}
+html[data-r895-berhet="1"] body #zCountVisual>.cntNums{z-index:20!important;color:#fff0c5!important;text-shadow:0 2px 8px #000,0 0 15px rgba(111,39,178,.8)!important}
+@keyframes r895Wheel{to{transform:rotate(-360deg)}}
+@media(prefers-reduced-motion:reduce){html[data-r895-berhet="1"] body #r895BerhetWheel{animation:none!important}}
+</style>
+<script id="sukun-r895-final-counter-script">(()=>{'use strict';if(window.SukunR895)return;const R=document.documentElement,W='./assets/berhetiyye-premium/berhetiyye-wheel-transparent-r892.webp?v=r895';
+function berhet(){try{return typeof zKat==='function'&&zKat()==='berhet'}catch(_){return false}}
+function purge(){document.querySelectorAll('#r819CounterStage,#r819CounterNums,#r819CounterDisc,#r819CounterBig,#r819CounterPct,#r892BerhetWheel,#r889BerhetWheel,#r888BerhetWheel').forEach(n=>n.remove())}
+function sync(){const on=berhet();R.dataset.r895Berhet=on?'1':'0';purge();const h=document.getElementById('zCountVisual');if(!h)return;let w=document.getElementById('r895BerhetWheel');if(on){if(!w){w=document.createElement('img');w.id='r895BerhetWheel';w.alt='';w.setAttribute('aria-hidden','true');w.decoding='async';w.src=W;h.prepend(w)}}else w?.remove()}
+const mo=new MutationObserver(()=>requestAnimationFrame(sync));function boot(){mo.observe(document.body,{subtree:true,childList:true});sync()}document.readyState==='loading'?document.addEventListener('DOMContentLoaded',boot,{once:true}):boot();['click','pageshow','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));setInterval(sync,250);window.SukunR895=Object.freeze({version:'r895',sync})})();</script>
