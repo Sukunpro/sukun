@@ -4,10 +4,10 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r887';
-const CACHE = 'sukun-r887-20260920-clean';
-const CACHE_META = './__sukun_cache_meta_r887__.json';
-const BUILD_MARKER = './__sukun_build_r887__.json';
+const SURUM = 'r889';
+const CACHE = 'sukun-r889-20260920-clean';
+const CACHE_META = './__sukun_cache_meta_r889__.json';
+const BUILD_MARKER = './__sukun_build_r889__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
@@ -27,7 +27,7 @@ const CORE = [
 ];
 
 const PRECACHE = [
-  './assets/berhetiyye-premium/berhetiyye-wheel-user-r887.webp',
+  './assets/berhetiyye-premium/berhetiyye-wheel-user-r889.webp',
   './assets/berhetiyye-premium/scene-09-berhetihin-billur-r837.webp',
   './assets/berhetiyye-premium/scene-10-hutirin-adalet-r837.webp',
   './assets/berhetiyye-premium/scene-11-kalnehudin-ruzgar-r837.webp',
