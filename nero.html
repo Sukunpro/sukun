@@ -5437,6 +5437,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
+<meta name="sukun-build" content="r893"><script>window.SUKUN_BUILD='r893';document.documentElement.dataset.sukunBuild='r893';</script>
 </head>
 <body data-perf="dengeli">
 <!-- ═══ r519 — AÇILIŞ PERDESİ ═══════════════════════════════════════════
@@ -75633,7 +75634,7 @@ html[data-r892-berhet="1"] body #zCountVisual .cntPct{font-size:clamp(12px,3.4vw
 @keyframes r892Wheel{to{transform:rotate(-360deg)}}
 @media(prefers-reduced-motion:reduce){html[data-r892-berhet="1"] body #r892BerhetWheel{animation:none!important}}
 </style>
-<script id="sukun-r892-direct-wheel-script">(()=>{'use strict';if(window.SukunR892)return;const R=document.documentElement,A='./assets/berhetiyye-premium/berhetiyye-wheel-transparent-r892.webp?v=r892';
+<script id="sukun-r892-direct-wheel-script">(()=>{'use strict';if(window.SukunR892)return;const R=document.documentElement,A='./assets/berhetiyye-premium/berhetiyye-wheel-transparent-r892.webp?v=r893';
 const norm=v=>String(v||'').toLocaleLowerCase('tr-TR');
 function isBerhet(){try{const s=window.currentZikirState?.snapshot?.();if(s?.cat==='berhet')return true}catch(_){}try{if(window.Z?.cat==='berhet')return true;if(typeof zItem==='function'){const i=zItem();if(i?._src==='berhet'||i?.cat==='berhet'||i?.category==='berhet')return true}}catch(_){}if(['r886Berhet','r887Berhet','r888Berhet','r889Berhet','r890Berhet','r891Berhet'].some(k=>R.dataset[k]==='1'))return true;const t=norm(document.querySelector('#zDetail,#r768ActiveGlassHost,#r611CurrentZikirHero,#berhetAtlas')?.textContent);return t.includes('berhetiyye')||t.includes('berhetiye')||t.includes('kasem-i berhetiyye')}
 function mount(on){const h=document.getElementById('zCountVisual');if(!h)return;if(!on){document.getElementById('r892BerhetWheel')?.remove();return}let im=document.getElementById('r892BerhetWheel');if(!im){im=document.createElement('img');im.id='r892BerhetWheel';im.alt='';im.setAttribute('aria-hidden','true');im.src=A;h.prepend(im)}R.dataset.r819Counter='berhet'}

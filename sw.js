@@ -4,22 +4,22 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r889';
-const CACHE = 'sukun-r889-20260920-clean';
-const CACHE_META = './__sukun_cache_meta_r889__.json';
-const BUILD_MARKER = './__sukun_build_r889__.json';
+const SURUM = 'r893';
+const CACHE = 'sukun-r893-20260921-flat-root';
+const CACHE_META = './__sukun_cache_meta_r893__.json';
+const BUILD_MARKER = './__sukun_build_r893__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
    Shell doğrulaması bağımsız; geri kalan assetler best-effort pre-cache ve
    normal fetch sırasında current cache'e yazılır. */
 const CORE = [
-  './assets/berhetiyye-premium/control-round-plus-r788.png',
-  './assets/berhetiyye-premium/control-round-minus-r788.png',
-  './assets/berhetiyye-premium/control-nav-amethyst-r788.png',
-  './assets/berhetiyye-premium/control-nav-sapphire-r788.png',
-  './assets/berhetiyye-premium/control-nav-emerald-r788.png',
-  './assets/berhetiyye-premium/control-primary-r788.png',
+  './assets/berhetiyye-premium/control-round-plus-r788.webp',
+  './assets/berhetiyye-premium/control-round-minus-r788.webp',
+  './assets/berhetiyye-premium/control-nav-amethyst-r788.webp',
+  './assets/berhetiyye-premium/control-nav-sapphire-r788.webp',
+  './assets/berhetiyye-premium/control-nav-emerald-r788.webp',
+  './assets/berhetiyye-premium/control-primary-r788.webp',
   './nero.html',
   './manifest.webmanifest',
   BUILD_MARKER,
