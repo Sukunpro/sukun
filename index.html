@@ -5437,7 +5437,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r901"/><script>window.SUKUN_BUILD='r904';document.documentElement.dataset.sukunBuild='r904';</script>
+<meta name="sukun-build" content="r901"/><script>window.SUKUN_BUILD='r905';document.documentElement.dataset.sukunBuild='r905';</script>
 </head>
 <body data-perf="dengeli">
 <!-- ═══ r519 — AÇILIŞ PERDESİ ═══════════════════════════════════════════
@@ -6536,7 +6536,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r904 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r905 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -74724,7 +74724,7 @@ window.SukunR850=Object.freeze({version:'r850',settings:()=>document.getElementB
 
 <script id="sukun-r853-sw-identity">(()=>{
 'use strict';
-const APP='r904';
+const APP='r905';
 const el=()=>document.getElementById('surumEtiket');
 function paint(sw='—',phase=''){const e=el();if(!e)return;e.textContent=`SÜKÛN v20.91 — Uygulama ${APP} · SW ${sw}${phase?` · ${phase}`:''}`;}
 paint('denetleniyor…');
@@ -75568,8 +75568,8 @@ function sync(){const h=ensure();if(!h)return;const on=(window.SukunJourneyContr
 /* One visual owner: r899 PNG wheel. Disable legacy Berhetiyye counter mirrors permanently. */
 html body :is(#r819CounterStage,#r819CounterNums,#r819CounterDisc,#r819CounterBig,#r819CounterPct,#r898BerhetWheel){display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}
 /* Berhetiyye scene is permitted only under the canonical r902 context. */
-html:not([data-r902-context="berhet"]) body.r716-shell>#r717Scene{display:none!important;background-image:none!important;opacity:0!important}
-html[data-r902-context="berhet"] body.r716-shell>#r717Scene{display:block!important;opacity:1!important;background-image:linear-gradient(180deg,rgba(0,5,13,.12),rgba(1,5,15,.38)),var(--r902-scene)!important;background-size:cover!important;background-position:center top!important;background-repeat:no-repeat!important}
+html:not([data-r902-context="berhet"]) body.r716-shell.sukun-zikir-tab>#r717Scene{display:none!important;background-image:none!important;opacity:0!important}
+html[data-r902-context="berhet"] body.r716-shell.sukun-zikir-tab>#r717Scene{display:block!important;opacity:1!important;background-image:linear-gradient(180deg,rgba(0,5,13,.12),rgba(1,5,15,.38)),var(--r902-scene)!important;background-size:cover!important;background-position:center top!important;background-repeat:no-repeat!important}
 /* Do not allow Berhetiyye jewel skin to leak into Esma. */
 html:not([data-r902-context="berhet"]) body :is(#undoBtn,#plusBtn,#autoBtn,#resetBtn,#r616ZikirNavRow button){background-image:none}
 /* Horizontal compact rail, vertical full list. */
@@ -75591,7 +75591,7 @@ function itemIndex(){const i=safe(()=>typeof zItem==='function'?zItem():null,nul
 function sceneIndex(){const selected=safe(()=>Number(localStorage.getItem('sukun:berhet:scene')),NaN);return Number.isFinite(selected)?selected:itemIndex()}
 function cleanLegacy(on){['r853Berhet','r886Berhet','r887Berhet','r888Berhet','r889Berhet','r890Berhet','r892Berhet','r895Berhet','r898Berhet'].forEach(k=>delete R.dataset[k]);if(on)R.dataset.r811Berhet='1';else delete R.dataset.r811Berhet}
 let lock=false;function sync(){if(lock)return;lock=true;requestAnimationFrame(()=>{lock=false;const on=isBerhet();R.dataset.r902Context=on?'berhet':'esma';R.dataset.r899Berhet=on?'1':'0';cleanLegacy(on);
- if(on){R.style.setProperty('--r902-scene',`url('${A+SC[sceneIndex()%SC.length]}?v=r904')`);R.style.setProperty('--r899-scene',`url('${A+SC[sceneIndex()%SC.length]}?v=r904')`)}else{R.style.removeProperty('--r902-scene');R.style.removeProperty('--r899-scene')}
+ if(on){R.style.setProperty('--r902-scene',`url('${A+SC[sceneIndex()%SC.length]}?v=r905')`);R.style.setProperty('--r899-scene',`url('${A+SC[sceneIndex()%SC.length]}?v=r905')`)}else{R.style.removeProperty('--r902-scene');R.style.removeProperty('--r899-scene')}
  // Exactly one canonical numeric layer / wheel.
  document.querySelectorAll('#r819CounterStage,#r819CounterNums,#r819CounterDisc,#r819CounterBig,#r819CounterPct,#r898BerhetWheel').forEach(n=>n.remove());
  const h=document.getElementById('zCountVisual');if(h){h.querySelectorAll(':scope>.cntNums').forEach((n,i)=>{if(i)n.remove()});if(!on)document.getElementById('r899BerhetWheel')?.remove();}
@@ -75604,3 +75604,17 @@ setInterval(sync,900);document.readyState==='loading'?document.addEventListener(
 window.SukunR902=Object.freeze({version:'r902',sync,isBerhet});})();</script>\n
 </body>
 </html>
+
+<style id="sukun-r905-home-scene-recovery">
+/* r905: VisualContext may suppress the scene only while Zikir owns the screen.
+   Home keeps the original r757 fixed scene geometry, preventing the body image from
+   becoming an oversized mobile background. */
+html body.r716-shell:not(.sukun-zikir-tab)>#r717Scene{
+ display:block!important;opacity:1!important;position:fixed!important;inset:0!important;
+ background-image:var(--r717-veil),url('./assets/sukun-nur-sanctuary-r757.png')!important;
+ background-size:cover!important;background-position:center top!important;background-repeat:no-repeat!important;
+}
+@media(max-width:600px){
+ html body.r716-shell:not(.sukun-zikir-tab)>#r717Scene{background-position:center top!important;background-size:cover!important}
+}
+</style>
