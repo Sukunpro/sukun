@@ -4,10 +4,10 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r893';
-const CACHE = 'sukun-r893-20260921-flat-root';
-const CACHE_META = './__sukun_cache_meta_r893__.json';
-const BUILD_MARKER = './__sukun_build_r893__.json';
+const SURUM = 'r894';
+const CACHE = 'sukun-r894-20260921-flat-root';
+const CACHE_META = './__sukun_cache_meta_r894__.json';
+const BUILD_MARKER = './__sukun_build_r894__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
