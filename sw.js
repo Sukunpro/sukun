@@ -4,10 +4,10 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r913';
-const CACHE = 'sukun-r913-build-scene-unity-20260922-v1';
-const CACHE_META = './__sukun_cache_meta_r913__.json';
-const BUILD_MARKER = './__sukun_build_r913__.json';
+const SURUM = 'r914';
+const CACHE = 'sukun-r914-ui-scene-repair-20260922-v1';
+const CACHE_META = './__sukun_cache_meta_r914__.json';
+const BUILD_MARKER = './__sukun_build_r914__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
@@ -27,84 +27,39 @@ const CORE = [
 ];
 
 const PRECACHE = [
-  './assets/berhetiyye-premium/berhetiyye-wheel-user-r889.webp',
-  './assets/berhetiyye-premium/berhetiyye-wheel-transparent-r892.webp',
-  './assets/berhetiyye-premium/scene-09-berhetihin-billur-r837.webp',
-  './assets/berhetiyye-premium/scene-10-hutirin-adalet-r837.webp',
-  './assets/berhetiyye-premium/scene-11-kalnehudin-ruzgar-r837.webp',
-  './assets/berhetiyye-premium/backgrounds-r837.json',
-
-  './assets/berhetiyye-premium/scene-04-teras.png',
-  './assets/berhetiyye-premium/scene-03-selale.png',
-  './assets/berhetiyye-premium/scene-07-mor-kristal.png',
-  './assets/berhetiyye-premium/scene-02-asa.png',
-  './assets/berhetiyye-premium/scene-06-yuzuk.png',
-  './index.html',
-  './assets/berhetiyye-premium/berhetiyye-ring-r819.png',
-  './assets/berhetiyye-premium/berhetiyye-palace.png',
-  './assets/berhetiyye-premium/scene-05-kristal.png',
-  './assets/berhetiyye-premium/scene-01-billur.png',
-  './assets/berhetiyye-premium/scene-08-ayasofya-billur.png',
-  './css/jewel-tokens-r797.css',
-  './css/jewel-components-r797.css',
-  './css/jewel-layout-r797.css',
-  './css/jewel-containment-r797.css',
-  './js/jewel-bindings-r797.js',
-  './assets/berhetiyye-premium/ASSET_MANIFEST_r798.json',
-  './assets/berhetiyye-premium/btn-primary-wide.png',
-  './assets/berhetiyye-premium/btn-secondary-sapphire.png',
-  './assets/berhetiyye-premium/btn-secondary-amethyst.png',
-  './assets/berhetiyye-premium/btn-secondary-emerald.png',
-  './assets/berhetiyye-premium/btn-compact-sapphire.png',
-  './assets/berhetiyye-premium/btn-compact-gold.png',
-  './assets/berhetiyye-premium/btn-compact-emerald.png',
-  './assets/berhetiyye-premium/btn-round-minus.png',
-  './assets/berhetiyye-premium/btn-round-plus.png',
-  './assets/berhetiyye-premium/btn-round-minus-exact.png',
-  './assets/berhetiyye-premium/btn-round-plus-exact.png',
-  './assets/berhetiyye-premium/card-wide.png',
-  './assets/berhetiyye-premium/card-wide-ornate.png',
-  './assets/berhetiyye-premium/card-medium.png',
-  './assets/berhetiyye-premium/panel-tall.png',
-  './assets/berhetiyye-premium/panel-short.png',
-  './assets/berhetiyye-premium/panelbar.png',
-  './assets/berhetiyye-premium/panel-context.png',
-  './assets/berhetiyye-premium/ring.png',
-  './assets/sukun-tesbih-weave-r759.svg',
-  './assets/sukun-nur-mist-r759.svg',
-  './assets/tefekkur-sanctuary.webp',
-  './assets/tefekkur-sanctuary-r710.webp',
-  './assets/tefekkur-sanctuary-r710-small.webp',
-  './assets/feyz-ornament.svg',
-  './assets/sukun-sanctuary-r717.webp',
-  './assets/sukun-sanctuary-r717-small.webp',
-  './assets/feyz-mark-r718.svg',
-  './assets/feyz-pattern-r718.svg',
-  './assets/feyz-flame-ring-r718.webp',
-  './assets/ui-target-r722.svg',
-  './assets/ui-hourglass-r722.svg',
-  './assets/ui-exit-r722.svg',
-  './assets/ui-speaker-r722.svg',
-  './assets/sukun-nur-sanctuary-r757.png',
-  './assets/sukun-nur-ring-r757.png',
-  './assets/sukun-nur-orbit-r757.svg',
-  './assets/berhetiyye-premium/card-wide.svg',
-  './assets/berhetiyye-premium/card-medium.svg',
-  './assets/berhetiyye-premium/field.svg',
-  './assets/berhetiyye-premium/chip.svg',
-  './assets/berhetiyye-premium/button-wide.svg',
-  './assets/berhetiyye-premium/button-small.svg',
-  './assets/berhetiyye-premium/panel-tall.svg',
-  './assets/berhetiyye-premium/player.svg',
-  './assets/berhetiyye-premium/divider.svg',
-  './assets/berhetiyye-premium/toolbar-button.svg',
-  './assets/berhetiyye-premium/tefekkur-cta.svg',
-  './assets/berhetiyye-premium/ASSET_CARDS_r792.json',
-  './assets/berhetiyye-premium/ASSET_CARDS_r794.json',
-  './surumler.json',
-  './icon-192.png',
-  './icon-512.png',
-  './icon-512-maskable.png'
+  "./assets/sukun-nur-ring-r757.png",
+  "./assets/berhetiyye-premium/btn-primary-wide-r872-blank-r883.webp",
+  "./assets/berhetiyye-premium/scene-r887-03.webp",
+  "./assets/berhetiyye-premium/control-round-plus-r788.webp",
+  "./assets/berhetiyye-premium/scene-02-asa.png",
+  "./assets/berhetiyye-premium/scene-r887-05.webp",
+  "./assets/berhetiyye-premium/scene-06-yuzuk.png",
+  "./assets/berhetiyye-premium/berhetiyye-wheel-source-r887.webp",
+  "./assets/berhetiyye-premium/scene-07-mor-kristal.png",
+  "./assets/berhetiyye-premium/control-round-minus-r788.webp",
+  "./assets/berhetiyye-premium/btn-secondary-emerald-r872-blank-r883.webp",
+  "./assets/berhetiyye-premium/scene-r887-02.webp",
+  "./assets/berhetiyye-premium/control-primary-r788.webp",
+  "./assets/berhetiyye-premium/btn-compact-gold-blank-r883.webp",
+  "./assets/berhetiyye-premium/berhetiyye-wheel-r899.png",
+  "./assets/berhetiyye-premium/berhetiyye-wheel-user-r886.webp",
+  "./assets/berhetiyye-premium/scene-r887-04.webp",
+  "./assets/berhetiyye-premium/scene-01-billur.png",
+  "./assets/berhetiyye-premium/control-nav-sapphire-r788.webp",
+  "./assets/berhetiyye-premium/btn-secondary-sapphire-r872-blank-r883.webp",
+  "./assets/berhetiyye-premium/control-nav-emerald-r788.webp",
+  "./assets/berhetiyye-premium/berhetiyye-wheel-transparent-r892.webp",
+  "./assets/berhetiyye-premium/scene-03-selale.png",
+  "./assets/berhetiyye-premium/btn-secondary-ruby-r872-blank-r883.webp",
+  "./assets/berhetiyye-premium/control-nav-amethyst-r788.webp",
+  "./assets/berhetiyye-premium/scene-05-kristal.png",
+  "./assets/berhetiyye-premium/berhetiyye-wheel-user-r885.webp",
+  "./assets/berhetiyye-premium/scene-08-ayasofya-billur.png",
+  "./assets/berhetiyye-premium/scene-r887-01.webp",
+  "./assets/berhetiyye-premium/scene-04-teras.png",
+  "./icon-192.png",
+  "./icon-512.png",
+  "./index.html"
 ];
 
 const NOTLAR = [
@@ -262,7 +217,7 @@ async function navigationResponse(request){
   }catch(e){}
   const cached=await cachedShellFrom(CACHE);
   if(cached&&cached.build===SURUM)return cached.res;
-  return new Response('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SÜKÛN</title><body style="background:#05090c;color:#8fe9ff;font:16px/1.7 system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center;padding:24px"><div><div style="font-size:44px;opacity:.75">۞</div><p>SÜKÛN çevrimdışı. r913 kabuğu henüz önbelleğe alınmadı.</p></div>',{status:503,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}});
+  return new Response('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SÜKÛN</title><body style="background:#05090c;color:#8fe9ff;font:16px/1.7 system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center;padding:24px"><div><div style="font-size:44px;opacity:.75">۞</div><p>SÜKÛN çevrimdışı. r914 kabuğu henüz önbelleğe alınmadı.</p></div>',{status:503,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}});
 }
 
 async function assetResponse(request){
