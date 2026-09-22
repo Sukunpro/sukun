@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r910"/>
+<meta name="sukun-build" content="r911"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
@@ -5437,7 +5437,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r910"/><script>window.SUKUN_BUILD='r910';document.documentElement.dataset.sukunBuild='r910';</script>
+<meta name="sukun-build" content="r911"/><script>window.SUKUN_BUILD='r911';document.documentElement.dataset.sukunBuild='r911';</script>
 </head>
 <body data-perf="dengeli">
 <!-- ═══ r519 — AÇILIŞ PERDESİ ═══════════════════════════════════════════
@@ -75750,3 +75750,31 @@ html[data-r910-running="0"] body.sukun-tefekkur-mode #r899BerhetWheel{animation-
  ['DOMContentLoaded','pageshow','hashchange','sukun:tabchange','sukun:visualcontextchange','sukun:currentzikirchange','sukun:zikirselectionchange','sukun:journey-advance'].forEach(e=>addEventListener(e,q,{passive:true}));document.addEventListener('click',()=>setTimeout(q,20),{capture:true,passive:true});setInterval(q,300);sync();window.SukunR910=Object.freeze({version:'r910',sync:q});})();</script>
 </body>
 </html>
+\n<!-- r911 — SCENE/WHEEL RECOVERY AUTHORITY -->
+<style id="sukun-r911-recovery-authority">
+/* Native/Mevlevi scene owns every non-Berhetiyye zikir. r910 must not stretch a fixed generic layer. */
+html:not([data-r911-context="berhet"]) body.r716-shell>#r717Scene{display:none!important;opacity:0!important;background-image:none!important;transform:none!important}
+html[data-r911-context="berhet"] body.r716-shell>#r717Scene{display:block!important;opacity:1!important;position:fixed!important;inset:0!important;transform:none!important;background-image:linear-gradient(180deg,rgba(1,7,16,.10),rgba(1,7,16,.30)),var(--r911-berhet-scene)!important;background-size:cover!important;background-position:center top!important;background-repeat:no-repeat!important}
+/* Remove every opaque plate behind the crystal wheel. */
+html[data-r911-context="berhet"] #r883JourneyRemote[data-target="28"] :is(.r884WheelWrap,.r884WheelDisc,.r884WheelDisc::before,.r884WheelDisc::after){background-color:transparent!important;box-shadow:none!important}
+html[data-r911-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelWrap{overflow:visible!important}
+html[data-r911-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelDisc{background-image:url('./assets/berhetiyye-premium/berhetiyye-wheel-r899.png?v=r911')!important;background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important;border:0!important;border-radius:50%!important;isolation:isolate!important}
+html[data-r911-context="berhet"] body #r899BerhetWheel{background:transparent!important;border:0!important;box-shadow:none!important}
+/* One visible counter authority: journey wheel in 28-mode; canonical counter elsewhere. */
+html[data-r911-context="berhet"] #r883JourneyRemote[data-target="28"]~* #zCountVisual{visibility:hidden!important}
+/* Tefekkür may show the same canonical wheel/counter, never a second independent counter. */
+html[data-r911-context="berhet"] body.sukun-tefekkur-mode #zCountVisual{visibility:visible!important}
+</style>
+<script id="sukun-r911-recovery-runtime">(()=>{'use strict';if(window.SukunR911)return;const R=document.documentElement,A='./assets/berhetiyye-premium/';
+const scenes=['scene-r887-01.webp','scene-r887-02.webp','scene-r887-03.webp','scene-r887-04.webp','scene-r887-05.webp'];
+const safe=(f,d)=>{try{return f()}catch(_){return d}};
+function item(){return safe(()=>typeof zItem==='function'?zItem():null,null)||safe(()=>window.currentZikirState?.snapshot?.(),null)||{} }
+function cat(){const z=safe(()=>typeof zKat==='function'?String(zKat()||'').toLowerCase():'','');if(z)return z;const i=item();return String(i?._src||i?.cat||i?.category||i?.source||'').toLowerCase()}
+function onBerhet(){return cat()==='berhet'}
+function idx(){const i=item();return Math.abs(Number(i?.i??i?.index??i?.no??0)||0)%scenes.length}
+let raf=0;function sync(){raf=0;const on=onBerhet();R.dataset.r911Context=on?'berhet':'generic';
+ if(on){R.style.setProperty('--r911-berhet-scene',`url('${A+scenes[idx()]}?v=r911')`)}else{R.style.removeProperty('--r911-berhet-scene');R.dataset.r910Scene='generic'}
+ /* r910 scene authority is neutralized by r911 CSS; wheel motion setting remains functional. */
+}
+function q(){if(!raf)raf=requestAnimationFrame(sync)}
+['DOMContentLoaded','pageshow','hashchange','sukun:tabchange','sukun:visualcontextchange','sukun:currentzikirchange','sukun:zikirselectionchange','sukun:journey-advance'].forEach(e=>addEventListener(e,q,{passive:true}));document.addEventListener('click',()=>setTimeout(q,30),{capture:true,passive:true});setInterval(q,450);sync();window.SukunR911=Object.freeze({version:'r911',sync:q});})();</script>\n
