@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r911"/>
+<meta name="sukun-build" content="r912"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
@@ -5437,7 +5437,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r911"/><script>window.SUKUN_BUILD='r911';document.documentElement.dataset.sukunBuild='r911';</script>
+<meta name="sukun-build" content="r912"/><script>window.SUKUN_BUILD='r912';document.documentElement.dataset.sukunBuild='r912';</script>
 </head>
 <body data-perf="dengeli">
 <!-- ═══ r519 — AÇILIŞ PERDESİ ═══════════════════════════════════════════
@@ -75313,7 +75313,7 @@ function ensure(){if(host?.isConnected)return host;document.getElementById('r882
 function sync(){ensure();const s=st(),p=phase();host.dataset.phase=p;host.dataset.target=target;host.querySelector('.r883Title').textContent=map[target].title;const total=target==='28'?28:99,idx=Math.max(0,Math.min(total-1,Number(s.i)||0));host.querySelector('.r883State').textContent=(p==='running'?'ÇALIŞIYOR':p==='paused'?'DURAKLATILDI':'HAZIR')+' · '+(idx+1)+'/'+total;host.querySelectorAll('.r883Btn').forEach(b=>setLabel(b,b.dataset.act,p));host.querySelectorAll('.r883Tab').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.k===target)));if(target==='28')window.SukunR819CounterCore?.sync?.()}
 function queue(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;sync()})}
 ['DOMContentLoaded','pageshow','sukun:journey-advance','sukun:currentzikirchange','sukun:domhydrate','sukun:visualcontextchange','sukun:tabchange'].forEach(ev=>addEventListener(ev,queue,{passive:true}));document.addEventListener('click',e=>{if(e.target.closest?.('#berhetSeyir,#esmaSeyir99,#r883JourneyRemote,#r616ZikirNavRow'))setTimeout(queue,0)},{capture:true,passive:true});
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();setInterval(queue,900);
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();/* r912: legacy scene polling removed */
 window.SukunJourneyController=Object.freeze({version:'r886',select:choose,target:()=>target,state:()=>({target,phase:phase(),journey:st()}),playPause:()=>dispatch('transport'),prev:()=>dispatch('prev'),next:()=>dispatch('next'),again:()=>dispatch('again'),stop:()=>dispatch('stop'),reset:()=>dispatch('reset'),sync:queue});
 })();
 </script>
@@ -75349,7 +75349,7 @@ function sync(){const h=document.getElementById('r883JourneyRemote');if(!h)retur
 }
 ['DOMContentLoaded','pageshow','sukun:journey-advance','sukun:currentzikirchange','sukun:visualcontextchange','sukun:tabchange'].forEach(ev=>addEventListener(ev,()=>requestAnimationFrame(sync),{passive:true}));
 document.addEventListener('click',e=>{if(e.target.closest?.('#r883JourneyRemote'))setTimeout(sync,0)},{passive:true});
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();setInterval(sync,700);
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();/* r912: legacy polling removed */
 window.SukunR884=Object.freeze({version:V,sync});
 })();
 </script>
@@ -75390,7 +75390,7 @@ html.r883-shared-remote #berhetSeyir>.r168Buttons,html.r883-shared-remote #esmaS
  ['DOMContentLoaded','pageshow','sukun:journey-advance','sukun:currentzikirchange','sukun:visualcontextchange','sukun:tabchange'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));
  document.addEventListener('click',e=>{if(e.target.closest?.('#r883JourneyRemote')){setTimeout(sync,0);setTimeout(sync,180)}},{passive:true});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
- setInterval(sync,800); window.SukunR885=Object.freeze({version:V,sync});
+ /* r912: legacy polling removed */ window.SukunR885=Object.freeze({version:V,sync});
 })();
 </script>
 
@@ -75454,7 +75454,7 @@ html[data-r886-berhet="1"] body #r616ZikirNavRow button[data-r616-znav="next"],h
  document.addEventListener('click',e=>{if(e.target.closest?.('#r883JourneyRemote,#berhetSeyir,#r616ZikirNavRow,.zCounterActions')){setTimeout(q,0);setTimeout(q,120);setTimeout(q,320)}},{capture:true,passive:true});
  const mo=new MutationObserver(()=>{if(berhetWanted()&&root.dataset.r811Berhet!=='1'){root.dataset.r811Berhet='1';root.dataset.r886Berhet='1'}});mo.observe(root,{attributes:true,attributeFilter:['data-r811-berhet','data-r819-counter']});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
- setInterval(sync,900);window.SukunR886=Object.freeze({version:'r886',sync:q,berhetWanted});
+ /* r912: legacy scene polling removed */window.SukunR886=Object.freeze({version:'r886',sync:q,berhetWanted});
 })();
 </script>
 
@@ -75494,7 +75494,7 @@ function isBerhet(){const k=safe(()=>typeof zKat==='function'?zKat():'','');if(k
 function idx(){const i=current();const n=Number(i?.idx??i?.index??0);return Number.isFinite(n)?Math.max(0,n):0}
 function purge(){document.querySelectorAll('#r819CounterStage,#r819CounterNums,#r819CounterDisc,#r819CounterBig,#r819CounterPct,#r887BerhetWheel,#r888BerhetWheel,#r889BerhetWheel,#r892BerhetWheel,#r894BerhetWheel,#r895BerhetWheel,#r896BerhetWheel,#r898BerhetWheel').forEach(n=>n.remove())}
 let busy=false;function sync(){if(busy)return;busy=true;requestAnimationFrame(()=>{busy=false;purge();const on=isBerhet();R.dataset.r899Berhet=on?'1':'0';if(!on){['r811Berhet','r853Berhet','r886Berhet','r887Berhet','r888Berhet','r889Berhet','r890Berhet','r892Berhet','r895Berhet','r898Berhet'].forEach(k=>delete R.dataset[k]);R.style.removeProperty('--r899-scene');return}R.dataset.r811Berhet='1';R.style.setProperty('--r899-scene',`url('${A+SC[idx()%SC.length]}?v=r899')`);const h=document.getElementById('zCountVisual');if(!h)return;h.querySelectorAll(':scope>.cntNums').forEach((n,j)=>{if(j)n.remove()});let w=document.getElementById('r899BerhetWheel');if(!w){w=document.createElement('img');w.id='r899BerhetWheel';w.alt='';w.setAttribute('aria-hidden','true');w.decoding='async';w.src=W;h.prepend(w)}})}
-const mo=new MutationObserver(sync);function boot(){mo.observe(document.body,{subtree:true,childList:true});sync()}document.readyState==='loading'?document.addEventListener('DOMContentLoaded',boot,{once:true}):boot();['click','pageshow','hashchange','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:visualcontextchange','sukun:journey-advance','sukun:domhydrate','sukun:tabchange'].forEach(e=>addEventListener(e,sync,{passive:true}));setInterval(sync,600);window.SukunR899=Object.freeze({version:'r899',sync,isBerhet})})();</script>\n
+const mo=new MutationObserver(sync);function boot(){mo.observe(document.body,{subtree:true,childList:true});sync()}document.readyState==='loading'?document.addEventListener('DOMContentLoaded',boot,{once:true}):boot();['click','pageshow','hashchange','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:visualcontextchange','sukun:journey-advance','sukun:domhydrate','sukun:tabchange'].forEach(e=>addEventListener(e,sync,{passive:true}));/* r912: r899 scene polling removed */window.SukunR899=Object.freeze({version:'r899',sync,isBerhet})})();</script>\n
 
 
 <!-- r900 — horizontal name rail authority -->
@@ -75563,7 +75563,7 @@ function phase(){const s=state();return s.paused?'paused':s.run?'running':'idle'
 function call(a){const x=api(),s=state();if(!x)return false;let ok=false;try{if(a==='start'){if(!s.run&&!s.paused)ok=x.play?.()!==false}else if(a==='pause'){if(s.run&&!s.paused)ok=x.pause?.()!==false}else if(a==='resume'){if(s.paused)ok=x.resume?.()!==false}}catch(_){ok=false}setTimeout(sync,0);setTimeout(sync,80);setTimeout(sync,240);return ok}
 function ensure(){const h=document.getElementById('r883JourneyRemote');if(!h)return null;let t=h.querySelector('.r901Transport');if(!t){t=document.createElement('div');t.className='r901Transport';t.innerHTML='<button class="r901Ctl" data-r901="start" aria-label="Berhetiyye seyrini başlat">▶ BAŞLAT</button><button class="r901Ctl" data-r901="pause" aria-label="Berhetiyye seyrini duraklat">Ⅱ DURAKLAT</button><button class="r901Ctl" data-r901="resume" aria-label="Berhetiyye seyrini sürdür">▶ SÜRDÜR</button>';const g=h.querySelector('.r883Grid');g?.prepend(t);t.addEventListener('click',e=>{const b=e.target.closest('[data-r901]');if(b){e.preventDefault();e.stopPropagation();call(b.dataset.r901)}})}return h}
 function sync(){const h=ensure();if(!h)return;const on=(window.SukunJourneyController?.target?.()||h.dataset.target)==='28';if(!on)return;h.dataset.phase=phase();const s=state(),i=Math.max(0,Math.min(27,Number(s.i)||0));const st=h.querySelector('.r883State');if(st)st.textContent=(phase()==='running'?'ÇALIŞIYOR':phase()==='paused'?'DURAKLATILDI':'HAZIR')+' · '+(i+1)+'/28'}
-['DOMContentLoaded','pageshow','sukun:journey-advance','sukun:currentzikirchange','sukun:visualcontextchange','sukun:tabchange'].forEach(e=>addEventListener(e,()=>setTimeout(sync,0),{passive:true}));document.addEventListener('click',e=>{if(e.target.closest?.('#r883JourneyRemote,#berhetSeyir'))setTimeout(sync,30)},{capture:true,passive:true});setInterval(sync,700);document.readyState==='loading'?document.addEventListener('DOMContentLoaded',sync,{once:true}):sync();window.SukunR901Controls=Object.freeze({version:'r901',sync,start:()=>call('start'),pause:()=>call('pause'),resume:()=>call('resume')})})();</script><!-- r902 — STABILIZATION / REGRESSION SHIELD -->
+['DOMContentLoaded','pageshow','sukun:journey-advance','sukun:currentzikirchange','sukun:visualcontextchange','sukun:tabchange'].forEach(e=>addEventListener(e,()=>setTimeout(sync,0),{passive:true}));document.addEventListener('click',e=>{if(e.target.closest?.('#r883JourneyRemote,#berhetSeyir'))setTimeout(sync,30)},{capture:true,passive:true});/* r912: legacy polling removed */document.readyState==='loading'?document.addEventListener('DOMContentLoaded',sync,{once:true}):sync();window.SukunR901Controls=Object.freeze({version:'r901',sync,start:()=>call('start'),pause:()=>call('pause'),resume:()=>call('resume')})})();</script><!-- r902 — STABILIZATION / REGRESSION SHIELD -->
 <style id="sukun-r902-regression-shield">
 /* One visual owner: r899 PNG wheel. Disable legacy Berhetiyye counter mirrors permanently. */
 html body :is(#r819CounterStage,#r819CounterNums,#r819CounterDisc,#r819CounterBig,#r819CounterPct,#r898BerhetWheel){display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}
@@ -75600,7 +75600,7 @@ let lock=false;function sync(){if(lock)return;lock=true;requestAnimationFrame(()
  })}
 ['DOMContentLoaded','pageshow','visibilitychange','hashchange','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:visualcontextchange','sukun:journey-advance','sukun:domhydrate','sukun:tabchange'].forEach(e=>addEventListener(e,sync,{passive:true}));
 document.addEventListener('click',e=>{if(e.target.closest?.('#zList,#r883JourneyRemote,#berhetSeyir,#esmaSeyir99'))setTimeout(sync,0)},{capture:true,passive:true});
-setInterval(sync,900);document.readyState==='loading'?document.addEventListener('DOMContentLoaded',sync,{once:true}):sync();
+/* r912: legacy scene polling removed */document.readyState==='loading'?document.addEventListener('DOMContentLoaded',sync,{once:true}):sync();
 window.SukunR902=Object.freeze({version:'r902',sync,isBerhet});})();</script>\n
 
 
@@ -75692,7 +75692,7 @@ html:not([data-r909-berhet="1"]) body #zCountVisual{visibility:visible!important
  ['DOMContentLoaded','pageshow','visibilitychange','sukun:journey-advance','sukun:currentzikirchange','sukun:visualcontextchange','sukun:tabchange'].forEach(e=>addEventListener(e,q,{passive:true}));
  document.addEventListener('click',e=>{if(e.target.closest?.('#r883JourneyRemote,#zCountVisual,.zCounterActions,#berhetSeyir,#esmaSeyir99')){setTimeout(q,0);setTimeout(q,90);setTimeout(q,260)}},{capture:true,passive:true});
  const mo=new MutationObserver(q);document.readyState==='loading'?document.addEventListener('DOMContentLoaded',()=>{mo.observe(document.body,{subtree:true,characterData:true,childList:true});q()},{once:true}):(mo.observe(document.body,{subtree:true,characterData:true,childList:true}),q());
- setInterval(q,350);window.SukunR909=Object.freeze({version:'r909',sync:q});
+ /* r912: r909 polling removed; event authority retained */window.SukunR909=Object.freeze({version:'r909',sync:q});
 })();
 </script>
 
@@ -75747,34 +75747,51 @@ html[data-r910-running="0"] body.sukun-tefekkur-mode #r899BerhetWheel{animation-
    mountSetting();document.querySelectorAll('#r910WheelMotion [data-m]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.m===m)));
  }
  let raf=0;const q=()=>{if(!raf)raf=requestAnimationFrame(()=>{raf=0;sync()})};
- ['DOMContentLoaded','pageshow','hashchange','sukun:tabchange','sukun:visualcontextchange','sukun:currentzikirchange','sukun:zikirselectionchange','sukun:journey-advance'].forEach(e=>addEventListener(e,q,{passive:true}));document.addEventListener('click',()=>setTimeout(q,20),{capture:true,passive:true});setInterval(q,300);sync();window.SukunR910=Object.freeze({version:'r910',sync:q});})();</script>
-</body>
-</html>
-\n<!-- r911 — SCENE/WHEEL RECOVERY AUTHORITY -->
-<style id="sukun-r911-recovery-authority">
-/* Native/Mevlevi scene owns every non-Berhetiyye zikir. r910 must not stretch a fixed generic layer. */
-html:not([data-r911-context="berhet"]) body.r716-shell>#r717Scene{display:none!important;opacity:0!important;background-image:none!important;transform:none!important}
-html[data-r911-context="berhet"] body.r716-shell>#r717Scene{display:block!important;opacity:1!important;position:fixed!important;inset:0!important;transform:none!important;background-image:linear-gradient(180deg,rgba(1,7,16,.10),rgba(1,7,16,.30)),var(--r911-berhet-scene)!important;background-size:cover!important;background-position:center top!important;background-repeat:no-repeat!important}
-/* Remove every opaque plate behind the crystal wheel. */
-html[data-r911-context="berhet"] #r883JourneyRemote[data-target="28"] :is(.r884WheelWrap,.r884WheelDisc,.r884WheelDisc::before,.r884WheelDisc::after){background-color:transparent!important;box-shadow:none!important}
-html[data-r911-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelWrap{overflow:visible!important}
-html[data-r911-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelDisc{background-image:url('./assets/berhetiyye-premium/berhetiyye-wheel-r899.png?v=r911')!important;background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important;border:0!important;border-radius:50%!important;isolation:isolate!important}
-html[data-r911-context="berhet"] body #r899BerhetWheel{background:transparent!important;border:0!important;box-shadow:none!important}
-/* One visible counter authority: journey wheel in 28-mode; canonical counter elsewhere. */
-html[data-r911-context="berhet"] #r883JourneyRemote[data-target="28"]~* #zCountVisual{visibility:hidden!important}
-/* Tefekkür may show the same canonical wheel/counter, never a second independent counter. */
-html[data-r911-context="berhet"] body.sukun-tefekkur-mode #zCountVisual{visibility:visible!important}
+ ['DOMContentLoaded','pageshow','hashchange','sukun:tabchange','sukun:visualcontextchange','sukun:currentzikirchange','sukun:zikirselectionchange','sukun:journey-advance'].forEach(e=>addEventListener(e,q,{passive:true}));document.addEventListener('click',()=>setTimeout(q,20),{capture:true,passive:true});/* r912: r910 scene polling removed */sync();window.SukunR910=Object.freeze({version:'r910',sync:q});})();</script>
+
+
+\n<!-- r912 — EVENT-DRIVEN SCENE AUTHORITY / NO FLASHING -->
+<style id="sukun-r912-scene-authority">
+/* One fixed base scene. Its geometry never changes between Home / 99 Esma / normal Zikir / Tefekkur. */
+html:not([data-r912-context="berhet"]) body.r716-shell>#r717Scene{
+ display:block!important;visibility:visible!important;opacity:1!important;position:fixed!important;inset:0!important;transform:none!important;
+ background-image:var(--r717-veil),url('./assets/sukun-nur-sanctuary-r757.png')!important;
+ background-size:cover!important;background-position:center top!important;background-repeat:no-repeat!important;
+ pointer-events:none!important;
+}
+/* Berhetiyye alone may replace the visual scene; it does not mutate base geometry. */
+html[data-r912-context="berhet"] body.r716-shell>#r717Scene{
+ display:block!important;visibility:visible!important;opacity:1!important;position:fixed!important;inset:0!important;transform:none!important;
+ background-image:linear-gradient(180deg,rgba(1,7,16,.10),rgba(1,7,16,.30)),var(--r912-berhet-scene)!important;
+ background-size:cover!important;background-position:center top!important;background-repeat:no-repeat!important;pointer-events:none!important;
+}
+/* Stop legacy scene pseudo-layers from blinking over the fixed scene. */
+html body.r716-shell>#r717Scene::after{pointer-events:none!important}
+/* Transparent crystal wheel: no opaque wrapper/pseudo plate. */
+html[data-r912-context="berhet"] #r883JourneyRemote[data-target="28"] :is(.r884WheelWrap,.r884WheelDisc,.r884WheelDisc::before,.r884WheelDisc::after){background-color:transparent!important;box-shadow:none!important}
+html[data-r912-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelWrap{overflow:visible!important;background:transparent!important}
+html[data-r912-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelWrap::before,
+html[data-r912-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelWrap::after{content:none!important;display:none!important}
+html[data-r912-context="berhet"] #r883JourneyRemote[data-target="28"] .r884WheelDisc{
+ background:transparent url('./assets/berhetiyye-premium/berhetiyye-wheel-r899.png?v=r912') center/contain no-repeat!important;
+ border:0!important;border-radius:50%!important;isolation:isolate!important;
+}
 </style>
-<script id="sukun-r911-recovery-runtime">(()=>{'use strict';if(window.SukunR911)return;const R=document.documentElement,A='./assets/berhetiyye-premium/';
+<script id="sukun-r912-scene-runtime">(()=>{'use strict';if(window.SukunR912)return;
+const R=document.documentElement,A='./assets/berhetiyye-premium/';
 const scenes=['scene-r887-01.webp','scene-r887-02.webp','scene-r887-03.webp','scene-r887-04.webp','scene-r887-05.webp'];
 const safe=(f,d)=>{try{return f()}catch(_){return d}};
-function item(){return safe(()=>typeof zItem==='function'?zItem():null,null)||safe(()=>window.currentZikirState?.snapshot?.(),null)||{} }
-function cat(){const z=safe(()=>typeof zKat==='function'?String(zKat()||'').toLowerCase():'','');if(z)return z;const i=item();return String(i?._src||i?.cat||i?.category||i?.source||'').toLowerCase()}
-function onBerhet(){return cat()==='berhet'}
-function idx(){const i=item();return Math.abs(Number(i?.i??i?.index??i?.no??0)||0)%scenes.length}
-let raf=0;function sync(){raf=0;const on=onBerhet();R.dataset.r911Context=on?'berhet':'generic';
- if(on){R.style.setProperty('--r911-berhet-scene',`url('${A+scenes[idx()]}?v=r911')`)}else{R.style.removeProperty('--r911-berhet-scene');R.dataset.r910Scene='generic'}
- /* r910 scene authority is neutralized by r911 CSS; wheel motion setting remains functional. */
+function item(){return safe(()=>typeof zItem==='function'?zItem():null,null)||safe(()=>window.currentZikirState?.snapshot?.(),null)||{}}
+function category(){const z=safe(()=>typeof zKat==='function'?String(zKat()||'').toLowerCase():'','');if(z)return z;const i=item();return String(i?._src||i?.cat||i?.category||i?.source||'').toLowerCase()}
+function isBerhet(){return category()==='berhet'}
+function index(){const i=item();return Math.abs(Number(i?.i??i?.idx??i?.index??i?.no??0)||0)%scenes.length}
+let raf=0,last='';
+function sync(){raf=0;const on=isBerhet(),ctx=on?'berhet':'base';if(ctx===last&&(!on||R.style.getPropertyValue('--r912-berhet-scene')))return;last=ctx;R.dataset.r912Context=ctx;
+ if(on)R.style.setProperty('--r912-berhet-scene',`url('${A+scenes[index()]}?v=r912')`);else R.style.removeProperty('--r912-berhet-scene');
 }
 function q(){if(!raf)raf=requestAnimationFrame(sync)}
-['DOMContentLoaded','pageshow','hashchange','sukun:tabchange','sukun:visualcontextchange','sukun:currentzikirchange','sukun:zikirselectionchange','sukun:journey-advance'].forEach(e=>addEventListener(e,q,{passive:true}));document.addEventListener('click',()=>setTimeout(q,30),{capture:true,passive:true});setInterval(q,450);sync();window.SukunR911=Object.freeze({version:'r911',sync:q});})();</script>\n
+['DOMContentLoaded','pageshow','hashchange','sukun:tabchange','sukun:visualcontextchange','sukun:currentzikirchange','sukun:zikirselectionchange','sukun:journey-advance','sukun:zikirchange'].forEach(e=>addEventListener(e,q,{passive:true}));
+document.addEventListener('click',e=>{if(e.target.closest?.('#zList,#r883JourneyRemote,#berhetSeyir,#esmaSeyir99,.tab-btn'))q()},{capture:true,passive:true});
+q();window.SukunR912=Object.freeze({version:'r912',sync:q,isBerhet});})();</script>
+</body>
+</html>
