@@ -4,16 +4,21 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r917';
-const CACHE = 'sukun-r917-name-scenes-20260923-v1';
-const CACHE_META = './__sukun_cache_meta_r917__.json';
-const BUILD_MARKER = './__sukun_build_r917__.json';
+const SURUM = 'r920';
+const CACHE = 'sukun-r920-session-mirror-20260925-v1';
+const CACHE_META = './__sukun_cache_meta_r920__.json';
+const BUILD_MARKER = './__sukun_build_r920__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
+const REQUIRED_RUNTIME = [{"url":"./assets/runtime/dock-r920.js?v=r920","sha256":"d0520e4086b94e079fecad7b35b1beaa650f3aabfda85d89138a989d2859194c"},{"url":"./assets/runtime/interface-r920.js?v=r920","sha256":"4fd68094a3673f67d2a1820b27bf87e8de7ed328f501d0e99d37329fdbc20049"},{"url":"./assets/runtime/session-r919.js?v=r920","sha256":"a5df304c9a347b552c3bb935be268b3a08123e5700f85b42bd362e3331d4d46f"}];
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
    Shell doğrulaması bağımsız; geri kalan assetler best-effort pre-cache ve
    normal fetch sırasında current cache'e yazılır. */
 const CORE = [
+  './assets/runtime/session-r919.js?v=r920',
+  './assets/runtime/dock-r920.js?v=r920',
+  './assets/runtime/interface-r920.js?v=r920',
+
   './assets/berhetiyye-premium/control-round-plus-r788.webp',
   './assets/berhetiyye-premium/control-round-minus-r788.webp',
   './assets/berhetiyye-premium/control-nav-amethyst-r788.webp',
@@ -27,45 +32,22 @@ const CORE = [
 ];
 
 const PRECACHE = [
+  "./assets/scenes/mobile-r918/mevlevi.webp",
   "./assets/sukun-nur-ring-r757.png",
-  "./assets/berhetiyye-premium/scene-05-kristal.png",
-  "./assets/berhetiyye-premium/wheel-seal-r916.svg",
-  "./assets/berhetiyye-premium/btn-secondary-sapphire-r872-blank-r883.webp",
-  "./assets/berhetiyye-premium/scene-02-asa.png",
-  "./assets/berhetiyye-premium/control-nav-sapphire-r788.webp",
-  "./assets/berhetiyye-premium/btn-secondary-ruby-r872-blank-r883.webp",
-  "./assets/berhetiyye-premium/control-primary-r788.webp",
-  "./assets/berhetiyye-premium/berhetiyye-wheel-source-r887.webp",
-  "./assets/berhetiyye-premium/button-red-user-r915.png",
-  "./assets/berhetiyye-premium/scene-03-selale.png",
-  "./assets/berhetiyye-premium/berhetiyye-wheel-user-r885.webp",
-  "./assets/berhetiyye-premium/button-gold-user-r915.png",
-  "./assets/berhetiyye-premium/btn-secondary-emerald-r872-blank-r883.webp",
-  "./assets/berhetiyye-premium/btn-primary-wide-r872-blank-r883.webp",
-  "./assets/berhetiyye-premium/scene-07-mor-kristal.png",
   "./assets/berhetiyye-premium/wheel-alpha-r915.png",
-  "./assets/berhetiyye-premium/scene-06-yuzuk.png",
+  "./assets/berhetiyye-premium/wheel-seal-r916.svg",
   "./assets/berhetiyye-premium/wheel-pearls-r916.svg",
-  "./assets/berhetiyye-premium/btn-compact-gold-blank-r883.webp",
-  "./assets/berhetiyye-premium/control-round-minus-r788.webp",
-  "./assets/berhetiyye-premium/control-nav-emerald-r788.webp",
-  "./assets/berhetiyye-premium/berhetiyye-wheel-transparent-r892.webp",
-  "./assets/berhetiyye-premium/button-green-user-r915.png",
-  "./assets/berhetiyye-premium/scene-r887-04.webp",
-  "./assets/berhetiyye-premium/scene-08-ayasofya-billur.png",
-  "./assets/berhetiyye-premium/scene-04-teras.png",
-  "./assets/berhetiyye-premium/scene-01-billur.png",
-  "./assets/berhetiyye-premium/scene-r887-03.webp",
-  "./assets/berhetiyye-premium/scene-r887-02.webp",
-  "./assets/berhetiyye-premium/scene-r887-01.webp",
-  "./assets/berhetiyye-premium/berhetiyye-wheel-user-r886.webp",
-  "./assets/berhetiyye-premium/berhetiyye-wheel-r899.png",
-  "./assets/berhetiyye-premium/scene-r887-05.webp",
-  "./assets/berhetiyye-premium/control-round-plus-r788.webp",
+  "./assets/berhetiyye-premium/control-primary-r788.webp",
+  "./assets/berhetiyye-premium/control-nav-sapphire-r788.webp",
   "./assets/berhetiyye-premium/control-nav-amethyst-r788.webp",
+  "./assets/berhetiyye-premium/control-nav-emerald-r788.webp",
+  "./assets/berhetiyye-premium/control-round-minus-r788.webp",
+  "./assets/berhetiyye-premium/control-round-plus-r788.webp",
+  "./assets/berhetiyye-premium/button-red-user-r915.png",
+  "./assets/berhetiyye-premium/button-green-user-r915.png",
+  "./assets/berhetiyye-premium/button-gold-user-r915.png",
   "./icon-192.png",
-  "./icon-512.png",
-  "./index.html"
+  "./icon-512.png"
 ];
 
 const NOTLAR = [
@@ -89,60 +71,61 @@ function buildOfHtml(text){
 }
 function vnum(v){const m=String(v||'').match(/r(\d+)/i);return m?Number(m[1]):-1}
 function sameOriginPath(path){return new URL(path,self.location.href).pathname}
-async function fetchFresh(path,timeout=4500){
-  const req=new Request(path,{cache:'no-store'});
-  let timer;
-  try{
-    const ctl=new AbortController();
-    timer=setTimeout(()=>ctl.abort(),timeout);
-    const res=await fetch(new Request(req,{signal:ctl.signal,cache:'no-store'}));
-    if(!res||!res.ok||res.type==='opaque')throw new Error('fetch '+path+' '+(res?.status||'failed'));
-    return res;
-  }finally{clearTimeout(timer)}
+async function fetchFresh(path,timeout=8000){
+ const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),timeout);
+ try{const response=await fetch(new Request(path,{cache:'no-store',signal:ctl.signal}));
+  if(!response?.ok||response.type==='opaque')throw Error('fetch '+path+' '+(response?.status||'failed'));
+  const data=await response.arrayBuffer();return new Response(data,{status:response.status,statusText:response.statusText,headers:response.headers});
+ }finally{clearTimeout(timer)}
 }
 async function put(cache,key,res){try{await cache.put(key,res.clone());return true}catch(e){return false}}
 async function readCacheMeta(){
   try{const c=await caches.open(CACHE),r=await c.match(CACHE_META,{ignoreSearch:true});return r?await r.json():null}catch(e){return null}
 }
 async function writeCacheMeta(meta){
-  try{const c=await caches.open(CACHE);await c.put(CACHE_META,new Response(JSON.stringify(meta),{headers:{'Content-Type':'application/json','Cache-Control':'no-store'}}))}catch(e){}
-  return meta;
+ try{const cache=await caches.open(CACHE);await cache.put(CACHE_META,new Response(JSON.stringify(meta),{headers:{'Content-Type':'application/json','Cache-Control':'no-store'}}));return meta}catch(_){return null}
 }
 
+/* Required executable assets are verified against the release manifest. */
+async function sha256Response(response){
+ const data=await response.clone().arrayBuffer();
+ return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',data)),x=>x.toString(16).padStart(2,'0')).join('');
+}
+async function runtimeReady(cache){
+ for(const entry of REQUIRED_RUNTIME){const response=await cache.match(entry.url,{ignoreSearch:false});if(!response||await sha256Response(response)!==entry.sha256)return false}
+ return true;
+}
+async function currentComplete(){
+ const meta=await readCacheMeta();if(!meta?.complete)return false;
+ return runtimeReady(await caches.open(CACHE));
+}
 let prepareInFlight=null;
 function prepareShell(){
-  if(prepareInFlight)return prepareInFlight;
-  const p=(async()=>{
-    const cache=await caches.open(CACHE);
-    const meta={v:SURUM,cache:CACHE,at:Date.now(),shell:false,manifest:false,marker:false,latest:false,complete:false,errors:[]};
-
-    /* Her parça bağımsız. Tek bir 404 yeni worker'ı redundant yapamaz. */
-    try{
-      const r=await fetchFresh(BUILD_MARKER);const j=await r.clone().json();
-      if(String(j?.v||'')===SURUM||String(j?.build||'').includes(SURUM)){await put(cache,BUILD_MARKER,r);meta.marker=true}else throw new Error('build marker mismatch');
-    }catch(e){meta.errors.push('marker:'+String(e?.message||e))}
-    try{
-      const r=await fetchFresh(LATEST_MARKER);const j=await r.clone().json();
-      if(j&&j.v){await put(cache,LATEST_MARKER,r);meta.latest=true}else throw new Error('latest invalid');
-    }catch(e){meta.errors.push('latest:'+String(e?.message||e))}
-    try{
-      const r=await fetchFresh('./manifest.webmanifest');const j=await r.clone().json();
-      const u=new URL(j?.start_url||'',self.location.href);
-      if(j?.short_name==='SÜKÛN'&&u.searchParams.get('v')===SURUM){await put(cache,'./manifest.webmanifest',r);meta.manifest=true}else throw new Error('manifest mismatch');
-    }catch(e){meta.errors.push('manifest:'+String(e?.message||e))}
-    try{
-      const r=await fetchFresh('./nero.html',6500);const b=buildOfHtml(await r.clone().text());
-      if(b===SURUM){await put(cache,'./nero.html',r);meta.shell=true}else throw new Error('html '+(b||'unknown')+' != '+SURUM);
-    }catch(e){meta.errors.push('html:'+String(e?.message||e))}
-
-    meta.complete=meta.shell&&meta.manifest&&meta.marker;
-    await writeCacheMeta(meta);
-
-    return meta;
-  })();
-  prepareInFlight=p;
-  p.finally(()=>{if(prepareInFlight===p)prepareInFlight=null}).catch(()=>{});
-  return p;
+ if(prepareInFlight)return prepareInFlight;
+ const task=(async()=>{
+  const cache=await caches.open(CACHE),staged=[];
+  const meta={v:SURUM,cache:CACHE,at:Date.now(),shell:false,manifest:false,marker:false,latest:false,runtime:{},runtimeRequired:REQUIRED_RUNTIME.length,complete:false,errors:[]};
+  async function obtain(path,validate,key,required=true){
+   let response,error;
+   try{response=await fetchFresh(path,8000);if(!await validate(response))throw Error('release validation mismatch')}
+   catch(e){error=e;response=await cache.match(path,{ignoreSearch:false});if(response&&!await validate(response))response=null}
+   if(!response){meta.errors.push(key+':'+String(error?.message||'missing'));return false}
+   staged.push([path,response]);return true;
+  }
+  const base=[
+   obtain(BUILD_MARKER,async r=>{const j=await r.clone().json();return String(j?.v||'')===SURUM||String(j?.build||'')===SURUM},'marker').then(ok=>meta.marker=ok),
+   obtain(LATEST_MARKER,async r=>!!(await r.clone().json())?.v,'latest',false).then(ok=>meta.latest=ok),
+   obtain('./manifest.webmanifest',async r=>{const j=await r.clone().json();return j?.short_name==='SÜKÛN'&&new URL(j?.start_url||'',self.location.href).searchParams.get('v')===SURUM},'manifest').then(ok=>meta.manifest=ok),
+   obtain('./nero.html',async r=>buildOfHtml(await r.clone().text())===SURUM,'html').then(ok=>meta.shell=ok),
+   ...REQUIRED_RUNTIME.map(entry=>obtain(entry.url,async r=>await sha256Response(r)===entry.sha256,entry.url).then(ok=>meta.runtime[entry.url]=ok))
+  ];
+  await Promise.all(base);
+  const valid=meta.shell&&meta.manifest&&meta.marker&&REQUIRED_RUNTIME.every(e=>meta.runtime[e.url]);
+  if(valid){for(const [key,response] of staged){if(!await put(cache,key,response)){meta.errors.push('cache write:'+key);await writeCacheMeta(meta);return meta}}}
+  meta.complete=valid;
+  const stored=await writeCacheMeta(meta);if(!stored)throw Error('cache metadata write failed');return meta;
+ })();
+ prepareInFlight=task;task.finally(()=>{if(prepareInFlight===task)prepareInFlight=null}).catch(()=>{});return task;
 }
 
 async function warmAssets(){
@@ -153,10 +136,11 @@ async function warmAssets(){
   if(/\.(?:png|jpe?g|webp|svg)(?:\?|$)/i.test(path)&&!/^image\//i.test(r.headers.get('content-type')||''))continue;
   await put(cache,path,r);
  }catch(e){}}}
- await Promise.all(Array.from({length:4},worker));
+ await Promise.all(Array.from({length:2},worker));
 }
 async function cachedShellFrom(cacheName){
   try{
+    if(cacheName===CACHE&&!await currentComplete())return null;
     const c=await caches.open(cacheName),r=await c.match('./nero.html',{ignoreSearch:true});
     if(!r)return null;const b=buildOfHtml(await r.clone().text());return b?{res:r,build:b,cache:cacheName}:null;
   }catch(e){return null}
@@ -176,26 +160,15 @@ async function broadcastStatus(extra={}){
 }
 
 self.addEventListener('install',event=>{
-  event.waitUntil((async()=>{
-    /* r793: install hiçbir geçici Pages yayılım uyuşmazlığında beklemeye kilitlenmez.
-       Sekiz saniyeden uzun CDN gecikmesinde aktivasyon yine devam eder; activate
-       aşaması shell hazırlığını yeniden dener. */
-    try{await Promise.race([prepareShell(),new Promise(r=>setTimeout(r,8000))])}catch(e){}
-    await self.skipWaiting();
-  })());
+ event.waitUntil((async()=>{const meta=await prepareShell();if(!meta.complete)throw Error('Incomplete SÜKÛN release: '+meta.errors.join(' | '))})());
 });
-
 self.addEventListener('activate',event=>{
-  event.waitUntil((async()=>{
-    await self.clients.claim();
-    let prepared=null;try{prepared=await prepareShell()}catch(e){}
-    {
-      const keys=await caches.keys();
-      await Promise.all(keys.filter(k=>k.startsWith('sukun-')&&k!==CACHE).map(k=>caches.delete(k)));
-    }
-    await broadcastStatus({phase:'activated'});
-    await warmAssets();
-  })());
+ event.waitUntil((async()=>{
+  if(!await currentComplete()){const meta=await prepareShell();if(!meta.complete)throw Error('Incomplete release cannot activate')}
+  await self.clients.claim();
+  const keys=await caches.keys();await Promise.all(keys.filter(k=>k.startsWith('sukun-')&&k!==CACHE).sort((a,b)=>vnum(b)-vnum(a)).slice(1).map(k=>caches.delete(k)));
+  await broadcastStatus({phase:'activated'});await warmAssets();
+ })());
 });
 
 const NET_TIMEOUT=3500;
@@ -206,28 +179,28 @@ async function timedFetch(request,ms=NET_TIMEOUT){
   });
 }
 async function navigationResponse(request){
-  /* r900: HTML is NETWORK-FIRST authority. A successful network document is never
-     replaced by an older cached shell. This prevents SW-new / app-old split-brain. */
-  try{
-    const fresh=await fetch(new Request(request,{cache:'no-store',headers:request.headers}));
-    if(fresh&&fresh.ok&&fresh.type!=='opaque'){
-      const text=await fresh.clone().text();
-      const b=buildOfHtml(text);
-      if(b===SURUM){
-        const c=await caches.open(CACHE);
-        await put(c,'./nero.html',fresh.clone());
-        await put(c,'./index.html',fresh.clone());
-      }
-      return fresh;
-    }
-  }catch(e){}
-  const cached=await cachedShellFrom(CACHE);
-  if(cached&&cached.build===SURUM)return cached.res;
-  return new Response('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SÜKÛN</title><body style="background:#05090c;color:#8fe9ff;font:16px/1.7 system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center;padding:24px"><div><div style="font-size:44px;opacity:.75">۞</div><p>SÜKÛN çevrimdışı. r917 kabuğu henüz önbelleğe alınmadı.</p></div>',{status:503,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}});
+ try{
+  const fresh=await fetchFresh(request.url,6500),build=buildOfHtml(await fresh.clone().text());
+  if(build===SURUM){
+   if(!await currentComplete())await prepareShell();
+   if(await currentComplete()){const cache=await caches.open(CACHE);await put(cache,'./nero.html',fresh);return fresh}
+  }else{try{await self.registration.update()}catch(_){}}
+ }catch(_){}
+ const cached=await bestCachedShell();if(cached)return cached.res;
+ return new Response('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SÜKÛN</title><body style="background:#071219;color:#f3ead0;font:16px/1.7 system-ui;padding:24px"><p>SÜKÛN çevrimdışı. Doğrulanmış uygulama dosyaları henüz hazır değil. Bağlantı geldiğinde yeniden deneyin.</p>',{status:503,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}});
+}
+async function runtimeResponse(request,entry){
+ const cache=await caches.open(CACHE),url=new URL(request.url),requestedBuild=url.searchParams.get('v');
+ // A document from a later build cannot receive this worker's older executable.
+ if(requestedBuild&&requestedBuild!==SURUM){try{return await fetchFresh(request.url)}catch(_){return Response.error()}}
+ const cached=await cache.match(entry.url,{ignoreSearch:false});
+ if(cached&&await sha256Response(cached)===entry.sha256)return cached;
+ try{const fresh=await fetchFresh(entry.url);if(await sha256Response(fresh)!==entry.sha256)throw Error('runtime hash mismatch');await put(cache,entry.url,fresh);return fresh}catch(_){return Response.error()}
 }
 
 async function assetResponse(request){
   const url=new URL(request.url),current=await caches.open(CACHE);
+  const runtime=REQUIRED_RUNTIME.find(entry=>sameOriginPath(entry.url)===url.pathname);if(runtime)return runtimeResponse(request,runtime);
   const latestPath=sameOriginPath(LATEST_MARKER),manifestPath=sameOriginPath('./manifest.webmanifest');
   const updateProbe=(url.pathname===latestPath)||url.pathname.endsWith('/sw.js')||/\/__sukun_build_r\d+__\.json$/.test(url.pathname);
   /* Update probeları cache-first olamaz; aksi halde latest marker kendi cache'inde
@@ -263,10 +236,16 @@ self.addEventListener('fetch',event=>{
 
 self.addEventListener('message',event=>{
   const d=event.data||{},port=event.ports?.[0];
-  if(d.type==='SKIP_WAITING'){event.waitUntil(self.skipWaiting());return}
+  if(d.type==='SKIP_WAITING'){
+    event.waitUntil((async()=>{
+      let ready=await currentComplete();if(!ready){const meta=await prepareShell();ready=!!meta.complete}
+      if(!ready){try{port?.postMessage({ok:false,v:SURUM,complete:false,error:'release incomplete'})}catch(_){};return}
+      try{port?.postMessage({ok:true,v:SURUM,complete:true})}catch(_){};await self.skipWaiting();
+    })());return;
+  }
   if(d.type==='SURUM_NOTU'){try{port?.postMessage({v:SURUM,notlar:NOTLAR})}catch(e){};return}
   if(d.type==='STATUS'){
-    event.waitUntil((async()=>{const m=await readCacheMeta();try{port?.postMessage({v:SURUM,cache:CACHE,complete:!!m?.complete,marker:m,error:m?.errors?.join(' | ')||''})}catch(e){}})());return;
+    event.waitUntil((async()=>{const m=await readCacheMeta();try{port?.postMessage({v:SURUM,cache:CACHE,complete:await currentComplete(),marker:m,error:m?.errors?.join(' | ')||''})}catch(e){}})());return;
   }
   if(d.type==='CACHE_REFRESH'){
     event.waitUntil(prepareShell().then(async m=>{await broadcastStatus({phase:'refresh'});try{port?.postMessage({ok:true,v:SURUM,cache:CACHE,complete:!!m?.complete,marker:m})}catch(e){}}).catch(e=>{try{port?.postMessage({ok:false,v:SURUM,error:String(e?.message||e)})}catch(_){}}));return;

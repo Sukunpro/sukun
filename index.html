@@ -7,6 +7,280 @@
      ════════════════════════════════════════════════════════════════ -->
 <html class="sukun-jewel-r798" lang="tr">
 <head>
+<style id="sukun-r920-contract">@layer sukun-r920-contract {
+/* First important layer: each legacy visual has one explicit successor. */
+body.r920-practice-on:not(.r920-details-open) #tab-zkr>:not(#r920Practice){display:none!important}
+body.r920-practice-on #tab-zkr>#r883JourneyRemote{display:none!important}
+body.r920-practice-on.r920-details-open:not(.sukun-tefekkur-mode) #tab-zkr>.zCtl{display:block!important}
+body.r920-practice-on #tab-zkr>.zCtl>:is(.zCountTitle,.zCounterRow,.zCounterActions,#r616ZikirNavRow,#cntSub,#targetPremium,#tapBtn,#resetBtn,#r883JourneyRemote){display:none!important}
+body.r920-practice-on #tab-zkr>.zCtl :is(.tfVisualPanel,.zCounterActions,.tfStatusRow,#r754TefBerhetContext,#tapBtn,#r442StepRail,#hatBox){display:none!important}
+body.r920-practice-on #zaKat.kisa,body.r920-practice-on #zaKat.kisa *{pointer-events:none!important}
+body.r920-practice-on #r470SessionSummary{display:none!important;pointer-events:none!important}
+body.r920-practice-on.sukun-zikir-tab:not(.r920-details-open) .masterBar{display:none!important}
+body.r920-practice-on #tab-zkr{padding:0 0 150px!important;min-height:0!important}
+body.r920-practice-on #r920Practice{display:block!important}
+body.r920-practice-on.sukun-tefekkur-mode #tab-zkr>:not(#r920Practice){display:none!important}
+#r920Practice{
+ --r920-ink:#f6e8c7;--r920-muted:#bfd0dc;--r920-accent:#8de5c7;--r920-selected:#163c3e;
+ display:none;position:relative!important;width:100%!important;max-width:620px!important;margin:12px auto!important;padding:18px 15px 22px!important;box-sizing:border-box!important;
+ color:var(--r920-ink)!important;background:linear-gradient(180deg,#061321ed,#051425a8 48%,#061321ee)!important;border:1px solid #b2daca33!important;border-radius:24px!important;box-shadow:0 10px 35px #0003!important;
+ font:400 14px/1.45 system-ui,sans-serif!important;isolation:isolate!important;overflow:visible!important;opacity:1!important;filter:none!important;pointer-events:auto!important;
+}
+#r920Practice[data-mode="berhet"]{--r920-accent:#d8b2fa;--r920-selected:#30233e}
+#r920Practice *{box-sizing:border-box!important;min-width:0!important}
+#r920Practice [hidden],#r920Atlas [hidden]{display:none!important}
+#r920Practice button,#r920Atlas button{position:relative!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;min-height:44px!important;min-width:44px!important;padding:8px 12px!important;border:1px solid #c1d7e033!important;border-radius:12px!important;background:#0c1a2b!important;color:var(--r920-ink,#f6e8c7)!important;box-shadow:none!important;filter:none!important;backdrop-filter:none!important;transform:none!important;text-shadow:none!important;font:500 13px/1.3 system-ui,sans-serif!important;letter-spacing:normal!important;touch-action:manipulation!important;pointer-events:auto!important;opacity:1!important;visibility:visible!important;overflow:visible!important}
+#r920Practice button::before,#r920Practice button::after,#r920Atlas button::before,#r920Atlas button::after{display:none!important;content:none!important}
+#r920Practice button:disabled{cursor:default!important;opacity:.6!important}
+#r920Practice button:focus-visible,#r920Atlas button:focus-visible,#r920Practice select:focus-visible{outline:2px solid var(--r920-accent,#d8b2fa)!important;outline-offset:3px!important}
+#r920Practice .r920Modes{display:grid!important;grid-template-columns:1fr 1fr!important;gap:5px!important;background:#081320!important;padding:4px!important;border-radius:15px!important}
+#r920Practice .r920Modes button{background:transparent!important;border-color:transparent!important;color:var(--r920-muted)!important}
+#r920Practice .r920Modes button[aria-pressed="true"]{background:var(--r920-selected)!important;border-color:#d8bc8b6b!important;color:var(--r920-ink)!important}
+#r920Practice .r920Modes:has(#r920ModeBerhet[hidden]){grid-template-columns:1fr!important}
+#r920Practice .r920Path{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:4px!important;margin:8px 0 18px!important}
+#r920Practice .r920Path>button{border:0!important;background:transparent!important;color:var(--r920-muted)!important;padding:6px!important;font-size:12px!important}
+#r920Practice #r920JourneyLabel{display:flex!important;align-items:center!important;gap:4px!important;margin:0!important}
+#r920Practice #r920JourneyLabel>span{display:none!important}
+#r920Practice select{width:100%!important;max-width:100%!important;min-height:44px!important;padding:8px 10px!important;font:400 16px/1.4 system-ui!important;color:#e5edf5!important;background:#0a1829!important;border:1px solid #bfd1df44!important;border-radius:12px!important;pointer-events:auto!important;visibility:visible!important;opacity:1!important}
+#r920Practice #r920JourneyMode{font-size:12px!important;width:108px!important}
+#r920Practice .r920Identity{text-align:center!important;min-height:112px!important;margin:12px auto 4px!important;padding:0 4px!important}
+#r920Practice .r920Identity p{margin:5px 0!important;line-height:1.5!important}
+#r920Practice #r920Eyebrow{font:500 10px/1.4 system-ui!important;letter-spacing:.18em!important;color:#d9c696!important}
+#r920Practice #r920NameInfo{display:flex!important;flex-direction:column!important;width:100%!important;padding:3px!important;background:none!important;border:0!important}
+#r920Practice #r920Arabic{color:var(--r920-accent)!important;font:400 25px/1.45 serif!important}
+#r920Practice #r920ActiveName{font:400 clamp(25px,6.6vw,36px)/1.2 Georgia,serif!important;color:var(--r920-ink)!important;overflow-wrap:anywhere!important}
+#r920Practice #r920SceneTitle{font-size:12px!important;color:var(--r920-muted)!important;max-width:360px!important;margin:6px auto!important}
+#r920Practice #r920VoiceSource{font:400 11px/1.4 system-ui!important;color:#9fd4d7!important}
+#r920Practice #r920Counter{position:relative!important;display:block!important;width:min(78vw,306px)!important;height:auto!important;aspect-ratio:1!important;margin:20px auto 9px!important;padding:0!important;background:transparent!important;border:0!important;border-radius:50%!important;opacity:1!important;isolation:isolate!important}
+#r920Practice #r920Wheel{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:contain!important;pointer-events:none!important;z-index:1!important;mix-blend-mode:screen!important;filter:none!important;animation:none!important}
+#r920Practice[data-mode="berhet"] #r920Wheel{mix-blend-mode:normal!important}
+#r920Practice .r920CounterCore{position:absolute!important;inset:29%!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:6px!important;z-index:3!important;pointer-events:none!important;color:var(--r920-ink)!important;background:radial-gradient(circle,#092730ef,#092135ed)!important;border-radius:50%!important}
+#r920Practice[data-mode="berhet"] .r920CounterCore{background:radial-gradient(circle,#2b104c,#20102e)!important}
+#r920Practice .r920CounterCore small{font:500 10px/1.2 system-ui!important;letter-spacing:.16em!important}
+#r920Practice #r920Count{font:400 clamp(32px,10vw,52px)/1 Georgia,serif!important;letter-spacing:0!important;font-variant-numeric:tabular-nums!important}
+#r920Practice #r920Percent{font:500 12px/1.3 system-ui!important;color:var(--r920-muted)!important}
+#r920Practice .r920Progress{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;z-index:2!important;transform:rotate(-90deg)!important;pointer-events:none!important;fill:none!important;overflow:visible!important}
+#r920Practice .r920Track{stroke:#d8dcea1a!important;stroke-width:2!important;fill:none!important}
+#r920Practice .r920Arc{fill:none!important;stroke:var(--r920-accent)!important;stroke-width:3!important;stroke-linecap:round!important;stroke-dasharray:100!important;stroke-dashoffset:calc(100 - var(--r920-progress,0))!important;transition:stroke-dashoffset .3s ease!important}
+#r920Practice #r920Counter[data-near="1"] .r920Arc{filter:drop-shadow(0 0 4px var(--r920-accent))!important}
+#r920Practice .r920Stats{display:flex!important;align-items:center!important;justify-content:center!important;gap:30px!important;margin:12px 0 9px!important;color:var(--r920-muted)!important;font-size:12px!important}
+#r920Practice .r920Stats b{font:400 23px/1.4 Georgia,serif!important;color:var(--r920-ink)!important;margin-left:5px!important}
+#r920Practice #r920Phase{min-height:18px!important;text-align:center!important;font:400 12px/1.4 system-ui!important;color:var(--r920-muted)!important}
+#r920Practice .r920Transport{display:grid!important;grid-template-columns:72px 1fr 72px!important;gap:8px!important;margin:10px 0 4px!important}
+#r920Practice #r920Play{background:var(--r920-selected)!important;border-color:#d1b99488!important;font-size:15px!important;min-height:48px!important}
+#r920Practice .r920MinorTransport{display:flex!important;justify-content:center!important;gap:4px!important;margin:4px 0 14px!important}
+#r920Practice .r920MinorTransport button{background:transparent!important;border-color:transparent!important;font-size:12px!important;color:var(--r920-muted)!important}
+#r920Practice #r920Actions{margin:18px 0 8px!important}
+#r920Practice #r920Actions #zBar{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;width:100%!important;margin:0!important;padding:0!important;background:none!important;border:0!important}
+#r920Practice #zBar .spkBtn{font-size:11px!important;flex-direction:column!important;background:#0a1a2bd9!important;min-height:52px!important;height:auto!important;padding:8px 3px!important;color:var(--r920-muted)!important;border:1px solid #bbd0da1f!important;border-radius:12px!important}
+#r920Practice #zBar .spkBtn svg{width:17px!important;height:17px!important;display:block!important;color:var(--r920-accent)!important}
+#r920Practice #zBar .spkBtn img{display:none!important}
+#r920Practice #r920ViewOptions,#r920Practice #r920JourneySettings,#r920Practice #r679ZikirAyarBox{width:100%!important;max-width:none!important;margin:12px 0 0!important;padding:0!important;background:#091827e8!important;border:1px solid #bfd1df2b!important;border-radius:14px!important;box-shadow:none!important;overflow:visible!important}
+#r920Practice #r920JourneySettings>summary,#r920Practice #r920ViewOptions>summary,#r920Practice #r679ZikirAyarBox>summary{display:flex!important;align-items:center!important;min-height:48px!important;padding:12px!important;font:500 12px/1.5 system-ui!important;color:var(--r920-muted)!important;background:transparent!important;pointer-events:auto!important;list-style:revert!important}
+#r920Practice #r920JourneySettings>label,#r920Practice #r920ViewOptions>label,#r920Practice #r920BerhetOptions label{display:block!important;padding:4px 12px 10px!important;margin:0!important;font:400 12px/1.5 system-ui!important;color:var(--r920-muted)!important}
+#r920Practice #r920ViewOptions label select{margin-top:5px!important}
+#r920Practice #r920ViewOptions .r920FocusLabel{display:flex!important;align-items:center!important;gap:10px!important;min-height:48px!important}
+#r920Practice #r920Focus{width:20px!important;height:20px!important;accent-color:#bba0e4!important}
+#r920Practice #r920More{display:block!important;width:100%!important;background:none!important;border:0!important;color:var(--r920-muted)!important;font-size:12px!important;margin-top:8px!important}
+#r920Practice #r920RecordingError,#r920Practice #r920SceneError{background:#291d29!important;border:1px solid #bfa0c766!important;border-radius:12px!important;padding:12px!important;color:#eed6e5!important;font:400 13px/1.45 system-ui!important;margin:10px 0!important}
+body.sukun-tefekkur-mode #r920Practice{padding:68px 12px 18px!important;margin:0 auto!important;border:0!important;border-radius:0!important;background:linear-gradient(180deg,#051321aa,#05132133 50%,#0513218f)!important;min-height:100svh!important}
+body.sukun-tefekkur-mode #r920Practice :is(.r920Modes,.r920Path,#r920Actions,#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox,#r920More){display:none!important}
+body.sukun-tefekkur-mode #r920Practice .r920Identity{margin:4px auto 8px!important;min-height:100px!important}
+body.sukun-tefekkur-mode #r920Practice #r920Counter{width:min(73vw,280px)!important;margin:12px auto!important}
+body.sukun-tefekkur-mode #r920Practice #r920TefExit{display:inline-flex!important;position:fixed!important;top:max(12px,env(safe-area-inset-top))!important;right:max(12px,env(safe-area-inset-right))!important;z-index:2147483000!important;min-height:44px!important;background:#0a182bed!important;border:1px solid #d4bde199!important;border-radius:12px!important;padding:8px 12px!important;font:500 12px/1.3 system-ui!important;transform:none!important;pointer-events:auto!important}
+body.sukun-tefekkur-mode.r920-practice-on .tabs{display:none!important}
+body.sukun-tefekkur-mode.r920-practice-on #r170SessionHub,body.sukun-tefekkur-mode.r920-practice-on #r829QuickSettings{display:none!important}
+body.r920-focus-rest #r920Practice :is(.r920Modes,.r920Path,#r920SceneTitle,#r920Actions,#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox,#r920More){visibility:hidden!important;pointer-events:none!important}
+#r920Atlas{--r920-ink:#f6e8c7;--r920-accent:#d8b2fa;display:none;position:fixed!important;inset:0!important;width:min(94vw,560px)!important;max-width:560px!important;max-height:88dvh!important;margin:auto!important;padding:18px!important;color:#e7edf4!important;background:#081727!important;border:1px solid #a7b6db66!important;border-radius:22px!important;box-shadow:0 25px 90px #000a!important;overflow:auto!important;overscroll-behavior:contain!important;font:400 14px/1.5 system-ui!important;z-index:2147483640!important}
+#r920Atlas[open]{display:block!important}#r920Atlas::backdrop{background:#020810bf!important}
+#r920Atlas .r920AtlasHead{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:12px!important}
+#r920Atlas h2{font:400 24px/1.3 Georgia,serif!important;color:#f2ddb0!important;margin:0!important}
+#r920Atlas h3{font:400 24px/1.3 Georgia,serif!important;color:#f2ddb0!important;margin:12px 0!important}
+#r920Atlas p,#r920Atlas small{color:#bccedc!important;line-height:1.55!important;overflow-wrap:anywhere!important}
+#r920Atlas #r920AtlasCaption,#r920Atlas .r920AtlasLegend{font-size:12px!important}
+#r920AtlasNodes{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:5px!important;margin:14px 0!important}
+#r920AtlasNodes button{position:relative!important;min-width:0!important;width:100%!important;height:44px!important;min-height:44px!important;padding:4px!important;background:#101f35!important;border:1px solid #9badd622!important;border-radius:11px!important;font:500 12px/1.4 system-ui!important}
+#r920AtlasNodes button[aria-pressed="true"]{background:#433253!important;border-color:#c7acd6!important}
+#r920AtlasNodes button[data-active="1"]{box-shadow:inset 0 -3px #90ddd4!important}
+#r920AtlasNodes button[data-complete="1"]{color:#b5edce!important;background:#113536!important}
+#r920Atlas #r920AtlasDetail{border-top:1px solid #c5b0df33!important;margin:16px 0 0!important;padding:5px 0!important}
+#r920Atlas dl{display:flex!important;gap:24px!important;margin:12px 0!important}#r920Atlas dt{font-size:11px!important;color:#b2c8d5!important}#r920Atlas dd{margin:4px 0!important;color:#f0dfc0!important}
+#r920Atlas #r920AtlasChoose{width:100%!important;margin-top:16px!important;background:#30263e!important}
+@media(max-width:360px){#r920Practice{padding-inline:10px!important}#r920Practice .r920Transport{grid-template-columns:64px 1fr 64px!important;gap:5px!important}#r920AtlasNodes{grid-template-columns:repeat(6,minmax(0,1fr))!important}}
+@media(prefers-reduced-motion:reduce){#r920Practice .r920Arc{transition:none!important}}
+html[data-r920-performance="saving"] #r920Practice .r920Arc{transition:none!important;filter:none!important}
+
+#r920Practice .r920Stats>span{display:inline-flex!important;align-items:center!important;gap:4px!important}
+#r920Practice .r920Stats svg{width:17px!important;height:17px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.6!important;flex-shrink:0!important}
+#r920Practice #r920RepeatCustom{width:100%!important;min-height:44px!important;padding:8px 10px!important;font:400 16px system-ui!important;color:#e5edf5!important;background:#0a1829!important;border:1px solid #bfd1df44!important;border-radius:12px!important}
+
+/* r920: a single passive pseudo-layer dissolves the previous decoded scene. */
+body #r717Scene::before {
+ content:""!important;display:block!important;position:absolute!important;inset:0!important;
+ background-image:linear-gradient(180deg,#02132333,#02132355),var(--r920-scene-previous,none),radial-gradient(ellipse at top,#104351,#100e27)!important;
+ background-position:center top!important;background-size:cover!important;background-repeat:no-repeat!important;
+ opacity:0;pointer-events:none!important;transform:none!important;filter:none!important;animation:none;
+}
+html[data-r920-scene-transition="a"] body #r717Scene::before {animation:r920SceneDissolveA 1.2s ease both!important}
+html[data-r920-scene-transition="b"] body #r717Scene::before {animation:r920SceneDissolveB 1.2s ease both!important}
+@keyframes r920SceneDissolveA {from {opacity:1} to {opacity:0}}
+@keyframes r920SceneDissolveB {from {opacity:1} to {opacity:0}}
+html[data-r920-performance="saving"] body :is(#r717Scene,#r899BerhetWheel,.r884WheelDisc),html[data-r920-performance="saving"] body #r717Scene::before,html[data-r920-performance="saving"] body #r717Scene::after {animation:none!important;filter:none!important;transition:none!important}
+html[data-r920-performance="saving"] body :is(.tfControlPanel,#zBar,#r883JourneyRemote) {backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+html[data-r920-performance="saving"] body #r717Scene::before {display:none!important}
+@media (prefers-reduced-motion:reduce) {body #r717Scene::before {display:none!important;animation:none!important}}
+
+/* r920. Insert inside the first repair layer. Existing r699 controls geometry. */
+body.r920-dock #r170Now.r588-authority {
+ border:1px solid #789c974d!important;border-radius:20px!important;
+ background:linear-gradient(145deg,rgba(6,27,35,.95),rgba(13,20,33,.96))!important;
+ box-shadow:0 14px 36px #0007,inset 0 1px #b5e5de0d!important;
+ backdrop-filter:blur(8px)!important;
+}
+html[data-r915-category="berhet"] body.r920-dock #r170Now.r588-authority {
+ border-color:#bba77859!important;background:linear-gradient(145deg,rgba(25,19,40,.96),rgba(12,20,33,.95))!important;
+}
+body.r920-dock #r588DockShell {padding:8px!important;row-gap:4px!important}
+body.r920-dock #r588DockShell button {min-height:44px!important;touch-action:manipulation!important}
+body.r920-dock #r588DockShell button:focus-visible {outline:2px solid #c8dcb3!important;outline-offset:2px!important}
+body.r920-dock #r588DockShell>.r588Mode {
+ grid-template-columns:minmax(0,1fr) 92px 44px!important;gap:4px!important;min-height:48px!important;
+ background:transparent!important;backdrop-filter:none!important;padding-top:4px!important;
+}
+body.r920-dock #r588DockShell .r588Mode button,
+body.r920-dock #r588DockShell .r588Alert,
+body.r920-dock #r588DockShell .r588Action {
+ min-height:44px!important;height:44px!important;max-height:none!important;
+ color:#eee8d7!important;background:#b2c7e00b!important;border:1px solid #9dabc02e!important;border-radius:12px!important;
+ font:600 11px/1.2 system-ui!important;box-shadow:none!important;
+}
+body.r920-dock #r588DockShell .r588Transport {grid-template-columns:44px 44px!important;gap:4px!important}
+body.r920-dock #r588DockShell .r588Transport button,
+body.r920-dock #r588Hide,
+body.r920-dock #r588DockShell .r588Alert {width:44px!important;min-width:44px!important;max-width:44px!important}
+body.r920-dock #r588DockShell #r588Play {color:#cef2e3!important;background:#75c9b51a!important;font-size:18px!important}
+body.r920-dock #r588DockShell #r588Stop {color:#f3b6b8!important;font-size:18px!important}
+body.r920-dock #r588DockShell [data-r588-mode].active {background:#a399d31f!important;border-color:#c2b3e259!important}
+body.r920-dock #r633DockGrip {min-height:44px!important;height:44px!important;max-height:44px!important;touch-action:none!important}
+body.r920-dock #r633DockGrip>span:first-child {background:#b6cfc3!important;box-shadow:none!important}
+body.r920-dock #r588DockShell .r588Actions {min-height:44px!important}
+body.r920-dock #r588DockShell .r588Progress {background:#c3d0d919!important}
+body.r920-dock #r588ProgressBar {background:linear-gradient(90deg,#73bfb0,#cec09b)!important;box-shadow:none!important}
+body.r920-dock #r920DockExpand {display:none!important}
+body.r920-dock #r920DockTools {display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;margin:8px 0 0!important}
+body.r920-dock #r920DockTools button {min-width:0!important;min-height:44px!important;padding:8px 4px!important;color:#e2e7e7!important;background:#a5bdd20b!important;border:1px solid #a5bdd229!important;border-radius:12px!important;font:600 12px/1.2 system-ui!important}
+body.r920-dock #r920DockLevel {display:grid!important;grid-template-columns:62px minmax(0,1fr) 35px!important;align-items:center!important;gap:7px!important;min-height:44px!important;margin-top:5px!important;color:#b9c9ce!important;font:500 11px/1.3 system-ui!important}
+body.r920-dock #r920DockVolume {min-width:0!important;width:100%!important;height:44px!important;margin:0!important;touch-action:pan-y!important;accent-color:#bcb2d9!important}
+body.r920-dock #r920DockVolumeValue {font-variant-numeric:tabular-nums!important;text-align:right!important}
+body.r920-dock.r588-mode-midi #r588DockShell .r588Top {display:none!important}
+body.r920-dock.r588-mode-midi #r588DockShell .r588Stat.r588MidOnly {display:none!important}
+/* Mini reuses the exact existing name, progress and play DOM nodes. */
+body.r920-dock.r588-mode-mini #r588DockShell {
+ display:block!important;position:relative!important;padding:8px 6px!important;--r920-mini-height:68px;
+}
+body.r920-dock.r588-mode-mini #r588DockShell>#r659DockBody {display:contents!important}
+body.r920-dock.r588-mode-mini #r588DockShell .r588Top,
+body.r920-dock.r588-mode-mini #r588DockShell .r588Signal,
+body.r920-dock.r588-mode-mini #r588Current,
+body.r920-dock.r588-mode-mini #r588DockShell .r588ModeSeg,
+body.r920-dock.r588-mode-mini #r588Stop,
+body.r920-dock.r588-mode-mini #r588Hide,
+body.r920-dock.r588-mode-mini #r920DockTools,
+body.r920-dock.r588-mode-mini #r920DockLevel,
+body.r920-dock.r588-mode-mini #r588DockShell .r588Stats .r588Stat:not(:first-child),
+body.r920-dock.r588-mode-mini #r588DockShell .r588Stats i {display:none!important}
+body.r920-dock.r588-mode-mini #r588DockShell>#r633DockGrip {
+ position:absolute!important;top:12px!important;left:6px!important;right:auto!important;bottom:auto!important;
+ width:44px!important;min-width:44px!important;height:44px!important;margin:0!important;
+}
+body.r920-dock.r588-mode-mini #r633DockGrip>small,
+body.r920-dock.r588-mode-mini #r633DockGrip>.r697GripLabel {display:none!important}
+body.r920-dock.r588-mode-mini #r633DockGrip>span:first-child {width:8px!important;height:8px!important;max-height:8px!important;border-radius:50%!important}
+body.r920-dock.r588-mode-mini #r588DockShell .r588Main {
+ display:block!important;position:absolute!important;left:54px!important;right:102px!important;top:11px!important;bottom:auto!important;
+ width:auto!important;height:24px!important;min-height:0!important;padding:0!important;margin:0!important;
+}
+body.r920-dock.r588-mode-mini #r588Title {font:600 14px/24px system-ui!important}
+body.r920-dock.r588-mode-mini #r588DockShell .r588Stats {
+ display:block!important;position:absolute!important;left:54px!important;right:102px!important;top:35px!important;bottom:auto!important;
+ width:auto!important;height:20px!important;min-height:0!important;padding:0!important;margin:0!important;
+}
+body.r920-dock.r588-mode-mini #r588DockShell .r588Stats .r588Stat:first-child {display:block!important;min-height:0!important;height:20px!important;padding:0!important;border:0!important;background:none!important}
+body.r920-dock.r588-mode-mini #r588ProgressText {font:500 12px/20px system-ui!important;font-variant-numeric:tabular-nums!important;color:#becbcf!important}
+body.r920-dock.r588-mode-mini #r588DockShell>.r588Mode {
+ display:flex!important;position:absolute!important;top:12px!important;right:6px!important;left:auto!important;bottom:auto!important;
+ width:92px!important;min-width:0!important;height:44px!important;min-height:44px!important;padding:0!important;margin:0!important;border:0!important;gap:4px!important;
+}
+body.r920-dock.r588-mode-mini #r588DockShell .r588Transport {display:contents!important}
+body.r920-dock.r588-mode-mini #r588DockShell #r920DockExpand {display:block!important;width:44px!important;min-width:44px!important;max-width:44px!important;font-size:21px!important}
+body.r920-dock.r588-mode-mini #r588DockShell .r588Progress {position:absolute!important;left:16px!important;right:16px!important;top:auto!important;bottom:4px!important;width:auto!important;margin:0!important;height:2px!important;min-height:2px!important;max-height:2px!important}
+/* Density never revokes an explicitly opened ambience group. Keep native click. */
+body.r920-dock #tab-amb #mixer .preAcc.open .chn {display:block!important;visibility:visible!important}
+body.r920-dock #tab-amb #mixer .preAccHead {min-height:48px!important;touch-action:manipulation!important;pointer-events:auto!important;scroll-margin-top:100px!important}
+body.r920-dock #tab-amb #mixer .preAcc.open>.preAccBody {display:block!important;max-height:none!important;height:auto!important;overflow:visible!important}
+body.r920-dock #tab-amb #mixer .preAcc:not(.open)>.preAccBody {display:none!important}
+body.r920-dock #tab-amb #mixer .preAcc[data-ambacc="ozel"] {display:block!important}
+/* Existing visibility and modal owners always win over the compact row. */
+body.r920-dock.r433-dock-hidden #r588DockShell,
+body.r920-dock.r699-drawer-open #r588DockShell,
+body.r920-dock.sukun-tefekkur-mode #r588DockShell {display:none!important;pointer-events:none!important}
+@media(prefers-reduced-motion:reduce){body.r920-dock #r170Now,body.r920-dock #r588DockShell *{animation:none!important;transition:none!important}}
+
+#r919Health { margin: 20px 12px; padding: 14px; color: #deeee9; background: #081b24; border: 1px solid #42645e; border-radius: 14px; position: relative; z-index: 1; }
+#r919Health summary { min-height: 44px; cursor: pointer; font-weight: 700; }
+#r919Health pre { max-height: 380px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font: 12px/1.5 monospace; }
+#r919Health button { min-height: 44px; margin: 6px 8px 0 0; padding: 8px 14px; border: 1px solid #78938b; border-radius: 10px; color: #eff7ed; background: #17372e; }
+body.sukun-tefekkur-mode #r919Health { display: none !important; }
+
+}</style>
+<style id="sukun-r918-repair">@layer sukun-repair-r918 {
+html[data-r915-category="berhet"] body #zCountVisual>#r899BerhetWheel {
+ display:block!important;visibility:visible!important;opacity:1!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:contain!important;pointer-events:none!important;z-index:2!important;animation:none!important;filter:none!important;transform:rotate(var(--r910-wheel-angle,0deg))!important;
+}
+html[data-r915-category="berhet"] body #zCountVisual>.cntNums {inset:27%!important;visibility:visible!important;opacity:1!important}
+html[data-r915-category="berhet"] body #zCountVisual>.cntNums>* {visibility:visible!important;opacity:1!important}
+html[data-r915-category="berhet"] body #zCountVisual {min-height:0!important;min-width:0!important;width:min(76vw,304px)!important;max-width:304px!important;height:auto!important;aspect-ratio:1!important;border:0!important;outline:0!important;box-shadow:none!important}
+html[data-r915-category="berhet"] #zBar {grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+html[data-r915-category="berhet"] #zBar .spkBtn {
+ --r918-button:url('./assets/berhetiyye-premium/control-nav-sapphire-r788.webp');
+ display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:center!important;gap:5px!important;
+ position:relative!important;isolation:isolate!important;min-height:58px!important;height:58px!important;padding:0 18px!important;width:100%!important;min-width:0!important;border:0!important;border-radius:0!important;overflow:hidden!important;
+ background:transparent var(--r918-button) center/100% 135% no-repeat!important;box-shadow:none!important;backdrop-filter:none!important;filter:none!important;touch-action:manipulation!important;color:#fff0c7!important;font:700 11px/1.2 system-ui!important;text-shadow:0 1px 3px #000!important;
+}
+html[data-r915-category="berhet"] #zBar .spkBtn::before {content:none!important;display:none!important;pointer-events:none!important}
+html[data-r915-category="berhet"] #zBar .spkBtn::after {display:none!important;content:none!important}
+html[data-r915-category="berhet"] #zBar .spkBtn>* {pointer-events:none!important}
+html[data-r915-category="berhet"] #zBar .spkBtn>svg {display:block!important;width:17px!important;height:17px!important;flex:0 0 17px!important;visibility:visible!important;opacity:1!important;color:inherit!important}
+html[data-r915-category="berhet"] #zBar :is(#niyetRecBtn,#favBtn) {--r918-button:url('./assets/berhetiyye-premium/control-nav-emerald-r788.webp')}
+html[data-r915-category="berhet"] #zBar :is(#itemRecBtn,#zBarHelp) {--r918-button:url('./assets/berhetiyye-premium/control-nav-amethyst-r788.webp')}
+html[data-r915-category="berhet"] #zBar .spkBtn>img {display:none!important}
+.r918StatIcon {display:inline-block!important;visibility:visible!important;opacity:1!important;width:18px!important;height:18px!important;flex:0 0 18px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.8!important;stroke-linecap:round!important;vertical-align:middle!important;margin-right:5px!important;pointer-events:none!important}
+.zCounterSide small,.r916Stats>div>span {display:flex!important;align-items:center!important;justify-content:center!important;gap:3px!important}
+#r829BerhetSceneQuick {display:grid!important;grid-template-columns:1fr!important;gap:7px!important}
+html:not([data-r915-category="berhet"]) #r829BerhetSceneQuick {display:none!important}
+body.sukun-tefekkur-mode #r829BerhetSceneQuick {display:none!important}
+#r918SceneStatus {display:block!important;width:100%!important;min-height:32px!important;padding:5px!important;border:0!important;border-radius:6px!important;background:none!important;color:#d9e8e8!important;opacity:1!important;font:500 11px/1.4 system-ui!important;text-align:left!important;pointer-events:auto!important}
+#r918SceneStatus:disabled {pointer-events:none!important}
+body.sukun-tefekkur-mode #tfRefinedLayout {gap:12px!important}
+/* Main menus used to be moved into the primary controls, pushing Exit thousands of pixels away. */
+body.sukun-tefekkur-mode :is(#zMegaHost,#r754TefBerhetContext,#r679ZikirAyarBox,.masterBar) {display:none!important}
+/* Tefekkür already owns the transport controls; its invisible floating dock intercepted Exit. */
+body.sukun-tefekkur-mode :is(#r170Now,#r433DockPeek) {display:none!important;pointer-events:none!important}
+body.sukun-tefekkur-mode #tfRefinedLayout .tfPrimaryControls {height:auto!important;min-height:0!important;padding:0!important;margin:0!important}
+body.sukun-tefekkur-mode #tfRefinedLayout .tfControlPanel {display:flex!important;flex-direction:column!important;gap:10px!important}
+body.sukun-tefekkur-mode #tfRefinedLayout .tfStatusRow {order:-1!important}
+body.sukun-tefekkur-mode #tab-zkr {padding-bottom:calc(130px + env(safe-area-inset-bottom,0px))!important}
+
+body.sukun-tefekkur-mode #tfRefinedLayout .tfControlPanel {pointer-events:auto!important;opacity:1!important}
+body.sukun-tefekkur-mode #tefExitBtn {pointer-events:auto!important;touch-action:manipulation!important;min-height:48px!important;position:relative!important;z-index:30!important;animation:none!important;transition:none!important;transform:none!important;visibility:visible!important;opacity:1!important}
+body.sukun-tefekkur-mode #tefExitBtn * {pointer-events:none!important}
+body #r717Scene,body #r717Scene::after,body #r709SceneArt,body #nameToastLayer {pointer-events:none!important}
+body #r717Scene {background-image:linear-gradient(180deg,#02132333,#02132355),var(--r914-scene,url('./assets/scenes/mobile-r918/mevlevi.webp')),radial-gradient(ellipse at top,#104351,#100e27)!important}
+body #r717Scene::after {animation:none!important}
+body #tfRefinedLayout,body #zBar,body #r883JourneyRemote {scroll-margin-block:90px 130px!important}
+}
+</style>
+
 <style id="sukun-r917-scene-info">#r917SceneInfo{margin:12px 0 0;padding:12px;color:#d9e7ee;background:#031525e8;border:1px solid #a797633f;border-radius:14px;line-height:1.5}#r917SceneInfo[hidden]{display:none!important}#r917SceneInfo summary{cursor:pointer;color:#f5e7b2;font-weight:600}#r917SceneInfo p{margin:8px 0 0;font-size:13px}#r917SceneInfo small{color:#bba1e3}</style>
 <style id="sukun-r916-repair">@layer sukun-repair-r916 {
  /* One ring renderer per mode; canonical counter still feeds the audio engine. */
@@ -222,11 +496,11 @@
 </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r917"/>
+<meta name="sukun-build" content="r920"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r917" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r920" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -5650,7 +5924,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r917"/><script>window.SUKUN_BUILD='r917';document.documentElement.dataset.sukunBuild='r917';</script>
+<meta name="sukun-build" content="r920"/><script>window.SUKUN_BUILD='r920';document.documentElement.dataset.sukunBuild='r920';</script>
 </head>
 <body data-perf="dengeli">
 <!-- ═══ r519 — AÇILIŞ PERDESİ ═══════════════════════════════════════════
@@ -6258,7 +6532,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <div class="zBar" id="zBar">
 <button class="spkBtn" data-ico="speaker" data-tip="Ekrandaki zikri cihazın kendi sesiyle okutur. Kendi kaydın varsa onun yerine kaydın çalar. Arapça metinlerde cihazda Arapça ses varsa Arapçasını, yoksa okunuşunu söyler." id="spkOnce"><span>Dinle</span></button>
 <button class="spkBtn" data-ico="repeat" data-tip="Bu zikri tekrar tekrar okutur — ezber ve tesbih için. Kaç kez okunacağını sorar; süresiz de seçebilirsin. Arka plan seviyesi açıksa kısık akar." id="zDonguBtn"><span>Döngü</span></button>
-<button class="spkBtn rec2" data-ico="mic" data-tip="Bu zikri KENDİ sesinle kaydet. Dokun, oku, bitirince tekrar dokun — süre sınırı yok. Kaydın olunca ▶ ve otomatik akış cihaz sesi yerine seni okur. Tecvidi doğru yapmanın tek kesin yolu budur." id="itemRecBtn"><span class="ico" data-ico="mic"></span> <span>Kayıt</span></button>
+<button class="spkBtn rec2" data-ico="mic" data-tip="Bu zikri KENDİ sesinle kaydet. Dokun, oku, bitirince tekrar dokun — süre sınırı yok. Kaydın olunca ▶ ve otomatik akış cihaz sesi yerine seni okur. Tecvidi doğru yapmanın tek kesin yolu budur." id="itemRecBtn"><span>Kayıt</span></button>
 <button class="spkBtn rec3" data-ico="hands" data-tip="Niyet cümleni («İlâhî ente maksûdî ve rızâke matlûbî») kendi sesinle kaydet. Zikre başlarken bir kez çalınır; her zikre değil, seansın niyetine aittir." id="niyetRecBtn"><span>Niyet</span></button>
 <button aria-pressed="false" class="spkBtn favBtn" data-ico="star" data-tip="Bu zikri favorilerine ekler. Favorilerin, zikir listesinin başında ★ Favorilerim diye ayrı bir başlıkta toplanır — 99 esmâ içinde her seferinde aramana gerek kalmaz." id="favBtn"><span class="favEt">Favori</span></button>
 <button class="spkBtn zq" data-ico="help" data-tip="Bu üç düğme nasıl kullanılır? Adım adım anlatır." id="zBarHelp"><span>Nasıl?</span></button>
@@ -6267,7 +6541,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <div class="card zCtl">
 <div class="zCountTitle"><span>✦</span> ZİKİR ÇARKI <span>✦</span></div>
 <div class="cntRow zCounterRow">
-<div class="zCounterSide"><small>HEDEF</small><b id="cntTargetView">33</b><em id="cntTargetMode">adet</em></div>
+<div class="zCounterSide"><small><svg class="r918StatIcon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>HEDEF</small><b id="cntTargetView">33</b><em id="cntTargetMode">adet</em></div>
 <div aria-label="Zikir say — sayaca dokun" class="zCountVisual" id="zCountVisual" role="button" tabindex="0">
 <div class="zGlow"></div>
 <div class="breathHalo" id="breathHalo"></div>
@@ -6291,7 +6565,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <div class="cntPct" id="cntPct">%0</div>
 </div>
 </div>
-<div class="zCounterSide"><small>KALAN</small><b aria-live="polite" id="cntRemain">33</b><em>bu devir</em></div>
+<div class="zCounterSide"><small><svg class="r918StatIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3v4l10 10v4M17 3v4L7 17v4"/></svg>KALAN</small><b aria-live="polite" id="cntRemain">33</b><em>bu devir</em></div>
 </div>
 <div class="cntSub" id="cntSub">Hedef 33 • Devir 0</div>
 <details class="jEd r679ZikirSettings" id="r679ZikirAyarBox">
@@ -20943,6 +21217,7 @@ async function sukunJourneyNativeRecording(blob,ad,opt,kalite){
       if(!document.hidden){try{fx=await bridge?.prepare?.(blob,recordingKey,{wet:echoWet,rate:echoRate})||null}catch(e){}}
       else try{Promise.resolve(bridge?.prepare?.(blob,recordingKey,{wet:echoWet,rate:echoRate})).catch(()=>{})}catch(e){}
     }
+    if(typeof opt.isCurrent==='function'&&!opt.isCurrent())return sonuc(false,'stale-sequence');
     const rawChanged=J.recordingKey!==recordingKey||J.signature!==signature||!J.url;
     if(rawChanged){
       try{a.pause()}catch(e){}
@@ -21058,6 +21333,7 @@ async function sukunJourneyNativeRecording(blob,ad,opt,kalite){
          olayı gelmediği için sonsuza kadar askıda kalmasını önler. */
       const go=()=>{
         if(finished||played||attempts>=5)return;
+        if(typeof opt.isCurrent==='function'&&!opt.isCurrent()){done(false,'stale-sequence');return}
         attempts++;
         try{
           const p=a.play();
@@ -21098,6 +21374,7 @@ async function sukunJourneyNativeRecording(blob,ad,opt,kalite){
 
 async function playRecording(blob,ad,opt){
   opt=opt||{};
+  const r919Current=window.SukunVoiceAttempt?.capture?.(opt)||(()=>true);
   const ayrinti=!!opt.detail;
   const arkaPlanNative=!!opt.backgroundNative;
   const sonuc=(ok,reason)=>ayrinti?{ok:!!ok,reason:reason||''}:!!ok;
@@ -21111,7 +21388,8 @@ async function playRecording(blob,ad,opt){
   if(!(arkaPlanNative&&document.hidden)){
     try{if(window.SukunRecordingQuality)kalite=await SukunRecordingQuality.analyse(blob)}catch(e){}
   }
-  if(arkaPlanNative)return sukunJourneyNativeRecording(blob,ad,opt,kalite);
+  if(!r919Current())return sonuc(false,'stale-sequence');
+  if(arkaPlanNative)return sukunJourneyNativeRecording(blob,ad,{...opt,isCurrent:r919Current},kalite);
   /* r579: konuşma/zikir kaynaklarında crossfade yerine mikro hand-off.
      Eski ses 60–90 ms içinde dry+wet birlikte kapanır; TAM kapandıktan sonra
      yeni ses açılır. Böylece iki hece ve iki reverb kuyruğu üst üste binmez. */
@@ -21120,6 +21398,7 @@ async function playRecording(blob,ad,opt){
      ilk fonemini yememek için attack ayrı ve kısa tutulur. */
   const attackMs=18,tailMs=28;
   try{ if(typeof window.sukunSoftStopRecordings==='function')await window.sukunSoftStopRecordings('superseded',fadeMs); else sesDurdur('superseded'); }catch(e){sesDurdur('superseded')}
+  if(!r919Current())return sonuc(false,'stale-sequence');
   RECPLAYING=true; SES.ad=ad||'kayit';
   return new Promise(res=>{
     try{
@@ -21235,7 +21514,9 @@ async function playRecording(blob,ad,opt){
       /* r236: sonda uzun sessizlik varsa onu doğal bir fade ile atla. */
       let kaliteBitiyor=false;
       if(kalite&&kalite.trimEnd>0&&kalite.tailTrim>.16){a.addEventListener('timeupdate',()=>{try{if(kaliteBitiyor||bitti||!isFinite(a.duration))return;const son=Math.min(kalite.trimEnd,a.duration);if(a.currentTime>=son){kaliteBitiyor=true;const efektif=Math.max(80,Math.min(fadeMs,Math.round(kalite.tailTrim*1000)));if(grafik&&ctx){const t=ctx.currentTime;if(a._kuru?.gain){a._kuru.gain.cancelScheduledValues(t);a._kuru.gain.setValueAtTime(Math.max(.0001,a._kuru.gain.value||normGain),t);a._kuru.gain.linearRampToValueAtTime(.0001,t+efektif/1000)}if(a._wet?.gain){a._wet.gain.cancelScheduledValues(t);a._wet.gain.setValueAtTime(Math.max(.0001,a._wet.gain.value||0),t);a._wet.gain.linearRampToValueAtTime(.0001,t+efektif/1000)}}setTimeout(()=>{try{if(!a.paused)a.pause()}catch(e){};try{if(a._sukunResumeKey)localStorage.removeItem(a._sukunResumeKey)}catch(e){};r657ContinuityBump('trimStops','fade-pause-before-resolve',recordingKey);done(true,'trim-ended')},efektif+24)}}catch(e){} });}
+      if(!r919Current()){done(false,'stale-sequence');return}
       a.play().then(()=>{
+        if(bitti||!r919Current()){try{a.pause()}catch(e){}done(false,'stale-sequence');return}
         calabildi=true;
         try{
           if(grafik&&ctx){
@@ -26767,79 +27048,98 @@ kat.addEventListener('click',e=>{ if(e.target===kat)kapat(); });
   e.onkeydown=ev=>{ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); ac(); } };
 })();
 
-/* — r531 Service Worker: atomik güncelleme + tek aktivasyon yöneticisi — */
+/* r920: explicit update activation; existing audio/session owners decide busy state. */
 (function(){
-  if(!('serviceWorker' in navigator))return;
-  if(!/^https?:$/.test(location.protocol))return;
-
-  const SW_CLIENT_BUILD=document.querySelector('meta[name="sukun-build"]')?.content||'r799';
-  const state={version:SW_CLIENT_BUILD,registration:null,waiting:null,installing:null,active:null,
-    phase:'idle',workerVersion:'',cache:'',complete:null,lastError:'',lastChange:Date.now(),reloadArmed:false};
-  const set=(phase,extra={})=>{Object.assign(state,extra,{phase,lastChange:Date.now()});try{window.dispatchEvent(new CustomEvent('sukun:swstate',{detail:{...state,registration:undefined,waiting:undefined,installing:undefined,active:undefined}}))}catch(e){}};
-  const snapshot=()=>({version:state.version,phase:state.phase,workerVersion:state.workerVersion,cache:state.cache,complete:state.complete,lastError:state.lastError,lastChange:state.lastChange,hasWaiting:!!state.waiting,hasController:!!navigator.serviceWorker.controller});
-  function ask(sw,type,payload={}){
-    return new Promise(resolve=>{
-      if(!sw)return resolve(null);let done=false;
-      const finish=x=>{if(done)return;done=true;resolve(x||null)};
-      const to=setTimeout(()=>finish(null),1800);
-      try{const ch=new MessageChannel();ch.port1.onmessage=e=>{clearTimeout(to);finish(e.data)};sw.postMessage({type,...payload},[ch.port2])}catch(e){clearTimeout(to);finish(null)}
-    });
+  if(!('serviceWorker' in navigator)||!/^https?:$/.test(location.protocol))return;
+  const BUILD=document.querySelector('meta[name="sukun-build"]')?.content||'r920';
+  const state={version:BUILD,registration:null,waiting:null,active:null,phase:'idle',workerVersion:'',cache:'',complete:null,lastError:'',lastChange:Date.now(),updateQueued:false,reloadPending:false};
+  let activating=false,reloadOnce=false,activationAuthorized=false,offeredWorker=null;
+  const watching=new WeakSet();
+  const snapshot=()=>({version:BUILD,phase:state.phase,workerVersion:state.workerVersion,cache:state.cache,complete:state.complete,lastError:state.lastError,lastChange:state.lastChange,hasWaiting:!!(state.registration?.waiting||state.waiting),hasController:!!navigator.serviceWorker.controller,updateQueued:state.updateQueued,reloadPending:state.reloadPending,sessionBusy:sessionBusy()});
+  function emit(phase,extra={}){Object.assign(state,extra,{phase,lastChange:Date.now()});try{dispatchEvent(new CustomEvent('sukun:swstate',{detail:snapshot()}))}catch(_){}}
+  function sessionBusy(){
+    try{const s=window.SukunSessionState?.snapshot?.();if(s&&['PREPARING','PLAYING','PAUSED','COMPLETING','INTERRUPTED','RECOVERING'].includes(String(s.phase||s.playbackState).toUpperCase()))return true}catch(_){}
+    try{const s=window.currentFlowState?.snapshot?.();if(s?.playing||s?.paused)return true}catch(_){}
+    try{const s=window.SukunAudioTruth?.snapshot?.();if(s?.playing||s?.paused||s?.tangible||s?.pendingPhysical)return true}catch(_){}
+    try{if(typeof Z!=='undefined'&&Z.auto)return true}catch(_){}
+    try{if(typeof FR!=='undefined'&&FR.playing)return true;if(typeof SES!=='undefined'&&SES.ad)return true}catch(_){}
+    try{if(window.SukunZikirTransportGate?.snapshot?.()?.playing)return true}catch(_){}
+    try{if(speechSynthesis.speaking||speechSynthesis.pending)return true}catch(_){}
+    try{if([...document.querySelectorAll('audio,video')].some(a=>!a.paused&&!a.ended))return true}catch(_){}
+    return false;
   }
-  async function status(sw){
-    const s=await ask(sw,'STATUS');
-    if(s)set('ready',{workerVersion:s.v||'',cache:s.cache||'',complete:s.complete??null,lastError:s.error||''});
-    return s;
-  }
+  function ask(worker,type,timeout=1800){return new Promise(resolve=>{
+    if(!worker)return resolve(null);let done=false;const ch=new MessageChannel();
+    const finish=value=>{if(done)return;done=true;clearTimeout(timer);ch.port1.close();resolve(value||null)};
+    const timer=setTimeout(()=>finish(null),timeout);ch.port1.onmessage=e=>finish(e.data);
+    try{worker.postMessage({type},[ch.port2])}catch(_){finish(null)}
+  })}
+  async function status(worker){const s=await ask(worker||state.registration?.waiting||state.registration?.active||navigator.serviceWorker.controller,'STATUS');if(s){state.workerVersion=s.v||'';state.cache=s.cache||'';state.complete=s.complete??null;state.lastError=s.error||'';emit(state.updateQueued?'queued':state.registration?.waiting?'waiting':'ready')}return s}
   async function saveBeforeReload(){
-    try{window.SukunSessionMemory?.save?.()}catch(e){}
-    try{window.SukunResumePolicy?.progress?.(window.currentFlowState?.snapshot?.()?.context||'zikir',{reason:'sw-update'})}catch(e){}
-    try{await window.SukunDataMigration?.run?.('pre-sw-update')}catch(e){}
+    try{await window.SukunSessionMemory?.save?.()}catch(_){}
+    try{window.SukunResumePolicy?.progress?.(window.currentFlowState?.snapshot?.()?.context||'zikir',{reason:'sw-update'})}catch(_){}
+    try{await window.SukunDataMigration?.run?.('pre-sw-update')}catch(_){}
   }
-  async function activateWaiting(sw){
-    if(!sw||state.phase==='activating')return false;
-    set('activating',{waiting:sw});
+  function notify(message,label,action){try{skToast(message,label,action,60000)}catch(_){}}
+  async function offer(worker){
+    state.waiting=worker;if(offeredWorker===worker)return;offeredWorker=worker;
+    const notes=await ask(worker,'SURUM_NOTU');const version=notes?.v||'';
+    notify(version?'SÜKÛN '+version+' hazır.':'Yeni SÜKÛN sürümü hazır.','Güncelle',requestUpdate);
+  }
+  async function activateWaiting(worker){
+    if(!worker||activating)return false;
+    if(sessionBusy()){state.waiting=worker;emit('queued',{updateQueued:true});return false}
+    activating=true;emit('verifying',{waiting:worker});
+    let readiness=await ask(worker,'STATUS');
+    if(!readiness?.complete)readiness=await ask(worker,'CACHE_REFRESH',24000);
+    if(!readiness?.complete){activating=false;emit('error',{updateQueued:false,lastError:readiness?.error||'Güncelleme dosyaları tamamlanamadı.'});notify('Güncelleme dosyaları henüz hazır değil. Mevcut sürüm korunuyor.','Yeniden dene',requestUpdate);return false}
     await saveBeforeReload();
-    try{sessionStorage.setItem('sukun.sw.reload',SW_CLIENT_BUILD+':'+Date.now())}catch(e){}
-    state.reloadArmed=true;
-    try{sw.postMessage({type:'SKIP_WAITING'});return true}catch(e){set('error',{lastError:String(e)});return false}
+    if(sessionBusy()){activating=false;emit('queued',{updateQueued:true});return false}
+    emit('activating',{waiting:worker,updateQueued:false});activationAuthorized=true;
+    try{const result=await ask(worker,'SKIP_WAITING',24000);if(!result?.ok||!result.complete)throw Error(result?.error||'Güncelleme aktivasyonu doğrulanamadı.');return true}catch(error){activationAuthorized=false;activating=false;emit('error',{lastError:String(error)});return false}
   }
-  function notes(sw){
-    ask(sw,'SURUM_NOTU').then(n=>{
-      const sur=n?.v||'';
-      const msg=sur?('SÜKÛN '+sur+' hazır.'):'Yeni bir SÜKÛN sürümü hazır.';
-      const ek=(n?.notlar?.length)?{label:'Neler yenilendi?',on:()=>neYenilendi(n.notlar,sur)}:null;
-      skToast(msg,'Yenile ✦',()=>activateWaiting(sw),60000,ek);
-    });
+  async function reloadWhenIdle(){
+    if(!activationAuthorized||reloadOnce)return;
+    if(sessionBusy()){emit('queued',{reloadPending:true,updateQueued:true});return}
+    await saveBeforeReload();if(sessionBusy()){emit('queued',{reloadPending:true,updateQueued:true});return}
+    reloadOnce=true;try{location.reload()}catch(error){reloadOnce=false;emit('error',{lastError:String(error)})}
   }
-  function watch(sw){
-    if(!sw)return;state.installing=sw;set('installing',{installing:sw});
-    sw.addEventListener('statechange',()=>{
-      if(sw.state==='installed'&&navigator.serviceWorker.controller){state.waiting=sw;set('waiting',{waiting:sw});status(sw);notes(sw)}
-      else if(sw.state==='activated'){state.active=sw;set('activated',{active:sw});status(sw)}
-      else if(sw.state==='redundant')set('error',{lastError:'worker redundant'});
-    });
+  async function requestUpdate(){
+    const worker=state.registration?.waiting||state.waiting;
+    if(!worker){await check();if(state.registration?.waiting)return requestUpdate();return false}
+    state.waiting=worker;
+    if(sessionBusy()){
+      emit('queued',{updateQueued:true});notify('Güncelleme, oturum sona erdiğinde uygulanacak.','Vazgeç',cancel);return false;
+    }
+    return activateWaiting(worker);
   }
+  function cancel(){if(activating||state.reloadPending)return false;emit(state.waiting?'waiting':'ready',{updateQueued:false});return true}
+  function onIdle(){if(!state.updateQueued||sessionBusy())return;if(state.reloadPending)reloadWhenIdle();else activateWaiting(state.registration?.waiting||state.waiting)}
+  function watch(worker){
+    if(!worker||watching.has(worker))return;watching.add(worker);
+    const change=()=>{
+      if(worker.state==='installed'&&navigator.serviceWorker.controller){emit('waiting',{waiting:worker});status(worker);offer(worker);onIdle()}
+      else if(worker.state==='activated'){state.active=worker;if(!activationAuthorized)status(worker)}
+      else if(worker.state==='redundant')emit('error',{lastError:'worker redundant'});
+    };worker.addEventListener('statechange',change);change();
+  }
+  async function check(){try{const reg=state.registration||await navigator.serviceWorker.getRegistration('./');if(!reg)return null;state.registration=reg;await reg.update();state.waiting=reg.waiting;if(reg.waiting){emit('waiting');offer(reg.waiting)}if(reg.installing)watch(reg.installing);return snapshot()}catch(error){emit('error',{lastError:String(error?.message||error)});return snapshot()}}
   addEventListener('load',()=>{
-    navigator.serviceWorker.register('./sw.js?v='+encodeURIComponent(SW_CLIENT_BUILD),{updateViaCache:'none'}).then(reg=>{
-      state.registration=reg;state.active=reg.active;state.waiting=reg.waiting;set('registered',{registration:reg,active:reg.active,waiting:reg.waiting});
-      if(reg.active)status(reg.active);
-      if(reg.waiting&&navigator.serviceWorker.controller){status(reg.waiting);notes(reg.waiting)}
-      reg.addEventListener('updatefound',()=>watch(reg.installing));
-      try{reg.update().catch(e=>set('registered',{lastError:String(e?.message||e)}))}catch(e){}
-    }).catch(e=>set('error',{lastError:String(e?.message||e)}));
-  });
-  let changed=false;
+    navigator.serviceWorker.register('./sw.js?v='+encodeURIComponent(BUILD),{updateViaCache:'none'}).then(reg=>{
+      state.registration=reg;state.active=reg.active;state.waiting=reg.waiting;
+      emit(reg.waiting?'waiting':'registered');if(reg.active)status(reg.active);if(reg.waiting&&navigator.serviceWorker.controller)offer(reg.waiting);
+      if(reg.installing)watch(reg.installing);reg.addEventListener('updatefound',()=>watch(reg.installing));check();
+    }).catch(error=>emit('error',{lastError:String(error?.message||error)}));
+  },{once:true});
   navigator.serviceWorker.addEventListener('controllerchange',()=>{
-    if(changed)return;changed=true;
-    set('controller-changed');
-    /* Sadece kullanıcının Yenile eylemiyle silahlandıysa otomatik reload. */
-    let armed=state.reloadArmed;try{armed=armed||new RegExp('^'+SW_CLIENT_BUILD.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+':').test(sessionStorage.getItem('sukun.sw.reload')||'')}catch(e){}
-    if(armed||navigator.serviceWorker.controller){try{sessionStorage.removeItem('sukun.sw.reload')}catch(e){};try{if(sessionStorage.getItem('sukun.r907.controllerReload')!=='1'){sessionStorage.setItem('sukun.r907.controllerReload','1');location.reload()}}catch(e){location.reload()}}
+    state.waiting=null;activating=false;
+    if(activationAuthorized){emit('controller-changed',{reloadPending:true});reloadWhenIdle()}
+    else{emit('controller-changed');status(navigator.serviceWorker.controller)}
   });
-  navigator.serviceWorker.addEventListener('message',e=>{
-    if(e.data?.type==='SUKUN_SW_STATUS')set('message',{workerVersion:e.data.v||state.workerVersion,cache:e.data.cache||state.cache,complete:e.data.complete??state.complete});
-  });
-  window.SukunUpdateManager={version:SW_CLIENT_BUILD,snapshot,status:()=>status(state.registration?.waiting||state.registration?.active||navigator.serviceWorker.controller),check:()=>state.registration?.update?.(),activate:()=>activateWaiting(state.registration?.waiting||state.waiting)};
+  navigator.serviceWorker.addEventListener('message',e=>{if(e.data?.type==='SUKUN_SW_STATUS'){state.workerVersion=e.data.v||state.workerVersion;state.cache=e.data.cache||state.cache;state.complete=e.data.complete??state.complete;emit(state.phase)}});
+  ['sukun:sessionchange','sukun:sessionstate','sukun:audiotruthchange','sukun:currentflowchange','sukun:currentzikirchange','sukun:zikirtransaction','sukun:playbackchange','pageshow'].forEach(event=>addEventListener(event,onIdle,{passive:true}));
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)onIdle()},{passive:true});
+  window.SukunUpdateManager=Object.freeze({version:BUILD,snapshot,status,check,activate:requestUpdate,cancel});
 })();
 </script>
 <script id="r514-core-yedek-vird">
@@ -37933,6 +38233,45 @@ function ttsPromise(text,lang='tr-TR'){
   });
 }
 
+/* r919: one attempt guard references existing selection and AudioLife intent.
+   No counter, playback owner, or timer loop is created. */
+window.SukunVoiceAttempt=Object.freeze({
+  capture(opt={}){
+    const parent=typeof opt.isCurrent==='function'?opt.isCurrent:()=>true;
+    const life=window.AudioLife,epoch=life?._userIntentSeq;
+    const identity=()=>{try{return String(typeof zKat==='function'?zKat():Z.cat)+':'+String(typeof zIdx==='function'?zIdx():Z.idx)}catch(e){return''}};
+    const selected=identity();
+    return()=>{try{return parent()&&identity()===selected&&(epoch==null||life?._userIntentSeq===epoch)}catch(e){return false}};
+  }
+});
+window.SukunRecordingFailure=(()=>{
+  let failure=null;
+  const listeners=new Set();
+  const copy=()=>failure?{...failure,identity:{...failure.identity}}:{active:false};
+  const emit=type=>{const detail=copy();for(const fn of listeners)try{fn(detail)}catch(e){}try{window.dispatchEvent(new CustomEvent(type,{detail}))}catch(e){}};
+  const result=()=>({ok:false,source:'recording',blocked:true,key:failure?.key||'',reason:'recording-failed',fallbackAllowed:false});
+  function hold(info={}){
+    const cat=String(info.cat||''),index=Number(info.index)||0,key=String(info.key||'');
+    if(failure?.active&&failure.key===key)return result();
+    failure={active:true,identity:{cat,index,key},cat,index,key,title:String(info.title||'Kendi kaydın'),code:String(info.code||'recording-failed'),message:'Kendi kaydın açılamadı. Sayaç korunuyor; kaydı kontrol edip yeniden deneyebilirsin.',at:Date.now()};
+    try{window.SukunAudioSessionRegistry?.pauseAll?.('recording-failure')}catch(e){}
+    try{window.AudioLife?.markUserPause?.('recording-failure')}catch(e){}
+    try{window.SukunVoiceSource?.set?.('error','KENDİ KAYIT AÇILAMADI',failure.message)}catch(e){}
+    emit('sukun:recordingerror');
+    return result();
+  }
+  function clearForRetry(){const old=failure;failure=null;if(old)emit('sukun:recordingrecovered');return old}
+  function matches(cat,index){return !!(failure?.active&&failure.cat===String(cat)&&failure.index===Number(index))}
+  window.addEventListener('sukun:currentzikirchange',()=>{
+    if(!failure)return;
+    try{const cat=typeof zKat==='function'?zKat():Z.cat,index=typeof zIdx==='function'?zIdx():Z.idx;if(!matches(cat,index))clearForRetry()}catch(e){}
+  });
+  return Object.freeze({get:copy,snapshot:copy,hold,result,matches,clearForRetry,
+    retry:()=>window.SukunSessionState?.command?.('retry')||Promise.resolve({ok:false,reason:'retry-owner-unavailable'}),
+    subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn)}
+  });
+})();
+
 const SukunVoiceResolver=window.SukunVoiceResolver=(()=>{
   const misses=new Map();
   let last={kind:'idle',label:'HAZIR',detail:'',source:'none',at:Date.now()};
@@ -37986,7 +38325,8 @@ const SukunVoiceResolver=window.SukunVoiceResolver=(()=>{
         backgroundNative:document.hidden,
         reason:document.hidden?'Kilit ekranı · kendi kayıt':(opt.detail||'Kendi kayıt'),
         title:opt.title||key,
-        recordingKey:key
+        recordingKey:key,
+        isCurrent:opt.isCurrent
       });
 
       if(rr===undefined||rr===true||rr?.ok)return{source:'recording',ok:true,key,reason:rr?.reason||'ended'};
@@ -37995,9 +38335,10 @@ const SukunVoiceResolver=window.SukunVoiceResolver=(()=>{
          isimde kalır. Yalnız kasıtlı/sahiplik kaynaklı kesmeler iptaldir. */
       if(rr&&!['play-rejected','error','exception','play-timeout','playback-stalled'].includes(rr.reason))
         return{source:'recording',ok:false,cancelled:true,key,reason:rr.reason};
-      return null; /* gerçek oynatma hatası → sıradaki kaynak */
+      return window.SukunRecordingFailure.hold({cat,index:idx,key,title:opt.title||key,code:rr?.reason||'recording-failed'});
     }catch(e){
-      return null;
+      if(typeof opt.isCurrent==='function'&&!opt.isCurrent())return{ok:false,cancelled:true,reason:'stale-sequence'};
+      return window.SukunRecordingFailure.hold({cat,index:idx,key,title:opt.title||key,code:'recording-read-error'});
     }
   }
 
@@ -38038,6 +38379,8 @@ const SukunVoiceResolver=window.SukunVoiceResolver=(()=>{
   }
 
   async function playItem(cat,idx,item,opt={}){
+    opt={...opt,isCurrent:window.SukunVoiceAttempt.capture(opt)};
+    if(window.SukunRecordingFailure.matches(cat,idx))return window.SukunRecordingFailure.result();
     /* r678 — Berhetiyye nida sözleşmesi: kayıt içeriği değiştirilmez; yalnız
        TTS/reader fallback çağrısı "Yâ …" olarak okunur. */
     if(cat==='berhet'){
@@ -38075,7 +38418,9 @@ const SukunVoiceResolver=window.SukunVoiceResolver=(()=>{
     return await tts(item,opt);
   }
 
-  async function playCurrentZikir({interrupt=false}={}){
+  async function playCurrentZikir(opt={}){
+    const {interrupt=false}=opt;
+    const current=window.SukunVoiceAttempt.capture(opt);
     const cat=typeof zKat==='function'?zKat():Z.cat;
     const idx=typeof zIdx==='function'?zIdx():Z.idx;
     const item=ZIKIR?.[cat]?.items?.[idx]||zItem?.();
@@ -38092,10 +38437,12 @@ const SukunVoiceResolver=window.SukunVoiceResolver=(()=>{
       forceProbe:tef,
       title:typeof keyLabel==='function'?keyLabel(key):(item?.tr||item?.t||key),
       detail:'Tefekkür/zikir için kendi kayıt sesin',
-      reason:'zikir:'+key
+      reason:'zikir:'+key,
+      isCurrent:current
     });
     if(rec)return rec;
 
+    if(!current())return{ok:false,cancelled:true,reason:'stale-sequence'};
     /* r635: kayıt bulunamadıysa ikinci aşama TTS'tir. Seçili Arapça/Türkçe
        SpeechSynthesis sesi varsa TTS aşamasında önce o kullanılır. */
     const chosen=await reader(item,{
@@ -40937,8 +41284,10 @@ try{
     const oldBasla=DONGU.basla.bind(DONGU),oldTts=DONGU._ttsOku.bind(DONGU);
     DONGU.basla=function(metin,opt){opt=opt||{};opt.latin=String(opt.latin||metin||'').trim();return oldBasla(opt.latin,opt)};
     DONGU._oku=async function(){
+      const current=window.SukunVoiceAttempt.capture({isCurrent:()=>this.aktif});
       if(!this.aktif)return;if(this.toplam>0&&this.kalan<=0){this.bitti();return}
-      if(this.kayitAnahtari){try{const b=await REC_DB.get(this.kayitAnahtari);if(!this.aktif)return;if(b){sukunSourceSet('recording','Döngü için kayıt bulundu; her tekrar baştan çalıyor',this.ad||'Döngü');const r=await playRecording(b,'dongu:'+this.kayitAnahtari,{detail:true,resume:false,reason:'Döngü için kayıt bulundu',title:this.ad||'Döngü',recordingKey:this.kayitAnahtari});if(!this.aktif)return;if(r&&r.ok){this._sonrakiTekrar();return}if(r&&!['play-rejected','error','exception'].includes(r.reason))return}}catch(e){}}
+      if(this.kayitAnahtari){try{const b=await REC_DB.get(this.kayitAnahtari);if(!current())return;if(b){sukunSourceSet('recording','Döngü için kayıt bulundu; her tekrar baştan çalıyor',this.ad||'Döngü');const r=await playRecording(b,'dongu:'+this.kayitAnahtari,{detail:true,resume:false,reason:'Döngü için kayıt bulundu',title:this.ad||'Döngü',recordingKey:this.kayitAnahtari,isCurrent:current});if(!this.aktif)return;if(r&&r.ok){this._sonrakiTekrar();return}if(r&&!['play-rejected','error','exception'].includes(r.reason))return;window.SukunRecordingFailure.hold({cat:String(this.kayitAnahtari).split(':')[0],index:Number(String(this.kayitAnahtari).split(':')[1])||0,key:this.kayitAnahtari,title:this.ad,code:r?.reason||'recording-failed'});this.durdur();return}}catch(e){}}
+      if(!current())return;
       sukunSourceSet('tts','Kayıt bulunamadı; başlık değil Latin okunuş okunuyor',this.ad||'Döngü');oldTts();
     };
   }
@@ -41140,10 +41489,12 @@ try{
   if(window.SukunSourcePolicy&&!SukunSourcePolicy.__r244){
     SukunSourcePolicy.__r244=1;
     SukunSourcePolicy.play=async function({key='',latin='',fallback='',title='Okuma',lang='tr-TR',recordReason='Bu öğe için kendi kaydın bulundu',resume=true,backgroundNative=false}={}){
+      const current=window.SukunVoiceAttempt.capture();
       const text=String(latin||fallback||'').trim();
       if(key){
-        try{const b=await REC_DB.get(key);if(b){sukunSourceSet?.('recording',recordReason,title);const r=await playRecording(b,'r244:'+key,{detail:true,reason:recordReason,title,resume:!!resume,backgroundNative:!!backgroundNative,recordingKey:key});if(r?.ok)return{ok:true,source:'recording',key,reason:r.reason||'ended'};if(backgroundNative&&document.hidden&&r&&!r.ok)return{ok:false,source:'recording',backgroundBlocked:true,key,reason:r.reason||'background-native-failed'};if(r&&!['play-rejected','error','exception','play-timeout','playback-stalled'].includes(r.reason))return{ok:false,source:'recording',cancelled:true,key,reason:r.reason};/* görünür ekranda gerçek kayıt hatası → TTS yedeği */}}catch(e){}
+        try{const b=await REC_DB.get(key);if(!current())return{ok:false,cancelled:true,reason:'stale-sequence'};if(b){sukunSourceSet?.('recording',recordReason,title);const r=await playRecording(b,'r244:'+key,{detail:true,reason:recordReason,title,resume:!!resume,backgroundNative:!!backgroundNative,recordingKey:key,isCurrent:current});if(r?.ok)return{ok:true,source:'recording',key,reason:r.reason||'ended'};if(backgroundNative&&document.hidden&&r&&!r.ok)return{ok:false,source:'recording',backgroundBlocked:true,key,reason:r.reason||'background-native-failed'};if(r&&!['play-rejected','error','exception','play-timeout','playback-stalled'].includes(r.reason))return{ok:false,source:'recording',cancelled:true,key,reason:r.reason};return window.SukunRecordingFailure.hold({cat:String(key).split(':')[0],index:Number(String(key).split(':')[1])||0,key,title,code:r?.reason||'recording-failed'});}}catch(e){if(!current())return{ok:false,cancelled:true,reason:'stale-sequence'};return window.SukunRecordingFailure.hold({cat:String(key).split(':')[0],index:Number(String(key).split(':')[1])||0,key,title,code:'recording-read-error'})}
       }
+      if(!current())return{ok:false,cancelled:true,reason:'stale-sequence'};
       if(!text)return{ok:false,source:'none',key};
       if(backgroundNative&&document.hidden)return{ok:false,source:'none',backgroundBlocked:true,key,reason:'no-recording-background'};
       try{sukunSourceSet?.('tts',latin?'Kayıt bulunamadı; Latin okunuş okunuyor':'Metin yedeği TTS ile okunuyor',title)}catch(e){}
@@ -50207,7 +50558,7 @@ async function safeSuite(){
   R.push(await check('SES','Kendi kayıt öncelik kilidi',()=>{
     const g=window.SukunRecordingPriorityLock?.snapshot?.();
     const p=window.SukunVoiceResolver?.priority?.();
-    const ok=g?.version==='r637'&&g?.audioWrapped===true&&g?.ttsAuditWrapped===true&&p?.recordingHardGuard===true&&p?.ttsOnlyAfterMissingOrPlaybackFailure===true;
+    const ok=g?.version==='r919'&&g?.audioWrapped===true&&g?.ttsAuditWrapped===true&&p?.recordingHardGuard===true&&p?.ttsOnlyAfterMissing===true;
     return status(ok,ok?'r637 hard guard + fallback audit · IndexedDB kayıt > TTS':'r637 kayıt öncelik kilidi/audit henüz hazır değil');
   }));
   R.push(await check('SESSION','Seans hafızası',()=>{
@@ -57560,7 +57911,7 @@ function setMode(next,persist=true){
 }
 function titleFor(f,z){
   const p=f?.playback||{},s=f?.session||{};
-  if(s.active&&clean(s.name))return clean(s.name);
+  if(s.active&&clean(s.name)&&!generic.test(clean(s.name)))return clean(s.name);
   if(clean(p.moduleTitle)&&!generic.test(clean(p.moduleTitle)))return clean(p.moduleTitle);
   if(clean(p.sectionTitle))return clean(p.sectionTitle);
   if(z?.name)return clean(z.name);
@@ -62181,61 +62532,7 @@ window.SukunLockJourneyHandoff={
 };
 })();
 </script>
-<script>
-/* ═══ r628 — GÜNCELLEME BEKLEMEDE TAKILI KALABİLİYORDU ═══════════════
-   Ölçüm: yeni sürüm doğru kuruluyor ve önbelleğe alınıyor, ama tasarım
-   gereği «waiting» durumunda bekliyor; devreye girmesi için kullanıcının
-   Yenile bildirimine dokunması gerekiyor. Bekleme bilinçli bir tercih —
-   çalan bir zikri yarıda kesmemek için doğru.
-
-   Sorun bildirimin kendisinde: iki denemede biri hiç oluşmadı, ötekinde
-   oluştu ama ekranda görünürlüğü belirsizdi. Bildirim gelmezse kullanıcı
-   eski sürümde kalır ve bunu hiç fark etmez; uygulamayı tamamen kapatana
-   kadar da öyle kalır.
-
-   Emniyet: sayfa açılışında bekleyen bir sürüm varsa VE o an hiçbir ses
-   çalmıyorsa güncelleme sessizce devreye alınır. Ses çalıyorsa hiç
-   dokunulmaz — özgün tasarımın koruduğu şey buydu. Böylece güncelleme
-   en geç bir sonraki sessiz açılışta kesin olarak yerleşir.
-
-   Kontrol bir kez, açılıştan on saniye sonra yapılır; sürekli bir
-   yoklama kurulmaz. */
-(function(){
-  function sesVarMi(){
-    try{
-      if(window.FR&&FR.playing)return true;
-      if(window.SES&&SES.ad)return true;
-      if(window.BERHET_SEYIR&&BERHET_SEYIR.run)return true;
-      if(window.ESMA99_SEYIR&&ESMA99_SEYIR.run)return true;
-      if(window.ctx&&ctx.state==='running'&&window.AMB&&Object.keys(AMB).length)return true;
-      const a=document.querySelector('audio');
-      if(a&&!a.paused&&a.currentTime>0)return true;
-    }catch(e){}
-    return false;
-  }
-  async function dene(){
-    try{
-      if(!('serviceWorker'in navigator))return;
-      const kayitlar=await navigator.serviceWorker.getRegistrations();
-      for(const k of kayitlar){
-        if(!k.waiting)continue;
-        if(sesVarMi())return;              /* çalan ses var: dokunma */
-        k.waiting.postMessage({type:'SKIP_WAITING'});
-      }
-    }catch(e){}
-  }
-  /* Yeni sürüm devreye girince sayfayı bir kez tazele. */
-  try{
-    let yenilendi=false;
-    navigator.serviceWorker?.addEventListener?.('controllerchange',()=>{
-      if(yenilendi)return; yenilendi=true;
-      if(sesVarMi())return;
-      setTimeout(()=>{ try{location.reload()}catch(e){} },400);
-    });
-  }catch(e){}
-  setTimeout(dene,10000);
-})();
-</script>
+<script>/* r920: duplicate r628 update/reload writer retired. */</script>
 <style id="r629-journey-completion-style">
 #r629JourneyDone[hidden]{display:none!important}
 #r629JourneyDone{
@@ -63247,6 +63544,8 @@ function bindGrip(grip){
  grip.addEventListener('keydown',e=>{if(!['ArrowUp','ArrowDown','Home','End'].includes(e.key))return;e.preventDefault();const h=$('r170Now');if(!visible(h))return;const v=viewport(),b=setBounds(v,reserve(v),h.getBoundingClientRect().height);let n=e.key==='Home'?b.min:e.key==='End'?b.max:y+(e.key==='ArrowUp'?-1:1)*(e.shiftKey?80:28);setY(clamp(n,b.min,b.max),true);schedule('keyboard-grip')});
 }
 function naturalHeight(shell,body,footer,grip){
+ // r920 Mini has one compact row; its original controls are positioned in that row.
+ if(B.classList.contains('r920-dock')&&mode()==='mini')return 68;
  const cs=getComputedStyle(shell),pad=(parseFloat(cs.paddingTop)||0)+(parseFloat(cs.paddingBottom)||0),gap=parseFloat(cs.rowGap)||0;
  const gh=grip?.getBoundingClientRect().height||0,fh=footer?.getBoundingClientRect().height||0;
  // r732: a read-only intrinsic pass. Never change display, grid rows, overflow or
@@ -63342,7 +63641,7 @@ function measure(why='api'){
   // Short landscape screens must retain a usable reading area even in Max.
   if(v.height<480&&v.width>v.height)profile=Math.min(profile,Math.max(160,Math.floor(v.height*.60)));
   desired=Math.min(need,profile,cap);
-  const fixed=Math.ceil((grip?.getBoundingClientRect().height||0)+(footer?.getBoundingClientRect().height||0)+18);
+  const fixed=B.classList.contains('r920-dock')&&m==='mini'?0:Math.ceil((grip?.getBoundingClientRect().height||0)+(footer?.getBoundingClientRect().height||0)+18);
   desired=Math.max(Math.min(cap,fixed+40),desired);
   // Reserve the reading surface in every Tefekkür size, including dragged Max.
   if(tef)desired=Math.min(desired,Math.max(1,cap-readingReserve(v,bottom)));
@@ -63732,7 +64031,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 (()=>{
 'use strict';
 if(window.SukunRecordingPriorityLock?.version==='r637')return;
-const VERSION='r637';
+const VERSION='r919';
 const clean=v=>String(v==null?'':v).trim();
 const audit=[];let lastFallback=null;const AUDIT_MAX=96;
 function note(type,detail={}){const x={at:Date.now(),type,...detail};audit.push(x);if(audit.length>AUDIT_MAX)audit.splice(0,audit.length-AUDIT_MAX);return x}
@@ -63762,13 +64061,19 @@ async function find(cat,idx,item,opt={}){
   if(typeof REC_DB==='undefined'){note('recording-db-unavailable',{cat:clean(cat),idx:+idx||0});return null}
   const keys=candidates(cat,idx,item,opt);note('recording-probe',{cat:clean(cat),idx:+idx||0,keys:keys.slice(0,8),title:clean(opt.title||item?.tr||item?.t||'')});
   for(const key of keys){
-    try{const blob=await REC_DB.get(key);if(blob){try{RECKEYS?.add?.(key)}catch(e){};note('recording-found',{cat:clean(cat),idx:+idx||0,key,title:clean(opt.title||item?.tr||item?.t||'')});return{key,blob}}}catch(e){note('recording-read-error',{key,error:clean(e?.message||e)})}
+    try{const blob=await REC_DB.get(key);if(blob){try{RECKEYS?.add?.(key)}catch(e){};note('recording-found',{cat:clean(cat),idx:+idx||0,key,title:clean(opt.title||item?.tr||item?.t||'')});return{key,blob}}}catch(e){note('recording-read-error',{key,error:clean(e?.message||e)});throw e}
   }
   note('recording-missing',{cat:clean(cat),idx:+idx||0,keys:keys.slice(0,8),title:clean(opt.title||item?.tr||item?.t||'')});
   return null;
 }
 async function playOwn(cat,idx,item,opt={}){
-  const rec=await find(cat,idx,item,opt);if(!rec)return null;
+  opt={...opt,isCurrent:window.SukunVoiceAttempt.capture(opt)};
+  if(!opt.isCurrent())return{ok:false,cancelled:true,reason:'stale-sequence'};
+  if(window.SukunRecordingFailure.matches(cat,idx))return window.SukunRecordingFailure.result();
+  let rec;
+  try{rec=await find(cat,idx,item,opt)}catch(e){if(!opt.isCurrent())return{ok:false,cancelled:true,reason:'stale-sequence'};return window.SukunRecordingFailure.hold({cat,index:idx,key:candidates(cat,idx,item,opt)[0]||'',title:opt.title||item?.tr||item?.t,code:'recording-read-error'})}
+  if(!opt.isCurrent())return{ok:false,cancelled:true,reason:'stale-sequence'};
+  if(!rec)return null;
   if(typeof opt.isCurrent==='function'&&!opt.isCurrent())return{ok:false,source:'recording',cancelled:true,key:rec.key,reason:'stale-sequence'};
   /* TTS daha önce kuyruklanmış olsa bile kayıt bulunduğu anda kesilir. */
   try{window.sukunTtsCancel?.('r637-recording-priority')}catch(e){try{speechSynthesis.cancel()}catch(_){}}
@@ -63780,7 +64085,7 @@ async function playOwn(cat,idx,item,opt={}){
     r=await playRecording(rec.blob,'r637-own:'+rec.key,{
       detail:true,resume:false,backgroundNative:!!document.hidden,
       reason:document.hidden?'Kilit ekranı · kendi kayıt':'Kendi kayıt · TTS kilidi',
-      title:opt.title||item?.tr||item?.t||rec.key,recordingKey:rec.key
+      title:opt.title||item?.tr||item?.t||rec.key,recordingKey:rec.key,isCurrent:opt.isCurrent
     });
   }catch(e){r={ok:false,reason:'exception',error:e}}
   if(r===undefined||r===true||r?.ok){note('recording-play-ok',{cat:clean(cat),idx:+idx||0,key:rec.key,reason:clean(r?.reason||'ended')});return{ok:true,source:'recording',key:rec.key,reason:r?.reason||'ended',priorityLock:true}};
@@ -63798,9 +64103,9 @@ async function playOwn(cat,idx,item,opt={}){
     if(typeof opt.isCurrent==='function'&&!opt.isCurrent())return{ok:false,source:'recording',cancelled:true,key:rec.key,reason:'stale-sequence',priorityLock:true};
     return playOwn(cat,idx,item,{...opt,__r693Retry:true});
   }
-  /* Yalnız gerçek kayıt oynatma hatasında TTS fallback serbest. */
+  /* r919: kayıt varsa hata da aynı kaynağa aittir; TTS'e sessiz geçiş yok. */
   note('recording-play-failed',{cat:clean(cat),idx:+idx||0,key:rec.key,reason:clean(r?.reason||'recording-failed')});
-  return{ok:false,source:'recording',key:rec.key,reason:r?.reason||'recording-failed',fallbackAllowed:true,priorityLock:true};
+  return window.SukunRecordingFailure.hold({cat,index:idx,key:rec.key,title:opt.title||item?.tr||item?.t||rec.key,code:r?.reason||'recording-failed'});
 }
 function wrapResolver(){
   const R=window.SukunVoiceResolver;if(!R||R.__r636Priority)return false;
@@ -63808,18 +64113,22 @@ function wrapResolver(){
   if(typeof oldItem!=='function')return false;
   const api={...R};
   api.playItem=async function(cat,idx,item,opt={}){
+    opt={...opt,isCurrent:window.SukunVoiceAttempt.capture(opt)};
     const own=await playOwn(cat,idx,item,opt);
+    if(!opt.isCurrent()&&!own?.blocked)return{ok:false,cancelled:true,reason:'stale-sequence'};
     if(own&&!own.fallbackAllowed)return own;
     fallbackContext(cat,idx,item,own?.reason||'recording-missing');
     return await oldItem(cat,idx,item,opt);
   };
   if(typeof oldCurrent==='function')api.playCurrentZikir=async function(opt={}){
+    opt={...opt,isCurrent:window.SukunVoiceAttempt.capture(opt)};
     let cat='',idx=0,item=null;try{cat=typeof zKat==='function'?zKat():Z.cat;idx=typeof zIdx==='function'?zIdx():Z.idx;item=ZIKIR?.[cat]?.items?.[idx]||null}catch(e){}
-    if(cat==='esma'){const own=await playOwn(cat,idx,item,{...opt,title:item?.tr||item?.t||'Esmâ'});if(own&&!own.fallbackAllowed)return own;fallbackContext(cat,idx,item,own?.reason||'recording-missing')}
+    if(cat!=='terkip'){const own=await playOwn(cat,idx,item,{...opt,title:item?.tr||item?.t||'Esmâ'});if(own&&!own.fallbackAllowed)return own;fallbackContext(cat,idx,item,own?.reason||'recording-missing')}
+    if(!opt.isCurrent())return{ok:false,cancelled:true,reason:'stale-sequence'};
     return await oldCurrent(opt);
   };
   api.version=VERSION;api.__r636Priority=true;
-  api.priority=()=>Object.freeze({recordingFirst:true,recordingHardGuard:true,ttsSecond:true,ttsOnlyAfterMissingOrPlaybackFailure:true,selectedVoiceWithinTts:true,stages:['recording:indexeddb','tts:selected-voice','tts:device','silent']});
+  api.priority=()=>Object.freeze({recordingFirst:true,recordingHardGuard:true,ttsSecond:true,ttsOnlyAfterMissingOrPlaybackFailure:false,ttsOnlyAfterMissing:true,failureRequiresUserRetry:true,selectedVoiceWithinTts:true,stages:['recording:indexeddb','tts:selected-voice','tts:device','silent']});
   api.order=['recording:indexeddb','tts:selected-voice','tts:device','silent'];
   window.SukunVoiceResolver=api;return true;
 }
@@ -63827,7 +64136,9 @@ function wrapAudio(){
   const A=window.AudioResolver;if(!A||A.play?.__r636Priority)return false;
   const old=A.play.bind(A);
   const play=async function(cat,idx,item,opt={}){
+    opt={...opt,isCurrent:window.SukunVoiceAttempt.capture(opt)};
     const own=await playOwn(cat,idx,item,opt);
+    if(!opt.isCurrent()&&!own?.blocked)return{ok:false,cancelled:true,reason:'stale-sequence'};
     if(own&&!own.fallbackAllowed)return own;
     fallbackContext(cat,idx,item,own?.reason||'recording-missing');
     return await old(cat,idx,item,opt);
@@ -63845,7 +64156,7 @@ function hookSpeechAudit(){
   const speak=function(u){const ctx=lastFallback&&Date.now()<lastFallback.until?{...lastFallback}:null;note(ctx?'tts-start':'tts-untracked',{context:ctx,text:clean(u?.text||'').slice(0,180),voice:clean(u?.voice?.name||'')});return old(u)};speak.__r637Audit=1;S.speak=speak;return true
 }
 function install(){const a=wrapResolver(),b=wrapAudio(),c=hookSpeechAudit();return a||b||c}
-window.SukunRecordingPriorityLock=Object.freeze({version:VERSION,install,find,hasOwn,candidates,audit:()=>audit.slice(-96),snapshot:()=>({version:VERSION,resolver:window.SukunVoiceResolver?.version||'',audioWrapped:!!window.AudioResolver?.play?.__r636Priority,ttsAuditWrapped:!!window.speechSynthesis?.speak?.__r637Audit,policy:'recording>tts',lastFallback:lastFallback&&Date.now()<lastFallback.until?{...lastFallback}:null,events:audit.slice(-32)})});
+window.SukunRecordingPriorityLock=Object.freeze({version:VERSION,install,find,hasOwn,candidates,audit:()=>audit.slice(-96),snapshot:()=>({version:VERSION,resolver:window.SukunVoiceResolver?.version||'',audioWrapped:!!window.AudioResolver?.play?.__r636Priority,ttsAuditWrapped:!!window.speechSynthesis?.speak?.__r637Audit,policy:'recording>missing-only-tts',lastFallback:lastFallback&&Date.now()<lastFallback.until?{...lastFallback}:null,events:audit.slice(-32)})});
 install();[80,250,700,1600].forEach(ms=>setTimeout(install,ms));
 })();
 </script>
@@ -67228,6 +67539,14 @@ function performPlayPause(source='ui'){
  return legacy('r170Play');
 }
 function playPause(source='ui'){try{return performPlayPause(source)}finally{renderUI()}}
+// r919: cancel only an obsolete queued start; leave current media ownership intact.
+function cancelPending(source='selection'){
+ ++intentEpoch;
+ pendingStart=null;
+ record('cancel-pending',{source,epoch:intentEpoch});
+ scheduleUI();
+ return true;
+}
 function stop(source='ui'){
  mark('stop',source);
  ++intentEpoch;
@@ -67336,7 +67655,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 window.SukunLifecycleHub?.onBodyClass?.(scheduleUI,{immediate:true});
 
 const snapshot=()=>Object.freeze({version:'r733',revision:'r742',cleanupFailure,commandSeq,lastCommand,lastAt,stopping,pendingStop:!!pendingStop,pendingStart:!!pendingStart,intentEpoch,journey:journey()?.kind||'',direct:directState(),restartTrace:restartTrace.map(x=>({...x}))});
-window.SukunR698Transport=Object.freeze({version:'r733',revision:'r742',journey,hasJourney:()=>!!journey(),playPause,stop,snapshot,presentation,renderUI});
+window.SukunR698Transport=Object.freeze({version:'r733',revision:'r742',journey,hasJourney:()=>!!journey(),playPause,stop,cancelPending,whenStopped:()=>pendingStop||Promise.resolve(!cleanupFailure),snapshot,presentation,renderUI});
 // Passive transport evidence: a raw native click is distinct from an accepted
 // command. Never synthesize clicks on pointerdown/cancel; native scrolling owns them.
 const TRACE_CONTROLS='#autoBtn,#r588Play,#r588Stop,#r170Play,#r170Stop';
@@ -72861,91 +73180,16 @@ window.SukunR792TefTap=Object.freeze({version:'r792',enter:()=>enter('api'),acti
 
 
 
-<script id="sukun-r798-update-recovery-authority">
-(()=>{
-'use strict';
-if(window.SukunUpdateRecoveryR798)return;
-const BUILD=document.querySelector('meta[name="sukun-build"]')?.content||'r806';
-const LATEST='./__sukun_latest__.json';
-let reg=null,busy=false,lastCheck=0,reloadOnce=false,lastLatest='',lastError='';
-function vnum(v){const m=String(v||'').match(/r(\d+)/i);return m?Number(m[1]):-1}
-function audioBusy(){
-  try{
-    if(window.FR?.playing||window.SES?.ad||window.BERHET_SEYIR?.run||window.ESMA99_SEYIR?.run)return true;
-    const a=[...document.querySelectorAll('audio')].some(x=>!x.paused&&!x.ended&&x.currentTime>0);if(a)return true;
-    const gate=window.SukunZikirTransportGate?.snapshot?.();if(gate?.playing===true)return true;
-  }catch(e){}
-  return false;
+<script id="sukun-r798-update-recovery-authority">/* r920: compatibility facade, no second activation/reload authority. */
+(()=>{'use strict';
+const BUILD=document.querySelector('meta[name="sukun-build"]')?.content||'r920';
+let latestVersion='',lastError='',lastCheck=0;
+async function check(){
+  lastCheck=Date.now();try{const response=await fetch('./__sukun_latest__.json?t='+lastCheck,{cache:'no-store'});if(!response.ok)throw Error('latest HTTP '+response.status);latestVersion=String((await response.json())?.v||'')}catch(error){lastError=String(error?.message||error)}
+  await window.SukunUpdateManager?.check?.();return snapshot();
 }
-async function latest(){
-  try{
-    const r=await fetch(LATEST+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('latest HTTP '+r.status);
-    const j=await r.json();lastLatest=String(j?.v||'');return j;
-  }catch(e){lastError=String(e?.message||e);return null}
-}
-function armReload(){try{sessionStorage.setItem('sukun.r798.reload','1')}catch(e){}}
-function consumeReload(){try{const x=sessionStorage.getItem('sukun.r798.reload')==='1';if(x)sessionStorage.removeItem('sukun.r798.reload');return x}catch(e){return false}}
-async function activateWaiting(r,reason='auto'){
-  const w=r?.waiting;if(!w)return false;
-  if(audioBusy()&&reason!=='manual')return false;
-  if(reason==='manual')armReload();
-  try{w.postMessage({type:'SKIP_WAITING'});return true}catch(e){lastError=String(e?.message||e);return false}
-}
-function watch(r,w){
-  if(!w)return;
-  const step=async()=>{
-    if(w.state==='installed'&&navigator.serviceWorker.controller){
-      if(!audioBusy())await activateWaiting(r,'auto');
-      else try{skToast('Yeni SÜKÛN sürümü hazır.','Yenile ✦',()=>{armReload();activateWaiting(r,'manual')},60000)}catch(e){}
-    }
-  };
-  w.addEventListener('statechange',step);step();
-}
-async function check(reason='auto',force=false){
-  if(!('serviceWorker' in navigator)||busy)return null;
-  const now=Date.now();if(!force&&now-lastCheck<12000)return null;lastCheck=now;busy=true;
-  try{
-    reg=reg||await navigator.serviceWorker.getRegistration('./')||await navigator.serviceWorker.ready.catch(()=>null);
-    const l=await latest();
-    try{await reg?.update?.()}catch(e){lastError=String(e?.message||e)}
-    if(reg?.installing)watch(reg,reg.installing);
-    if(reg?.waiting)await activateWaiting(reg,reason==='manual'?'manual':'auto');
-    if(l?.v&&vnum(l.v)>vnum(BUILD)&&!reg?.waiting&&!reg?.installing){
-      /* Worker CDN'e HTML'den sonra gelmiş olabilir. Kısa bir ikinci kontrol. */
-      setTimeout(()=>{try{reg?.update?.()}catch(e){}},1600);
-    }
-    return {build:BUILD,latest:l?.v||'',waiting:!!reg?.waiting,installing:!!reg?.installing,active:reg?.active?.scriptURL||''};
-  }finally{busy=false}
-}
-async function force(){
-  armReload();const x=await check('manual',true);
-  if(reg?.waiting){await activateWaiting(reg,'manual');return x}
-  /* Yeni HTML zaten ağdaysa query değiştirerek gerçek navigasyon başlat.
-     r793 worker build-aware network-first davranır. */
-  const l=await latest();
-  if(l?.v&&vnum(l.v)>vnum(BUILD)){
-    setTimeout(()=>{location.assign('./nero.html?v='+encodeURIComponent(l.v)+'&update='+Date.now())},300);
-  }else{
-    setTimeout(()=>{location.reload()},300);
-  }
-  return x;
-}
-function snapshot(){return{version:'r810',build:BUILD,latest:lastLatest,lastError,waiting:!!reg?.waiting,installing:!!reg?.installing,active:reg?.active?.scriptURL||'',audioBusy:audioBusy(),lastCheck}}
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.addEventListener('controllerchange',()=>{
-    if(reloadOnce)return;
-    const armed=consumeReload();
-    if(armed||!audioBusy()){
-      reloadOnce=true;setTimeout(()=>{try{location.reload()}catch(e){}},220);
-    }
-  });
-  addEventListener('load',()=>setTimeout(()=>check('load',true),900),{once:true});
-  addEventListener('online',()=>check('online',true),{passive:true});
-  addEventListener('pageshow',()=>check('pageshow'),{passive:true});
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden)check('visible')},{passive:true});
-  setInterval(()=>{if(!document.hidden)check('interval')},60000);
-}
-window.SukunUpdateRecoveryR798=Object.freeze({version:'r810',check:()=>check('manual',true),force,snapshot});
+function snapshot(){const state=window.SukunUpdateManager?.snapshot?.()||{};return{version:'r920',build:BUILD,latest:latestVersion,lastError,waiting:!!state.hasWaiting,audioBusy:!!state.sessionBusy,updateQueued:!!state.updateQueued,lastCheck}}
+window.SukunUpdateRecoveryR798=Object.freeze({version:'r920',check,force:async()=>{await check();return window.SukunUpdateManager?.activate?.()},snapshot});
 })();
 </script>
 <!-- r798 · Final usable Jewel UI authority -->
@@ -74216,7 +74460,7 @@ function installQuickSettings(){
 }
 
 const sceneLabels=[
-  ['auto','✦ Otomatik'],['palace','Billur Saray'],['seal','Mühr-ü Süleyman'],
+  ['auto','İsme göre otomatik'],['palace','Billur Saray'],['seal','Mühr-ü Süleyman'],
   ['wind','Rüzgâr'],['crystal','Billur Geçit'],['night','Gece Sarayı'],['hudhud','Hüdhüd Yolu']
 ];
 function installSceneQuick(){
@@ -74746,7 +74990,7 @@ html[data-r853-berhet="1"] body.sukun-zikir-tab{
 }
 #r836CounterSettings,[data-open-zikir-settings],#r679ZikirAyarBox>summary{pointer-events:auto!important;touch-action:manipulation!important;position:relative!important;z-index:20!important}
 </style>
-<script id="sukun-r853-scene-runtime">window.SukunR853Scene=Object.freeze({version:"r917",names:Object.freeze(["Berhetîhin", "Kerîrin", "Tetlîhin", "Tûrânin", "Mezcelin", "Bezcelin", "Terkabin", "Berheşin", "Galmeşin", "Hûtîrin", "Kalnehûdin", "Berşânin", "Kazhîrin", "Nemûşelahin", "Berheyûlen", "Beşkeylahin", "Kâzmezin", "Engalelîtin", "Kaberâtin", "Gayâhen", "Keydehûlen", "Şemhâhirin", "Şemhâhîrin", "Şemhâhiyerin", "Bikehtahûniyyetin", "Beşârişin", "Tûneşin", "Şemhabârûhin"]),files:Object.freeze(["scene-09-berhetihin-billur-r837.png", "../scenes/berhetiyye/02-keririn-r917.png", "../scenes/berhetiyye/03-tetlihin-r917.png", "../scenes/berhetiyye/04-turanin-r917.png", "../scenes/berhetiyye/05-mezcelin-r917.png", "../scenes/berhetiyye/06-bezcelin-r917.png", "../scenes/berhetiyye/07-terkabin-r917.png", "../scenes/berhetiyye/08-berhesin-r917.png", "../scenes/berhetiyye/09-galmesin-r917.png", "scene-10-hutirin-adalet-r837.png", "scene-11-kalnehudin-ruzgar-r837.png", "../scenes/berhetiyye/12-bersanin-r917.png", "../scenes/berhetiyye/13-kazhirin-r917.png", "../scenes/berhetiyye/14-nemuselahin-r917.png", "../scenes/berhetiyye/15-berheyulen-r917.png", "../scenes/berhetiyye/16-beskeylahin-r917.png", "../scenes/berhetiyye/17-kazmezin-r917.png", "../scenes/berhetiyye/18-engalelitin-r917.png", "../scenes/berhetiyye/19-kaberatin-r917.png", "../scenes/berhetiyye/20-gayahen-r917.png", "../scenes/berhetiyye/21-keydehulen-r917.png", "../scenes/berhetiyye/22-semhahirin-r917.png", "../scenes/berhetiyye/23-semhahirin-23-r917.png", "../scenes/berhetiyye/24-semhahiyerin-r917.png", "../scenes/berhetiyye/25-bikehtahuniyyetin-r917.png", "../scenes/berhetiyye/26-besarisin-r917.png", "../scenes/berhetiyye/27-tunesin-r917.png", "../scenes/berhetiyye/28-semhabaruhin-r917.png"]),nameScenes:Object.freeze([{"index": 0, "ordinal": 1, "name": "Berhetîhin", "sceneId": "berhet-01", "title": "Billur Sarayın Kapısı", "asset": "assets/berhetiyye-premium/scene-09-berhetihin-billur-r837.png", "protected": true, "color": "Safir", "element": "Su ve nur", "symbol": "Kapı", "space": "Billur saray", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "7f0beb32df56aae4544960c39fe4851a48bde9f7eb9e29b92299c2dbf6777af0"}, {"index": 1, "ordinal": 2, "name": "Kerîrin", "sceneId": "berhet-02", "title": "Süleyman’ın Tevhid Ufku", "asset": "assets/scenes/berhetiyye/02-keririn-r917.png", "protected": false, "color": "Lacivert", "element": "Rüzgâr", "symbol": "Ufuk", "space": "Yüksek teras", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "59da9ade762fdd59d76754441654e2baa393747ede31fc96ea032f163c216248"}, {"index": 2, "ordinal": 3, "name": "Tetlîhin", "sceneId": "berhet-03", "title": "Mührün Muhafız Odası", "asset": "assets/scenes/berhetiyye/03-tetlihin-r917.png", "protected": false, "color": "Gümüş-safir", "element": "Nur", "symbol": "Mühür", "space": "Muhafız odası", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "e0327a4abefa5607b763d7e3c3c2b1c2ee6e30268395c8cd9263bbfbd355ec9f"}, {"index": 3, "ordinal": 4, "name": "Tûrânin", "sceneId": "berhet-04", "title": "Billur Şelale", "asset": "assets/scenes/berhetiyye/04-turanin-r917.png", "protected": false, "color": "Turkuaz", "element": "Su", "symbol": "Şelale", "space": "Bahçe terasları", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "5e3acfae73ea51151696ad4dd4c3e00b0532cb724b4eb40edd24a27ee9c1d51f"}, {"index": 4, "ordinal": 5, "name": "Mezcelin", "sceneId": "berhet-05", "title": "Sarayın Kozmik Mekanizması", "asset": "assets/scenes/berhetiyye/05-mezcelin-r917.png", "protected": false, "color": "Ametist", "element": "Hava", "symbol": "Göksel halkalar", "space": "Kozmik gözlemevi", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "e830a3f29271e20ffef727c5fe90478f83eae1b186592a312441125d5c82aa0f"}, {"index": 5, "ordinal": 6, "name": "Bezcelin", "sceneId": "berhet-06", "title": "Süleyman ile Belkıs’ın Bahçesi", "asset": "assets/scenes/berhetiyye/06-bezcelin-r917.png", "protected": false, "color": "Zümrüt", "element": "Su", "symbol": "Birlikte yürüyüş", "space": "Saray bahçesi", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "8fb6f0d950f16375a7cc7c093fb4c34749fd2e76195f3817eae8639f40d26c93"}, {"index": 6, "ordinal": 7, "name": "Terkabin", "sceneId": "berhet-07", "title": "İki Âlemin Birleşen Revakı", "asset": "assets/scenes/berhetiyye/07-terkabin-r917.png", "protected": false, "color": "Safir-ametist", "element": "Hava", "symbol": "Birleşen yollar", "space": "Revak", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "efeff1902eaae6462ff7a9dd3eea0d1ca3718760c6c2f70622723bbd81ca6095"}, {"index": 7, "ordinal": 8, "name": "Berheşin", "sceneId": "berhet-08", "title": "Basiret Aynası", "asset": "assets/scenes/berhetiyye/08-berhesin-r917.png", "protected": false, "color": "Mor", "element": "Nur", "symbol": "Ayna", "space": "Kristal salon", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "4ed194f854ec76430152687c105b728b90dc12bb3fd2c5538c8453f09096eda3"}, {"index": 8, "ordinal": 9, "name": "Galmeşin", "sceneId": "berhet-09", "title": "Sebe’nin İhtişamı", "asset": "assets/scenes/berhetiyye/09-galmesin-r917.png", "protected": false, "color": "Altın-topaz", "element": "Su", "symbol": "Şehir", "space": "Sebe bahçeleri", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "0f016279492398fdb3c6cc0df8b5c92834b69cda2b041e71c3598ae73309b8fa"}, {"index": 9, "ordinal": 10, "name": "Hûtîrin", "sceneId": "berhet-10", "title": "Adalet ve Mühür", "asset": "assets/berhetiyye-premium/scene-10-hutirin-adalet-r837.png", "protected": true, "color": "Yakut-lacivert", "element": "Nur", "symbol": "Mühür ve asâ", "space": "Adalet salonu", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "b7dd9cdd47cb753ee0d90f36a779c81bfcf0221214d158046c72a590f7372925"}, {"index": 10, "ordinal": 11, "name": "Kalnehûdin", "sceneId": "berhet-11", "title": "Rüzgâr ve Hüdhüd", "asset": "assets/berhetiyye-premium/scene-11-kalnehudin-ruzgar-r837.png", "protected": true, "color": "Safir", "element": "Rüzgâr", "symbol": "Hüdhüd", "space": "Ay ışıklı teras", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "339d0488351e96cbddb92575860443c63bb9bfe4cfa866348c4922d3df6e9e3d"}, {"index": 11, "ordinal": 12, "name": "Berşânin", "sceneId": "berhet-12", "title": "Hüdhüd’ün Sebe’yi Keşfi", "asset": "assets/scenes/berhetiyye/12-bersanin-r917.png", "protected": false, "color": "Topaz-turkuaz", "element": "Hava", "symbol": "Hüdhüd", "space": "Sebe üstü balkon", "layer": "Anlatıdan ilham", "note": "Hüdhüd ve Sebe temasından esinlenen sanatsal yorum.", "sha256": "5a2f2cbc941e40619372909d1add96c08c5a4f5a73d0d33f5bc040974a1b86d4"}, {"index": 12, "ordinal": 13, "name": "Kazhîrin", "sceneId": "berhet-13", "title": "Rüzgârlara Hükmeden Hükümdar", "asset": "assets/scenes/berhetiyye/13-kazhirin-r917.png", "protected": false, "color": "Gümüş-lacivert", "element": "Rüzgâr", "symbol": "Dalgalanan pelerin", "space": "Yüksek teras", "layer": "Anlatıdan ilham", "note": "Rüzgâr teması, sinematik ve sembolik bir mekânla yorumlanır.", "sha256": "3edec5d4eb89c7aa631ac63b8872a7571e614983b217c915a3780f7aeb2a6008"}, {"index": 13, "ordinal": 14, "name": "Nemûşelahin", "sceneId": "berhet-14", "title": "Billur Taht Salonu", "asset": "assets/scenes/berhetiyye/14-nemuselahin-r917.png", "protected": false, "color": "İnci-altın", "element": "Nur", "symbol": "Boş taht", "space": "Taht salonu", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "9ea0eb36582900bf95ec245b87af0a2118ed746af0e127a838710d289d93249b"}, {"index": 14, "ordinal": 15, "name": "Berheyûlen", "sceneId": "berhet-15", "title": "Süleyman’ın Duası", "asset": "assets/scenes/berhetiyye/15-berheyulen-r917.png", "protected": false, "color": "Safir-altın", "element": "Nur", "symbol": "Dua", "space": "Saray terası", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "33c5ab81e46bd2361b9ca73a7e4a10fb9c0255074fc6729a829b6599b0fe960d"}, {"index": 15, "ordinal": 16, "name": "Beşkeylahin", "sceneId": "berhet-16", "title": "Emniyet Kubbesi", "asset": "assets/scenes/berhetiyye/16-beskeylahin-r917.png", "protected": false, "color": "Gece mavisi", "element": "Su", "symbol": "Kubbe", "space": "Korunan şehir", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "1578589cc5de06786230cd066f358abd5ecb15bafa41fdbeacdceb81444ebd0f"}, {"index": 16, "ordinal": 17, "name": "Kâzmezin", "sceneId": "berhet-17", "title": "Karıncalar Vadisi", "asset": "assets/scenes/berhetiyye/17-kazmezin-r917.png", "protected": false, "color": "Zümrüt", "element": "Toprak", "symbol": "Karınca yolu", "space": "Vadi", "layer": "Anlatıdan ilham", "note": "Karıncanın sözünü işitme temasında dikkat ve tevazu öne çıkar.", "sha256": "5fc85f779737384eaedb353573f8b09efc92c01947134b034c22110ac8946023"}, {"index": 17, "ordinal": 18, "name": "Engalelîtin", "sceneId": "berhet-18", "title": "Karıncanın Fısıltısı", "asset": "assets/scenes/berhetiyye/18-engalelitin-r917.png", "protected": false, "color": "Kehribar-yeşil", "element": "Toprak", "symbol": "Karınca kolonisi", "space": "Yosunlu taş", "layer": "Anlatıdan ilham", "note": "Karıncanın sözünü işitme temasının yakın plan sanatsal yorumu.", "sha256": "47baaee38c0cf2cdf4e9ac2592a497d629abdb7ad6d18e7b73bb5644a206c0c3"}, {"index": 18, "ordinal": 19, "name": "Kaberâtin", "sceneId": "berhet-19", "title": "Fanilik Salonu", "asset": "assets/scenes/berhetiyye/19-kaberatin-r917.png", "protected": false, "color": "Dumanlı kuvars", "element": "Toprak", "symbol": "Bırakılmış taç", "space": "Fanilik salonu", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "8aa2099bfbf1958eae6d84b48501ed2533435a4dd9461dc18cbdf94a8aff1784"}, {"index": 19, "ordinal": 20, "name": "Gayâhen", "sceneId": "berhet-20", "title": "Sebe Kraliçesinin Tahtı", "asset": "assets/scenes/berhetiyye/20-gayahen-r917.png", "protected": false, "color": "Yakut", "element": "Su", "symbol": "Kraliçenin tahtı", "space": "Sebe sarayı", "layer": "Anlatıdan ilham", "note": "Sebe kraliçesinin tahtı, kurgusal mimariyle tasvir edilir.", "sha256": "a3cdd619f3ba5c9d278346cdbc5e4889a78fdcc9fe1c129bb9434e051b1df610"}, {"index": 20, "ordinal": 21, "name": "Keydehûlen", "sceneId": "berhet-21", "title": "İlim Sahibi Zât – Tahtın Getirilmesi", "asset": "assets/scenes/berhetiyye/21-keydehulen-r917.png", "protected": false, "color": "Beyaz-safir", "element": "Nur", "symbol": "Taht", "space": "Billur avlu", "layer": "Anlatıdan ilham", "note": "Kitaptan bir ilme sahip olan kimse teması. Gelenekte Âsaf b. Berahyâ ile ilişkilendirilir; görsel kimlik tespiti yapmaz.", "sha256": "34fdf6b46891b4697f41bedeb0dbdf05114e07f9a2b6bca314cdb41635c078c8"}, {"index": 21, "ordinal": 22, "name": "Şemhâhirin", "sceneId": "berhet-22", "title": "İlim Sahibi Zât", "asset": "assets/scenes/berhetiyye/22-semhahirin-r917.png", "protected": false, "color": "Ametist", "element": "Nur", "symbol": "Kitap", "space": "Sırlar kütüphanesi", "layer": "Sembolik yorum", "note": "İlim, kitap ve billur geometrilerle anlatılır; kişi anonimdir.", "sha256": "e90dbe2984fa68dea7a3e7a872f4f3c5b63d4e5c68013ee42bdf17ccaee318a6"}, {"index": 22, "ordinal": 23, "name": "Şemhâhîrin", "sceneId": "berhet-23", "title": "Uçan Halı – Rüzgâr Ordusu", "asset": "assets/scenes/berhetiyye/23-semhahirin-23-r917.png", "protected": false, "color": "Azur", "element": "Rüzgâr", "symbol": "Halı", "space": "Bulutların üstü", "layer": "Rivayet katmanı", "note": "Uçan halı motifi, geleneksel anlatıdan esinlenen sanatsal kurgudur.", "sha256": "53eaab373e1bc6b028f256ed80345219442558010f70fdc0340c06aac295c2f6"}, {"index": 23, "ordinal": 24, "name": "Şemhâhiyerin", "sceneId": "berhet-24", "title": "Süleyman’ın Mektubu", "asset": "assets/scenes/berhetiyye/24-semhahiyerin-r917.png", "protected": false, "color": "Fildişi-lapis", "element": "Hava", "symbol": "Mektup ve Hüdhüd", "space": "Yazı masası", "layer": "Anlatıdan ilham", "note": "Mektup ve Besmele temasından esinlenen sanatsal yorum.", "sha256": "233fd4f766a3d6b84e4075b52556490ca50a75f99e45fc3eb20cc4e77153c135"}, {"index": 24, "ordinal": 25, "name": "Bikehtahûniyyetin", "sceneId": "berhet-25", "title": "Ayasofya Altındaki Billur Kale", "asset": "assets/scenes/berhetiyye/25-bikehtahuniyyetin-r917.png", "protected": false, "color": "Turkuaz-altın", "element": "Su", "symbol": "Ayasofya", "space": "Yeraltı billur kalesi", "layer": "Sembolik kurgu", "note": "Ayasofya altındaki billur yapı bütünüyle hayalîdir.", "sha256": "17b055f7571bfdde918c9c0a4314ffe47c83e1a6bd51bf6240d7277da5161874"}, {"index": 25, "ordinal": 26, "name": "Beşârişin", "sceneId": "berhet-26", "title": "İfrit ve Yüzüğün İmtihanı", "asset": "assets/scenes/berhetiyye/26-besarisin-r917.png", "protected": false, "color": "Obsidyen-yakut", "element": "Gölge ve nur", "symbol": "Yüzük", "space": "Çözülen saray", "layer": "Rivayet katmanı", "note": "Yüzüğün ele geçirilmesi motifi sonraki rivayet geleneğine aittir; tahtı getirmeyi teklif eden ifrit anlatısıyla özdeşleştirilmez.", "sha256": "11503cb1a226cf374ffd2f7c2f06747b709c2531b5e9af8521f5bd8f15952b6d"}, {"index": 26, "ordinal": 27, "name": "Tûneşin", "sceneId": "berhet-27", "title": "Mülkün İadesi ve Şükür", "asset": "assets/scenes/berhetiyye/27-tunesin-r917.png", "protected": false, "color": "Beyaz-altın", "element": "Nur", "symbol": "Yüzük ve şükür", "space": "Şafak terası", "layer": "Rivayet ve sembol", "note": "Yüzük motifi rivayet katmanında, şükür ise sembolik anlatımdadır.", "sha256": "297231035f4fc8bc91655fadaffdf53f5d5196948df51a85407a0ef7015e3239"}, {"index": 27, "ordinal": 28, "name": "Şemhabârûhin", "sceneId": "berhet-28", "title": "Sükûn’un Son Kapısı", "asset": "assets/scenes/berhetiyye/28-semhabaruhin-r917.png", "protected": false, "color": "Beyaz-altın", "element": "Nur", "symbol": "Açılan kapı", "space": "Son menzil", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "2e70d008d464de90d04a87836b842ac8cb40b6b2f8b51a8bfba40d2246dc6aaf"}].map(Object.freeze)),sync:()=>window.SukunR916Visual?.sync?.()});</script>
+<script id="sukun-r853-scene-runtime">window.SukunR853Scene=Object.freeze({version:"r918",names:Object.freeze(["Berhetîhin", "Kerîrin", "Tetlîhin", "Tûrânin", "Mezcelin", "Bezcelin", "Terkabin", "Berheşin", "Galmeşin", "Hûtîrin", "Kalnehûdin", "Berşânin", "Kazhîrin", "Nemûşelahin", "Berheyûlen", "Beşkeylahin", "Kâzmezin", "Engalelîtin", "Kaberâtin", "Gayâhen", "Keydehûlen", "Şemhâhirin", "Şemhâhîrin", "Şemhâhiyerin", "Bikehtahûniyyetin", "Beşârişin", "Tûneşin", "Şemhabârûhin"]),files:Object.freeze(["scene-09-berhetihin-billur-r837.png", "../scenes/berhetiyye/02-keririn-r917.png", "../scenes/berhetiyye/03-tetlihin-r917.png", "../scenes/berhetiyye/04-turanin-r917.png", "../scenes/berhetiyye/05-mezcelin-r917.png", "../scenes/berhetiyye/06-bezcelin-r917.png", "../scenes/berhetiyye/07-terkabin-r917.png", "../scenes/berhetiyye/08-berhesin-r917.png", "../scenes/berhetiyye/09-galmesin-r917.png", "scene-10-hutirin-adalet-r837.png", "scene-11-kalnehudin-ruzgar-r837.png", "../scenes/berhetiyye/12-bersanin-r917.png", "../scenes/berhetiyye/13-kazhirin-r917.png", "../scenes/berhetiyye/14-nemuselahin-r917.png", "../scenes/berhetiyye/15-berheyulen-r917.png", "../scenes/berhetiyye/16-beskeylahin-r917.png", "../scenes/berhetiyye/17-kazmezin-r917.png", "../scenes/berhetiyye/18-engalelitin-r917.png", "../scenes/berhetiyye/19-kaberatin-r917.png", "../scenes/berhetiyye/20-gayahen-r917.png", "../scenes/berhetiyye/21-keydehulen-r917.png", "../scenes/berhetiyye/22-semhahirin-r917.png", "../scenes/berhetiyye/23-semhahirin-23-r917.png", "../scenes/berhetiyye/24-semhahiyerin-r917.png", "../scenes/berhetiyye/25-bikehtahuniyyetin-r917.png", "../scenes/berhetiyye/26-besarisin-r917.png", "../scenes/berhetiyye/27-tunesin-r917.png", "../scenes/berhetiyye/28-semhabaruhin-r917.png"]),nameScenes:Object.freeze([{"index": 0, "ordinal": 1, "name": "Berhetîhin", "sceneId": "berhet-01", "title": "Billur Sarayın Kapısı", "asset": "assets/berhetiyye-premium/scene-09-berhetihin-billur-r837.png", "protected": true, "color": "Safir", "element": "Su ve nur", "symbol": "Kapı", "space": "Billur saray", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "7f0beb32df56aae4544960c39fe4851a48bde9f7eb9e29b92299c2dbf6777af0", "runtimeAsset": "assets/scenes/mobile-r918/berhet-01.webp"}, {"index": 1, "ordinal": 2, "name": "Kerîrin", "sceneId": "berhet-02", "title": "Süleyman’ın Tevhid Ufku", "asset": "assets/scenes/berhetiyye/02-keririn-r917.png", "protected": false, "color": "Lacivert", "element": "Rüzgâr", "symbol": "Ufuk", "space": "Yüksek teras", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "59da9ade762fdd59d76754441654e2baa393747ede31fc96ea032f163c216248", "runtimeAsset": "assets/scenes/mobile-r918/berhet-02.webp"}, {"index": 2, "ordinal": 3, "name": "Tetlîhin", "sceneId": "berhet-03", "title": "Mührün Muhafız Odası", "asset": "assets/scenes/berhetiyye/03-tetlihin-r917.png", "protected": false, "color": "Gümüş-safir", "element": "Nur", "symbol": "Mühür", "space": "Muhafız odası", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "e0327a4abefa5607b763d7e3c3c2b1c2ee6e30268395c8cd9263bbfbd355ec9f", "runtimeAsset": "assets/scenes/mobile-r918/berhet-03.webp"}, {"index": 3, "ordinal": 4, "name": "Tûrânin", "sceneId": "berhet-04", "title": "Billur Şelale", "asset": "assets/scenes/berhetiyye/04-turanin-r917.png", "protected": false, "color": "Turkuaz", "element": "Su", "symbol": "Şelale", "space": "Bahçe terasları", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "5e3acfae73ea51151696ad4dd4c3e00b0532cb724b4eb40edd24a27ee9c1d51f", "runtimeAsset": "assets/scenes/mobile-r918/berhet-04.webp"}, {"index": 4, "ordinal": 5, "name": "Mezcelin", "sceneId": "berhet-05", "title": "Sarayın Kozmik Mekanizması", "asset": "assets/scenes/berhetiyye/05-mezcelin-r917.png", "protected": false, "color": "Ametist", "element": "Hava", "symbol": "Göksel halkalar", "space": "Kozmik gözlemevi", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "e830a3f29271e20ffef727c5fe90478f83eae1b186592a312441125d5c82aa0f", "runtimeAsset": "assets/scenes/mobile-r918/berhet-05.webp"}, {"index": 5, "ordinal": 6, "name": "Bezcelin", "sceneId": "berhet-06", "title": "Süleyman ile Belkıs’ın Bahçesi", "asset": "assets/scenes/berhetiyye/06-bezcelin-r917.png", "protected": false, "color": "Zümrüt", "element": "Su", "symbol": "Birlikte yürüyüş", "space": "Saray bahçesi", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "8fb6f0d950f16375a7cc7c093fb4c34749fd2e76195f3817eae8639f40d26c93", "runtimeAsset": "assets/scenes/mobile-r918/berhet-06.webp"}, {"index": 6, "ordinal": 7, "name": "Terkabin", "sceneId": "berhet-07", "title": "İki Âlemin Birleşen Revakı", "asset": "assets/scenes/berhetiyye/07-terkabin-r917.png", "protected": false, "color": "Safir-ametist", "element": "Hava", "symbol": "Birleşen yollar", "space": "Revak", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "efeff1902eaae6462ff7a9dd3eea0d1ca3718760c6c2f70622723bbd81ca6095", "runtimeAsset": "assets/scenes/mobile-r918/berhet-07.webp"}, {"index": 7, "ordinal": 8, "name": "Berheşin", "sceneId": "berhet-08", "title": "Basiret Aynası", "asset": "assets/scenes/berhetiyye/08-berhesin-r917.png", "protected": false, "color": "Mor", "element": "Nur", "symbol": "Ayna", "space": "Kristal salon", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "4ed194f854ec76430152687c105b728b90dc12bb3fd2c5538c8453f09096eda3", "runtimeAsset": "assets/scenes/mobile-r918/berhet-08.webp"}, {"index": 8, "ordinal": 9, "name": "Galmeşin", "sceneId": "berhet-09", "title": "Sebe’nin İhtişamı", "asset": "assets/scenes/berhetiyye/09-galmesin-r917.png", "protected": false, "color": "Altın-topaz", "element": "Su", "symbol": "Şehir", "space": "Sebe bahçeleri", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "0f016279492398fdb3c6cc0df8b5c92834b69cda2b041e71c3598ae73309b8fa", "runtimeAsset": "assets/scenes/mobile-r918/berhet-09.webp"}, {"index": 9, "ordinal": 10, "name": "Hûtîrin", "sceneId": "berhet-10", "title": "Adalet ve Mühür", "asset": "assets/berhetiyye-premium/scene-10-hutirin-adalet-r837.png", "protected": true, "color": "Yakut-lacivert", "element": "Nur", "symbol": "Mühür ve asâ", "space": "Adalet salonu", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "b7dd9cdd47cb753ee0d90f36a779c81bfcf0221214d158046c72a590f7372925", "runtimeAsset": "assets/scenes/mobile-r918/berhet-10.webp"}, {"index": 10, "ordinal": 11, "name": "Kalnehûdin", "sceneId": "berhet-11", "title": "Rüzgâr ve Hüdhüd", "asset": "assets/berhetiyye-premium/scene-11-kalnehudin-ruzgar-r837.png", "protected": true, "color": "Safir", "element": "Rüzgâr", "symbol": "Hüdhüd", "space": "Ay ışıklı teras", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "339d0488351e96cbddb92575860443c63bb9bfe4cfa866348c4922d3df6e9e3d", "runtimeAsset": "assets/scenes/mobile-r918/berhet-11.webp"}, {"index": 11, "ordinal": 12, "name": "Berşânin", "sceneId": "berhet-12", "title": "Hüdhüd’ün Sebe’yi Keşfi", "asset": "assets/scenes/berhetiyye/12-bersanin-r917.png", "protected": false, "color": "Topaz-turkuaz", "element": "Hava", "symbol": "Hüdhüd", "space": "Sebe üstü balkon", "layer": "Anlatıdan ilham", "note": "Hüdhüd ve Sebe temasından esinlenen sanatsal yorum.", "sha256": "5a2f2cbc941e40619372909d1add96c08c5a4f5a73d0d33f5bc040974a1b86d4", "runtimeAsset": "assets/scenes/mobile-r918/berhet-12.webp"}, {"index": 12, "ordinal": 13, "name": "Kazhîrin", "sceneId": "berhet-13", "title": "Rüzgârlara Hükmeden Hükümdar", "asset": "assets/scenes/berhetiyye/13-kazhirin-r917.png", "protected": false, "color": "Gümüş-lacivert", "element": "Rüzgâr", "symbol": "Dalgalanan pelerin", "space": "Yüksek teras", "layer": "Anlatıdan ilham", "note": "Rüzgâr teması, sinematik ve sembolik bir mekânla yorumlanır.", "sha256": "3edec5d4eb89c7aa631ac63b8872a7571e614983b217c915a3780f7aeb2a6008", "runtimeAsset": "assets/scenes/mobile-r918/berhet-13.webp"}, {"index": 13, "ordinal": 14, "name": "Nemûşelahin", "sceneId": "berhet-14", "title": "Billur Taht Salonu", "asset": "assets/scenes/berhetiyye/14-nemuselahin-r917.png", "protected": false, "color": "İnci-altın", "element": "Nur", "symbol": "Boş taht", "space": "Taht salonu", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "9ea0eb36582900bf95ec245b87af0a2118ed746af0e127a838710d289d93249b", "runtimeAsset": "assets/scenes/mobile-r918/berhet-14.webp"}, {"index": 14, "ordinal": 15, "name": "Berheyûlen", "sceneId": "berhet-15", "title": "Süleyman’ın Duası", "asset": "assets/scenes/berhetiyye/15-berheyulen-r917.png", "protected": false, "color": "Safir-altın", "element": "Nur", "symbol": "Dua", "space": "Saray terası", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "33c5ab81e46bd2361b9ca73a7e4a10fb9c0255074fc6729a829b6599b0fe960d", "runtimeAsset": "assets/scenes/mobile-r918/berhet-15.webp"}, {"index": 15, "ordinal": 16, "name": "Beşkeylahin", "sceneId": "berhet-16", "title": "Emniyet Kubbesi", "asset": "assets/scenes/berhetiyye/16-beskeylahin-r917.png", "protected": false, "color": "Gece mavisi", "element": "Su", "symbol": "Kubbe", "space": "Korunan şehir", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "1578589cc5de06786230cd066f358abd5ecb15bafa41fdbeacdceb81444ebd0f", "runtimeAsset": "assets/scenes/mobile-r918/berhet-16.webp"}, {"index": 16, "ordinal": 17, "name": "Kâzmezin", "sceneId": "berhet-17", "title": "Karıncalar Vadisi", "asset": "assets/scenes/berhetiyye/17-kazmezin-r917.png", "protected": false, "color": "Zümrüt", "element": "Toprak", "symbol": "Karınca yolu", "space": "Vadi", "layer": "Anlatıdan ilham", "note": "Karıncanın sözünü işitme temasında dikkat ve tevazu öne çıkar.", "sha256": "5fc85f779737384eaedb353573f8b09efc92c01947134b034c22110ac8946023", "runtimeAsset": "assets/scenes/mobile-r918/berhet-17.webp"}, {"index": 17, "ordinal": 18, "name": "Engalelîtin", "sceneId": "berhet-18", "title": "Karıncanın Fısıltısı", "asset": "assets/scenes/berhetiyye/18-engalelitin-r917.png", "protected": false, "color": "Kehribar-yeşil", "element": "Toprak", "symbol": "Karınca kolonisi", "space": "Yosunlu taş", "layer": "Anlatıdan ilham", "note": "Karıncanın sözünü işitme temasının yakın plan sanatsal yorumu.", "sha256": "47baaee38c0cf2cdf4e9ac2592a497d629abdb7ad6d18e7b73bb5644a206c0c3", "runtimeAsset": "assets/scenes/mobile-r918/berhet-18.webp"}, {"index": 18, "ordinal": 19, "name": "Kaberâtin", "sceneId": "berhet-19", "title": "Fanilik Salonu", "asset": "assets/scenes/berhetiyye/19-kaberatin-r917.png", "protected": false, "color": "Dumanlı kuvars", "element": "Toprak", "symbol": "Bırakılmış taç", "space": "Fanilik salonu", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "8aa2099bfbf1958eae6d84b48501ed2533435a4dd9461dc18cbdf94a8aff1784", "runtimeAsset": "assets/scenes/mobile-r918/berhet-19.webp"}, {"index": 19, "ordinal": 20, "name": "Gayâhen", "sceneId": "berhet-20", "title": "Sebe Kraliçesinin Tahtı", "asset": "assets/scenes/berhetiyye/20-gayahen-r917.png", "protected": false, "color": "Yakut", "element": "Su", "symbol": "Kraliçenin tahtı", "space": "Sebe sarayı", "layer": "Anlatıdan ilham", "note": "Sebe kraliçesinin tahtı, kurgusal mimariyle tasvir edilir.", "sha256": "a3cdd619f3ba5c9d278346cdbc5e4889a78fdcc9fe1c129bb9434e051b1df610", "runtimeAsset": "assets/scenes/mobile-r918/berhet-20.webp"}, {"index": 20, "ordinal": 21, "name": "Keydehûlen", "sceneId": "berhet-21", "title": "İlim Sahibi Zât – Tahtın Getirilmesi", "asset": "assets/scenes/berhetiyye/21-keydehulen-r917.png", "protected": false, "color": "Beyaz-safir", "element": "Nur", "symbol": "Taht", "space": "Billur avlu", "layer": "Anlatıdan ilham", "note": "Kitaptan bir ilme sahip olan kimse teması. Gelenekte Âsaf b. Berahyâ ile ilişkilendirilir; görsel kimlik tespiti yapmaz.", "sha256": "34fdf6b46891b4697f41bedeb0dbdf05114e07f9a2b6bca314cdb41635c078c8", "runtimeAsset": "assets/scenes/mobile-r918/berhet-21.webp"}, {"index": 21, "ordinal": 22, "name": "Şemhâhirin", "sceneId": "berhet-22", "title": "İlim Sahibi Zât", "asset": "assets/scenes/berhetiyye/22-semhahirin-r917.png", "protected": false, "color": "Ametist", "element": "Nur", "symbol": "Kitap", "space": "Sırlar kütüphanesi", "layer": "Sembolik yorum", "note": "İlim, kitap ve billur geometrilerle anlatılır; kişi anonimdir.", "sha256": "e90dbe2984fa68dea7a3e7a872f4f3c5b63d4e5c68013ee42bdf17ccaee318a6", "runtimeAsset": "assets/scenes/mobile-r918/berhet-22.webp"}, {"index": 22, "ordinal": 23, "name": "Şemhâhîrin", "sceneId": "berhet-23", "title": "Uçan Halı – Rüzgâr Ordusu", "asset": "assets/scenes/berhetiyye/23-semhahirin-23-r917.png", "protected": false, "color": "Azur", "element": "Rüzgâr", "symbol": "Halı", "space": "Bulutların üstü", "layer": "Rivayet katmanı", "note": "Uçan halı motifi, geleneksel anlatıdan esinlenen sanatsal kurgudur.", "sha256": "53eaab373e1bc6b028f256ed80345219442558010f70fdc0340c06aac295c2f6", "runtimeAsset": "assets/scenes/mobile-r918/berhet-23.webp"}, {"index": 23, "ordinal": 24, "name": "Şemhâhiyerin", "sceneId": "berhet-24", "title": "Süleyman’ın Mektubu", "asset": "assets/scenes/berhetiyye/24-semhahiyerin-r917.png", "protected": false, "color": "Fildişi-lapis", "element": "Hava", "symbol": "Mektup ve Hüdhüd", "space": "Yazı masası", "layer": "Anlatıdan ilham", "note": "Mektup ve Besmele temasından esinlenen sanatsal yorum.", "sha256": "233fd4f766a3d6b84e4075b52556490ca50a75f99e45fc3eb20cc4e77153c135", "runtimeAsset": "assets/scenes/mobile-r918/berhet-24.webp"}, {"index": 24, "ordinal": 25, "name": "Bikehtahûniyyetin", "sceneId": "berhet-25", "title": "Ayasofya Altındaki Billur Kale", "asset": "assets/scenes/berhetiyye/25-bikehtahuniyyetin-r917.png", "protected": false, "color": "Turkuaz-altın", "element": "Su", "symbol": "Ayasofya", "space": "Yeraltı billur kalesi", "layer": "Sembolik kurgu", "note": "Ayasofya altındaki billur yapı bütünüyle hayalîdir.", "sha256": "17b055f7571bfdde918c9c0a4314ffe47c83e1a6bd51bf6240d7277da5161874", "runtimeAsset": "assets/scenes/mobile-r918/berhet-25.webp"}, {"index": 25, "ordinal": 26, "name": "Beşârişin", "sceneId": "berhet-26", "title": "İfrit ve Yüzüğün İmtihanı", "asset": "assets/scenes/berhetiyye/26-besarisin-r917.png", "protected": false, "color": "Obsidyen-yakut", "element": "Gölge ve nur", "symbol": "Yüzük", "space": "Çözülen saray", "layer": "Rivayet katmanı", "note": "Yüzüğün ele geçirilmesi motifi sonraki rivayet geleneğine aittir; tahtı getirmeyi teklif eden ifrit anlatısıyla özdeşleştirilmez.", "sha256": "11503cb1a226cf374ffd2f7c2f06747b709c2531b5e9af8521f5bd8f15952b6d", "runtimeAsset": "assets/scenes/mobile-r918/berhet-26.webp"}, {"index": 26, "ordinal": 27, "name": "Tûneşin", "sceneId": "berhet-27", "title": "Mülkün İadesi ve Şükür", "asset": "assets/scenes/berhetiyye/27-tunesin-r917.png", "protected": false, "color": "Beyaz-altın", "element": "Nur", "symbol": "Yüzük ve şükür", "space": "Şafak terası", "layer": "Rivayet ve sembol", "note": "Yüzük motifi rivayet katmanında, şükür ise sembolik anlatımdadır.", "sha256": "297231035f4fc8bc91655fadaffdf53f5d5196948df51a85407a0ef7015e3239", "runtimeAsset": "assets/scenes/mobile-r918/berhet-27.webp"}, {"index": 27, "ordinal": 28, "name": "Şemhabârûhin", "sceneId": "berhet-28", "title": "Sükûn’un Son Kapısı", "asset": "assets/scenes/berhetiyye/28-semhabaruhin-r917.png", "protected": false, "color": "Beyaz-altın", "element": "Nur", "symbol": "Açılan kapı", "space": "Son menzil", "layer": "Sembolik yorum", "note": "İsim için hazırlanmış sanatsal sahne; tarihsel olay veya kişi betimlemesi iddiası taşımaz.", "sha256": "2e70d008d464de90d04a87836b842ac8cb40b6b2f8b51a8bfba40d2246dc6aaf", "runtimeAsset": "assets/scenes/mobile-r918/berhet-28.webp"}].map(Object.freeze)),sync:()=>window.SukunR916Visual?.sync?.()});</script>
 
 
 
@@ -75365,7 +75609,7 @@ function choose(k){if(!map[k]&&k!=='single'||k==='28'&&!permitted())return false
 function ensure(){if(host?.isConnected)return host;
  const row=document.querySelector('.zCounterRow');if(!row)return null;
  host=$('r883JourneyRemote')||document.createElement('section');host.id='r883JourneyRemote';host.setAttribute('aria-label','Zikir ve seyir sayacı');
- host.innerHTML='<div class="r883Tabs" role="tablist" aria-label="Sayaç türü"><button class="r883Tab" data-k="single" role="tab">Tekil Zikir</button><button class="r883Tab" data-k="99" role="tab">99 Esmâ</button><button class="r883Tab" data-k="28" role="tab" hidden>28 Berhetiyye</button></div><div class="r883Head"><div class="r883Title"></div><div class="r883State" aria-live="polite"></div></div><div class="r884WheelWrap"><div class="r884WheelDisc" aria-hidden="true"></div><div class="r884WheelCore"><div class="r884WheelName"></div><div class="r884WheelCount">0</div><div class="r884WheelSub"></div></div></div><div class="r916Stats"><div><span>HEDEF</span><b data-stat="target">0</b></div><div><span>KALAN</span><b data-stat="left">0</b></div></div><div class="r883Grid"></div><details class="r916Settings"><summary>Seyir ayarları</summary><div class="r916SettingsBody"></div></details><div class="r916WheelChoice"><label>Çark görünümü<select id="r916WheelChoice"><option value="crystal">Kristal Taç</option><option value="seal">Süleyman Mührü</option><option value="pearls">İnci Halkası</option></select></label><label>Sahne<select id="r916SceneChoice"><option value="auto">İsme göre otomatik</option><option value="palace">Billur Saray</option><option value="seal">Mühr-ü Süleyman</option><option value="wind">Rüzgâr</option><option value="crystal">Billur Geçit</option><option value="night">Gece Sarayı</option><option value="hudhud">Hüdhüd Yolu</option></select></label></div>';
+ host.innerHTML='<div class="r883Tabs" role="tablist" aria-label="Sayaç türü"><button class="r883Tab" data-k="single" role="tab">Tekil Zikir</button><button class="r883Tab" data-k="99" role="tab">99 Esmâ</button><button class="r883Tab" data-k="28" role="tab" hidden>28 Berhetiyye</button></div><div class="r883Head"><div class="r883Title"></div><div class="r883State" aria-live="polite"></div></div><div class="r884WheelWrap"><div class="r884WheelDisc" aria-hidden="true"></div><div class="r884WheelCore"><div class="r884WheelName"></div><div class="r884WheelCount">0</div><div class="r884WheelSub"></div></div></div><div class="r916Stats"><div><span><svg class="r918StatIcon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>HEDEF</span><b data-stat="target">0</b></div><div><span><svg class="r918StatIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3v4l10 10v4M17 3v4L7 17v4"/></svg>KALAN</span><b data-stat="left">0</b></div></div><div class="r883Grid"></div><details class="r916Settings"><summary>Seyir ayarları</summary><div class="r916SettingsBody"></div></details><div class="r916WheelChoice"><label>Çark görünümü<select id="r916WheelChoice"><option value="crystal">Kristal Taç</option><option value="seal">Süleyman Mührü</option><option value="pearls">İnci Halkası</option></select></label><label>Sahne<select id="r916SceneChoice"><option value="auto">İsme göre otomatik</option><option value="palace">Billur Saray</option><option value="seal">Mühr-ü Süleyman</option><option value="wind">Rüzgâr</option><option value="crystal">Billur Geçit</option><option value="night">Gece Sarayı</option><option value="hudhud">Hüdhüd Yolu</option></select></label></div>';
  const grid=host.querySelector('.r883Grid');for(const act of ['transport','prev','next','again','stop','reset']){const b=document.createElement('button');b.type='button';b.className='r883Btn';b.dataset.act=act;grid.append(b)}
  host.addEventListener('click',e=>{const t=e.target.closest('[data-k]');if(t){choose(t.dataset.k);return}const b=e.target.closest('[data-act]');if(b)dispatch(b.dataset.act)});
  host.addEventListener('change',e=>{if(e.target.id==='r916WheelChoice'){window.SukunR916Visual?.setWheel(e.target.value);queue()}else if(e.target.id==='r916SceneChoice'){window.SukunR916Visual?.setScene(e.target.value);queue()}});
@@ -75733,23 +75977,75 @@ const R=document.documentElement,A='./assets/berhetiyye-premium/',$=id=>document
 const atlas=window.SukunR853Scene.nameScenes,originals=window.SukunR853Scene.files;
 const files={palace:'scene-01-billur.png',seal:'scene-06-yuzuk.png',wind:'scene-04-teras.png',crystal:'scene-05-kristal.png',night:'scene-07-mor-kristal.png',hudhud:'scene-02-asa.png'};
 const wheels={crystal:'wheel-alpha-r915.png',seal:'wheel-seal-r916.svg',pearls:'wheel-pearls-r916.svg'};
-const baseScene="url('./assets/sukun-nur-sanctuary-r757.png')";
-let choice=safe(()=>localStorage.getItem('sukun.berhet.background.r829'),'auto')||'auto',wheel=safe(()=>localStorage.getItem('sukun.berhet.wheel.r916'),'crystal')||'crystal',raf=0;
+const basePath='./assets/scenes/mobile-r918/mevlevi.webp',baseFallback='./assets/sukun-nur-sanctuary-r757.png';
+let choice=safe(()=>localStorage.getItem('sukun.berhet.background.r918'),'auto')||'auto',wheel=safe(()=>localStorage.getItem('sukun.berhet.wheel.r916'),'crystal')||'crystal',raf=0;
 if(choice!=='auto'&&!files[choice])choice='auto';if(!wheels[wheel])wheel='crystal';
-let sceneKey=null,activeScene=null,sceneCSS='none',sceneResolutions=0;
+let sceneKey=null,activeScene=null,sceneCSS='none',sceneResolutions=0,sceneLoad='idle',loadToken=0,warmTimer=0,loadedKey=null,resolvedSceneId=null;
+let requestKey=null,paintedCSS='none',paintedId=null,transitionTimer=0,transitionRevision=0,failedLoads=0,cancelledLoads=0,maxPendingLoads=0;
+let profile=safe(()=>localStorage.getItem('sukun.performance.r920'),'balanced')||'balanced';
+if(!['cinematic','balanced','saving'].includes(profile))profile='balanced';
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const attr=(k,v)=>{if(R.dataset[k]!==v)R.dataset[k]=v},prop=(k,v)=>{if(R.style.getPropertyValue(k)!==v)R.style.setProperty(k,v)};
 const canonical=i=>Number.isInteger(i)&&i>=0&&i<atlas.length?atlas[i]:null;
-function sceneFor(i){const scene=canonical(Number(i));return !scene?'none':choice==='auto'?`url('./${scene.asset}')`:`url('${A+files[choice]}')`}
-// The active canonical selection is the only scene input. Count/playback state is not part of this key.
+function scenePath(i){const scene=canonical(Number(i));return !scene?null:choice==='auto'?'./'+scene.runtimeAsset:'./assets/scenes/mobile-r918/'+files[choice].replace(/\.png$/,'.webp')}
+function sceneFor(i){const path=scenePath(i);return path?`url('${path}')`:'none'}
+const ready=new Set(),pending=new Map();
+function loadImage(path){
+ if(ready.has(path))return Promise.resolve(path);if(pending.has(path))return pending.get(path).promise;
+ let cancel;
+ const promise=new Promise((resolve,reject)=>{let image=new Image(),done=false;image.decoding='async';
+  const finish=error=>{if(done)return;done=true;clearTimeout(timer);image.onload=image.onerror=null;if(error)image.src='';image=null;pending.delete(path);if(error)reject(error);else{ready.add(path);resolve(path)}};
+  cancel=()=>{cancelledLoads++;const error=new Error('obsolete scene request');error.name='AbortError';finish(error)};
+  const timer=setTimeout(()=>finish(new Error('scene image timeout')),6000);
+  image.onload=()=>{if(!image.naturalWidth){finish(new Error('empty image'));return}const decoded=image.decode?.();if(decoded)decoded.then(()=>finish(),()=>finish(new Error('scene decode failed')));else finish()};
+  image.onerror=()=>finish(new Error('scene image unavailable'));image.src=path;
+ });pending.set(path,{promise,cancel});maxPendingLoads=Math.max(maxPendingLoads,pending.size);return promise;
+}
+function cancelExcept(path){for(const [p,job] of pending)if(p!==path)job.cancel()}
+function clearTransition(){clearTimeout(transitionTimer);attr('r920SceneTransition','');prop('--r920-scene-previous','none')}
+function paintScene(css,id){
+ if(paintedCSS===css&&paintedId===id)return;
+ const oldCSS=paintedCSS,oldId=paintedId;clearTransition();paintedCSS=css;paintedId=id;
+ prop('--r914-scene',css);
+ if(oldId&&id&&oldId!==id&&oldCSS!=='none'&&css!=='none'&&profile!=='saving'&&!reduced.matches&&!document.hidden){
+  prop('--r920-scene-previous',oldCSS);attr('r920SceneTransition',++transitionRevision%2?'a':'b');transitionTimer=setTimeout(clearTransition,1250);
+ }
+ safe(()=>dispatchEvent(new CustomEvent('sukun:scenechange',{detail:{sceneId:id,previousSceneId:oldId,sceneLoad,profile}})));
+}
+function requestScene(i,key,visible){
+ const token=++loadToken,scene=visible?canonical(i):null,path=visible?scenePath(i):basePath;
+ const selectedChoice=choice,fallback=visible?(selectedChoice==='auto'?'./'+scene.asset:A+files[selectedChoice]):baseFallback;
+ clearTimeout(warmTimer);cancelExcept(path);sceneLoad='loading';
+ loadImage(path).catch(error=>{if(token!==loadToken||error.name==='AbortError')throw error;failedLoads++;return loadImage(fallback)}).then(loaded=>{
+  if(token!==loadToken||requestKey!==key)return;
+  sceneCSS=`url('${loaded}')`;loadedKey=visible?sceneKey:'off';resolvedSceneId=visible?(selectedChoice==='auto'?scene.sceneId:'manual-'+selectedChoice):'mevlevi';sceneLoad='ready';paintScene(sceneCSS,resolvedSceneId);queue();
+  if(visible&&selectedChoice==='auto'&&i+1<atlas.length&&profile!=='saving'&&!navigator.connection?.saveData&&!document.hidden)warmTimer=setTimeout(()=>{if(token===loadToken)loadImage('./'+atlas[i+1].runtimeAsset).catch(()=>{})},700);
+ }).catch(error=>{if(token===loadToken&&error.name!=='AbortError'){failedLoads++;sceneCSS='none';loadedKey=null;resolvedSceneId=null;sceneLoad='error';paintScene('none',null);queue()}});
+}
+function setProfile(value){
+ if(!['cinematic','balanced','saving'].includes(value))return false;
+ profile=value;safe(()=>localStorage.setItem('sukun.performance.r920',profile));attr('r920Performance',profile);
+ if(profile==='saving'){clearTransition();clearTimeout(warmTimer);if(sceneLoad!=='loading')cancelExcept(null)}
+ safe(()=>dispatchEvent(new CustomEvent('sukun:performancechange',{detail:{profile}})));return true;
+}
+function sceneStatus(){
+ const quick=$('r829BerhetSceneQuick');if(!quick)return;
+ let status=$('r918SceneStatus');if(!status){status=document.createElement('button');status.type='button';status.id='r918SceneStatus';status.setAttribute('aria-live','polite');status.addEventListener('click',()=>{if(sceneLoad==='error'){requestKey=null;queue()}});quick.append(status)}
+ const text=!activeScene?'':sceneLoad==='error'?'Sahne yüklenemedi · Yeniden dene':sceneLoad==='loading'?'Sahne yükleniyor…':choice==='auto'?`${activeScene.ordinal}. ${activeScene.name} · ${activeScene.title}`:'Sabit sahne · İsme göre değişmesi için Otomatik seç';
+ if(status.textContent!==text)status.textContent=text;
+ if(status.disabled!==(sceneLoad!=='error'))status.disabled=sceneLoad!=='error';
+}
+// Active name is the sole identity; count/pause never start a new image request.
 function syncScene(on,i,surface,host){
  const key=on?i+':'+choice:'off';
- if(key!==sceneKey){sceneKey=key;activeScene=on?canonical(i):null;sceneCSS=activeScene?sceneFor(i):'none';if(activeScene)sceneResolutions++;}
- const visible=!!activeScene&&surface&&host?.dataset.target!=='99';
+ if(key!==sceneKey){sceneKey=key;activeScene=on?canonical(i):null;if(activeScene)sceneResolutions++}
+ const visible=!!activeScene&&surface;
+ const wanted=visible?key:'base';if(wanted!==requestKey){requestKey=wanted;requestScene(i,wanted,visible)}
  attr('r914Context',visible?'berhet':'base');attr('r917SceneId',activeScene?(choice==='auto'?activeScene.sceneId:'manual-'+choice):'');
- prop('--r914-scene',visible?sceneCSS:baseScene);
+ attr('r918SceneLoad',sceneLoad);sceneStatus();
  if(host){
   // A saved journey preview never chooses a second background independently of the active name.
-  const panel=host.dataset.target==='28'&&activeScene?sceneCSS:'none';
+  const panel=host.dataset.target==='28'&&visible&&sceneLoad==='ready'?sceneCSS:'none';
   if(host.style.getPropertyValue('--r916-panel-scene')!==panel)host.style.setProperty('--r916-panel-scene',panel);
   let info=$('r917SceneInfo');
   if(!info){info=document.createElement('details');info.id='r917SceneInfo';info.innerHTML='<summary></summary><small></small><p></p>';host.append(info)}
@@ -75771,14 +76067,21 @@ function sync(){raf=0;const cat=safe(()=>typeof zKat==='function'?zKat():'',''),
 }
 function mountMotion(){const body=document.querySelector('#r679ZikirAyarBox>.r679SettingsBody');if(!body||$('r910WheelMotion'))return;const d=document.createElement('div');d.id='r910WheelMotion';d.innerHTML='<label>Çark hareketi <select id="r916Motion"><option value="sync">Zikre senkron</option><option value="flow">Akıcı</option><option value="fast">Hızlı</option></select></label>';d.querySelector('select').value=safe(()=>localStorage.getItem('sukun:r910:wheelMotion'),'sync')||'sync';d.addEventListener('change',e=>{safe(()=>localStorage.setItem('sukun:r910:wheelMotion',e.target.value));queue()});body.prepend(d)}
 function queue(){if(!raf)raf=requestAnimationFrame(sync)}
-function setScene(v){if(v!=='auto'&&!files[v])return false;choice=v;safe(()=>localStorage.setItem('sukun.berhet.background.r829',v));queue();return true}
+function setScene(v){if(v!=='auto'&&!files[v])return false;choice=v;safe(()=>{localStorage.setItem('sukun.berhet.background.r918',v);localStorage.setItem('sukun.berhet.background.r829',v)});queue();return true}
 function setWheel(v){if(!wheels[v])return false;wheel=v;safe(()=>localStorage.setItem('sukun.berhet.wheel.r916',v));queue();return true}
-const api=Object.freeze({version:'r917',sync:queue,setScene,setWheel,sceneFor,snapshot:()=>({scene:choice,wheel,context:R.dataset.r914Context,originals:[...originals],activeSceneId:activeScene?.sceneId||null,activeIndex:activeScene?.index??null,sceneResolutions})});window.SukunR916Visual=api;window.SukunR917Visual=api;window.SukunR832VisualAuthority=api;window.SukunR829Visuals=api;window.SukunR914=api;window.SukunR910=api;
+const api=Object.freeze({version:'r920',sync:queue,setScene,setWheel,setProfile,sceneFor,retry:()=>{if(sceneLoad==='error'){requestKey=null;queue();return true}return false},snapshot:()=>({scene:choice,wheel,profile,context:R.dataset.r914Context,originals:[...originals],activeSceneId:activeScene?.sceneId||null,activeIndex:activeScene?.index??null,sceneResolutions,sceneLoad,loadedKey,resolvedSceneId,renderedScene:sceneCSS,pendingLoads:pending.size,maxPendingLoads,failedLoads,cancelledLoads,transitioning:!!R.dataset.r920SceneTransition})});window.SukunSceneEngine=api;window.SukunR920Visual=api;window.SukunR916Visual=api;window.SukunR917Visual=api;window.SukunR918Visual=api;window.SukunR832VisualAuthority=api;window.SukunR829Visuals=api;window.SukunR914=api;window.SukunR910=api;
 ['DOMContentLoaded','pageshow','sukun:domhydrate','sukun:tabchange','sukun:r616viewchange','sukun:zikirchange','sukun:currentzikirchange','sukun:zikirselectionchange','sukun:journey-advance','sukun:tefekkurchange','sukun:secretaccesschange'].forEach(e=>addEventListener(e,queue,{passive:true}));
 document.addEventListener('change',e=>{if(e.target.id==='r829SceneSel')setScene(e.target.value)},{passive:true});
-new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});queue();
+addEventListener('online',()=>{if(sceneLoad==='error'){requestKey=null;queue()}},{passive:true});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTransition();clearTimeout(warmTimer);if(sceneLoad!=='loading')cancelExcept(null)}else queue()},{passive:true});
+reduced.addEventListener?.('change',()=>{if(reduced.matches)clearTransition()});
+prop('--r914-scene','none');attr('r920Performance',profile);new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});queue();
 })();
 </script>
 <svg id="r915Filters" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;pointer-events:none"><defs><filter id="r915BlackAlpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 8 8 8 0 0"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
+
+<script src="./assets/runtime/session-r919.js?v=r920" integrity="sha256-pd8wTJo0e1UsO7k1viaLOggSPlcA+FtCvTYuMzHU1G8="></script>
+<script src="./assets/runtime/dock-r920.js?v=r920" integrity="sha256-0FIOQIa5Tgef7K17NbG+qmUPOqv9qF2JE4qYnShZGUw="></script>
+<script src="./assets/runtime/interface-r920.js?v=r920" integrity="sha256-T9aAlKNnP2fSoYILJ7+H6N5+0yj1AdDpnTcyn9vCAEk="></script>
 </body>
 </html>
