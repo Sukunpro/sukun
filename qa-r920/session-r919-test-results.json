@@ -1,0 +1,82 @@
+{
+  "scope": "isolated contract fixtures",
+  "passed": 19,
+  "results": [
+    {
+      "name": "Read model does not increment counter; snapshots frozen",
+      "passed": true
+    },
+    {
+      "name": "Ambient physical activity does not start zikr presentation",
+      "passed": true
+    },
+    {
+      "name": "Frequency alone does not lock manual zikr as playing",
+      "passed": true
+    },
+    {
+      "name": "Foreign pause and preparation cannot claim zikr UI",
+      "passed": true
+    },
+    {
+      "name": "Audio source kinds separate own, local, reader and TTS",
+      "passed": true
+    },
+    {
+      "name": "Play coalesces then pause/resume use one existing owner",
+      "passed": true
+    },
+    {
+      "name": "Stop invalidates earlier async completion; never resumes it",
+      "passed": true
+    },
+    {
+      "name": "Old epoch command rejected before provider calls",
+      "passed": true
+    },
+    {
+      "name": "99 preview has its own count and mode; not live journey",
+      "passed": true
+    },
+    {
+      "name": "Tefekkur, count, visibility do not recreate session identity",
+      "passed": true
+    },
+    {
+      "name": "Selecting new mode retires old journey but preserves progress",
+      "passed": true
+    },
+    {
+      "name": "Locked 28 and 99 selection rejected without native mutation",
+      "passed": true
+    },
+    {
+      "name": "Own-recording error is held, explicit retry resumes once",
+      "passed": true
+    },
+    {
+      "name": "Stale recording failure cannot retry different name",
+      "passed": true
+    },
+    {
+      "name": "Inactive recording-failure object is not an error",
+      "passed": true
+    },
+    {
+      "name": "Paused journey resumes its owner if aggregate latch already cleared",
+      "passed": true
+    },
+    {
+      "name": "Journey start waits for old native stop cleanup",
+      "passed": true
+    },
+    {
+      "name": "A newer Stop cancels journey start waiting for cleanup",
+      "passed": true
+    },
+    {
+      "name": "Health does not label untested hardware/assets as passing",
+      "passed": true
+    }
+  ]
+}

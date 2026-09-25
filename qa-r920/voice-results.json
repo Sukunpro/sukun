@@ -1,0 +1,157 @@
+{
+  "results": [
+    {
+      "case": "own recording plays without TTS",
+      "result": {
+        "ok": true,
+        "source": "recording",
+        "key": "esma:0:nida",
+        "reason": "ended",
+        "priorityLock": true
+      },
+      "tts": 0,
+      "physical": 1
+    },
+    {
+      "case": "corrupt recording blocks, preserves count, no TTS",
+      "result": {
+        "ok": false,
+        "source": "recording",
+        "blocked": true,
+        "key": "esma:0:nida",
+        "reason": "recording-failed",
+        "fallbackAllowed": false
+      },
+      "tts": 0,
+      "physical": 1,
+      "failure": {
+        "active": true,
+        "identity": {
+          "cat": "esma",
+          "index": 0,
+          "key": "esma:0:nida"
+        },
+        "cat": "esma",
+        "index": 0,
+        "key": "esma:0:nida",
+        "title": "Rahmân",
+        "code": "error",
+        "message": "Kendi kaydın açılamadı. Sayaç korunuyor; kaydı kontrol edip yeniden deneyebilirsin.",
+        "at": 1790329998375
+      },
+      "paused": true,
+      "countUnchanged": true
+    },
+    {
+      "case": "fixed recording explicit retry",
+      "result": {
+        "ok": true,
+        "source": "recording",
+        "key": "esma:0:nida",
+        "reason": "ended",
+        "priorityLock": true
+      },
+      "tts": 0,
+      "physical": 1
+    },
+    {
+      "case": "stop during IDB lookup prevents late play",
+      "result": {
+        "ok": false,
+        "cancelled": true,
+        "reason": "stale-sequence"
+      },
+      "tts": 0,
+      "physical": 0
+    },
+    {
+      "case": "name changed during lookup prevents old recording",
+      "result": {
+        "ok": false,
+        "cancelled": true,
+        "reason": "stale-sequence"
+      },
+      "tts": 0,
+      "physical": 0
+    },
+    {
+      "case": "stop during recording analysis prevents late play",
+      "result": {
+        "ok": false,
+        "cancelled": true,
+        "reason": "stale-sequence"
+      },
+      "tts": 0,
+      "physical": 0
+    },
+    {
+      "case": "terkip corrupt first recording stops sequence",
+      "result": {
+        "ok": false,
+        "source": "recording",
+        "reason": "recording-failed",
+        "completed": 0,
+        "total": 2,
+        "parts": [
+          {
+            "index": 1,
+            "esmaIndex": 0,
+            "key": "esma:0:nida",
+            "name": "Yâ Rahmân",
+            "canonical": true,
+            "ok": false,
+            "source": "recording",
+            "cancelled": false,
+            "reason": "recording-failed"
+          }
+        ]
+      },
+      "tts": 0,
+      "physical": 1,
+      "failure": {
+        "active": true,
+        "identity": {
+          "cat": "esma",
+          "index": 0,
+          "key": "esma:0:nida"
+        },
+        "cat": "esma",
+        "index": 0,
+        "key": "esma:0:nida",
+        "title": "Terkip 1/2 · Yâ Rahmân",
+        "code": "error",
+        "message": "Kendi kaydın açılamadı. Sayaç korunuyor; kaydı kontrol edip yeniden deneyebilirsin.",
+        "at": 1790330000195
+      }
+    },
+    {
+      "case": "direct source policy corrupt recording",
+      "result": {
+        "ok": false,
+        "source": "recording",
+        "blocked": true,
+        "key": "esma:0:nida",
+        "reason": "recording-failed",
+        "fallbackAllowed": false
+      },
+      "tts": 0,
+      "physical": 1,
+      "failure": {
+        "active": true,
+        "identity": {
+          "cat": "esma",
+          "index": 0,
+          "key": "esma:0:nida"
+        },
+        "cat": "esma",
+        "index": 0,
+        "key": "esma:0:nida",
+        "title": "QA Rahman",
+        "code": "play-rejected",
+        "message": "Kendi kaydın açılamadı. Sayaç korunuyor; kaydı kontrol edip yeniden deneyebilirsin.",
+        "at": 1790330000201
+      }
+    }
+  ],
+  "errors": []
+}

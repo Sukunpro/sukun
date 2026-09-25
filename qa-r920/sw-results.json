@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "build": "r920",
+  "worker": {
+    "v": "r920",
+    "cache": "sukun-r920-session-mirror-20260925-v1",
+    "complete": true,
+    "marker": {
+      "v": "r920",
+      "cache": "sukun-r920-session-mirror-20260925-v1",
+      "at": 1790331440280,
+      "shell": true,
+      "manifest": true,
+      "marker": true,
+      "latest": true,
+      "runtime": {
+        "./assets/runtime/dock-r920.js?v=r920": true,
+        "./assets/runtime/interface-r920.js?v=r920": true,
+        "./assets/runtime/session-r919.js?v=r920": true
+      },
+      "runtimeRequired": 3,
+      "complete": true,
+      "errors": []
+    },
+    "error": ""
+  },
+  "precacheCount": 16,
+  "onlineAsset": {
+    "status": 200,
+    "bytes": 406112
+  },
+  "offlineAsset": {
+    "status": 200,
+    "bytes": 406112
+  },
+  "priorCacheFallback": {
+    "status": 200,
+    "bytes": 3268485
+  },
+  "offlineNavigationBuild": "r920",
+  "limits": [
+    "Fresh local Chromium install and offline navigation; physical Android and live partial deployment not tested.",
+    "Update-in-use defer behavior requires a distinct update test."
+  ]
+}
