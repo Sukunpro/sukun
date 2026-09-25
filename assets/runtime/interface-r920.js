@@ -19,7 +19,7 @@ function make(){
  <div class="r920Path"><button id="r920AtlasOpen" type="button">Atlas</button><label id="r920JourneyLabel"><span>Okuyuş</span><select id="r920JourneyMode" aria-label="Tekil zikir veya seyir"><option value="single">Tekil zikir</option><option value="journey">Seyir</option></select></label><button id="r920TefEnter" type="button">Tefekkür</button></div>
  <button id="r920TefExit" type="button" hidden>Tefekkürden Çık</button>
  <div class="r920Identity"><p id="r920Eyebrow"></p><button id="r920NameInfo" type="button" aria-label="Aktif ismin açıklaması"><span id="r920Arabic" lang="ar" dir="rtl"></span><span id="r920ActiveName"></span></button><p id="r920SceneTitle"></p><p id="r920VoiceSource" role="status"></p></div>
- <button id="r920Counter" type="button" aria-label="Bir zikir say"><img id="r920Wheel" alt="" aria-hidden="true" decoding="async"><svg class="r920Progress" viewBox="0 0 300 300" aria-hidden="true"><circle cx="150" cy="150" r="122" class="r920Track"></circle><circle cx="150" cy="150" r="122" class="r920Arc" pathLength="100"></circle></svg><span class="r920CounterCore"><small>TEKRAR</small><strong id="r920Count">0</strong><span id="r920Percent">%0</span></span></button>
+ <button id="r920Counter" type="button" aria-label="Bir zikir say"><img id="r920Wheel" alt="" aria-hidden="true" decoding="async"><svg class="r920Progress" viewBox="0 0 300 300" aria-hidden="true"><defs><filter id="r921EsmaMatte" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  10 10 10 0 0"/></filter></defs><circle cx="150" cy="150" r="122" class="r920Track"></circle><circle cx="150" cy="150" r="122" class="r920Arc" pathLength="100"></circle></svg><span class="r920CounterCore"><small>TEKRAR</small><strong id="r920Count">0</strong><span id="r920Percent">%0</span></span></button>
  <div class="r920Stats"><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>Hedef <b id="r920Target"></b></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3v4l5 5-5 5v4m10-18v4l-5 5 5 5v4"/></svg>Kalan <b id="r920Remaining"></b></span></div>
  <div id="r920Phase" role="status"></div>
  <div class="r920Transport"><button id="r920Previous" type="button">Önceki</button><button id="r920Play" type="button">Başlat</button><button id="r920Next" type="button">Sonraki</button></div>
@@ -28,7 +28,7 @@ function make(){
  <div id="r920SceneError" role="status" hidden><span>Sahne açılamadı.</span><button id="r920SceneRetry" type="button">Yeniden dene</button></div>
  <div id="r920Actions"></div>
  <details id="r920JourneySettings" hidden><summary>Seyir tekrarları ve ara</summary><label>Her isim<select id="r920RepeatMode"></select></label><label id="r920RepeatCustomLabel" hidden>Özel tekrar<input id="r920RepeatCustom" type="number" min="1" max="9999" inputmode="numeric"></label><label>Ara<select id="r920RepeatGap"></select></label></details>
- <details id="r920ViewOptions"><summary>İsim, çark ve görünüm</summary><label>İsim<select id="r920NameSelect"></select></label><div id="r920BerhetOptions"><label>Çark<select id="r920WheelSelect"><option value="crystal">Kristal Taç</option><option value="seal">Süleyman Mührü</option><option value="pearls">İnci Halkası</option></select></label><label>Sahne<select id="r920SceneSelect"><option value="auto">İsme göre otomatik</option><option value="palace">Billur Saray</option><option value="seal">Mühr-ü Süleyman</option><option value="wind">Rüzgâr</option><option value="crystal">Billur Geçit</option><option value="night">Gece Sarayı</option><option value="hudhud">Hüdhüd Yolu</option></select></label></div><label>Görsel kalite<select id="r920Performance"><option value="cinematic">Sinematik</option><option value="balanced">Dengeli</option><option value="saving">Tasarruf</option></select></label><label class="r920FocusLabel"><input id="r920Focus" type="checkbox">Otomatik odak görünümü</label></details>
+ <details id="r920ViewOptions"><summary>İsim, çark ve görünüm</summary><label>İsim<select id="r920NameSelect"></select></label><div id="r920BerhetOptions"><label>Çark<select id="r920WheelSelect"><option value="crystal">Kristal Taç</option><option value="seal">Süleyman Mührü</option><option value="pearls">İnci Halkası</option></select></label><label>Sahne<select id="r920SceneSelect"><option value="auto">İsme göre otomatik</option><option value="palace">Billur Saray</option><option value="seal">Mühr-ü Süleyman</option><option value="wind">Rüzgâr</option><option value="crystal">Billur Geçit</option><option value="night">Gece Sarayı</option><option value="hudhud">Hüdhüd Yolu</option></select></label></div><div id="r923EsmaOptions"><label>Esmâ sahnesi<select id="r923EsmaSceneSelect" aria-describedby="r923SceneStatus"></select></label><div id="r923ScenePreview"><img id="r923SceneThumb" alt="Seçilen sahnenin önizlemesi" loading="lazy" decoding="async"><div><strong id="r923SceneName"></strong><p id="r923SceneStatus" role="status"></p><button id="r923SceneRetry" type="button" hidden>Sahneyi yeniden yükle</button></div></div><details id="r923SceneNotes"><summary>Sahne hakkında ve kaynaklar</summary><p id="r923SceneNote"></p><div id="r923SceneSources"></div></details></div><label>Görsel kalite<select id="r920Performance"><option value="cinematic">Sinematik</option><option value="balanced">Dengeli</option><option value="saving">Tasarruf</option></select></label><label class="r920FocusLabel"><input id="r920Focus" type="checkbox">Otomatik odak görünümü</label></details>
  <button id="r920More" type="button" aria-expanded="false">Zikir ayarları, kayıtlar ve diğer araçlar</button>`;
  tab.prepend(root);
  dialog=document.createElement('dialog');dialog.id='r920Atlas';dialog.setAttribute('aria-labelledby','r920AtlasTitle');
@@ -49,6 +49,12 @@ function make(){
  $('r920More').onclick=()=>{const open=document.body.classList.toggle('r920-details-open');attr($('r920More'),'aria-expanded',open);text($('r920More'),open?'Ek araçları kapat':'Zikir ayarları, kayıtlar ve diğer araçlar')};
  $('r920WheelSelect').onchange=e=>{window.SukunR918Visual?.setWheel(e.target.value);queue()};
  $('r920SceneSelect').onchange=e=>{window.SukunR918Visual?.setScene(e.target.value);queue()};
+ const esmaSelect=$('r923EsmaSceneSelect');let group;
+ for(const scene of window.SukunSceneEngine.esmaScenes){if(group?.label!==scene.group){group=document.createElement('optgroup');group.label=scene.group;esmaSelect.append(group)}const option=document.createElement('option');option.value=scene.id;option.textContent=scene.title;group.append(option)}
+ esmaSelect.onchange=e=>{window.SukunSceneEngine.setEsmaScene(e.target.value);queue()};
+ $('r923SceneRetry').onclick=()=>{window.SukunSceneEngine.retry();queue()};
+ $('r923SceneThumb').onerror=e=>{e.currentTarget.style.visibility='hidden'};
+ $('r923SceneThumb').onload=e=>{e.currentTarget.style.visibility='visible'};
  $('r920SceneRetry').onclick=()=>{window.SukunSceneEngine?.retry?.();queue()};
  $('r920Performance').onchange=e=>{window.SukunSceneEngine?.setProfile?.(e.target.value);queue()};
  $('r920Focus').checked=focusEnabled;$('r920Focus').onchange=e=>{focusEnabled=e.target.checked;safe(()=>localStorage.setItem('sukun.r920.focus',focusEnabled?'1':'0'));wake()};
@@ -87,7 +93,7 @@ function renderAtlas(){
  text($('r920AtlasEbced'),item.ebced||item.eb||eb||'İsim kartında');
  const active=s?.activeMode===atlasMode&&s?.activeIndex===atlasIndex,rate=active&&s.target?Math.min(100,Math.floor(100*s.count/s.target)):null;
  text($('r920AtlasProgress'),active?`Aktif · ${s.count} / ${s.target||'∞'}${rate!==null?' · %'+rate:''}`:completed[atlasMode+':'+atlasIndex]?'Tamamlandı':'Henüz tamamlanmadı');
- text($('r920AtlasScene'),scene?`Sahne: ${scene.title}`:'Sahne: Mevlevî Sükûn');text($('r920AtlasNote'),scene?[scene.layer,scene.note].filter(Boolean).join(' · '):'');
+ const esma=window.SukunSceneEngine?.snapshot?.().esmaScene;text($('r920AtlasScene'),scene?`Sahne: ${scene.title}`:'Sahne: '+(esma?.title||'Klasik Mevlevî'));text($('r920AtlasNote'),scene?[scene.layer,scene.note].filter(Boolean).join(' · '):esma?.note||'');
 }
 function render(){raf=0;if(!make())return;const s=snap();if(!s)return;
  const mode=s.activeMode,valid=mode==='esma'||mode==='berhet'&&allowed(),tef=!!window.SUKUN_TEFEKKUR?.active?.();
@@ -109,6 +115,15 @@ function render(){raf=0;if(!make())return;const s=snap();if(!s)return;
  const busy=s.phase==='PLAYING'||s.phase==='PREPARING';text($('r920Play'),busy?'Duraklat':s.phase==='PAUSED'?'Devam et':'Başlat');attr($('r920Play'),'aria-label',busy?'Zikri duraklat':s.phase==='PAUSED'?'Zikre devam et':'Zikri başlat');
  const labels={PREPARING:'Ses hazırlanıyor',PAUSED:'Duraklatıldı',COMPLETING:'Tamamlanıyor',COMPLETED:'Seyir tamamlandı',INTERRUPTED:'Ses kesintisi · devam edebilirsin',RECOVERING:'Ses yeniden hazırlanıyor',ERROR:'Ses açılamadı'};text($('r920Phase'),labels[s.phase]||'');
  $('r920Plus').disabled=$('r920Minus').disabled=!!journey||busy;$('r920Counter').disabled=!!journey||busy;
+ $('r923EsmaOptions').hidden=mode!=='esma';
+ if(mode==='esma'&&visual.esmaScene){const scene=visual.esmaScene;
+  $('r923EsmaSceneSelect').value=scene.id;text($('r923SceneName'),scene.title);
+  const canonicalEsma=s.canonical.mode==='esma';
+  text($('r923SceneStatus'),!canonicalEsma?'Esmâ zikri seçildiğinde kullanılacak.':visual.sceneLoad==='loading'?'Sahne yükleniyor…':visual.sceneLoad==='error'?'Görsel açılamadı; sakin renk zemini kullanılıyor.':visual.resolvedSceneId==='mevlevi-fallback'?'Bu görsel açılamadı; Klasik Mevlevî gösteriliyor.':visual.fallbackLevel>0?'Hafif sürüm gösteriliyor.':'Zikir ve Tefekkür için seçildi.');
+  $('r923SceneRetry').hidden=!(canonicalEsma&&(visual.sceneLoad==='error'||visual.fallbackLevel>0));
+  const thumb=$('r923SceneThumb');if(thumb.getAttribute('src')!==scene.lite){thumb.style.visibility='visible';thumb.src=scene.lite}
+  if($('r923SceneNotes').dataset.scene!==scene.id){$('r923SceneNotes').dataset.scene=scene.id;text($('r923SceneNote'),scene.note);$('r923SceneSources').replaceChildren(...scene.sources.map(source=>{const a=document.createElement('a');a.href=source.url;a.textContent=source.title;a.target='_blank';a.rel='noopener noreferrer';return a}))}
+ }
  $('r920BerhetOptions').hidden=mode!=='berhet';$('r920WheelSelect').value=wheel;$('r920SceneSelect').value=visual.scene||'auto';
  const perf=window.SukunSceneEngine?.snapshot?.().profile||'balanced';$('r920Performance').value=perf;
  $('r920SceneError').hidden=visual.sceneLoad!=='error';const failure=window.SukunRecordingFailure?.get?.();$('r920RecordingError').hidden=!failure?.active;
@@ -122,6 +137,6 @@ function queue(){if(!raf)raf=requestAnimationFrame(render)}
 addEventListener('sukun:journey-advance',e=>{const mode=e.detail?.owner==='journey28'?'berhet':e.detail?.owner==='journey99'?'esma':null;if(mode)markComplete(mode,Number(e.detail.index)-1);queue()});
 document.addEventListener('pointerdown',()=>{if(root&&!root.hidden)wake()},{passive:true});document.addEventListener('keydown',wake,{passive:true});
 new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});
-window.SukunPracticeUI=Object.freeze({version:'r920',refresh:queue,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
+window.SukunPracticeUI=Object.freeze({version:'r923',refresh:queue,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
 queue();
 })();

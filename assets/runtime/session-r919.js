@@ -153,6 +153,7 @@
       return registry?.pauseAll ? registry.pauseAll('ui:r919-command') : active?.api.pause ? active.api.pause() : pc?.pause?.(before.provider || undefined);
     }
     if (action === 'play' || action === 'start' || action === 'resume') {
+      if (window.SukunVoiceSettings?.checkReady?.() === false) return false;
       if (before.playing || before.preparing) return true;
       if (before.recordingSource === 'USER_RECORDING_FAILED') return false;
       if (before.paused && read(() => registry?.aggregateSnapshot()?.paused, false) && registry?.resumeAll) return registry.resumeAll();
@@ -325,7 +326,7 @@
     token: () => freeze({ sessionId: snapshot().sessionId, epoch }), isCurrent: token => token?.epoch === snapshot().epoch });
   if (!window.SessionState) window.SessionState = window.SukunSessionState;
   const events = ['sukun:currentzikirchange', 'sukun:currentflowchange', 'sukun:nowplayingchange', 'sukun:playbackchange',
-    'sukun:audioaggregatechange', 'sukun:audiotruthchange', 'sukun:voicesource', 'sukun:foregroundqueuechange',
+    'sukun:audioaggregatechange', 'sukun:audiotruthchange', 'sukun:voicesource', 'sukun:voicesettingschange', 'sukun:foregroundqueuechange',
     'sukun:journey-advance', 'sukun:tefekkurchange', 'sukun:recordingerror', 'sukun:recordingretry',
     'sukun:scenechange', 'sukun:scenestate', 'sukun:recordingrecovered', 'sukun:tabchange', 'sukun:zikirtransportgate'];
   events.forEach(event => window.addEventListener(event, () => schedule(event), { passive: true }));

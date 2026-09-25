@@ -1,4 +1,4 @@
-/* r920 — presentation of the existing dock. No timer, counter or audio owner. */
+/* r921 — presentation of the existing dock. No timer, counter or audio owner. */
 (()=>{
  'use strict';
  if(window.SukunDockR920)return;
@@ -36,6 +36,27 @@
    if(head.type!=='button')head.type='button';
   });
  }
+ function miniPresentation(mode){
+  const shell=$('r588DockShell'),footer=shell?.querySelector(':scope > .r588Mode');
+  const identity=shell?.querySelector('.r588Identity'),tef=$('r730MiniTef');
+  // Keep the original button and its shell-delegated SUKUN_TEFEKKUR.enter handler.
+  // Its previous header is hidden in Mini; moving it preserves one entry owner.
+  const home=mode==='mini'?footer:identity;
+  if(tef&&home&&tef.parentElement!==home){
+   if(mode==='mini')home.insertBefore(tef,home.querySelector('.r588Transport'));
+   else home.prepend(tef);
+  }
+  const container=shell?.querySelector('.r588Text');
+  if(!container)return;
+  let name=$('r921DockName');
+  if(!name){name=document.createElement('b');name.id='r921DockName';container.prepend(name);}
+  const session=window.SukunSessionState?.snapshot?.();
+  const zikir=!!session&&(session.journey?.active||session.playing||session.paused||session.preparing||
+   /^(auto-zikir|journey28|journey99|smart-session)$/.test(session.owner||''));
+  const permitted=session?.activeMode!=='berhet'||!!window.SukunSecretPolicy?.unlocked?.();
+  const value=String(!permitted?'SÜKÛN':zikir&&session.activeName?session.activeName:$('r588Title')?.textContent||'SÜKÛN').trim();
+  text(name,value);if(name.title!==value)name.title=value;
+ }
  function mount(){
   const shell=$('r588DockShell'),body=$('r659DockBody'),footer=shell?.querySelector(':scope > .r588Mode');
   if(!shell||!body||!footer)return false;
@@ -64,16 +85,17 @@
  }
  function sync(){
   const mode=window.SukunDockSize?.get?.()||'mini';
+  miniPresentation(mode);
   const source=$('zVolSld'),input=$('r920DockVolume');
   if(input){input.disabled=!source||source.disabled;if(source&&document.activeElement!==input&&input.value!==source.value)input.value=source.value;text($('r920DockVolumeValue'),source?Math.round(Number(source.value)*100)+'%':'—');}
   const expand=$('r920DockExpand');if(expand)expand.setAttribute('aria-expanded',String(mode!=='mini'));
   window.SukunAdaptiveDockLayout?.schedule?.('r920-dock-presentation');
  }
  function schedule(){if(raf||document.hidden)return;raf=requestAnimationFrame(()=>{raf=0;if(!mounted)mount();else sync();});}
- ['sukun:r698modechange','sukun:r616viewchange','sukun:tabchange','pageshow'].forEach(event=>window.addEventListener(event,schedule,{passive:true}));
+ ['sukun:r698modechange','sukun:r616viewchange','sukun:tabchange','sukun:sessionchange','sukun:currentflowchange','sukun:secretaccesschange','pageshow'].forEach(event=>window.addEventListener(event,schedule,{passive:true}));
  document.addEventListener('visibilitychange',schedule,{passive:true});
  document.addEventListener('click',event=>{if(event.target.closest?.('#mixer [data-ambacctgl],#uiBtn'))requestAnimationFrame(accessibility);},{passive:true});
  function boot(n=0){if(mount())return;if(n<40)setTimeout(()=>boot(n+1),100);}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});else boot();
- window.SukunDockR920=Object.freeze({version:'r920',openAmbience,refresh:mount,snapshot:()=>({version:'r920',mounted,mode:window.SukunDockSize?.get?.()||'mini',transport:'SukunR698Transport',layout:'SukunR699Layout',ownSoundsPresent:!!document.querySelector('#mixer [data-ambacc="ozel"]')})});
+ window.SukunDockR920=Object.freeze({version:'r921',openAmbience,refresh:mount,snapshot:()=>({version:'r921',mounted,mode:window.SukunDockSize?.get?.()||'mini',transport:'SukunR698Transport',layout:'SukunR699Layout',tefekkurButton:'r730MiniTef',name:$('r921DockName')?.textContent||'',ownSoundsPresent:!!document.querySelector('#mixer [data-ambacc="ozel"]')})});
 })();
