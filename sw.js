@@ -1,24 +1,24 @@
-/* SÜKÛN r798 — Update Recovery + Jewel Component Authority
+/* SÜKÛN r923 — Verified Esma scene gallery package and explicit update activation
    Amaç: yeni sürümün "waiting/install mismatch" yüzünden eski shell'de
    kilitlenmesini önlemek. Controller değişimi aktif sesi kendiliğinden
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r920';
-const CACHE = 'sukun-r920-session-mirror-20260925-v1';
-const CACHE_META = './__sukun_cache_meta_r920__.json';
-const BUILD_MARKER = './__sukun_build_r920__.json';
+const SURUM = 'r923';
+const CACHE = 'sukun-r923-esma-scenes-20260925-v1';
+const CACHE_META = './__sukun_cache_meta_r923__.json';
+const BUILD_MARKER = './__sukun_build_r923__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
-const REQUIRED_RUNTIME = [{"url":"./assets/runtime/dock-r920.js?v=r920","sha256":"d0520e4086b94e079fecad7b35b1beaa650f3aabfda85d89138a989d2859194c"},{"url":"./assets/runtime/interface-r920.js?v=r920","sha256":"4fd68094a3673f67d2a1820b27bf87e8de7ed328f501d0e99d37329fdbc20049"},{"url":"./assets/runtime/session-r919.js?v=r920","sha256":"a5df304c9a347b552c3bb935be268b3a08123e5700f85b42bd362e3331d4d46f"}];
+const REQUIRED_RUNTIME = [{"url":"./assets/runtime/dock-r920.js?v=r923","sha256":"548fb9f3c80299672963b4a87d601a6f67ec259c255b9d0d5d53bddcdfc0629a"},{"url":"./assets/runtime/esma-scenes-r923.js?v=r923","sha256":"9268113568c813319388ba2506efbb973d0ef92135a3cf6e9b19014f032dce7f"},{"url":"./assets/runtime/interface-r920.js?v=r923","sha256":"9c3ab38191a9267d7d17b549988f6f48df82754c6c220023c788c7f27c1204c0"},{"url":"./assets/runtime/session-r919.js?v=r923","sha256":"e30048eada67bf4e81315930f3175c93d4c5a93189551bdc9e33097329e5c5f4"}];
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
    Shell doğrulaması bağımsız; geri kalan assetler best-effort pre-cache ve
    normal fetch sırasında current cache'e yazılır. */
 const CORE = [
-  './assets/runtime/session-r919.js?v=r920',
-  './assets/runtime/dock-r920.js?v=r920',
-  './assets/runtime/interface-r920.js?v=r920',
-
+  "./assets/runtime/dock-r920.js?v=r923",
+  "./assets/runtime/esma-scenes-r923.js?v=r923",
+  "./assets/runtime/interface-r920.js?v=r923",
+  "./assets/runtime/session-r919.js?v=r923",
   './assets/berhetiyye-premium/control-round-plus-r788.webp',
   './assets/berhetiyye-premium/control-round-minus-r788.webp',
   './assets/berhetiyye-premium/control-nav-amethyst-r788.webp',
@@ -47,7 +47,26 @@ const PRECACHE = [
   "./assets/berhetiyye-premium/button-green-user-r915.png",
   "./assets/berhetiyye-premium/button-gold-user-r915.png",
   "./icon-192.png",
-  "./icon-512.png"
+  "./icon-512.png",
+  "./assets/scenes/esma-r923/mevlevi-sema.webp",
+  "./assets/scenes/esma-r923/mevlevi-sema-lite.webp",
+  "./assets/scenes/esma-r923/kandilli-tekke.webp",
+  "./assets/scenes/esma-r923/kandilli-tekke-lite.webp",
+  "./assets/scenes/esma-r923/cami-avlusu.webp",
+  "./assets/scenes/esma-r923/cami-avlusu-lite.webp",
+  "./assets/scenes/esma-r923/kabede-seher.webp",
+  "./assets/scenes/esma-r923/kabede-seher-lite.webp",
+  "./assets/scenes/esma-r923/kuduste-seher.webp",
+  "./assets/scenes/esma-r923/kuduste-seher-lite.webp",
+  "./assets/scenes/esma-r923/aksada-ayni-saf.webp",
+  "./assets/scenes/esma-r923/aksada-ayni-saf-lite.webp",
+  "./assets/scenes/esma-r923/lud-kapisi.webp",
+  "./assets/scenes/esma-r923/lud-kapisi-lite.webp",
+  "./assets/scenes/esma-r923/nur-mucadelesi-catalli.webp",
+  "./assets/scenes/esma-r923/nur-mucadelesi-catalli-lite.webp",
+  "./assets/scenes/esma-r923/nur-mucadelesi-yivli.webp",
+  "./assets/scenes/esma-r923/nur-mucadelesi-yivli-lite.webp",
+  "./assets/runtime/esma-scenes-r923.js?v=r923",
 ];
 
 const NOTLAR = [

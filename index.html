@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- ════════════════════════════════════════════════════════════════
-     SÜKÛN r728 — Containment Conflict Resolution & Package Hygiene (base r727)
+     SÜKÛN r923 — Onaylı Esmâ arka planları ve güvenli sahne galerisi (base r922)
      Tek dosya • Web Audio API (tüm sesler cihazda sentezlenir)
      Binaural Beats + Isochronic Tones + Esmâ/Zikir Modülü
      ════════════════════════════════════════════════════════════════ -->
@@ -9,6 +9,39 @@
 <head>
 <style id="sukun-r920-contract">@layer sukun-r920-contract {
 /* First important layer: each legacy visual has one explicit successor. */
+/* r922: live native voice controls in the shared practice settings. */
+body.r920-practice-on #r829QuickSettings{display:none!important}
+#r920Practice #r679ZikirAyarBox>summary{justify-content:space-between!important;gap:8px!important;border:0!important;border-radius:14px!important;text-align:left!important;min-height:58px!important}
+#r920Practice #r679ZikirAyarBox>summary::before,#r920Practice #r679ZikirAyarBox>summary::after{content:none!important;display:none!important}
+#r920Practice #r679ZikirAyarBox .r679SettingsTitle{text-align:left!important}
+#r920Practice #r679ZikirAyarBox .r679SettingsTitle b{font:600 14px/1.4 system-ui!important;white-space:normal!important}
+#r920Practice #r679ZikirAyarBox .r679SettingsTitle small{display:block!important;font:400 12px/1.4 system-ui!important;color:var(--r920-muted)!important;margin-top:3px!important}
+#r920Practice #r679ZikirAyarBox>.r679SettingsBody{padding:12px!important;margin:0!important;border:0!important;background:transparent!important;backdrop-filter:none!important}
+#r920Practice #r679ZikirAyarBox #r852VoiceCard{position:relative!important;display:block!important;width:100%!important;padding:0 0 14px!important;margin:0 0 12px!important;background:transparent!important;border:0!important;border-bottom:1px solid #bfd1df2b!important;border-radius:0!important;visibility:visible!important;opacity:1!important;overflow:visible!important}
+#r920Practice #r852VoiceCard .r852VoiceHead{display:flex!important;align-items:flex-start!important;gap:8px!important;flex-wrap:wrap!important;margin:0 0 12px!important}
+#r920Practice #r852VoiceCard .r852VoiceHead>span{flex:1 1 140px!important}
+#r920Practice #r852VoiceCard .r852VoiceHead b{font:600 15px/1.4 system-ui!important}
+#r920Practice #r852VoiceCard .r852VoiceHead small,#r920Practice #r852VoiceCard :is(.r922VoiceNote,.r852VoiceNote){display:block!important;font:400 12px/1.55 system-ui!important;color:var(--r920-muted)!important;white-space:normal!important;overflow-wrap:anywhere!important;margin:6px 0!important}
+#r920Practice #r852VoiceCard #r922VoiceNotice{padding:10px!important;border:1px solid #d8bc8b6b!important;border-radius:10px!important;color:var(--r920-ink)!important}
+#r920Practice #r852VoiceCard .r922VoiceField{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:5px!important;width:100%!important;padding:0!important;margin:0 0 12px!important;font:500 12px/1.4 system-ui!important;color:var(--r920-muted)!important}
+#r920Practice #r852VoiceCard :is(select,input,button){min-height:44px!important;font-size:14px!important;max-width:100%!important;touch-action:manipulation!important}
+#r920Practice #r852VoiceCard select{width:100%!important;height:44px!important;flex:none!important;margin:0!important;padding:10px!important;white-space:normal!important}
+#r920Practice #r852VoiceCard .r922RecordRow{display:flex!important;flex-direction:column!important;gap:0!important;margin:12px 0!important}
+#r920Practice #r852VoiceCard #r922RecordVoice{align-self:flex-start!important;min-height:44px!important;white-space:normal!important}
+#r920Practice #r852VoiceCard #r922RecordVoice[aria-pressed="true"]{border-color:#f4a293!important;color:#ffc5ba!important}
+#r920Practice #r852VoiceCard :is(.r922SpeakRow,#r922ArabicFallback){display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;min-height:52px!important;margin:0!important;padding:4px 0!important}
+#r920Practice #r852VoiceCard .opt>span{font:400 13px/1.45 system-ui!important}
+#r920Practice #r852VoiceCard .sw{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:72px!important;height:44px!important;min-height:44px!important;flex:none!important;border-radius:14px!important;background:#0c1a2b!important;font:500 12px/1.2 system-ui!important;white-space:nowrap!important}
+#r920Practice #r852VoiceCard .sw.on{background:var(--r920-selected)!important;border-color:var(--r920-accent)!important}
+#r920Practice #r852VoiceCard .sw::before,#r920Practice #r852VoiceCard .sw::after{display:none!important;content:none!important}
+#r920Practice #r852VoiceCard #arVoiceRow{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:7px!important;margin:12px 0!important}
+#r920Practice #r852VoiceCard #arVoiceRow>b{grid-column:1/-1!important;font:500 12px/1.4 system-ui!important}
+#r920Practice #r852VoiceCard #spkRow{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:0!important;margin:12px 0 0!important}
+#r920Practice #r852VoiceCard #spkRow input[type="range"]{width:100%!important;margin:0!important;min-height:44px!important}
+#r920Practice #r852VoiceCard .r852Advanced>summary{min-height:44px!important;display:flex!important;align-items:center!important;font:500 12px/1.4 system-ui!important;color:var(--r920-muted)!important}
+#r920Practice #r852VoiceCard [hidden],#r920Practice #r852VoiceCard #r922ArabicFallback[hidden],#r920Practice #r852VoiceCard #r922VoiceNotice[hidden]{display:none!important}
+@media(min-width:520px){#r920Practice #r852VoiceCard #spkRow{grid-template-columns:1fr 1fr!important;gap:0 12px!important}#r920Practice #r852VoiceCard #spkRow>label:last-child{grid-column:1/-1!important}}
+
 body.r920-practice-on:not(.r920-details-open) #tab-zkr>:not(#r920Practice){display:none!important}
 body.r920-practice-on #tab-zkr>#r883JourneyRemote{display:none!important}
 body.r920-practice-on.r920-details-open:not(.sukun-tefekkur-mode) #tab-zkr>.zCtl{display:block!important}
@@ -232,6 +265,43 @@ body.r920-dock.sukun-tefekkur-mode #r588DockShell {display:none!important;pointe
 #r919Health button { min-height: 44px; margin: 6px 8px 0 0; padding: 8px 14px; border: 1px solid #78938b; border-radius: 10px; color: #eff7ed; background: #17372e; }
 body.sukun-tefekkur-mode #r919Health { display: none !important; }
 
+/* r921: derive display alpha from the black RGB matte without changing the artwork file.
+ * This remains transparent inside isolated/animated application layers. */
+#r920Practice[data-mode="esma"] #r920Wheel {mix-blend-mode:normal!important;filter:url("#r921EsmaMatte")!important}
+#r920Practice[data-mode="esma"] .r920CounterCore {background:transparent!important;box-shadow:none!important;text-shadow:0 1px 4px #001821!important}
+
+/* r921: append inside the existing first important layer, after r920 dock rules.
+ * Mini stays 68px high. The native entry, play and expand each keep a 44px target.
+ */
+body.r920-dock #r921DockName {display:none!important}
+body.r920-dock.r588-mode-mini #r588DockShell .r588Main,
+body.r920-dock.r588-mode-mini #r588DockShell .r588Stats {right:164px!important}
+body.r920-dock.r588-mode-mini #r588DockShell .r588Text {
+ display:block!important;min-width:0!important;max-width:100%!important;
+ height:24px!important;overflow:hidden!important;
+}
+body.r920-dock.r588-mode-mini #r588Title,
+body.r920-dock.r588-mode-mini #r588Source,
+body.r920-dock.r588-mode-mini #r588State {display:none!important}
+body.r920-dock.r588-mode-mini #r921DockName {
+ display:block!important;min-width:0!important;max-width:100%!important;
+ margin:0!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;
+ color:#eee8d7!important;font:600 13px/24px system-ui!important;letter-spacing:normal!important;
+}
+body.r920-dock.r588-mode-mini #r588DockShell>.r588Mode {width:150px!important}
+body.r920-dock.r588-mode-mini #r588DockShell #r730MiniTef {
+ display:inline-flex!important;position:relative!important;inset:auto!important;
+ align-items:center!important;justify-content:center!important;flex:0 0 54px!important;
+ width:54px!important;min-width:54px!important;max-width:54px!important;
+ height:44px!important;min-height:44px!important;max-height:44px!important;
+ margin:0!important;padding:0 2px!important;gap:0!important;box-sizing:border-box!important;
+ border:1px solid #d2b67966!important;border-radius:12px!important;background:#75c9b51a!important;
+ color:#f4e6bd!important;font:600 10px/1.2 system-ui!important;letter-spacing:normal!important;
+ white-space:nowrap!important;overflow:hidden!important;transform:none!important;
+ opacity:1!important;visibility:visible!important;pointer-events:auto!important;touch-action:manipulation!important;
+}
+body.r920-dock.r588-mode-mini #r588DockShell #r730MiniTef svg {display:none!important}
+body.r920-dock.r588-mode-mini #r588DockShell #r730MiniTef span {display:inline!important;font:inherit!important;color:inherit!important}
 }</style>
 <style id="sukun-r918-repair">@layer sukun-repair-r918 {
 html[data-r915-category="berhet"] body #zCountVisual>#r899BerhetWheel {
@@ -496,11 +566,11 @@ body #tfRefinedLayout,body #zBar,body #r883JourneyRemote {scroll-margin-block:90
 </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r920"/>
+<meta name="sukun-build" content="r923"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r920" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r923" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -5923,8 +5993,22 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
  html[data-r853-berhet="1"] body #r679ZikirAyarBox>summary{padding-left:12px!important;padding-right:40px!important}
 }
 </style>
-<script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r920"/><script>window.SUKUN_BUILD='r920';document.documentElement.dataset.sukunBuild='r920';</script>
+<script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){/* r922 shared settings owns its label. */if(document.getElementById('r920Practice')?.contains(document.getElementById('r679ZikirAyarBox')))return;if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
+<meta name="sukun-build" content="r923"/><script>window.SUKUN_BUILD='r923';document.documentElement.dataset.sukunBuild='r923';</script>
+<style id="sukun-r923-esma-gallery">@layer sukun-r920 {
+#r920Practice #r923EsmaOptions{min-width:0;margin:10px 0}
+#r920Practice #r923EsmaOptions[hidden]{display:none!important}
+#r920Practice #r923EsmaSceneSelect{width:100%;min-height:48px;touch-action:manipulation}
+#r920Practice #r923ScenePreview{display:grid;grid-template-columns:78px minmax(0,1fr);gap:12px;align-items:center;padding:10px 0;min-width:0}
+#r920Practice #r923SceneThumb{display:block;width:78px;height:138px;object-fit:cover;border-radius:9px;border:1px solid #9cbcaf55;pointer-events:none;background:#0c2930}
+#r920Practice #r923ScenePreview strong{display:block;font-size:13px;color:#ede2c0;line-height:1.5}
+#r920Practice #r923SceneStatus{font-size:12px;line-height:1.6;color:#bfd5d3;margin:6px 0}
+#r920Practice #r923SceneNotes{font-size:12px;line-height:1.65;overflow-wrap:anywhere;color:#cdd6d7}
+#r920Practice #r923SceneNotes summary{min-height:44px;display:flex;align-items:center;cursor:pointer;color:#d6c396}
+#r920Practice #r923SceneNotes p{margin:6px 0}
+#r920Practice #r923SceneSources a{display:inline-flex;min-height:44px;align-items:center;padding:4px 10px 4px 0;color:#9fdfd5;text-decoration:underline}
+#r920Practice #r923SceneRetry{min-height:44px;margin:4px 0;touch-action:manipulation}
+}</style>
 </head>
 <body data-perf="dengeli">
 <!-- ═══ r519 — AÇILIŞ PERDESİ ═══════════════════════════════════════════
@@ -7023,7 +7107,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN v20.91 — Uygulama r917 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN — Uygulama r923 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -15518,26 +15602,29 @@ function r476CurrentLabel(){
   return String(($('#zTr')?.textContent||'Zikir')).trim()||'Zikir';
 }
 function r476CurrentText(){
-  const it=r476CanonicalItem();
-  try{
-    if(SPK.arOn&&SPK.arVoice){
-      const ar=String(it?.ar||it?.a||($('#zAr')?.textContent||'')).trim();
-      if(ar)return{txt:ar,voice:SPK.arVoice,lang:SPK.arVoice.lang||'ar-SA',rate:SPK.arRate,pitch:SPK.arPitch};
-    }
-  }catch(e){}
+  const it=r476CanonicalItem(),mode=window.SukunVoiceSettings?.getMode?.()||'auto';
+  const arVoice=window.SukunVoiceCatalog?.resolve?.('ar')||SPK.arVoice||null;
+  if(mode==='arabic'||(mode==='auto'&&SPK.arOn&&arVoice)){
+    let ar=String(it?.ar||it?.a||($('#zAr')?.textContent||'')).trim();
+    try{if(Z.cat==='esma'&&it&&typeof esmaForms==='function')ar=esmaForms(it).ar||ar}catch(e){}
+    if(Z?.cat==='berhet'&&ar&&!/^يَا\s/u.test(ar))ar='يَا '+ar;
+    if(ar&&arVoice&&/^ar(?:-|$)/i.test(arVoice.lang||''))return{txt:ar,voice:arVoice,lang:arVoice.lang||'ar-SA',rate:SPK.arRate,pitch:spkPitch(SPK.arPitch,true)};
+    if(mode==='arabic')return{txt:'',voice:null,lang:'ar-SA',rate:SPK.arRate,pitch:SPK.arPitch,unavailable:ar?'arabic-voice-unavailable':'arabic-text-unavailable'};
+  }
   let txt='';
   try{
     if(it){
       txt=String(it.oku||it.translit||it.tr||'').trim();
+      if(Z.cat==='esma'&&typeof esmaForms==='function')txt=esmaForms(it).tr||txt;
       if(!txt&&it.t)txt=(Z?.cat==='esma'?'Yâ ':'')+String(it.t).trim();
+      if(Z.cat==='berhet'&&txt&&!/^Y(?:â|a)\s+/i.test(txt))txt='Yâ '+txt;
     }
   }catch(e){}
-  if(!txt){
-    const oku=($('#zOku')?.textContent||'').trim(),tr=($('#zTr')?.textContent||'').trim();
-    txt=oku||tr;
-  }
-  return{txt,voice:SPK.voice||null,lang:'tr-TR',rate:SPK.rate,pitch:.9};
+  if(!txt)txt=(($('#zOku')?.textContent||'').trim())||($('#zTr')?.textContent||'').trim();
+  const selected=window.SukunVoiceCatalog?.resolve?.('tr')||SPK.voice||null;
+  return{txt,voice:selected&&/^tr(?:-|$)/i.test(selected.lang||'')?selected:null,lang:'tr-TR',rate:SPK.rate,pitch:spkPitch(.9)};
 }
+
 async function r476ProbeDuration(url){
   return await new Promise(resolve=>{
     const a=document.createElement('audio');
@@ -15688,11 +15775,12 @@ async function r477RenderLockTrack(blob,key){
 
 async function r476Prepare(){
   const seq=++_r476PrepareSeq;
+  const preferenceCurrent=window.SukunVoiceSettings?.capture?.()||(()=>true),voiceEpoch=window.SukunVoiceSettings?.epoch?.()||0;
   let key='';try{key=zikirKey()}catch(e){}
   const t=r476CurrentText();
   let blob=null,url='',durationMs=0;
-  try{if(key&&typeof REC_DB!=='undefined')blob=await REC_DB.get(key)}catch(e){}
-  if(seq!==_r476PrepareSeq)return false;
+  try{if(key&&typeof REC_DB!=='undefined'&&window.SukunVoiceSettings?.recordingAllowed?.(Z.cat)!==false)blob=await REC_DB.get(key)}catch(e){}
+  if(seq!==_r476PrepareSeq||!preferenceCurrent())return false;
 
   if(blob){
     try{
@@ -15701,12 +15789,12 @@ async function r476Prepare(){
       durationMs=await r476ProbeDuration(url);
     }catch(e){url='';durationMs=0}
   }
-  if(seq!==_r476PrepareSeq)return false;
+  if(seq!==_r476PrepareSeq||!preferenceCurrent())return false;
 
   const speed=Math.max(.5,Math.min(2,Number(window.OKUMA_HIZ)||1));
   let cycleMs=Math.max(zAutoTempoMs(),durationMs?Math.round(durationMs/speed):0,650);
   _r476Prepared={
-    key,blob,url,durationMs,
+    key,blob,url,durationMs,voiceEpoch,unavailable:t.unavailable||'',
     fxUrl:'',fxSig:'',cycleMs,fxReady:false,playRate:speed,
     text:t.txt||'',voice:t.voice||null,lang:t.lang||'tr-TR',
     rate:t.rate||.85,pitch:t.pitch==null?.9:t.pitch
@@ -15717,7 +15805,7 @@ async function r476Prepare(){
      arka planda OfflineAudioContext throttling'i kaynak değişimini geciktiremez. */
   if(blob&&url&&!document.hidden){
     const fx=await r477RenderLockTrack(blob,key);
-    if(seq!==_r476PrepareSeq)return false;
+    if(seq!==_r476PrepareSeq||!preferenceCurrent())return false;
     if(fx){
       _r476Prepared.fxUrl=fx.url;
       _r476Prepared.fxSig=fx.sig;
@@ -15837,32 +15925,29 @@ function r476StopTtsBatch(){
   try{if(_r476Batch){_r476Batch.active=false}_r476Batch=null;speechSynthesis.cancel()}catch(e){}
 }
 function r481StableVoice(preferred,lang){
+  const prefix=String(lang||'tr-TR').slice(0,2).toLowerCase();
   try{
-    const voices=speechSynthesis.getVoices()||[];
-    if(!voices.length)return preferred||null;
-    if(preferred){
-      const exact=voices.find(v=>v.name===preferred.name&&v.lang===preferred.lang);
-      if(exact)return exact;
-      const sameName=voices.find(v=>v.name===preferred.name);
-      if(sameName)return sameName;
-    }
-    const p=String(lang||'tr-TR').slice(0,2).toLowerCase();
-    return voices.find(v=>String(v.lang||'').toLowerCase().startsWith(p))||preferred||voices[0]||null;
-  }catch(e){return preferred||null}
+    if(window.SukunVoiceCatalog)return window.SukunVoiceCatalog.resolve(prefix);
+    const voices=(speechSynthesis.getVoices()||[]).filter(v=>String(v.lang||'').slice(0,2).toLowerCase()===prefix);
+    return voices.find(v=>preferred&&v.name===preferred.name&&v.lang===preferred.lang)||voices[0]||null;
+  }catch(e){return null}
 }
+
 function r476StartTtsBatch(){
  const p=_r476Prepared;
  if(!p.text||!('speechSynthesis'in window)||!_r476Hidden)return false;
  r476StopTtsBatch();
  const session=_r476Hidden,key=p.key;
  const voice=r481StableVoice(p.voice,p.lang);
+ if(/^ar(?:-|$)/i.test(p.lang||'')&&!voice){_r476Hidden=null;window.SukunVoiceSettings?.unavailable?.('arabic-voice-unavailable');return false;}
  const rate=Math.max(.55,Math.min(1.55,(p.rate||.85)*(window.OKUMA_HIZ||1)));
  const pitch=Math.max(.72,Math.min(1.02,p.pitch==null?.9:p.pitch));
  const room=Z.adv&&Z.target>0?Math.max(1,Z.target-Z.count):24;
  const queueCount=Math.min(24,room);
  const b={active:true,items:[],completed:0,current:0,total:queueCount,voiceName:voice?.name||'',rate,pitch};
  _r476Batch=b;
- const valid=()=>b.active&&Z.auto&&document.hidden&&_r476Hidden===session;
+ const preferenceCurrent=window.SukunVoiceSettings?.capture?.()||(()=>true);
+ const valid=()=>preferenceCurrent()&&b.active&&Z.auto&&document.hidden&&_r476Hidden===session;
  try{
   for(let i=0;i<queueCount;i++){
    const u=new SpeechSynthesisUtterance(p.text.trim());u.lang=p.lang||'tr-TR';if(voice)u.voice=voice;u.rate=rate;u.pitch=pitch;
@@ -15889,11 +15974,13 @@ async function r476BeginHidden(){
  if(_r476Hidden)return true;
  if(_r838HiddenStart)return _r838HiddenStart;
  const expected=zikirKey(),generation=window.SukunZikirTransportGate?.snapshot?.().generation;
- const valid=()=>Z.auto&&document.hidden&&zikirKey()===expected&&!ZIKIR_BIRLIKTE&&(generation==null||generation===window.SukunZikirTransportGate?.snapshot?.().generation);
+ const preferenceCurrent=window.SukunVoiceSettings?.capture?.()||(()=>true);
+ const valid=()=>preferenceCurrent()&&Z.auto&&document.hidden&&zikirKey()===expected&&!ZIKIR_BIRLIKTE&&(generation==null||generation===window.SukunZikirTransportGate?.snapshot?.().generation);
  const task=(async()=>{
-  if(_r476Prepared.key!==expected){try{await r476Prepare()}catch(e){}}
+  if(_r476Prepared.key!==expected||_r476Prepared.voiceEpoch!==(window.SukunVoiceSettings?.epoch?.()||0)){try{await r476Prepare()}catch(e){}}
   if(!valid()||_r476Prepared.key!==expected)return false;
   const prepared={..._r476Prepared},sourceUrl=prepared.fxUrl||prepared.url||'';
+  if(!sourceUrl&&prepared.unavailable){window.SukunVoiceSettings?.unavailable?.(prepared.unavailable);return false;}
   const cycleMs=Math.max(650,prepared.cycleMs||prepared.durationMs||zAutoTempoMs());
   let phaseMs=0;
   try{const playing=[...SES.ler].find(x=>x&&!x.paused&&!x.ended);if(playing)phaseMs=Math.max(0,playing.currentTime*1000/Math.max(.1,playing.playbackRate||1));}catch(e){}
@@ -17261,6 +17348,7 @@ window.addEventListener('pagehide',()=>{
 
 /* ── Ayar kalıcılığı ── */
 function saveSettings(){
+  try{window.SukunVoiceCatalog?.save?.();}catch(e){}
   S.set('sukun.set',{
     mv:+$('#masterVol').value,
     fr:{c:FR.c,b:FR.b,vol:FR.vol,mode:FR.mode,pink:FR.pink},
@@ -18924,6 +19012,7 @@ const SK_YEDEK_KEYS=new Set(`
   sukun.tvOnly sukun.ui sukun.usul sukun.vakitGosterildi sukun.vakitKapali
   sukun.vaultBlob sukun.vird sukun.vird.done sukun.virdAktif
   sukun.virdSugKapali sukun.virddefteri sukun.virdler sukun.voice
+  sukun.voiceChoices sukun.zikirVoiceMode
   sukun.wakelock sukun.zaKapali sukun.zikirBirlikte sukun.zvol
   sukun.berhet.seyir.state
   tekke.araSukut tekke.brHiz tekke.davul tekke.davulVol tekke.defter tekke.dur
@@ -19867,51 +19956,103 @@ function tevhid99(){
 
 /* ── Sesli zikir — cihazın Türkçe sesiyle ── */
 const SPK={on:false,rate:.85,voice:null,list:[],arOn:true,arVoice:null,arList:[],arPitch:.76,arRate:.7};
-let SPK_GENDER=S.get('sukun.spkGender','');  /* '', 'f' (kadın), 'm' (erkek) */
-/* Ses adından cinsiyet tahmini — Türkçe/genel kalıplar; kesin değil, ipucu */
+let SPK_GENDER=S.get('sukun.spkGender','');
+if(!['','f','m'].includes(SPK_GENDER))SPK_GENDER='';
+/* r922: persisted reading preference; playback and count remain with existing owners. */
+window.SukunVoiceSettings=(()=>{
+ const KEY='sukun.zikirVoiceMode';
+ let mode=S.get(KEY,'auto');if(!['auto','arabic','turkish'].includes(mode))mode='auto';
+ let revision=0,editSequence=0,previewSequence=0,notice='',noticeCode='',previewing=false;
+ const labels={auto:'Kendi kayıt öncelikli',arabic:'Arapça okuma',turkish:'Türkçe okunuş'};
+ function snapshot(){return {version:'r922',mode,label:labels[mode],revision,notice,previewing,arabicAvailable:!!SPK.arVoice,voiceEnabled:!!SPK.on};}
+ function emit(){try{dispatchEvent(new CustomEvent('sukun:voicesettingschange',{detail:snapshot()}));window.SukunSessionState?.refresh?.('voice-settings')}catch(_){}}
+ function inform(text,code=''){notice=text;noticeCode=code;try{window.toast?.(text)}catch(_){}emit();}
+ function busy(){const s=window.SukunSessionState?.snapshot?.();return !!s&&['PREPARING','PLAYING','COMPLETING','RECOVERING'].includes(s.phase);}
+ async function pause(){if(busy())await window.SukunSessionState.command('pause');}
+ async function edit(apply){
+  const sequence=++editSequence;revision++;previewSequence++;previewing=false;
+  const wasLoop=!!window.DONGU?.aktif;
+  if(wasLoop)window.DONGU.durdur('voice-preference-change');
+  const wasBusy=busy();await pause();if(sequence!==editSequence)return false;
+  try{window.sukunTtsCancel?.('voice-preference-change')}catch(_){}
+  try{_r476PrepareSeq++;}catch(_){}
+  if(typeof apply==='function')apply();
+  try{saveSettings()}catch(_){}
+  notice=wasBusy?'Ses tercihi değişti. Tamamlanan tekrarlar korundu; Devam et ile sürdürebilirsin.':wasLoop?'Ses tercihi değişti. Döngü durdu; yeni sesle başlatmak için Döngü’ye dokun.':'';
+  noticeCode='';
+  emit();
+  // Preparation may decode a long recording; keep the settings responsive.
+  // Native prepare/beginHidden already reject an outdated preference epoch.
+  try{Promise.resolve(window.SukunLockScreenZikir?.prepare?.()).catch(()=>{})}catch(_){}
+  return sequence===editSequence;
+ }
+ async function setMode(value){
+  if(!Object.prototype.hasOwnProperty.call(labels,value))return false;
+  if(value===mode)return true;
+  return edit(()=>{
+   mode=value;S.set(KEY,mode);SPK.on=true;window.SukunR698VoiceIntent?.explicit?.(true);
+   document.getElementById('optSpeak')?.classList.add('on');
+   // An explicit source switch releases a held recording error; it never deletes the recording.
+   if(mode!=='auto')window.SukunRecordingFailure?.clearForRetry?.();
+   try{arStatusUI()}catch(_){}
+  });
+ }
+ function checkReady(){
+  const intent=window.SukunR698VoiceIntent?.snapshot?.();
+  if(mode==='arabic'&&!SPK.arVoice&&!intent?.explicitOff){inform('Chrome Arapça ses sunmuyor. Ses paketini yükleyip Sesleri yenile’ye dokun veya Kendi kayıt seç.','arabic-voice');return false}
+  return true;
+ }
+ function unavailable(reason){
+  const message=/text|metin/.test(String(reason))?'Bu isim için Arapça okuma metni bulunamadı.':'Arapça okuma sesi kullanılamıyor. Sesleri yenile veya başka ses kaynağı seç.';
+  notice=message;
+  noticeCode=/text|metin/.test(String(reason))?'arabic-text':'arabic-voice';
+  try{window.SukunVoiceSource?.set?.('error','ARAPÇA SES KULLANILAMIYOR',message)}catch(_){}
+  // Hold through the native pause route; no second session or count owner is introduced.
+  Promise.resolve(window.SukunSessionState?.command?.('pause')).catch(()=>{});emit();
+  return {ok:false,source:'tts',blocked:true,reason:'voice-unavailable',detail:String(reason||'')};
+ }
+ async function previewArabic(){
+  if(!await edit())return false;
+  if(!SPK.arVoice)return unavailable('arabic-voice');
+  const item=typeof zItem==='function'?zItem():null;
+  const text=String(document.getElementById('zAr')?.textContent||item?.ar||item?.a||'').trim();
+  if(!text)return unavailable('arabic-text');
+  const sequence=++previewSequence;previewing=true;emit();
+  try{return await zikirTtsAwait(text,true,SPK.arVoice.lang||'ar-SA',SPK.arVoice,SPK.arRate,SPK.arPitch)}
+  finally{if(sequence===previewSequence){previewing=false;emit()}}
+ }
+ addEventListener('sukun-voice-catalog-changed',()=>{
+  if(noticeCode==='arabic-voice'&&SPK.arVoice){notice='';noticeCode='';emit()}
+ });
+ return Object.freeze({getMode:()=>mode,recordingAllowed:()=>mode==='auto',snapshot,setMode,edit,previewArabic,checkReady,unavailable,
+  epoch:()=>revision,capture:()=>{const captured=revision;return()=>captured===revision},notify:inform});
+})();
+  /* '', 'f' (kadın), 'm' (erkek) */
+/* r922 — Web Speech seslerinde cinsiyet alanı yoktur. Yalnız açık etiketler
+   ve tanınan ses adları ipucu sayılır; genel Google sesleri bilinmeyendir. */
 function voiceGender(v){
-  const s=((v.name||'')+' '+(v.voiceURI||'')).toLowerCase();
-  if(/\b(female|kadın|kadin|woman|women|yelda|filiz|seda|aylin|elif|zeynep|google türkçe)\b/.test(s))return 'f';
-  if(/\b(male|erkek|man|men|tolga|mesut|emre|murat|ahmet)\b/.test(s))return 'm';
-  /* Microsoft kalıbı: 'Microsoft Tolga' (erkek), 'Microsoft Emel/Filiz' (kadın) */
-  if(/emel|filiz|se[dz]a/.test(s))return 'f';
-  if(/tolga/.test(s))return 'm';
-  /* Arapça sesler — Apple/Microsoft/Google yaygın adları */
-  if(/laila|salma|zariyah|hala|amina|fatima|hoda|noura|sana|rana|maryam/.test(s))return 'f';
-  if(/maged|hamed|naayf|shakir|bassel|omar|tarik|moaz|ali\b|saleh/.test(s))return 'm';
+  if(!v)return '';
+  const s=((v.name||'')+' '+(v.voiceURI||'')).toLocaleLowerCase('tr');
+  if(/\b(female|kadın|kadin|woman|women|yelda|filiz|emel|seda|salma|zariyah|hala|hoda|laila)\b/.test(s))return 'f';
+  if(/\b(male|erkek|man|men|tolga|maged|hamed|naayf|shakir|bassel|tarik|moaz)\b/.test(s))return 'm';
   return '';
 }
-/* ── Cinsiyet seçiminin HER ZAMAN duyulur etkisi olsun ──
-   Sorun: Android'deki Türkçe sesler ("Türkçe Türkiye", "tr-tr-x-trd-network")
-   adlarında cinsiyet taşımıyor; ada bakan filtre boş dönüp tüm listeye geri
-   düşüyordu ve seçim hiçbir şeyi değiştirmiyordu.
-   Çözüm: gerçekten farklı bir ses bulunabiliyorsa o kullanılır; bulunamazsa
-   perde (pitch) kaydırılarak ses erkek/kadın yönüne çekilir. Böylece seçim
-   her cihazda karşılık bulur. Tüm okuyucular bu yardımcıdan geçer. */
 /* Genel ayarlar paneli — ses cinsiyeti ve hız, tek yerden tüm okuyuculara */
 function genAyarSync(){
   const g=document.getElementById('genGenderSel');
   if(g && g.value!==SPK_GENDER)g.value=SPK_GENDER;
   const r=document.getElementById('genRate');
-  if(r){ r.value=SPK.rate; const v=document.getElementById('genRateV'); if(v)v.textContent=(+SPK.rate).toFixed(2);
-         if(typeof setFill==='function')setFill(r); }
+  if(r){r.value=SPK.rate;const v=document.getElementById('genRateV');if(v)v.textContent=(+SPK.rate).toFixed(2);
+    if(typeof setFill==='function')setFill(r);}
   const n=document.getElementById('genGenderNot');
   if(n){
-    if(!SPK_GENDER){ n.className='genNot'; n.textContent='Cihazın seçtiği ses kullanılır.'; }
-    else if(spkGercekSesVar()){
-      const ad=(SPK.voice&&SPK.voice.name)||'';
-      n.className='genNot';
-      n.innerHTML='Cihazında bu cinsiyette ses bulundu: <b>'+hesc(ad)+'</b>';
-    } else {
-      n.className='genNot uyari';
-      const sesler=(SPK.list||[]).map(v=>v.name).slice(0,4).join(', ')||'—';
-      n.innerHTML='Cihazında ayrı bir <b>'+(SPK_GENDER==='m'?'erkek':'kadın')+'</b> sesi bulunamadı. '+
-        'Mevcut ses <b>perde kaydırılarak</b> o yöne çekiliyor — duyulur bir fark olur ama gerçek bir '+
-        (SPK_GENDER==='m'?'erkek':'kadın')+' sesi kadar doğal olmaz.<br><br>'+
-        '<b>Kalıcı çözüm:</b> Ayarlar → Sistem → Diller ve girdi → Metinden konuşmaya → (Google) → Ses verisi yükle → Türkçe. '+
-        'Oradan ek Türkçe ses paketlerini indirdiğinde burada seçilebilir hâle gelirler.<br><br>'+
-        '<span style="color:var(--dim)">Şu an bulunan sesler: '+hesc(sesler)+'</span>';
-    }
+    const missing=SPK_GENDER?[[SPK.list,'Türkçe'],[SPK.arList,'Arapça']].filter(([list])=>!list.some(v=>voiceGender(v)===SPK_GENDER)).map(([,label])=>label):[];
+    n.className='genNot'+(missing.length?' uyari':'');
+    n.textContent=!SPK_GENDER
+      ?'Cihazında bulunan seslerden seçim yapabilirsin. Tarayıcı seslerin cinsiyetini bildirmez; tanınmayan sesler kadın veya erkek diye etiketlenmez.'
+      :missing.length
+        ?missing.join(' ve ')+' için bu cinsiyette olduğu adından tanınan bir ses bulunamadı. Varsa mevcut ses korunur. Ses perdesi cinsiyeti taklit etmek için değiştirilmez.'
+        :'Türkçe ve Arapça için bu tercihe uygun, adıyla tanınan sesler mevcut. Listeden yaptığın özel ses seçimi korunur.';
   }
 }
 function kayitAyarSync(){
@@ -20063,20 +20204,14 @@ function kayitAyarBagla(){
 }
 function genAyarBagla(){
   const g=document.getElementById('genGenderSel');
-  if(g)g.onchange=e=>{
-    SPK_GENDER=e.target.value; S.set('sukun.spkGender',SPK_GENDER);
-    if(typeof spkVoices==='function')spkVoices();
-    genAyarSync();
-    const es=document.getElementById('spkGenderSel'); if(es)es.value=SPK_GENDER;  /* diğer panelle eşitle */
-    vib&&vib(8); sfx&&sfx('tick');
-    if(typeof toast==='function')toast('Okuma sesi güncellendi — tüm okuyucular');
-  };
+  if(g)g.onchange=e=>{void spkChooseGender(e.target.value);};
   const r=document.getElementById('genRate');
   if(r)r.oninput=e=>{
-    SPK.rate=+e.target.value; S.set('sukun.spkRate',SPK.rate);
-    const v=document.getElementById('genRateV'); if(v)v.textContent=SPK.rate.toFixed(2);
-    if(typeof setFill==='function')setFill(r);
-    const es=document.getElementById('spkRate'); if(es){es.value=SPK.rate; if(typeof setFill==='function')setFill(es);}
+    const rate=+e.target.value;
+    void spkSettingsEdit(()=>{
+      SPK.rate=rate;S.set('sukun.spkRate',SPK.rate);
+      const es=document.getElementById('spkRate');if(es){es.value=SPK.rate;if(typeof setFill==='function')setFill(es);}
+    });
   };
   genAyarSync();
   if(typeof kayitAyarBagla==='function')kayitAyarBagla();
@@ -20148,75 +20283,137 @@ function genAyarBagla(){
   if(typeof breathAyarBagla==='function')breathAyarBagla();
   if(typeof sozAyarBagla==='function')sozAyarBagla();
 }
-function spkGercekSesVar(){
-  const l=SPK.list||[];
-  return !!(SPK_GENDER && l.some(v=>voiceGender(v)===SPK_GENDER));
+/* r922 — Kalıcı tercih, tarayıcının her yenilemede ürettiği ses nesnesinden
+   ayrıdır. Boş/geç gelen katalog, saklanan tercihi silmez. */
+const SPK_VOICE_CHOICES=(()=>{
+  const raw=S.get('sukun.voiceChoices',{}),src=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};
+  const clean=v=>v&&typeof v==='object'&&!Array.isArray(v)&&typeof v.lang==='string'
+    ?{voiceURI:String(v.voiceURI||''),name:String(v.name||''),lang:String(v.lang||'')}:null;
+  return {tr:clean(src.tr),ar:clean(src.ar),pendingGender:{tr:!!src.pendingGender?.tr||!!(SPK_GENDER&&!clean(src.tr)),ar:!!src.pendingGender?.ar||!!(SPK_GENDER&&!clean(src.ar))}};
+})();
+function spkVoiceKey(v){return v?encodeURIComponent(JSON.stringify([String(v.lang||'').toLowerCase(),String(v.voiceURI||''),String(v.name||'')])):'';}
+function spkVoiceDescriptor(v){return v?{voiceURI:String(v.voiceURI||''),name:String(v.name||''),lang:String(v.lang||'')}:null;}
+function spkFindVoice(list,wanted){
+  if(!wanted)return null;
+  if(typeof wanted==='string')return list.find(v=>spkVoiceKey(v)===wanted)||null;
+  const lang=String(wanted.lang||'').toLowerCase();
+  return (wanted.voiceURI&&list.find(v=>String(v.voiceURI||'')===wanted.voiceURI&&String(v.lang||'').toLowerCase()===lang))
+    ||(wanted.name&&list.find(v=>v.name===wanted.name&&String(v.lang||'').toLowerCase()===lang))||null;
+}
+function spkSaveVoiceChoices(){S.set('sukun.voiceChoices',SPK_VOICE_CHOICES);S.set('sukun.spkGender',SPK_GENDER);}
+function spkGercekSesVar(arapca){
+  const list=arapca?SPK.arList:SPK.list;
+  return !!(SPK_GENDER&&list.some(v=>voiceGender(v)===SPK_GENDER));
 }
 function spkPitch(taban,arapca){
-  let t=(taban!=null?taban:.9);
-  if(arapca)t=(taban!=null?taban:(SPK.arPitch||.78));
-  if(!SPK_GENDER)return t;
-  if(spkGercekSesVar())return t;          /* uygun ses zaten seçildi, perdeye dokunma */
-  return Math.max(.1,Math.min(2, t + (SPK_GENDER==='m' ? -0.28 : +0.22)));
+  const n=Number(taban!=null?taban:(arapca?SPK.arPitch:.9));
+  return Math.max(.1,Math.min(2,Number.isFinite(n)?n:.9));
 }
 window.spkPitch=spkPitch;
 function spkFilterByGender(list){
-  if(!SPK_GENDER||!list||!list.length)return list||[];
-  const f=list.filter(v=>voiceGender(v)===SPK_GENDER);
-  return f.length?f:list;   /* o cinsiyette ses yoksa tümünü göster */
+  if(!SPK_GENDER||!list?.length)return list||[];
+  const matches=list.filter(v=>voiceGender(v)===SPK_GENDER);
+  return matches.length?matches:list;
 }
-function spkFilteredList(){ return spkFilterByGender(SPK.list); }
-function spkVoices(){
-  if(!('speechSynthesis' in window))return;
-  const all=speechSynthesis.getVoices();
-  SPK.list=all.filter(v=>/^tr/i.test(v.lang));
-  SPK.arList=all.filter(v=>/^ar/i.test(v.lang));
-  const sel=$('#spkVoice');
-  const flist=spkFilteredList();
-  sel.innerHTML=flist.length
-    ?flist.map((v)=>'<option value="'+SPK.list.indexOf(v)+'">'+hesc(v.name||'İsimsiz ses')+'</option>').join('')
-    :'<option value="-1">Türkçe ses bulunamadı</option>';
-  if(SPK.list.length&&!SPK.voice)SPK.voice=SPK.list[0];
-  /* seçili ses filtreye uymuyorsa filtreden ilkine geç */
-  if(SPK_GENDER && SPK.voice && voiceGender(SPK.voice)!==SPK_GENDER && flist.length){ SPK.voice=flist[0]; }
-  if(SPK.voice){ const vi=SPK.list.indexOf(SPK.voice); if(vi>=0)sel.value=String(vi); }
-  const gsel=$('#spkGenderSel'); if(gsel)gsel.value=SPK_GENDER;
-  /* Arapça sesler de aynı cinsiyet tercihine uysun — zikir, dua ve sûre okuyucuları hep bunu kullanır */
-  const arF=spkFilterByGender(SPK.arList);
-  if(SPK.arList.length&&!SPK.arVoice)SPK.arVoice=arF[0]||SPK.arList[0];
-  if(SPK_GENDER && SPK.arVoice && voiceGender(SPK.arVoice)!==SPK_GENDER && arF.length){ SPK.arVoice=arF[0]; }
-  const arSel=$('#arVoiceSel'), arRow=$('#arVoiceRow');
-  if(arSel&&arRow){
-    arRow.style.display='';
-    if(!SPK.arList.length){
-      arSel.innerHTML='<option value="-1">Cihazda Arapça ses bulunamadı</option>';
-      arSel.disabled=true; SPK.arVoice=null;
-    }else{
-      arSel.disabled=false;
-      arSel.innerHTML=SPK.arList.map((v,i)=>'<option value="'+i+'">'+hesc(v.name||'İsimsiz ses')+' ('+hesc(v.lang||'')+')'+(voiceGender(v)==='f'?' 👩':voiceGender(v)==='m'?' 👨':'')+'</option>').join('');
-      const cur=SPK.arList.indexOf(SPK.arVoice); arSel.value=String(cur>=0?cur:0);
+function spkFilteredList(){return spkFilterByGender(SPK.list);}
+function spkSortedVoices(all,language){
+  const seen=new Set();
+  return all.filter(v=>new RegExp('^'+language+'(?:[-_]|$)','i').test(String(v.lang||''))).filter(v=>{
+    const key=spkVoiceKey(v);if(seen.has(key))return false;seen.add(key);return true;
+  }).sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''),'tr',{sensitivity:'base'})||String(a.lang||'').localeCompare(String(b.lang||''))||spkVoiceKey(a).localeCompare(spkVoiceKey(b)));
+}
+function spkSelectOptions(id,list,current,empty){
+  const el=document.getElementById(id);if(!el)return;
+  let shown=spkFilterByGender(list);
+  /* A named selection is kept visible even if a later catalog adds a matching
+     gender voice. Only a new gender selection may replace the user's choice. */
+  if(current&&!shown.includes(current))shown=list.filter(v=>shown.includes(v)||v===current);
+  el.replaceChildren();el.disabled=!shown.length;
+  if(!shown.length){const option=document.createElement('option');option.value='';option.textContent=empty;el.appendChild(option);return;}
+  shown.forEach(v=>{const option=document.createElement('option');option.value=spkVoiceKey(v);
+    const gender=voiceGender(v);option.textContent=(v.name||'İsimsiz ses')+' ('+v.lang+')'+(gender==='f'?' · Kadın':gender==='m'?' · Erkek':' · Cinsiyet bilgisi yok');el.appendChild(option);});
+  el.value=spkVoiceKey(current);
+}
+let _spkCatalogSignature='';
+function spkVoices(render=true){
+  let all=[];try{all=Array.from(window.speechSynthesis?.getVoices?.()||[]);}catch(e){}
+  SPK.list=spkSortedVoices(all,'tr');SPK.arList=spkSortedVoices(all,'ar');
+  let preferenceChanged=false;
+  [['tr','list','voice'],['ar','arList','arVoice']].forEach(([lang,listKey,voiceKey])=>{
+    const list=SPK[listKey],preferred=SPK_VOICE_CHOICES[lang];
+    const matching=SPK_GENDER?list.filter(v=>voiceGender(v)===SPK_GENDER):[];
+    let selected=spkFindVoice(list,preferred)||spkFindVoice(list,SPK[voiceKey]);
+    if(SPK_VOICE_CHOICES.pendingGender[lang]&&matching.length){
+      selected=matching.find(v=>spkVoiceKey(v)===spkVoiceKey(selected))||matching[0];
+      SPK_VOICE_CHOICES[lang]=spkVoiceDescriptor(selected);SPK_VOICE_CHOICES.pendingGender[lang]=false;preferenceChanged=true;
     }
-  }
-  arStatusUI();
+    if(!selected){const candidates=matching.length?matching:list;selected=candidates.find(v=>v.default)||candidates[0]||null;}
+    SPK[voiceKey]=selected;
+  });
+  if(preferenceChanged)spkSaveVoiceChoices();
+  const signature=JSON.stringify([SPK.list.map(spkVoiceKey),SPK.arList.map(spkVoiceKey),spkVoiceKey(SPK.voice),spkVoiceKey(SPK.arVoice),SPK_GENDER]);
+  const changed=signature!==_spkCatalogSignature;_spkCatalogSignature=signature;
+  if(render===false&&!changed)return;
+  spkSelectOptions('spkVoice',SPK.list,SPK.voice,'Cihazda Türkçe ses bulunamadı');
+  spkSelectOptions('arVoiceSel',SPK.arList,SPK.arVoice,'Cihazda Arapça ses bulunamadı');
+  const g=document.getElementById('spkGenderSel');if(g)g.value=SPK_GENDER;
+  arStatusUI();genAyarSync();
+  try{window.dispatchEvent(new CustomEvent('sukun-voice-catalog-changed',{detail:window.SukunVoiceCatalog?.snapshot?.()}));}catch(e){}
+}
+function spkSettingsEdit(change){
+  const apply=()=>{change();spkSaveVoiceChoices();spkVoices();};
+  if(window.SukunVoiceSettings?.edit)return window.SukunVoiceSettings.edit(apply);
+  apply();try{saveSettings();}catch(e){}return Promise.resolve();
+}
+function spkChooseVoice(language,key){
+  const lang=/^ar/i.test(language)?'ar':'tr';
+  return spkSettingsEdit(()=>{
+    const list=lang==='ar'?SPK.arList:SPK.list,voice=spkFindVoice(list,key);if(!voice)return;
+    SPK_VOICE_CHOICES[lang]=spkVoiceDescriptor(voice);SPK_VOICE_CHOICES.pendingGender[lang]=false;
+    SPK[lang==='ar'?'arVoice':'voice']=voice;
+  });
+}
+function spkChooseGender(value){
+  const gender=['f','m'].includes(value)?value:'';
+  return spkSettingsEdit(()=>{
+    SPK_GENDER=gender;
+    SPK_VOICE_CHOICES.pendingGender.tr=!!gender;SPK_VOICE_CHOICES.pendingGender.ar=!!gender;
+    if(typeof vib==='function')vib(8);
+  });
 }
 function arStatusUI(){
-  const st=$('#arStat'), nt=$('#arNote'); if(!st)return;
-  if(SPK.arList.length){
-    st.textContent=SPK.arList.length===1?'🕌 Arapça TTS hazır — '+SPK.arVoice.name:'🕌 Arapça TTS hazır — '+SPK.arVoice.name+' ('+SPK.arList.length+' seçenek)';
-    nt.textContent='Arapça okuyuş açıksa Arap harfli metin bu sesle okunur. Kendi kaydın varsa kayıt her zaman önce gelir.';
-  }else{
-    st.textContent='🕌 Arapça ses bulunamadı';
-    nt.textContent='Cihaz bu tarayıcıya Arapça TTS sesi sunmuyor. Sessiz kalmaz: kendi kaydın varsa onu, yoksa Türkçe okunuşu kullanır. Ses motoruna Arapça paket ekledikten sonra “Sesleri yenile”ye dokun.';
+  const st=document.getElementById('arStat'),nt=document.getElementById('arNote');if(!st&&!nt)return;
+  const mode=window.SukunVoiceSettings?.getMode?.()||'auto';
+  if(st)st.textContent=SPK.arVoice?'Arapça cihaz sesi hazır: '+SPK.arVoice.name+' ('+SPK.arList.length+' seçenek)':'Cihazda Arapça ses bulunamadı';
+  let note=mode==='arabic'
+    ?'Arapça cihaz sesi kullanılır. Kendi kayıtların bu seçimde çalmaz. Arapça metin veya uygun ses yoksa okuma başlamaz.'
+    :mode==='turkish'
+      ?'Türkçe okunuş, seçili Türkçe cihaz sesiyle okunur. Kendi kayıtların bu seçimde çalmaz.'
+      :'Otomatik seçimde kendi kaydın önce gelir. Kayıt yoksa '+(SPK.arOn?'uygun Arapça metin ve ses varsa Arapça; yoksa mevcut Türkçe okunuş ve ses kullanılır.':'mevcut Türkçe okunuş ve ses kullanılır.');
+  if(!SPK.arVoice)note+=' Arapça okumak için cihazının metinden konuşmaya ayarlarından bir Arapça ses yükle, sonra “Sesleri yenile”ye dokun.';
+  if(mode==='turkish'&&!SPK.voice)note+=' Cihaz Türkçe ses sunmuyor; Türkçe ses paketi yüklemen gerekiyor.';
+  if(SPK_GENDER){
+    const list=mode==='turkish'?SPK.list:SPK.arList;
+    if(list.length&&!list.some(v=>voiceGender(v)===SPK_GENDER))note+=' Bu dilde seçtiğin cinsiyette olduğu adından tanınan ses yok; mevcut ses korunur. Perde cinsiyet için değiştirilmez.';
   }
+  if(nt)nt.textContent=note;
 }
+window.SukunVoiceCatalog={
+  refresh:spkVoices,save:spkSaveVoiceChoices,key:spkVoiceKey,gender:voiceGender,
+  choose:spkChooseVoice,setGender:spkChooseGender,
+  resolve(language){spkVoices(false);return /^ar/i.test(language)?SPK.arVoice:SPK.voice;},
+  snapshot(){return {gender:SPK_GENDER,tr:spkVoiceDescriptor(SPK.voice),ar:spkVoiceDescriptor(SPK.arVoice),
+    choices:JSON.parse(JSON.stringify(SPK_VOICE_CHOICES)),
+    voices:{tr:SPK.list.map(v=>({...spkVoiceDescriptor(v),key:spkVoiceKey(v),gender:voiceGender(v)})),ar:SPK.arList.map(v=>({...spkVoiceDescriptor(v),key:spkVoiceKey(v),gender:voiceGender(v)}))},
+    genderSupported:{tr:spkGercekSesVar(false),ar:spkGercekSesVar(true)}};}
+};
+spkVoices();
 if('speechSynthesis' in window){
-  spkVoices();
-  /* Başka modüller de geç yüklenen cihaz seslerini dinliyor. Atama yerine
-     olay dinleyicisi kullan ki bir modül diğerinin işleyicisini ezmesin. */
   speechSynthesis.addEventListener('voiceschanged',spkVoices);
-  const _gsel=document.getElementById('spkGenderSel');
-  if(_gsel)_gsel.onchange=e=>{ SPK_GENDER=e.target.value; S.set('sukun.spkGender',SPK_GENDER); spkVoices(); if(typeof genAyarSync==='function')genAyarSync(); if(typeof vib==='function')vib(8); };
 }
+const _gsel=document.getElementById('spkGenderSel');
+if(_gsel)_gsel.onchange=e=>{void spkChooseGender(e.target.value);};
+window.addEventListener('sukun:voicesettingschange',arStatusUI);
 function spkSay(txt,interrupt,lang,voice,rate,pitch){
   if(!('speechSynthesis' in window)||!txt)return;
   if((window.__tvPlaying||window.__dhPlaying||window.__seyPlaying||window.__fsPlaying)&&!interrupt)return;
@@ -20236,11 +20433,14 @@ function spkSay(txt,interrupt,lang,voice,rate,pitch){
    kilit ekranında bir okuma bitmeden sonraki sayımı başlatabilsin diye
    onend/onerror sonucunu await edebilen ayrı yol kullanır. */
 let _r475ZTtsSeq=0, _r475ZTtsState=null;
-function zikirTtsAwait(txt,interrupt,lang,voice,rate,pitch){
+function zikirTtsAwait(txt,interrupt,lang,voice,rate,pitch,isCurrent){
   if(!('speechSynthesis' in window)||!txt)return Promise.resolve(false);
   if((window.__tvPlaying||window.__dhPlaying||window.__seyPlaying||window.__fsPlaying)&&!interrupt)
     return Promise.resolve(false);
 
+  const current=typeof isCurrent==='function'?isCurrent:window.SukunVoiceAttempt?.capture?.()||(()=>true);
+  if(!current())return Promise.resolve(false);
+  if(interrupt){try{if(window.sukunTtsCancel)window.sukunTtsCancel('zikir-tts-superseded');else speechSynthesis.cancel()}catch(e){}}
   const seq=++_r475ZTtsSeq;
   return new Promise(resolve=>{
     let done=false, watchdog=0, u=null;
@@ -20253,8 +20453,8 @@ function zikirTtsAwait(txt,interrupt,lang,voice,rate,pitch){
       resolve(!!ok);
     };
     try{
-      if(interrupt)speechSynthesis.cancel();
-      else if(speechSynthesis.speaking)return finish(false);
+      if(!current())return finish(false);
+      if(!interrupt&&speechSynthesis.speaking)return finish(false);
 
       u=new SpeechSynthesisUtterance(txt);
       u.lang=lang||'tr-TR';
@@ -20265,9 +20465,9 @@ function zikirTtsAwait(txt,interrupt,lang,voice,rate,pitch){
 
       const expected=Math.max(6500,Math.min(90000,Math.round(String(txt).length*190+6500)));
       _r475ZTtsState={seq,u,startedAt:Date.now(),expected,finish,resumeTries:0};
-      u.onend=()=>finish(true);
+      u.onend=()=>finish(current()&&seq===_r475ZTtsSeq);
       u.onerror=()=>finish(false);
-      u.onstart=()=>{if(_r475ZTtsState?.seq===seq)_r475ZTtsState.startedAt=Date.now()};
+      u.onstart=()=>{if(!current()){try{window.sukunTtsCancel?.('stale-zikir-tts')}catch(e){};return}if(_r475ZTtsState?.seq===seq)_r475ZTtsState.startedAt=Date.now()};
       speechSynthesis.speak(u);
 
       watchdog=setTimeout(()=>{
@@ -20340,7 +20540,7 @@ function zikirGercekKayitMesgul(){
 }
 window.SukunPhysicalRecordingBusyR696=zikirGercekKayitMesgul;
 
-async function spkSayZikir(interrupt){
+async function spkSayZikir(interrupt,automatic=false){
   /* r696 — RECPLAYING salt bir cache bayrağıdır; telefon araması/stop yarışında
      true kalırsa gerçek ses yokken bütün sonraki zikir okumalarını engelliyordu.
      Karar yalnız gerçekten çalan fiziksel media üzerinden verilir. */
@@ -20348,25 +20548,19 @@ async function spkSayZikir(interrupt){
       window.__fsPlaying||window.__niyetPlaying||zikirGercekKayitMesgul())&&!interrupt)return false;
 
   const R=window.SukunVoiceResolver;
-  if(R?.playCurrentZikir)return await R.playCurrentZikir({interrupt:!!interrupt});
+  if(R?.playCurrentZikir)return await R.playCurrentZikir({interrupt:!!interrupt,automatic:!!automatic});
 
   /* Çok erken çağrı için emniyet fallback'i. */
   const _ok=$('#zOku'),oku=(_ok?_ok.textContent:'').trim();
   return await zikirTtsAwait(oku||$('#zTr').textContent,!!interrupt,'tr-TR',SPK.voice,SPK.rate,.9);
 }
 $('#spkOnce').onclick=()=>spkSayZikir(true);
-$('#arVoiceSel').addEventListener('change',e=>{SPK.arVoice=SPK.arList[+e.target.value]||SPK.arVoice;saveSettings();arStatusUI();});
+$('#arVoiceSel').addEventListener('change',e=>{void spkChooseVoice('ar',e.target.value);});
 $('#r852VoiceRefresh')?.addEventListener('click',()=>{spkVoices();setTimeout(spkVoices,250);});
-$('#r852ArTest')?.addEventListener('click',()=>{
-  const ar=(document.querySelector('#zAr')?.textContent||'').trim();
-  const tr=(document.querySelector('#zOku')?.textContent||document.querySelector('#zTr')?.textContent||'').trim();
-  if(SPK.arList.length&&SPK.arVoice&&ar){spkSay(ar,true,SPK.arVoice.lang||'ar-SA',SPK.arVoice,SPK.arRate,SPK.arPitch);}
-  else if(tr){spkSay(tr,true,'tr-TR',SPK.voice,SPK.rate,.9);}
-  else{try{toast('Test için önce bir zikir seç.')}catch(e){}}
-});
-$('#arTgl').onclick=()=>{SPK.arOn=!SPK.arOn;$('#arTgl').classList.toggle('on',SPK.arOn);saveSettings();};
-$('#arPitch').addEventListener('input',e=>{SPK.arPitch=+e.target.value;$('#arPitchV').textContent=SPK.arPitch.toFixed(2);setFill(e.target);saveSettings();});
-$('#arRate').addEventListener('input',e=>{SPK.arRate=+e.target.value;$('#arRateV').textContent=SPK.arRate.toFixed(2);setFill(e.target);saveSettings();});
+$('#r852ArTest')?.addEventListener('click',()=>{void window.SukunVoiceSettings?.previewArabic?.();});
+$('#arTgl').onclick=()=>{void spkSettingsEdit(()=>{SPK.arOn=!SPK.arOn;$('#arTgl').classList.toggle('on',SPK.arOn);});};
+$('#arPitch').addEventListener('input',e=>{const value=+e.target.value;void spkSettingsEdit(()=>{SPK.arPitch=value;$('#arPitchV').textContent=SPK.arPitch.toFixed(2);setFill(e.target);});});
+$('#arRate').addEventListener('input',e=>{const value=+e.target.value;void spkSettingsEdit(()=>{SPK.arRate=value;$('#arRateV').textContent=SPK.arRate.toFixed(2);setFill(e.target);});});
 $('#optSpeak').onclick=()=>{
   SPK.on=!SPK.on;
   window.SukunR698VoiceIntent?.explicit?.(SPK.on);
@@ -20374,8 +20568,8 @@ $('#optSpeak').onclick=()=>{
   if(!SPK.on)try{speechSynthesis.cancel()}catch(e){}
   saveSettings();
 };
-$('#spkVoice').addEventListener('change',e=>{SPK.voice=SPK.list[+e.target.value]||null;});
-$('#spkRate').addEventListener('input',e=>{SPK.rate=+e.target.value;setFill(e.target);saveSettings();});
+$('#spkVoice').addEventListener('change',e=>{void spkChooseVoice('tr',e.target.value);});
+$('#spkRate').addEventListener('input',e=>{const value=+e.target.value;void spkSettingsEdit(()=>{SPK.rate=value;setFill(e.target);});});
 function spkInit(){
   $('#optSpeak').classList.toggle('on',SPK.on);
   $('#spkRate').value=SPK.rate; setFill($('#spkRate'));
@@ -21761,6 +21955,7 @@ const DONGU={
   basla(metin,opt){
     opt=opt||{};
     this.durdur();
+    this.__r922VoiceContext=opt.voiceContext||null;
     this.metin=metin; this.dil=opt.dil||'tr-TR';
     this.ad=opt.ad||'';
     this.kayitAnahtari=opt.kayitAnahtari||'';
@@ -21831,10 +22026,11 @@ const DONGU={
     }catch(e){ this._t=setTimeout(()=>this._oku(), this.ara); }
   },
   durdur(){
+    this.__r922Sequence=(this.__r922Sequence||0)+1;
     this.aktif=false;
     if(this._t){clearTimeout(this._t);this._t=null;}
     if(this._bekci){clearTimeout(this._bekci);this._bekci=null;}
-    try{speechSynthesis.cancel()}catch(e){}
+    try{if(window.sukunTtsCancel)window.sukunTtsCancel('dongu-stop');else speechSynthesis.cancel()}catch(e){}
     /* Döngü kendi kayıtlı sesiyle çalışıyorsa onu da kesin olarak sustur. */
     try{ if(SES&&SES.ad&&String(SES.ad).startsWith('dongu:'))sesDurdur(); }catch(e){}
     this.goster();
@@ -24970,7 +25166,7 @@ function zikirSesBaslat(interrupt=false,afterVoice=null){
 
   let timeout=0;
   const abortP=new Promise(resolve=>{_zSesAbortResolve=resolve});
-  const core=Promise.resolve().then(()=>spkSayZikir(!!interrupt)).catch(()=>false);
+  const core=Promise.resolve().then(()=>spkSayZikir(!!interrupt,!!Z.auto)).catch(()=>false);
   const timeoutP=new Promise(resolve=>{
     timeout=setTimeout(()=>{
       if(seq!==_zSesSeq)return resolve(false);
@@ -26949,10 +27145,7 @@ function surumNotlariOku(){
   }catch(e){ return []; }
 }
 function surumBu(){
-  try{
-    const t=(document.getElementById('surumEtiket')||{}).textContent||'';
-    const m=t.match(/build\s+(\S+)/); return m?m[1]:'';
-  }catch(e){ return ''; }
+  return document.querySelector('meta[name="sukun-build"]')?.content||'';
 }
 function neYenilendi(notlar,basligiEk){
   let liste=(notlar&&notlar.length)?notlar:surumNotlariOku();
@@ -27048,14 +27241,29 @@ kat.addEventListener('click',e=>{ if(e.target===kat)kapat(); });
   e.onkeydown=ev=>{ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); ac(); } };
 })();
 
-/* r920: explicit update activation; existing audio/session owners decide busy state. */
+/* r921: controller, registered active worker and waiting update have distinct identities. */
 (function(){
   if(!('serviceWorker' in navigator)||!/^https?:$/.test(location.protocol))return;
-  const BUILD=document.querySelector('meta[name="sukun-build"]')?.content||'r920';
-  const state={version:BUILD,registration:null,waiting:null,active:null,phase:'idle',workerVersion:'',cache:'',complete:null,lastError:'',lastChange:Date.now(),updateQueued:false,reloadPending:false};
+  const BUILD=document.querySelector('meta[name="sukun-build"]')?.content||'unknown';
+  const state={registration:null,waiting:null,phase:'idle',lastError:'',lastChange:Date.now(),updateQueued:false,reloadPending:false};
   let activating=false,reloadOnce=false,activationAuthorized=false,offeredWorker=null;
-  const watching=new WeakSet();
-  const snapshot=()=>({version:BUILD,phase:state.phase,workerVersion:state.workerVersion,cache:state.cache,complete:state.complete,lastError:state.lastError,lastChange:state.lastChange,hasWaiting:!!(state.registration?.waiting||state.waiting),hasController:!!navigator.serviceWorker.controller,updateQueued:state.updateQueued,reloadPending:state.reloadPending,sessionBusy:sessionBusy()});
+  const watching=new WeakSet(),identities=new WeakMap(),pendingStatus=new WeakMap();
+  function waitingWorker(){
+    const worker=state.registration?.waiting||state.waiting;
+    return worker&&worker!==navigator.serviceWorker.controller&&worker.state==='installed'?worker:null;
+  }
+  function identity(worker){return worker&&identities.get(worker)||{v:'',cache:'',complete:null,error:''}}
+  function snapshot(){
+    const controller=navigator.serviceWorker.controller,waiting=waitingWorker(),active=state.registration?.active;
+    const current=identity(controller),ready=identity(waiting),registered=identity(active);
+    return{version:BUILD,appVersion:BUILD,phase:state.phase,
+      workerVersion:current.v,controllerVersion:current.v,activeVersion:registered.v,waitingVersion:ready.v,
+      cache:current.cache,complete:current.complete,controllerCache:current.cache,controllerComplete:current.complete,
+      waitingCache:ready.cache,waitingComplete:ready.complete,
+      lastError:state.lastError,lastChange:state.lastChange,hasWaiting:!!waiting,hasController:!!controller,
+      versionMatch:controller&&current.v?current.v===BUILD:null,
+      updateQueued:state.updateQueued,reloadPending:state.reloadPending,sessionBusy:sessionBusy()};
+  }
   function emit(phase,extra={}){Object.assign(state,extra,{phase,lastChange:Date.now()});try{dispatchEvent(new CustomEvent('sukun:swstate',{detail:snapshot()}))}catch(_){}}
   function sessionBusy(){
     try{const s=window.SukunSessionState?.snapshot?.();if(s&&['PREPARING','PLAYING','PAUSED','COMPLETING','INTERRUPTED','RECOVERING'].includes(String(s.phase||s.playbackState).toUpperCase()))return true}catch(_){}
@@ -27074,7 +27282,23 @@ kat.addEventListener('click',e=>{ if(e.target===kat)kapat(); });
     const timer=setTimeout(()=>finish(null),timeout);ch.port1.onmessage=e=>finish(e.data);
     try{worker.postMessage({type},[ch.port2])}catch(_){finish(null)}
   })}
-  async function status(worker){const s=await ask(worker||state.registration?.waiting||state.registration?.active||navigator.serviceWorker.controller,'STATUS');if(s){state.workerVersion=s.v||'';state.cache=s.cache||'';state.complete=s.complete??null;state.lastError=s.error||'';emit(state.updateQueued?'queued':state.registration?.waiting?'waiting':'ready')}return s}
+  function remember(worker,data){
+    if(!worker||!data)return;
+    const previous=identity(worker);
+    identities.set(worker,{v:String(data.v||previous.v||''),cache:String(data.cache||previous.cache||''),complete:data.complete??previous.complete,error:String(data.error||'')});
+  }
+  async function readStatus(worker){
+    if(!worker)return null;if(pendingStatus.has(worker))return pendingStatus.get(worker);
+    const task=ask(worker,'STATUS').then(data=>{remember(worker,data);return data}).finally(()=>pendingStatus.delete(worker));
+    pendingStatus.set(worker,task);return task;
+  }
+  async function status(worker){
+    const workers=worker?[worker]:[...new Set([navigator.serviceWorker.controller,state.registration?.active,waitingWorker()].filter(Boolean))];
+    const answers=await Promise.all(workers.map(readStatus));
+    // Status replies are stored against their sender, so a late reply cannot rename a new controller.
+    if(!['verifying','activating','error'].includes(state.phase))emit(state.updateQueued?'queued':waitingWorker()?'waiting':navigator.serviceWorker.controller?'ready':'registered');else emit(state.phase);
+    return answers[0]||null;
+  }
   async function saveBeforeReload(){
     try{await window.SukunSessionMemory?.save?.()}catch(_){}
     try{window.SukunResumePolicy?.progress?.(window.currentFlowState?.snapshot?.()?.context||'zikir',{reason:'sw-update'})}catch(_){}
@@ -27083,15 +27307,17 @@ kat.addEventListener('click',e=>{ if(e.target===kat)kapat(); });
   function notify(message,label,action){try{skToast(message,label,action,60000)}catch(_){}}
   async function offer(worker){
     state.waiting=worker;if(offeredWorker===worker)return;offeredWorker=worker;
-    const notes=await ask(worker,'SURUM_NOTU');const version=notes?.v||'';
-    notify(version?'SÜKÛN '+version+' hazır.':'Yeni SÜKÛN sürümü hazır.','Güncelle',requestUpdate);
+    const notes=await readStatus(worker);if(waitingWorker()!==worker)return;
+    emit(state.updateQueued?'queued':'waiting');
+    notify(notes?.v?'SÜKÛN '+notes.v+' hazır.':'Yeni SÜKÛN sürümü hazır.','Güncelle',requestUpdate);
   }
   async function activateWaiting(worker){
     if(!worker||activating)return false;
     if(sessionBusy()){state.waiting=worker;emit('queued',{updateQueued:true});return false}
-    activating=true;emit('verifying',{waiting:worker});
+    activating=true;emit('verifying',{waiting:worker,lastError:''});
     let readiness=await ask(worker,'STATUS');
     if(!readiness?.complete)readiness=await ask(worker,'CACHE_REFRESH',24000);
+    remember(worker,readiness);
     if(!readiness?.complete){activating=false;emit('error',{updateQueued:false,lastError:readiness?.error||'Güncelleme dosyaları tamamlanamadı.'});notify('Güncelleme dosyaları henüz hazır değil. Mevcut sürüm korunuyor.','Yeniden dene',requestUpdate);return false}
     await saveBeforeReload();
     if(sessionBusy()){activating=false;emit('queued',{updateQueued:true});return false}
@@ -27104,39 +27330,69 @@ kat.addEventListener('click',e=>{ if(e.target===kat)kapat(); });
     await saveBeforeReload();if(sessionBusy()){emit('queued',{reloadPending:true,updateQueued:true});return}
     reloadOnce=true;try{location.reload()}catch(error){reloadOnce=false;emit('error',{lastError:String(error)})}
   }
+  function newerController(){const n=v=>Number(String(v||'').match(/^r(\d+)$/)?.[1]||0);return n(identity(navigator.serviceWorker.controller).v)>n(BUILD)}
   async function requestUpdate(){
-    const worker=state.registration?.waiting||state.waiting;
-    if(!worker){await check();if(state.registration?.waiting)return requestUpdate();return false}
+    let worker=waitingWorker();
+    if(!worker){await check();worker=waitingWorker();}
+    if(!worker){
+      // Another tab may already have activated the new worker. Opening it still requires this user's action.
+      if(newerController()){activationAuthorized=true;emit('controller-changed',{reloadPending:true});await reloadWhenIdle();return true}
+      return false;
+    }
     state.waiting=worker;
     if(sessionBusy()){
       emit('queued',{updateQueued:true});notify('Güncelleme, oturum sona erdiğinde uygulanacak.','Vazgeç',cancel);return false;
     }
     return activateWaiting(worker);
   }
-  function cancel(){if(activating||state.reloadPending)return false;emit(state.waiting?'waiting':'ready',{updateQueued:false});return true}
-  function onIdle(){if(!state.updateQueued||sessionBusy())return;if(state.reloadPending)reloadWhenIdle();else activateWaiting(state.registration?.waiting||state.waiting)}
+  function cancel(){if(activating||state.reloadPending)return false;emit(waitingWorker()?'waiting':'ready',{updateQueued:false});return true}
+  function onIdle(){if(!state.updateQueued||sessionBusy())return;if(state.reloadPending)reloadWhenIdle();else activateWaiting(waitingWorker())}
   function watch(worker){
     if(!worker||watching.has(worker))return;watching.add(worker);
     const change=()=>{
-      if(worker.state==='installed'&&navigator.serviceWorker.controller){emit('waiting',{waiting:worker});status(worker);offer(worker);onIdle()}
-      else if(worker.state==='activated'){state.active=worker;if(!activationAuthorized)status(worker)}
-      else if(worker.state==='redundant')emit('error',{lastError:'worker redundant'});
+      if(worker.state==='installed'&&navigator.serviceWorker.controller){emit('waiting',{waiting:worker});status();offer(worker);onIdle()}
+      else if(worker.state==='activated'){if(state.waiting===worker)state.waiting=null;status()}
+      else if(worker.state==='redundant'){if(state.waiting===worker)state.waiting=null;emit('error',{lastError:'worker redundant'})}
     };worker.addEventListener('statechange',change);change();
   }
-  async function check(){try{const reg=state.registration||await navigator.serviceWorker.getRegistration('./');if(!reg)return null;state.registration=reg;await reg.update();state.waiting=reg.waiting;if(reg.waiting){emit('waiting');offer(reg.waiting)}if(reg.installing)watch(reg.installing);return snapshot()}catch(error){emit('error',{lastError:String(error?.message||error)});return snapshot()}}
+  async function check(){try{
+    const reg=state.registration||await navigator.serviceWorker.getRegistration('./');if(!reg)return null;
+    state.registration=reg;await reg.update();state.waiting=reg.waiting;
+    if(reg.waiting){emit(state.updateQueued?'queued':'waiting');offer(reg.waiting)}
+    if(reg.installing)watch(reg.installing);await status();return snapshot();
+  }catch(error){emit('error',{lastError:String(error?.message||error)});return snapshot()}}
+  async function registerWorker(){
+    // Changing only the worker's query URL creates a second installation after an upgrade.
+    // Keep this scope's existing sw.js URL; STATUS.v remains the release authority.
+    const expected=new URL('./sw.js',location.href),scope=new URL('./',location.href);
+    let script='./sw.js';
+    try{
+      const existing=await navigator.serviceWorker.getRegistration(scope.href);
+      if(existing?.scope===scope.href){
+        const worker=existing.waiting||existing.installing||existing.active;
+        const candidate=new URL(worker?.scriptURL||'');
+        if(candidate.origin===expected.origin&&candidate.pathname===expected.pathname)script=candidate.href;
+      }
+    }catch(_){}
+    return navigator.serviceWorker.register(script,{updateViaCache:'none'});
+  }
   addEventListener('load',()=>{
-    navigator.serviceWorker.register('./sw.js?v='+encodeURIComponent(BUILD),{updateViaCache:'none'}).then(reg=>{
-      state.registration=reg;state.active=reg.active;state.waiting=reg.waiting;
-      emit(reg.waiting?'waiting':'registered');if(reg.active)status(reg.active);if(reg.waiting&&navigator.serviceWorker.controller)offer(reg.waiting);
+    registerWorker().then(reg=>{
+      state.registration=reg;state.waiting=reg.waiting;
+      emit(reg.waiting?'waiting':'registered');status();if(reg.waiting&&navigator.serviceWorker.controller)offer(reg.waiting);
       if(reg.installing)watch(reg.installing);reg.addEventListener('updatefound',()=>watch(reg.installing));check();
     }).catch(error=>emit('error',{lastError:String(error?.message||error)}));
   },{once:true});
   navigator.serviceWorker.addEventListener('controllerchange',()=>{
-    state.waiting=null;activating=false;
-    if(activationAuthorized){emit('controller-changed',{reloadPending:true});reloadWhenIdle()}
-    else{emit('controller-changed');status(navigator.serviceWorker.controller)}
+    if(state.waiting===navigator.serviceWorker.controller)state.waiting=null;activating=false;
+    if(activationAuthorized){emit('controller-changed',{reloadPending:true});status();reloadWhenIdle()}
+    else{emit('controller-changed');status().then(()=>{if(newerController())notify('Yeni SÜKÛN sürümü etkin. Bu sayfayı güncelleyin.','Güncelle',requestUpdate)})}
   });
-  navigator.serviceWorker.addEventListener('message',e=>{if(e.data?.type==='SUKUN_SW_STATUS'){state.workerVersion=e.data.v||state.workerVersion;state.cache=e.data.cache||state.cache;state.complete=e.data.complete??state.complete;emit(state.phase)}});
+  navigator.serviceWorker.addEventListener('message',e=>{
+    if(e.data?.type!=='SUKUN_SW_STATUS')return;
+    const source=e.source,known=source&&(source===navigator.serviceWorker.controller||source===state.registration?.active||source===waitingWorker());
+    if(known){remember(source,e.data);emit(state.phase)}else status();
+  });
   ['sukun:sessionchange','sukun:sessionstate','sukun:audiotruthchange','sukun:currentflowchange','sukun:currentzikirchange','sukun:zikirtransaction','sukun:playbackchange','pageshow'].forEach(event=>addEventListener(event,onIdle,{passive:true}));
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)onIdle()},{passive:true});
   window.SukunUpdateManager=Object.freeze({version:BUILD,snapshot,status,check,activate:requestUpdate,cancel});
@@ -38203,6 +38459,9 @@ function keyFor(cat,idx,item){
 let R168_TTS_FINISH=null,R168_TTS_SEQ=0;
 function r168TtsCancel(reason){
   R168_TTS_SEQ++;
+  _r475ZTtsSeq++;
+  const readerPending=_r475ZTtsState;_r475ZTtsState=null;
+  if(readerPending)try{readerPending.finish(false)}catch(e){}
   const finish=R168_TTS_FINISH;R168_TTS_FINISH=null;
   if(finish)try{finish(false,reason||'cancelled')}catch(e){}
   try{speechSynthesis.cancel()}catch(e){}
@@ -38238,10 +38497,11 @@ function ttsPromise(text,lang='tr-TR'){
 window.SukunVoiceAttempt=Object.freeze({
   capture(opt={}){
     const parent=typeof opt.isCurrent==='function'?opt.isCurrent:()=>true;
+    const preferenceCurrent=window.SukunVoiceSettings?.capture?.()||(()=>true);
     const life=window.AudioLife,epoch=life?._userIntentSeq;
     const identity=()=>{try{return String(typeof zKat==='function'?zKat():Z.cat)+':'+String(typeof zIdx==='function'?zIdx():Z.idx)}catch(e){return''}};
     const selected=identity();
-    return()=>{try{return parent()&&identity()===selected&&(epoch==null||life?._userIntentSeq===epoch)}catch(e){return false}};
+    return()=>{try{return parent()&&preferenceCurrent()&&identity()===selected&&(epoch==null||life?._userIntentSeq===epoch)}catch(e){return false}};
   }
 });
 window.SukunRecordingFailure=(()=>{
@@ -38285,6 +38545,7 @@ const SukunVoiceResolver=window.SukunVoiceResolver=(()=>{
   const textFor=item=>(item&&(item.oku||item.translit||item.tr||item.t))||'';
 
   async function recording(cat,idx,item,key,opt={}){
+    if(window.SukunVoiceSettings?.recordingAllowed?.(cat)===false)return null;
     try{
       const known=!!RECKEYS?.has?.(key);
       const missAt=misses.get(key)||0;
@@ -38343,29 +38604,37 @@ const SukunVoiceResolver=window.SukunVoiceResolver=(()=>{
   }
 
   async function reader(item,opt={}){
-    try{
-      if(opt.preferArabic!==false&&SPK?.arOn&&SPK?.arVoice){
-        const ar=String(opt.arabic||item?.ar||'').trim();
-        if(ar){
-          const nm=SPK.arVoice.name||SPK.arVoice.lang||'Arapça ses';
-          set('reader-ar','SEÇİLİ OKUYUCU',nm,'reader');
-          const ok=await zikirTtsAwait(ar,!!opt.interrupt,SPK.arVoice.lang||'ar-SA',SPK.arVoice,SPK.arRate,SPK.arPitch);
-          return{source:'reader',kind:'arabic',ok:ok!==false,reason:ok!==false?'ended':'reader-failed'};
-        }
+    const mode=window.SukunVoiceSettings?.getMode?.()||'auto';
+    const current=typeof opt.isCurrent==='function'?opt.isCurrent:window.SukunVoiceAttempt.capture(opt);
+    if(!current())return{ok:false,source:'tts',cancelled:true,reason:'stale-sequence'};
+    const arVoice=window.SukunVoiceCatalog?.resolve?.('ar')||SPK?.arVoice||null;
+    const ar=String(opt.arabic||item?.ar||item?.a||'').trim();
+    const wantArabic=mode==='arabic'||(mode==='auto'&&opt.preferArabic!==false&&SPK?.arOn&&arVoice);
+    if(wantArabic){
+      if(ar&&arVoice&&/^ar(?:-|$)/i.test(arVoice.lang||'')){
+        const nm=arVoice.name||arVoice.lang||'Arapça ses';
+        set('tts-ar','ARAPÇA OKUYUŞ',nm,'tts');
+        const ok=await zikirTtsAwait(ar,!!opt.interrupt,arVoice.lang||'ar-SA',arVoice,SPK.arRate,spkPitch(SPK.arPitch,true),current);
+        if(!current())return{ok:false,source:'tts',cancelled:true,reason:'stale-sequence'};
+        return{source:'tts',kind:'arabic',ok:ok!==false,reason:ok!==false?'ended':'tts-failed'};
       }
-    }catch(e){}
-
+      if(mode==='arabic')return window.SukunVoiceSettings.unavailable(ar?'arabic-voice-unavailable':'arabic-text-unavailable');
+    }
     const text=String(opt.text||textFor(item)||'').trim();
-    if(text&&SPK?.voice){
-      const nm=SPK.voice.name||SPK.voice.lang||'Seçili Türkçe ses';
-      set('reader-tr','SEÇİLİ OKUYUCU',nm,'reader');
-      const ok=await zikirTtsAwait(text,!!opt.interrupt,opt.lang||'tr-TR',SPK.voice,SPK.rate,.9);
-      return{source:'reader',kind:'turkish',ok:ok!==false,text,reason:ok!==false?'ended':'reader-failed'};
+    const selected=window.SukunVoiceCatalog?.resolve?.('tr')||SPK?.voice||null;
+    const trVoice=selected&&/^tr(?:-|$)/i.test(selected.lang||'')?selected:null;
+    if(text&&(trVoice||mode==='turkish')){
+      set('tts-tr','TÜRKÇE OKUNUŞ',trVoice?.name||'Cihazın Türkçe sesi','tts');
+      const ok=await zikirTtsAwait(text,!!opt.interrupt,'tr-TR',trVoice,SPK.rate,spkPitch(.9),current);
+      if(!current())return{ok:false,source:'tts',cancelled:true,reason:'stale-sequence'};
+      return{source:'tts',kind:'turkish',ok:ok!==false,text,reason:ok!==false?'ended':'tts-failed'};
     }
     return null;
   }
 
   async function tts(item,opt={}){
+    if(typeof opt.isCurrent==='function'&&!opt.isCurrent())return{ok:false,source:'tts',cancelled:true,reason:'stale-sequence'};
+    if(window.SukunVoiceSettings?.getMode?.()==='arabic')return await reader(item,opt);
     const text=String(opt.text||textFor(item)||'').trim();
     if(!text||!('speechSynthesis'in window)){
       set('silent','SESSİZ','Kullanılabilir kayıt/okuyucu/TTS yok','silent');
@@ -38375,12 +38644,13 @@ const SukunVoiceResolver=window.SukunVoiceResolver=(()=>{
     const ok=typeof ttsPromise==='function'
       ?await ttsPromise(text,opt.lang||'tr-TR')
       :await zikirTtsAwait(text,!!opt.interrupt,opt.lang||'tr-TR',null,SPK?.rate||1,.9);
+    if(typeof opt.isCurrent==='function'&&!opt.isCurrent())return{ok:false,source:'tts',cancelled:true,reason:'stale-sequence'};
     return{source:'tts',ok:ok!==false,text,reason:ok!==false?'ended':'tts-failed'};
   }
 
   async function playItem(cat,idx,item,opt={}){
     opt={...opt,isCurrent:window.SukunVoiceAttempt.capture(opt)};
-    if(window.SukunRecordingFailure.matches(cat,idx))return window.SukunRecordingFailure.result();
+    if(window.SukunVoiceSettings?.recordingAllowed?.(cat)!==false&&window.SukunRecordingFailure.matches(cat,idx))return window.SukunRecordingFailure.result();
     /* r678 — Berhetiyye nida sözleşmesi: kayıt içeriği değiştirilmez; yalnız
        TTS/reader fallback çağrısı "Yâ …" olarak okunur. */
     if(cat==='berhet'){
@@ -38412,7 +38682,7 @@ const SukunVoiceResolver=window.SukunVoiceResolver=(()=>{
        "reader" seçili SpeechSynthesis sesidir ve TTS katmanının tercih edilen
        sesidir; cihazın varsayılan TTS'i onun fallback'idir. */
     const chosen=await reader(item,opt);
-    if(chosen?.ok)return chosen;
+    if(chosen?.ok||chosen?.blocked||chosen?.cancelled||window.SukunVoiceSettings?.getMode?.()==='arabic'||window.SukunVoiceSettings?.getMode?.()==='turkish')return chosen||{ok:false,source:'tts',reason:'tts-failed'};
     if(!current())return{source:'cancelled',ok:false,cancelled:true,key,reason:'stale-sequence'};
 
     return await tts(item,opt);
@@ -38446,14 +38716,15 @@ const SukunVoiceResolver=window.SukunVoiceResolver=(()=>{
     /* r635: kayıt bulunamadıysa ikinci aşama TTS'tir. Seçili Arapça/Türkçe
        SpeechSynthesis sesi varsa TTS aşamasında önce o kullanılır. */
     const chosen=await reader(item,{
-      interrupt,
+      ...opt,isCurrent:current,interrupt,
       arabic:_r678Ar||$('#zAr')?.textContent||item?.ar||'',
       text:_r678Latin||$('#zTr')?.textContent||textFor(item)
     });
-    if(chosen?.ok)return chosen;
+    if(chosen?.ok||chosen?.blocked||chosen?.cancelled||window.SukunVoiceSettings?.getMode?.()==='arabic'||window.SukunVoiceSettings?.getMode?.()==='turkish')return chosen||{ok:false,source:'tts',reason:'tts-failed'};
 
+    if(!current())return{ok:false,source:'tts',cancelled:true,reason:'stale-sequence'};
     return await tts(item,{
-      interrupt,
+      ...opt,isCurrent:current,interrupt,
       text:_r678Latin||$('#zTr')?.textContent||textFor(item)
     });
   }
@@ -41281,14 +41552,33 @@ window.SukunSourcePolicy={
    kayıt yoksa yalnız gerçek okuma metni TTS'ye gider. */
 try{
   if(window.DONGU&&!DONGU.__r228){DONGU.__r228=1;
-    const oldBasla=DONGU.basla.bind(DONGU),oldTts=DONGU._ttsOku.bind(DONGU);
-    DONGU.basla=function(metin,opt){opt=opt||{};opt.latin=String(opt.latin||metin||'').trim();return oldBasla(opt.latin,opt)};
+    const oldBasla=DONGU.basla.bind(DONGU);
+    DONGU.basla=function(metin,opt){
+      opt=opt||{};opt.latin=String(opt.latin||metin||'').trim();
+      const cat=typeof zKat==='function'?zKat():Z.cat,idx=typeof zIdx==='function'?zIdx():Z.idx;
+      const item=ZIKIR?.[cat]?.items?.[idx]||null;
+      let arabic=String(opt.arabic||item?.ar||item?.a||'').trim();
+      if(cat==='esma'&&item&&typeof esmaForms==='function')try{arabic=esmaForms(item).ar||arabic}catch(e){}
+      opt.voiceContext={cat,idx,item:item?{...item}:null,arabic};
+      return oldBasla(opt.latin,opt);
+    };
     DONGU._oku=async function(){
-      const current=window.SukunVoiceAttempt.capture({isCurrent:()=>this.aktif});
-      if(!this.aktif)return;if(this.toplam>0&&this.kalan<=0){this.bitti();return}
-      if(this.kayitAnahtari){try{const b=await REC_DB.get(this.kayitAnahtari);if(!current())return;if(b){sukunSourceSet('recording','Döngü için kayıt bulundu; her tekrar baştan çalıyor',this.ad||'Döngü');const r=await playRecording(b,'dongu:'+this.kayitAnahtari,{detail:true,resume:false,reason:'Döngü için kayıt bulundu',title:this.ad||'Döngü',recordingKey:this.kayitAnahtari,isCurrent:current});if(!this.aktif)return;if(r&&r.ok){this._sonrakiTekrar();return}if(r&&!['play-rejected','error','exception'].includes(r.reason))return;window.SukunRecordingFailure.hold({cat:String(this.kayitAnahtari).split(':')[0],index:Number(String(this.kayitAnahtari).split(':')[1])||0,key:this.kayitAnahtari,title:this.ad,code:r?.reason||'recording-failed'});this.durdur();return}}catch(e){}}
+      if(!this.aktif)return;
+      if(this.toplam>0&&this.kalan<=0){this.bitti();return}
+      const sequence=this.__r922Sequence||0;
+      const current=window.SukunVoiceAttempt.capture({isCurrent:()=>this.aktif&&(this.__r922Sequence||0)===sequence});
+      const context=this.__r922VoiceContext||{},cat=context.cat||Z.cat,idx=context.idx??Z.idx;
+      const item=context.item||{tr:this.ad,oku:this.metin,ar:context.arabic||''};
+      this._cycleAt=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+      let result;
+      try{
+        result=await window.AudioResolver.play(cat,idx,item,{key:this.kayitAnahtari||'',text:this.metin,arabic:context.arabic||'',title:this.ad||'Döngü',entry:'dongu',reason:'dongu:'+this.kayitAnahtari,interrupt:false,isCurrent:current});
+      }catch(e){result={ok:false,reason:'exception'}}
+      if((this.__r922Sequence||0)!==sequence)return;
+      if(result?.blocked){this.durdur();return}
       if(!current())return;
-      sukunSourceSet('tts','Kayıt bulunamadı; başlık değil Latin okunuş okunuyor',this.ad||'Döngü');oldTts();
+      if(result?.ok){this._sonrakiTekrar();return}
+      if(!result?.cancelled)this.durdur();
     };
   }
 }catch(e){}
@@ -41508,8 +41798,7 @@ try{
 try{
   if(window.AudioResolver&&!AudioResolver.__r244){AudioResolver.__r244=1;
     AudioResolver.play=async function(cat,idx,item,opt={}){
-      const key=AudioResolver.keyFor(cat,idx,item), latin=(item&&(item.oku||item.translit||''))||'', fallback=(item&&(item.tr||item.t||''))||'';
-      return SukunSourcePolicy.play({key,latin,fallback,title:(item&&(item.tr||item.t))||cat,lang:opt.lang||'tr-TR',resume:!opt.session,backgroundNative:!!opt.backgroundNative});
+      return window.SukunVoiceResolver.playItem(cat,idx,item,opt);
     };
   }
 }catch(e){}
@@ -50254,7 +50543,8 @@ function render(){
     ['Recovery',s.audio.lifecycle?.lastRecovery?.ok===true?'OK':s.audio.lifecycle?.recoveryPending?'BEKLİYOR':'—',s.audio.lifecycle?.lastRecovery?.reason||s.audio.lifecycle?.reason||'henüz yok',s.audio.lifecycle?.lastRecovery?.ok===false?'dWarn':s.audio.lifecycle?.lastRecovery?.ok===true?'dOk':''],
     ['Provider',s.audio.controller?.id||'—',s.audio.controller?.state||'idle',''],
     ['Data',s.dataMigration?.status||'—',`${s.dataMigration?.schema||'—'} · ${(s.dataMigration?.issues||[]).length} uyarı`,(s.dataMigration?.issues||[]).length?'dWarn':s.dataMigration?.status==='complete'?'dOk':''],
-    ['SW',s.serviceWorker?.workerVersion||s.serviceWorker?.phase||'—',`${s.serviceWorker?.cache||'cache yok'} · atomik ${s.serviceWorker?.complete===true?'✓':s.serviceWorker?.complete===false?'✕':'—'}`,s.serviceWorker?.complete===false?'dFail':s.serviceWorker?.complete===true?'dOk':''],
+    ['SW · bu sayfa',s.serviceWorker?.controllerVersion||(s.serviceWorker?.hasController?'denetleniyor':'yok'),`${s.serviceWorker?.cache||'cache yok'} · atomik ${s.serviceWorker?.complete===true?'✓':s.serviceWorker?.complete===false?'✕':'—'}`,s.serviceWorker?.versionMatch===false?'dWarn':s.serviceWorker?.complete===false?'dFail':s.serviceWorker?.complete===true?'dOk':''],
+    ['Hazır güncelleme',s.serviceWorker?.waitingVersion||(s.serviceWorker?.hasWaiting?'denetleniyor':'yok'),s.serviceWorker?.updateQueued?'oturum sonu bekleniyor':s.serviceWorker?.hasWaiting?'kullanıcı onayı bekleniyor':'bekleyen sürüm yok',s.serviceWorker?.hasWaiting?'dWarn':''],
     ['AudioContext',p.active?.audioContexts??0,`${(p.audioContexts||[]).map(x=>x.state).join(', ')||'yok'}`,''],
     ['Timers',
       p.diagTimers===false?'—':`${p.active?.timeouts??0}/${p.active?.intervals??0}`,
@@ -57252,6 +57542,8 @@ try{
   if(R?.playCurrentZikir&&!R.playCurrentZikir.__r577Owner){
     const previous=R.playCurrentZikir.bind(R);
     const wrapped=async function(opt={}){
+      /* r922: automatic speech belongs to the existing auto-zikir owner. */
+      if(opt.automatic&&Z.auto&&window.SukunForegroundArbiter?.snapshot?.().owner?.type==='auto-zikir')return previous(opt);
       let cat='',idx=0,item=null;try{cat=typeof zKat==='function'?zKat():Z.cat;idx=typeof zIdx==='function'?zIdx():Z.idx;item=ZIKIR?.[cat]?.items?.[idx]||null}catch(e){}
       const gate=await beforeManual(cat,+idx,item);
       if(gate.handled||!gate.allow){const benign=gate.reason==='jump'||gate.reason==='same-journey-item'||gate.reason==='queued';return{ok:benign,source:'session-guard',cancelled:!benign,reason:gate.reason||'blocked'}};
@@ -62386,7 +62678,7 @@ function extraTools(){
   grid.querySelectorAll('[data-r619-tool="smart"],[data-r619-tool="queue"]').forEach(x=>x.remove());
   return true;
 }
-function sheetBuild(){const x=document.querySelector('.r616SheetBuild'),b=document.querySelector('meta[name="sukun-build"]')?.content||'r704';r704Text(x,'SÜKÛN v20.23 · '+b+' · '+appearanceState().label)}
+function sheetBuild(){const x=document.querySelector('.r616SheetBuild'),b=document.querySelector('meta[name="sukun-build"]')?.content||'r704';r704Text(x,'SÜKÛN · '+b+' · '+appearanceState().label)}
 function mount(){applySkin(skin,false);skinPicker();toolsNav();soundPreview();extraTools();kicker();sheetBuild()}
 window.addEventListener('sukun:r616viewchange',e=>{document.body.classList.remove('r619-legacy-tool-open');kicker(e?.detail?.view);setTimeout(()=>{toolsNav();soundPreview();extraTools();syncSound()},0)},{passive:true});
 window.addEventListener('sukun:r619skinchange',syncAppearance,{passive:true});
@@ -63396,7 +63688,7 @@ if(!window.SukunRegressionShield||window.SukunRegressionShield.version!==VERSION
   async function probeBuild(){
     const result={at:Date.now(),meta:clean(document.querySelector('meta[name="sukun-build"]')?.content||''),marker:null,sw:null,ok:true,issues:[]};
     try{const r=await fetch('./__sukun_build_'+BUILD+'__.json',{cache:'no-store'});if(!r.ok)throw new Error('marker HTTP '+r.status);const j=await r.json();result.marker=clean(j?.build||'');if(result.marker!==BUILD){result.ok=false;result.issues.push('marker '+result.marker)}}catch(e){result.ok=false;result.issues.push('marker okunamadı')}
-    const sw=safe(()=>window.SukunUpdateManager?.snapshot?.(),null);result.sw=clean(sw?.workerVersion||sw?.version||'');if(result.sw&&result.sw!==BUILD&&!result.sw.includes(BUILD)){result.ok=false;result.issues.push('SW '+result.sw)}
+    const sw=safe(()=>window.SukunUpdateManager?.snapshot?.(),null);result.sw=clean(sw?.controllerVersion||'');result.waitingSW=clean(sw?.waitingVersion||'');result.hasController=!!sw?.hasController;if(result.hasController&&result.sw!==BUILD){result.ok=false;result.issues.push(result.sw?'Bu sayfanın SW sürümü '+result.sw:'Bu sayfanın SW sürümü doğrulanamadı')}
     if(result.meta!==BUILD){result.ok=false;result.issues.push('meta '+result.meta)}
     lastBuildProbe=freeze(result);return lastBuildProbe;
   }
@@ -63971,7 +64263,7 @@ try{
   if(R?.playCurrentZikir&&!R.playCurrentZikir.__r635Arbiter){
     const previous=R.playCurrentZikir.bind(R);
     const wrapped=async function(opt={}){
-      if(opt?.__r635Granted)return previous(opt);
+      if(opt?.__r635Granted||(opt?.automatic&&Z.auto&&owner?.type==='auto-zikir'&&same(owner.identity,autoIdentity().id)))return previous(opt);
       let cat='',idx=0,item=null;try{cat=typeof zKat==='function'?zKat():Z.cat;idx=typeof zIdx==='function'?zIdx():Z.idx;item=ZIKIR?.[cat]?.items?.[idx]||null}catch(e){}
       const spec={type:cat==='terkip'?'terkip':'single',identity:identity(cat,idx,item),title:label(cat,idx,item),persistent:false,source:'current-zikir'};
       sync('manual-current');const busy=owner||realBusy();
@@ -64067,6 +64359,7 @@ async function find(cat,idx,item,opt={}){
   return null;
 }
 async function playOwn(cat,idx,item,opt={}){
+  if(window.SukunVoiceSettings?.recordingAllowed?.(cat)===false)return null;
   opt={...opt,isCurrent:window.SukunVoiceAttempt.capture(opt)};
   if(!opt.isCurrent())return{ok:false,cancelled:true,reason:'stale-sequence'};
   if(window.SukunRecordingFailure.matches(cat,idx))return window.SukunRecordingFailure.result();
@@ -64082,7 +64375,7 @@ async function playOwn(cat,idx,item,opt={}){
   try{window.SukunVoiceSource?.set?.('recording','KENDİ KAYIT','IndexedDB · '+(opt.title||item?.tr||item?.t||rec.key))}catch(e){}
   let r;
   try{
-    r=await playRecording(rec.blob,'r637-own:'+rec.key,{
+    r=await playRecording(rec.blob,(opt.entry==='dongu'?'dongu:':'r637-own:')+rec.key,{
       detail:true,resume:false,backgroundNative:!!document.hidden,
       reason:document.hidden?'Kilit ekranı · kendi kayıt':'Kendi kayıt · TTS kilidi',
       title:opt.title||item?.tr||item?.t||rec.key,recordingKey:rec.key,isCurrent:opt.isCurrent
@@ -68647,28 +68940,34 @@ function enter(){
 window.SukunR708Focus=Object.freeze({version:'r708',enter,snapshot:()=>last});
 })();
 </script>
-<script id="r830-release-identity-runtime">(()=>{
+<script id="r830-release-identity-runtime">/* One visible release identity; service-worker version always means this page's controller. */
+(()=>{
 'use strict';
 const meta=document.querySelector('meta[name="sukun-build"]');
-const build=meta?.content||'r831';
-const version='v20.91';
-const date='2026-09-22';
+const build=meta?.content||'unknown';
 function sync(){
-  const label=document.getElementById('surumEtiket');
-  if(!label)return;
-  const text=`SÜKÛN ${version} — build ${date}-${build}`;
-  if(label.textContent!==text) label.textContent=text;
-  label.dataset.sukunBuild=build;
+  const label=document.getElementById('surumEtiket');if(!label)return;
+  const s=window.SukunUpdateManager?.snapshot?.();
+  const controller=s?.controllerVersion||'';
+  let status='';
+  if(s?.reloadPending)status=s.sessionBusy?'oturum sonu bekleniyor':'sayfa yenilemesi bekleniyor';
+  else if(s?.updateQueued)status='oturum sonu bekleniyor';
+  else if(s?.hasWaiting)status='güncelleme hazır';
+  else if(s?.hasController&&controller&&controller!==build)status='sayfa ile SW farklı';
+  else if(s?.hasController&&controller===build)status=s.complete===true?'güncel':'dosyalar denetleniyor';
+  else if(s?.hasController)status='denetleniyor…';
+  const sw=controller||(s?.hasController?'denetleniyor…':'yok');
+  const waiting=s?.hasWaiting?' · Hazır sürüm '+(s.waitingVersion||'denetleniyor…'):'';
+  const text=`SÜKÛN — Uygulama ${build} · SW ${sw}${waiting}${status?' · '+status:''}`;
+  if(label.textContent!==text)label.textContent=text;
+  label.dataset.sukunBuild=build;label.dataset.sukunSw=controller;
+  label.dataset.sukunWaiting=s?.waitingVersion||'';
 }
-if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',sync,{once:true});
-else sync();
-addEventListener('pageshow',sync,{passive:true});
-window.SukunReleaseIdentity=Object.freeze({
-  build,version,
-  sync,
-  snapshot:()=>({build,version,footer:document.getElementById('surumEtiket')?.textContent||'',meta:meta?.content||''})
-});
-})();</script>
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
+['pageshow','sukun:swstate'].forEach(event=>addEventListener(event,sync,{passive:true}));
+window.SukunReleaseIdentity=Object.freeze({build,version:build,sync,snapshot:()=>({build,version:build,footer:document.getElementById('surumEtiket')?.textContent||'',meta:meta?.content||'',update:window.SukunUpdateManager?.snapshot?.()||null})});
+})();
+</script>
 <style id="r709-sanctuary-style">
 /* r709 — cinematic sanctuary, solely the canonical Tefekkür surface. */
 html body.r709-sanctuary.r699-layout.sukun-tefekkur-mode #tab-zkr>.card.zCtl{
@@ -75023,7 +75322,9 @@ function clean(){
  if(sum){sum.onclick=null;sum.removeAttribute('data-r836-bound');sum.removeAttribute('data-r848');sum.removeAttribute('aria-haspopup');}
  document.querySelectorAll('#r836CounterSettings').forEach(x=>x.remove());
  // Put the real native accordion directly after the counter controls.
- const a=document.querySelector('.zCounterActions'); if(a&&a.parentElement&&a.nextElementSibling!==box)a.insertAdjacentElement('afterend',box);
+ const practice=document.getElementById('r920Practice'),more=document.getElementById('r920More');
+ if(practice&&more){if(box.parentElement!==practice)more.before(box);}
+ else{const a=document.querySelector('.zCounterActions');if(a&&a.parentElement&&a.nextElementSibling!==box)a.insertAdjacentElement('afterend',box);}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean,{once:true});else clean();
 window.addEventListener('pageshow',clean,{passive:true});
@@ -75031,26 +75332,7 @@ window.SukunR850=Object.freeze({version:'r850',settings:()=>document.getElementB
 })();</script>
 
 
-<script id="sukun-r853-sw-identity">(()=>{
-'use strict';
-const APP=document.querySelector('meta[name="sukun-build"]')?.content||'r913';
-const el=()=>document.getElementById('surumEtiket');
-function paint(sw='—',phase=''){const e=el();if(!e)return;e.textContent=`SÜKÛN v20.91 — Uygulama ${APP} · SW ${sw}${phase?` · ${phase}`:''}`;}
-paint('denetleniyor…');
-async function probe(){
- try{
-  if(!('serviceWorker' in navigator)){paint('yok');return;}
-  const reg=await navigator.serviceWorker.getRegistration('./')||await navigator.serviceWorker.ready.catch(()=>null);
-  const w=reg?.active||navigator.serviceWorker.controller;
-  if(!w){paint('yok','yenileme bekleniyor');return;}
-  const ans=await new Promise(resolve=>{let done=false;const ch=new MessageChannel();const t=setTimeout(()=>{if(!done){done=true;resolve(null)}},1800);ch.port1.onmessage=e=>{if(done)return;done=true;clearTimeout(t);resolve(e.data)};try{w.postMessage({type:'STATUS'},[ch.port2])}catch(e){clearTimeout(t);resolve(null)}});
-  paint(ans?.v||'bilinmiyor',ans?.v===APP?'güncel':'güncelleme gerekli');
- }catch(e){paint('hata');}
-}
-addEventListener('load',()=>setTimeout(probe,500),{once:true});
-navigator.serviceWorker?.addEventListener?.('controllerchange',()=>setTimeout(probe,150));
-window.addEventListener('sukun:swstate',()=>setTimeout(probe,80));
-})();</script>
+<!-- SW identity is rendered by SukunReleaseIdentity from SukunUpdateManager. -->
 
 <style id="sukun-r856-zikir-skin-separation">
 /* r856 — Normal Sükûn/Mevlevî and Berhetiyye controls are separate authorities. */
@@ -75207,7 +75489,7 @@ html[data-r853-berhet="0"] body #r679ZikirAyarBox>summary .r679SettingsChevron{m
 }
 </style>
 <script id="sukun-r856-normal-zikir-runtime">(()=>{'use strict';
-function sync(){
+function sync(){/* r922 shared settings owns its label. */if(document.getElementById('r920Practice')?.contains(document.getElementById('r679ZikirAyarBox')))return;
  const box=document.getElementById('r679ZikirAyarBox');
  if(box){const b=box.querySelector('.r679SettingsTitle b'),s=box.querySelector('.r679SettingsTitle small');if(b)b.textContent='Zikir Ayarları';if(s)s.textContent='Tempo · Bendir · Ritim · Ses';}
 }
@@ -75972,12 +76254,18 @@ html[data-r913-context="base"] body.r716-shell>#r717Scene{display:block!importan
 html[data-r913-context="base"] body.r716-shell>#r709SceneArt,html[data-r913-context="base"] body.r716-shell>[data-berhet-scene-layer]{display:none!important;opacity:0!important}
 </style>
 <script id="sukun-r913-build-scene-runtime">/* r916: retired competing visual writer; audio engine unchanged. */window.SukunR913={version:'r916',sync:()=>window.SukunR916Visual?.sync?.()};</script>
+<script src="./assets/runtime/esma-scenes-r923.js?v=r923" integrity="sha256-kmgRNWjIEzGTiLolBu+7lz0O+SE1o89umxkBTwMtzn8="></script>
 <script id="sukun-r914-runtime">(()=>{'use strict';
 const R=document.documentElement,A='./assets/berhetiyye-premium/',$=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch(_){return d}};
 const atlas=window.SukunR853Scene.nameScenes,originals=window.SukunR853Scene.files;
 const files={palace:'scene-01-billur.png',seal:'scene-06-yuzuk.png',wind:'scene-04-teras.png',crystal:'scene-05-kristal.png',night:'scene-07-mor-kristal.png',hudhud:'scene-02-asa.png'};
 const wheels={crystal:'wheel-alpha-r915.png',seal:'wheel-seal-r916.svg',pearls:'wheel-pearls-r916.svg'};
 const basePath='./assets/scenes/mobile-r918/mevlevi.webp',baseFallback='./assets/sukun-nur-sanctuary-r757.png';
+const esmaScenes=window.SukunEsmaScenes,esmaById=new Map(esmaScenes.map(s=>[s.id,s]));
+let esmaChoice=safe(()=>localStorage.getItem('sukun.esma.background.r923'),'classic')||'classic';
+if(!esmaById.has(esmaChoice))esmaChoice='classic';
+let activeEsma=null,fallbackLevel=0,sceneRequests=0,requestedFamily='base';
+const esmaScene=()=>esmaById.get(esmaChoice);
 let choice=safe(()=>localStorage.getItem('sukun.berhet.background.r918'),'auto')||'auto',wheel=safe(()=>localStorage.getItem('sukun.berhet.wheel.r916'),'crystal')||'crystal',raf=0;
 if(choice!=='auto'&&!files[choice])choice='auto';if(!wheels[wheel])wheel='crystal';
 let sceneKey=null,activeScene=null,sceneCSS='none',sceneResolutions=0,sceneLoad='idle',loadToken=0,warmTimer=0,loadedKey=null,resolvedSceneId=null;
@@ -76004,7 +76292,7 @@ function loadImage(path){
 function cancelExcept(path){for(const [p,job] of pending)if(p!==path)job.cancel()}
 function clearTransition(){clearTimeout(transitionTimer);attr('r920SceneTransition','');prop('--r920-scene-previous','none')}
 function paintScene(css,id){
- if(paintedCSS===css&&paintedId===id)return;
+ if(paintedCSS===css&&paintedId===id){safe(()=>dispatchEvent(new CustomEvent('sukun:scenechange',{detail:{sceneId:id,sceneLoad,profile}})));return;}
  const oldCSS=paintedCSS,oldId=paintedId;clearTransition();paintedCSS=css;paintedId=id;
  prop('--r914-scene',css);
  if(oldId&&id&&oldId!==id&&oldCSS!=='none'&&css!=='none'&&profile!=='saving'&&!reduced.matches&&!document.hidden){
@@ -76012,15 +76300,32 @@ function paintScene(css,id){
  }
  safe(()=>dispatchEvent(new CustomEvent('sukun:scenechange',{detail:{sceneId:id,previousSceneId:oldId,sceneLoad,profile}})));
 }
-function requestScene(i,key,visible){
- const token=++loadToken,scene=visible?canonical(i):null,path=visible?scenePath(i):basePath;
- const selectedChoice=choice,fallback=visible?(selectedChoice==='auto'?'./'+scene.asset:A+files[selectedChoice]):baseFallback;
- clearTimeout(warmTimer);cancelExcept(path);sceneLoad='loading';
- loadImage(path).catch(error=>{if(token!==loadToken||error.name==='AbortError')throw error;failedLoads++;return loadImage(fallback)}).then(loaded=>{
-  if(token!==loadToken||requestKey!==key)return;
-  sceneCSS=`url('${loaded}')`;loadedKey=visible?sceneKey:'off';resolvedSceneId=visible?(selectedChoice==='auto'?scene.sceneId:'manual-'+selectedChoice):'mevlevi';sceneLoad='ready';paintScene(sceneCSS,resolvedSceneId);queue();
+function requestScene(i,key,visible,esma){
+ const token=++loadToken,scene=visible?canonical(i):null,selectedChoice=choice;
+ const requestedId=visible?(selectedChoice==='auto'?scene.sceneId:'manual-'+selectedChoice):esma?esma.sceneId:'mevlevi';
+ const main=visible?scenePath(i):esma?esma.asset:basePath;
+ const paths=[...new Set(visible?[main,selectedChoice==='auto'?'./'+scene.asset:A+files[selectedChoice]]:esma?[main,esma.lite,basePath,baseFallback]:[basePath,baseFallback])];
+ const family=visible?'berhet':esma?'esma':'base';
+ clearTimeout(warmTimer);cancelExcept(main);sceneLoad='loading';fallbackLevel=0;sceneRequests++;
+ // Never leave another family's artwork behind during a delayed load.
+ if(requestedFamily!==family){sceneCSS='none';loadedKey=null;resolvedSceneId=null;paintScene('none',null)}
+ requestedFamily=family;
+ async function resolve(){
+  let lastError;
+  for(let level=0;level<paths.length;level++){
+   if(token!==loadToken||requestKey!==key)return;
+   try{const loaded=await loadImage(paths[level]);return {loaded,level}}
+   catch(error){if(token!==loadToken||error.name==='AbortError')return;failedLoads++;lastError=error}
+  }
+  throw lastError||new Error('No scene asset');
+ }
+ resolve().then(result=>{
+  if(!result||token!==loadToken||requestKey!==key)return;
+  const {loaded,level}=result;fallbackLevel=level;sceneCSS=`url('${loaded}')`;loadedKey=key;
+  resolvedSceneId=esma&&loaded!==esma.asset&&loaded!==esma.lite?'mevlevi-fallback':requestedId;
+  sceneLoad='ready';paintScene(sceneCSS,resolvedSceneId);queue();
   if(visible&&selectedChoice==='auto'&&i+1<atlas.length&&profile!=='saving'&&!navigator.connection?.saveData&&!document.hidden)warmTimer=setTimeout(()=>{if(token===loadToken)loadImage('./'+atlas[i+1].runtimeAsset).catch(()=>{})},700);
- }).catch(error=>{if(token===loadToken&&error.name!=='AbortError'){failedLoads++;sceneCSS='none';loadedKey=null;resolvedSceneId=null;sceneLoad='error';paintScene('none',null);queue()}});
+ }).catch(error=>{if(token===loadToken&&error.name!=='AbortError'){sceneCSS='none';loadedKey=null;resolvedSceneId=null;sceneLoad='error';paintScene('none',null);queue()}});
 }
 function setProfile(value){
  if(!['cinematic','balanced','saving'].includes(value))return false;
@@ -76036,11 +76341,14 @@ function sceneStatus(){
  if(status.disabled!==(sceneLoad!=='error'))status.disabled=sceneLoad!=='error';
 }
 // Active name is the sole identity; count/pause never start a new image request.
-function syncScene(on,i,surface,host){
+function syncScene(on,i,surface,host,esmaOn){
  const key=on?i+':'+choice:'off';
  if(key!==sceneKey){sceneKey=key;activeScene=on?canonical(i):null;if(activeScene)sceneResolutions++}
  const visible=!!activeScene&&surface;
- const wanted=visible?key:'base';if(wanted!==requestKey){requestKey=wanted;requestScene(i,wanted,visible)}
+ activeEsma=esmaOn&&surface?esmaScene():null;
+ const wanted=visible?key:activeEsma?'esma:'+activeEsma.id:'base';
+ if(wanted!==requestKey){requestKey=wanted;requestScene(i,wanted,visible,activeEsma)}
+ attr('r923EsmaScene',activeEsma?.id||'');
  attr('r914Context',visible?'berhet':'base');attr('r917SceneId',activeScene?(choice==='auto'?activeScene.sceneId:'manual-'+choice):'');
  attr('r918SceneLoad',sceneLoad);sceneStatus();
  if(host){
@@ -76057,7 +76365,7 @@ function sync(){raf=0;const cat=safe(()=>typeof zKat==='function'?zKat():'',''),
  attr('r915Category',cat);attr('r853Berhet',on?'1':'0');attr('r899Berhet',on?'1':'0');attr('r902Context',on?'berhet':'esma');attr('r819Counter',on?'berhet':'generic');
  if(on)attr('r811Berhet','1');else if(R.hasAttribute('data-r811-berhet'))R.removeAttribute('data-r811-berhet');
  const surface=document.body.classList.contains('sukun-zikir-tab')||document.body.classList.contains('sukun-tefekkur-mode');
- syncScene(on,i,surface,$('r883JourneyRemote'));
+ syncScene(on,i,surface,$('r883JourneyRemote'),cat==='esma');
  prop('--r916-berhet-wheel',`url('${A+wheels[wheel]}')`);attr('r916Wheel',wheel);
  const mode=safe(()=>localStorage.getItem('sukun:r910:wheelMotion'),'sync')||'sync';attr('r910WheelMode',['sync','flow','fast'].includes(mode)?mode:'sync');
  const running=!!safe(()=>typeof Z!=='undefined'&&Z.auto,false);attr('r915Playing',running?'1':'0');attr('r910Running',running?'1':'0');
@@ -76068,8 +76376,9 @@ function sync(){raf=0;const cat=safe(()=>typeof zKat==='function'?zKat():'',''),
 function mountMotion(){const body=document.querySelector('#r679ZikirAyarBox>.r679SettingsBody');if(!body||$('r910WheelMotion'))return;const d=document.createElement('div');d.id='r910WheelMotion';d.innerHTML='<label>Çark hareketi <select id="r916Motion"><option value="sync">Zikre senkron</option><option value="flow">Akıcı</option><option value="fast">Hızlı</option></select></label>';d.querySelector('select').value=safe(()=>localStorage.getItem('sukun:r910:wheelMotion'),'sync')||'sync';d.addEventListener('change',e=>{safe(()=>localStorage.setItem('sukun:r910:wheelMotion',e.target.value));queue()});body.prepend(d)}
 function queue(){if(!raf)raf=requestAnimationFrame(sync)}
 function setScene(v){if(v!=='auto'&&!files[v])return false;choice=v;safe(()=>{localStorage.setItem('sukun.berhet.background.r918',v);localStorage.setItem('sukun.berhet.background.r829',v)});queue();return true}
+function setEsmaScene(v){if(!esmaById.has(v))return false;esmaChoice=v;safe(()=>localStorage.setItem('sukun.esma.background.r923',v));queue();return true}
 function setWheel(v){if(!wheels[v])return false;wheel=v;safe(()=>localStorage.setItem('sukun.berhet.wheel.r916',v));queue();return true}
-const api=Object.freeze({version:'r920',sync:queue,setScene,setWheel,setProfile,sceneFor,retry:()=>{if(sceneLoad==='error'){requestKey=null;queue();return true}return false},snapshot:()=>({scene:choice,wheel,profile,context:R.dataset.r914Context,originals:[...originals],activeSceneId:activeScene?.sceneId||null,activeIndex:activeScene?.index??null,sceneResolutions,sceneLoad,loadedKey,resolvedSceneId,renderedScene:sceneCSS,pendingLoads:pending.size,maxPendingLoads,failedLoads,cancelledLoads,transitioning:!!R.dataset.r920SceneTransition})});window.SukunSceneEngine=api;window.SukunR920Visual=api;window.SukunR916Visual=api;window.SukunR917Visual=api;window.SukunR918Visual=api;window.SukunR832VisualAuthority=api;window.SukunR829Visuals=api;window.SukunR914=api;window.SukunR910=api;
+const api=Object.freeze({version:'r923',sync:queue,setScene,setEsmaScene,esmaScenes,setWheel,setProfile,sceneFor,retry:()=>{if(sceneLoad==='error'||fallbackLevel>0){requestKey=null;queue();return true}return false},snapshot:()=>({scene:choice,esmaChoice,esmaScene:esmaScene(),fallbackLevel,sceneRequests,requestedFamily,wheel,profile,context:R.dataset.r914Context,originals:[...originals],activeSceneId:activeEsma?.sceneId||activeScene?.sceneId||null,activeIndex:activeScene?.index??null,sceneResolutions,sceneLoad,loadedKey,resolvedSceneId,renderedScene:sceneCSS,pendingLoads:pending.size,maxPendingLoads,failedLoads,cancelledLoads,transitioning:!!R.dataset.r920SceneTransition})});window.SukunSceneEngine=api;window.SukunR920Visual=api;window.SukunR916Visual=api;window.SukunR917Visual=api;window.SukunR918Visual=api;window.SukunR832VisualAuthority=api;window.SukunR829Visuals=api;window.SukunR914=api;window.SukunR910=api;
 ['DOMContentLoaded','pageshow','sukun:domhydrate','sukun:tabchange','sukun:r616viewchange','sukun:zikirchange','sukun:currentzikirchange','sukun:zikirselectionchange','sukun:journey-advance','sukun:tefekkurchange','sukun:secretaccesschange'].forEach(e=>addEventListener(e,queue,{passive:true}));
 document.addEventListener('change',e=>{if(e.target.id==='r829SceneSel')setScene(e.target.value)},{passive:true});
 addEventListener('online',()=>{if(sceneLoad==='error'){requestKey=null;queue()}},{passive:true});
@@ -76080,8 +76389,82 @@ prop('--r914-scene','none');attr('r920Performance',profile);new MutationObserver
 </script>
 <svg id="r915Filters" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;pointer-events:none"><defs><filter id="r915BlackAlpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 8 8 8 0 0"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
 
-<script src="./assets/runtime/session-r919.js?v=r920" integrity="sha256-pd8wTJo0e1UsO7k1viaLOggSPlcA+FtCvTYuMzHU1G8="></script>
-<script src="./assets/runtime/dock-r920.js?v=r920" integrity="sha256-0FIOQIa5Tgef7K17NbG+qmUPOqv9qF2JE4qYnShZGUw="></script>
-<script src="./assets/runtime/interface-r920.js?v=r920" integrity="sha256-T9aAlKNnP2fSoYILJ7+H6N5+0yj1AdDpnTcyn9vCAEk="></script>
+<script src="./assets/runtime/session-r919.js?v=r923" integrity="sha256-4wBI6tpnv06BMVkw8xdck9TFqTGJVRvcnjMJcynlxfQ="></script>
+<script src="./assets/runtime/dock-r920.js?v=r923" integrity="sha256-VI+588gCmWcpY7SofWAab2fsJZwlW50NXVO93N/AYpo="></script>
+<script src="./assets/runtime/interface-r920.js?v=r923" integrity="sha256-nDqzgZGpJn19F7VJmI9vSN+CdUxsIgAjx4jH8nwSBMA="></script>
+<script id="sukun-r922-voice-settings-ui">
+(function(){'use strict';
+const $=id=>document.getElementById(id);let mounted=false,raf=0,busy=false,modeError='',discovery=null,discoveryTimer=0;
+const modes={auto:'Kendi kayıt öncelikli',arabic:'Arapça okuma',turkish:'Türkçe okunuş'};
+const text=(node,value)=>{if(node&&node.textContent!==value)node.textContent=value;};
+function field(label,node,id){const box=document.createElement('label');box.className='r922VoiceField';if(id)box.id=id;const title=document.createElement('span');title.textContent=label;box.append(title,node);return box;}
+function mount(){
+ const practice=$('r920Practice'),settings=$('r679ZikirAyarBox'),card=$('r852VoiceCard'),body=settings?.querySelector('.r679SettingsBody');
+ if(!practice||!settings||!card||!body)return false;
+ if(settings.parentElement!==practice)$('r920More').before(settings);
+ if(mounted)return true;
+ discovery?.disconnect();discovery=null;clearTimeout(discoveryTimer);
+ $('spkOnce')?.setAttribute('data-tip','Seçili ses ve okuyuş ayarıyla mevcut zikri dinle.');
+ const more=$('r920More'),labelMore=()=>{more.textContent=more.getAttribute('aria-expanded')==='true'?'Ek araçları kapat':'Kayıtlar ve diğer araçlar';};labelMore();more.addEventListener('click',labelMore);
+ const summary=settings.querySelector(':scope>summary');
+ const title=summary?.querySelector('b');if(title)title.textContent='Zikir ayarları · Ses ve okuyuş';
+ const caption=summary?.querySelector('small');if(caption){caption.id='r922SettingsCaption';caption.textContent=modes.auto;}
+ body.prepend(card);card.setAttribute('aria-label','Zikir sesi ve okuyuş');
+ card.querySelector('.r852VoiceHead b').textContent='Ses ve okuyuş';
+ card.querySelector('.r852VoiceHead small').textContent='Esmâ ve Berhetiyye için ortak seçim';
+ const mode=document.createElement('select');mode.id='r922VoiceMode';mode.setAttribute('aria-describedby','r922VoiceModeNote');
+ for(const [value,label]of Object.entries(modes)){const o=document.createElement('option');o.value=value;o.textContent=label;mode.append(o);}
+ const modeField=field('Okuyuş kaynağı',mode);
+ const note=document.createElement('p');note.id='r922VoiceModeNote';note.className='r922VoiceNote';note.setAttribute('role','status');
+ const notice=document.createElement('p');notice.id='r922VoiceNotice';notice.className='r922VoiceNote';notice.setAttribute('role','status');notice.hidden=true;
+ const record=document.createElement('div');record.className='r922RecordRow';
+ record.innerHTML='<button id="r922RecordVoice" type="button">Kendi sesini kaydet</button><span id="r922RecordingHint" class="r922VoiceNote"></span>';
+ const speak=$('optSpeak')?.closest('.opt');if(speak){const label=speak.querySelector('span');if(label)label.textContent='Her tekrarı sesli oku';speak.classList.add('r922SpeakRow');}
+ const toggle=$('arTgl'),fallback=toggle?.closest('.opt'),status=$('arStat');
+ if(fallback){fallback.id='r922ArabicFallback';const label=document.createElement('span');label.textContent='Kayıt yoksa Arapça okuyuş';status?.replaceWith(label);}
+ if(status){status.classList.add('r922VoiceNote');status.setAttribute('role','status');}
+ card.querySelector('.r852VoiceHead').after(modeField,note,notice,record);
+ record.after(...[speak,fallback,status].filter(Boolean));
+ const spkRow=$('spkRow'),voice=$('spkVoice'),gender=$('spkGenderSel'),rate=$('spkRate');
+ if(spkRow&&voice&&gender&&rate){
+  spkRow.replaceChildren(field('Türkçe ses',voice),field('Ses tercihi (isteğe bağlı)',gender),field('Türkçe okuma hızı',rate));
+  card.querySelector('.r852Advanced').before(spkRow);
+  gender.querySelector('option[value=""]').textContent='Tercih yok';
+  gender.querySelector('option[value="f"]').textContent='Kadın';gender.querySelector('option[value="m"]').textContent='Erkek';
+  const genderNote=document.createElement('p');genderNote.id='r922GenderNote';genderNote.className='r922VoiceNote';genderNote.textContent='Ses seçenekleri cihazın bu tarayıcıya sunduğu seslere bağlıdır.';
+  gender.setAttribute('aria-describedby','r922GenderNote');spkRow.after(genderNote);
+ }
+ $('r922RecordVoice').onclick=()=>{$('itemRecBtn')?.click();queue();};
+ mode.onchange=async()=>{
+  if(busy)return;const api=window.SukunVoiceSettings;if(!api?.setMode){render();return;}
+  busy=true;mode.disabled=true;modeError='';
+  try{const result=await api.setMode(mode.value);if(result===false)modeError='Okuyuş seçimi uygulanamadı. Yeniden dene.';}catch(e){modeError='Okuyuş seçimi uygulanamadı. Yeniden dene.';}finally{busy=false;mode.disabled=false;queue();}
+ };
+ for(const id of ['arTgl','optSpeak','spkVoice','spkGenderSel','arVoiceSel','r852VoiceRefresh'])$(id)?.addEventListener(id.endsWith('Sel')||id==='spkVoice'?'change':'click',queue,{passive:true});
+ $('itemRecBtn')&&new MutationObserver(queue).observe($('itemRecBtn'),{attributes:true,attributeFilter:['class','title']});
+ settings.addEventListener('toggle',queue,{passive:true});mounted=true;return true;
+}
+function render(){raf=0;if(!mount())return;
+ const heading=$('r679ZikirAyarBox').querySelector(':scope>summary b');if(heading&&heading.textContent!=='Zikir ayarları · Ses ve okuyuş')heading.textContent='Zikir ayarları · Ses ve okuyuş';
+ const api=window.SukunVoiceSettings,mode=api?.getMode?.()||'auto',sel=$('r922VoiceMode');if(document.activeElement!==sel||!busy)sel.value=mode;
+ const notice=api?.snapshot?.().notice||'';text($('r922VoiceNotice'),notice);$('r922VoiceNotice').hidden=!notice;
+ text($('r922SettingsCaption'),modes[mode]||modes.auto);
+ const native=$('itemRecBtn'),recording=native?.classList.contains('recording'),has=native?.classList.contains('has');
+ text($('r922RecordVoice'),recording?'Kaydı bitir':has?'Kendi sesini yeniden kaydet':'Kendi sesini kaydet');
+ $('r922RecordVoice').setAttribute('aria-pressed',String(!!recording));
+ text($('r922RecordingHint'),recording?'Kayıt sürüyor. Bitirmek için tekrar dokun.':has?'Bu isim için kendi kaydın hazır.':'Seçili isim için kendi okuyuşunu kaydet.');
+ text($('r922VoiceModeNote'),modeError||(mode==='auto'?'Bu isimde kendi kaydın varsa o çalar; yoksa seçtiğin cihaz sesi kullanılır.':mode==='arabic'?'Arapça metin, seçtiğin Arapça sesle okunur.':'Türkçe okunuş, seçtiğin Türkçe sesle okunur.'));
+ $('r922ArabicFallback').hidden=mode!=='auto';
+ for(const id of ['arTgl','optSpeak']){const n=$(id);if(n){const on=n.classList.contains('on');n.setAttribute('role','switch');n.setAttribute('aria-checked',String(on));text(n,on?'Açık':'Kapalı');}}
+}
+function queue(){if(!raf){raf=1;queueMicrotask(render);}}
+['DOMContentLoaded','pageshow','sukun:sessionchange','sukun:voicesettingschange','sukun:zikirchange','sukun:currentzikirchange','sukun:voicesource','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,queue,{passive:true}));
+window.SukunVoiceSettingsUI=Object.freeze({version:'r922',refresh:queue});
+// Discover the shared practice root once; stop observing as soon as native controls mount.
+discovery=new MutationObserver(queue);discovery.observe($('tab-zkr')||document.body,{childList:true,subtree:true});
+discoveryTimer=setTimeout(()=>{discovery?.disconnect();discovery=null;},15000);queue();
+})();
+
+</script>
 </body>
 </html>

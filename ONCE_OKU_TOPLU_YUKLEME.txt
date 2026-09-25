@@ -1,0 +1,41 @@
+SÜKÛN r923 — r917/r920 kurulumları için toplu güncelleme
+
+YÜKLEMEN GEREKEN TEK PAKET BUDUR.
+r920, r921 ve r922 paketlerini ayrıca yüklemen gerekmiyor.
+Bu paket r923'ün tüm güncel uygulama dosyalarını ve güncelleme varlıklarını içerir.
+
+1. ZIP'i cihazında aç.
+2. İçindeki index.html, nero.html, sw.js, manifest.webmanifest, ikonlar,
+   __sukun_ ile başlayan üç JSON dosyası ve assets klasörünü,
+   mevcut uygulamanın aynı dosyalarının bulunduğu klasöre birlikte yükle.
+   Yeni bir r923 alt klasörü oluşturma; ZIP dosyasını tek başına siteye
+   yüklemek uygulamayı güncellemez.
+3. Aynı adlı dosyaları yenileriyle değiştir. assets klasörünü birleştir;
+   eski klasörü silip yalnız yeni klasörü bırakma. Pakette bulunmayan
+   eski ses, belge ve görsel dosyaların mevcut yerlerinde kalsın.
+4. GitHub üzerinden yüklüyorsan dosyaları mümkünse tek commit ile gönder;
+   sitenin dağıtımı tamamlanınca aynı site adresini aç.
+5. Devam eden veya duraklatılmış bir zikir varsa önce Bitir'e dokun.
+   Yeni sürüm bildirimi çıkarsa Güncelle'yi kullan. Sonra uygulamayı kapatıp aç.
+6. Sürüm satırında Uygulama r923 ve SW r923 görünmesini kontrol et.
+   Hâlâ r917/r920 görünüyorsa önce tüm dosyaların aynı site klasörüne
+   yüklendiğini ve dağıtımın tamamlandığını kontrol et; eski paketleri tekrar yükleme.
+
+Kendi ses kayıtların:
+Chrome'un site verilerini veya uygulama depolamasını temizleme.
+Aynı alan adı ve tarayıcıyı kullan; kişisel kayıtlar bu cihazın yerel verilerindedir.
+
+Paket kapsamı:
+- r920 ortak oturum, sahne, Tefekkür ve dokunma düzeni
+- r921 şeffaf Esmâ çarkı, Mini Tefekkür bağlantısı ve SW tutarlılığı
+- r922 Arapça/Türkçe okuyuş, kendi kayıt ve mevcut cihaz sesleri arasından seçim
+- r923 dokuz yeni Esmâ arka planı, seçici, hafif görseller ve hata yedekleri
+
+Yeni arka plan menüsü:
+Zikir → İsim, çark ve görünüm → Esmâ sahnesi
+
+Bu mevcut kurulumun üzerine birleştirilecek toplu GÜNCELLEME paketidir.
+Tarihsel tüm medya dosyalarını içeren boş kurulum paketi değildir.
+Uygulama kodu son teslim edilen r923 ile aynıdır; bu kez sadece yükleme
+dosyaları bir araya getirildi. Yeni bir r924 sürümü oluşturulmadı.
+Bu çalışma canlı siteye yükleme yapmadı.

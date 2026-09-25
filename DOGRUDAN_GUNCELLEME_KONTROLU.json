@@ -1,0 +1,377 @@
+{
+  "test": "Recovered actual r920 directly to r923",
+  "pass": true,
+  "scope": "Chromium real ServiceWorker/CacheStorage/IndexedDB/native recording; no intermediate release; not physical Android",
+  "baselineZip": {
+    "file": "recovered/SUKUN_r920_OTURUM_SAHNE_GUNCELLEME.zip",
+    "sha256": "20b15c9721fa1073b0cde6c640521d19a170838753a3cd68cd763b37e41d3d0d"
+  },
+  "stages": {
+    "baseline": {
+      "app": "r920",
+      "metas": [
+        "r920",
+        "r920"
+      ],
+      "footer": "SÜKÛN v20.91 — Uygulama r920 · SW r920 · güncel",
+      "manager": {
+        "version": "r920",
+        "phase": "ready",
+        "workerVersion": "r920",
+        "cache": "sukun-r920-session-mirror-20260925-v1",
+        "complete": true,
+        "lastError": "",
+        "lastChange": 1790347625753,
+        "hasWaiting": false,
+        "hasController": true,
+        "updateQueued": false,
+        "reloadPending": false,
+        "sessionBusy": false
+      },
+      "session": {
+        "phase": "IDLE",
+        "name": "Rahmân",
+        "count": 0
+      },
+      "toast": "",
+      "controller": {
+        "v": "r920",
+        "cache": "sukun-r920-session-mirror-20260925-v1",
+        "complete": true,
+        "marker": {
+          "v": "r920",
+          "cache": "sukun-r920-session-mirror-20260925-v1",
+          "at": 1790347625526,
+          "shell": true,
+          "manifest": true,
+          "marker": true,
+          "latest": true,
+          "runtime": {
+            "./assets/runtime/dock-r920.js?v=r920": true,
+            "./assets/runtime/interface-r920.js?v=r920": true,
+            "./assets/runtime/session-r919.js?v=r920": true
+          },
+          "runtimeRequired": 3,
+          "complete": true,
+          "errors": []
+        },
+        "error": "",
+        "script": "http://127.0.0.1:46563/sw.js?v=r920",
+        "state": "activated"
+      }
+    },
+    "paused": {
+      "app": "r920",
+      "metas": [
+        "r920",
+        "r920"
+      ],
+      "footer": "SÜKÛN v20.91 — Uygulama r920 · SW r920 · güncel",
+      "manager": {
+        "version": "r920",
+        "phase": "ready",
+        "workerVersion": "r920",
+        "cache": "sukun-r920-session-mirror-20260925-v1",
+        "complete": true,
+        "lastError": "",
+        "lastChange": 1790347625753,
+        "hasWaiting": false,
+        "hasController": true,
+        "updateQueued": false,
+        "reloadPending": false,
+        "sessionBusy": true
+      },
+      "session": {
+        "phase": "PAUSED",
+        "name": "Rahmân",
+        "count": 1
+      },
+      "toast": "",
+      "controller": {
+        "v": "r920",
+        "cache": "sukun-r920-session-mirror-20260925-v1",
+        "complete": true,
+        "marker": {
+          "v": "r920",
+          "cache": "sukun-r920-session-mirror-20260925-v1",
+          "at": 1790347625526,
+          "shell": true,
+          "manifest": true,
+          "marker": true,
+          "latest": true,
+          "runtime": {
+            "./assets/runtime/dock-r920.js?v=r920": true,
+            "./assets/runtime/interface-r920.js?v=r920": true,
+            "./assets/runtime/session-r919.js?v=r920": true
+          },
+          "runtimeRequired": 3,
+          "complete": true,
+          "errors": []
+        },
+        "error": "",
+        "script": "http://127.0.0.1:46563/sw.js?v=r920",
+        "state": "activated"
+      }
+    },
+    "waiting": {
+      "app": "r920",
+      "metas": [
+        "r920",
+        "r920"
+      ],
+      "footer": "SÜKÛN v20.91 — Uygulama r920 · SW r920 · güncel",
+      "manager": {
+        "version": "r920",
+        "phase": "waiting",
+        "workerVersion": "r923",
+        "cache": "sukun-r923-esma-scenes-20260925-v1",
+        "complete": true,
+        "lastError": "",
+        "lastChange": 1790347634258,
+        "hasWaiting": true,
+        "hasController": true,
+        "updateQueued": false,
+        "reloadPending": false,
+        "sessionBusy": true
+      },
+      "session": {
+        "phase": "PAUSED",
+        "name": "Rahmân",
+        "count": 1
+      },
+      "toast": "SÜKÛN r923 hazır.Güncelle ",
+      "controller": {
+        "v": "r920",
+        "cache": "sukun-r920-session-mirror-20260925-v1",
+        "complete": true,
+        "marker": {
+          "v": "r920",
+          "cache": "sukun-r920-session-mirror-20260925-v1",
+          "at": 1790347625526,
+          "shell": true,
+          "manifest": true,
+          "marker": true,
+          "latest": true,
+          "runtime": {
+            "./assets/runtime/dock-r920.js?v=r920": true,
+            "./assets/runtime/interface-r920.js?v=r920": true,
+            "./assets/runtime/session-r919.js?v=r920": true
+          },
+          "runtimeRequired": 3,
+          "complete": true,
+          "errors": []
+        },
+        "error": "",
+        "script": "http://127.0.0.1:46563/sw.js?v=r920",
+        "state": "activated"
+      },
+      "waiting": {
+        "v": "r923",
+        "cache": "sukun-r923-esma-scenes-20260925-v1",
+        "complete": true,
+        "marker": {
+          "v": "r923",
+          "cache": "sukun-r923-esma-scenes-20260925-v1",
+          "at": 1790347634094,
+          "shell": true,
+          "manifest": true,
+          "marker": true,
+          "latest": true,
+          "runtime": {
+            "./assets/runtime/dock-r920.js?v=r923": true,
+            "./assets/runtime/esma-scenes-r923.js?v=r923": true,
+            "./assets/runtime/interface-r920.js?v=r923": true,
+            "./assets/runtime/session-r919.js?v=r923": true
+          },
+          "runtimeRequired": 4,
+          "complete": true,
+          "errors": []
+        },
+        "error": "",
+        "script": "http://127.0.0.1:46563/sw.js?v=r920",
+        "state": "installed"
+      }
+    },
+    "queued": {
+      "app": "r920",
+      "metas": [
+        "r920",
+        "r920"
+      ],
+      "footer": "SÜKÛN v20.91 — Uygulama r920 · SW r920 · güncel",
+      "manager": {
+        "version": "r920",
+        "phase": "queued",
+        "workerVersion": "r923",
+        "cache": "sukun-r923-esma-scenes-20260925-v1",
+        "complete": true,
+        "lastError": "",
+        "lastChange": 1790347634846,
+        "hasWaiting": true,
+        "hasController": true,
+        "updateQueued": true,
+        "reloadPending": false,
+        "sessionBusy": true
+      },
+      "session": {
+        "phase": "PAUSED",
+        "name": "Rahmân",
+        "count": 1
+      },
+      "toast": "Güncelleme, oturum sona erdiğinde uygulanacak.Vazgeç ",
+      "controller": {
+        "v": "r920",
+        "cache": "sukun-r920-session-mirror-20260925-v1",
+        "complete": true,
+        "marker": {
+          "v": "r920",
+          "cache": "sukun-r920-session-mirror-20260925-v1",
+          "at": 1790347625526,
+          "shell": true,
+          "manifest": true,
+          "marker": true,
+          "latest": true,
+          "runtime": {
+            "./assets/runtime/dock-r920.js?v=r920": true,
+            "./assets/runtime/interface-r920.js?v=r920": true,
+            "./assets/runtime/session-r919.js?v=r920": true
+          },
+          "runtimeRequired": 3,
+          "complete": true,
+          "errors": []
+        },
+        "error": "",
+        "script": "http://127.0.0.1:46563/sw.js?v=r920",
+        "state": "activated"
+      }
+    },
+    "updated": {
+      "app": "r923",
+      "metas": [
+        "r923",
+        "r923"
+      ],
+      "footer": "SÜKÛN — Uygulama r923 · SW r923 · güncel",
+      "manager": {
+        "version": "r923",
+        "appVersion": "r923",
+        "phase": "ready",
+        "workerVersion": "r923",
+        "controllerVersion": "r923",
+        "activeVersion": "r923",
+        "waitingVersion": "",
+        "cache": "sukun-r923-esma-scenes-20260925-v1",
+        "complete": true,
+        "controllerCache": "sukun-r923-esma-scenes-20260925-v1",
+        "controllerComplete": true,
+        "waitingCache": "",
+        "waitingComplete": null,
+        "lastError": "",
+        "lastChange": 1790347641913,
+        "hasWaiting": false,
+        "hasController": true,
+        "versionMatch": true,
+        "updateQueued": false,
+        "reloadPending": false,
+        "sessionBusy": false
+      },
+      "session": {
+        "phase": "IDLE",
+        "name": "Rahmân",
+        "count": 0
+      },
+      "toast": "",
+      "controller": {
+        "v": "r923",
+        "cache": "sukun-r923-esma-scenes-20260925-v1",
+        "complete": true,
+        "marker": {
+          "v": "r923",
+          "cache": "sukun-r923-esma-scenes-20260925-v1",
+          "at": 1790347634094,
+          "shell": true,
+          "manifest": true,
+          "marker": true,
+          "latest": true,
+          "runtime": {
+            "./assets/runtime/dock-r920.js?v=r923": true,
+            "./assets/runtime/esma-scenes-r923.js?v=r923": true,
+            "./assets/runtime/interface-r920.js?v=r923": true,
+            "./assets/runtime/session-r919.js?v=r923": true
+          },
+          "runtimeRequired": 4,
+          "complete": true,
+          "errors": []
+        },
+        "error": "",
+        "script": "http://127.0.0.1:46563/sw.js?v=r920",
+        "state": "activated"
+      },
+      "caches": [
+        "sukun-r920-session-mirror-20260925-v1",
+        "sukun-r923-esma-scenes-20260925-v1"
+      ]
+    },
+    "repeatCheck": {
+      "app": "r923",
+      "metas": [
+        "r923",
+        "r923"
+      ],
+      "footer": "SÜKÛN — Uygulama r923 · SW r923 · güncel",
+      "manager": {
+        "version": "r923",
+        "appVersion": "r923",
+        "phase": "ready",
+        "workerVersion": "r923",
+        "controllerVersion": "r923",
+        "activeVersion": "r923",
+        "waitingVersion": "",
+        "cache": "sukun-r923-esma-scenes-20260925-v1",
+        "complete": true,
+        "controllerCache": "sukun-r923-esma-scenes-20260925-v1",
+        "controllerComplete": true,
+        "waitingCache": "",
+        "waitingComplete": null,
+        "lastError": "",
+        "lastChange": 1790347643734,
+        "hasWaiting": false,
+        "hasController": true,
+        "versionMatch": true,
+        "updateQueued": false,
+        "reloadPending": false,
+        "sessionBusy": false
+      },
+      "session": {
+        "phase": "IDLE",
+        "name": "Rahmân",
+        "count": 0
+      },
+      "toast": "",
+      "waiting": null
+    }
+  },
+  "limitations": [
+    "Actual r917 package is not available; r917 was not simulated or claimed tested."
+  ],
+  "errors": [],
+  "recordingBefore": {
+    "key": "esma:0:nida",
+    "bytes": 16044,
+    "type": "audio/wav",
+    "sha256": "2b9546bcd3db0c12bfaf3fbbe11a6c5b76c229bc3719d5944ad6f100fcbec58d"
+  },
+  "recordingAfter": {
+    "key": "esma:0:nida",
+    "bytes": 16044,
+    "type": "audio/wav",
+    "sha256": "2b9546bcd3db0c12bfaf3fbbe11a6c5b76c229bc3719d5944ad6f100fcbec58d"
+  },
+  "recordingPreserved": true,
+  "sceneCacheCount": 18,
+  "releasesRequested": [
+    "r920",
+    "r923"
+  ],
+  "navigationCount": 1
+}
