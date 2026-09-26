@@ -1,9 +1,41 @@
-/* r921 — presentation of the existing dock. No timer, counter or audio owner. */
+/* r927 — bounded presentation of the existing dock. No timer, counter or audio owner. */
 (()=>{
  'use strict';
  if(window.SukunDockR920)return;
  const $=id=>document.getElementById(id);
  let mounted=false,raf=0;
+ function installViewportContract(){
+  if($('r927DockViewportStyle'))return;
+  const style=document.createElement('style');style.id='r927DockViewportStyle';
+  // Reuse the first visual contract and the existing r732 measured dimensions.
+  // One fixed shell, one scrollport, one persistent transport row; no new owner.
+  style.textContent=`@layer sukun-r920-contract {
+   body.r920-dock:not(.r588-mode-mini) #r170Now.r588-authority:not(.r554-alert-open)>#r588DockShell {
+    box-sizing:border-box!important;display:grid!important;
+    grid-template-rows:44px minmax(0,1fr) auto!important;
+    height:100%!important;min-height:0!important;max-height:100%!important;
+    align-content:stretch!important;overflow:hidden!important;
+   }
+   body.r920-dock:not(.r588-mode-mini) #r588DockShell>#r659DockBody {
+    box-sizing:border-box!important;grid-row:2!important;
+    height:auto!important;min-height:0!important;max-height:100%!important;
+    align-self:stretch!important;overflow-x:hidden!important;overflow-y:auto!important;
+    overscroll-behavior-y:contain!important;touch-action:pan-y pinch-zoom!important;
+    scroll-padding-block:6px!important;
+   }
+   body.r920-dock:not(.r588-mode-mini) #r588DockShell>.r588Mode {
+    box-sizing:border-box!important;grid-row:3!important;
+    position:relative!important;inset:auto!important;transform:none!important;
+    min-height:48px!important;height:auto!important;margin:0!important;
+    align-self:end!important;flex:none!important;overflow:visible!important;
+   }
+   body.r920-dock:not(.r588-mode-mini) #r588DockShell>#r633DockGrip {
+    grid-row:1!important;min-height:44px!important;height:44px!important;max-height:44px!important;
+   }
+  }`;
+  document.head.append(style);
+ }
+
  function text(el,value){if(el&&el.textContent!==value)el.textContent=value;}
  function button(id,label,title){const b=document.createElement('button');b.type='button';b.id=id;b.textContent=label;b.setAttribute('aria-label',title||label);return b;}
  function navigate(delta){
@@ -61,7 +93,7 @@
   const shell=$('r588DockShell'),body=$('r659DockBody'),footer=shell?.querySelector(':scope > .r588Mode');
   if(!shell||!body||!footer)return false;
   if(!mounted){
-   mounted=true;document.body.classList.add('r920-dock');
+   mounted=true;installViewportContract();document.body.classList.add('r920-dock');
    const expand=button('r920DockExpand','⌃','Akış barını Midi boyutunda aç');
    expand.setAttribute('aria-controls','r659DockBody');
    expand.addEventListener('click',()=>window.SukunDockSize?.set?.('midi',true));footer.appendChild(expand);
@@ -97,5 +129,5 @@
  document.addEventListener('click',event=>{if(event.target.closest?.('#mixer [data-ambacctgl],#uiBtn'))requestAnimationFrame(accessibility);},{passive:true});
  function boot(n=0){if(mount())return;if(n<40)setTimeout(()=>boot(n+1),100);}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});else boot();
- window.SukunDockR920=Object.freeze({version:'r921',openAmbience,refresh:mount,snapshot:()=>({version:'r921',mounted,mode:window.SukunDockSize?.get?.()||'mini',transport:'SukunR698Transport',layout:'SukunR699Layout',tefekkurButton:'r730MiniTef',name:$('r921DockName')?.textContent||'',ownSoundsPresent:!!document.querySelector('#mixer [data-ambacc="ozel"]')})});
+ window.SukunDockR920=Object.freeze({version:'r927',openAmbience,refresh:mount,snapshot:()=>({version:'r927',mounted,mode:window.SukunDockSize?.get?.()||'mini',transport:'SukunR698Transport',layout:'SukunR699Layout',tefekkurButton:'r730MiniTef',name:$('r921DockName')?.textContent||'',ownSoundsPresent:!!document.querySelector('#mixer [data-ambacc="ozel"]')})});
 })();

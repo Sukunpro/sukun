@@ -19,7 +19,7 @@ function make(){
  <div class="r920Path"><button id="r920AtlasOpen" type="button">Atlas</button><label id="r920JourneyLabel"><span>Okuyuş</span><select id="r920JourneyMode" aria-label="Tekil zikir veya seyir"><option value="single">Tekil zikir</option><option value="journey">Seyir</option></select></label><button id="r920TefEnter" type="button">Tefekkür</button></div>
  <button id="r920TefExit" type="button" hidden>Tefekkürden Çık</button>
  <div class="r920Identity"><p id="r920Eyebrow"></p><button id="r920NameInfo" type="button" aria-label="Aktif ismin açıklaması"><span id="r920Arabic" lang="ar" dir="rtl"></span><span id="r920ActiveName"></span></button><p id="r920SceneTitle"></p><p id="r920VoiceSource" role="status"></p></div>
- <div id="r924WheelFrame" data-wheel-state="loading"><div id="r925WheelRotor"><img id="r920Wheel" alt="" aria-hidden="true" decoding="async"><button id="r920Minus" class="r924Gem" type="button" aria-label="Bir azalt"><span class="r925GemLabel">−1</span></button><button id="r920Plus" class="r924Gem" type="button" aria-label="Bir artır"><span class="r925GemLabel">+1</span></button><button id="r920Stop" class="r924Gem" type="button"><span class="r925GemLabel">Bitir</span></button><button id="r920Play" class="r924Gem" type="button"><span id="r925PlayLabel" class="r925GemLabel">Başlat</span></button></div><svg class="r920Progress" viewBox="0 0 300 300" aria-hidden="true"><defs><filter id="r921EsmaMatte" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  10 10 10 0 0"/></filter></defs><circle cx="150" cy="150" r="81" class="r920Track"></circle><circle cx="150" cy="150" r="81" class="r920Arc" pathLength="100"></circle></svg><button id="r920Counter" type="button" aria-label="Bir zikir say"><span class="r920CounterCore"><small>TEKRAR</small><strong id="r920Count">0</strong><span id="r920Percent">%0</span></span></button></div>
+ <div id="r924WheelFrame" data-wheel-state="loading"><div id="r925WheelRotor"><img id="r920Wheel" alt="" aria-hidden="true" decoding="async"><button id="r920Minus" class="r924Gem" type="button" aria-label="Bir azalt"><span class="r925GemLabel">−1</span></button><button id="r920Plus" class="r924Gem" type="button" aria-label="Bir artır"><span class="r925GemLabel">+1</span></button><button id="r920Stop" class="r924Gem" type="button"><span class="r925GemLabel r927GemAction"><span aria-hidden="true" class="r927GemIcon">■</span><span class="r927GemCaption">Bitir</span></span></button><button id="r920Play" class="r924Gem" type="button"><span id="r925PlayLabel" class="r925GemLabel r927GemAction"><span id="r927PlayIcon" class="r927GemIcon" aria-hidden="true">▶</span><span id="r927PlayCaption" class="r927GemCaption">Başlat</span></span></button></div><svg class="r920Progress" viewBox="0 0 300 300" aria-hidden="true"><defs><filter id="r921EsmaMatte" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  10 10 10 0 0"/></filter></defs><circle cx="150" cy="150" r="81" class="r920Track"></circle><circle cx="150" cy="150" r="81" class="r920Arc" pathLength="100"></circle></svg><button id="r920Counter" type="button" aria-label="Bir zikir say"><span class="r920CounterCore"><small>TEKRAR</small><strong id="r920Count">0</strong><span id="r920Percent">%0</span></span></button></div>
  <div class="r920Stats"><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>Hedef <b id="r920Target"></b></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3v4l5 5-5 5v4m10-18v4l-5 5 5 5v4"/></svg>Kalan <b id="r920Remaining"></b></span></div>
  <div id="r920Phase" role="status"></div>
  <div class="r920Transport"><button id="r920Previous" type="button">Önceki</button><button id="r920Restart" type="button">Baştan</button><button id="r920Next" type="button">Sonraki</button></div>
@@ -51,6 +51,7 @@ function make(){
  $('r920WheelSelect').onchange=e=>{window.SukunWheels?.choose?.(snap()?.activeMode||'esma',e.target.value);queue()};
  $('r920SceneSelect').onchange=e=>{window.SukunR918Visual?.setScene(e.target.value);queue()};
  const esmaSelect=$('r923EsmaSceneSelect');let group;
+ const autoOption=document.createElement('option');autoOption.value='auto';autoOption.textContent=window.SukunEsmaScenePolicy.autoOption.title;esmaSelect.append(autoOption);
  for(const scene of window.SukunSceneEngine.esmaScenes){if(group?.label!==scene.group){group=document.createElement('optgroup');group.label=scene.group;esmaSelect.append(group)}const option=document.createElement('option');option.value=scene.id;option.textContent=scene.title;group.append(option)}
  esmaSelect.onchange=e=>{window.SukunSceneEngine.setEsmaScene(e.target.value);queue()};
  $('r923SceneRetry').onclick=()=>{window.SukunSceneEngine.retry();queue()};
@@ -94,7 +95,7 @@ function renderAtlas(){
  text($('r920AtlasEbced'),item.ebced||item.eb||eb||'İsim kartında');
  const active=s?.activeMode===atlasMode&&s?.activeIndex===atlasIndex,rate=active&&s.target?Math.min(100,Math.floor(100*s.count/s.target)):null;
  text($('r920AtlasProgress'),active?`Aktif · ${s.count} / ${s.target||'∞'}${rate!==null?' · %'+rate:''}`:completed[atlasMode+':'+atlasIndex]?'Tamamlandı':'Henüz tamamlanmadı');
- const esma=window.SukunSceneEngine?.snapshot?.().esmaScene;text($('r920AtlasScene'),scene?`Sahne: ${scene.title}`:'Sahne: '+(esma?.title||'Klasik Mevlevî'));text($('r920AtlasNote'),scene?[scene.layer,scene.note].filter(Boolean).join(' · '):esma?.note||'');
+ const esma=window.SukunSceneEngine?.esmaSceneFor?.(atlasIndex);text($('r920AtlasScene'),scene?`Sahne: ${scene.title}`:'Sahne: '+(esma?.title||'Klasik Mevlevî'));text($('r920AtlasNote'),scene?[scene.layer,scene.note].filter(Boolean).join(' · '):esma?.note||'');
 }
 function render(){raf=0;if(!make())return;const s=snap();if(!s)return;
  const mode=s.activeMode,valid=mode==='esma'||mode==='berhet'&&allowed(),tef=!!window.SUKUN_TEFEKKUR?.active?.();
@@ -105,7 +106,7 @@ function render(){raf=0;if(!make())return;const s=snap();if(!s)return;
  syncJourneySettings(s);
  const i=Number(s.activeIndex)||0,it=items(mode)[i]||{},name=s.activeName||itemName(mode,i),scene=mode==='berhet'?scenes()[i]:null;
  text($('r920Eyebrow'),mode==='berhet'?(journey?'BERHETİYYE SEYRİ':'BERHETİYYE ZİKRİ'):(journey?'99 ESMÂ SEYRİ':'ESMÂÜ’L-HÜSNÂ'));
- text($('r920ActiveName'),/^y[aâ]/i.test(name)?name:'Yâ '+name);text($('r920Arabic'),it.a||it.ar||'');text($('r920SceneTitle'),scene?.title||it.m||'');
+ text($('r920ActiveName'),/^y[aâ]/i.test(name)?name:'Yâ '+name);text($('r920Arabic'),it.a||it.ar||'');text($('r920SceneTitle'),scene?.title||it.m||'');$('r920SceneTitle').hidden=!safe(()=>Z.mean,true);
  const source=String(s.audioSource||'').toUpperCase();text($('r920VoiceSource'),({USER_RECORDING:'Kendi sesin',LOCAL_RECORDING:'Yerel kayıt',READER_RECORDING:'Kayıtlı okuyucu',TTS:'Cihaz sesi · TTS',SILENCE:'Ses kapalı',SILENT:'Ses kapalı',NONE:'Ses kapalı'})[source]||'Ses kaynağı hazır olduğunda gösterilir');
  const count=Math.max(0,Number(s.count)||0),target=Math.max(0,Number(s.target)||0),pct=target?Math.min(100,count/target*100):0;
  text($('r920Count'),count);text($('r920Target'),target||'∞');text($('r920Remaining'),target?Math.max(0,target-count):'∞');text($('r920Percent'),target?'%'+Math.floor(pct):'Serbest');
@@ -113,17 +114,17 @@ function render(){raf=0;if(!make())return;const s=snap();if(!s)return;
  const visual=window.SukunR918Visual?.snapshot?.()||{};
  window.SukunWheels?.render?.(mode);
  window.SukunWheelMotion?.render?.(s);
- const busy=s.phase==='PLAYING'||s.phase==='PREPARING';text($('r925PlayLabel'),busy?'Duraklat':s.phase==='PAUSED'?'Devam et':'Başlat');attr($('r920Play'),'aria-label',busy?'Zikri duraklat':s.phase==='PAUSED'?'Zikre devam et':'Zikri başlat');
+ const busy=s.phase==='PLAYING'||s.phase==='PREPARING';text($('r927PlayIcon'),busy?'Ⅱ':'▶');text($('r927PlayCaption'),busy?'Duraklat':s.phase==='PAUSED'?'Devam':'Başlat');attr($('r920Play'),'aria-label',busy?'Zikri duraklat':s.phase==='PAUSED'?'Zikre devam et':'Zikri başlat');
  const labels={PREPARING:'Ses hazırlanıyor',PAUSED:'Duraklatıldı',COMPLETING:'Tamamlanıyor',COMPLETED:'Seyir tamamlandı',INTERRUPTED:'Ses kesintisi · devam edebilirsin',RECOVERING:'Ses yeniden hazırlanıyor',ERROR:'Ses açılamadı'};text($('r920Phase'),labels[s.phase]||'');
  $('r920Plus').disabled=$('r920Minus').disabled=!!journey||busy;$('r920Counter').disabled=!!journey||busy;
  $('r923EsmaOptions').hidden=mode!=='esma';
  if(mode==='esma'&&visual.esmaScene){const scene=visual.esmaScene;
-  $('r923EsmaSceneSelect').value=scene.id;text($('r923SceneName'),scene.title);
+  $('r923EsmaSceneSelect').value=visual.esmaChoice;text($('r923SceneName'),scene.title);
   const canonicalEsma=s.canonical.mode==='esma';
-  text($('r923SceneStatus'),!canonicalEsma?'Esmâ zikri seçildiğinde kullanılacak.':visual.sceneLoad==='loading'?'Sahne yükleniyor…':visual.sceneLoad==='error'?'Görsel açılamadı; sakin renk zemini kullanılıyor.':visual.resolvedSceneId==='mevlevi-fallback'?'Bu görsel açılamadı; Klasik Mevlevî gösteriliyor.':visual.fallbackLevel>0?'Hafif sürüm gösteriliyor.':'Zikir ve Tefekkür için seçildi.');
+  text($('r923SceneStatus'),!canonicalEsma?'Esmâ zikri seçildiğinde kullanılacak.':visual.sceneLoad==='loading'?'Sahne yükleniyor…':visual.sceneLoad==='error'?'Görsel açılamadı; sakin renk zemini kullanılıyor.':visual.resolvedSceneId==='mevlevi-fallback'?'Bu görsel açılamadı; Klasik Mevlevî gösteriliyor.':visual.fallbackLevel>0?'Hafif sürüm gösteriliyor.':visual.esmaChoice==='auto'?'İsme göre otomatik · '+scene.title:'Zikir ve Tefekkür için seçildi.');
   $('r923SceneRetry').hidden=!(canonicalEsma&&(visual.sceneLoad==='error'||visual.fallbackLevel>0));
   const thumb=$('r923SceneThumb');if(thumb.getAttribute('src')!==scene.lite){thumb.style.visibility='visible';thumb.src=scene.lite}
-  if($('r923SceneNotes').dataset.scene!==scene.id){$('r923SceneNotes').dataset.scene=scene.id;text($('r923SceneNote'),scene.note);$('r923SceneSources').replaceChildren(...scene.sources.map(source=>{const a=document.createElement('a');a.href=source.url;a.textContent=source.title;a.target='_blank';a.rel='noopener noreferrer';return a}))}
+  if($('r923SceneNotes').dataset.scene!==visual.esmaChoice+':'+scene.id){$('r923SceneNotes').dataset.scene=visual.esmaChoice+':'+scene.id;text($('r923SceneNote'),(visual.esmaChoice==='auto'?window.SukunEsmaScenePolicy.autoOption.note+' ':'')+scene.note);$('r923SceneSources').replaceChildren(...scene.sources.map(source=>{const a=document.createElement('a');a.href=source.url;a.textContent=source.title;a.target='_blank';a.rel='noopener noreferrer';return a}))}
  }
  $('r920BerhetOptions').hidden=mode!=='berhet';$('r920SceneSelect').value=visual.scene||'auto';
  const perf=window.SukunSceneEngine?.snapshot?.().profile||'balanced';$('r920Performance').value=perf;
@@ -138,6 +139,8 @@ function queue(){if(!raf)raf=requestAnimationFrame(render)}
 addEventListener('sukun:journey-advance',e=>{const mode=e.detail?.owner==='journey28'?'berhet':e.detail?.owner==='journey99'?'esma':null;if(mode)markComplete(mode,Number(e.detail.index)-1);queue()});
 document.addEventListener('pointerdown',()=>{if(root&&!root.hidden)wake()},{passive:true});document.addEventListener('keydown',wake,{passive:true});
 new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});
-window.SukunPracticeUI=Object.freeze({version:'r925',refresh:queue,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
+// Re-render after the native setting handler; never duplicate the native toggle.
+document.addEventListener('click',e=>{if(e.target.closest('#optMean'))queue()},{passive:true});
+window.SukunPracticeUI=Object.freeze({version:'r927',refresh:queue,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
 queue();
 })();
