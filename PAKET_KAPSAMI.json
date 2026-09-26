@@ -1,37 +1,15 @@
 {
-  "build": "r923",
-  "purpose": "cumulative-overlay-for-existing-r917-r920-installation",
+  "build": "r925",
+  "base": "r924",
+  "purpose": "cumulative-merge-update",
   "intermediatePackagesRequired": false,
-  "codeIdenticalToR923": true,
-  "entrypoints": [
-    "index.html",
-    "nero.html"
-  ],
-  "runtimeFileCount": 134,
-  "assetCount": 125,
-  "coverage": [
-    {
-      "package": "SUKUN_r920_OTURUM_SAHNE_GUNCELLEME.zip",
-      "assets": 106,
-      "missingFromCumulative": []
-    },
-    {
-      "package": "SUKUN_r921_SEFFAF_CARK_MINI_GUNCELLEME.zip",
-      "assets": 106,
-      "missingFromCumulative": []
-    },
-    {
-      "package": "SUKUN_r922_ARAPCA_SES_SECIMI_GUNCELLEME.zip",
-      "assets": 106,
-      "missingFromCumulative": []
-    },
-    {
-      "package": "SUKUN_r923_ESMA_SAHNELERI_GUNCELLEME.zip",
-      "assets": 125,
-      "missingFromCumulative": []
-    }
-  ],
   "preserveExistingFilesNotInThisPackage": true,
-  "note": "Historical optional media is retained from the existing site; this is not a clean-install bundle.",
-  "directR920ToR923UpdateVerified": true
+  "cleanInstallBundle": false,
+  "assetCount": 143,
+  "newWheelCount": 16,
+  "wheelFamilies": {
+    "berhetiyye": 11,
+    "esma": 5
+  },
+  "liveDeploymentPerformed": false
 }

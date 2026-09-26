@@ -1,0 +1,1179 @@
+{
+  "build": "r925",
+  "pass": true,
+  "verificationDate": "2026-09-26",
+  "reports": [
+    {
+      "report": "release-validation-results.json",
+      "results": {
+        "build": "r925",
+        "pass": true,
+        "checks": [
+          {
+            "name": "identityAndIntegrity",
+            "pass": true,
+            "detail": {
+              "runtime": 6,
+              "build": "r925"
+            }
+          },
+          {
+            "name": "preservation",
+            "pass": true,
+            "detail": {
+              "unchangedAssets": 140,
+              "changedAssets": [
+                "assets/runtime/wheels-r924.js",
+                "assets/runtime/interface-r920.js",
+                "assets/runtime/wheels-r924.css"
+              ],
+              "changedInlineBlocks": [
+                "unnamed",
+                "r514-core-zikir-sentez",
+                "r514-core-letaif-kayit",
+                "r514-core-akis-nefs",
+                "r168-deep-system",
+                "r830-release-identity-runtime"
+              ],
+              "swLifecyclePreserved": true
+            }
+          },
+          {
+            "name": "artAndPrecache",
+            "pass": true,
+            "detail": {
+              "transparentDistinctWheels": 16,
+              "existingEsmaScenesPrecached": 18
+            }
+          },
+          {
+            "name": "javascriptSyntaxAndIds",
+            "pass": true,
+            "detail": {
+              "inlineScriptCount": 241,
+              "externalScriptCount": 6,
+              "duplicateIds": []
+            }
+          }
+        ],
+        "testedFiles": {
+          "index.html": "1d5a685cb49d515356704d4860dafd25deeba4ddc3213c7e3a64433cbd2761cd",
+          "nero.html": "1d5a685cb49d515356704d4860dafd25deeba4ddc3213c7e3a64433cbd2761cd",
+          "sw.js": "47c61ab1c422855506ebc12a84ad9ce64c9cb8082eabc3ec406b6e702dc56240",
+          "manifest.webmanifest": "388433a0a88d5ca5ab98ec0489a96676c6659dea1e006546d6d48e7f41b6a442",
+          "assets/runtime/dock-r920.js": "548fb9f3c80299672963b4a87d601a6f67ec259c255b9d0d5d53bddcdfc0629a",
+          "assets/runtime/esma-scenes-r923.js": "9268113568c813319388ba2506efbb973d0ef92135a3cf6e9b19014f032dce7f",
+          "assets/runtime/interface-r920.js": "fe108e8902c9d4e90f24d0cb98e006e6fe96e5ae2a540421bf86c3391fc84928",
+          "assets/runtime/session-r919.js": "e30048eada67bf4e81315930f3175c93d4c5a93189551bdc9e33097329e5c5f4",
+          "assets/runtime/wheels-r924.js": "a5e1b153835b6912079305e38773e67f2bec570c0d3e3a971146f47e76ee9c51",
+          "assets/runtime/wheels-r924.css": "40586e1c7177289b67339afaf7e10cce77da88e15be5a324be924a6f5ea73212",
+          "assets/wheels-r924/berhetiyye/ham-kristal.webp": "ac69b24ba2cc986a24b5602a4ade9ee62fec34631ba9aa392185a019a768fb38",
+          "assets/wheels-r924/berhetiyye/faset-kesim.webp": "dbfe9a609aaa1c73fb508f0551e289536e74e34997c1a6a6a9f54e319547d9e5",
+          "assets/wheels-r924/berhetiyye/ametist-yuvarlak.webp": "71ede571c98c21c55088645484b36529c038fb966ed72aba6ab328d2e1ca2f40",
+          "assets/wheels-r924/berhetiyye/ametist-saltanati.webp": "3bfb9c1655f80a02ba8a069367635c6eaa34377d3a5cefed0994dcfb20f9a87b",
+          "assets/wheels-r924/berhetiyye/zumrut-tac.webp": "b9e5ba2fc8b3dceeb46a1e049c1873bf52dfa14bbecfd62a14f009bd3366e1ff",
+          "assets/wheels-r924/berhetiyye/safir-ruzgari.webp": "468dab65882e5ade43afb0bdd3fbb94a65c019131141277e5d21e8cdd03daaa2",
+          "assets/wheels-r924/berhetiyye/obsidyen-muhur.webp": "0e00afed576b121a5d477a26be3e807240b99a8fb2f64e5aa312b820dcc395de",
+          "assets/wheels-r924/berhetiyye/bakir-ruzgari.webp": "181ba538e4fd86a5b8f94d076bf01816e30fa57299753d8f61d8404c13261786",
+          "assets/wheels-r924/berhetiyye/yakut-muhur.webp": "352e9e89b4da798bc423be6505138b68a153b7e0cc980a9387a1a2247c08f47d",
+          "assets/wheels-r924/berhetiyye/billur-hisar.webp": "0bf0841eebec1c1820ecdbc747551160c69457058a0b110922948122b80dc248",
+          "assets/wheels-r924/berhetiyye/lacivert-usturlap.webp": "ad273d54896da73c84312818abaffbc40580a3be7987cb5817a996f4648aa4fa",
+          "assets/wheels-r924/esma/inci-sema.webp": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+          "assets/wheels-r924/esma/zumrut-tesbih.webp": "f6ef62429640628ef259dc6d3666c3bffd1e2f348a3704cbe79a190ca903dc1f",
+          "assets/wheels-r924/esma/oniks-sukuneti.webp": "924f2399f024e25f51da721711a24e28f64f4350bc5be4943363df6cf01992c0",
+          "assets/wheels-r924/esma/kehribar-tesbih.webp": "efbb1d390e18026fc66a6dda5415e829f7e97a05883fe029df9cf85b51e5155e",
+          "assets/wheels-r924/esma/sedef-nuru.webp": "4a7befc82fc2cd7ebe9a9c2efcce700e7c6710b0772368fdb558365cd54daa0c"
+        }
+      }
+    },
+    {
+      "report": "release-sw-results.json",
+      "results": {
+        "build": "r925",
+        "pass": true,
+        "testedFiles": {
+          "index.html": "1d5a685cb49d515356704d4860dafd25deeba4ddc3213c7e3a64433cbd2761cd",
+          "nero.html": "1d5a685cb49d515356704d4860dafd25deeba4ddc3213c7e3a64433cbd2761cd",
+          "sw.js": "47c61ab1c422855506ebc12a84ad9ce64c9cb8082eabc3ec406b6e702dc56240",
+          "manifest.webmanifest": "388433a0a88d5ca5ab98ec0489a96676c6659dea1e006546d6d48e7f41b6a442",
+          "assets/runtime/dock-r920.js": "548fb9f3c80299672963b4a87d601a6f67ec259c255b9d0d5d53bddcdfc0629a",
+          "assets/runtime/esma-scenes-r923.js": "9268113568c813319388ba2506efbb973d0ef92135a3cf6e9b19014f032dce7f",
+          "assets/runtime/interface-r920.js": "fe108e8902c9d4e90f24d0cb98e006e6fe96e5ae2a540421bf86c3391fc84928",
+          "assets/runtime/session-r919.js": "e30048eada67bf4e81315930f3175c93d4c5a93189551bdc9e33097329e5c5f4",
+          "assets/runtime/wheels-r924.js": "a5e1b153835b6912079305e38773e67f2bec570c0d3e3a971146f47e76ee9c51",
+          "assets/runtime/wheels-r924.css": "40586e1c7177289b67339afaf7e10cce77da88e15be5a324be924a6f5ea73212",
+          "assets/wheels-r924/berhetiyye/ham-kristal.webp": "ac69b24ba2cc986a24b5602a4ade9ee62fec34631ba9aa392185a019a768fb38",
+          "assets/wheels-r924/berhetiyye/faset-kesim.webp": "dbfe9a609aaa1c73fb508f0551e289536e74e34997c1a6a6a9f54e319547d9e5",
+          "assets/wheels-r924/berhetiyye/ametist-yuvarlak.webp": "71ede571c98c21c55088645484b36529c038fb966ed72aba6ab328d2e1ca2f40",
+          "assets/wheels-r924/berhetiyye/ametist-saltanati.webp": "3bfb9c1655f80a02ba8a069367635c6eaa34377d3a5cefed0994dcfb20f9a87b",
+          "assets/wheels-r924/berhetiyye/zumrut-tac.webp": "b9e5ba2fc8b3dceeb46a1e049c1873bf52dfa14bbecfd62a14f009bd3366e1ff",
+          "assets/wheels-r924/berhetiyye/safir-ruzgari.webp": "468dab65882e5ade43afb0bdd3fbb94a65c019131141277e5d21e8cdd03daaa2",
+          "assets/wheels-r924/berhetiyye/obsidyen-muhur.webp": "0e00afed576b121a5d477a26be3e807240b99a8fb2f64e5aa312b820dcc395de",
+          "assets/wheels-r924/berhetiyye/bakir-ruzgari.webp": "181ba538e4fd86a5b8f94d076bf01816e30fa57299753d8f61d8404c13261786",
+          "assets/wheels-r924/berhetiyye/yakut-muhur.webp": "352e9e89b4da798bc423be6505138b68a153b7e0cc980a9387a1a2247c08f47d",
+          "assets/wheels-r924/berhetiyye/billur-hisar.webp": "0bf0841eebec1c1820ecdbc747551160c69457058a0b110922948122b80dc248",
+          "assets/wheels-r924/berhetiyye/lacivert-usturlap.webp": "ad273d54896da73c84312818abaffbc40580a3be7987cb5817a996f4648aa4fa",
+          "assets/wheels-r924/esma/inci-sema.webp": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+          "assets/wheels-r924/esma/zumrut-tesbih.webp": "f6ef62429640628ef259dc6d3666c3bffd1e2f348a3704cbe79a190ca903dc1f",
+          "assets/wheels-r924/esma/oniks-sukuneti.webp": "924f2399f024e25f51da721711a24e28f64f4350bc5be4943363df6cf01992c0",
+          "assets/wheels-r924/esma/kehribar-tesbih.webp": "efbb1d390e18026fc66a6dda5415e829f7e97a05883fe029df9cf85b51e5155e",
+          "assets/wheels-r924/esma/sedef-nuru.webp": "4a7befc82fc2cd7ebe9a9c2efcce700e7c6710b0772368fdb558365cd54daa0c"
+        },
+        "tests": [
+          {
+            "name": "fresh-warm-offline",
+            "pass": true,
+            "decodedOnline": 34,
+            "decodedOffline": 34,
+            "warmVersion": "r925",
+            "offline": {
+              "update": {
+                "version": "r925",
+                "appVersion": "r925",
+                "phase": "ready",
+                "workerVersion": "r925",
+                "controllerVersion": "r925",
+                "activeVersion": "r925",
+                "waitingVersion": "",
+                "cache": "sukun-r925-rhythm-motion-update-20260926-v1",
+                "complete": true,
+                "controllerCache": "sukun-r925-rhythm-motion-update-20260926-v1",
+                "controllerComplete": true,
+                "waitingCache": "",
+                "waitingComplete": null,
+                "lastError": "",
+                "lastChange": 1790416318797,
+                "hasWaiting": false,
+                "hasController": true,
+                "versionMatch": true,
+                "updateQueued": false,
+                "reloadPending": false,
+                "sessionBusy": false
+              },
+              "wheel": {
+                "version": "r924",
+                "mode": "esma",
+                "choice": "inci-sema",
+                "choices": {
+                  "berhet": "ham-kristal",
+                  "esma": "inci-sema"
+                },
+                "resolved": "inci-sema",
+                "src": "./assets/wheels-r924/esma/inci-sema.webp",
+                "status": "ready",
+                "fallback": 0,
+                "requests": 1,
+                "pending": false
+              }
+            }
+          },
+          {
+            "name": "r923-to-r925",
+            "pass": true,
+            "pausedUpdateDeferred": true,
+            "reloadCount": 1,
+            "ownRecordingPreserved": {
+              "size": 8044,
+              "type": "audio/wav",
+              "sha": "cc6b659211639f2ebad187bddf44141407b490f75ada78998e4af7a5336980c6"
+            },
+            "prefs": {
+              "probe": "recording-test",
+              "scene": "kandilli-tekke"
+            },
+            "state": {
+              "version": "r925",
+              "appVersion": "r925",
+              "phase": "ready",
+              "workerVersion": "r925",
+              "controllerVersion": "r925",
+              "activeVersion": "r925",
+              "waitingVersion": "",
+              "cache": "sukun-r925-rhythm-motion-update-20260926-v1",
+              "complete": true,
+              "controllerCache": "sukun-r925-rhythm-motion-update-20260926-v1",
+              "controllerComplete": true,
+              "waitingCache": "",
+              "waitingComplete": null,
+              "lastError": "",
+              "lastChange": 1790416338916,
+              "hasWaiting": false,
+              "hasController": true,
+              "versionMatch": true,
+              "updateQueued": false,
+              "reloadPending": false,
+              "sessionBusy": false
+            }
+          }
+        ],
+        "limitations": [
+          "No physical Android lock-screen or speaker test.",
+          "No direct r917/r920 upgrade was rerun in this reconstruction; baseline r923 is available."
+        ]
+      }
+    },
+    {
+      "report": "interaction-results.json",
+      "results": {
+        "pass": true,
+        "tests": [
+          "single TTS: one rhythm pulse and real rotation",
+          "pause: wheel angle held and scheduled drum nodes stopped",
+          "paused +1: once, no extra voice",
+          "Tefekkur: wheel rotates, counter fixed",
+          "esma journey: each actual voice start one rhythm; commit no duplicate; pause/stop cancel",
+          "berhet journey: each actual voice start one rhythm; commit no duplicate; pause/stop cancel",
+          "rhythm OFF respected",
+          "reduced motion and saving profile suspend rotation"
+        ],
+        "limitations": [
+          "Headless Chromium with controlled TTS events; no physical speaker or locked-device verification."
+        ],
+        "errors": []
+      }
+    },
+    {
+      "report": "mismatch-results.json",
+      "results": {
+        "pass": true,
+        "tests": [
+          {
+            "name": "persistent update real touch resolves mixed app/worker",
+            "before": {
+              "update": {
+                "version": "r925",
+                "appVersion": "r925",
+                "phase": "waiting",
+                "workerVersion": "r923",
+                "controllerVersion": "r923",
+                "activeVersion": "r923",
+                "waitingVersion": "r925",
+                "cache": "sukun-r923-esma-scenes-20260925-v1",
+                "complete": true,
+                "controllerCache": "sukun-r923-esma-scenes-20260925-v1",
+                "controllerComplete": true,
+                "waitingCache": "sukun-r925-rhythm-motion-update-20260926-v1",
+                "waitingComplete": true,
+                "lastError": "",
+                "lastChange": 1790416310435,
+                "hasWaiting": true,
+                "hasController": true,
+                "versionMatch": false,
+                "updateQueued": false,
+                "reloadPending": false,
+                "sessionBusy": false
+              },
+              "footer": "SÜKÛN — Uygulama r925 · SW r923 · Hazır sürüm r925 · güncelleme hazır",
+              "status": "Uygulama ve çevrimdışı sürüm farklı. Güncelle ile eşitle.",
+              "button": "Güncelle"
+            },
+            "after": {
+              "version": "r925",
+              "appVersion": "r925",
+              "phase": "ready",
+              "workerVersion": "r925",
+              "controllerVersion": "r925",
+              "activeVersion": "r925",
+              "waitingVersion": "",
+              "cache": "sukun-r925-rhythm-motion-update-20260926-v1",
+              "complete": true,
+              "controllerCache": "sukun-r925-rhythm-motion-update-20260926-v1",
+              "controllerComplete": true,
+              "waitingCache": "",
+              "waitingComplete": null,
+              "lastError": "",
+              "lastChange": 1790416324256,
+              "hasWaiting": false,
+              "hasController": true,
+              "versionMatch": true,
+              "updateQueued": false,
+              "reloadPending": false,
+              "sessionBusy": false
+            },
+            "reloads": 1,
+            "hit": {
+              "id": "r925UpdateAction",
+              "w": 322,
+              "h": 44,
+              "hit": true,
+              "top": "r925UpdateAction",
+              "disabled": false
+            }
+          }
+        ],
+        "limitations": [
+          "Real r923 worker / r925 page mismatch was reproduced. Original r917 worker not available for direct test."
+        ]
+      }
+    },
+    {
+      "report": "scenes-results.json",
+      "results": {
+        "pass": true,
+        "tests": [
+          {
+            "id": "aksada-ayni-saf",
+            "normal": {
+              "scene": "auto",
+              "esmaChoice": "aksada-ayni-saf",
+              "esmaScene": {
+                "id": "aksada-ayni-saf",
+                "sceneId": "esma-aksada-ayni-saf",
+                "title": "Aksâ’da Aynı Saf",
+                "group": "Kudüs anlatıları",
+                "note": "Kompozisyonda Mehdî imam, Îsâ arkasındaki ilk safta tasvir edilir. Müslim 156, Îsâ’nın imamlık teklifini geri çevirdiğini anlatır; imamı Mehdî diye adlandırmaz ve Kudüs’ü belirtmez. Yer, askerler ve bayraklar sanatsal yorumdur.",
+                "asset": "./assets/scenes/esma-r923/aksada-ayni-saf.webp",
+                "lite": "./assets/scenes/esma-r923/aksada-ayni-saf-lite.webp",
+                "sources": [
+                  {
+                    "title": "Sahîh-i Müslim 156",
+                    "url": "https://sunnah.com/muslim:156"
+                  }
+                ]
+              },
+              "fallbackLevel": 0,
+              "sceneRequests": 3,
+              "requestedFamily": "esma",
+              "wheel": "crystal",
+              "profile": "balanced",
+              "context": "base",
+              "originals": [
+                "scene-09-berhetihin-billur-r837.png",
+                "../scenes/berhetiyye/02-keririn-r917.png",
+                "../scenes/berhetiyye/03-tetlihin-r917.png",
+                "../scenes/berhetiyye/04-turanin-r917.png",
+                "../scenes/berhetiyye/05-mezcelin-r917.png",
+                "../scenes/berhetiyye/06-bezcelin-r917.png",
+                "../scenes/berhetiyye/07-terkabin-r917.png",
+                "../scenes/berhetiyye/08-berhesin-r917.png",
+                "../scenes/berhetiyye/09-galmesin-r917.png",
+                "scene-10-hutirin-adalet-r837.png",
+                "scene-11-kalnehudin-ruzgar-r837.png",
+                "../scenes/berhetiyye/12-bersanin-r917.png",
+                "../scenes/berhetiyye/13-kazhirin-r917.png",
+                "../scenes/berhetiyye/14-nemuselahin-r917.png",
+                "../scenes/berhetiyye/15-berheyulen-r917.png",
+                "../scenes/berhetiyye/16-beskeylahin-r917.png",
+                "../scenes/berhetiyye/17-kazmezin-r917.png",
+                "../scenes/berhetiyye/18-engalelitin-r917.png",
+                "../scenes/berhetiyye/19-kaberatin-r917.png",
+                "../scenes/berhetiyye/20-gayahen-r917.png",
+                "../scenes/berhetiyye/21-keydehulen-r917.png",
+                "../scenes/berhetiyye/22-semhahirin-r917.png",
+                "../scenes/berhetiyye/23-semhahirin-23-r917.png",
+                "../scenes/berhetiyye/24-semhahiyerin-r917.png",
+                "../scenes/berhetiyye/25-bikehtahuniyyetin-r917.png",
+                "../scenes/berhetiyye/26-besarisin-r917.png",
+                "../scenes/berhetiyye/27-tunesin-r917.png",
+                "../scenes/berhetiyye/28-semhabaruhin-r917.png"
+              ],
+              "activeSceneId": "esma-aksada-ayni-saf",
+              "activeIndex": null,
+              "sceneResolutions": 0,
+              "sceneLoad": "ready",
+              "loadedKey": "esma:aksada-ayni-saf",
+              "resolvedSceneId": "esma-aksada-ayni-saf",
+              "renderedScene": "url('./assets/scenes/esma-r923/aksada-ayni-saf.webp')",
+              "pendingLoads": 0,
+              "maxPendingLoads": 1,
+              "failedLoads": 0,
+              "cancelledLoads": 0,
+              "transitioning": true
+            },
+            "tef": {
+              "scene": "auto",
+              "esmaChoice": "aksada-ayni-saf",
+              "esmaScene": {
+                "id": "aksada-ayni-saf",
+                "sceneId": "esma-aksada-ayni-saf",
+                "title": "Aksâ’da Aynı Saf",
+                "group": "Kudüs anlatıları",
+                "note": "Kompozisyonda Mehdî imam, Îsâ arkasındaki ilk safta tasvir edilir. Müslim 156, Îsâ’nın imamlık teklifini geri çevirdiğini anlatır; imamı Mehdî diye adlandırmaz ve Kudüs’ü belirtmez. Yer, askerler ve bayraklar sanatsal yorumdur.",
+                "asset": "./assets/scenes/esma-r923/aksada-ayni-saf.webp",
+                "lite": "./assets/scenes/esma-r923/aksada-ayni-saf-lite.webp",
+                "sources": [
+                  {
+                    "title": "Sahîh-i Müslim 156",
+                    "url": "https://sunnah.com/muslim:156"
+                  }
+                ]
+              },
+              "fallbackLevel": 0,
+              "sceneRequests": 3,
+              "requestedFamily": "esma",
+              "wheel": "crystal",
+              "profile": "balanced",
+              "context": "base",
+              "originals": [
+                "scene-09-berhetihin-billur-r837.png",
+                "../scenes/berhetiyye/02-keririn-r917.png",
+                "../scenes/berhetiyye/03-tetlihin-r917.png",
+                "../scenes/berhetiyye/04-turanin-r917.png",
+                "../scenes/berhetiyye/05-mezcelin-r917.png",
+                "../scenes/berhetiyye/06-bezcelin-r917.png",
+                "../scenes/berhetiyye/07-terkabin-r917.png",
+                "../scenes/berhetiyye/08-berhesin-r917.png",
+                "../scenes/berhetiyye/09-galmesin-r917.png",
+                "scene-10-hutirin-adalet-r837.png",
+                "scene-11-kalnehudin-ruzgar-r837.png",
+                "../scenes/berhetiyye/12-bersanin-r917.png",
+                "../scenes/berhetiyye/13-kazhirin-r917.png",
+                "../scenes/berhetiyye/14-nemuselahin-r917.png",
+                "../scenes/berhetiyye/15-berheyulen-r917.png",
+                "../scenes/berhetiyye/16-beskeylahin-r917.png",
+                "../scenes/berhetiyye/17-kazmezin-r917.png",
+                "../scenes/berhetiyye/18-engalelitin-r917.png",
+                "../scenes/berhetiyye/19-kaberatin-r917.png",
+                "../scenes/berhetiyye/20-gayahen-r917.png",
+                "../scenes/berhetiyye/21-keydehulen-r917.png",
+                "../scenes/berhetiyye/22-semhahirin-r917.png",
+                "../scenes/berhetiyye/23-semhahirin-23-r917.png",
+                "../scenes/berhetiyye/24-semhahiyerin-r917.png",
+                "../scenes/berhetiyye/25-bikehtahuniyyetin-r917.png",
+                "../scenes/berhetiyye/26-besarisin-r917.png",
+                "../scenes/berhetiyye/27-tunesin-r917.png",
+                "../scenes/berhetiyye/28-semhabaruhin-r917.png"
+              ],
+              "activeSceneId": "esma-aksada-ayni-saf",
+              "activeIndex": null,
+              "sceneResolutions": 0,
+              "sceneLoad": "ready",
+              "loadedKey": "esma:aksada-ayni-saf",
+              "resolvedSceneId": "esma-aksada-ayni-saf",
+              "renderedScene": "url('./assets/scenes/esma-r923/aksada-ayni-saf.webp')",
+              "pendingLoads": 0,
+              "maxPendingLoads": 1,
+              "failedLoads": 0,
+              "cancelledLoads": 0,
+              "transitioning": true
+            }
+          },
+          {
+            "id": "nur-mucadelesi-catalli",
+            "normal": {
+              "scene": "auto",
+              "esmaChoice": "nur-mucadelesi-catalli",
+              "esmaScene": {
+                "id": "nur-mucadelesi-catalli",
+                "sceneId": "esma-nur-mucadelesi-catalli",
+                "title": "Nur Mücadelesi · Çatallı Zülfikar",
+                "group": "Sembolik sahneler",
+                "note": "Sağda yeşil-beyaz nur, solda kırmızı-siyah atmosfer. Havada mücadele, ifrit ordusu ve Îsâ’nın elindeki Zülfikar fantastik yorumdur. Çatallı uç geleneksel ikonografiyi izler; doğrulanmış tarihî kopya değildir.",
+                "asset": "./assets/scenes/esma-r923/nur-mucadelesi-catalli.webp",
+                "lite": "./assets/scenes/esma-r923/nur-mucadelesi-catalli-lite.webp",
+                "sources": [
+                  {
+                    "title": "TDV · Zülfikar",
+                    "url": "https://islamansiklopedisi.org.tr/zulfikar"
+                  }
+                ]
+              },
+              "fallbackLevel": 0,
+              "sceneRequests": 4,
+              "requestedFamily": "esma",
+              "wheel": "crystal",
+              "profile": "balanced",
+              "context": "base",
+              "originals": [
+                "scene-09-berhetihin-billur-r837.png",
+                "../scenes/berhetiyye/02-keririn-r917.png",
+                "../scenes/berhetiyye/03-tetlihin-r917.png",
+                "../scenes/berhetiyye/04-turanin-r917.png",
+                "../scenes/berhetiyye/05-mezcelin-r917.png",
+                "../scenes/berhetiyye/06-bezcelin-r917.png",
+                "../scenes/berhetiyye/07-terkabin-r917.png",
+                "../scenes/berhetiyye/08-berhesin-r917.png",
+                "../scenes/berhetiyye/09-galmesin-r917.png",
+                "scene-10-hutirin-adalet-r837.png",
+                "scene-11-kalnehudin-ruzgar-r837.png",
+                "../scenes/berhetiyye/12-bersanin-r917.png",
+                "../scenes/berhetiyye/13-kazhirin-r917.png",
+                "../scenes/berhetiyye/14-nemuselahin-r917.png",
+                "../scenes/berhetiyye/15-berheyulen-r917.png",
+                "../scenes/berhetiyye/16-beskeylahin-r917.png",
+                "../scenes/berhetiyye/17-kazmezin-r917.png",
+                "../scenes/berhetiyye/18-engalelitin-r917.png",
+                "../scenes/berhetiyye/19-kaberatin-r917.png",
+                "../scenes/berhetiyye/20-gayahen-r917.png",
+                "../scenes/berhetiyye/21-keydehulen-r917.png",
+                "../scenes/berhetiyye/22-semhahirin-r917.png",
+                "../scenes/berhetiyye/23-semhahirin-23-r917.png",
+                "../scenes/berhetiyye/24-semhahiyerin-r917.png",
+                "../scenes/berhetiyye/25-bikehtahuniyyetin-r917.png",
+                "../scenes/berhetiyye/26-besarisin-r917.png",
+                "../scenes/berhetiyye/27-tunesin-r917.png",
+                "../scenes/berhetiyye/28-semhabaruhin-r917.png"
+              ],
+              "activeSceneId": "esma-nur-mucadelesi-catalli",
+              "activeIndex": null,
+              "sceneResolutions": 0,
+              "sceneLoad": "ready",
+              "loadedKey": "esma:nur-mucadelesi-catalli",
+              "resolvedSceneId": "esma-nur-mucadelesi-catalli",
+              "renderedScene": "url('./assets/scenes/esma-r923/nur-mucadelesi-catalli.webp')",
+              "pendingLoads": 0,
+              "maxPendingLoads": 1,
+              "failedLoads": 0,
+              "cancelledLoads": 0,
+              "transitioning": true
+            },
+            "tef": {
+              "scene": "auto",
+              "esmaChoice": "nur-mucadelesi-catalli",
+              "esmaScene": {
+                "id": "nur-mucadelesi-catalli",
+                "sceneId": "esma-nur-mucadelesi-catalli",
+                "title": "Nur Mücadelesi · Çatallı Zülfikar",
+                "group": "Sembolik sahneler",
+                "note": "Sağda yeşil-beyaz nur, solda kırmızı-siyah atmosfer. Havada mücadele, ifrit ordusu ve Îsâ’nın elindeki Zülfikar fantastik yorumdur. Çatallı uç geleneksel ikonografiyi izler; doğrulanmış tarihî kopya değildir.",
+                "asset": "./assets/scenes/esma-r923/nur-mucadelesi-catalli.webp",
+                "lite": "./assets/scenes/esma-r923/nur-mucadelesi-catalli-lite.webp",
+                "sources": [
+                  {
+                    "title": "TDV · Zülfikar",
+                    "url": "https://islamansiklopedisi.org.tr/zulfikar"
+                  }
+                ]
+              },
+              "fallbackLevel": 0,
+              "sceneRequests": 4,
+              "requestedFamily": "esma",
+              "wheel": "crystal",
+              "profile": "balanced",
+              "context": "base",
+              "originals": [
+                "scene-09-berhetihin-billur-r837.png",
+                "../scenes/berhetiyye/02-keririn-r917.png",
+                "../scenes/berhetiyye/03-tetlihin-r917.png",
+                "../scenes/berhetiyye/04-turanin-r917.png",
+                "../scenes/berhetiyye/05-mezcelin-r917.png",
+                "../scenes/berhetiyye/06-bezcelin-r917.png",
+                "../scenes/berhetiyye/07-terkabin-r917.png",
+                "../scenes/berhetiyye/08-berhesin-r917.png",
+                "../scenes/berhetiyye/09-galmesin-r917.png",
+                "scene-10-hutirin-adalet-r837.png",
+                "scene-11-kalnehudin-ruzgar-r837.png",
+                "../scenes/berhetiyye/12-bersanin-r917.png",
+                "../scenes/berhetiyye/13-kazhirin-r917.png",
+                "../scenes/berhetiyye/14-nemuselahin-r917.png",
+                "../scenes/berhetiyye/15-berheyulen-r917.png",
+                "../scenes/berhetiyye/16-beskeylahin-r917.png",
+                "../scenes/berhetiyye/17-kazmezin-r917.png",
+                "../scenes/berhetiyye/18-engalelitin-r917.png",
+                "../scenes/berhetiyye/19-kaberatin-r917.png",
+                "../scenes/berhetiyye/20-gayahen-r917.png",
+                "../scenes/berhetiyye/21-keydehulen-r917.png",
+                "../scenes/berhetiyye/22-semhahirin-r917.png",
+                "../scenes/berhetiyye/23-semhahirin-23-r917.png",
+                "../scenes/berhetiyye/24-semhahiyerin-r917.png",
+                "../scenes/berhetiyye/25-bikehtahuniyyetin-r917.png",
+                "../scenes/berhetiyye/26-besarisin-r917.png",
+                "../scenes/berhetiyye/27-tunesin-r917.png",
+                "../scenes/berhetiyye/28-semhabaruhin-r917.png"
+              ],
+              "activeSceneId": "esma-nur-mucadelesi-catalli",
+              "activeIndex": null,
+              "sceneResolutions": 0,
+              "sceneLoad": "ready",
+              "loadedKey": "esma:nur-mucadelesi-catalli",
+              "resolvedSceneId": "esma-nur-mucadelesi-catalli",
+              "renderedScene": "url('./assets/scenes/esma-r923/nur-mucadelesi-catalli.webp')",
+              "pendingLoads": 0,
+              "maxPendingLoads": 1,
+              "failedLoads": 0,
+              "cancelledLoads": 0,
+              "transitioning": true
+            }
+          },
+          {
+            "id": "nur-mucadelesi-yivli",
+            "normal": {
+              "scene": "auto",
+              "esmaChoice": "nur-mucadelesi-yivli",
+              "esmaScene": {
+                "id": "nur-mucadelesi-yivli",
+                "sceneId": "esma-nur-mucadelesi-yivli",
+                "title": "Nur Mücadelesi · Yivli Kılıç",
+                "group": "Sembolik sahneler",
+                "note": "Aynı sembolik karşılaşmanın tek uçlu kılıç yorumu. İki keskin kenar ve orta yiv, TDV’de aktarılan tariften esinlenir; aslına ait kesin bir rekonstrüksiyon değildir. Havada mücadele ve ifrit ordusu fantastik yorumdur.",
+                "asset": "./assets/scenes/esma-r923/nur-mucadelesi-yivli.webp",
+                "lite": "./assets/scenes/esma-r923/nur-mucadelesi-yivli-lite.webp",
+                "sources": [
+                  {
+                    "title": "TDV · Zülfikar",
+                    "url": "https://islamansiklopedisi.org.tr/zulfikar"
+                  }
+                ]
+              },
+              "fallbackLevel": 0,
+              "sceneRequests": 5,
+              "requestedFamily": "esma",
+              "wheel": "crystal",
+              "profile": "balanced",
+              "context": "base",
+              "originals": [
+                "scene-09-berhetihin-billur-r837.png",
+                "../scenes/berhetiyye/02-keririn-r917.png",
+                "../scenes/berhetiyye/03-tetlihin-r917.png",
+                "../scenes/berhetiyye/04-turanin-r917.png",
+                "../scenes/berhetiyye/05-mezcelin-r917.png",
+                "../scenes/berhetiyye/06-bezcelin-r917.png",
+                "../scenes/berhetiyye/07-terkabin-r917.png",
+                "../scenes/berhetiyye/08-berhesin-r917.png",
+                "../scenes/berhetiyye/09-galmesin-r917.png",
+                "scene-10-hutirin-adalet-r837.png",
+                "scene-11-kalnehudin-ruzgar-r837.png",
+                "../scenes/berhetiyye/12-bersanin-r917.png",
+                "../scenes/berhetiyye/13-kazhirin-r917.png",
+                "../scenes/berhetiyye/14-nemuselahin-r917.png",
+                "../scenes/berhetiyye/15-berheyulen-r917.png",
+                "../scenes/berhetiyye/16-beskeylahin-r917.png",
+                "../scenes/berhetiyye/17-kazmezin-r917.png",
+                "../scenes/berhetiyye/18-engalelitin-r917.png",
+                "../scenes/berhetiyye/19-kaberatin-r917.png",
+                "../scenes/berhetiyye/20-gayahen-r917.png",
+                "../scenes/berhetiyye/21-keydehulen-r917.png",
+                "../scenes/berhetiyye/22-semhahirin-r917.png",
+                "../scenes/berhetiyye/23-semhahirin-23-r917.png",
+                "../scenes/berhetiyye/24-semhahiyerin-r917.png",
+                "../scenes/berhetiyye/25-bikehtahuniyyetin-r917.png",
+                "../scenes/berhetiyye/26-besarisin-r917.png",
+                "../scenes/berhetiyye/27-tunesin-r917.png",
+                "../scenes/berhetiyye/28-semhabaruhin-r917.png"
+              ],
+              "activeSceneId": "esma-nur-mucadelesi-yivli",
+              "activeIndex": null,
+              "sceneResolutions": 0,
+              "sceneLoad": "ready",
+              "loadedKey": "esma:nur-mucadelesi-yivli",
+              "resolvedSceneId": "esma-nur-mucadelesi-yivli",
+              "renderedScene": "url('./assets/scenes/esma-r923/nur-mucadelesi-yivli.webp')",
+              "pendingLoads": 0,
+              "maxPendingLoads": 1,
+              "failedLoads": 0,
+              "cancelledLoads": 0,
+              "transitioning": true
+            },
+            "tef": {
+              "scene": "auto",
+              "esmaChoice": "nur-mucadelesi-yivli",
+              "esmaScene": {
+                "id": "nur-mucadelesi-yivli",
+                "sceneId": "esma-nur-mucadelesi-yivli",
+                "title": "Nur Mücadelesi · Yivli Kılıç",
+                "group": "Sembolik sahneler",
+                "note": "Aynı sembolik karşılaşmanın tek uçlu kılıç yorumu. İki keskin kenar ve orta yiv, TDV’de aktarılan tariften esinlenir; aslına ait kesin bir rekonstrüksiyon değildir. Havada mücadele ve ifrit ordusu fantastik yorumdur.",
+                "asset": "./assets/scenes/esma-r923/nur-mucadelesi-yivli.webp",
+                "lite": "./assets/scenes/esma-r923/nur-mucadelesi-yivli-lite.webp",
+                "sources": [
+                  {
+                    "title": "TDV · Zülfikar",
+                    "url": "https://islamansiklopedisi.org.tr/zulfikar"
+                  }
+                ]
+              },
+              "fallbackLevel": 0,
+              "sceneRequests": 5,
+              "requestedFamily": "esma",
+              "wheel": "crystal",
+              "profile": "balanced",
+              "context": "base",
+              "originals": [
+                "scene-09-berhetihin-billur-r837.png",
+                "../scenes/berhetiyye/02-keririn-r917.png",
+                "../scenes/berhetiyye/03-tetlihin-r917.png",
+                "../scenes/berhetiyye/04-turanin-r917.png",
+                "../scenes/berhetiyye/05-mezcelin-r917.png",
+                "../scenes/berhetiyye/06-bezcelin-r917.png",
+                "../scenes/berhetiyye/07-terkabin-r917.png",
+                "../scenes/berhetiyye/08-berhesin-r917.png",
+                "../scenes/berhetiyye/09-galmesin-r917.png",
+                "scene-10-hutirin-adalet-r837.png",
+                "scene-11-kalnehudin-ruzgar-r837.png",
+                "../scenes/berhetiyye/12-bersanin-r917.png",
+                "../scenes/berhetiyye/13-kazhirin-r917.png",
+                "../scenes/berhetiyye/14-nemuselahin-r917.png",
+                "../scenes/berhetiyye/15-berheyulen-r917.png",
+                "../scenes/berhetiyye/16-beskeylahin-r917.png",
+                "../scenes/berhetiyye/17-kazmezin-r917.png",
+                "../scenes/berhetiyye/18-engalelitin-r917.png",
+                "../scenes/berhetiyye/19-kaberatin-r917.png",
+                "../scenes/berhetiyye/20-gayahen-r917.png",
+                "../scenes/berhetiyye/21-keydehulen-r917.png",
+                "../scenes/berhetiyye/22-semhahirin-r917.png",
+                "../scenes/berhetiyye/23-semhahirin-23-r917.png",
+                "../scenes/berhetiyye/24-semhahiyerin-r917.png",
+                "../scenes/berhetiyye/25-bikehtahuniyyetin-r917.png",
+                "../scenes/berhetiyye/26-besarisin-r917.png",
+                "../scenes/berhetiyye/27-tunesin-r917.png",
+                "../scenes/berhetiyye/28-semhabaruhin-r917.png"
+              ],
+              "activeSceneId": "esma-nur-mucadelesi-yivli",
+              "activeIndex": null,
+              "sceneResolutions": 0,
+              "sceneLoad": "ready",
+              "loadedKey": "esma:nur-mucadelesi-yivli",
+              "resolvedSceneId": "esma-nur-mucadelesi-yivli",
+              "renderedScene": "url('./assets/scenes/esma-r923/nur-mucadelesi-yivli.webp')",
+              "pendingLoads": 0,
+              "maxPendingLoads": 1,
+              "failedLoads": 0,
+              "cancelledLoads": 0,
+              "transitioning": true
+            }
+          },
+          {
+            "id": "lud-kapisi",
+            "normal": {
+              "scene": "auto",
+              "esmaChoice": "lud-kapisi",
+              "esmaScene": {
+                "id": "lud-kapisi",
+                "sceneId": "esma-lud-kapisi",
+                "title": "Lüd Kapısında Fitnenin Sonu",
+                "group": "Kudüs anlatıları",
+                "note": "Müslim 2937a, Îsâ’nın Deccal’i Lüd kapısında öldürmesini anlatır. Kılıcın biçimi, bayraklar ve görsel ayrıntılar sanatsal yorumdur.",
+                "asset": "./assets/scenes/esma-r923/lud-kapisi.webp",
+                "lite": "./assets/scenes/esma-r923/lud-kapisi-lite.webp",
+                "sources": [
+                  {
+                    "title": "Sahîh-i Müslim 2937a",
+                    "url": "https://sunnah.com/muslim:2937a"
+                  }
+                ]
+              },
+              "fallbackLevel": 0,
+              "sceneRequests": 6,
+              "requestedFamily": "esma",
+              "wheel": "crystal",
+              "profile": "balanced",
+              "context": "base",
+              "originals": [
+                "scene-09-berhetihin-billur-r837.png",
+                "../scenes/berhetiyye/02-keririn-r917.png",
+                "../scenes/berhetiyye/03-tetlihin-r917.png",
+                "../scenes/berhetiyye/04-turanin-r917.png",
+                "../scenes/berhetiyye/05-mezcelin-r917.png",
+                "../scenes/berhetiyye/06-bezcelin-r917.png",
+                "../scenes/berhetiyye/07-terkabin-r917.png",
+                "../scenes/berhetiyye/08-berhesin-r917.png",
+                "../scenes/berhetiyye/09-galmesin-r917.png",
+                "scene-10-hutirin-adalet-r837.png",
+                "scene-11-kalnehudin-ruzgar-r837.png",
+                "../scenes/berhetiyye/12-bersanin-r917.png",
+                "../scenes/berhetiyye/13-kazhirin-r917.png",
+                "../scenes/berhetiyye/14-nemuselahin-r917.png",
+                "../scenes/berhetiyye/15-berheyulen-r917.png",
+                "../scenes/berhetiyye/16-beskeylahin-r917.png",
+                "../scenes/berhetiyye/17-kazmezin-r917.png",
+                "../scenes/berhetiyye/18-engalelitin-r917.png",
+                "../scenes/berhetiyye/19-kaberatin-r917.png",
+                "../scenes/berhetiyye/20-gayahen-r917.png",
+                "../scenes/berhetiyye/21-keydehulen-r917.png",
+                "../scenes/berhetiyye/22-semhahirin-r917.png",
+                "../scenes/berhetiyye/23-semhahirin-23-r917.png",
+                "../scenes/berhetiyye/24-semhahiyerin-r917.png",
+                "../scenes/berhetiyye/25-bikehtahuniyyetin-r917.png",
+                "../scenes/berhetiyye/26-besarisin-r917.png",
+                "../scenes/berhetiyye/27-tunesin-r917.png",
+                "../scenes/berhetiyye/28-semhabaruhin-r917.png"
+              ],
+              "activeSceneId": "esma-lud-kapisi",
+              "activeIndex": null,
+              "sceneResolutions": 0,
+              "sceneLoad": "ready",
+              "loadedKey": "esma:lud-kapisi",
+              "resolvedSceneId": "esma-lud-kapisi",
+              "renderedScene": "url('./assets/scenes/esma-r923/lud-kapisi.webp')",
+              "pendingLoads": 0,
+              "maxPendingLoads": 1,
+              "failedLoads": 0,
+              "cancelledLoads": 0,
+              "transitioning": true
+            },
+            "tef": {
+              "scene": "auto",
+              "esmaChoice": "lud-kapisi",
+              "esmaScene": {
+                "id": "lud-kapisi",
+                "sceneId": "esma-lud-kapisi",
+                "title": "Lüd Kapısında Fitnenin Sonu",
+                "group": "Kudüs anlatıları",
+                "note": "Müslim 2937a, Îsâ’nın Deccal’i Lüd kapısında öldürmesini anlatır. Kılıcın biçimi, bayraklar ve görsel ayrıntılar sanatsal yorumdur.",
+                "asset": "./assets/scenes/esma-r923/lud-kapisi.webp",
+                "lite": "./assets/scenes/esma-r923/lud-kapisi-lite.webp",
+                "sources": [
+                  {
+                    "title": "Sahîh-i Müslim 2937a",
+                    "url": "https://sunnah.com/muslim:2937a"
+                  }
+                ]
+              },
+              "fallbackLevel": 0,
+              "sceneRequests": 6,
+              "requestedFamily": "esma",
+              "wheel": "crystal",
+              "profile": "balanced",
+              "context": "base",
+              "originals": [
+                "scene-09-berhetihin-billur-r837.png",
+                "../scenes/berhetiyye/02-keririn-r917.png",
+                "../scenes/berhetiyye/03-tetlihin-r917.png",
+                "../scenes/berhetiyye/04-turanin-r917.png",
+                "../scenes/berhetiyye/05-mezcelin-r917.png",
+                "../scenes/berhetiyye/06-bezcelin-r917.png",
+                "../scenes/berhetiyye/07-terkabin-r917.png",
+                "../scenes/berhetiyye/08-berhesin-r917.png",
+                "../scenes/berhetiyye/09-galmesin-r917.png",
+                "scene-10-hutirin-adalet-r837.png",
+                "scene-11-kalnehudin-ruzgar-r837.png",
+                "../scenes/berhetiyye/12-bersanin-r917.png",
+                "../scenes/berhetiyye/13-kazhirin-r917.png",
+                "../scenes/berhetiyye/14-nemuselahin-r917.png",
+                "../scenes/berhetiyye/15-berheyulen-r917.png",
+                "../scenes/berhetiyye/16-beskeylahin-r917.png",
+                "../scenes/berhetiyye/17-kazmezin-r917.png",
+                "../scenes/berhetiyye/18-engalelitin-r917.png",
+                "../scenes/berhetiyye/19-kaberatin-r917.png",
+                "../scenes/berhetiyye/20-gayahen-r917.png",
+                "../scenes/berhetiyye/21-keydehulen-r917.png",
+                "../scenes/berhetiyye/22-semhahirin-r917.png",
+                "../scenes/berhetiyye/23-semhahirin-23-r917.png",
+                "../scenes/berhetiyye/24-semhahiyerin-r917.png",
+                "../scenes/berhetiyye/25-bikehtahuniyyetin-r917.png",
+                "../scenes/berhetiyye/26-besarisin-r917.png",
+                "../scenes/berhetiyye/27-tunesin-r917.png",
+                "../scenes/berhetiyye/28-semhabaruhin-r917.png"
+              ],
+              "activeSceneId": "esma-lud-kapisi",
+              "activeIndex": null,
+              "sceneResolutions": 0,
+              "sceneLoad": "ready",
+              "loadedKey": "esma:lud-kapisi",
+              "resolvedSceneId": "esma-lud-kapisi",
+              "renderedScene": "url('./assets/scenes/esma-r923/lud-kapisi.webp')",
+              "pendingLoads": 0,
+              "maxPendingLoads": 1,
+              "failedLoads": 0,
+              "cancelledLoads": 0,
+              "transitioning": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "report": "recording-rhythm-results.json",
+      "results": {
+        "pass": true,
+        "tests": [
+          {
+            "name": "own recording starts drum, no TTS",
+            "result": {
+              "pulses": [
+                {
+                  "source": "recording",
+                  "pattern": "duyek",
+                  "audioTime": 6.910521541950113
+                }
+              ],
+              "speech": 0,
+              "source": "USER_RECORDING",
+              "rhythm": {
+                "enabled": true,
+                "pattern": "duyek",
+                "pending": false,
+                "nodes": 4,
+                "context": "running",
+                "source": "recording"
+              }
+            }
+          },
+          {
+            "name": "cancelled AudioContext resume cannot fire stale drums",
+            "result": {
+              "before": 1,
+              "after": 1,
+              "pending": false,
+              "nodes": 0
+            }
+          },
+          {
+            "name": "nonzero actual Web Audio drum signal",
+            "result": {
+              "peak": 0.3484346270561218,
+              "master": 0.699999988079071,
+              "context": "running"
+            }
+          }
+        ],
+        "limitations": [
+          "Real Chromium media and Web Audio graph with synthetic recording; speakers and physical Android not tested."
+        ]
+      }
+    },
+    {
+      "report": "rotation-touch-results.json",
+      "results": {
+        "pass": true,
+        "widths": [
+          {
+            "width": 320,
+            "angles": [
+              {
+                "mode": "esma",
+                "tef": false,
+                "angle": 0,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": false,
+                "angle": 45,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": false,
+                "angle": 90,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": false,
+                "angle": 180,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": false,
+                "angle": 270,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": true,
+                "angle": 0,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": true,
+                "angle": 45,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": true,
+                "angle": 90,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": true,
+                "angle": 180,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": true,
+                "angle": 270,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": false,
+                "angle": 0,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": false,
+                "angle": 45,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": false,
+                "angle": 90,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": false,
+                "angle": 180,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": false,
+                "angle": 270,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": true,
+                "angle": 0,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": true,
+                "angle": 45,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": true,
+                "angle": 90,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": true,
+                "angle": 180,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": true,
+                "angle": 270,
+                "allHit": true
+              }
+            ]
+          },
+          {
+            "width": 430,
+            "angles": [
+              {
+                "mode": "esma",
+                "tef": false,
+                "angle": 0,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": false,
+                "angle": 45,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": false,
+                "angle": 90,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": false,
+                "angle": 180,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": false,
+                "angle": 270,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": true,
+                "angle": 0,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": true,
+                "angle": 45,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": true,
+                "angle": 90,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": true,
+                "angle": 180,
+                "allHit": true
+              },
+              {
+                "mode": "esma",
+                "tef": true,
+                "angle": 270,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": false,
+                "angle": 0,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": false,
+                "angle": 45,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": false,
+                "angle": 90,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": false,
+                "angle": 180,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": false,
+                "angle": 270,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": true,
+                "angle": 0,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": true,
+                "angle": 45,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": true,
+                "angle": 90,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": true,
+                "angle": 180,
+                "allHit": true
+              },
+              {
+                "mode": "berhet",
+                "tef": true,
+                "angle": 270,
+                "allHit": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "Physical Android audio/background/lock-screen behavior was not exercised.",
+    "Original r917 worker was not available. Real r923-to-r925 upgrade and r925-page/r923-worker mismatch recovery were tested.",
+    "Historical optional media absent from this cumulative update must be preserved at destination."
+  ]
+}

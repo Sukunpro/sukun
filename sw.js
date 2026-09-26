@@ -1,24 +1,26 @@
-/* SÜKÛN r923 — Verified Esma scene gallery package and explicit update activation
+/* SÜKÛN r925 — Verified rhythm and motion package and explicit update activation
    Amaç: yeni sürümün "waiting/install mismatch" yüzünden eski shell'de
    kilitlenmesini önlemek. Controller değişimi aktif sesi kendiliğinden
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r923';
-const CACHE = 'sukun-r923-esma-scenes-20260925-v1';
-const CACHE_META = './__sukun_cache_meta_r923__.json';
-const BUILD_MARKER = './__sukun_build_r923__.json';
+const SURUM = 'r925';
+const CACHE = 'sukun-r925-rhythm-motion-update-20260926-v1';
+const CACHE_META = './__sukun_cache_meta_r925__.json';
+const BUILD_MARKER = './__sukun_build_r925__.json';
 const LATEST_MARKER = './__sukun_latest__.json';
-const REQUIRED_RUNTIME = [{"url":"./assets/runtime/dock-r920.js?v=r923","sha256":"548fb9f3c80299672963b4a87d601a6f67ec259c255b9d0d5d53bddcdfc0629a"},{"url":"./assets/runtime/esma-scenes-r923.js?v=r923","sha256":"9268113568c813319388ba2506efbb973d0ef92135a3cf6e9b19014f032dce7f"},{"url":"./assets/runtime/interface-r920.js?v=r923","sha256":"9c3ab38191a9267d7d17b549988f6f48df82754c6c220023c788c7f27c1204c0"},{"url":"./assets/runtime/session-r919.js?v=r923","sha256":"e30048eada67bf4e81315930f3175c93d4c5a93189551bdc9e33097329e5c5f4"}];
+const REQUIRED_RUNTIME = [{"url":"./assets/runtime/dock-r920.js?v=r925","sha256":"548fb9f3c80299672963b4a87d601a6f67ec259c255b9d0d5d53bddcdfc0629a"},{"url":"./assets/runtime/esma-scenes-r923.js?v=r925","sha256":"9268113568c813319388ba2506efbb973d0ef92135a3cf6e9b19014f032dce7f"},{"url":"./assets/runtime/interface-r920.js?v=r925","sha256":"fe108e8902c9d4e90f24d0cb98e006e6fe96e5ae2a540421bf86c3391fc84928"},{"url":"./assets/runtime/session-r919.js?v=r925","sha256":"e30048eada67bf4e81315930f3175c93d4c5a93189551bdc9e33097329e5c5f4"},{"url":"./assets/runtime/wheels-r924.js?v=r925","sha256":"a5e1b153835b6912079305e38773e67f2bec570c0d3e3a971146f47e76ee9c51"},{"url":"./assets/runtime/wheels-r924.css?v=r925","sha256":"40586e1c7177289b67339afaf7e10cce77da88e15be5a324be924a6f5ea73212"}];
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
    Shell doğrulaması bağımsız; geri kalan assetler best-effort pre-cache ve
    normal fetch sırasında current cache'e yazılır. */
 const CORE = [
-  "./assets/runtime/dock-r920.js?v=r923",
-  "./assets/runtime/esma-scenes-r923.js?v=r923",
-  "./assets/runtime/interface-r920.js?v=r923",
-  "./assets/runtime/session-r919.js?v=r923",
+  "./assets/runtime/dock-r920.js?v=r925",
+  "./assets/runtime/esma-scenes-r923.js?v=r925",
+  "./assets/runtime/interface-r920.js?v=r925",
+  "./assets/runtime/session-r919.js?v=r925",
+  "./assets/runtime/wheels-r924.js?v=r925",
+  "./assets/runtime/wheels-r924.css?v=r925",
   './assets/berhetiyye-premium/control-round-plus-r788.webp',
   './assets/berhetiyye-premium/control-round-minus-r788.webp',
   './assets/berhetiyye-premium/control-nav-amethyst-r788.webp',
@@ -29,6 +31,8 @@ const CORE = [
   './manifest.webmanifest',
   BUILD_MARKER,
   LATEST_MARKER
+
+
 ];
 
 const PRECACHE = [
@@ -66,7 +70,23 @@ const PRECACHE = [
   "./assets/scenes/esma-r923/nur-mucadelesi-catalli-lite.webp",
   "./assets/scenes/esma-r923/nur-mucadelesi-yivli.webp",
   "./assets/scenes/esma-r923/nur-mucadelesi-yivli-lite.webp",
-  "./assets/runtime/esma-scenes-r923.js?v=r923",
+  "./assets/runtime/esma-scenes-r923.js?v=r925",
+  "./assets/wheels-r924/berhetiyye/ham-kristal.webp",
+  "./assets/wheels-r924/berhetiyye/faset-kesim.webp",
+  "./assets/wheels-r924/berhetiyye/ametist-yuvarlak.webp",
+  "./assets/wheels-r924/berhetiyye/ametist-saltanati.webp",
+  "./assets/wheels-r924/berhetiyye/zumrut-tac.webp",
+  "./assets/wheels-r924/berhetiyye/safir-ruzgari.webp",
+  "./assets/wheels-r924/berhetiyye/obsidyen-muhur.webp",
+  "./assets/wheels-r924/berhetiyye/bakir-ruzgari.webp",
+  "./assets/wheels-r924/berhetiyye/yakut-muhur.webp",
+  "./assets/wheels-r924/berhetiyye/billur-hisar.webp",
+  "./assets/wheels-r924/berhetiyye/lacivert-usturlap.webp",
+  "./assets/wheels-r924/esma/inci-sema.webp",
+  "./assets/wheels-r924/esma/zumrut-tesbih.webp",
+  "./assets/wheels-r924/esma/oniks-sukuneti.webp",
+  "./assets/wheels-r924/esma/kehribar-tesbih.webp",
+  "./assets/wheels-r924/esma/sedef-nuru.webp"
 ];
 
 const NOTLAR = [
