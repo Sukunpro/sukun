@@ -120,6 +120,7 @@ function render(nextMode){
  if(!host?.isConnected)return;
  const family=normalMode(nextMode),changed=family!==mode;
  mode=family;if(changed)buildOptions();
+ window.SukunWheelQuickControls?.connect(host);window.SukunWheelQuickControls?.render();
  const nextKey=mode+':'+choices[mode];if(nextKey!==key){key=nextKey;void resolveSelection()}else syncStatus();
 }
 function choose(nextMode,id){
@@ -171,4 +172,60 @@ window.SukunWheels=Object.freeze({version:'r928',catalog,connect,render,choose,s
  reduced.addEventListener('change',()=>render());
  addEventListener('sukun:performancechange',()=>render());
  window.SukunWheelMotion=Object.freeze({version:'r929',connect,render,snapshot:()=>({enabled,reduced:reduced.matches,state:frame?.dataset.motion||'none',activePointers:pointers.size,holding:hold,keyboardHolding:keyHold})});
+})();
+
+
+/* r932: stationary shortcuts share the existing controls and preferences.
+   No playback clock, counter state or independent action handler lives here. */
+(()=>{'use strict';
+ const $=id=>document.getElementById(id);
+ const text=(node,value)=>{if(node&&node.textContent!==String(value))node.textContent=String(value)};
+ const attr=(node,key,value)=>{if(node&&node.getAttribute(key)!==String(value))node.setAttribute(key,String(value))};
+ let host=null,box=null,openKind='',optionKey='',lastMode='';
+ const sources={minus:'r920Minus',play:'r920Play',plus:'r920Plus',stop:'r920Stop'};
+ const activeMode=()=>window.SukunSessionState?.snapshot?.().activeMode==='berhet'?'berhet':'esma';
+ const sceneSource=()=>$(activeMode()==='berhet'?'r920SceneSelect':'r923EsmaSceneSelect');
+ function close(restoreFocus=false){const previous=openKind;openKind='';if(!box)return;$('r932QuickPicker').hidden=true;for(const k of ['wheel','scene'])attr($('r932Quick'+(k==='wheel'?'Wheel':'Scene')),'aria-expanded','false');if(restoreFocus&&previous)$('r932Quick'+(previous==='wheel'?'Wheel':'Scene'))?.focus({preventScroll:true})}
+ function updateOptions(){
+  if(!openKind)return;const select=$('r932QuickSelect'),mode=activeMode(),source=openKind==='wheel'?$('r920WheelSelect'):sceneSource();if(!source)return;
+  const nextKey=openKind+':'+mode+':'+source.innerHTML;
+  if(nextKey!==optionKey){select.replaceChildren(...Array.from(source.children,node=>node.cloneNode(true)));optionKey=nextKey}
+  const v=openKind==='wheel'?window.SukunWheels?.snapshot?.().choices?.[mode]:mode==='berhet'?window.SukunSceneEngine?.snapshot?.().scene:window.SukunSceneEngine?.snapshot?.().esmaChoice;
+  if(select.value!==v)select.value=v||'auto';text($('r932QuickLabel'),openKind==='wheel'?'Çark görünümü':'Arka plan');
+ }
+ function show(kind){
+  if(openKind===kind){close(true);return}openKind=kind;$('r932QuickPicker').hidden=false;
+  for(const k of ['wheel','scene'])attr($('r932Quick'+(k==='wheel'?'Wheel':'Scene')),'aria-expanded',kind===k);
+  updateOptions();$('r932QuickSelect')?.focus({preventScroll:true});
+ }
+ function connect(next){
+  if(host===next&&box?.isConnected)return;host=next;const wheel=host?.querySelector('#r924WheelFrame');if(!wheel)return;
+  box=document.createElement('section');box.id='r932WheelControls';box.setAttribute('aria-label','Çark ve kolay kontroller');
+  box.innerHTML='<div class="r932VisualShortcuts"><button id="r932QuickWheel" type="button" aria-controls="r932QuickPicker" aria-expanded="false"><span>Çark</span><small id="r932CurrentWheel"></small></button><button id="r932QuickScene" type="button" aria-controls="r932QuickPicker" aria-expanded="false"><span>Arka plan</span><small id="r932CurrentScene"></small></button></div><div id="r932QuickPicker" hidden><label id="r932QuickLabel" for="r932QuickSelect">Çark görünümü</label><div class="r932PickerRow"><select id="r932QuickSelect"></select><button id="r932QuickClose" type="button" aria-label="Görünüm seçimini kapat">Kapat</button></div></div><div class="r932EasyTransport" role="group" aria-label="Zikir kontrolleri"><button id="r932EasyMinus" type="button" data-action="minus" aria-label="Bir azalt">−1</button><button id="r932EasyPlay" type="button" data-action="play">Başlat</button><button id="r932EasyPlus" type="button" data-action="plus" aria-label="Bir artır">+1</button><button id="r932EasyStop" type="button" data-action="stop" aria-label="Zikri bitir">Bitir</button></div>';
+  wheel.after(box);openKind='';optionKey='';lastMode='';
+  $('r932QuickWheel').onclick=()=>show('wheel');$('r932QuickScene').onclick=()=>show('scene');$('r932QuickClose').onclick=()=>close(true);
+  $('r932QuickSelect').onchange=e=>{
+   if(openKind==='wheel')window.SukunWheels?.choose?.(activeMode(),e.target.value);
+   else{const source=sceneSource();if(source){source.value=e.target.value;source.dispatchEvent(new Event('change',{bubbles:true}))}}
+   close(true);window.SukunPracticeUI?.refresh?.();render();
+  };
+  box.addEventListener('keydown',event=>{if(event.key==='Escape'&&openKind){event.preventDefault();event.stopPropagation();close(true)}});
+  box.querySelector('.r932EasyTransport').addEventListener('click',event=>{
+   const action=event.target.closest('button[data-action]');if(!action||action.disabled)return;
+   const source=$(sources[action.dataset.action]);if(source&&!source.disabled){source.click();window.SukunPracticeUI?.refresh?.()}
+  });render();
+ }
+ function render(){
+  if(!box?.isConnected)return;const mode=activeMode(),state=window.SukunSessionState?.snapshot?.(),visual=window.SukunSceneEngine?.snapshot?.()||{};
+  if(lastMode&&lastMode!==mode)close();lastMode=mode;
+  const wheel=window.SukunWheels?.catalog?.[mode]?.find(item=>item.id===window.SukunWheels?.snapshot?.().choices?.[mode]);
+  const source=sceneSource(),sceneChoice=mode==='berhet'?visual.scene:visual.esmaChoice;
+  const sceneLabel=sceneChoice==='auto'?'İsme göre otomatik':Array.from(source?.options||[]).find(option=>option.value===sceneChoice)?.textContent||'Seçili sahne';
+  text($('r932CurrentWheel'),wheel?.title||'Çark seç');text($('r932CurrentScene'),sceneLabel);
+  attr($('r932QuickWheel'),'aria-label','Çarkı değiştir. '+(wheel?.title||''));attr($('r932QuickScene'),'aria-label','Arka planı değiştir. '+sceneLabel);
+  const busy=state?.phase==='PLAYING'||state?.phase==='PREPARING',playLabel=busy?'Duraklat':state?.phase==='PAUSED'?'Devam et':'Başlat';text($('r932EasyPlay'),playLabel);attr($('r932EasyPlay'),'aria-label',busy?'Zikri duraklat':state?.phase==='PAUSED'?'Zikre devam et':'Zikri başlat');
+  for(const [action,id]of Object.entries(sources)){const button=$('r932Easy'+action[0].toUpperCase()+action.slice(1)),source=$(id);const manual=action==='minus'||action==='plus';const disabled=manual?state?.journeyKind!=='single'||busy:!!source?.disabled;if(button.disabled!==disabled)button.disabled=disabled;if(manual)attr(button,'title',disabled?'Elle saymak için tekil zikri duraklat':action==='minus'?'Bir azalt':'Bir artır')}
+  updateOptions();
+ }
+ window.SukunWheelQuickControls=Object.freeze({version:'r932',connect,render,snapshot:()=>({connected:!!box?.isConnected,openKind,mode:lastMode})});
 })();
