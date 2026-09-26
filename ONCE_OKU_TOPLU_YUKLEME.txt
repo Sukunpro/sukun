@@ -1,50 +1,61 @@
-SÜKÛN r931 — AMETİST TEFEKKÜR VE YAKUTLU BERHETİYYE KARTLARI
+SÜKÛN r932 — ZÜMRÜT ATLAS, KOLAY ÇARK KONTROLLERİ VE TEMPO DÜZELTMELERİ
 
-Mevcut kurulumun üzerine birleştirilerek yüklenir. Ara sürümleri sırayla
-yüklemek gerekmez. Tarihsel bütün medya arşivini içeren boş kurulum paketi değildir.
+Bu paket r931 temelinde hazırlanmış toplu güncellemedir. Önceki ara
+paketleri sırayla yüklemek gerekmez. Tarihsel bütün medya arşivini içeren
+boş kurulum paketi değildir; mevcut kurulumun üzerine birleştirilir.
 
 YÜKLEME
 1. ZIP'i aç. İçeriğini index.html ve sw.js'nin bulunduğu site köküne yükle.
-2. index.html, nero.html, sw.js, manifest.webmanifest, sukun-build-r931.json,
+2. index.html, nero.html, sw.js, manifest.webmanifest, sukun-build-r932.json,
    sukun-latest.json, ikonlar, .nojekyll ve assets birlikte yüklenmelidir.
 3. Aynı adlı dosyaları değiştir; assets klasörünü BİRLEŞTİR.
    Mevcut assets klasörünü ve pakette bulunmayan eski medya dosyalarını silme.
-4. Mümkünse tek commit ile yayımla; dağıtım tamamlandıktan sonra devam eden
-   zikri Bitir ile kapat ve uygulamadaki Güncelle düğmesini kullan.
-5. Sürüm satırında Uygulama r931 / SW r931 görünmelidir.
+4. Mümkünse tek commit ile yayımla. Dağıtım tamamlanınca devam eden zikri
+   Bitir ile kapat ve uygulamadaki Güncelle düğmesini kullan.
+5. Sürüm satırında Uygulama r932 / SW r932 görünmelidir.
 
 Site verilerini ve uygulama depolamasını temizleme: kendi ses kayıtların
 bu cihaz/tarayıcı/alan adındaki yerel depolamada kalır.
 Canlı siteye otomatik dağıtım yapılmadı.
 
-r931 İÇERİĞİ
-- Onaylanan ametist–yakut tasarımı Berhetiyye isim/bilgi kartına,
-  Tefekküre Geç/Çık kontrollerine, sahne seçicisine ve aktif isim alanına uygulandı.
-- Altın işlemeler ve taşlar ayrı görsellerdir. İsim, Arapça metin, açıklama,
-  ebced ve seçiciler canlı arayüz olarak korunur; görsellere yazı gömülmez.
-- Uzun adlar ve açıklamalar için esnek yükseklik; dar ekranlar için sarılan
-  bilgi etiketleri kullanılır. Dekoratif katmanlar dokunmaları yakalamaz.
-- Esmâ ve kilitli Berhetiyye görünümünün sınırları korunur.
-- r930 yakutlu ana menüler ve önceki ses/oturum/dokunma düzeltmeleri korunur.
-- Bu sürüm ses motorunu veya kilit ekranı davranışını yeniden tasarlamaz.
+r932 İÇERİĞİ
+- Berhetiyye Atlası zümrüt ve işlenmiş altın görünümüne kavuşur.
+  Metinler, arama ve seçim kontrolleri gerçek arayüz öğeleri olarak kalır.
+- Normal çark ve tefekkür ekranında küçük çark/arka plan seçicileri ile
+  taş düğmelerine alternatif, yazılı kontrol düğmeleri bulunur.
+- Tempo kaydırıcısının üzerinde dikey sayfa kaydırmak yanlışlıkla
+  kalıcı 6,0 saniye tempo seçimine dönüşmez. Tempo girişleri aynı
+  doğrulama ve eşitleme yolundan geçer.
+- Kayıtlı sesin arka plan döngüsünde atlanan tekrar aralığı korunur;
+  ön plana dönünce aynı aralık ikinci kez eklenmez.
+- Gecikmiş eski tekrar temizliğinin yeni ses tekrarını kesmesi önlenir.
+- Kalp atımı ritminde önceki tekrarın ikinci vuruşu, sonraki ses
+  başladığında yanlışlıkla kesilmez; kullanıcı durdurunca ritim kapanır.
+- Devam ettirilen 28/99 isim seyrinde oturum tekrarı ile sayaç eşitlenir.
+- Bir sonraki açılışın tanısına yardımcı olmak için sınırlı yaşam döngüsü
+  ve tempo kayıtları tutulur.
+- r930 yakutlu menüler, r931 ametist/yakut kartları ve mevcut sahneler korunur.
 
 YENİ GÖRSELLERİN TAM YOLLARI
-assets/berhetiyye-premium/tefekkur-amethyst-r931.webp
-assets/berhetiyye-premium/panel-ruby-r931.webp
-assets/berhetiyye-premium/seal-amethyst-r931.webp
+assets/berhetiyye-premium/panel-emerald-r932.webp
+assets/berhetiyye-premium/gem-emerald-r932.webp
 
-Görseller bulunamazsa okunaklı koyu yüzey ve altın kenarlı yedek görünüm
-kalır. Dekoratif görsel hatası service worker kurulumunu engellemez.
-Mevcut sahne arka planları değişmedi; kullanıcının seçimi korunur.
+Görseller bulunamazsa okunaklı yedek görünüm kalır. Dekoratif görsel
+hatası service worker kurulumunu engellemez.
 
-DOĞRULAMA
-DOGRULAMA_r931.json bu sürümün testlerini ve sınırlarını içerir.
+DOĞRULAMA VE SINIRLAR
+DOGRULAMA_r932.json bu sürümün testlerini ve sınırlarını içerir.
 SHA256SUMS.txt paketteki dosyaların bütünlük listesidir.
-Fiziksel Android testi yapılmadı. TELEFON_TESTI_r931.txt cihaz kontrolüdür.
-Önceki sürümlerin raporları ve telefon/ses test notları arşiv olarak korunur.
-NOTLAR_r930_ARSIV.txt önceki kapsamı, çark ve ses ayarlarının yollarını açıklar.
-Arşiv notlarındaki sürüm numaraları güncel sürüm göstergesi değildir.
+Fiziksel Android kilit ekranı testi yapılmadı. TELEFON_TESTI_r932.txt
+kurulumdan sonra gerçek cihazda izlenecek kısa kontrol listesidir.
 
-Ses, kayıt ve uygulama mantığı dosyalarının adlarında r920/r923/r924 gibi
-numaraların bulunması eski sürümün kurulu olduğu anlamına gelmez; bunlar
-bileşenlerin sabit dosya adlarıdır. Güncel paket otoritesi sukun-build-r931.json'dır.
+Gönderilen tanı r930 sürümündendir. Bu rapor tek başına uygulamanın
+neden kapandığını kanıtlamaz; işletim sisteminin uygulamayı kapatması
+veya gerçek cihazdaki bir çökme çözülmüş diye kabul edilmemelidir.
+Tarayıcıdaki ses/zamanlama düzeltmeleri gerçek telefon sınamasını gerektirir.
+
+Önceki sürümlerin raporları ve telefon/ses test notları arşiv olarak korunur.
+NOTLAR_r931_ARSIV.txt önceki tasarım kapsamını açıklar.
+Arşiv notlarındaki sürüm numaraları güncel sürüm göstergesi değildir.
+Bileşen adlarındaki r920/r923/r924 gibi numaralar sabit dosya adlarıdır;
+güncel paket otoritesi sukun-build-r932.json dosyasıdır.

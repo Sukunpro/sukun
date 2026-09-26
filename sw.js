@@ -1,26 +1,26 @@
-/* SÜKÛN r931 — Pages-safe release files and actionable install diagnostics
+/* SÜKÛN r932 — Pages-safe release files and actionable install diagnostics
    Amaç: yeni sürümün "waiting/install mismatch" yüzünden eski shell'de
    kilitlenmesini önlemek. Controller değişimi aktif sesi kendiliğinden
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r931';
-const CACHE = 'sukun-r931-ruby-panels-20260926-v1';
-const CACHE_META = './sukun-cache-meta-r931.json';
-const BUILD_MARKER = './sukun-build-r931.json';
+const SURUM = 'r932';
+const CACHE = 'sukun-r932-tempo-atlas-20260926-v1';
+const CACHE_META = './sukun-cache-meta-r932.json';
+const BUILD_MARKER = './sukun-build-r932.json';
 const LATEST_MARKER = './sukun-latest.json';
-const REQUIRED_RUNTIME = [{"url":"./assets/runtime/dock-r920.js?v=r931","sha256":"d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0"},{"url":"./assets/runtime/esma-scenes-r923.js?v=r931","sha256":"dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"},{"url":"./assets/runtime/interface-r920.js?v=r931","sha256":"08475e033253b961306e1eecb6ae32e92e585800ea3f70174240d7a1836284f0"},{"url":"./assets/runtime/session-r919.js?v=r931","sha256":"e30048eada67bf4e81315930f3175c93d4c5a93189551bdc9e33097329e5c5f4"},{"url":"./assets/runtime/wheels-r924.css?v=r931","sha256":"ccdbefb125d913fc64a74b6740a74b5e8c40c83b72160800056c27dc4b9c2e66"},{"url":"./assets/runtime/wheels-r924.js?v=r931","sha256":"105ed8d5f95cec7f667f37ac53d891d23d7d7e15abc12260dd1c049c655d796f"}];
+const REQUIRED_RUNTIME = [{"url":"./assets/runtime/dock-r920.js?v=r932","sha256":"d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0"},{"url":"./assets/runtime/esma-scenes-r923.js?v=r932","sha256":"dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"},{"url":"./assets/runtime/interface-r920.js?v=r932","sha256":"08475e033253b961306e1eecb6ae32e92e585800ea3f70174240d7a1836284f0"},{"url":"./assets/runtime/session-r919.js?v=r932","sha256":"e30048eada67bf4e81315930f3175c93d4c5a93189551bdc9e33097329e5c5f4"},{"url":"./assets/runtime/wheels-r924.css?v=r932","sha256":"8b9820a362ffcba66affa7091909ab6dd4e56c872374e95897c2e67d448db386"},{"url":"./assets/runtime/wheels-r924.js?v=r932","sha256":"1fda1c9b9d8f6b17d291fd7ee5f78c9df40ca14a41a7040c45ef2798ee84b096"}];
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
    Shell doğrulaması bağımsız; geri kalan assetler best-effort pre-cache ve
    normal fetch sırasında current cache'e yazılır. */
 const CORE = [
-  "./assets/runtime/dock-r920.js?v=r931",
-  "./assets/runtime/esma-scenes-r923.js?v=r931",
-  "./assets/runtime/interface-r920.js?v=r931",
-  "./assets/runtime/session-r919.js?v=r931",
-  "./assets/runtime/wheels-r924.js?v=r931",
-  "./assets/runtime/wheels-r924.css?v=r931",
+  "./assets/runtime/dock-r920.js?v=r932",
+  "./assets/runtime/esma-scenes-r923.js?v=r932",
+  "./assets/runtime/interface-r920.js?v=r932",
+  "./assets/runtime/session-r919.js?v=r932",
+  "./assets/runtime/wheels-r924.js?v=r932",
+  "./assets/runtime/wheels-r924.css?v=r932",
   './assets/berhetiyye-premium/control-round-plus-r788.webp',
   './assets/berhetiyye-premium/control-round-minus-r788.webp',
   './assets/berhetiyye-premium/control-nav-amethyst-r788.webp',
@@ -36,6 +36,9 @@ const CORE = [
 ];
 
 const PRECACHE = [
+  "./assets/berhetiyye-premium/gem-emerald-r932.webp",
+  "./assets/berhetiyye-premium/panel-emerald-r932.webp",
+
   "./assets/berhetiyye-premium/panel-ruby-r931.webp",
   "./assets/berhetiyye-premium/seal-amethyst-r931.webp",
   "./assets/berhetiyye-premium/tefekkur-amethyst-r931.webp",
@@ -77,7 +80,7 @@ const PRECACHE = [
   "./assets/scenes/esma-r923/nur-mucadelesi-catalli-lite.webp",
   "./assets/scenes/esma-r923/nur-mucadelesi-yivli.webp",
   "./assets/scenes/esma-r923/nur-mucadelesi-yivli-lite.webp",
-  "./assets/runtime/esma-scenes-r923.js?v=r931",
+  "./assets/runtime/esma-scenes-r923.js?v=r932",
   "./assets/wheels-r924/berhetiyye/ham-kristal.webp",
   "./assets/wheels-r924/berhetiyye/faset-kesim.webp",
   "./assets/wheels-r924/berhetiyye/ametist-yuvarlak.webp",

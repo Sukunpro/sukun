@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- ════════════════════════════════════════════════════════════════
-     SÜKÛN r931 — Berhetiyye yakut paneller ve ametist tefekkür tasarımı (base r930)
+     SÜKÛN r932 — Zümrüt Atlas, erişilebilir çark kontrolleri ve tempo kararlılığı (base r931)
      Tek dosya • Web Audio API (tüm sesler cihazda sentezlenir)
      Binaural Beats + Isochronic Tones + Esmâ/Zikir Modülü
      ════════════════════════════════════════════════════════════════ -->
@@ -319,6 +319,37 @@ body.r920-dock.r588-mode-mini #r588DockShell #r730MiniTef {
 }
 body.r920-dock.r588-mode-mini #r588DockShell #r730MiniTef svg {display:none!important}
 body.r920-dock.r588-mode-mini #r588DockShell #r730MiniTef span {display:inline!important;font:inherit!important;color:inherit!important}
+/* r932 Emerald Atlas: cosmetic only; native dialog, selection and focus owners remain intact. */
+html[data-r853-berhet="1"] #r920Atlas {--r920-accent:#92e4b1;box-sizing:border-box!important;width:min(96vw,560px)!important;padding:10px 5px!important;border:26px solid transparent!important;border-image:url('./assets/berhetiyye-premium/panel-emerald-r932.webp') 250 / 26px / 0 stretch!important;border-radius:26px!important;background:radial-gradient(ellipse at top,#123d32,#061a17 62%,#071813)!important;color:#f6eed8!important;box-shadow:0 25px 80px #000b,inset 0 0 0 4px #061914,inset 0 0 0 5px #95763a66!important;scrollbar-color:#7caa83 #061a17!important}
+html[data-r853-berhet="1"] #r920Atlas .r920AtlasHead {align-items:flex-start!important;gap:10px!important}
+html[data-r853-berhet="1"] #r920Atlas :is(h2,h3) {min-width:0!important;font:600 clamp(1.2rem,5.7vw,1.625rem)/1.22 Georgia,serif!important;color:#f5e2b3!important;overflow-wrap:anywhere!important}
+html[data-r853-berhet="1"] #r920Atlas :is(p,small) {color:#c1d8cd!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasNodes {grid-template-columns:repeat(auto-fit,minmax(44px,1fr))!important;gap:7px!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasNodes button {min-width:44px!important;border:1px solid #af8e4b9e!important;border-radius:12px!important;background:linear-gradient(140deg,#245a40,#0c3126 48%,#061e17)!important;color:#f1e7c7!important;box-shadow:inset 0 1px 0 #cdebd433,inset 0 -2px 5px #0008!important;font:600 .8125rem/1 system-ui!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasNodes button[data-active="1"] {box-shadow:inset 0 -3px #d2b568,inset 0 1px 0 #dcf5cf55!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasNodes button[data-complete="1"] {color:#d2f5be!important;background:linear-gradient(140deg,#396947,#153d29)!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasNodes button[aria-pressed="true"] {color:#fff9df!important;border-color:#f3d68d!important;background:linear-gradient(145deg,#4d9670,#166046 50%,#0a3c2b)!important;outline:1px solid #b8954f!important;outline-offset:2px!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasDetail {border-color:#b89a5466!important;padding-top:7px!important}
+html[data-r853-berhet="1"] #r920Atlas dl {display:grid!important;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr)!important;gap:9px!important}
+html[data-r853-berhet="1"] #r920Atlas dl>div {min-width:0!important;border:1px solid #b2955359!important;border-radius:13px!important;padding:11px!important;background:#0a291f!important}
+html[data-r853-berhet="1"] #r920Atlas dt {color:#acd1bb!important;font-size:.6875rem!important}
+html[data-r853-berhet="1"] #r920Atlas dd {font-size:.875rem!important;overflow-wrap:anywhere!important}
+html[data-r853-berhet="1"] #r920Atlas :is(#r920AtlasChoose,#r920AtlasClose) {border:1px solid #c0a260!important;background:linear-gradient(150deg,#397d56,#0c3c2a 55%,#062219)!important;box-shadow:inset 0 1px 0 #c6eec344,0 3px 10px #0005!important;color:#fff1cc!important;white-space:normal!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasClose {min-width:55px!important;flex:0 0 auto!important;padding:8px!important;font-size:.75rem!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasChoose {min-height:48px!important;font-size:.9375rem!important}
+html[data-r853-berhet="1"] #r920Practice #r920AtlasOpen {border-color:#a99053!important;background:linear-gradient(145deg,#285e42,#082b20)!important;color:#f5e4bc!important}
+html[data-r853-berhet="1"] #r920Atlas button:focus-visible {outline:3px solid #dbf4b8!important;outline-offset:3px!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasNodes button {height:auto!important;aspect-ratio:1!important;min-height:44px!important;padding:4px!important;border:0!important;border-radius:14px!important;background:url('./assets/berhetiyye-premium/gem-emerald-r932.webp') center/100% 100% no-repeat,#073123!important;box-shadow:none!important;font:600 .9375rem/1 Georgia,serif!important;text-shadow:0 1px 3px #000,0 0 3px #000!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasNodes button:is([aria-pressed],[data-complete]) {background:url('./assets/berhetiyye-premium/gem-emerald-r932.webp') center/100% 100% no-repeat,#073123!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasNodes button[data-complete="1"] {color:#b7f9cc!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasNodes button[data-active="1"] {box-shadow:inset 0 -3px #cdb365!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasNodes button[aria-pressed="true"] {outline:2px solid #f9d776!important;outline-offset:1px!important;box-shadow:0 0 10px #e1bf6273!important;color:#fff6cf!important}
+html[data-r853-berhet="1"] #r920Atlas :is(#r920AtlasChoose,#r920AtlasClose) {border:12px solid transparent!important;border-image:url('./assets/berhetiyye-premium/gem-emerald-r932.webp') 310 fill / 12px / 0 stretch!important;border-radius:18px!important;background:#073022!important;box-shadow:none!important;text-shadow:0 1px 3px #000!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasChoose {min-height:58px!important;padding:5px 12px!important;font:600 1.0625rem/1.3 Georgia,serif!important}
+html[data-r853-berhet="1"] #r920Atlas #r920AtlasClose {padding:2px 4px!important;font-size:.75rem!important}
+
+@media(max-width:359px){html[data-r853-berhet="1"] #r920Atlas{padding:10px 4px!important}html[data-r853-berhet="1"] #r920Atlas .r920AtlasHead{gap:7px!important}html[data-r853-berhet="1"] #r920Atlas #r920AtlasNodes{gap:6px!important}}
+
 }</style>
 <style id="sukun-r918-repair">@layer sukun-repair-r918 {
 html[data-r915-category="berhet"] body #zCountVisual>#r899BerhetWheel {
@@ -749,6 +780,58 @@ body #tfRefinedLayout,body #zBar,body #r883JourneyRemote {scroll-margin-block:90
  body #berhetAtlas>summary {display:flex!important;flex-wrap:wrap!important;gap:8px!important;padding:15px!important;background:rgba(3,20,32,.9)!important}
  body #berhetAtlas>summary>b {font:700 clamp(19px,5vw,25px)/1.2 Georgia,serif!important;min-width:0!important;white-space:normal!important}
  body #berhetAtlas>summary .r168Tag {position:static!important;max-width:100%!important;white-space:normal!important}
+/* r932 Emerald Atlas: scoped surfaces, decorative art never receives input. */
+html[data-r853-berhet="1"] body #berhetAtlas {box-sizing:border-box!important;padding:8px!important;border:1px solid #a48a4e88!important;border-radius:24px!important;background:linear-gradient(150deg,#08241df0,#041610f5)!important;box-shadow:0 14px 35px #0005,inset 0 0 0 3px #e1bf6920!important;overflow:hidden!important}
+html[data-r853-berhet="1"] body #berhetAtlas>summary {position:relative!important;isolation:isolate!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:7px!important;min-height:112px!important;padding:27px 29px!important;margin:0!important;border:0!important;border-radius:20px!important;background:radial-gradient(ellipse at top,#194b31,#08291e 65%,#071c14)!important;overflow:visible!important;text-align:center!important;cursor:pointer!important;touch-action:manipulation!important;list-style:none!important}
+html[data-r853-berhet="1"] body #berhetAtlas>summary::before {content:""!important;display:block!important;position:absolute!important;inset:0!important;z-index:-1!important;box-sizing:border-box!important;border:29px solid transparent!important;border-image:url('./assets/berhetiyye-premium/panel-emerald-r932.webp') 250 / 29px / 0 stretch!important;pointer-events:none!important;transform:none!important;opacity:1!important;background:none!important}
+html[data-r853-berhet="1"] body #berhetAtlas>summary::after {position:absolute!important;right:19px!important;top:50%!important;transform:translateY(-50%)!important;content:"⌄"!important;color:#e3c682!important;font:600 20px/1 system-ui!important;pointer-events:none!important}
+html[data-r853-berhet="1"] body #berhetAtlas[open]>summary::after {content:"⌃"!important}
+html[data-r853-berhet="1"] body #berhetAtlas>summary>b {font:600 clamp(1.125rem,5.3vw,1.5rem)/1.25 Georgia,serif!important;color:#fff0bf!important;white-space:normal!important;overflow-wrap:anywhere!important;text-shadow:0 2px 4px #0008!important}
+html[data-r853-berhet="1"] body #berhetAtlas>summary .r168Tag {display:block!important;position:static!important;min-height:0!important;border:0!important;border-radius:0!important;background:none!important;padding:0!important;margin:0!important;font:500 .625rem/1.45 system-ui,sans-serif!important;letter-spacing:.035em!important;color:#c3d8bd!important;white-space:normal!important}
+html[data-r853-berhet="1"] body #berhetAtlas :is(input,select,textarea,button,summary) {box-sizing:border-box!important;touch-action:manipulation!important}
+html[data-r853-berhet="1"] body #berhetAtlas :is(input,select,textarea,button,summary):focus-visible {outline:2px solid #d5edb6!important;outline-offset:3px!important}
+html[data-r853-berhet="1"] body #berhetAtlas #r170AtlasTools {padding:10px!important;margin:9px 0!important;border:1px solid #a58b5055!important;border-radius:18px!important;background:#062219e8!important;overflow:visible!important}
+html[data-r853-berhet="1"] body #berhetAtlas .r170AtlasNav {display:grid!important;grid-template-columns:44px minmax(0,1fr) 44px!important;gap:6px!important}
+html[data-r853-berhet="1"] body #berhetAtlas :is(#r170AtlasPrev,#r170AtlasNext) {height:44px!important;min-width:44px!important;min-height:44px!important;border:1px solid #c4a25899!important;border-radius:14px!important;background:linear-gradient(145deg,#326b43,#0c3828 60%,#071e15)!important;color:#ffe9b4!important;box-shadow:inset 0 1px 0 #effac42e!important;font:500 28px/1 Georgia,serif!important;touch-action:manipulation!important}
+html[data-r853-berhet="1"] body #berhetAtlas :is(#r170AtlasSearch,.r170Select,.r168Note) {min-width:0!important;max-width:100%!important;min-height:44px!important;padding:9px 10px!important;border:1px solid #83965f99!important;border-radius:13px!important;background:#051b14!important;color:#f4ecd4!important;font:400 .8125rem/1.45 system-ui,sans-serif!important;box-shadow:inset 0 2px 5px #0005!important}
+html[data-r853-berhet="1"] body #berhetAtlas #r170AtlasSearch::placeholder {color:#b1c5b6!important;opacity:1!important}
+html[data-r853-berhet="1"] body #berhetAtlas #r170AtlasTools .r170Row {grid-template-columns:minmax(0,1fr)!important;gap:7px!important;margin-top:9px!important}
+html[data-r853-berhet="1"] body #berhetAtlas #r170AtlasTools .r170Row>span {display:none!important}
+html[data-r853-berhet="1"] body #berhetAtlas #r170Compare {display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:11px!important;margin-top:12px!important;overflow:visible!important}
+html[data-r853-berhet="1"] body #berhetAtlas .r754Cmp {position:relative!important;isolation:isolate!important;min-width:0!important;margin:0!important;padding:24px!important;border:1px solid #ac915354!important;border-radius:19px!important;background:radial-gradient(ellipse at top,#153d2ad9,#071c14f2)!important;box-shadow:inset 0 0 0 4px #061b1266!important;overflow:hidden!important}
+html[data-r853-berhet="1"] body #berhetAtlas .r754Cmp::before {content:""!important;position:absolute!important;display:block!important;inset:0!important;box-sizing:border-box!important;border:24px solid transparent!important;border-image:url('./assets/berhetiyye-premium/panel-emerald-r932.webp') 250 / 24px / 0 stretch!important;z-index:-1!important;pointer-events:none!important}
+html[data-r853-berhet="1"] body #berhetAtlas .r754Cmp h4 {font:600 1.1875rem/1.25 Georgia,serif!important;color:#f5e4b7!important;margin:7px 0!important;overflow-wrap:anywhere!important}
+html[data-r853-berhet="1"] body #berhetAtlas .r754Cmp .ar {font:500 1.75rem/1.6 serif!important;text-align:center!important;color:#eff8db!important;margin:9px 0 13px!important;overflow-wrap:anywhere!important;white-space:normal!important}
+html[data-r853-berhet="1"] body #berhetAtlas .r754BerhetSigil {width:auto!important;max-width:100%!important;border:1px solid #d6bd7380!important;border-radius:10px!important;background:#16452e!important;color:#f7dfa2!important;box-shadow:none!important;padding:6px 9px!important;font:600 .6875rem/1.3 system-ui!important;white-space:normal!important}
+html[data-r853-berhet="1"] body #berhetAtlas .r754CmpRows>div {padding:11px!important;border:1px solid #9caa673d!important;border-radius:12px!important;background:#061d15c2!important}
+html[data-r853-berhet="1"] body #berhetAtlas .r754CmpRows small {font:600 .625rem/1.45 system-ui!important;color:#a9d2b0!important;letter-spacing:.055em!important;overflow-wrap:anywhere!important}
+html[data-r853-berhet="1"] body #berhetAtlas .r754CmpRows b {font:500 .9375rem/1.35 Georgia,serif!important;color:#f4e7bd!important}
+html[data-r853-berhet="1"] body #berhetAtlas .r754CmpRows span {font:400 .75rem/1.55 system-ui!important;color:#d2ded2!important}
+html[data-r853-berhet="1"] body #berhetAtlas :is(.r754Conflict,.r754CompareNote) {border:1px solid #be99524d!important;border-radius:12px!important;background:#2a2b1873!important;padding:11px!important;font:400 .75rem/1.55 system-ui!important;color:#dbd8bd!important;overflow-wrap:anywhere!important}
+html[data-r853-berhet="1"] body #berhetAtlas :is(.r754Conflict,.r754CompareNote) b {color:#f1d597!important}
+html[data-r853-berhet="1"] body #berhetAtlasBody .r168Grid {display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:8px!important;margin-top:12px!important}
+html[data-r853-berhet="1"] body #berhetAtlasBody .r168Cell {padding:16px!important;border:1px solid #b5a66955!important;border-radius:15px!important;background:linear-gradient(135deg,#153e2adc,#071f17f2)!important;min-height:0!important;box-shadow:inset 0 1px 0 #ecf1b914!important;overflow:visible!important}
+html[data-r853-berhet="1"] body #berhetAtlasBody .r168Cell small {font:600 .625rem/1.45 system-ui!important;color:#aacfaa!important;letter-spacing:.045em!important}
+html[data-r853-berhet="1"] body #berhetAtlasBody .r168Cell :is(b,.r168Break) {font:500 .875rem/1.5 system-ui!important;color:#f1ebd9!important;overflow-wrap:anywhere!important}
+html[data-r853-berhet="1"] body #berhetAtlasBody .r168Cell b[dir="rtl"] {font:500 1.75rem/1.65 serif!important;color:#f6e6b6!important;text-align:center!important}
+html[data-r853-berhet="1"] body #berhetAtlasBody>.r168Source {padding:11px!important;border:1px solid #b4a2624d!important;border-radius:14px!important;background:#0c271cb3!important}
+html[data-r853-berhet="1"] body #berhetAtlasBody .srcBadge {padding:7px 9px!important;border:1px solid #90b1844d!important;border-radius:9px!important;background:#082418!important;color:#c6d9c6!important;font:500 .625rem/1.45 system-ui!important}
+html[data-r853-berhet="1"] body #berhetAtlasBody .r174Cites {border-color:#bda56855!important;background:#08241b!important}
+html[data-r853-berhet="1"] body #berhetAtlasBody .r174Cites>summary {min-height:44px!important;padding:13px!important;font:600 .75rem/1.5 system-ui!important;color:#f4dfaa!important}
+html[data-r853-berhet="1"] body #berhetAtlasBody .r174Cites>div {font:400 .75rem/1.6 system-ui!important;color:#cedecc!important}
+html[data-r853-berhet="1"] body #berhetAtlasBody .r174Cites a {color:#ebd397!important}
+html[data-r853-berhet="1"] body #berhetAtlas #r754AtlasContext {padding:15px!important;border-color:#b69e5866!important;background:linear-gradient(145deg,#103b26ec,#061f16ed)!important}
+html[data-r853-berhet="1"] body #berhetAtlas #r754AtlasContext .r754CtxTop {display:flex!important;flex-wrap:wrap!important;align-items:center!important;justify-content:space-between!important}
+html[data-r853-berhet="1"] body #berhetAtlas #r754AtlasContext h4 {font:600 1.375rem/1.25 Georgia,serif!important;color:#f1e0af!important}
+html[data-r853-berhet="1"] body #berhetAtlas #r754AtlasContext .r754Mini {padding:13px!important;border-color:#a1ac644d!important;background:#071f15c9!important}
+html[data-r853-berhet="1"] body #berhetAtlas #r754AtlasContext .r754Mini small {color:#9bccab!important;line-height:1.5!important}
+html[data-r853-berhet="1"] body #berhetAtlas #r754AtlasContext .r754Mini p {font:400 .75rem/1.6 system-ui!important;color:#cfddce!important}
+html[data-r853-berhet="1"] body #berhetAtlas .r754SourceJumps {display:grid!important;grid-template-columns:repeat(auto-fit,minmax(110px,1fr))!important;gap:8px!important}
+html[data-r853-berhet="1"] body #berhetAtlas .r754SourceJumps button:not([hidden]) {min-height:48px!important;padding:9px!important;border:1px solid #af9d5880!important;border-radius:13px!important;background:linear-gradient(150deg,#2a6441,#0c3121)!important;color:#f4e6bd!important;white-space:normal!important;box-shadow:none!important}
+html[data-r853-berhet="1"] body #berhetAtlas .r754SourceJumps button span {font-size:.625rem!important;line-height:1.5!important;color:#c1d8bd!important}
+@media(min-width:600px){html[data-r853-berhet="1"] body #berhetAtlas #r170Compare{grid-template-columns:repeat(2,minmax(0,1fr))!important}html[data-r853-berhet="1"] body #berhetAtlas #r170AtlasTools .r170Row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}html[data-r853-berhet="1"] body #berhetAtlasBody .r168Grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:359px){html[data-r853-berhet="1"] body #berhetAtlas .r754Cmp{padding:22px 18px!important}html[data-r853-berhet="1"] body #berhetAtlas>summary{padding-inline:25px!important}html[data-r853-berhet="1"] body #berhetAtlas #r170AtlasTools{padding:8px!important}html[data-r853-berhet="1"] body #berhetAtlas #r170AtlasSearch{font-size:.75rem!important;padding-inline:8px!important}}
+
  body #r717Scene {display:block!important;position:fixed!important;inset:0!important;transform:none!important;opacity:1!important;pointer-events:none!important;background:linear-gradient(180deg,#02132344,#02132366),var(--r914-scene),radial-gradient(ellipse at top,#104351,#100e27)!important;background-size:cover!important;background-position:center top!important;background-repeat:no-repeat!important}
  html[data-r914-context] body {background-image:none!important}
  @media(prefers-reduced-motion:reduce){body #r883JourneyRemote .r884WheelDisc{animation:none!important;transition:none!important}}
@@ -768,11 +851,11 @@ body #tfRefinedLayout,body #zBar,body #r883JourneyRemote {scroll-margin-block:90
 </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r931"/>
+<meta name="sukun-build" content="r932"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r931" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r932" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6196,7 +6279,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){/* r922 shared settings owns its label. */if(document.getElementById('r920Practice')?.contains(document.getElementById('r679ZikirAyarBox')))return;if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r931"/><script>window.SUKUN_BUILD='r931';document.documentElement.dataset.sukunBuild='r931';</script>
+<meta name="sukun-build" content="r932"/><script>window.SUKUN_BUILD='r932';document.documentElement.dataset.sukunBuild='r932';</script>
 <style id="sukun-r923-esma-gallery">@layer sukun-r920 {
 #r920Practice #r923EsmaOptions{min-width:0;margin:10px 0}
 #r920Practice #r923EsmaOptions[hidden]{display:none!important}
@@ -7311,7 +7394,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN — Uygulama r931 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN — Uygulama r932 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -17542,12 +17625,67 @@ $('#tekkeBtn').onclick=()=>{
 $('#tekkeTab').onclick=()=>{const ctx=window.SukunTekkeContext?.payload?.();S.set('sukun.total',Z.total);Tekke.open(ctx||undefined);};
 $('#neuroBtn').onclick=()=>{S.set('sukun.total',Z.total);Neuro.open();};
 window.addEventListener('tekke:closed',()=>{Z.total=Math.max(Z.total,S.get('sukun.total',Z.total));zUI();});
-$('#tempoSld').addEventListener('input',e=>{
-  Z.tempo=+e.target.value; setFill(e.target);
-  $('#tempoVal').textContent=Z.tempo.toFixed(1)+' sn';
-  if(Z.auto){_zAutoSon=Date.now();zAutoKur(true);}
-  saveSettings();
-});
+/* r932 — one tempo value, all visible controls, and touch intent before commit.
+   Chromium ranges emit input on touch-down, before a vertical pan is cancelled.
+   Defer that write until a tap or horizontal drag is known; cancellation restores
+   the pre-gesture value and never turns a scroll into a six-second tempo. */
+const R932_TEMPO_CONTROLS='#tempoSld,#r829Tempo,#csTempo,[data-r434-tempo]';
+const R932_TEMPO_HISTORY=[];let r932TempoGesture=null,r932TempoCancelled=0;
+function zTempoSync(){
+  const value=String(Z.tempo),label=Number(Z.tempo).toFixed(1)+' sn';
+  document.querySelectorAll(R932_TEMPO_CONTROLS).forEach(el=>{
+    el.min='.8';el.max='6';el.step='.1';if(el.value!==value)el.value=value;
+    try{setFill(el)}catch(_){}
+  });
+  document.querySelectorAll('#tempoVal,#r829TempoVal,#csTempoV,[data-r434-tempo-val]').forEach(el=>{if(el.textContent!==label)el.textContent=label});
+  const gap=document.getElementById('bsGap');
+  if(gap){const ms=String(Math.round(Z.tempo*1000));if(![...gap.options].some(o=>o.value===ms)){let o=gap.querySelector('[data-tempo-current]');if(!o){o=document.createElement('option');o.dataset.tempoCurrent='1';gap.append(o)}o.value=ms;o.textContent=label;}gap.value=ms;}
+}
+function zTempoSet(value,source='control',options={}){
+  const n=Number(value),previous=Z.tempo;
+  if(!Number.isFinite(n)||n<.8||n>6){zTempoSync();return false;}
+  Z.tempo=Math.round(n*10)/10;
+  if(source==='session-restore'||source==='routine-load')r932TempoNameKey=String(Z.cat)+':'+String(Z.idx);
+  zTempoSync();
+  const changed=Math.abs(previous-Z.tempo)>.001;
+  if(changed){R932_TEMPO_HISTORY.push({at:Date.now(),source:String(source),previous,value:Z.tempo,hidden:document.hidden});if(R932_TEMPO_HISTORY.length>32)R932_TEMPO_HISTORY.shift();}
+  if(options.persist!==false){try{S.set('sukun.tempo',Z.tempo);saveSettings()}catch(_){}}
+  if(changed&&options.restart!==false&&Z.auto){_zAutoSon=Date.now();zAutoKur(true);}
+  if(changed)try{window.dispatchEvent(new CustomEvent('sukun:tempochange',{detail:{source,previous,value:Z.tempo}}))}catch(_){}
+  return true;
+}
+function r932TempoCancel(reason){
+  const g=r932TempoGesture;if(!g)return;r932TempoGesture=null;r932TempoCancelled++;
+  g.el.value=String(g.before);zTempoSet(g.before,'gesture-cancel:'+reason,{persist:g.committed,restart:g.committed});
+}
+window.addEventListener('pointerdown',e=>{
+  if(e.pointerType!=='touch'||e.isPrimary===false||!e.target?.matches?.(R932_TEMPO_CONTROLS))return;
+  if(r932TempoGesture)r932TempoCancel('replaced');
+  r932TempoGesture={id:e.pointerId,el:e.target,x:e.clientX,y:e.clientY,before:Z.tempo,candidate:Z.tempo,axis:'pending',committed:false};
+},{capture:true,passive:true});
+window.addEventListener('pointermove',e=>{
+  const g=r932TempoGesture;if(!g||g.id!==e.pointerId||g.axis!=='pending')return;
+  const dx=Math.abs(e.clientX-g.x),dy=Math.abs(e.clientY-g.y);
+  if(dy>=8&&dy>dx){g.axis='vertical';return;}
+  if(dx>=8&&dx>dy*1.2)g.axis='horizontal';
+},{capture:true,passive:true});
+window.addEventListener('input',e=>{
+  const g=r932TempoGesture;if(!g||e.target!==g.el)return;
+  g.candidate=Number(g.el.value);
+  if(g.axis!=='horizontal'){e.stopImmediatePropagation();return;}
+  g.committed=true;
+},{capture:true});
+window.addEventListener('pointerup',e=>{
+  const g=r932TempoGesture;if(!g||g.id!==e.pointerId)return;
+  if(g.axis==='vertical'){r932TempoCancel('vertical');return;}
+  r932TempoGesture=null;
+  zTempoSet(g.candidate,'touch:'+g.el.id);
+},{capture:true,passive:true});
+window.addEventListener('pointercancel',e=>{if(r932TempoGesture?.id===e.pointerId)r932TempoCancel('pointercancel')},{capture:true,passive:true});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)r932TempoCancel('hidden')},{passive:true});
+window.addEventListener('pagehide',()=>r932TempoCancel('pagehide'),{passive:true});
+window.SukunTempo=Object.freeze({version:'r932',set:zTempoSet,sync:zTempoSync,gapMs:()=>Math.round(Z.tempo*1000),snapshot:()=>({version:'r932',value:Z.tempo,cancelledGestures:r932TempoCancelled,pendingGesture:!!r932TempoGesture,history:R932_TEMPO_HISTORY.slice()})});
+$('#tempoSld').addEventListener('input',e=>zTempoSet(e.target.value,'settings'));
 $('#targetSel').addEventListener('change',e=>{
   Z.target=+e.target.value;
   const txt=(e.target.selectedOptions&&e.target.selectedOptions[0]?e.target.selectedOptions[0].textContent:'')||'';
@@ -17625,7 +17763,7 @@ function loadSettings(){
   if(s.z&&typeof s.z==='object'&&!Array.isArray(s.z)){
     Z.target=Math.round(say(s.z.target,Z.target,0,99999));
     Z.targetMode=/^(fixed|manual|ebced)$/.test(String(s.z.targetMode||''))?String(s.z.targetMode):Z.targetMode;
-    Z.tempo=say(s.z.tempo,Z.tempo,.8,6);
+    zTempoSet(s.z.tempo,'settings-restore',{persist:false,restart:false});
     ['tick','vib','mean','adv'].forEach(k=>{if(k in s.z)Z[k]=!!s.z[k];});
     if(/^(nida|tev)$/.test(String(s.z.form||'')))Z.form=String(s.z.form);
   }
@@ -17698,31 +17836,17 @@ function zEbcedHedefUygula(resetCount){
    Tempo artık isim değişiminde varsayılana dönüyor. Kaydırıcıyı elle
    oynatırsan o isim için geçerli olur; sonraki isme geçince yine bire
    döner. Otomatik sayım açıksa zamanlayıcı yeni tempoyla kuruluyor. */
-const Z_TEMPO_VARSAYILAN=1.0;
-function zTempoVarsayilanaDon(){
-  try{
-    if(Math.abs((+Z.tempo||0)-Z_TEMPO_VARSAYILAN)<0.01)return;
-    Z.tempo=Z_TEMPO_VARSAYILAN;
-    try{ S.set('sukun.tempo',Z.tempo); }catch(e){}
-    const sld=document.getElementById('tempoSld');
-    if(sld){ sld.value=String(Z.tempo); try{setFill(sld)}catch(e){} }
-    const val=document.getElementById('tempoVal');
-    if(val)val.textContent=Z.tempo.toFixed(1)+' sn';
-    document.querySelectorAll('[data-r434-tempo]').forEach(el=>{
-      try{ el.value=String(Z.tempo); }catch(e){}
-    });
-    const cs=document.getElementById('csTempo');
-    if(cs){ try{cs.value=String(Z.tempo)}catch(e){} }
-    const csv=document.getElementById('csTempoV');
-    if(csv)csv.textContent=Z.tempo.toFixed(1)+' sn';
-    if(Z.auto){ try{ _zAutoSon=Date.now(); zAutoKur(true); }catch(e){} }
-  }catch(e){}
+const Z_TEMPO_VARSAYILAN=1.0;let r932TempoNameKey=null;
+function zTempoVarsayilanaDon(force=true){
+  const key=String(Z.cat)+':'+String(Z.idx),changed=r932TempoNameKey!==null&&r932TempoNameKey!==key;
+  r932TempoNameKey=key;
+  if(force||changed)zTempoSet(Z_TEMPO_VARSAYILAN,'name-change');else zTempoSync();
 }
 window.zTempoVarsayilanaDon=zTempoVarsayilanaDon;
 
 function zHedefSecimeUyarla(resetCount){
-  /* r564: isim değişimi bu yoldan geçiyor; tempo burada sıfırlanıyor. */
-  zTempoVarsayilanaDon();
+  /* r932: only a different name resets tempo; boot/resume of the same name does not. */
+  zTempoVarsayilanaDon(false);
   if(Z.targetMode==='ebced')return zEbcedHedefUygula(!!resetCount);
   return false;
 }
@@ -18275,15 +18399,15 @@ function r928RhythmBus(){
   input.connect(compressor);compressor.connect(master);
   R928_RHYTHM_BUS={context:ctx,input,compressor};return input;
 }
-function r925DrumSource(node,cleanup=[]){
-  R925_DRUM_NODES.add(node);node.addEventListener('ended',()=>{
+function r925DrumSource(node,cleanup=[],endAt=Infinity){
+  node._sukunRhythmEndAt=endAt;R925_DRUM_NODES.add(node);node.addEventListener('ended',()=>{
     R925_DRUM_NODES.delete(node);for(const n of [node,...cleanup])try{n.disconnect()}catch(e){}
   },{once:true});return node;
 }
 function r925StopDrums(){USUL_PENDING=false;USUL_EPOCH++;for(const node of R925_DRUM_NODES){try{node.stop()}catch(e){}}R925_DRUM_NODES.clear();}
 function r928DrumTone(t,startHz,endHz,amp,decay){
   const out=r928RhythmBus();if(!out)return;
-  const o=osc(startHz),gg=g(0);r925DrumSource(o,[gg]);
+  const o=osc(startHz),gg=g(0);r925DrumSource(o,[gg],t+decay+.02);
   o.frequency.setValueAtTime(startHz,t);o.frequency.exponentialRampToValueAtTime(endHz,t+.055);
   gg.gain.setValueAtTime(0,t);gg.gain.linearRampToValueAtTime(amp,t+.006);
   gg.gain.exponentialRampToValueAtTime(.0001,t+decay);
@@ -18296,13 +18420,13 @@ function drumDum(t,strength=1){
   r928DrumTone(t,216,140,.5*strength,.3);
   r928DrumTone(t,296,210,.24*strength,.2);
   const out=r928RhythmBus(),n=ctx.createBufferSource(),f=flt('lowpass',460),ng=g(0);
-  n.buffer=NOISE.get('brown');r925DrumSource(n,[f,ng]);n.connect(f);f.connect(ng);ng.connect(out);
+  n.buffer=NOISE.get('brown');r925DrumSource(n,[f,ng],t+.085);n.connect(f);f.connect(ng);ng.connect(out);
   ng.gain.setValueAtTime(0,t);ng.gain.linearRampToValueAtTime(.1*strength,t+.004);
   ng.gain.exponentialRampToValueAtTime(.0001,t+.065);n.start(t);n.stop(t+.085);
 }
 function drumTek(t,strength=1){
   const out=r928RhythmBus(),n=ctx.createBufferSource(),f=flt('bandpass',1900,2.5),ng=g(0);
-  n.buffer=NOISE.get('white');r925DrumSource(n,[f,ng]);n.connect(f);f.connect(ng);ng.connect(out);
+  n.buffer=NOISE.get('white');r925DrumSource(n,[f,ng],t+.085);n.connect(f);f.connect(ng);ng.connect(out);
   ng.gain.setValueAtTime(0,t);ng.gain.linearRampToValueAtTime(.15*strength,t+.003);
   ng.gain.exponentialRampToValueAtTime(.0001,t+.065);n.start(t);n.stop(t+.085);
 }
@@ -18332,20 +18456,27 @@ if(r928RhythmSlider){
     if(R928_RHYTHM_LEVEL===0)r925StopDrums();
   });
 }
-function playUsul(isCurrent=()=>true){
+function playUsul(isCurrent=()=>true,delaySeconds=0){
   if(!BENDIR||R928_RHYTHM_LEVEL<=0||!isCurrent()||!ctx)return false;
   /* Retire scheduled beats from the previous voice before a new confirmed onset.
      Audio-time scheduling never creates a second repetition/transport timer. */
-  r925StopDrums();const epoch=USUL_EPOCH,createdAt=performance.now(),source=R925_RHYTHM_SOURCE;
+  const delay=Math.max(0,Math.min(6,+delaySeconds||0));
+  if(delay>0&&ctx.state==='running'){
+    /* A loop wrap begins silence. Keep the previous heartbeat's second beat
+       until the NEXT audible onset; never extend an existing scheduled stop. */
+    USUL_PENDING=false;USUL_EPOCH++;const cutoff=ctx.currentTime+.012+delay;
+    for(const node of R925_DRUM_NODES)if(node._sukunRhythmEndAt>cutoff){try{node.stop(cutoff);node._sukunRhythmEndAt=cutoff}catch(e){}}
+  }else r925StopDrums();
+  const epoch=USUL_EPOCH,createdAt=performance.now(),source=R925_RHYTHM_SOURCE;
   const schedule=()=>{
     if(epoch!==USUL_EPOCH||!BENDIR||R928_RHYTHM_LEVEL<=0||!isCurrent()||ctx?.state!=='running')return false;
     // A late context resume must not produce an unrelated beat after the voice.
     if(performance.now()-createdAt>250){USUL_PENDING=false;R928_RHYTHM_SKIPPED++;return false}
     USUL_PENDING=false;
-    const seconds=Number(Z.tempo),unit=Number.isFinite(seconds)?Math.min(6,Math.max(.8,seconds)):1,t0=ctx.currentTime+.012;
+    const seconds=Number(Z.tempo),unit=Number.isFinite(seconds)?Math.min(6,Math.max(.8,seconds)):1,t0=ctx.currentTime+.012+delay;
     const beats=USULLER[USUL]||USULLER.heartbeat;
     beats.forEach(([off,ty,strength=1])=>{const t=t0+off*unit;if(ty==='D')drumDum(t,strength);else drumTek(t,strength)});
-    R928_RHYTHM_PULSES++;R928_RHYTHM_LAST={source,pattern:USUL,audioTime:t0,tempo:unit,beats:beats.length,at:Date.now()};
+    R928_RHYTHM_PULSES++;R928_RHYTHM_LAST={source,pattern:USUL,audioTime:t0,delaySeconds:delay,tempo:unit,beats:beats.length,at:Date.now()};
     window.dispatchEvent(new CustomEvent('sukun:rhythmpulse',{detail:{...R928_RHYTHM_LAST}}));return true;
   };
   if(ctx.state!=='running'){
@@ -18357,11 +18488,11 @@ function playUsul(isCurrent=()=>true){
   return schedule();
 }
 window.SukunRhythm=Object.freeze({version:'r928',
- voiceStarted(isCurrent=()=>true,source='voice'){
+ voiceStarted(isCurrent=()=>true,source='voice',delaySeconds=0){
   if(!BENDIR||!isCurrent())return false;
   const s=window.SukunSessionState?.snapshot?.();
   if(!s||!['PLAYING','PREPARING'].includes(s.phase))return false;
-  R925_RHYTHM_SOURCE=source;try{if(!ctx)ac();return playUsul(isCurrent)}catch(e){return false}
+  R925_RHYTHM_SOURCE=source;try{if(!ctx)ac();return playUsul(isCurrent,delaySeconds)}catch(e){return false}
  },
  manual(){if(!BENDIR)return false;R925_RHYTHM_SOURCE='manual';try{if(!ctx)ac();return playUsul()}catch(e){return false}},
  stop:r925StopDrums,
@@ -19217,7 +19348,7 @@ function rutApply(r){
     const items=(ZIKIR[Z.cat]&&ZIKIR[Z.cat].items)||[];
     Z.idx=clamp(Math.round(Number.isFinite(+r.zk.idx)?+r.zk.idx:0),0,Math.max(0,items.length-1));
     Z.target=Math.round(clamp(Number.isFinite(+r.zk.target)?+r.zk.target:Z.target,0,99999));
-    Z.tempo=clamp(Number.isFinite(+r.zk.tempo)?+r.zk.tempo:Z.tempo,.8,6);
+    zTempoSet(r.zk.tempo,'routine-load',{persist:false});
     if(/^(nida|tev)$/.test(String(r.zk.form||'')))Z.form=String(r.zk.form);
     syncFormSeg(); ensureTargetOpt(Z.target,'Rutin • '+Z.target);
     $('#tempoSld').value=Z.tempo; setFill($('#tempoSld'));
@@ -21569,6 +21700,15 @@ window.SukunSectionIdentityCommit=(()=>{
   return Object.freeze({version:'r639',commit,fromNativeKey,snapshot,keyFor});
 })();
 
+/* r932: a journey's repeat silence travels with its native media source.
+   The screen visibility must not change the audible start-to-start cadence. */
+function sukunJourneyGapMs(key,prewarm=false){
+  try{
+    const k=String(key||''),b=k.match(/^berhet:(\d+)$/),e=k.match(/^esma:(\d+):nida$/);
+    if(b){const j=window.SukunBerhetiyyeSeyir?.state?.();if(prewarm||j?.run&&!j?.paused&&+j.i===+b[1])return Math.max(180,Math.min(6000,window.SukunTempo?.gapMs?.()||Math.round((+Z.tempo||1)*1000)))}
+    if(e){const j=window.SukunEsma99Seyir?.state?.();if(prewarm||j?.run&&!j?.paused&&+j.i===+e[1])return Math.max(180,Math.min(6000,+document.getElementById('es99Gap')?.value||900))}
+  }catch(e){}return 0;
+}
 /* ═══ r639 — ECHO ATTACHMENT AUTHORITY ════════════════════════════════
    Android background'ta ikinci/üçüncü <audio>.play() çağrıları ve JS timer
    tap'leri güvenilir değildir. Birincil çözüm: yankıyı görünürken Offline
@@ -21576,7 +21716,7 @@ window.SukunSectionIdentityCommit=(()=>{
    çalmak. Ham native tap yalnız FX henüz hazır değilse geçici fallback'tir. */
 const SukunNativeEchoBridge=(()=>{
   const ACTIVE=new Set(),CACHE=new Map(),PENDING=new Map(),REVISIONS=new Map(),HISTORY=[];
-  const MAX_BYTES=24*1024*1024;let cacheBytes=0;
+  const MAX_BYTES=24*1024*1024,MAX_RENDER_BYTES=32*1024*1024,MAX_SOURCE_BYTES=8*1024*1024;let cacheBytes=0,rendering=0,maxConcurrentRenders=0,renderTail=Promise.resolve();
   const spatialOf=opt=>opt.spatial==null?!!KAYIT?.mekan:!!opt.spatial;
   const METRIC={dedupedStarts:0,fallbackSuppressed:0,tapRejects:0,tapRejectsDeduped:0,bakeTimeouts:0,bakeFallbacks:0};
   let lastTapRejectSig='',lastTapRejectAt=0;
@@ -21586,7 +21726,7 @@ const SukunNativeEchoBridge=(()=>{
   const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,Number(n)||0));
   const stateOf=main=>main&&main.__sukNativeEchoState||null;
   const log=(type,extra={})=>{HISTORY.push({at:Date.now(),type,...extra});if(HISTORY.length>64)HISTORY.splice(0,HISTORY.length-64)};
-  const sigFor=(blob,key,opt={})=>[String(key||''),String(blob?.size||0),String(blob?.type||''),clamp(opt.wet).toFixed(3),clamp(opt.rate||1,.5,2).toFixed(3),spatialOf(opt)?1:0,REVISIONS.get(String(key))||0].join('|');
+  const sigFor=(blob,key,opt={})=>[String(key||''),String(blob?.size||0),String(blob?.type||''),clamp(opt.wet).toFixed(3),clamp(opt.rate||1,.5,2).toFixed(3),spatialOf(opt)?1:0,Math.max(0,Math.min(6000,+opt.gapMs||0)),REVISIONS.get(String(key))||0].join('|');
   function wav(buf){
     try{if(typeof r477WavFromBuffer==='function')return r477WavFromBuffer(buf)}catch(e){}
     const ch=Math.min(2,Math.max(1,buf.numberOfChannels||1)),frames=buf.length,sr=buf.sampleRate,bytes=44+frames*ch*2,ab=new ArrayBuffer(bytes),v=new DataView(ab);
@@ -21601,19 +21741,24 @@ const SukunNativeEchoBridge=(()=>{
     log('fx-invalidated',{key});
   }
   async function prepare(blob,key,opt={}){
-    const wet=clamp(opt.wet),rate=clamp(opt.rate||1,.5,2),spatial=spatialOf(opt);
-    if(!blob||!key||(wet<=.01&&!spatial))return null;
-    const sig=sigFor(blob,key,{wet,rate,spatial}),hit=CACHE.get(sig);if(hit){hit.usedAt=Date.now();return hit}
+    const wet=clamp(opt.wet),rate=clamp(opt.rate||1,.5,2),spatial=spatialOf(opt),gapMs=Math.max(0,Math.min(6000,+opt.gapMs||0));
+    if(!blob||!key||(wet<=.01&&!spatial&&!gapMs))return null;
+    const sig=sigFor(blob,key,{wet,rate,spatial,gapMs}),hit=CACHE.get(sig);if(hit){hit.usedAt=Date.now();return hit}
     if(PENDING.has(sig))return PENDING.get(sig);
     if(PENDING.size>=4){log('fx-queue-full',{key:String(key)});return null}
     const revision=REVISIONS.get(String(key))||0;
-    const work=(async()=>{try{
+    /* r932: prewarm and foreground may request different names together.
+       Queue at most four requests but decode/render only one at a time. */
+    const before=renderTail;let release;renderTail=new Promise(resolve=>{release=resolve});
+    const work=(async()=>{await before;rendering++;maxConcurrentRenders=Math.max(maxConcurrentRenders,rendering);try{
+      if(blob.size>MAX_SOURCE_BYTES)throw new Error('FX kaynak boyutu sınırı aşıldı');
       const OC=window.OfflineAudioContext||window.webkitOfflineAudioContext;if(!OC)throw new Error('OfflineAudio desteklenmiyor');
       const raw=await blob.arrayBuffer();
       const hash=globalThis.crypto?.subtle?Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',raw))).map(x=>x.toString(16).padStart(2,'0')).join(''):'';
       const decoded=await r653DecodeAudioBlob(blob);
-      const tail=wet>.01?(TAPS.at(-1).delay/1000)*rate+.08:0,fileSec=Math.max(.12,decoded.duration+tail),sr=Math.max(22050,Math.min(48000,decoded.sampleRate||44100)),frames=Math.max(1,Math.ceil(fileSec*sr));
-      if(frames*4>MAX_BYTES)throw new Error('İşlenmiş kayıt bellek sınırını aşıyor');
+      const tail=wet>.01?(TAPS.at(-1).delay/1000)*rate+.08:0,fileSec=Math.max(.12,decoded.duration+tail+gapMs*rate/1000),sr=Math.max(22050,Math.min(48000,decoded.sampleRate||44100)),frames=Math.max(1,Math.ceil(fileSec*sr));
+      const workingBytes=raw.byteLength*3+decoded.length*decoded.numberOfChannels*4+frames*12;
+      if(frames*4>MAX_BYTES||workingBytes>MAX_RENDER_BYTES)throw new Error('İşlenmiş kayıt bellek sınırını aşıyor');
       const off=new OC(2,frames,sr),bus=off.createGain();
       /* Native kilit kaynağına stereo hareket de basılır. Tek okuma/tek sayaç
          korunur; faz bir hece boyunca yumuşakça soldan sağa ilerler. */
@@ -21622,23 +21767,23 @@ const SukunNativeEchoBridge=(()=>{
         const pan=off.createStereoPanner();bus.connect(pan);out=pan;
         const points=129,curve=new Float32Array(points);
         for(let i=0;i<points;i++)curve[i]=-.78*Math.cos(Math.PI*i/(points-1));
-        pan.pan.setValueCurveAtTime(curve,0,Math.max(.12,decoded.duration));
+        pan.pan.setValueCurveAtTime(curve,gapMs*rate/1000,Math.max(.12,decoded.duration));
       }
       out.connect(off.destination);
-      const add=(when,gain)=>{const src=off.createBufferSource(),g=off.createGain();src.buffer=decoded;src.playbackRate.value=1;g.gain.value=gain;src.connect(g);g.connect(bus);src.start(when)};
+      const add=(when,gain)=>{const src=off.createBufferSource(),g=off.createGain();src.buffer=decoded;src.playbackRate.value=1;g.gain.value=gain;src.connect(g);g.connect(bus);src.start(gapMs*rate/1000+when)};
       add(0,wet>.01?.78:.96);if(wet>.01)TAPS.forEach(t=>add((t.delay/1000)*rate,wet*t.gain));
       const rendered=await off.startRendering();
       if(revision!==(REVISIONS.get(String(key))||0))return null;
       const renderedBlob=wav(rendered),url=URL.createObjectURL(renderedBlob);
-      const entry={version:'r928',url,sig,key:String(key),wet,rate,spatial,sourceHash:hash,bytes:renderedBlob.size,createdAt:Date.now(),usedAt:Date.now(),durationMs:Math.round(fileSec*1000)};
-      CACHE.set(sig,entry);cacheBytes+=entry.bytes;log('fx-ready',{key:String(key),wet,rate,spatial,durationMs:entry.durationMs});
+      const entry={version:'r932',url,sig,key:String(key),wet,rate,spatial,gapMs,sourceHash:hash,bytes:renderedBlob.size,createdAt:Date.now(),usedAt:Date.now(),durationMs:Math.round(fileSec*1000)};
+      CACHE.set(sig,entry);cacheBytes+=entry.bytes;log('fx-ready',{key:String(key),wet,rate,spatial,gapMs,durationMs:entry.durationMs});
       while(CACHE.size>36||cacheBytes>MAX_BYTES){
         const pinned=new Set([...ACTIVE].map(st=>st.src));try{if(window.__sukJourneyNative?.playUrl)pinned.add(window.__sukJourneyNative.playUrl)}catch(e){}
         const old=[...CACHE.values()].filter(x=>x!==entry&&!pinned.has(x.url)).sort((a,b)=>a.usedAt-b.usedAt)[0];if(!old)break;
         CACHE.delete(old.sig);cacheBytes-=old.bytes||0;try{URL.revokeObjectURL(old.url)}catch(e){}
       }
       return entry;
-    }catch(e){log('fx-failed',{key:String(key),error:String(e?.message||e)});return null}})();
+    }catch(e){log('fx-failed',{key:String(key),error:String(e?.message||e)});return null}finally{rendering--;release()}})();
     PENDING.set(sig,work);try{return await work}finally{if(PENDING.get(sig)===work)PENDING.delete(sig)}
   }
   function noteFallback(key,reason){METRIC.bakeFallbacks++;if(reason==='prepare-timeout')METRIC.bakeTimeouts++;log('fx-native-dry',{key:String(key),reason})}
@@ -21673,7 +21818,7 @@ const SukunNativeEchoBridge=(()=>{
   function tail(main,ms=430){const st=stateOf(main);if(!st||!st.active)return false;clearTimers(st);st.tailTimer=setTimeout(()=>hardStop(main,'tail-complete'),Math.max(120,Math.min(900,ms)));return true}
   function pause(main){const st=stateOf(main);if(!st||!st.active)return false;if(!st.baked)st.taps.forEach(x=>{try{x.audio.pause()}catch(e){}});return true}
   function resume(main){const st=stateOf(main);if(!st||!st.active)return false;if(!st.baked)st.taps.forEach(x=>{x.gen=st.gen;syncTap(st,x,true)});return true}
-  function snapshot(){const items=[...ACTIVE].map(st=>attachment(st.main));return{version:'r639',authority:'r655',effectsVersion:'r928',cacheBytes,pending:PENDING.size,active:items.filter(x=>x.active).length,attached:items.filter(x=>x.ok).length,cache:CACHE.size,...METRIC,items,history:HISTORY.slice(-24)}}
+  function snapshot(){const items=[...ACTIVE].map(st=>attachment(st.main));return{version:'r639',authority:'r655',effectsVersion:'r932',cacheBytes,rendering,maxConcurrentRenders,renderBudgetBytes:MAX_RENDER_BYTES,sourceBudgetBytes:MAX_SOURCE_BYTES,pending:PENDING.size,active:items.filter(x=>x.active).length,attached:items.filter(x=>x.ok).length,cache:CACHE.size,...METRIC,items,history:HISTORY.slice(-24)}}
   return Object.freeze({version:'r639',prepare,getCached,invalidate,noteFallback,start,attachment,stop:hardStop,tail,pause,resume,snapshot});
 })();
 window.SukunNativeEchoBridge=SukunNativeEchoBridge;
@@ -21683,8 +21828,8 @@ window.SukunNativeEchoBridge=SukunNativeEchoBridge;
 window.SukunJourneyEchoPrewarm=(()=>{
   let running=false,last='';
   async function schedule(cat,start,count=3){
-    if(running||document.hidden||((Number(KAYIT?.yankiMik)||0)<=.01&&!KAYIT?.mekan))return false;running=true;last=cat+':'+start;
-    try{const list=ZIKIR?.[cat]?.items||[],end=Math.min(list.length,Math.max(0,+start||0)+Math.max(1,Math.min(4,+count||3)));for(let i=Math.max(0,+start||0);i<end;i++){if(document.hidden)break;const key=cat==='esma'?('esma:'+i+':nida'):('berhet:'+i);let blob=null;try{blob=await REC_DB.get(key)}catch(e){}if(blob&&!SukunNativeEchoBridge.getCached(blob,key,{wet:KAYIT?.yankiMik,rate:window.OKUMA_HIZ||1}))await SukunNativeEchoBridge.prepare(blob,key,{wet:KAYIT?.yankiMik,rate:window.OKUMA_HIZ||1});await new Promise(r=>setTimeout(r,120))}}catch(e){}finally{running=false}return true}
+    if(running||document.hidden)return false;running=true;last=cat+':'+start;
+    try{const list=ZIKIR?.[cat]?.items||[],end=Math.min(list.length,Math.max(0,+start||0)+Math.max(1,Math.min(4,+count||3)));for(let i=Math.max(0,+start||0);i<end;i++){if(document.hidden)break;const key=cat==='esma'?('esma:'+i+':nida'):('berhet:'+i);let blob=null;try{blob=await REC_DB.get(key)}catch(e){}if(blob&&!SukunNativeEchoBridge.getCached(blob,key,{wet:KAYIT?.yankiMik,rate:window.OKUMA_HIZ||1,gapMs:sukunJourneyGapMs(key,true)}))await SukunNativeEchoBridge.prepare(blob,key,{wet:KAYIT?.yankiMik,rate:window.OKUMA_HIZ||1,gapMs:sukunJourneyGapMs(key,true)});await new Promise(r=>setTimeout(r,120))}}catch(e){}finally{running=false}return true}
   function snapshot(){return{version:'r639',running,last}}
   return Object.freeze({version:'r639',schedule,snapshot});
 })();
@@ -21692,6 +21837,7 @@ window.SukunJourneyEchoPrewarm=(()=>{
 async function sukunJourneyNativeRecording(blob,ad,opt,kalite){
   opt=opt||{};
   const ayrinti=!!opt.detail;
+  let gapIncludedMs=0;
   const sonuc=(ok,reason)=>ayrinti?{ok:!!ok,reason:reason||''}:!!ok;
   const recordingKey=sukunRecordingKeyFrom(ad,opt)||String(ad||'journey');
   const signature=String(blob?.size||0)+'|'+String(blob?.type||'');
@@ -21721,16 +21867,17 @@ async function sukunJourneyNativeRecording(blob,ad,opt,kalite){
        sınırlı hazırlık beklenir. Hazırlanamayan FX tanıya yazılır, ses korunur. */
     const echoWet=Math.max(0,Math.min(1,Number(KAYIT?.yankiMik)||0));
     const echoRate=Math.max(.5,Math.min(2,Number(window.OKUMA_HIZ)||1));
-    const bridge=window.SukunNativeEchoBridge;
-    let fx=null;try{fx=bridge?.getCached?.(blob,recordingKey,{wet:echoWet,rate:echoRate})||null}catch(e){}
-    if(!fx&&(echoWet>.01||KAYIT?.mekan)){
-      if(!document.hidden){try{fx=await bridge?.prepare?.(blob,recordingKey,{wet:echoWet,rate:echoRate})||null}catch(e){}}
+    const bridge=window.SukunNativeEchoBridge,gapMs=sukunJourneyGapMs(recordingKey);
+    J.gapDesiredMs=gapMs;
+    let fx=null;try{fx=bridge?.getCached?.(blob,recordingKey,{wet:echoWet,rate:echoRate,gapMs})||null}catch(e){}
+    if(!fx&&(echoWet>.01||KAYIT?.mekan||gapMs)){
+      if(!document.hidden){try{fx=await bridge?.prepare?.(blob,recordingKey,{wet:echoWet,rate:echoRate,gapMs})||null}catch(e){}}
       else{
         /* r928: soğuk isimde fire-and-forget ham URL'yi hedef boyunca loop'a
            kilitliyordu. Yalnız yeni okuma sınırında kısa hazırlık beklenir. */
         let deadline=0,timedOut=false;
         try{fx=await Promise.race([
-          Promise.resolve(bridge?.prepare?.(blob,recordingKey,{wet:echoWet,rate:echoRate})).catch(()=>null),
+          Promise.resolve(bridge?.prepare?.(blob,recordingKey,{wet:echoWet,rate:echoRate,gapMs})).catch(()=>null),
           new Promise(resolve=>{deadline=setTimeout(()=>{timedOut=true;resolve(null)},1500)})
         ])||null}finally{if(deadline)clearTimeout(deadline)}
         if(!fx)try{bridge?.noteFallback?.(recordingKey,timedOut?'prepare-timeout':'prepare-unavailable')}catch(e){}
@@ -21743,6 +21890,7 @@ async function sukunJourneyNativeRecording(blob,ad,opt,kalite){
       const oldUrl=J.url,url=URL.createObjectURL(blob);J.url=url;J.recordingKey=recordingKey;J.signature=signature;
       try{if(oldUrl&&oldUrl!==url)URL.revokeObjectURL(oldUrl)}catch(e){}
     }
+    gapIncludedMs=Math.max(0,+fx?.gapMs||0);J.gapIncludedMs=gapIncludedMs;
     const desiredUrl=fx?.url||J.url,desiredFx=!!fx;
     const sourceChanged=rawChanged||J.playUrl!==desiredUrl||J.fx!==desiredFx||!a.src;
     if(sourceChanged){
@@ -21761,7 +21909,11 @@ async function sukunJourneyNativeRecording(blob,ad,opt,kalite){
     const temelVol=Math.min(1,Math.max(0,((typeof ZVOL==='number'&&isFinite(ZVOL))?ZVOL:1)*(window.okumaSeviyesi?window.okumaSeviyesi():1)))*adimVol;
     a.volume=Math.max(.02,Math.min(1,temelVol*normGain));
     try{a.playbackRate=window.OKUMA_HIZ||1;a.preservesPitch=true}catch(e){}
-    try{if(kalite&&kalite.trimStart>.04&&isFinite(a.duration))a.currentTime=Math.min(kalite.trimStart,Math.max(0,a.duration-.2))}catch(e){}
+    /* Foreground keeps its after-word wait and skips the file's leading gap.
+       A hidden loop includes that gap on each wrap without a JS wake-up.
+       Completion remains the end of the spoken word, so pause cannot lose it. */
+    if(gapIncludedMs){try{a.currentTime=document.hidden&&!opt.gapAlreadyWaited?0:gapIncludedMs*echoRate/1000}catch(e){}}
+    try{if(!gapIncludedMs&&kalite&&kalite.trimStart>.04&&isFinite(a.duration))a.currentTime=Math.min(kalite.trimStart,Math.max(0,a.duration-.2))}catch(e){}
 
     RECPLAYING=true;SES.ad=ad||'journey-native';SES.ler.add(a);
     try{window.SesCapa?.ensure?.(opt.title||'SÜKÛN — Zikir Seyri');window.SesCapa?.retitle?.(opt.title||'SÜKÛN — Zikir Seyri')}catch(e){}
@@ -21833,7 +21985,7 @@ async function sukunJourneyNativeRecording(blob,ad,opt,kalite){
            overlap guard zamanlayıcısını yalnız ilk doğrulanmış başlangıçta kur. */
         if(finished||played)return;
         played=true;J.startedAt=Date.now();lastProgressAt=J.startedAt;lastTime=Number(a.currentTime)||0;
-        if(recordingKey)window.SukunRhythm?.voiceStarted?.(()=>!finished&&(typeof opt.isCurrent!=='function'||opt.isCurrent()),'native-recording');
+        if(recordingKey)window.SukunRhythm?.voiceStarted?.(()=>!finished&&(typeof opt.isCurrent!=='function'||opt.isCurrent()),'native-recording',Math.max(0,gapIncludedMs/1000-(Number(a.currentTime)||0)/Math.max(.5,Number(a.playbackRate)||1)));
         try{window.SukunNativeEchoBridge?.start?.(a,{src:J.playUrl||J.url,wet:KAYIT?.yankiMik,volume:a.volume,rate:a.playbackRate,key:recordingKey,mode:'journey-native',baked:!!J.fx})}catch(e){}
         if(!progressTimer)progressTimer=setInterval(watchProgress,1000);
         try{sukunVoiceOverlapGuard(a)}catch(e){}
@@ -26512,7 +26664,7 @@ function calanSayfaYaz(){
             '<span class="csEk">'+hesc(o.ek||'')+'</span></div>'+
           '<div class="csDenetim">'+
             '<div class="csRow"><span class="csEt">tempo</span>'+
-              '<input type="range" id="csTempo" min="0.4" max="6" step="0.1" value="'+Z.tempo+'">'+
+              '<input type="range" id="csTempo" min="0.8" max="6" step="0.1" value="'+Z.tempo+'">'+
               '<span class="csDeg" id="csTempoV">'+Z.tempo.toFixed(1)+' sn</span></div>'+
           '</div></div>';
       });
@@ -26621,11 +26773,7 @@ function calanSayfaBagla(){
         return;
       }
       if(t.id==='csTempo'){
-        Z.tempo=+t.value;
-        const d=document.getElementById('csTempoV');
-        if(d)d.textContent=Z.tempo.toFixed(1)+' sn';
-        try{ if(Z.auto){ _zAutoSon=Date.now(); zAutoKur(true); } }catch(e2){}
-        try{ S.set('sukun.tempo',Z.tempo); }catch(e2){}
+        zTempoSet(t.value,'playing-panel');
         return;
       }
     });
@@ -39152,14 +39300,14 @@ function seyirCreate(){
   const old=document.getElementById('berhetSeyir');
   if(old){try{window.SukunSeyirYerlesim?.mount?.(old)}catch(e){}return}
   const a=document.getElementById('berhetAtlas');if(!a)return;
-  const d=document.createElement('details');d.id='berhetSeyir';d.innerHTML=`<summary class="r168Head"><b>✦ 28 İSİM SEYRİ</b><span class="r168Tag">kaldığın yerden sürer</span></summary><div class="r168MiniRow"><label>Her isim <select id="bsMode"><option value="1">1 kez</option><option value="28">28 kez</option><option value="ebced">Ebcedi kadar</option><option value="custom">Özel</option></select></label><input id="bsCustom" type="number" min="1" max="9999" value="33" aria-label="Her isim için özel tekrar sayısı" style="width:78px" hidden><label>Ara <select id="bsGap"><option value="350">0.35 sn</option><option value="900" selected>0.9 sn</option><option value="2000">2 sn</option><option value="5000">5 sn</option></select></label></div><div class="r168Progress"><i id="bsBar"></i></div><div class="r168Status" id="bsStatus">Hazır · kayıt varsa kendi sesin, yoksa transliterasyon/TTS.</div><div class="r168Buttons"><button class="btn" id="bsStart">▶ Başlat / Sürdür</button><button class="btn" id="bsPause" hidden aria-hidden="true"></button><button class="btn" id="bsPrev">⏮ Önceki İsim</button><button class="btn" id="bsNext">⏭ Sonraki İsim</button><button class="btn" id="bsAgain">↻ Bu ismi baştan</button><button class="btn" id="bsStop">■ Bitir</button><button class="btn" id="bsReset">↺ Tüm seyri baştan</button></div>`;
+  const d=document.createElement('details');d.id='berhetSeyir';d.innerHTML=`<summary class="r168Head"><b>✦ 28 İSİM SEYRİ</b><span class="r168Tag">kaldığın yerden sürer</span></summary><div class="r168MiniRow"><label>Her isim <select id="bsMode"><option value="1">1 kez</option><option value="28">28 kez</option><option value="ebced">Ebcedi kadar</option><option value="custom">Özel</option></select></label><input id="bsCustom" type="number" min="1" max="9999" value="33" aria-label="Her isim için özel tekrar sayısı" style="width:78px" hidden><label>Ara <select id="bsGap"><option value="800">0.8 sn</option><option value="900" selected>0.9 sn</option><option value="2000">2 sn</option><option value="5000">5 sn</option></select></label></div><div class="r168Progress"><i id="bsBar"></i></div><div class="r168Status" id="bsStatus">Hazır · kayıt varsa kendi sesin, yoksa transliterasyon/TTS.</div><div class="r168Buttons"><button class="btn" id="bsStart">▶ Başlat / Sürdür</button><button class="btn" id="bsPause" hidden aria-hidden="true"></button><button class="btn" id="bsPrev">⏮ Önceki İsim</button><button class="btn" id="bsNext">⏭ Sonraki İsim</button><button class="btn" id="bsAgain">↻ Bu ismi baştan</button><button class="btn" id="bsStop">■ Bitir</button><button class="btn" id="bsReset">↺ Tüm seyri baştan</button></div>`;
   let mounted=false;try{mounted=!!window.SukunSeyirYerlesim?.mount?.(d)}catch(e){}
   if(!mounted)a.insertAdjacentElement('afterend',d);
   bindSeyir();restoreSeyir();
 }
 function repeatCount(it){const m=document.getElementById('bsMode')?.value||'1';if(m==='ebced')return Math.max(1,+it.eb||1);if(m==='custom')return Math.max(1,+document.getElementById('bsCustom')?.value||1);return +m||1}
 function seyirSave(){LS.set(BS.key,{i:BS.i,rep:BS.rep,totalDone:BS.totalDone,mode:document.getElementById('bsMode')?.value||'1',custom:+document.getElementById('bsCustom')?.value||33,gap:+document.getElementById('bsGap')?.value||900})}
-function restoreSeyir(){const x=LS.get(BS.key,null);if(!x)return;BS.i=Math.min(28,Math.max(0,+x.i||0));BS.rep=Math.max(0,+x.rep||0);BS.totalDone=Math.max(0,+x.totalDone||0);BS.shown=-1;const m=document.getElementById('bsMode');if(m)m.value=x.mode||'1';const c=document.getElementById('bsCustom');if(c){c.value=x.custom||33;c.hidden=(m?.value!=='custom')}const g=document.getElementById('bsGap');if(g)g.value=String(x.gap||900);seyirUI(BS.i>=28?'Önceki seyir tamamlanmış. Başlatırsan yeniden başlar.':'Kaldığın yer hazır.')}
+function restoreSeyir(){const x=LS.get(BS.key,null);if(!x)return;BS.i=Math.min(28,Math.max(0,+x.i||0));BS.rep=Math.max(0,+x.rep||0);BS.totalDone=Math.max(0,+x.totalDone||0);BS.shown=-1;const m=document.getElementById('bsMode');if(m)m.value=x.mode||'1';const c=document.getElementById('bsCustom');if(c){c.value=x.custom||33;c.hidden=(m?.value!=='custom')}zTempoSync();seyirUI(BS.i>=28?'Önceki seyir tamamlanmış. Başlatırsan yeniden başlar.':'Kaldığın yer hazır.')}
 function seyirUI(msg){
   const list=ZIKIR.berhet.items,st=document.getElementById('bsStatus'),bar=document.getElementById('bsBar');
   if(BS.i>=list.length){if(st)st.textContent=(msg?msg+' · ':'')+'28/28 · seyir tamam';if(bar)bar.style.width='100%';seyirButonUI();return}
@@ -39288,12 +39436,12 @@ function seyirAktifKaynakKes(reason,index){
     }
   }catch(e){}
 }
-async function seyirOkuGuvenli(index,it,token){
+async function seyirOkuGuvenli(index,it,token,gapAlreadyWaited=false){
   const attempt=++BS.attemptSeq;
   let timer=0,timedOut=false;
   const current=()=>!timedOut&&token===BS.token&&attempt===BS.attemptSeq&&BS.run&&!BS.paused;
   const audio=Promise.resolve().then(()=>R168.AudioResolver.play('berhet',index,it,{
-    session:true,journey:true,backgroundNative:true,isCurrent:current
+    session:true,journey:true,backgroundNative:true,isCurrent:current,gapAlreadyWaited
   })).catch(e=>({ok:false,source:'resolver',reason:'exception',detail:String(e?.message||e)}));
   const timeout=document.hidden?90000:26000;
   const watchdog=new Promise(resolve=>{
@@ -39313,14 +39461,14 @@ async function seyirOkuGuvenli(index,it,token){
   finally{if(timer)clearTimeout(timer)}
 }
 async function seyirLoop(token){
-  const list=ZIKIR.berhet.items;
+  const list=ZIKIR.berhet.items;let gapAlreadyWaited=false;
   while(BS.run&&!BS.paused&&token===BS.token&&BS.i<list.length){const it=list[BS.i],limit=repeatCount(it);
     if(BS.shown!==BS.i){
       Z.cat='berhet';Z.idx=BS.i;
       /* r867: 28 İsim Seyri owns its per-name target. A stale global target
          (e.g. 20) must never create a second devir before the journey advances. */
       Z.target=Math.max(1,limit);
-      Z.count=0; Z.devir=0;
+      Z.count=Math.max(0,Math.min(limit,+BS.rep||0)); Z.devir=0;
       try{ensureTargetOpt(Z.target,(document.getElementById('bsMode')?.value==='ebced'?'Ebced • ':'Seyir • ')+Z.target)}catch(e){}
       /* ═══ r567 — SAYAÇ YANLIŞ EBCEDLE SAYIYORDU ═════════════════════
          Seyir ismi değiştirirken kategori ve sırayı yazıyor ama HEDEFİ
@@ -39338,7 +39486,7 @@ async function seyirLoop(token){
          ismin kendi ebcedinden başlıyor. */
       try{
         /* Global targetMode may be fixed/manual. Journey target is independent. */
-        Z.target=Math.max(1,limit); Z.count=0; Z.devir=0;
+        Z.target=Math.max(1,limit); Z.count=Math.max(0,Math.min(limit,+BS.rep||0)); Z.devir=0;
         try{ensureTargetOpt(Z.target,(document.getElementById('bsMode')?.value==='ebced'?'Ebced • ':'Seyir • ')+Z.target)}catch(_){}
       }catch(e){ try{sukunReport('seyir-hedef',e,BS.i)}catch(_){} }
       try{if(!document.hidden){renderZikir(false);zUI()}}catch(e){sukunReport('seyir-render',e,BS.i)}
@@ -39352,7 +39500,7 @@ async function seyirLoop(token){
          durdurma çağrısı bizim tetiklediğimizdir, seyri kesmemeli. */
       BS._kendiSesi=true;BS._kendiSesiUntil=Date.now()+850;
       let r=null;
-      try{ r=await seyirOkuGuvenli(BS.i,it,token); }
+      try{ r=await seyirOkuGuvenli(BS.i,it,token,gapAlreadyWaited); }
       finally{ BS._kendiSesi=false;BS._kendiSesiUntil=0; }
       if(!BS.run||BS.paused||token!==BS.token)break;
       /* Duyulmayan/başlatılamayan okuma sayaçta tamamlanmış görünmesin.
@@ -39425,7 +39573,8 @@ async function seyirLoop(token){
       const sonOkuma=BS.i===list.length-1&&BS.rep>=limit;
       /* r629: son duyulan okumadan sonra boş bir bekleme göstermeden
          tamamlanma mührüne geç; isimler arasındaki olağan nefes korunur. */
-      if(!document.hidden&&!sonOkuma)await (window.SukunJourneyGapWait?.wait?.(gap)||new Promise(r=>setTimeout(r,gap)));
+      gapAlreadyWaited=false;
+      if(!sonOkuma){await (window.SukunJourneyGapWait?.wait?.(gap)||new Promise(r=>setTimeout(r,gap)));gapAlreadyWaited=true;}
     }
     if(!BS.run||BS.paused||token!==BS.token)break;
     BS.i++;BS.rep=0;BS.shown=-1;seyirSave();
@@ -39444,8 +39593,7 @@ function bindSeyir(){
   if(m)m.onchange=()=>{if(c)c.hidden=m.value!=='custom';seyirSave();seyirUI()};
   if(c)c.oninput=()=>{seyirSave();seyirUI()};
   const g=document.getElementById('bsGap');if(g)g.onchange=()=>{
-    const ms=Math.max(180,+g.value||900); Z.tempo=Math.max(.8,Math.min(6,ms/1000));
-    const ts=document.getElementById('tempoSld');if(ts){ts.value=String(Z.tempo);ts.dispatchEvent(new Event('input',{bubbles:true}))}
+    zTempoSet(Math.max(.8,(+g.value||900)/1000),'journey-gap');
     seyirSave();
   };
   /* ═══ r565 — SEYİR KONTROLLERİ TEK SAHİBE ALINDI ══════════════════
@@ -40109,7 +40257,13 @@ function statsCreate(){let a=document.getElementById('r170SessionHub');if(!a)ret
 function statsRender(){let logs=[];try{logs=(typeof S!=='undefined'?S.get('sukun.log',[]):[])||[]}catch(e){};try{logs=window.SukunSecretPolicy?.visibleLogs(logs)||logs}catch(e){};const now=new Date();now.setHours(23,59,59,999);const days=[];for(let i=6;i>=0;i--){const e=new Date(now);e.setDate(e.getDate()-i);const s=new Date(e);s.setHours(0,0,0,0);let z=0,sec=0;for(const x of logs){const t=x.t||x.t0||0;if(t>=s.getTime()&&t<=e.getTime()){z+=+x.count||+x.zikir||0;sec+=+x.dur||0}}days.push({lab:s.toLocaleDateString('tr-TR',{weekday:'short'}),z,sec})}const totalZ=days.reduce((a,b)=>a+b.z,0),totalSec=days.reduce((a,b)=>a+b.sec,0);document.getElementById('r170StatZ').textContent=totalZ.toLocaleString('tr-TR');document.getElementById('r170StatM').textContent=Math.round(totalSec/60)+' dk';const mx=Math.max(1,...days.map(x=>x.z||x.sec/10));document.getElementById('r170Bars').innerHTML=days.map(x=>'<i title="'+x.lab+' · '+x.z+'" style="height:'+Math.max(8,Math.round(((x.z||x.sec/10)/mx)*82))+'px"></i>').join('');const tops={};for(const x of logs){const d=x.detail||x.nm||x.name||'';if(d)tops[d]=(tops[d]||0)+1}const arr=Object.entries(tops).sort((a,b)=>b[1]-a[1]).slice(0,5),m=Math.max(1,...arr.map(x=>x[1]));document.getElementById('r170Top').innerHTML=arr.length?arr.map(([k,v])=>`<div class="r170StatLine"><span>${esc(k.slice(0,32))}</span><div class="track"><i style="width:${v/m*100}%"></i></div><b>${v}</b></div>`).join(''):'<div class="r168Status">Henüz yeterli günlük verisi yok.</div>'}
 
 /* ═══ 5: BERHETİYYE ATLAS 2.0 ═══ */
-function atlas2(){const a=document.getElementById('berhetAtlasBody');if(!a||document.getElementById('r170AtlasTools'))return;const d=document.createElement('div');d.id='r170AtlasTools';d.innerHTML=`<div class="r170AtlasNav"><button class="r170Btn" id="r170AtlasPrev">‹</button><input class="r170Input" id="r170AtlasSearch" placeholder="28 İsim içinde ara…"><button class="r170Btn" id="r170AtlasNext">›</button></div><div class="r170Row"><select class="r170Select r170Grow" id="r170CmpA"></select><span style="font-size:9px;color:var(--dim)">↔</span><select class="r170Select r170Grow" id="r170CmpB"></select></div><div class="r170Compare" id="r170Compare"></div>`;a.insertAdjacentElement('beforebegin',d);const items=ZIKIR.berhet.items,opts=items.map((x,i)=>'<option value="'+i+'">'+(i+1)+'. '+esc(x.tr)+'</option>').join('');d.querySelector('#r170CmpA').innerHTML=opts;d.querySelector('#r170CmpB').innerHTML=opts;d.querySelector('#r170CmpB').value='1';const nav=dir=>{Z.cat='berhet';Z.idx=(Z.idx+dir+items.length)%items.length;renderZikir(false);zUI();try{atlasRender()}catch(e){}};d.querySelector('#r170AtlasPrev').onclick=()=>nav(-1);d.querySelector('#r170AtlasNext').onclick=()=>nav(1);d.querySelector('#r170AtlasSearch').oninput=e=>{if(!window.SukunSecretPolicy?.unlocked?.())return;const q=e.target.value.trim().toLocaleLowerCase('tr');if(!q)return;const i=items.findIndex(x=>((x.tr||'')+' '+(x.ar||'')+' '+(x.menzil||'')+' '+(x.unsur||'')).toLocaleLowerCase('tr').includes(q));if(i>=0){Z.cat='berhet';Z.idx=i;renderZikir(false);zUI();try{atlasRender()}catch(_){}}};d.querySelectorAll('select').forEach(s=>s.onchange=compareRender);compareRender()}
+function atlas2(){const a=document.getElementById('berhetAtlasBody');if(!a||document.getElementById('r170AtlasTools'))return;const d=document.createElement('div');d.id='r170AtlasTools';d.innerHTML=`<div class="r170AtlasNav"><button class="r170Btn" id="r170AtlasPrev">‹</button><input class="r170Input" id="r170AtlasSearch" placeholder="28 İsim içinde ara…"><button class="r170Btn" id="r170AtlasNext">›</button></div><div class="r170Row"><select class="r170Select r170Grow" id="r170CmpA"></select><span style="font-size:9px;color:var(--dim)">↔</span><select class="r170Select r170Grow" id="r170CmpB"></select></div><div class="r170Compare" id="r170Compare"></div>`;a.insertAdjacentElement('beforebegin',d);const items=ZIKIR.berhet.items,opts=items.map((x,i)=>'<option value="'+i+'">'+(i+1)+'. '+esc(x.tr)+'</option>').join('');d.querySelector('#r170CmpA').innerHTML=opts;d.querySelector('#r170CmpB').innerHTML=opts;d.querySelector('#r170CmpB').value='1';/* r932: Atlas selection uses the same cancellation boundary as the wheel; never write a new Z.idx over a playing voice. */
+const atlasSelect=i=>{if(!window.SukunSecretPolicy?.unlocked?.())return;const api=window.SukunSessionState,s=api?.snapshot?.();if(!s||!api?.command)return;if(s.activeMode==='berhet'&&s.activeIndex===i)return;const kind=s.journeyKind==='28'?'28':'single';return api.command('select',{mode:'berhet',index:i,journeyKind:kind})};
+const nav=dir=>{const s=window.SukunSessionState?.snapshot?.();const i=s?.activeMode==='berhet'?Number(s.activeIndex)||0:0;return atlasSelect((i+dir+items.length)%items.length)};
+d.querySelector('#r170AtlasPrev').onclick=()=>nav(-1);d.querySelector('#r170AtlasNext').onclick=()=>nav(1);
+d.querySelector('#r170AtlasSearch').setAttribute('aria-label','28 Berhetiyye ismi içinde ara');
+d.querySelector('#r170CmpA').setAttribute('aria-label','Karşılaştırılacak birinci isim');d.querySelector('#r170CmpB').setAttribute('aria-label','Karşılaştırılacak ikinci isim');
+d.querySelector('#r170AtlasSearch').oninput=e=>{if(!window.SukunSecretPolicy?.unlocked?.())return;const q=e.target.value.trim().toLocaleLowerCase('tr');if(!q)return;const i=items.findIndex(x=>((x.tr||'')+' '+(x.ar||'')+' '+(x.menzil||'')+' '+(x.unsur||'')).toLocaleLowerCase('tr').includes(q));if(i>=0)atlasSelect(i)};d.querySelectorAll('select').forEach(s=>s.onchange=compareRender);compareRender()}
 function compareRender(){const box=document.getElementById('r170Compare');if(!box)return;const items=ZIKIR.berhet.items,a=items[+document.getElementById('r170CmpA').value||0],b=items[+document.getElementById('r170CmpB').value||1];const one=x=>`<div><b>${esc(x.tr)}</b><div class="ar" dir="rtl">${esc(x.ar)}</div><small>Ebced</small><b>${x.eb||'—'}</b><small>Menzil</small><b>${esc(x.menzil||'—')}</b><small>Unsur</small><b>${esc((x.unsur||'—')+' · '+(x.tabiat||'—'))}</b></div>`;box.innerHTML=one(a)+one(b)}
 
 /* ═══ 6: KAYNAK MERKEZİ ═══ */
@@ -48087,7 +48241,7 @@ function durationButtons(x){
 }
 function extraControls(x){
   if(x.tur==='frekans')return '<div class="r434CtlRow"><span class="r434Lbl">VURUŞ</span><input type="range" data-r434-beat min="0.5" max="40" step="0.1" value="'+esc(FR.b)+'"><span class="r434Val" data-r434-beat-val>'+((FR.b<10?FR.b.toFixed(1):Math.round(FR.b))+' Hz')+'</span></div>';
-  if(x.tur==='zikir')return '<div class="r434CtlRow"><span class="r434Lbl">TEMPO</span><input type="range" data-r434-tempo min="0.4" max="6" step="0.1" value="'+esc(Z.tempo)+'"><span class="r434Val" data-r434-tempo-val>'+esc(Z.tempo.toFixed(1))+' sn</span></div>';
+  if(x.tur==='zikir')return '<div class="r434CtlRow"><span class="r434Lbl">TEMPO</span><input type="range" data-r434-tempo min="0.8" max="6" step="0.1" value="'+esc(Z.tempo)+'"><span class="r434Val" data-r434-tempo-val>'+esc(Z.tempo.toFixed(1))+' sn</span></div>';
   if(x.tur==='okuyucu'||x.tur==='kayit')return '<div class="r434LayerActions"><span class="r434Lbl">HIZ</span><div class="r434Seg">'+[1,1.5,2,3].map(v=>'<button type="button" class="r434MiniBtn '+(Math.abs((window.OKUMA_HIZ||1)-v)<.01?'on':'')+'" data-r434-speed="'+v+'">'+String(v).replace('.',',')+'×</button>').join('')+'</div></div>';
   return'';
 }
@@ -48174,7 +48328,7 @@ function onInput(e){
   const t=e.target;
   if(t.dataset.r434Vol!=null){setLayerVol(t.dataset.r434Vol,+t.value);try{setFill?.(t)}catch(e){};return}
   if(t.hasAttribute('data-r434-beat')){try{FR.b=+t.value;frRetune?.();syncFreqUI?.();const v=document.querySelector('[data-r434-beat-val]');if(v)v.textContent=(FR.b<10?FR.b.toFixed(1):Math.round(FR.b))+' Hz'}catch(e){};return}
-  if(t.hasAttribute('data-r434-tempo')){try{Z.tempo=+t.value;S.set('sukun.tempo',Z.tempo);if(Z.auto){_zAutoSon=Date.now();zAutoKur(true)}const v=document.querySelector('[data-r434-tempo-val]');if(v)v.textContent=Z.tempo.toFixed(1)+' sn'}catch(e){};return}
+  if(t.hasAttribute('data-r434-tempo')){try{zTempoSet(t.value,'dock')}catch(e){};return}
   if(t.hasAttribute('data-r434-rev')){try{KAYIT.yankiMik=+t.value;S.set('sukun.playReverb',KAYIT.yankiMik);kayitAyarSync?.();const v=document.querySelector('[data-r434-rev-val]');if(v)v.textContent=KAYIT.yankiMik<=0?'Kapalı':'%'+Math.round(KAYIT.yankiMik*100)}catch(e){};return}
 }
 ['sukun:playbackchange','sukun:nowplayingchange','sukun:audiostate','sukun:smartphase'].forEach(ev=>window.addEventListener(ev,()=>setTimeout(()=>refresh(false),45),{passive:true}));
@@ -50860,6 +51014,8 @@ function snapshot(){
     notificationDrawerAuthority:window.SukunNotificationDrawerAuthority?.snapshot?.()||null,
     adaptiveDockLayout:window.SukunAdaptiveDockLayout?.snapshot?.()||null,
     nativeLockEcho:window.SukunNativeEchoBridge?.snapshot?.()||null,
+    tempoAuthority:window.SukunTempo?.snapshot?.()||null,
+    bootCheckpoint:window.SukunBootCheckpoint?.snapshot?.()||null,
     domHydrationBus:window.SukunDomHydrationBus?.snapshot?.()||null,
     diagnosticsThrottle:window.SukunDiagnosticsThrottle?.snapshot?.()||null,
     sectionIdentity:window.SukunSectionIdentityCommit?.snapshot?.()||null,
@@ -51930,7 +52086,7 @@ async function restore(){
     const cat=String(s.z?.cat||'');if(katalog?.[cat])Z.cat=cat;
     const items=katalog?.[Z.cat]?.items||[];Z.idx=clamp(+s.z?.idx||0,0,Math.max(0,items.length-1));
     Z.target=clamp(+s.z?.target||0,0,99999);Z.targetMode=/^(fixed|manual|ebced)$/.test(String(s.z?.targetMode||''))?s.z.targetMode:Z.targetMode;
-    Z.tempo=clamp(+s.z?.tempo||Z.tempo,.8,6);Z.form=s.z?.form||Z.form;Z.count=Math.max(0,+s.z?.count||0);Z.devir=Math.max(0,+s.z?.devir||0);if(Number.isFinite(+s.z?.total))Z.total=Math.max(Z.total||0,+s.z.total);
+    zTempoSet(s.z?.tempo,'session-restore',{persist:false,restart:false});Z.form=s.z?.form||Z.form;Z.count=Math.max(0,+s.z?.count||0);Z.devir=Math.max(0,+s.z?.devir||0);if(Number.isFinite(+s.z?.total))Z.total=Math.max(Z.total||0,+s.z.total);
     try{renderZikir()}catch(e){};try{zUI()}catch(e){};try{syncFormSeg?.()}catch(e){}
     if(s.tef&&Date.now()-s.updatedAt<12*3600e3){try{await window.SUKUN_TEFEKKUR?.enter?.()}catch(e){}}
     if(s.z?.auto&&Date.now()-s.updatedAt<12*3600e3){pendingResume={auto:true,audio:s.audio,at:s.updatedAt};document.body.classList.add('r470-resume-pending')}
@@ -55330,11 +55486,11 @@ function es99CutSource(reason,index){
     if(J?.a&&J.recordingKey===key){try{J.a._sukunFinish?.(false,reason)}catch(e){}try{J.a.pause()}catch(e){}}
   }catch(e){}
 }
-async function es99PlaySafe(index,it,token){
+async function es99PlaySafe(index,it,token,gapAlreadyWaited=false){
   const attempt=++ES.attemptSeq;let timer=0,timedOut=false;
   const current=()=>!timedOut&&token===ES.token&&attempt===ES.attemptSeq&&ES.run&&!ES.paused;
   const A=window.R168?.AudioResolver||window.AudioResolver;
-  const audio=Promise.resolve().then(()=>A?.play?.('esma',index,it,{arabic:it.a||'',text:'Yâ '+it.t,preferArabic:true,title:'Yâ '+it.t,session:true,journey:true,backgroundNative:true,isCurrent:current})).catch(e=>({ok:false,source:'error',reason:'exception',detail:String(e?.message||e)}));
+  const audio=Promise.resolve().then(()=>A?.play?.('esma',index,it,{arabic:it.a||'',text:'Yâ '+it.t,preferArabic:true,title:'Yâ '+it.t,session:true,journey:true,backgroundNative:true,isCurrent:current,gapAlreadyWaited})).catch(e=>({ok:false,source:'error',reason:'exception',detail:String(e?.message||e)}));
   const watchdog=new Promise(resolve=>{const deadline=()=>{
     if(current()&&window.SukunLockJourneyTransportV2?.ownsProgress?.('journey99','esma:'+index+':nida',index)){timer=setTimeout(deadline,5000);return}
     timedOut=true;ES.attemptSeq++;es99CutSource('resolver-timeout',index);resolve({ok:false,source:'watchdog',reason:'resolver-timeout'});
@@ -55343,7 +55499,7 @@ async function es99PlaySafe(index,it,token){
 }
 
 async function loop(token){
-  const list=ZIKIR.esma.items;
+  const list=ZIKIR.esma.items;let gapAlreadyWaited=false;
   while(ES.run&&!ES.paused&&token===ES.token&&ES.i<list.length){
     const it=list[ES.i],limit=countFor(it);
     if(ES.shown!==ES.i){
@@ -55354,7 +55510,7 @@ async function loop(token){
          Kullanıcı fark etmemişti çünkü çoğunlukla Berhetiyye kullanıyor.
          Berhetiyye'de düzeltilen aynı iki bağlantı buraya da kondu; iki
          seyir artık birebir aynı mantıkta. */
-      try{ if(typeof window.zHedefSecimeUyarla==='function')window.zHedefSecimeUyarla(true); }catch(e){}
+      try{if(typeof window.zHedefSecimeUyarla==='function')window.zHedefSecimeUyarla(false);Z.target=Math.max(1,limit);Z.count=Math.max(0,Math.min(limit,+ES.rep||0));Z.devir=0}catch(e){}
       try{if(!document.hidden){renderCats();renderZikir(false);zUI()}saveSettings()}catch(e){try{sukunReport('esma99-render',e,ES.i)}catch(_){}}
       try{window.SukunSectionIdentityCommit?.commit?.('journey99',ES.i,'journey-show')}catch(e){}
       if(!document.hidden)try{window.SukunJourneyEchoPrewarm?.schedule?.('esma',ES.i,4)}catch(e){}
@@ -55364,7 +55520,7 @@ async function loop(token){
     while(ES.run&&!ES.paused&&token===ES.token&&ES.rep<limit){
       ES._ownVoice=true;ES._ownVoiceUntil=Date.now()+850;let r=null,err=null;
       try{
-        r=await es99PlaySafe(ES.i,it,token);
+        r=await es99PlaySafe(ES.i,it,token,gapAlreadyWaited);
       }catch(e){err=e;r={ok:false,source:'error'}}finally{ES._ownVoice=false;ES._ownVoiceUntil=0}
       if(!ES.run||ES.paused||token!==ES.token)break;
       if(!r||r.ok===false){
@@ -55410,7 +55566,8 @@ async function loop(token){
       ui(r.source==='recording'?'🎙 Kendi sesin':r.source==='reader'?'🔊 Seçili okuyucu':'🔊 TTS');
       save();
       const sonOkuma=ES.i===list.length-1&&ES.rep>=limit;
-      if(!document.hidden&&!sonOkuma){const _gap=+$('es99Gap')?.value||900;await (window.SukunJourneyGapWait?.wait?.(_gap)||sleep(_gap));}
+      gapAlreadyWaited=false;
+      if(!sonOkuma){const _gap=+$('es99Gap')?.value||900;await (window.SukunJourneyGapWait?.wait?.(_gap)||sleep(_gap));gapAlreadyWaited=true;}
     }
     if(!ES.run||ES.paused||token!==ES.token)break;
     ES.i++;ES.rep=0;ES.shown=-1;save();
@@ -64781,7 +64938,7 @@ async function playOwn(cat,idx,item,opt={}){
          screen is hidden; do not discard the caller's native transport flag. */
       detail:true,resume:false,backgroundNative:!!(opt.backgroundNative||opt.journey||document.hidden),
       reason:document.hidden?'Kilit ekranı · kendi kayıt':'Kendi kayıt · TTS kilidi',
-      title:opt.title||item?.tr||item?.t||rec.key,recordingKey:rec.key,isCurrent:opt.isCurrent
+      title:opt.title||item?.tr||item?.t||rec.key,recordingKey:rec.key,isCurrent:opt.isCurrent,gapAlreadyWaited:!!opt.gapAlreadyWaited
     });
   }catch(e){r={ok:false,reason:'exception',error:e}}
   if(r===undefined||r===true||r?.ok){note('recording-play-ok',{cat:clean(cat),idx:+idx||0,key:rec.key,reason:clean(r?.reason||'ended')});return{ok:true,source:'recording',key:rec.key,reason:r?.reason||'ended',priorityLock:true}};
@@ -65373,12 +65530,41 @@ window.addEventListener('sukun:journeyaudiostate',e=>{const d=e?.detail||{},t=cl
 window.SukunTerminalAudioReconcile=Object.freeze({version:'r654',reconcile,schedule,snapshot:()=>({version:'r654',pending:!!timer,noRunningJourney:noRunningJourney(),pauseIntent:pauseIntent(),terminalIntent:terminalIntent(),runs,cleanedProviders,lastReason,lastAt})});
 })();
 </script>
+<script id="r932-boot-checkpoint">
+(()=>{
+'use strict';
+/* One small event-driven record survives a browser restart. Missing pagehide
+   is not proof of a crash: the OS, a tab close or another tab can cause it. */
+const KEY='sukun.lifecycle.checkpoint',MAX_AGE=7*86400000;let previous=null,current=null,lastWrite=0,writes=0;
+try{const raw=localStorage.getItem(KEY);if(raw&&raw.length<2048){const p=JSON.parse(raw);if(p?.v===1&&Date.now()-(+p.at||0)<MAX_AGE)previous=p}}catch(e){}
+const boot=String(Date.now())+'-'+Math.random().toString(36).slice(2,7),wasDiscarded=document.wasDiscarded===true;
+const previousExit=wasDiscarded?'browser-discarded':previous?.playing&&!previous?.pagehide?'previous-playback-without-pagehide':'unknown-or-normal';
+function save(reason,force=false,extra={}){
+ const at=Date.now();if(!force&&at-lastWrite<20000)return;
+ let j=null,owner='';try{const b=window.SukunBerhetiyyeSeyir?.state?.(),e=window.SukunEsma99Seyir?.state?.();if(b?.run||b?.paused){j=b;owner='journey28'}else if(e?.run||e?.paused){j=e;owner='journey99'}}catch(e){}
+ let a=null;try{a=window.__sukJourneyNative?.a}catch(e){}
+ let tempo=null;try{tempo=Math.max(.8,Math.min(6,+Z.tempo||1))}catch(e){}
+ current={v:1,boot,build:String(window.SUKUN_BUILD||''),at,reason,hidden:document.hidden,playing:!!(j?.run&&!j?.paused),paused:!!j?.paused,owner,index:Math.max(0,+j?.i||0),count:Math.max(0,+j?.rep||0),tempo,mediaPlaying:!!(a&&!a.paused&&!a.ended),mediaTime:Math.round((+a?.currentTime||0)*1000),pagehide:false,...extra};
+ try{localStorage.setItem(KEY,JSON.stringify(current));lastWrite=at;writes++}catch(e){}
+}
+save('boot',true);
+window.addEventListener('sukun:playbackchange',()=>save('playback'),{passive:true});
+window.addEventListener('sukun:currentflowchange',()=>save('progress'),{passive:true});
+document.addEventListener('visibilitychange',()=>save(document.hidden?'hidden':'visible',true),{passive:true});
+document.addEventListener('freeze',()=>save('freeze',true),{passive:true});
+window.addEventListener('pagehide',e=>save('pagehide',true,{pagehide:true,persisted:!!e.persisted}),{passive:true});
+window.addEventListener('pageshow',e=>{if(e.persisted)save('pageshow',true)},{passive:true});
+window.addEventListener('error',()=>save('runtime-error'),{passive:true});
+window.addEventListener('unhandledrejection',()=>save('unhandled-rejection'),{passive:true});
+window.SukunBootCheckpoint=Object.freeze({version:'r932',snapshot:()=>({version:'r932',wasDiscarded,previousExit,crashConfirmed:false,previous,current,writes,note:'Kapanış olayı eksikliği tek başına çökme kanıtı değildir.'})});
+})();
+</script>
 <script id="r648-lock-journey-transport-v2">
 (()=>{
 'use strict';
 if(window.__SUKUN_R648_LOCK_JOURNEY_V2__)return;
 window.__SUKUN_R648_LOCK_JOURNEY_V2__=1;
-const VERSION='r928';
+const VERSION='r932';
 const clean=v=>String(v??'').trim();
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,Number.isFinite(+n)?+n:a));
 const now=()=>Date.now();
@@ -65541,7 +65727,7 @@ function onTime(){
   if(!remainingFor()){advance('media-target');return}
   if(wrapped&&!this.paused&&!L.dormant&&!L.frozen){
     const lease=L.seq,key=L.key;
-    window.SukunRhythm?.voiceStarted?.(()=>L.active&&L.seq===lease&&L.key===key&&sourceMatches(key)&&!this.paused&&!this.ended&&!machinePaused(),'native-loop');
+    window.SukunRhythm?.voiceStarted?.(()=>L.active&&L.seq===lease&&L.key===key&&sourceMatches(key)&&!this.paused&&!this.ended&&!machinePaused(),'native-loop',Math.max(0,(+native()?.gapIncludedMs||0)/1000-cur/clamp(this.playbackRate||1,.5,2)));
   }
 }
 function onPlaying(){
@@ -65579,7 +65765,8 @@ function bind(a){
 }
 function arm(reason='arm'){
   if(!document.hidden||machinePaused())return false;
-  const ji=info(),j=native(),a=j?.a;if(!ji||!a||!sourceMatches(ji.key))return false;
+  const ji=info(),j=native(),a=j?.a;if(!ji||!a||!sourceMatches(ji.key)||typeof a._sukunFinish!=='function')return false;
+  if(j.gapDesiredMs>0&&!j.gapIncludedMs){log('gap-unprepared');return false}
   const cycle=wallCycleMs(a);if(!cycle){a.addEventListener('loadedmetadata',()=>arm('metadata'),{once:true});return false}
   if(L.active&&L.owner===ji.owner&&L.key===ji.key&&L.index===ji.index){scheduleTarget('rearm');return true}
   if(L.active)handoff('source-replace',false);
@@ -65641,12 +65828,14 @@ function visible(){
      tamamlat; aksi halde hidden lease'in tamamlanmış çevrimlerini settle ettikten
      sonra stale native Promise'i hemen kapat ve görünür journey yoluna temiz retry
      bırak. Sayaçta çift yazma olmaz; kısmi kelime başarılı sayılmaz. */
-  if(wasPlaying&&Number.isFinite(remainMs)&&remainMs>0&&remainMs<=850){
+  const inLeadingGap=!!(native()?.gapIncludedMs&&cur<(native().gapIncludedMs/1000)*rate);
+  if(wasPlaying&&Number.isFinite(remainMs)&&remainMs>0&&(remainMs<=850||inLeadingGap)){
+    const drainFinish=a?._sukunFinish;
     L.visibleDrains++;log('visible-short-drain',{owner,key,index,remainMs:Math.round(remainMs)});
     setTimeout(()=>{
-      if(document.hidden||!a||a.ended)return;
-      try{if(a._sukunFinish)a._sukunFinish(false,'visible-drain-deadline');else a.pause?.()}catch(e){}
-    },950);
+      if(document.hidden||!a||a.ended||a._sukunFinish!==drainFinish)return;
+      try{if(drainFinish)drainFinish(false,'visible-drain-deadline');else a.pause?.()}catch(e){}
+    },inLeadingGap?Math.min(30000,Math.ceil(remainMs)+300):950);
     return;
   }
   try{if(a?._sukunFinish)a._sukunFinish(false,'visible-fast-handoff');else a?.pause?.()}catch(e){try{a?.pause?.()}catch(_){}}
@@ -65658,11 +65847,11 @@ function snapshot(){
   return Object.freeze({version:VERSION,active:!!L.active,owner:L.owner,key:L.key,index:L.index,hidden:document.hidden,playing:!!(a&&!a.paused&&!a.ended&&L.active),loop:!!a?.loop,cycleMs:Math.round(L.cycleMs||0),startRep:L.startRep,applied:L.applied,completed,remaining,observedWraps:L.observedWraps,mediaProgressMs:Math.round(L.mediaProgressMs),countEvidence:'sampled-media-clock',leases:L.leases,settlements:L.settlements,settledCycles:L.settledCycles,switches:L.switches,visibleHandoffs:L.visibleHandoffs,visibleDrains:L.visibleDrains,revives:L.revives,hiddenPlayAttempts:L.hiddenPlayAttempts,playEvents:L.playEvents,pauseEvents:L.pauseEvents,suppressedRevives:L.suppressedRevives,dormant:L.dormant,frozen:L.frozen,abortLocked:L.abortLocked,abortLockouts:L.abortLockouts,lastProgressAgeMs:L.lastProgressAt?Math.max(0,now()-L.lastProgressAt):null,stalls:L.stalls,overshootCycles:L.overshootCycles,lastError:L.lastError,lastReason:L.reason,lastAt:L.lastAt,history:L.history.slice(-18)});
 }
 
-/* Görünür ekrandaki isim-arası bekleme lock anında çözülsün. Aksi halde
-   0.9–5 sn gap timeout'u Android tarafından dakikalara kadar ertelenebilir. */
-window.SukunJourneyGapWait=Object.freeze({version:VERSION,wait(ms=0){
-  ms=Math.max(0,+ms||0);if(document.hidden||!ms)return Promise.resolve('hidden');
-  return new Promise(resolve=>{let done=false,t=0;const finish=v=>{if(done)return;done=true;if(t)clearTimeout(t);document.removeEventListener('visibilitychange',vis);resolve(v)};const vis=()=>{if(document.hidden)finish('hidden')};document.addEventListener('visibilitychange',vis,{passive:true});t=setTimeout(()=>finish('timeout'),ms)});
+/* r932: Native files contain their repeat silence. A raw/unsupported fallback
+   still waits the requested gap while hidden; throttling may delay, never speed it up. */
+window.SukunJourneyGapWait=Object.freeze({version:'r932',wait(ms=0){
+  ms=Math.max(0,Math.min(6000,+ms||0));if(!ms)return Promise.resolve('empty');
+  return new Promise(resolve=>setTimeout(()=>resolve('timeout'),ms));
 }});
 
 document.addEventListener('visibilitychange',()=>{if(document.hidden)setTimeout(()=>arm('visibility-hidden'),20);else visible()},{passive:true});
@@ -75180,11 +75369,7 @@ function installQuickSettings(){
       q.querySelector('#r829TempoVal').textContent=(Number(real.value)||1).toFixed(1)+' sn';
     };
     mirror.addEventListener('input',()=>{
-      if(!real)return;
-      real.value=mirror.value;
-      real.dispatchEvent(new Event('input',{bubbles:true}));
-      real.dispatchEvent(new Event('change',{bubbles:true}));
-      syncFromReal();
+      zTempoSet(mirror.value,'quick-settings');
     });
     real?.addEventListener('input',syncFromReal,{passive:true});
     q.querySelector('.qOpen').addEventListener('click',()=>{
@@ -76690,7 +76875,7 @@ html[data-r913-context="base"] body.r716-shell>#r717Scene{display:block!importan
 html[data-r913-context="base"] body.r716-shell>#r709SceneArt,html[data-r913-context="base"] body.r716-shell>[data-berhet-scene-layer]{display:none!important;opacity:0!important}
 </style>
 <script id="sukun-r913-build-scene-runtime">/* r916: retired competing visual writer; audio engine unchanged. */window.SukunR913={version:'r916',sync:()=>window.SukunR916Visual?.sync?.()};</script>
-<script src="./assets/runtime/esma-scenes-r923.js?v=r931" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
+<script src="./assets/runtime/esma-scenes-r923.js?v=r932" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
 <script id="sukun-r914-runtime">(()=>{'use strict';
 const R=document.documentElement,A='./assets/berhetiyye-premium/',$=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch(_){return d}};
 const atlas=window.SukunR853Scene.nameScenes,originals=window.SukunR853Scene.files;
@@ -76826,10 +77011,10 @@ prop('--r914-scene','none');attr('r920Performance',profile);new MutationObserver
 </script>
 <svg id="r915Filters" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;pointer-events:none"><defs><filter id="r915BlackAlpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 8 8 8 0 0"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
 
-<script src="./assets/runtime/session-r919.js?v=r931" integrity="sha256-4wBI6tpnv06BMVkw8xdck9TFqTGJVRvcnjMJcynlxfQ="></script>
-<script src="./assets/runtime/dock-r920.js?v=r931" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
-<script src="./assets/runtime/wheels-r924.js?v=r931" integrity="sha256-EF7Y1flc7H9mfzesU9iR0j19fhWrwSJg3RwEnGVdeW8="></script>
-<script src="./assets/runtime/interface-r920.js?v=r931" integrity="sha256-CEdeAzJTuWEwbh7stq4y6S5YWADqP3AXQkDXoYNihPA="></script>
+<script src="./assets/runtime/session-r919.js?v=r932" integrity="sha256-4wBI6tpnv06BMVkw8xdck9TFqTGJVRvcnjMJcynlxfQ="></script>
+<script src="./assets/runtime/dock-r920.js?v=r932" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
+<script src="./assets/runtime/wheels-r924.js?v=r932" integrity="sha256-H9ocm52PaxfSkf1+5feMnfQMoUpBpwQMRe8nmO6EsJY="></script>
+<script src="./assets/runtime/interface-r920.js?v=r932" integrity="sha256-CEdeAzJTuWEwbh7stq4y6S5YWADqP3AXQkDXoYNihPA="></script>
 <script id="sukun-r922-voice-settings-ui">
 (function(){'use strict';
 const $=id=>document.getElementById(id);let mounted=false,raf=0,busy=false,modeError='',discovery=null,discoveryTimer=0;
@@ -76905,6 +77090,6 @@ discoveryTimer=setTimeout(()=>{discovery?.disconnect();discovery=null;},15000);q
 
 </script>
 
-<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r931" integrity="sha256-zNvvsSXZE/xkp0tnQKdLXoxAyDtyFggABWwn3EucLmY=">
+<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r932" integrity="sha256-i5ggo2L/y6Zq/6cJGQmrbdTlbIcjdOlYl8LmfUSNs4Y=">
 </body>
 </html>
