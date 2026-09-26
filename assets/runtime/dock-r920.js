@@ -1,4 +1,4 @@
-/* r927 — bounded presentation of the existing dock. No timer, counter or audio owner. */
+/* r929 — bounded presentation of the existing dock. No timer, counter or audio owner. */
 (()=>{
  'use strict';
  if(window.SukunDockR920)return;
@@ -10,6 +10,10 @@
   // Reuse the first visual contract and the existing r732 measured dimensions.
   // One fixed shell, one scrollport, one persistent transport row; no new owner.
   style.textContent=`@layer sukun-r920-contract {
+   /* The generic dock button rule otherwise wins over the grip's none rule.
+      Only this drag handle captures vertical motion; the body stays native pan-y. */
+   body.r920-dock #r588DockShell>#r633DockGrip {touch-action:none!important}
+
    body.r920-dock:not(.r588-mode-mini) #r170Now.r588-authority:not(.r554-alert-open)>#r588DockShell {
     box-sizing:border-box!important;display:grid!important;
     grid-template-rows:44px minmax(0,1fr) auto!important;
@@ -121,7 +125,8 @@
   const source=$('zVolSld'),input=$('r920DockVolume');
   if(input){input.disabled=!source||source.disabled;if(source&&document.activeElement!==input&&input.value!==source.value)input.value=source.value;text($('r920DockVolumeValue'),source?Math.round(Number(source.value)*100)+'%':'—');}
   const expand=$('r920DockExpand');if(expand)expand.setAttribute('aria-expanded',String(mode!=='mini'));
-  window.SukunAdaptiveDockLayout?.schedule?.('r920-dock-presentation');
+  // Mode/class and ResizeObserver already invalidate the single layout owner.
+  // Text/count/volume presentation must not force full geometry every voice tick.
  }
  function schedule(){if(raf||document.hidden)return;raf=requestAnimationFrame(()=>{raf=0;if(!mounted)mount();else sync();});}
  ['sukun:r698modechange','sukun:r616viewchange','sukun:tabchange','sukun:sessionchange','sukun:currentflowchange','sukun:secretaccesschange','pageshow'].forEach(event=>window.addEventListener(event,schedule,{passive:true}));
@@ -129,5 +134,5 @@
  document.addEventListener('click',event=>{if(event.target.closest?.('#mixer [data-ambacctgl],#uiBtn'))requestAnimationFrame(accessibility);},{passive:true});
  function boot(n=0){if(mount())return;if(n<40)setTimeout(()=>boot(n+1),100);}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>boot(),{once:true});else boot();
- window.SukunDockR920=Object.freeze({version:'r927',openAmbience,refresh:mount,snapshot:()=>({version:'r927',mounted,mode:window.SukunDockSize?.get?.()||'mini',transport:'SukunR698Transport',layout:'SukunR699Layout',tefekkurButton:'r730MiniTef',name:$('r921DockName')?.textContent||'',ownSoundsPresent:!!document.querySelector('#mixer [data-ambacc="ozel"]')})});
+ window.SukunDockR920=Object.freeze({version:'r929',openAmbience,refresh:mount,snapshot:()=>({version:'r929',mounted,mode:window.SukunDockSize?.get?.()||'mini',transport:'SukunR698Transport',layout:'SukunR699Layout',tefekkurButton:'r730MiniTef',name:$('r921DockName')?.textContent||'',ownSoundsPresent:!!document.querySelector('#mixer [data-ambacc="ozel"]')})});
 })();

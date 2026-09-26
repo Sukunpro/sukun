@@ -1,7 +1,9 @@
 /* One presentation for the existing single/99/28 engines. No timer advances a count. */
 (()=>{'use strict';
 const $=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch{return d}},text=(n,v)=>{if(n&&n.textContent!==String(v))n.textContent=String(v)},attr=(n,k,v)=>{if(n&&n.getAttribute(k)!==String(v))n.setAttribute(k,String(v))};
-let root,dialog,raf=0,focusTimer=0,sourceMode='',atlasMode='',atlasIndex=0,lastSnapshot=null,completionKey='';
+// r929: idle UI refreshes must not rewrite attributes under an active pointer.
+const prop=(n,k,v)=>{if(n&&n[k]!==v)n[k]=v},value=(n,v)=>{if(n&&document.activeElement!==n)prop(n,'value',String(v))};
+let root,dialog,raf=0,focusTimer=0,sourceMode='',atlasMode='',atlasIndex=0,lastSnapshot=null,completionKey='',renders=0;
 let focusEnabled=safe(()=>localStorage.getItem('sukun.r920.focus')==='1',false);
 const completed=safe(()=>JSON.parse(localStorage.getItem('sukun.r920.completed')||'{}'),{})||{};
 const allowed=()=>!!window.SukunSecretPolicy?.unlocked?.();
@@ -29,7 +31,7 @@ function make(){
  <details id="r920JourneySettings" hidden><summary>Seyir tekrarları ve ara</summary><label>Her isim<select id="r920RepeatMode"></select></label><label id="r920RepeatCustomLabel" hidden>Özel tekrar<input id="r920RepeatCustom" type="number" min="1" max="9999" inputmode="numeric"></label><label>Ara<select id="r920RepeatGap"></select></label></details>
  <details id="r920ViewOptions"><summary>İsim, çark ve görünüm</summary><label>İsim<select id="r920NameSelect"></select></label><div id="r924WheelOptions"><label><span id="r924WheelFamily">Esmâ çarkı</span><select id="r920WheelSelect" aria-describedby="r924WheelStatus"></select></label><p id="r924WheelStatus" role="status"></p><button id="r924WheelRetry" type="button" hidden>Çarkı yeniden yükle</button><details id="r924WheelGalleryDetails"><summary>Çarkları görerek seç</summary><div id="r924WheelGallery" role="group" aria-label="Çark seçenekleri"></div></details></div><div id="r920BerhetOptions"><label>Sahne<select id="r920SceneSelect"><option value="auto">İsme göre otomatik</option><option value="palace">Billur Saray</option><option value="seal">Mühr-ü Süleyman</option><option value="wind">Rüzgâr</option><option value="crystal">Billur Geçit</option><option value="night">Gece Sarayı</option><option value="hudhud">Hüdhüd Yolu</option></select></label></div><div id="r923EsmaOptions"><label>Esmâ sahnesi<select id="r923EsmaSceneSelect" aria-describedby="r923SceneStatus"></select></label><div id="r923ScenePreview"><img id="r923SceneThumb" alt="Seçilen sahnenin önizlemesi" loading="lazy" decoding="async"><div><strong id="r923SceneName"></strong><p id="r923SceneStatus" role="status"></p><button id="r923SceneRetry" type="button" hidden>Sahneyi yeniden yükle</button></div></div><details id="r923SceneNotes"><summary>Sahne hakkında ve kaynaklar</summary><p id="r923SceneNote"></p><div id="r923SceneSources"></div></details></div><label>Görsel kalite<select id="r920Performance"><option value="cinematic">Sinematik</option><option value="balanced">Dengeli</option><option value="saving">Tasarruf</option></select></label><label class="r920FocusLabel"><input id="r925WheelMotion" type="checkbox" checked>Çark dönüşü</label><label class="r920FocusLabel"><input id="r920Focus" type="checkbox">Otomatik odak görünümü</label></details>
  <button id="r920More" type="button" aria-expanded="false">Zikir ayarları, kayıtlar ve diğer araçlar</button>`;
- tab.prepend(root);
+ tab.prepend(root);root.addEventListener('focusout',queue,{passive:true});
  dialog=document.createElement('dialog');dialog.id='r920Atlas';dialog.setAttribute('aria-labelledby','r920AtlasTitle');
  dialog.innerHTML='<div class="r920AtlasHead"><h2 id="r920AtlasTitle">Atlas</h2><button id="r920AtlasClose" type="button">Kapat</button></div><p id="r920AtlasCaption"></p><div id="r920AtlasNodes" role="group" aria-label="Duraklar"></div><p class="r920AtlasLegend">✓ Tamamlandı · ● Aktif · Diğer duraklara dokunarak incele</p><article id="r920AtlasDetail"><h3 id="r920AtlasName"></h3><p id="r920AtlasMeaning"></p><dl><div><dt>Ebced</dt><dd id="r920AtlasEbced"></dd></div><div><dt>Seyir durumu</dt><dd id="r920AtlasProgress"></dd></div></dl><p id="r920AtlasScene"></p><small id="r920AtlasNote"></small><button id="r920AtlasChoose" type="button">Bu isme geç</button></article>';
  document.body.append(dialog);
@@ -79,11 +81,11 @@ async function select(mode,index,journey){
 function manual(delta){const s=snap();if(!s||s.journeyKind!=='single'||s.phase==='PLAYING'||s.phase==='PREPARING')return;safe(()=>$(delta<0?'undoBtn':'plusBtn')?.click());window.SukunSessionState.refresh('manual');wake();queue()}
 function writeJourneySetting(suffix,value,event){const s=snap();if(!allowed()||s?.journeyKind==='single')return;const native=$((s.activeMode==='berhet'?'bs':'es99')+suffix);if(!native)return;native.value=value;native.dispatchEvent(new Event(event,{bubbles:true}));window.SukunSessionState.refresh('journey-settings');queue()}
 function syncJourneySettings(s){
- const enabled=allowed()&&s.journeyKind!=='single',prefix=s.activeMode==='berhet'?'bs':'es99';$('r920JourneySettings').hidden=!enabled;if(!enabled)return;
- for(const [suffix,id] of [['Mode','r920RepeatMode'],['Gap','r920RepeatGap']]){const native=$(prefix+suffix),control=$(id);if(!native)continue;const key=prefix+':'+Array.from(native.options,o=>o.value+'='+o.textContent).join('|');if(control.dataset.options!==key){control.replaceChildren(...Array.from(native.options,o=>{const option=document.createElement('option');option.value=o.value;option.textContent=o.textContent;return option}));control.dataset.options=key}if(document.activeElement!==control)control.value=native.value}
- const native=$(prefix+'Custom'),control=$('r920RepeatCustom');$('r920RepeatCustomLabel').hidden=$(prefix+'Mode')?.value!=='custom';if(native&&document.activeElement!==control)control.value=native.value;
+ const enabled=allowed()&&s.journeyKind!=='single',prefix=s.activeMode==='berhet'?'bs':'es99';prop($('r920JourneySettings'),'hidden',!enabled);if(!enabled)return;
+ for(const [suffix,id] of [['Mode','r920RepeatMode'],['Gap','r920RepeatGap']]){const native=$(prefix+suffix),control=$(id);if(!native)continue;const key=prefix+':'+Array.from(native.options,o=>o.value+'='+o.textContent).join('|');if(control.dataset.options!==key){control.replaceChildren(...Array.from(native.options,o=>{const option=document.createElement('option');option.value=o.value;option.textContent=o.textContent;return option}));control.dataset.options=key}value(control,native.value)}
+ const native=$(prefix+'Custom'),control=$('r920RepeatCustom');prop($('r920RepeatCustomLabel'),'hidden',$(prefix+'Mode')?.value!=='custom');if(native)value(control,native.value);
 }
-function wake(){clearTimeout(focusTimer);document.body.classList.remove('r920-focus-rest');const s=snap();if(focusEnabled&&s?.phase==='PLAYING')focusTimer=setTimeout(()=>{if(snap()?.phase==='PLAYING')document.body.classList.add('r920-focus-rest')},4500)}
+function wake(){clearTimeout(focusTimer);if(document.body.classList.contains('r920-focus-rest'))document.body.classList.remove('r920-focus-rest');const s=snap();if(focusEnabled&&s?.phase==='PLAYING')focusTimer=setTimeout(()=>{if(snap()?.phase==='PLAYING')document.body.classList.add('r920-focus-rest')},4500)}
 function renderAtlas(){
  if(!dialog)return;if(atlasMode==='berhet'&&!allowed()){if(dialog.open)dialog.close();return}
  const list=items(atlasMode),s=snap();text($('r920AtlasTitle'),atlasMode==='berhet'?'Berhetiyye Atlası':'Esmâ Atlası');text($('r920AtlasCaption'),`${list.length} durak · Bu cihazda gözlenen tamamlanmalar`);
@@ -97,20 +99,20 @@ function renderAtlas(){
  text($('r920AtlasProgress'),active?`Aktif · ${s.count} / ${s.target||'∞'}${rate!==null?' · %'+rate:''}`:completed[atlasMode+':'+atlasIndex]?'Tamamlandı':'Henüz tamamlanmadı');
  const esma=window.SukunSceneEngine?.esmaSceneFor?.(atlasIndex);text($('r920AtlasScene'),scene?`Sahne: ${scene.title}`:'Sahne: '+(esma?.title||'Klasik Mevlevî'));text($('r920AtlasNote'),scene?[scene.layer,scene.note].filter(Boolean).join(' · '):esma?.note||'');
 }
-function render(){raf=0;if(!make())return;const s=snap();if(!s)return;
+function render(){raf=0;if(!make())return;const s=snap();if(!s)return;renders++;
  const mode=s.activeMode,valid=mode==='esma'||mode==='berhet'&&allowed(),tef=!!window.SUKUN_TEFEKKUR?.active?.();
  if(document.body.classList.contains('r920-practice-on')!==valid)document.body.classList.toggle('r920-practice-on',valid);if(root.hidden===valid)root.hidden=!valid;if(!valid){if(dialog.open)dialog.close();return}
- root.dataset.mode=mode;root.dataset.phase=s.phase;const journey=s.journeyKind&&s.journeyKind!=='single';
- $('r920ModeBerhet').hidden=!allowed();$('r920JourneyLabel').hidden=!allowed();$('r920ModeEsma').setAttribute('aria-pressed',String(mode==='esma'));$('r920ModeBerhet').setAttribute('aria-pressed',String(mode==='berhet'));
- $('r920JourneyMode').value=journey?'journey':'single';$('r920TefExit').hidden=!tef;$('r920TefEnter').hidden=tef;
+ attr(root,'data-mode',mode);attr(root,'data-phase',s.phase);const journey=s.journeyKind&&s.journeyKind!=='single';
+ prop($('r920ModeBerhet'),'hidden',!allowed());prop($('r920JourneyLabel'),'hidden',!allowed());attr($('r920ModeEsma'),'aria-pressed',mode==='esma');attr($('r920ModeBerhet'),'aria-pressed',mode==='berhet');
+ value($('r920JourneyMode'),journey?'journey':'single');prop($('r920TefExit'),'hidden',!tef);prop($('r920TefEnter'),'hidden',tef);
  syncJourneySettings(s);
  const i=Number(s.activeIndex)||0,it=items(mode)[i]||{},name=s.activeName||itemName(mode,i),scene=mode==='berhet'?scenes()[i]:null;
  text($('r920Eyebrow'),mode==='berhet'?(journey?'BERHETİYYE SEYRİ':'BERHETİYYE ZİKRİ'):(journey?'99 ESMÂ SEYRİ':'ESMÂÜ’L-HÜSNÂ'));
- text($('r920ActiveName'),/^y[aâ]/i.test(name)?name:'Yâ '+name);text($('r920Arabic'),it.a||it.ar||'');text($('r920SceneTitle'),scene?.title||it.m||'');$('r920SceneTitle').hidden=!safe(()=>Z.mean,true);
+ text($('r920ActiveName'),/^y[aâ]/i.test(name)?name:'Yâ '+name);text($('r920Arabic'),it.a||it.ar||'');text($('r920SceneTitle'),scene?.title||it.m||'');prop($('r920SceneTitle'),'hidden',!safe(()=>Z.mean,true));
  const source=String(s.audioSource||'').toUpperCase();text($('r920VoiceSource'),({USER_RECORDING:'Kendi sesin',LOCAL_RECORDING:'Yerel kayıt',READER_RECORDING:'Kayıtlı okuyucu',TTS:'Cihaz sesi · TTS',SILENCE:'Ses kapalı',SILENT:'Ses kapalı',NONE:'Ses kapalı'})[source]||'Ses kaynağı hazır olduğunda gösterilir');
  const count=Math.max(0,Number(s.count)||0),target=Math.max(0,Number(s.target)||0),pct=target?Math.min(100,count/target*100):0;
  text($('r920Count'),count);text($('r920Target'),target||'∞');text($('r920Remaining'),target?Math.max(0,target-count):'∞');text($('r920Percent'),target?'%'+Math.floor(pct):'Serbest');
- $('r924WheelFrame').style.setProperty('--r920-progress',pct);attr($('r924WheelFrame'),'data-near',pct>=90?'1':'0');attr($('r920Counter'),'aria-label',`${name}, ${count} / ${target||'serbest'}. ${journey?'Seyir sayacı':'Bir zikir say'}`);
+ if($('r924WheelFrame').style.getPropertyValue('--r920-progress')!==String(pct))$('r924WheelFrame').style.setProperty('--r920-progress',pct);attr($('r924WheelFrame'),'data-near',pct>=90?'1':'0');attr($('r920Counter'),'aria-label',`${name}, ${count} / ${target||'serbest'}. ${journey?'Seyir sayacı':'Bir zikir say'}`);
  const visual=window.SukunR918Visual?.snapshot?.()||{};
  window.SukunWheels?.render?.(mode);
  window.SukunWheelMotion?.render?.(s);
@@ -118,20 +120,20 @@ function render(){raf=0;if(!make())return;const s=snap();if(!s)return;
  const actionNames={r920Play:busy?'Zikri duraklat':s.phase==='PAUSED'?'Zikre devam et':'Zikri başlat',r920Stop:'Zikri bitir',r920Minus:'Bir azalt',r920Plus:'Bir artır'};
  for(const [id,label]of Object.entries(actionNames)){attr($(id),'aria-label',label);attr($(id),'title',label)}
  const labels={PREPARING:'Ses hazırlanıyor',PAUSED:'Duraklatıldı',COMPLETING:'Tamamlanıyor',COMPLETED:'Seyir tamamlandı',INTERRUPTED:'Ses kesintisi · devam edebilirsin',RECOVERING:'Ses yeniden hazırlanıyor',ERROR:'Ses açılamadı'};text($('r920Phase'),labels[s.phase]||'');
- $('r920Plus').disabled=$('r920Minus').disabled=!!journey||busy;$('r920Counter').disabled=!!journey||busy;
- $('r923EsmaOptions').hidden=mode!=='esma';
+ for(const id of ['r920Plus','r920Minus','r920Counter'])prop($(id),'disabled',!!journey||busy);
+ prop($('r923EsmaOptions'),'hidden',mode!=='esma');
  if(mode==='esma'&&visual.esmaScene){const scene=visual.esmaScene;
-  $('r923EsmaSceneSelect').value=visual.esmaChoice;text($('r923SceneName'),scene.title);
+  value($('r923EsmaSceneSelect'),visual.esmaChoice);text($('r923SceneName'),scene.title);
   const canonicalEsma=s.canonical.mode==='esma';
   text($('r923SceneStatus'),!canonicalEsma?'Esmâ zikri seçildiğinde kullanılacak.':visual.sceneLoad==='loading'?'Sahne yükleniyor…':visual.sceneLoad==='error'?'Görsel açılamadı; sakin renk zemini kullanılıyor.':visual.resolvedSceneId==='mevlevi-fallback'?'Bu görsel açılamadı; Klasik Mevlevî gösteriliyor.':visual.fallbackLevel>0?'Hafif sürüm gösteriliyor.':visual.esmaChoice==='auto'?'İsme göre otomatik · '+scene.title:'Zikir ve Tefekkür için seçildi.');
-  $('r923SceneRetry').hidden=!(canonicalEsma&&(visual.sceneLoad==='error'||visual.fallbackLevel>0));
+  prop($('r923SceneRetry'),'hidden',!(canonicalEsma&&(visual.sceneLoad==='error'||visual.fallbackLevel>0)));
   const thumb=$('r923SceneThumb');if(thumb.getAttribute('src')!==scene.lite){thumb.style.visibility='visible';thumb.src=scene.lite}
   if($('r923SceneNotes').dataset.scene!==visual.esmaChoice+':'+scene.id){$('r923SceneNotes').dataset.scene=visual.esmaChoice+':'+scene.id;text($('r923SceneNote'),(visual.esmaChoice==='auto'?window.SukunEsmaScenePolicy.autoOption.note+' ':'')+scene.note);$('r923SceneSources').replaceChildren(...scene.sources.map(source=>{const a=document.createElement('a');a.href=source.url;a.textContent=source.title;a.target='_blank';a.rel='noopener noreferrer';return a}))}
  }
- $('r920BerhetOptions').hidden=mode!=='berhet';$('r920SceneSelect').value=visual.scene||'auto';
- const perf=window.SukunSceneEngine?.snapshot?.().profile||'balanced';$('r920Performance').value=perf;
- $('r920SceneError').hidden=visual.sceneLoad!=='error';const failure=window.SukunRecordingFailure?.get?.();$('r920RecordingError').hidden=!failure?.active;
- if(sourceMode!==mode){const sel=$('r920NameSelect');sel.replaceChildren();items(mode).forEach((it,j)=>{const option=document.createElement('option');option.value=j;option.textContent=`${j+1}. ${itemName(mode,j)}`;sel.append(option)});sourceMode=mode} $('r920NameSelect').value=String(i);
+ prop($('r920BerhetOptions'),'hidden',mode!=='berhet');value($('r920SceneSelect'),visual.scene||'auto');
+ const perf=window.SukunSceneEngine?.snapshot?.().profile||'balanced';value($('r920Performance'),perf);
+ prop($('r920SceneError'),'hidden',visual.sceneLoad!=='error');const failure=window.SukunRecordingFailure?.get?.();prop($('r920RecordingError'),'hidden',!failure?.active);
+ if(sourceMode!==mode){const sel=$('r920NameSelect');sel.replaceChildren();items(mode).forEach((it,j)=>{const option=document.createElement('option');option.value=j;option.textContent=`${j+1}. ${itemName(mode,j)}`;sel.append(option)});sourceMode=mode} value($('r920NameSelect'),i);
  if(target&&count>=target)markComplete(mode,i);
  if(lastSnapshot?.phase!==s.phase)wake();lastSnapshot=s;
  if(dialog.open)renderAtlas();
@@ -143,6 +145,6 @@ document.addEventListener('pointerdown',()=>{if(root&&!root.hidden)wake()},{pass
 new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});
 // Re-render after the native setting handler; never duplicate the native toggle.
 document.addEventListener('click',e=>{if(e.target.closest('#optMean'))queue()},{passive:true});
-window.SukunPracticeUI=Object.freeze({version:'r928',refresh:queue,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
+window.SukunPracticeUI=Object.freeze({version:'r929',refresh:queue,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,renders,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
 queue();
 })();

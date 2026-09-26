@@ -129,9 +129,10 @@ function choose(nextMode,id){
 window.SukunWheels=Object.freeze({version:'r928',catalog,connect,render,choose,snapshot:()=>({version:'r928',mode,choice:choices[mode]||null,choices:{...choices},resolved:resolved?.id||null,src:resolved?.src||null,status,fallback,requests,pending})});
 })();
 
-/* r925: one compositor rotor, stationary count, touch freezes rotation before click. */
+/* r929: compositor-only motion; natural taps and pans retain browser ownership. */
 (()=>{'use strict';
- let host,frame,hold=false,keyHold=false,releaseTimer=0;
+ let host,frame,keyHold=false,releaseTimer=0,hold=false,listeners=null;
+ const pointers=new Set();
  let enabled=true;try{enabled=localStorage.getItem('sukun.wheel.motion')!=='0'}catch(e){}
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  function render(s=window.SukunSessionState?.snapshot?.()){
@@ -140,15 +141,34 @@ window.SukunWheels=Object.freeze({version:'r928',catalog,connect,render,choose,s
   const run=enabled&&!reduced.matches&&!saving&&!document.hidden&&!hold&&!keyHold&&s?.phase==='PLAYING';
   const state=run?'running':'paused';if(frame.dataset.motion!==state)frame.dataset.motion=state;
  }
- function connect(next){if(host===next)return;host=next;frame=host.querySelector('#r924WheelFrame');
-  const toggle=host.querySelector('#r925WheelMotion');toggle.checked=enabled;toggle.onchange=()=>{enabled=toggle.checked;try{localStorage.setItem('sukun.wheel.motion',enabled?'1':'0')}catch(e){}render()};
-  frame.addEventListener('pointerdown',()=>{clearTimeout(releaseTimer);hold=true;keyHold=false;render()},{capture:true,passive:true});
-  const release=()=>{clearTimeout(releaseTimer);releaseTimer=setTimeout(()=>{hold=false;render()},650)};
-  document.addEventListener('pointerup',release,{passive:true});document.addEventListener('pointercancel',release,{passive:true});
-  frame.addEventListener('focusin',()=>{if(!hold){keyHold=true;render()}});frame.addEventListener('focusout',e=>{if(!frame.contains(e.relatedTarget)){keyHold=false;render()}});
-  frame.addEventListener('keydown',()=>{keyHold=true;render()});render();
+ function resetGesture(){clearTimeout(releaseTimer);releaseTimer=0;pointers.clear();hold=false;keyHold=false;render()}
+ function connect(next){if(host===next&&frame?.isConnected)return;
+  listeners?.abort();clearTimeout(releaseTimer);pointers.clear();hold=false;keyHold=false;releaseTimer=0;
+  host=next;frame=host?.querySelector('#r924WheelFrame');if(!frame)return;
+  listeners=new AbortController();const signal=listeners.signal;
+  const toggle=host.querySelector('#r925WheelMotion');if(toggle){toggle.checked=enabled;toggle.onchange=()=>{enabled=toggle.checked;try{localStorage.setItem('sukun.wheel.motion',enabled?'1':'0')}catch(e){}render()}}
+  frame.addEventListener('pointerdown',e=>{
+   if(e.pointerType==='mouse'&&e.button!==0)return;
+   clearTimeout(releaseTimer);releaseTimer=0;pointers.add(e.pointerId);hold=true;keyHold=false;render();
+  },{capture:true,passive:true,signal});
+  const release=e=>{
+   // An unrelated finger/mouse release must not unfreeze an active wheel touch.
+   if(!pointers.delete(e.pointerId)||pointers.size)return;
+   clearTimeout(releaseTimer);releaseTimer=0;
+   if(e.type==='pointercancel'){hold=false;render();return}
+   // Leave the stone still through the browser's native click, without the old
+   // 650 ms visual stall. No synthetic click, pointer capture or scroll veto.
+   releaseTimer=setTimeout(()=>{releaseTimer=0;hold=false;render()},120);
+  };
+  document.addEventListener('pointerup',release,{passive:true,signal});
+  document.addEventListener('pointercancel',release,{passive:true,signal});
+  frame.addEventListener('focusin',()=>{if(!hold){keyHold=true;render()}},{signal});
+  frame.addEventListener('focusout',e=>{if(!frame.contains(e.relatedTarget)){keyHold=false;render()}},{signal});
+  frame.addEventListener('keydown',()=>{keyHold=true;render()},{signal});render();
  }
- document.addEventListener('visibilitychange',()=>render());reduced.addEventListener('change',()=>render());
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)resetGesture();else render()});
+ addEventListener('blur',resetGesture);
+ reduced.addEventListener('change',()=>render());
  addEventListener('sukun:performancechange',()=>render());
- window.SukunWheelMotion=Object.freeze({version:'r925',connect,render,snapshot:()=>({enabled,reduced:reduced.matches,state:frame?.dataset.motion||'none'})});
+ window.SukunWheelMotion=Object.freeze({version:'r929',connect,render,snapshot:()=>({enabled,reduced:reduced.matches,state:frame?.dataset.motion||'none',activePointers:pointers.size,holding:hold,keyboardHolding:keyHold})});
 })();
