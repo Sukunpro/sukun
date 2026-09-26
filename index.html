@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- ════════════════════════════════════════════════════════════════
-     SÜKÛN r928 — Dönen taş kontrolleri, kalp ritmi, yankı/8D ve kayıt sürekliliği (base r927)
+     SÜKÛN r929 — Dokunma, kaydırma ve etkileşim gecikmeleri (base r928)
      Tek dosya • Web Audio API (tüm sesler cihazda sentezlenir)
      Binaural Beats + Isochronic Tones + Esmâ/Zikir Modülü
      ════════════════════════════════════════════════════════════════ -->
@@ -574,11 +574,11 @@ body #tfRefinedLayout,body #zBar,body #r883JourneyRemote {scroll-margin-block:90
 </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r928"/>
+<meta name="sukun-build" content="r929"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r928" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r929" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6002,7 +6002,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){/* r922 shared settings owns its label. */if(document.getElementById('r920Practice')?.contains(document.getElementById('r679ZikirAyarBox')))return;if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r928"/><script>window.SUKUN_BUILD='r928';document.documentElement.dataset.sukunBuild='r928';</script>
+<meta name="sukun-build" content="r929"/><script>window.SUKUN_BUILD='r929';document.documentElement.dataset.sukunBuild='r929';</script>
 <style id="sukun-r923-esma-gallery">@layer sukun-r920 {
 #r920Practice #r923EsmaOptions{min-width:0;margin:10px 0}
 #r920Practice #r923EsmaOptions[hidden]{display:none!important}
@@ -7117,7 +7117,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN — Uygulama r928 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN — Uygulama r929 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -59790,7 +59790,7 @@ const ENABLE_KEY='sukun.ui.microSfx.enabled',VOL_KEY='sukun.ui.microSfx.volume';
 const read=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:v}catch(e){return d}};
 let enabled=!/^(?:0|false|off)$/i.test(String(read(ENABLE_KEY,'1')));
 let volume=Math.max(10,Math.min(70,parseFloat(read(VOL_KEY,'34'))||34));
-let audioCtx=null,lastPointerAt=0;
+let audioCtx=null;
 function ctx(){
   try{
     if(!audioCtx||audioCtx.state==='closed'){
@@ -59852,11 +59852,12 @@ const TARGET='#bsStart,#bsPause,#bsPrev,#bsNext,#bsAgain,#bsStop,#bsReset,#es99S
 function visual(el,kind){
   if(!el)return;el.classList.add('r604-action-tap');setTimeout(()=>el.classList.remove('r604-action-tap'),120);
   if(['start','resume','reset'].includes(kind)){
-    const host=el.closest?.('#berhetSeyir,#esmaSeyir99,#r170Now');if(host){host.classList.remove('r604-action-wake');void host.offsetWidth;host.classList.add('r604-action-wake');setTimeout(()=>host.classList.remove('r604-action-wake'),520)}
+    const host=el.closest?.('#berhetSeyir,#esmaSeyir99,#r170Now');if(host){host.classList.add('r604-action-wake');setTimeout(()=>host.classList.remove('r604-action-wake'),520)}
   }
 }
-document.addEventListener('pointerdown',e=>{const el=e.target.closest?.(TARGET);if(!el)return;lastPointerAt=performance.now();const k=classify(el);play(k);visual(el,k)},{capture:true,passive:true});
-document.addEventListener('click',e=>{if(performance.now()-lastPointerAt<500)return;const el=e.target.closest?.(TARGET);if(!el)return;const k=classify(el);play(k);visual(el,k)},{capture:true,passive:true});
+/* r929: feedback belongs to a completed native click, never the start of a
+   scrolling gesture. One handler also preserves keyboard and forwarded clicks. */
+document.addEventListener('click',e=>{const el=e.target.closest?.(TARGET);if(!el||el.disabled||el.getAttribute('aria-disabled')==='true')return;const k=classify(el);play(k);visual(el,k)},{capture:true,passive:true});
 
 function ensureSettings(){
   const general=document.querySelector('#temaSheet .genAyar')||document.querySelector('.genAyar');if(!general)return null;
@@ -64169,7 +64170,12 @@ window.SukunR680=Object.freeze({version:VERSION,refresh:()=>measure('max-refresh
 window.SukunR679=Object.freeze({version:VERSION,refresh:()=>schedule('max-refresh'),snapshot:()=>({version:VERSION,max:mode()==='max',syncs:measures,dock:last,placement:placement.snapshot()})});
 window.SukunR673Layout=Object.freeze({version:VERSION,refresh:schedule});
 window.SukunR699Layout=Object.freeze({version:VERSION,measure,schedule,reset,ensure,setY,bounds:()=>{const v=viewport();return setBounds(v,reserve(v),$('r170Now')?.getBoundingClientRect().height||0)},snapshot:()=>last,viewport,visible,rect,boundary});
-const events=['sukun:r616viewchange','sukun:r698modechange','sukun:alertdrawerchange','sukun:playbackchange','sukun:currentflowchange','sukun:currentzikirchange','sukun:zikirtransaction','sukun:zikirnav','sukun:zikirrestart','sukun:miniflowglasschange','sukun:authoritychange','sukun:journey-advance','sukun:mediasessionwakeguard','pageshow'];events.forEach(ev=>window.addEventListener(ev,()=>schedule(ev),{passive:true}));
+// r929: content ResizeObserver and the class signature own geometry changes.
+// Counter/voice progress events do not alter dock geometry and may arrive every frame.
+const events=['sukun:r616viewchange','sukun:r698modechange','sukun:tabchange','sukun:playbackchange','sukun:zikirnav','sukun:zikirrestart','sukun:miniflowglasschange','sukun:authoritychange','sukun:journey-advance','sukun:mediasessionwakeguard','pageshow'];events.forEach(ev=>window.addEventListener(ev,()=>schedule(ev),{passive:true}));
+// Release inert/backdrop immediately. Waiting for the pan quiet period would eat
+// a follow-up tap for 160 ms after closing a notification drawer.
+window.addEventListener('sukun:alertdrawerchange',()=>{modalSync();schedule('sukun:alertdrawerchange')},{passive:true});
 window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>schedule('resize'),100)},{passive:true});window.visualViewport?.addEventListener?.('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>schedule('viewport-resize'),100)},{passive:true});
 /* r771 — Android'de URL çubuğu görünüp kaybolunca layout viewport sabit kalır,
    görsel viewport kısalır. position:fixed peek layout viewport'a göre yerleştiği
@@ -64198,7 +64204,7 @@ window.SukunPeekViewportR771=Object.freeze({version:'r771',
   snapshot:()=>({version:'r771',syncs:peekSyncs,signature:peekSig,pending:!!peekRaf})});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)schedule('visible')},{passive:true});
 document.addEventListener('click',e=>{if(e.target.closest?.('#r554DockReset')){reset(false);return;}if(e.target.closest?.('[data-r588-mode],#r588Hide,#r433DockPeek,#r588Details,#r433DetailBtn,#tefExitBtn,#r442TefekkurBtn'))setTimeout(()=>schedule('control'),35)},{passive:true});
-const classObserver=new MutationObserver(()=>{const sig=[mode(),B.classList.contains('r433-dock-hidden'),B.classList.contains('r591-flow-active'),B.classList.contains('sukun-tefekkur-mode'),$('r170Now')?.classList.contains('r554-alert-open'),B.classList.contains('r434-inline-details-open')].join('|');if(sig!==stateSig){stateSig=sig;schedule('state-change')}});
+const classObserver=new MutationObserver(()=>{const sig=[mode(),B.classList.contains('r431-dock-visible'),B.classList.contains('r433-dock-hidden'),B.classList.contains('r591-flow-active'),B.classList.contains('sukun-tefekkur-mode'),$('r170Now')?.classList.contains('r554-alert-open'),B.classList.contains('r434-inline-details-open')].join('|');if(sig!==stateSig){stateSig=sig;schedule('state-change')}});
 classObserver.observe(B,{attributes:true,attributeFilter:['class']});const observeHost=()=>{const h=$('r170Now');if(h)classObserver.observe(h,{attributes:true,attributeFilter:['class']})};observeHost();
 const boot=()=>{if(!ensure())return;bind();schedule('boot');setTimeout(()=>schedule('settled'),250)};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
@@ -65659,7 +65665,7 @@ function markSwitch(reason='section'){resetRecoveryBudget();switchUntil=now()+75
 function markComplete(reason='complete'){resetRecoveryBudget();cancelRecovery();completeUntil=now()+2600;lastError='';errorUntil=0;remember('complete',reason);schedule('complete:'+reason,0);setTimeout(()=>schedule('complete-settled',0),2650)}
 function markError(reason='error'){cancelRecovery();lastError=clean(reason)||'journey-error';errorUntil=now()+4500;schedule('error:'+lastError,0)}
 
-/* UI niyeti pointer/click anında kaydedilir. Programatik provider pause bu kapıdan geçmez. */
+/* UI niyeti etkinleştirmede kaydedilir. Programatik provider pause bu kapıdan geçmez. */
 const PAUSE_SEL='#bsStart,#bsPause,#es99Start,#es99Pause,#mbPause,#r588Play,#r170Play,#bsStop,#es99Stop,#r588Stop,#mbStop';
 function classifyControl(el){
   const id=el?.id||'',txt=clean(el?.textContent||'').toLowerCase(),aria=clean(el?.getAttribute?.('aria-label')||'').toLowerCase();
@@ -65669,8 +65675,10 @@ function classifyControl(el){
   if(/sürdür|devam|başlat|play/.test(txt+' '+aria))return'play';
   return'';
 }
-document.addEventListener('pointerdown',e=>{const el=e.target.closest?.(PAUSE_SEL);if(!el)return;const t=classifyControl(el);if(t)intent(t,'ui:'+el.id)},{capture:true,passive:true});
-document.addEventListener('keydown',e=>{if(!['Enter',' '].includes(e.key))return;const el=e.target?.closest?.(PAUSE_SEL);if(!el)return;const t=classifyControl(el);if(t)intent(t,'kbd:'+el.id)},{capture:true,passive:true});
+/* r929: only activation commits intent. A pointerdown can still become a pan,
+   pointercancel or abandoned Space key; none is consent to pause/stop. Native
+   keyboard activation also dispatches click, before the target command runs. */
+document.addEventListener('click',e=>{const el=e.target.closest?.(PAUSE_SEL);if(!el||el.disabled||el.getAttribute('aria-disabled')==='true')return;const t=classifyControl(el);if(t)intent(t,'ui:'+el.id)},{capture:true,passive:true});
 
 ['sukun:playbackchange','sukun:audiostate','sukun:audiotruthchange','sukun:audioaggregatechange','sukun:foregroundvoicechange','sukun:foregroundqueuechange','sukun:currentflowchange','sukun:currentzikirchange','sukun:zikirtransportgate'].forEach(ev=>window.addEventListener(ev,()=>schedule(ev),{passive:true}));
 window.addEventListener('sukun:journey-advance',e=>{markSwitch(clean(e?.detail?.owner||'advance'))},{passive:true});
@@ -76488,7 +76496,7 @@ html[data-r913-context="base"] body.r716-shell>#r717Scene{display:block!importan
 html[data-r913-context="base"] body.r716-shell>#r709SceneArt,html[data-r913-context="base"] body.r716-shell>[data-berhet-scene-layer]{display:none!important;opacity:0!important}
 </style>
 <script id="sukun-r913-build-scene-runtime">/* r916: retired competing visual writer; audio engine unchanged. */window.SukunR913={version:'r916',sync:()=>window.SukunR916Visual?.sync?.()};</script>
-<script src="./assets/runtime/esma-scenes-r923.js?v=r928" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
+<script src="./assets/runtime/esma-scenes-r923.js?v=r929" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
 <script id="sukun-r914-runtime">(()=>{'use strict';
 const R=document.documentElement,A='./assets/berhetiyye-premium/',$=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch(_){return d}};
 const atlas=window.SukunR853Scene.nameScenes,originals=window.SukunR853Scene.files;
@@ -76624,10 +76632,10 @@ prop('--r914-scene','none');attr('r920Performance',profile);new MutationObserver
 </script>
 <svg id="r915Filters" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;pointer-events:none"><defs><filter id="r915BlackAlpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 8 8 8 0 0"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
 
-<script src="./assets/runtime/session-r919.js?v=r928" integrity="sha256-4wBI6tpnv06BMVkw8xdck9TFqTGJVRvcnjMJcynlxfQ="></script>
-<script src="./assets/runtime/dock-r920.js?v=r928" integrity="sha256-IQHKlwi8JWbO7BRzmFtlljP4Ql+X0Wdc7G+BZEMl3n0="></script>
-<script src="./assets/runtime/wheels-r924.js?v=r928" integrity="sha256-hIU5RmAMAneFvJINFl+8ZIB3lB6sk1rQtMIhkkWBOWo="></script>
-<script src="./assets/runtime/interface-r920.js?v=r928" integrity="sha256-cqbgtH0gLgvLsI8tZHQC12ysU0dkXtIc31zMlLXvWMo="></script>
+<script src="./assets/runtime/session-r919.js?v=r929" integrity="sha256-4wBI6tpnv06BMVkw8xdck9TFqTGJVRvcnjMJcynlxfQ="></script>
+<script src="./assets/runtime/dock-r920.js?v=r929" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
+<script src="./assets/runtime/wheels-r924.js?v=r929" integrity="sha256-EF7Y1flc7H9mfzesU9iR0j19fhWrwSJg3RwEnGVdeW8="></script>
+<script src="./assets/runtime/interface-r920.js?v=r929" integrity="sha256-CEdeAzJTuWEwbh7stq4y6S5YWADqP3AXQkDXoYNihPA="></script>
 <script id="sukun-r922-voice-settings-ui">
 (function(){'use strict';
 const $=id=>document.getElementById(id);let mounted=false,raf=0,busy=false,modeError='',discovery=null,discoveryTimer=0;
@@ -76703,6 +76711,6 @@ discoveryTimer=setTimeout(()=>{discovery?.disconnect();discovery=null;},15000);q
 
 </script>
 
-<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r928" integrity="sha256-zNvvsSXZE/xkp0tnQKdLXoxAyDtyFggABWwn3EucLmY=">
+<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r929" integrity="sha256-zNvvsSXZE/xkp0tnQKdLXoxAyDtyFggABWwn3EucLmY=">
 </body>
 </html>

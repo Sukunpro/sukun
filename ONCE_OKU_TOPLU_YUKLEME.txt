@@ -1,6 +1,6 @@
-SÜKÛN r928 — TOPLU GÜNCELLEME
+SÜKÛN r929 — TOPLU GÜNCELLEME
 
-Mevcut r917/r920/r923/r925/r926/r927 kurulumuna birleştirerek yükle.
+Mevcut r917/r920/r923/r925/r926/r927/r928 kurulumuna birleştirerek yükle.
 Ara sürümleri sırayla yüklemen gerekmez. Bu ZIP, tarihsel bütün medya
 arşivini içeren boş kurulum paketi değildir.
 
@@ -8,19 +8,34 @@ YÜKLEME
 1. ZIP'i aç. İçindekileri, sitede index.html ve sw.js'nin bulunduğu aynı
    kök klasöre birlikte kopyala. ZIP'in kendisini yüklemek yeterli değildir.
 2. index.html, nero.html, sw.js, manifest.webmanifest, ikonlar,
-   sukun-build-r928.json, sukun-latest.json, .nojekyll ve assets klasörünü
+   sukun-build-r929.json, sukun-latest.json, .nojekyll ve assets klasörünü
    beraber gönder. Aynı adlı dosyaları değiştir; assets klasörünü BİRLEŞTİR.
    Mevcut assets klasörünü ve pakette bulunmayan eski dosyaları silme.
 3. Mümkünse tek commit ile yayımla; dağıtımın tamamlanmasını bekle.
 4. Devam eden/duraklatılmış zikri Bitir ile kapat. Aynı adresi aç ve
    uygulamadaki Güncelle düğmesini kullan.
-5. Sürüm satırında Uygulama r928 / SW r928 görünmelidir.
+5. Sürüm satırında Uygulama r929 / SW r929 görünmelidir.
 
 Site verilerini veya uygulama depolamasını temizleme. Kendi kayıtların
 aynı cihaz/tarayıcı/alan adındaki yerel verilerinde kalır.
 Canlı siteye otomatik dağıtım yapılmadı.
 
-r928 İÇERİĞİ
+r929 İÇERİĞİ
+- Akış barının tutamacında dokunma kuralı düzeltildi. Tutamaç sürükler;
+  içerik kendi içinde doğal kayar. Kaydırma bir oynatma komutu üretmez.
+- Bildirim çekmecesi kapanınca görünmez perde ve dokunma engeli hemen
+  bırakılır. Sonraki dokunuş kısa bekleme yüzünden kaybolmaz.
+- Duraklat/Bitir niyeti yalnız tamamlanmış tıklamadan alınır. İptal edilen
+  dokunuş, kaydırma veya tamamlanmamış klavye hareketi oturumu kilitlemez.
+- Arayüz işaret sesi ve basılı görünümü kaydırma başlangıcında çalmaz.
+- Seçim yapılırken gelen yenileme seçimi geri almaz; odak çıkınca güncel
+  oturum değeri gösterilir. Değişmeyen DOM özellikleri yeniden yazılmaz.
+- Sayaç/akış ilerledikçe aynı akış barı geometrisi tekrar hesaplanmaz.
+- Çarkta yarıda kalan dokunuş temizlenir; dönüş takılı kalmaz. Dönen taş
+  tıklama boyunca durur, bırakılınca kısa sürede devam eder.
+- Görseller, çark geometrileri, bas/yankı/8D işleme ve kayıt motoru korunur.
+
+KORUNAN r928 SES VE ÇARK DÜZELTMELERİ
 - Dönen çarklarda kontrol geometrisi taşların ölçülerine göre düzenlendi.
   Küçük taşlarda Başlat / Duraklat / Devam işlemi okunaklı simgeyle görünür;
   uzun yazı taşın dışına taşmaz. Tam eylem adı erişilebilir etikette korunur.
@@ -82,7 +97,7 @@ Hazırlama başarısız/zaman aşımı olursa sesin devamı önceliklidir; ham k
   sahnesi doğru önizlenir; aktif oturumun arka planı değiştirilmez.
 - r926 Pages uyumlu metadata, doğrulanmış SW kurulumu ve güvenli tekrar
   deneme korunur. Bu pakette uygulama/SW/manifest/marker ve runtime
-  bütünlük bilgileri r928 olarak eşleştirilmiştir.
+  bütünlük bilgileri r929 olarak eşleştirilmiştir.
 
 OTOMATİK ESMÂ SAHNESİNİ AÇMA
 Zikir → 99 Esmâ → İsim, çark ve görünüm → Esmâ sahnesi
@@ -97,7 +112,7 @@ sanatsal yorum notları “Sahne hakkında ve kaynaklar” bölümündedir.
 ÇARK TASARIMI HAKKINDA
 Mevcut 16 premium çark, onaylanan mockuplardan esinlenerek r924'te yeniden
 üretilmiş şeffaf görsellerdir; mockupların birebir kesilmiş halleri değildir.
-r927/r928 sürümlerinde görsel dosyaları değiştirilmedi. Taşın üstünü örten kapsül
+r927/r928/r929 sürümlerinde görsel dosyaları değiştirilmedi. Taşın üstünü örten kapsül
 kaldırıldı, ince iç ışık eklendi. Bunlar 3D görünüşlü raster assetlerdir;
 canlı 3D model/mesh değildir.
 Çark seçimi: İsim, çark ve görünüm → Esmâ/Berhetiyye çarkı.
@@ -108,21 +123,21 @@ assets/wheels-r924/berhetiyye/     11 Berhetiyye çarkı
 assets/wheels-r924/esma/           5 Esmâ çarkı
 assets/scenes/esma-r923/           Esmâ ve anlatı arka planları
 assets/runtime/wheels-r924.css    Taş ölçüleri ve çark yerleşimi
-assets/runtime/interface-r920.js  Ortak arayüz, iç sürüm r928
-assets/runtime/dock-r920.js       Akış barı, iç sürüm r927
+assets/runtime/interface-r920.js  Ortak arayüz, iç sürüm r929
+assets/runtime/dock-r920.js       Akış barı, iç sürüm r929
 assets/runtime/esma-scenes-r923.js Sahne kataloğu ve otomatik eşleştirme
 index.html / nero.html             Ana uygulama ve SceneEngine
-sw.js                             Service Worker r928
+sw.js                             Service Worker r929
 
 Dosya adındaki r920/r923/r924, bileşenin ilk sürüm adıdır; uygulamanın eski
-kaldığı anlamına gelmez. Güncel bütünlük bilgisi sukun-build-r928.json'dadır.
+kaldığı anlamına gelmez. Güncel bütünlük bilgisi sukun-build-r929.json'dadır.
 
 DOĞRULAMA
-DOGRULAMA_r928.json bu sürümdeki kontrolleri ve sınırlarını içerir.
-DOGRULAMA_r925.json / r926 / r927 önceki arşiv raporlarıdır.
+DOGRULAMA_r929.json bu sürümdeki kontrolleri ve sınırlarını içerir.
+DOGRULAMA_r925.json / r926 / r927 / r928 önceki arşiv raporlarıdır.
 SHA256SUMS.txt paketteki dosyaların bütünlük listesidir.
 Testler masaüstü Chromium mobil ekran benzetimindedir; fiziksel Android
 ve kullanıcının canlı yayını doğrudan test edilmedi.
-Çark görselleri korunmuştur; kontrol geometrisi ve ses sürekliliği kodu
-güncellenmiştir. Fiziksel telefon testi için TELEFON_SES_TESTI_r928.txt
+Çark görselleri korunmuştur; bu sürümde dokunma, kaydırma ve arayüz yenileme
+yolları güncellenmiştir. Fiziksel telefon testi için TELEFON_TESTI_r929.txt
 dosyasını kullan. Tarayıcı benzetimini gerçek ekran kilidi testi sayma.

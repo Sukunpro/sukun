@@ -1,0 +1,5980 @@
+{
+  "build": "r929",
+  "base": "r928",
+  "pass": true,
+  "date": "2026-09-26",
+  "scope": "Completed native activation, scroll/drag ownership, modal input release, idempotent presentation, interrupted wheel gestures",
+  "checks": {
+    "static-results": {
+      "pass": true,
+      "build": "r929",
+      "scriptsParsed": 241,
+      "duplicateIds": [],
+      "identicalHtml": true,
+      "verifiedRuntimeHashes": 6,
+      "artAndAudioUnchanged": 134,
+      "manifestAndSwMatch": true
+    },
+    "activation-results": {
+      "pass": true,
+      "sealed": true,
+      "method": "Full app capture handlers; existing es99Pause moved into isolated native-scroll fixture; actual CDP touch pan/cancel and native tap, abandoned keydown injected",
+      "results": [
+        {
+          "ver": "work-r928",
+          "down": {
+            "pause": true,
+            "feedback": true
+          },
+          "pan": {
+            "blocked": true,
+            "events": [
+              {
+                "type": "pointerdown",
+                "trusted": true
+              },
+              {
+                "type": "pointercancel",
+                "trusted": true
+              }
+            ]
+          },
+          "key": {
+            "blocked": true
+          },
+          "click": {
+            "blocked": true,
+            "pause": true,
+            "events": [
+              {
+                "type": "pointerdown",
+                "trusted": true
+              },
+              {
+                "type": "pointerup",
+                "trusted": true
+              },
+              {
+                "type": "click",
+                "trusted": true
+              }
+            ]
+          },
+          "errors": []
+        },
+        {
+          "ver": "work-r929",
+          "down": {
+            "pause": false,
+            "feedback": false
+          },
+          "pan": {
+            "blocked": false,
+            "events": [
+              {
+                "type": "pointerdown",
+                "trusted": true
+              },
+              {
+                "type": "pointercancel",
+                "trusted": true
+              }
+            ]
+          },
+          "key": {
+            "blocked": false
+          },
+          "click": {
+            "blocked": true,
+            "pause": true,
+            "events": [
+              {
+                "type": "pointerdown",
+                "trusted": true
+              },
+              {
+                "type": "pointerup",
+                "trusted": true
+              },
+              {
+                "type": "click",
+                "trusted": true
+              }
+            ]
+          },
+          "errors": []
+        }
+      ]
+    },
+    "interface-results": {
+      "pass": true,
+      "sealed": true,
+      "candidate": true,
+      "checks": {
+        "no_wake_body_or_root_mutations": true,
+        "focused_select_retains_draft": true,
+        "blur_resyncs_canonical_value": true,
+        "native_change_selects_name": true,
+        "one_touch_one_count": true,
+        "pan_does_not_count": true,
+        "atlas_native_touch": true,
+        "tef_native_touch": true,
+        "no_uncaught_js_errors": true
+      },
+      "counters": {
+        "value": "0",
+        "bounds": {
+          "x": 132.46875,
+          "y": 1713.59375,
+          "width": 128.046875,
+          "height": 128.046875,
+          "top": 1713.59375,
+          "right": 260.515625,
+          "bottom": 1841.640625,
+          "left": 132.46875
+        }
+      },
+      "reports": [
+        {
+          "name": "idle",
+          "total": 8,
+          "root": 0,
+          "body": 0,
+          "names": {
+            "tvBox:attributes:data-now-active": 1,
+            "akBox:attributes:data-now-active": 1,
+            "dhBox:attributes:data-now-active": 1,
+            "seyBox:attributes:data-now-active": 1,
+            "dlBox:attributes:data-now-active": 1,
+            "hzvBox:attributes:data-now-active": 1,
+            "esmaSeyir99:attributes:data-now-active": 1,
+            "r170SessionHub:attributes:data-now-active": 1
+          },
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 0,
+            "events": 0,
+            "sequence": 0,
+            "lastReason": "boot"
+          },
+          "stability": {
+            "version": "r711",
+            "revision": "r732",
+            "build": "r929",
+            "r728": {
+              "version": "r728",
+              "flow": {
+                "mode": "normal",
+                "height": 0,
+                "needed": 2,
+                "scrollHeight": 0,
+                "overflow": "visible",
+                "checked": 2,
+                "version": "r728",
+                "measureCount": 1,
+                "skipped": 40,
+                "unchanged": 0,
+                "coalesced": 63,
+                "writes": 0,
+                "removals": 0,
+                "structural": 15,
+                "resizeSignals": 1,
+                "observedChildren": 5,
+                "pending": false,
+                "lastReason": "sukun:tabchange"
+              },
+              "cardContentVisibility": "visible"
+            },
+            "r727": {
+              "version": "r727",
+              "flow": {
+                "mode": "normal",
+                "height": 0,
+                "needed": 2,
+                "scrollHeight": 0,
+                "overflow": "visible",
+                "checked": 2,
+                "version": "r728",
+                "measureCount": 1,
+                "skipped": 40,
+                "unchanged": 0,
+                "coalesced": 63,
+                "writes": 0,
+                "removals": 0,
+                "structural": 15,
+                "resizeSignals": 1,
+                "observedChildren": 5,
+                "pending": false,
+                "lastReason": "sukun:tabchange"
+              }
+            },
+            "r726": {
+              "version": "r726",
+              "flow": {
+                "mode": "normal",
+                "height": 0,
+                "needed": 2,
+                "scrollHeight": 0,
+                "overflow": "visible",
+                "checked": 2,
+                "version": "r728",
+                "measureCount": 1,
+                "skipped": 40,
+                "unchanged": 0,
+                "coalesced": 63,
+                "writes": 0,
+                "removals": 0,
+                "structural": 15,
+                "resizeSignals": 1,
+                "observedChildren": 5,
+                "pending": false,
+                "lastReason": "sukun:tabchange"
+              }
+            },
+            "r725": {
+              "version": "r725",
+              "sheets": {
+                "version": "r725",
+                "owner": "",
+                "open": [],
+                "syncs": 3,
+                "mutations": 1,
+                "closures": 0,
+                "focusRestores": 0,
+                "scheduled": false,
+                "observers": 2
+              },
+              "dock": {
+                "version": "r725",
+                "mode": "mini",
+                "changes": 1,
+                "reveals": 0,
+                "skips": 1,
+                "pointers": 0,
+                "pending": false
+              }
+            },
+            "r716": {
+              "version": "r759",
+              "enabled": true,
+              "applied": true,
+              "motion": true,
+              "flames": true,
+              "updates": 6,
+              "lastReason": "lifecycle",
+              "lastPulse": 0,
+              "pending": false,
+              "asset": "assets/sukun-nur-ring-r757.png",
+              "scene": "assets/sukun-nur-sanctuary-r757.png"
+            },
+            "r714": {
+              "version": "r714",
+              "flow": {
+                "mode": "normal",
+                "height": 0,
+                "needed": 2,
+                "scrollHeight": 0,
+                "overflow": "visible",
+                "checked": 2,
+                "version": "r728",
+                "measureCount": 1,
+                "skipped": 40,
+                "unchanged": 0,
+                "coalesced": 63,
+                "writes": 0,
+                "removals": 0,
+                "structural": 15,
+                "resizeSignals": 1,
+                "observedChildren": 5,
+                "pending": false,
+                "lastReason": "sukun:tabchange"
+              },
+              "input": {
+                "version": "r698-native",
+                "revision": "r714",
+                "downs": 2,
+                "ups": 2,
+                "nativeClicks": 2,
+                "syntheticClicks": 0,
+                "recoveredClicks": 0,
+                "duplicateSuppressed": 0,
+                "cancelled": 0,
+                "moved": 0,
+                "misses": 0,
+                "targetChanges": 0,
+                "active": null,
+                "activePointers": 0,
+                "lastRecovered": null,
+                "history": [
+                  {
+                    "at": 1790430752031,
+                    "type": "down",
+                    "seq": 1,
+                    "target": "#obSkip"
+                  },
+                  {
+                    "at": 1790430752032,
+                    "type": "up",
+                    "seq": 1,
+                    "target": "#obSkip",
+                    "max": 0
+                  },
+                  {
+                    "at": 1790430752033,
+                    "type": "native-click",
+                    "seq": 1,
+                    "target": "#obSkip"
+                  },
+                  {
+                    "at": 1790430752831,
+                    "type": "down",
+                    "seq": 2,
+                    "target": "button.tab"
+                  },
+                  {
+                    "at": 1790430752832,
+                    "type": "up",
+                    "seq": 2,
+                    "target": "button.tab.prPressed",
+                    "max": 0
+                  },
+                  {
+                    "at": 1790430752832,
+                    "type": "native-click",
+                    "seq": 2,
+                    "target": "button.tab"
+                  }
+                ],
+                "outcomes": [
+                  {
+                    "at": 1790430752033,
+                    "seq": 1,
+                    "target": "#obSkip",
+                    "status": "native-click",
+                    "kind": "mouse",
+                    "durationMs": 2,
+                    "maxDistancePx": 0,
+                    "touchAction": ""
+                  },
+                  {
+                    "at": 1790430752832,
+                    "seq": 2,
+                    "target": "button.tab",
+                    "status": "native-click",
+                    "kind": "mouse",
+                    "durationMs": 1,
+                    "maxDistancePx": 0,
+                    "touchAction": ""
+                  }
+                ],
+                "cancelReasons": {
+                  "native-click": 2
+                },
+                "unmatchedUps": 0,
+                "pending": 0,
+                "scrollEvents": 0,
+                "styleSamples": 0
+              },
+              "counterGate": {
+                "version": "r640",
+                "held": false,
+                "reason": "",
+                "since": 0,
+                "failure": false,
+                "blocked": false,
+                "spokenVisibleAuto": false,
+                "rawPaused": false,
+                "aggregatePaused": false,
+                "lifeUserPaused": false,
+                "prevented": 0,
+                "rollbacks": 0,
+                "lastFailure": null,
+                "lastSuccess": null,
+                "seq": 0,
+                "revision": "r742",
+                "generation": 0,
+                "staleResults": 0,
+                "unconfirmedCredits": 0,
+                "pendingCount": null
+              },
+              "voiceHealth": {
+                "required": false,
+                "paused": false,
+                "pending": false,
+                "age": 0,
+                "warning": "",
+                "physical": {
+                  "voice": false,
+                  "media": false,
+                  "speech": false,
+                  "native": false,
+                  "tangible": false,
+                  "truthState": "idle"
+                },
+                "metrics": {
+                  "checks": 24,
+                  "missing": 0,
+                  "sourceChanges": 1
+                }
+              }
+            },
+            "errors": 0,
+            "lastError": "",
+            "lastAt": 0,
+            "eventHealth": {
+              "total": 16,
+              "peakPerSecond": 7,
+              "currentSecond": 7,
+              "storms": 0,
+              "lastStormAt": 0,
+              "watched": 8
+            },
+            "eventLoop": {
+              "lastLagMs": 0,
+              "maxLagMs": 7,
+              "samples": 5,
+              "lastLagAt": 0,
+              "visibilityResets": 1,
+              "hiddenWakeups": 0
+            },
+            "r713": {
+              "version": "r713",
+              "visibleLongTaskCount": 9,
+              "recentLongTasks": [
+                {
+                  "at": 1790430746941,
+                  "durationMs": 56,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430746941,
+                  "durationMs": 66,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430747051,
+                  "durationMs": 51,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430747172,
+                  "durationMs": 61,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430747482,
+                  "durationMs": 106,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430747482,
+                  "durationMs": 57,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430747727,
+                  "durationMs": 103,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430747976,
+                  "durationMs": 102,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430752938,
+                  "durationMs": 77,
+                  "lastInput": {
+                    "at": 6955.300000000745,
+                    "target": "svg",
+                    "kind": "pointer"
+                  }
+                }
+              ],
+              "kandil": {
+                "version": "r713",
+                "enabled": true,
+                "on": false,
+                "timerPending": true,
+                "clockPending": false,
+                "shows": 0,
+                "hides": 0,
+                "deferrals": 0,
+                "dom": true
+              }
+            },
+            "physical": {
+              "ses": 0,
+              "tts": false,
+              "freq": false,
+              "amb": false,
+              "vh": false,
+              "auto": false,
+              "journey": false,
+              "lock": false,
+              "lifeBusy": false,
+              "tangible": false
+            },
+            "terminal": {
+              "version": "r693",
+              "reconciles": 6,
+              "prunedMedia": 0,
+              "prunedSes": 0,
+              "ghostFixes": 0,
+              "lastReason": "sukun:audiostate",
+              "lastAt": 1790430753014,
+              "pending": false,
+              "gracePending": false,
+              "graceDeadline": 0,
+              "graceExpiries": 0,
+              "returnPending": false,
+              "physical": {
+                "ses": 0,
+                "tts": false,
+                "freq": false,
+                "amb": false,
+                "vh": false,
+                "auto": false,
+                "journey": false,
+                "lock": false,
+                "lifeBusy": false,
+                "tangible": false
+              },
+              "hub": {
+                "build": "r929",
+                "state": "idle",
+                "reason": "media-stop",
+                "provider": "MediaSession",
+                "title": "SÜKÛN — Frekans & Zikir",
+                "index": -1,
+                "queue": 0,
+                "userPaused": false,
+                "tts": 0,
+                "media": 0,
+                "recoveries": 0,
+                "lastPulse": 1790430752917
+              },
+              "life": {
+                "version": "r531",
+                "state": "idle",
+                "reason": "hub:media-stop",
+                "wasBusy": false,
+                "userPaused": false,
+                "lastChange": 1790430752917,
+                "owner": {
+                  "id": "mix",
+                  "title": "SÜKÛN — Genel Oynatma",
+                  "state": "idle",
+                  "active": null
+                },
+                "lastRecovery": null,
+                "lastInterruption": null,
+                "lastUserAction": null,
+                "userIntentSeq": 0,
+                "terminalIntent": false,
+                "recoveryPending": false,
+                "history": []
+              },
+              "lockTarget": {
+                "arms": 0,
+                "fires": 0,
+                "sourceEpochs": 0,
+                "sourceSwitches": 0,
+                "staleArms": 0,
+                "staleFires": 0,
+                "blocked": 0,
+                "rearms": 0,
+                "creditedCycles": 0,
+                "catchupCaps": 0,
+                "discardedCycles": 0,
+                "lastDiscarded": 0,
+                "lastKey": "",
+                "lastDelay": 0,
+                "lastReason": "ready",
+                "lastAt": 1790430746769,
+                "active": false,
+                "physicalMatches": false,
+                "key": "esma:0:nida",
+                "audioKey": "",
+                "count": 0,
+                "target": 33,
+                "armed": null
+              },
+              "panRaf": false
+            },
+            "truth": {
+              "version": "r637",
+              "seq": 1,
+              "at": 1790430746673,
+              "reason": "snapshot",
+              "pendingPhysical": false,
+              "state": "idle",
+              "playing": false,
+              "paused": false,
+              "userPaused": false,
+              "tangible": false,
+              "source": "idle",
+              "owner": null,
+              "registry": {
+                "state": "idle",
+                "provider": "mix",
+                "controllerState": "idle",
+                "aggregate": {
+                  "paused": false,
+                  "providerIds": [],
+                  "mixCaptured": false,
+                  "reason": "",
+                  "changedAt": 1790430746425
+                }
+              },
+              "life": {
+                "version": "r531",
+                "state": "idle",
+                "reason": "init",
+                "wasBusy": false,
+                "userPaused": false,
+                "lastChange": 1790430746333,
+                "owner": {
+                  "id": "mix",
+                  "title": "SÜKÛN — Genel Oynatma",
+                  "state": "idle",
+                  "active": null
+                },
+                "lastRecovery": null,
+                "lastInterruption": null,
+                "lastUserAction": null,
+                "userIntentSeq": 0,
+                "terminalIntent": false,
+                "recoveryPending": false,
+                "history": []
+              },
+              "hub": {
+                "build": "r929",
+                "state": "idle",
+                "reason": "boot",
+                "provider": "",
+                "title": "SÜKÛN",
+                "index": -1,
+                "queue": 0,
+                "userPaused": false,
+                "tts": 0,
+                "media": 0,
+                "recoveries": 0,
+                "lastPulse": 1790430746419
+              },
+              "physical": {
+                "journey28": false,
+                "journey99": false,
+                "terkip": false,
+                "lock": false,
+                "speech": false,
+                "autoVoice": false,
+                "background": false,
+                "media": 0,
+                "tts": 0
+              },
+              "issues": []
+            },
+            "transport": {
+              "version": "r733",
+              "revision": "r742",
+              "cleanupFailure": false,
+              "commandSeq": 0,
+              "lastCommand": "",
+              "lastAt": 0,
+              "stopping": false,
+              "pendingStop": false,
+              "pendingStart": false,
+              "intentEpoch": 0,
+              "journey": "",
+              "direct": {
+                "auto": false,
+                "cat": "esma",
+                "idx": 0,
+                "count": 0,
+                "target": 33,
+                "voiceRequired": false,
+                "starting": false
+              },
+              "restartTrace": []
+            },
+            "restartR733": {
+              "version": "r733",
+              "revision": "r742",
+              "cleanupFailure": false,
+              "commandSeq": 0,
+              "lastCommand": "",
+              "lastAt": 0,
+              "stopping": false,
+              "pendingStop": false,
+              "pendingStart": false,
+              "intentEpoch": 0,
+              "journey": "",
+              "direct": {
+                "auto": false,
+                "cat": "esma",
+                "idx": 0,
+                "count": 0,
+                "target": 33,
+                "voiceRequired": false,
+                "starting": false
+              },
+              "restartTrace": []
+            },
+            "taps": {
+              "version": "r698-native",
+              "revision": "r714",
+              "downs": 2,
+              "ups": 2,
+              "nativeClicks": 2,
+              "syntheticClicks": 0,
+              "recoveredClicks": 0,
+              "duplicateSuppressed": 0,
+              "cancelled": 0,
+              "moved": 0,
+              "misses": 0,
+              "targetChanges": 0,
+              "active": null,
+              "activePointers": 0,
+              "lastRecovered": null,
+              "history": [
+                {
+                  "at": 1790430752031,
+                  "type": "down",
+                  "seq": 1,
+                  "target": "#obSkip"
+                },
+                {
+                  "at": 1790430752032,
+                  "type": "up",
+                  "seq": 1,
+                  "target": "#obSkip",
+                  "max": 0
+                },
+                {
+                  "at": 1790430752033,
+                  "type": "native-click",
+                  "seq": 1,
+                  "target": "#obSkip"
+                },
+                {
+                  "at": 1790430752831,
+                  "type": "down",
+                  "seq": 2,
+                  "target": "button.tab"
+                },
+                {
+                  "at": 1790430752832,
+                  "type": "up",
+                  "seq": 2,
+                  "target": "button.tab.prPressed",
+                  "max": 0
+                },
+                {
+                  "at": 1790430752832,
+                  "type": "native-click",
+                  "seq": 2,
+                  "target": "button.tab"
+                }
+              ],
+              "outcomes": [
+                {
+                  "at": 1790430752033,
+                  "seq": 1,
+                  "target": "#obSkip",
+                  "status": "native-click",
+                  "kind": "mouse",
+                  "durationMs": 2,
+                  "maxDistancePx": 0,
+                  "touchAction": ""
+                },
+                {
+                  "at": 1790430752832,
+                  "seq": 2,
+                  "target": "button.tab",
+                  "status": "native-click",
+                  "kind": "mouse",
+                  "durationMs": 1,
+                  "maxDistancePx": 0,
+                  "touchAction": ""
+                }
+              ],
+              "cancelReasons": {
+                "native-click": 2
+              },
+              "unmatchedUps": 0,
+              "pending": 0,
+              "scrollEvents": 0,
+              "styleSamples": 0
+            },
+            "interactionR732": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 0,
+              "events": 0,
+              "sequence": 0,
+              "lastReason": "boot"
+            },
+            "layout": {
+              "version": "r732",
+              "reason": "sukun:tabchange",
+              "active": false,
+              "hidden": true,
+              "mode": "mini",
+              "viewportHeight": 851,
+              "peek": null,
+              "measureCount": 12,
+              "rehomeCount": 7,
+              "scrollResets": 0
+            },
+            "atmosphere": {
+              "active": false,
+              "visible": true,
+              "moving": false,
+              "preference": "live",
+              "intensity": 0.85,
+              "frames": 0,
+              "averageDrawMs": 0,
+              "lastDrawMs": 0,
+              "frameMs": 50,
+              "canvas": false,
+              "rafPending": false,
+              "resizePending": false
+            }
+          },
+          "render": {
+            "mode": "esma",
+            "renders": 37,
+            "focusEnabled": false,
+            "tef": false,
+            "renderer": "one-session-presentation"
+          }
+        },
+        {
+          "name": "pointerdown-plain-text",
+          "total": 0,
+          "root": 0,
+          "body": 0,
+          "names": {},
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 0,
+            "events": 0,
+            "sequence": 0,
+            "lastReason": "boot"
+          },
+          "stability": {
+            "version": "r711",
+            "revision": "r732",
+            "build": "r929",
+            "r728": {
+              "version": "r728",
+              "flow": {
+                "mode": "normal",
+                "height": 0,
+                "needed": 2,
+                "scrollHeight": 0,
+                "overflow": "visible",
+                "checked": 2,
+                "version": "r728",
+                "measureCount": 1,
+                "skipped": 40,
+                "unchanged": 0,
+                "coalesced": 63,
+                "writes": 0,
+                "removals": 0,
+                "structural": 15,
+                "resizeSignals": 1,
+                "observedChildren": 5,
+                "pending": false,
+                "lastReason": "sukun:tabchange"
+              },
+              "cardContentVisibility": "visible"
+            },
+            "r727": {
+              "version": "r727",
+              "flow": {
+                "mode": "normal",
+                "height": 0,
+                "needed": 2,
+                "scrollHeight": 0,
+                "overflow": "visible",
+                "checked": 2,
+                "version": "r728",
+                "measureCount": 1,
+                "skipped": 40,
+                "unchanged": 0,
+                "coalesced": 63,
+                "writes": 0,
+                "removals": 0,
+                "structural": 15,
+                "resizeSignals": 1,
+                "observedChildren": 5,
+                "pending": false,
+                "lastReason": "sukun:tabchange"
+              }
+            },
+            "r726": {
+              "version": "r726",
+              "flow": {
+                "mode": "normal",
+                "height": 0,
+                "needed": 2,
+                "scrollHeight": 0,
+                "overflow": "visible",
+                "checked": 2,
+                "version": "r728",
+                "measureCount": 1,
+                "skipped": 40,
+                "unchanged": 0,
+                "coalesced": 63,
+                "writes": 0,
+                "removals": 0,
+                "structural": 15,
+                "resizeSignals": 1,
+                "observedChildren": 5,
+                "pending": false,
+                "lastReason": "sukun:tabchange"
+              }
+            },
+            "r725": {
+              "version": "r725",
+              "sheets": {
+                "version": "r725",
+                "owner": "",
+                "open": [],
+                "syncs": 3,
+                "mutations": 1,
+                "closures": 0,
+                "focusRestores": 0,
+                "scheduled": false,
+                "observers": 2
+              },
+              "dock": {
+                "version": "r725",
+                "mode": "mini",
+                "changes": 1,
+                "reveals": 0,
+                "skips": 1,
+                "pointers": 0,
+                "pending": false
+              }
+            },
+            "r716": {
+              "version": "r759",
+              "enabled": true,
+              "applied": true,
+              "motion": true,
+              "flames": true,
+              "updates": 6,
+              "lastReason": "lifecycle",
+              "lastPulse": 0,
+              "pending": false,
+              "asset": "assets/sukun-nur-ring-r757.png",
+              "scene": "assets/sukun-nur-sanctuary-r757.png"
+            },
+            "r714": {
+              "version": "r714",
+              "flow": {
+                "mode": "normal",
+                "height": 0,
+                "needed": 2,
+                "scrollHeight": 0,
+                "overflow": "visible",
+                "checked": 2,
+                "version": "r728",
+                "measureCount": 1,
+                "skipped": 40,
+                "unchanged": 0,
+                "coalesced": 63,
+                "writes": 0,
+                "removals": 0,
+                "structural": 15,
+                "resizeSignals": 1,
+                "observedChildren": 5,
+                "pending": false,
+                "lastReason": "sukun:tabchange"
+              },
+              "input": {
+                "version": "r698-native",
+                "revision": "r714",
+                "downs": 2,
+                "ups": 2,
+                "nativeClicks": 2,
+                "syntheticClicks": 0,
+                "recoveredClicks": 0,
+                "duplicateSuppressed": 0,
+                "cancelled": 0,
+                "moved": 0,
+                "misses": 0,
+                "targetChanges": 0,
+                "active": null,
+                "activePointers": 0,
+                "lastRecovered": null,
+                "history": [
+                  {
+                    "at": 1790430752031,
+                    "type": "down",
+                    "seq": 1,
+                    "target": "#obSkip"
+                  },
+                  {
+                    "at": 1790430752032,
+                    "type": "up",
+                    "seq": 1,
+                    "target": "#obSkip",
+                    "max": 0
+                  },
+                  {
+                    "at": 1790430752033,
+                    "type": "native-click",
+                    "seq": 1,
+                    "target": "#obSkip"
+                  },
+                  {
+                    "at": 1790430752831,
+                    "type": "down",
+                    "seq": 2,
+                    "target": "button.tab"
+                  },
+                  {
+                    "at": 1790430752832,
+                    "type": "up",
+                    "seq": 2,
+                    "target": "button.tab.prPressed",
+                    "max": 0
+                  },
+                  {
+                    "at": 1790430752832,
+                    "type": "native-click",
+                    "seq": 2,
+                    "target": "button.tab"
+                  }
+                ],
+                "outcomes": [
+                  {
+                    "at": 1790430752033,
+                    "seq": 1,
+                    "target": "#obSkip",
+                    "status": "native-click",
+                    "kind": "mouse",
+                    "durationMs": 2,
+                    "maxDistancePx": 0,
+                    "touchAction": ""
+                  },
+                  {
+                    "at": 1790430752832,
+                    "seq": 2,
+                    "target": "button.tab",
+                    "status": "native-click",
+                    "kind": "mouse",
+                    "durationMs": 1,
+                    "maxDistancePx": 0,
+                    "touchAction": ""
+                  }
+                ],
+                "cancelReasons": {
+                  "native-click": 2
+                },
+                "unmatchedUps": 0,
+                "pending": 0,
+                "scrollEvents": 0,
+                "styleSamples": 0
+              },
+              "counterGate": {
+                "version": "r640",
+                "held": false,
+                "reason": "",
+                "since": 0,
+                "failure": false,
+                "blocked": false,
+                "spokenVisibleAuto": false,
+                "rawPaused": false,
+                "aggregatePaused": false,
+                "lifeUserPaused": false,
+                "prevented": 0,
+                "rollbacks": 0,
+                "lastFailure": null,
+                "lastSuccess": null,
+                "seq": 0,
+                "revision": "r742",
+                "generation": 0,
+                "staleResults": 0,
+                "unconfirmedCredits": 0,
+                "pendingCount": null
+              },
+              "voiceHealth": {
+                "required": false,
+                "paused": false,
+                "pending": false,
+                "age": 0,
+                "warning": "",
+                "physical": {
+                  "voice": false,
+                  "media": false,
+                  "speech": false,
+                  "native": false,
+                  "tangible": false,
+                  "truthState": "idle"
+                },
+                "metrics": {
+                  "checks": 25,
+                  "missing": 0,
+                  "sourceChanges": 1
+                }
+              }
+            },
+            "errors": 0,
+            "lastError": "",
+            "lastAt": 0,
+            "eventHealth": {
+              "total": 16,
+              "peakPerSecond": 7,
+              "currentSecond": 7,
+              "storms": 0,
+              "lastStormAt": 0,
+              "watched": 8
+            },
+            "eventLoop": {
+              "lastLagMs": 4,
+              "maxLagMs": 7,
+              "samples": 6,
+              "lastLagAt": 0,
+              "visibilityResets": 1,
+              "hiddenWakeups": 0
+            },
+            "r713": {
+              "version": "r713",
+              "visibleLongTaskCount": 9,
+              "recentLongTasks": [
+                {
+                  "at": 1790430746941,
+                  "durationMs": 56,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430746941,
+                  "durationMs": 66,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430747051,
+                  "durationMs": 51,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430747172,
+                  "durationMs": 61,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430747482,
+                  "durationMs": 106,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430747482,
+                  "durationMs": 57,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430747727,
+                  "durationMs": 103,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430747976,
+                  "durationMs": 102,
+                  "lastInput": null
+                },
+                {
+                  "at": 1790430752938,
+                  "durationMs": 77,
+                  "lastInput": {
+                    "at": 6955.300000000745,
+                    "target": "svg",
+                    "kind": "pointer"
+                  }
+                }
+              ],
+              "kandil": {
+                "version": "r713",
+                "enabled": true,
+                "on": false,
+                "timerPending": true,
+                "clockPending": false,
+                "shows": 0,
+                "hides": 0,
+                "deferrals": 0,
+                "dom": true
+              }
+            },
+            "physical": {
+              "ses": 0,
+              "tts": false,
+              "freq": false,
+              "amb": false,
+              "vh": false,
+              "auto": false,
+              "journey": false,
+              "lock": false,
+              "lifeBusy": false,
+              "tangible": false
+            },
+            "terminal": {
+              "version": "r693",
+              "reconciles": 6,
+              "prunedMedia": 0,
+              "prunedSes": 0,
+              "ghostFixes": 0,
+              "lastReason": "sukun:audiostate",
+              "lastAt": 1790430753014,
+              "pending": false,
+              "gracePending": false,
+              "graceDeadline": 0,
+              "graceExpiries": 0,
+              "returnPending": false,
+              "physical": {
+                "ses": 0,
+                "tts": false,
+                "freq": false,
+                "amb": false,
+                "vh": false,
+                "auto": false,
+                "journey": false,
+                "lock": false,
+                "lifeBusy": false,
+                "tangible": false
+              },
+              "hub": {
+                "build": "r929",
+                "state": "idle",
+                "reason": "media-stop",
+                "provider": "MediaSession",
+                "title": "SÜKÛN — Frekans & Zikir",
+                "index": -1,
+                "queue": 0,
+                "userPaused": false,
+                "tts": 0,
+                "media": 0,
+                "recoveries": 0,
+                "lastPulse": 1790430752917
+              },
+              "life": {
+                "version": "r531",
+                "state": "idle",
+                "reason": "hub:media-stop",
+                "wasBusy": false,
+                "userPaused": false,
+                "lastChange": 1790430752917,
+                "owner": {
+                  "id": "mix",
+                  "title": "SÜKÛN — Genel Oynatma",
+                  "state": "idle",
+                  "active": null
+                },
+                "lastRecovery": null,
+                "lastInterruption": null,
+                "lastUserAction": null,
+                "userIntentSeq": 0,
+                "terminalIntent": false,
+                "recoveryPending": false,
+                "history": []
+              },
+              "lockTarget": {
+                "arms": 0,
+                "fires": 0,
+                "sourceEpochs": 0,
+                "sourceSwitches": 0,
+                "staleArms": 0,
+                "staleFires": 0,
+                "blocked": 0,
+                "rearms": 0,
+                "creditedCycles": 0,
+                "catchupCaps": 0,
+                "discardedCycles": 0,
+                "lastDiscarded": 0,
+                "lastKey": "",
+                "lastDelay": 0,
+                "lastReason": "ready",
+                "lastAt": 1790430746769,
+                "active": false,
+                "physicalMatches": false,
+                "key": "esma:0:nida",
+                "audioKey": "",
+                "count": 0,
+                "target": 33,
+                "armed": null
+              },
+              "panRaf": false
+            },
+            "truth": {
+              "version": "r637",
+              "seq": 1,
+              "at": 1790430746673,
+              "reason": "snapshot",
+              "pendingPhysical": false,
+              "state": "idle",
+              "playing": false,
+              "paused": false,
+              "userPaused": false,
+              "tangible": false,
+              "source": "idle",
+              "owner": null,
+              "registry": {
+                "state": "idle",
+                "provider": "mix",
+                "controllerState": "idle",
+                "aggregate": {
+                  "paused": false,
+                  "providerIds": [],
+                  "mixCaptured": false,
+                  "reason": "",
+                  "changedAt": 1790430746425
+                }
+              },
+              "life": {
+                "version": "r531",
+                "state": "idle",
+                "reason": "init",
+                "wasBusy": false,
+                "userPaused": false,
+                "lastChange": 1790430746333,
+                "owner": {
+                  "id": "mix",
+                  "title": "SÜKÛN — Genel Oynatma",
+                  "state": "idle",
+                  "active": null
+                },
+                "lastRecovery": null,
+                "lastInterruption": null,
+                "lastUserAction": null,
+                "userIntentSeq": 0,
+                "terminalIntent": false,
+                "recoveryPending": false,
+                "history": []
+              },
+              "hub": {
+                "build": "r929",
+                "state": "idle",
+                "reason": "boot",
+                "provider": "",
+                "title": "SÜKÛN",
+                "index": -1,
+                "queue": 0,
+                "userPaused": false,
+                "tts": 0,
+                "media": 0,
+                "recoveries": 0,
+                "lastPulse": 1790430746419
+              },
+              "physical": {
+                "journey28": false,
+                "journey99": false,
+                "terkip": false,
+                "lock": false,
+                "speech": false,
+                "autoVoice": false,
+                "background": false,
+                "media": 0,
+                "tts": 0
+              },
+              "issues": []
+            },
+            "transport": {
+              "version": "r733",
+              "revision": "r742",
+              "cleanupFailure": false,
+              "commandSeq": 0,
+              "lastCommand": "",
+              "lastAt": 0,
+              "stopping": false,
+              "pendingStop": false,
+              "pendingStart": false,
+              "intentEpoch": 0,
+              "journey": "",
+              "direct": {
+                "auto": false,
+                "cat": "esma",
+                "idx": 0,
+                "count": 0,
+                "target": 33,
+                "voiceRequired": false,
+                "starting": false
+              },
+              "restartTrace": []
+            },
+            "restartR733": {
+              "version": "r733",
+              "revision": "r742",
+              "cleanupFailure": false,
+              "commandSeq": 0,
+              "lastCommand": "",
+              "lastAt": 0,
+              "stopping": false,
+              "pendingStop": false,
+              "pendingStart": false,
+              "intentEpoch": 0,
+              "journey": "",
+              "direct": {
+                "auto": false,
+                "cat": "esma",
+                "idx": 0,
+                "count": 0,
+                "target": 33,
+                "voiceRequired": false,
+                "starting": false
+              },
+              "restartTrace": []
+            },
+            "taps": {
+              "version": "r698-native",
+              "revision": "r714",
+              "downs": 2,
+              "ups": 2,
+              "nativeClicks": 2,
+              "syntheticClicks": 0,
+              "recoveredClicks": 0,
+              "duplicateSuppressed": 0,
+              "cancelled": 0,
+              "moved": 0,
+              "misses": 0,
+              "targetChanges": 0,
+              "active": null,
+              "activePointers": 0,
+              "lastRecovered": null,
+              "history": [
+                {
+                  "at": 1790430752031,
+                  "type": "down",
+                  "seq": 1,
+                  "target": "#obSkip"
+                },
+                {
+                  "at": 1790430752032,
+                  "type": "up",
+                  "seq": 1,
+                  "target": "#obSkip",
+                  "max": 0
+                },
+                {
+                  "at": 1790430752033,
+                  "type": "native-click",
+                  "seq": 1,
+                  "target": "#obSkip"
+                },
+                {
+                  "at": 1790430752831,
+                  "type": "down",
+                  "seq": 2,
+                  "target": "button.tab"
+                },
+                {
+                  "at": 1790430752832,
+                  "type": "up",
+                  "seq": 2,
+                  "target": "button.tab.prPressed",
+                  "max": 0
+                },
+                {
+                  "at": 1790430752832,
+                  "type": "native-click",
+                  "seq": 2,
+                  "target": "button.tab"
+                }
+              ],
+              "outcomes": [
+                {
+                  "at": 1790430752033,
+                  "seq": 1,
+                  "target": "#obSkip",
+                  "status": "native-click",
+                  "kind": "mouse",
+                  "durationMs": 2,
+                  "maxDistancePx": 0,
+                  "touchAction": ""
+                },
+                {
+                  "at": 1790430752832,
+                  "seq": 2,
+                  "target": "button.tab",
+                  "status": "native-click",
+                  "kind": "mouse",
+                  "durationMs": 1,
+                  "maxDistancePx": 0,
+                  "touchAction": ""
+                }
+              ],
+              "cancelReasons": {
+                "native-click": 2
+              },
+              "unmatchedUps": 0,
+              "pending": 0,
+              "scrollEvents": 0,
+              "styleSamples": 0
+            },
+            "interactionR732": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 0,
+              "events": 0,
+              "sequence": 0,
+              "lastReason": "boot"
+            },
+            "layout": {
+              "version": "r732",
+              "reason": "sukun:tabchange",
+              "active": false,
+              "hidden": true,
+              "mode": "mini",
+              "viewportHeight": 851,
+              "peek": null,
+              "measureCount": 12,
+              "rehomeCount": 7,
+              "scrollResets": 0
+            },
+            "atmosphere": {
+              "active": false,
+              "visible": true,
+              "moving": false,
+              "preference": "live",
+              "intensity": 0.85,
+              "frames": 0,
+              "averageDrawMs": 0,
+              "lastDrawMs": 0,
+              "frameMs": 50,
+              "canvas": false,
+              "rafPending": false,
+              "resizePending": false
+            }
+          },
+          "render": {
+            "mode": "esma",
+            "renders": 37,
+            "focusEnabled": false,
+            "tef": false,
+            "renderer": "one-session-presentation"
+          }
+        },
+        {
+          "name": "active-select-not-reset",
+          "draft": "3",
+          "old": "0"
+        },
+        {
+          "name": "blur-resync",
+          "value": "0"
+        },
+        {
+          "name": "native-select-commit",
+          "index": 2
+        },
+        {
+          "name": "counter-one-touch",
+          "before": 0,
+          "after": 1
+        },
+        {
+          "name": "counter-native-pan",
+          "before": 1,
+          "after": 1,
+          "scrollDelta": 141
+        },
+        {
+          "name": "atlas-touch-open-close",
+          "opened": true,
+          "closed": true
+        },
+        {
+          "name": "tef-touch-enter-exit",
+          "entered": true,
+          "exited": true
+        }
+      ],
+      "errors": [],
+      "limitations": [
+        "Desktop Chromium mobile touch emulation; no physical Android measured",
+        "Actual r929 files with unmodified SRI served"
+      ]
+    },
+    "dock-r929-results": {
+      "build": "r929",
+      "sealed": true,
+      "tests": [
+        {
+          "name": "native touch grip drag",
+          "pass": true,
+          "before": {
+            "y": 0,
+            "scroll": 0,
+            "scrollMax": 4,
+            "windowScroll": 0,
+            "touch": "none",
+            "grip": {
+              "x": 85,
+              "y": 456,
+              "width": 220,
+              "height": 44,
+              "top": 456,
+              "right": 305,
+              "bottom": 500,
+              "left": 85
+            },
+            "body": {
+              "x": 18,
+              "y": 504,
+              "width": 354,
+              "height": 197,
+              "top": 504,
+              "right": 372,
+              "bottom": 701,
+              "left": 18
+            },
+            "measures": 20
+          },
+          "after": {
+            "y": -100,
+            "scroll": 0,
+            "scrollMax": 4,
+            "windowScroll": 0,
+            "touch": "none",
+            "grip": {
+              "x": 85,
+              "y": 356,
+              "width": 220,
+              "height": 44,
+              "top": 356,
+              "right": 305,
+              "bottom": 400,
+              "left": 85
+            },
+            "body": {
+              "x": 18,
+              "y": 404,
+              "width": 354,
+              "height": 197,
+              "top": 404,
+              "right": 372,
+              "bottom": 601,
+              "left": 18
+            },
+            "measures": 21
+          },
+          "cancels": []
+        },
+        {
+          "name": "native body scroll keeps dock stationary",
+          "pass": true,
+          "before": {
+            "y": 0,
+            "scroll": 0,
+            "scrollMax": 4,
+            "windowScroll": 0,
+            "touch": "none",
+            "grip": {
+              "x": 85,
+              "y": 456,
+              "width": 220,
+              "height": 44,
+              "top": 456,
+              "right": 305,
+              "bottom": 500,
+              "left": 85
+            },
+            "body": {
+              "x": 18,
+              "y": 504,
+              "width": 354,
+              "height": 197,
+              "top": 504,
+              "right": 372,
+              "bottom": 701,
+              "left": 18
+            },
+            "measures": 22
+          },
+          "after": {
+            "y": 0,
+            "scroll": 4,
+            "scrollMax": 4,
+            "windowScroll": 0,
+            "touch": "none",
+            "grip": {
+              "x": 85,
+              "y": 456,
+              "width": 220,
+              "height": 44,
+              "top": 456,
+              "right": 305,
+              "bottom": 500,
+              "left": 85
+            },
+            "body": {
+              "x": 18,
+              "y": 504,
+              "width": 354,
+              "height": 197,
+              "top": 504,
+              "right": 372,
+              "bottom": 701,
+              "left": 18
+            },
+            "measures": 22
+          }
+        },
+        {
+          "name": "drawer close immediately releases interaction boundary",
+          "pass": true,
+          "boundaryAtClose": {
+            "inert": false,
+            "backdrop": false
+          }
+        },
+        {
+          "name": "unchanged counter events avoid full geometry work",
+          "pass": true,
+          "before": 25,
+          "after": 25
+        },
+        {
+          "name": "short landscape native scroll reaches lower dock controls",
+          "pass": true,
+          "before": {
+            "y": 0,
+            "scroll": 0,
+            "scrollMax": 88,
+            "windowScroll": 0,
+            "touch": "none",
+            "grip": {
+              "x": 240,
+              "y": 86,
+              "width": 220,
+              "height": 44,
+              "top": 86,
+              "right": 460,
+              "bottom": 130,
+              "left": 240
+            },
+            "body": {
+              "x": 150,
+              "y": 134,
+              "width": 400,
+              "height": 113,
+              "top": 134,
+              "right": 550,
+              "bottom": 247,
+              "left": 150
+            },
+            "measures": 27
+          },
+          "after": {
+            "y": 0,
+            "scroll": 70,
+            "scrollMax": 88,
+            "windowScroll": 0,
+            "touch": "none",
+            "grip": {
+              "x": 240,
+              "y": 86,
+              "width": 220,
+              "height": 44,
+              "top": 86,
+              "right": 460,
+              "bottom": 130,
+              "left": 240
+            },
+            "body": {
+              "x": 150,
+              "y": 134,
+              "width": 400,
+              "height": 113,
+              "top": 134,
+              "right": 550,
+              "bottom": 247,
+              "left": 150
+            },
+            "measures": 27
+          }
+        },
+        {
+          "name": "native horizontal volume drag updates shared source",
+          "pass": true,
+          "volume": {
+            "source": 0.87,
+            "dock": 0.87,
+            "label": "87%",
+            "dragging": false
+          }
+        },
+        {
+          "name": "mode mini visible controls",
+          "pass": true,
+          "controls": [
+            {
+              "id": "r588Play",
+              "rect": {
+                "x": 282,
+                "y": 710,
+                "width": 44,
+                "height": 44,
+                "top": 710,
+                "right": 326,
+                "bottom": 754,
+                "left": 282
+              },
+              "hit": true
+            },
+            {
+              "id": "r920DockExpand",
+              "rect": {
+                "x": 330,
+                "y": 710,
+                "width": 44,
+                "height": 44,
+                "top": 710,
+                "right": 374,
+                "bottom": 754,
+                "left": 330
+              },
+              "hit": true
+            },
+            {
+              "id": "r730MiniTef",
+              "rect": {
+                "x": 224,
+                "y": 710,
+                "width": 54,
+                "height": 44,
+                "top": 710,
+                "right": 278,
+                "bottom": 754,
+                "left": 224
+              },
+              "hit": true
+            }
+          ]
+        },
+        {
+          "name": "mode midi visible controls",
+          "pass": true,
+          "controls": [
+            {
+              "id": "r588Play",
+              "rect": {
+                "x": 232,
+                "y": 710,
+                "width": 44,
+                "height": 44,
+                "top": 710,
+                "right": 276,
+                "bottom": 754,
+                "left": 232
+              },
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "rect": {
+                "x": 280,
+                "y": 710,
+                "width": 44,
+                "height": 44,
+                "top": 710,
+                "right": 324,
+                "bottom": 754,
+                "left": 280
+              },
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "rect": {
+                "x": 328,
+                "y": 710,
+                "width": 44,
+                "height": 44,
+                "top": 710,
+                "right": 372,
+                "bottom": 754,
+                "left": 328
+              },
+              "hit": true
+            }
+          ]
+        },
+        {
+          "name": "mode max visible controls",
+          "pass": true,
+          "controls": [
+            {
+              "id": "r588Play",
+              "rect": {
+                "x": 232,
+                "y": 710,
+                "width": 44,
+                "height": 44,
+                "top": 710,
+                "right": 276,
+                "bottom": 754,
+                "left": 232
+              },
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "rect": {
+                "x": 280,
+                "y": 710,
+                "width": 44,
+                "height": 44,
+                "top": 710,
+                "right": 324,
+                "bottom": 754,
+                "left": 280
+              },
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "rect": {
+                "x": 328,
+                "y": 710,
+                "width": 44,
+                "height": 44,
+                "top": 710,
+                "right": 372,
+                "bottom": 754,
+                "left": 328
+              },
+              "hit": true
+            }
+          ]
+        },
+        {
+          "name": "mode midi visible controls",
+          "pass": true,
+          "controls": [
+            {
+              "id": "r588Play",
+              "rect": {
+                "x": 232,
+                "y": 710,
+                "width": 44,
+                "height": 44,
+                "top": 710,
+                "right": 276,
+                "bottom": 754,
+                "left": 232
+              },
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "rect": {
+                "x": 280,
+                "y": 710,
+                "width": 44,
+                "height": 44,
+                "top": 710,
+                "right": 324,
+                "bottom": 754,
+                "left": 280
+              },
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "rect": {
+                "x": 328,
+                "y": 710,
+                "width": 44,
+                "height": 44,
+                "top": 710,
+                "right": 372,
+                "bottom": 754,
+                "left": 328
+              },
+              "hit": true
+            }
+          ]
+        },
+        {
+          "name": "mode mini visible controls",
+          "pass": true,
+          "controls": [
+            {
+              "id": "r588Play",
+              "rect": {
+                "x": 282,
+                "y": 710,
+                "width": 44,
+                "height": 44,
+                "top": 710,
+                "right": 326,
+                "bottom": 754,
+                "left": 282
+              },
+              "hit": true
+            },
+            {
+              "id": "r920DockExpand",
+              "rect": {
+                "x": 330,
+                "y": 710,
+                "width": 44,
+                "height": 44,
+                "top": 710,
+                "right": 374,
+                "bottom": 754,
+                "left": 330
+              },
+              "hit": true
+            },
+            {
+              "id": "r730MiniTef",
+              "rect": {
+                "x": 224,
+                "y": 710,
+                "width": 54,
+                "height": 44,
+                "top": 710,
+                "right": 278,
+                "bottom": 754,
+                "left": 224
+              },
+              "hit": true
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    "wheels-touch-results": {
+      "pass": true,
+      "kind": "Actual wheel runtime and CSS; native Chromium touch plus lifecycle fixtures",
+      "checks": [
+        {
+          "name": "Baseline interrupted touch reproduced",
+          "pass": true,
+          "state": "paused"
+        },
+        {
+          "name": "Interrupted touch resets hold without a playback command",
+          "pass": true,
+          "state": "running"
+        },
+        {
+          "name": "Native tap activates once and rotor recovers within 220 ms",
+          "pass": true,
+          "clickCount": 1
+        },
+        {
+          "name": "Vertical pan from gemstone scrolls naturally without click",
+          "pass": true,
+          "scrollY": 255,
+          "clickCount": 0
+        },
+        {
+          "name": "Pointer identity and cancel cleanup",
+          "pass": true
+        },
+        {
+          "name": "20 wheels × 8 angles × 4 targets retain ≥44 px and correct hit target",
+          "pass": true,
+          "checks": 640
+        }
+      ],
+      "limits": [
+        "Physical Android touch latency and OS task switching are not tested.",
+        "Lifecycle interruption is a deterministic window blur event. No audio playback is simulated as evidence here."
+      ]
+    },
+    "wheels-app-results": {
+      "pass": true,
+      "checks": [
+        {
+          "name": "Real app gemstone +1 / −1 taps each activate once",
+          "pass": true,
+          "events": [
+            {
+              "event": "pointerup",
+              "id": "r920Plus",
+              "at": 4738.29999999702
+            },
+            {
+              "event": "click",
+              "id": "r920Plus",
+              "at": 4740.39999999851
+            },
+            {
+              "event": "pointerup",
+              "id": "r920Minus",
+              "at": 4972.5
+            },
+            {
+              "event": "click",
+              "id": "r920Minus",
+              "at": 4974.39999999851
+            }
+          ]
+        },
+        {
+          "name": "Real app pan from center counter scrolls without adding count",
+          "pass": true,
+          "delta": 113
+        },
+        {
+          "name": "Tefekkür stone tap and exit preserve manual count",
+          "pass": true,
+          "count": 1
+        }
+      ],
+      "limits": [
+        "Native Chromium touch emulation; not a physical Android latency/lock test."
+      ],
+      "sealed": true
+    },
+    "modal-scroll-results": {
+      "pass": true,
+      "tests": [
+        {
+          "name": "Theme native touch scroll from selectable option does not select or scroll underlying page",
+          "pass": true,
+          "detail": {
+            "before": {
+              "sheet": 0,
+              "page": 0,
+              "theme": "kuzey"
+            },
+            "after": {
+              "sheet": 345,
+              "page": 0,
+              "theme": "kuzey",
+              "owner": "temaSheet",
+              "pointers": {
+                "version": "r732",
+                "touches": 0,
+                "pointers": 0,
+                "active": false,
+                "quietMs": 0,
+                "pending": false,
+                "deferrals": 0,
+                "events": 24,
+                "sequence": 8,
+                "lastReason": "touchend"
+              }
+            }
+          }
+        },
+        {
+          "name": "Nested legacy sheet suspends only underlying sheet",
+          "pass": true
+        },
+        {
+          "name": "Closing child restores underlying sheet and touch surface",
+          "pass": true
+        },
+        {
+          "name": "Closing last sheet removes every legacy scrim",
+          "pass": true
+        },
+        {
+          "name": "Name info opens above app controls",
+          "pass": true
+        },
+        {
+          "name": "Name info close releases page scroll lock",
+          "pass": true
+        },
+        {
+          "name": "Tefekkür name dialog exit hit-test",
+          "pass": true
+        },
+        {
+          "name": "Tefekkür exit after info dialog releases modal body state",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "build": "r929",
+      "sealed": true,
+      "method": "Full sealed r929 application, native Chromium touch input and modal API setup; no SRI rewriting"
+    },
+    "audio-ui-results": {
+      "pass": true,
+      "sealed": true,
+      "build": "r929",
+      "scope": "Real mobile taps and touch pans with IndexedDB WAV voice; single/99/28 pause/resume/stop and visibility simulation",
+      "tests": [
+        {
+          "kind": "single",
+          "pass": true,
+          "start": {
+            "phase": "PLAYING",
+            "kind": "single",
+            "owner": "auto-zikir",
+            "mode": "esma",
+            "count": 2,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "IDLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 1,
+              "items": [
+                {
+                  "ad": "r637-own:esma:0:nida",
+                  "recordingKey": "esma:0:nida",
+                  "kuru": 1.3818780183792114,
+                  "wet": 0,
+                  "currentTime": 0.287077
+                }
+              ],
+              "at": 1790430963745
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430956906,
+              "history": []
+            }
+          },
+          "beforeSwipe": {
+            "phase": "PLAYING",
+            "kind": "single",
+            "owner": "auto-zikir",
+            "mode": "esma",
+            "count": 2,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "IDLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 1,
+              "items": [
+                {
+                  "ad": "r637-own:esma:0:nida",
+                  "recordingKey": "esma:0:nida",
+                  "kuru": 1.3818780183792114,
+                  "wet": 0,
+                  "currentTime": 0.287077
+                }
+              ],
+              "at": 1790430963745
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430956906,
+              "history": []
+            }
+          },
+          "afterSwipe": {
+            "phase": "PLAYING",
+            "kind": "single",
+            "owner": "auto-zikir",
+            "mode": "esma",
+            "count": 2,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "IDLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430964663
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430956906,
+              "history": []
+            }
+          },
+          "paused": {
+            "phase": "PAUSED",
+            "kind": "single",
+            "owner": "",
+            "mode": "esma",
+            "count": 2,
+            "audioSource": "USER_RECORDING",
+            "paused": true,
+            "playing": false,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "suspended",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "IDLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430965106
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430956906,
+              "history": []
+            }
+          },
+          "stillPaused": {
+            "phase": "PAUSED",
+            "kind": "single",
+            "owner": "",
+            "mode": "esma",
+            "count": 2,
+            "audioSource": "USER_RECORDING",
+            "paused": true,
+            "playing": false,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "suspended",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "IDLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430966712
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430956906,
+              "history": []
+            }
+          },
+          "resumed": {
+            "phase": "PLAYING",
+            "kind": "single",
+            "owner": "auto-zikir",
+            "mode": "esma",
+            "count": 3,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "IDLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 1,
+              "items": [
+                {
+                  "ad": "r637-own:esma:0:nida",
+                  "recordingKey": "esma:0:nida",
+                  "kuru": 1.3818780183792114,
+                  "wet": 0,
+                  "currentTime": 0.94461
+                }
+              ],
+              "at": 1790430968021
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430956906,
+              "history": []
+            }
+          },
+          "hiddenStart": {
+            "phase": "PLAYING",
+            "kind": "single",
+            "owner": "auto-zikir",
+            "mode": "esma",
+            "count": 3,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": true,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "IDLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430968660
+            },
+            "directHidden": {
+              "mode": "recording",
+              "key": "esma:0:nida",
+              "audibleMs": 419.91100000000006
+            },
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": true,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430956906,
+              "history": []
+            }
+          },
+          "background": {
+            "phase": "PLAYING",
+            "kind": "single",
+            "owner": "auto-zikir",
+            "mode": "esma",
+            "count": 5,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": true,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "IDLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430971265
+            },
+            "directHidden": {
+              "mode": "recording",
+              "key": "esma:0:nida",
+              "audibleMs": 2812.936
+            },
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": true,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430956906,
+              "history": []
+            }
+          },
+          "returned": {
+            "phase": "PLAYING",
+            "kind": "single",
+            "owner": "auto-zikir",
+            "mode": "esma",
+            "count": 5,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "IDLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 1,
+              "items": [
+                {
+                  "ad": "r637-own:esma:0:nida",
+                  "recordingKey": "esma:0:nida",
+                  "kuru": 1.3818780183792114,
+                  "wet": 0,
+                  "currentTime": 0.453333
+                }
+              ],
+              "at": 1790430971796
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430956906,
+              "history": []
+            }
+          },
+          "stopped": {
+            "phase": "IDLE",
+            "kind": "single",
+            "owner": "",
+            "mode": "esma",
+            "count": 5,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": false,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "complete",
+              "source": "r654-terminal",
+              "at": 1790430972413,
+              "pauseActive": false,
+              "stopActive": true,
+              "seq": 2
+            },
+            "machine": "IDLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430972617
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430956906,
+              "history": []
+            }
+          }
+        },
+        {
+          "kind": "99",
+          "pass": true,
+          "start": {
+            "phase": "PLAYING",
+            "kind": "99",
+            "owner": "journey99",
+            "mode": "esma",
+            "count": 1,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_VISIBLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430980060
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 99,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430973413,
+              "history": []
+            }
+          },
+          "beforeSwipe": {
+            "phase": "PLAYING",
+            "kind": "99",
+            "owner": "journey99",
+            "mode": "esma",
+            "count": 1,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_VISIBLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430980060
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 99,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430973413,
+              "history": []
+            }
+          },
+          "afterSwipe": {
+            "phase": "PLAYING",
+            "kind": "99",
+            "owner": "journey99",
+            "mode": "esma",
+            "count": 1,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_VISIBLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 1,
+              "items": [
+                {
+                  "ad": "r637-own:esma:0:nida",
+                  "recordingKey": "esma:0:nida",
+                  "kuru": 1,
+                  "wet": 0,
+                  "currentTime": 0.022502
+                }
+              ],
+              "at": 1790430980981
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 99,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430973413,
+              "history": []
+            }
+          },
+          "paused": {
+            "phase": "PAUSED",
+            "kind": "99",
+            "owner": "journey99",
+            "mode": "esma",
+            "count": 1,
+            "audioSource": "USER_RECORDING",
+            "paused": true,
+            "playing": false,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "suspended",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_VISIBLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430981408
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430973413,
+              "history": []
+            }
+          },
+          "stillPaused": {
+            "phase": "PAUSED",
+            "kind": "99",
+            "owner": "journey99",
+            "mode": "esma",
+            "count": 1,
+            "audioSource": "USER_RECORDING",
+            "paused": true,
+            "playing": false,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "suspended",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "IDLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430983014
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430973413,
+              "history": []
+            }
+          },
+          "resumed": {
+            "phase": "PLAYING",
+            "kind": "99",
+            "owner": "journey99",
+            "mode": "esma",
+            "count": 1,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_VISIBLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 1,
+              "items": [
+                {
+                  "ad": "r637-own:esma:0:nida",
+                  "recordingKey": "esma:0:nida",
+                  "kuru": 1,
+                  "wet": 0,
+                  "currentTime": 0.887113
+                }
+              ],
+              "at": 1790430984321
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 99,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430973413,
+              "history": []
+            }
+          },
+          "hiddenStart": {
+            "phase": "PLAYING",
+            "kind": "99",
+            "owner": "journey99",
+            "mode": "esma",
+            "count": 2,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": true,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_HIDDEN",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 1,
+              "items": [
+                {
+                  "ad": "r637-own:esma:0:nida",
+                  "recordingKey": "esma:0:nida",
+                  "kuru": 1,
+                  "wet": 0,
+                  "currentTime": 0.184756
+                }
+              ],
+              "at": 1790430984931
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": true,
+              "owner": "journey99",
+              "key": "esma:0:nida",
+              "index": 0,
+              "hidden": true,
+              "playing": true,
+              "loop": true,
+              "cycleMs": 1200,
+              "startRep": 1,
+              "applied": 1,
+              "completed": 1,
+              "remaining": 98,
+              "observedWraps": 1,
+              "mediaProgressMs": 434,
+              "countEvidence": "sampled-media-clock",
+              "leases": 1,
+              "settlements": 1,
+              "settledCycles": 1,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 1,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": 22,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "playing",
+              "lastAt": 1790430984670,
+              "history": [
+                {
+                  "at": 1790430984364,
+                  "type": "target-arm",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "delay": 117871,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790430984364,
+                  "type": "lease-start",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "cycleMs": 1200,
+                  "phaseMs": 929,
+                  "rep": 1,
+                  "limit": 100,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790430984653,
+                  "type": "wrap",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "wraps": 1
+                },
+                {
+                  "at": 1790430984668,
+                  "type": "settle",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 2,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790430984670,
+                  "type": "target-arm",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "delay": 117600,
+                  "remaining": 98,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790430984670,
+                  "type": "playing",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0
+                }
+              ]
+            }
+          },
+          "background": {
+            "phase": "PLAYING",
+            "kind": "99",
+            "owner": "journey99",
+            "mode": "esma",
+            "count": 4,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": true,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_HIDDEN",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 1,
+              "items": [
+                {
+                  "ad": "r637-own:esma:0:nida",
+                  "recordingKey": "esma:0:nida",
+                  "kuru": 1,
+                  "wet": 0,
+                  "currentTime": 0.166239
+                }
+              ],
+              "at": 1790430987536
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": true,
+              "owner": "journey99",
+              "key": "esma:0:nida",
+              "index": 0,
+              "hidden": true,
+              "playing": true,
+              "loop": true,
+              "cycleMs": 1200,
+              "startRep": 1,
+              "applied": 3,
+              "completed": 3,
+              "remaining": 96,
+              "observedWraps": 3,
+              "mediaProgressMs": 2835,
+              "countEvidence": "sampled-media-clock",
+              "leases": 1,
+              "settlements": 3,
+              "settledCycles": 3,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 3,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": 1,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "playing",
+              "lastAt": 1790430987291,
+              "history": [
+                {
+                  "at": 1790430984364,
+                  "type": "target-arm",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "delay": 117871,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790430984364,
+                  "type": "lease-start",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "cycleMs": 1200,
+                  "phaseMs": 929,
+                  "rep": 1,
+                  "limit": 100,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790430984653,
+                  "type": "wrap",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "wraps": 1
+                },
+                {
+                  "at": 1790430984668,
+                  "type": "settle",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 2,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790430984670,
+                  "type": "target-arm",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "delay": 117600,
+                  "remaining": 98,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790430984670,
+                  "type": "playing",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0
+                },
+                {
+                  "at": 1790430985963,
+                  "type": "wrap",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "wraps": 2
+                },
+                {
+                  "at": 1790430985998,
+                  "type": "settle",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 3,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790430986000,
+                  "type": "target-arm",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "delay": 116394,
+                  "remaining": 97,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790430986000,
+                  "type": "playing",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0
+                },
+                {
+                  "at": 1790430987275,
+                  "type": "wrap",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "wraps": 3
+                },
+                {
+                  "at": 1790430987289,
+                  "type": "settle",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 4,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790430987291,
+                  "type": "target-arm",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "delay": 115200,
+                  "remaining": 96,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790430987291,
+                  "type": "playing",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0
+                }
+              ]
+            }
+          },
+          "returned": {
+            "phase": "PLAYING",
+            "kind": "99",
+            "owner": "journey99",
+            "mode": "esma",
+            "count": 4,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_VISIBLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 1,
+              "items": [
+                {
+                  "ad": "r637-own:esma:0:nida",
+                  "recordingKey": "esma:0:nida",
+                  "kuru": 1,
+                  "wet": 0,
+                  "currentTime": 0.247689
+                }
+              ],
+              "at": 1790430988066
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 96,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 1,
+              "settlements": 3,
+              "settledCycles": 3,
+              "switches": 0,
+              "visibleHandoffs": 1,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 3,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": 531,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "visible-fast-handoff",
+              "lastAt": 1790430987558,
+              "history": [
+                {
+                  "at": 1790430984364,
+                  "type": "target-arm",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "delay": 117871,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790430984364,
+                  "type": "lease-start",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "cycleMs": 1200,
+                  "phaseMs": 929,
+                  "rep": 1,
+                  "limit": 100,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790430984653,
+                  "type": "wrap",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "wraps": 1
+                },
+                {
+                  "at": 1790430984668,
+                  "type": "settle",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 2,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790430984670,
+                  "type": "target-arm",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "delay": 117600,
+                  "remaining": 98,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790430984670,
+                  "type": "playing",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0
+                },
+                {
+                  "at": 1790430985963,
+                  "type": "wrap",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "wraps": 2
+                },
+                {
+                  "at": 1790430985998,
+                  "type": "settle",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 3,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790430986000,
+                  "type": "target-arm",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "delay": 116394,
+                  "remaining": 97,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790430986000,
+                  "type": "playing",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0
+                },
+                {
+                  "at": 1790430987275,
+                  "type": "wrap",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "wraps": 3
+                },
+                {
+                  "at": 1790430987289,
+                  "type": "settle",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 4,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790430987291,
+                  "type": "target-arm",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "delay": 115200,
+                  "remaining": 96,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790430987291,
+                  "type": "playing",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0
+                },
+                {
+                  "at": 1790430987558,
+                  "type": "visible-fast-handoff",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "remainMs": 1030
+                }
+              ]
+            }
+          },
+          "stopped": {
+            "phase": "IDLE",
+            "kind": "99",
+            "owner": "",
+            "mode": "esma",
+            "count": 4,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": false,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "complete",
+              "source": "r654-terminal",
+              "at": 1790430988732,
+              "pauseActive": false,
+              "stopActive": true,
+              "seq": 2
+            },
+            "machine": "IDLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430988939
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 1,
+              "settlements": 3,
+              "settledCycles": 3,
+              "switches": 0,
+              "visibleHandoffs": 1,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 3,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": 1404,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "visible-fast-handoff",
+              "lastAt": 1790430987558,
+              "history": [
+                {
+                  "at": 1790430984364,
+                  "type": "target-arm",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "delay": 117871,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790430984364,
+                  "type": "lease-start",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "cycleMs": 1200,
+                  "phaseMs": 929,
+                  "rep": 1,
+                  "limit": 100,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790430984653,
+                  "type": "wrap",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "wraps": 1
+                },
+                {
+                  "at": 1790430984668,
+                  "type": "settle",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 2,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790430984670,
+                  "type": "target-arm",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "delay": 117600,
+                  "remaining": 98,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790430984670,
+                  "type": "playing",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0
+                },
+                {
+                  "at": 1790430985963,
+                  "type": "wrap",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "wraps": 2
+                },
+                {
+                  "at": 1790430985998,
+                  "type": "settle",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 3,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790430986000,
+                  "type": "target-arm",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "delay": 116394,
+                  "remaining": 97,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790430986000,
+                  "type": "playing",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0
+                },
+                {
+                  "at": 1790430987275,
+                  "type": "wrap",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "wraps": 3
+                },
+                {
+                  "at": 1790430987289,
+                  "type": "settle",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 4,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790430987291,
+                  "type": "target-arm",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "delay": 115200,
+                  "remaining": 96,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790430987291,
+                  "type": "playing",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0
+                },
+                {
+                  "at": 1790430987558,
+                  "type": "visible-fast-handoff",
+                  "owner": "journey99",
+                  "key": "esma:0:nida",
+                  "index": 0,
+                  "remainMs": 1030
+                }
+              ]
+            }
+          }
+        },
+        {
+          "kind": "28",
+          "pass": true,
+          "start": {
+            "phase": "PLAYING",
+            "kind": "28",
+            "owner": "journey28",
+            "mode": "berhet",
+            "count": 1,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_VISIBLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430996450
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 99,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430989566,
+              "history": []
+            }
+          },
+          "beforeSwipe": {
+            "phase": "PLAYING",
+            "kind": "28",
+            "owner": "journey28",
+            "mode": "berhet",
+            "count": 1,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_VISIBLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430996450
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 99,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430989566,
+              "history": []
+            }
+          },
+          "afterSwipe": {
+            "phase": "PLAYING",
+            "kind": "28",
+            "owner": "journey28",
+            "mode": "berhet",
+            "count": 1,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_VISIBLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 1,
+              "items": [
+                {
+                  "ad": "r637-own:berhet:0",
+                  "recordingKey": "berhet:0",
+                  "kuru": 1,
+                  "wet": 0,
+                  "currentTime": 0.027233
+                }
+              ],
+              "at": 1790430997395
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 99,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430989566,
+              "history": []
+            }
+          },
+          "paused": {
+            "phase": "PAUSED",
+            "kind": "28",
+            "owner": "journey28",
+            "mode": "berhet",
+            "count": 1,
+            "audioSource": "USER_RECORDING",
+            "paused": true,
+            "playing": false,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "suspended",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_VISIBLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430997781
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430989566,
+              "history": []
+            }
+          },
+          "stillPaused": {
+            "phase": "PAUSED",
+            "kind": "28",
+            "owner": "journey28",
+            "mode": "berhet",
+            "count": 1,
+            "audioSource": "USER_RECORDING",
+            "paused": true,
+            "playing": false,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "suspended",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "IDLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790430999384
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430989566,
+              "history": []
+            }
+          },
+          "resumed": {
+            "phase": "PLAYING",
+            "kind": "28",
+            "owner": "journey28",
+            "mode": "berhet",
+            "count": 1,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_VISIBLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 1,
+              "items": [
+                {
+                  "ad": "r637-own:berhet:0",
+                  "recordingKey": "berhet:0",
+                  "kuru": 1,
+                  "wet": 0,
+                  "currentTime": 0.886809
+                }
+              ],
+              "at": 1790431000687
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 99,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 0,
+              "settlements": 0,
+              "settledCycles": 0,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 0,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": null,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "ready",
+              "lastAt": 1790430989566,
+              "history": []
+            }
+          },
+          "hiddenStart": {
+            "phase": "PLAYING",
+            "kind": "28",
+            "owner": "journey28",
+            "mode": "berhet",
+            "count": 2,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": true,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_HIDDEN",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 1,
+              "items": [
+                {
+                  "ad": "r637-own:berhet:0",
+                  "recordingKey": "berhet:0",
+                  "kuru": 1,
+                  "wet": 0,
+                  "currentTime": 0.191186
+                }
+              ],
+              "at": 1790431001314
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": true,
+              "owner": "journey28",
+              "key": "berhet:0",
+              "index": 0,
+              "hidden": true,
+              "playing": true,
+              "loop": true,
+              "cycleMs": 1200,
+              "startRep": 1,
+              "applied": 1,
+              "completed": 1,
+              "remaining": 98,
+              "observedWraps": 1,
+              "mediaProgressMs": 406,
+              "countEvidence": "sampled-media-clock",
+              "leases": 1,
+              "settlements": 1,
+              "settledCycles": 1,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 1,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": 45,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "playing",
+              "lastAt": 1790431001034,
+              "history": [
+                {
+                  "at": 1790431000741,
+                  "type": "target-arm",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "delay": 117860,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790431000741,
+                  "type": "lease-start",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "cycleMs": 1200,
+                  "phaseMs": 940,
+                  "rep": 1,
+                  "limit": 100,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790431001018,
+                  "type": "wrap",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "wraps": 1
+                },
+                {
+                  "at": 1790431001031,
+                  "type": "settle",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 2,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790431001034,
+                  "type": "target-arm",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "delay": 117600,
+                  "remaining": 98,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790431001034,
+                  "type": "playing",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0
+                }
+              ]
+            }
+          },
+          "background": {
+            "phase": "PLAYING",
+            "kind": "28",
+            "owner": "journey28",
+            "mode": "berhet",
+            "count": 4,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": true,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_HIDDEN",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 1,
+              "items": [
+                {
+                  "ad": "r637-own:berhet:0",
+                  "recordingKey": "berhet:0",
+                  "kuru": 1,
+                  "wet": 0,
+                  "currentTime": 0.187974
+                }
+              ],
+              "at": 1790431003924
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": true,
+              "owner": "journey28",
+              "key": "berhet:0",
+              "index": 0,
+              "hidden": true,
+              "playing": true,
+              "loop": true,
+              "cycleMs": 1200,
+              "startRep": 1,
+              "applied": 3,
+              "completed": 3,
+              "remaining": 96,
+              "observedWraps": 3,
+              "mediaProgressMs": 2806,
+              "countEvidence": "sampled-media-clock",
+              "leases": 1,
+              "settlements": 3,
+              "settledCycles": 3,
+              "switches": 0,
+              "visibleHandoffs": 0,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 3,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": 31,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "playing",
+              "lastAt": 1790431003657,
+              "history": [
+                {
+                  "at": 1790431000741,
+                  "type": "target-arm",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "delay": 117860,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790431000741,
+                  "type": "lease-start",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "cycleMs": 1200,
+                  "phaseMs": 940,
+                  "rep": 1,
+                  "limit": 100,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790431001018,
+                  "type": "wrap",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "wraps": 1
+                },
+                {
+                  "at": 1790431001031,
+                  "type": "settle",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 2,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790431001034,
+                  "type": "target-arm",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "delay": 117600,
+                  "remaining": 98,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790431001034,
+                  "type": "playing",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0
+                },
+                {
+                  "at": 1790431002329,
+                  "type": "wrap",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "wraps": 2
+                },
+                {
+                  "at": 1790431002344,
+                  "type": "settle",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 3,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790431002346,
+                  "type": "target-arm",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "delay": 116400,
+                  "remaining": 97,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790431002346,
+                  "type": "playing",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0
+                },
+                {
+                  "at": 1790431003641,
+                  "type": "wrap",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "wraps": 3
+                },
+                {
+                  "at": 1790431003655,
+                  "type": "settle",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 4,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790431003657,
+                  "type": "target-arm",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "delay": 115200,
+                  "remaining": 96,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790431003657,
+                  "type": "playing",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0
+                }
+              ]
+            }
+          },
+          "returned": {
+            "phase": "PLAYING",
+            "kind": "28",
+            "owner": "journey28",
+            "mode": "berhet",
+            "count": 4,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": true,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "",
+              "source": "",
+              "at": 0,
+              "pauseActive": false,
+              "stopActive": false,
+              "seq": 0
+            },
+            "machine": "PLAYING_VISIBLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 1,
+              "items": [
+                {
+                  "ad": "r637-own:berhet:0",
+                  "recordingKey": "berhet:0",
+                  "kuru": 1,
+                  "wet": 0,
+                  "currentTime": 0.240731
+                }
+              ],
+              "at": 1790431004457
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 96,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 1,
+              "settlements": 3,
+              "settledCycles": 3,
+              "switches": 0,
+              "visibleHandoffs": 1,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 3,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": 564,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "visible-fast-handoff",
+              "lastAt": 1790431003945,
+              "history": [
+                {
+                  "at": 1790431000741,
+                  "type": "target-arm",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "delay": 117860,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790431000741,
+                  "type": "lease-start",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "cycleMs": 1200,
+                  "phaseMs": 940,
+                  "rep": 1,
+                  "limit": 100,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790431001018,
+                  "type": "wrap",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "wraps": 1
+                },
+                {
+                  "at": 1790431001031,
+                  "type": "settle",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 2,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790431001034,
+                  "type": "target-arm",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "delay": 117600,
+                  "remaining": 98,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790431001034,
+                  "type": "playing",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0
+                },
+                {
+                  "at": 1790431002329,
+                  "type": "wrap",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "wraps": 2
+                },
+                {
+                  "at": 1790431002344,
+                  "type": "settle",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 3,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790431002346,
+                  "type": "target-arm",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "delay": 116400,
+                  "remaining": 97,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790431002346,
+                  "type": "playing",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0
+                },
+                {
+                  "at": 1790431003641,
+                  "type": "wrap",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "wraps": 3
+                },
+                {
+                  "at": 1790431003655,
+                  "type": "settle",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 4,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790431003657,
+                  "type": "target-arm",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "delay": 115200,
+                  "remaining": 96,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790431003657,
+                  "type": "playing",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0
+                },
+                {
+                  "at": 1790431003945,
+                  "type": "visible-fast-handoff",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "remainMs": 1009
+                }
+              ]
+            }
+          },
+          "stopped": {
+            "phase": "IDLE",
+            "kind": "28",
+            "owner": "",
+            "mode": "berhet",
+            "count": 4,
+            "audioSource": "USER_RECORDING",
+            "paused": false,
+            "playing": false,
+            "hidden": false,
+            "tts": 0,
+            "beat": {
+              "enabled": false,
+              "pattern": "heartbeat",
+              "level": 0.75,
+              "pending": false,
+              "nodes": 0,
+              "context": "running",
+              "masterLevel": 0.699999988079071,
+              "source": "",
+              "pulses": 0,
+              "skipped": 0,
+              "last": null
+            },
+            "intent": {
+              "type": "complete",
+              "source": "r654-terminal",
+              "at": 1790431005181,
+              "pauseActive": false,
+              "stopActive": true,
+              "seq": 2
+            },
+            "machine": "IDLE",
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            },
+            "physical": {
+              "count": 0,
+              "items": [],
+              "at": 1790431005257
+            },
+            "directHidden": null,
+            "lease": {
+              "version": "r928",
+              "active": false,
+              "owner": "",
+              "key": "",
+              "index": -1,
+              "hidden": false,
+              "playing": false,
+              "loop": false,
+              "cycleMs": 0,
+              "startRep": 0,
+              "applied": 0,
+              "completed": 0,
+              "remaining": 0,
+              "observedWraps": 0,
+              "mediaProgressMs": 0,
+              "countEvidence": "sampled-media-clock",
+              "leases": 1,
+              "settlements": 3,
+              "settledCycles": 3,
+              "switches": 0,
+              "visibleHandoffs": 1,
+              "visibleDrains": 0,
+              "revives": 0,
+              "hiddenPlayAttempts": 0,
+              "playEvents": 3,
+              "pauseEvents": 0,
+              "suppressedRevives": 0,
+              "dormant": false,
+              "frozen": false,
+              "abortLocked": false,
+              "abortLockouts": 0,
+              "lastProgressAgeMs": 1364,
+              "stalls": 0,
+              "overshootCycles": 0,
+              "lastError": "",
+              "lastReason": "visible-fast-handoff",
+              "lastAt": 1790431003945,
+              "history": [
+                {
+                  "at": 1790431000741,
+                  "type": "target-arm",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "delay": 117860,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790431000741,
+                  "type": "lease-start",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "cycleMs": 1200,
+                  "phaseMs": 940,
+                  "rep": 1,
+                  "limit": 100,
+                  "remaining": 99,
+                  "reason": "visibility-hidden"
+                },
+                {
+                  "at": 1790431001018,
+                  "type": "wrap",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "wraps": 1
+                },
+                {
+                  "at": 1790431001031,
+                  "type": "settle",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 2,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790431001034,
+                  "type": "target-arm",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "delay": 117600,
+                  "remaining": 98,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790431001034,
+                  "type": "playing",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0
+                },
+                {
+                  "at": 1790431002329,
+                  "type": "wrap",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "wraps": 2
+                },
+                {
+                  "at": 1790431002344,
+                  "type": "settle",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 3,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790431002346,
+                  "type": "target-arm",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "delay": 116400,
+                  "remaining": 97,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790431002346,
+                  "type": "playing",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0
+                },
+                {
+                  "at": 1790431003641,
+                  "type": "wrap",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "wraps": 3
+                },
+                {
+                  "at": 1790431003655,
+                  "type": "settle",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "cycles": 1,
+                  "rep": 4,
+                  "limit": 100,
+                  "reason": "media-progress"
+                },
+                {
+                  "at": 1790431003657,
+                  "type": "target-arm",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "delay": 115200,
+                  "remaining": 96,
+                  "reason": "playing"
+                },
+                {
+                  "at": 1790431003657,
+                  "type": "playing",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0
+                },
+                {
+                  "at": 1790431003945,
+                  "type": "visible-fast-handoff",
+                  "owner": "journey28",
+                  "key": "berhet:0",
+                  "index": 0,
+                  "remainMs": 1009
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "errors": [],
+      "limitations": [
+        "Synthetic 1.2-second PCM recording, not a user personal recording.",
+        "Hidden document simulated; physical Android lock-screen not tested."
+      ]
+    },
+    "release-results": {
+      "build": "r929",
+      "sealed": true,
+      "pass": true,
+      "results": [
+        {
+          "name": "clean-install-optional-art-404-and-offline",
+          "pass": true,
+          "detail": {
+            "app": "r929",
+            "sw": "r929",
+            "optionalImages404DoNotBlock": true,
+            "offline": true,
+            "preserved": {
+              "setting": "kept",
+              "recording": "r929-user-recording-bytes"
+            },
+            "pageErrors": []
+          }
+        },
+        {
+          "name": "actionable-install-failure-marker",
+          "pass": true,
+          "detail": {
+            "error": "./sukun-build-r929.json: fetch ./sukun-build-r929.json 404",
+            "uiText": "Güncelleme tamamlanamadı: ./sukun-build-r929.json: fetch ./sukun-build-r929.json 404",
+            "retry": "r929",
+            "preserved": {
+              "setting": "kept",
+              "recording": "r929-user-recording-bytes"
+            },
+            "pageErrors": []
+          }
+        },
+        {
+          "name": "actionable-install-failure-manifest",
+          "pass": true,
+          "detail": {
+            "error": "./manifest.webmanifest: sürüm veya SHA-256 uyuşmazlığı",
+            "uiText": "Güncelleme tamamlanamadı: ./manifest.webmanifest: sürüm veya SHA-256 uyuşmazlığı",
+            "retry": "r929",
+            "preserved": {
+              "setting": "kept",
+              "recording": "r929-user-recording-bytes"
+            },
+            "pageErrors": []
+          }
+        },
+        {
+          "name": "actionable-install-failure-hash",
+          "pass": true,
+          "detail": {
+            "error": "./assets/runtime/interface-r920.js?v=r929: sürüm veya SHA-256 uyuşmazlığı",
+            "uiText": "Güncelleme tamamlanamadı: ./assets/runtime/interface-r920.js?v=r929: sürüm veya SHA-256 uyuşmazlığı",
+            "retry": "r929",
+            "preserved": {
+              "setting": "kept",
+              "recording": "r929-user-recording-bytes"
+            },
+            "pageErrors": []
+          }
+        },
+        {
+          "name": "r928-to-r929-real-worker-preserves-user-data",
+          "pass": true,
+          "detail": {
+            "before": {
+              "app": "r928",
+              "sw": "r928",
+              "waiting": "r929"
+            },
+            "after": {
+              "app": "r929",
+              "sw": "r929"
+            },
+            "reloads": 1,
+            "preserved": {
+              "setting": "kept",
+              "recording": "r929-user-recording-bytes"
+            },
+            "pageErrors": []
+          }
+        },
+        {
+          "name": "new-page-old-controller-failure-and-one-tap-retry",
+          "pass": true,
+          "detail": {
+            "failed": {
+              "app": "r929",
+              "controller": "r928",
+              "error": "./sukun-build-r929.json: fetch ./sukun-build-r929.json 404"
+            },
+            "retry": {
+              "version": "r929",
+              "appVersion": "r929",
+              "phase": "ready",
+              "workerVersion": "r929",
+              "controllerVersion": "r929",
+              "activeVersion": "r929",
+              "waitingVersion": "",
+              "cache": "sukun-r929-touch-scroll-20260926-v1",
+              "complete": true,
+              "controllerCache": "sukun-r929-touch-scroll-20260926-v1",
+              "controllerComplete": true,
+              "waitingCache": "",
+              "waitingComplete": null,
+              "lastError": "",
+              "lastChange": 1790431122330,
+              "hasWaiting": false,
+              "hasController": true,
+              "versionMatch": true,
+              "updateQueued": false,
+              "reloadPending": false,
+              "sessionBusy": false
+            },
+            "oneTap": true,
+            "reloads": 1,
+            "button": {
+              "height": 44,
+              "clickable": true
+            },
+            "preserved": {
+              "setting": "kept",
+              "recording": "r929-user-recording-bytes"
+            },
+            "pageErrors": []
+          }
+        }
+      ],
+      "method": "First five gates from final sealed full run retained; only mixed-document/old-controller tap recovery rerun after fixture dismissed actual onboarding and daily greeting, centered update control and awaited reload. Production files unchanged between runs.",
+      "testedIndexSha256": "a3e2fe4247ce356c2c2aa2ccbdee5990e926b0822bb763fb56eab61d96e93f30",
+      "testedSwSha256": "e88ca339d4eaa4417408da454c6f9835204198dc508ffd225e21f3e7582f3b84"
+    }
+  },
+  "limitations": [
+    "Fiziksel Android cihazı test edilmedi. Chromium mobil görünümünde gerçek tarayıcı dokunma girdileri ve sınırlı lifecycle test olayları kullanıldı.",
+    "r928 ile karşılaştırmalı aktivasyon testinde mevcut düğme yalıtılmış bir kaydırma alanına taşındı; kalan arayüz testleri gerçek uygulama yerleşimindedir.",
+    "Gereksiz DOM yazımı ve geometri hesapları ölçüldü; bu ölçüler fiziksel telefonda gecikmenin sıfır olduğu anlamına gelmez.",
+    "Ses testleri kısa sentetik WAV ile yapıldı; fiziksel kilit ekranı, telefonun güç yönetimi ve Arapça TTS doğrulanmadı.",
+    "Görseller, çark geometrileri ve r928 efekt/ritim üretimi değiştirilmedi. Bu sürüm yeni tasarım veya yeni sahne içermez.",
+    "Canlı siteye dağıtım yapılmadı. Bu paket mevcut kuruluma birleştirilen toplu güncellemedir."
+  ],
+  "files": {
+    "index.html": "a3e2fe4247ce356c2c2aa2ccbdee5990e926b0822bb763fb56eab61d96e93f30",
+    "nero.html": "a3e2fe4247ce356c2c2aa2ccbdee5990e926b0822bb763fb56eab61d96e93f30",
+    "sw.js": "e88ca339d4eaa4417408da454c6f9835204198dc508ffd225e21f3e7582f3b84",
+    "manifest.webmanifest": "be7f1ccaad5d2364ea73a807b0423fab48d94fc0e60713aa2699e5f95c2f6629",
+    "sukun-build-r929.json": "8cc10ee6295a49adbdd6ca6d245b0bd86d4372d3b77c25bb3d1c0343d0c7d145"
+  }
+}
