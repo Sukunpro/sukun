@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- ════════════════════════════════════════════════════════════════
-     SÜKÛN r930 — Berhetiyye yakut ve altın menü tasarımı (base r929)
+     SÜKÛN r931 — Berhetiyye yakut paneller ve ametist tefekkür tasarımı (base r930)
      Tek dosya • Web Audio API (tüm sesler cihazda sentezlenir)
      Binaural Beats + Isochronic Tones + Esmâ/Zikir Modülü
      ════════════════════════════════════════════════════════════════ -->
@@ -129,6 +129,15 @@ body.sukun-tefekkur-mode #r920Practice :is(.r920Modes,.r920Path,#r920Actions,#r9
 body.sukun-tefekkur-mode #r920Practice .r920Identity{margin:4px auto 8px!important;min-height:100px!important}
 body.sukun-tefekkur-mode #r920Practice #r920Counter{width:min(73vw,280px)!important;margin:12px auto!important}
 body.sukun-tefekkur-mode #r920Practice #r920TefExit{display:inline-flex!important;position:fixed!important;top:max(12px,env(safe-area-inset-top))!important;right:max(12px,env(safe-area-inset-right))!important;z-index:2147483000!important;min-height:44px!important;background:#0a182bed!important;border:1px solid #d4bde199!important;border-radius:12px!important;padding:8px 12px!important;font:500 12px/1.3 system-ui!important;transform:none!important;pointer-events:auto!important}
+/* r931: the live practice exit retains its fixed, 44px minimum native hit area. */
+html[data-r853-berhet="1"] body.sukun-tefekkur-mode #r920Practice #r920TefExit {
+ box-sizing:border-box!important;width:auto!important;max-width:calc(100vw - 24px)!important;min-height:48px!important;height:auto!important;
+ padding:13px 28px!important;border:0!important;border-radius:0!important;
+ background: url('./assets/berhetiyye-premium/tefekkur-amethyst-r931.webp') center/100% 134% no-repeat,linear-gradient(120deg,#1a0a29,#251037) center/72% 62% no-repeat!important;
+ box-shadow:none!important;color:#fff0c9!important;font:600 .8125rem/1.4 Georgia,serif!important;letter-spacing:0!important;
+ white-space:normal!important;overflow-wrap:break-word!important;text-align:center!important;text-shadow:0 1px 3px #000!important;
+}
+html[data-r853-berhet="1"] body.sukun-tefekkur-mode #r920Practice #r920TefExit:focus-visible {outline:2px solid #ffe1a0!important;outline-offset:3px!important}
 body.sukun-tefekkur-mode.r920-practice-on .tabs{display:none!important}
 body.sukun-tefekkur-mode.r920-practice-on #r170SessionHub,body.sukun-tefekkur-mode.r920-practice-on #r829QuickSettings{display:none!important}
 body.r920-focus-rest #r920Practice :is(.r920Modes,.r920Path,#r920SceneTitle,#r920Actions,#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox,#r920More){visibility:hidden!important;pointer-events:none!important}
@@ -631,6 +640,109 @@ body #tfRefinedLayout,body #zBar,body #r883JourneyRemote {scroll-margin-block:90
   html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary .zMegaRight {gap:2px!important}
   html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary .zMegaCount {width:22px!important;min-width:22px!important;height:26px!important}
  }
+ /* r931 — The approved ruby/amethyst identity surfaces. One paint authority,
+  * native text and existing controls; gemstone layers never receive input. */
+ html[data-r853-berhet="1"] body :is(#zEsmaCard,#r829BerhetSceneQuick,#r768ActiveGlassHost) {
+  box-sizing:border-box!important;position:relative!important;isolation:isolate!important;
+  width:100%!important;max-width:680px!important;min-width:0!important;height:auto!important;max-height:none!important;
+  border:1px solid #a97b4980!important;border-radius:24px!important;padding:26px!important;
+  background:radial-gradient(ellipse at 15% 0%,#17454b66,transparent 66%),linear-gradient(145deg,#06191ff5,#07151ff7 65%,#160e22f5)!important;
+  box-shadow:inset 0 0 20px #0005,0 8px 22px #0003!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;overflow:visible!important;
+ }
+ html[data-r853-berhet="1"] body :is(#zEsmaCard,#r829BerhetSceneQuick,#r768ActiveGlassHost)::before {
+  content:""!important;display:block!important;visibility:visible!important;opacity:1!important;
+  position:absolute!important;inset:-1px!important;box-sizing:border-box!important;width:auto!important;height:auto!important;
+  border:24px solid transparent!important;border-image:url('./assets/berhetiyye-premium/panel-ruby-r931.webp') 250 / 28px / 0 stretch!important;
+  border-radius:24px!important;background:none!important;box-shadow:none!important;filter:none!important;
+  transform:none!important;animation:none!important;transition:none!important;z-index:0!important;pointer-events:none!important;
+ }
+ html[data-r853-berhet="1"] body :is(#zEsmaCard,#r829BerhetSceneQuick,#r768ActiveGlassHost)::after {content:none!important;display:none!important;pointer-events:none!important}
+ html[data-r853-berhet="1"] body #zEsmaCard {margin:12px auto 16px!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaCardBtn {
+  position:absolute!important;inset:0!important;z-index:2!important;width:100%!important;height:100%!important;min-height:44px!important;
+  margin:0!important;padding:0!important;border:0!important;border-radius:24px!important;background:transparent!important;box-shadow:none!important;
+  touch-action:manipulation!important;cursor:pointer!important;
+ }
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaCardBtn::before,
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaCardBtn::after {content:none!important;display:none!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaCardInner {
+  position:relative!important;z-index:1!important;display:grid!important;grid-template-columns:clamp(96px,6rem,144px) minmax(0,1fr)!important;
+  align-items:center!important;gap:12px 13px!important;min-width:0!important;max-width:100%!important;pointer-events:none!important;
+ }
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaCardInner * {min-width:0!important;max-width:100%!important;box-sizing:border-box!important;pointer-events:none!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaBody {display:contents!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaKicker {grid-column:1/-1!important;grid-row:1!important;justify-content:center!important;gap:7px!important;text-align:center!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaKicker small {font:650 .6875rem/1.4 Georgia,serif!important;letter-spacing:.105em!important;color:#f3d28f!important;opacity:1!important;overflow-wrap:break-word!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746Dot {background:linear-gradient(135deg,#e3a8ff,#7e278f 65%,#d592ee)!important;width:6px!important;height:6px!important;border-radius:2px!important;transform:rotate(45deg)!important;box-shadow:0 0 0 1px #d6b16a,0 0 8px #a3458933!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaTitleRow {grid-column:1/-1!important;grid-row:2!important;display:grid!important;grid-template-columns:minmax(0,1fr) 44px!important;align-items:center!important;gap:8px!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaTitleWrap {text-align:center!important;padding-left:10px!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaTitle {font:650 clamp(1.625rem,6.4vw,2.125rem)/1.18 Georgia,serif!important;color:#fff0ce!important;white-space:normal!important;overflow-wrap:anywhere!important;letter-spacing:.005em!important;text-shadow:0 2px 3px #0008!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaSubtitle {font:400 .6875rem/1.5 system-ui,sans-serif!important;letter-spacing:0!important;margin-top:5px!important;color:#d7d1d7!important;white-space:normal!important;overflow-wrap:break-word!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaLink {display:grid!important;place-items:center!important;width:44px!important;height:44px!important;min-width:44px!important;border-radius:50%!important;border:1px solid #d4a364!important;background:radial-gradient(circle at 35% 18%,#931c49,#430c28 45%,#170817 80%)!important;color:#ffedbf!important;box-shadow:inset 0 0 0 2px #1d0e1680,inset 0 1px 3px #fff2c177,0 0 0 2px #86613b66!important;font:400 1.375rem/1 Georgia,serif!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaSeal {
+  grid-column:1!important;grid-row:3!important;display:grid!important;place-items:center!important;align-self:center!important;
+  aspect-ratio:1/1!important;width:100%!important;height:auto!important;padding:19%!important;margin:0!important;
+  border:0!important;border-radius:50%!important;background:transparent url('./assets/berhetiyye-premium/seal-amethyst-r931.webp') center/100% 100% no-repeat!important;box-shadow:none!important;
+ }
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaSeal::before,
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaSeal::after {content:none!important;display:none!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaAr {font-family:var(--fA),serif!important;font-size:clamp(1.125rem,5.3vw,1.75rem)!important;line-height:1.5!important;color:#f8d99a!important;overflow-wrap:anywhere!important;white-space:normal!important;text-shadow:0 1px 4px #070009!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaText {grid-column:2!important;grid-row:3!important;display:block!important;-webkit-line-clamp:unset!important;height:auto!important;max-height:none!important;margin:0!important;font:400 .8125rem/1.65 Georgia,serif!important;color:#f0e4ca!important;white-space:normal!important;overflow:visible!important;overflow-wrap:break-word!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaMeta {grid-column:1/-1!important;grid-row:4!important;display:flex!important;flex-wrap:wrap!important;justify-content:center!important;gap:6px!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746TagRow {grid-column:1/-1!important;grid-row:5!important;display:flex!important;flex-wrap:wrap!important;justify-content:center!important;gap:6px!important}
+ html[data-r853-berhet="1"] body #zEsmaCard :is(.r746MetaChip,.r746Tag) {height:auto!important;min-height:28px!important;padding:5px 10px!important;border:1px solid #bc935d88!important;border-radius:999px!important;background:linear-gradient(140deg,#12313bf0,#08151f)!important;box-shadow:inset 0 1px 2px #f9deb81c!important;color:#eaddc1!important;font:500 .6875rem/1.35 system-ui,sans-serif!important;white-space:normal!important;overflow-wrap:anywhere!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746MetaChip b {color:#f5d397!important;font-weight:650!important}
+ html[data-r853-berhet="1"] body #zEsmaCard .r746Tag {border-color:#98679099!important;background:linear-gradient(140deg,#24192ef0,#101723)!important;color:#e0cfdf!important}
+ html[data-r853-berhet="1"] body #r700TefEntry {width:100%!important;max-width:680px!important;min-width:0!important;box-sizing:border-box!important;padding:0!important;margin:12px auto 18px!important}
+ html[data-r853-berhet="1"] body :is(#r442TefekkurBtn,#tefExitBtn) {
+  box-sizing:border-box!important;min-width:0!important;width:100%!important;max-width:100%!important;min-height:76px!important;height:auto!important;max-height:none!important;
+  margin:0!important;padding:1.25rem 12%!important;gap:8px!important;border:0!important;border-radius:0!important;
+  background-color:transparent!important;background-image:url('./assets/berhetiyye-premium/tefekkur-amethyst-r931.webp'),linear-gradient(120deg,#160820,#231034 50%,#15081f)!important;
+  background-repeat:no-repeat!important;background-position:center!important;background-size:100% 134%,77% 62%!important;
+  box-shadow:none!important;filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  font:650 clamp(1rem,4.5vw,1.375rem)/1.22 Georgia,serif!important;color:#fff0c6!important;-webkit-text-fill-color:currentColor!important;letter-spacing:0!important;
+  text-align:center!important;white-space:normal!important;overflow:visible!important;overflow-wrap:break-word!important;text-shadow:0 1px 4px #09030a!important;
+  touch-action:manipulation!important;animation:none!important;transition:none!important;
+ }
+ html[data-r853-berhet="1"] body :is(#r442TefekkurBtn,#tefExitBtn)::before,
+ html[data-r853-berhet="1"] body :is(#r442TefekkurBtn,#tefExitBtn)::after {content:none!important;display:none!important;pointer-events:none!important}
+ html[data-r853-berhet="1"] body #r442TefekkurBtn .r700TefIcon {display:grid!important;place-items:center!important;flex:0 0 32px!important;width:32px!important;min-width:32px!important;max-width:32px!important;height:32px!important;min-height:32px!important;max-height:32px!important;margin:0!important;padding:0!important;border:1px solid #bd965caa!important;border-radius:50%!important;background:radial-gradient(circle at 40% 25%,#786036,#25160f 75%)!important;box-shadow:inset 0 1px 3px #ffe4a64d!important;pointer-events:none!important}
+ html[data-r853-berhet="1"] body #r442TefekkurBtn .r700TefIcon svg {width:22px!important;height:22px!important;fill:#e6c57e!important;stroke:#ffe8b6!important}
+ html[data-r853-berhet="1"] body #r442TefekkurBtn .r700TefLabel {flex:1 1 auto!important;min-width:0!important;max-width:100%!important;margin:0!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;overflow-wrap:normal!important;font:inherit!important;line-height:inherit!important;color:inherit!important;pointer-events:none!important}
+ html[data-r853-berhet="1"] body #r442TefekkurBtn .r700TefArrow {flex:0 0 24px!important;display:grid!important;place-items:center!important;width:24px!important;min-width:24px!important;max-width:24px!important;height:30px!important;border:1px solid #a98353aa!important;border-radius:50%!important;background:radial-gradient(circle at 35% 20%,#7d2243,#20081b 80%)!important;color:#ffe7ad!important;font:500 24px/1 Georgia,serif!important;pointer-events:none!important}
+ html[data-r853-berhet="1"] body.sukun-tefekkur-mode #tefExitBtn {padding:.875rem 12%!important;min-height:56px!important;font:600 .8125rem/1.35 Georgia,serif!important;gap:5px!important}
+ html[data-r853-berhet="1"] body.sukun-tefekkur-mode #tefExitBtn>* {min-width:0!important;max-width:100%!important;white-space:normal!important;overflow-wrap:anywhere!important}
+ html[data-r853-berhet="1"] body :is(#r442TefekkurBtn,#tefExitBtn,#r829SceneSel,#zEsmaCard .r746EsmaCardBtn,#r611CurrentZikirName):focus-visible {outline:2px solid #ffe1a0!important;outline-offset:3px!important}
+ html[data-r853-berhet="1"] body #r829BerhetSceneQuick {grid-template-columns:minmax(0,1fr)!important;gap:12px!important;margin:4px auto 18px!important;padding:25px 24px 21px!important;color:#eedebc!important}
+ html[data-r853-berhet="1"] body #r829BerhetSceneQuick>* {position:relative!important;z-index:1!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+ html[data-r853-berhet="1"] body #r829BerhetSceneQuick>label {display:block!important;font:650 .6875rem/1.5 Georgia,serif!important;letter-spacing:.045em!important;text-align:center!important;color:#f1d390!important;white-space:normal!important}
+ html[data-r853-berhet="1"] body #r829SceneSel {display:block!important;width:100%!important;min-height:48px!important;height:auto!important;padding:11px 12px!important;border:1px solid #b38859bb!important;border-radius:14px!important;background:linear-gradient(125deg,#21112c,#100e1b)!important;color:#f2e9db!important;font:500 .875rem/1.4 system-ui,sans-serif!important;box-shadow:inset 0 1px 1px #f5d09a22!important;color-scheme:dark!important;text-overflow:ellipsis!important}
+ html[data-r853-berhet="1"] body #r829SceneSel option {background:#160f23!important;color:#f2e9db!important}
+ html[data-r853-berhet="1"] body #r918SceneStatus {padding:4px 2px!important;font:400 .6875rem/1.6 system-ui,sans-serif!important;color:#e2d9c9!important;text-align:center!important;white-space:normal!important;overflow-wrap:break-word!important}
+ html[data-r853-berhet="1"] body #r918SceneStatus:not(:disabled) {min-height:44px!important;border:1px solid #ba9a5b88!important;background:#28182bd9!important}
+ html[data-r853-berhet="1"] body #r768ActiveGlassHost {margin:0 auto 16px!important;padding:24px 25px 23px!important;gap:2px!important;text-align:center!important}
+ html[data-r853-berhet="1"] body #r768ActiveGlassHost>#zAr {font-size:clamp(1.375rem,6.5vw,2rem)!important;line-height:1.35!important;color:#f0cf8c!important;text-shadow:0 1px 4px #000!important;max-width:100%!important;overflow-wrap:anywhere!important;white-space:normal!important}
+ html[data-r853-berhet="1"] body #r768ActiveGlassHost #r740HeroHeading {grid-template-columns:minmax(0,1fr)!important;gap:0!important;width:100%!important;max-width:100%!important}
+ html[data-r853-berhet="1"] body #r768ActiveGlassHost .r740HeroSide {display:none!important}
+ html[data-r853-berhet="1"] body #r768ActiveGlassHost #r611CurrentZikirName {grid-column:1!important;min-width:0!important;max-width:100%!important;min-height:44px!important;height:auto!important;padding:4px!important;font:500 clamp(1.25rem,5.4vw,1.75rem)/1.2 Georgia,serif!important;white-space:normal!important;text-wrap:wrap!important;overflow:visible!important;overflow-wrap:anywhere!important;color:#fff1d4!important;-webkit-text-fill-color:currentColor!important;background:none!important;filter:none!important;text-shadow:0 1px 4px #000!important}
+ html[data-r853-berhet="1"] body #r768ActiveGlassHost #r611CurrentZikirSub {font:400 .625rem/1.45 system-ui,sans-serif!important;color:#d4cbd1!important;letter-spacing:.025em!important;white-space:normal!important;overflow-wrap:break-word!important;margin:2px 0 0!important}
+ @media(max-width:359px){
+  html[data-r853-berhet="1"] body :is(#zEsmaCard,#r829BerhetSceneQuick,#r768ActiveGlassHost) {padding-left:21px!important;padding-right:21px!important}
+  html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaCardInner {grid-template-columns:minmax(0,1fr)!important;gap:11px!important}
+  html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaSeal {grid-column:1!important;grid-row:3!important;justify-self:center!important;width:140px!important;height:140px!important;min-height:0!important;padding:26px!important;aspect-ratio:1!important}
+  html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaAr {font-size:1.125rem!important;line-height:1.35!important}
+  html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaText {grid-column:1!important;grid-row:4!important;text-align:center!important}
+  html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaMeta {grid-row:5!important}
+  html[data-r853-berhet="1"] body #zEsmaCard .r746TagRow {grid-row:6!important}
+  html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaKicker small {letter-spacing:.035em!important}
+  html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaTitle {font-size:1.375rem!important}
+  html[data-r853-berhet="1"] body #zEsmaCard .r746EsmaTitleWrap {padding-left:0!important}
+  html[data-r853-berhet="1"] body #r442TefekkurBtn {padding-left:12%!important;padding-right:12%!important;gap:6px!important}
+  html[data-r853-berhet="1"] body #r442TefekkurBtn .r700TefIcon {flex-basis:26px!important;width:26px!important;min-width:26px!important;max-width:26px!important;height:26px!important;min-height:26px!important;max-height:26px!important}
+  html[data-r853-berhet="1"] body #r442TefekkurBtn .r700TefIcon svg {width:19px!important;height:19px!important}
+  html[data-r853-berhet="1"] body #r442TefekkurBtn .r700TefArrow {flex-basis:20px!important;width:20px!important;min-width:20px!important;max-width:20px!important;height:25px!important}
+ }
  body #r829BerhetSceneQuick {box-sizing:border-box!important;max-width:100%!important}
  body #r829SceneSel {min-height:44px!important;font-size:14px!important}
  html[data-r914-context="base"] body #r829BerhetSceneQuick {display:none!important}
@@ -656,11 +768,11 @@ body #tfRefinedLayout,body #zBar,body #r883JourneyRemote {scroll-margin-block:90
 </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r930"/>
+<meta name="sukun-build" content="r931"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r930" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r931" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6084,7 +6196,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){/* r922 shared settings owns its label. */if(document.getElementById('r920Practice')?.contains(document.getElementById('r679ZikirAyarBox')))return;if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r930"/><script>window.SUKUN_BUILD='r930';document.documentElement.dataset.sukunBuild='r930';</script>
+<meta name="sukun-build" content="r931"/><script>window.SUKUN_BUILD='r931';document.documentElement.dataset.sukunBuild='r931';</script>
 <style id="sukun-r923-esma-gallery">@layer sukun-r920 {
 #r920Practice #r923EsmaOptions{min-width:0;margin:10px 0}
 #r920Practice #r923EsmaOptions[hidden]{display:none!important}
@@ -7199,7 +7311,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN — Uygulama r930 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN — Uygulama r931 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -76578,7 +76690,7 @@ html[data-r913-context="base"] body.r716-shell>#r717Scene{display:block!importan
 html[data-r913-context="base"] body.r716-shell>#r709SceneArt,html[data-r913-context="base"] body.r716-shell>[data-berhet-scene-layer]{display:none!important;opacity:0!important}
 </style>
 <script id="sukun-r913-build-scene-runtime">/* r916: retired competing visual writer; audio engine unchanged. */window.SukunR913={version:'r916',sync:()=>window.SukunR916Visual?.sync?.()};</script>
-<script src="./assets/runtime/esma-scenes-r923.js?v=r930" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
+<script src="./assets/runtime/esma-scenes-r923.js?v=r931" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
 <script id="sukun-r914-runtime">(()=>{'use strict';
 const R=document.documentElement,A='./assets/berhetiyye-premium/',$=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch(_){return d}};
 const atlas=window.SukunR853Scene.nameScenes,originals=window.SukunR853Scene.files;
@@ -76714,10 +76826,10 @@ prop('--r914-scene','none');attr('r920Performance',profile);new MutationObserver
 </script>
 <svg id="r915Filters" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;pointer-events:none"><defs><filter id="r915BlackAlpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 8 8 8 0 0"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
 
-<script src="./assets/runtime/session-r919.js?v=r930" integrity="sha256-4wBI6tpnv06BMVkw8xdck9TFqTGJVRvcnjMJcynlxfQ="></script>
-<script src="./assets/runtime/dock-r920.js?v=r930" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
-<script src="./assets/runtime/wheels-r924.js?v=r930" integrity="sha256-EF7Y1flc7H9mfzesU9iR0j19fhWrwSJg3RwEnGVdeW8="></script>
-<script src="./assets/runtime/interface-r920.js?v=r930" integrity="sha256-CEdeAzJTuWEwbh7stq4y6S5YWADqP3AXQkDXoYNihPA="></script>
+<script src="./assets/runtime/session-r919.js?v=r931" integrity="sha256-4wBI6tpnv06BMVkw8xdck9TFqTGJVRvcnjMJcynlxfQ="></script>
+<script src="./assets/runtime/dock-r920.js?v=r931" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
+<script src="./assets/runtime/wheels-r924.js?v=r931" integrity="sha256-EF7Y1flc7H9mfzesU9iR0j19fhWrwSJg3RwEnGVdeW8="></script>
+<script src="./assets/runtime/interface-r920.js?v=r931" integrity="sha256-CEdeAzJTuWEwbh7stq4y6S5YWADqP3AXQkDXoYNihPA="></script>
 <script id="sukun-r922-voice-settings-ui">
 (function(){'use strict';
 const $=id=>document.getElementById(id);let mounted=false,raf=0,busy=false,modeError='',discovery=null,discoveryTimer=0;
@@ -76793,6 +76905,6 @@ discoveryTimer=setTimeout(()=>{discovery?.disconnect();discovery=null;},15000);q
 
 </script>
 
-<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r930" integrity="sha256-zNvvsSXZE/xkp0tnQKdLXoxAyDtyFggABWwn3EucLmY=">
+<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r931" integrity="sha256-zNvvsSXZE/xkp0tnQKdLXoxAyDtyFggABWwn3EucLmY=">
 </body>
 </html>
