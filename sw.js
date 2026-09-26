@@ -1,26 +1,26 @@
-/* SÜKÛN r926 — Pages-safe release files and actionable install diagnostics
+/* SÜKÛN r927 — Pages-safe release files and actionable install diagnostics
    Amaç: yeni sürümün "waiting/install mismatch" yüzünden eski shell'de
    kilitlenmesini önlemek. Controller değişimi aktif sesi kendiliğinden
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r926';
-const CACHE = 'sukun-r926-pages-safe-update-20260926-v1';
-const CACHE_META = './sukun-cache-meta-r926.json';
-const BUILD_MARKER = './sukun-build-r926.json';
+const SURUM = 'r927';
+const CACHE = 'sukun-r927-controls-scenes-20260926-v1';
+const CACHE_META = './sukun-cache-meta-r927.json';
+const BUILD_MARKER = './sukun-build-r927.json';
 const LATEST_MARKER = './sukun-latest.json';
-const REQUIRED_RUNTIME = [{"url":"./assets/runtime/dock-r920.js?v=r926","sha256":"548fb9f3c80299672963b4a87d601a6f67ec259c255b9d0d5d53bddcdfc0629a"},{"url":"./assets/runtime/esma-scenes-r923.js?v=r926","sha256":"9268113568c813319388ba2506efbb973d0ef92135a3cf6e9b19014f032dce7f"},{"url":"./assets/runtime/interface-r920.js?v=r926","sha256":"fe108e8902c9d4e90f24d0cb98e006e6fe96e5ae2a540421bf86c3391fc84928"},{"url":"./assets/runtime/session-r919.js?v=r926","sha256":"e30048eada67bf4e81315930f3175c93d4c5a93189551bdc9e33097329e5c5f4"},{"url":"./assets/runtime/wheels-r924.js?v=r926","sha256":"a5e1b153835b6912079305e38773e67f2bec570c0d3e3a971146f47e76ee9c51"},{"url":"./assets/runtime/wheels-r924.css?v=r926","sha256":"40586e1c7177289b67339afaf7e10cce77da88e15be5a324be924a6f5ea73212"}];
+const REQUIRED_RUNTIME = [{"url":"./assets/runtime/dock-r920.js?v=r927","sha256":"2101ca9708bc2566ceec1473985b659633f8425f97d1675cec6f81644325de7d"},{"url":"./assets/runtime/esma-scenes-r923.js?v=r927","sha256":"dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"},{"url":"./assets/runtime/interface-r920.js?v=r927","sha256":"03885c26db4a94871d185bd337cb81bf287f1d666e2c47654807d3736121ca85"},{"url":"./assets/runtime/session-r919.js?v=r927","sha256":"e30048eada67bf4e81315930f3175c93d4c5a93189551bdc9e33097329e5c5f4"},{"url":"./assets/runtime/wheels-r924.js?v=r927","sha256":"a5e1b153835b6912079305e38773e67f2bec570c0d3e3a971146f47e76ee9c51"},{"url":"./assets/runtime/wheels-r924.css?v=r927","sha256":"ae819420fa48dde8e1a3304d1e5b8983319fdde395819c21b12acf842c2d32a9"}];
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
    Shell doğrulaması bağımsız; geri kalan assetler best-effort pre-cache ve
    normal fetch sırasında current cache'e yazılır. */
 const CORE = [
-  "./assets/runtime/dock-r920.js?v=r926",
-  "./assets/runtime/esma-scenes-r923.js?v=r926",
-  "./assets/runtime/interface-r920.js?v=r926",
-  "./assets/runtime/session-r919.js?v=r926",
-  "./assets/runtime/wheels-r924.js?v=r926",
-  "./assets/runtime/wheels-r924.css?v=r926",
+  "./assets/runtime/dock-r920.js?v=r927",
+  "./assets/runtime/esma-scenes-r923.js?v=r927",
+  "./assets/runtime/interface-r920.js?v=r927",
+  "./assets/runtime/session-r919.js?v=r927",
+  "./assets/runtime/wheels-r924.js?v=r927",
+  "./assets/runtime/wheels-r924.css?v=r927",
   './assets/berhetiyye-premium/control-round-plus-r788.webp',
   './assets/berhetiyye-premium/control-round-minus-r788.webp',
   './assets/berhetiyye-premium/control-nav-amethyst-r788.webp',
@@ -70,7 +70,7 @@ const PRECACHE = [
   "./assets/scenes/esma-r923/nur-mucadelesi-catalli-lite.webp",
   "./assets/scenes/esma-r923/nur-mucadelesi-yivli.webp",
   "./assets/scenes/esma-r923/nur-mucadelesi-yivli-lite.webp",
-  "./assets/runtime/esma-scenes-r923.js?v=r926",
+  "./assets/runtime/esma-scenes-r923.js?v=r927",
   "./assets/wheels-r924/berhetiyye/ham-kristal.webp",
   "./assets/wheels-r924/berhetiyye/faset-kesim.webp",
   "./assets/wheels-r924/berhetiyye/ametist-yuvarlak.webp",

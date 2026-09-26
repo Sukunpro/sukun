@@ -1,0 +1,5181 @@
+{
+  "build": "r927",
+  "base": "r926",
+  "pass": true,
+  "verificationDate": "2026-09-26",
+  "scope": "Gem controls, native setting visibility/persistence and startup ownership, dock viewport, automatic Esma scenes, release integrity",
+  "checks": {
+    "static-results": {
+      "pass": true,
+      "build": "r927",
+      "scriptsParsed": 241,
+      "runtimeIntegrity": 6,
+      "assets": 143,
+      "changedRuntime": [
+        "assets/runtime/dock-r920.js",
+        "assets/runtime/esma-scenes-r923.js",
+        "assets/runtime/interface-r920.js",
+        "assets/runtime/wheels-r924.css"
+      ],
+      "allArtAndAudioUnchanged": true,
+      "duplicateIds": [],
+      "identicalHtmlCopies": true,
+      "pagesSafeMetadata": true,
+      "manifestMatches": true
+    },
+    "release-results": {
+      "pass": true,
+      "results": [
+        {
+          "name": "pages-filter-clean-install-and-offline",
+          "pass": true,
+          "detail": {
+            "app": "r927",
+            "sw": "r927",
+            "optionalImages404DoNotBlock": true,
+            "offlineVerified": true,
+            "preserved": {
+              "setting": "kept",
+              "recording": "r927-user-recording-bytes"
+            },
+            "pageErrors": []
+          }
+        },
+        {
+          "name": "actionable-install-failure-marker",
+          "pass": true,
+          "detail": {
+            "error": "./sukun-build-r927.json: fetch ./sukun-build-r927.json 404",
+            "uiText": "Güncelleme tamamlanamadı: ./sukun-build-r927.json: fetch ./sukun-build-r927.json 404",
+            "retry": "r927",
+            "preserved": {
+              "setting": "kept",
+              "recording": "r927-user-recording-bytes"
+            },
+            "pageErrors": []
+          }
+        },
+        {
+          "name": "actionable-install-failure-manifest",
+          "pass": true,
+          "detail": {
+            "error": "./manifest.webmanifest: sürüm veya SHA-256 uyuşmazlığı",
+            "uiText": "Güncelleme tamamlanamadı: ./manifest.webmanifest: sürüm veya SHA-256 uyuşmazlığı",
+            "retry": "r927",
+            "preserved": {
+              "setting": "kept",
+              "recording": "r927-user-recording-bytes"
+            },
+            "pageErrors": []
+          }
+        },
+        {
+          "name": "actionable-install-failure-hash",
+          "pass": true,
+          "detail": {
+            "error": "./assets/runtime/interface-r920.js?v=r927: sürüm veya SHA-256 uyuşmazlığı",
+            "uiText": "Güncelleme tamamlanamadı: ./assets/runtime/interface-r920.js?v=r927: sürüm veya SHA-256 uyuşmazlığı",
+            "retry": "r927",
+            "preserved": {
+              "setting": "kept",
+              "recording": "r927-user-recording-bytes"
+            },
+            "pageErrors": []
+          }
+        },
+        {
+          "name": "r926-to-r927-real-worker-preserves-user-data",
+          "pass": true,
+          "detail": {
+            "before": {
+              "app": "r926",
+              "sw": "r926",
+              "waiting": "r927"
+            },
+            "after": {
+              "app": "r927",
+              "sw": "r927"
+            },
+            "reloads": 1,
+            "preserved": {
+              "setting": "kept",
+              "recording": "r927-user-recording-bytes"
+            },
+            "pageErrors": []
+          }
+        },
+        {
+          "name": "new-page-old-controller-failure-and-retry",
+          "pass": true,
+          "detail": {
+            "failed": {
+              "app": "r927",
+              "controller": "r926",
+              "error": "./sukun-build-r927.json: fetch ./sukun-build-r927.json 404"
+            },
+            "retry": {
+              "version": "r927",
+              "appVersion": "r927",
+              "phase": "ready",
+              "workerVersion": "r927",
+              "controllerVersion": "r927",
+              "activeVersion": "r927",
+              "waitingVersion": "",
+              "cache": "sukun-r927-controls-scenes-20260926-v1",
+              "complete": true,
+              "controllerCache": "sukun-r927-controls-scenes-20260926-v1",
+              "controllerComplete": true,
+              "waitingCache": "",
+              "waitingComplete": null,
+              "lastError": "",
+              "lastChange": 1790423520241,
+              "hasWaiting": false,
+              "hasController": true,
+              "versionMatch": true,
+              "updateQueued": false,
+              "reloadPending": false,
+              "sessionBusy": false
+            },
+            "oneClick": true,
+            "reloads": 1,
+            "button": {
+              "height": 44,
+              "clickable": true
+            },
+            "preserved": {
+              "setting": "kept",
+              "recording": "r927-user-recording-bytes"
+            },
+            "pageErrors": []
+          }
+        }
+      ]
+    },
+    "dock-results": {
+      "pass": true,
+      "method": "Real Chromium classic UI, silent active session, elementFromPoint, native clicks/drag; clientHeight drift simulates separately settled viewport metrics, not a physical Android device.",
+      "tests": [
+        {
+          "label": "390x760 drift0 mini",
+          "mode": "mini",
+          "top": 684,
+          "bottom": 752,
+          "viewport": {
+            "top": 0,
+            "bottom": 760
+          },
+          "width": 390,
+          "innerWidth": 390,
+          "scroll": {
+            "height": 0,
+            "total": 0,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 282,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r920DockExpand",
+              "x": 330,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r730MiniTef",
+              "x": 224,
+              "y": 698,
+              "w": 54,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "390x760 drift0 midi",
+          "mode": "midi",
+          "top": 434,
+          "bottom": 752,
+          "viewport": {
+            "top": 0,
+            "bottom": 760
+          },
+          "width": 390,
+          "innerWidth": 390,
+          "scroll": {
+            "height": 197,
+            "total": 201,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 232,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 280,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 328,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "390x760 drift0 max",
+          "mode": "max",
+          "top": 172,
+          "bottom": 752,
+          "viewport": {
+            "top": 0,
+            "bottom": 760
+          },
+          "width": 390,
+          "innerWidth": 390,
+          "scroll": {
+            "height": 459,
+            "total": 463,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 232,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 280,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 328,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "390x760 drift0 midi",
+          "mode": "midi",
+          "top": 434,
+          "bottom": 752,
+          "viewport": {
+            "top": 0,
+            "bottom": 760
+          },
+          "width": 390,
+          "innerWidth": 390,
+          "scroll": {
+            "height": 197,
+            "total": 201,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 232,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 280,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 328,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "390x760 drift0 mini",
+          "mode": "mini",
+          "top": 684,
+          "bottom": 752,
+          "viewport": {
+            "top": 0,
+            "bottom": 760
+          },
+          "width": 390,
+          "innerWidth": 390,
+          "scroll": {
+            "height": 0,
+            "total": 0,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 282,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r920DockExpand",
+              "x": 330,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r730MiniTef",
+              "x": 224,
+              "y": 698,
+              "w": 54,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "390x760 drift80 mini",
+          "mode": "mini",
+          "top": 684,
+          "bottom": 752,
+          "viewport": {
+            "top": 0,
+            "bottom": 760
+          },
+          "width": 390,
+          "innerWidth": 390,
+          "scroll": {
+            "height": 0,
+            "total": 0,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 282,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r920DockExpand",
+              "x": 330,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r730MiniTef",
+              "x": 224,
+              "y": 698,
+              "w": 54,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "390x760 drift80 midi",
+          "mode": "midi",
+          "top": 434,
+          "bottom": 752,
+          "viewport": {
+            "top": 0,
+            "bottom": 760
+          },
+          "width": 390,
+          "innerWidth": 390,
+          "scroll": {
+            "height": 197,
+            "total": 201,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 232,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 280,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 328,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "390x760 drift80 max",
+          "mode": "max",
+          "top": 172,
+          "bottom": 752,
+          "viewport": {
+            "top": 0,
+            "bottom": 760
+          },
+          "width": 390,
+          "innerWidth": 390,
+          "scroll": {
+            "height": 459,
+            "total": 463,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 232,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 280,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 328,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "390x760 drift80 midi",
+          "mode": "midi",
+          "top": 434,
+          "bottom": 752,
+          "viewport": {
+            "top": 0,
+            "bottom": 760
+          },
+          "width": 390,
+          "innerWidth": 390,
+          "scroll": {
+            "height": 197,
+            "total": 201,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 232,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 280,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 328,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "390x760 drift80 mini",
+          "mode": "mini",
+          "top": 684,
+          "bottom": 752,
+          "viewport": {
+            "top": 0,
+            "bottom": 760
+          },
+          "width": 390,
+          "innerWidth": 390,
+          "scroll": {
+            "height": 0,
+            "total": 0,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 282,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r920DockExpand",
+              "x": 330,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r730MiniTef",
+              "x": 224,
+              "y": 698,
+              "w": 54,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "320x568 drift0 mini",
+          "mode": "mini",
+          "top": 492,
+          "bottom": 560,
+          "viewport": {
+            "top": 0,
+            "bottom": 568
+          },
+          "width": 320,
+          "innerWidth": 320,
+          "scroll": {
+            "height": 0,
+            "total": 0,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 212,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r920DockExpand",
+              "x": 260,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r730MiniTef",
+              "x": 154,
+              "y": 506,
+              "w": 54,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "320x568 drift0 midi",
+          "mode": "midi",
+          "top": 242,
+          "bottom": 560,
+          "viewport": {
+            "top": 0,
+            "bottom": 568
+          },
+          "width": 320,
+          "innerWidth": 320,
+          "scroll": {
+            "height": 197,
+            "total": 201,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 162,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 210,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 258,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "320x568 drift0 max",
+          "mode": "max",
+          "top": 16,
+          "bottom": 560,
+          "viewport": {
+            "top": 0,
+            "bottom": 568
+          },
+          "width": 320,
+          "innerWidth": 320,
+          "scroll": {
+            "height": 423,
+            "total": 463,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 162,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 210,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 258,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "320x568 drift0 midi",
+          "mode": "midi",
+          "top": 242,
+          "bottom": 560,
+          "viewport": {
+            "top": 0,
+            "bottom": 568
+          },
+          "width": 320,
+          "innerWidth": 320,
+          "scroll": {
+            "height": 197,
+            "total": 201,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 162,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 210,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 258,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "320x568 drift0 mini",
+          "mode": "mini",
+          "top": 492,
+          "bottom": 560,
+          "viewport": {
+            "top": 0,
+            "bottom": 568
+          },
+          "width": 320,
+          "innerWidth": 320,
+          "scroll": {
+            "height": 0,
+            "total": 0,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 212,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r920DockExpand",
+              "x": 260,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r730MiniTef",
+              "x": 154,
+              "y": 506,
+              "w": 54,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "320x568 drift80 mini",
+          "mode": "mini",
+          "top": 492,
+          "bottom": 560,
+          "viewport": {
+            "top": 0,
+            "bottom": 568
+          },
+          "width": 320,
+          "innerWidth": 320,
+          "scroll": {
+            "height": 0,
+            "total": 0,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 212,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r920DockExpand",
+              "x": 260,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r730MiniTef",
+              "x": 154,
+              "y": 506,
+              "w": 54,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "320x568 drift80 midi",
+          "mode": "midi",
+          "top": 242,
+          "bottom": 560,
+          "viewport": {
+            "top": 0,
+            "bottom": 568
+          },
+          "width": 320,
+          "innerWidth": 320,
+          "scroll": {
+            "height": 197,
+            "total": 201,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 162,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 210,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 258,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "320x568 drift80 max",
+          "mode": "max",
+          "top": 16,
+          "bottom": 560,
+          "viewport": {
+            "top": 0,
+            "bottom": 568
+          },
+          "width": 320,
+          "innerWidth": 320,
+          "scroll": {
+            "height": 423,
+            "total": 463,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 162,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 210,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 258,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "320x568 drift80 midi",
+          "mode": "midi",
+          "top": 242,
+          "bottom": 560,
+          "viewport": {
+            "top": 0,
+            "bottom": 568
+          },
+          "width": 320,
+          "innerWidth": 320,
+          "scroll": {
+            "height": 197,
+            "total": 201,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 162,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 210,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 258,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "320x568 drift80 mini",
+          "mode": "mini",
+          "top": 492,
+          "bottom": 560,
+          "viewport": {
+            "top": 0,
+            "bottom": 568
+          },
+          "width": 320,
+          "innerWidth": 320,
+          "scroll": {
+            "height": 0,
+            "total": 0,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 212,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r920DockExpand",
+              "x": 260,
+              "y": 506,
+              "w": 44,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            },
+            {
+              "id": "r730MiniTef",
+              "x": 154,
+              "y": 506,
+              "w": 54,
+              "h": 44,
+              "bottom": 550,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "760x360 drift0 mini",
+          "mode": "mini",
+          "top": 284,
+          "bottom": 352,
+          "viewport": {
+            "top": 0,
+            "bottom": 360
+          },
+          "width": 760,
+          "innerWidth": 760,
+          "scroll": {
+            "height": 0,
+            "total": 0,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 490,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r920DockExpand",
+              "x": 538,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r730MiniTef",
+              "x": 432,
+              "y": 298,
+              "w": 54,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "760x360 drift0 midi",
+          "mode": "midi",
+          "top": 136,
+          "bottom": 352,
+          "viewport": {
+            "top": 0,
+            "bottom": 360
+          },
+          "width": 760,
+          "innerWidth": 760,
+          "scroll": {
+            "height": 95,
+            "total": 201,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 440,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 488,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 536,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "760x360 drift0 max",
+          "mode": "max",
+          "top": 136,
+          "bottom": 352,
+          "viewport": {
+            "top": 0,
+            "bottom": 360
+          },
+          "width": 760,
+          "innerWidth": 760,
+          "scroll": {
+            "height": 95,
+            "total": 463,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 440,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 488,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 536,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "760x360 drift0 midi",
+          "mode": "midi",
+          "top": 136,
+          "bottom": 352,
+          "viewport": {
+            "top": 0,
+            "bottom": 360
+          },
+          "width": 760,
+          "innerWidth": 760,
+          "scroll": {
+            "height": 95,
+            "total": 201,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 440,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 488,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 536,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "760x360 drift0 mini",
+          "mode": "mini",
+          "top": 284,
+          "bottom": 352,
+          "viewport": {
+            "top": 0,
+            "bottom": 360
+          },
+          "width": 760,
+          "innerWidth": 760,
+          "scroll": {
+            "height": 0,
+            "total": 0,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 490,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r920DockExpand",
+              "x": 538,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r730MiniTef",
+              "x": 432,
+              "y": 298,
+              "w": 54,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "760x360 drift80 mini",
+          "mode": "mini",
+          "top": 284,
+          "bottom": 352,
+          "viewport": {
+            "top": 0,
+            "bottom": 360
+          },
+          "width": 760,
+          "innerWidth": 760,
+          "scroll": {
+            "height": 0,
+            "total": 0,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 490,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r920DockExpand",
+              "x": 538,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r730MiniTef",
+              "x": 432,
+              "y": 298,
+              "w": 54,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "760x360 drift80 midi",
+          "mode": "midi",
+          "top": 136,
+          "bottom": 352,
+          "viewport": {
+            "top": 0,
+            "bottom": 360
+          },
+          "width": 760,
+          "innerWidth": 760,
+          "scroll": {
+            "height": 95,
+            "total": 201,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 440,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 488,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 536,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "760x360 drift80 max",
+          "mode": "max",
+          "top": 136,
+          "bottom": 352,
+          "viewport": {
+            "top": 0,
+            "bottom": 360
+          },
+          "width": 760,
+          "innerWidth": 760,
+          "scroll": {
+            "height": 95,
+            "total": 463,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 440,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 488,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 536,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "760x360 drift80 midi",
+          "mode": "midi",
+          "top": 136,
+          "bottom": 352,
+          "viewport": {
+            "top": 0,
+            "bottom": 360
+          },
+          "width": 760,
+          "innerWidth": 760,
+          "scroll": {
+            "height": 95,
+            "total": 201,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 440,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 488,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 536,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "760x360 drift80 mini",
+          "mode": "mini",
+          "top": 284,
+          "bottom": 352,
+          "viewport": {
+            "top": 0,
+            "bottom": 360
+          },
+          "width": 760,
+          "innerWidth": 760,
+          "scroll": {
+            "height": 0,
+            "total": 0,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 490,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r920DockExpand",
+              "x": 538,
+              "y": 298,
+              "w": 44,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            },
+            {
+              "id": "r730MiniTef",
+              "x": 432,
+              "y": 298,
+              "w": 54,
+              "h": 44,
+              "bottom": 342,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "real mode click",
+          "mode": "max",
+          "top": 172,
+          "bottom": 752,
+          "viewport": {
+            "top": 0,
+            "bottom": 760
+          },
+          "width": 390,
+          "innerWidth": 390,
+          "scroll": {
+            "height": 459,
+            "total": 463,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 232,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 280,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 328,
+              "y": 698,
+              "w": 44,
+              "h": 44,
+              "bottom": 742,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "body scrolled footer fixed",
+          "mode": "max",
+          "top": 16,
+          "bottom": 472,
+          "viewport": {
+            "top": 0,
+            "bottom": 480
+          },
+          "width": 320,
+          "innerWidth": 320,
+          "scroll": {
+            "height": 335,
+            "total": 463,
+            "y": 128
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 162,
+              "y": 418,
+              "w": 44,
+              "h": 44,
+              "bottom": 462,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 210,
+              "y": 418,
+              "w": 44,
+              "h": 44,
+              "bottom": 462,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 258,
+              "y": 418,
+              "w": 44,
+              "h": 44,
+              "bottom": 462,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "hide/reopen",
+          "mode": "max",
+          "top": 16,
+          "bottom": 472,
+          "viewport": {
+            "top": 0,
+            "bottom": 480
+          },
+          "width": 320,
+          "innerWidth": 320,
+          "scroll": {
+            "height": 335,
+            "total": 463,
+            "y": 128
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 162,
+              "y": 418,
+              "w": 44,
+              "h": 44,
+              "bottom": 462,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 210,
+              "y": 418,
+              "w": 44,
+              "h": 44,
+              "bottom": 462,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 258,
+              "y": 418,
+              "w": 44,
+              "h": 44,
+              "bottom": 462,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "drag up",
+          "mode": "midi",
+          "top": 354,
+          "bottom": 672,
+          "viewport": {
+            "top": 0,
+            "bottom": 760
+          },
+          "width": 390,
+          "innerWidth": 390,
+          "scroll": {
+            "height": 197,
+            "total": 201,
+            "y": 0
+          },
+          "controls": [
+            {
+              "id": "r588Play",
+              "x": 232,
+              "y": 618,
+              "w": 44,
+              "h": 44,
+              "bottom": 662,
+              "hit": true
+            },
+            {
+              "id": "r588Stop",
+              "x": 280,
+              "y": 618,
+              "w": 44,
+              "h": 44,
+              "bottom": 662,
+              "hit": true
+            },
+            {
+              "id": "r588Hide",
+              "x": 328,
+              "y": 618,
+              "w": 44,
+              "h": 44,
+              "bottom": 662,
+              "hit": true
+            }
+          ]
+        },
+        {
+          "label": "mini Tefekkür native click",
+          "pass": true
+        }
+      ],
+      "pageErrors": []
+    },
+    "settings-results": {
+      "pass": true,
+      "checks": [
+        {
+          "test": "native tap and visible state",
+          "id": "optTick",
+          "before": {
+            "id": "optTick",
+            "rect": {
+              "x": 293,
+              "y": 339.65625,
+              "w": 56,
+              "h": 44
+            },
+            "on": true,
+            "role": "switch",
+            "checked": "true",
+            "thumb": {
+              "display": "block",
+              "content": "\"\"",
+              "left": "29px",
+              "color": "rgb(141, 229, 199)"
+            },
+            "track": {
+              "display": "block",
+              "content": "\"\"",
+              "color": "rgb(22, 60, 62)"
+            },
+            "hit": "optTick",
+            "pe": "auto",
+            "native": true
+          },
+          "after": {
+            "id": "optTick",
+            "rect": {
+              "x": 293,
+              "y": 339.65625,
+              "w": 56,
+              "h": 44
+            },
+            "on": false,
+            "role": "switch",
+            "checked": "false",
+            "thumb": {
+              "display": "block",
+              "content": "\"\"",
+              "left": "7px",
+              "color": "rgb(189, 203, 208)"
+            },
+            "track": {
+              "display": "block",
+              "content": "\"\"",
+              "color": "rgb(35, 54, 66)"
+            },
+            "hit": "optTick",
+            "pe": "auto",
+            "native": false
+          }
+        },
+        {
+          "test": "native tap and visible state",
+          "id": "optVib",
+          "before": {
+            "id": "optVib",
+            "rect": {
+              "x": 293,
+              "y": 409.65625,
+              "w": 56,
+              "h": 44
+            },
+            "on": true,
+            "role": "switch",
+            "checked": "true",
+            "thumb": {
+              "display": "block",
+              "content": "\"\"",
+              "left": "29px",
+              "color": "rgb(141, 229, 199)"
+            },
+            "track": {
+              "display": "block",
+              "content": "\"\"",
+              "color": "rgb(22, 60, 62)"
+            },
+            "hit": "optVib",
+            "pe": "auto",
+            "native": true
+          },
+          "after": {
+            "id": "optVib",
+            "rect": {
+              "x": 293,
+              "y": 409.65625,
+              "w": 56,
+              "h": 44
+            },
+            "on": false,
+            "role": "switch",
+            "checked": "false",
+            "thumb": {
+              "display": "block",
+              "content": "\"\"",
+              "left": "7px",
+              "color": "rgb(189, 203, 208)"
+            },
+            "track": {
+              "display": "block",
+              "content": "\"\"",
+              "color": "rgb(35, 54, 66)"
+            },
+            "hit": "optVib",
+            "pe": "auto",
+            "native": false
+          }
+        },
+        {
+          "test": "native tap and visible state",
+          "id": "optMean",
+          "before": {
+            "id": "optMean",
+            "rect": {
+              "x": 293,
+              "y": 479.65625,
+              "w": 56,
+              "h": 44
+            },
+            "on": true,
+            "role": "switch",
+            "checked": "true",
+            "thumb": {
+              "display": "block",
+              "content": "\"\"",
+              "left": "29px",
+              "color": "rgb(141, 229, 199)"
+            },
+            "track": {
+              "display": "block",
+              "content": "\"\"",
+              "color": "rgb(22, 60, 62)"
+            },
+            "hit": "optMean",
+            "pe": "auto",
+            "native": true
+          },
+          "after": {
+            "id": "optMean",
+            "rect": {
+              "x": 293,
+              "y": 454.65625,
+              "w": 56,
+              "h": 44
+            },
+            "on": false,
+            "role": "switch",
+            "checked": "false",
+            "thumb": {
+              "display": "block",
+              "content": "\"\"",
+              "left": "7px",
+              "color": "rgb(189, 203, 208)"
+            },
+            "track": {
+              "display": "block",
+              "content": "\"\"",
+              "color": "rgb(35, 54, 66)"
+            },
+            "hit": "optMean",
+            "pe": "auto",
+            "native": false
+          }
+        },
+        {
+          "test": "native tap and visible state",
+          "id": "optAdv",
+          "before": {
+            "id": "optAdv",
+            "rect": {
+              "x": 293,
+              "y": 524.65625,
+              "w": 56,
+              "h": 44
+            },
+            "on": false,
+            "role": "switch",
+            "checked": "false",
+            "thumb": {
+              "display": "block",
+              "content": "\"\"",
+              "left": "7px",
+              "color": "rgb(189, 203, 208)"
+            },
+            "track": {
+              "display": "block",
+              "content": "\"\"",
+              "color": "rgb(35, 54, 66)"
+            },
+            "hit": "optAdv",
+            "pe": "auto",
+            "native": false
+          },
+          "after": {
+            "id": "optAdv",
+            "rect": {
+              "x": 293,
+              "y": 524.65625,
+              "w": 56,
+              "h": 44
+            },
+            "on": true,
+            "role": "switch",
+            "checked": "true",
+            "thumb": {
+              "display": "block",
+              "content": "\"\"",
+              "left": "29px",
+              "color": "rgb(141, 229, 199)"
+            },
+            "track": {
+              "display": "block",
+              "content": "\"\"",
+              "color": "rgb(22, 60, 62)"
+            },
+            "hit": "optAdv",
+            "pe": "auto",
+            "native": true
+          }
+        },
+        {
+          "test": "native tap and visible state",
+          "id": "optBendir",
+          "before": {
+            "id": "optBendir",
+            "rect": {
+              "x": 293,
+              "y": 590.234375,
+              "w": 56,
+              "h": 44
+            },
+            "on": false,
+            "role": "switch",
+            "checked": "false",
+            "thumb": {
+              "display": "block",
+              "content": "\"\"",
+              "left": "7px",
+              "color": "rgb(189, 203, 208)"
+            },
+            "track": {
+              "display": "block",
+              "content": "\"\"",
+              "color": "rgb(35, 54, 66)"
+            },
+            "hit": "optBendir",
+            "pe": "auto",
+            "native": false
+          },
+          "after": {
+            "id": "optBendir",
+            "rect": {
+              "x": 293,
+              "y": 590.234375,
+              "w": 56,
+              "h": 44
+            },
+            "on": true,
+            "role": "switch",
+            "checked": "true",
+            "thumb": {
+              "display": "block",
+              "content": "\"\"",
+              "left": "29px",
+              "color": "rgb(141, 229, 199)"
+            },
+            "track": {
+              "display": "block",
+              "content": "\"\"",
+              "color": "rgb(22, 60, 62)"
+            },
+            "hit": "optBendir",
+            "pe": "auto",
+            "native": true
+          }
+        },
+        {
+          "test": "native tap and visible state",
+          "id": "spatialTgl",
+          "before": {
+            "id": "spatialTgl",
+            "rect": {
+              "x": 293,
+              "y": 340.40625,
+              "w": 56,
+              "h": 44
+            },
+            "on": false,
+            "role": "switch",
+            "checked": "false",
+            "thumb": {
+              "display": "block",
+              "content": "\"\"",
+              "left": "7px",
+              "color": "rgb(189, 203, 208)"
+            },
+            "track": {
+              "display": "block",
+              "content": "\"\"",
+              "color": "rgb(35, 54, 66)"
+            },
+            "hit": "spatialTgl",
+            "pe": "auto",
+            "native": false
+          },
+          "after": {
+            "id": "spatialTgl",
+            "rect": {
+              "x": 293,
+              "y": 340.40625,
+              "w": 56,
+              "h": 44
+            },
+            "on": true,
+            "role": "switch",
+            "checked": "true",
+            "thumb": {
+              "display": "block",
+              "content": "\"\"",
+              "left": "29px",
+              "color": "rgb(141, 229, 199)"
+            },
+            "track": {
+              "display": "block",
+              "content": "\"\"",
+              "color": "rgb(22, 60, 62)"
+            },
+            "hit": "spatialTgl",
+            "pe": "auto",
+            "native": true
+          }
+        },
+        {
+          "test": "native tap and visible state",
+          "id": "zaTgl",
+          "before": {
+            "id": "zaTgl",
+            "rect": {
+              "x": 293,
+              "y": 339.515625,
+              "w": 56,
+              "h": 44
+            },
+            "on": true,
+            "role": "switch",
+            "checked": "true",
+            "thumb": {
+              "display": "block",
+              "content": "\"\"",
+              "left": "29px",
+              "color": "rgb(141, 229, 199)"
+            },
+            "track": {
+              "display": "block",
+              "content": "\"\"",
+              "color": "rgb(22, 60, 62)"
+            },
+            "hit": "zaTgl",
+            "pe": "auto",
+            "native": true
+          },
+          "after": {
+            "id": "zaTgl",
+            "rect": {
+              "x": 293,
+              "y": 339.515625,
+              "w": 56,
+              "h": 44
+            },
+            "on": false,
+            "role": "switch",
+            "checked": "false",
+            "thumb": {
+              "display": "block",
+              "content": "\"\"",
+              "left": "7px",
+              "color": "rgb(189, 203, 208)"
+            },
+            "track": {
+              "display": "block",
+              "content": "\"\"",
+              "color": "rgb(35, 54, 66)"
+            },
+            "hit": "zaTgl",
+            "pe": "auto",
+            "native": false
+          }
+        },
+        {
+          "test": "meaning hides",
+          "hidden": true,
+          "display": "none",
+          "text": "Rahmeti bütün varlığı kuşatan",
+          "mean": false
+        },
+        {
+          "test": "meaning shows",
+          "hidden": false,
+          "display": "block",
+          "text": "Rahmeti bütün varlığı kuşatan",
+          "mean": true
+        },
+        {
+          "test": "completion sound selected",
+          "value": "huu",
+          "on": true,
+          "pressed": "true",
+          "color": "rgb(22, 60, 62)",
+          "border": "rgb(141, 229, 199)",
+          "others": [
+            {
+              "on": false,
+              "color": "rgb(12, 26, 43)"
+            },
+            {
+              "on": false,
+              "color": "rgb(12, 26, 43)"
+            },
+            {
+              "on": false,
+              "color": "rgb(12, 26, 43)"
+            },
+            {
+              "on": false,
+              "color": "rgb(12, 26, 43)"
+            }
+          ]
+        },
+        {
+          "test": "completion sound selected",
+          "value": "yok",
+          "on": true,
+          "pressed": "true",
+          "color": "rgb(22, 60, 62)",
+          "border": "rgb(141, 229, 199)",
+          "others": [
+            {
+              "on": false,
+              "color": "rgb(12, 26, 43)"
+            },
+            {
+              "on": false,
+              "color": "rgb(12, 26, 43)"
+            },
+            {
+              "on": false,
+              "color": "rgb(12, 26, 43)"
+            },
+            {
+              "on": false,
+              "color": "rgb(12, 26, 43)"
+            }
+          ]
+        },
+        {
+          "test": "narrow settings layout",
+          "width": 320,
+          "layout": {
+            "width": 320,
+            "scroll": 320,
+            "card": {
+              "x": 21,
+              "y": -1843.171875,
+              "width": 278,
+              "height": 3250.28125,
+              "top": -1843.171875,
+              "right": 299,
+              "bottom": 1407.109375,
+              "left": 21
+            }
+          },
+          "switch": {
+            "x": 228,
+            "y": 299.3125,
+            "w": 56,
+            "h": 44
+          }
+        },
+        {
+          "test": "narrow settings layout",
+          "width": 430,
+          "layout": {
+            "width": 430,
+            "scroll": 430,
+            "card": {
+              "x": 26,
+              "y": -1747.125,
+              "width": 378,
+              "height": 2737.203125,
+              "top": -1747.125,
+              "right": 404,
+              "bottom": 990.078125,
+              "left": 26
+            }
+          },
+          "switch": {
+            "x": 333,
+            "y": 225.34375,
+            "w": 56,
+            "h": 44
+          }
+        },
+        {
+          "test": "native settings persist after reload",
+          "expected": {
+            "optTick": false,
+            "optVib": false,
+            "optMean": true,
+            "optAdv": true,
+            "optBendir": true,
+            "spatialTgl": true,
+            "zaTgl": false
+          },
+          "persisted": {
+            "optTick": false,
+            "optVib": false,
+            "optMean": true,
+            "optAdv": true,
+            "optBendir": true,
+            "spatialTgl": true,
+            "zaTgl": false
+          },
+          "completionSound": "yok"
+        }
+      ],
+      "errors": [],
+      "notes": [
+        "Sealed r927 runtime SRI verified by browser; service workers blocked for isolated settings QA. Production files unchanged."
+      ]
+    },
+    "settings-startup-results": {
+      "pass": true,
+      "tests": [
+        {
+          "delay": 0,
+          "listener": {
+            "before": {
+              "on": true,
+              "aria": "true",
+              "handler": "function"
+            },
+            "after": {
+              "on": false,
+              "aria": "false",
+              "handler": "function"
+            },
+            "pass": true
+          },
+          "pass": true,
+          "errors": []
+        },
+        {
+          "delay": 1800,
+          "listener": {
+            "before": {
+              "on": true,
+              "aria": "true",
+              "handler": "function"
+            },
+            "after": {
+              "on": false,
+              "aria": "false",
+              "handler": "function"
+            },
+            "pass": true
+          },
+          "pass": true,
+          "errors": []
+        }
+      ]
+    },
+    "wheels-results": {
+      "pass": true,
+      "tests": [
+        {
+          "label": "320 teffalse angle0",
+          "frame": 278,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 137.765625,
+                "y": 618.421875,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 137.765625,
+                "y": 402.421875,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 248.953125,
+                "y": 512.78125,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 26.5625,
+                "y": 512.78125,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "320 teffalse angle90",
+          "frame": 278,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 244.78125,
+                "y": 511.40625,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 28.78125,
+                "y": 511.40625,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 139.140625,
+                "y": 400.21875,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 139.140625,
+                "y": 622.609375,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "320 teffalse angle180",
+          "frame": 278,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 137.765625,
+                "y": 404.390625,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 137.765625,
+                "y": 620.390625,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 26.578125,
+                "y": 510.03125,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 248.96875,
+                "y": 510.03125,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "320 teffalse angle270",
+          "frame": 278,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 30.75,
+                "y": 511.40625,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 246.75,
+                "y": 511.40625,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 136.390625,
+                "y": 622.59375,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 44.4688,
+              "h": 44.4688,
+              "b": {
+                "x": 136.390625,
+                "y": 400.203125,
+                "w": 44.46875,
+                "h": 44.46875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "320 teftrue angle0",
+          "frame": 276,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 137.921875,
+                "y": 445.8125,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 137.921875,
+                "y": 231.359375,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 248.3125,
+                "y": 340.9375,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 27.515625,
+                "y": 340.9375,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "320 teftrue angle90",
+          "frame": 276,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 244.171875,
+                "y": 339.5625,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 29.71875,
+                "y": 339.5625,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 139.296875,
+                "y": 229.171875,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 139.296875,
+                "y": 449.96875,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "320 teftrue angle180",
+          "frame": 276,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 137.921875,
+                "y": 233.3125,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 137.921875,
+                "y": 447.765625,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 27.53125,
+                "y": 338.1875,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 248.328125,
+                "y": 338.1875,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "320 teftrue angle270",
+          "frame": 276,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 31.671875,
+                "y": 339.5625,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 246.125,
+                "y": 339.5625,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 136.546875,
+                "y": 449.953125,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 44.1562,
+              "h": 44.1562,
+              "b": {
+                "x": 136.546875,
+                "y": 229.15625,
+                "w": 44.15625,
+                "h": 44.15625
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "390 teffalse angle0",
+          "frame": 338,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 167.9609375,
+                "y": 667.6015625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 167.9609375,
+                "y": 404.9765625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 303.1484375,
+                "y": 539.1640625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 32.7578125,
+                "y": 539.1640625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "390 teffalse angle90",
+          "frame": 338,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 298.0859375,
+                "y": 537.4765625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 35.4609375,
+                "y": 537.4765625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 169.6484375,
+                "y": 402.2890625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 169.6484375,
+                "y": 672.6796875,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "390 teffalse angle180",
+          "frame": 338,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 167.9609375,
+                "y": 407.3515625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 167.9609375,
+                "y": 669.9765625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 32.7734375,
+                "y": 535.7890625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 303.1640625,
+                "y": 535.7890625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "390 teffalse angle270",
+          "frame": 338,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 37.8359375,
+                "y": 537.4765625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 300.4609375,
+                "y": 537.4765625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 166.2734375,
+                "y": 672.6640625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 166.2734375,
+                "y": 402.2734375,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "390 teftrue angle0",
+          "frame": 346,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 167.3203125,
+                "y": 503.0390625,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 167.3203125,
+                "y": 234.1953125,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 305.7109375,
+                "y": 371.5546875,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 28.9140625,
+                "y": 371.5546875,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "390 teftrue angle90",
+          "frame": 346,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 300.5234375,
+                "y": 369.8359375,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 31.6796875,
+                "y": 369.8359375,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 169.0390625,
+                "y": 231.4453125,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 169.0390625,
+                "y": 508.2421875,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "390 teftrue angle180",
+          "frame": 346,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 167.3203125,
+                "y": 236.6328125,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 167.3203125,
+                "y": 505.4765625,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 28.9296875,
+                "y": 368.1171875,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 305.7265625,
+                "y": 368.1171875,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "390 teftrue angle270",
+          "frame": 346,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 34.1171875,
+                "y": 369.8359375,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 302.9609375,
+                "y": 369.8359375,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 165.6015625,
+                "y": 508.2265625,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 165.6015625,
+                "y": 231.4296875,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "430 teffalse angle0",
+          "frame": 370,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 185.40625,
+                "y": 696.53125,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 185.40625,
+                "y": 409.046875,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 333.40625,
+                "y": 555.9375,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 37.40625,
+                "y": 555.9375,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "430 teffalse angle90",
+          "frame": 370,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 327.84375,
+                "y": 554.09375,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 40.359375,
+                "y": 554.09375,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 187.25,
+                "y": 406.09375,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 187.25,
+                "y": 702.09375,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "430 teffalse angle180",
+          "frame": 370,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 185.40625,
+                "y": 411.65625,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 185.40625,
+                "y": 699.140625,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 37.40625,
+                "y": 552.25,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 333.40625,
+                "y": 552.25,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "430 teffalse angle270",
+          "frame": 370,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 42.96875,
+                "y": 554.09375,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 330.453125,
+                "y": 554.09375,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 183.5625,
+                "y": 702.09375,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 59.1875,
+              "h": 59.1875,
+              "b": {
+                "x": 183.5625,
+                "y": 406.09375,
+                "w": 59.1875,
+                "h": 59.1875
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "430 teftrue angle0",
+          "frame": 350,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 187,
+                "y": 509.4375,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 187,
+                "y": 237.484375,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 327,
+                "y": 376.4375,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 47,
+                "y": 376.4375,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "430 teftrue angle90",
+          "frame": 350,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 321.75,
+                "y": 374.6875,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 49.796875,
+                "y": 374.6875,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 188.75,
+                "y": 234.6875,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 188.75,
+                "y": 514.6875,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "430 teftrue angle180",
+          "frame": 350,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 187,
+                "y": 239.9375,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 187,
+                "y": 511.890625,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 47,
+                "y": 372.9375,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 327,
+                "y": 372.9375,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "430 teftrue angle270",
+          "frame": 350,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 52.25,
+                "y": 374.6875,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 324.203125,
+                "y": 374.6875,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 185.25,
+                "y": 514.6875,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 56,
+              "h": 56,
+              "b": {
+                "x": 185.25,
+                "y": 234.6875,
+                "w": 56,
+                "h": 56
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "real gemstone transport taps",
+          "commands": [
+            "start",
+            "pause",
+            "resume",
+            "stop"
+          ],
+          "rotation": true
+        },
+        {
+          "label": "wheel inci-sema",
+          "frame": 338,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 36.40404510498047,
+                "y": 341.27630615234375,
+                "w": 57.49907684326172,
+                "h": 57.49908447265625
+              },
+              "label": {
+                "w": 44.00000762939453,
+                "h": 40.000030517578125
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 298.466796875,
+                "y": 324.10052490234375,
+                "w": 57.49908447265625,
+                "h": 57.49908447265625
+              },
+              "label": {
+                "w": 44,
+                "h": 40.000030517578125
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 173.4078826904297,
+                "y": 467.7745361328125,
+                "w": 57.49908447265625,
+                "h": 57.4990234375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.187469482421875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 155.7242431640625,
+                "y": 197.96278381347656,
+                "w": 57.49908447265625,
+                "h": 57.49906921386719
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "wheel zumrut-tesbih",
+          "frame": 338,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 43.482608795166016,
+                "y": 340.8123779296875,
+                "w": 57.49907302856445,
+                "h": 57.49908447265625
+              },
+              "label": {
+                "w": 44.00000762939453,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 293.7425537109375,
+                "y": 324.41015625,
+                "w": 57.49908447265625,
+                "h": 57.49908447265625
+              },
+              "label": {
+                "w": 44.000030517578125,
+                "h": 40.000030517578125
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 176.22750854492188,
+                "y": 464.2074890136719,
+                "w": 57.49908447265625,
+                "h": 57.499053955078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.187469482421875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 158.98532104492188,
+                "y": 201.13128662109375,
+                "w": 57.49908447265625,
+                "h": 57.49908447265625
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "wheel oniks-sukuneti",
+          "frame": 338,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 42.812171936035156,
+                "y": 340.8563232421875,
+                "w": 57.49907684326172,
+                "h": 57.49908447265625
+              },
+              "label": {
+                "w": 44.00000762939453,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 298.466796875,
+                "y": 324.10052490234375,
+                "w": 57.49908447265625,
+                "h": 57.49908447265625
+              },
+              "label": {
+                "w": 44,
+                "h": 40.000030517578125
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 178.80255126953125,
+                "y": 467.42095947265625,
+                "w": 57.49908447265625,
+                "h": 57.49908447265625
+              },
+              "label": {
+                "w": 24.000015258789062,
+                "h": 19.187469482421875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 161.4285430908203,
+                "y": 202.3334503173828,
+                "w": 57.49908447265625,
+                "h": 57.49906921386719
+              },
+              "label": {
+                "w": 24.000015258789062,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "wheel kehribar-tesbih",
+          "frame": 338,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 36.40404510498047,
+                "y": 341.27630615234375,
+                "w": 57.49907684326172,
+                "h": 57.49908447265625
+              },
+              "label": {
+                "w": 44.00000762939453,
+                "h": 40.000030517578125
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 298.466796875,
+                "y": 324.10052490234375,
+                "w": 57.49908447265625,
+                "h": 57.49908447265625
+              },
+              "label": {
+                "w": 44,
+                "h": 40.000030517578125
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 176.4482421875,
+                "y": 467.57525634765625,
+                "w": 57.49906921386719,
+                "h": 57.49908447265625
+              },
+              "label": {
+                "w": 24,
+                "h": 19.187469482421875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 158.7646026611328,
+                "y": 197.76351928710938,
+                "w": 57.49906921386719,
+                "h": 57.49906921386719
+              },
+              "label": {
+                "w": 24.000015258789062,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "wheel sedef-nuru",
+          "frame": 338,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 38.08793258666992,
+                "y": 341.16595458984375,
+                "w": 57.499080657958984,
+                "h": 57.49908447265625
+              },
+              "label": {
+                "w": 44.00000762939453,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 294.4285888671875,
+                "y": 324.3652038574219,
+                "w": 57.49908447265625,
+                "h": 57.49908447265625
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 174.6503143310547,
+                "y": 460.9286193847656,
+                "w": 57.49908447265625,
+                "h": 57.499114990234375
+              },
+              "label": {
+                "w": 24.000015258789062,
+                "h": 19.187469482421875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 157.84957885742188,
+                "y": 204.5879669189453,
+                "w": 57.49908447265625,
+                "h": 57.49906921386719
+              },
+              "label": {
+                "w": 24.000015258789062,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        }
+      ],
+      "pageErrors": [],
+      "limits": "Headless mobile Chromium, no physical Android device; rotation angle fixtures for geometry only; real transport clicks use live authority."
+    },
+    "berhet-wheels-results": {
+      "pass": true,
+      "tests": [
+        {
+          "label": "berhet ham-kristal teffalse",
+          "frame": 338,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 167.9609375,
+                "y": 657.9140625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 167.9609375,
+                "y": 401.0234375,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 296.3984375,
+                "y": 529.4765625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 39.5078125,
+                "y": 529.4765625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "berhet ham-kristal teftrue",
+          "frame": 346,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 167.3203125,
+                "y": 501.3046875,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 167.3203125,
+                "y": 238.3515625,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 298.7890625,
+                "y": 369.8359375,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 35.8359375,
+                "y": 369.8359375,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "berhet ametist-yuvarlak teffalse",
+          "frame": 338,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 167.9609375,
+                "y": 657.9140625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 167.9609375,
+                "y": 401.0234375,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 296.3984375,
+                "y": 529.4765625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 39.5078125,
+                "y": 529.4765625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "berhet ametist-yuvarlak teftrue",
+          "frame": 346,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 167.3203125,
+                "y": 501.3046875,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 167.3203125,
+                "y": 238.3515625,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 298.7890625,
+                "y": 369.8359375,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 35.8359375,
+                "y": 369.8359375,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "berhet faset-kesim teffalse",
+          "frame": 338,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 167.9609375,
+                "y": 657.9140625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 167.9609375,
+                "y": 401.0234375,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 296.3984375,
+                "y": 529.4765625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 54.0781,
+              "h": 54.0781,
+              "b": {
+                "x": 39.5078125,
+                "y": 529.4765625,
+                "w": 54.078125,
+                "h": 54.078125
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        },
+        {
+          "label": "berhet faset-kesim teftrue",
+          "frame": 346,
+          "overflow": false,
+          "buttons": [
+            {
+              "id": "r920Play",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 167.3203125,
+                "y": 501.3046875,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Stop",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 167.3203125,
+                "y": 238.3515625,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 44,
+                "h": 40
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Plus",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 298.7890625,
+                "y": 369.8359375,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            },
+            {
+              "id": "r920Minus",
+              "w": 55.3594,
+              "h": 55.3594,
+              "b": {
+                "x": 35.8359375,
+                "y": 369.8359375,
+                "w": 55.359375,
+                "h": 55.359375
+              },
+              "label": {
+                "w": 24,
+                "h": 19.1875
+              },
+              "hit": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "border": "0px"
+            }
+          ]
+        }
+      ],
+      "pageErrors": [],
+      "method": "Local app native kltAc test fixture; real art, CSS and elementFromPoint in normal/Tefekkür"
+    },
+    "esma-scenes-browser-results": {
+      "pass": true,
+      "method": "Actual sealed HTML and native scene selector / transport in Chromium; synthetic WAV fixtures played through actual recording pipeline for the 99 journey. SW blocked for isolated UI regression; no physical Android result claimed.",
+      "results": [
+        {
+          "label": "default-auto-real-asset",
+          "scene": "esma-cami-avlusu",
+          "index": 0
+        },
+        {
+          "label": "canonical-single-name-selection",
+          "testedIndices": [
+            0,
+            1,
+            2,
+            98
+          ],
+          "selectorValue": "auto"
+        },
+        {
+          "label": "atlas-other-name-preview-does-not-paint",
+          "previewIndex": 1,
+          "activeIndex": 0
+        },
+        {
+          "label": "count-pause-resume-no-scene-request",
+          "sceneRequests": 6
+        },
+        {
+          "label": "manual-narrative-persists-name-and-reload",
+          "choice": "nur-mucadelesi-catalli"
+        },
+        {
+          "label": "saved-classic-not-migrated-to-auto"
+        },
+        {
+          "label": "same-engine-normal-and-tef",
+          "scene": "esma-mevlevi-sema"
+        },
+        {
+          "label": "actual-99-journey-name-advance",
+          "journeyIndex": 1,
+          "canonicalIndex": 1,
+          "scene": "esma-kabede-seher"
+        },
+        {
+          "label": "obsolete-image-cannot-repaint-active-name",
+          "scene": "esma-kandilli-tekke",
+          "cancelled": 2
+        },
+        {
+          "label": "berhetiyye-scene-authority-preserved",
+          "berhet": "berhet-01",
+          "esmaPreference": "classic"
+        }
+      ],
+      "pageErrors": []
+    }
+  },
+  "preserved": {
+    "allRasterArtworkAndAudioByteIdenticalToR926": true,
+    "totalAssets": 143,
+    "esmaScenesDirectory": "assets/scenes/esma-r923/",
+    "wheelsDirectory": "assets/wheels-r924/",
+    "sessionRuntimeUnchanged": true
+  },
+  "limitations": [
+    "Fiziksel Android/Chrome ve canlı GitHub Pages dağıtımı incelenmedi; Chromium mobil görünüm benzetimi kullanıldı.",
+    "r917 kaynak worker mevcut olmadığı için yükseltme testi gerçek r926 worker üzerinden yapıldı.",
+    "99 seyir testinde kısa WAV test kayıtları yerel test tarayıcısına eklendi; kullanıcı paketine dahil edilmedi.",
+    "Berhetiyye görünürlüğü yerel uygulamanın kltAc test çağrısıyla açıldı; kullanıcı tercihleri veya gerçek ses kayıtları üzerinde test yapılmadı.",
+    "16 premium çarkın raster görselleri korunmuştur; onaylanan mockupların birebir görsel kesitleri değildir. Bu turda kontrol geometrisi ve hafif ışık sunumu düzeltildi.",
+    "99 isim için mevcut5 sakin sahne döngüsü kullanılır; 99 yeni arka plan üretilmedi.",
+    "Kümülatif birleştirme paketi, tarihsel tüm medya içeren sıfır kurulum değildir.",
+    "Tüm geçmiş ses donanımı/ekran kilidi senaryoları bu turda yeniden test edilmedi.",
+    "Canlı siteye dağıtım yapılmadı."
+  ],
+  "testedFiles": {
+    "index.html": "2e0b34c1529fb207b44b1d94a6f09a449c2ce865f59aa027f9505ffc68dcabe3",
+    "nero.html": "2e0b34c1529fb207b44b1d94a6f09a449c2ce865f59aa027f9505ffc68dcabe3",
+    "sw.js": "1967bbc3d11f20912bbcdd86bf15300cf77dbf7c33c643081adf246c0a98c8cd",
+    "manifest.webmanifest": "3c84a227521785e9a158a1066912de9e15cf0471b1274bdd0c13fd7c4911a524",
+    "sukun-build-r927.json": "e32b5df6bcb3f206bbed849818cea3b8e56060f259efc42b91aaedf4b0467714",
+    "sukun-latest.json": "3e58c9e43f52b2de443625f6379930f7e0f5e934427f461c74a147fc89535cf0"
+  }
+}

@@ -1,107 +1,86 @@
-SÜKÛN r926 — TOPLU GÜNCELLEME
+SÜKÛN r927 — TOPLU GÜNCELLEME
 
-Mevcut r917/r920/r923/r925 kurulumunun üzerine birleştirmek içindir.
-Ara sürümlerin paketlerini ayrı ayrı yüklemene gerek yoktur.
-Bu paket tarihsel bütün medya dosyalarını içeren boş kurulum paketi değildir.
+Mevcut r917/r920/r923/r925/r926 kurulumuna birleştirerek yükle.
+Ara sürümleri sırayla yüklemen gerekmez. Bu ZIP, tarihsel bütün medya
+arşivini içeren boş kurulum paketi değildir.
 
-1. ZIP'i aç.
-2. index.html, nero.html, sw.js, manifest.webmanifest, iki ikon,
-   sukun-build-r926.json, sukun-latest.json, .nojekyll ve assets klasörünü
-   mevcut sitenin aynı dosyalarının bulunduğu kök klasöre birlikte yükle.
-   Metadata dosyaları artık normal adlarla yayımlanır; .nojekyll alınmasa
-   bile alt çizgiyle başlayan dosyaları dışlayan yayında r926 kurulabilir.
-3. Aynı adlı dosyaları değiştir; assets klasörünü BİRLEŞTİR.
-   Mevcut assets klasörünü silme. Pakette olmayan eski ses, belge ve
-   görselleri koru. ZIP'i tek başına siteye yüklemek güncelleme yapmaz.
-4. Dosyaları mümkünse tek commit ile gönder. Dağıtım tamamlanınca aynı
-   adresi aç. Yeni sürüm bildirimindeki Güncelle'yi kullan.
-5. Devam eden veya duraklatılmış oturumu önce Bitir ile sonlandır.
-   Güncelleme oturum bitene kadar bekleyebilir.
-6. Zikir ekranının altındaki kalıcı Güncelle kontrolüyle de güncelleyebilirsin.
-   Sürüm satırında Uygulama r926 ve SW r926 görünmelidir.
+YÜKLEME
+1. ZIP'i aç. İçindekileri, sitede index.html ve sw.js'nin bulunduğu aynı
+   kök klasöre birlikte kopyala. ZIP'in kendisini yüklemek yeterli değildir.
+2. index.html, nero.html, sw.js, manifest.webmanifest, ikonlar,
+   sukun-build-r927.json, sukun-latest.json, .nojekyll ve assets klasörünü
+   beraber gönder. Aynı adlı dosyaları değiştir; assets klasörünü BİRLEŞTİR.
+   Mevcut assets klasörünü ve pakette bulunmayan eski dosyaları silme.
+3. Mümkünse tek commit ile yayımla; dağıtımın tamamlanmasını bekle.
+4. Devam eden/duraklatılmış zikri Bitir ile kapat. Aynı adresi aç ve
+   uygulamadaki Güncelle düğmesini kullan.
+5. Sürüm satırında Uygulama r927 / SW r927 görünmelidir.
 
-Chrome site verilerini veya uygulama depolamasını temizleme.
-Kendi ses kayıtları aynı cihaz, tarayıcı ve alan adındaki yerel verilerindedir.
+Site verilerini veya uygulama depolamasını temizleme. Kendi kayıtların
+aynı cihaz/tarayıcı/alan adındaki yerel verilerinde kalır.
+Canlı siteye otomatik dağıtım yapılmadı.
 
-r926 DÜZELTMELERİ:
-- r925'in zorunlu __sukun_build_r925__.json dosyası, varsayılan Jekyll
-  yayımında alt çizgi nedeniyle dışlanabilir. Bu 404 kurulumu reddederek
-  worker redundant sonucuna yol açar. Bu koşul tarayıcı testinde yeniden
-  üretildi; kullanıcının canlı sunucusu doğrudan incelenmiş değildir.
-- Yeni marker: sukun-build-r926.json. Yeni latest: sukun-latest.json.
-  Worker, uygulama, tanılama ve manifest bağları r926 ile eşlendi.
-- SW başarısız olmadan önce kurulamayan dosya ve HTTP/doğrulama nedeni
-  uygulamaya bildirilir. Eski çalışan SW yerinde kalır.
-- İlk kurulum reddedilip kayıt ortadan kalkmışsa Güncelle yeniden kayıt
-  oluşturur. Başarısız worker üzerinde sonsuz update döngüsüne girmez.
-- Mevcut r926 sayfasında Güncelle, devam eden kurulum sonucunu bekler;
-  hazır worker'a geçer. Aynı anda yinelenen denetimler birleştirilir.
-- Kendi kayıtlar, ayarlar ve devam eden/duraklatılmış oturum koruması
-  korunur. Worker unregister, site verisi silme veya sahte sürüm etiketi yok.
+r927 İÇERİĞİ
+- Başlat / Duraklat / Devam taş düğmesinin %44 genişlikteki kapsülü
+  kaldırıldı. İkon ve kısa yazı taş boyutuna göre 44–60px alana oturur.
+  Dokunma alanı en az 44px; şeffaf zeminden taşın işlemesi görünür.
+- Bitir ve +/- kontrolleri aynı ölçü düzeninde; dönerken yazılar dik kalır.
+  Merkez sayaç sabit, mevcut dönüş ve dokunurken durma davranışı korunur.
+- Zikir ayarlarında boş kutuya dönüşen anahtarların rayı/başlığı geri geldi.
+  Açık/kapalı durumunun rengi ve konumu belirgin. Mevcut olay işleyicileri
+  korunur; ikinci sayaç veya ikinci toggle eklenmez.
+- İlk açılışta eski yerleşim kodunun ayarları yanlış görsel kapsayıcıya
+  taşıyıp silmesi önlendi; yerleşik düğme olayları korunur.
+- Hû/Üçlü Hû/Kendi sesim/Gong/Sessiz seçiminin görsel vurgusu ve erişilebilir
+  seçim durumu düzeltildi. Anlam göster artık ortak ekranı da etkiler.
+- Akış barı gerçek görünür ekran altına hizalanır. Midi/Max içeriği kayar;
+  alt oynatma ve boyut düğmeleri sabit görünür kalır. Mini Tefekkür korunur.
+- Esmâ sahnesine “İsme göre otomatik” eklendi. 99 isim, mevcut 5 sakin
+  arka plan arasında sabit bir görsel düzenle ilerler. 99 yeni görsel değildir.
+  İsim değişir; sahne değişir. Sayaç/Pause/Resume yeni sahne seçmez.
+- Mevcut elle seçilmiş arka plan tercihi korunur. Atlas'ta incelenen ismin
+  sahnesi doğru önizlenir; aktif oturumun arka planı değiştirilmez.
+- r926 Pages uyumlu metadata, doğrulanmış SW kurulumu ve güvenli tekrar
+  deneme korunur. Uygulama/SW/manifest/marker/runtime hashleri r927 eşleşir.
 
-r925'TEN KORUNAN DÜZELTMELER:
-- Uygulama/SW sürüm farkı gerçek controller bilgisiyle görünür tutulur.
-  Kalıcı Güncelle kontrolü eski gizli bölümden ana Zikir ekranına taşındı.
-  Yükleme eksikse hazır kabul edilmez; oturum açıkken güncelleme bekletilir.
-- Bendir/davul eşliği, sayaç artışı yerine sesin doğrulanmış başlangıcında
-  tetiklenir. Tekil, 99 ve 28 seyir TTS başlangıçları ile kendi kayıt yolu
-  sınandı. Duraklat/Bitir ve ritim kapatmada planlanan vuruşlar iptal edilir.
-- Çark ve taş kontrolleri saat yönünün tersine yavaşça döner. Merkezdeki sayı
-  ve düğme yazıları sabit doğrultudadır. Dokunurken dönüş kısa süre durur.
-  Duraklatmada açı korunur; Devam ile aynı yerden döner.
-  İsim, çark ve görünüm → Çark dönüşü ile hareket açılıp kapatılır.
-  Tasarruf ve cihazın azaltılmış hareket tercihi dönüşü durdurur.
-
-SAHNELERİ AÇMA:
+OTOMATİK ESMÂ SAHNESİNİ AÇMA
 Zikir → 99 Esmâ → İsim, çark ve görünüm → Esmâ sahnesi
-Kudüs anlatıları altında:
-- Aksâ’da Aynı Saf
-- Lüd Kapısında Fitnenin Sonu
-- Nur Mücadelesi · Çatallı Zülfikar
-- Nur Mücadelesi · Yivli Kılıç
-Bu sahneler r923 paketinden korunmuştur; r925'te menüden normal ve
-Tefekkür ekranında açıldığı doğrulanmıştır. Kaynak/sanatsal yorum notları
-Sahne hakkında ve kaynaklar bölümündedir.
-Görseller: assets/scenes/esma-r923/
-Davulu açma: Zikir ayarları → Bendir/davul; usûl seçimi aynı bölümde.
+→ İsme göre otomatik
+Önceden sahne seçtiysen bu seçeneği bir kez açmalısın. Daha önce tercih
+kaydetmemiş kullanıcıda otomatik varsayılandır.
 
-ÇARKLARI SEÇME:
-Zikir → İsim, çark ve görünüm → Esmâ çarkı / Berhetiyye çarkı
-Çarkları görerek seç bölümünde küçük önizlemeler bulunur.
-Her ailenin seçimi ayrı hatırlanır; eski klasikler de korunmuştur.
+Kudüs/Îsâ/Mehdî anlatı sahneleri aynı listede elle seçilebilir durumda
+korunur. Otomatik sakin sahne döngüsüne dahil değildir. Görsel kaynak ve
+sanatsal yorum notları “Sahne hakkında ve kaynaklar” bölümündedir.
 
-YENİ DOSYALAR:
-assets/wheels-r924/berhetiyye/  — 11 şeffaf WebP çark
-assets/wheels-r924/esma/       — 5 şeffaf WebP çark
-assets/runtime/wheels-r924.js  — katalog ve görsel yükleme
-assets/runtime/wheels-r924.css — taş kontrolleri ve çark yerleşimi
-assets/runtime/interface-r920.js — güncel ortak arayüz (sürümü r925)
+ÇARK TASARIMI HAKKINDA
+Mevcut 16 premium çark, onaylanan mockuplardan esinlenerek r924'te yeniden
+üretilmiş şeffaf görsellerdir; mockupların birebir kesilmiş halleri değildir.
+Bu sürümde görsel dosyaları değiştirilmedi. Taşın üstünü örten kapsül
+kaldırıldı, ince iç ışık eklendi. Bunlar 3D görünüşlü raster assetlerdir;
+canlı 3D model/mesh değildir.
+Çark seçimi: İsim, çark ve görünüm → Esmâ/Berhetiyye çarkı.
+CARKLAR_ONIZLEME.html tüm 16 premium çarkı gösterir.
 
-Taş kontrolleri mevcut tek sayacı ve oynatma oturumunu kullanır:
--1, +1, Başlat / Duraklat / Devam, Bitir.
-Otomatik sesli sayım sırasında elle sayım önce duraklatılmalıdır.
-Seyirlerin sayaç sahipliği korunur.
-Duraklatılmış tekil zikirde elle artırmanın ses kuyruğunu kilitlemesi giderildi.
-Tefekkürden çıktıktan hemen sonra Devam'a basıldığında eski çıkış işleminin
-oturumu yeniden duraklatması önlendi.
-Bitir sonrasında kalan pasif mix durumunun yeni Başlat dokunuşunu başka
-oynatıcıya yönlendirmesi giderildi; aktif ses ve seyir sahipliği korunur.
-Çarklar 3D görünüşlü raster görsellerdir; canlı 3D model/mesh değildir.
+TAM DOSYA YOLLARI
+assets/wheels-r924/berhetiyye/     11 Berhetiyye çarkı
+assets/wheels-r924/esma/           5 Esmâ çarkı
+assets/scenes/esma-r923/           Esmâ ve anlatı arka planları
+assets/runtime/wheels-r924.css    Taş ölçüleri ve çark yerleşimi
+assets/runtime/interface-r920.js  Ortak arayüz, iç sürüm r927
+assets/runtime/dock-r920.js       Akış barı, iç sürüm r927
+assets/runtime/esma-scenes-r923.js Sahne kataloğu ve otomatik eşleştirme
+index.html / nero.html             Ana uygulama ve SceneEngine
+sw.js                             Service Worker r927
 
-ÖNİZLEME VE DOĞRULAMA:
-CARKLAR_ONIZLEME.html — paketteki 16 çarkın görsel listesi
-CARK_DOSYA_YOLLARI.txt — görsellerin tam klasör ve dosya yolları
-DOGRULAMA_r926.json — bu çalışmada yürütülen testler ve sınırları
-DOGRULAMA_r925.json — önceki paketin arşiv test raporu (yeniden koşulmadı)
-SHA256SUMS.txt — dosya bütünlüğü listesi
+Dosya adındaki r920/r923/r924, bileşenin ilk sürüm adıdır; uygulamanın eski
+kaldığı anlamına gelmez. Güncel bütünlük bilgisi sukun-build-r927.json'dadır.
 
-Kümülatif kapsam:
-r920 ortak oturum/sahne/Tefekkür ve dokunma altyapısı,
-r921 Mini Tefekkür bağlantısı ve sürüm denetimi,
-r922 Arapça/Türkçe okuyuş ve kendi kayıt seçimi,
-r923 dokuz Esmâ sahnesi ve hata yedekleri,
-r924 premium çarklar ve taş kontrolleri,
-r925 ritim eşliği, çark dönüşü ve kalıcı güncelleme kontrolü,
-r926 Pages uyumlu kurulum ve güvenli yeniden deneme.
-
-Canlı siteye otomatik yükleme yapılmadı.
+DOĞRULAMA
+DOGRULAMA_r927.json bu sürümdeki kontrolleri ve sınırlarını içerir.
+DOGRULAMA_r925.json / DOGRULAMA_r926.json önceki arşiv raporlarıdır.
+SHA256SUMS.txt paketteki dosyaların bütünlük listesidir.
+Testler masaüstü Chromium mobil ekran benzetimindedir; fiziksel Android
+ve kullanıcının canlı yayını doğrudan test edilmedi.
+Ses motoru ve çark görselleri korunmuştur; bu turda tüm geçmiş ses/arka
+plan donanım senaryoları yeniden çalıştırılmamıştır.
