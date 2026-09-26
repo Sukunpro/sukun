@@ -114,7 +114,9 @@ function render(){raf=0;if(!make())return;const s=snap();if(!s)return;
  const visual=window.SukunR918Visual?.snapshot?.()||{};
  window.SukunWheels?.render?.(mode);
  window.SukunWheelMotion?.render?.(s);
- const busy=s.phase==='PLAYING'||s.phase==='PREPARING';text($('r927PlayIcon'),busy?'Ⅱ':'▶');text($('r927PlayCaption'),busy?'Duraklat':s.phase==='PAUSED'?'Devam':'Başlat');attr($('r920Play'),'aria-label',busy?'Zikri duraklat':s.phase==='PAUSED'?'Zikre devam et':'Zikri başlat');
+ const busy=s.phase==='PLAYING'||s.phase==='PREPARING';text($('r927PlayIcon'),busy?'Ⅱ':'▶');text($('r927PlayCaption'),busy?'Duraklat':s.phase==='PAUSED'?'Devam':'Başlat');
+ const actionNames={r920Play:busy?'Zikri duraklat':s.phase==='PAUSED'?'Zikre devam et':'Zikri başlat',r920Stop:'Zikri bitir',r920Minus:'Bir azalt',r920Plus:'Bir artır'};
+ for(const [id,label]of Object.entries(actionNames)){attr($(id),'aria-label',label);attr($(id),'title',label)}
  const labels={PREPARING:'Ses hazırlanıyor',PAUSED:'Duraklatıldı',COMPLETING:'Tamamlanıyor',COMPLETED:'Seyir tamamlandı',INTERRUPTED:'Ses kesintisi · devam edebilirsin',RECOVERING:'Ses yeniden hazırlanıyor',ERROR:'Ses açılamadı'};text($('r920Phase'),labels[s.phase]||'');
  $('r920Plus').disabled=$('r920Minus').disabled=!!journey||busy;$('r920Counter').disabled=!!journey||busy;
  $('r923EsmaOptions').hidden=mode!=='esma';
@@ -141,6 +143,6 @@ document.addEventListener('pointerdown',()=>{if(root&&!root.hidden)wake()},{pass
 new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});
 // Re-render after the native setting handler; never duplicate the native toggle.
 document.addEventListener('click',e=>{if(e.target.closest('#optMean'))queue()},{passive:true});
-window.SukunPracticeUI=Object.freeze({version:'r927',refresh:queue,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
+window.SukunPracticeUI=Object.freeze({version:'r928',refresh:queue,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
 queue();
 })();

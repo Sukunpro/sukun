@@ -25,13 +25,21 @@ body.sukun-tefekkur-mode #r920Practice #r924WheelFrame #r920Counter {
 #r920Practice #r924WheelFrame #r920Stop{left:var(--r924-stop-x)!important;top:var(--r924-stop-y)!important}
 #r920Practice #r924WheelFrame #r920Play{left:var(--r924-play-x)!important;top:var(--r924-play-y)!important}
 /* Control paint stays within each gem; labels counter-rotate with the existing rotor. */
-#r920Practice #r924WheelFrame .r927GemAction{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:1px!important;width:44px!important;height:40px!important;max-width:100%!important;line-height:1!important}
-#r920Practice #r924WheelFrame .r927GemIcon{display:block!important;font:600 16px/19px system-ui,sans-serif!important;text-shadow:0 1px 3px #000,0 0 5px #000!important;pointer-events:none!important}
+#r920Practice #r924WheelFrame .r927GemAction{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:1px!important;width:var(--r928-label-width,24px)!important;height:var(--r928-label-height,24px)!important;max-width:none!important;line-height:1!important}
+#r920Practice #r924WheelFrame .r927GemIcon{display:block!important;font:600 var(--r928-icon-size,16px)/1 system-ui,sans-serif!important;text-shadow:0 1px 3px #000,0 0 5px #000!important;pointer-events:none!important}
 #r920Practice #r924WheelFrame .r927GemCaption{display:block!important;font:600 9px/12px system-ui,sans-serif!important;white-space:nowrap!important;letter-spacing:0!important;text-shadow:0 1px 3px #000,0 0 5px #000!important;pointer-events:none!important}
+/* r928: the label rotates about exactly the same center as its stone.
+   Global button skin min sizes, padding and pseudo layers must not resize it. */
+#r920Practice #r924WheelFrame .r925GemLabel{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;flex:none!important;box-sizing:border-box!important;min-width:0!important;min-height:0!important;width:var(--r928-label-width,24px)!important;height:var(--r928-label-height,24px)!important;padding:0!important;margin:0!important;transform-origin:50% 50%!important;line-height:1!important;font-size:var(--r928-text-size,14px)!important;letter-spacing:0!important;white-space:nowrap!important;text-align:center!important;clip-path:circle(calc(var(--r928-safe-diameter,30px) / 2) at 50% 50%)!important}
+#r920Practice #r924WheelFrame .r924Gem[data-compact="1"] .r927GemCaption{display:none!important}
+#r920Practice #r924WheelFrame .r924Gem[data-compact="1"] .r927GemAction{gap:0!important}
+#r920Practice #r924WheelFrame[data-wheel-classic="1"] .r925GemLabel{border:1px solid #dec19488!important;border-radius:50%!important;background:#071c2be0!important;box-shadow:0 1px 4px #0008!important}
+#r920Practice #r924WheelFrame .r924Gem:focus-visible{outline:2px solid #fff3d1!important;outline-offset:2px!important}
 #r920Practice #r924WheelFrame::after{content:""!important;display:block!important;position:absolute!important;inset:21%!important;border-radius:50%!important;box-shadow:inset 0 0 15px #b39bd516,0 0 10px #d2b27b18!important;border:1px solid #dec19422!important;pointer-events:none!important;z-index:0!important}
 #r920Practice[data-phase="PLAYING"] #r924WheelFrame::after{box-shadow:inset 0 0 22px #b39bd52e,0 0 13px #d2b27b26!important}
 #r920Practice #r924WheelFrame .r924Gem:disabled{opacity:.52!important}
-#r920Practice #r924WheelFrame .r924Gem:active:not(:disabled){background:#08122255!important}
+#r920Practice #r924WheelFrame .r924Gem:active:not(:disabled){background:transparent!important}
+#r920Practice #r924WheelFrame .r924Gem:active:not(:disabled) .r925GemLabel{background:#08122255!important;border-radius:50%!important}
 #r920Practice #r924WheelFrame::before{content:""!important;display:none!important;position:absolute!important;inset:13%!important;border-radius:50%!important;border:3px solid var(--r920-accent)!important;box-shadow:inset 0 0 20px #7bcdbc25,0 0 16px #7bcdbc25!important;pointer-events:none!important;z-index:0!important}
 #r920Practice #r924WheelFrame:is([data-wheel-state="loading"],[data-wheel-state="error"])::before{display:block!important}
 #r920Practice .r920Transport{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;margin:10px 0 14px!important}
@@ -54,7 +62,7 @@ body.sukun-tefekkur-mode #r920Practice #r924WheelFrame #r920Counter {
 
 @layer sukun-r920-contract {
 #r920Practice #r925WheelRotor{position:absolute!important;inset:0!important;z-index:3!important;pointer-events:none!important;transform-origin:50% 50%!important;animation:r925WheelTurn 72s linear infinite!important;animation-play-state:paused!important}
-#r920Practice .r925GemLabel{display:block!important;pointer-events:none!important;animation:r925LabelTurn 72s linear infinite!important;animation-play-state:paused!important}
+#r920Practice .r925GemLabel{display:flex!important;pointer-events:none!important;transform-origin:50% 50%!important;animation:r925LabelTurn 72s linear infinite!important;animation-play-state:paused!important}
 #r920Practice #r924WheelFrame[data-motion="running"] #r925WheelRotor,
 #r920Practice #r924WheelFrame[data-motion="running"] .r925GemLabel{animation-play-state:running!important}
 #r925UpdatePanel{display:grid!important;gap:8px!important;width:100%!important;max-width:540px!important;margin:8px auto!important;padding:8px!important;box-sizing:border-box!important}
