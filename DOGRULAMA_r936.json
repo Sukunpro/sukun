@@ -1,0 +1,217 @@
+{
+  "build": "r936",
+  "base": "r935",
+  "pass": true,
+  "date": "2026-09-26",
+  "scope": "Tefekkürde güncelleme eyleminin gizlenmesi ve alt bölümde ortalanmış Tefekkürden Çık kontrolü",
+  "checks": {
+    "static-results.json": {
+      "build": "r936",
+      "pass": true,
+      "sealed": true,
+      "inlineScriptsParsed": 242,
+      "externalScriptsParsed": 6,
+      "exactApprovedSourceChangesOnly": true,
+      "approvedSourceFiles": [
+        "index.html",
+        "assets/runtime/interface-r920.js"
+      ],
+      "serviceWorkerBehaviorUnchanged": true,
+      "preservedRuntimeAndArtFiles": 160,
+      "duplicateIds": [],
+      "identicalHtml": true,
+      "verifiedRuntimeHashes": 10,
+      "indexSha256": "d8149ccad162eb389de7d8932b471f5248d1b710f15413558f4f7891adda80c5",
+      "swSha256": "6d967a0149a7fbaf20235f491f7a0bed91814d91c2a389c02c4e511de56384f1"
+    },
+    "release-results.json": {
+      "build": "r936",
+      "sealed": true,
+      "indexSha256": "d8149ccad162eb389de7d8932b471f5248d1b710f15413558f4f7891adda80c5",
+      "swSha256": "6d967a0149a7fbaf20235f491f7a0bed91814d91c2a389c02c4e511de56384f1",
+      "pass": true,
+      "results": [
+        {
+          "name": "clean-install-and-required-stylesheet-offline",
+          "pass": true,
+          "detail": {
+            "app": "r936",
+            "sw": "r936",
+            "onlineStylesheet": {
+              "ok": true,
+              "hash": "c1cc9d241cd1332448576ff7098e7d76a5fd01c25bf31a53eeb21c670945c3a7",
+              "loaded": true
+            },
+            "offline": true,
+            "offlineStylesheet": {
+              "ok": true,
+              "hash": "c1cc9d241cd1332448576ff7098e7d76a5fd01c25bf31a53eeb21c670945c3a7",
+              "loaded": true
+            },
+            "preserved": {
+              "setting": "kept",
+              "recording": "r936-preserved-recording"
+            },
+            "pageErrors": []
+          }
+        },
+        {
+          "name": "r935-to-r936-one-reload-preserves-user-data",
+          "pass": true,
+          "detail": {
+            "before": {
+              "app": "r935",
+              "sw": "r935"
+            },
+            "after": {
+              "app": "r936",
+              "sw": "r936"
+            },
+            "waiting": "r936",
+            "reloads": 1,
+            "stylesheet": {
+              "ok": true,
+              "hash": "c1cc9d241cd1332448576ff7098e7d76a5fd01c25bf31a53eeb21c670945c3a7",
+              "loaded": true
+            },
+            "preserved": {
+              "setting": "kept",
+              "recording": "r936-preserved-recording"
+            },
+            "pageErrors": []
+          }
+        }
+      ]
+    },
+    "tefekkur-exit-results.json": {
+      "pass": true,
+      "checks": [
+        {
+          "name": "berhet single native exit; update UI hidden",
+          "pass": true
+        },
+        {
+          "name": "berhet centered exit 393",
+          "pass": true,
+          "layout": {
+            "x": 56.5,
+            "y": 627.15625,
+            "width": 280,
+            "height": 52,
+            "center": 196.5,
+            "parentCenter": 196.5,
+            "position": "relative",
+            "fit": true,
+            "below": true,
+            "tapHit": true,
+            "art": "url(\"http://127.0.0.1:34089/work-r936/assets/berhetiyye-premium/tefekkur-amethyst-r931.webp\"), linear-gradient(120deg, rgb(26, 10, 41), rgb(37, 16, 55))"
+          }
+        },
+        {
+          "name": "berhet centered exit 320",
+          "pass": true,
+          "layout": {
+            "x": 22,
+            "y": 548.03125,
+            "width": 276,
+            "height": 52,
+            "center": 160,
+            "parentCenter": 160,
+            "position": "relative",
+            "fit": true,
+            "below": true,
+            "tapHit": true,
+            "art": "url(\"http://127.0.0.1:34089/work-r936/assets/berhetiyye-premium/tefekkur-amethyst-r931.webp\"), linear-gradient(120deg, rgb(26, 10, 41), rgb(37, 16, 55))"
+          }
+        },
+        {
+          "name": "berhet native return preserves idle session",
+          "pass": true
+        },
+        {
+          "name": "esma single native exit; update UI hidden",
+          "pass": true
+        },
+        {
+          "name": "esma centered exit 393",
+          "pass": true,
+          "layout": {
+            "x": 56.5,
+            "y": 578.953125,
+            "width": 280,
+            "height": 52,
+            "center": 196.5,
+            "parentCenter": 196.5,
+            "position": "relative",
+            "fit": true,
+            "below": true,
+            "tapHit": true,
+            "art": "none"
+          }
+        },
+        {
+          "name": "esma centered exit 320",
+          "pass": true,
+          "layout": {
+            "x": 22,
+            "y": 504.828125,
+            "width": 276,
+            "height": 52,
+            "center": 160,
+            "parentCenter": 160,
+            "position": "relative",
+            "fit": true,
+            "below": true,
+            "tapHit": true,
+            "art": "none"
+          }
+        },
+        {
+          "name": "esma native return preserves idle session",
+          "pass": true
+        },
+        {
+          "name": "Playing native exit retains source, mode, item and advancing count",
+          "pass": true,
+          "playing": {
+            "mode": "berhet",
+            "index": 0,
+            "count": 0,
+            "phase": "PLAYING",
+            "source": "USER_RECORDING",
+            "kind": "28"
+          },
+          "returned": {
+            "mode": "berhet",
+            "index": 0,
+            "count": 1,
+            "phase": "PLAYING",
+            "source": "USER_RECORDING",
+            "kind": "28"
+          }
+        },
+        {
+          "name": "Paused native exit retains paused session",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "scope": "Tefekkür native exit placement and session continuity; mobile Chromium",
+      "sealed": true,
+      "indexSha256": "d8149ccad162eb389de7d8932b471f5248d1b710f15413558f4f7891adda80c5",
+      "swSha256": "6d967a0149a7fbaf20235f491f7a0bed91814d91c2a389c02c4e511de56384f1"
+    }
+  },
+  "limitations": [
+    "Fiziksel Android cihazında test yapılmadı; Chromium mobil görünümü kullanıldı.",
+    "Ses motoru, tempo, sayaç, kayıt ve kilit ekranı mantığı değiştirilmedi; bu küçük arayüz güncellemesinde ses testleri yeniden çalıştırılmadı.",
+    "Canlı siteye dağıtım yapılmadı. Mevcut kuruluma birleştirilecek toplu güncellemedir."
+  ],
+  "files": {
+    "index.html": "d8149ccad162eb389de7d8932b471f5248d1b710f15413558f4f7891adda80c5",
+    "nero.html": "d8149ccad162eb389de7d8932b471f5248d1b710f15413558f4f7891adda80c5",
+    "sw.js": "6d967a0149a7fbaf20235f491f7a0bed91814d91c2a389c02c4e511de56384f1",
+    "manifest.webmanifest": "57a00e6f5fe0430b818ffb89da5cc2aa098b422355f83b7de5073ec7d6f1823a",
+    "sukun-build-r936.json": "dacf91efc2458d587cf7fd71274a97cd81212cc3fbcb1e391630979894f4d727"
+  }
+}
