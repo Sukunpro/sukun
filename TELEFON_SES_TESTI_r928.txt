@@ -1,0 +1,46 @@
+SÜKÛN r928 — TELEFONDA SES / KİLİT TESTİ
+
+Bu liste gerçek cihaz doğrulaması içindir. Paketteki tarayıcı testleri
+Android'in ekran kilidi ve pil yönetimini birebir çalıştırmaz.
+
+HAZIRLIK
+Uygulama r928 / SW r928 eşleşmesini kontrol et.
+Zikir ayarları → Bendir / davul ritmi açık → Usûl: Kalp atımı · tok bas.
+Ritim seviyesi başlangıç için %75. Ana ses seviyesi de ritmi etkiler.
+Telefonun sesini rahat duyabileceğin bir düzeye ayarla.
+
+YANKI / 8D KONTROLÜ
+Kulaklıkla, Ayarlar → KAYIT VE ÇALMA bölümündeki Mekân yankısı ve
+8D mekânsal çalma seçeneklerini aç. Mini okuyucudaki Yankı / 8D aynı
+ayarları değiştirir. Önce ekran açıkken, sonra kilitliyken sol-sağ hareketi
+ve yankının sürüp sürmediğini dinle. Tek başına yankı, tek başına 8D ve
+ikisi birlikte durumlarını ayrı dene. Arapça TTS bu kayıt testinden ayrıdır.
+
+ÜÇ AYRI OTURUM
+Aşağıdaki sırayı önce kendi kaydı olan tek isimde, sonra 99 Esmâ seyrinde,
+sonra 28 Berhetiyye seyrinde uygula. Seyir için sıradaki birkaç isme kendi
+kaydını koy; kaynak göstergesinin Kendi kayıt / Kendi sesin olduğunu gör.
+
+1. Başlat. Ekran açıkken okuyuş + bas ritmini birlikte dinle.
+   Sayacı not et. Duraklatınca iki sesin de durduğunu kontrol et.
+   Devam et ile tek okuyuşun sürdüğünü, çift ses oluşmadığını dinle.
+2. Zikir çalarken Ambiyans sekmesine geç; sonra Tefekküre gir / çık.
+   Oturumun ve sayacın korunup korunmadığını kontrol et.
+3. ZİKİR ÇALARKEN ekranı kilitle ve 60–90 saniye dinle.
+   Okuyuşun sürmesi ile yalnız ritmin duyulmasını ayrı ayrı not et.
+   Ses kesilirse yaklaşık kaçıncı saniyede olduğunu kaydet.
+4. Kilidi aç. Sayacın gözlenmiş okuyuşlarla tutarlı olduğunu kontrol et.
+   Bir anda fazla sayma, iki okuyuş, gecikmiş ritim yığılması olmamalı.
+   Duraklat → Devam et → Bitir sırasını dene.
+5. Sorun varsa uygulamayı yenilemeden ?diag=1 tanı ekranından raporu
+   dışa aktar. Oturum türü, ses kaynağı, kilit süresi, telefon modeli ve
+   Chrome sürümüyle birlikte paylaş.
+
+ARAPÇA OKUMA
+Aynı adımları Arapça okuma seçimiyle ayrıca dene. Tarayıcının sistem sesi
+ile kayıt dosyası aynı oynatma yolunu kullanmaz; birinin başarısı diğerinin
+kilit ekranında doğrulandığı anlamına gelmez. Kayıt bulunamadıysa kaynak
+göstergesini ve uygulamanın duraklama / yeniden deneme mesajını not et.
+
+Site verilerini, IndexedDB'yi veya uygulama depolamasını temizleme;
+bunlar kendi kayıtlarını silebilir. Bu test için böyle bir işlem gerekmez.

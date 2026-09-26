@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- ════════════════════════════════════════════════════════════════
-     SÜKÛN r927 — Taş kontrolleri, dokunmatik ayarlar ve otomatik Esmâ sahneleri (base r926)
+     SÜKÛN r928 — Dönen taş kontrolleri, kalp ritmi, yankı/8D ve kayıt sürekliliği (base r927)
      Tek dosya • Web Audio API (tüm sesler cihazda sentezlenir)
      Binaural Beats + Isochronic Tones + Esmâ/Zikir Modülü
      ════════════════════════════════════════════════════════════════ -->
@@ -574,11 +574,11 @@ body #tfRefinedLayout,body #zBar,body #r883JourneyRemote {scroll-margin-block:90
 </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r927"/>
+<meta name="sukun-build" content="r928"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r927" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r928" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6002,7 +6002,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){/* r922 shared settings owns its label. */if(document.getElementById('r920Practice')?.contains(document.getElementById('r679ZikirAyarBox')))return;if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r927"/><script>window.SUKUN_BUILD='r927';document.documentElement.dataset.sukunBuild='r927';</script>
+<meta name="sukun-build" content="r928"/><script>window.SUKUN_BUILD='r928';document.documentElement.dataset.sukunBuild='r928';</script>
 <style id="sukun-r923-esma-gallery">@layer sukun-r920 {
 #r920Practice #r923EsmaOptions{min-width:0;margin:10px 0}
 #r920Practice #r923EsmaOptions[hidden]{display:none!important}
@@ -6711,7 +6711,9 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <div class="opt"><span><span class="ico" data-ico="book"></span> Anlamı göster</span><button aria-label="Anlamı göster" class="sw on" data-tip="Zikrin Türkçe anlamını sahnede gösterir. Ne söylediğini bilerek çekmek tefekkürü derinleştirir." id="optMean"></button></div>
 <div class="opt"><span>⏭ Devirde sıradakine geç</span><button aria-label="Devirde sıradakine geç" class="sw" data-tip="Devir dolunca listedeki sıradaki zikre kendiliğinden geçer. Hatim ya da vird çekerken elini boşta bırakır." id="optAdv"></button></div>
 <div class="opt"><span><span class="ico" data-ico="drum"></span> Bendir / davul ritmi — tempoya kilitli düm·tek</span><button aria-label="Bendir usûlü" class="sw" data-tip="Tempoya kilitli bendir usûlü (düm·tek) ekler. Zikri ritme oturtmak isteyenler için." id="optBendir"></button></div>
-<div class="jRow" id="usulRow" style="margin-top:6px"><b style="flex:none;color:var(--mut)">Usûl</b><select aria-label="Bendir usûlü" id="usulSel"><option value="duyek">Düyek (basit)</option><option value="sofyan">Sofyan</option><option value="devrihindi">Devr-i Hindî</option><option value="cifte">Çifte düm·tek</option></select></div>
+<div class="jRow" id="usulRow" style="margin-top:6px"><b style="flex:none;color:var(--mut)">Usûl</b><select aria-label="Bendir usûlü" id="usulSel"><option value="heartbeat">Kalp atımı · tok bas</option><option value="duyek">Düyek (basit)</option><option value="sofyan">Sofyan</option><option value="devrihindi">Devr-i Hindî</option><option value="cifte">Çifte düm·tek</option></select></div>
+<div class="sldRow" id="r928RhythmLevelRow"><label for="r928RhythmLevel">Ritim seviyesi</label><input id="r928RhythmLevel" type="range" min="0" max="1" step="0.01" value="0.75" aria-label="Bendir ve tok bas seviyesi"/><span class="valB" id="r928RhythmLevelValue">%75</span></div>
+<div id="r928RhythmHint" style="font-size:11px;color:var(--mut);line-height:1.5;margin:0 0 8px">Düm vuruşu okuyuşla başlar; ana ses seviyesi ritmi de etkiler.</div>
 <div class="opt" style="margin-top:6px"><span><span class="ico" data-ico="spiral"></span> 8D mekânsal ses — kanallar kulaklıkta çevrende döner</span><button aria-label="8D mekânsal ses" class="sw" id="spatialTgl"></button></div>
 <!-- r119: zikir sonu sesi — çan yerine Hû -->
 <div class="opt" style="display:block">
@@ -7115,7 +7117,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN — Uygulama r927 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN — Uygulama r928 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -13465,9 +13467,11 @@ function chOn(def){
   else def.build(E,gain);
   gain.gain.setTargetAtTime(chVol[def.id]*def.cal,ctx.currentTime,.35);
   AMB[def.id]={E,gain,def};
+  try{spatialStart()}catch(e){}
 }
 function chOff(id){
   const c=AMB[id]; if(!c)return;
+  try{r928SpatialStop(c,true)}catch(e){}
   c.E.kill(.6,c.gain); delete AMB[id];
 }
 function chSetVol(id,v){
@@ -15819,7 +15823,10 @@ async function r476Prepare(){
   /* Ağır OfflineAudio render yalnız görünürken yapılır. Android kilidinde
      isim değişiminde öncelik yeni kaynağı native <audio>'ya HEMEN vermektir;
      arka planda OfflineAudioContext throttling'i kaynak değişimini geciktiremez. */
-  if(blob&&url&&!document.hidden){
+  const r928CachedLockFx=!!(_r477FxUrl&&_r477FxCacheSig===r477FxSignature(key));
+  if(blob&&url&&(!document.hidden||r928CachedLockFx)){
+    /* r928: hidden yeniden hazırlık hazır FX'i kuru kayda çevirmesin.
+       Cache hit sadece mevcut stereo WAV'ı bağlar; kilitte ağır render yok. */
     const fx=await r477RenderLockTrack(blob,key);
     if(seq!==_r476PrepareSeq||!preferenceCurrent())return false;
     if(fx){
@@ -16014,7 +16021,7 @@ async function r476BeginHidden(){
     window.SukunZikirTransportGate?.reset?.('background-handoff');
     try{sesDurdur('background-handoff')}catch(e){}
     try{speechSynthesis.cancel()}catch(e){}
-    _r476Hidden={startedAt:Date.now(),count:+Z.count||0,devir:+Z.devir||0,total:+Z.total||0,mode:'recording',cycleMs,phaseMs:phaseMs%cycleMs,preparedKey:expected,fx:!!prepared.fxUrl,audibleMs:0,audibleSince:Date.now(),credited:0};
+    _r476Hidden={startedAt:Date.now(),count:+Z.count||0,devir:+Z.devir||0,total:+Z.total||0,mode:'recording',cycleMs,phaseMs:phaseMs%cycleMs,preparedKey:expected,fx:!!prepared.fxUrl,audibleMs:0,lastMediaTime:Number(a.currentTime)||0,audibleSince:Date.now(),credited:0};
     a.volume=Math.max(.05,Math.min(1,typeof ZVOL==='number'?ZVOL:1));
     try{window.SukunNativeEchoBridge?.start?.(a,{src:sourceUrl,wet:KAYIT?.yankiMik,volume:a.volume,rate:a.playbackRate,key:expected,mode:'lock-zikir',baked:!!prepared.fxUrl})}catch(e){}
     r476MediaSession('recording');window.dispatchEvent(new CustomEvent('sukun:lock-ready'));return true;
@@ -16037,8 +16044,23 @@ async function r476BeginHidden(){
 }
 function r838CaptureAudible(s,playing){
  if(!s||s.mode!=='recording')return;
- const now=Date.now();if(s.audibleSince!=null)s.audibleMs=(s.audibleMs||0)+Math.max(0,now-s.audibleSince);
- s.audibleSince=playing?now:null;
+ const a=_r476LockAudio,cur=Math.max(0,Number(a?.currentTime)||0),dur=Math.max(0,Number(a?.duration)||0),prev=Number(s.lastMediaTime);
+ const wrapped=Number.isFinite(prev)&&dur>0&&prev>dur*.55&&cur+Math.max(.08,dur*.08)<prev;
+ /* r928: only observed media-clock movement earns repeats. A native element
+    may stay !paused while stalled; wall-clock elapsed silence is not reading. */
+ if(s.audibleSince!=null&&Number.isFinite(prev)){
+   const delta=wrapped?Math.max(0,dur-prev)+cur:Math.max(0,cur-prev);
+   s.audibleMs=(s.audibleMs||0)+delta/Math.max(.25,Number(a?.playbackRate)||1)*1000;
+ }
+ s.lastMediaTime=cur;s.audibleSince=playing?Date.now():null;
+ /* A native loop may report waiting before playing. Retain only that
+    physically observed wrap; emit its beat after verified playback resumes. */
+ if(wrapped)s.pendingRhythmWrap=true;
+ if(playing&&s.pendingRhythmWrap&&document.hidden&&s===_r476Hidden){
+   s.pendingRhythmWrap=false;
+   const expected=s.preparedKey;
+   window.SukunRhythm?.voiceStarted?.(()=>s===_r476Hidden&&Z.auto&&document.hidden&&a&&!a.paused&&!a.ended&&(!expected||a.dataset?.sukLockKey===expected),'native-loop');
+ }
 }
 function r838EarnedRepeats(s){
  if(!s)return 0;
@@ -18039,72 +18061,108 @@ $('#fr2Tgl').onclick=()=>{
 $('#fr2Car').addEventListener('input',e=>{FR2.c=frSafeCarrier(+e.target.value,FR2.b);e.target.value=FR2.c;$('#fr2CarV').textContent=FR2.c.toFixed(1)+' Hz';setFill(e.target);fr2Retune();saveSettings();});
 $('#fr2Beat').addEventListener('input',e=>{FR2.b=clamp(+e.target.value||2.5,.5,40);FR2.c=frSafeCarrier(FR2.c,FR2.b);$('#fr2Car').value=FR2.c;$('#fr2BeatV').textContent=FR2.b.toFixed(2)+' Hz';setFill(e.target);fr2Retune();saveSettings();});
 
-/* ── Bendir usûlü — düm & tek sentezi ── */
+/* ── Bendir usûlü — r928: sese bağlı tok düm / kalp atımı ── */
 let BENDIR=false;
 const R925_DRUM_NODES=new Set();
-function r925DrumSource(node){R925_DRUM_NODES.add(node);node.addEventListener('ended',()=>R925_DRUM_NODES.delete(node),{once:true});return node;}
+let USUL_RESUME=null,USUL_PENDING=false,USUL_EPOCH=0,R928_RHYTHM_BUS=null;
+let R925_RHYTHM_SOURCE='',R928_RHYTHM_PULSES=0,R928_RHYTHM_SKIPPED=0,R928_RHYTHM_LAST=null;
+let R928_RHYTHM_LEVEL=Number(S.get('sukun.rhythm.level',.75));
+if(!Number.isFinite(R928_RHYTHM_LEVEL))R928_RHYTHM_LEVEL=.75;
+R928_RHYTHM_LEVEL=Math.min(1,Math.max(0,R928_RHYTHM_LEVEL));
+/* Independent mix level, shared AudioContext + master EQ/limiter. No clock or counter here. */
+function r928RhythmBus(){
+  if(!ctx||!master)return null;
+  if(R928_RHYTHM_BUS?.context===ctx)return R928_RHYTHM_BUS.input;
+  if(R928_RHYTHM_BUS)for(const n of [R928_RHYTHM_BUS.input,R928_RHYTHM_BUS.compressor])try{n.disconnect()}catch(e){}
+  const input=ctx.createGain(),compressor=ctx.createDynamicsCompressor();
+  input.gain.value=R928_RHYTHM_LEVEL*1.25;
+  compressor.threshold.value=-9;compressor.knee.value=9;compressor.ratio.value=3;
+  compressor.attack.value=.004;compressor.release.value=.14;
+  input.connect(compressor);compressor.connect(master);
+  R928_RHYTHM_BUS={context:ctx,input,compressor};return input;
+}
+function r925DrumSource(node,cleanup=[]){
+  R925_DRUM_NODES.add(node);node.addEventListener('ended',()=>{
+    R925_DRUM_NODES.delete(node);for(const n of [node,...cleanup])try{n.disconnect()}catch(e){}
+  },{once:true});return node;
+}
 function r925StopDrums(){USUL_PENDING=false;USUL_EPOCH++;for(const node of R925_DRUM_NODES){try{node.stop()}catch(e){}}R925_DRUM_NODES.clear();}
-
-function drumDum(t){
-  const o=r925DrumSource(osc(140)), gg=g(0);
-  o.frequency.setValueAtTime(140,t);
-  o.frequency.exponentialRampToValueAtTime(70,t+.12);
-  gg.gain.setValueAtTime(0,t);
-  gg.gain.linearRampToValueAtTime(.5,t+.008);
-  gg.gain.exponentialRampToValueAtTime(.0001,t+.28);
-  o.connect(gg); gg.connect(master);
-  const w=g(.25); gg.connect(w); w.connect(wetIn);
-  o.start(t); o.stop(t+.32);
-  const n=r925DrumSource(ctx.createBufferSource()); n.buffer=NOISE.get('brown');
-  const f=flt('lowpass',300), ng=g(0);
-  n.connect(f); f.connect(ng); ng.connect(master);
-  ng.gain.setValueAtTime(0,t);
-  ng.gain.linearRampToValueAtTime(.22,t+.004);
-  ng.gain.exponentialRampToValueAtTime(.0001,t+.09);
-  n.start(t); n.stop(t+.12);
+function r928DrumTone(t,startHz,endHz,amp,decay){
+  const out=r928RhythmBus();if(!out)return;
+  const o=osc(startHz),gg=g(0);r925DrumSource(o,[gg]);
+  o.frequency.setValueAtTime(startHz,t);o.frequency.exponentialRampToValueAtTime(endHz,t+.055);
+  gg.gain.setValueAtTime(0,t);gg.gain.linearRampToValueAtTime(amp,t+.006);
+  gg.gain.exponentialRampToValueAtTime(.0001,t+decay);
+  o.connect(gg);gg.connect(out);o.start(t);o.stop(t+decay+.02);
 }
-function drumTek(t){
-  const n=r925DrumSource(ctx.createBufferSource()); n.buffer=NOISE.get('white');
-  const f=flt('bandpass',2900,5), ng=g(0);
-  n.connect(f); f.connect(ng); ng.connect(master);
-  const w=g(.3); ng.connect(w); w.connect(wetIn);
-  ng.gain.setValueAtTime(0,t);
-  ng.gain.linearRampToValueAtTime(.2,t+.003);
-  ng.gain.exponentialRampToValueAtTime(.0001,t+.07);
-  n.start(t); n.stop(t+.1);
+function drumDum(t,strength=1){
+  /* Fundamental + audible upper body: low bass remains on headphones,
+     140/210 Hz body makes the pulse present on smaller speakers too. */
+  r928DrumTone(t,124,70,.66*strength,.34);
+  r928DrumTone(t,216,140,.5*strength,.3);
+  r928DrumTone(t,296,210,.24*strength,.2);
+  const out=r928RhythmBus(),n=ctx.createBufferSource(),f=flt('lowpass',460),ng=g(0);
+  n.buffer=NOISE.get('brown');r925DrumSource(n,[f,ng]);n.connect(f);f.connect(ng);ng.connect(out);
+  ng.gain.setValueAtTime(0,t);ng.gain.linearRampToValueAtTime(.1*strength,t+.004);
+  ng.gain.exponentialRampToValueAtTime(.0001,t+.065);n.start(t);n.stop(t+.085);
 }
-let USUL=S.get('sukun.usul','duyek');
-$('#usulSel').value=USUL;
-$('#usulSel').addEventListener('change',e=>{USUL=e.target.value;S.set('sukun.usul',USUL);});
-/* Usûl kalıpları: her vuruşun zamanı (tempo birimi çarpanı) ve türü (D=düm, T=tek) */
+function drumTek(t,strength=1){
+  const out=r928RhythmBus(),n=ctx.createBufferSource(),f=flt('bandpass',1900,2.5),ng=g(0);
+  n.buffer=NOISE.get('white');r925DrumSource(n,[f,ng]);n.connect(f);f.connect(ng);ng.connect(out);
+  ng.gain.setValueAtTime(0,t);ng.gain.linearRampToValueAtTime(.15*strength,t+.003);
+  ng.gain.exponentialRampToValueAtTime(.0001,t+.065);n.start(t);n.stop(t+.085);
+}
+/* Fractions of the selected tempo interval; every group starts with confirmed voice onset. */
 const USULLER={
-  duyek:[[0,'D'],[0.5,'T'],[0.75,'T']],
-  sofyan:[[0,'D'],[0.5,'T']],
-  devrihindi:[[0,'D'],[0.375,'T'],[0.625,'D'],[0.875,'T']],
-  cifte:[[0,'D'],[0.25,'T'],[0.5,'D'],[0.75,'T']]
+  heartbeat:[[0,'D',1],[.24,'D',.68]],
+  duyek:[[0,'D'],[.5,'T'],[.75,'T']],
+  sofyan:[[0,'D'],[.5,'T']],
+  devrihindi:[[0,'D'],[.375,'T'],[.625,'D'],[.875,'T']],
+  cifte:[[0,'D'],[.25,'T'],[.5,'D'],[.75,'T']]
 };
-let USUL_RESUME=null,USUL_PENDING=false,USUL_EPOCH=0;
-function playUsul(isCurrent=()=>true){
-  if(!BENDIR||!isCurrent()||!ctx)return false;
-  if(ctx.state!=='running'){
-    if(document.hidden)return false;
-    const epoch=USUL_EPOCH;USUL_PENDING=true;
-    // The pending pulse carries its original voice/intent guard across resume().
-    if(!USUL_RESUME){
-      USUL_RESUME=Promise.resolve().then(()=>ctx.resume()).then(()=>{
-        if(USUL_PENDING&&epoch===USUL_EPOCH&&BENDIR&&isCurrent()&&ctx?.state==='running'){USUL_PENDING=false;playUsul(isCurrent);}
-      }).catch(()=>{}).finally(()=>{USUL_RESUME=null});
-    }
-    return false;
-  }
-  USUL_PENDING=false;
-  const unit=Math.min(1.6,Math.max(.4,Z.tempo));const t0=ctx.currentTime+.02;
-  (USULLER[USUL]||USULLER.duyek).forEach(([off,ty])=>{const t=t0+off*unit;if(ty==='D')drumDum(t);else drumTek(t)});
-  window.dispatchEvent(new CustomEvent('sukun:rhythmpulse',{detail:{source:R925_RHYTHM_SOURCE,pattern:USUL,audioTime:t0}}));
-  return true;
+let USUL=S.get('sukun.usul','heartbeat');
+if(!Object.hasOwn(USULLER,USUL))USUL='heartbeat';
+$('#usulSel').value=USUL;
+$('#usulSel').addEventListener('change',e=>{
+  if(!Object.hasOwn(USULLER,e.target.value))return;
+  USUL=e.target.value;S.set('sukun.usul',USUL);r925StopDrums();
+});
+const r928RhythmSlider=$('#r928RhythmLevel'),r928RhythmValue=$('#r928RhythmLevelValue');
+if(r928RhythmSlider){
+  r928RhythmSlider.value=R928_RHYTHM_LEVEL;setFill(r928RhythmSlider);
+  if(r928RhythmValue)r928RhythmValue.textContent='%'+Math.round(R928_RHYTHM_LEVEL*100);
+  r928RhythmSlider.addEventListener('input',e=>{
+    R928_RHYTHM_LEVEL=Math.min(1,Math.max(0,Number(e.target.value)||0));S.set('sukun.rhythm.level',R928_RHYTHM_LEVEL);
+    setFill(e.target);if(r928RhythmValue)r928RhythmValue.textContent='%'+Math.round(R928_RHYTHM_LEVEL*100);
+    if(R928_RHYTHM_BUS?.context===ctx)R928_RHYTHM_BUS.input.gain.setTargetAtTime(R928_RHYTHM_LEVEL*1.25,ctx.currentTime,.015);
+    if(R928_RHYTHM_LEVEL===0)r925StopDrums();
+  });
 }
-let R925_RHYTHM_SOURCE='';
-window.SukunRhythm=Object.freeze({version:'r925',
+function playUsul(isCurrent=()=>true){
+  if(!BENDIR||R928_RHYTHM_LEVEL<=0||!isCurrent()||!ctx)return false;
+  /* Retire scheduled beats from the previous voice before a new confirmed onset.
+     Audio-time scheduling never creates a second repetition/transport timer. */
+  r925StopDrums();const epoch=USUL_EPOCH,createdAt=performance.now(),source=R925_RHYTHM_SOURCE;
+  const schedule=()=>{
+    if(epoch!==USUL_EPOCH||!BENDIR||R928_RHYTHM_LEVEL<=0||!isCurrent()||ctx?.state!=='running')return false;
+    // A late context resume must not produce an unrelated beat after the voice.
+    if(performance.now()-createdAt>250){USUL_PENDING=false;R928_RHYTHM_SKIPPED++;return false}
+    USUL_PENDING=false;
+    const seconds=Number(Z.tempo),unit=Number.isFinite(seconds)?Math.min(6,Math.max(.8,seconds)):1,t0=ctx.currentTime+.012;
+    const beats=USULLER[USUL]||USULLER.heartbeat;
+    beats.forEach(([off,ty,strength=1])=>{const t=t0+off*unit;if(ty==='D')drumDum(t,strength);else drumTek(t,strength)});
+    R928_RHYTHM_PULSES++;R928_RHYTHM_LAST={source,pattern:USUL,audioTime:t0,tempo:unit,beats:beats.length,at:Date.now()};
+    window.dispatchEvent(new CustomEvent('sukun:rhythmpulse',{detail:{...R928_RHYTHM_LAST}}));return true;
+  };
+  if(ctx.state!=='running'){
+    if(document.hidden){R928_RHYTHM_SKIPPED++;return false}
+    USUL_PENDING=true;
+    if(!USUL_RESUME)USUL_RESUME=Promise.resolve().then(()=>ctx.resume()).catch(()=>{}).finally(()=>{USUL_RESUME=null});
+    USUL_RESUME.then(()=>{if(!schedule()&&epoch===USUL_EPOCH)USUL_PENDING=false});return false;
+  }
+  return schedule();
+}
+window.SukunRhythm=Object.freeze({version:'r928',
  voiceStarted(isCurrent=()=>true,source='voice'){
   if(!BENDIR||!isCurrent())return false;
   const s=window.SukunSessionState?.snapshot?.();
@@ -18113,10 +18171,11 @@ window.SukunRhythm=Object.freeze({version:'r925',
  },
  manual(){if(!BENDIR)return false;R925_RHYTHM_SOURCE='manual';try{if(!ctx)ac();return playUsul()}catch(e){return false}},
  stop:r925StopDrums,
- snapshot:()=>({enabled:BENDIR,pattern:USUL,pending:USUL_PENDING,nodes:R925_DRUM_NODES.size,context:ctx?.state||'none',source:R925_RHYTHM_SOURCE})
+ snapshot:()=>({enabled:BENDIR,pattern:USUL,level:R928_RHYTHM_LEVEL,pending:USUL_PENDING,nodes:R925_DRUM_NODES.size,context:ctx?.state||'none',masterLevel:master?.gain?.value??null,source:R925_RHYTHM_SOURCE,pulses:R928_RHYTHM_PULSES,skipped:R928_RHYTHM_SKIPPED,last:R928_RHYTHM_LAST})
 });
 window.addEventListener('sukun:audiostate',e=>{if(e.detail?.userPaused||['paused','stopping','idle','error'].includes(e.detail?.state))r925StopDrums()});
 window.addEventListener('sukun:sessionchange',()=>{const s=window.SukunSessionState?.snapshot?.();if(s&&!['PLAYING','PREPARING'].includes(s.phase))r925StopDrums()});
+window.addEventListener('sukun:r696-media-interruption',r925StopDrums);
 $('#optBendir').onclick=()=>{
   BENDIR=!BENDIR; $('#optBendir').classList.toggle('on',BENDIR);
   if(BENDIR)ac();else r925StopDrums();
@@ -18125,49 +18184,42 @@ $('#optBendir').onclick=()=>{
 
 /* ── 8D mekânsal ses: aktif ambiyans kanallarını yavaşça çevrede dolaştır ── */
 let SPATIAL=S.get('sukun.spatial',false), spatialRAF=null, spatialNodes={};
-function spatialEnsure(id){
-  /* her kanalın çıkışına bir StereoPanner ekle (yalnızca 8D açıkken) */
-  return spatialNodes[id];
+function spatialEnsure(id){return spatialNodes[id]||AMB[id]?._pan||null}
+/* r928: Stereo hareket görsel rAF'a bağlı değildir. Native ses işlenmiş
+   WAV kullanır; ambiyans AudioParam LFO ile ses işleme saatinde döner. */
+function r928SpatialStop(node,detach=false){
+  if(!node)return;
+  try{node._spatialLfo?.stop()}catch(e){}try{node._spatialLfo?.disconnect()}catch(e){}try{node._spatialDepth?.disconnect()}catch(e){}
+  node._spatialLfo=null;node._spatialDepth=null;
+  if(node._pan&&node._pan!=='none'&&ctx){
+    try{node._pan.pan.cancelScheduledValues(ctx.currentTime);node._pan.pan.setTargetAtTime(0,ctx.currentTime,.15)}catch(e){}
+    if(detach){try{node.gain.disconnect(node._pan);node._pan.disconnect();node.gain.connect(master)}catch(e){}node._pan=null}
+  }
 }
-/* ═══ r513 — P-05: rAF KORUMANIN ÖNÜNDEYDİ ═════════════════════════
-   Eski sıra: önce requestAnimationFrame, SONRA koruma. Yani spatialStart()
-   bir kez çağrıldıktan sonra döngü sonsuza dek 60 fps dönüyordu — 8D
-   KAPATILSA bile. Kapatma dalı yalnız panner'ları ortaya alıyor, rAF'ı hiç
-   iptal etmiyordu. r512 tanılama raporunda ölçüldü: uygulama boştayken
-   106 sn'de 19.778 rAF isteği (~186/sn), dördü de canlı.
-   Doğru sıra: koruma önce; iş yoksa döngü parklanır. */
-function spatialDur(){ if(spatialRAF){try{cancelAnimationFrame(spatialRAF)}catch(e){} spatialRAF=null;} }
+function spatialDur(){
+  if(spatialRAF){try{cancelAnimationFrame(spatialRAF)}catch(e){}spatialRAF=null}
+  Object.values(AMB).forEach(n=>r928SpatialStop(n));
+}
 function spatialLoop(){
-  if(!SPATIAL||!ctx||ctx.state==='closed'){ spatialRAF=null; return; }   /* park */
-  spatialRAF=requestAnimationFrame(spatialLoop);
-  const t=ctx.currentTime;
+  if(!SPATIAL||!ctx||ctx.state==='closed')return;
   Object.keys(AMB).forEach((id,i)=>{
-    const node=AMB[id]; if(!node||!node.gain)return;
-    if(!node._pan){
-      try{
-        const p=ctx.createStereoPanner();
-        node.gain.disconnect(master);      /* yalnızca kuru yolu kes, reverb (wetIn) sürsün */
-        node.gain.connect(p); p.connect(master);
-        node._pan=p;
-      }catch(e){node._pan='none';}
-    }
-    if(node._pan&&node._pan!=='none'){
-      const speed=.12+i*0.035;
-      node._pan.pan.setValueAtTime(Math.sin(t*speed+i*1.7)*0.85,t);
-    }
+    const node=AMB[id];if(!node?.gain)return;
+    try{
+      if(!node._pan){const pan=ctx.createStereoPanner();node.gain.disconnect(master);node.gain.connect(pan);pan.connect(master);node._pan=pan}
+      if(node._pan==='none'||node._spatialLfo)return;
+      const osc=ctx.createOscillator(),depth=ctx.createGain();osc.type='sine';osc.frequency.value=(.12+i*.035)/(2*Math.PI);depth.gain.value=.85;
+      node._pan.pan.cancelScheduledValues(ctx.currentTime);node._pan.pan.value=0;osc.connect(depth);depth.connect(node._pan.pan);osc.start();
+      node._spatialLfo=osc;node._spatialDepth=depth;
+    }catch(e){}
   });
 }
-function spatialStart(){ if(!spatialRAF)spatialLoop(); }
+function spatialStart(){spatialLoop()}
 $('#spatialTgl').onclick=()=>{
-  SPATIAL=!SPATIAL; $('#spatialTgl').classList.toggle('on',SPATIAL);
-  S.set('sukun.spatial',SPATIAL);
-  if(SPATIAL){ac();spatialStart();}
-  else{ /* r513: panner'ları ortaya al VE döngüyü gerçekten durdur */
-    if(ctx)Object.values(AMB).forEach(n=>{ if(n&&n._pan&&n._pan!=='none')n._pan.pan.setTargetAtTime(0,ctx.currentTime,.3); });
-    setTimeout(spatialDur,400);   /* pan'ler ortaya oturana kadar bekle, sonra park et */
-  }
+  SPATIAL=!SPATIAL;$('#spatialTgl').classList.toggle('on',SPATIAL);S.set('sukun.spatial',SPATIAL);
+  if(SPATIAL){ac();spatialStart()}else spatialDur();
 };
-function spatialInit(){ $('#spatialTgl').classList.toggle('on',SPATIAL); if(SPATIAL)spatialStart(); }
+function spatialInit(){$('#spatialTgl').classList.toggle('on',SPATIAL);if(SPATIAL)spatialStart()}
+window.SukunSpatialMotion=Object.freeze({version:'r928',snapshot:()=>({enabled:!!SPATIAL,clock:'audio-param-lfo',visualFrameRequired:false,active:Object.values(AMB).filter(n=>!!n?._spatialLfo).length,context:ctx?.state||'none'})});
 
 /* ── Kendi sesinle zikir halkası ── */
 const VH={buf:null,blob:null,dur:0,playing:null,layers:5,vol:.6,rec:null,chunks:[]};
@@ -21190,7 +21242,9 @@ function sukunPoolDispose(poolKey,entry,reason='pool-dispose'){
 }
 window.sukunInvalidateRecordingPool=function(key,reason='recording-invalidated'){
   key=String(key||'').trim();if(!key)return 0;
-  const H=window.__sukSesHavuz;if(!H||typeof H.forEach!=='function')return 0;
+  try{window.SukunNativeEchoBridge?.invalidate?.(key)}catch(e){}
+  try{if(_r476Prepared?.key===key){_r477FxBuildSeq++;_r477FxCacheSig='';_r476Prepared.fxReady=false;_r476Prepared.fxUrl=''}}catch(e){}
+  const H=window.__sukSesHavuz||new Map();
   const drop=[];H.forEach((entry,poolKey)=>{if(entry&&entry.recordingKey===key)drop.push([poolKey,entry])});
   drop.forEach(([poolKey,entry])=>sukunPoolDispose(poolKey,entry,reason));
   let extra=0;
@@ -21327,8 +21381,10 @@ window.SukunSectionIdentityCommit=(()=>{
    Audio ile tek bir WAV'a basıp aynı persistent native media elementinde
    çalmak. Ham native tap yalnız FX henüz hazır değilse geçici fallback'tir. */
 const SukunNativeEchoBridge=(()=>{
-  const ACTIVE=new Set(),CACHE=new Map(),HISTORY=[];
-  const METRIC={dedupedStarts:0,fallbackSuppressed:0,tapRejects:0,tapRejectsDeduped:0};
+  const ACTIVE=new Set(),CACHE=new Map(),PENDING=new Map(),REVISIONS=new Map(),HISTORY=[];
+  const MAX_BYTES=24*1024*1024;let cacheBytes=0;
+  const spatialOf=opt=>opt.spatial==null?!!KAYIT?.mekan:!!opt.spatial;
+  const METRIC={dedupedStarts:0,fallbackSuppressed:0,tapRejects:0,tapRejectsDeduped:0,bakeTimeouts:0,bakeFallbacks:0};
   let lastTapRejectSig='',lastTapRejectAt=0;
   const journeyMode=m=>/^journey-native(?:-r648)?$/.test(String(m||''));
   const canonicalMode=m=>journeyMode(m)?'journey-native-v2':String(m||'native');
@@ -21336,7 +21392,7 @@ const SukunNativeEchoBridge=(()=>{
   const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,Number(n)||0));
   const stateOf=main=>main&&main.__sukNativeEchoState||null;
   const log=(type,extra={})=>{HISTORY.push({at:Date.now(),type,...extra});if(HISTORY.length>64)HISTORY.splice(0,HISTORY.length-64)};
-  const sigFor=(blob,key,opt={})=>[String(key||''),String(blob?.size||0),String(blob?.type||''),clamp(opt.wet).toFixed(3),clamp(opt.rate||1,.5,2).toFixed(3)].join('|');
+  const sigFor=(blob,key,opt={})=>[String(key||''),String(blob?.size||0),String(blob?.type||''),clamp(opt.wet).toFixed(3),clamp(opt.rate||1,.5,2).toFixed(3),spatialOf(opt)?1:0,REVISIONS.get(String(key))||0].join('|');
   function wav(buf){
     try{if(typeof r477WavFromBuffer==='function')return r477WavFromBuffer(buf)}catch(e){}
     const ch=Math.min(2,Math.max(1,buf.numberOfChannels||1)),frames=buf.length,sr=buf.sampleRate,bytes=44+frames*ch*2,ab=new ArrayBuffer(bytes),v=new DataView(ab);
@@ -21344,21 +21400,54 @@ const SukunNativeEchoBridge=(()=>{
     for(let i=0;i<frames;i++)for(let c=0;c<ch;c++){let x=Math.max(-1,Math.min(1,buf.getChannelData(Math.min(c,buf.numberOfChannels-1))[i]||0));v.setInt16(o,x<0?x*0x8000:x*0x7fff,true);o+=2}return new Blob([ab],{type:'audio/wav'});
   }
   function getCached(blob,key,opt={}){const sig=sigFor(blob,key,opt),x=CACHE.get(sig);if(x){x.usedAt=Date.now();return x}return null}
-  async function prepare(blob,key,opt={}){
-    const wet=clamp(opt.wet),rate=clamp(opt.rate||1,.5,2);if(!blob||!key||wet<=.01)return null;
-    const sig=sigFor(blob,key,{wet,rate}),hit=CACHE.get(sig);if(hit){hit.usedAt=Date.now();return hit}
-    try{
-      const OC=window.OfflineAudioContext||window.webkitOfflineAudioContext;if(!OC)return null;
-      const decoded=await r653DecodeAudioBlob(blob);
-      const tail=(TAPS.at(-1).delay/1000)*rate+.08,fileSec=Math.max(.12,decoded.duration+tail),sr=Math.max(22050,Math.min(48000,decoded.sampleRate||44100)),frames=Math.max(1,Math.ceil(fileSec*sr)),off=new OC(2,frames,sr);
-      const add=(when,gain)=>{const src=off.createBufferSource(),g=off.createGain();src.buffer=decoded;src.playbackRate.value=1;g.gain.value=gain;src.connect(g);g.connect(off.destination);src.start(when)};
-      add(0,.78);TAPS.forEach(t=>add((t.delay/1000)*rate,wet*t.gain));
-      const rendered=await off.startRendering(),url=URL.createObjectURL(wav(rendered));
-      const entry={version:'r639',url,sig,key:String(key),wet,rate,createdAt:Date.now(),usedAt:Date.now(),durationMs:Math.round(fileSec*1000)};CACHE.set(sig,entry);log('fx-ready',{key:String(key),wet,rate,durationMs:entry.durationMs});
-      while(CACHE.size>36){const old=[...CACHE.values()].sort((a,b)=>a.usedAt-b.usedAt)[0];if(!old)break;CACHE.delete(old.sig);try{URL.revokeObjectURL(old.url)}catch(e){}}
-      return entry;
-    }catch(e){log('fx-failed',{key:String(key),error:String(e?.message||e)});return null}
+  function invalidate(key){
+    key=String(key||'');REVISIONS.set(key,(REVISIONS.get(key)||0)+1);
+    for(const [sig,x] of CACHE){if(x.key===key){CACHE.delete(sig);cacheBytes-=x.bytes||0;try{URL.revokeObjectURL(x.url)}catch(e){}}}
+    for(const st of ACTIVE)if(st.key===key)hardStop(st.main,'recording-invalidated');
+    log('fx-invalidated',{key});
   }
+  async function prepare(blob,key,opt={}){
+    const wet=clamp(opt.wet),rate=clamp(opt.rate||1,.5,2),spatial=spatialOf(opt);
+    if(!blob||!key||(wet<=.01&&!spatial))return null;
+    const sig=sigFor(blob,key,{wet,rate,spatial}),hit=CACHE.get(sig);if(hit){hit.usedAt=Date.now();return hit}
+    if(PENDING.has(sig))return PENDING.get(sig);
+    if(PENDING.size>=4){log('fx-queue-full',{key:String(key)});return null}
+    const revision=REVISIONS.get(String(key))||0;
+    const work=(async()=>{try{
+      const OC=window.OfflineAudioContext||window.webkitOfflineAudioContext;if(!OC)throw new Error('OfflineAudio desteklenmiyor');
+      const raw=await blob.arrayBuffer();
+      const hash=globalThis.crypto?.subtle?Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',raw))).map(x=>x.toString(16).padStart(2,'0')).join(''):'';
+      const decoded=await r653DecodeAudioBlob(blob);
+      const tail=wet>.01?(TAPS.at(-1).delay/1000)*rate+.08:0,fileSec=Math.max(.12,decoded.duration+tail),sr=Math.max(22050,Math.min(48000,decoded.sampleRate||44100)),frames=Math.max(1,Math.ceil(fileSec*sr));
+      if(frames*4>MAX_BYTES)throw new Error('İşlenmiş kayıt bellek sınırını aşıyor');
+      const off=new OC(2,frames,sr),bus=off.createGain();
+      /* Native kilit kaynağına stereo hareket de basılır. Tek okuma/tek sayaç
+         korunur; faz bir hece boyunca yumuşakça soldan sağa ilerler. */
+      let out=bus;
+      if(spatial){
+        const pan=off.createStereoPanner();bus.connect(pan);out=pan;
+        const points=129,curve=new Float32Array(points);
+        for(let i=0;i<points;i++)curve[i]=-.78*Math.cos(Math.PI*i/(points-1));
+        pan.pan.setValueCurveAtTime(curve,0,Math.max(.12,decoded.duration));
+      }
+      out.connect(off.destination);
+      const add=(when,gain)=>{const src=off.createBufferSource(),g=off.createGain();src.buffer=decoded;src.playbackRate.value=1;g.gain.value=gain;src.connect(g);g.connect(bus);src.start(when)};
+      add(0,wet>.01?.78:.96);if(wet>.01)TAPS.forEach(t=>add((t.delay/1000)*rate,wet*t.gain));
+      const rendered=await off.startRendering();
+      if(revision!==(REVISIONS.get(String(key))||0))return null;
+      const renderedBlob=wav(rendered),url=URL.createObjectURL(renderedBlob);
+      const entry={version:'r928',url,sig,key:String(key),wet,rate,spatial,sourceHash:hash,bytes:renderedBlob.size,createdAt:Date.now(),usedAt:Date.now(),durationMs:Math.round(fileSec*1000)};
+      CACHE.set(sig,entry);cacheBytes+=entry.bytes;log('fx-ready',{key:String(key),wet,rate,spatial,durationMs:entry.durationMs});
+      while(CACHE.size>36||cacheBytes>MAX_BYTES){
+        const pinned=new Set([...ACTIVE].map(st=>st.src));try{if(window.__sukJourneyNative?.playUrl)pinned.add(window.__sukJourneyNative.playUrl)}catch(e){}
+        const old=[...CACHE.values()].filter(x=>x!==entry&&!pinned.has(x.url)).sort((a,b)=>a.usedAt-b.usedAt)[0];if(!old)break;
+        CACHE.delete(old.sig);cacheBytes-=old.bytes||0;try{URL.revokeObjectURL(old.url)}catch(e){}
+      }
+      return entry;
+    }catch(e){log('fx-failed',{key:String(key),error:String(e?.message||e)});return null}})();
+    PENDING.set(sig,work);try{return await work}finally{if(PENDING.get(sig)===work)PENDING.delete(sig)}
+  }
+  function noteFallback(key,reason){METRIC.bakeFallbacks++;if(reason==='prepare-timeout')METRIC.bakeTimeouts++;log('fx-native-dry',{key:String(key),reason})}
   function makeTap(i){const a=document.createElement('audio');a.setAttribute('aria-hidden','true');a.setAttribute('playsinline','');a.preload='auto';a.loop=false;a.autoplay=false;a.disableRemotePlayback=true;a.dataset.sukNativeEcho='r639-'+i;a.style.cssText='position:fixed;left:-30px;bottom:-30px;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1';try{document.body.appendChild(a)}catch(e){}return a}
   function ensure(main){let st=stateOf(main);if(st)return st;st={version:'r639',main,taps:TAPS.map((t,i)=>({...t,audio:makeTap(i),gen:0})),timers:[],tailTimer:0,gen:0,active:false,bound:false,src:'',wet:0,rate:1,volume:1,key:'',mode:'',reason:'',startedAt:0,baked:false};main.__sukNativeEchoState=st;bindMain(st);return st}
   function clearTimers(st){if(!st)return;while(st.timers.length){try{clearTimeout(st.timers.pop())}catch(e){}}if(st.tailTimer){try{clearTimeout(st.tailTimer)}catch(e){}st.tailTimer=0}}
@@ -21372,7 +21461,7 @@ const SukunNativeEchoBridge=(()=>{
   }
   function bindMain(st){if(st.bound)return;st.bound=true;const m=st.main;st.onPause=()=>{if(st.active&&!st.baked)st.taps.forEach(x=>{try{x.audio.pause()}catch(e){}})};st.onPlaying=()=>{if(st.active&&!st.baked&&Date.now()-st.startedAt>=420)st.taps.forEach(x=>{x.gen=st.gen;syncTap(st,x,true)})};st.onRate=()=>{if(st.active&&!st.baked)st.taps.forEach(x=>{try{x.audio.playbackRate=m.playbackRate;x.audio.defaultPlaybackRate=m.playbackRate}catch(e){}})};st.onVol=()=>{if(st.active&&!st.baked)st.taps.forEach(x=>{try{x.audio.volume=clamp((Number(m.volume)||1)*st.wet*x.gain,0,.34)}catch(e){}})};try{m.addEventListener('pause',st.onPause);m.addEventListener('playing',st.onPlaying);m.addEventListener('ratechange',st.onRate);m.addEventListener('volumechange',st.onVol)}catch(e){}}
   function start(main,opt={}){
-    if(!main)return false;const wet=clamp(opt.wet==null?(typeof KAYIT==='object'?KAYIT.yankiMik:0):opt.wet),src=String(opt.src||main.currentSrc||main.src||''),key=String(opt.key||''),requestedMode=String(opt.mode||'native'),mode=canonicalMode(requestedMode),baked=!!opt.baked;if(wet<=.01||!src){hardStop(main,'dry');return false}
+    if(!main)return false;const wet=clamp(opt.wet==null?(typeof KAYIT==='object'?KAYIT.yankiMik:0):opt.wet),src=String(opt.src||main.currentSrc||main.src||''),key=String(opt.key||''),requestedMode=String(opt.mode||'native'),mode=canonicalMode(requestedMode),baked=!!opt.baked,spatial=spatialOf(opt);if((wet<=.01&&!spatial)||!src){hardStop(main,'dry');return false}
     const st=ensure(main);
     /* r655 — journey native yankısında fallback tap açma. Kilit transportunda
        ikinci/üçüncü HTMLMediaElement.play() güvenilir değil ve aynı hecenin
@@ -21382,16 +21471,16 @@ const SukunNativeEchoBridge=(()=>{
     /* Aynı persistent elemente r639 markPlaying ve r648 lease aynı anda
        attach isteyebilir. Kimlik aynıysa fiziksel state'i sıfırlama; yalnız
        mevcut tail timer'ını iptal edip lease'i tazele. */
-    if(st.active&&st.key===key&&st.src===src&&st.baked===baked){clearTimers(st);METRIC.dedupedStarts++;st.mode=mode;st.wet=wet;st.rate=clamp(opt.rate||main.playbackRate||1,.5,2);st.volume=clamp(opt.volume==null?main.volume:opt.volume);st.startedAt=Date.now();st.reason='r655-deduped';log('attach-dedup',{key,mode,wet,baked});return true}
-    clearTimers(st);st.gen++;st.active=true;st.src=src;st.wet=wet;st.rate=clamp(opt.rate||main.playbackRate||1,.5,2);st.volume=clamp(opt.volume==null?main.volume:opt.volume);st.key=key;st.mode=mode;st.reason=baked?'baked-attached':'fallback-taps';st.startedAt=Date.now();st.baked=baked;ACTIVE.add(st);st.taps.forEach(x=>{try{x.audio.pause();x.audio.currentTime=0}catch(e){}});
+    if(st.active&&st.key===key&&st.src===src&&st.baked===baked){clearTimers(st);METRIC.dedupedStarts++;st.mode=mode;st.wet=wet;st.spatial=spatial;st.rate=clamp(opt.rate||main.playbackRate||1,.5,2);st.volume=clamp(opt.volume==null?main.volume:opt.volume);st.startedAt=Date.now();st.reason='r655-deduped';log('attach-dedup',{key,mode,wet,baked});return true}
+    clearTimers(st);st.gen++;st.active=true;st.src=src;st.wet=wet;st.spatial=spatial;st.rate=clamp(opt.rate||main.playbackRate||1,.5,2);st.volume=clamp(opt.volume==null?main.volume:opt.volume);st.key=key;st.mode=mode;st.reason=baked?'baked-attached':'fallback-taps';st.startedAt=Date.now();st.baked=baked;ACTIVE.add(st);st.taps.forEach(x=>{try{x.audio.pause();x.audio.currentTime=0}catch(e){}});
     if(!st.baked)st.taps.forEach(x=>{x.gen=st.gen;syncTap(st,x,false)});log(st.baked?'attach-baked':'attach-fallback',{key:st.key,mode:st.mode,wet:st.wet});return true;
   }
-  function attachment(main){const st=stateOf(main);if(!st)return{version:'r639',ok:false,active:false,baked:false,taps:0,reason:'no-state'};const taps=st.taps.filter(x=>!x.audio.paused&&!x.audio.ended).length,mainPlaying=!st.main.paused&&!st.main.ended;return{version:'r639',ok:!!(st.active&&(st.baked||taps>0)),active:!!st.active,baked:!!st.baked,taps,mainPlaying,key:st.key,mode:st.mode,wet:st.wet,reason:st.reason}}
+  function attachment(main){const st=stateOf(main);if(!st)return{version:'r639',ok:false,active:false,baked:false,taps:0,reason:'no-state'};const taps=st.taps.filter(x=>!x.audio.paused&&!x.audio.ended).length,mainPlaying=!st.main.paused&&!st.main.ended;return{version:'r639',ok:!!(st.active&&(st.baked||taps>0)),active:!!st.active,baked:!!st.baked,taps,mainPlaying,key:st.key,mode:st.mode,wet:st.wet,spatial:!!st.spatial,reason:st.reason}}
   function tail(main,ms=430){const st=stateOf(main);if(!st||!st.active)return false;clearTimers(st);st.tailTimer=setTimeout(()=>hardStop(main,'tail-complete'),Math.max(120,Math.min(900,ms)));return true}
   function pause(main){const st=stateOf(main);if(!st||!st.active)return false;if(!st.baked)st.taps.forEach(x=>{try{x.audio.pause()}catch(e){}});return true}
   function resume(main){const st=stateOf(main);if(!st||!st.active)return false;if(!st.baked)st.taps.forEach(x=>{x.gen=st.gen;syncTap(st,x,true)});return true}
-  function snapshot(){const items=[...ACTIVE].map(st=>attachment(st.main));return{version:'r639',authority:'r655',active:items.filter(x=>x.active).length,attached:items.filter(x=>x.ok).length,cache:CACHE.size,...METRIC,items,history:HISTORY.slice(-24)}}
-  return Object.freeze({version:'r639',prepare,getCached,start,attachment,stop:hardStop,tail,pause,resume,snapshot});
+  function snapshot(){const items=[...ACTIVE].map(st=>attachment(st.main));return{version:'r639',authority:'r655',effectsVersion:'r928',cacheBytes,pending:PENDING.size,active:items.filter(x=>x.active).length,attached:items.filter(x=>x.ok).length,cache:CACHE.size,...METRIC,items,history:HISTORY.slice(-24)}}
+  return Object.freeze({version:'r639',prepare,getCached,invalidate,noteFallback,start,attachment,stop:hardStop,tail,pause,resume,snapshot});
 })();
 window.SukunNativeEchoBridge=SukunNativeEchoBridge;
 
@@ -21400,7 +21489,7 @@ window.SukunNativeEchoBridge=SukunNativeEchoBridge;
 window.SukunJourneyEchoPrewarm=(()=>{
   let running=false,last='';
   async function schedule(cat,start,count=3){
-    if(running||document.hidden||(Number(KAYIT?.yankiMik)||0)<=.01)return false;running=true;last=cat+':'+start;
+    if(running||document.hidden||((Number(KAYIT?.yankiMik)||0)<=.01&&!KAYIT?.mekan))return false;running=true;last=cat+':'+start;
     try{const list=ZIKIR?.[cat]?.items||[],end=Math.min(list.length,Math.max(0,+start||0)+Math.max(1,Math.min(4,+count||3)));for(let i=Math.max(0,+start||0);i<end;i++){if(document.hidden)break;const key=cat==='esma'?('esma:'+i+':nida'):('berhet:'+i);let blob=null;try{blob=await REC_DB.get(key)}catch(e){}if(blob&&!SukunNativeEchoBridge.getCached(blob,key,{wet:KAYIT?.yankiMik,rate:window.OKUMA_HIZ||1}))await SukunNativeEchoBridge.prepare(blob,key,{wet:KAYIT?.yankiMik,rate:window.OKUMA_HIZ||1});await new Promise(r=>setTimeout(r,120))}}catch(e){}finally{running=false}return true}
   function snapshot(){return{version:'r639',running,last}}
   return Object.freeze({version:'r639',schedule,snapshot});
@@ -21434,15 +21523,24 @@ async function sukunJourneyNativeRecording(blob,ad,opt,kalite){
 
     /* r639 — tek persistent media elementinde baked echo birincil kaynaktır.
        Görünürken ilk kullanımda hazırlanır. Hidden'da asla kaynak geçişini
-       bekletmez; ham kayıt çalar, prepare arka planda tamamlanırsa sonraki
-       tekrarda aynı element baked URL'ye terfi eder. */
+       önceden hazır stereo FX'i kullanır; cache yoksa yeni isim sınırında
+       sınırlı hazırlık beklenir. Hazırlanamayan FX tanıya yazılır, ses korunur. */
     const echoWet=Math.max(0,Math.min(1,Number(KAYIT?.yankiMik)||0));
     const echoRate=Math.max(.5,Math.min(2,Number(window.OKUMA_HIZ)||1));
     const bridge=window.SukunNativeEchoBridge;
     let fx=null;try{fx=bridge?.getCached?.(blob,recordingKey,{wet:echoWet,rate:echoRate})||null}catch(e){}
-    if(!fx&&echoWet>.01){
+    if(!fx&&(echoWet>.01||KAYIT?.mekan)){
       if(!document.hidden){try{fx=await bridge?.prepare?.(blob,recordingKey,{wet:echoWet,rate:echoRate})||null}catch(e){}}
-      else try{Promise.resolve(bridge?.prepare?.(blob,recordingKey,{wet:echoWet,rate:echoRate})).catch(()=>{})}catch(e){}
+      else{
+        /* r928: soğuk isimde fire-and-forget ham URL'yi hedef boyunca loop'a
+           kilitliyordu. Yalnız yeni okuma sınırında kısa hazırlık beklenir. */
+        let deadline=0,timedOut=false;
+        try{fx=await Promise.race([
+          Promise.resolve(bridge?.prepare?.(blob,recordingKey,{wet:echoWet,rate:echoRate})).catch(()=>null),
+          new Promise(resolve=>{deadline=setTimeout(()=>{timedOut=true;resolve(null)},1500)})
+        ])||null}finally{if(deadline)clearTimeout(deadline)}
+        if(!fx)try{bridge?.noteFallback?.(recordingKey,timedOut?'prepare-timeout':'prepare-unavailable')}catch(e){}
+      }
     }
     if(typeof opt.isCurrent==='function'&&!opt.isCurrent())return sonuc(false,'stale-sequence');
     const rawChanged=J.recordingKey!==recordingKey||J.signature!==signature||!J.url;
@@ -21456,7 +21554,7 @@ async function sukunJourneyNativeRecording(blob,ad,opt,kalite){
     if(sourceChanged){
       try{a.pause()}catch(e){}J.playUrl=desiredUrl;J.fx=desiredFx;J.fxSig=String(fx?.sig||'');a.src=desiredUrl;
       if(!document.hidden){try{a.load()}catch(e){}}
-      try{window.dispatchEvent(new CustomEvent('sukun:journey-native-source',{detail:{key:recordingKey,hidden:document.hidden,fx:desiredFx,at:Date.now()}}))}catch(e){}
+      try{window.dispatchEvent(new CustomEvent('sukun:journey-native-source',{detail:{key:recordingKey,hidden:document.hidden,fx:desiredFx,spatial:!!fx?.spatial,at:Date.now()}}))}catch(e){}
     }else{try{a.currentTime=0}catch(e){}}
 
     a._sukunAd=ad||'journey-native';
@@ -21489,6 +21587,9 @@ async function sukunJourneyNativeRecording(blob,ad,opt,kalite){
       const done=(ok,reason)=>{
         if(finished)return;finished=true;
         if(ok===true)played=true;
+        /* r928: a failed/stale attempt may still have an advancing element.
+           Silence it before unregistering so pauseAll cannot miss an orphan. */
+        if(ok!==true){try{a.pause()}catch(e){}}
         temizle();
         a.onended=null;a.onerror=null;a._sukunFinish=null;
         try{
@@ -21728,6 +21829,7 @@ async function playRecording(blob,ad,opt){
       const done=(ok,reason)=>{
         if(bitti)return; bitti=true;
         if(ok===true)calabildi=true;
+        if(ok!==true){try{a.pause()}catch(e){}}
         a.onended=null; a.onerror=null; a._sukunFinish=null;
         try{a.removeEventListener('pause',r696UnexpectedPause)}catch(e){}
         SES.ler.delete(a); RECPLAYING=[...SES.ler].some(x=>x&&!x.paused&&!x.ended); if(SES.ad===(ad||'kayit'))SES.ad=null;
@@ -39001,11 +39103,17 @@ async function seyirOkuGuvenli(index,it,token){
   })).catch(e=>({ok:false,source:'resolver',reason:'exception',detail:String(e?.message||e)}));
   const timeout=document.hidden?90000:26000;
   const watchdog=new Promise(resolve=>{
-    timer=setTimeout(()=>{
+    const deadline=()=>{
+      /* r928: a hidden native loop is intentionally one long Promise.
+         Extend only its matching, physically progressing lease, never a stall. */
+      if(current()&&window.SukunLockJourneyTransportV2?.ownsProgress?.('journey28','berhet:'+index,index)){
+        timer=setTimeout(deadline,5000);return;
+      }
       timedOut=true;BS.attemptSeq++;
       seyirAktifKaynakKes('resolver-timeout',index);
       resolve({ok:false,source:'watchdog',reason:'resolver-timeout'});
-    },timeout);
+    };
+    timer=setTimeout(deadline,timeout);
   });
   try{return await Promise.race([audio,watchdog])}
   finally{if(timer)clearTimeout(timer)}
@@ -40236,6 +40344,7 @@ chOn=function(def){
   }
   gain.gain.setTargetAtTime(chVol[def.id]*def.cal,ctx.currentTime,.35);
   const c=AMB[def.id]={E,gain,def,synthBus};
+  try{spatialStart()}catch(e){}
   if(!def.custom&&HYBRID_AMB.capable.has(def.id)&&HYBRID_AMB.blobs.has(def.id)){
     const m=hybridMix(def.id);
     if(synthBus)synthBus.gain.setTargetAtTime(1-.55*m,ctx.currentTime,.2);
@@ -50573,6 +50682,11 @@ function snapshot(){
     lifecycleHub:window.SukunLifecycleHub?.snapshot?.()||null,
     dataMigration:window.SukunDataMigration?.snapshot?.()||null,
     serviceWorker:window.SukunUpdateManager?.snapshot?.()||null,
+    sessionR928:window.SukunSessionState?.snapshot?.()||null,
+    rhythmR928:window.SukunRhythm?.snapshot?.()||null,
+    spatialR928:window.SukunSpatialMotion?.snapshot?.()||null,
+    wheelR928:window.SukunWheels?.snapshot?.()||null,
+    wheelMotionR928:window.SukunWheelMotion?.snapshot?.()||null,
     androidProbe:window.SukunAndroidProbe?.snapshot?.()||null,
     flowNavigation:{version:window.SukunFlowNavigation?.version||null,context:window.SukunFlowNavigation?.context?.()||null},
     alertCenter:window.SukunAlertCenter?.snapshot?.()||null,
@@ -55027,7 +55141,10 @@ async function es99PlaySafe(index,it,token){
   const current=()=>!timedOut&&token===ES.token&&attempt===ES.attemptSeq&&ES.run&&!ES.paused;
   const A=window.R168?.AudioResolver||window.AudioResolver;
   const audio=Promise.resolve().then(()=>A?.play?.('esma',index,it,{arabic:it.a||'',text:'Yâ '+it.t,preferArabic:true,title:'Yâ '+it.t,session:true,journey:true,backgroundNative:true,isCurrent:current})).catch(e=>({ok:false,source:'error',reason:'exception',detail:String(e?.message||e)}));
-  const watchdog=new Promise(resolve=>{timer=setTimeout(()=>{timedOut=true;ES.attemptSeq++;es99CutSource('resolver-timeout',index);resolve({ok:false,source:'watchdog',reason:'resolver-timeout'})},document.hidden?95000:35000)});
+  const watchdog=new Promise(resolve=>{const deadline=()=>{
+    if(current()&&window.SukunLockJourneyTransportV2?.ownsProgress?.('journey99','esma:'+index+':nida',index)){timer=setTimeout(deadline,5000);return}
+    timedOut=true;ES.attemptSeq++;es99CutSource('resolver-timeout',index);resolve({ok:false,source:'watchdog',reason:'resolver-timeout'});
+  };timer=setTimeout(deadline,document.hidden?95000:35000)});
   try{return await Promise.race([audio,watchdog])}finally{if(timer)clearTimeout(timer)}
 }
 
@@ -63665,8 +63782,8 @@ if(!window.SukunRegressionShield||window.SukunRegressionShield.version!==VERSION
       const la=document.getElementById('r476LockZikirAudio'),ja=window.__sukJourneyNative?.a;
       if(la&&!la.paused&&!la.ended)mains.push({a:la,label:'lock-zikir'});
       if(ja&&!ja.paused&&!ja.ended)mains.push({a:ja,label:'journey-native'});
-      echoNeed=document.hidden&&wet>.01&&mains.length>0;
-      if(echoNeed){const bad=[];mains.forEach(x=>{const at=bridge?.attachment?.(x.a);if(!at?.ok)bad.push(x.label+':'+(at?.reason||'attachment-yok'))});echoOk=bad.length===0;echoDetail=echoOk?'native ses gerçek echo attachment ile bağlı':('attachment eksik · '+bad.join(', '))}
+      echoNeed=document.hidden&&(wet>.01||!!KAYIT?.mekan)&&mains.length>0;
+      if(echoNeed){const bad=[];mains.forEach(x=>{const at=bridge?.attachment?.(x.a);if(!at?.ok)bad.push(x.label+':'+(at?.reason||'attachment-yok'))});echoOk=bad.length===0;echoDetail=echoOk?'native ses işlenmiş yankı/8D kaynağına bağlı':('attachment eksik · '+bad.join(', '))}
       else if(echoApi)echoDetail='Echo Attachment Authority hazır · aktif native ses yok';
     }catch(e){echoOk=false;echoDetail='echo doğrulama hatası'}
     out.push(issue('native-lock-echo',!echoApi?'WARN':echoNeed&&!echoOk?'FAIL':'PASS',!echoApi?'r639 Echo Attachment Authority hazır değil':echoDetail));
@@ -64460,7 +64577,9 @@ async function playOwn(cat,idx,item,opt={}){
   let r;
   try{
     r=await playRecording(rec.blob,(opt.entry==='dongu'?'dongu:':'r637-own:')+rec.key,{
-      detail:true,resume:false,backgroundNative:!!document.hidden,
+      /* r928: journeys prime the same persistent media element before the
+         screen is hidden; do not discard the caller's native transport flag. */
+      detail:true,resume:false,backgroundNative:!!(opt.backgroundNative||opt.journey||document.hidden),
       reason:document.hidden?'Kilit ekranı · kendi kayıt':'Kendi kayıt · TTS kilidi',
       title:opt.title||item?.tr||item?.t||rec.key,recordingKey:rec.key,isCurrent:opt.isCurrent
     });
@@ -65059,13 +65178,13 @@ window.SukunTerminalAudioReconcile=Object.freeze({version:'r654',reconcile,sched
 'use strict';
 if(window.__SUKUN_R648_LOCK_JOURNEY_V2__)return;
 window.__SUKUN_R648_LOCK_JOURNEY_V2__=1;
-const VERSION='r651';
+const VERSION='r928';
 const clean=v=>String(v??'').trim();
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,Number.isFinite(+n)?+n:a));
 const now=()=>Date.now();
 const L={
   active:false,owner:'',key:'',index:-1,seq:0,startedAt:0,startPhaseMs:0,cycleMs:0,
-  limit:0,startRep:0,applied:0,observedWraps:0,lastCurrent:0,lastProgressAt:0,
+  limit:0,startRep:0,applied:0,observedWraps:0,mediaProgressMs:0,lastCurrent:0,lastProgressAt:0,
   pauseAt:0,pausedAccumMs:0,targetTimer:0,baseVolume:1,reason:'ready',lastAt:now(),
   leases:0,settlements:0,settledCycles:0,switches:0,visibleHandoffs:0,revives:0,
   overshootCycles:0,stalls:0,lastError:'',playEvents:0,suppressedRevives:0,
@@ -65136,17 +65255,17 @@ function effectiveElapsed(at=now()){
   const livePause=L.pauseAt?Math.max(0,at-L.pauseAt):0;
   return Math.max(0,at-L.startedAt-L.pausedAccumMs-livePause);
 }
-function totalCyclesAt(at=now()){
+function totalCyclesAt(){
   if(!L.active||!L.cycleMs)return 0;
-  const elapsed=effectiveElapsed(at),phase=Math.max(0,L.startPhaseMs);
-  return Math.max(0,Math.floor((phase+elapsed)/L.cycleMs)-Math.floor(phase/L.cycleMs));
+  /* Only sampled media-clock movement, including observed wraps, earns credit.
+     Hidden event throttling may undercount unknown loops; elapsed wall time
+     must never invent recitations during an undecidable stall. */
+  return Math.max(0,Math.floor((L.startPhaseMs+L.mediaProgressMs)/L.cycleMs)-Math.floor(L.startPhaseMs/L.cycleMs));
 }
-function completedCycles(){
-  const a=audio(),wall=totalCyclesAt();
-  /* Eğer fiziksel element şu anda durmuşsa duymadığımız süreyi wall-clock ile
-     saymayız. timeupdate ile gerçekten gözlenen loop sınırları alt sınırdır. */
-  const physical=!!(a&&sourceMatches(L.key)&&!a.paused&&!a.ended);
-  return Math.max(0,physical?Math.max(L.observedWraps,wall):L.observedWraps);
+function completedCycles(){return Math.max(0,totalCyclesAt())}
+function ownsProgress(owner,key,index){
+  const a=audio();return !!(document.hidden&&L.active&&L.owner===owner&&L.key===key&&L.index===index&&
+    !L.dormant&&!L.frozen&&a&&!a.paused&&!a.ended&&sourceMatches(key)&&a.readyState>=2&&now()-L.lastProgressAt<6500);
 }
 function remainingFor(ji=info()){
   if(!ji)return 0;return Math.max(0,limitFor(ji)-Math.max(0,+ji.raw?.rep||+ji.state?.rep||0));
@@ -65210,9 +65329,20 @@ function scheduleTarget(reason='target'){
 function onTime(){
   if(!L.active||this!==boundAudio)return;
   const cur=Math.max(0,Number(this.currentTime)||0),dur=Math.max(0,Number(this.duration)||0);
-  if(dur>0&&L.lastCurrent>dur*.55&&cur+Math.max(.08,dur*.08)<L.lastCurrent){L.observedWraps++;log('wrap',{wraps:L.observedWraps})}
-  if(cur>L.lastCurrent+.02||cur<L.lastCurrent-.08)L.lastProgressAt=now();
+  const wrapped=dur>0&&L.lastCurrent>dur*.55&&cur+Math.max(.08,dur*.08)<L.lastCurrent;
+  let delta=wrapped?Math.max(0,dur-L.lastCurrent)+cur:Math.max(0,cur-L.lastCurrent);
+  if(!this.paused&&!L.dormant&&!L.frozen){
+    L.mediaProgressMs+=delta/clamp(this.playbackRate||1,.5,2)*1000;
+    if(delta>.002)L.lastProgressAt=now();
+    if(wrapped){L.observedWraps++;log('wrap',{wraps:L.observedWraps})}
+  }
   L.lastCurrent=cur;
+  settleNow('media-progress');
+  if(!remainingFor()){advance('media-target');return}
+  if(wrapped&&!this.paused&&!L.dormant&&!L.frozen){
+    const lease=L.seq,key=L.key;
+    window.SukunRhythm?.voiceStarted?.(()=>L.active&&L.seq===lease&&L.key===key&&sourceMatches(key)&&!this.paused&&!this.ended&&!machinePaused(),'native-loop');
+  }
 }
 function onPlaying(){
   if(!L.active||this!==boundAudio)return;
@@ -65222,12 +65352,12 @@ function onPlaying(){
 function onPause(){
   if(!L.active||this!==boundAudio)return;
   if(!L.pauseAt)L.pauseAt=now();
-  L.pauseEvents++;L.dormant=true;clearTarget();
+  L.pauseEvents++;L.dormant=true;clearTarget();window.SukunRhythm?.stop?.();
   /* r651: pause-event ASLA play() tetiklemez. OS media session / freeze
      pause'ları zorla resume edilmeye çalışılırsa AbortError döngüsü oluşuyor. */
   log('pause-dormant',{hidden:document.hidden});
 }
-function onError(){if(!L.active||this!==boundAudio)return;L.stalls++;L.lastError='native-error';L.dormant=true;clearTarget();log('native-error')}
+function onError(){if(!L.active||this!==boundAudio)return;window.SukunRhythm?.stop?.();L.stalls++;L.lastError='native-error';L.dormant=true;clearTarget();log('native-error')}
 async function revive(reason='revive'){
   const a=audio();if(!L.active||!document.hidden||machinePaused()||!a||!sourceMatches(L.key))return false;
   if(!a.paused&&!a.ended){L.suppressedRevives++;L.dormant=false;scheduleTarget('revive-alive');return true}
@@ -65254,7 +65384,7 @@ function arm(reason='arm'){
   if(L.active&&L.owner===ji.owner&&L.key===ji.key&&L.index===ji.index){scheduleTarget('rearm');return true}
   if(L.active)handoff('source-replace',false);
   const limit=limitFor(ji),rep=Math.max(0,+ji.raw?.rep||+ji.state?.rep||0),remaining=Math.max(0,limit-rep);if(!remaining)return false;
-  L.active=true;L.owner=ji.owner;L.key=ji.key;L.index=ji.index;L.seq++;L.startedAt=now();L.cycleMs=cycle;L.limit=limit;L.startRep=rep;L.applied=0;L.observedWraps=0;L.lastCurrent=Math.max(0,Number(a.currentTime)||0);L.startPhaseMs=(L.lastCurrent/clamp(a.playbackRate||1,.5,2))*1000;L.lastProgressAt=now();L.pauseAt=a.paused?now():0;L.pausedAccumMs=0;L.baseVolume=normalVolume(a);L.leases++;L.lastError='';L.dormant=!!a.paused;L.frozen=false;L.abortLocked=false;
+  L.active=true;L.owner=ji.owner;L.key=ji.key;L.index=ji.index;L.seq++;L.startedAt=now();L.cycleMs=cycle;L.limit=limit;L.startRep=rep;L.applied=0;L.observedWraps=0;L.mediaProgressMs=0;L.lastCurrent=Math.max(0,Number(a.currentTime)||0);L.startPhaseMs=(L.lastCurrent/clamp(a.playbackRate||1,.5,2))*1000;L.lastProgressAt=now();L.pauseAt=a.paused?now():0;L.pausedAccumMs=0;L.baseVolume=normalVolume(a);L.leases++;L.lastError='';L.dormant=!!a.paused;L.frozen=false;L.abortLocked=false;
   try{a._r648Lease=L.seq;a._r651Lease=L.seq;a.loop=true;a.muted=false;a.volume=L.baseVolume;a.preservesPitch=true}catch(e){}
   bind(a);
   try{window.SukunNativeEchoBridge?.start?.(a,{src:j.playUrl||j.url||a.src,wet:KAYIT?.yankiMik,volume:a.volume,rate:a.playbackRate,key:ji.key,mode:'journey-native-r648',baked:!!j.fx})}catch(e){}
@@ -65263,7 +65393,7 @@ function arm(reason='arm'){
   scheduleTarget(reason);log('lease-start',{cycleMs:Math.round(cycle),phaseMs:Math.round(L.startPhaseMs),rep,limit,remaining,reason});return true;
 }
 function resetLeaseFields(){
-  L.active=false;L.owner='';L.key='';L.index=-1;L.startedAt=0;L.startPhaseMs=0;L.cycleMs=0;L.limit=0;L.startRep=0;L.applied=0;L.observedWraps=0;L.lastCurrent=0;L.pauseAt=0;L.pausedAccumMs=0;L.dormant=false;L.frozen=false;L.abortLocked=false;
+  L.active=false;L.owner='';L.key='';L.index=-1;L.startedAt=0;L.startPhaseMs=0;L.cycleMs=0;L.limit=0;L.startRep=0;L.applied=0;L.observedWraps=0;L.mediaProgressMs=0;L.lastCurrent=0;L.pauseAt=0;L.pausedAccumMs=0;L.dormant=false;L.frozen=false;L.abortLocked=false;
 }
 function handoff(reason='handoff',settle=true){
   if(!L.active)return 0;const a=audio();if(settle)settleNow(reason);
@@ -65325,7 +65455,7 @@ function visible(){
 function snapshot(){
   const a=audio(),ji=info(),completed=L.active?completedCycles():0,remaining=ji?remainingFor(ji):0;
   const theoretical=L.active?totalCyclesAt():0,over=L.active?Math.max(0,theoretical-Math.max(0,L.limit-L.startRep)):0;if(over>L.overshootCycles)L.overshootCycles=over;
-  return Object.freeze({version:VERSION,active:!!L.active,owner:L.owner,key:L.key,index:L.index,hidden:document.hidden,playing:!!(a&&!a.paused&&!a.ended&&L.active),loop:!!a?.loop,cycleMs:Math.round(L.cycleMs||0),startRep:L.startRep,applied:L.applied,completed,remaining,observedWraps:L.observedWraps,leases:L.leases,settlements:L.settlements,settledCycles:L.settledCycles,switches:L.switches,visibleHandoffs:L.visibleHandoffs,visibleDrains:L.visibleDrains,revives:L.revives,hiddenPlayAttempts:L.hiddenPlayAttempts,playEvents:L.playEvents,pauseEvents:L.pauseEvents,suppressedRevives:L.suppressedRevives,dormant:L.dormant,frozen:L.frozen,abortLocked:L.abortLocked,abortLockouts:L.abortLockouts,lastProgressAgeMs:L.lastProgressAt?Math.max(0,now()-L.lastProgressAt):null,stalls:L.stalls,overshootCycles:L.overshootCycles,lastError:L.lastError,lastReason:L.reason,lastAt:L.lastAt,history:L.history.slice(-18)});
+  return Object.freeze({version:VERSION,active:!!L.active,owner:L.owner,key:L.key,index:L.index,hidden:document.hidden,playing:!!(a&&!a.paused&&!a.ended&&L.active),loop:!!a?.loop,cycleMs:Math.round(L.cycleMs||0),startRep:L.startRep,applied:L.applied,completed,remaining,observedWraps:L.observedWraps,mediaProgressMs:Math.round(L.mediaProgressMs),countEvidence:'sampled-media-clock',leases:L.leases,settlements:L.settlements,settledCycles:L.settledCycles,switches:L.switches,visibleHandoffs:L.visibleHandoffs,visibleDrains:L.visibleDrains,revives:L.revives,hiddenPlayAttempts:L.hiddenPlayAttempts,playEvents:L.playEvents,pauseEvents:L.pauseEvents,suppressedRevives:L.suppressedRevives,dormant:L.dormant,frozen:L.frozen,abortLocked:L.abortLocked,abortLockouts:L.abortLockouts,lastProgressAgeMs:L.lastProgressAt?Math.max(0,now()-L.lastProgressAt):null,stalls:L.stalls,overshootCycles:L.overshootCycles,lastError:L.lastError,lastReason:L.reason,lastAt:L.lastAt,history:L.history.slice(-18)});
 }
 
 /* Görünür ekrandaki isim-arası bekleme lock anında çözülsün. Aksi halde
@@ -65343,7 +65473,7 @@ window.addEventListener('sukun:journey-native-source',()=>{if(document.hidden)se
 window.addEventListener('sukun:journeyaudiostate',e=>{const s=e?.detail;if(s?.state==='USER_PAUSED'&&L.active){settleNow('user-pause');handoff('user-pause',false)}},{passive:true});
 window.addEventListener('sukun:journey-complete',()=>{if(L.active)handoff('complete',true)},{passive:true});
 window.addEventListener('pagehide',()=>{if(L.active)settleNow('pagehide')},{passive:true});
-window.SukunLockJourneyTransportV2=Object.freeze({version:VERSION,arm,revive,settle:settleNow,handoff,advance,snapshot});
+window.SukunLockJourneyTransportV2=Object.freeze({version:VERSION,arm,revive,settle:settleNow,handoff,advance,ownsProgress,snapshot});
 })();
 
 </script>
@@ -67493,7 +67623,7 @@ function syncEpoch(reason='source-epoch'){
   const k=key();
   try{
     const prev=clean(_r476Hidden?.preparedKey||'');
-    if(prev&&prev!==k){M.sourceSwitches++;_r476Hidden.audibleMs=0;_r476Hidden.credited=0;_r476Hidden.audibleSince=Date.now();_r476Hidden.phaseMs=phaseMs();}
+    if(prev&&prev!==k){M.sourceSwitches++;_r476Hidden.audibleMs=0;_r476Hidden.credited=0;_r476Hidden.audibleSince=Date.now();_r476Hidden.lastMediaTime=Number(a()?.currentTime)||0;_r476Hidden.phaseMs=phaseMs();}
     _r476Hidden.startedAt=Date.now();
     _r476Hidden.count=+Z.count||0;_r476Hidden.devir=+Z.devir||0;_r476Hidden.total=+Z.total||0;
     _r476Hidden.cycleMs=cycleMs();_r476Hidden.preparedKey=k;
@@ -67564,7 +67694,7 @@ function bindAudio(){
 }
 function onPlaying(){if(!hidden()||!physicalMatches())return;r838CaptureAudible(_r476Hidden,true);syncEpoch('audio-playing');arm('audio-playing');progress();}
 function onMeta(){if(hidden())setTimeout(()=>{if(syncEpoch('metadata')){arm('metadata');progress();}},0);}
-function onPause(){if(!hidden())return;r838CaptureAudible(_r476Hidden,false);settleProgress();clear('audio-paused');}
+function onPause(event){if(!hidden())return;window.SukunRhythm?.stop?.();r838CaptureAudible(_r476Hidden,false);if(event?.type==='pause')_r476Hidden.pendingRhythmWrap=false;settleProgress();clear('audio-paused');}
 function onTime(){if(hidden()&&physicalMatches()&&a().readyState>=2){if(_r476Hidden.audibleSince==null)onPlaying();else settleProgress();}}
 function visibility(){bindAudio();if(document.hidden){setTimeout(()=>{bindAudio();if(syncEpoch('visibility-hidden')){arm('visibility-hidden');progress();}},40);}else clear('visible');}
 window.addEventListener('sukun:lock-ready',()=>{bindAudio();onPlaying();},{passive:true});
@@ -67868,6 +67998,10 @@ function isDirectContext(){
   const z=safe(()=>window.currentZikirState?.snapshot?.(),{})||{};
   if(z.session?.active)return false;
   if(journey())return false;
+  // r928: an explicit zikr control stays in the visible zikr context even if
+  // the general mix presentation retains a prior journey's playing status.
+  // The direct owner/arbiter still decides which physical voice may start.
+  if(document.body.classList.contains('sukun-tefekkur-mode')||document.body.classList.contains('sukun-zikir-tab'))return true;
   // r924: settled Stop can leave only the mix presentation at 'stopping'.
   // It is not an active foreground owner and must not steal the next zikr Start.
   const settledMixStop=!pendingStop&&f.context==='audio'&&f.playback?.id==='mix'&&f.playback?.state==='stopping'&&!f.playing&&!f.paused;
@@ -67908,7 +68042,7 @@ function performPlayPause(source='ui'){
    }catch(e){safe(()=>window.sukunReport?.('r702-journey-transport',e,j.kind));return false}
  }
  const d=direct(),state=safe(()=>d?.state?.(),{})||{};
- if(AR?.pauseAll&&(state.auto||(source!=='main'&&safe(()=>AR.aggregateState?.())==='playing'))){
+ if(AR?.pauseAll&&(state.auto||(source!=='main'&&!isDirectContext()&&safe(()=>AR.aggregateState?.())==='playing'))){
    return AR.pauseAll('ui:'+source)!==false;
  }
  if(isDirectContext()){
@@ -76354,7 +76488,7 @@ html[data-r913-context="base"] body.r716-shell>#r717Scene{display:block!importan
 html[data-r913-context="base"] body.r716-shell>#r709SceneArt,html[data-r913-context="base"] body.r716-shell>[data-berhet-scene-layer]{display:none!important;opacity:0!important}
 </style>
 <script id="sukun-r913-build-scene-runtime">/* r916: retired competing visual writer; audio engine unchanged. */window.SukunR913={version:'r916',sync:()=>window.SukunR916Visual?.sync?.()};</script>
-<script src="./assets/runtime/esma-scenes-r923.js?v=r927" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
+<script src="./assets/runtime/esma-scenes-r923.js?v=r928" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
 <script id="sukun-r914-runtime">(()=>{'use strict';
 const R=document.documentElement,A='./assets/berhetiyye-premium/',$=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch(_){return d}};
 const atlas=window.SukunR853Scene.nameScenes,originals=window.SukunR853Scene.files;
@@ -76490,10 +76624,10 @@ prop('--r914-scene','none');attr('r920Performance',profile);new MutationObserver
 </script>
 <svg id="r915Filters" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;pointer-events:none"><defs><filter id="r915BlackAlpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 8 8 8 0 0"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
 
-<script src="./assets/runtime/session-r919.js?v=r927" integrity="sha256-4wBI6tpnv06BMVkw8xdck9TFqTGJVRvcnjMJcynlxfQ="></script>
-<script src="./assets/runtime/dock-r920.js?v=r927" integrity="sha256-IQHKlwi8JWbO7BRzmFtlljP4Ql+X0Wdc7G+BZEMl3n0="></script>
-<script src="./assets/runtime/wheels-r924.js?v=r927" integrity="sha256-peGxU4NbaRIHkwXjh3PmfyvsVwwNPjqXEUb0fnbunFE="></script>
-<script src="./assets/runtime/interface-r920.js?v=r927" integrity="sha256-A4hcJttKlIcdGFvTN8uBvyh/HWZuLEdlSAfTc2EhyoU="></script>
+<script src="./assets/runtime/session-r919.js?v=r928" integrity="sha256-4wBI6tpnv06BMVkw8xdck9TFqTGJVRvcnjMJcynlxfQ="></script>
+<script src="./assets/runtime/dock-r920.js?v=r928" integrity="sha256-IQHKlwi8JWbO7BRzmFtlljP4Ql+X0Wdc7G+BZEMl3n0="></script>
+<script src="./assets/runtime/wheels-r924.js?v=r928" integrity="sha256-hIU5RmAMAneFvJINFl+8ZIB3lB6sk1rQtMIhkkWBOWo="></script>
+<script src="./assets/runtime/interface-r920.js?v=r928" integrity="sha256-cqbgtH0gLgvLsI8tZHQC12ysU0dkXtIc31zMlLXvWMo="></script>
 <script id="sukun-r922-voice-settings-ui">
 (function(){'use strict';
 const $=id=>document.getElementById(id);let mounted=false,raf=0,busy=false,modeError='',discovery=null,discoveryTimer=0;
@@ -76569,6 +76703,6 @@ discoveryTimer=setTimeout(()=>{discovery?.disconnect();discovery=null;},15000);q
 
 </script>
 
-<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r927" integrity="sha256-roGUIPpI3ejhozBNHluJgzGf3eOVgZwhsSrPhCwtMqk=">
+<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r928" integrity="sha256-zNvvsSXZE/xkp0tnQKdLXoxAyDtyFggABWwn3EucLmY=">
 </body>
 </html>

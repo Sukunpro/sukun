@@ -1,6 +1,6 @@
-SÜKÛN r927 — TOPLU GÜNCELLEME
+SÜKÛN r928 — TOPLU GÜNCELLEME
 
-Mevcut r917/r920/r923/r925/r926 kurulumuna birleştirerek yükle.
+Mevcut r917/r920/r923/r925/r926/r927 kurulumuna birleştirerek yükle.
 Ara sürümleri sırayla yüklemen gerekmez. Bu ZIP, tarihsel bütün medya
 arşivini içeren boş kurulum paketi değildir.
 
@@ -8,24 +8,64 @@ YÜKLEME
 1. ZIP'i aç. İçindekileri, sitede index.html ve sw.js'nin bulunduğu aynı
    kök klasöre birlikte kopyala. ZIP'in kendisini yüklemek yeterli değildir.
 2. index.html, nero.html, sw.js, manifest.webmanifest, ikonlar,
-   sukun-build-r927.json, sukun-latest.json, .nojekyll ve assets klasörünü
+   sukun-build-r928.json, sukun-latest.json, .nojekyll ve assets klasörünü
    beraber gönder. Aynı adlı dosyaları değiştir; assets klasörünü BİRLEŞTİR.
    Mevcut assets klasörünü ve pakette bulunmayan eski dosyaları silme.
 3. Mümkünse tek commit ile yayımla; dağıtımın tamamlanmasını bekle.
 4. Devam eden/duraklatılmış zikri Bitir ile kapat. Aynı adresi aç ve
    uygulamadaki Güncelle düğmesini kullan.
-5. Sürüm satırında Uygulama r927 / SW r927 görünmelidir.
+5. Sürüm satırında Uygulama r928 / SW r928 görünmelidir.
 
 Site verilerini veya uygulama depolamasını temizleme. Kendi kayıtların
 aynı cihaz/tarayıcı/alan adındaki yerel verilerinde kalır.
 Canlı siteye otomatik dağıtım yapılmadı.
 
-r927 İÇERİĞİ
-- Başlat / Duraklat / Devam taş düğmesinin %44 genişlikteki kapsülü
-  kaldırıldı. İkon ve kısa yazı taş boyutuna göre 44–60px alana oturur.
-  Dokunma alanı en az 44px; şeffaf zeminden taşın işlemesi görünür.
-- Bitir ve +/- kontrolleri aynı ölçü düzeninde; dönerken yazılar dik kalır.
-  Merkez sayaç sabit, mevcut dönüş ve dokunurken durma davranışı korunur.
+r928 İÇERİĞİ
+- Dönen çarklarda kontrol geometrisi taşların ölçülerine göre düzenlendi.
+  Küçük taşlarda Başlat / Duraklat / Devam işlemi okunaklı simgeyle görünür;
+  uzun yazı taşın dışına taşmaz. Tam eylem adı erişilebilir etikette korunur.
+  Büyük dokunma alanı ile taşın içine çizilen simge ayrı ölçülendirilir.
+- Bendir / davul için “Kalp atımı · tok bas” usûlü eklendi. Ritim seviyesi
+  ayrıca %0–100 ayarlanır; ilk kullanım %75. Önceki usûl seçimi korunur.
+- Ritim seçilmiş tempoyu izler; 1,6 saniyede kırpılmaz. Doğrulanmış okuyuş
+  başlangıcı ritmi tetikler. Duraklat/Bitir bekleyen vuruşları temizler.
+- 28/99 seyrinin kayıt önceliği, çağıranın kalıcı native oynatma seçimini
+  artık silmez. Kayıt ekran açıkken aynı oynatıcıda hazırlanır.
+- Seyri bitirip tekli zikre geçince Başlat komutunun eski genel oynatıcıya
+  yönelmesi düzeltildi; Ambiyans bağlamındaki genel oynatıcı korunur.
+- İlerleyen arka plan kaydını kesen sabit zaman aşımı düzeltildi.
+  Sayaç gözlenen medya ilerlemesine dayanır; sessiz bekleme sayılmaz.
+  Tarayıcı arka plandaki medya olaylarını tamamen susturursa gözlenmeyen
+  tekrarlar süreye bakılarak tahmin edilmez; bu durumda eksik sayım olabilir.
+- Kayıt sesinin yankı ve 8D hareketi native oynatma için birlikte stereo
+  WAV olarak hazırlanır. Yalnız 8D açıkken de bu yol kullanılır. Aynı kayıt
+  arka plana geçerken aynı işlenmiş kaynaktan devam eder.
+- Ambiyans 8D hareketi ekranın animasyon karelerinden ses işleme saatine
+  taşındı. İşletim sistemi AudioContext'i askıya alırsa ambiyans yine
+  durabilir; fiziksel Android kilit testi ayrıca gereklidir.
+- Efekt önbelleği seçenek ve kayıt değişiminde yenilenir; eski kayda ait
+  aynı boyuttaki dosyanın efekti tekrar kullanılmaz.
+- Tanı dışa aktarımı oturum, ritim, mekânsal ses ve çark durumunu içerir.
+
+TOK BASI SEÇME
+Zikir → Zikir ayarları → Bendir / davul ritmi: Açık
+→ Usûl: Kalp atımı · tok bas → Ritim seviyesi: %75 ile başla.
+Ana ses seviyesi de davulu etkiler. Telefon hoparlöründe algılanan bas,
+kulaklıktaki basla aynı olmayabilir.
+
+YANKI VE 8D AYARLARI
+Kayıt sesi: Ayarlar → KAYIT VE ÇALMA → Mekân yankısı / 8D mekânsal çalma.
+Mini okuyucudaki “Yankı” ve “8D” de aynı kayıt ayarlarını değiştirir.
+Ambiyans: Zikir ayarları → 8D mekânsal ses — kanallar kulaklıkta çevrende döner.
+Kayıt 8D'si her okuyuşta soldan sağa yumuşak hareket olarak hazırlanır;
+canlı ambiyansın uzun sürekli dönüşüyle aynı hareket değildir.
+Bu efekt düzeltmesi kayıt dosyası içindir; tarayıcının Arapça TTS sesi için
+aynı efekt desteği doğrulanmış değildir. Kendi kayıt dosyan değişmez.
+Kilitliyken yeni bir isim için efekt hazır değilse kısa hazırlama beklenir.
+Hazırlama başarısız/zaman aşımı olursa sesin devamı önceliklidir; ham kayıt
+çalabilir ve nedeni tanı raporuna yazılır.
+
+ÖNCEKİ DÜZELTMELERDEN KORUNANLAR
 - Zikir ayarlarında boş kutuya dönüşen anahtarların rayı/başlığı geri geldi.
   Açık/kapalı durumunun rengi ve konumu belirgin. Mevcut olay işleyicileri
   korunur; ikinci sayaç veya ikinci toggle eklenmez.
@@ -41,7 +81,8 @@ r927 İÇERİĞİ
 - Mevcut elle seçilmiş arka plan tercihi korunur. Atlas'ta incelenen ismin
   sahnesi doğru önizlenir; aktif oturumun arka planı değiştirilmez.
 - r926 Pages uyumlu metadata, doğrulanmış SW kurulumu ve güvenli tekrar
-  deneme korunur. Uygulama/SW/manifest/marker/runtime hashleri r927 eşleşir.
+  deneme korunur. Bu pakette uygulama/SW/manifest/marker ve runtime
+  bütünlük bilgileri r928 olarak eşleştirilmiştir.
 
 OTOMATİK ESMÂ SAHNESİNİ AÇMA
 Zikir → 99 Esmâ → İsim, çark ve görünüm → Esmâ sahnesi
@@ -56,7 +97,7 @@ sanatsal yorum notları “Sahne hakkında ve kaynaklar” bölümündedir.
 ÇARK TASARIMI HAKKINDA
 Mevcut 16 premium çark, onaylanan mockuplardan esinlenerek r924'te yeniden
 üretilmiş şeffaf görsellerdir; mockupların birebir kesilmiş halleri değildir.
-Bu sürümde görsel dosyaları değiştirilmedi. Taşın üstünü örten kapsül
+r927/r928 sürümlerinde görsel dosyaları değiştirilmedi. Taşın üstünü örten kapsül
 kaldırıldı, ince iç ışık eklendi. Bunlar 3D görünüşlü raster assetlerdir;
 canlı 3D model/mesh değildir.
 Çark seçimi: İsim, çark ve görünüm → Esmâ/Berhetiyye çarkı.
@@ -67,20 +108,21 @@ assets/wheels-r924/berhetiyye/     11 Berhetiyye çarkı
 assets/wheels-r924/esma/           5 Esmâ çarkı
 assets/scenes/esma-r923/           Esmâ ve anlatı arka planları
 assets/runtime/wheels-r924.css    Taş ölçüleri ve çark yerleşimi
-assets/runtime/interface-r920.js  Ortak arayüz, iç sürüm r927
+assets/runtime/interface-r920.js  Ortak arayüz, iç sürüm r928
 assets/runtime/dock-r920.js       Akış barı, iç sürüm r927
 assets/runtime/esma-scenes-r923.js Sahne kataloğu ve otomatik eşleştirme
 index.html / nero.html             Ana uygulama ve SceneEngine
-sw.js                             Service Worker r927
+sw.js                             Service Worker r928
 
 Dosya adındaki r920/r923/r924, bileşenin ilk sürüm adıdır; uygulamanın eski
-kaldığı anlamına gelmez. Güncel bütünlük bilgisi sukun-build-r927.json'dadır.
+kaldığı anlamına gelmez. Güncel bütünlük bilgisi sukun-build-r928.json'dadır.
 
 DOĞRULAMA
-DOGRULAMA_r927.json bu sürümdeki kontrolleri ve sınırlarını içerir.
-DOGRULAMA_r925.json / DOGRULAMA_r926.json önceki arşiv raporlarıdır.
+DOGRULAMA_r928.json bu sürümdeki kontrolleri ve sınırlarını içerir.
+DOGRULAMA_r925.json / r926 / r927 önceki arşiv raporlarıdır.
 SHA256SUMS.txt paketteki dosyaların bütünlük listesidir.
 Testler masaüstü Chromium mobil ekran benzetimindedir; fiziksel Android
 ve kullanıcının canlı yayını doğrudan test edilmedi.
-Ses motoru ve çark görselleri korunmuştur; bu turda tüm geçmiş ses/arka
-plan donanım senaryoları yeniden çalıştırılmamıştır.
+Çark görselleri korunmuştur; kontrol geometrisi ve ses sürekliliği kodu
+güncellenmiştir. Fiziksel telefon testi için TELEFON_SES_TESTI_r928.txt
+dosyasını kullan. Tarayıcı benzetimini gerçek ekran kilidi testi sayma.
