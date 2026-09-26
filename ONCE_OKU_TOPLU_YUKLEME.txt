@@ -1,6 +1,6 @@
-SÜKÛN r929 — TOPLU GÜNCELLEME
+SÜKÛN r930 — YAKUT VE ALTIN BERHETİYYE MENÜLERİ
 
-Mevcut r917/r920/r923/r925/r926/r927/r928 kurulumuna birleştirerek yükle.
+Mevcut r917/r920/r923/r925/r926/r927/r928/r929 kurulumuna birleştirerek yükle.
 Ara sürümleri sırayla yüklemen gerekmez. Bu ZIP, tarihsel bütün medya
 arşivini içeren boş kurulum paketi değildir.
 
@@ -8,19 +8,34 @@ YÜKLEME
 1. ZIP'i aç. İçindekileri, sitede index.html ve sw.js'nin bulunduğu aynı
    kök klasöre birlikte kopyala. ZIP'in kendisini yüklemek yeterli değildir.
 2. index.html, nero.html, sw.js, manifest.webmanifest, ikonlar,
-   sukun-build-r929.json, sukun-latest.json, .nojekyll ve assets klasörünü
+   sukun-build-r930.json, sukun-latest.json, .nojekyll ve assets klasörünü
    beraber gönder. Aynı adlı dosyaları değiştir; assets klasörünü BİRLEŞTİR.
    Mevcut assets klasörünü ve pakette bulunmayan eski dosyaları silme.
 3. Mümkünse tek commit ile yayımla; dağıtımın tamamlanmasını bekle.
 4. Devam eden/duraklatılmış zikri Bitir ile kapat. Aynı adresi aç ve
    uygulamadaki Güncelle düğmesini kullan.
-5. Sürüm satırında Uygulama r929 / SW r929 görünmelidir.
+5. Sürüm satırında Uygulama r930 / SW r930 görünmelidir.
 
 Site verilerini veya uygulama depolamasını temizleme. Kendi kayıtların
 aynı cihaz/tarayıcı/alan adındaki yerel verilerinde kalır.
 Canlı siteye otomatik dağıtım yapılmadı.
 
-r929 İÇERİĞİ
+r930 İÇERİĞİ
+- Onaylanan yakut–altın görünüm, Berhetiyye menü kartlarına uygulandı:
+  Okumalar, Seyirler, Akış & Seans, Kaynaklar ve Araçlar.
+- İşlemeli metal çerçeve ile kırmızı yakutlar gerçek görsel varlıklardır.
+  Başlıklar, açıklamalar, sayılar ve oklar canlı arayüz öğeleri olarak kalır.
+- Üst sekmeler ve “Oynatıcıyı göster” aynı renk ve materyal diline uyar.
+- Görünüm, Berhetiyye bağlamı etkin ve bölüm açık olduğunda uygulanır.
+  Esmâ görünümüne dönünce kendi tasarımı geri gelir.
+- Mevcut menü açma/kapama, kaydırma, sayaç, ses ve oturum kodları korunur.
+- Yeni dosyalar:
+  assets/berhetiyye-premium/menu-ruby-r930.webp
+  assets/berhetiyye-premium/peek-ruby-r930.webp
+- Bu iki görsel eksikse güncelleme kurulumu engellenmez; okunaklı koyu
+  yüzeyden oluşan yedek görünüm kullanılır.
+
+KORUNAN r929 İÇERİĞİ
 - Akış barının tutamacında dokunma kuralı düzeltildi. Tutamaç sürükler;
   içerik kendi içinde doğal kayar. Kaydırma bir oynatma komutu üretmez.
 - Bildirim çekmecesi kapanınca görünmez perde ve dokunma engeli hemen
@@ -97,7 +112,7 @@ Hazırlama başarısız/zaman aşımı olursa sesin devamı önceliklidir; ham k
   sahnesi doğru önizlenir; aktif oturumun arka planı değiştirilmez.
 - r926 Pages uyumlu metadata, doğrulanmış SW kurulumu ve güvenli tekrar
   deneme korunur. Bu pakette uygulama/SW/manifest/marker ve runtime
-  bütünlük bilgileri r929 olarak eşleştirilmiştir.
+  bütünlük bilgileri r930 olarak eşleştirilmiştir.
 
 OTOMATİK ESMÂ SAHNESİNİ AÇMA
 Zikir → 99 Esmâ → İsim, çark ve görünüm → Esmâ sahnesi
@@ -112,7 +127,7 @@ sanatsal yorum notları “Sahne hakkında ve kaynaklar” bölümündedir.
 ÇARK TASARIMI HAKKINDA
 Mevcut 16 premium çark, onaylanan mockuplardan esinlenerek r924'te yeniden
 üretilmiş şeffaf görsellerdir; mockupların birebir kesilmiş halleri değildir.
-r927/r928/r929 sürümlerinde görsel dosyaları değiştirilmedi. Taşın üstünü örten kapsül
+r927/r928/r929/r930 sürümlerinde çark görsel dosyaları değiştirilmedi. Taşın üstünü örten kapsül
 kaldırıldı, ince iç ışık eklendi. Bunlar 3D görünüşlü raster assetlerdir;
 canlı 3D model/mesh değildir.
 Çark seçimi: İsim, çark ve görünüm → Esmâ/Berhetiyye çarkı.
@@ -127,17 +142,17 @@ assets/runtime/interface-r920.js  Ortak arayüz, iç sürüm r929
 assets/runtime/dock-r920.js       Akış barı, iç sürüm r929
 assets/runtime/esma-scenes-r923.js Sahne kataloğu ve otomatik eşleştirme
 index.html / nero.html             Ana uygulama ve SceneEngine
-sw.js                             Service Worker r929
+sw.js                             Service Worker r930
 
 Dosya adındaki r920/r923/r924, bileşenin ilk sürüm adıdır; uygulamanın eski
-kaldığı anlamına gelmez. Güncel bütünlük bilgisi sukun-build-r929.json'dadır.
+kaldığı anlamına gelmez. Güncel bütünlük bilgisi sukun-build-r930.json'dadır.
 
 DOĞRULAMA
-DOGRULAMA_r929.json bu sürümdeki kontrolleri ve sınırlarını içerir.
-DOGRULAMA_r925.json / r926 / r927 / r928 önceki arşiv raporlarıdır.
+DOGRULAMA_r930.json bu sürümdeki kontrolleri ve sınırlarını içerir.
+DOGRULAMA_r925.json / r926 / r927 / r928 / r929 önceki arşiv raporlarıdır.
 SHA256SUMS.txt paketteki dosyaların bütünlük listesidir.
 Testler masaüstü Chromium mobil ekran benzetimindedir; fiziksel Android
 ve kullanıcının canlı yayını doğrudan test edilmedi.
-Çark görselleri korunmuştur; bu sürümde dokunma, kaydırma ve arayüz yenileme
-yolları güncellenmiştir. Fiziksel telefon testi için TELEFON_TESTI_r929.txt
+Çark görselleri korunmuştur; bu sürümde Berhetiyye menü görünümü ve dar ekran
+yerleşimi güncellenmiştir. Fiziksel telefon testi için TELEFON_TESTI_r930.txt
 dosyasını kullan. Tarayıcı benzetimini gerçek ekran kilidi testi sayma.

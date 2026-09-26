@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- ════════════════════════════════════════════════════════════════
-     SÜKÛN r929 — Dokunma, kaydırma ve etkileşim gecikmeleri (base r928)
+     SÜKÛN r930 — Berhetiyye yakut ve altın menü tasarımı (base r929)
      Tek dosya • Web Audio API (tüm sesler cihazda sentezlenir)
      Binaural Beats + Isochronic Tones + Esmâ/Zikir Modülü
      ════════════════════════════════════════════════════════════════ -->
@@ -549,6 +549,88 @@ body #tfRefinedLayout,body #zBar,body #r883JourneyRemote {scroll-margin-block:90
  body #zMegaHost>.zMegaGroup>summary {padding:12px!important;min-height:64px!important;background:transparent!important}
  body #zMegaHost .zMegaTxt b {font-size:17px!important;color:#f4e5bd!important}
  body #zMegaHost .zMegaTxt small {color:#d3e3e7!important;font-size:11px!important;line-height:1.4!important}
+ /* r930 — Ruby/gold material for the approved Berhetiyye menu.
+  * This replaces the paint in this existing authority. Native details,
+  * navigation and player-placement owners keep their nodes and events. */
+ html[data-r853-berhet="1"] body #zMegaHost {
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;min-width:0!important;width:100%!important;max-width:680px!important;margin:16px auto!important;padding:0!important;gap:14px!important;overflow:visible!important;
+ }
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup {
+  margin:0!important;padding:0!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;height:auto!important;max-height:none!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important;
+ }
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary {
+  display:grid!important;grid-template-columns:32px minmax(0,1fr) auto!important;align-items:center!important;gap:8px!important;
+  width:100%!important;max-width:100%!important;min-height:100px!important;height:auto!important;max-height:none!important;box-sizing:border-box!important;
+  padding:1.5rem 12%!important;margin:0!important;border:0!important;border-radius:0!important;
+  background-color:transparent!important;
+  background-image:url('./assets/berhetiyye-premium/menu-ruby-r930.webp'),linear-gradient(135deg,#07191ef7,#160e15f7)!important;
+  background-size:100% 145%,76% 68%!important;background-position:center!important;background-repeat:no-repeat!important;
+  box-shadow:none!important;filter:none!important;overflow:visible!important;isolation:isolate!important;
+  color:#f9e8bf!important;cursor:pointer!important;touch-action:manipulation!important;scroll-margin-top:94px!important;
+ }
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary::before,
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary::after {content:none!important;display:none!important;pointer-events:none!important}
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary .zMegaIc {
+  display:grid!important;place-items:center!important;width:32px!important;height:36px!important;min-width:32px!important;
+  border:1px solid #a87848a6!important;border-radius:50%!important;background:radial-gradient(ellipse at 40% 25%,#62313c,#260e1b 72%)!important;
+  box-shadow:inset 0 1px 2px #ffddaa25,0 3px 8px #0005!important;color:#f1d694!important;font:400 17px/1 serif!important;
+ }
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary .zMegaTxt {min-width:0!important;max-width:100%!important;height:auto!important;max-height:none!important;overflow:visible!important}
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary .zMegaTxt>* {height:auto!important;min-height:0!important;max-height:none!important}
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary .zMegaTxt b {
+  display:block!important;margin:0!important;font-family:Georgia,"Times New Roman",serif!important;font-size:clamp(1rem,4.2vw,1.35rem)!important;
+  font-weight:700!important;line-height:1.13!important;letter-spacing:.012em!important;color:#fae9bd!important;
+  white-space:normal!important;overflow:visible!important;text-overflow:clip!important;overflow-wrap:anywhere!important;word-break:normal!important;text-shadow:0 1px 3px #000!important;
+ }
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary .zMegaTxt small {
+  display:block!important;-webkit-line-clamp:unset!important;margin:5px 0 0!important;max-width:100%!important;
+  font:400 clamp(.6875rem,2.9vw,.8125rem)/1.42 system-ui,sans-serif!important;letter-spacing:0!important;color:#d1d4d2!important;
+  white-space:normal!important;overflow:visible!important;text-overflow:clip!important;overflow-wrap:break-word!important;word-break:normal!important;text-shadow:0 1px 2px #000!important;
+ }
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary .zMegaRight {display:flex!important;align-items:center!important;gap:4px!important;min-width:0!important}
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary .zMegaCount {
+  display:grid!important;place-items:center!important;flex:0 0 auto!important;width:25px!important;min-width:25px!important;height:29px!important;padding:0 2px!important;
+  border:1px solid #956039a8!important;border-radius:50%!important;background:radial-gradient(ellipse at 40% 25%,#41212a,#160f17 80%)!important;
+  color:#eed092!important;font:600 .6875rem/1.2 system-ui,sans-serif!important;box-shadow:inset 0 1px 1px #ffe5ab14!important;
+ }
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary .zMegaChev {flex:0 0 9px!important;width:9px!important;font-size:0!important;color:#d9b46e!important;transition:none!important;transform:none!important}
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary .zMegaChev::after {content:'›'!important;display:block!important;font:500 24px/1 Georgia,serif!important;color:#d9b46e!important;transform:none!important}
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup[open]>summary .zMegaChev::after {transform:rotate(90deg)!important}
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup[open]>summary .zMegaIc {border-color:#d39464!important;background:radial-gradient(ellipse at 40% 25%,#873145,#3e1020 72%)!important;box-shadow:inset 0 1px 2px #ffd9a833,0 0 10px #bb294333!important}
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>.zMegaBody {
+  margin:8px 8px 0!important;padding:12px!important;width:auto!important;max-width:100%!important;min-width:0!important;
+  border:1px solid #9d624d99!important;border-radius:16px!important;background:linear-gradient(145deg,#081a23f7,#100f1bf5)!important;
+  box-shadow:inset 0 1px 0 #e4c38e10!important;color:#e2e5df!important;overflow:visible!important;
+ }
+ html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary:focus-visible {outline:2px solid #f2d38c!important;outline-offset:3px!important;border-radius:18px!important}
+ html[data-r853-berhet="1"] body .wrap>.tabs {
+  background:linear-gradient(145deg,#121c2af2,#160e1deb)!important;border-color:#ab824f80!important;
+  box-shadow:inset 0 1px 0 #ead19b19,0 8px 20px #0003!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+ }
+ html[data-r853-berhet="1"] body .wrap>.tabs>.tab,
+ html[data-r853-berhet="1"] body .wrap>.tabs>#tekkeTab {color:#cbbd9f!important}
+ html[data-r853-berhet="1"] body .wrap>.tabs>.tab>.tbIc,
+ html[data-r853-berhet="1"] body .wrap>.tabs>#tekkeTab>.tbRub {color:#d7b776!important}
+ html[data-r853-berhet="1"] body .wrap>.tabs>.tab.act {
+  color:#fff0ce!important;background:linear-gradient(150deg,#743545ad,#2b1423ed)!important;border-color:#c58b658c!important;
+  box-shadow:inset 0 1px 0 #f6d9a72b,inset 0 -1px 0 #c77d5766!important;
+ }
+ html[data-r853-berhet="1"] body .wrap>.tabs>.tab.act>.tbIc {color:#f2cd85!important}
+ html[data-r853-berhet="1"] body #r433DockPeek {
+  min-height:58px!important;height:auto!important;max-height:none!important;padding:1.125rem 12%!important;border:0!important;border-radius:0!important;
+  background-color:transparent!important;background-image:url('./assets/berhetiyye-premium/peek-ruby-r930.webp'),linear-gradient(135deg,#111722,#220e18)!important;
+  background-position:center!important;background-size:100% 194%,73% 66%!important;background-repeat:no-repeat!important;
+  box-shadow:none!important;filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;overflow:visible!important;
+ }
+ html[data-r853-berhet="1"] body #r433DockPeek .r433TxtWrap,
+ html[data-r853-berhet="1"] body #r433DockPeek .r433Txt {min-width:0!important;max-width:100%!important;white-space:normal!important;color:#fae9bd!important;font:650 .8125rem/1.25 system-ui,sans-serif!important;text-shadow:0 1px 3px #000!important}
+ html[data-r853-berhet="1"] body #r433DockPeek:focus-visible {outline:2px solid #f2d38c!important;outline-offset:3px!important;border-radius:18px!important}
+ @media(max-width:359px){
+  html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary {grid-template-columns:minmax(0,1fr) auto!important;gap:5px!important}
+  html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary .zMegaIc {display:none!important}
+  html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary .zMegaRight {gap:2px!important}
+  html[data-r853-berhet="1"] body #zMegaHost>.zMegaGroup>summary .zMegaCount {width:22px!important;min-width:22px!important;height:26px!important}
+ }
  body #r829BerhetSceneQuick {box-sizing:border-box!important;max-width:100%!important}
  body #r829SceneSel {min-height:44px!important;font-size:14px!important}
  html[data-r914-context="base"] body #r829BerhetSceneQuick {display:none!important}
@@ -574,11 +656,11 @@ body #tfRefinedLayout,body #zBar,body #r883JourneyRemote {scroll-margin-block:90
 </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r929"/>
+<meta name="sukun-build" content="r930"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r929" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r930" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6002,7 +6084,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){/* r922 shared settings owns its label. */if(document.getElementById('r920Practice')?.contains(document.getElementById('r679ZikirAyarBox')))return;if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r929"/><script>window.SUKUN_BUILD='r929';document.documentElement.dataset.sukunBuild='r929';</script>
+<meta name="sukun-build" content="r930"/><script>window.SUKUN_BUILD='r930';document.documentElement.dataset.sukunBuild='r930';</script>
 <style id="sukun-r923-esma-gallery">@layer sukun-r920 {
 #r920Practice #r923EsmaOptions{min-width:0;margin:10px 0}
 #r920Practice #r923EsmaOptions[hidden]{display:none!important}
@@ -7117,7 +7199,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN — Uygulama r929 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN — Uygulama r930 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -76496,7 +76578,7 @@ html[data-r913-context="base"] body.r716-shell>#r717Scene{display:block!importan
 html[data-r913-context="base"] body.r716-shell>#r709SceneArt,html[data-r913-context="base"] body.r716-shell>[data-berhet-scene-layer]{display:none!important;opacity:0!important}
 </style>
 <script id="sukun-r913-build-scene-runtime">/* r916: retired competing visual writer; audio engine unchanged. */window.SukunR913={version:'r916',sync:()=>window.SukunR916Visual?.sync?.()};</script>
-<script src="./assets/runtime/esma-scenes-r923.js?v=r929" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
+<script src="./assets/runtime/esma-scenes-r923.js?v=r930" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
 <script id="sukun-r914-runtime">(()=>{'use strict';
 const R=document.documentElement,A='./assets/berhetiyye-premium/',$=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch(_){return d}};
 const atlas=window.SukunR853Scene.nameScenes,originals=window.SukunR853Scene.files;
@@ -76632,10 +76714,10 @@ prop('--r914-scene','none');attr('r920Performance',profile);new MutationObserver
 </script>
 <svg id="r915Filters" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;pointer-events:none"><defs><filter id="r915BlackAlpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 8 8 8 0 0"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
 
-<script src="./assets/runtime/session-r919.js?v=r929" integrity="sha256-4wBI6tpnv06BMVkw8xdck9TFqTGJVRvcnjMJcynlxfQ="></script>
-<script src="./assets/runtime/dock-r920.js?v=r929" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
-<script src="./assets/runtime/wheels-r924.js?v=r929" integrity="sha256-EF7Y1flc7H9mfzesU9iR0j19fhWrwSJg3RwEnGVdeW8="></script>
-<script src="./assets/runtime/interface-r920.js?v=r929" integrity="sha256-CEdeAzJTuWEwbh7stq4y6S5YWADqP3AXQkDXoYNihPA="></script>
+<script src="./assets/runtime/session-r919.js?v=r930" integrity="sha256-4wBI6tpnv06BMVkw8xdck9TFqTGJVRvcnjMJcynlxfQ="></script>
+<script src="./assets/runtime/dock-r920.js?v=r930" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
+<script src="./assets/runtime/wheels-r924.js?v=r930" integrity="sha256-EF7Y1flc7H9mfzesU9iR0j19fhWrwSJg3RwEnGVdeW8="></script>
+<script src="./assets/runtime/interface-r920.js?v=r930" integrity="sha256-CEdeAzJTuWEwbh7stq4y6S5YWADqP3AXQkDXoYNihPA="></script>
 <script id="sukun-r922-voice-settings-ui">
 (function(){'use strict';
 const $=id=>document.getElementById(id);let mounted=false,raf=0,busy=false,modeError='',discovery=null,discoveryTimer=0;
@@ -76711,6 +76793,6 @@ discoveryTimer=setTimeout(()=>{discovery?.disconnect();discovery=null;},15000);q
 
 </script>
 
-<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r929" integrity="sha256-zNvvsSXZE/xkp0tnQKdLXoxAyDtyFggABWwn3EucLmY=">
+<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r930" integrity="sha256-zNvvsSXZE/xkp0tnQKdLXoxAyDtyFggABWwn3EucLmY=">
 </body>
 </html>
