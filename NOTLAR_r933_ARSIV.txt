@@ -1,0 +1,57 @@
+SÜKÛN r933 — BERHETİYYE TAŞLI KONTROLLER VE AKIŞ OYNATICI TEMASI
+
+Bu paket r932 temelinde hazırlanmış toplu güncellemedir. Önceki ara
+paketleri sırayla yüklemek gerekmez. Mevcut kurulumun üzerine birleştirilir;
+tarihsel bütün medya arşivini içeren boş kurulum paketi değildir.
+
+YÜKLEME
+1. ZIP'i aç. İçeriğini index.html ve sw.js'nin bulunduğu site köküne yükle.
+2. index.html, nero.html, sw.js, manifest.webmanifest, sukun-build-r933.json,
+   sukun-latest.json, ikonlar, .nojekyll ve assets birlikte yüklenmelidir.
+3. Aynı adlı dosyaları değiştir; assets klasörünü BİRLEŞTİR.
+   Mevcut assets klasörünü ve pakette bulunmayan eski medya dosyalarını silme.
+4. Mümkünse tek commit ile yayımla. Dağıtım tamamlanınca devam eden zikri
+   Bitir ile kapat ve uygulamadaki Güncelle düğmesini kullan.
+5. Sürüm satırında Uygulama r933 / SW r933 görünmelidir.
+
+Site verilerini ve uygulama depolamasını temizleme: kendi ses kayıtların
+bu cihaz/tarayıcı/alan adındaki yerel depolamada kalır.
+Canlı siteye otomatik dağıtım yapılmadı.
+
+r933 İÇERİĞİ
+- Berhetiyye'nin uygulama kontrolleri, taşlı çerçeveler ve işlenmiş altın
+  ayrıntılarıyla önceki tasarımla aynı görsel dile taşınır.
+- Akış oynatıcısının mini, orta ve tam görünümleri aynı temayı kullanır.
+- Yazılar, seçiciler ve düğmeler gerçek arayüz öğeleridir. Dekoratif
+  görseller dokunma hedeflerini veya metinleri yerine geçerek kilitlemez.
+- Mevcut r932 zümrüt Atlas, çark/arka plan kolay seçicileri, tempo ve
+  kayıtlı ses düzeltmeleri korunur. Bu sürüm ses motorunu yeniden tasarlamaz.
+
+YENİ TEMA DOSYALARI
+assets/runtime/berhet-materials-r933.css
+assets/runtime/berhet-controls-r933.css
+assets/runtime/berhet-dock-r933.css
+assets/runtime/berhet-theme-r933.js
+
+YENİ TAŞ GÖRSELLERİ
+assets/berhetiyye-premium/gem-ruby-r933.webp
+assets/berhetiyye-premium/gem-sapphire-r933.webp
+assets/berhetiyye-premium/gem-diamond-r933.webp
+assets/berhetiyye-premium/gem-amethyst-r933.webp
+Zümrüt için mevcut assets/berhetiyye-premium/gem-emerald-r932.webp kullanılır.
+TAS_TEMASI_TASARIM_r933.json görsel kaynaklarını ve üretim notlarını içerir.
+
+DOĞRULAMA VE SINIRLAR
+DOGRULAMA_r933.json bu sürümün testlerini ve sınırlarını içerir.
+SHA256SUMS.txt paketteki dosyaların bütünlük listesidir.
+Fiziksel Android kilit ekranı testi yapılmadı. TELEFON_TESTI_r933.txt
+kurulumdan sonra gerçek cihazda izlenecek kısa kontrol listesidir.
+Bu görsel güncelleme, önceki fiziksel telefon kapanmasının kesin olarak
+çözüldüğü anlamına gelmez. Ses ve kilit ekranı kontrolleri için önceki
+TELEFON_TESTI_r932.txt listesi arşivde korunur.
+
+Önceki sürümlerin raporları ve telefon/ses test notları arşiv olarak korunur.
+NOTLAR_r932_ARSIV.txt önceki sürümün kapsamını açıklar.
+Arşiv notlarındaki sürüm numaraları güncel sürüm göstergesi değildir.
+Bileşen adlarındaki r920/r923/r924 gibi numaralar sabit dosya adlarıdır;
+güncel paket otoritesi sukun-build-r933.json dosyasıdır.

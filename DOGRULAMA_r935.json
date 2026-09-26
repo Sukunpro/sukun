@@ -1,0 +1,157 @@
+{
+  "build": "r935",
+  "base": "r934",
+  "pass": true,
+  "date": "2026-09-26",
+  "scope": "Berhetiyye Döngü düğmesinin sarı topaz taşı; işlevler ve kompakt yerleşim korunur",
+  "checks": {
+    "static-results.json": {
+      "build": "r935",
+      "pass": true,
+      "sealed": true,
+      "inlineScriptsParsed": 242,
+      "externalScriptsParsed": 6,
+      "allInlineBehaviorUnchanged": true,
+      "serviceWorkerBehaviorUnchanged": true,
+      "preservedRuntimeAndArtFiles": 158,
+      "changedRuntime": [
+        "assets/runtime/berhet-controls-r933.css",
+        "assets/runtime/berhet-materials-r933.css"
+      ],
+      "newAsset": {
+        "path": "assets/berhetiyye-premium/gem-topaz-r935.webp",
+        "sha256": "e127786625c7d8d2e99734ae7d5358f2cf75f63f12b0fe6cd1acba7d98f8107a"
+      },
+      "duplicateIds": [],
+      "identicalHtml": true,
+      "verifiedRuntimeHashes": 10,
+      "indexSha256": "981df577e6d11d72d80df91a59688f3f4b9de5ed3d06987e11482f697c55b1f2",
+      "swSha256": "d26e255554898e8ba7ad2c71726299e34ae41fb99cc35f68e72d93b12a109192"
+    },
+    "release-results.json": {
+      "build": "r935",
+      "sealed": true,
+      "indexSha256": "981df577e6d11d72d80df91a59688f3f4b9de5ed3d06987e11482f697c55b1f2",
+      "swSha256": "d26e255554898e8ba7ad2c71726299e34ae41fb99cc35f68e72d93b12a109192",
+      "pass": true,
+      "results": [
+        {
+          "name": "clean-install-topaz-and-stylesheet-offline",
+          "pass": true,
+          "detail": {
+            "app": "r935",
+            "sw": "r935",
+            "onlineStylesheet": {
+              "ok": true,
+              "hash": "c1cc9d241cd1332448576ff7098e7d76a5fd01c25bf31a53eeb21c670945c3a7",
+              "loaded": true
+            },
+            "offline": true,
+            "offlineStylesheet": {
+              "ok": true,
+              "hash": "c1cc9d241cd1332448576ff7098e7d76a5fd01c25bf31a53eeb21c670945c3a7",
+              "loaded": true
+            },
+            "onlineGem": {
+              "sha256": "e127786625c7d8d2e99734ae7d5358f2cf75f63f12b0fe6cd1acba7d98f8107a",
+              "width": 1254,
+              "height": 1254
+            },
+            "offlineGem": {
+              "sha256": "e127786625c7d8d2e99734ae7d5358f2cf75f63f12b0fe6cd1acba7d98f8107a",
+              "width": 1254,
+              "height": 1254
+            },
+            "preserved": {
+              "setting": "kept",
+              "recording": "r935-preserved-recording"
+            },
+            "pageErrors": []
+          }
+        },
+        {
+          "name": "r934-to-r935-one-reload-preserves-user-data",
+          "pass": true,
+          "detail": {
+            "before": {
+              "app": "r934",
+              "sw": "r934"
+            },
+            "after": {
+              "app": "r935",
+              "sw": "r935"
+            },
+            "waiting": "r935",
+            "reloads": 1,
+            "stylesheet": {
+              "ok": true,
+              "hash": "c1cc9d241cd1332448576ff7098e7d76a5fd01c25bf31a53eeb21c670945c3a7",
+              "loaded": true
+            },
+            "preserved": {
+              "setting": "kept",
+              "recording": "r935-preserved-recording"
+            },
+            "pageErrors": []
+          }
+        }
+      ]
+    },
+    "topaz-controls-results.json": {
+      "pass": true,
+      "checks": [
+        {
+          "name": "Sapphire / yellow topaz / ruby rendered",
+          "pass": true,
+          "art": [
+            {
+              "id": "spkOnce",
+              "art": "url(\"http://127.0.0.1:33415/work-r935/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), radial-gradient(rgb(18, 45, 83) 0px, rgb(18, 45, 83) 54%, rgba(0, 0, 0, 0) 72%)"
+            },
+            {
+              "id": "zDonguBtn",
+              "art": "url(\"http://127.0.0.1:33415/work-r935/assets/berhetiyye-premium/gem-topaz-r935.webp\"), radial-gradient(rgb(73, 40, 3) 0px, rgb(73, 40, 3) 54%, rgba(0, 0, 0, 0) 72%)"
+            },
+            {
+              "id": "itemRecBtn",
+              "art": "url(\"http://127.0.0.1:33415/work-r935/assets/berhetiyye-premium/gem-ruby-r933.webp\"), radial-gradient(rgb(66, 23, 38) 0px, rgb(66, 23, 38) 54%, rgba(0, 0, 0, 0) 72%)"
+            }
+          ]
+        },
+        {
+          "name": "Readability / compact grid 393",
+          "pass": true
+        },
+        {
+          "name": "Readability / compact grid 320",
+          "pass": true
+        },
+        {
+          "name": "Native Döngü tap opens existing repeat prompt",
+          "pass": true
+        },
+        {
+          "name": "Topaz stays scoped to Berhetiyye",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "scope": "Döngü yellow topaz: visual/readability and native click; Chromium mobile",
+      "sealed": true,
+      "indexSha256": "981df577e6d11d72d80df91a59688f3f4b9de5ed3d06987e11482f697c55b1f2",
+      "swSha256": "d26e255554898e8ba7ad2c71726299e34ae41fb99cc35f68e72d93b12a109192"
+    }
+  },
+  "limitations": [
+    "Fiziksel Android cihazında test yapılmadı; Chromium mobil görünümü kullanıldı.",
+    "Ses motoru, tempo, sayaç, kayıt ve kilit ekranı mantığı değiştirilmedi; bu küçük CSS güncellemesinde ses testleri yeniden çalıştırılmadı.",
+    "Canlı siteye dağıtım yapılmadı. Mevcut kuruluma birleştirilecek toplu güncellemedir."
+  ],
+  "files": {
+    "index.html": "981df577e6d11d72d80df91a59688f3f4b9de5ed3d06987e11482f697c55b1f2",
+    "nero.html": "981df577e6d11d72d80df91a59688f3f4b9de5ed3d06987e11482f697c55b1f2",
+    "sw.js": "d26e255554898e8ba7ad2c71726299e34ae41fb99cc35f68e72d93b12a109192",
+    "manifest.webmanifest": "0387bce7314f672fa0dad269c7701993b1fa02c0e1749e2e4943d602f7e12572",
+    "sukun-build-r935.json": "c50b5733c49728e03f30d1c66f93a3877d01dfa399f93bce0d13ff3c8f2cc5a6"
+  }
+}

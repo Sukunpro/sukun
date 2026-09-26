@@ -1,0 +1,279 @@
+{
+  "build": "r934",
+  "base": "r933",
+  "pass": true,
+  "date": "2026-09-26",
+  "scope": "Berhetiyye Niyet/Favori/Nasıl satırının kompakt ve eşit genişlikli yerleşimi; yerel düğmelerin eski gizli karta geri taşınmasını önleyen sahiplik koşulu",
+  "checks": {
+    "static-results.json": {
+      "build": "r934",
+      "pass": true,
+      "sealed": true,
+      "inlineScriptsParsed": 242,
+      "externalScriptsParsed": 6,
+      "soleInlineBehaviorChange": {
+        "before": "if(zbar&&zbar.parentElement!==sb)sb.appendChild(zbar);",
+        "after": "if(zbar&&zbar.parentElement!==sb&&!zbar.closest('#r920Actions'))sb.appendChild(zbar);",
+        "purpose": "Keep native zBar under modern r920Actions after it adopts the controls"
+      },
+      "allOtherInlineBehaviorUnchanged": true,
+      "serviceWorkerBehaviorUnchanged": true,
+      "preservedRuntimeAndArtFiles": 159,
+      "changedRuntime": [
+        "assets/runtime/berhet-controls-r933.css"
+      ],
+      "duplicateIds": [],
+      "identicalHtml": true,
+      "verifiedRuntimeHashes": 10,
+      "indexSha256": "3faf0f94e01336fa26bd95e5d07e179b55c8abb754be4101543412c52cf9c82e",
+      "swSha256": "a292badb426199082b58d4051927a7296389a19de5e5a48f1dd60ce04032c088"
+    },
+    "release-results.json": {
+      "build": "r934",
+      "sealed": true,
+      "indexSha256": "3faf0f94e01336fa26bd95e5d07e179b55c8abb754be4101543412c52cf9c82e",
+      "swSha256": "a292badb426199082b58d4051927a7296389a19de5e5a48f1dd60ce04032c088",
+      "pass": true,
+      "results": [
+        {
+          "name": "clean-install-and-required-stylesheet-offline",
+          "pass": true,
+          "detail": {
+            "app": "r934",
+            "sw": "r934",
+            "onlineStylesheet": {
+              "ok": true,
+              "hash": "4412bee57aa2aa157c4ae9567e531d3973e0cf9928303da2523e6297f3ecc435",
+              "loaded": true
+            },
+            "offline": true,
+            "offlineStylesheet": {
+              "ok": true,
+              "hash": "4412bee57aa2aa157c4ae9567e531d3973e0cf9928303da2523e6297f3ecc435",
+              "loaded": true
+            },
+            "preserved": {
+              "setting": "kept",
+              "recording": "r934-preserved-recording"
+            },
+            "pageErrors": []
+          }
+        },
+        {
+          "name": "r933-to-r934-one-reload-preserves-user-data",
+          "pass": true,
+          "detail": {
+            "before": {
+              "app": "r933",
+              "sw": "r933"
+            },
+            "after": {
+              "app": "r934",
+              "sw": "r934"
+            },
+            "waiting": "r934",
+            "reloads": 1,
+            "stylesheet": {
+              "ok": true,
+              "hash": "4412bee57aa2aa157c4ae9567e531d3973e0cf9928303da2523e6297f3ecc435",
+              "loaded": true
+            },
+            "preserved": {
+              "setting": "kept",
+              "recording": "r934-preserved-recording"
+            },
+            "pageErrors": []
+          }
+        }
+      ]
+    },
+    "compact-controls-results.json": {
+      "pass": true,
+      "checks": [
+        {
+          "name": "equal compact row 320",
+          "pass": true,
+          "cells": [
+            {
+              "id": "niyetRecBtn",
+              "x": 21,
+              "y": 431.03125,
+              "width": 88,
+              "height": 56,
+              "col": "auto",
+              "text": "NİYET",
+              "fit": true,
+              "art": "url(\"http://127.0.0.1:38519/work-r934/assets/berhetiyye-premium/gem-amethyst-r933.webp\"), radial-gradient(rgb(41, 24, 58) 0px, rgb(41, 24, 58) 54%, rgba(0, 0, 0, 0) 72%)"
+            },
+            {
+              "id": "favBtn",
+              "x": 116,
+              "y": 431.03125,
+              "width": 88,
+              "height": 56,
+              "col": "auto",
+              "text": "FAVORİ",
+              "fit": true,
+              "art": "url(\"http://127.0.0.1:38519/work-r934/assets/berhetiyye-premium/gem-emerald-r932.webp\"), radial-gradient(rgb(5, 53, 41) 0px, rgb(5, 53, 41) 54%, rgba(0, 0, 0, 0) 72%)"
+            },
+            {
+              "id": "zBarHelp",
+              "x": 211,
+              "y": 431.03125,
+              "width": 88,
+              "height": 56,
+              "col": "auto",
+              "text": "NASIL?",
+              "fit": true,
+              "art": "url(\"http://127.0.0.1:38519/work-r934/assets/berhetiyye-premium/gem-diamond-r933.webp\"), radial-gradient(rgb(21, 39, 55) 0px, rgb(21, 39, 55) 54%, rgba(0, 0, 0, 0) 72%)"
+            }
+          ]
+        },
+        {
+          "name": "Favorite native toggle 320",
+          "pass": true
+        },
+        {
+          "name": "Help open-close 320",
+          "pass": true
+        },
+        {
+          "name": "Esma theme scope 320",
+          "pass": true
+        },
+        {
+          "name": "equal compact row 393",
+          "pass": true,
+          "cells": [
+            {
+              "id": "niyetRecBtn",
+              "x": 26,
+              "y": 431.15625,
+              "width": 109,
+              "height": 56,
+              "col": "auto",
+              "text": "NİYET",
+              "fit": true,
+              "art": "url(\"http://127.0.0.1:38519/work-r934/assets/berhetiyye-premium/gem-amethyst-r933.webp\"), radial-gradient(rgb(41, 24, 58) 0px, rgb(41, 24, 58) 54%, rgba(0, 0, 0, 0) 72%)"
+            },
+            {
+              "id": "favBtn",
+              "x": 142,
+              "y": 431.15625,
+              "width": 109,
+              "height": 56,
+              "col": "auto",
+              "text": "FAVORİ",
+              "fit": true,
+              "art": "url(\"http://127.0.0.1:38519/work-r934/assets/berhetiyye-premium/gem-emerald-r932.webp\"), radial-gradient(rgb(5, 53, 41) 0px, rgb(5, 53, 41) 54%, rgba(0, 0, 0, 0) 72%)"
+            },
+            {
+              "id": "zBarHelp",
+              "x": 258,
+              "y": 431.15625,
+              "width": 109,
+              "height": 56,
+              "col": "auto",
+              "text": "NASIL?",
+              "fit": true,
+              "art": "url(\"http://127.0.0.1:38519/work-r934/assets/berhetiyye-premium/gem-diamond-r933.webp\"), radial-gradient(rgb(21, 39, 55) 0px, rgb(21, 39, 55) 54%, rgba(0, 0, 0, 0) 72%)"
+            }
+          ]
+        },
+        {
+          "name": "Favorite native toggle 393",
+          "pass": true
+        },
+        {
+          "name": "Help open-close 393",
+          "pass": true
+        },
+        {
+          "name": "Niyet native recording start-stop",
+          "pass": true
+        },
+        {
+          "name": "Tefekkür hidden state and return",
+          "pass": true
+        },
+        {
+          "name": "Esma theme scope 393",
+          "pass": true
+        },
+        {
+          "name": "equal compact row 430",
+          "pass": true,
+          "cells": [
+            {
+              "id": "niyetRecBtn",
+              "x": 26,
+              "y": 431.1875,
+              "width": 121.328125,
+              "height": 56,
+              "col": "auto",
+              "text": "NİYET",
+              "fit": true,
+              "art": "url(\"http://127.0.0.1:38519/work-r934/assets/berhetiyye-premium/gem-amethyst-r933.webp\"), radial-gradient(rgb(41, 24, 58) 0px, rgb(41, 24, 58) 54%, rgba(0, 0, 0, 0) 72%)"
+            },
+            {
+              "id": "favBtn",
+              "x": 154.328125,
+              "y": 431.1875,
+              "width": 121.328125,
+              "height": 56,
+              "col": "auto",
+              "text": "FAVORİ",
+              "fit": true,
+              "art": "url(\"http://127.0.0.1:38519/work-r934/assets/berhetiyye-premium/gem-emerald-r932.webp\"), radial-gradient(rgb(5, 53, 41) 0px, rgb(5, 53, 41) 54%, rgba(0, 0, 0, 0) 72%)"
+            },
+            {
+              "id": "zBarHelp",
+              "x": 282.65625,
+              "y": 431.1875,
+              "width": 121.34375,
+              "height": 56,
+              "col": "auto",
+              "text": "NASIL?",
+              "fit": true,
+              "art": "url(\"http://127.0.0.1:38519/work-r934/assets/berhetiyye-premium/gem-diamond-r933.webp\"), radial-gradient(rgb(21, 39, 55) 0px, rgb(21, 39, 55) 54%, rgba(0, 0, 0, 0) 72%)"
+            }
+          ]
+        },
+        {
+          "name": "Favorite native toggle 430",
+          "pass": true
+        },
+        {
+          "name": "Help open-close 430",
+          "pass": true
+        },
+        {
+          "name": "Esma theme scope 430",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "scope": "Compact Berhetiyye action row; mobile Chromium, synthetic microphone only",
+      "baseline": {
+        "host": "r616ZikirSound",
+        "inNativeHost": false,
+        "favoriteColumn": "span 2"
+      },
+      "sealed": true,
+      "indexSha256": "3faf0f94e01336fa26bd95e5d07e179b55c8abb754be4101543412c52cf9c82e",
+      "swSha256": "a292badb426199082b58d4051927a7296389a19de5e5a48f1dd60ce04032c088"
+    }
+  },
+  "limitations": [
+    "Fiziksel Android cihazında test yapılmadı; Chromium mobil görünümü kullanıldı.",
+    "Ses motoru, tempo, sayaç, kayıt ve kilit ekranı mantığı değiştirilmedi; bu küçük CSS güncellemesinde ses testleri yeniden çalıştırılmadı.",
+    "Canlı siteye dağıtım yapılmadı. Mevcut kuruluma birleştirilecek toplu güncellemedir."
+  ],
+  "files": {
+    "index.html": "3faf0f94e01336fa26bd95e5d07e179b55c8abb754be4101543412c52cf9c82e",
+    "nero.html": "3faf0f94e01336fa26bd95e5d07e179b55c8abb754be4101543412c52cf9c82e",
+    "sw.js": "a292badb426199082b58d4051927a7296389a19de5e5a48f1dd60ce04032c088",
+    "manifest.webmanifest": "0627543257e9778dc27de80732b85db6976cd27c3582ca182f0aa6ef96e3cf90",
+    "sukun-build-r934.json": "09377dc6ac069dfea58cc3fbda5ac9032acf3c7a0ca819cd99e3e3b61a25642f"
+  }
+}
