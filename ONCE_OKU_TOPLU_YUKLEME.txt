@@ -1,13 +1,15 @@
-SÜKÛN r925 — TOPLU GÜNCELLEME
+SÜKÛN r926 — TOPLU GÜNCELLEME
 
-Mevcut r917/r920/r923 kurulumunun üzerine birleştirmek içindir.
+Mevcut r917/r920/r923/r925 kurulumunun üzerine birleştirmek içindir.
 Ara sürümlerin paketlerini ayrı ayrı yüklemene gerek yoktur.
 Bu paket tarihsel bütün medya dosyalarını içeren boş kurulum paketi değildir.
 
 1. ZIP'i aç.
 2. index.html, nero.html, sw.js, manifest.webmanifest, iki ikon,
-   __sukun_ ile başlayan üç JSON dosyası ve assets klasörünü mevcut sitenin
-   aynı dosyalarının bulunduğu kök klasöre birlikte yükle.
+   sukun-build-r926.json, sukun-latest.json, .nojekyll ve assets klasörünü
+   mevcut sitenin aynı dosyalarının bulunduğu kök klasöre birlikte yükle.
+   Metadata dosyaları artık normal adlarla yayımlanır; .nojekyll alınmasa
+   bile alt çizgiyle başlayan dosyaları dışlayan yayında r926 kurulabilir.
 3. Aynı adlı dosyaları değiştir; assets klasörünü BİRLEŞTİR.
    Mevcut assets klasörünü silme. Pakette olmayan eski ses, belge ve
    görselleri koru. ZIP'i tek başına siteye yüklemek güncelleme yapmaz.
@@ -16,12 +18,28 @@ Bu paket tarihsel bütün medya dosyalarını içeren boş kurulum paketi değil
 5. Devam eden veya duraklatılmış oturumu önce Bitir ile sonlandır.
    Güncelleme oturum bitene kadar bekleyebilir.
 6. Zikir ekranının altındaki kalıcı Güncelle kontrolüyle de güncelleyebilirsin.
-   Sürüm satırında Uygulama r925 ve SW r925 görünmelidir.
+   Sürüm satırında Uygulama r926 ve SW r926 görünmelidir.
 
 Chrome site verilerini veya uygulama depolamasını temizleme.
 Kendi ses kayıtları aynı cihaz, tarayıcı ve alan adındaki yerel verilerindedir.
 
-r925 DÜZELTMELERİ:
+r926 DÜZELTMELERİ:
+- r925'in zorunlu __sukun_build_r925__.json dosyası, varsayılan Jekyll
+  yayımında alt çizgi nedeniyle dışlanabilir. Bu 404 kurulumu reddederek
+  worker redundant sonucuna yol açar. Bu koşul tarayıcı testinde yeniden
+  üretildi; kullanıcının canlı sunucusu doğrudan incelenmiş değildir.
+- Yeni marker: sukun-build-r926.json. Yeni latest: sukun-latest.json.
+  Worker, uygulama, tanılama ve manifest bağları r926 ile eşlendi.
+- SW başarısız olmadan önce kurulamayan dosya ve HTTP/doğrulama nedeni
+  uygulamaya bildirilir. Eski çalışan SW yerinde kalır.
+- İlk kurulum reddedilip kayıt ortadan kalkmışsa Güncelle yeniden kayıt
+  oluşturur. Başarısız worker üzerinde sonsuz update döngüsüne girmez.
+- Mevcut r926 sayfasında Güncelle, devam eden kurulum sonucunu bekler;
+  hazır worker'a geçer. Aynı anda yinelenen denetimler birleştirilir.
+- Kendi kayıtlar, ayarlar ve devam eden/duraklatılmış oturum koruması
+  korunur. Worker unregister, site verisi silme veya sahte sürüm etiketi yok.
+
+r925'TEN KORUNAN DÜZELTMELER:
 - Uygulama/SW sürüm farkı gerçek controller bilgisiyle görünür tutulur.
   Kalıcı Güncelle kontrolü eski gizli bölümden ana Zikir ekranına taşındı.
   Yükleme eksikse hazır kabul edilmez; oturum açıkken güncelleme bekletilir.
@@ -73,7 +91,8 @@ oynatıcıya yönlendirmesi giderildi; aktif ses ve seyir sahipliği korunur.
 ÖNİZLEME VE DOĞRULAMA:
 CARKLAR_ONIZLEME.html — paketteki 16 çarkın görsel listesi
 CARK_DOSYA_YOLLARI.txt — görsellerin tam klasör ve dosya yolları
-DOGRULAMA_r925.json — bu çalışmada yeniden yürütülen testler ve sınırları
+DOGRULAMA_r926.json — bu çalışmada yürütülen testler ve sınırları
+DOGRULAMA_r925.json — önceki paketin arşiv test raporu (yeniden koşulmadı)
 SHA256SUMS.txt — dosya bütünlüğü listesi
 
 Kümülatif kapsam:
@@ -82,6 +101,7 @@ r921 Mini Tefekkür bağlantısı ve sürüm denetimi,
 r922 Arapça/Türkçe okuyuş ve kendi kayıt seçimi,
 r923 dokuz Esmâ sahnesi ve hata yedekleri,
 r924 premium çarklar ve taş kontrolleri,
-r925 ritim eşliği, çark dönüşü ve kalıcı güncelleme kontrolü.
+r925 ritim eşliği, çark dönüşü ve kalıcı güncelleme kontrolü,
+r926 Pages uyumlu kurulum ve güvenli yeniden deneme.
 
 Canlı siteye otomatik yükleme yapılmadı.

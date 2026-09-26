@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- ════════════════════════════════════════════════════════════════
-     SÜKÛN r925 — Sürüm eşleme, ritim eşliği ve çark dönüşü (base r924)
+     SÜKÛN r926 — GitHub Pages uyumlu dağıtım ve kurulum tanısı (base r925)
      Tek dosya • Web Audio API (tüm sesler cihazda sentezlenir)
      Binaural Beats + Isochronic Tones + Esmâ/Zikir Modülü
      ════════════════════════════════════════════════════════════════ -->
@@ -566,11 +566,11 @@ body #tfRefinedLayout,body #zBar,body #r883JourneyRemote {scroll-margin-block:90
 </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r925"/>
+<meta name="sukun-build" content="r926"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r925" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r926" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -5994,7 +5994,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){/* r922 shared settings owns its label. */if(document.getElementById('r920Practice')?.contains(document.getElementById('r679ZikirAyarBox')))return;if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r925"/><script>window.SUKUN_BUILD='r925';document.documentElement.dataset.sukunBuild='r925';</script>
+<meta name="sukun-build" content="r926"/><script>window.SUKUN_BUILD='r926';document.documentElement.dataset.sukunBuild='r926';</script>
 <style id="sukun-r923-esma-gallery">@layer sukun-r920 {
 #r920Practice #r923EsmaOptions{min-width:0;margin:10px 0}
 #r920Practice #r923EsmaOptions[hidden]{display:none!important}
@@ -7107,7 +7107,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN — Uygulama r925 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN — Uygulama r926 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -27274,7 +27274,8 @@ kat.addEventListener('click',e=>{ if(e.target===kat)kapat(); });
   const BUILD=document.querySelector('meta[name="sukun-build"]')?.content||'unknown';
   const state={registration:null,waiting:null,phase:'idle',lastError:'',lastChange:Date.now(),updateQueued:false,reloadPending:false};
   let activating=false,reloadOnce=false,activationAuthorized=false,offeredWorker=null;
-  const watching=new WeakSet(),identities=new WeakMap(),pendingStatus=new WeakMap();
+  const watching=new WeakSet(),identities=new WeakMap(),pendingStatus=new WeakMap(),boundRegistrations=new WeakSet();
+  let checking=null;
   function waitingWorker(){
     const worker=state.registration?.waiting||state.waiting;
     return worker&&worker!==navigator.serviceWorker.controller&&worker.state==='installed'?worker:null;
@@ -27323,7 +27324,7 @@ kat.addEventListener('click',e=>{ if(e.target===kat)kapat(); });
     const workers=worker?[worker]:[...new Set([navigator.serviceWorker.controller,state.registration?.active,waitingWorker()].filter(Boolean))];
     const answers=await Promise.all(workers.map(readStatus));
     // Status replies are stored against their sender, so a late reply cannot rename a new controller.
-    if(!['verifying','activating','error'].includes(state.phase))emit(state.updateQueued?'queued':waitingWorker()?'waiting':navigator.serviceWorker.controller?'ready':'registered');else emit(state.phase);
+    if(!['installing','verifying','activating','error'].includes(state.phase))emit(state.updateQueued?'queued':waitingWorker()?'waiting':navigator.serviceWorker.controller?'ready':'registered');else emit(state.phase);
     return answers[0]||null;
   }
   async function saveBeforeReload(){
@@ -27360,7 +27361,16 @@ kat.addEventListener('click',e=>{ if(e.target===kat)kapat(); });
   function newerController(){const n=v=>Number(String(v||'').match(/^r(\d+)$/)?.[1]||0);return n(identity(navigator.serviceWorker.controller).v)>n(BUILD)}
   async function requestUpdate(){
     let worker=waitingWorker();
-    if(!worker){await check();worker=waitingWorker();}
+    if(!worker){
+      await check();
+      const installing=state.registration?.installing;
+      if(installing&&installing.state==='installing')await new Promise(resolve=>{
+        const finish=()=>{clearTimeout(timer);installing.removeEventListener('statechange',change);resolve()};
+        const change=()=>{if(installing.state!=='installing')finish()};
+        const timer=setTimeout(finish,24000);installing.addEventListener('statechange',change);change();
+      });
+      worker=waitingWorker();
+    }
     if(!worker){
       // Another tab may already have activated the new worker. Opening it still requires this user's action.
       if(newerController()){activationAuthorized=true;emit('controller-changed',{reloadPending:true});await reloadWhenIdle();return true}
@@ -27376,18 +27386,35 @@ kat.addEventListener('click',e=>{ if(e.target===kat)kapat(); });
   function onIdle(){if(!state.updateQueued||sessionBusy())return;if(state.reloadPending)reloadWhenIdle();else activateWaiting(waitingWorker())}
   function watch(worker){
     if(!worker||watching.has(worker))return;watching.add(worker);
+    let installation=worker.state==='installing'||worker.state==='installed';
     const change=()=>{
-      if(worker.state==='installed'&&navigator.serviceWorker.controller){emit('waiting',{waiting:worker});status();offer(worker);onIdle()}
-      else if(worker.state==='activated'){if(state.waiting===worker)state.waiting=null;status()}
-      else if(worker.state==='redundant'){if(state.waiting===worker)state.waiting=null;emit('error',{lastError:'worker redundant'})}
+      if(worker.state==='installing'){emit('installing',{lastError:''})}
+      else if(worker.state==='installed'&&navigator.serviceWorker.controller){emit('waiting',{waiting:worker,lastError:''});status();offer(worker);onIdle()}
+      else if(worker.state==='activated'){installation=false;if(state.waiting===worker)state.waiting=null;emit('ready',{lastError:''});status()}
+      else if(worker.state==='redundant'&&installation){
+        if(state.waiting===worker)state.waiting=null;
+        emit('error',{updateQueued:false,lastError:identity(worker).error||'Yeni SW kurulamadı. Dosya yayını veya bağlantı eksik; mevcut sürüm korunuyor.'});
+      }
     };worker.addEventListener('statechange',change);change();
   }
-  async function check(){try{
-    const reg=state.registration||await navigator.serviceWorker.getRegistration('./');if(!reg)return null;
-    state.registration=reg;await reg.update();state.waiting=reg.waiting;
-    if(reg.waiting){emit(state.updateQueued?'queued':'waiting');offer(reg.waiting)}
-    if(reg.installing)watch(reg.installing);await status();return snapshot();
-  }catch(error){emit('error',{lastError:String(error?.message||error)});return snapshot()}}
+  function bindRegistration(reg){
+    state.registration=reg;state.waiting=reg.waiting;
+    if(!boundRegistrations.has(reg)){boundRegistrations.add(reg);reg.addEventListener('updatefound',()=>watch(reg.installing))}
+    if(reg.installing)watch(reg.installing);
+  }
+  function check(){
+    if(checking)return checking;
+    const task=(async()=>{try{
+      // Failed first installs remove their registration. Retry through register,
+      // without unregistering a working controller or clearing user storage.
+      let reg=await navigator.serviceWorker.getRegistration('./');
+      if(!reg||(!reg.active&&!reg.waiting&&!reg.installing))reg=await registerWorker();
+      bindRegistration(reg);if(!reg.installing)await reg.update();state.waiting=reg.waiting;
+      if(reg.waiting){emit(state.updateQueued?'queued':'waiting',{lastError:''});offer(reg.waiting)}
+      if(reg.installing)watch(reg.installing);await status();return snapshot();
+    }catch(error){emit('error',{lastError:String(error?.message||error)});return snapshot()}})();
+    checking=task;task.finally(()=>{if(checking===task)checking=null}).catch(()=>{});return task;
+  }
   async function registerWorker(){
     // Changing only the worker's query URL creates a second installation after an upgrade.
     // Keep this scope's existing sw.js URL; STATUS.v remains the release authority.
@@ -27405,9 +27432,9 @@ kat.addEventListener('click',e=>{ if(e.target===kat)kapat(); });
   }
   addEventListener('load',()=>{
     registerWorker().then(reg=>{
-      state.registration=reg;state.waiting=reg.waiting;
-      emit(reg.waiting?'waiting':'registered');status();if(reg.waiting&&navigator.serviceWorker.controller)offer(reg.waiting);
-      if(reg.installing)watch(reg.installing);reg.addEventListener('updatefound',()=>watch(reg.installing));check();
+      bindRegistration(reg);
+      emit(reg.installing?'installing':reg.waiting?'waiting':'registered');status();if(reg.waiting&&navigator.serviceWorker.controller)offer(reg.waiting);
+      check();
     }).catch(error=>emit('error',{lastError:String(error?.message||error)}));
   },{once:true});
   navigator.serviceWorker.addEventListener('controllerchange',()=>{
@@ -27417,8 +27444,12 @@ kat.addEventListener('click',e=>{ if(e.target===kat)kapat(); });
   });
   navigator.serviceWorker.addEventListener('message',e=>{
     if(e.data?.type!=='SUKUN_SW_STATUS')return;
-    const source=e.source,known=source&&(source===navigator.serviceWorker.controller||source===state.registration?.active||source===waitingWorker());
-    if(known){remember(source,e.data);emit(state.phase)}else status();
+    const source=e.source,known=source&&(source===navigator.serviceWorker.controller||source===state.registration?.active||source===waitingWorker()||watching.has(source));
+    if(known){
+      remember(source,e.data);
+      if(e.data.phase==='install-error')emit('error',{updateQueued:false,lastError:String(e.data.error||'SW kurulumu tamamlanamadı.')});
+      else emit(state.phase);
+    }else status();
   });
   ['sukun:sessionchange','sukun:sessionstate','sukun:audiotruthchange','sukun:currentflowchange','sukun:currentzikirchange','sukun:zikirtransaction','sukun:playbackchange','pageshow'].forEach(event=>addEventListener(event,onIdle,{passive:true}));
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)onIdle()},{passive:true});
@@ -63721,7 +63752,7 @@ if(!window.SukunRegressionShield||window.SukunRegressionShield.version!==VERSION
   function runSuite(){return audit('suite',false).checks}
   async function probeBuild(){
     const result={at:Date.now(),meta:clean(document.querySelector('meta[name="sukun-build"]')?.content||''),marker:null,sw:null,ok:true,issues:[]};
-    try{const r=await fetch('./__sukun_build_'+BUILD+'__.json',{cache:'no-store'});if(!r.ok)throw new Error('marker HTTP '+r.status);const j=await r.json();result.marker=clean(j?.build||'');if(result.marker!==BUILD){result.ok=false;result.issues.push('marker '+result.marker)}}catch(e){result.ok=false;result.issues.push('marker okunamadı')}
+    try{const r=await fetch('./sukun-build-'+BUILD+'.json',{cache:'no-store'});if(!r.ok)throw new Error('marker HTTP '+r.status);const j=await r.json();result.marker=clean(j?.build||'');if(result.marker!==BUILD){result.ok=false;result.issues.push('marker '+result.marker)}}catch(e){result.ok=false;result.issues.push('marker okunamadı')}
     const sw=safe(()=>window.SukunUpdateManager?.snapshot?.(),null);result.sw=clean(sw?.controllerVersion||'');result.waitingSW=clean(sw?.waitingVersion||'');result.hasController=!!sw?.hasController;if(result.hasController&&result.sw!==BUILD){result.ok=false;result.issues.push(result.sw?'Bu sayfanın SW sürümü '+result.sw:'Bu sayfanın SW sürümü doğrulanamadı')}
     if(result.meta!==BUILD){result.ok=false;result.issues.push('meta '+result.meta)}
     lastBuildProbe=freeze(result);return lastBuildProbe;
@@ -69005,10 +69036,11 @@ function sync(){
   const practice=document.getElementById('r920Practice');if(practice&&panel.parentNode!==practice)practice.insertBefore(panel,document.getElementById('r920More'));
   document.getElementById('r925ReleaseVersions').textContent=`Uygulama ${build} · SW ${sw}${waiting}`;
   const button=document.getElementById('r925UpdateAction'),note=document.getElementById('r925UpdateStatus');
-  const busy=['verifying','activating'].includes(s?.phase),mismatch=s?.versionMatch===false;
+  const busy=['installing','verifying','activating'].includes(s?.phase),mismatch=s?.versionMatch===false;
   button.disabled=busy;
   button.textContent=s?.updateQueued&&!s.reloadPending?'Güncellemeyi ertele':busy?'Güncelleme hazırlanıyor…':s?.hasWaiting||mismatch||s?.reloadPending?'Güncelle':'Güncellemeyi kontrol et';
-  note.textContent=s?.lastError?'Güncelleme tamamlanamadı: '+s.lastError:s?.updateQueued?'Oturum bitince güncellenecek; mevcut zikir korunuyor.':mismatch?'Uygulama ve çevrimdışı sürüm farklı. Güncelle ile eşitle.':s?.hasWaiting?'Yeni sürüm hazır. Güncelle ile geçebilirsin.':'';
+  note.textContent=s?.lastError?'Güncelleme tamamlanamadı: '+s.lastError:busy?'Güncelleme dosyaları doğrulanıyor…':s?.updateQueued?'Oturum bitince güncellenecek; mevcut zikir korunuyor.':mismatch?'Uygulama ve çevrimdışı sürüm farklı. Güncelle ile eşitle.':s?.hasWaiting?'Yeni sürüm hazır. Güncelle ile geçebilirsin.':'';
+  note.style.overflowWrap='anywhere';
 
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
@@ -73532,7 +73564,7 @@ window.SukunR792TefTap=Object.freeze({version:'r792',enter:()=>enter('api'),acti
 const BUILD=document.querySelector('meta[name="sukun-build"]')?.content||'r920';
 let latestVersion='',lastError='',lastCheck=0;
 async function check(){
-  lastCheck=Date.now();try{const response=await fetch('./__sukun_latest__.json?t='+lastCheck,{cache:'no-store'});if(!response.ok)throw Error('latest HTTP '+response.status);latestVersion=String((await response.json())?.v||'')}catch(error){lastError=String(error?.message||error)}
+  lastCheck=Date.now();try{const response=await fetch('./sukun-latest.json?t='+lastCheck,{cache:'no-store'});if(!response.ok)throw Error('latest HTTP '+response.status);latestVersion=String((await response.json())?.v||'')}catch(error){lastError=String(error?.message||error)}
   await window.SukunUpdateManager?.check?.();return snapshot();
 }
 function snapshot(){const state=window.SukunUpdateManager?.snapshot?.()||{};return{version:'r920',build:BUILD,latest:latestVersion,lastError,waiting:!!state.hasWaiting,audioBusy:!!state.sessionBusy,updateQueued:!!state.updateQueued,lastCheck}}
@@ -76302,7 +76334,7 @@ html[data-r913-context="base"] body.r716-shell>#r717Scene{display:block!importan
 html[data-r913-context="base"] body.r716-shell>#r709SceneArt,html[data-r913-context="base"] body.r716-shell>[data-berhet-scene-layer]{display:none!important;opacity:0!important}
 </style>
 <script id="sukun-r913-build-scene-runtime">/* r916: retired competing visual writer; audio engine unchanged. */window.SukunR913={version:'r916',sync:()=>window.SukunR916Visual?.sync?.()};</script>
-<script src="./assets/runtime/esma-scenes-r923.js?v=r925" integrity="sha256-kmgRNWjIEzGTiLolBu+7lz0O+SE1o89umxkBTwMtzn8="></script>
+<script src="./assets/runtime/esma-scenes-r923.js?v=r926" integrity="sha256-kmgRNWjIEzGTiLolBu+7lz0O+SE1o89umxkBTwMtzn8="></script>
 <script id="sukun-r914-runtime">(()=>{'use strict';
 const R=document.documentElement,A='./assets/berhetiyye-premium/',$=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch(_){return d}};
 const atlas=window.SukunR853Scene.nameScenes,originals=window.SukunR853Scene.files;
@@ -76437,10 +76469,10 @@ prop('--r914-scene','none');attr('r920Performance',profile);new MutationObserver
 </script>
 <svg id="r915Filters" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;pointer-events:none"><defs><filter id="r915BlackAlpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 8 8 8 0 0"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
 
-<script src="./assets/runtime/session-r919.js?v=r925" integrity="sha256-4wBI6tpnv06BMVkw8xdck9TFqTGJVRvcnjMJcynlxfQ="></script>
-<script src="./assets/runtime/dock-r920.js?v=r925" integrity="sha256-VI+588gCmWcpY7SofWAab2fsJZwlW50NXVO93N/AYpo="></script>
-<script src="./assets/runtime/wheels-r924.js?v=r925" integrity="sha256-peGxU4NbaRIHkwXjh3PmfyvsVwwNPjqXEUb0fnbunFE="></script>
-<script src="./assets/runtime/interface-r920.js?v=r925" integrity="sha256-/hCOiQLJ1OkPJNDLmOAG5v6W5a4qVAQhv4bDOR/ISSg="></script>
+<script src="./assets/runtime/session-r919.js?v=r926" integrity="sha256-4wBI6tpnv06BMVkw8xdck9TFqTGJVRvcnjMJcynlxfQ="></script>
+<script src="./assets/runtime/dock-r920.js?v=r926" integrity="sha256-VI+588gCmWcpY7SofWAab2fsJZwlW50NXVO93N/AYpo="></script>
+<script src="./assets/runtime/wheels-r924.js?v=r926" integrity="sha256-peGxU4NbaRIHkwXjh3PmfyvsVwwNPjqXEUb0fnbunFE="></script>
+<script src="./assets/runtime/interface-r920.js?v=r926" integrity="sha256-/hCOiQLJ1OkPJNDLmOAG5v6W5a4qVAQhv4bDOR/ISSg="></script>
 <script id="sukun-r922-voice-settings-ui">
 (function(){'use strict';
 const $=id=>document.getElementById(id);let mounted=false,raf=0,busy=false,modeError='',discovery=null,discoveryTimer=0;
@@ -76516,6 +76548,6 @@ discoveryTimer=setTimeout(()=>{discovery?.disconnect();discovery=null;},15000);q
 
 </script>
 
-<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r925" integrity="sha256-QFhuHHF3KJtnM5r69+EMznfaiOFb5aMkvpJKb16nMhI=">
+<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r926" integrity="sha256-QFhuHHF3KJtnM5r69+EMznfaiOFb5aMkvpJKb16nMhI=">
 </body>
 </html>

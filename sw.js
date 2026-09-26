@@ -1,26 +1,26 @@
-/* SÜKÛN r925 — Verified rhythm and motion package and explicit update activation
+/* SÜKÛN r926 — Pages-safe release files and actionable install diagnostics
    Amaç: yeni sürümün "waiting/install mismatch" yüzünden eski shell'de
    kilitlenmesini önlemek. Controller değişimi aktif sesi kendiliğinden
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r925';
-const CACHE = 'sukun-r925-rhythm-motion-update-20260926-v1';
-const CACHE_META = './__sukun_cache_meta_r925__.json';
-const BUILD_MARKER = './__sukun_build_r925__.json';
-const LATEST_MARKER = './__sukun_latest__.json';
-const REQUIRED_RUNTIME = [{"url":"./assets/runtime/dock-r920.js?v=r925","sha256":"548fb9f3c80299672963b4a87d601a6f67ec259c255b9d0d5d53bddcdfc0629a"},{"url":"./assets/runtime/esma-scenes-r923.js?v=r925","sha256":"9268113568c813319388ba2506efbb973d0ef92135a3cf6e9b19014f032dce7f"},{"url":"./assets/runtime/interface-r920.js?v=r925","sha256":"fe108e8902c9d4e90f24d0cb98e006e6fe96e5ae2a540421bf86c3391fc84928"},{"url":"./assets/runtime/session-r919.js?v=r925","sha256":"e30048eada67bf4e81315930f3175c93d4c5a93189551bdc9e33097329e5c5f4"},{"url":"./assets/runtime/wheels-r924.js?v=r925","sha256":"a5e1b153835b6912079305e38773e67f2bec570c0d3e3a971146f47e76ee9c51"},{"url":"./assets/runtime/wheels-r924.css?v=r925","sha256":"40586e1c7177289b67339afaf7e10cce77da88e15be5a324be924a6f5ea73212"}];
+const SURUM = 'r926';
+const CACHE = 'sukun-r926-pages-safe-update-20260926-v1';
+const CACHE_META = './sukun-cache-meta-r926.json';
+const BUILD_MARKER = './sukun-build-r926.json';
+const LATEST_MARKER = './sukun-latest.json';
+const REQUIRED_RUNTIME = [{"url":"./assets/runtime/dock-r920.js?v=r926","sha256":"548fb9f3c80299672963b4a87d601a6f67ec259c255b9d0d5d53bddcdfc0629a"},{"url":"./assets/runtime/esma-scenes-r923.js?v=r926","sha256":"9268113568c813319388ba2506efbb973d0ef92135a3cf6e9b19014f032dce7f"},{"url":"./assets/runtime/interface-r920.js?v=r926","sha256":"fe108e8902c9d4e90f24d0cb98e006e6fe96e5ae2a540421bf86c3391fc84928"},{"url":"./assets/runtime/session-r919.js?v=r926","sha256":"e30048eada67bf4e81315930f3175c93d4c5a93189551bdc9e33097329e5c5f4"},{"url":"./assets/runtime/wheels-r924.js?v=r926","sha256":"a5e1b153835b6912079305e38773e67f2bec570c0d3e3a971146f47e76ee9c51"},{"url":"./assets/runtime/wheels-r924.css?v=r926","sha256":"40586e1c7177289b67339afaf7e10cce77da88e15be5a324be924a6f5ea73212"}];
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
    Shell doğrulaması bağımsız; geri kalan assetler best-effort pre-cache ve
    normal fetch sırasında current cache'e yazılır. */
 const CORE = [
-  "./assets/runtime/dock-r920.js?v=r925",
-  "./assets/runtime/esma-scenes-r923.js?v=r925",
-  "./assets/runtime/interface-r920.js?v=r925",
-  "./assets/runtime/session-r919.js?v=r925",
-  "./assets/runtime/wheels-r924.js?v=r925",
-  "./assets/runtime/wheels-r924.css?v=r925",
+  "./assets/runtime/dock-r920.js?v=r926",
+  "./assets/runtime/esma-scenes-r923.js?v=r926",
+  "./assets/runtime/interface-r920.js?v=r926",
+  "./assets/runtime/session-r919.js?v=r926",
+  "./assets/runtime/wheels-r924.js?v=r926",
+  "./assets/runtime/wheels-r924.css?v=r926",
   './assets/berhetiyye-premium/control-round-plus-r788.webp',
   './assets/berhetiyye-premium/control-round-minus-r788.webp',
   './assets/berhetiyye-premium/control-nav-amethyst-r788.webp',
@@ -70,7 +70,7 @@ const PRECACHE = [
   "./assets/scenes/esma-r923/nur-mucadelesi-catalli-lite.webp",
   "./assets/scenes/esma-r923/nur-mucadelesi-yivli.webp",
   "./assets/scenes/esma-r923/nur-mucadelesi-yivli-lite.webp",
-  "./assets/runtime/esma-scenes-r923.js?v=r925",
+  "./assets/runtime/esma-scenes-r923.js?v=r926",
   "./assets/wheels-r924/berhetiyye/ham-kristal.webp",
   "./assets/wheels-r924/berhetiyye/faset-kesim.webp",
   "./assets/wheels-r924/berhetiyye/ametist-yuvarlak.webp",
@@ -146,9 +146,9 @@ function prepareShell(){
   const meta={v:SURUM,cache:CACHE,at:Date.now(),shell:false,manifest:false,marker:false,latest:false,runtime:{},runtimeRequired:REQUIRED_RUNTIME.length,complete:false,errors:[]};
   async function obtain(path,validate,key,required=true){
    let response,error;
-   try{response=await fetchFresh(path,8000);if(!await validate(response))throw Error('release validation mismatch')}
-   catch(e){error=e;response=await cache.match(path,{ignoreSearch:false});if(response&&!await validate(response))response=null}
-   if(!response){meta.errors.push(key+':'+String(error?.message||'missing'));return false}
+   try{response=await fetchFresh(path,8000);if(!await validate(response))throw Error('sürüm veya SHA-256 uyuşmazlığı')}
+   catch(e){error=e;response=null;try{const cached=await cache.match(path,{ignoreSearch:false});if(cached&&await validate(cached))response=cached}catch(_){}}
+   if(!response){meta.errors.push(path+': '+String(error?.message||'missing'));return false}
    staged.push([path,response]);return true;
   }
   const base=[
@@ -199,7 +199,14 @@ async function broadcastStatus(extra={}){
 }
 
 self.addEventListener('install',event=>{
- event.waitUntil((async()=>{const meta=await prepareShell();if(!meta.complete)throw Error('Incomplete SÜKÛN release: '+meta.errors.join(' | '))})());
+ event.waitUntil((async()=>{
+  try{const meta=await prepareShell();if(!meta.complete)throw Error(meta.errors.join(' | '))}
+  catch(error){
+   // Report before this worker becomes redundant; the active worker stays intact.
+   try{await broadcastStatus({phase:'install-error',error:String(error?.message||error)})}catch(_){}
+   throw error;
+  }
+ })());
 });
 self.addEventListener('activate',event=>{
  event.waitUntil((async()=>{
@@ -241,7 +248,7 @@ async function assetResponse(request){
   const url=new URL(request.url),current=await caches.open(CACHE);
   const runtime=REQUIRED_RUNTIME.find(entry=>sameOriginPath(entry.url)===url.pathname);if(runtime)return runtimeResponse(request,runtime);
   const latestPath=sameOriginPath(LATEST_MARKER),manifestPath=sameOriginPath('./manifest.webmanifest');
-  const updateProbe=(url.pathname===latestPath)||url.pathname.endsWith('/sw.js')||/\/__sukun_build_r\d+__\.json$/.test(url.pathname);
+  const updateProbe=(url.pathname===latestPath)||url.pathname.endsWith('/sw.js')||/\/(?:sukun-build-r\d+|__sukun_build_r\d+__)\.json$/.test(url.pathname);
   /* Update probeları cache-first olamaz; aksi halde latest marker kendi cache'inde
      sonsuza dek kalır ve bir sonraki sürüm hiç algılanmaz. */
   if(updateProbe){

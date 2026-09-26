@@ -1,0 +1,203 @@
+{
+  "build": "r926",
+  "base": "r925",
+  "pass": true,
+  "verificationDate": "2026-09-26",
+  "scope": "Service worker distribution, installation, retry, update identity and data preservation",
+  "rootCauseReproduction": {
+    "states": [
+      "installing",
+      "installing",
+      "redundant"
+    ],
+    "controller": false,
+    "metadata": {
+      "v": "r925",
+      "cache": "sukun-r925-rhythm-motion-update-20260926-v1",
+      "at": 1790419118613,
+      "shell": true,
+      "manifest": true,
+      "marker": false,
+      "latest": false,
+      "runtime": {
+        "./assets/runtime/dock-r920.js?v=r925": true,
+        "./assets/runtime/esma-scenes-r923.js?v=r925": true,
+        "./assets/runtime/interface-r920.js?v=r925": true,
+        "./assets/runtime/session-r919.js?v=r925": true,
+        "./assets/runtime/wheels-r924.js?v=r925": true,
+        "./assets/runtime/wheels-r924.css?v=r925": true
+      },
+      "runtimeRequired": 6,
+      "complete": false,
+      "errors": [
+        "marker:fetch ./__sukun_build_r925__.json 404",
+        "latest:fetch ./__sukun_latest__.json 404"
+      ]
+    },
+    "http404": [
+      "__sukun_build_r925__.json",
+      "__sukun_latest__.json"
+    ]
+  },
+  "staticChecks": {
+    "pass": true,
+    "build": "r926",
+    "scriptsParsed": 241,
+    "runtimeIntegrity": 6,
+    "assetsUnchanged": 143,
+    "identicalHtmlCopies": true,
+    "pagesSafeMetadata": true,
+    "manifestMatches": true
+  },
+  "browserChecks": [
+    {
+      "name": "pages-filter-clean-install-and-offline",
+      "pass": true,
+      "detail": {
+        "app": "r926",
+        "sw": "r926",
+        "optionalImages404DoNotBlock": true,
+        "offlineVerified": true,
+        "preserved": {
+          "setting": "kept",
+          "recording": "r926-user-recording-bytes"
+        },
+        "pageErrors": []
+      }
+    },
+    {
+      "name": "actionable-install-failure-marker",
+      "pass": true,
+      "detail": {
+        "error": "./sukun-build-r926.json: fetch ./sukun-build-r926.json 404",
+        "uiText": "Güncelleme tamamlanamadı: ./sukun-build-r926.json: fetch ./sukun-build-r926.json 404",
+        "retry": "r926",
+        "preserved": {
+          "setting": "kept",
+          "recording": "r926-user-recording-bytes"
+        },
+        "pageErrors": []
+      }
+    },
+    {
+      "name": "actionable-install-failure-manifest",
+      "pass": true,
+      "detail": {
+        "error": "./manifest.webmanifest: sürüm veya SHA-256 uyuşmazlığı",
+        "uiText": "Güncelleme tamamlanamadı: ./manifest.webmanifest: sürüm veya SHA-256 uyuşmazlığı",
+        "retry": "r926",
+        "preserved": {
+          "setting": "kept",
+          "recording": "r926-user-recording-bytes"
+        },
+        "pageErrors": []
+      }
+    },
+    {
+      "name": "actionable-install-failure-hash",
+      "pass": true,
+      "detail": {
+        "error": "./assets/runtime/interface-r920.js?v=r926: sürüm veya SHA-256 uyuşmazlığı",
+        "uiText": "Güncelleme tamamlanamadı: ./assets/runtime/interface-r920.js?v=r926: sürüm veya SHA-256 uyuşmazlığı",
+        "retry": "r926",
+        "preserved": {
+          "setting": "kept",
+          "recording": "r926-user-recording-bytes"
+        },
+        "pageErrors": []
+      }
+    },
+    {
+      "name": "r925-to-r926-real-worker-preserves-user-data",
+      "pass": true,
+      "detail": {
+        "before": {
+          "app": "r925",
+          "sw": "r925",
+          "waiting": "r926"
+        },
+        "after": {
+          "app": "r926",
+          "sw": "r926"
+        },
+        "reloads": 1,
+        "preserved": {
+          "setting": "kept",
+          "recording": "r926-user-recording-bytes"
+        },
+        "pageErrors": []
+      }
+    },
+    {
+      "name": "new-page-old-controller-failure-and-retry",
+      "pass": true,
+      "detail": {
+        "failed": {
+          "app": "r926",
+          "controller": "r925",
+          "error": "./sukun-build-r926.json: fetch ./sukun-build-r926.json 404"
+        },
+        "retry": {
+          "version": "r926",
+          "appVersion": "r926",
+          "phase": "ready",
+          "workerVersion": "r926",
+          "controllerVersion": "r926",
+          "activeVersion": "r926",
+          "waitingVersion": "",
+          "cache": "sukun-r926-pages-safe-update-20260926-v1",
+          "complete": true,
+          "controllerCache": "sukun-r926-pages-safe-update-20260926-v1",
+          "controllerComplete": true,
+          "waitingCache": "",
+          "waitingComplete": null,
+          "lastError": "",
+          "lastChange": 1790419811004,
+          "hasWaiting": false,
+          "hasController": true,
+          "versionMatch": true,
+          "updateQueued": false,
+          "reloadPending": false,
+          "sessionBusy": false
+        },
+        "oneClick": true,
+        "reloads": 1,
+        "button": {
+          "height": 44,
+          "clickable": true
+        },
+        "preserved": {
+          "setting": "kept",
+          "recording": "r926-user-recording-bytes"
+        },
+        "pageErrors": []
+      }
+    }
+  ],
+  "sources": [
+    "https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll"
+  ],
+  "preserved": {
+    "allAssetsByteIdenticalToR925": 143,
+    "esmaScenesDirectory": "assets/scenes/esma-r923/",
+    "wheelsDirectory": "assets/wheels-r924/",
+    "audioAndCounterAuthorityUnchanged": true
+  },
+  "limitations": [
+    "Kullanıcının canlı GitHub Pages dağıtımı ve telefonundaki worker doğrudan incelenmedi.",
+    "Orijinal r917 worker mevcut değildi. Yükseltme testi gerçek r925 worker ile ve eski ?v=r917 script URL biçimi korunarak yapıldı; bu r917 kod testi değildir.",
+    "Karışık sayfa/controller senaryosu CDP ile yalnız gezinmeyi bypass edip mevcut eski worker üzerinden clients.claim çağrısıyla oluşturuldu.",
+    "Masaüstü headless Chromium 153 kullanıldı; fiziksel Android/Chrome doğrulaması yapılmadı.",
+    "Ses, çark ve sahne dosyaları r925 ile birebir korunmuştur; r925 testlerinin tamamı bu turda yeniden koşulmadı.",
+    "Kümülatif birleştirme paketi: tarihsel tüm medya dosyalarını içeren sıfır kurulum paketi değildir.",
+    "Canlı siteye dağıtım yapılmadı."
+  ],
+  "testedFiles": {
+    "index.html": "5360f8d3cce650c87488a1a258d0db2f25035244dc15ea236736f017741e5983",
+    "nero.html": "5360f8d3cce650c87488a1a258d0db2f25035244dc15ea236736f017741e5983",
+    "sw.js": "8f88220ee619bd93561c586f27fc560e0af4f21e8dd75b4ea903eceb64155c74",
+    "manifest.webmanifest": "f2badbcfd2a079fec34e340caa8bcbbae8b942626c9e75ee1b150d91a688670a",
+    "sukun-build-r926.json": "a16669658a5fda566be128bde03c3912a794ebd158e41d715ba0eb29fe08c463",
+    "sukun-latest.json": "b151b8f33b6e898ad641a8a1f67e5bdbc44a3280d5d58921862922560e51e0d9"
+  }
+}
