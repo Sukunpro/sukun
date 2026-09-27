@@ -9,13 +9,13 @@
   const ICON = {PASS:'✓', WARN:'!', FAIL:'!', OBSERVED:'◌', NOT_MEASURED:'—', PENDING:'◌'};
   const GROUPS = [
     {id:'files',label:'Sürüm ve dosyalar',icon:'◈',codes:['BUILD','SW_IDENTITY','SW_CACHE_COMPLETE','RUNTIME_INTEGRITY','SW_RESPONSE']},
-    {id:'audio',label:'Ses ve zikir akışı',icon:'♪',codes:['SESSION_OBSERVATION','TEMPO_RANGE','AUDIO_CONSISTENCY','BACKGROUND_FX','AUDIO_CONTEXTS']},
+    {id:'audio',label:'Ses ve zikir akışı',icon:'♪',codes:['SESSION_OBSERVATION','TEMPO_RANGE','AUDIO_CONSISTENCY','BACKGROUND_HANDOFF','BACKGROUND_FX','AUDIO_CONTEXTS']},
     {id:'response',label:'Tepki ve dokunma',icon:'↗',codes:['INPUT_DELIVERY','LONG_TASKS','LATENCY_ATTRIBUTION','EARLY_RUNTIME_ERRORS','HEALTH_COLLECTION']},
     {id:'storage',label:'Bellek ve depolama',icon:'▤',codes:['PERSISTENCE','STORAGE_QUOTA','HEAP']},
     {id:'ai',label:'AI bağlantıları',icon:'✦',codes:['AI_CONNECTIONS']},
     {id:'device',label:'Cihaz ve ekran kilidi',icon:'◉',codes:['DEVICE_AUDIO','TTS_CAPABILITY']}
   ];
-  const OPTIONAL = new Set(['SW_RESPONSE','HEALTH_COLLECTION','LATENCY_ATTRIBUTION']);
+  const OPTIONAL = new Set(['SW_RESPONSE','HEALTH_COLLECTION','LATENCY_ATTRIBUTION','BACKGROUND_HANDOFF']);
   const META = {
     BUILD:['Uygulama sürümü','Sürüm bilgisi okunabildi.','Sürüm bilgisi alınamadı; testi yeniden çalıştırın.'],
     SW_IDENTITY:['Açık sayfa ve çevrimdışı sürüm','Sayfa ile çevrimdışı çalışan sürüm karşılaştırıldı.','Sürüm farklıysa sesinizi durdurup uygulamadaki Güncelle düğmesini kullanın.'],
@@ -25,6 +25,7 @@
     SESSION_OBSERVATION:['Zikir oturumu','Uygulamanın oturum bilgisi gözlendi. Bu, sesin duyulduğunu doğrulamaz.','Zikir akışını normal kullanım sırasında gözlemleyin; takılma olursa Sorun şimdi oldu düğmesine dokunun.'],
     TEMPO_RANGE:['Tempo ayarı','Tempo değeri desteklenen aralık açısından kontrol edildi.','Tempo ayarı beklenen aralık dışında. Raporu indirip destek için saklayın.'],
     AUDIO_CONSISTENCY:['Ses akışının uyumu','Ses kaynaklarının uygulama içindeki uyumu incelendi.','Birden fazla ses veya sessizlik fark ederseniz Sorun şimdi oldu düğmesine dokunun.'],
+    BACKGROUND_HANDOFF:['Son arka plan ses aktarımı','Son arka plan denemesinin sonucu gözlendi.','Ekrana dönünce sesin başlaması, arka planda devam ettiğini göstermez. Raporu indirin; kayıtları veya verileri silmeyin.'],
     BACKGROUND_FX:['Yankı ve ses efektleri','Ses efektlerinin hangi yoldan çalıştığı gözlendi.','Alternatif ses yolu ekran kilidinde kısıtlanabilir. Kısa bir kilit ekranı denemesinde sesi dinleyin.'],
     AUDIO_CONTEXTS:['Tarayıcı ses motorları','Tarayıcının ses motorları gözlendi; bu bir dinleme testi değildir.','Ses duyulmuyorsa cihazın ses düzeyini ve bağlı kulaklığı kontrol edin.'],
     INPUT_DELIVERY:['Dokunma ve kaydırma','Dokunma olayları gözlendi. Kaydırırken iptal olan dokunma normal olabilir.','Bir düğme yanıt vermiyorsa yeniden dokunup hemen Sorun şimdi oldu düğmesine basın.'],
@@ -83,6 +84,14 @@
   }
   function metricText(row) {
     const e = row?.evidence || {}, code = row?.code;
+    if (code === 'BACKGROUND_HANDOFF') {
+      if (e.outcome === 'failed') {
+        const reason = {AbortError:'Ses başlatma isteği tamamlanmadan kesildi.',NotAllowedError:'Tarayıcı arka planda bu ses başlatma isteğine izin vermedi.',NotSupportedError:'Ses kaynağı bu oynatma yolunda desteklenmedi.',NetworkError:'Ses kaynağına erişirken bağlantı sorunu bildirildi.'}[e.errorName] || 'Başlatma işlemi tamamlanamadı; ayrıntısı teknik raporda bulunur.';
+        return 'Son arka plan ses aktarımı başarısız oldu. ' + reason + ' Bu kayıt son denemeyi anlatır; şu anda duyulan sesi ölçmez.';
+      }
+      return 'Son aktarımda tarayıcı ses başlatma isteğini kabul etti. Ekran kilidinde sesin kesintisiz duyulduğu ayrıca dinlenerek doğrulanmalıdır.';
+    }
+    if (code === 'AUDIO_CONSISTENCY' && e.transition === true) return 'Ses çalıyor bilgisi ile ses motorunun geçiş durumu henüz eşleşmiyor. Geçici olabilir; başarılı kontrol olarak işaretlenmedi.';
     if (code === 'HEAP') {
       const used = number(e.heapBytes), limit = number(e.heapLimit);
       return used !== null && limit > 0 ? `Yaklaşık ${Math.round(used / 1048576)} MB kullanılıyor; tarayıcı sınırının %${Math.round(used / limit * 100)} kadarı. Bu bir anlık gözlemdir.` : 'Bu tarayıcı bellek ölçümünü paylaşmadı; bellek kullanımı bilinmiyor.';

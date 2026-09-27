@@ -9,7 +9,7 @@
   const born = Date.now(), boot = born.toString(36) + Math.random().toString(36).slice(2, 7);
   const build = String(document.querySelector('meta[name="sukun-build"]')?.content || window.SUKUN_BUILD || 'unknown');
   const events = [], incidents = [], checks = [];
-  let seq = 0, droppedEvents = 0, droppedIncidents = 0, session = null, truth = null, sw = null, tempo = null, lock = null;
+  let seq = 0, droppedEvents = 0, droppedIncidents = 0, session = null, truth = null, sw = null, tempo = null, lock = null, background = null;
   let sessionChangedAt = born, progressAt = born, lastSaved = 0, activeTimer = 0, activeExpected = 0;
   let runPromise = null, lastRun = null, storageError = '', visibilityEpoch = 0, probe = null, fx = null, latency = null, deviceCheck = null;
   const DEVICE_FIELDS = ['foregroundSound','lockedSound','tempoStable','effectsPreserved','nameTransition'];
@@ -35,7 +35,7 @@
     while (rows.length < 6 && (hit = re.exec(stack))) rows.push({ file:path(hit[1]),line:Number(hit[2]),column:Number(hit[3]) });
     return rows;
   }
-  const historicKeys = new Set('at seq kind code severity title certainty firstAt lastAt occurrences eventSeq context evidence hidden session tempo truth sw lock phase mode index count target epoch requestId journey owner source reason tefekkur dualJourney audioIssues state tangible pending life hub issues app controller waiting hasController complete error value previous cancelledGestures pendingGesture active playing frozen cycleMs mediaProgressMs lastProgressAgeMs stalls overshootCycles applied name file line column frames asset tag lagMs thresholdMs elapsedMs checkpointAt scope build online previousCheckpoint bytes lastEvent measuredAt snapshot type phaseMs rep limit cycles remaining delay wraps remainMs provider model http durationMs'.split(' '));
+  const historicKeys = new Set('at seq kind code severity title certainty firstAt lastAt occurrences eventSeq context evidence hidden session tempo truth sw lock phase mode index count target epoch requestId journey owner source reason tefekkur dualJourney audioIssues state tangible pending life hub issues app controller waiting hasController complete error value previous cancelledGestures pendingGesture active playing frozen cycleMs mediaProgressMs lastProgressAgeMs stalls overshootCycles applied name file line column frames asset tag lagMs thresholdMs elapsedMs checkpointAt scope build online previousCheckpoint bytes lastEvent measuredAt snapshot type phaseMs rep limit cycles remaining delay wraps remainMs provider model http durationMs background outcome errorName stage path sourceKind paused ended readyState networkState mediaErrorCode eligible generationCurrent scope transition disposition singleSnapshot singleMeasuredAt snapshotPath preparing'.split(' '));
   function historic(value, depth = 0) {
     if (depth > 5 || value == null) return null;
     if (typeof value === 'boolean') return value;
@@ -63,7 +63,18 @@
     complete: s?.controllerComplete ?? s?.complete ?? null, error: !!s?.lastError || !!s?.error }; }
   function compactLock(s) { return { active: bool(s?.active), playing: bool(s?.playing), owner: token(s?.owner),
     frozen: bool(s?.frozen), reason: token(s?.lastReason), ...numeric(s, ['cycleMs','mediaProgressMs','lastProgressAgeMs','stalls','overshootCycles','applied','index']) }; }
-  function evidenceContext() { return { hidden: document.hidden, session, tempo, truth, sw, lock }; }
+  function sampleLock() {
+    // The single-name native player and the multi-name journey are different
+    // transports. An idle journey is not evidence that the single player stopped.
+    const transport = safe(() => window.SukunLockJourneyTransportV2?.snapshot?.());
+    if (transport) lock = {...(lock || {}), measuredAt:now(), snapshotPath:'journey', snapshot:compactLock(transport)};
+    const single = safe(() => window.SukunLockAudio?.snapshot?.());
+    if (single) lock = {...(lock || {}), singleMeasuredAt:now(), singleSnapshot:{
+      path:'single-recording',active:bool(single.active),preparing:bool(single.preparing),playing:bool(single.playing),
+      ...compactBackground({evidence:single}),cycleMs:finite(single.cycleMs)
+    }};
+  }
+  function evidenceContext() { return { hidden: document.hidden, session, tempo, truth, sw, lock, background }; }
   function record(kind, evidence = {}) {
     const row = { seq: ++seq, at: now(), kind: token(kind), evidence };
     events.push(row); if (events.length > MAX_EVENTS) { events.shift(); droppedEvents++; }
@@ -82,7 +93,7 @@
   }
   function checkpoint(reason) {
     return { schema: SCHEMA, at: now(), boot, build, reason, hidden: document.hidden,
-      closed: reason === 'pagehide', session, tempo, sw, deviceCheck, incidents: incidents.slice(-8), events: events.slice(-18) };
+      closed: reason === 'pagehide', session, tempo, sw, background, deviceCheck, incidents: incidents.slice(-8), events: events.slice(-18) };
   }
   function persist(reason) {
     const saved = checkpoint(reason); let data = JSON.stringify(saved), trimmed = 0;
@@ -105,7 +116,7 @@
       session: old.session ? { phase: token(old.session.phase), count: finite(old.session.count), index: finite(old.session.index), mode: token(old.session.mode) } : null,
       incidentCodes: (Array.isArray(old.incidents) ? old.incidents : []).slice(-8).map(x => token(x.code)),
       incidents: historic((Array.isArray(old.incidents) ? old.incidents : []).slice(-8)),
-      events: historic((Array.isArray(old.events) ? old.events : []).slice(-18)), deviceCheck: compactDeviceCheck(old.deviceCheck) };
+      events: historic((Array.isArray(old.events) ? old.events : []).slice(-18)), background:historic(old.background), deviceCheck: compactDeviceCheck(old.deviceCheck) };
     if (!old.closed && /PLAYING|PREPARING|INTERRUPTED/.test(previous.session?.phase || ''))
       issue('PREVIOUS_UNCLOSED_SESSION', 'WARN', 'Önceki etkin oturumun kapanışı gözlenmedi',
         { checkpointAt: old.at, scope: previousScope, phase: previous.session.phase, reason: previous.reason },
@@ -167,15 +178,54 @@
   }
   function lifecycle(kind, persisted) {
     cancelTimer(); progressAt = now(); sessionChangedAt = now();
-    record(kind, { hidden: document.hidden, persisted: !!persisted, phase: session?.phase || 'unknown' });
+    sampleLock();
+    record(kind, { hidden: document.hidden, persisted: !!persisted, phase: session?.phase || 'unknown', lock:lock ? copy(lock) : null });
     persist(kind);
     if (!document.hidden && kind !== 'pagehide' && kind !== 'freeze') arm();
   }
+  const AUDIO_ERRORS = new Set(['AbortError','NotAllowedError','NotSupportedError','InvalidStateError','NetworkError','EncodingError','SecurityError','TimeoutError','TypeError','Error']);
+  const AUDIO_STAGES = new Set(['native-play','started','restored','released','prepare','eligibility','source-attach','handoff','resume']);
+  function compactBackground(detail) {
+    const data = detail?.evidence || {}, result = {hidden:document.hidden};
+    // Never retain arbitrary error messages, extra text, media URLs or keys.
+    // Legacy emitters provide an exception class as `extra`; only exact known
+    // class names are accepted so a message cannot become diagnostic content.
+    const errorName = data.errorName ?? detail?.extra;
+    if (errorName) result.errorName = AUDIO_ERRORS.has(errorName) ? errorName : 'OtherError';
+    if (AUDIO_STAGES.has(data.stage)) result.stage = data.stage;
+    if (['single-recording','journey-recording','tts'].includes(data.path)) result.path = data.path;
+    if (['recording','baked','tts','none'].includes(data.sourceKind)) result.sourceKind = data.sourceKind;
+    for (const key of ['paused','ended','eligible','generationCurrent']) if (typeof data[key] === 'boolean') result[key] = data[key];
+    for (const [key,max] of [['readyState',4],['networkState',3],['mediaErrorCode',4]])
+      if (Number.isInteger(data[key]) && data[key] >= 0 && data[key] <= max) result[key] = data[key];
+    return result;
+  }
   function passiveDiagnostic(e) {
-    const kind = token(e.detail?.kind || 'runtime'); record('runtime-note', { kind });
-    if (/event-storm|event-loop-lag|idb-blocked|recording|background-play|background-tts/.test(kind))
+    const kind = token(e.detail?.kind || 'runtime'), isBackground = ['background-play','background-handoff','background-tts'].includes(kind);
+    const data = {kind,...(isBackground ? compactBackground(e.detail) : {})};
+    // A rejected obsolete attempt after Stop/selection change is cancellation,
+    // not evidence that the current session failed. Missing legacy flags remain unknown.
+    const obsolete = isBackground && (data.eligible === false || data.generationCurrent === false);
+    if (obsolete) data.disposition = 'obsolete-attempt';
+    if (isBackground && !obsolete) {
+      sampleLock();
+      if (kind === 'background-play' || kind === 'background-tts')
+        background = {at:now(),outcome:'failed',epoch:session?.epoch ?? null,...data};
+      else if (['started','restored'].includes(data.stage))
+        background = {at:now(),outcome:'started',epoch:session?.epoch ?? null,...data};
+    }
+    record('runtime-note', data);
+    if (!obsolete && /event-storm|event-loop-lag|idb-blocked|recording|background-play|background-tts/.test(kind))
       issue('RUNTIME_' + kind.toUpperCase().replace(/[^A-Z0-9]/g, '_'), 'WARN', 'Çalışma zamanı uyarısı: ' + kind,
-        { kind }, 'Bu uyarının hemen öncesindeki ses, görünürlük ve tempo olaylarını raporda eşleştirin.', 'correlation');
+        data, 'Bu uyarının hemen öncesindeki ses, görünürlük ve tempo olaylarını raporda eşleştirin.', 'correlation');
+  }
+  function audioConsistency() {
+    if (!truth) return status('AUDIO_CONSISTENCY','NOT_MEASURED','Ses sahipliği tutarlılığı',{});
+    // The lifecycle can lag physical playback during an interruption/handoff.
+    // This transition is not a proven defect, but cannot be a successful check.
+    const transition = truth.state === 'playing' && ['interrupted','recovering','preparing','suspended'].includes(truth.life);
+    return status('AUDIO_CONSISTENCY',truth.issues.length ? 'WARN' : transition ? 'OBSERVED' : 'PASS',
+      'Ses sahipliği tutarlılığı',{...truth,transition},transition ? 'Ses çalıyor bilgisi ile ses motorunun geçiş durumu henüz eşleşmiyor. Bu tek örnek kalıcı arıza veya duyulan ses kanıtı değildir.' : '');
   }
   function status(code, result, title, evidence, remedy = '') { return { code, status: result, title, evidence, remedy }; }
   function compactDeviceCheck(input) {
@@ -198,9 +248,12 @@
       status('SW_CACHE_COMPLETE', sw?.complete === true ? 'PASS' : sw?.complete === false ? 'FAIL' : 'NOT_MEASURED', 'SW çekirdek dosyaları', { complete: sw?.complete ?? null }),
       status('SESSION_OBSERVATION', session ? 'PASS' : 'NOT_MEASURED', 'Pasif oturum durumu', session || { reason: 'Henüz oturum olayı alınmadı' }),
       status('TEMPO_RANGE', tempo?.value == null ? 'NOT_MEASURED' : tempo.value >= .8 && tempo.value <= 6 ? 'PASS' : 'FAIL', 'Tempo yetkisi', tempo || {}),
-      status('AUDIO_CONSISTENCY', !truth ? 'NOT_MEASURED' : truth.issues.length ? 'WARN' : 'PASS', 'Ses sahipliği tutarlılığı', truth || {}),
+      audioConsistency(),
       status('DEVICE_AUDIO', 'NOT_MEASURED', 'Fiziksel hoparlör ve ekran kilidi doğrulaması', { reason: 'Tarayıcı olayları işitilebilir sesi veya işletim sistemi süreç sonlandırmasını ispatlamaz' }),
       status('PERSISTENCE', storageError ? 'WARN' : lastSaved ? 'PASS' : 'NOT_MEASURED', 'Son durum kaydı', { lastSaved, error: storageError, trimmedRecords:checkpointTrimmed })];
+    if (background) out.push(status('BACKGROUND_HANDOFF',background.outcome === 'failed' ? 'WARN' : 'OBSERVED',
+      'Son arka plan ses aktarımı',{...background,scope:'last-attempt-not-current-audibility'},
+      'Bu sonuç son arka plan aktarımı içindir. Ekrana dönünce sesin devam etmesi arka plan sorununun çözüldüğünü kanıtlamaz. Raporu kaydedin; kullanıcı kayıtlarını silmeyin.'));
     if (taps) out.push(status('INPUT_DELIVERY','OBSERVED','Tıklama / kaydırma kanıtı',taps,'scroll-or-gesture normal kaydırmadır. no-click-observed, target-detached, hit-target-changed ve unresolved-cancel kayıtlarını hedef/zaman ile inceleyin; her iptal hata değildir.'));
     if (tts) out.push(status('TTS_CAPABILITY', !tts.supported || tts.voices === 0 ? 'NOT_MEASURED' : 'OBSERVED', 'Cihaz konuşma motoru', tts, 'Sıfır ses, cihaz/tarayıcı özelliği veya henüz yüklenmemiş ses listesidir; tek başına uygulama hatası değildir. Kendi kayıtlarınız bu motordan bağımsızdır.'));
     if (probe) {
@@ -308,8 +361,7 @@
       ...numeric(timing,['measuredInteractions','measuredFrames','ignoredDiagnostics']),
       interactions:(Array.isArray(timing.interactions)?timing.interactions:[]).slice(-24).map(x=>({at:finite(x.at),kind:token(x.kind),target:token(x.target,120),...numeric(x,['durationMs','inputDelayMs','handlerMs','presentationDelayMs'])})),
       frames:(Array.isArray(timing.frames)?timing.frames:[]).slice(-16).map(x=>({at:finite(x.at),...numeric(x,['durationMs','blockingMs']),scripts:(Array.isArray(x.scripts)?x.scripts:[]).slice(-5).map(s=>({source:s.source?path(s.source):null,charOffset:Number.isFinite(s.charOffset)?s.charOffset:null,function:token(s.function),...numeric(s,['durationMs','forcedLayoutMs'])}))}))};
-    const transport = safe(() => window.SukunLockJourneyTransportV2?.snapshot?.());
-    if (transport) lock = {...(lock || {}), measuredAt:now(), snapshot:compactLock(transport)};
+    sampleLock();
     const bridge = safe(() => window.SukunNativeEchoBridge?.snapshot?.());
     if (bridge) fx = { version: token(bridge.effectsVersion), ...numeric(bridge,['cacheBytes','cache','rendering','pending','active','attached','renderBudgetBytes','sourceBudgetBytes']),
       fallbackActive: (bridge.items || []).some(x => x.active && x.mainPlaying && !x.baked), bakedActive: (bridge.items || []).filter(x => x.active && x.baked).length };
@@ -427,7 +479,14 @@
   sampleTempo(); const initial = safe(() => window.SukunSessionState?.peek?.()); if(initial) sessionEvent({detail:initial}); persist('boot');
   window.addEventListener('sukun:sessionchange', sessionEvent, {passive:true});
   window.addEventListener('sukun:airesult', e => { const d=e.detail||{}; record('ai-request', {provider:token(d.provider),model:token(d.model),code:token(d.code),http:finite(d.http),durationMs:finite(d.durationMs)}); }, {passive:true});
-  window.addEventListener('sukun:audiotruthchange', e => { truth = compactTruth(e.detail); }, {passive:true});
+  window.addEventListener('sukun:audiotruthchange', e => {
+    const next = compactTruth(e.detail);
+    const unusual = value => ['interrupted','recovering','suspended','error'].some(state => value?.life === state || value?.state === state);
+    // Routine per-recording prepare/play changes already have session events;
+    // retain exceptional lifecycle transitions without crowding out lock evidence.
+    if ((!truth || unusual(truth) || unusual(next)) && (!truth || ['state','life','hub','pending'].some(key => truth[key] !== next[key]))) record('audio-truth',next);
+    truth = next;
+  }, {passive:true});
   window.addEventListener('sukun:swstate', e => { sw = compactSW(e.detail); record('sw', sw); }, {passive:true});
   window.addEventListener('sukun:lockjourneyv2', e => {
     const d=e.detail || {}, observed={at:finite(d.at),type:token(d.type),owner:token(d.owner),index:finite(d.index),reason:token(d.reason),...numeric(d,['cycleMs','phaseMs','rep','limit','cycles','remaining','delay','wraps','remainMs'])};
