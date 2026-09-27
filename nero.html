@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 
 <!-- ════════════════════════════════════════════════════════════════
-     SÜKÛN r940 — Sağlık tanılaması ve kararlılık (base r939)
+     SÜKÛN r941 — AI sağlayıcıları ve güvenli anahtar akışı (base r940)
      Tek dosya • Web Audio API (tüm sesler cihazda sentezlenir)
      Binaural Beats + Isochronic Tones + Esmâ/Zikir Modülü
      ════════════════════════════════════════════════════════════════ -->
 <html class="sukun-jewel-r798" lang="tr">
 <head>
-<link rel="stylesheet" href="./assets/runtime/berhet-layout-r938.css?v=r940" integrity="sha256-VxxQgGA4+szbjaLydVe6tFCvf1drTtuFW9WKMO1USfU=">
-<link id="sukun-r933-materials-style" rel="stylesheet" href="./assets/runtime/berhet-materials-r933.css?v=r940" integrity="sha256-S+EKXiMlSkZEF40I5mQXfh2rYnXIsM6BfXv+7b9eKyQ=">
-<link id="sukun-r933-controls-style" rel="stylesheet" href="./assets/runtime/berhet-controls-r933.css?v=r940" integrity="sha256-hSWilSjEkD6VfxQJX3zbZAid9fl/gL4YqlXvR0k0Wjc=">
-<link id="sukun-r933-dock-style" rel="stylesheet" href="./assets/runtime/berhet-dock-r933.css?v=r940" integrity="sha256-DV+h24tq9LXbizGR6eToLqO0eM4GnWeT1KqPcqEQ43Y=">
+<link rel="stylesheet" href="./assets/runtime/berhet-layout-r938.css?v=r941" integrity="sha256-VxxQgGA4+szbjaLydVe6tFCvf1drTtuFW9WKMO1USfU=">
+<link id="sukun-r933-materials-style" rel="stylesheet" href="./assets/runtime/berhet-materials-r933.css?v=r941" integrity="sha256-S+EKXiMlSkZEF40I5mQXfh2rYnXIsM6BfXv+7b9eKyQ=">
+<link id="sukun-r933-controls-style" rel="stylesheet" href="./assets/runtime/berhet-controls-r933.css?v=r941" integrity="sha256-hSWilSjEkD6VfxQJX3zbZAid9fl/gL4YqlXvR0k0Wjc=">
+<link id="sukun-r933-dock-style" rel="stylesheet" href="./assets/runtime/berhet-dock-r933.css?v=r941" integrity="sha256-DV+h24tq9LXbizGR6eToLqO0eM4GnWeT1KqPcqEQ43Y=">
 <style id="sukun-r920-contract">@layer sukun-r920-contract {
 /* First important layer: each legacy visual has one explicit successor. */
 /* r922: live native voice controls in the shared practice settings. */
@@ -855,11 +855,11 @@ html[data-r853-berhet="1"] body #berhetAtlas .r754SourceJumps button span {font-
 </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r940"/>
+<meta name="sukun-build" content="r941"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
-<meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r940" rel="manifest"/>
+<meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com https://api.moonshot.ai https://*.workers.dev; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
+<link href="./manifest.webmanifest?v=r941" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -1934,6 +1934,17 @@ button,summary,.sw,.tab,.tabTekke,.rut,.rxChip,.rxHistRow,.mzbzTap,.rxItem,.zP{t
 .aikeyStatus{font-size:11.5px;color:var(--mut);margin-top:7px;min-height:14px}
 .aikeyRemember{display:flex;align-items:center;gap:7px;margin-top:8px;color:var(--mut);font-size:11.5px;cursor:pointer}
 .aikeyRemember input{accent-color:var(--gold)}
+/* r941 AI settings: one native dialog, one set of secret inputs. */
+#r941AISettings{color:#eee8da;background:#0b1721;border:1px solid #a98a52;border-radius:20px;width:min(620px,calc(100vw - 24px));max-height:85dvh;box-sizing:border-box;padding:16px;overflow:auto;overscroll-behavior:contain}
+#r941AISettings::backdrop{background:rgba(0,0,0,.65)}
+#r941AISettings header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#r941AISettings h2{font-size:20px}#r941AISettings header button{padding:10px 18px;min-height:44px;color:inherit;background:#203443;border:1px solid #927e53;border-radius:14px}
+#aiProvidersBox .aiProviderGrid{grid-template-columns:1fr;gap:12px}
+#aiProvidersBox .aiProviderRow{display:grid;gap:8px;min-width:0;grid-template-columns:1fr}
+#aiProvidersBox input:not([type=checkbox]),#aiProvidersBox select{width:100%;box-sizing:border-box;min-width:0;min-height:44px;background:#10222e;color:#f2ead8;border:1px solid #657786;border-radius:10px;padding:10px;font-size:16px}
+#aiProvidersBox .aiProviderActions{display:flex;flex-wrap:wrap;gap:8px}#aiProvidersBox .aiProviderActions button{min-height:44px;white-space:normal}
+#aiProvidersBox a{color:#9ddcec}#aiProvidersBox small{display:block;line-height:1.5}#aiProvidersBox details{padding:12px 0}#aiProvidersBox summary{min-height:44px;cursor:pointer}
+
 
 /* ═══ Yâ Mezcelin • Yâ Bezcelin (Berhetiyye — iç & dış arınma) ═══ */
 .mzbzBar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:9px}
@@ -6283,7 +6294,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){/* r922 shared settings owns its label. */if(document.getElementById('r920Practice')?.contains(document.getElementById('r679ZikirAyarBox')))return;if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r940"/><script>window.SUKUN_BUILD='r940';document.documentElement.dataset.sukunBuild='r940';</script>
+<meta name="sukun-build" content="r941"/><script>window.SUKUN_BUILD='r941';document.documentElement.dataset.sukunBuild='r941';</script>
 <style id="sukun-r923-esma-gallery">@layer sukun-r920 {
 #r920Practice #r923EsmaOptions{min-width:0;margin:10px 0}
 #r920Practice #r923EsmaOptions[hidden]{display:none!important}
@@ -7398,7 +7409,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN — Uygulama r940 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN — Uygulama r941 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -10843,33 +10854,14 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <button class="btn" id="resBtn">⇩ Yedeği yükle</button>
 </div>
 <div class="aikeyBox" id="aiProvidersBox">
-<b>🪄 AI sağlayıcıları — otomatik yedekli</b>
-<p>Birden fazla sağlayıcı ekleyebilirsin. SÜKÛN önce ücretsiz/uygun sağlayıcıları dener; biri limit, ağ veya servis hatası verirse otomatik olarak sıradakine geçer. API anahtarları <b>koda gömülmez</b> ve SÜKÛN yedeklerine alınmaz.</p>
-<div class="aiProviderGrid">
-<label class="aiProviderRow">
-<span><b>⚡ Groq</b><small>Compound web araması → GPT-OSS 120B · ücretsiz plan</small></span>
-<input aria-label="Groq API anahtarı" autocomplete="off" id="aiKeyGroq" maxlength="256" placeholder="gsk_…" spellcheck="false" type="password"/>
-</label>
-<label class="aiProviderRow">
-<span><b>🧭 OpenRouter</b><small>openrouter/free · ücretsiz model yönlendiricisi</small></span>
-<input aria-label="OpenRouter API anahtarı" autocomplete="off" id="aiKeyOpenRouter" maxlength="256" placeholder="sk-or-v1-…" spellcheck="false" type="password"/>
-</label>
-<label class="aiProviderRow">
-<span><b>✦ Gemini</b><small>Gemini Flash ailesi · ücretsiz katman hesabına göre</small></span>
-<input aria-label="Gemini API anahtarı" autocomplete="off" id="aiKeyGemini" maxlength="256" placeholder="AIza…" spellcheck="false" type="password"/>
-</label>
-<label class="aiProviderRow">
-<span><b>◈ Anthropic</b><small>Claude · mevcut entegrasyon · son yedek</small></span>
-<input aria-label="Anthropic API anahtarı" autocomplete="off" id="aiKeyAnthropic" maxlength="256" placeholder="sk-ant-…" spellcheck="false" type="password"/>
-</label>
-</div>
-<div class="aikeyRow aiProviderActions">
-<button class="btn" id="aiKeysSave">Anahtarları kaydet</button>
-<button class="btn" id="aiProvidersTest">Bağlantıları test et</button>
-</div>
-<label class="aikeyRemember"><input id="aikeyRemember" type="checkbox"/> Bu cihazda hatırla</label>
-<div aria-live="polite" class="aikeyStatus" id="aikeyStatus"></div>
-<div class="aiProviderHealth" id="aiProviderHealth"></div>
+<b>AI sağlayıcıları — otomatik yedekli</b>
+<p>Hazır bağlantılar uygulamaya dahildir. Online modeller için kendi API anahtarın gerekir; büyük model dosyaları telefona indirilmez. Anahtar eklediğin sağlayıcılar, otomatik sırada sırayla denenebilir. Ücretli hesabın varsa kullanım ücret doğurabilir. OpenRouter yalnız ücretsiz model havuzuna gider; kota dolunca ücretli OpenRouter modeline geçmez.</p>
+<label class="aiProviderRow"><span><b>Sağlayıcı seçimi</b><small>Otomatik sıra: OpenRouter → Groq → Gemini → Kimi → Anthropic. Yalnız anahtar eklediklerin kullanılır.</small></span><select id="aiPreferred" aria-label="AI sağlayıcı seçimi"><option value="auto">Otomatik · ücretsiz seçenekler önce</option><option value="openrouter">OpenRouter · yalnız bu sağlayıcı</option><option value="groq">Groq · yalnız bu sağlayıcı</option><option value="gemini">Gemini · yalnız bu sağlayıcı</option><option value="moonshot">Kimi / Moonshot · yalnız bu sağlayıcı</option><option value="anthropic">Anthropic · yalnız bu sağlayıcı</option><option value="nvidia">NVIDIA · yalnız bu sağlayıcı</option></select></label><div class="aiProviderGrid"><div class="aiProviderRow"><label for="aiKeyOpenRouter"><b>OpenRouter</b><small>Ücretsiz model havuzu · kota var · anahtar gerekli</small></label><input aria-label="OpenRouter API anahtarı" autocomplete="off" id="aiKeyOpenRouter" maxlength="256" placeholder="API anahtarın" spellcheck="false" type="password"/><label for="aiModel-openrouter">Model</label><select id="aiModel-openrouter"><option value="auto">Önerilen · model yedeği açık</option><option value="openrouter/free">openrouter/free</option></select><a href="https://openrouter.ai/settings/keys" target="_blank" rel="noopener noreferrer">OpenRouter anahtar / hesap sayfası ↗</a></div><div class="aiProviderRow"><label for="aiKeyGroq"><b>Groq</b><small>GPT-OSS açık ağırlıklı modeller · ücretsiz plan kotası</small></label><input aria-label="Groq API anahtarı" autocomplete="off" id="aiKeyGroq" maxlength="256" placeholder="API anahtarın" spellcheck="false" type="password"/><label for="aiModel-groq">Model</label><select id="aiModel-groq"><option value="auto">Önerilen · model yedeği açık</option><option value="openai/gpt-oss-120b">openai/gpt-oss-120b</option><option value="openai/gpt-oss-20b">openai/gpt-oss-20b</option></select><a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer">Groq anahtar / hesap sayfası ↗</a></div><div class="aiProviderRow"><label for="aiKeyGemini"><b>Gemini</b><small>Ücretsiz katman veya ücretli hesap · hesabındaki kota geçerli</small></label><input aria-label="Gemini API anahtarı" autocomplete="off" id="aiKeyGemini" maxlength="256" placeholder="API anahtarın" spellcheck="false" type="password"/><label for="aiModel-gemini">Model</label><select id="aiModel-gemini"><option value="auto">Önerilen · model yedeği açık</option><option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite</option><option value="gemini-3.6-flash">gemini-3.6-flash</option><option value="gemini-2.5-flash">gemini-2.5-flash</option></select><a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Gemini anahtar / hesap sayfası ↗</a></div><div class="aiProviderRow"><label for="aiKeyMoonshot"><b>Kimi / Moonshot</b><small>Kimi K2.6 / K3 · ücretli API · bakiye gerekli</small></label><input aria-label="Kimi / Moonshot API anahtarı" autocomplete="off" id="aiKeyMoonshot" maxlength="256" placeholder="API anahtarın" spellcheck="false" type="password"/><label for="aiModel-moonshot">Model</label><select id="aiModel-moonshot"><option value="auto">Önerilen · model yedeği açık</option><option value="kimi-k2.6">kimi-k2.6</option><option value="kimi-k3">kimi-k3</option></select><a href="https://platform.kimi.ai/" target="_blank" rel="noopener noreferrer">Kimi / Moonshot anahtar / hesap sayfası ↗</a></div><div class="aiProviderRow"><label for="aiKeyAnthropic"><b>Anthropic</b><small>Claude Sonnet · ücretli API</small></label><input aria-label="Anthropic API anahtarı" autocomplete="off" id="aiKeyAnthropic" maxlength="256" placeholder="API anahtarın" spellcheck="false" type="password"/><label for="aiModel-anthropic">Model</label><select id="aiModel-anthropic"><option value="auto">Önerilen · model yedeği açık</option><option value="claude-sonnet-5">claude-sonnet-5</option></select><a href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener noreferrer">Anthropic anahtar / hesap sayfası ↗</a></div><div class="aiProviderRow"><label for="aiKeyNvidia"><b>NVIDIA</b><small>Nemotron / Kimi · geliştirici denemesi · yalnız elle seçilir · kendi aracı servisin gerekli</small></label><input aria-label="NVIDIA API anahtarı" autocomplete="off" id="aiKeyNvidia" maxlength="256" placeholder="API anahtarın" spellcheck="false" type="password"/><label for="aiModel-nvidia">Model</label><select id="aiModel-nvidia"><option value="auto">Önerilen · model yedeği açık</option><option value="nvidia/nemotron-3-super-120b-a12b">nvidia/nemotron-3-super-120b-a12b</option><option value="moonshotai/kimi-k3">moonshotai/kimi-k3</option></select><a href="https://build.nvidia.com/" target="_blank" rel="noopener noreferrer">NVIDIA anahtar / hesap sayfası ↗</a></div></div>
+<details><summary>NVIDIA aracı servis kurulumu</summary><p>NVIDIA deneme servisi doğrudan tarayıcı bağlantısını kabul etmiyor. Paketteki integration/nvidia-proxy.mjs dosyasını kendi Cloudflare Worker hesabına kur. Girdiğin adrese NVIDIA anahtarın gönderileceği için yalnız sana ait servisi kullan. Kurulum olmadan NVIDIA devreye girmez. Bu deneme seçeneği üretim servisi olarak sunulmaz.</p><label for="aiNvidiaProxy">Kendi Worker adresin</label><input id="aiNvidiaProxy" type="url" autocomplete="off" placeholder="https://servisim.hesabim.workers.dev/nvidia"/></details>
+<div class="aikeyRow aiProviderActions"><button class="btn" type="button" id="aiKeysSave">Bağlantıları kaydet</button><button class="btn" type="button" id="aiProvidersTest">Seçili bağlantıyı test et</button><button class="btn" type="button" id="aiRequestCancel" disabled>AI isteğini iptal et</button></div>
+<label class="aikeyRemember"><input id="aikeyRemember" type="checkbox"/> Anahtarları bu cihazda hatırla</label>
+<p>İşaretlemezsen anahtarlar yalnız bu sekmede tutulur. Yedeklere ve sağlık raporlarına eklenmez. Model sağlayıcısı kendi veri politikasını uygular. Kaydetmek isteği otomatik yeniden göndermez.</p>
+<div aria-live="polite" class="aikeyStatus" id="aikeyStatus"></div><div class="aiProviderHealth" id="aiProviderHealth"></div>
 </div>
 <button class="btn" id="obReplayBtn" style="width:100%;margin-top:12px">🎓 Tanıtım turunu yeniden izle</button>
 <div class="vaultCard" hidden="" id="vaultCard">
@@ -29931,229 +29923,125 @@ function mzbzInit(){
 }
 
 
-/* ════════════════════════════════════════════════════════════════
-   r310 — SÜKÛN AI ROUTER
-   Anahtar içermez. Sağlayıcı adaptörleri + model fallback + circuit breaker.
-   ════════════════════════════════════════════════════════════════ */
+/* r941 — bounded AI router. Presets contain no credentials or model weights. */
 const SukunAIRouter=(()=>{
   'use strict';
-  const MEM={groq:'',openrouter:'',gemini:'',anthropic:''};
-  const HEALTH=new Map();
-  const KEY_PREFIX='sukun.ai.key.';
-  const LEGACY_ANTH='sukun.aikey';
-  const LABEL={groq:'Groq',openrouter:'OpenRouter',gemini:'Gemini',anthropic:'Anthropic'};
-  const ORDER=['groq','openrouter','gemini','anthropic'];
-  const MODELS={
-    groq:['groq/compound','openai/gpt-oss-120b','qwen/qwen3.6-27b','openai/gpt-oss-20b'],
-    openrouter:['openrouter/free'],
-    gemini:['gemini-3.6-flash','gemini-3.5-flash-lite','gemini-2.5-flash'],
-    anthropic:['claude-sonnet-5']
-  };
-  const $id=id=>document.getElementById(id);
-  const now=()=>Date.now();
-  function safeGet(k){try{return String(S.get(k,'')||'')}catch(e){try{return String(localStorage.getItem(k)||'')}catch(_){return''}}}
-  function safeSet(k,v){try{S.set(k,v)}catch(e){try{v?localStorage.setItem(k,v):localStorage.removeItem(k)}catch(_){}}}
-  function getKey(id){
-    const mem=String(MEM[id]||'').trim();
-    if(mem)return mem;
-    if(id==='anthropic'){
-      const modern=safeGet(KEY_PREFIX+id).trim();
-      if(modern)return modern;
-      return safeGet(LEGACY_ANTH).trim();
-    }
-    return safeGet(KEY_PREFIX+id).trim();
+  const ORDER=Object.freeze(['openrouter','groq','gemini','moonshot','anthropic','nvidia']);
+  const LABEL=Object.freeze({openrouter:'OpenRouter',groq:'Groq',gemini:'Gemini',moonshot:'Kimi / Moonshot',anthropic:'Anthropic',nvidia:'NVIDIA (geliştirici denemesi)'});
+  const MODELS=Object.freeze({openrouter:Object.freeze(['openrouter/free']),groq:Object.freeze(['openai/gpt-oss-120b','openai/gpt-oss-20b']),gemini:Object.freeze(['gemini-3.5-flash-lite','gemini-3.6-flash','gemini-2.5-flash']),moonshot:Object.freeze(['kimi-k2.6','kimi-k3']),anthropic:Object.freeze(['claude-sonnet-5']),nvidia:Object.freeze(['nvidia/nemotron-3-super-120b-a12b','moonshotai/kimi-k3'])});
+  const INPUT={groq:'aiKeyGroq',openrouter:'aiKeyOpenRouter',gemini:'aiKeyGemini',moonshot:'aiKeyMoonshot',nvidia:'aiKeyNvidia',anthropic:'aiKeyAnthropic'};
+  const ENDPOINT={groq:'https://api.groq.com/openai/v1/chat/completions',openrouter:'https://openrouter.ai/api/v1/chat/completions',moonshot:'https://api.moonshot.ai/v1/chat/completions',anthropic:'https://api.anthropic.com/v1/messages'};
+  const TEXT={MISSING_KEY:'API anahtarı gerekli',AUTH:'API anahtarı reddedildi',ACCESS:'Hesap veya model erişimi reddedildi',BILLING:'Hesap bakiyesi gerekli',QUOTA:'Kota / hız sınırı',NETWORK_OR_CORS:'Ağ veya tarayıcı erişimi engellendi',TIMEOUT:'Yanıt süresi doldu',MODEL_UNAVAILABLE:'Model kullanılamıyor',INVALID_REQUEST:'İstek sağlayıcıyla uyumsuz',INVALID_RESPONSE:'Geçerli yanıt alınamadı',SERVER:'Sağlayıcı hizmet hatası',CANCELLED:'AI isteği iptal edildi',AI_BUSY:'Bir AI isteği zaten çalışıyor',PROXY_REQUIRED:'NVIDIA için kendi aracı servis adresin gerekli',CONSENT_REQUIRED:'Online aktarım onaylanmadı',DEADLINE:'Toplam AI bekleme süresi doldu',EXHAUSTED:'Yapılandırılmış AI bağlantıları yanıt veremedi'};
+  const MEM=Object.create(null),HEALTH=new Map(),HISTORY=[];
+  const KEY_PREFIX='sukun.ai.key.',LEGACY_ANTH='sukun.aikey';
+  let active=null,lastResult=null,dialog=null,home=null;
+  const $id=id=>document.getElementById(id),now=()=>Date.now();
+  function safeGet(k){try{return String(S.get(k,'')||'')}catch(_){try{return String(localStorage.getItem(k)||'')}catch(_){return''}}}
+  function safeSet(k,v){try{S.set(k,v);return true}catch(_){try{v?localStorage.setItem(k,v):localStorage.removeItem(k);return true}catch(_){return false}}}
+  function error(code,status=0){return Object.assign(new Error(TEXT[code]||TEXT.EXHAUSTED),{code,status})}
+  function valid(id){return ORDER.includes(id)}
+  function getKey(id){if(!valid(id))return'';return String(Object.hasOwn(MEM,id)?MEM[id]:safeGet(KEY_PREFIX+id)||(id==='anthropic'?safeGet(LEGACY_ANTH):'')).trim()}
+  function setKey(id,value,persist=false){if(!valid(id))throw error('INVALID_REQUEST');const v=String(value||'').trim().slice(0,256);MEM[id]=v;
+    const saved=safeSet(KEY_PREFIX+id,persist?v:'');let legacy=true;
+    if(id==='anthropic'){RX_API_KEY=v;legacy=safeSet(LEGACY_ANTH,persist?v:'')}
+    HEALTH.delete(id);if(!saved||!legacy)status('Anahtar oturumda hazır; cihaz depolaması güncellenemedi.');return v;
   }
-  function setKey(id,v,persist){
-    v=String(v||'').trim().slice(0,256);
-    MEM[id]=v;
-    safeSet(KEY_PREFIX+id,persist?v:'');
-    if(id==='anthropic'){RX_API_KEY=v;safeSet(LEGACY_ANTH,persist?v:'')}
-    HEALTH.delete(id);
-    return v;
-  }
+  function getPreferred(){const id=safeGet('sukun.ai.preferred.r941');return valid(id)?id:'auto'}
+  function getProxy(){const s=safeGet('sukun.ai.nvidia.proxy.r941');try{const u=new URL(s);return u.protocol==='https:'&&/^[a-z0-9-]+\.[a-z0-9-]+\.workers\.dev$/i.test(u.hostname)&&u.pathname==='/nvidia'&&!u.username&&!u.password&&!u.search&&!u.hash&&(!u.port||u.port==='443')?u.href:''}catch(_){return''}}
+  function setProxy(value){const old=safeGet('sukun.ai.nvidia.proxy.r941');safeSet('sukun.ai.nvidia.proxy.r941',String(value||'').trim());if(value&&!getProxy()){safeSet('sukun.ai.nvidia.proxy.r941',old);throw error('PROXY_REQUIRED')}return getProxy()}
   function hasAnyKey(){return ORDER.some(id=>!!getKey(id))}
-  function health(id){
-    if(!HEALTH.has(id))HEALTH.set(id,{fails:0,coolUntil:0,authBad:false,last:'',lastOk:0,lastModel:''});
-    return HEALTH.get(id);
+  function health(id){if(!HEALTH.has(id))HEALTH.set(id,{fails:0,coolUntil:0,authBad:false,last:'',lastOk:0,lastModel:'',http:0});return HEALTH.get(id)}
+  function reasonText(e){return TEXT[e?.code]||TEXT.EXHAUSTED}
+  function markFail(id,e){const h=health(id);h.fails++;h.last=e.code||'INVALID_RESPONSE';h.http=Number(e.status)||0;
+    if(e.code==='AUTH'){h.authBad=true;h.coolUntil=Infinity}
+    else if(e.code==='QUOTA')h.coolUntil=now()+(e.retryAfterMs||60000);
+    else h.coolUntil=now()+(e.code==='BILLING'||e.code==='ACCESS'?300000:Math.min(120000,8000*2**Math.min(4,h.fails-1)));
   }
-  function reasonText(e){
-    if(e?.name==='AbortError')return'timeout';
-    if(e?.status)return'HTTP '+e.status;
-    return String(e?.message||e||'hata').slice(0,90);
+  function markOk(id,model){Object.assign(health(id),{fails:0,coolUntil:0,authBad:false,last:'',lastOk:now(),lastModel:model,http:200})}
+  function usable(id){const h=health(id);return !!getKey(id)&&!h.authBad&&h.coolUntil<=now()}
+  function note(id,model,code,http,started){const row={at:now(),provider:id,model:MODELS[id]?.includes(model)?model:'',code,http:Number(http)||0,durationMs:Math.max(0,now()-started)};HISTORY.push(row);if(HISTORY.length>32)HISTORY.shift();try{window.dispatchEvent(new CustomEvent('sukun:airesult',{detail:row}))}catch(_){}}
+  function snapshot(){return {version:'r941',busy:!!active,preferred:getPreferred(),nvidiaProxyConfigured:!!getProxy(),lastResult:lastResult?{...lastResult}:null,providers:ORDER.map(id=>{const h=health(id);return{id,configured:!!getKey(id),code:h.last||'NOT_TESTED',http:h.http,authBad:h.authBad,cooldownMs:Number.isFinite(h.coolUntil)?Math.max(0,h.coolUntil-now()):null,lastOk:h.lastOk,lastModel:h.lastModel}}),recent:HISTORY.map(x=>({...x}))}}
+  async function readBody(r){const cap=524288;if(+r.headers?.get?.('content-length')>cap)throw error('INVALID_RESPONSE');
+    if(!r.body?.getReader){const d=await r.json();if(JSON.stringify(d).length>cap)throw error('INVALID_RESPONSE');return d}
+    const reader=r.body.getReader(),decoder=new TextDecoder();let size=0,text='';
+    try{while(true){const p=await reader.read();if(p.done)break;size+=p.value.byteLength;if(size>cap){await reader.cancel();throw error('INVALID_RESPONSE')}text+=decoder.decode(p.value,{stream:true})}text+=decoder.decode();return JSON.parse(text)}finally{reader.releaseLock()}
   }
-  function markFail(id,e){
-    const h=health(id),st=+e?.status||0;h.fails++;h.last=reasonText(e);
-    if(st===401||st===403){h.authBad=true;h.coolUntil=Infinity}
-    else if(st===429){h.coolUntil=now()+60_000}
-    else if(st>=500||e?.name==='AbortError'||!st){h.coolUntil=now()+Math.min(120_000,8000*Math.pow(2,Math.min(4,h.fails-1)))}
-    else h.coolUntil=now()+12_000;
+  function httpError(r,d){const st=r.status,raw=String(d?.error?.message||d?.message||'');
+    let code=st===401?'AUTH':st===403?'ACCESS':st===402?'BILLING':st===429?'QUOTA':st===404||st===400&&/model.*(not|unsupported|unavailable|deprecated)|(?:unknown|invalid|not found|does not exist).*model/i.test(raw)?'MODEL_UNAVAILABLE':st>=500?'SERVER':'INVALID_REQUEST';
+    const e=error(code,st);if(st===429){const v=r.headers?.get?.('Retry-After'),ms=/^\d+(\.\d+)?$/.test(v||'')?Number(v)*1000:Date.parse(v)-now();e.retryAfterMs=Number.isFinite(ms)&&ms>0?Math.max(1000,ms):60000}return e;
   }
-  function markOk(id,model){const h=health(id);h.fails=0;h.coolUntil=0;h.authBad=false;h.last='';h.lastOk=now();h.lastModel=model}
-  function usable(id){const h=health(id);return !!getKey(id)&&!h.authBad&&!(h.coolUntil&&h.coolUntil>now())}
-  async function timedFetch(url,opt={},ms=16000){
-    const ctrl=new AbortController(),t=setTimeout(()=>ctrl.abort(),ms);
-    try{return await fetch(url,{...opt,signal:ctrl.signal})}finally{clearTimeout(t)}
+  async function request(url,opt,job){
+    if(job.ctrl.signal.aborted)throw error('CANCELLED');const left=job.deadline-now();if(left<=0||job.calls>=8)throw error('DEADLINE');job.calls++;
+    const ctrl=new AbortController();let timer,abortHandler,expired=false;
+    const stop=new Promise((_,reject)=>{abortHandler=()=>{ctrl.abort();reject(error('CANCELLED'))};job.ctrl.signal.addEventListener('abort',abortHandler,{once:true});timer=setTimeout(()=>{expired=true;ctrl.abort();reject(error(left<=16000?'DEADLINE':'TIMEOUT'))},Math.min(16000,left))});
+    try{return await Promise.race([(async()=>{let r;try{r=await fetch(url,{...opt,credentials:'omit',cache:'no-store',redirect:'error',signal:ctrl.signal})}catch(_){if(job.ctrl.signal.aborted)throw error('CANCELLED');if(expired)throw error('TIMEOUT');throw error('NETWORK_OR_CORS')}
+      let d;try{d=await readBody(r)}catch(e){if(!r.ok)throw httpError(r,null);throw error('INVALID_RESPONSE')}
+      if(!r.ok)throw httpError(r,d);return d;
+    })(),stop])}finally{ctrl.abort();clearTimeout(timer);job.ctrl.signal.removeEventListener('abort',abortHandler)}
   }
-  async function readJson(r){
-    const data=await r.json().catch(()=>null);
-    if(!r.ok){const e=new Error(data?.error?.message||data?.message||('HTTP '+r.status));e.status=r.status;e.data=data;throw e}
-    return data;
+  async function callModel(id,model,system,user,maxTokens,job){
+    const key=getKey(id);if(!key)throw error('MISSING_KEY');let url=ENDPOINT[id],headers={'Content-Type':'application/json','Authorization':'Bearer '+key};
+    let body={model,messages:[{role:'system',content:system},{role:'user',content:user}],max_tokens:Math.max(512,maxTokens)};
+    if(id==='nvidia'){url=getProxy();if(!url)throw error('PROXY_REQUIRED');body.max_tokens=4096;if(model==='moonshotai/kimi-k3')body.reasoning_effort='low';else body.temperature=.5}
+    else if(id==='moonshot'){body.max_tokens=model==='kimi-k3'?4096:Math.max(512,maxTokens);if(model==='kimi-k3')body.reasoning_effort='low';else body.thinking={type:'disabled'}}
+    else if(id==='groq'){body.max_tokens=Math.max(2048,maxTokens)}
+    else if(id==='openrouter'){body.max_tokens=Math.max(2048,maxTokens)}
+    else if(id==='gemini'){url='https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(model)+':generateContent';headers={'Content-Type':'application/json','x-goog-api-key':key};body={systemInstruction:{parts:[{text:system}]},contents:[{role:'user',parts:[{text:user}]}],generationConfig:{maxOutputTokens:Math.max(2048,maxTokens),temperature:.65}}}
+    else if(id==='anthropic'){headers={'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};body={model,max_tokens:maxTokens,thinking:{type:'disabled'},system,messages:[{role:'user',content:user}]}}
+    const d=await request(url,{method:'POST',headers,body:JSON.stringify(body)},job);
+    let text=id==='gemini'?(d?.candidates?.[0]?.content?.parts||[]).filter(p=>!p.thought).map(p=>p.text||'').join('\n'):id==='anthropic'?(d?.content||[]).filter(p=>p.type==='text').map(p=>p.text).join('\n'):d?.choices?.[0]?.message?.content;
+    if(typeof text!=='string'||!text.trim()||text.length>60000)throw error('INVALID_RESPONSE');
+    // Reasoning-only payloads never become an answer.
+    text=text.replace(/<think>[\s\S]*?<\/think>/gi,'').trim();if(!text||text.includes('<think>'))throw error('INVALID_RESPONSE');return{text,model};
   }
-  async function callOpenAICompatible(id,base,model,key,system,user,maxTokens,extraHeaders={}){
-    const r=await timedFetch(base,{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,...extraHeaders},
-      body:JSON.stringify({model,messages:[{role:'system',content:system},{role:'user',content:user}],max_tokens:maxTokens,temperature:.65})
-    });
-    const d=await readJson(r);
-    const txt=d?.choices?.[0]?.message?.content;
-    if(!String(txt||'').trim()){const e=new Error('Boş yanıt');e.status=502;throw e}
-    return String(txt).trim();
+  function selectedModels(id){const chosen=safeGet('sukun.ai.model.'+id);return MODELS[id].includes(chosen)?[chosen]:MODELS[id]}
+  async function callProvider(id,system,user,maxTokens,job){let last;
+    for(const model of selectedModels(id)){const started=now();try{const r=await callModel(id,model,system,user,maxTokens,job);markOk(id,model);note(id,model,'OK',200,started);return r}catch(e){note(id,model,e.code||'INVALID_RESPONSE',e.status,started);last=e;if(e.code!=='MODEL_UNAVAILABLE')throw e}}
+    throw last||error('MODEL_UNAVAILABLE');
   }
-  async function callGroq(model,key,system,user,maxTokens){
-    return callOpenAICompatible('groq','https://api.groq.com/openai/v1/chat/completions',model,key,system,user,maxTokens);
-  }
-  async function callOpenRouter(model,key,system,user,maxTokens){
-    return callOpenAICompatible('openrouter','https://openrouter.ai/api/v1/chat/completions',model,key,system,user,maxTokens,{
-      'HTTP-Referer':location.origin&&location.origin!=='null'?location.origin:'https://sukun.local',
-      'X-Title':'SUKUN'
-    });
-  }
-  async function callGemini(model,key,system,user,maxTokens){
-    /* ═══ r510 — G-01: ANAHTAR SORGU DİZESİNDEN BAŞLIĞA TAŞINDI ═══════
-       Diğer üç sağlayıcı anahtarı zaten başlıkta taşıyor; yalnız Gemini
-       URL'de taşıyordu. URL'ler başlıkların sızmadığı yerlere sızar:
-         • performance.getEntriesByType('resource') — sayfadaki HERHANGİ bir
-           script tam URL'yi okuyabilir (script-src 'unsafe-inline' ile
-           bu gerçek bir yüzey)
-         • Service Worker fetch olayı ve Cache Storage anahtarları
-         • Tarayıcı geçmişi, DevTools ağ günlüğü, Referer zincirleri
-       x-goog-api-key Google'ın resmî başlık yoludur. */
-    const url='https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(model)+':generateContent';
-    const r=await timedFetch(url,{
-      method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},
-      body:JSON.stringify({
-        systemInstruction:{parts:[{text:system}]},
-        contents:[{role:'user',parts:[{text:user}]}],
-        generationConfig:{maxOutputTokens:maxTokens,temperature:.65}
-      })
-    });
-    const d=await readJson(r);
-    const txt=(d?.candidates?.[0]?.content?.parts||[]).map(x=>x?.text||'').join('\n').trim();
-    if(!txt){const e=new Error(d?.promptFeedback?.blockReason?'Güvenlik filtresi: '+d.promptFeedback.blockReason:'Boş yanıt');e.status=502;throw e}
-    return txt;
-  }
-  async function callAnthropic(model,key,system,user,maxTokens){
-    const r=await timedFetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({model,max_tokens:maxTokens,thinking:{type:'disabled'},system,messages:[{role:'user',content:user}]})
-    });
-    const d=await readJson(r);
-    if(d?.stop_reason==='refusal'){const e=new Error('Güvenlik nedeniyle yanıtlanmadı');e.status=400;throw e}
-    const txt=(d?.content||[]).filter(x=>x?.type==='text').map(x=>x.text).join('\n').trim();
-    if(!txt){const e=new Error('Boş yanıt');e.status=502;throw e}
-    return txt;
-  }
-  async function callProvider(id,system,user,maxTokens){
-    const key=getKey(id);if(!key)throw Object.assign(new Error('Anahtar yok'),{status:401});
-    let last=null;
-    for(const model of MODELS[id]){
-      try{
-        let text='';
-        if(id==='groq')text=await callGroq(model,key,system,user,maxTokens);
-        else if(id==='openrouter')text=await callOpenRouter(model,key,system,user,maxTokens);
-        else if(id==='gemini')text=await callGemini(model,key,system,user,maxTokens);
-        else text=await callAnthropic(model,key,system,user,maxTokens);
-        markOk(id,model);
-        return{text,model};
-      }catch(e){
-        last=e;
-        /* Model bulunamadı/kapandıysa aynı sağlayıcıdaki sonraki model.
-           Auth/rate/network/5xx ise sağlayıcı fallback zincirine dön. */
-        if(e?.status===404||e?.status===400&&/model|not found|unsupported/i.test(String(e.message||'')))continue;
-        throw e;
-      }
-    }
-    throw last||new Error('Kullanılabilir model yok');
-  }
-  async function complete({system,user,maxTokens=700}={}){
+  function cancel(){active?.ctrl.abort()}
+  function consent(){if(safeGet('sukun.aiConsent.r310'))return true;const ok=confirm('Yazdığın metin ve ilgili uygulama seçimleri, anahtar eklediğin seçili AI sağlayıcılarına gönderilecek. Otomatik sırada yedek sağlayıcı da denenebilir; ücretler hesabına bağlıdır. Devam edilsin mi?');if(ok)safeSet('sukun.aiConsent.r310',1);return ok}
+  async function complete({system='',user='',maxTokens=700,signal,provider}={}){
+    if(active)throw error('AI_BUSY');if(signal?.aborted)throw error('CANCELLED');
+    const chosen=valid(provider)?provider:getPreferred(),ids=chosen==='auto'?ORDER.filter(id=>id!=='nvidia'&&getKey(id)):[chosen];
+    if(!ids.length||!ids.some(id=>getKey(id))){openSettings(TEXT.MISSING_KEY,chosen==='auto'?'':chosen);throw error('MISSING_KEY')}
+    if(!consent())throw error('CONSENT_REQUIRED');if(signal?.aborted)throw error('CANCELLED');
+    const job={ctrl:new AbortController(),deadline:now()+40000,calls:0},relay=()=>job.ctrl.abort();active=job;signal?.addEventListener('abort',relay,{once:true});renderHealth();
     const attempts=[];let fallbacks=0;
-    const keyed=ORDER.filter(id=>!!getKey(id));
-    if(!keyed.length){const e=new Error('Hiç API anahtarı yok');e.attempts=[];throw e}
-    for(const id of ORDER){
-      if(!getKey(id))continue;
-      const h=health(id);
-      if(!usable(id)){attempts.push({id,label:LABEL[id],reason:h.authBad?'anahtar reddedildi':'geçici devre dışı'});continue}
-      try{
-        const r=await callProvider(id,String(system||''),String(user||''),Math.max(64,Math.min(1600,+maxTokens||700)));
-        renderHealth();
-        return{...r,provider:id,providerLabel:LABEL[id],fallbacks};
-      }catch(e){
-        markFail(id,e);fallbacks++;
-        attempts.push({id,label:LABEL[id],reason:reasonText(e)});
-        renderHealth();
-      }
-    }
-    const e=new Error('Tüm AI sağlayıcıları başarısız');e.attempts=attempts;throw e;
-  }
-  function keyInputId(id){return {groq:'aiKeyGroq',openrouter:'aiKeyOpenRouter',gemini:'aiKeyGemini',anthropic:'aiKeyAnthropic'}[id]}
-  function renderHealth(){
-    const host=$id('aiProviderHealth');if(!host)return;
-    host.replaceChildren();
-    for(const id of ORDER){
-      if(!getKey(id))continue;
-      const h=health(id),sp=document.createElement('span');sp.className='aiH';
-      let st='hazır';
-      if(h.authBad){sp.classList.add('bad');st='anahtar reddedildi'}
-      else if(h.coolUntil>now()){sp.classList.add('cool');st='yedekte · '+Math.ceil((h.coolUntil-now())/1000)+' sn'}
-      else if(h.lastOk){sp.classList.add('ok');st='çalışıyor · '+(h.lastModel||'')}
-      sp.textContent=LABEL[id]+': '+st;host.appendChild(sp);
-    }
-  }
-  function status(msg){rxKeyStatusYaz(msg)}
-  async function test(){
-    const btn=$id('aiProvidersTest');if(btn)btn.disabled=true;
-    const out=[];
     try{
-      for(const id of ORDER){
-        if(!getKey(id))continue;
-        if(health(id).authBad){out.push(LABEL[id]+' ✕ anahtar');continue}
-        try{
-          const r=await callProvider(id,'Tek kelimelik bağlantı testi yap.','Sadece TAMAM yaz.',24);
-          out.push(LABEL[id]+' ✓ '+r.model);
-        }catch(e){markFail(id,e);out.push(LABEL[id]+' ✕ '+reasonText(e))}
-        renderHealth();
+      for(const id of ids){if(job.ctrl.signal.aborted)throw error('CANCELLED');if(now()>=job.deadline||job.calls>=8)throw error('DEADLINE');
+        if(!usable(id)){const h=health(id);attempts.push({id,label:LABEL[id],code:h.authBad?'AUTH':h.last||'MISSING_KEY',reason:h.authBad?TEXT.AUTH:h.last?reasonText({code:h.last}):TEXT.MISSING_KEY});continue}
+        try{const r=await callProvider(id,String(system).slice(0,24000),String(user).slice(0,24000),Math.max(64,Math.min(1600,+maxTokens||700)),job);lastResult={provider:id,model:r.model,at:now(),calls:job.calls,code:'OK'};return{...r,provider:id,providerLabel:LABEL[id],fallbacks}}
+        catch(e){if(e.code==='CANCELLED'||e.code==='DEADLINE')throw e;markFail(id,e);fallbacks++;attempts.push({id,label:LABEL[id],reason:reasonText(e),code:e.code});}
       }
-      status(out.length?out.join(' · '):'Henüz AI anahtarı girilmedi.');
-    }finally{if(btn)btn.disabled=false}
+      const e=error(ids.length===1&&attempts[0]?.code?attempts[0].code:'EXHAUSTED');e.attempts=attempts;const fix=ids.find(id=>health(id).authBad);if(fix)openSettings(TEXT.AUTH,fix);else openSettings(attempts.map(a=>a.label+': '+a.reason).join(' · ')+(attempts.some(a=>a.code==='QUOTA')?' · Kota için bekle; yeni anahtar gerekmiyor.':attempts.some(a=>a.code==='NETWORK_OR_CORS')?' · Anahtarı değiştirmeden önce bağlantıyı ve tarayıcı erişimini kontrol et.':''));throw e;
+    }catch(e){lastResult={at:now(),code:e.code||'EXHAUSTED',calls:job.calls};if(!e.attempts)e.attempts=attempts;throw e}
+    finally{signal?.removeEventListener('abort',relay);if(active===job)active=null;renderHealth()}
   }
-  function bindSettings(){
-    const remember=$id('aikeyRemember');
-    let anyPersisted=false;
-    for(const id of ORDER){
-      const inp=$id(keyInputId(id));if(!inp)continue;
-      const cur=getKey(id);if(cur)inp.value=cur;
-      if(safeGet(KEY_PREFIX+id)||(id==='anthropic'&&safeGet(LEGACY_ANTH)))anyPersisted=true;
-    }
-    if(remember)remember.checked=anyPersisted;
-    const save=$id('aiKeysSave');
-    if(save&&!save.__r310){save.__r310=1;save.onclick=()=>{
-      const persist=!!remember?.checked,names=[];
-      for(const id of ORDER){
-        const inp=$id(keyInputId(id));if(!inp)continue;
-        const v=setKey(id,inp.value,persist);if(v)names.push(LABEL[id]);
-      }
-      status(names.length?(persist?'✓ Cihazda saklandı: ':'✓ Bu oturumda hazır: ')+names.join(', '):'AI anahtarları temizlendi. Çevrimdışı motor kullanılacak.');
-      renderHealth();
-    }}
-    const testBtn=$id('aiProvidersTest');
-    if(testBtn&&!testBtn.__r310){testBtn.__r310=1;testBtn.onclick=test}
-    renderHealth();
+  function status(msg){if(typeof rxKeyStatusYaz==='function')rxKeyStatusYaz(msg);else{const el=$id('aikeyStatus');if(el)el.textContent=msg}}
+  function renderHealth(){const host=$id('aiProviderHealth');if(host){host.replaceChildren();for(const id of ORDER){if(!getKey(id))continue;const h=health(id),sp=document.createElement('span');sp.className='aiH';sp.textContent=LABEL[id]+': '+(h.authBad?TEXT.AUTH:h.coolUntil>now()?reasonText({code:h.last})+' · '+Math.ceil((h.coolUntil-now())/1000)+' sn':h.lastOk?'son test başarılı · '+h.lastModel:'test edilmedi');host.appendChild(sp)}}const b=$id('aiProvidersTest');if(b)b.disabled=!!active;const c=$id('aiRequestCancel');if(c)c.disabled=!active;}
+  async function test(id){const chosen=valid(id)?id:getPreferred();const target=chosen==='auto'?ORDER.find(x=>x!=='nvidia'&&usable(x)):chosen;
+    if(!target){openSettings('Test edilebilir anahtar yok; kota bekleme süresini de kontrol et.');return}
+    try{const r=await complete({provider:target,system:'Tek kelimelik bağlantı testi.',user:'Sadece TAMAM yaz.',maxTokens:128});status(r.providerLabel+' ✓ '+r.model)}catch(e){status(reasonText(e))}return snapshot();
   }
-  const API={version:'r310',ORDER,MODELS,LABEL,getKey,setKey,hasAnyKey,complete,test,bindSettings,health,renderHealth};
-  window.SukunAIRouter=API;
-  return API;
+  function bindSettings(){const remember=$id('aikeyRemember');let persisted=false;
+    for(const id of ORDER){const inp=$id(INPUT[id]);if(inp)inp.value=getKey(id);if(safeGet(KEY_PREFIX+id)||(id==='anthropic'&&safeGet(LEGACY_ANTH)))persisted=true;const sel=$id('aiModel-'+id);if(sel)sel.value=MODELS[id].includes(safeGet('sukun.ai.model.'+id))?safeGet('sukun.ai.model.'+id):'auto'}
+    if(remember)remember.checked=persisted;const pref=$id('aiPreferred');if(pref)pref.value=getPreferred();const proxy=$id('aiNvidiaProxy');if(proxy)proxy.value=getProxy();
+    const save=$id('aiKeysSave');if(save)save.onclick=()=>{try{if(active){status(TEXT.AI_BUSY);return}setProxy(proxy?.value||'');const names=[];for(const id of ORDER){const inp=$id(INPUT[id]);if(inp){const v=setKey(id,inp.value,!!remember?.checked);if(v)names.push(LABEL[id])}const s=$id('aiModel-'+id);safeSet('sukun.ai.model.'+id,MODELS[id].includes(s?.value)?s.value:'auto')}
+      safeSet('sukun.ai.preferred.r941',valid(pref?.value)?pref.value:'auto');status(names.length?'Bağlantılar hazır. Test et veya kapatıp AI isteğini yeniden başlat.':'Anahtarlar temizlendi; çevrimdışı düzen kullanılabilir.');renderHealth()}catch(e){status(reasonText(e))}};
+    const testBtn=$id('aiProvidersTest');if(testBtn)testBtn.onclick=()=>test();const stop=$id('aiRequestCancel');if(stop)stop.onclick=cancel;renderHealth();
+  }
+  function closeSettings(){if(dialog?.open)dialog.close()}
+  function openSettings(message='',id=''){
+    const box=$id('aiProvidersBox');if(!box)return false;
+    window.SukunFriendlyUI?.closeTools?.();
+    if(!dialog){dialog=document.createElement('dialog');dialog.id='r941AISettings';dialog.setAttribute('aria-labelledby','r941AITitle');const head=document.createElement('header'),title=document.createElement('h2'),close=document.createElement('button');title.id='r941AITitle';title.textContent='AI bağlantıları';close.type='button';close.textContent='Kapat';close.onclick=closeSettings;head.append(title,close);dialog.append(head);document.body.append(dialog);dialog.addEventListener('close',()=>{if(home?.parentNode){home.parentNode.insertBefore(box,home.nextSibling);home.remove();home=null}})}
+    if(!dialog.open){home=document.createComment('AI settings home');box.parentNode.insertBefore(home,box);dialog.append(box);bindSettings();dialog.showModal()}
+    if(message)status(message);if(valid(id)){$id('aiPreferred').value=id;$id(INPUT[id])?.focus?.()}return true;
+  }
+  function mountTools(){const grid=document.querySelector('#r616ToolsSheet .r616ToolGrid');if(!grid||$id('r941AIOpen'))return !!grid;const b=document.createElement('button');b.type='button';b.id='r941AIOpen';b.className='r616Tool';b.textContent='AI bağlantıları';b.onclick=()=>openSettings();grid.append(b);return true}
+  const API={version:'r941',ORDER,MODELS,LABEL,getKey,setKey,hasAnyKey,complete,test,bindSettings,health,renderHealth,snapshot,cancel,openSettings,closeSettings,mountTools,getProxy,setProxy};
+  window.SukunAIRouter=API;return API;
 })();
 window.SukunAIRouter=SukunAIRouter;
 
@@ -30192,7 +30080,7 @@ Yalnız JSON döndür:
 {"carrier_hz":180,"beat_hz":6,"mode":"binaural","duration_min":20,"ambience":["tam envanter adı"],"zikir":"tam envanter adı veya boş","zikir_reps":33,"explanation":"kısa gerekçe"}
 carrier 40-1000, beat 0.5-80, süre 1-120, mode yalnız binaural/isochronic. Ambiyans ve zikir yalnız verilen envanterden. Tıbbî tedavi/iyileşme vaadi verme.`}
 async function generate(query){
- if(!window.SukunAIRouter?.hasAnyKey?.())throw new Error('AI sağlayıcısı için anahtar yok');
+ // r941: router owns missing-key prompts and bounded request lifecycle.
  const r=await window.SukunAIRouter.complete({system:'SÜKÛN için yapılandırılmış planlayıcısın. Yalnız geçerli JSON üret. Envanter dışı zikir/ambiyans uydurma; tıbbî iddia yapma.',user:prompt(query),maxTokens:650});
  const p=validate(parse(r.text));p.provider=r.providerLabel;p.model=r.model;last=p;render(p);return p
 }
@@ -30261,7 +30149,7 @@ function validateSession(raw){
  return{title:String(raw.title||'AI Çok Aşamalı Seans').slice(0,80),explanation:String(raw.explanation||'').slice(0,1800),steps,warnings}
 }
 async function generateSession(query){
- if(!window.SukunAIRouter?.hasAnyKey?.())throw new Error('AI sağlayıcısı için anahtar yok');
+ // r941: router owns missing-key prompts and bounded request lifecycle.
  const r=await window.SukunAIRouter.complete({system:'SÜKÛN için çok aşamalı seans planlayıcısısın. Yalnız geçerli JSON üret. Envanter dışı zikir, ambiyans veya nefes uydurma. Tıbbî iddia yapma.',user:multiPrompt(query),maxTokens:1100});
  let p=validateSession(parse(r.text));p.provider=r.providerLabel;p.model=r.model;
  p=window.SukunAdaptiveMemory?.personalizePlan?.(p)||p;
@@ -30390,9 +30278,11 @@ async function rxAskAI(state){
 
   const router=window.SukunAIRouter;
   if(!router||!router.hasAnyKey()){
-    box.innerHTML='<div class="rxAIHint">🔑 Online AI için Ayarlar → «AI sağlayıcıları» bölümüne en az bir API anahtarı gir. Groq, OpenRouter, Gemini veya Anthropic kullanılabilir. Hiçbiri yoksa çevrimdışı SÜKÛN düzeni çalışmaya devam eder.</div>';
+    box.innerHTML='<div class="rxAIHint">Online AI için bir sağlayıcı anahtarı ekle. Çevrimdışı düzenin kullanılabilir.</div>';
+    router?.openSettings?.('API anahtarı ekledikten sonra AI düğmesine yeniden dokun.');
     return;
   }
+  if(router.snapshot().busy){window.toast?.('Bir AI isteği zaten çalışıyor');return;}
 
   if(!S.get('sukun.aiConsent.r310',0)){
     const izinMetni='Online açıklama için yazdığın hâl cümlesi ve oluşturulan tefekkür düzeni, kullanılabilir AI sağlayıcılarından birine doğrudan gönderilecek. Sağlayıcı hata verirse sıradaki sağlayıcı denenebilir. Devam edilsin mi?';
@@ -44227,6 +44117,7 @@ async function adaptText(text){
  const {items,idx}=qstate();if(!items.length||idx>=items.length-1)throw new Error('Uyarlanacak kalan adım yok');
  const remaining=items.slice(idx+1).filter(secretSafe);
  if(!window.SukunAIRouter?.hasAnyKey?.()){
+   window.SukunAIRouter?.openSettings?.('Online AI için anahtar ekleyebilirsin. Şimdilik mevcut yerel uyarlama kullanıldı.');
    const n=text.toLocaleLowerCase('tr-TR');
    return applyQuick(n.includes('uyku')?'sleepy':n.includes('yoğun')||n.includes('fazla')?'intense':n.includes('dağınık')||n.includes('odak')?'scattered':'calmer');
  }
@@ -62617,6 +62508,7 @@ function openTools(){
   window.SukunSheetAuthority?.closeAll?.('open-tools');
   const s=$('r616ToolsScrim'),p=$('r616ToolsSheet');if(!s||!p)return;
   window.SukunHealthR940?.mountTools?.();
+  window.SukunAIRouter?.mountTools?.();
   s.hidden=false;p.hidden=false;document.body.classList.add('r616-sheet-open');
   setTimeout(()=>$('r616ToolsClose')?.focus?.(),20);
 }
@@ -76929,7 +76821,7 @@ html[data-r913-context="base"] body.r716-shell>#r717Scene{display:block!importan
 html[data-r913-context="base"] body.r716-shell>#r709SceneArt,html[data-r913-context="base"] body.r716-shell>[data-berhet-scene-layer]{display:none!important;opacity:0!important}
 </style>
 <script id="sukun-r913-build-scene-runtime">/* r916: retired competing visual writer; audio engine unchanged. */window.SukunR913={version:'r916',sync:()=>window.SukunR916Visual?.sync?.()};</script>
-<script src="./assets/runtime/esma-scenes-r923.js?v=r940" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
+<script src="./assets/runtime/esma-scenes-r923.js?v=r941" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
 <script id="sukun-r914-runtime">(()=>{'use strict';
 const R=document.documentElement,A='./assets/berhetiyye-premium/',$=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch(_){return d}};
 const atlas=window.SukunR853Scene.nameScenes,originals=window.SukunR853Scene.files;
@@ -77065,11 +76957,11 @@ prop('--r914-scene','none');attr('r920Performance',profile);new MutationObserver
 </script>
 <svg id="r915Filters" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;pointer-events:none"><defs><filter id="r915BlackAlpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 8 8 8 0 0"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
 
-<script src="./assets/runtime/session-r919.js?v=r940" integrity="sha256-h9QV2flm7pkstjEedYrl7XawO7eC/ZNReaILqUZHydk="></script>
-<script src="./assets/runtime/dock-r920.js?v=r940" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
-<script src="./assets/runtime/wheels-r924.js?v=r940" integrity="sha256-ujpNhskOo017WC6rY+CGUVVVqUlYvu8/1okJGIeZuA0="></script>
-<script src="./assets/runtime/berhet-layout-r938.js?v=r940" integrity="sha256-yCefqhIgWIkdr7XOSm8F676iv97FNFbKQwkX9ig36Z8="></script>
-<script src="./assets/runtime/interface-r920.js?v=r940" integrity="sha256-tU5fBI2rn+y0mffE1iWcQxHlXQhT/mmr8MMcXK+b9+I="></script>
+<script src="./assets/runtime/session-r919.js?v=r941" integrity="sha256-h9QV2flm7pkstjEedYrl7XawO7eC/ZNReaILqUZHydk="></script>
+<script src="./assets/runtime/dock-r920.js?v=r941" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
+<script src="./assets/runtime/wheels-r924.js?v=r941" integrity="sha256-ujpNhskOo017WC6rY+CGUVVVqUlYvu8/1okJGIeZuA0="></script>
+<script src="./assets/runtime/berhet-layout-r938.js?v=r941" integrity="sha256-yCefqhIgWIkdr7XOSm8F676iv97FNFbKQwkX9ig36Z8="></script>
+<script src="./assets/runtime/interface-r920.js?v=r941" integrity="sha256-tU5fBI2rn+y0mffE1iWcQxHlXQhT/mmr8MMcXK+b9+I="></script>
 <script id="sukun-r922-voice-settings-ui">
 (function(){'use strict';
 const $=id=>document.getElementById(id);let mounted=false,raf=0,busy=false,modeError='',discovery=null,discoveryTimer=0;
@@ -77145,8 +77037,8 @@ discoveryTimer=setTimeout(()=>{discovery?.disconnect();discovery=null;},15000);q
 
 </script>
 
-<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r940" integrity="sha256-i5ggo2L/y6Zq/6cJGQmrbdTlbIcjdOlYl8LmfUSNs4Y=">
-<script id="sukun-r933-theme" src="./assets/runtime/berhet-theme-r933.js?v=r940" integrity="sha256-2oO498ir9JwAw6ESkdoMAahITnQsSpIL6ds7elb2tDQ="></script>
-<script id="sukun-r940-health" src="./assets/runtime/health-r940.js?v=r940" integrity="sha256-6aGI3zz+s5jTm6TKsdeictF5Cpdm1f1Ijtxer03oZUU="></script>
+<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r941" integrity="sha256-i5ggo2L/y6Zq/6cJGQmrbdTlbIcjdOlYl8LmfUSNs4Y=">
+<script id="sukun-r933-theme" src="./assets/runtime/berhet-theme-r933.js?v=r941" integrity="sha256-2oO498ir9JwAw6ESkdoMAahITnQsSpIL6ds7elb2tDQ="></script>
+<script id="sukun-r940-health" src="./assets/runtime/health-r940.js?v=r941" integrity="sha256-7n5s3eQrcQPNuu1CXHtuMsZmV8u+4zT/NSXO1DmvoJk="></script>
 </body>
 </html>
