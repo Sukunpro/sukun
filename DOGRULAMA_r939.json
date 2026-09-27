@@ -1,0 +1,434 @@
+{
+  "build": "r939",
+  "base": "r938",
+  "pass": true,
+  "date": "2026-09-27",
+  "scope": "Tefekkürde iç panel kaydırmasının kaldırılması, tek kaydırma yüzeyi ve dokunma/kaydırma uyumu",
+  "checks": {
+    "static-results.json": {
+      "build": "r939",
+      "pass": true,
+      "sealed": true,
+      "inlineScriptsParsed": 242,
+      "externalScriptsParsed": 7,
+      "exactApprovedSourceChangesOnly": true,
+      "approvedSourceFiles": [
+        "assets/runtime/berhet-layout-r938.css",
+        "index.html",
+        "assets/runtime/interface-r920.js"
+      ],
+      "serviceWorkerBehaviorUnchanged": true,
+      "preservedRuntimeAndArtFiles": 161,
+      "duplicateIds": [],
+      "identicalHtml": true,
+      "verifiedRuntimeHashes": 12,
+      "indexSha256": "9aa2249a811b690b57189d8c2dacf6ae547f820f77828ff3b092bf9c855c9200",
+      "swSha256": "ea0522c5f8c1cdc62ab8226808b1941da3157130ba6e89d4e2cf880926478357"
+    },
+    "release-results.json": {
+      "build": "r939",
+      "sealed": true,
+      "indexSha256": "9aa2249a811b690b57189d8c2dacf6ae547f820f77828ff3b092bf9c855c9200",
+      "swSha256": "ea0522c5f8c1cdc62ab8226808b1941da3157130ba6e89d4e2cf880926478357",
+      "pass": true,
+      "results": [
+        {
+          "name": "clean-install-and-all-required-runtime-offline",
+          "pass": true,
+          "detail": {
+            "app": "r939",
+            "sw": "r939",
+            "onlineRuntime": 12,
+            "offline": true,
+            "offlineRuntime": 12,
+            "preserved": {
+              "setting": "kept",
+              "recording": "r939-preserved-recording"
+            },
+            "pageErrors": []
+          }
+        },
+        {
+          "name": "r938-to-r939-one-reload-preserves-user-data",
+          "pass": true,
+          "detail": {
+            "before": {
+              "app": "r938",
+              "sw": "r938"
+            },
+            "after": {
+              "app": "r939",
+              "sw": "r939"
+            },
+            "waiting": "r939",
+            "reloads": 1,
+            "verifiedRuntimes": 12,
+            "preserved": {
+              "setting": "kept",
+              "recording": "r939-preserved-recording"
+            },
+            "pageErrors": []
+          }
+        }
+      ]
+    },
+    "scroll-results.json": {
+      "pass": true,
+      "checks": [
+        {
+          "name": "Single viewport scroll 390",
+          "pass": true,
+          "data": {
+            "tab-zkr": {
+              "x": 10,
+              "y": -96,
+              "w": 370,
+              "h": 844,
+              "scroll": 0,
+              "maxScroll": 279,
+              "overflow": "auto",
+              "position": "relative",
+              "hidden": false
+            },
+            "r920Practice": {
+              "x": 10,
+              "y": -96,
+              "w": 370,
+              "h": 1123.0625,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "relative",
+              "hidden": false
+            },
+            "r938Hero": {
+              "x": 22,
+              "y": -84,
+              "w": 346,
+              "h": 418.0625,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "static",
+              "hidden": false
+            },
+            "r938Panel": {
+              "x": 22,
+              "y": 342.0625,
+              "w": 346,
+              "h": 677,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "static",
+              "hidden": false
+            },
+            "r938PanelBody": {
+              "x": 31,
+              "y": 455.0625,
+              "w": 328,
+              "h": 503,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "static",
+              "hidden": false
+            },
+            "r920TefExit": {
+              "x": 55,
+              "y": 962.0625,
+              "w": 280,
+              "h": 48,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "relative",
+              "hidden": false
+            }
+          }
+        },
+        {
+          "name": "Expanded settings use same page 390",
+          "pass": true
+        },
+        {
+          "name": "Switch swipe cancelled, next tap works 390",
+          "pass": true
+        },
+        {
+          "name": "Plus swipe scrolls without count; next tap counts once 390",
+          "pass": true
+        },
+        {
+          "name": "Collapse and exit reachable 390",
+          "pass": true
+        },
+        {
+          "name": "Esma layout and exit restored",
+          "pass": true
+        },
+        {
+          "name": "Single viewport scroll 320",
+          "pass": true,
+          "data": {
+            "tab-zkr": {
+              "x": 10,
+              "y": -96,
+              "w": 300,
+              "h": 568,
+              "scroll": 0,
+              "maxScroll": 469,
+              "overflow": "auto",
+              "position": "relative",
+              "hidden": false
+            },
+            "r920Practice": {
+              "x": 10,
+              "y": -96,
+              "w": 300,
+              "h": 1037.390625,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "relative",
+              "hidden": false
+            },
+            "r938Hero": {
+              "x": 22,
+              "y": -84,
+              "w": 276,
+              "h": 332.390625,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "static",
+              "hidden": false
+            },
+            "r938Panel": {
+              "x": 22,
+              "y": 256.390625,
+              "w": 276,
+              "h": 677,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "static",
+              "hidden": false
+            },
+            "r938PanelBody": {
+              "x": 31,
+              "y": 369.390625,
+              "w": 258,
+              "h": 503,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "static",
+              "hidden": false
+            },
+            "r920TefExit": {
+              "x": 31,
+              "y": 876.390625,
+              "w": 258,
+              "h": 48,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "relative",
+              "hidden": false
+            }
+          }
+        },
+        {
+          "name": "Expanded settings use same page 320",
+          "pass": true
+        },
+        {
+          "name": "Switch swipe cancelled, next tap works 320",
+          "pass": true
+        },
+        {
+          "name": "Plus swipe scrolls without count; next tap counts once 320",
+          "pass": true
+        },
+        {
+          "name": "Collapse and exit reachable 320",
+          "pass": true
+        },
+        {
+          "name": "Single viewport scroll 844",
+          "pass": true,
+          "data": {
+            "tab-zkr": {
+              "x": 0,
+              "y": 0,
+              "w": 680,
+              "h": 390,
+              "scroll": 0,
+              "maxScroll": 307,
+              "overflow": "auto",
+              "position": "relative",
+              "hidden": false
+            },
+            "r920Practice": {
+              "x": 0,
+              "y": 0,
+              "w": 680,
+              "h": 697,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "relative",
+              "hidden": false
+            },
+            "r938Hero": {
+              "x": 12,
+              "y": 12,
+              "w": 324,
+              "h": 353.578125,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "static",
+              "hidden": false
+            },
+            "r938Panel": {
+              "x": 344,
+              "y": 12,
+              "w": 324,
+              "h": 677,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "static",
+              "hidden": false
+            },
+            "r938PanelBody": {
+              "x": 353,
+              "y": 125,
+              "w": 306,
+              "h": 503,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "static",
+              "hidden": false
+            },
+            "r920TefExit": {
+              "x": 366,
+              "y": 632,
+              "w": 280,
+              "h": 48,
+              "scroll": 0,
+              "maxScroll": 0,
+              "overflow": "visible",
+              "position": "relative",
+              "hidden": false
+            }
+          }
+        },
+        {
+          "name": "Expanded settings use same page 844",
+          "pass": true
+        },
+        {
+          "name": "Switch swipe cancelled, next tap works 844",
+          "pass": true
+        },
+        {
+          "name": "Plus swipe scrolls without count; next tap counts once 844",
+          "pass": true
+        },
+        {
+          "name": "Collapse and exit reachable 844",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "scope": "Mobile Chromium touch gestures; no physical Android hardware claim",
+      "baseline": {
+        "tab-zkr": {
+          "x": 10,
+          "y": 0,
+          "w": 370,
+          "h": 0,
+          "scroll": 0,
+          "maxScroll": 0,
+          "overflow": "visible",
+          "position": "relative",
+          "hidden": false
+        },
+        "r920Practice": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 844,
+          "scroll": 0,
+          "maxScroll": 0,
+          "overflow": "hidden",
+          "position": "fixed",
+          "hidden": false
+        },
+        "r938Hero": {
+          "x": 12,
+          "y": 12,
+          "w": 366,
+          "h": 418.0625,
+          "scroll": 0,
+          "maxScroll": 0,
+          "overflow": "visible",
+          "position": "static",
+          "hidden": false
+        },
+        "r938Panel": {
+          "x": 12,
+          "y": 438.0625,
+          "w": 366,
+          "h": 397.9375,
+          "scroll": 0,
+          "maxScroll": 0,
+          "overflow": "visible",
+          "position": "static",
+          "hidden": false
+        },
+        "r938PanelBody": {
+          "x": 21,
+          "y": 551.0625,
+          "w": 348,
+          "h": 223.9375,
+          "scroll": 0,
+          "maxScroll": 279,
+          "overflow": "auto",
+          "position": "static",
+          "hidden": false
+        },
+        "r920TefExit": {
+          "x": 55,
+          "y": 779,
+          "w": 280,
+          "h": 48,
+          "scroll": 0,
+          "maxScroll": 0,
+          "overflow": "visible",
+          "position": "relative",
+          "hidden": false
+        }
+      },
+      "sealed": true,
+      "indexSha256": "9aa2249a811b690b57189d8c2dacf6ae547f820f77828ff3b092bf9c855c9200",
+      "swSha256": "ea0522c5f8c1cdc62ab8226808b1941da3157130ba6e89d4e2cf880926478357"
+    }
+  },
+  "limitations": [
+    "Fiziksel Android cihazında test yapılmadı; Chromium mobil görünümü kullanıldı.",
+    "Ses motoru, tempo ve kilit ekranı ses işlevleri bu sürümün değişiklik kapsamı değildir.",
+    "Canlı siteye dağıtım yapılmadı. Mevcut kuruluma birleştirilecek toplu güncellemedir."
+  ],
+  "files": {
+    "index.html": "9aa2249a811b690b57189d8c2dacf6ae547f820f77828ff3b092bf9c855c9200",
+    "nero.html": "9aa2249a811b690b57189d8c2dacf6ae547f820f77828ff3b092bf9c855c9200",
+    "sw.js": "ea0522c5f8c1cdc62ab8226808b1941da3157130ba6e89d4e2cf880926478357",
+    "manifest.webmanifest": "87c2a9c10cd01dee8b30227c3935f180bbdb2133f16798626a76301b1aa84126",
+    "sukun-build-r939.json": "b5fa1359adb72dd2dc82c1673fe32c7f81b75d3503fabb3aa8f4273adff22f95"
+  }
+}

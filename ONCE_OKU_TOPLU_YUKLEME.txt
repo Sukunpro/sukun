@@ -1,21 +1,44 @@
-SÜKÛN r938 — Berhetiyye açılır panel ve ferah Tefekkür
+SÜKÛN r939 — TEFEKKÜRDE TEK KAYDIRMA VE DOKUNMA UYUMU
 
-r937 üzerine onaylanan yerleşim uygulandı.
-• Tefekkürde panel kapalı, normal Berhetiyye ekranında açık başlar.
-• Çark panel açılınca yer değiştirmez. Dar/yatay ekrana uyarlanır.
-• −1, başlat/duraklat/devam, +1 ve Tefekkürden Çık erişilebilir kalır.
-• Gezinme, çark/sahne, kayıt, niyet, favori ve mevcut ayarlar paneldedir.
-• Panelin içi kayar; dış sahne görünür kalır. Escape paneli kapatır.
-• Tekil zikrin mevcut sıfırlama onayı korunur; ilerleyen Berhetiyye seyrine onay eklendi.
-• Esmâ düzeni mod değişince geri yüklenir. Gizli bölüm erişim kuralı korunur.
-
-DOĞRULAMA
-390×844, 360×640, 320×568 ve 844×390 tarayıcı ölçüleriyle 38 kontrol geçti.
-Panel, kaydırma, görünüm seçici, ayarlar, tek adım sayma, sıfırlamayı iptal/onay,
-tekrar eden mod geçişleri ve kilit davranışı kontrol edildi.
-Bu kontroller fiziksel Android cihazda kilit ekranı/ses testi yerine geçmez.
-Ses oturumu ve sahne motoru dosyaları değişmedi; runtime SHA256/SRI eşleşmeleri doğrulandı.
+Bu paket r938 temelinde hazırlanmış toplu güncellemedir. Önceki ara
+paketleri sırayla yüklemek gerekmez. Mevcut kurulumun üzerine birleştirilir;
+tarihsel bütün medya arşivini içeren boş kurulum paketi değildir.
 
 YÜKLEME
-ZIP içeriğinin tamamını mevcut uygulama klasörünün üzerine yükleyin.
-Paket dışında kalan mevcut dosyaları silmeyin. Canlı siteye dağıtım yapılmadı.
+1. ZIP içeriğini index.html ve sw.js'nin bulunduğu site köküne yükle.
+2. index.html, nero.html, sw.js, manifest.webmanifest, sukun-build-r939.json,
+   sukun-latest.json, ikonlar, .nojekyll ve assets birlikte yüklenmelidir.
+3. Aynı adlı dosyaları değiştir; assets klasörünü BİRLEŞTİR.
+   Eski medya dosyalarını ve pakette bulunmayan dosyaları silme.
+4. Mümkünse tek commit ile yayımla. Dağıtım bittikten sonra devam eden zikri
+   Bitir ile kapat, ardından normal ekrandaki Güncelle düğmesini kullan.
+5. Sürüm satırında Uygulama r939 / SW r939 görünmelidir.
+
+Site verilerini veya uygulama depolamasını temizleme. Kendi ses kayıtların
+cihaz/tarayıcı/alan adına bağlı yerel depolamada kalır.
+Canlı siteye otomatik dağıtım yapılmadı.
+
+r939 DEĞİŞİKLİKLERİ
+- Açılır kontrol panelinin iç yüksekliği ve bağımsız kaydırma alanı kaldırılır.
+- Tefekkürde çark, panel ve çıkış aynı sayfa akışında yer alır. Dar ekranda
+  veya ayarlar açılınca kutunun içi yerine tek sayfa kayar.
+- Yatay görünüm de aynı sayfa üzerinde iki sütun olarak akar.
+- İlgisiz dokunuşlarda eski kontrolün görünürlük/konum ölçümü yapılmaz.
+- Tefekkür uyanıkken aynı sınıfı tekrar kaldırarak gereksiz DOM güncellemesi
+  yapılmaz. Otomatik odak kapalıyken dokunuş başına oturum özeti okunmaz.
+- Yerel düğmeler, kayıtlar, zikir sayacı ve mevcut çıkış işlevleri korunur.
+
+Yeni taş veya arka plan görseli eklenmez. Sarı topaz Döngü, taşlı kontroller,
+açılır panel ve önceki sürümlerin düzeltmeleri pakette korunur.
+Ses oturumu motoru, tempo motoru ve kilit ekranı ses davranışı bu sürümün
+kapsamı değildir; önceki ses test notları arşivde durur.
+
+DOĞRULAMA
+DOGRULAMA_r939.json test sonuçlarını ve kapsamını, SHA256SUMS.txt bütünlük
+listesini içerir. TELEFON_TESTI_r939.txt kısa cihaz kontrol listesidir.
+Tarayıcı mobil görünümü testleri fiziksel Android dokunma hissi, güç yönetimi
+ve kilit ekranı ses testi yerine geçmez. Her telefonda gecikmenin tamamen
+ortadan kalktığına dair bir iddia yoktur.
+
+NOTLAR_r938_ARSIV.txt ve eski raporlar geçmiş sürümlerin arşividir.
+Güncel paket otoritesi sukun-build-r939.json dosyasıdır.
