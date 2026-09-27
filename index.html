@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 
 <!-- ════════════════════════════════════════════════════════════════
-     SÜKÛN r944 — Sağlamlık ve Akıcılık (base r943)
+     SÜKÛN r945 — Görsel Sahne Seçimi ve Ses Paleti (base r944)
      Tek dosya • Web Audio API (tüm sesler cihazda sentezlenir)
      Binaural Beats + Isochronic Tones + Esmâ/Zikir Modülü
      ════════════════════════════════════════════════════════════════ -->
 <html class="sukun-jewel-r798" lang="tr">
 <head>
-<link rel="stylesheet" href="./assets/runtime/berhet-layout-r938.css?v=r944" integrity="sha256-VxxQgGA4+szbjaLydVe6tFCvf1drTtuFW9WKMO1USfU=">
-<link id="sukun-r933-materials-style" rel="stylesheet" href="./assets/runtime/berhet-materials-r933.css?v=r944" integrity="sha256-S+EKXiMlSkZEF40I5mQXfh2rYnXIsM6BfXv+7b9eKyQ=">
-<link id="sukun-r933-controls-style" rel="stylesheet" href="./assets/runtime/berhet-controls-r933.css?v=r944" integrity="sha256-hSWilSjEkD6VfxQJX3zbZAid9fl/gL4YqlXvR0k0Wjc=">
-<link id="sukun-r933-dock-style" rel="stylesheet" href="./assets/runtime/berhet-dock-r933.css?v=r944" integrity="sha256-DV+h24tq9LXbizGR6eToLqO0eM4GnWeT1KqPcqEQ43Y=">
+<link rel="stylesheet" href="./assets/runtime/berhet-layout-r938.css?v=r945" integrity="sha256-iQtFBUjYR7OkeGqeKH9KVHA4GTakpfuH64J/FIvARY4=">
+<link id="sukun-r933-materials-style" rel="stylesheet" href="./assets/runtime/berhet-materials-r933.css?v=r945" integrity="sha256-S+EKXiMlSkZEF40I5mQXfh2rYnXIsM6BfXv+7b9eKyQ=">
+<link id="sukun-r933-controls-style" rel="stylesheet" href="./assets/runtime/berhet-controls-r933.css?v=r945" integrity="sha256-hSWilSjEkD6VfxQJX3zbZAid9fl/gL4YqlXvR0k0Wjc=">
+<link id="sukun-r933-dock-style" rel="stylesheet" href="./assets/runtime/berhet-dock-r933.css?v=r945" integrity="sha256-DV+h24tq9LXbizGR6eToLqO0eM4GnWeT1KqPcqEQ43Y=">
 <style id="sukun-r920-contract">@layer sukun-r920-contract {
 /* First important layer: each legacy visual has one explicit successor. */
 /* r922: live native voice controls in the shared practice settings. */
@@ -855,11 +855,11 @@ html[data-r853-berhet="1"] body #berhetAtlas .r754SourceJumps button span {font-
 </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r944"/>
+<meta name="sukun-build" content="r945"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com https://api.moonshot.ai https://*.workers.dev; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r944" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r945" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6294,7 +6294,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){/* r922 shared settings owns its label. */if(document.getElementById('r920Practice')?.contains(document.getElementById('r679ZikirAyarBox')))return;if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r944"/><script>window.SUKUN_BUILD='r944';document.documentElement.dataset.sukunBuild='r944';</script>
+<meta name="sukun-build" content="r945"/><script>window.SUKUN_BUILD='r945';document.documentElement.dataset.sukunBuild='r945';</script>
 <style id="sukun-r923-esma-gallery">@layer sukun-r920 {
 #r920Practice #r923EsmaOptions{min-width:0;margin:10px 0}
 #r920Practice #r923EsmaOptions[hidden]{display:none!important}
@@ -7002,10 +7002,11 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <div class="opt"><span><span class="ico" data-ico="vibrate"></span> Titreşim</span><button aria-label="Titreşim" class="sw on" data-tip="Her tesbihte telefon kısaca titrer. Ses açamadığın yerlerde sayacı hissederek takip edersin." id="optVib"></button></div>
 <div class="opt"><span><span class="ico" data-ico="book"></span> Anlamı göster</span><button aria-label="Anlamı göster" class="sw on" data-tip="Zikrin Türkçe anlamını sahnede gösterir. Ne söylediğini bilerek çekmek tefekkürü derinleştirir." id="optMean"></button></div>
 <div class="opt"><span>⏭ Devirde sıradakine geç</span><button aria-label="Devirde sıradakine geç" class="sw" data-tip="Devir dolunca listedeki sıradaki zikre kendiliğinden geçer. Hatim ya da vird çekerken elini boşta bırakır." id="optAdv"></button></div>
-<div class="opt"><span><span class="ico" data-ico="drum"></span> Bendir / davul ritmi — tempoya kilitli düm·tek</span><button aria-label="Bendir usûlü" class="sw" data-tip="Tempoya kilitli bendir usûlü (düm·tek) ekler. Zikri ritme oturtmak isteyenler için." id="optBendir"></button></div>
-<div class="jRow" id="usulRow" style="margin-top:6px"><b style="flex:none;color:var(--mut)">Usûl</b><select aria-label="Bendir usûlü" id="usulSel"><option value="heartbeat">Kalp atımı · tok bas</option><option value="duyek">Düyek (basit)</option><option value="sofyan">Sofyan</option><option value="devrihindi">Devr-i Hindî</option><option value="cifte">Çifte düm·tek</option></select></div>
-<div class="sldRow" id="r928RhythmLevelRow"><label for="r928RhythmLevel">Ritim seviyesi</label><input id="r928RhythmLevel" type="range" min="0" max="1" step="0.01" value="0.75" aria-label="Bendir ve tok bas seviyesi"/><span class="valB" id="r928RhythmLevelValue">%75</span></div>
-<div id="r928RhythmHint" style="font-size:11px;color:var(--mut);line-height:1.5;margin:0 0 8px">Düm vuruşu okuyuşla başlar; ana ses seviyesi ritmi de etkiler.</div>
+<div class="opt"><span><span class="ico" data-ico="drum"></span> Zikre eşlik eden ritim ve Hû tınısı</span><button aria-label="Zikre eşlik eden ritmi aç veya kapat" aria-describedby="r945RhythmHint" class="sw" data-tip="Seçtiğin ritmi sesli zikir başlangıçlarına eşler. Efekti seçmek tek başına sesi açmaz." id="optBendir"></button></div>
+<div class="jRow" id="usulRow" style="margin-top:6px"><b style="flex:none;color:var(--mut)">Ritim</b><select aria-label="Zikir arka plan ritmi" aria-describedby="r945RhythmHint" id="usulSel"><option value="heartbeat">Kalp atımı · tok bas</option><option value="hu">Hû nefesi · sentez</option><option value="huheart">Hû + kalp atımı</option><option value="softdef">Yumuşak def</option><option value="wooden">Ahşap nabız</option><option value="duyek">Düyek (basit)</option><option value="sofyan">Sofyan</option><option value="devrihindi">Devr-i Hindî</option><option value="cifte">Çifte düm·tek</option></select></div>
+<p class="hint" id="r945RhythmHint">Hû, insan kaydı olmayan yumuşak bir sentez tınısıdır. Ritim, her sesli zikir başlangıcına eşlik eder; zikrin hızını veya sayısını değiştirmez. Kilit ekranında devamı cihaz ve tarayıcıya bağlıdır.</p>
+<div class="sldRow" id="r928RhythmLevelRow"><label for="r928RhythmLevel">Ritim seviyesi</label><input id="r928RhythmLevel" type="range" min="0" max="1" step="0.01" value="0.75" aria-label="Zikir arka plan ritmi seviyesi"/><span class="valB" id="r928RhythmLevelValue">%75</span></div>
+<div id="r928RhythmHint" style="font-size:11px;color:var(--mut);line-height:1.5;margin:0 0 8px">Seçilen ritim okuyuşla başlar; ana ses seviyesi ritmi de etkiler.</div>
 <div class="opt" style="margin-top:6px"><span><span class="ico" data-ico="spiral"></span> 8D mekânsal ses — kanallar kulaklıkta çevrende döner</span><button aria-label="8D mekânsal ses" class="sw" id="spatialTgl"></button></div>
 <!-- r119: zikir sonu sesi — çan yerine Hû -->
 <div class="opt" style="display:block">
@@ -7409,7 +7410,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN — Uygulama r944 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN — Uygulama r945 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -10912,6 +10913,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 </div>
 </div>
 </div>
+<script src="./assets/runtime/audio-palette-r945.js?v=r945" integrity="sha256-DfYTHVboafIroBGghDANS7nd3cTUFYnmNDaFBJIAO9E="></script>
 <script id="r514-core-icons-ambience">
 /* ═══════════════════════════════════════════════════════════════════
    r514-core-icons-ambience
@@ -13719,9 +13721,11 @@ AMBIENT_DEFS.push(
 {id:'mahur',kat:'makam',icon:'🎼',name:'Mâhur Taksimi',desc:'Mâhur • açık ve geniş nefesli seyir',cal:.62,wet:.54,build:makamNefes3(MAQAM_PROFILES.mahur)}
 );
 
+/* r945: new ambience uses the existing channel lifecycle; no eager audio start. */
+if(window.SukunAudioPaletteR945)AMBIENT_DEFS.push(...window.SukunAudioPaletteR945.ambientDefinitions(colour=>NOISE.get(colour)));
 /* Aktif kanallar */
 const AMB={};
-const chVol={}; AMBIENT_DEFS.forEach(d=>chVol[d.id]=.5);
+const chVol={}; AMBIENT_DEFS.forEach(d=>chVol[d.id]=d.defaultVolume??.5);
 
 function buildFromUrl(url,E,out){
   const el=new Audio(url); el.loop=true; el.crossOrigin='anonymous';
@@ -16803,6 +16807,7 @@ $$('.tab').forEach((b,i)=>{
    ölçülen tepe genliğe göre ortak bir hedefe (~16) göre yeniden hesaplandı.
    Kullanıcının kendi ses kaydırıcısı bunun üstünde çalışmaya devam eder. */
 const AMB_CATS=[
+ {k:'zemin', t:'✦ Yumuşak Zeminler'},
  {k:'su',    t:'💧 Su & Gökyüzü'},
  {k:'gurultu',t:'📊 Gürültü Renkleri'},
  {k:'doga',  t:'🌿 Kır & Ateş'},
@@ -18432,7 +18437,8 @@ const USULLER={
   duyek:[[0,'D'],[.5,'T'],[.75,'T']],
   sofyan:[[0,'D'],[.5,'T']],
   devrihindi:[[0,'D'],[.375,'T'],[.625,'D'],[.875,'T']],
-  cifte:[[0,'D'],[.25,'T'],[.5,'D'],[.75,'T']]
+  cifte:[[0,'D'],[.25,'T'],[.5,'D'],[.75,'T']],
+  ...(window.SukunAudioPaletteR945?.patterns||{})
 };
 let USUL=S.get('sukun.usul','heartbeat');
 if(!Object.hasOwn(USULLER,USUL))USUL='heartbeat';
@@ -18471,7 +18477,7 @@ function playUsul(isCurrent=()=>true,delaySeconds=0){
     USUL_PENDING=false;
     const seconds=Number(Z.tempo),unit=Number.isFinite(seconds)?Math.min(6,Math.max(.8,seconds)):1,t0=ctx.currentTime+.012+delay;
     const beats=USULLER[USUL]||USULLER.heartbeat;
-    beats.forEach(([off,ty,strength=1])=>{const t=t0+off*unit;if(ty==='D')drumDum(t,strength);else drumTek(t,strength)});
+    beats.forEach(([off,ty,strength=1])=>{const t=t0+off*unit;if(ty==='D')drumDum(t,strength);else if(ty==='T')drumTek(t,strength);else window.SukunAudioPaletteR945?.rhythm({context:ctx,output:r928RhythmBus(),noise:colour=>NOISE.get(colour),track:r925DrumSource,time:t,type:ty,strength,unit})});
     R928_RHYTHM_PULSES++;R928_RHYTHM_LAST={source,pattern:USUL,audioTime:t0,delaySeconds:delay,tempo:unit,beats:beats.length,at:Date.now()};
     window.dispatchEvent(new CustomEvent('sukun:rhythmpulse',{detail:{...R928_RHYTHM_LAST}}));return true;
   };
@@ -18483,7 +18489,7 @@ function playUsul(isCurrent=()=>true,delaySeconds=0){
   }
   return schedule();
 }
-window.SukunRhythm=Object.freeze({version:'r928',
+window.SukunRhythm=Object.freeze({version:'r945',
  voiceStarted(isCurrent=()=>true,source='voice',delaySeconds=0){
   if(!BENDIR||!isCurrent())return false;
   const s=window.SukunSessionState?.snapshot?.();
@@ -45399,6 +45405,7 @@ window.SukunMiniStable={version:'r406',applyInfo,applyNow};
 
 const $=s=>document.querySelector(s);
 const catLabel={
+  zemin:'Yumuşak zeminler',
   su:'Su / yağış',doga:'Doğa',uyku:'Sabit zemin',gurultu:'Gürültü rengi',
   mekan:'Mekân',canli:'Canlı doğa',asmr:'ASMR',sakin:'Sakin tını',
   zikir:'Zikir eşliği',makam:'Makam / taksim',ozel:'Kendi sesi'
@@ -76875,11 +76882,16 @@ html[data-r913-context="base"] body.r716-shell>#r717Scene{display:block!importan
 html[data-r913-context="base"] body.r716-shell>#r709SceneArt,html[data-r913-context="base"] body.r716-shell>[data-berhet-scene-layer]{display:none!important;opacity:0!important}
 </style>
 <script id="sukun-r913-build-scene-runtime">/* r916: retired competing visual writer; audio engine unchanged. */window.SukunR913={version:'r916',sync:()=>window.SukunR916Visual?.sync?.()};</script>
-<script src="./assets/runtime/esma-scenes-r923.js?v=r944" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
+<script src="./assets/runtime/esma-scenes-r923.js?v=r945" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
 <script id="sukun-r914-runtime">(()=>{'use strict';
 const R=document.documentElement,A='./assets/berhetiyye-premium/',$=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch(_){return d}};
 const atlas=window.SukunR853Scene.nameScenes,originals=window.SukunR853Scene.files;
 const files={palace:'scene-01-billur.png',seal:'scene-06-yuzuk.png',wind:'scene-04-teras.png',crystal:'scene-05-kristal.png',night:'scene-07-mor-kristal.png',hudhud:'scene-02-asa.png'};
+// r945: fixed scene choices share the canonical loader; choosing art never selects a zikir name.
+const namedScenes=new Map(atlas.map(scene=>[scene.sceneId,scene]));
+const validBerhetScene=value=>value==='auto'||Object.prototype.hasOwnProperty.call(files,value)||namedScenes.has(value);
+const classicTitles={palace:'Billur Saray',seal:'Mühr-ü Süleyman',wind:'Rüzgâr',crystal:'Billur Geçit',night:'Gece Sarayı',hudhud:'Hüdhüd Yolu'};
+const berhetScenes=Object.freeze([...atlas.map(scene=>Object.freeze({id:scene.sceneId,title:scene.title,name:scene.name,ordinal:scene.ordinal,asset:'./'+scene.runtimeAsset,note:scene.note})),...Object.keys(files).map(id=>Object.freeze({id,title:classicTitles[id],name:'Klasik sahne',asset:'./assets/scenes/mobile-r918/'+files[id].replace(/\.png$/,'.webp'),note:'Sabit arka plan'}))]);
 const wheels={crystal:'wheel-alpha-r915.png',seal:'wheel-seal-r916.svg',pearls:'wheel-pearls-r916.svg'};
 const basePath='./assets/scenes/mobile-r918/mevlevi.webp',baseFallback='./assets/sukun-nur-sanctuary-r757.png';
 const esmaScenes=window.SukunEsmaScenes,esmaById=new Map(esmaScenes.map(s=>[s.id,s]));
@@ -76889,7 +76901,7 @@ if(!esmaPolicy.validChoice(esmaChoice))esmaChoice=esmaPolicy.defaultChoice;
 let activeEsma=null,fallbackLevel=0,sceneRequests=0,requestedFamily='base';
 const esmaScene=(i=Number(safe(()=>zIdx(),NaN)))=>esmaPolicy.resolve(esmaChoice,i);
 let choice=safe(()=>localStorage.getItem('sukun.berhet.background.r918'),'auto')||'auto',wheel=safe(()=>localStorage.getItem('sukun.berhet.wheel.r916'),'crystal')||'crystal',raf=0;
-if(choice!=='auto'&&!files[choice])choice='auto';if(!wheels[wheel])wheel='crystal';
+if(!validBerhetScene(choice))choice='auto';if(!wheels[wheel])wheel='crystal';
 let sceneKey=null,activeScene=null,sceneCSS='none',sceneResolutions=0,sceneLoad='idle',loadToken=0,warmTimer=0,loadedKey=null,resolvedSceneId=null;
 let requestKey=null,paintedCSS='none',paintedId=null,transitionTimer=0,transitionRevision=0,failedLoads=0,cancelledLoads=0,maxPendingLoads=0;
 let profile=safe(()=>localStorage.getItem('sukun.performance.r920'),'balanced')||'balanced';
@@ -76897,7 +76909,7 @@ if(!['cinematic','balanced','saving'].includes(profile))profile='balanced';
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const attr=(k,v)=>{if(R.dataset[k]!==v)R.dataset[k]=v},prop=(k,v)=>{if(R.style.getPropertyValue(k)!==v)R.style.setProperty(k,v)};
 const canonical=i=>Number.isInteger(i)&&i>=0&&i<atlas.length?atlas[i]:null;
-function scenePath(i){const scene=canonical(Number(i));return !scene?null:choice==='auto'?'./'+scene.runtimeAsset:'./assets/scenes/mobile-r918/'+files[choice].replace(/\.png$/,'.webp')}
+function scenePath(i){const scene=canonical(Number(i)),fixed=namedScenes.get(choice);return !scene?null:choice==='auto'?'./'+scene.runtimeAsset:fixed?'./'+fixed.runtimeAsset:'./assets/scenes/mobile-r918/'+files[choice].replace(/\.png$/,'.webp')}
 function sceneFor(i){const path=scenePath(i);return path?`url('${path}')`:'none'}
 const ready=new Set(),pending=new Map();
 function loadImage(path){
@@ -76923,10 +76935,10 @@ function paintScene(css,id){
  safe(()=>dispatchEvent(new CustomEvent('sukun:scenechange',{detail:{sceneId:id,previousSceneId:oldId,sceneLoad,profile}})));
 }
 function requestScene(i,key,visible,esma){
- const token=++loadToken,scene=visible?canonical(i):null,selectedChoice=choice;
- const requestedId=visible?(selectedChoice==='auto'?scene.sceneId:'manual-'+selectedChoice):esma?esma.sceneId:'mevlevi';
+ const token=++loadToken,scene=visible?canonical(i):null,selectedChoice=choice,fixedScene=namedScenes.get(selectedChoice);
+ const requestedId=visible?(selectedChoice==='auto'?scene.sceneId:fixedScene?fixedScene.sceneId:'manual-'+selectedChoice):esma?esma.sceneId:'mevlevi';
  const main=visible?scenePath(i):esma?esma.asset:basePath;
- const paths=[...new Set(visible?[main,selectedChoice==='auto'?'./'+scene.asset:A+files[selectedChoice]]:esma?[main,esma.lite,basePath,baseFallback]:[basePath,baseFallback])];
+ const paths=[...new Set(visible?[main,selectedChoice==='auto'?'./'+scene.asset:fixedScene?'./'+fixedScene.asset:A+files[selectedChoice]]:esma?[main,esma.lite,basePath,baseFallback]:[basePath,baseFallback])];
  const family=visible?'berhet':esma?'esma':'base';
  clearTimeout(warmTimer);cancelExcept(main);sceneLoad='loading';fallbackLevel=0;sceneRequests++;
  // Never leave another family's artwork behind during a delayed load.
@@ -76971,7 +76983,7 @@ function syncScene(on,i,surface,host,esmaOn){
  const wanted=visible?key:activeEsma?'esma:'+activeEsma.id:'base';
  if(wanted!==requestKey){requestKey=wanted;requestScene(i,wanted,visible,activeEsma)}
  attr('r923EsmaScene',activeEsma?.id||'');
- attr('r914Context',visible?'berhet':'base');attr('r917SceneId',activeScene?(choice==='auto'?activeScene.sceneId:'manual-'+choice):'');
+ attr('r914Context',visible?'berhet':'base');attr('r917SceneId',activeScene?(choice==='auto'?activeScene.sceneId:namedScenes.has(choice)?choice:'manual-'+choice):'');
  attr('r918SceneLoad',sceneLoad);sceneStatus();
  if(host){
   // A saved journey preview never chooses a second background independently of the active name.
@@ -76980,7 +76992,7 @@ function syncScene(on,i,surface,host,esmaOn){
   let info=$('r917SceneInfo');
   if(!info){info=document.createElement('details');info.id='r917SceneInfo';info.innerHTML='<summary></summary><small></small><p></p>';host.append(info)}
   const hide=!activeScene||host.dataset.target==='99';if(info.hidden!==hide)info.hidden=hide;
-  if(activeScene&&info.dataset.sceneKey!==sceneKey){info.dataset.sceneKey=sceneKey;info.querySelector('summary').textContent=choice==='auto'?`${activeScene.ordinal}. ${activeScene.name} · ${activeScene.title}`:'Sabit sahne · '+choice;info.querySelector('small').textContent=choice==='auto'?activeScene.layer:'Elle seçilen arka plan';info.querySelector('p').textContent=choice==='auto'?activeScene.note:'İsme bağlı sahneleri izlemek için “İsme göre otomatik” seçeneğini kullan.';}
+  if(activeScene&&info.dataset.sceneKey!==sceneKey){info.dataset.sceneKey=sceneKey;info.querySelector('summary').textContent=choice==='auto'?`${activeScene.ordinal}. ${activeScene.name} · ${activeScene.title}`:'Sabit sahne · '+(namedScenes.get(choice)?.title||classicTitles[choice]||choice);info.querySelector('small').textContent=choice==='auto'?activeScene.layer:'Elle seçilen arka plan';info.querySelector('p').textContent=choice==='auto'?activeScene.note:'İsme bağlı sahneleri izlemek için “İsme göre otomatik” seçeneğini kullan.';}
  }
 }
 function sync(){raf=0;const cat=safe(()=>typeof zKat==='function'?zKat():'',''),on=cat==='berhet'&&safe(()=>window.SukunSecretPolicy?.unlocked?.(),false),i=Number(safe(()=>zIdx(),NaN));
@@ -76997,10 +77009,10 @@ function sync(){raf=0;const cat=safe(()=>typeof zKat==='function'?zKat():'',''),
 }
 function mountMotion(){const body=document.querySelector('#r679ZikirAyarBox>.r679SettingsBody');if(!body||$('r910WheelMotion'))return;const d=document.createElement('div');d.id='r910WheelMotion';d.innerHTML='<label>Çark hareketi <select id="r916Motion"><option value="sync">Zikre senkron</option><option value="flow">Akıcı</option><option value="fast">Hızlı</option></select></label>';d.querySelector('select').value=safe(()=>localStorage.getItem('sukun:r910:wheelMotion'),'sync')||'sync';d.addEventListener('change',e=>{safe(()=>localStorage.setItem('sukun:r910:wheelMotion',e.target.value));queue()});body.prepend(d)}
 function queue(){if(!raf)raf=requestAnimationFrame(sync)}
-function setScene(v){if(v!=='auto'&&!files[v])return false;choice=v;safe(()=>{localStorage.setItem('sukun.berhet.background.r918',v);localStorage.setItem('sukun.berhet.background.r829',v)});queue();return true}
+function setScene(v){if(!validBerhetScene(v))return false;choice=v;safe(()=>{localStorage.setItem('sukun.berhet.background.r918',v);localStorage.setItem('sukun.berhet.background.r829',v)});queue();return true}
 function setEsmaScene(v){if(!esmaPolicy.validChoice(v))return false;esmaChoice=v;safe(()=>localStorage.setItem('sukun.esma.background.r923',v));queue();return true}
 function setWheel(v){if(!wheels[v])return false;wheel=v;safe(()=>localStorage.setItem('sukun.berhet.wheel.r916',v));queue();return true}
-const api=Object.freeze({version:'r927',sync:queue,setScene,setEsmaScene,esmaSceneFor:esmaScene,esmaScenes,setWheel,setProfile,sceneFor,retry:()=>{if(sceneLoad==='error'||fallbackLevel>0){requestKey=null;queue();return true}return false},snapshot:()=>({scene:choice,esmaChoice,esmaScene:esmaScene(),fallbackLevel,sceneRequests,requestedFamily,wheel,profile,context:R.dataset.r914Context,originals:[...originals],activeSceneId:activeEsma?.sceneId||activeScene?.sceneId||null,activeIndex:activeEsma?Number(safe(()=>zIdx(),NaN)):activeScene?.index??null,sceneResolutions,sceneLoad,loadedKey,resolvedSceneId,renderedScene:sceneCSS,pendingLoads:pending.size,maxPendingLoads,failedLoads,cancelledLoads,transitioning:!!R.dataset.r920SceneTransition})});window.SukunSceneEngine=api;window.SukunR920Visual=api;window.SukunR916Visual=api;window.SukunR917Visual=api;window.SukunR918Visual=api;window.SukunR832VisualAuthority=api;window.SukunR829Visuals=api;window.SukunR914=api;window.SukunR910=api;
+const api=Object.freeze({version:'r927',sync:queue,setScene,setEsmaScene,esmaSceneFor:esmaScene,esmaScenes,berhetScenes,setWheel,setProfile,sceneFor,retry:()=>{if(sceneLoad==='error'||fallbackLevel>0){requestKey=null;queue();return true}return false},snapshot:()=>({scene:choice,esmaChoice,esmaScene:esmaScene(),fallbackLevel,sceneRequests,requestedFamily,wheel,profile,context:R.dataset.r914Context,originals:[...originals],activeSceneId:activeEsma?.sceneId||activeScene?.sceneId||null,activeIndex:activeEsma?Number(safe(()=>zIdx(),NaN)):activeScene?.index??null,sceneResolutions,sceneLoad,loadedKey,resolvedSceneId,renderedScene:sceneCSS,pendingLoads:pending.size,maxPendingLoads,failedLoads,cancelledLoads,transitioning:!!R.dataset.r920SceneTransition})});window.SukunSceneEngine=api;window.SukunR920Visual=api;window.SukunR916Visual=api;window.SukunR917Visual=api;window.SukunR918Visual=api;window.SukunR832VisualAuthority=api;window.SukunR829Visuals=api;window.SukunR914=api;window.SukunR910=api;
 ['DOMContentLoaded','pageshow','sukun:domhydrate','sukun:tabchange','sukun:r616viewchange','sukun:zikirchange','sukun:currentzikirchange','sukun:zikirselectionchange','sukun:journey-advance','sukun:tefekkurchange','sukun:secretaccesschange'].forEach(e=>addEventListener(e,queue,{passive:true}));
 document.addEventListener('change',e=>{if(e.target.id==='r829SceneSel')setScene(e.target.value)},{passive:true});
 addEventListener('online',()=>{if(sceneLoad==='error'){requestKey=null;queue()}},{passive:true});
@@ -77011,11 +77023,11 @@ prop('--r914-scene','none');attr('r920Performance',profile);new MutationObserver
 </script>
 <svg id="r915Filters" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;pointer-events:none"><defs><filter id="r915BlackAlpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 8 8 8 0 0"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
 
-<script src="./assets/runtime/session-r919.js?v=r944" integrity="sha256-h9QV2flm7pkstjEedYrl7XawO7eC/ZNReaILqUZHydk="></script>
-<script src="./assets/runtime/dock-r920.js?v=r944" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
-<script src="./assets/runtime/wheels-r924.js?v=r944" integrity="sha256-ujpNhskOo017WC6rY+CGUVVVqUlYvu8/1okJGIeZuA0="></script>
-<script src="./assets/runtime/berhet-layout-r938.js?v=r944" integrity="sha256-yCefqhIgWIkdr7XOSm8F676iv97FNFbKQwkX9ig36Z8="></script>
-<script src="./assets/runtime/interface-r920.js?v=r944" integrity="sha256-J7Bni8YGoryJpb/CpFru+/QUZceyHwhQA07mgcRnJDU="></script>
+<script src="./assets/runtime/session-r919.js?v=r945" integrity="sha256-h9QV2flm7pkstjEedYrl7XawO7eC/ZNReaILqUZHydk="></script>
+<script src="./assets/runtime/dock-r920.js?v=r945" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
+<script src="./assets/runtime/wheels-r924.js?v=r945" integrity="sha256-ujpNhskOo017WC6rY+CGUVVVqUlYvu8/1okJGIeZuA0="></script>
+<script src="./assets/runtime/berhet-layout-r938.js?v=r945" integrity="sha256-yCefqhIgWIkdr7XOSm8F676iv97FNFbKQwkX9ig36Z8="></script>
+<script src="./assets/runtime/interface-r920.js?v=r945" integrity="sha256-J7Bni8YGoryJpb/CpFru+/QUZceyHwhQA07mgcRnJDU="></script>
 <script id="sukun-r922-voice-settings-ui">
 (function(){'use strict';
 const $=id=>document.getElementById(id);let mounted=false,raf=0,busy=false,modeError='',discovery=null,discoveryTimer=0;
@@ -77095,10 +77107,12 @@ discoveryTimer=setTimeout(()=>{discovery?.disconnect();discovery=null;},15000);q
 
 </script>
 
-<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r944" integrity="sha256-i5ggo2L/y6Zq/6cJGQmrbdTlbIcjdOlYl8LmfUSNs4Y=">
-<script id="sukun-r933-theme" src="./assets/runtime/berhet-theme-r933.js?v=r944" integrity="sha256-2oO498ir9JwAw6ESkdoMAahITnQsSpIL6ds7elb2tDQ="></script>
-<link rel="stylesheet" href="./assets/runtime/health-view-r943.css?v=r944" integrity="sha256-k0xodZIkCc54Ib372RXS2Yc4fqBFvKhmGr0UYokiFD4=">
-<script id="sukun-r943-health-view" src="./assets/runtime/health-view-r943.js?v=r944" integrity="sha256-AW5WsWRPw1Cn86tBQ2jczQxaG/BvaLz+SNhkgsG15Q4="></script>
-<script id="sukun-r940-health" src="./assets/runtime/health-r940.js?v=r944" integrity="sha256-0t/bA85bYbcHvYG/cv54iuFrpR+I6i1kxxgodfFc4Hc="></script>
+<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r945" integrity="sha256-i5ggo2L/y6Zq/6cJGQmrbdTlbIcjdOlYl8LmfUSNs4Y=">
+<script id="sukun-r933-theme" src="./assets/runtime/berhet-theme-r933.js?v=r945" integrity="sha256-2oO498ir9JwAw6ESkdoMAahITnQsSpIL6ds7elb2tDQ="></script>
+<link rel="stylesheet" href="./assets/runtime/health-view-r943.css?v=r945" integrity="sha256-k0xodZIkCc54Ib372RXS2Yc4fqBFvKhmGr0UYokiFD4=">
+<script id="sukun-r943-health-view" src="./assets/runtime/health-view-r943.js?v=r945" integrity="sha256-AW5WsWRPw1Cn86tBQ2jczQxaG/BvaLz+SNhkgsG15Q4="></script>
+<link rel="stylesheet" href="./assets/runtime/scene-picker-r945.css?v=r945" integrity="sha256-tgW/XsT8jFhyborqTjGMz5nDaNNrknS7IgaXR8F/cvE=">
+<script src="./assets/runtime/scene-picker-r945.js?v=r945" integrity="sha256-xxZVvhdyNPZCyAiAr1NybmS+rGbLCHxeKdycxw3YooM="></script>
+<script id="sukun-r940-health" src="./assets/runtime/health-r940.js?v=r945" integrity="sha256-0t/bA85bYbcHvYG/cv54iuFrpR+I6i1kxxgodfFc4Hc="></script>
 </body>
 </html>
