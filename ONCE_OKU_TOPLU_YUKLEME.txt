@@ -1,40 +1,4 @@
-SÜKÛN r936 — TEFEKKÜR ALT ÇIKIŞ KONTROLÜ
-
-Bu paket r935 temelinde hazırlanmış toplu güncellemedir. Önceki ara
-paketleri sırayla yüklemek gerekmez. Mevcut kurulumun üzerine birleştirilir;
-tarihsel bütün medya arşivini içeren boş kurulum paketi değildir.
-
-YÜKLEME
-1. ZIP içeriğini index.html ve sw.js'nin bulunduğu site köküne yükle.
-2. index.html, nero.html, sw.js, manifest.webmanifest, sukun-build-r936.json,
-   sukun-latest.json, ikonlar, .nojekyll ve assets birlikte yüklenmelidir.
-3. Aynı adlı dosyaları değiştir; assets klasörünü BİRLEŞTİR.
-   Eski medya dosyalarını ve pakette bulunmayan dosyaları silme.
-4. Mümkünse tek commit ile yayımla. Dağıtım bittikten sonra devam eden zikri
-   Bitir ile kapat, ardından normal ekrandaki Güncelle düğmesini kullan.
-5. Sürüm satırında Uygulama r936 / SW r936 görünmelidir.
-
-Site verilerini veya uygulama depolamasını temizleme. Kendi ses kayıtların
-cihaz/tarayıcı/alan adına bağlı yerel depolamada kalır.
-Canlı siteye otomatik dağıtım yapılmadı.
-
-r936 DEĞİŞİKLİĞİ
-- Tefekkür görünümünde Güncellemeyi kontrol et eylemi gizlenir.
-- Tefekkürden Çık kontrolü alt bölümde, ortalanmış biçimde yer alır.
-- Normal ekrandaki güncelleme işlevi korunur.
-- Önceki kompakt Niyet / Favori / Nasıl düzeni ve Döngü'nün sarı topaz
-  görünümü korunur; yeni taş görseli eklenmez.
-- Mevcut çıkış eylemi ve zikir oturumu davranışı korunur. Çıkış, zikri
-  yeniden başlatma veya durdurma komutuna dönüştürülmez.
-
-Bu sürüm ses motorunu, tempoyu, sayacı ve kayıt akışını değiştirmez.
-Mini/midi/max alternatifleri bu pakete uygulanmış yeni bir tasarım değildir;
-mevcut r933 akış görünümü korunur.
-
-DOGRULAMA_r936.json test sonuçlarını ve kapsamını, SHA256SUMS.txt bütünlük
-listesini içerir. TELEFON_TESTI_r936.txt kısa cihaz kontrol listesidir.
-Fiziksel Android kilit ekranı testi yapılmadı. Bu küçük arayüz düzenlemesi
-önceki cihaz kapanması veya ses sorunları için yeni bir düzeltme iddiası taşımaz.
-
-NOTLAR_r935_ARSIV.txt ve daha eski raporlar geçmiş sürümlerin arşividir.
-Güncel paket otoritesi sukun-build-r936.json dosyasıdır.
+SÜKÛN r937 — r936 üzerine Hedef/Kalan hizalama düzeltmesi.
+Paketin tamamını mevcut uygulama klasörünün üzerine yükleyin; mevcut diğer dosyaları silmeyin.
+Başlık ve değerler taşın merkezinde daha sıkı bir grup oluşturur.
+Ses, sayaç ve oynatma kodu değiştirilmedi.
