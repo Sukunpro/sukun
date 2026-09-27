@@ -33,7 +33,7 @@
     while (rows.length < 6 && (hit = re.exec(stack))) rows.push({ file:path(hit[1]),line:Number(hit[2]),column:Number(hit[3]) });
     return rows;
   }
-  const historicKeys = new Set('at seq kind code severity title certainty firstAt lastAt occurrences eventSeq context evidence hidden session tempo truth sw lock phase mode index count target epoch requestId journey owner source reason tefekkur dualJourney audioIssues state tangible pending life hub issues app controller waiting hasController complete error value previous cancelledGestures pendingGesture active playing frozen cycleMs mediaProgressMs lastProgressAgeMs stalls overshootCycles applied name file line column frames asset tag lagMs thresholdMs elapsedMs checkpointAt scope build online previousCheckpoint bytes lastEvent measuredAt snapshot type phaseMs rep limit cycles remaining delay wraps remainMs'.split(' '));
+  const historicKeys = new Set('at seq kind code severity title certainty firstAt lastAt occurrences eventSeq context evidence hidden session tempo truth sw lock phase mode index count target epoch requestId journey owner source reason tefekkur dualJourney audioIssues state tangible pending life hub issues app controller waiting hasController complete error value previous cancelledGestures pendingGesture active playing frozen cycleMs mediaProgressMs lastProgressAgeMs stalls overshootCycles applied name file line column frames asset tag lagMs thresholdMs elapsedMs checkpointAt scope build online previousCheckpoint bytes lastEvent measuredAt snapshot type phaseMs rep limit cycles remaining delay wraps remainMs provider model http durationMs'.split(' '));
   function historic(value, depth = 0) {
     if (depth > 5 || value == null) return null;
     if (typeof value === 'boolean') return value;
@@ -197,6 +197,8 @@
     }
     if (fx) out.push(status('BACKGROUND_FX', fx.fallbackActive ? 'WARN' : 'OBSERVED', 'Kayıt yankı / 8D yolu', fx,
       'Fallback tap yolu ekran kilidinde kısıtlanabilir; hazırlanmış baked kayıt yolu ve kaynak bütçesi incelenmelidir.'));
+    const ai = safe(() => window.SukunAIRouter?.snapshot?.());
+    if (ai) out.push(status('AI_CONNECTIONS', ai.lastResult?.code === 'OK' ? 'OBSERVED' : ai.lastResult?.code && !['CANCELLED','MISSING_KEY','CONSENT_REQUIRED'].includes(ai.lastResult.code) ? 'WARN' : 'NOT_MEASURED', 'AI bağlantıları (anahtarsız tanı)', ai, 'AUTH: anahtarı düzeltin. QUOTA: kota süresini bekleyin. ACCESS/BILLING: sağlayıcı hesabını kontrol edin. NETWORK_OR_CORS: bağlantı veya tarayıcı erişimi. NVIDIA için kendi aracı servisiniz gerekir. Sağlık denetimi AI isteği göndermez.'));
     return out.concat(checks);
   }
   function read() {
@@ -385,6 +387,7 @@
   loadPrevious(); record('boot', { build, online: navigator.onLine !== false, previousCheckpoint: !!previous });
   sampleTempo(); const initial = safe(() => window.SukunSessionState?.peek?.()); if(initial) sessionEvent({detail:initial}); persist('boot');
   window.addEventListener('sukun:sessionchange', sessionEvent, {passive:true});
+  window.addEventListener('sukun:airesult', e => { const d=e.detail||{}; record('ai-request', {provider:token(d.provider),model:token(d.model),code:token(d.code),http:finite(d.http),durationMs:finite(d.durationMs)}); }, {passive:true});
   window.addEventListener('sukun:audiotruthchange', e => { truth = compactTruth(e.detail); }, {passive:true});
   window.addEventListener('sukun:swstate', e => { sw = compactSW(e.detail); record('sw', sw); }, {passive:true});
   window.addEventListener('sukun:lockjourneyv2', e => {
