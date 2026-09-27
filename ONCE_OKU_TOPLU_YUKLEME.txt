@@ -1,38 +1,36 @@
-SÜKÛN r941 — AI SAĞLAYICILARI VE GÜVENLİ ANAHTAR AKIŞI
+SÜKÛN r942 — KLASİK PANELDE SİSTEM SAĞLIĞI
 
-Bu paket r940 temelinde hazırlanmış toplu güncellemedir. Önceki ara
+Bu paket r941 temelinde hazırlanmış toplu güncellemedir. Önceki ara
 paketleri sırayla yüklemek gerekmez. Mevcut kurulumun üzerine birleştirilir;
 tarihsel bütün medya arşivini içeren boş kurulum paketi değildir.
 
 YÜKLEME
 1. ZIP içeriğini index.html ve sw.js'nin bulunduğu site köküne yükle.
-2. index.html, nero.html, sw.js, manifest.webmanifest, sukun-build-r941.json,
+2. index.html, nero.html, sw.js, manifest.webmanifest, sukun-build-r942.json,
    sukun-latest.json, ikonlar, .nojekyll ve assets birlikte yüklenmelidir.
 3. Aynı adlı dosyaları değiştir; assets klasörünü BİRLEŞTİR.
    Eski medya dosyalarını ve pakette bulunmayan dosyaları silme.
 4. Mümkünse tek commit ile yayımla. Dağıtım bittikten sonra devam eden zikri
    Bitir ile kapat, ardından normal ekrandaki Güncelle düğmesini kullan.
-5. Sürüm satırında Uygulama r941 / SW r941 görünmelidir.
+5. Sürüm satırında Uygulama r942 / SW r942 görünmelidir.
 
 Site verilerini veya uygulama depolamasını temizleme. Kendi ses kayıtların
 cihaz/tarayıcı/alan adına bağlı yerel depolamada kalır.
 Canlı siteye otomatik dağıtım yapılmadı.
 
-r941 DEĞİŞİKLİKLERİ
-- Altı sağlayıcı: OpenRouter, Groq, Gemini, Kimi/Moonshot, Anthropic ve elle seçilen NVIDIA geliştirici denemesi.
-- Araçlar menüsünde AI bağlantıları; sağlayıcı/model seçimi, eksik veya reddedilen anahtar için giriş ekranı, oturumluk veya isteğe bağlı cihazda saklama.
-- NVIDIA CORS kısıtı için kurulabilir kullanıcıya ait Worker şablonu integration klasöründe; henüz yayımlanmış bir servis değildir.
-- İstek gövdesi dahil zaman sınırı, toplam 40 saniye / 8 deneme tavanı, iptal, tek etkin AI isteği, kota bekleme süresine uyma.
-- Sistem sağlığı raporunda anahtarsız AI hata kodu, sağlayıcı, model ve süre; önceki oturumdan olay geçmişi korunur.
-- Mevcut görseller, sesler, sayaç çekirdeği ve kullanıcı kayıtları korunur.
+r942 DEĞİŞİKLİKLERİ
+- Yüzüğe dokuz kez dokunulduğunda açılan Diagnostics panelinin en altında Sistem sağlığı bölümü.
+- Aynı bölümde Sağlık denetimini çalıştır, JSON Rapor ve Sorun şimdi oldu düğmeleri.
+- Tek sağlık paneli yeniden kullanılır; açılışta test veya ağ isteği başlatılmaz, ses/tempo/sayaç komutu gönderilmez.
+- Mobilde sağlık sonuçlarının dar sütunlara sıkışması engellendi; panel içinde ek kaydırma kutusu oluşturulmadı.
+- Sade/Odak Araçlar erişimi korunur; uygulama, SW, manifest ve çalışma dosyası özetleri r942 olarak birlikte güncellenir.
 
 DOĞRULAMA
-DOGRULAMA_r941.json sonuçları ve kapsamını, SHA256SUMS.txt bütünlük
-listesini içerir. TELEFON_TESTI_r941.txt kısa cihaz kontrol listesidir.
-- Gerçek sağlayıcı API anahtarıyla canlı üretim isteği, sağlayıcı kotası ve tarayıcı CORS davranışı bu paketin otomatik testlerinde doğrulanmış sayılmaz.
-- Ücretsiz kullanım sağlayıcının güncel kota, deneme kredisi ve hesap koşullarına bağlıdır; açık kaynak model ücretsiz barındırılan API anlamına gelmez.
-- VM testleri gerçek kaynak kodunu yalıtılmış ağ/önbellek taklitleriyle denetler; gerçek tarayıcı kurulumu veya fiziksel Android kilit ekranı, ses, bellek baskısı ve kapanma testi değildir.
-- Canlı siteye dağıtım yapılmadı. Paket, mevcut kuruluma birleştirilecek toplu güncellemedir.
+DOGRULAMA_r942.json sonuçları ve kapsamını, SHA256SUMS.txt bütünlük
+listesini içerir. TELEFON_TESTI_r942.txt kısa cihaz kontrol listesidir.
+- DOM/VM testleri gerçek kaynak kodunu yalıtılmış ortamda denetler; gerçek tarayıcı veya fiziksel telefon görünümü ve dokunma testi değildir.
+- Fiziksel Android kilit ekranı, ses, bellek baskısı ve işletim sistemi kapanma testi yapılmadı.
+- Canlı siteye dağıtım yapılmadı. Paket mevcut kuruluma birleştirilmelidir.
 
 Önceki raporlar ve test notları geçmiş sürümlerin arşividir.
-Güncel paket otoritesi sukun-build-r941.json dosyasıdır.
+Güncel paket otoritesi sukun-build-r942.json dosyasıdır.

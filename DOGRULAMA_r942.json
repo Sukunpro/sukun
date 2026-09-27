@@ -1,0 +1,284 @@
+{
+  "build": "r942",
+  "base": "r941",
+  "pass": true,
+  "date": "2026-09-27",
+  "scope": "r941 temelinde Klasik düzenin yüzüğe dokuz kez dokunularak açılan tanılama paneline Sistem sağlığı eklenmesi.",
+  "changes": [
+    "Yüzüğe dokuz kez dokunulduğunda açılan Diagnostics panelinin en altında Sistem sağlığı bölümü.",
+    "Aynı bölümde Sağlık denetimini çalıştır, JSON Rapor ve Sorun şimdi oldu düğmeleri.",
+    "Tek sağlık paneli yeniden kullanılır; açılışta test veya ağ isteği başlatılmaz, ses/tempo/sayaç komutu gönderilmez.",
+    "Mobilde sağlık sonuçlarının dar sütunlara sıkışması engellendi; panel içinde ek kaydırma kutusu oluşturulmadı.",
+    "Sade/Odak Araçlar erişimi korunur; uygulama, SW, manifest ve çalışma dosyası özetleri r942 olarak birlikte güncellenir."
+  ],
+  "checks": {
+    "static-results.json": {
+      "build": "r942",
+      "pass": true,
+      "sealed": true,
+      "inlineScriptsParsed": 242,
+      "externalScriptsParsed": 8,
+      "exactApprovedSourceChangesOnly": true,
+      "approvedSourceFiles": [
+        "index.html",
+        "assets/runtime/health-r940.js",
+        "nero.html"
+      ],
+      "serviceWorkerApprovedSourceOnly": true,
+      "preservedRuntimeAndArtFiles": 163,
+      "duplicateIds": [],
+      "identicalHtml": true,
+      "verifiedRuntimeHashes": 13,
+      "indexSha256": "78f5f2b4745a1c7a944e895a80b6a2bb17a4282e638196f00b88f614d6169e1d",
+      "swSha256": "b7bae3e53caed86db2b9ec053d74046b91ec3eb99c47c69ab542a561cc627435"
+    },
+    "release-results.json": {
+      "build": "r942",
+      "base": "r941",
+      "pass": true,
+      "sealed": true,
+      "indexSha256": "78f5f2b4745a1c7a944e895a80b6a2bb17a4282e638196f00b88f614d6169e1d",
+      "swSha256": "b7bae3e53caed86db2b9ec053d74046b91ec3eb99c47c69ab542a561cc627435",
+      "testEnvironment": "Node VM; real service-worker source, in-memory cache/network; no browser lifecycle emulation claim",
+      "limitations": [
+        "Real browser install/update lifecycle and IndexedDB persistence were not tested by this harness.",
+        "Physical Android lock-screen audio, memory pressure and process termination were not tested."
+      ],
+      "results": [
+        {
+          "name": "complete-install-verifies-every-required-runtime",
+          "pass": true,
+          "evidence": {
+            "build": "r942",
+            "verifiedRuntime": 13,
+            "optionalArtRequired": false
+          }
+        },
+        {
+          "name": "verified-runtime-and-shell-remain-available-offline",
+          "pass": true,
+          "evidence": {
+            "offlineRuntime": 13,
+            "offlineShell": "r942"
+          }
+        },
+        {
+          "name": "bad-new-runtime-blocks-install-and-preserves-previous-release",
+          "pass": true,
+          "evidence": {
+            "failedBuild": "r942",
+            "fallbackBuild": "r941",
+            "installError": "./assets/runtime/health-r940.js?v=r942: sürüm veya SHA-256 uyuşmazlığı",
+            "previousCachePreserved": true
+          }
+        },
+        {
+          "name": "corrupt-cached-runtime-is-detected-and-repaired-by-hash",
+          "pass": true,
+          "evidence": {
+            "tamperedUrl": "./assets/runtime/health-r940.js?v=r942",
+            "repairVerified": true
+          }
+        },
+        {
+          "name": "worker-never-serves-older-runtime-to-newer-document",
+          "pass": true,
+          "evidence": {
+            "requestedBuild": "r943",
+            "workerBuild": "r942",
+            "type": "error"
+          }
+        },
+        {
+          "name": "incomplete-worker-refuses-skip-waiting",
+          "pass": true,
+          "evidence": {
+            "reply": {
+              "ok": false,
+              "v": "r942",
+              "complete": false,
+              "error": "release incomplete"
+            },
+            "skipped": 0
+          }
+        },
+        {
+          "name": "activation-preserves-one-previous-cache-and-unrelated-storage",
+          "pass": true,
+          "evidence": {
+            "remainingCaches": [
+              "sukun-r942-health-access-20260927-v1",
+              "sukun-r941-old",
+              "other-app-cache"
+            ],
+            "clientClaimed": true
+          }
+        },
+        {
+          "name": "quota-failure-cannot-report-complete-release",
+          "pass": true,
+          "evidence": {
+            "complete": false,
+            "claimed": 0
+          }
+        }
+      ]
+    },
+    "health-vm-results.json": {
+      "build": "r942",
+      "pass": true,
+      "sealed": true,
+      "passed": 27,
+      "total": 27,
+      "testEnvironment": "Node VM; real health runtime with metadata-only stubs; no live API, browser, or device test",
+      "results": [
+        {
+          "name": "peek initializes cached state and read never calls mutating snapshots",
+          "ok": true
+        },
+        {
+          "name": "only diagnostic own storage key touched",
+          "ok": true
+        },
+        {
+          "name": "runtime initialization is idempotent",
+          "ok": true
+        },
+        {
+          "name": "error evidence contains pinpoint location and excludes text/query",
+          "ok": true
+        },
+        {
+          "name": "unhandled Promise has sanitized stack",
+          "ok": true
+        },
+        {
+          "name": "resource error strips private URL query",
+          "ok": true
+        },
+        {
+          "name": "bounded record and incident flood",
+          "ok": true
+        },
+        {
+          "name": "hidden tempo identifies source",
+          "ok": true
+        },
+        {
+          "name": "visibility stops timer, return cannot become false stall",
+          "ok": true
+        },
+        {
+          "name": "genuine foreground progress absence gets uncertain warning",
+          "ok": true
+        },
+        {
+          "name": "read-only run leaves count untouched and zero device voices not appfail",
+          "ok": true
+        },
+        {
+          "name": "previous unclean classified possible with pinpoint metadata preserved",
+          "ok": true
+        },
+        {
+          "name": "malformed previous arrays do not break boot",
+          "ok": true
+        },
+        {
+          "name": "deep integrity match",
+          "ok": true
+        },
+        {
+          "name": "deep integrity mismatch",
+          "ok": true
+        },
+        {
+          "name": "deep integrity malformed",
+          "ok": true
+        },
+        {
+          "name": "real lock transport event keeps partial evidence without fabricated playing",
+          "ok": true
+        },
+        {
+          "name": "quality decode failure retains code and bytes only",
+          "ok": true
+        },
+        {
+          "name": "repeated issue latest evidence uses latest context",
+          "ok": true
+        },
+        {
+          "name": "sequential cheap runs release promise lock",
+          "ok": true
+        },
+        {
+          "name": "malformed optional provider is caught as incomplete collection",
+          "ok": true
+        },
+        {
+          "name": "oversized checkpoint trims oldest metadata instead of silent failure",
+          "ok": true
+        },
+        {
+          "name": "AI_CONNECTIONS uses metadata snapshot without network, playback, or live AI requests",
+          "ok": true
+        },
+        {
+          "name": "AI error categories distinguish remediation from unmeasured requests",
+          "ok": true
+        },
+        {
+          "name": "AI result event retains only bounded technical fields and drops sensitive payload",
+          "ok": true
+        },
+        {
+          "name": "AI checkpoint restores provider model HTTP and duration without sensitive payload",
+          "ok": true
+        },
+        {
+          "name": "unavailable AI snapshot cannot break health or produce a false connection pass",
+          "ok": true
+        }
+      ],
+      "indexSha256": "78f5f2b4745a1c7a944e895a80b6a2bb17a4282e638196f00b88f614d6169e1d",
+      "swSha256": "b7bae3e53caed86db2b9ec053d74046b91ec3eb99c47c69ab542a561cc627435"
+    },
+    "classic-health-results.json": {
+      "pass": true,
+      "sealed": true,
+      "build": "r942",
+      "status": "PASS",
+      "tests": 9,
+      "scenarios": [
+        "unauthorized direct diagnostics open cannot create or mount UI",
+        "actual ring handler opens diagnostics only at nine activations",
+        "classic mode mounts one health panel in the final diagnostics section",
+        "close and reauthorize preserves overflow and reuses the same panel",
+        "health absent: diagnostics remains usable with visible fallback",
+        "health noop: diagnostics remains usable with visible fallback",
+        "health throw: diagnostics remains usable with visible fallback",
+        "shared health Tools dialog reuses panel and later classic open reclaims it",
+        "mount and close/reopen never invoke tests, network or transport/tempo commands"
+      ],
+      "target": "/workspace/scratch/90c12918c4ba/work-r942",
+      "indexSha256": "78f5f2b4745a1c7a944e895a80b6a2bb17a4282e638196f00b88f614d6169e1d",
+      "swSha256": "b7bae3e53caed86db2b9ec053d74046b91ec3eb99c47c69ab542a561cc627435",
+      "healthSha256": "7ca411d7862e983b9157d0a9bcb5df6f1f2e86d7c6929d3a9e200259dd1a7966",
+      "scope": "Actual extracted diagnostic and health UI functions plus actual ring handler; minimal DOM and diagnostic render/read boundaries stubbed; not browser/layout/audio-device validation."
+    }
+  },
+  "liveObservations": {},
+  "limitations": [
+    "DOM/VM testleri gerçek kaynak kodunu yalıtılmış ortamda denetler; gerçek tarayıcı veya fiziksel telefon görünümü ve dokunma testi değildir.",
+    "Fiziksel Android kilit ekranı, ses, bellek baskısı ve işletim sistemi kapanma testi yapılmadı.",
+    "Canlı siteye dağıtım yapılmadı. Paket mevcut kuruluma birleştirilmelidir."
+  ],
+  "files": {
+    "index.html": "78f5f2b4745a1c7a944e895a80b6a2bb17a4282e638196f00b88f614d6169e1d",
+    "nero.html": "78f5f2b4745a1c7a944e895a80b6a2bb17a4282e638196f00b88f614d6169e1d",
+    "sw.js": "b7bae3e53caed86db2b9ec053d74046b91ec3eb99c47c69ab542a561cc627435",
+    "manifest.webmanifest": "ef2768e0719524f1ec4ae4e739c75bf936e357ad9f199a0f5e9e63c69449dc20",
+    "sukun-build-r942.json": "d52d731c00975af2fc5f00b6fedcd581b949142ce2a601ec42592170cc8badd6"
+  }
+}
