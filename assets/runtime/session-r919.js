@@ -281,6 +281,7 @@
     if (errors.length > 50) errors.shift();
   }
   async function health() {
+    if (window.SukunHealthR940) return window.SukunHealthR940.read();
     const s = snapshot(), controller = navigator.serviceWorker?.controller;
     let registration = null, cacheNames = null;
     try { registration = await navigator.serviceWorker?.getRegistration(); } catch (_) {}
@@ -304,6 +305,7 @@
     };
   }
   async function exportHealth() {
+    if (window.SukunHealthR940) return window.SukunHealthR940.exportReport();
     const report = await health();
     const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob), a = document.createElement('a');
@@ -322,7 +324,7 @@
     });
     document.body.append(box);
   }
-  window.SukunSessionState = freeze({ version: 'r919', snapshot, refresh, subscribe, command, health, exportHealth,
+  window.SukunSessionState = freeze({ version: 'r919', snapshot, peek: () => state, refresh, subscribe, command, health, exportHealth,
     token: () => freeze({ sessionId: snapshot().sessionId, epoch }), isCurrent: token => token?.epoch === snapshot().epoch });
   if (!window.SessionState) window.SessionState = window.SukunSessionState;
   const events = ['sukun:currentzikirchange', 'sukun:currentflowchange', 'sukun:nowplayingchange', 'sukun:playbackchange',
