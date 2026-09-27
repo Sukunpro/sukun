@@ -23,7 +23,11 @@
 #r920Practice[data-r938-layout="1"] .r932VisualShortcuts button{min-height:52px!important;height:52px!important;padding:5px 13px!important}
 #r920Practice[data-r938-layout="1"] #r920Actions{display:block!important;margin:0!important;visibility:visible!important;pointer-events:auto!important}
 #r920Practice[data-r938-layout="1"] #r920Actions .spkBtn{height:52px!important;min-height:52px!important;max-height:52px!important;padding:7px!important;gap:3px!important}
-#r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox){display:block!important;margin:0!important;visibility:visible!important;pointer-events:auto!important}
+/* r945: layout must honor the native owner’s hidden state. In single-zikir
+   mode the journey selects are intentionally unpopulated. The former three-ID
+   display rule defeated the generic [hidden] reset and exposed empty fields. */
+#r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox):not([hidden]){display:block!important;margin:0!important;visibility:visible!important;pointer-events:auto!important}
+#r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)[hidden]{display:none!important}
 #r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)>summary{min-height:46px!important;padding:10px 14px!important;border-image:none!important;background:#0d2032!important;border:1px solid #c4aa714f!important;border-radius:10px!important}
 #r920Practice[data-r938-layout="1"] #r938PanelBody #r679ZikirAyarBox .r679SettingsTitle small{display:none!important}
 #r920Practice[data-r938-layout="1"] #r938PanelBody #r679ZikirAyarBox .r679SettingsTitle b{font-size:12px!important}

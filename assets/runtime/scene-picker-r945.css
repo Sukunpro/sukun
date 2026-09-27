@@ -1,0 +1,36 @@
+/* Existing gemstone palette frames scene previews without covering labels.
+ * The page remains the only scroll surface, in both normal and Tefekkür mode. */
+@layer sukun-r933-controls {
+#r920Practice[data-mode="berhet"] #r945ScenePicker[hidden]{display:none!important}
+#r920Practice #r932QuickPicker.r945VisualScenes>#r932QuickLabel,
+#r920Practice #r932QuickPicker.r945VisualScenes>.r932PickerRow{display:none!important}
+#r920Practice[data-mode="berhet"] #r945ScenePicker{display:block!important;min-width:0!important;width:100%!important;max-width:100%!important;padding:2px!important;box-sizing:border-box!important;overflow:visible!important;scroll-margin-top:90px!important}
+#r920Practice[data-mode="berhet"] #r945ScenePicker .r945SceneHead{display:flex!important;align-items:center!important;gap:8px!important;justify-content:space-between!important}
+#r920Practice[data-mode="berhet"] #r945SceneHeading{margin:4px 0!important;min-width:0!important;color:#fff0cc!important;font:650 14px/1.4 system-ui!important;overflow-wrap:anywhere!important}
+#r920Practice[data-mode="berhet"] #r945ScenePicker button,
+#r920Practice[data-mode="berhet"] #r945OpenScenes{position:relative!important;inset:auto!important;min-width:0!important;min-height:44px!important;height:auto!important;max-height:none!important;box-sizing:border-box!important;border:1px solid #ba9f6688!important;border-image:none!important;border-radius:10px!important;box-shadow:none!important;background:linear-gradient(145deg,#163b33,#0a202a)!important;color:#fff0cc!important;font:600 12px/1.4 system-ui!important;text-transform:none!important;letter-spacing:normal!important;text-shadow:0 1px 3px #0008!important;white-space:normal!important;overflow-wrap:anywhere!important;touch-action:manipulation!important;cursor:pointer!important;filter:none!important;transform:none!important;animation:none!important}
+#r920Practice[data-mode="berhet"] #r945ScenePicker button::before,
+#r920Practice[data-mode="berhet"] #r945ScenePicker button::after,
+#r920Practice[data-mode="berhet"] #r945OpenScenes::before,
+#r920Practice[data-mode="berhet"] #r945OpenScenes::after{content:none!important;display:none!important}
+#r920Practice[data-mode="berhet"] #r945SceneClose{flex:0 0 auto!important;width:auto!important;min-width:60px!important;padding:8px!important}
+#r920Practice[data-mode="berhet"] #r945SceneAuto{display:flex!important;flex-direction:column!important;align-items:flex-start!important;width:100%!important;text-align:left!important;padding:10px 12px!important;margin:10px 0 0!important;gap:3px!important}
+#r920Practice[data-mode="berhet"] #r945SceneAuto small{font:400 11px/1.4 system-ui!important;color:#d1e2de!important}
+#r920Practice[data-mode="berhet"] #r945SceneSelection{min-height:2.8em!important;margin:8px 0!important;color:#d1e2de!important;font:400 11px/1.4 system-ui!important;overflow-wrap:anywhere!important}
+#r920Practice[data-mode="berhet"] #r945SceneGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;min-width:0!important;overflow:visible!important}
+#r920Practice[data-mode="berhet"] #r945SceneGrid .r945SceneCard{display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;gap:4px!important;width:100%!important;padding:5px 5px 8px!important;margin:0!important;text-align:left!important;overflow:hidden!important}
+#r920Practice[data-mode="berhet"] #r945SceneGrid .r945SceneCard img{display:block!important;width:100%!important;height:130px!important;aspect-ratio:auto!important;object-fit:cover!important;object-position:center!important;border-radius:6px!important;pointer-events:none!important;user-select:none!important}
+#r920Practice[data-mode="berhet"] #r945SceneGrid .r945SceneCard img[hidden],
+#r920Practice[data-mode="berhet"] #r945SceneGrid .r945SceneFallback[hidden]{display:none!important}
+#r920Practice[data-mode="berhet"] #r945SceneGrid .r945SceneFallback{display:grid!important;place-items:center!important;height:130px!important;font:400 11px/1.4 system-ui!important;text-align:center!important;background:#0c2330!important;color:#c7d8df!important}
+#r920Practice[data-mode="berhet"] #r945SceneGrid strong{display:block!important;color:#fff0cc!important;font:600 11px/1.4 system-ui!important;padding:0 3px!important;overflow-wrap:anywhere!important}
+#r920Practice[data-mode="berhet"] #r945SceneGrid small{display:block!important;color:#c2dad3!important;font:400 10px/1.4 system-ui!important;padding:0 3px!important;overflow-wrap:anywhere!important}
+#r920Practice[data-mode="berhet"] #r945ScenePicker button[aria-pressed="true"]{border-color:#e6cb83!important;box-shadow:inset 0 0 0 2px #e6cb83,inset 0 -5px 0 #9ed4b8!important;background:linear-gradient(145deg,#225c45,#123629)!important}
+#r920Practice[data-mode="berhet"] #r945ScenePicker .r945ScenePages{display:grid!important;grid-template-columns:1fr auto 1fr!important;align-items:center!important;gap:8px!important;margin-top:10px!important}
+#r920Practice[data-mode="berhet"] #r945ScenePicker .r945ScenePages button{padding:8px 6px!important;width:100%!important}
+#r920Practice[data-mode="berhet"] #r945ScenePage{color:#dbd5be!important;font:500 11px/1.4 system-ui!important;text-align:center!important}
+#r920Practice[data-mode="berhet"] #r945OpenScenes{width:100%!important;margin-top:8px!important;padding:10px 14px!important}
+#r920Practice[data-mode="berhet"] #r945ScenePicker button:focus-visible,
+#r920Practice[data-mode="berhet"] #r945OpenScenes:focus-visible{outline:2px solid #fff0ba!important;outline-offset:2px!important}
+@media(max-width:360px){#r920Practice[data-mode="berhet"] #r945SceneGrid .r945SceneCard img,#r920Practice[data-mode="berhet"] #r945SceneGrid .r945SceneFallback{height:112px!important}}
+}
