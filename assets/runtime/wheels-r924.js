@@ -210,7 +210,7 @@ window.SukunWheels=Object.freeze({version:'r928',catalog,connect,render,choose,s
    close(true);window.SukunPracticeUI?.refresh?.();render();
   };
   box.addEventListener('keydown',event=>{if(event.key==='Escape'&&openKind){event.preventDefault();event.stopPropagation();close(true)}});
-  box.querySelector('.r932EasyTransport').addEventListener('click',event=>{
+  box.addEventListener('click',event=>{
    const action=event.target.closest('button[data-action]');if(!action||action.disabled)return;
    const source=$(sources[action.dataset.action]);if(source&&!source.disabled){source.click();window.SukunPracticeUI?.refresh?.()}
   });render();

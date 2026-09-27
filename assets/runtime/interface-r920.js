@@ -43,7 +43,7 @@ function make(){
  $('r920NameSelect').onchange=e=>select(snap()?.activeMode||'esma',Number(e.target.value));
  $('r920Counter').onclick=()=>manual(1);$('r920Plus').onclick=()=>manual(1);$('r920Minus').onclick=()=>manual(-1);
  $('r920Play').onclick=()=>{wake();const s=snap();command(s?.phase==='PLAYING'||s?.phase==='PREPARING'?'pause':s?.phase==='PAUSED'?'resume':'start')};
- $('r920Previous').onclick=()=>command('previous');$('r920Next').onclick=()=>command('next');$('r920Restart').onclick=()=>command('restart');$('r920Stop').onclick=()=>command('stop');
+ $('r920Previous').onclick=()=>command('previous');$('r920Next').onclick=()=>command('next');$('r920Restart').onclick=()=>{const s=snap();if(s?.activeMode==='berhet'&&s.journeyKind!=='single'&&Number(s.count)>0&&!window.confirm('Bu zikrin sayacı sıfırlanacak. Baştan başlamak istiyor musun?'))return;command('restart')};$('r920Stop').onclick=()=>command('stop');
  $('r920TefEnter').onclick=()=>{wake();const summary=$('r470SessionSummary');if(summary)summary.hidden=true;window.SUKUN_TEFEKKUR?.enter?.();queue();setTimeout(()=>$('r920TefExit')?.focus({preventScroll:true}),100)};
  $('r920TefExit').onclick=()=>{window.SUKUN_TEFEKKUR?.exit?.();wake();queue()};
  $('r920NameInfo').onclick=()=>{safe(()=>$('r611CurrentZikirName')?.click());wake()};
@@ -101,7 +101,7 @@ function renderAtlas(){
 }
 function render(){raf=0;if(!make())return;const s=snap();if(!s)return;renders++;
  const mode=s.activeMode,valid=mode==='esma'||mode==='berhet'&&allowed(),tef=!!window.SUKUN_TEFEKKUR?.active?.();
- if(document.body.classList.contains('r920-practice-on')!==valid)document.body.classList.toggle('r920-practice-on',valid);if(root.hidden===valid)root.hidden=!valid;if(!valid){if(dialog.open)dialog.close();return}
+ if(document.body.classList.contains('r920-practice-on')!==valid)document.body.classList.toggle('r920-practice-on',valid);if(root.hidden===valid)root.hidden=!valid;if(!valid){window.SukunBerhetLayout?.sync(root,tef);if(dialog.open)dialog.close();return}
  attr(root,'data-mode',mode);attr(root,'data-phase',s.phase);const journey=s.journeyKind&&s.journeyKind!=='single';
  prop($('r920ModeBerhet'),'hidden',!allowed());prop($('r920JourneyLabel'),'hidden',!allowed());attr($('r920ModeEsma'),'aria-pressed',mode==='esma');attr($('r920ModeBerhet'),'aria-pressed',mode==='berhet');
  value($('r920JourneyMode'),journey?'journey':'single');prop($('r920TefExit'),'hidden',!tef);prop($('r920TefEnter'),'hidden',tef);
@@ -136,6 +136,7 @@ function render(){raf=0;if(!make())return;const s=snap();if(!s)return;renders++;
  if(sourceMode!==mode){const sel=$('r920NameSelect');sel.replaceChildren();items(mode).forEach((it,j)=>{const option=document.createElement('option');option.value=j;option.textContent=`${j+1}. ${itemName(mode,j)}`;sel.append(option)});sourceMode=mode} value($('r920NameSelect'),i);
  if(target&&count>=target)markComplete(mode,i);
  if(lastSnapshot?.phase!==s.phase)wake();lastSnapshot=s;
+ window.SukunBerhetLayout?.sync(root,tef);
  if(dialog.open)renderAtlas();
 }
 function queue(){if(!raf)raf=requestAnimationFrame(render)}
