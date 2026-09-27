@@ -1,4 +1,4 @@
-/* r943 — read-only health presenter. Network requests require the AI button.
+/* r944 — read-only health presenter. Network requests require the AI button.
  * Only aiPayload's explicit aggregate allowlist can leave this panel. */
 (() => {
   'use strict';
@@ -10,12 +10,12 @@
   const GROUPS = [
     {id:'files',label:'Sürüm ve dosyalar',icon:'◈',codes:['BUILD','SW_IDENTITY','SW_CACHE_COMPLETE','RUNTIME_INTEGRITY','SW_RESPONSE']},
     {id:'audio',label:'Ses ve zikir akışı',icon:'♪',codes:['SESSION_OBSERVATION','TEMPO_RANGE','AUDIO_CONSISTENCY','BACKGROUND_FX','AUDIO_CONTEXTS']},
-    {id:'response',label:'Tepki ve dokunma',icon:'↗',codes:['INPUT_DELIVERY','LONG_TASKS','EARLY_RUNTIME_ERRORS','HEALTH_COLLECTION']},
+    {id:'response',label:'Tepki ve dokunma',icon:'↗',codes:['INPUT_DELIVERY','LONG_TASKS','LATENCY_ATTRIBUTION','EARLY_RUNTIME_ERRORS','HEALTH_COLLECTION']},
     {id:'storage',label:'Bellek ve depolama',icon:'▤',codes:['PERSISTENCE','STORAGE_QUOTA','HEAP']},
     {id:'ai',label:'AI bağlantıları',icon:'✦',codes:['AI_CONNECTIONS']},
     {id:'device',label:'Cihaz ve ekran kilidi',icon:'◉',codes:['DEVICE_AUDIO','TTS_CAPABILITY']}
   ];
-  const OPTIONAL = new Set(['SW_RESPONSE','HEALTH_COLLECTION']);
+  const OPTIONAL = new Set(['SW_RESPONSE','HEALTH_COLLECTION','LATENCY_ATTRIBUTION']);
   const META = {
     BUILD:['Uygulama sürümü','Sürüm bilgisi okunabildi.','Sürüm bilgisi alınamadı; testi yeniden çalıştırın.'],
     SW_IDENTITY:['Açık sayfa ve çevrimdışı sürüm','Sayfa ile çevrimdışı çalışan sürüm karşılaştırıldı.','Sürüm farklıysa sesinizi durdurup uygulamadaki Güncelle düğmesini kullanın.'],
@@ -29,6 +29,7 @@
     AUDIO_CONTEXTS:['Tarayıcı ses motorları','Tarayıcının ses motorları gözlendi; bu bir dinleme testi değildir.','Ses duyulmuyorsa cihazın ses düzeyini ve bağlı kulaklığı kontrol edin.'],
     INPUT_DELIVERY:['Dokunma ve kaydırma','Dokunma olayları gözlendi. Kaydırırken iptal olan dokunma normal olabilir.','Bir düğme yanıt vermiyorsa yeniden dokunup hemen Sorun şimdi oldu düğmesine basın.'],
     LONG_TASKS:['Ekranın yanıt hızı','Son iki dakikadaki uzun işlemler kontrol edildi.','Dokunmalar gecikiyorsa yoğun işlem bittikten sonra yeniden deneyin. Tek ölçüm sürekli donma anlamına gelmez.'],
+    LATENCY_ATTRIBUTION:['Gecikme nerede gözlendi?','Desteklenen tarayıcıda dokunma ve görüntü hazırlığı süreleri gözlenir; bu tek başına hatanın nedenini kanıtlamaz.','Takılma yaşadığınız işlemi normal şekilde kullanıp testi çalıştırın. Kaynak dosyası ve süreler teknik rapora eklenir; desteklenmeyen ölçümler başarılı sayılmaz.'],
     EARLY_RUNTIME_ERRORS:['Açılış sırasında çalışma hatası','Uygulama açılırken yakalanan çalışma hataları kontrol edildi.','Hata kaydını destek için raporla paylaşın. Bu kayıt, hatanın hâlâ sürdüğünü tek başına göstermez.'],
     HEALTH_COLLECTION:['Kontrolün tamamlanması','Bazı ölçümler tamamlanamadı.','Testi yeniden çalıştırın; eksik ölçümler başarılı sayılmaz.'],
     PERSISTENCE:['Son durumun saklanması','Son durum kaydının saklanabildiği kontrol edildi.','Tarayıcının depolama iznini ve boş alanını kontrol edin; kayıtlarınızı silmeyin.'],
@@ -74,6 +75,12 @@
   const field = (report, code) => arr(report?.checks).find(row => row?.code === code);
   const measured = (row, key) => number(row?.evidence?.[key]);
   const knownCount = value => Math.min(arr(value).length, 10000);
+  const DEVICE_ITEMS = [['foregroundSound','Ekran açıkken seçtiğim ses duyuldu'],['lockedSound','Ekranı kilitlediğimde ses devam etti'],['tempoStable','Tempo kilitte ve dönüşte değişmedi'],['effectsPreserved','Açık olan yankı / 8D etkisi sürdü'],['nameTransition','Sıradaki isme geçiş doğru gerçekleşti']];
+  const DEVICE_ANSWERS = {NOT_TRIED:'Henüz denemedim',AS_EXPECTED:'Denedim, uygun',ISSUE:'Sorun yaşadım'};
+  function taskStats(e) {
+    const times = arr(e?.tasks).map(t => number(t?.durationMs,3600000)).filter(x => x !== null);
+    return {count:number(e?.count,1e9) ?? times.length,max:number(e?.maxDurationMs,3600000) ?? (times.length ? Math.max(...times) : 0),complete:e?.windowComplete === true};
+  }
   function metricText(row) {
     const e = row?.evidence || {}, code = row?.code;
     if (code === 'HEAP') {
@@ -85,8 +92,15 @@
       return used !== null && quota > 0 ? `Tarayıcının ayırdığı alanın yaklaşık %${Math.round(used / quota * 100)} kadarı kullanılıyor (${Math.round(used / 1048576)} MB).` : 'Tarayıcı kullanılabilir alanı ölçemedi; boş alan bilinmiyor.';
     }
     if (code === 'LONG_TASKS' && e.supported === true) {
-      const times = arr(e.tasks).map(t => number(t?.durationMs, 3600000)).filter(x => x !== null);
-      return times.length ? `Son iki dakikada ${times.length} uzun işlem gözlendi; en uzunu ${Math.round(Math.max(...times))} ms. Bu, ara sıra hissedilen gecikmeyi açıklayabilir.` : 'Son iki dakikadaki gözlem aralığında uzun işlem kaydedilmedi.';
+      const stats = taskStats(e), period = number(e.observedForMs,120000);
+      const windowText = period > 0 && period < 120000 ? `Son ${Math.max(1,Math.round(period/1000))} saniyelik gözlemde` : 'Son iki dakikalık gözlemde';
+      return stats.count ? `${windowText} ${stats.complete ? '' : 'en az '}${stats.count} uzun işlem kaydedildi; eldeki kayıtlarda en uzunu ${Math.round(stats.max)} ms. Bu süre doğrudan dokunma gecikmesi değildir.` : 'Eldeki gözlem kayıtlarında uzun işlem yok. Bu sonuç, uygulamanın her zaman akıcı olduğunu kanıtlamaz.';
+    }
+    if (code === 'LATENCY_ATTRIBUTION') {
+      const items = arr(e.interactions), times = items.map(x=>number(x?.durationMs,3600000)).filter(x=>x!==null);
+      if (times.length) return `${items.length} etkileşim örneği kaydedildi; eldeki örneklerin en uzunu ${Math.round(Math.max(...times))} ms. Bu tüm dokunmaların ölçümü veya INP sonucu değildir. Teknik raporda ilgili kontrol ve işlem aşamaları bulunur.`;
+      if (arr(e.frames).length) return `${arr(e.frames).length} uzun görüntü hazırlığı örneği var. Desteklenen kaynak dosyaları teknik rapora eklendi; doğrudan dokunma gecikmesi henüz ölçülmedi.`;
+      return 'Henüz etkileşim süresi örneği yok; tarayıcı desteği veya yeni bir etkileşim bekleniyor.';
     }
     if (code === 'RUNTIME_INTEGRITY' && arr(e.files).length) {
       const files = arr(e.files).slice(0,1000), matches = files.filter(x => x?.status === 'MATCH').length;
@@ -112,6 +126,7 @@
     if (code === 'STORAGE_QUOTA' && !(number(e.usage) !== null && number(e.quota) > 0)) status = 'NOT_MEASURED';
     if (code === 'DEVICE_AUDIO') status = 'NOT_MEASURED';
     if (code === 'AI_CONNECTIONS' && status === 'PASS') status = 'OBSERVED';
+    if (code === 'LATENCY_ATTRIBUTION') status = arr(e.interactions).length || arr(e.frames).length ? 'OBSERVED' : 'NOT_MEASURED';
     if (!tested && status === 'PASS') status = 'OBSERVED';
     const specific = metricText(row);
     const detail = specific || (status === 'NOT_MEASURED' ? (code === 'DEVICE_AUDIO' ? meta[1] : 'Bu kontrol için yeterli ölçüm henüz yok.') : meta[1]);
@@ -149,10 +164,12 @@
     const summary = summarize(report), metrics = {};
     const put = (name,value,max) => { const n = number(value,max); if (n !== null) metrics[name] = n; };
     const evidence = code => field(report,code)?.evidence || {};
-    const heap = evidence('HEAP'), storage = evidence('STORAGE_QUOTA'), tasks = arr(evidence('LONG_TASKS').tasks).slice(0,1000);
+    const heap = evidence('HEAP'), storage = evidence('STORAGE_QUOTA');
     put('heapUsedBytes',heap.heapBytes); put('heapLimitBytes',heap.heapLimit);
     put('storageUsedBytes',storage.usage); put('storageQuotaBytes',storage.quota);
-    if (evidence('LONG_TASKS').supported === true) { put('longTaskCount',tasks.length); const durations = tasks.map(t => number(t?.durationMs,3600000)).filter(x => x !== null); if(durations.length) put('longestTaskMs',Math.max(...durations),3600000); }
+    if (evidence('LONG_TASKS').supported === true) { const stats=taskStats(evidence('LONG_TASKS')); put('longTaskCount',stats.count); put('longestTaskMs',stats.max,3600000); metrics.longTaskCountIsLowerBound = !stats.complete; }
+    const interactions = arr(evidence('LATENCY_ATTRIBUTION').interactions).slice(-24), interactionTimes = interactions.map(x=>number(x?.durationMs,3600000)).filter(x=>x!==null);
+    if (interactionTimes.length) {put('interactionSampleCount',interactionTimes.length);put('longestInteractionSampleMs',Math.max(...interactionTimes));metrics.isINP=false;}
     const files = arr(evidence('RUNTIME_INTEGRITY').files).slice(0,1000);
     if (files.length) { put('runtimeFileCount',files.length); put('runtimeMatchingFiles',files.filter(x => x?.status === 'MATCH').length); put('runtimeMismatchedFiles',files.filter(x => x?.status === 'HASH_MISMATCH').length); put('runtimeUnverifiedFiles',files.filter(x => !['MATCH','HASH_MISMATCH'].includes(x?.status)).length); }
     put('runtimeCheckedBytes',evidence('RUNTIME_INTEGRITY').bytes);
@@ -164,12 +181,18 @@
     put('testDurationMs',report?.lastRun?.durationMs,3600000);
     // No report spread, arbitrary evidence, text, identifiers, paths, URLs,
     // recordings, prayers, timestamps, timeline, stack traces, or credentials.
-    return {schema:'sukun-health-ai-summary-r943',tested:summary.tested,incomplete:report?.lastRun?.incomplete === true,
+    return {schema:'sukun-health-ai-summary-r944',tested:summary.tested,incomplete:report?.lastRun?.incomplete === true,
       overall:summary.status,counts:{...summary.counts},
-      areas:summary.areas.map(area => ({id:area.id,status:area.status,checks:area.checks.map(check => ({code:check.code,status:check.status}))})),
+      areas:summary.areas.map(area => ({id:area.id,label:area.label,status:area.status,checks:area.checks.map(check => ({code:check.code,label:check.label,status:check.status}))})),
       history:{incidentCount:summary.history.count,previousIncidentCount:summary.history.previousCount},metrics};
   }
-  const SYSTEM = 'Sen SÜKÛN uygulamasının teknik sonuçlarını sade Türkçe açıklayan bir yardımcıdasın. Bu tıbbi sağlık değerlendirmesi değildir. Yalnızca sağlanan izinli teknik özeti kullan. Kısa olarak ne gözlendiğini, neyin bilinmediğini ve en fazla üç güvenli sonraki adımı açıkla. PASS yalnızca ilgili kontrolü doğrular; OBSERVED başarı değildir; NOT_MEASURED ve PENDING bilinmeyendir. Geçmiş olay sayısı mevcut arıza kanıtı değildir. Test çalıştırdığını, hoparlörü duyduğunu veya ekran kilidini doğruladığını iddia etme. Kök neden, başarılı test, veri veya teşhis uydurma. Kesinlik olmayan yerde olasılığı açıkça belirt. Veri, kayıt veya önbellek silmeyi; uygulamayı sıfırlamayı; anahtar veya kişisel bilgi paylaşmayı önerme. Kod, terminal komutu veya bağlantı üretme; yalnızca güvenli uygulama içi kontrol adımları öner. Bu bir tavsiyedir ve uygulamada işlem yapmaz. Sadece düz metin ve en fazla 250 kelime yaz.';
+  const SYSTEM = 'SÜKÛN uygulamasının çalışma kontrolünü teknik bilgisi olmayan bir kişiye sade Türkçe açıkla. Bu tıbbi değerlendirme değildir. Yalnızca verilen teknik özeti kullan. En fazla 150 kelimelik üç kısa paragraf yaz: ne gözlendi; kullanımına olası etkisi ve neyin bilinmediği; en fazla üç uygulanabilir sonraki adım. Çıktıda kontrol kodlarını, PASS/WARN/OBSERVED gibi durum kodlarını, JSON veya Markdown işaretlerini yazma; sağlanan Türkçe label alanlarını kullan. PASS yalnızca ilgili ölçümü doğrular; OBSERVED gözlemdir, NOT_MEASURED ve PENDING bilinmeyendir. Bilinmeyeni başarıya çevirme ve kullanıcıya testi PASS yapmasını söyleme. Geçmiş olay mevcut arıza kanıtı değildir. Uzun işlem süresi doğrudan dokunma gecikmesi veya INP değildir. lower-bound sayı en az demektir. Test çalıştırdığını, sesi duyduğunu, ekran kilidini veya tüm AI bağlantılarını doğruladığını iddia etme. Hoparlör ve kilit testi kullanıcı tarafından dinlenmelidir; tarayıcı bunu otomatik doğrulayamaz. Kök neden, sonuç veya yeni test uydurma. Kod optimizasyonunu kullanıcıdan isteme; gecikmede sorun anını işaretleyip raporu indirmesini öner. Kayıt, veri veya önbellek silmeyi, sıfırlamayı, anahtar paylaşmayı, terminal komutu veya bağlantı önerme. Yanıtın ölçümleri değiştirmeyen bir açıklamadır.';
+  function plainExplanation(value) {
+    let text = String(value).trim().slice(0,6000).replace(/^\s*#{1,6}\s+/gm,'').replace(/```[^\n]*\n?|```/g,'').replace(/\*\*([^*]+)\*\*/g,'$1').replace(/`([^`]+)`/g,'$1').replace(/\[([^\]]+)\]\([^)]*\)/g,'$1');
+    for (const [code,meta] of Object.entries(META)) text = text.replace(new RegExp('\\b'+code+'\\b','g'),meta[0]);
+    const labels = {PASS:'doğrulandı',WARN:'dikkat',FAIL:'sorun',OBSERVED:'yalnızca gözlem',NOT_MEASURED:'ölçülmedi',PENDING:'kontrol bekliyor'};
+    return text.replace(/\b(?:PASS|WARN|FAIL|OBSERVED|NOT_MEASURED|PENDING)\b/g,x=>labels[x]);
+  }
   // The explanation request itself updates AI_CONNECTIONS. That observation
   // must not invalidate its own answer; all other measured changes still do.
   function reportKey(report) {
@@ -200,7 +223,7 @@
     const runKey = number(report?.lastRun?.at);
     if(state.job && (state.job.payloadKey !== payloadKey || state.job.runKey !== runKey)) cancel(panel,'Sonuçlar değişti; önceki AI isteği durduruldu. Güncel sonuçlar için yeniden açıklama isteyin.');
     if(state.answerKey && (state.answerKey !== payloadKey || state.answerRun !== runKey)) {
-      state.answerKey = ''; setText(panel,'ai-output',''); setText(panel,'ai-status','Sonuçlar değişti. Önceki AI açıklaması kaldırıldı; güncel sonuçları yeniden açıklatabilirsiniz.');
+      state.answerKey = ''; setText(panel,'ai-output',''); setText(panel,'ai-provider',''); setText(panel,'ai-status','Sonuçlar değişti. Önceki AI açıklaması kaldırıldı; güncel sonuçları yeniden açıklatabilirsiniz.');
     }
     state.report = report; state.payloadKey = payloadKey; state.runKey = runKey;
     setText(panel,'summary',summary.tested ? `${summary.counts.failure} sorun · ${summary.counts.warning} uyarı · ${summary.counts.unknown} ölçülmedi` : 'Kontrol bekliyor');
@@ -231,6 +254,10 @@
     const incidents = [...arr(report?.incidents).slice(-8).reverse().map(row=>({row,old:false})),...arr(report?.previous?.incidents).slice(-4).reverse().map(row=>({row,old:true}))];
     if(!incidents.length) history.append(make('p','hv-muted','Bu raporda geçmiş sorun kaydı yok. Bu, hiç sorun yaşanmadığını kanıtlamaz.'));
     for(const {row,old} of incidents) { const item = make('div','hv-history-item'); const message = HISTORY[row?.code] || (String(row?.code || '').startsWith('RUNTIME_') ? 'Uygulama çalışırken teknik bir uyarı kaydedildi.' : 'Uygulama çalışırken bir sorun kaydı oluştu.'); item.append(make('strong','',old ? 'Önceki kayıt' : 'Bu oturumda kaydedildi'),make('p','',message)); history.append(item); }
+    const device = report?.deviceCheck;
+    const userIssues = DEVICE_ITEMS.filter(([key])=>device?.responses?.[key] === 'ISSUE').length;
+    const otherSession = device?.sessionEpoch != null && device.sessionEpoch !== report?.current?.session?.epoch;
+    setText(panel,'device-result',device?.source === 'USER_REPORTED' ? `Son bildiriminiz: ${timeText(device.at)} · ${userIssues ? userIssues+' alanda sorun bildirdiniz.' : 'Bildiriminiz kaydedildi.'} Bu kullanıcı beyanıdır; otomatik test sonucu değildir.${otherSession ? ' Bildirimden sonra oturum değişti; bu sonuç yeni oturumu doğrulamaz.' : ''}` : 'Henüz cihaz denemesi bildirilmedi. Bu bölüm otomatik test sonuçlarını değiştirmez.');
     // Technical source is intentionally inside a collapsed disclosure and text only.
     try { setText(panel,'raw',JSON.stringify(report,null,2)); } catch(_) { setText(panel,'raw','Teknik rapor görüntülenemedi. Raporu indirmeyi deneyin.'); }
     buttons(panel,state); return true;
@@ -259,12 +286,19 @@
       let latest; try{latest=state.api.read();}catch(_){latest=state.report;}
       if(reportKey(latest) !== job.payloadKey || number(latest?.lastRun?.at) !== job.runKey) { setText(panel,'ai-status','Sonuçlar istek sırasında değişti. Güncel sonuçlar için yeniden açıklama isteyin.'); return; }
       if(typeof result?.text !== 'string' || !result.text.trim()) throw Object.assign(new Error('Invalid response'),{code:'INVALID_RESPONSE'});
+      // read() only refreshes existing evidence. Do not run tests or issue a
+      // second AI request just to show this request's new connection status.
+      render(panel,latest);
       state.answerKey = job.payloadKey; state.answerRun = job.runKey;
-      setText(panel,'ai-output',result.text.trim().slice(0,6000));
+      setText(panel,'ai-output',plainExplanation(result.text));
       const source = [result.providerLabel,result.model].filter(x => typeof x === 'string').map(x => x.replace(/[\u0000-\u001f\u007f]/g,'').slice(0,100)).join(' · ');
       setText(panel,'ai-provider',source ? 'Açıklamayı hazırlayan: '+source : 'AI açıklaması');
       setText(panel,'ai-status','AI önerisi — ölçüm sonuçlarını değiştirmez ve yeni bir test doğrulaması değildir.');
-    } catch(error) { if(state.job === job && !job.cancelled && panel.isConnected !== false) setText(panel,'ai-status',errorMessage(error)); }
+    } catch(error) { if(state.job === job && !job.cancelled && panel.isConnected !== false) {
+      let latest; try{latest=state.api.read();}catch(_){latest=state.report;}
+      render(panel,latest);
+      if(state.job === job && !job.cancelled) setText(panel,'ai-status',errorMessage(error));
+    } }
     finally { clearTimeout(job.timer); if(state.job === job) { state.job = null; buttons(panel,state); } }
   }
   function mount(panel,api) {
@@ -272,10 +306,32 @@
     const existing = states.get(panel); if(existing) { existing.api = api; return true; }
     panel.classList.add('hv-r943');
     panel.innerHTML = '<summary class="hv-panel-summary"><span class="hv-kicker">SÜKÛN · SİSTEM SAĞLIĞI</span><strong>Uygulamanız nasıl çalışıyor?</strong><span data-health-summary>Kontrol bekliyor</span></summary><div class="hv-body"><section class="hv-overall" data-health-overall data-status="PENDING" aria-label="Genel sonuç"><span class="hv-overall-icon" data-health-overall-icon aria-hidden="true">◌</span><div><p class="hv-stamp" data-health-stamp>Henüz test çalıştırılmadı</p><h3 data-health-title>Kontrol bekliyor</h3><p data-health-advice></p></div></section><div class="hv-counts" data-health-counts aria-label="Kontrol sayıları"></div><div class="hv-actions"><button type="button" class="hv-primary" data-health-action="run">Testi çalıştır</button><button type="button" data-health-action="export">Raporu indir</button><button type="button" data-health-action="mark">Sorun şimdi oldu</button></div><p class="hv-feedback" data-health-feedback role="status" aria-live="polite"></p><p class="hv-caption">Kontrol sesinizi veya temponuzu değiştirmez. Dosya doğrulaması için uygulamanın kendi dosyalarını yükleyebilir.</p><div class="hv-legend" aria-label="Sonuçların anlamı"><span>✓ Doğrulandı</span><span>! Dikkat / sorun</span><span>◌ Yalnızca gözlem</span><span>— Ölçülmedi</span></div><div class="hv-areas" data-health-results></div><section class="hv-ai" data-health-ai aria-label="AI ile açıklama"><div class="hv-ai-head"><span class="hv-ai-glyph" aria-hidden="true">✦</span><div><h3>Sonucu birlikte anlamlandıralım</h3><p>Yerel özet hazır. İsterseniz AI’den ek açıklama alın.</p></div></div><div class="hv-local"><strong>Yerel değerlendirme</strong><p data-health-local></p></div><div class="hv-actions"><button type="button" class="hv-ai-button" data-health-action="ai">AI ile sonucu açıkla</button><button type="button" data-health-action="cancel" hidden>AI isteğini durdur</button><button type="button" data-health-action="settings" data-health-settings>AI ayarları</button></div><p class="hv-privacy">Bu düğme yalnızca kısa teknik özeti ayarlı AI sağlayıcılarınıza gönderir. Ses kayıtları, dua/esma adları, yazdıklarınız, olay dökümü ve API anahtarları bu özete alınmaz.</p><p class="hv-ai-status" data-health-ai-status role="status" aria-live="polite">Henüz AI açıklaması istenmedi.</p><p class="hv-provider" data-health-ai-provider></p><div class="hv-ai-output" data-health-ai-output></div></section><details class="hv-history"><summary>Geçmiş sorun kayıtları <span data-health-history-count></span></summary><div class="hv-disclosure-body"><p class="hv-muted">Bunlar daha önce kaydedilen olaylardır; şu an devam eden bir arıza anlamına gelmez. Genel sonuç, yukarıdaki mevcut kontrollerden hesaplanır.</p><div data-health-history-items></div></div></details><details class="hv-technical"><summary>Teknik rapor <span>İleri inceleme için</span></summary><div class="hv-disclosure-body"><p class="hv-muted">Bu ayrıntı yalnızca burada görüntülenir ve Raporu indir ile dışa aktarılır. AI açıklamasına tam rapor gönderilmez.</p><pre data-health-raw></pre></div></details></div>';
+    // User-run device checklist is deliberately separate from measured checks.
+    if (typeof api.recordDeviceCheck === 'function') {
+      const guide = make('details','hv-device-guide');
+      guide.append(make('summary','','Cihazımda ses ve ekran kilidini dene'));
+      const body = make('div','hv-disclosure-body');
+      body.append(make('p','hv-muted','Seçtiğiniz kayıtla zikri normal ekrandan başlatın. Sesi dinleyin; sonra ekranı kilitleyip tempo, açık efektler ve isim geçişini kontrol edin. Kısa denemeden sonra 30 dakikalık kullanımda da gözlemleyin. Buradaki seçenekler sesi başlatmaz veya durdurmaz.'));
+      for (const [key,label] of DEVICE_ITEMS) {
+        const row = make('label','hv-device-row'); row.append(make('span','',label));
+        const select = make('select',''); select.setAttribute('data-health-device',key); select.setAttribute('aria-label',label);
+        for (const [value,text] of Object.entries(DEVICE_ANSWERS)) {const option=make('option','',text);option.value=value;select.append(option);}
+        select.value='NOT_TRIED'; row.append(select); body.append(row);
+      }
+      const save = make('button','','Deneme sonucumu kaydet'); save.type='button'; save.setAttribute('data-health-action','device-save');
+      body.append(save);const feedback=make('p','hv-caption');feedback.setAttribute('data-health-device-result','');feedback.setAttribute('role','status');body.append(feedback);
+      guide.append(body); get(panel,'ai').before(guide);
+    }
     const state = {api,report:null,running:false,job:null,payloadKey:'',areaKey:'',answerKey:'',answerRun:null,runKey:null}; states.set(panel,state);
     panel.addEventListener('click',async event => {
       const button = event.target.closest?.('[data-health-action]'); if(!button || !panel.contains(button)) return;
       const action = button.dataset.healthAction;
+      if(action === 'device-save') {
+        const responses = {};
+        for (const input of panel.querySelectorAll('[data-health-device]')) if(Object.hasOwn(DEVICE_ANSWERS,input.value)) responses[input.dataset.healthDevice]=input.value;
+        try{render(panel,state.api.recordDeviceCheck(responses));}catch(_){setText(panel,'device-result','Deneme sonucu kaydedilemedi. Teknik raporu indirebilirsiniz.');}
+        return;
+      }
       if(action === 'cancel') { cancel(panel); return; }
       if(action === 'ai') { await explain(panel,state); return; }
       if(action === 'settings') { try{if(!window.SukunAIRouter?.openSettings?.()) setText(panel,'ai-status','AI ayarları henüz hazır değil. Yerel özet kullanılabilir.');}catch(_){setText(panel,'ai-status','AI ayarları açılamadı. Yerel özet kullanılabilir.');} return; }
@@ -292,5 +348,5 @@
     });
     try{render(panel,api.read());}catch(_){render(panel,{});} return true;
   }
-  window.SukunHealthViewR943 = Object.freeze({version:'r943',mount,render,summarize,aiPayload,cancel});
+  window.SukunHealthViewR943 = Object.freeze({version:'r944',mount,render,summarize,aiPayload,cancel});
 })();

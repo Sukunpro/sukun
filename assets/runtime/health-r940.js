@@ -11,7 +11,9 @@
   const events = [], incidents = [], checks = [];
   let seq = 0, droppedEvents = 0, droppedIncidents = 0, session = null, truth = null, sw = null, tempo = null, lock = null;
   let sessionChangedAt = born, progressAt = born, lastSaved = 0, activeTimer = 0, activeExpected = 0;
-  let runPromise = null, lastRun = null, storageError = '', visibilityEpoch = 0, probe = null, fx = null;
+  let runPromise = null, lastRun = null, storageError = '', visibilityEpoch = 0, probe = null, fx = null, latency = null, deviceCheck = null;
+  const DEVICE_FIELDS = ['foregroundSound','lockedSound','tempoStable','effectsPreserved','nameTransition'];
+  const DEVICE_ANSWERS = new Set(['NOT_TRIED','AS_EXPECTED','ISSUE']);
   let previous = null, previousScope = 'none', lastSampleEpoch = 0, eventWindowAt = born, eventWindowCount = 0;
   let visibleLagMs = 0, lastIncidentAt = 0, mounted = null, dialog = null, priorFocus = null, tts = null, taps = null, checkpointTrimmed = 0;
   const safe = (fn, fallback = null) => { try { return fn() ?? fallback; } catch (_) { return fallback; } };
@@ -80,7 +82,7 @@
   }
   function checkpoint(reason) {
     return { schema: SCHEMA, at: now(), boot, build, reason, hidden: document.hidden,
-      closed: reason === 'pagehide', session, tempo, sw, incidents: incidents.slice(-8), events: events.slice(-18) };
+      closed: reason === 'pagehide', session, tempo, sw, deviceCheck, incidents: incidents.slice(-8), events: events.slice(-18) };
   }
   function persist(reason) {
     const saved = checkpoint(reason); let data = JSON.stringify(saved), trimmed = 0;
@@ -103,7 +105,7 @@
       session: old.session ? { phase: token(old.session.phase), count: finite(old.session.count), index: finite(old.session.index), mode: token(old.session.mode) } : null,
       incidentCodes: (Array.isArray(old.incidents) ? old.incidents : []).slice(-8).map(x => token(x.code)),
       incidents: historic((Array.isArray(old.incidents) ? old.incidents : []).slice(-8)),
-      events: historic((Array.isArray(old.events) ? old.events : []).slice(-18)) };
+      events: historic((Array.isArray(old.events) ? old.events : []).slice(-18)), deviceCheck: compactDeviceCheck(old.deviceCheck) };
     if (!old.closed && /PLAYING|PREPARING|INTERRUPTED/.test(previous.session?.phase || ''))
       issue('PREVIOUS_UNCLOSED_SESSION', 'WARN', 'Önceki etkin oturumun kapanışı gözlenmedi',
         { checkpointAt: old.at, scope: previousScope, phase: previous.session.phase, reason: previous.reason },
@@ -176,6 +178,19 @@
         { kind }, 'Bu uyarının hemen öncesindeki ses, görünürlük ve tempo olaylarını raporda eşleştirin.', 'correlation');
   }
   function status(code, result, title, evidence, remedy = '') { return { code, status: result, title, evidence, remedy }; }
+  function compactDeviceCheck(input) {
+    if (!input || input.source !== 'USER_REPORTED' || !Number.isFinite(input.at)) return null;
+    const responses = {};
+    for (const key of DEVICE_FIELDS) responses[key] = DEVICE_ANSWERS.has(input.responses?.[key]) ? input.responses[key] : 'NOT_TRIED';
+    return {source:'USER_REPORTED',at:input.at,build:token(input.build),responses,sessionEpoch:Number.isFinite(input.sessionEpoch)?input.sessionEpoch:null,scope:'reported-at-submission-not-an-automated-session-test'};
+  }
+  function recordDeviceCheck(responses) {
+    // A person's report is saved separately; it never promotes DEVICE_AUDIO
+    // or any automatic test to PASS and never sends a playback command.
+    deviceCheck = compactDeviceCheck({source:'USER_REPORTED',at:now(),build,responses,sessionEpoch:session?.epoch});
+    record('user-device-check', {source:'USER_REPORTED',at:deviceCheck.at});
+    persist('user-device-check'); return read();
+  }
   function currentChecks() {
     const out = [status('BUILD', /^r\d+$/.test(build) ? 'PASS' : 'WARN', 'Uygulama sürümü', { build }),
       status('SW_IDENTITY', !sw?.hasController ? 'NOT_MEASURED' : !sw.controller ? 'NOT_MEASURED' : sw.controller === build ? 'PASS' : 'FAIL',
@@ -193,8 +208,10 @@
       out.push(status('AUDIO_CONTEXTS', 'OBSERVED', 'Ses motorları', { contexts: probe.contexts }));
       out.push(status('HEAP', probe.heapRatio != null && probe.heapRatio > .85 ? 'WARN' : probe.heapRatio == null ? 'NOT_MEASURED' : 'OBSERVED',
         'Bellek göstergesi', { heapBytes: probe.heapBytes, heapLimit: probe.heapLimit, ratio: probe.heapRatio }, 'Bu tarayıcı ölçümüdür; tek örnek bellek sızıntısını kanıtlamaz.'));
-      out.push(status('LONG_TASKS', !probe.longTaskSupported ? 'NOT_MEASURED' : probe.recentLongTasks.length ? 'WARN' : 'PASS', 'Son iki dakika ana iş parçacığı', { supported:probe.longTaskSupported, tasks: probe.recentLongTasks }, 'Tanılama işlemleri bu listeden çıkarılır.'));
+      out.push(status('LONG_TASKS', !probe.longTaskSupported ? 'NOT_MEASURED' : probe.longTaskWindow.count ? 'WARN' : probe.longTaskWindow.windowComplete === true ? 'PASS' : 'NOT_MEASURED', 'Son iki dakika ana iş parçacığı', { supported:probe.longTaskSupported, ...probe.longTaskWindow, tasks: probe.recentLongTasks }, 'Tanılama işlemleri bu listeden çıkarılır. Liste son 12 örnektir; sayı ve en uzun süre eldeki pencerenin tamamından hesaplanır. Tampon dolmuşsa sayı alt sınırdır. Bu ölçüm dokunma gecikmesi veya INP değildir.'));
     }
+    if (latency) out.push(status('LATENCY_ATTRIBUTION', latency.interactions.length || latency.frames.length ? 'OBSERVED' : 'NOT_MEASURED', 'Etkileşim gecikmesi ve kaynak gözlemi', latency,
+      'Gecikme anını, kontrol hedefini ve kaynak dosyasını birlikte inceleyin. Aynı zamana denk gelmek tek başına nedensellik değildir. Örnekler INP veya fiziksel kilit testi değildir.'));
     if (fx) out.push(status('BACKGROUND_FX', fx.fallbackActive ? 'WARN' : 'OBSERVED', 'Kayıt yankı / 8D yolu', fx,
       'Fallback tap yolu ekran kilidinde kısıtlanabilir; hazırlanmış baked kayıt yolu ve kaynak bütçesi incelenmelidir.'));
     const ai = safe(() => window.SukunAIRouter?.snapshot?.());
@@ -205,11 +222,11 @@
     const result = currentChecks();
     return { schema: SCHEMA, version: VERSION, build, generatedAt: new Date().toISOString(), boot,
       coverage: { since: born, events: events.length, discardedEvents: droppedEvents, incidentLimit: MAX_ISSUES,
-        discardedIncidents: droppedIncidents, hiddenSampling: 'event-only-no-poll', physicalLockScreenTest: 'NOT_RUN',
+        discardedIncidents: droppedIncidents, hiddenSampling: 'event-only-no-poll', physicalLockScreenTest: deviceCheck && deviceCheck.responses.lockedSound !== 'NOT_TRIED' ? 'USER_REPORTED' : 'NOT_RUN',
         privacy: 'metadata-only-no-recording-no-text-no-url-query', previousScope },
       summary: { currentFailures: result.filter(x => x.status === 'FAIL').length, currentWarnings: result.filter(x => x.status === 'WARN').length,
         unmeasured: result.filter(x => x.status === 'NOT_MEASURED').length, recordedIncidents: incidents.length },
-      current: copy(evidenceContext()), checks: copy(result), incidents: copy(incidents), timeline: copy(events), previous: copy(previous), lastRun: copy(lastRun) };
+      current: copy(evidenceContext()), checks: copy(result), deviceCheck:copy(deviceCheck), incidents: copy(incidents), timeline: copy(events), previous: copy(previous), lastRun: copy(lastRun) };
   }
   async function bounded(promise, ms = 2000) {
     let timer; try { return await Promise.race([promise, new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('timeout')), ms); })]); }
@@ -275,10 +292,22 @@
       outcomes:(tap.outcomes || []).slice(-16).map(x=>({at:finite(x.at),seq:finite(x.seq),target:token(x.target,120),status:token(x.status),kind:token(x.kind),durationMs:finite(x.durationMs),maxDistancePx:finite(x.maxDistancePx),touchAction:token(x.touchAction),scrolled:bool(x.scrolled),detached:bool(x.detached),hitChanged:bool(x.hitChanged)})),
       history:(tap.history || []).slice(-16).map(x=>({at:finite(x.at),seq:finite(x.seq),type:token(x.type),target:token(x.target,120)})) };
     const p = safe(() => window.SukunRuntimeProbe?.snapshot?.());
-    if (p) probe = { earlyErrors:(p.errors || []).filter(x => Number.isFinite(x.at) && x.at < born).slice(-12).map(x => ({at:x.at,type:token(x.type),file:x.source?path(x.source):null,line:finite(x.line)})), contexts: (p.audioContexts || []).slice(0, 12).map(c => ({ state: token(c.state), sampleRate: finite(c.sampleRate), currentTime: finite(c.currentTime) })),
+    if (p) {
+      const perfNow = performance.now(), retained = Array.isArray(p.longTasks) ? p.longTasks : [];
+      const recent = retained.filter(x => !x.diagnostic && Number.isFinite(x.at) && Number.isFinite(x.duration) && x.duration >= 0 && perfNow - x.at >= 0 && perfNow - x.at < 120000);
+      const total = p.totals?.longTaskCount;
+      const truncated = Number.isFinite(total) ? total > retained.length && (!retained.length || perfNow - retained[0].at < 120000) : null;
+      probe = { earlyErrors:(p.errors || []).filter(x => Number.isFinite(x.at) && x.at < born).slice(-12).map(x => ({at:x.at,type:token(x.type),file:x.source?path(x.source):null,line:finite(x.line)})), contexts: (p.audioContexts || []).slice(0, 12).map(c => ({ state: token(c.state), sampleRate: finite(c.sampleRate), currentTime: finite(c.currentTime) })),
       heapBytes: finite(p.heap?.used), heapLimit: finite(p.heap?.limit), heapRatio: p.heap?.limit ? Math.round(p.heap.used / p.heap.limit * 1000) / 1000 : null,
-      longTaskSupported:safe(() => PerformanceObserver.supportedEntryTypes.includes('longtask'),false) || (p.longTasks || []).length > 0,
-      recentLongTasks: (p.longTasks || []).filter(x => !x.diagnostic && performance.now() - x.at >= 0 && performance.now() - x.at < 120000).slice(-12).map(x => ({ durationMs: finite(x.duration), uptimeAt: finite(x.at) })) };
+      longTaskSupported:safe(() => PerformanceObserver.supportedEntryTypes.includes('longtask'),false) || retained.length > 0,
+      longTaskWindow:{count:recent.length,maxDurationMs:recent.reduce((max,x)=>Math.max(max,x.duration),0),windowMs:120000,observedForMs:Math.min(120000,Math.max(0,finite(p.uptime) || 0)),windowComplete:truncated === null ? null : !truncated,sampleLimit:12},
+      recentLongTasks: recent.slice(-12).map(x => ({ durationMs: finite(x.duration), uptimeAt: finite(x.at) })) };
+    }
+    const timing = safe(() => window.SukunInteractionDiagnostics?.snapshot?.());
+    if (timing) latency = {version:token(timing.version),timeBase:'navigation-start-ms',eventThresholdMs:40,supported:{eventTiming:bool(timing.supported?.eventTiming),loaf:bool(timing.supported?.loaf)},notINP:true,
+      ...numeric(timing,['measuredInteractions','measuredFrames','ignoredDiagnostics']),
+      interactions:(Array.isArray(timing.interactions)?timing.interactions:[]).slice(-24).map(x=>({at:finite(x.at),kind:token(x.kind),target:token(x.target,120),...numeric(x,['durationMs','inputDelayMs','handlerMs','presentationDelayMs'])})),
+      frames:(Array.isArray(timing.frames)?timing.frames:[]).slice(-16).map(x=>({at:finite(x.at),...numeric(x,['durationMs','blockingMs']),scripts:(Array.isArray(x.scripts)?x.scripts:[]).slice(-5).map(s=>({source:s.source?path(s.source):null,charOffset:Number.isFinite(s.charOffset)?s.charOffset:null,function:token(s.function),...numeric(s,['durationMs','forcedLayoutMs'])}))}))};
     const transport = safe(() => window.SukunLockJourneyTransportV2?.snapshot?.());
     if (transport) lock = {...(lock || {}), measuredAt:now(), snapshot:compactLock(transport)};
     const bridge = safe(() => window.SukunNativeEchoBridge?.snapshot?.());
@@ -345,7 +374,7 @@
     if (existing) { if (!host.contains(existing)) host.append(existing); mounted=existing; render(); return; }
     const panel = document.createElement('details'); panel.id = 'r940Health'; panel.open = true;
     const visual = safe(() => window.SukunHealthViewR943?.mount?.(panel,{
-      read,run,exportReport,
+      read,run,exportReport,recordDeviceCheck,
       mark: () => { record('user-problem-marker', { context: evidenceContext() }); persist('user-problem-marker'); render(); return read(); }
     }),false);
     if (!visual) {
@@ -391,7 +420,7 @@
     // Existing UI builds asynchronously; bounded retries replace a permanent observer.
     [250,1000,3000].forEach(delay => setTimeout(mountTools,delay));
   }
-  window.SukunHealthR940 = Object.freeze({ version: VERSION, read, run, exportReport, mount, render, open, close, mountTools,
+  window.SukunHealthR940 = Object.freeze({ version: VERSION, read, run, exportReport, mount, render, open, close, mountTools,recordDeviceCheck,
     mark: () => { record('user-problem-marker', { context: evidenceContext() }); persist('user-problem-marker'); return read(); } });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', discoverTools, {once:true}); else discoverTools();
   loadPrevious(); record('boot', { build, online: navigator.onLine !== false, previousCheckpoint: !!previous });

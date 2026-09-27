@@ -119,7 +119,7 @@ function render(){raf=0;if(!make())return;const s=snap();if(!s)return;renders++;
  const busy=s.phase==='PLAYING'||s.phase==='PREPARING';text($('r927PlayIcon'),busy?'Ⅱ':'▶');text($('r927PlayCaption'),busy?'Duraklat':s.phase==='PAUSED'?'Devam':'Başlat');
  const actionNames={r920Play:busy?'Zikri duraklat':s.phase==='PAUSED'?'Zikre devam et':'Zikri başlat',r920Stop:'Zikri bitir',r920Minus:'Bir azalt',r920Plus:'Bir artır'};
  for(const [id,label]of Object.entries(actionNames)){attr($(id),'aria-label',label);attr($(id),'title',label)}
- const labels={PREPARING:'Ses hazırlanıyor',PAUSED:'Duraklatıldı',COMPLETING:'Tamamlanıyor',COMPLETED:'Seyir tamamlandı',INTERRUPTED:'Ses kesintisi · devam edebilirsin',RECOVERING:'Ses yeniden hazırlanıyor',ERROR:'Ses açılamadı'};text($('r920Phase'),labels[s.phase]||'');
+ const labels={PREPARING:'Ses hazırlanıyor',PAUSED:'Duraklatıldı',COMPLETING:'Tamamlanıyor',COMPLETED:'Seyir tamamlandı',INTERRUPTED:'Ses kesintisi · devam edebilirsin',RECOVERING:'Ses yeniden hazırlanıyor',ERROR:'Ses açılamadı'};text($('r920Phase'),labels[s.phase]||(mode==='berhet'&&s.phase==='PLAYING'?'Zikir sürüyor':''));
  for(const id of ['r920Plus','r920Minus','r920Counter'])prop($(id),'disabled',!!journey||busy);
  prop($('r923EsmaOptions'),'hidden',mode!=='esma');
  if(mode==='esma'&&visual.esmaScene){const scene=visual.esmaScene;
@@ -146,6 +146,44 @@ document.addEventListener('pointerdown',()=>{if(root&&!root.hidden)wake()},{pass
 new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});
 // Re-render after the native setting handler; never duplicate the native toggle.
 document.addEventListener('click',e=>{if(e.target.closest('#optMean'))queue()},{passive:true});
-window.SukunPracticeUI=Object.freeze({version:'r929',refresh:queue,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,renders,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
+window.SukunPracticeUI=Object.freeze({version:'r944',refresh:queue,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,renders,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
 queue();
+})();
+
+/* r944: bounded, passive responsiveness evidence. No polling, layout reads,
+ * synthetic input or playback commands. These slow samples are not an INP score. */
+(()=>{'use strict';
+ if(window.SukunInteractionDiagnostics)return;
+ const limit={interactions:24,frames:16},interactions=[],frames=[],observers=[];
+ const supported={eventTiming:false,loaf:false};
+ let measuredInteractions=0,measuredFrames=0,ignoredDiagnostics=0;
+ const round=value=>Math.max(0,Math.round((Number(value)||0)*10)/10);
+ const controls=new Set(('r920Play r920Stop r920Plus r920Minus r920Counter r920Previous r920Next r920Restart r920TefEnter r920TefExit r920More r920AtlasOpen r920AtlasClose r920AtlasChoose r920NameInfo r920ModeEsma r920ModeBerhet r920JourneyMode r920RepeatMode r920RepeatCustom r920RepeatGap r920NameSelect r920WheelSelect r920SceneSelect r920Performance r920Focus r925WheelMotion r923EsmaSceneSelect r923SceneRetry r932EasyPlay r932EasyStop r932EasyPlus r932EasyMinus r932WheelControls r938PanelToggle r679ZikirAyarBox r920ViewOptions r920JourneySettings optTick optVib optMean optAdv optSpeak arTgl tempoSld r829Tempo csTempo r922VoiceMode r922RecordVoice itemRecBtn spkOnce spkLoop niyetBtn favBtn helpBtn r588Play r588Pause r588Stop r588Prev r588Next r588Reset r588Hide r588Details r633DockGrip').split(' '));
+ const sourceFiles=new Set(['index.html','nero.html','interface-r920.js','session-r919.js','dock-r920.js','wheels-r924.js','berhet-layout-r938.js','berhet-theme-r933.js','health-r940.js','health-view-r943.js','esma-scenes-r923.js']);
+ const diagnosticSelector='#r455Diag,#prDiagOverlay,#r940Health,#r940HealthDialog';
+ const name=node=>{let p=node;for(let i=0;p&&i<6;i++,p=p.parentElement)if(controls.has(p.id))return '#'+p.id;const tag=String(node?.tagName||'').toLowerCase();return ['button','input','select','summary','a','textarea'].includes(tag)?tag:'other'};
+ const diagnostic=(entry,target)=>!!(target?.closest?.(diagnosticSelector)||window.SukunDiagnosticWork?.owns?.(entry));
+ function source(url){try{const u=new URL(url,location.href);if(u.origin!==location.origin)return '';const file=u.pathname.split('/').pop();return sourceFiles.has(file)?file:''}catch(_){return ''}}
+ function scriptEvidence(script){
+  const file=source(script.sourceURL);if(!file)return null;
+  const fn=String(script.sourceFunctionName||'');
+  return{source:file,charOffset:Number.isInteger(script.sourceCharPosition)&&script.sourceCharPosition>=0?script.sourceCharPosition:null,function:/^[A-Za-z_$][\w$]{0,79}$/.test(fn)?fn:'',durationMs:round(script.duration),forcedLayoutMs:round(script.forcedStyleAndLayoutDuration)};
+ }
+ function keep(list,item,max){list.push(item);if(list.length>max)list.splice(0,list.length-max)}
+ function observe(type,options,handle,key){
+  try{if(!PerformanceObserver.supportedEntryTypes?.includes(type))return;const observer=new PerformanceObserver(list=>{try{handle(list.getEntries())}catch(_){/* Diagnostics must never interrupt the app. */}});observer.observe({type,buffered:false,...options});observers.push(observer);supported[key]=true}catch(_){}
+ }
+ observe('event',{durationThreshold:40},entries=>{for(const e of entries){
+  if(!e.interactionId||!['click','pointerdown','pointerup','keydown','keyup'].includes(e.name))continue;
+  if(diagnostic(e,e.target)){ignoredDiagnostics++;continue;}
+  measuredInteractions++;
+  keep(interactions,{at:round(e.startTime),kind:e.name,target:name(e.target),durationMs:round(e.duration),inputDelayMs:round(e.processingStart-e.startTime),handlerMs:round(e.processingEnd-e.processingStart),presentationDelayMs:round(e.startTime+e.duration-e.processingEnd)},limit.interactions);
+ }},'eventTiming');
+ observe('long-animation-frame',{},entries=>{for(const e of entries){
+  if(diagnostic(e)){ignoredDiagnostics++;continue;}
+  measuredFrames++;
+  const scripts=Array.from(e.scripts||[]).map(scriptEvidence).filter(Boolean).sort((a,b)=>b.durationMs-a.durationMs).slice(0,4);
+  keep(frames,{at:round(e.startTime),durationMs:round(e.duration),blockingMs:round(e.blockingDuration),scripts},limit.frames);
+ }},'loaf');
+ window.SukunInteractionDiagnostics=Object.freeze({version:'r944',snapshot:()=>({version:'r944',supported:{...supported},interactions:interactions.map(e=>({...e})),frames:frames.map(e=>({...e,scripts:e.scripts.map(s=>({...s}))})),measuredInteractions,measuredFrames,ignoredDiagnostics,retention:{...limit},timeBase:'navigation-start-ms',eventThresholdMs:40,notINP:true,privacy:'known-control-ids-known-file-names-no-text-no-url-query',scope:'browser-observed-slow-samples'})});
 })();

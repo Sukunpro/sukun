@@ -82,5 +82,11 @@
 @media(max-width:560px){#r940Health.hv-r943 .hv-areas{grid-template-columns:minmax(0,1fr)}#r940Health.hv-r943 .hv-body{padding:0 12px 14px}#r940Health.hv-r943 .hv-panel-summary,#r455Diag #r940Health.hv-r943 .hv-panel-summary{padding:16px 14px}#r940Health.hv-r943 .hv-overall{gap:10px;padding:14px;grid-template-columns:32px minmax(0,1fr)}#r940Health.hv-r943 .hv-overall-icon{width:32px;height:32px;font-size:19px}#r940Health.hv-r943 h3,#r455Diag #r940Health.hv-r943 h3{font-size:17px}#r940Health.hv-r943 .hv-ai{padding:14px}#r940Health.hv-r943 .hv-ai .hv-actions button{flex:1 1 150px}#r940Health.hv-r943 .hv-panel-summary>strong{font-size:18px}}
 @media(prefers-contrast:more){#r940Health.hv-r943{--hv-muted:#d3e2da;--hv-line:#9bb6aa}#r940Health.hv-r943 button{border-width:2px}}
 
-#r940Health.hv-r943 .hv-area-head::after{content:"Ayrıntılar ▾";grid-column:2;color:var(--hv-muted);font:11px/1.5 system-ui}
+#r940Health.hv-r943 .hv-area-head::after{content:"Ayrıntılar ▾";position:static;inset:auto;transform:none;width:auto;height:auto;margin:0;background:none;grid-column:2;justify-self:start;color:var(--hv-muted);font:11px/1.5 system-ui}
 #r940Health.hv-r943 details[open]>.hv-area-head::after{content:"Ayrıntıları kapat ▴"}
+#r940Health.hv-r943 .hv-device-guide{margin:18px 0 0;border:1px solid var(--hv-line);border-radius:12px;background:#132f29;overflow:visible}
+#r940Health.hv-r943 .hv-device-guide>summary{padding:13px 14px;font-size:13px;font-weight:650}
+#r940Health.hv-r943 .hv-device-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(140px,42%);align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--hv-line);font-size:12px}
+#r940Health.hv-r943 .hv-device-row select{box-sizing:border-box;width:100%;min-height:44px;padding:9px;border:1px solid #66817a;border-radius:9px;background:#203e38;color:var(--hv-ink);font:inherit;touch-action:manipulation}
+#r940Health.hv-r943 [data-health-action="device-save"]{margin-top:12px}
+@media(max-width:560px){#r940Health.hv-r943 .hv-device-row{grid-template-columns:minmax(0,1fr)}}
