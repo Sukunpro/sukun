@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 
 <!-- ════════════════════════════════════════════════════════════════
-     SÜKÛN r945 — Görsel Sahne Seçimi ve Ses Paleti (base r944)
+     SÜKÛN r946 — Arka Plan Ses Geçişi ve Hata Kanıtı (base r945)
      Tek dosya • Web Audio API (tüm sesler cihazda sentezlenir)
      Binaural Beats + Isochronic Tones + Esmâ/Zikir Modülü
      ════════════════════════════════════════════════════════════════ -->
 <html class="sukun-jewel-r798" lang="tr">
 <head>
-<link rel="stylesheet" href="./assets/runtime/berhet-layout-r938.css?v=r945" integrity="sha256-iQtFBUjYR7OkeGqeKH9KVHA4GTakpfuH64J/FIvARY4=">
-<link id="sukun-r933-materials-style" rel="stylesheet" href="./assets/runtime/berhet-materials-r933.css?v=r945" integrity="sha256-S+EKXiMlSkZEF40I5mQXfh2rYnXIsM6BfXv+7b9eKyQ=">
-<link id="sukun-r933-controls-style" rel="stylesheet" href="./assets/runtime/berhet-controls-r933.css?v=r945" integrity="sha256-hSWilSjEkD6VfxQJX3zbZAid9fl/gL4YqlXvR0k0Wjc=">
-<link id="sukun-r933-dock-style" rel="stylesheet" href="./assets/runtime/berhet-dock-r933.css?v=r945" integrity="sha256-DV+h24tq9LXbizGR6eToLqO0eM4GnWeT1KqPcqEQ43Y=">
+<link rel="stylesheet" href="./assets/runtime/berhet-layout-r938.css?v=r946" integrity="sha256-iQtFBUjYR7OkeGqeKH9KVHA4GTakpfuH64J/FIvARY4=">
+<link id="sukun-r933-materials-style" rel="stylesheet" href="./assets/runtime/berhet-materials-r933.css?v=r946" integrity="sha256-S+EKXiMlSkZEF40I5mQXfh2rYnXIsM6BfXv+7b9eKyQ=">
+<link id="sukun-r933-controls-style" rel="stylesheet" href="./assets/runtime/berhet-controls-r933.css?v=r946" integrity="sha256-hSWilSjEkD6VfxQJX3zbZAid9fl/gL4YqlXvR0k0Wjc=">
+<link id="sukun-r933-dock-style" rel="stylesheet" href="./assets/runtime/berhet-dock-r933.css?v=r946" integrity="sha256-DV+h24tq9LXbizGR6eToLqO0eM4GnWeT1KqPcqEQ43Y=">
 <style id="sukun-r920-contract">@layer sukun-r920-contract {
 /* First important layer: each legacy visual has one explicit successor. */
 /* r922: live native voice controls in the shared practice settings. */
@@ -855,11 +855,11 @@ html[data-r853-berhet="1"] body #berhetAtlas .r754SourceJumps button span {font-
 </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r945"/>
+<meta name="sukun-build" content="r946"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com https://api.moonshot.ai https://*.workers.dev; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r945" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r946" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6294,7 +6294,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){/* r922 shared settings owns its label. */if(document.getElementById('r920Practice')?.contains(document.getElementById('r679ZikirAyarBox')))return;if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r945"/><script>window.SUKUN_BUILD='r945';document.documentElement.dataset.sukunBuild='r945';</script>
+<meta name="sukun-build" content="r946"/><script>window.SUKUN_BUILD='r946';document.documentElement.dataset.sukunBuild='r946';</script>
 <style id="sukun-r923-esma-gallery">@layer sukun-r920 {
 #r920Practice #r923EsmaOptions{min-width:0;margin:10px 0}
 #r920Practice #r923EsmaOptions[hidden]{display:none!important}
@@ -7410,7 +7410,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN — Uygulama r945 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN — Uygulama r946 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -10913,7 +10913,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 </div>
 </div>
 </div>
-<script src="./assets/runtime/audio-palette-r945.js?v=r945" integrity="sha256-DfYTHVboafIroBGghDANS7nd3cTUFYnmNDaFBJIAO9E="></script>
+<script src="./assets/runtime/audio-palette-r945.js?v=r946" integrity="sha256-DfYTHVboafIroBGghDANS7nd3cTUFYnmNDaFBJIAO9E="></script>
 <script id="r514-core-icons-ambience">
 /* ═══════════════════════════════════════════════════════════════════
    r514-core-icons-ambience
@@ -15839,6 +15839,26 @@ let _r476Prepared={
   text:'',voice:null,lang:'tr-TR',rate:.85,pitch:.9
 };
 let _r476Hidden=null,_r476Batch=null,_r476PrepareSeq=0;
+/* r946: a prepared URL belongs to its snapshot until an atomic replacement.
+   In-flight handoff and the native element retain their source independently. */
+const _r946RetiredLockUrls=new Set();
+let _r946HandoffSource='';
+function r946LockLease(a){return a._sukunLockEpoch=(Number(a._sukunLockEpoch)||0)+1;}
+function r946ReleaseLockUrls(){
+  const keep=new Set([_r476Prepared?.url,_r476Prepared?.fxUrl,_r476RecUrl,_r477FxUrl,_r946HandoffSource,_r476LockAudio?.src,_r476LockAudio?.currentSrc]);
+  for(const url of _r946RetiredLockUrls){
+    if(keep.has(url))continue;
+    try{URL.revokeObjectURL(url)}catch(e){}
+    _r946RetiredLockUrls.delete(url);
+  }
+}
+function r946RetireLockUrl(url){if(url){_r946RetiredLockUrls.add(url);r946ReleaseLockUrls();}}
+function r946LockEvidence(a,stage,sourceKind,extra={}){
+ return {stage,path:'single-recording',hidden:!!document.hidden,paused:!!a?.paused,ended:!!a?.ended,readyState:Number(a?.readyState)||0,networkState:Number(a?.networkState)||0,mediaErrorCode:Number(a?.error?.code)||0,sourceKind,...extra};
+}
+function r946LockDiagnostic(kind,evidence,error){
+ try{window.dispatchEvent(new CustomEvent('sukun:diagnostic',{detail:{kind,message:kind==='background-play'?'Arka plan sesi başlatılamadı':'Arka plan ses geçişi',evidence,...(error?{extra:String(error?.name||'Error')}: {})}}));}catch(e){}
+}
 
 function r476SilentWav(){
   const rate=8000,sec=1.2,n=Math.floor(rate*sec),buf=new ArrayBuffer(44+n),v=new DataView(buf);
@@ -15871,6 +15891,7 @@ function r476Audio(){
 function r476Prime(){
   try{
     const a=r476Audio();
+    r946LockLease(a);
     a.loop=true;
     if(a.src!==_r476SilentUrl){a.src=_r476SilentUrl;a.load()}
     try{a.dataset.sukSilentCarrier='1'}catch(e){}
@@ -15938,7 +15959,7 @@ async function r476ProbeDuration(url){
    askıya alınır. Bu yüzden ekran AÇIKKEN kısa zikir kaydının 8D + reverb
    karakterini OfflineAudioContext ile WAV'a basıyoruz. Kilitte native
    <audio> bu işlenmiş dosyayı loop eder. Tempo da loop uzunluğuna gömülür. */
-let _r477FxUrl='',_r477FxBuildSeq=0,_r477FxCacheSig='';
+let _r477FxUrl='',_r477FxBuildSeq=0,_r477FxCacheSig='',_r477FxCycleMs=0;
 
 function r477WavFromBuffer(buf){
   const ch=Math.min(2,Math.max(1,buf.numberOfChannels||1));
@@ -15990,7 +16011,7 @@ async function r477RenderLockTrack(blob,key){
     return{
       url:_r477FxUrl,
       sig,
-      cycleMs:_r476Prepared.cycleMs||zAutoTempoMs(),
+      cycleMs:_r477FxCycleMs||zAutoTempoMs(),
       playRate:readRate
     };
   }
@@ -16056,8 +16077,9 @@ async function r477RenderLockTrack(blob,key){
 
     const wav=r477WavFromBuffer(rendered);
     const url=URL.createObjectURL(wav);
-    if(_r477FxUrl)try{URL.revokeObjectURL(_r477FxUrl)}catch(e){}
-    _r477FxUrl=url;_r477FxCacheSig=sig;
+    const previousFx=_r477FxUrl;
+    _r477FxUrl=url;_r477FxCacheSig=sig;_r477FxCycleMs=Math.round(cycleWallSec*1000);
+    r946RetireLockUrl(previousFx);
 
     return{
       url,
@@ -16081,16 +16103,15 @@ async function r476Prepare(){
 
   if(blob){
     try{
-      if(_r476RecUrl)URL.revokeObjectURL(_r476RecUrl);
-      url=URL.createObjectURL(blob);_r476RecUrl=url;
+      url=URL.createObjectURL(blob);
       durationMs=await r476ProbeDuration(url);
-    }catch(e){url='';durationMs=0}
+    }catch(e){r946RetireLockUrl(url);url='';durationMs=0}
   }
-  if(seq!==_r476PrepareSeq||!preferenceCurrent())return false;
+  if(seq!==_r476PrepareSeq||!preferenceCurrent()){r946RetireLockUrl(url);return false;}
 
   const speed=Math.max(.5,Math.min(2,Number(window.OKUMA_HIZ)||1));
   let cycleMs=Math.max(zAutoTempoMs(),durationMs?Math.round(durationMs/speed):0,650);
-  _r476Prepared={
+  const nextPrepared={
     key,blob,url,durationMs,voiceEpoch,unavailable:t.unavailable||'',
     fxUrl:'',fxSig:'',cycleMs,fxReady:false,playRate:speed,
     text:t.txt||'',voice:t.voice||null,lang:t.lang||'tr-TR',
@@ -16105,15 +16126,20 @@ async function r476Prepare(){
     /* r928: hidden yeniden hazırlık hazır FX'i kuru kayda çevirmesin.
        Cache hit sadece mevcut stereo WAV'ı bağlar; kilitte ağır render yok. */
     const fx=await r477RenderLockTrack(blob,key);
-    if(seq!==_r476PrepareSeq||!preferenceCurrent())return false;
+    if(seq!==_r476PrepareSeq||!preferenceCurrent()){r946RetireLockUrl(url);return false;}
     if(fx){
-      _r476Prepared.fxUrl=fx.url;
-      _r476Prepared.fxSig=fx.sig;
-      _r476Prepared.cycleMs=fx.cycleMs||cycleMs;
-      _r476Prepared.playRate=fx.playRate||speed;
-      _r476Prepared.fxReady=true;
+      nextPrepared.fxUrl=fx.url;
+      nextPrepared.fxSig=fx.sig;
+      nextPrepared.cycleMs=fx.cycleMs||cycleMs;
+      nextPrepared.playRate=fx.playRate||speed;
+      nextPrepared.fxReady=true;
     }
   }
+  // Commit only a fully prepared, current snapshot. Hidden handoff may still
+  // be using the prior snapshot; source retirement preserves that lease.
+  const previousPrepared=_r476Prepared,previousRaw=_r476RecUrl;
+  _r476Prepared=nextPrepared;_r476RecUrl=url;
+  for(const retired of new Set([previousRaw,previousPrepared.url,previousPrepared.fxUrl]))r946RetireLockUrl(retired);
   /* ═══ r539 — KİLİT EKRANI ELEMANI ESKİ KAYITTA TAKILI KALIYORDU ══════
      Zincirin son halkası buydu. Sayaç ilerliyor, hedef dolunca geçiş
      işleniyor, yeni ismin parçası hazırlanıyor — hepsi çalışıyor. Ama
@@ -16141,7 +16167,7 @@ async function r476Prepare(){
     const yeniAnahtar=_r476Prepared.key||'';
     if(a&&yeni&&yeniAnahtar&&yeniAnahtar!==calanAnahtar&&!a.paused&&a.src&&a.src!==_r476SilentUrl){
       const oran=Math.max(.5,Math.min(2,Number(_r476Prepared.playRate)||1));
-      a.loop=true;
+      r946LockLease(a);a.loop=true;
       a.src=yeni;
       try{delete a.dataset.sukSilentCarrier}catch(e){}
       a.defaultPlaybackRate=oran;
@@ -16154,6 +16180,7 @@ async function r476Prepare(){
       try{r476MediaSession('recording')}catch(e){}
     }
   }catch(e){}
+  r946ReleaseLockUrls();
   return true;
 }
 /* ═══ r541 — KİLİT EKRANINDA PLAY SESİ GERİ GETİRMİYORDU ════════════
@@ -16168,6 +16195,10 @@ async function r476Prepare(){
    bunu deniyor. Kilit oturumu yoksa veya eleman sessiz taşıyıcıdaysa
    dokunmuyor, normal yola bırakıyor. */
 window.SukunLockAudio={
+  snapshot(){
+    const a=_r476LockAudio,real=!!(a&&a.src&&a.src!==_r476SilentUrl&&a.dataset?.sukSilentCarrier!=='1');
+    return {path:_r476Hidden?.mode==='tts'?'tts':'single-recording',active:!!_r476Hidden,preparing:!!_r838HiddenStart,playing:!!(real&&!a.paused&&!a.ended&&a.readyState>=2),paused:!!a?.paused,ended:!!a?.ended,readyState:Number(a?.readyState)||0,networkState:Number(a?.networkState)||0,mediaErrorCode:Number(a?.error?.code)||0,sourceKind:real?(a.dataset?.sukLockFx==='1'?'baked':'recording'):'none',cycleMs:Number(_r476Hidden?.cycleMs)||0};
+  },
   etkin(){
     try{
       const a=_r476LockAudio;
@@ -16269,13 +16300,14 @@ function r476StartTtsBatch(){
  }catch(e){b.active=false;return false;}
 }
 let _r838HiddenStart=null;
-async function r476BeginHidden(){
+async function r476BeginHidden(retry=0){
  if(!Z.auto||!document.hidden||!zikirSesliAktifMi()||ZIKIR_BIRLIKTE)return false;
  if(_r476Hidden)return true;
  if(_r838HiddenStart)return _r838HiddenStart;
  const expected=zikirKey(),generation=window.SukunZikirTransportGate?.snapshot?.().generation;
  const preferenceCurrent=window.SukunVoiceSettings?.capture?.()||(()=>true);
  const valid=()=>preferenceCurrent()&&Z.auto&&document.hidden&&zikirKey()===expected&&!ZIKIR_BIRLIKTE&&(generation==null||generation===window.SukunZikirTransportGate?.snapshot?.().generation);
+ let retryAfterVoice=null,heldSource='',metadataCleanup=null;
  const task=(async()=>{
   if(_r476Prepared.key!==expected||_r476Prepared.voiceEpoch!==(window.SukunVoiceSettings?.epoch?.()||0)){try{await r476Prepare()}catch(e){}}
   if(!valid()||_r476Prepared.key!==expected)return false;
@@ -16285,15 +16317,18 @@ async function r476BeginHidden(){
   let phaseMs=0;
   try{const playing=[...SES.ler].find(x=>x&&!x.paused&&!x.ended);if(playing)phaseMs=Math.max(0,playing.currentTime*1000/Math.max(.1,playing.playbackRate||1));}catch(e){}
   const a=r476Audio();
+  let nativeLease=0;
+  const ownsNative=()=>a._sukunLockEpoch===nativeLease&&a.src===sourceUrl&&a.dataset?.sukLockKey===expected;
   if(sourceUrl){
+   heldSource=sourceUrl;_r946HandoffSource=sourceUrl;nativeLease=r946LockLease(a);
    try{
     a.pause();a.loop=true;a.volume=0;a.src=sourceUrl;
     delete a.dataset.sukSilentCarrier;a.dataset.sukLockKey=expected;a.dataset.sukLockFx=prepared.fxUrl?'1':'0';
     a.defaultPlaybackRate=a.playbackRate=Math.max(.5,Math.min(2,Number(prepared.playRate)||1));a.preservesPitch=true;a.load();
-    const seek=()=>{try{if(valid()&&Number.isFinite(a.duration)&&a.duration>0)a.currentTime=Math.min(phaseMs/1000*a.playbackRate,Math.max(0,a.duration-.04));}catch(e){}};
-    if(a.readyState>=1)seek();else a.addEventListener('loadedmetadata',seek,{once:true});
+    const seek=()=>{try{if(valid()&&ownsNative()&&Number.isFinite(a.duration)&&a.duration>0)a.currentTime=Math.min(phaseMs/1000*a.playbackRate,Math.max(0,a.duration-.04));}catch(e){}};
+    if(a.readyState>=1)seek();else{a.addEventListener('loadedmetadata',seek,{once:true});metadataCleanup=()=>a.removeEventListener('loadedmetadata',seek);}
     await a.play();
-    if(!valid()){a.pause();return false;}
+    if(!valid()||!ownsNative()){if(ownsNative())a.pause();return false;}
     window.SukunZikirTransportGate?.invalidate?.('background-handoff');
     window.SukunZikirTransportGate?.reset?.('background-handoff');
     try{sesDurdur('background-handoff')}catch(e){}
@@ -16301,12 +16336,16 @@ async function r476BeginHidden(){
     _r476Hidden={startedAt:Date.now(),count:+Z.count||0,devir:+Z.devir||0,total:+Z.total||0,mode:'recording',cycleMs,phaseMs:phaseMs%cycleMs,preparedKey:expected,fx:!!prepared.fxUrl,audibleMs:0,lastMediaTime:Number(a.currentTime)||0,audibleSince:Date.now(),credited:0};
     a.volume=Math.max(.05,Math.min(1,typeof ZVOL==='number'?ZVOL:1));
     try{window.SukunNativeEchoBridge?.start?.(a,{src:sourceUrl,wet:KAYIT?.yankiMik,volume:a.volume,rate:a.playbackRate,key:expected,mode:'lock-zikir',baked:!!prepared.fxUrl})}catch(e){}
-    r476MediaSession('recording');window.dispatchEvent(new CustomEvent('sukun:lock-ready'));return true;
+    r476MediaSession('recording');window.dispatchEvent(new CustomEvent('sukun:lock-ready'));
+    r946LockDiagnostic('background-handoff',r946LockEvidence(a,'started',prepared.fxUrl?'baked':'recording'));return true;
    }catch(error){
-    try{a.pause()}catch(e){}
-    window.dispatchEvent(new CustomEvent('sukun:diagnostic',{detail:{kind:'background-play',message:'Arka plan sesi başlatılamadı',extra:String(error?.name||error)}}));
-    const voice=window.__SUKUN_ZIKIR_VOICE_PROMISE__;
-    if(voice)Promise.resolve(voice).finally(()=>{if(valid())r476BeginHidden();}).catch(()=>{});
+    const eligible=valid(),owned=ownsNative();
+    try{if(owned)a.pause()}catch(e){}
+    if(!eligible||!owned)return false;
+    r946LockDiagnostic('background-play',r946LockEvidence(a,'native-play',prepared.fxUrl?'baked':'recording',{errorName:String(error?.name||'Error'),eligible:valid(),generationCurrent:generation==null||generation===window.SukunZikirTransportGate?.snapshot?.().generation}),error);
+    // Only one transient interruption retry, after foreground settlement and
+    // after this attempt releases ownership. Permission failures never loop.
+    if(retry<1&&error?.name==='AbortError'&&valid())retryAfterVoice=window.__SUKUN_ZIKIR_VOICE_PROMISE__||null;
     return false;
    }
   }
@@ -16317,7 +16356,14 @@ async function r476BeginHidden(){
   r476MediaSession('tts');return r476StartTtsBatch();
  })();
  _r838HiddenStart=task;
- try{return await task}finally{if(_r838HiddenStart===task)_r838HiddenStart=null;if(Z.auto&&document.hidden&&zikirKey()!==expected&&!_r476Hidden)setTimeout(()=>r476BeginHidden(),0);}
+ try{return await task}finally{
+  if(metadataCleanup){metadataCleanup();metadataCleanup=null;}
+  if(_r838HiddenStart===task)_r838HiddenStart=null;
+  if(heldSource&&_r946HandoffSource===heldSource)_r946HandoffSource='';
+  r946ReleaseLockUrls();
+  if(retryAfterVoice)Promise.resolve(retryAfterVoice).then(()=>{if(valid()&&!_r476Hidden)r476BeginHidden(retry+1);},()=>{if(valid()&&!_r476Hidden)r476BeginHidden(retry+1);}).catch(()=>{});
+  if(Z.auto&&document.hidden&&!_r476Hidden&&(zikirKey()!==expected||(generation!=null&&generation!==window.SukunZikirTransportGate?.snapshot?.().generation)))setTimeout(()=>r476BeginHidden(),0);
+ }
 }
 function r838CaptureAudible(s,playing){
  if(!s||s.mode!=='recording')return;
@@ -16431,6 +16477,7 @@ async function r476SilentApply(reps){
 async function r476EndHidden(){
   const s=_r476Hidden;if(!s)return 0;
   _r476Hidden=null;
+  if(s.mode==='recording')r946LockDiagnostic('background-handoff',r946LockEvidence(_r476LockAudio,'released',s.fx?'baked':'recording'));
   /* r540: kilit bitti, hedef zamanlayıcısı boşta kalmasın. */
   try{ if(_r476HedefTimer){clearTimeout(_r476HedefTimer);_r476HedefTimer=0;} }catch(e){}
 
@@ -16483,7 +16530,7 @@ async function r476EndHidden(){
       try{
         a.pause();a.src=_r476SilentUrl;a.loop=true;a.volume=1;
         try{a.dataset.sukSilentCarrier='1';delete a.dataset.sukLockKey}catch(e){}
-        a.load();
+        a.load();r946ReleaseLockUrls();
         if(Z.auto){const pp=a.play();if(pp?.catch)pp.catch(()=>{})}
       }catch(e){}
     }
@@ -16497,7 +16544,7 @@ function r476Stop(all=true){
   _r476Hidden=null;r476StopTtsBatch();
   try{
     const a=_r476LockAudio;
-    if(a){try{window.SukunNativeEchoBridge?.stop?.(a,'lock-stop')}catch(e){};a.pause();a.currentTime=0}
+    if(a){r946LockLease(a);try{window.SukunNativeEchoBridge?.stop?.(a,'lock-stop')}catch(e){};a.pause();a.currentTime=0}
   }catch(e){}
   if(all){
     try{if('mediaSession'in navigator)navigator.mediaSession.playbackState='none'}catch(e){}
@@ -16697,7 +16744,7 @@ function autoStart(){
   try{window.SukunAudioSessionRegistry?.releasePauseGate?.('auto-zikir-start')}catch(e){}
   try{window.SukunZikirTransportGate?.reset?.('auto-start')}catch(e){}
   try{ac();if(ctx?.state==='suspended')ctx.resume().catch(()=>{})}catch(e){}
-  try{r476Prime();r476Prepare()}catch(e){}
+  try{r476Prime()}catch(e){}
 
   Z.auto=true;
   _zAutoSon=Date.now();
@@ -76882,7 +76929,7 @@ html[data-r913-context="base"] body.r716-shell>#r717Scene{display:block!importan
 html[data-r913-context="base"] body.r716-shell>#r709SceneArt,html[data-r913-context="base"] body.r716-shell>[data-berhet-scene-layer]{display:none!important;opacity:0!important}
 </style>
 <script id="sukun-r913-build-scene-runtime">/* r916: retired competing visual writer; audio engine unchanged. */window.SukunR913={version:'r916',sync:()=>window.SukunR916Visual?.sync?.()};</script>
-<script src="./assets/runtime/esma-scenes-r923.js?v=r945" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
+<script src="./assets/runtime/esma-scenes-r923.js?v=r946" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
 <script id="sukun-r914-runtime">(()=>{'use strict';
 const R=document.documentElement,A='./assets/berhetiyye-premium/',$=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch(_){return d}};
 const atlas=window.SukunR853Scene.nameScenes,originals=window.SukunR853Scene.files;
@@ -77023,11 +77070,11 @@ prop('--r914-scene','none');attr('r920Performance',profile);new MutationObserver
 </script>
 <svg id="r915Filters" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;pointer-events:none"><defs><filter id="r915BlackAlpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 8 8 8 0 0"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
 
-<script src="./assets/runtime/session-r919.js?v=r945" integrity="sha256-h9QV2flm7pkstjEedYrl7XawO7eC/ZNReaILqUZHydk="></script>
-<script src="./assets/runtime/dock-r920.js?v=r945" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
-<script src="./assets/runtime/wheels-r924.js?v=r945" integrity="sha256-ujpNhskOo017WC6rY+CGUVVVqUlYvu8/1okJGIeZuA0="></script>
-<script src="./assets/runtime/berhet-layout-r938.js?v=r945" integrity="sha256-yCefqhIgWIkdr7XOSm8F676iv97FNFbKQwkX9ig36Z8="></script>
-<script src="./assets/runtime/interface-r920.js?v=r945" integrity="sha256-J7Bni8YGoryJpb/CpFru+/QUZceyHwhQA07mgcRnJDU="></script>
+<script src="./assets/runtime/session-r919.js?v=r946" integrity="sha256-h9QV2flm7pkstjEedYrl7XawO7eC/ZNReaILqUZHydk="></script>
+<script src="./assets/runtime/dock-r920.js?v=r946" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
+<script src="./assets/runtime/wheels-r924.js?v=r946" integrity="sha256-ujpNhskOo017WC6rY+CGUVVVqUlYvu8/1okJGIeZuA0="></script>
+<script src="./assets/runtime/berhet-layout-r938.js?v=r946" integrity="sha256-yCefqhIgWIkdr7XOSm8F676iv97FNFbKQwkX9ig36Z8="></script>
+<script src="./assets/runtime/interface-r920.js?v=r946" integrity="sha256-J7Bni8YGoryJpb/CpFru+/QUZceyHwhQA07mgcRnJDU="></script>
 <script id="sukun-r922-voice-settings-ui">
 (function(){'use strict';
 const $=id=>document.getElementById(id);let mounted=false,raf=0,busy=false,modeError='',discovery=null,discoveryTimer=0;
@@ -77107,12 +77154,12 @@ discoveryTimer=setTimeout(()=>{discovery?.disconnect();discovery=null;},15000);q
 
 </script>
 
-<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r945" integrity="sha256-i5ggo2L/y6Zq/6cJGQmrbdTlbIcjdOlYl8LmfUSNs4Y=">
-<script id="sukun-r933-theme" src="./assets/runtime/berhet-theme-r933.js?v=r945" integrity="sha256-2oO498ir9JwAw6ESkdoMAahITnQsSpIL6ds7elb2tDQ="></script>
-<link rel="stylesheet" href="./assets/runtime/health-view-r943.css?v=r945" integrity="sha256-k0xodZIkCc54Ib372RXS2Yc4fqBFvKhmGr0UYokiFD4=">
-<script id="sukun-r943-health-view" src="./assets/runtime/health-view-r943.js?v=r945" integrity="sha256-AW5WsWRPw1Cn86tBQ2jczQxaG/BvaLz+SNhkgsG15Q4="></script>
-<link rel="stylesheet" href="./assets/runtime/scene-picker-r945.css?v=r945" integrity="sha256-tgW/XsT8jFhyborqTjGMz5nDaNNrknS7IgaXR8F/cvE=">
-<script src="./assets/runtime/scene-picker-r945.js?v=r945" integrity="sha256-xxZVvhdyNPZCyAiAr1NybmS+rGbLCHxeKdycxw3YooM="></script>
-<script id="sukun-r940-health" src="./assets/runtime/health-r940.js?v=r945" integrity="sha256-0t/bA85bYbcHvYG/cv54iuFrpR+I6i1kxxgodfFc4Hc="></script>
+<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r946" integrity="sha256-i5ggo2L/y6Zq/6cJGQmrbdTlbIcjdOlYl8LmfUSNs4Y=">
+<script id="sukun-r933-theme" src="./assets/runtime/berhet-theme-r933.js?v=r946" integrity="sha256-2oO498ir9JwAw6ESkdoMAahITnQsSpIL6ds7elb2tDQ="></script>
+<link rel="stylesheet" href="./assets/runtime/health-view-r943.css?v=r946" integrity="sha256-k0xodZIkCc54Ib372RXS2Yc4fqBFvKhmGr0UYokiFD4=">
+<script id="sukun-r943-health-view" src="./assets/runtime/health-view-r943.js?v=r946" integrity="sha256-uhcReQGIwtKKi70m7qxIhvV2SXlHuqnoOt5T8u07SOA="></script>
+<link rel="stylesheet" href="./assets/runtime/scene-picker-r945.css?v=r946" integrity="sha256-tgW/XsT8jFhyborqTjGMz5nDaNNrknS7IgaXR8F/cvE=">
+<script src="./assets/runtime/scene-picker-r945.js?v=r946" integrity="sha256-xxZVvhdyNPZCyAiAr1NybmS+rGbLCHxeKdycxw3YooM="></script>
+<script id="sukun-r940-health" src="./assets/runtime/health-r940.js?v=r946" integrity="sha256-4/pC+8GYQYE82RJQZbb3DAtxnx9P4wVZI885z8EedJE="></script>
 </body>
 </html>

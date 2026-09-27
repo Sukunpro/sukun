@@ -1,0 +1,688 @@
+{
+  "build": "r946",
+  "base": "r945",
+  "pass": true,
+  "date": "2026-09-27",
+  "scope": "Atomik arka plan ses hazırlığı, gecikmiş ses işlemleri ve hata kanıtı",
+  "production": {
+    "indexSha256": "3b77b189df88364913ab0b705c003970159930786344ab9026c2dd0dc8acb2ab",
+    "swSha256": "46077312b8514305b197062cd61ad95598e2f5bdefb14ab4884efe97516c3d78",
+    "runtimeFiles": 18,
+    "changedBaselineFiles": [
+      "nero.html",
+      "sukun-latest.json",
+      "manifest.webmanifest",
+      "sw.js",
+      "index.html",
+      "PAKET_KAPSAMI.json",
+      "assets/runtime/health-r940.js",
+      "assets/runtime/health-view-r943.js"
+    ],
+    "preservedBaselineFiles": 229,
+    "duplicateIds": []
+  },
+  "limitations": [
+    "Fiziksel Android arka plan ve ekran kilidi / işitilebilir ses testi yapılmadı.",
+    "Eski cihaz raporu özgün hata türünü içermiyor; yeniden üretilen yarışın kullanıcının tüm kesintilerinin tek nedeni olduğu kanıtlanmadı.",
+    "Paket mevcut kuruluma birleştirme güncellemesidir; bütün tarihsel görselleri içeren temiz kurulum paketi değildir.",
+    "Canlı siteye yükleme yapılmadı."
+  ],
+  "checks": {
+    "release-results.json": {
+      "suite": "r946-release",
+      "build": "r946",
+      "startedAt": "2026-09-27T14:44:06.521Z",
+      "physicalDeviceLockScreen": "NOT_RUN",
+      "checks": [
+        {
+          "name": "HTML entry points identical and current",
+          "status": "PASS",
+          "entryPoints": [
+            "index.html",
+            "nero.html"
+          ],
+          "build": "r946"
+        },
+        {
+          "name": "Release marker, manifest and SW identities agree",
+          "status": "PASS",
+          "runtimeFiles": 18
+        },
+        {
+          "name": "All required runtime files match SHA-256 and HTML SRI",
+          "status": "PASS",
+          "runtimeFiles": 18
+        },
+        {
+          "name": "All executable scripts parse",
+          "status": "PASS",
+          "inline": 242,
+          "external": 11
+        }
+      ],
+      "browser": [
+        {
+          "name": "Clean mobile Chromium install has verified matching controller",
+          "status": "PASS",
+          "identity": {
+            "version": "r946",
+            "appVersion": "r946",
+            "phase": "ready",
+            "workerVersion": "r946",
+            "controllerVersion": "r946",
+            "activeVersion": "r946",
+            "waitingVersion": "",
+            "cache": "sukun-r946-background-audio-20260927-v1",
+            "complete": true,
+            "controllerCache": "sukun-r946-background-audio-20260927-v1",
+            "controllerComplete": true,
+            "waitingCache": "",
+            "waitingComplete": null,
+            "lastError": "",
+            "lastChange": 1790520251087,
+            "hasWaiting": false,
+            "hasController": true,
+            "versionMatch": true,
+            "updateQueued": false,
+            "reloadPending": false,
+            "sessionBusy": false
+          }
+        },
+        {
+          "name": "Clean installed shell and every runtime work offline",
+          "status": "PASS",
+          "runtimeFiles": 18
+        },
+        {
+          "name": "Clean installation and offline reload have no JS page errors",
+          "status": "PASS"
+        },
+        {
+          "name": "r945 remains active while verified r946 waits",
+          "status": "PASS",
+          "waiting": {
+            "version": "r945",
+            "appVersion": "r945",
+            "phase": "waiting",
+            "workerVersion": "r945",
+            "controllerVersion": "r945",
+            "activeVersion": "r945",
+            "waitingVersion": "r946",
+            "cache": "sukun-r945-scenes-audio-20260927-v1",
+            "complete": true,
+            "controllerCache": "sukun-r945-scenes-audio-20260927-v1",
+            "controllerComplete": true,
+            "waitingCache": "sukun-r946-background-audio-20260927-v1",
+            "waitingComplete": true,
+            "lastError": "",
+            "lastChange": 1790520257480,
+            "hasWaiting": true,
+            "hasController": true,
+            "versionMatch": true,
+            "updateQueued": false,
+            "reloadPending": false,
+            "sessionBusy": false
+          }
+        },
+        {
+          "name": "User-triggered r945 to r946 update reloads once and preserves actual recording/ambience IndexedDB plus localStorage",
+          "status": "PASS",
+          "reloads": 1,
+          "stores": [
+            "sukunRec/clips",
+            "sukunCustomAmb/sounds"
+          ],
+          "fixtureBytes": 46
+        },
+        {
+          "name": "Updated release works offline and retains stored user fixture data",
+          "status": "PASS",
+          "runtimeFiles": 18
+        },
+        {
+          "name": "r945 to r946 upgrade and offline reload have no JS page errors",
+          "status": "PASS"
+        },
+        {
+          "name": "missing required r946 runtime rejects installation and keeps verified r945 usable offline",
+          "status": "PASS",
+          "rejectedRuntime": "assets/runtime/health-r940.js",
+          "activeBuild": "r945",
+          "unwantedReloads": 1,
+          "stagedComplete": false
+        },
+        {
+          "name": "tampered required r946 runtime rejects installation and keeps verified r945 usable offline",
+          "status": "PASS",
+          "rejectedRuntime": "assets/runtime/health-r940.js",
+          "activeBuild": "r945",
+          "unwantedReloads": 1,
+          "stagedComplete": false
+        }
+      ],
+      "errors": [],
+      "hashes": {
+        "html": "3b77b189df88364913ab0b705c003970159930786344ab9026c2dd0dc8acb2ab",
+        "sw": "46077312b8514305b197062cd61ad95598e2f5bdefb14ab4884efe97516c3d78",
+        "marker": "97b7fd43b1e81dcffca593b7cdb02c1cc8ea5cf17152756f9f1623a0dc286848",
+        "latest": "6fcc4028a018120ec5089b1fffe54e49b756fe47906fe35c9301b9018ffb2894",
+        "manifest": "a8afe3d1f7efb2316031c4e365189eb0a9ee5bf4ebc3e8298ccb29026e9fce12",
+        "runtime": [
+          {
+            "url": "./assets/runtime/berhet-layout-r938.css?v=r946",
+            "sha256": "890b450548d847b3a4786a9e287f4a5470381936a4a5fb87eb827f148bc0458e"
+          },
+          {
+            "url": "./assets/runtime/berhet-materials-r933.css?v=r946",
+            "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"
+          },
+          {
+            "url": "./assets/runtime/berhet-controls-r933.css?v=r946",
+            "sha256": "8525a29528c4903e957f14095f7cdb64089df5f97f80be18aa55ef4749345a37"
+          },
+          {
+            "url": "./assets/runtime/berhet-dock-r933.css?v=r946",
+            "sha256": "0d5fa1db8b6af4b5db8b3191e9e4e82ea3b478ce069d6793d4aa8f72a110e376"
+          },
+          {
+            "url": "./assets/runtime/audio-palette-r945.js?v=r946",
+            "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1"
+          },
+          {
+            "url": "./assets/runtime/esma-scenes-r923.js?v=r946",
+            "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"
+          },
+          {
+            "url": "./assets/runtime/session-r919.js?v=r946",
+            "sha256": "87d415d9f966ee992cb6311e758ae5ed76b03bb782fd935179a20ba94647c9d9"
+          },
+          {
+            "url": "./assets/runtime/dock-r920.js?v=r946",
+            "sha256": "d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0"
+          },
+          {
+            "url": "./assets/runtime/wheels-r924.js?v=r946",
+            "sha256": "ba3a4d86c90ea34d7b582eab63e086515555a94958beef3fd68909188799b80d"
+          },
+          {
+            "url": "./assets/runtime/berhet-layout-r938.js?v=r946",
+            "sha256": "c8279faa122058891dafb5ce4a6f05ebbea2bfdec53456ca430917f62837e99f"
+          },
+          {
+            "url": "./assets/runtime/interface-r920.js?v=r946",
+            "sha256": "27b0678bc606a2bc89a5bfc2a45aeefbf41465c7b21f0850034ee681c4672435"
+          },
+          {
+            "url": "./assets/runtime/wheels-r924.css?v=r946",
+            "sha256": "8b9820a362ffcba66affa7091909ab6dd4e56c872374e95897c2e67d448db386"
+          },
+          {
+            "url": "./assets/runtime/berhet-theme-r933.js?v=r946",
+            "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434"
+          },
+          {
+            "url": "./assets/runtime/health-view-r943.css?v=r946",
+            "sha256": "934c6875922409ce7821bdfbd915d2d987387ea045bca8661abd14628922143e"
+          },
+          {
+            "url": "./assets/runtime/health-view-r943.js?v=r946",
+            "sha256": "ba1711790188c2d28a8bbd26eeac4886f576497947baa9e83ade53f2ed3b48e0"
+          },
+          {
+            "url": "./assets/runtime/scene-picker-r945.css?v=r946",
+            "sha256": "b605bf5ec4fc8c58726e8aea4e318ccf99c368d36b9274bb22069747c17f72f1"
+          },
+          {
+            "url": "./assets/runtime/scene-picker-r945.js?v=r946",
+            "sha256": "c71655be177234f642c80880af53726e64beac66cb087c5e29dc9cc70dd8a283"
+          },
+          {
+            "url": "./assets/runtime/health-r940.js?v=r946",
+            "sha256": "e3fa42fbc19841813cd9125065b6f70c0b719f1f4fe3055923cf39cfc11e7491"
+          }
+        ]
+      },
+      "baseline": {
+        "build": "r945",
+        "zip": "SUKUN_r945_TOPLU_YUKLEME.zip",
+        "html": "8f7c9d35f0bd547bc811604cb995bfede7cf109d7921e77cc726cb693a8e39a6",
+        "sw": "cf6faad1ee81f7bee3ccb3aa4c79e01fc5a3cf6e0cf908a57d9c1a89703404bd"
+      },
+      "browserVersion": "153.0.8010.0",
+      "optionalOverlayMisses": [
+        "assets/feyz-ornament.svg",
+        "assets/feyz-pattern-r718.svg",
+        "assets/sukun-nur-mist-r759.svg",
+        "assets/sukun-nur-orbit-r757.svg",
+        "assets/sukun-tesbih-weave-r759.svg",
+        "assets/tefekkur-sanctuary-r710.webp"
+      ],
+      "status": "PASS",
+      "finishedAt": "2026-09-27T14:44:43.006Z"
+    },
+    "background-ownership-results.json": {
+      "test": "r946-background-source-ownership",
+      "status": "PASS",
+      "scope": "production functions extracted into controlled VM",
+      "physicalLock": "NOT_RUN",
+      "sourcePath": "work-r946/index.html",
+      "files": {
+        "index.html": "3b77b189df88364913ab0b705c003970159930786344ab9026c2dd0dc8acb2ab"
+      },
+      "passed": 10,
+      "results": [
+        {
+          "name": "Atomic raw commit retains pending and active source, then releases retired URL without crediting repeats",
+          "pass": true,
+          "evidence": {}
+        },
+        {
+          "name": "Superseded raw candidate released; only latest source survives",
+          "pass": true,
+          "evidence": {
+            "created": 3,
+            "retained": 1
+          }
+        },
+        {
+          "name": "FX retirement respects advertised snapshot and in-flight handoff retention",
+          "pass": true,
+          "evidence": {}
+        },
+        {
+          "name": "Permission rejection emits safe class and causes no retry, no credit and no TTS fallback",
+          "pass": true,
+          "evidence": {}
+        },
+        {
+          "name": "Abort retry occurs after ownership release and stops after two attempts",
+          "pass": true,
+          "evidence": {}
+        },
+        {
+          "name": "Stale resolution after Stop neither pauses new lease nor restarts",
+          "pass": true,
+          "evidence": {}
+        },
+        {
+          "name": "Stale rejection after Stop neither pauses new lease nor restarts",
+          "pass": true,
+          "evidence": {}
+        },
+        {
+          "name": "Same-key new Start survives old resolution and establishes renewed native handoff",
+          "pass": true,
+          "evidence": {}
+        },
+        {
+          "name": "Same-key new Start survives old rejection and establishes renewed native handoff",
+          "pass": true,
+          "evidence": {}
+        },
+        {
+          "name": "Twelve native failures before metadata each release the seek listener",
+          "pass": true,
+          "evidence": {
+            "attempts": 12,
+            "retainedListeners": 0
+          }
+        }
+      ]
+    },
+    "health-evidence-results.json": {
+      "scope": "VM collector/presenter contract regression, not physical background audio test",
+      "tests": 21,
+      "passed": 21,
+      "checks": [
+        {
+          "label": "No background test becomes green before any attempt",
+          "status": "PASS"
+        },
+        {
+          "label": "Visibility boundary captures passive transport state",
+          "status": "PASS"
+        },
+        {
+          "label": "Single and journey transport snapshots are distinct and sanitized",
+          "status": "PASS"
+        },
+        {
+          "label": "Legacy exact exception class and structured failure reach report",
+          "status": "PASS"
+        },
+        {
+          "label": "Raw messages, URLs, keys and custom text never enter report",
+          "status": "PASS"
+        },
+        {
+          "label": "Incident retains pinpoint readiness and exception, not kind only",
+          "status": "PASS"
+        },
+        {
+          "label": "Foreground return does not erase failed background handoff",
+          "status": "PASS"
+        },
+        {
+          "label": "Unrelated diagnostics cannot mark background recovered",
+          "status": "PASS"
+        },
+        {
+          "label": "Physical playing plus interrupted lifecycle is observation, not PASS",
+          "status": "PASS"
+        },
+        {
+          "label": "Coherent current audio is distinct from unresolved last background attempt",
+          "status": "PASS"
+        },
+        {
+          "label": "Audio lifecycle transition is retained in timeline",
+          "status": "PASS"
+        },
+        {
+          "label": "Routine per-recording prepare/play events do not crowd out lock evidence",
+          "status": "PASS"
+        },
+        {
+          "label": "Release alone never reports successful start",
+          "status": "PASS"
+        },
+        {
+          "label": "Unknown error is classified without copying arbitrary contents",
+          "status": "PASS"
+        },
+        {
+          "label": "Explicit successful start replaces latest failure with observation only",
+          "status": "PASS"
+        },
+        {
+          "label": "Explicit obsolete rejection cannot replace successful newer handoff or create failure",
+          "status": "PASS"
+        },
+        {
+          "label": "Read is pure and starts no sampling or recurring work",
+          "status": "PASS"
+        },
+        {
+          "label": "Last background evidence survives bounded local checkpoint",
+          "status": "PASS"
+        },
+        {
+          "label": "Presenter explains background failure without claiming current audibility",
+          "status": "PASS"
+        },
+        {
+          "label": "AI sees only aggregate check classification, no attempt metadata",
+          "status": "PASS"
+        },
+        {
+          "label": "Evidence still honors bounded 120-event history",
+          "status": "PASS"
+        }
+      ],
+      "files": {
+        "assets/runtime/health-r940.js": "e3fa42fbc19841813cd9125065b6f70c0b719f1f4fe3055923cf39cfc11e7491",
+        "assets/runtime/health-view-r943.js": "ba1711790188c2d28a8bbd26eeac4886f576497947baa9e83ade53f2ed3b48e0"
+      },
+      "sha256": {
+        "collector": "e3fa42fbc19841813cd9125065b6f70c0b719f1f4fe3055923cf39cfc11e7491",
+        "presenter": "ba1711790188c2d28a8bbd26eeac4886f576497947baa9e83ade53f2ed3b48e0"
+      }
+    },
+    "health-evidence-browser-results.json": {
+      "test": "r946-health-panel-actual-chromium",
+      "scope": "Production page with SRI; synthetic diagnostic fixtures only, not a physical screen-lock test",
+      "browser": "153.0.8010.0",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "passed": 6,
+      "files": {
+        "index.html": "3b77b189df88364913ab0b705c003970159930786344ab9026c2dd0dc8acb2ab",
+        "assets/runtime/health-r940.js": "e3fa42fbc19841813cd9125065b6f70c0b719f1f4fe3055923cf39cfc11e7491",
+        "assets/runtime/health-view-r943.js": "ba1711790188c2d28a8bbd26eeac4886f576497947baa9e83ade53f2ed3b48e0",
+        "assets/runtime/health-view-r943.css": "934c6875922409ce7821bdfbd915d2d987387ea045bca8661abd14628922143e"
+      },
+      "checks": [
+        {
+          "name": "Normal health dialog opens in390px mobile viewport",
+          "evidence": {
+            "open": true,
+            "width": 356,
+            "viewport": 390
+          },
+          "status": "PASS"
+        },
+        {
+          "name": "Plain Turkish background failure card is visible and not clipped",
+          "evidence": {
+            "text": "Son arka plan ses aktarımı! DikkatSon arka plan ses aktarımı başarısız oldu. Ses kaynağı bu oynatma yolunda desteklenmedi. Bu kayıt son denemeyi anlatır; şu anda duyulan sesi ölçmez.Ekrana dönünce sesin başlaması, arka planda devam ettiğini göstermez. Raporu indirin; kayıtları veya verileri silmeyin.",
+            "rect": {
+              "x": 47,
+              "y": 316.109375,
+              "width": 262,
+              "height": 188.15625,
+              "top": 316.109375,
+              "right": 309,
+              "bottom": 504.265625,
+              "left": 47
+            },
+            "status": "WARN"
+          },
+          "status": "PASS"
+        },
+        {
+          "name": "Structured failure and sanitized private fixture are reflected in live collector",
+          "evidence": {
+            "row": {
+              "code": "BACKGROUND_HANDOFF",
+              "status": "WARN",
+              "title": "Son arka plan ses aktarımı",
+              "evidence": {
+                "at": 1790520262888,
+                "outcome": "failed",
+                "epoch": 0,
+                "kind": "background-play",
+                "hidden": false,
+                "errorName": "NotSupportedError",
+                "stage": "native-play",
+                "path": "single-recording",
+                "sourceKind": "recording",
+                "paused": true,
+                "ended": false,
+                "eligible": true,
+                "generationCurrent": true,
+                "readyState": 0,
+                "networkState": 3,
+                "mediaErrorCode": 4,
+                "scope": "last-attempt-not-current-audibility"
+              },
+              "remedy": "Bu sonuç son arka plan aktarımı içindir. Ekrana dönünce sesin devam etmesi arka plan sorununun çözüldüğünü kanıtlamaz. Raporu kaydedin; kullanıcı kayıtlarını silmeyin."
+            },
+            "privateTextPresent": false
+          },
+          "status": "PASS"
+        },
+        {
+          "name": "Accepted handoff is observation and leaves device audibility unmeasured",
+          "evidence": {
+            "contexts": 1,
+            "tempo": 1,
+            "count": 0,
+            "auto": false,
+            "check": {
+              "code": "BACKGROUND_HANDOFF",
+              "status": "OBSERVED",
+              "title": "Son arka plan ses aktarımı",
+              "evidence": {
+                "at": 1790520263482,
+                "outcome": "started",
+                "epoch": 0,
+                "kind": "background-handoff",
+                "hidden": false,
+                "stage": "started",
+                "path": "single-recording",
+                "sourceKind": "recording",
+                "paused": false,
+                "ended": false,
+                "readyState": 4,
+                "networkState": 1,
+                "scope": "last-attempt-not-current-audibility"
+              },
+              "remedy": "Bu sonuç son arka plan aktarımı içindir. Ekrana dönünce sesin devam etmesi arka plan sorununun çözüldüğünü kanıtlamaz. Raporu kaydedin; kullanıcı kayıtlarını silmeyin."
+            },
+            "device": {
+              "code": "DEVICE_AUDIO",
+              "status": "NOT_MEASURED",
+              "title": "Fiziksel hoparlör ve ekran kilidi doğrulaması",
+              "evidence": {
+                "reason": "Tarayıcı olayları işitilebilir sesi veya işletim sistemi süreç sonlandırmasını ispatlamaz"
+              },
+              "remedy": ""
+            }
+          },
+          "status": "PASS"
+        },
+        {
+          "name": "Health display and fixtures issue no playback/tempo/count changes",
+          "evidence": {
+            "before": {
+              "contexts": 1,
+              "tempo": 1,
+              "count": 0,
+              "auto": false
+            },
+            "after": {
+              "contexts": 1,
+              "tempo": 1,
+              "count": 0,
+              "auto": false
+            }
+          },
+          "status": "PASS"
+        },
+        {
+          "name": "No runtime page errors while open, report, render and close",
+          "evidence": [],
+          "status": "PASS"
+        }
+      ]
+    },
+    "review-source-lifetime-candidate.json": {
+      "scope": "r946 candidate extracted r476 functions + real Chromium media. Controlled raw-source prepare overlap, not physical device lock.",
+      "test": "independent-native-raw-source-lifetime",
+      "passed": 1,
+      "files": {
+        "index.html": "3b77b189df88364913ab0b705c003970159930786344ab9026c2dd0dc8acb2ab"
+      },
+      "result": {
+        "before": true,
+        "during": {
+          "advertisedOldSource": true,
+          "oldUrlAvailable": true,
+          "replacementStillPending": true
+        },
+        "first": true,
+        "after": true,
+        "diagnostics": [
+          {
+            "kind": "background-handoff"
+          }
+        ],
+        "playing": true,
+        "hiddenEstablished": true
+      }
+    },
+    "review-fx-lifetime-results.json": {
+      "scope": "Actual Chromium decode/render/native media. Retired FX remains valid while currentSource owns it, then released after replacement.",
+      "test": "independent-native-fx-source-lifetime",
+      "passed": 1,
+      "files": {
+        "index.html": "3b77b189df88364913ab0b705c003970159930786344ab9026c2dd0dc8acb2ab"
+      },
+      "result": {
+        "afterRender": {
+          "old": true,
+          "new": true,
+          "currentSource": true
+        },
+        "afterCommit": {
+          "old": true,
+          "retainedForPlaying": true
+        },
+        "afterDetach": {
+          "old": false,
+          "new": true
+        },
+        "old": "blob:null/c3874f85-393c-42d1-a75b-95b8be5a26df",
+        "newUrl": "blob:null/bf5f9ce0-18ab-4f9f-89cb-20843d9fbcf9",
+        "refs": {
+          "prepared": {
+            "key": "test",
+            "url": "",
+            "fxUrl": "blob:null/bf5f9ce0-18ab-4f9f-89cb-20843d9fbcf9",
+            "cycleMs": 2000
+          },
+          "rec": "",
+          "aSrc": "blob:null/bf5f9ce0-18ab-4f9f-89cb-20843d9fbcf9",
+          "aCurrent": "blob:null/bf5f9ce0-18ab-4f9f-89cb-20843d9fbcf9",
+          "fx": "blob:null/bf5f9ce0-18ab-4f9f-89cb-20843d9fbcf9",
+          "retired": [],
+          "handoff": ""
+        }
+      }
+    },
+    "review-handoff-lifecycle-results.json": {
+      "scope": "Exact candidate functions, controlled media promises and lifecycle, not physical device.",
+      "test": "independent-handoff-ownership-lifecycle",
+      "files": {
+        "index.html": "3b77b189df88364913ab0b705c003970159930786344ab9026c2dd0dc8acb2ab"
+      },
+      "passed": 7,
+      "results": [
+        {
+          "name": "Same-key Stop→Start survives stale resolve",
+          "pass": true,
+          "plays": 3,
+          "paused": false,
+          "hidden": true
+        },
+        {
+          "name": "Same-key Stop→Start survives stale reject",
+          "pass": true,
+          "plays": 3,
+          "paused": false,
+          "hidden": true
+        },
+        {
+          "name": "AbortError has exactly one retry",
+          "pass": true,
+          "plays": 2
+        },
+        {
+          "name": "NotAllowedError is not retried",
+          "pass": true,
+          "plays": 1
+        },
+        {
+          "name": "Stop cancels pending voice-settlement retry",
+          "pass": true,
+          "plays": 1,
+          "hidden": false
+        },
+        {
+          "name": "New selection replaces obsolete handoff",
+          "pass": true,
+          "plays": 2,
+          "key": "berhet:13"
+        },
+        {
+          "name": "Direct native Stop invalidates pending commit even without gate change",
+          "pass": true,
+          "hidden": false,
+          "paused": true
+        }
+      ]
+    }
+  }
+}
