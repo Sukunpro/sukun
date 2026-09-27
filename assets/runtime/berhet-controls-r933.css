@@ -110,14 +110,15 @@
 }
 #r920Practice[data-mode="berhet"]:not([hidden]) .r920Stats>span {
  display:flex!important;flex-wrap:wrap!important;align-items:center!important;justify-content:center!important;
- gap:2px 5px!important;min-width:0!important;padding:9px 12px!important;border:0!important;
+ align-content:center!important;box-sizing:border-box!important;
+ gap:1px 5px!important;min-width:0!important;padding:14px 18px!important;border:0!important;
  background:var(--r933-gem-diamond,none) center/100% 100% no-repeat,
   linear-gradient(145deg,#19303be8,#0a1927ec) center/86% 76% no-repeat!important;
- color:#e6e5d7!important;font-size:11px!important;line-height:1.4!important;text-shadow:0 1px 3px #001019!important;
+ color:#e6e5d7!important;font-size:11px!important;line-height:1.15!important;text-shadow:0 1px 3px #001019!important;
 }
 #r920Practice[data-mode="berhet"]:not([hidden]) .r920Stats>span>b {
  display:block!important;flex:1 0 100%!important;max-width:100%!important;margin:0!important;
- text-align:center!important;font-size:clamp(20px,6vw,26px)!important;overflow-wrap:anywhere!important;
+ text-align:center!important;font-size:clamp(20px,6vw,26px)!important;line-height:1.12!important;overflow-wrap:anywhere!important;
 }
 #r920Practice[data-mode="berhet"]:not([hidden]) .r920Stats svg {
  width:15px!important;height:15px!important;flex:0 0 15px!important;stroke:#ecdba7!important;
