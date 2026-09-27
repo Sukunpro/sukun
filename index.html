@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 
 <!-- ════════════════════════════════════════════════════════════════
-     SÜKÛN r939 — Tefekkür tek kaydırma ve dokunma uyumu (base r938)
+     SÜKÛN r940 — Sağlık tanılaması ve kararlılık (base r939)
      Tek dosya • Web Audio API (tüm sesler cihazda sentezlenir)
      Binaural Beats + Isochronic Tones + Esmâ/Zikir Modülü
      ════════════════════════════════════════════════════════════════ -->
 <html class="sukun-jewel-r798" lang="tr">
 <head>
-<link rel="stylesheet" href="./assets/runtime/berhet-layout-r938.css?v=r939" integrity="sha256-VxxQgGA4+szbjaLydVe6tFCvf1drTtuFW9WKMO1USfU=">
-<link id="sukun-r933-materials-style" rel="stylesheet" href="./assets/runtime/berhet-materials-r933.css?v=r939" integrity="sha256-S+EKXiMlSkZEF40I5mQXfh2rYnXIsM6BfXv+7b9eKyQ=">
-<link id="sukun-r933-controls-style" rel="stylesheet" href="./assets/runtime/berhet-controls-r933.css?v=r939" integrity="sha256-hSWilSjEkD6VfxQJX3zbZAid9fl/gL4YqlXvR0k0Wjc=">
-<link id="sukun-r933-dock-style" rel="stylesheet" href="./assets/runtime/berhet-dock-r933.css?v=r939" integrity="sha256-DV+h24tq9LXbizGR6eToLqO0eM4GnWeT1KqPcqEQ43Y=">
+<link rel="stylesheet" href="./assets/runtime/berhet-layout-r938.css?v=r940" integrity="sha256-VxxQgGA4+szbjaLydVe6tFCvf1drTtuFW9WKMO1USfU=">
+<link id="sukun-r933-materials-style" rel="stylesheet" href="./assets/runtime/berhet-materials-r933.css?v=r940" integrity="sha256-S+EKXiMlSkZEF40I5mQXfh2rYnXIsM6BfXv+7b9eKyQ=">
+<link id="sukun-r933-controls-style" rel="stylesheet" href="./assets/runtime/berhet-controls-r933.css?v=r940" integrity="sha256-hSWilSjEkD6VfxQJX3zbZAid9fl/gL4YqlXvR0k0Wjc=">
+<link id="sukun-r933-dock-style" rel="stylesheet" href="./assets/runtime/berhet-dock-r933.css?v=r940" integrity="sha256-DV+h24tq9LXbizGR6eToLqO0eM4GnWeT1KqPcqEQ43Y=">
 <style id="sukun-r920-contract">@layer sukun-r920-contract {
 /* First important layer: each legacy visual has one explicit successor. */
 /* r922: live native voice controls in the shared practice settings. */
@@ -855,11 +855,11 @@ html[data-r853-berhet="1"] body #berhetAtlas .r754SourceJumps button span {font-
 </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r939"/>
+<meta name="sukun-build" content="r940"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r939" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r940" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6283,7 +6283,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){/* r922 shared settings owns its label. */if(document.getElementById('r920Practice')?.contains(document.getElementById('r679ZikirAyarBox')))return;if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r939"/><script>window.SUKUN_BUILD='r939';document.documentElement.dataset.sukunBuild='r939';</script>
+<meta name="sukun-build" content="r940"/><script>window.SUKUN_BUILD='r940';document.documentElement.dataset.sukunBuild='r940';</script>
 <style id="sukun-r923-esma-gallery">@layer sukun-r920 {
 #r920Practice #r923EsmaOptions{min-width:0;margin:10px 0}
 #r920Practice #r923EsmaOptions[hidden]{display:none!important}
@@ -7398,7 +7398,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN — Uygulama r939 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN — Uygulama r940 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -42155,48 +42155,37 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 'use strict';
 if(window.__SUKUN_R236__)return;window.__SUKUN_R236__=1;
 const BUILD='r236', cache=new WeakMap();
-  /* r525: blob nesnesi her okumada yenilendiği için WeakMap ıskalıyordu;
-     boyut+tür anahtarlı ikinci bir önbellek eklendi. */
+  /* r940: content identity prevents equal-size recordings sharing trim/gain.
+     WeakMap handles repeated objects; the bounded SHA-256 cache handles IDB copies. */
   const icerikCache=new Map();
-/* r414: window.ctx daima undefined idi (ctx bir script-global let'tir, window'a
-   atanmaz) — her analizde YENİ AudioContext açılıyordu. Android'de eşzamanlı
-   AudioContext limiti var; toplu kayıt analizinde tıkanmaya yol açar. */
-const anaCtx=()=>{try{return (typeof ctx!=='undefined')?ctx:null}catch(e){return null}};
+/* Decode through the shared/offline authority; a failed analysis must never
+   leave an extra live AudioContext running. */
 function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
 function ensureQuality(){const info=document.querySelector('#miniBar .mbInfo');if(!info||document.getElementById('mbQuality'))return;const d=document.createElement('div');d.id='mbQuality';info.appendChild(d)}
 function qtxt(q){if(!q)return'';const p=[];if(Math.abs((q.gain||1)-1)>.04)p.push('seviye '+((q.gain||1)>1?'+':'')+Math.round(((q.gain||1)-1)*100)+'%');if((q.trimStart||0)>.08||(q.tailTrim||0)>.08)p.push('sessizlik '+((q.trimStart||0)+(q.tailTrim||0)).toFixed(1)+' sn');p.push('geçiş '+Math.round(q.fadeMs||78)+' ms');return '🎚 '+p.join(' · ')}
 window.SukunRecordingQuality={
   last:null,
-  /* ═══ r525 — ÖNBELLEK HER TEKRARDA IŞKALIYORDU ══════════════════════
-     Zikir döngüsünde kendi kaydın her tekrarda REC_DB.get(key) ile
-     IndexedDB'den yeniden okunuyor ve HER SEFERİNDE YENİ bir Blob nesnesi
-     dönüyor. cache bir WeakMap, anahtarı nesne kimliği — dolayısıyla
-     hiçbir zaman isabet etmiyordu: kaydın tamamı her tekrarda yeniden
-     decodeAudioData'dan geçiyordu.
-
-     Tempo 1.0'da bu, her vuruşta ana iş parçacığını kilitliyor; kullanıcı
-     bunu «pıtır pıtır» cızırtı ve takılma olarak duyuyor. Kayıt uzadıkça
-     kilitlenme uzuyor — üç saniyelik bir kayıtta sekiz tekrar 386 ms
-     çözme demekti.
-
-     Çözüm: nesne kimliğinin yanına içerik anahtarı (boyut + tür) eklendi.
-     Aynı kayıt yeniden okunduğunda çözülmüş analiz doğrudan dönüyor.
-     Yanlış eşleşme olsa bile sonuç yalnız kazanç/kırpma değerleridir;
-     ses bozulmaz. */
+  /* Analysis is cached by real bytes, never only size/type. A missing digest
+     disables the cross-object cache; it does not guess recording identity. */
   async analyse(blob){
     if(!blob||!blob.size)return null;
     if(cache.has(blob))return cache.get(blob);
-    const _ik=blob.size+'|'+(blob.type||'');
-    if(icerikCache.has(_ik)){
+    let _ik=null;
+    try{
+      if(window.crypto?.subtle){
+        const bytes=await blob.arrayBuffer();
+        const hash=await window.crypto.subtle.digest('SHA-256',bytes);
+        _ik=Array.from(new Uint8Array(hash),x=>x.toString(16).padStart(2,'0')).join('');
+      }
+    }catch(e){}
+    if(_ik&&icerikCache.has(_ik)){
       const q=icerikCache.get(_ik);
       try{cache.set(blob,q)}catch(e){}
       this.last=q; return q;
     }
     let q={gain:1,trimStart:0,trimEnd:0,tailTrim:0,fadeMs:78,rms:0,peak:0,duration:0};
     try{
-      const C=window.AudioContext||window.webkitAudioContext;if(!C)return q;
-      const AC=anaCtx();const c=(AC&&AC.decodeAudioData)?AC:new C();
-      const ab=await blob.arrayBuffer();const b=await c.decodeAudioData(ab.slice(0));
+      const b=await r653DecodeAudioBlob(blob);
       q.duration=b.duration||0;const ch=b.numberOfChannels, sr=b.sampleRate||44100, step=Math.max(1,Math.floor(sr/220));
       let peak=0,sum=0,n=0;
       for(let k=0;k<ch;k++){const d=b.getChannelData(k);for(let i=0;i<d.length;i+=step){const x=Math.abs(d[i]);if(x>peak)peak=x;sum+=x*x;n++}}
@@ -42213,9 +42202,11 @@ window.SukunRecordingQuality={
       /* r579: konuşma/zikirde uzun crossfade kelimeleri birbirine bindiriyordu.
          Geçiş artık yalnız klik önleyen kısa mikro-fade; uzunluk 60–88 ms. */
       const base=q.duration<4?66:q.duration<12?72:q.duration<45?80:86;q.fadeMs=Math.round(clamp(base-trimTotal*2,60,88));
-      if(c!==AC&&c.close)try{await c.close()}catch(e){}
-    }catch(e){}
-    cache.set(blob,q);try{icerikCache.set(blob.size+'|'+(blob.type||''),q);if(icerikCache.size>64)icerikCache.delete(icerikCache.keys().next().value)}catch(e){};return q;
+    }catch(e){
+      try{window.dispatchEvent(new CustomEvent('sukun:qualityerror',{detail:{code:'QUALITY_DECODE_FAILED',bytes:blob.size}}))}catch(_){}
+      return q; // A transient decode failure is never cached as a successful analysis.
+    }
+    cache.set(blob,q);try{if(_ik)icerikCache.set(_ik,q);if(icerikCache.size>64)icerikCache.delete(icerikCache.keys().next().value)}catch(e){};this.last=q;return q;
   },
   publish(q,label){this.last=q;ensureQuality();const d=document.getElementById('mbQuality');if(d)d.textContent=qtxt(q);try{window.dispatchEvent(new CustomEvent('sukun:quality',{detail:{...q,label:label||''}}))}catch(e){}},
   text:qtxt
@@ -50780,7 +50771,9 @@ const clock=ms=>{
 function pushLog(type,detail){
   eventLog.push({at:Date.now(),type,detail});
   if(eventLog.length>140)eventLog.splice(0,eventLog.length-140);
-  if(!document.getElementById('r455Diag')?.hidden){renderLog();scheduleDiagnosticsRefresh(type)}
+  // r940: state bursts only enqueue a coalesced render; logging never forces layout.
+  const root=document.getElementById('r455Diag');
+  if(root&&!root.hidden)scheduleDiagnosticsRefresh(type);
 }
 ['sukun:audiosessionchange','sukun:audioaggregatechange','sukun:playbackchange','sukun:nowplayingchange','tekke:opened','tekke:closed']
   .forEach(ev=>window.addEventListener(ev,e=>pushLog(ev,e.detail||{}),{passive:true}));
@@ -50962,12 +50955,14 @@ function snapshot(){
   try{np=window.SukunNowPlayingStore?.get?.()}catch(e){}
   const nodes=document.getElementsByTagName('*').length;
   const sessions=sessionRows();
+  // r710 is a compatibility alias of r711: collect the expensive graph once.
+  const stability=window.SukunR711Stability?.snapshot?.()||window.SukunR710Stability?.snapshot?.()||null;
   return{
     build:BUILD,
     at:new Date().toISOString(),
     runtime:p,
-    stabilityR710:window.SukunR710Stability?.snapshot?.()||null,
-    stabilityR711:window.SukunR711Stability?.snapshot?.()||null,
+    stabilityR710:stability,
+    stabilityR711:stability,
     restartR733:window.SukunR733Restart?.snapshot?.()||null,
     audio:{
       aggregate:A?.aggregateSnapshot?.()||null,
@@ -51036,7 +51031,8 @@ function snapshot(){
     lifecycleHub:window.SukunLifecycleHub?.snapshot?.()||null,
     dataMigration:window.SukunDataMigration?.snapshot?.()||null,
     serviceWorker:window.SukunUpdateManager?.snapshot?.()||null,
-    sessionR928:window.SukunSessionState?.snapshot?.()||null,
+    sessionR928:window.SukunSessionState?.peek?.()||null,
+    healthR940:window.SukunHealthR940?.read?.()||null,
     rhythmR928:window.SukunRhythm?.snapshot?.()||null,
     spatialR928:window.SukunSpatialMotion?.snapshot?.()||null,
     wheelR928:window.SukunWheels?.snapshot?.()||null,
@@ -51233,6 +51229,45 @@ function playbackDuplicateAudit(){
   return{rows:rows.length,duplicates};
 }
 
+// r940: diagnose the current presentation; retained r530 DOM is not its layout owner.
+function currentPractice(){const root=$('r920Practice');return root&&!root.hidden&&document.body.classList.contains('r920-practice-on')?root:null}
+function practiceVisible(el){
+  if(!el)return false;const r=el.getBoundingClientRect();if(!(r.width>0&&r.height>0))return false;
+  for(let n=el;n&&n.nodeType===1;n=n.parentElement){const c=getComputedStyle(n);if(n.hidden||n.inert||c.display==='none'||c.visibility==='hidden'||c.visibility==='collapse'||c.contentVisibility==='hidden')return false}
+  return true;
+}
+function practiceOwned(root,ids,buttons=false){return ids.every(id=>{const el=$(id);return !!el&&root.contains(el)&&document.querySelectorAll('#'+id).length===1&&(!buttons||typeof el.onclick==='function')})}
+function practiceControlsAudit(root){
+  const owned=practiceOwned(root,['r924WheelFrame','r920Count','r920Target','r920Remaining'])&&practiceOwned(root,['r920Minus','r920Play','r920Plus','r920Stop','r920Counter','r920TefEnter','r920TefExit'],true);
+  return status(owned,owned?'r920 görünür sunum · tek sayaç, taş kontrolleri ve çıkış aynı kökte':'r920 sayaç/kontrol/çıkış eksik, yinelenmiş veya sahibi farklı');
+}
+function practiceCounterAudit(root,geometry=false){
+  const count=String($('r920Count')?.textContent||'').trim(),remaining=String($('r920Remaining')?.textContent||'').trim();
+  const numeric=/^\d+$/.test(count)&&(/^(?:\d+|∞)$/.test(remaining));
+  if(!numeric)return status(false,'r920 sayaç/kalan değeri geçersiz');
+  if(!geometry)return status(practiceOwned(root,['r920Count','r920Target','r920Remaining','r924WheelFrame']),'r920 sayaç değeri ve DOM sahipliği');
+  if(!practiceVisible(root))return{status:'SKIP',detail:'r920 sayaç sekmesi şu an görünür değil'};
+  const wheel=$('r924WheelFrame'),target=$('r920Target')?.parentElement,remain=$('r920Remaining')?.parentElement;
+  if(!wheel||!target||!remain)return status(false,'r920 sayaç/hedef/kalan alanı eksik');
+  const a=wheel.getBoundingClientRect(),b=target.getBoundingClientRect(),c=remain.getBoundingClientRect();
+  const aligned=Math.abs(b.top-c.top)<=3&&b.top>=a.bottom-2&&b.right<=c.left+2;
+  return status(aligned,aligned?'r920 çark üstte · Hedef/Kalan aynı satırda':'r920 Hedef/Kalan yerleşimi çakışıyor');
+}
+function practiceEntryAudit(root){
+  const mode=document.body.classList.contains('sukun-tefekkur-mode'),entry=$('r920TefEnter'),exit=$('r920TefExit');
+  const owned=practiceOwned(root,['r920TefEnter','r920TefExit'],true);
+  if(!owned)return status(false,'r920 tefekkür giriş/çıkış sahipliği eksik');
+  if(!practiceVisible(root))return{status:'SKIP',detail:'r920 zikir sekmesi şu an görünür değil'};
+  const active=mode?exit:entry,other=mode?entry:exit,r=active.getBoundingClientRect();
+  const ok=!active.hidden&&other.hidden&&practiceVisible(active)&&!practiceVisible(other)&&r.width>=44&&r.height>=44;
+  return status(ok,'r920 '+(mode?'çıkış':'giriş')+' · '+Math.round(r.width)+'×'+Math.round(r.height)+' · bağlamsal görünürlük '+ok);
+}
+function practiceViewportAudit(root){
+  if(!practiceVisible(root))return{status:'SKIP',detail:'r920 zikir sekmesi şu an görünür değil'};
+  const r=root.getBoundingClientRect(),width=document.documentElement.clientWidth||innerWidth;
+  return status(r.left>=-2&&r.right<=width+2,'r920 genişlik '+Math.round(r.width)+' / viewport '+Math.round(width)+' · sayfa kaydırması izinli');
+}
+
 async function safeSuite(){
   const R=[];
   const A=ar(),p=probe();
@@ -51250,7 +51285,11 @@ async function safeSuite(){
     const n=document.querySelectorAll('#r170Now').length;
     return status(n===1,`${n} adet #r170Now`);
   }));
-  R.push(await check('NAV','Tek görünür gezinme yüzeyi',()=>{
+  R.push(await check('NAV','Gezinme yüzeyi sahipliği',()=>{
+    const practice=currentPractice();if(practice){
+      const ok=practiceOwned(practice,['r920Previous','r920Restart','r920Next'],true);
+      return status(ok,'r920 native komutları · '+(practiceVisible($('r920Previous'))?'görünür':'kontrol paneli veya sekme kapalı'));
+    }
     const ids=['r494MainNavSlot','r494TefNavSlot','r494DockNavSlot'];
     const visible=ids.filter(id=>{const el=$(id);if(!el)return false;const r=el.getBoundingClientRect(),c=getComputedStyle(el);return r.width>1&&r.height>1&&c.display!=='none'&&c.visibility!=='hidden'});
     const ctx=window.currentFlowState?.snapshot?.()?.context||'idle';
@@ -51286,11 +51325,13 @@ async function safeSuite(){
     return status(window.SukunNowPlayingStore?.version==='r300',`version ${window.SukunNowPlayingStore?.version||'—'}`);
   }));
   R.push(await check('ZİKİR','Sayaç çekirdeği',()=>{
+    const practice=currentPractice();if(practice)return practiceControlsAudit(practice);
     const req=['undoBtn','autoBtn','plusBtn','zCountVisual','cntBig','cntRemain'];
     const miss=req.filter(id=>!$(id));
     return status(!miss.length,miss.length?'eksik: '+miss.join(', '):'−1 / ana aksiyon / +1 / sayaç mevcut');
   }));
   R.push(await check('ZİKİR','Ana sayaç yerleşimi',()=>{
+    const practice=currentPractice();if(practice)return practiceCounterAudit(practice,true);
     const root=$('tfRefinedLayout'),hero=$('r611CurrentZikirHero'),heading=$('r740HeroHeading'),name=$('r611CurrentZikirName'),ring=$('zCountVisual');
     if(document.body.classList.contains('sukun-tefekkur-mode')||!root||!root.getClientRects().length)return{status:'SKIP',detail:'Ana sayaç şu an görünür değil'};
     const target=$('cntTargetView')?.closest('.zCounterSide'),remain=$('cntRemain')?.closest('.zCounterSide');
@@ -51306,6 +51347,7 @@ async function safeSuite(){
     return status(ok,ok?'İsim yatay · sayaç üstte · Hedef/Kalan aynı satırda':`isim düzeni ${title?'uygun':'taşıyor'} · hedef/kalan ${aligned?'aynı satırda':'yerleşimi bozuk'}`);
   }));
   R.push(await check('TEFEKKÜR','Canonical grid/flex sahipliği',()=>{
+    const practice=currentPractice();if(practice)return practiceControlsAudit(practice);
     const root=$('tfRefinedLayout'),actions=root?.querySelector('.zCounterActions');
     const u=$('undoBtn'),a=$('autoBtn'),pl=$('plusBtn');
     const exitRow=root?.querySelector('.tfControlPanel > .tfStatusRow > .tfExitRow');
@@ -51315,7 +51357,8 @@ async function safeSuite(){
     const ok=!!root&&!!actions&&u?.parentNode===actions&&a?.parentNode===actions&&pl?.parentNode===actions&&canonicalExit&&noLegacy;
     return status(ok,ok?'tek #tfRefinedLayout · tek işlevsel neon çıkış · controls/meta canonical sahiplikte':'canonical layout, çıkış tekilliği veya DOM sahipliği bozuk');
   }));
-  R.push(await check('TEFEKKÜR','r701 bağlamsal giriş görünürlüğü',()=>{
+  R.push(await check('TEFEKKÜR','Bağlamsal giriş / çıkış görünürlüğü',()=>{
+    const practice=currentPractice();if(practice)return practiceEntryAudit(practice);
     const b=$('r442TefekkurBtn'),slot=$('r700TefEntry'),stage=$('zStage'),exit=$('tefExitBtn');
     const body=document.body,mode=body.classList.contains('sukun-tefekkur-mode');
     // A child can have display:flex while an ancestor (the inactive tab) is display:none.
@@ -51366,6 +51409,7 @@ async function safeSuite(){
     return status(ok,ok?`${styles.length} stil · r530 çekirdek sağlam · ${later} sonraki final-authority katmanı izinli`:'r530 çekirdek, emekli blok, observer veya owner API sözleşmesi bozuk');
   }));
   R.push(await check('TEFEKKÜR','Dinamik viewport / dock rezervi',()=>{
+    const practice=currentPractice();if(practice)return practiceViewportAudit(practice);
     const s=window.SukunLayoutEngine?.snapshot?.();
     if(!s)return{status:'WARN',detail:'layout engine henüz hazır değil'};
     return{status:s.overlap?'FAIL':'PASS',detail:`${Math.round(s.vw)}×${Math.round(s.vh)} · ring ${Math.round(s.ring)}px · dock ${Math.round(s.dockReserve)}px · overlap ${s.overlap?'EVET':'hayır'}`};
@@ -51429,7 +51473,8 @@ async function safeSuite(){
     return ok?{status:'PASS',detail:'hidden → visible gerçek döngüsü gözlendi'}:{status:'WARN',detail:'henüz gerçek hidden → visible döngüsü gözlenmedi; monitör aktif'};
   }));
   R.push(await check('RUNTIME','Timer / Observer bütçesi',()=>{
-    if(!p)return{status:'WARN',detail:'runtime probe yok'};
+    if(!p)return{status:'SKIP',detail:'runtime probe yok; timer bütçesi ölçülmedi'};
+    if(p.diagTimers!==true)return{status:'SKIP',detail:'Timer takibi kapalı; sıfır sayısı ölçüm değildir. Ayrıntılı takip için ?diag=1 ile aç.'};
     const a=p.active||{};
     const heavy=(a.intervals||0)>70||(a.observers||0)>55||(a.timeouts||0)>140||(a.raf||0)>30;
     const warn=(a.intervals||0)>50||(a.observers||0)>40||(a.timeouts||0)>100||(a.raf||0)>18;
@@ -51488,6 +51533,7 @@ async function isolatedMultiAudioTest(){
   return{status:'PASS',detail:'2 izole session · play → pause → resume → stop · canlı AudioLife etkilenmedi'};
 }
 async function tefekkurReadonlyAudit(){
+  const practice=currentPractice();if(practice){const controls=practiceControlsAudit(practice);return controls.status==='FAIL'?controls:practiceEntryAudit(practice)}
   const root=$('tfRefinedLayout'),actions=root?.querySelector('.zCounterActions');
   const u=$('undoBtn'),auto=$('autoBtn'),plus=$('plusBtn'),exit=$('tefExitBtn');
   const exitRow=root?.querySelector('.tfControlPanel > .tfStatusRow > .tfExitRow');
@@ -51501,6 +51547,7 @@ async function tefekkurReadonlyAudit(){
   return{status:ok?'PASS':'FAIL',detail:`salt-okunur · mod ${mode?'açık':'kapalı'} · canonical ${owned&&canonicalExit} · legacy ${!noLegacy} · overlap ${!!layout?.overlap}`};
 }
 async function zikirReadonlyAudit(){
+  const practice=currentPractice();if(practice){const controls=practiceControlsAudit(practice);return controls.status==='FAIL'?controls:practiceCounterAudit(practice)}
   const numeric=[$('cntBig')?.textContent,$('cntRemain')?.textContent].every(v=>v!=null&&!Number.isNaN(Number(String(v).replace(/[^\d.-]/g,''))));
   const ids=['undoBtn','autoBtn','plusBtn'],nodes=ids.map($),actions=document.querySelector('#tfRefinedLayout .zCounterActions');
   const stable=nodes.every(Boolean)&&nodes.every(x=>x.parentNode===actions)&&ids.every(id=>document.querySelectorAll('#'+id).length===1);
@@ -51592,6 +51639,7 @@ function renderTests(){
   </div>`).join('');
 }
 function exportReport(){
+  if(window.SukunHealthR940)return window.SukunHealthR940.exportReport();
   if(running){
     const sub=$('r455DiagSub');if(sub)sub.textContent='Test tamamlanıyor · rapor düğmesi test bitince açılacak';
     return false;
@@ -51620,12 +51668,13 @@ function scheduleDiagnosticsRefresh(reason='event',force=false){
   refreshTimer=setTimeout(()=>{refreshTimer=0;const r=document.getElementById('r455Diag');if(!r||r.hidden||document.hidden){armDiagnosticsFallback();return}const started=performance.now();const token=window.SukunDiagnosticWork?.begin?.('diagnostics-render');try{render();diagThrottle.renders++;diagLastRenderAt=performance.now();diagThrottle.lastAt=Date.now();diagThrottle.lastDurationMs=Math.round((performance.now()-started)*10)/10}finally{window.SukunDiagnosticWork?.end?.(token,500);armDiagnosticsFallback()}},wait);
   return true;
 }
-window.SukunDiagnosticsThrottle=Object.freeze({version:'r656',schedule:scheduleDiagnosticsRefresh,snapshot:()=>Object.freeze({...diagThrottle,pending:!!refreshTimer,fallbackPending:!!diagFallbackTimer,open:!document.getElementById('r455Diag')?.hidden})});
+window.SukunDiagnosticsThrottle=Object.freeze({version:'r656',schedule:scheduleDiagnosticsRefresh,snapshot:()=>Object.freeze({...diagThrottle,pending:!!refreshTimer,fallbackPending:!!diagFallbackTimer,open:!!document.getElementById('r455Diag')&&!document.getElementById('r455Diag').hidden})});
 ['sukun:audiotruthchange','sukun:journeyaudiostate','sukun:authoritychange','sukun:regressionshieldchange','sukun:sectionidentitycommit','sukun:lockjourneytransport','sukun:journey-intent-reconciled'].forEach(ev=>window.addEventListener(ev,()=>scheduleDiagnosticsRefresh(ev),{passive:true}));
 
 function open(){
   if(!window.SukunRingAccess?.authorized?.())return false;
   const diagnosticToken=window.SukunDiagnosticWork?.begin?.('diagnostics-open');
+  try {
   /* Hangi girişten gelirse gelsin alttaki araç perdesi dokunma yakalayamaz. */
   try{window.SukunFriendlyUI?.closeTools?.()}catch(e){}
   const simple=$('prDiagOverlay');if(simple)simple.hidden=true;
@@ -51640,7 +51689,7 @@ function open(){
      taraması aynı anda çalışıyordu. Kullanıcı daha Kapat'a dokunamadan ana
      iş parçacığı saniyelerce bloke olabiliyordu. Testler artık yalnız kendi
      görünür düğmelerine dokunulduğunda başlar. */
-  window.SukunDiagnosticWork?.end?.(diagnosticToken,1000);
+  } finally { window.SukunDiagnosticWork?.end?.(diagnosticToken,1000); }
 }
 function close(){
   window.SukunRingAccess?.disarm?.();
@@ -62567,6 +62616,7 @@ function observeSources(){
 function openTools(){
   window.SukunSheetAuthority?.closeAll?.('open-tools');
   const s=$('r616ToolsScrim'),p=$('r616ToolsSheet');if(!s||!p)return;
+  window.SukunHealthR940?.mountTools?.();
   s.hidden=false;p.hidden=false;document.body.classList.add('r616-sheet-open');
   setTimeout(()=>$('r616ToolsClose')?.focus?.(),20);
 }
@@ -76879,7 +76929,7 @@ html[data-r913-context="base"] body.r716-shell>#r717Scene{display:block!importan
 html[data-r913-context="base"] body.r716-shell>#r709SceneArt,html[data-r913-context="base"] body.r716-shell>[data-berhet-scene-layer]{display:none!important;opacity:0!important}
 </style>
 <script id="sukun-r913-build-scene-runtime">/* r916: retired competing visual writer; audio engine unchanged. */window.SukunR913={version:'r916',sync:()=>window.SukunR916Visual?.sync?.()};</script>
-<script src="./assets/runtime/esma-scenes-r923.js?v=r939" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
+<script src="./assets/runtime/esma-scenes-r923.js?v=r940" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
 <script id="sukun-r914-runtime">(()=>{'use strict';
 const R=document.documentElement,A='./assets/berhetiyye-premium/',$=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch(_){return d}};
 const atlas=window.SukunR853Scene.nameScenes,originals=window.SukunR853Scene.files;
@@ -77015,11 +77065,11 @@ prop('--r914-scene','none');attr('r920Performance',profile);new MutationObserver
 </script>
 <svg id="r915Filters" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;pointer-events:none"><defs><filter id="r915BlackAlpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 8 8 8 0 0"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
 
-<script src="./assets/runtime/session-r919.js?v=r939" integrity="sha256-4wBI6tpnv06BMVkw8xdck9TFqTGJVRvcnjMJcynlxfQ="></script>
-<script src="./assets/runtime/dock-r920.js?v=r939" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
-<script src="./assets/runtime/wheels-r924.js?v=r939" integrity="sha256-ujpNhskOo017WC6rY+CGUVVVqUlYvu8/1okJGIeZuA0="></script>
-<script src="./assets/runtime/berhet-layout-r938.js?v=r939" integrity="sha256-yCefqhIgWIkdr7XOSm8F676iv97FNFbKQwkX9ig36Z8="></script>
-<script src="./assets/runtime/interface-r920.js?v=r939" integrity="sha256-tU5fBI2rn+y0mffE1iWcQxHlXQhT/mmr8MMcXK+b9+I="></script>
+<script src="./assets/runtime/session-r919.js?v=r940" integrity="sha256-h9QV2flm7pkstjEedYrl7XawO7eC/ZNReaILqUZHydk="></script>
+<script src="./assets/runtime/dock-r920.js?v=r940" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
+<script src="./assets/runtime/wheels-r924.js?v=r940" integrity="sha256-ujpNhskOo017WC6rY+CGUVVVqUlYvu8/1okJGIeZuA0="></script>
+<script src="./assets/runtime/berhet-layout-r938.js?v=r940" integrity="sha256-yCefqhIgWIkdr7XOSm8F676iv97FNFbKQwkX9ig36Z8="></script>
+<script src="./assets/runtime/interface-r920.js?v=r940" integrity="sha256-tU5fBI2rn+y0mffE1iWcQxHlXQhT/mmr8MMcXK+b9+I="></script>
 <script id="sukun-r922-voice-settings-ui">
 (function(){'use strict';
 const $=id=>document.getElementById(id);let mounted=false,raf=0,busy=false,modeError='',discovery=null,discoveryTimer=0;
@@ -77095,7 +77145,8 @@ discoveryTimer=setTimeout(()=>{discovery?.disconnect();discovery=null;},15000);q
 
 </script>
 
-<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r939" integrity="sha256-i5ggo2L/y6Zq/6cJGQmrbdTlbIcjdOlYl8LmfUSNs4Y=">
-<script id="sukun-r933-theme" src="./assets/runtime/berhet-theme-r933.js?v=r939" integrity="sha256-2oO498ir9JwAw6ESkdoMAahITnQsSpIL6ds7elb2tDQ="></script>
+<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r940" integrity="sha256-i5ggo2L/y6Zq/6cJGQmrbdTlbIcjdOlYl8LmfUSNs4Y=">
+<script id="sukun-r933-theme" src="./assets/runtime/berhet-theme-r933.js?v=r940" integrity="sha256-2oO498ir9JwAw6ESkdoMAahITnQsSpIL6ds7elb2tDQ="></script>
+<script id="sukun-r940-health" src="./assets/runtime/health-r940.js?v=r940" integrity="sha256-6aGI3zz+s5jTm6TKsdeictF5Cpdm1f1Ijtxer03oZUU="></script>
 </body>
 </html>

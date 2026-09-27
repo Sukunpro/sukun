@@ -1,44 +1,44 @@
-SÜKÛN r939 — TEFEKKÜRDE TEK KAYDIRMA VE DOKUNMA UYUMU
+SÜKÛN r940 — SAĞLIK TANILAMASI VE KARARLILIK
 
-Bu paket r938 temelinde hazırlanmış toplu güncellemedir. Önceki ara
+Bu paket r939 temelinde hazırlanmış toplu güncellemedir. Önceki ara
 paketleri sırayla yüklemek gerekmez. Mevcut kurulumun üzerine birleştirilir;
 tarihsel bütün medya arşivini içeren boş kurulum paketi değildir.
 
 YÜKLEME
 1. ZIP içeriğini index.html ve sw.js'nin bulunduğu site köküne yükle.
-2. index.html, nero.html, sw.js, manifest.webmanifest, sukun-build-r939.json,
+2. index.html, nero.html, sw.js, manifest.webmanifest, sukun-build-r940.json,
    sukun-latest.json, ikonlar, .nojekyll ve assets birlikte yüklenmelidir.
 3. Aynı adlı dosyaları değiştir; assets klasörünü BİRLEŞTİR.
    Eski medya dosyalarını ve pakette bulunmayan dosyaları silme.
 4. Mümkünse tek commit ile yayımla. Dağıtım bittikten sonra devam eden zikri
    Bitir ile kapat, ardından normal ekrandaki Güncelle düğmesini kullan.
-5. Sürüm satırında Uygulama r939 / SW r939 görünmelidir.
+5. Sürüm satırında Uygulama r940 / SW r940 görünmelidir.
 
 Site verilerini veya uygulama depolamasını temizleme. Kendi ses kayıtların
 cihaz/tarayıcı/alan adına bağlı yerel depolamada kalır.
 Canlı siteye otomatik dağıtım yapılmadı.
 
-r939 DEĞİŞİKLİKLERİ
-- Açılır kontrol panelinin iç yüksekliği ve bağımsız kaydırma alanı kaldırılır.
-- Tefekkürde çark, panel ve çıkış aynı sayfa akışında yer alır. Dar ekranda
-  veya ayarlar açılınca kutunun içi yerine tek sayfa kayar.
-- Yatay görünüm de aynı sayfa üzerinde iki sütun olarak akar.
-- İlgisiz dokunuşlarda eski kontrolün görünürlük/konum ölçümü yapılmaz.
-- Tefekkür uyanıkken aynı sınıfı tekrar kaldırarak gereksiz DOM güncellemesi
-  yapılmaz. Otomatik odak kapalıyken dokunuş başına oturum özeti okunmaz.
-- Yerel düğmeler, kayıtlar, zikir sayacı ve mevcut çıkış işlevleri korunur.
-
-Yeni taş veya arka plan görseli eklenmez. Sarı topaz Döngü, taşlı kontroller,
-açılır panel ve önceki sürümlerin düzeltmeleri pakette korunur.
-Ses oturumu motoru, tempo motoru ve kilit ekranı ses davranışı bu sürümün
-kapsamı değildir; önceki ses test notları arşivde durur.
+r940 DEĞİŞİKLİKLERİ
+- Sistem sağlığına görünür ve bağımsız giriş eklenir; gizli özel erişim düğmesine bağımlılık kaldırılır.
+- Hata, Promise reddi, yüklenemeyen kaynak ve oturum olayları sınırlı yerel geçmişe alınır; kaynak dosyası/satır/sütun bilgisi bulunan hatalar raporda gösterilir.
+- Uygulama ve SW sürümü, zorunlu dosyaların SHA-256 bütünlüğü, sayım/ses sahibi, tempo, görünürlük ve desteklenen çalışma durumu bulguları tek raporda toplanır.
+- Sorun şimdi oldu düğmesi olay anını işaretler; JSON Rapor mevcut bulguları ve sınırlı önceki olayları dışa aktarır.
+- Ölçülmemiş veya cihazda doğrulanamayan özellikler başarılı gibi gösterilmez. Önceki oturumun kapanış kaydının yokluğu olası kesinti olarak belirtilir; kesin çökme tanısı konmaz.
+- Tanılama paneli açıkken her ses olayında yapılan anlık günlük çizimi toplu yenilemeye alınır; yinelenen durum okumaları azaltılır.
+- Eski gizlenmiş kontrolleri arayan sağlık testleri mevcut r920 arayüzüne uyarlanır; çalışmayan zamanlayıcı ölçümü yanlış sıfır/başarılı sonucu üretmez.
+- Ses kaydı analizinin önbelleği yalnız boyut/tür yerine içerik SHA-256 kimliği kullanır; eş boyutlu farklı kayıtların kırpma/kazanç sonuçları karışmaz.
+- Başarısız ses çözümlemesinde fazladan canlı AudioContext bırakılması önlenir; başarısız analiz başarılıymış gibi önbelleğe alınmaz.
+- Önceki taşlı kontroller, sahneler, Tefekkürde tek sayfa kaydırma düzeni ve kayıtların saklandığı veritabanı korunur.
 
 DOĞRULAMA
-DOGRULAMA_r939.json test sonuçlarını ve kapsamını, SHA256SUMS.txt bütünlük
-listesini içerir. TELEFON_TESTI_r939.txt kısa cihaz kontrol listesidir.
-Tarayıcı mobil görünümü testleri fiziksel Android dokunma hissi, güç yönetimi
-ve kilit ekranı ses testi yerine geçmez. Her telefonda gecikmenin tamamen
-ortadan kalktığına dair bir iddia yoktur.
+DOGRULAMA_r940.json sonuçları ve kapsamını, SHA256SUMS.txt bütünlük
+listesini içerir. TELEFON_TESTI_r940.txt kısa cihaz kontrol listesidir.
+- Canlı r939 arayüzü bulut tarayıcısında incelendi. r940 adayına yerel sunucu üzerinden bulut tarayıcısı erişimi engellendi; aday doğrulaması kaynak, statik analiz ve Node VM senaryolarıyla sınırlıdır.
+- VM testleri gerçek kaynak kodunu denetler; fiziksel Android dokunma, işletim sistemi bellek baskısı, uygulama kapanması veya kilit ekranında ses sürekliliği testi değildir.
+- Canlı kritik çalışma dosyalarının 12/12 hash değeri doğrulandı; tüm tarihsel resim ve ses arşivi çevrimiçi taranmadı.
+- Bulut tarayıcısında cihaz TTS sesi açılamadı; bu gözlem tek başına gerçek telefonda uygulama hatası olduğunu kanıtlamaz.
+- Tarayıcının/işletim sisteminin süreci sonlandırması veya cihaz TTS motorunu durdurması bu paketle engellenmiş sayılmaz. Her koşulda çökmesizlik iddiası yoktur.
+- Canlı siteye dağıtım yapılmadı. Paket, mevcut kuruluma birleştirilecek toplu güncellemedir.
 
-NOTLAR_r938_ARSIV.txt ve eski raporlar geçmiş sürümlerin arşividir.
-Güncel paket otoritesi sukun-build-r939.json dosyasıdır.
+Önceki raporlar ve test notları geçmiş sürümlerin arşividir.
+Güncel paket otoritesi sukun-build-r940.json dosyasıdır.
