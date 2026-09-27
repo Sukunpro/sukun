@@ -1,31 +1,33 @@
-/* SÜKÛN r937 — Pages-safe release files and actionable install diagnostics
+/* SÜKÛN r938 — Pages-safe release files and actionable install diagnostics
    Amaç: yeni sürümün "waiting/install mismatch" yüzünden eski shell'de
    kilitlenmesini önlemek. Controller değişimi aktif sesi kendiliğinden
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r937';
-const CACHE = 'sukun-r937-tefekkur-exit-20260926-v1';
-const CACHE_META = './sukun-cache-meta-r937.json';
-const BUILD_MARKER = './sukun-build-r937.json';
+const SURUM = 'r938';
+const CACHE = 'sukun-r938-berhet-panel-20260927-v1';
+const CACHE_META = './sukun-cache-meta-r938.json';
+const BUILD_MARKER = './sukun-build-r938.json';
 const LATEST_MARKER = './sukun-latest.json';
-const REQUIRED_RUNTIME = [{"url":"./assets/runtime/berhet-controls-r933.css?v=r937","sha256":"8525a29528c4903e957f14095f7cdb64089df5f97f80be18aa55ef4749345a37"},{"url":"./assets/runtime/berhet-dock-r933.css?v=r937","sha256":"0d5fa1db8b6af4b5db8b3191e9e4e82ea3b478ce069d6793d4aa8f72a110e376"},{"url":"./assets/runtime/berhet-materials-r933.css?v=r937","sha256":"4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"},{"url":"./assets/runtime/berhet-theme-r933.js?v=r937","sha256":"da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434"},{"url":"./assets/runtime/dock-r920.js?v=r937","sha256":"d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0"},{"url":"./assets/runtime/esma-scenes-r923.js?v=r937","sha256":"dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"},{"url":"./assets/runtime/interface-r920.js?v=r937","sha256":"eec4864bdaa2bf763b4e1ba174a3d374d69679a06a553eaabcaf09bac76ae65b"},{"url":"./assets/runtime/session-r919.js?v=r937","sha256":"e30048eada67bf4e81315930f3175c93d4c5a93189551bdc9e33097329e5c5f4"},{"url":"./assets/runtime/wheels-r924.css?v=r937","sha256":"8b9820a362ffcba66affa7091909ab6dd4e56c872374e95897c2e67d448db386"},{"url":"./assets/runtime/wheels-r924.js?v=r937","sha256":"1fda1c9b9d8f6b17d291fd7ee5f78c9df40ca14a41a7040c45ef2798ee84b096"}];
+const REQUIRED_RUNTIME = [{"url":"./assets/runtime/berhet-controls-r933.css?v=r938","sha256":"8525a29528c4903e957f14095f7cdb64089df5f97f80be18aa55ef4749345a37"},{"url":"./assets/runtime/berhet-dock-r933.css?v=r938","sha256":"0d5fa1db8b6af4b5db8b3191e9e4e82ea3b478ce069d6793d4aa8f72a110e376"},{"url":"./assets/runtime/berhet-materials-r933.css?v=r938","sha256":"4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"},{"url":"./assets/runtime/berhet-theme-r933.js?v=r938","sha256":"da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434"},{"url":"./assets/runtime/dock-r920.js?v=r938","sha256":"d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0"},{"url":"./assets/runtime/esma-scenes-r923.js?v=r938","sha256":"dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"},{"url":"./assets/runtime/interface-r920.js?v=r938","sha256":"6ccbe4bee779ef4ae419cb6b483868ec340cee056386cc02aa004f1e53f484d7"},{"url":"./assets/runtime/session-r919.js?v=r938","sha256":"e30048eada67bf4e81315930f3175c93d4c5a93189551bdc9e33097329e5c5f4"},{"url":"./assets/runtime/wheels-r924.css?v=r938","sha256":"8b9820a362ffcba66affa7091909ab6dd4e56c872374e95897c2e67d448db386"},{"url":"./assets/runtime/wheels-r924.js?v=r938","sha256":"ba3a4d86c90ea34d7b582eab63e086515555a94958beef3fd68909188799b80d"},{"url":"./assets/runtime/berhet-layout-r938.css?v=r938","sha256":"8f87559a85ace6fee9ab543fdcbd52e0ff489a6458a3ff424985f351312d4bd7"},{"url":"./assets/runtime/berhet-layout-r938.js?v=r938","sha256":"c8279faa122058891dafb5ce4a6f05ebbea2bfdec53456ca430917f62837e99f"}];
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
    Shell doğrulaması bağımsız; geri kalan assetler best-effort pre-cache ve
    normal fetch sırasında current cache'e yazılır. */
 const CORE = [
-  "./assets/runtime/berhet-controls-r933.css?v=r937",
-  "./assets/runtime/berhet-dock-r933.css?v=r937",
-  "./assets/runtime/berhet-materials-r933.css?v=r937",
-  "./assets/runtime/berhet-theme-r933.js?v=r937",
+  "./assets/runtime/berhet-layout-r938.js?v=r938",
+  "./assets/runtime/berhet-layout-r938.css?v=r938",
+  "./assets/runtime/berhet-controls-r933.css?v=r938",
+  "./assets/runtime/berhet-dock-r933.css?v=r938",
+  "./assets/runtime/berhet-materials-r933.css?v=r938",
+  "./assets/runtime/berhet-theme-r933.js?v=r938",
 
-  "./assets/runtime/dock-r920.js?v=r937",
-  "./assets/runtime/esma-scenes-r923.js?v=r937",
-  "./assets/runtime/interface-r920.js?v=r937",
-  "./assets/runtime/session-r919.js?v=r937",
-  "./assets/runtime/wheels-r924.js?v=r937",
-  "./assets/runtime/wheels-r924.css?v=r937",
+  "./assets/runtime/dock-r920.js?v=r938",
+  "./assets/runtime/esma-scenes-r923.js?v=r938",
+  "./assets/runtime/interface-r920.js?v=r938",
+  "./assets/runtime/session-r919.js?v=r938",
+  "./assets/runtime/wheels-r924.js?v=r938",
+  "./assets/runtime/wheels-r924.css?v=r938",
   './assets/berhetiyye-premium/control-round-plus-r788.webp',
   './assets/berhetiyye-premium/control-round-minus-r788.webp',
   './assets/berhetiyye-premium/control-nav-amethyst-r788.webp',
@@ -91,7 +93,7 @@ const PRECACHE = [
   "./assets/scenes/esma-r923/nur-mucadelesi-catalli-lite.webp",
   "./assets/scenes/esma-r923/nur-mucadelesi-yivli.webp",
   "./assets/scenes/esma-r923/nur-mucadelesi-yivli-lite.webp",
-  "./assets/runtime/esma-scenes-r923.js?v=r937",
+  "./assets/runtime/esma-scenes-r923.js?v=r938",
   "./assets/wheels-r924/berhetiyye/ham-kristal.webp",
   "./assets/wheels-r924/berhetiyye/faset-kesim.webp",
   "./assets/wheels-r924/berhetiyye/ametist-yuvarlak.webp",
