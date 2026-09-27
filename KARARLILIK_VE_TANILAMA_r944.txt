@@ -1,0 +1,14 @@
+r944 mevcut oynatma ve yerleşim otoritelerini koruyarak somut yarışları düzeltir.
+Yeni bir ses yöneticisi veya sentetik tıklama mekanizması eklenmedi.
+
+Ses: havuzda yeniden kullanılan ses öğesine ait her oynatma denemesinin
+geçici dinleyicileri, zamanlayıcıları ve animasyon çağrıları tamamlanınca
+kaldırılır. Eski deneme yeni kaydı durduramaz veya onun konumunu değiştiremez.
+
+Güncelleme: zorunlu dosyalar SHA-256 ile doğrulanır; eksik sürüm devralamaz.
+İsteğe bağlı görseller aktivasyonu bekletmez; ilk kez açılacak görsellerin
+çevrimdışı hazır olması garantilenmez.
+
+Tanı: ölçülen, gözlenen, ölçülmeyen ve kullanıcı tarafından bildirilen
+sonuçlar ayrı tutulur. AI yalnız kısa izinli özeti açıklar, oynatmayı yönetmez.
+Fiziksel kilit ekranı başarısı ancak gerçek cihazda dinleme/gözlemle sınanır.

@@ -1,36 +1,44 @@
-SÜKÛN r942 — KLASİK PANELDE SİSTEM SAĞLIĞI
+SÜKÛN r944 — SAĞLAMLIK VE AKICILIK
 
-Bu paket r941 temelinde hazırlanmış toplu güncellemedir. Önceki ara
+Bu paket r943 temelinde hazırlanmış toplu güncellemedir. Önceki ara
 paketleri sırayla yüklemek gerekmez. Mevcut kurulumun üzerine birleştirilir;
 tarihsel bütün medya arşivini içeren boş kurulum paketi değildir.
 
 YÜKLEME
 1. ZIP içeriğini index.html ve sw.js'nin bulunduğu site köküne yükle.
-2. index.html, nero.html, sw.js, manifest.webmanifest, sukun-build-r942.json,
+2. index.html, nero.html, sw.js, manifest.webmanifest, sukun-build-r944.json,
    sukun-latest.json, ikonlar, .nojekyll ve assets birlikte yüklenmelidir.
 3. Aynı adlı dosyaları değiştir; assets klasörünü BİRLEŞTİR.
    Eski medya dosyalarını ve pakette bulunmayan dosyaları silme.
 4. Mümkünse tek commit ile yayımla. Dağıtım bittikten sonra devam eden zikri
    Bitir ile kapat, ardından normal ekrandaki Güncelle düğmesini kullan.
-5. Sürüm satırında Uygulama r942 / SW r942 görünmelidir.
+5. Sürüm satırında Uygulama r944 / SW r944 görünmelidir.
 
 Site verilerini veya uygulama depolamasını temizleme. Kendi ses kayıtların
 cihaz/tarayıcı/alan adına bağlı yerel depolamada kalır.
 Canlı siteye otomatik dağıtım yapılmadı.
 
-r942 DEĞİŞİKLİKLERİ
-- Yüzüğe dokuz kez dokunulduğunda açılan Diagnostics panelinin en altında Sistem sağlığı bölümü.
-- Aynı bölümde Sağlık denetimini çalıştır, JSON Rapor ve Sorun şimdi oldu düğmeleri.
-- Tek sağlık paneli yeniden kullanılır; açılışta test veya ağ isteği başlatılmaz, ses/tempo/sayaç komutu gönderilmez.
-- Mobilde sağlık sonuçlarının dar sütunlara sıkışması engellendi; panel içinde ek kaydırma kutusu oluşturulmadı.
-- Sade/Odak Araçlar erişimi korunur; uygulama, SW, manifest ve çalışma dosyası özetleri r942 olarak birlikte güncellenir.
+r944 DEĞİŞİKLİKLERİ
+- Tekrarlanan kayıt oynatmalarında geçici olay dinleyicileri, ses sonu zamanlayıcısı ve ses yükselme animasyonu temizlenir.
+- Eski oynatmanın geciken sonucu veya zamanlayıcısı yeni kaydı durduramaz; eski kayıt hatası yeni oturumu duraklatamaz.
+- Duraklatma ve durdurma sırasında kaydın son konumu korunur; kendi kayıt önceliği ve mevcut TTS yedek yolu değişmez.
+- Berhetiyye ayar kutusu ses/durum yenilemesinde tekrar tekrar taşınmaz; gereksiz metin ve durum güncellemeleri azaltılır.
+- Test yapılmayan veya atlanan regresyon kontrolleri PASS sayılmaz; sağlık sonucu ile regresyon sonucu açıkça ayrılır.
+- AI yanıtından sonra bağlantı kartı ve teknik rapor güncellenir; yanıtlar sade Türkçe etiketlerle gösterilir.
+- Uzun işlem sayısı son 12 örnekle sınırlandırılmaz; eldeki iki dakikalık pencerenin sayısı ve en uzun süresi hesaplanır, eksik kapsama belirtilir.
+- Desteklenen tarayıcılarda yavaş dokunmanın aşamaları ve kod kaynağı sınırlı sayıda kaydedilir; kişisel metin/URL sorgusu alınmaz, INP puanı iddia edilmez.
+- Cihazımda ses ve ekran kilidini dene bölümü beş gözlemi kullanıcı beyanı olarak saklar; otomatik testleri başarılıya dönüştürmez.
+- SW etkinleşirken isteğe bağlı görsellerin toplu indirilmesi beklenmez. Görseller açıldıkça önbelleğe alınır.
+- Çekirdek dosya hashleri, uygulama, SW ve manifest r944 olarak birlikte doğrulanır. Taşlı tasarım ve mevcut kayıt verileri korunur.
 
 DOĞRULAMA
-DOGRULAMA_r942.json sonuçları ve kapsamını, SHA256SUMS.txt bütünlük
-listesini içerir. TELEFON_TESTI_r942.txt kısa cihaz kontrol listesidir.
-- DOM/VM testleri gerçek kaynak kodunu yalıtılmış ortamda denetler; gerçek tarayıcı veya fiziksel telefon görünümü ve dokunma testi değildir.
-- Fiziksel Android kilit ekranı, ses, bellek baskısı ve işletim sistemi kapanma testi yapılmadı.
-- Canlı siteye dağıtım yapılmadı. Paket mevcut kuruluma birleştirilmelidir.
+DOGRULAMA_r944.json sonuçları ve kapsamını, SHA256SUMS.txt bütünlük
+listesini içerir. TELEFON_TESTI_r944.txt kısa cihaz kontrol listesidir.
+- Fiziksel Android cihazda 30 dakikalık ses/ekran kilidi denemesi yapılmadı. Tarayıcı testi hoparlörden duyulan sesi veya işletim sistemi süreç sonlandırmasını doğrulamaz.
+- Gerçek AI sağlayıcısına kullanıcı anahtarıyla istek gönderilmedi; yanıt, hata, iptal ve güncel sonuç davranışı kontrollü yanıtlarla test edildi.
+- Yeni veya daha önce açılmamış sahne/çark görselleri ilk kullanımda internet gerektirebilir; açılmış görseller önbellekten kullanılabilir.
+- Gecikme kaydı tarayıcı desteğine bağlıdır; ilişkili işlem kaydı tek başına kesin kök neden ya da INP ölçümü değildir.
+- Canlı siteye dağıtım yapılmadı. Bu paket mevcut kurulumun üzerine birleştirilmelidir; pakette bulunmayan eski medya dosyaları silinmemelidir.
 
 Önceki raporlar ve test notları geçmiş sürümlerin arşividir.
-Güncel paket otoritesi sukun-build-r942.json dosyasıdır.
+Güncel paket otoritesi sukun-build-r944.json dosyasıdır.

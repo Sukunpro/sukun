@@ -1,0 +1,390 @@
+{
+  "build": "r943",
+  "base": "r942",
+  "pass": true,
+  "date": "2026-09-27",
+  "scope": "r942 temelinde görsel, sade Türkçe sağlık sonucu ve uygulama içindeki mevcut AI bağlantılarından isteğe bağlı sonuç analizi.",
+  "changes": [
+    "Sağlık ekranında genel durum, alan kartları, anlaşılır açıklama ve önerilen sonraki adımlar.",
+    "Ham kodlar ve JSON yalnız isteğe bağlı teknik ayrıntılarda; kaydedilen olaylar güncel test sonuçlarından ayrı.",
+    "AI ile sonucu açıkla düğmesi mevcut SÜKÛN AI sağlayıcısına sınırlı teknik özet gönderir; açıklama aynı ekranda gösterilir.",
+    "Anahtar yoksa bağlantı ayarları; kota, bağlantı ve zaman aşımı için anlaşılır geri bildirim; yerel sonuç özeti her durumda görünür.",
+    "AI için kayıtlar, niyet/dua metinleri, dosya yolları, URL ve anahtarlar gönderilmez; tek etkin istek, iptal ve eski sonuç koruması.",
+    "Test yapılmayan alanlar başarılı sayılmaz; telefonun ekran kilidi ve duyulan ses ölçülmüş gibi sunulmaz.",
+    "Klasik yüzük paneli ile Sade/Odak Araçlar erişimi korunur; uygulama/SW/manifest/dosya özetleri birlikte r943 olur."
+  ],
+  "checks": {
+    "static-results.json": {
+      "build": "r943",
+      "pass": true,
+      "sealed": true,
+      "inlineScriptsParsed": 242,
+      "externalScriptsParsed": 9,
+      "exactApprovedSourceChangesOnly": true,
+      "approvedSourceFiles": [
+        "assets/runtime/health-r940.js",
+        "index.html",
+        "nero.html"
+      ],
+      "serviceWorkerApprovedSourceOnly": true,
+      "preservedRuntimeAndArtFiles": 163,
+      "duplicateIds": [],
+      "identicalHtml": true,
+      "verifiedRuntimeHashes": 15,
+      "indexSha256": "7285680f0e2d5ef9f8654aff1c507dc73635f95a6ef1bbc5735d5df9ae661326",
+      "swSha256": "17e9f8990a9cfdd074730e53f9a4aa5aad5c7613e11c79ec0d7995b8f8605293"
+    },
+    "release-results.json": {
+      "build": "r943",
+      "base": "r942",
+      "pass": true,
+      "sealed": true,
+      "indexSha256": "7285680f0e2d5ef9f8654aff1c507dc73635f95a6ef1bbc5735d5df9ae661326",
+      "swSha256": "17e9f8990a9cfdd074730e53f9a4aa5aad5c7613e11c79ec0d7995b8f8605293",
+      "testEnvironment": "Node VM; real service-worker source, in-memory cache/network; no browser lifecycle emulation claim",
+      "limitations": [
+        "Real browser install/update lifecycle and IndexedDB persistence were not tested by this harness.",
+        "Physical Android lock-screen audio, memory pressure and process termination were not tested."
+      ],
+      "results": [
+        {
+          "name": "complete-install-verifies-every-required-runtime",
+          "pass": true,
+          "evidence": {
+            "build": "r943",
+            "verifiedRuntime": 15,
+            "optionalArtRequired": false
+          }
+        },
+        {
+          "name": "verified-runtime-and-shell-remain-available-offline",
+          "pass": true,
+          "evidence": {
+            "offlineRuntime": 15,
+            "offlineShell": "r943"
+          }
+        },
+        {
+          "name": "bad-new-runtime-blocks-install-and-preserves-previous-release",
+          "pass": true,
+          "evidence": {
+            "failedBuild": "r943",
+            "fallbackBuild": "r942",
+            "installError": "./assets/runtime/health-view-r943.js?v=r943: sürüm veya SHA-256 uyuşmazlığı",
+            "previousCachePreserved": true
+          }
+        },
+        {
+          "name": "corrupt-cached-runtime-is-detected-and-repaired-by-hash",
+          "pass": true,
+          "evidence": {
+            "tamperedUrl": "./assets/runtime/health-view-r943.js?v=r943",
+            "repairVerified": true
+          }
+        },
+        {
+          "name": "worker-never-serves-older-runtime-to-newer-document",
+          "pass": true,
+          "evidence": {
+            "requestedBuild": "r944",
+            "workerBuild": "r943",
+            "type": "error"
+          }
+        },
+        {
+          "name": "incomplete-worker-refuses-skip-waiting",
+          "pass": true,
+          "evidence": {
+            "reply": {
+              "ok": false,
+              "v": "r943",
+              "complete": false,
+              "error": "release incomplete"
+            },
+            "skipped": 0
+          }
+        },
+        {
+          "name": "activation-preserves-one-previous-cache-and-unrelated-storage",
+          "pass": true,
+          "evidence": {
+            "remainingCaches": [
+              "sukun-r943-health-ai-20260927-v1",
+              "sukun-r942-old",
+              "other-app-cache"
+            ],
+            "clientClaimed": true
+          }
+        },
+        {
+          "name": "quota-failure-cannot-report-complete-release",
+          "pass": true,
+          "evidence": {
+            "complete": false,
+            "claimed": 0
+          }
+        }
+      ]
+    },
+    "health-vm-results.json": {
+      "build": "r943",
+      "pass": true,
+      "sealed": true,
+      "passed": 27,
+      "total": 27,
+      "testEnvironment": "Node VM; real health runtime with metadata-only stubs; no live API, browser, or device test",
+      "results": [
+        {
+          "name": "peek initializes cached state and read never calls mutating snapshots",
+          "ok": true
+        },
+        {
+          "name": "only diagnostic own storage key touched",
+          "ok": true
+        },
+        {
+          "name": "runtime initialization is idempotent",
+          "ok": true
+        },
+        {
+          "name": "error evidence contains pinpoint location and excludes text/query",
+          "ok": true
+        },
+        {
+          "name": "unhandled Promise has sanitized stack",
+          "ok": true
+        },
+        {
+          "name": "resource error strips private URL query",
+          "ok": true
+        },
+        {
+          "name": "bounded record and incident flood",
+          "ok": true
+        },
+        {
+          "name": "hidden tempo identifies source",
+          "ok": true
+        },
+        {
+          "name": "visibility stops timer, return cannot become false stall",
+          "ok": true
+        },
+        {
+          "name": "genuine foreground progress absence gets uncertain warning",
+          "ok": true
+        },
+        {
+          "name": "read-only run leaves count untouched and zero device voices not appfail",
+          "ok": true
+        },
+        {
+          "name": "previous unclean classified possible with pinpoint metadata preserved",
+          "ok": true
+        },
+        {
+          "name": "malformed previous arrays do not break boot",
+          "ok": true
+        },
+        {
+          "name": "deep integrity match",
+          "ok": true
+        },
+        {
+          "name": "deep integrity mismatch",
+          "ok": true
+        },
+        {
+          "name": "deep integrity malformed",
+          "ok": true
+        },
+        {
+          "name": "real lock transport event keeps partial evidence without fabricated playing",
+          "ok": true
+        },
+        {
+          "name": "quality decode failure retains code and bytes only",
+          "ok": true
+        },
+        {
+          "name": "repeated issue latest evidence uses latest context",
+          "ok": true
+        },
+        {
+          "name": "sequential cheap runs release promise lock",
+          "ok": true
+        },
+        {
+          "name": "malformed optional provider is caught as incomplete collection",
+          "ok": true
+        },
+        {
+          "name": "oversized checkpoint trims oldest metadata instead of silent failure",
+          "ok": true
+        },
+        {
+          "name": "AI_CONNECTIONS uses metadata snapshot without network, playback, or live AI requests",
+          "ok": true
+        },
+        {
+          "name": "AI error categories distinguish remediation from unmeasured requests",
+          "ok": true
+        },
+        {
+          "name": "AI result event retains only bounded technical fields and drops sensitive payload",
+          "ok": true
+        },
+        {
+          "name": "AI checkpoint restores provider model HTTP and duration without sensitive payload",
+          "ok": true
+        },
+        {
+          "name": "unavailable AI snapshot cannot break health or produce a false connection pass",
+          "ok": true
+        }
+      ],
+      "indexSha256": "7285680f0e2d5ef9f8654aff1c507dc73635f95a6ef1bbc5735d5df9ae661326",
+      "swSha256": "17e9f8990a9cfdd074730e53f9a4aa5aad5c7613e11c79ec0d7995b8f8605293"
+    },
+    "classic-health-results.json": {
+      "pass": true,
+      "sealed": true,
+      "build": "r943",
+      "status": "PASS",
+      "tests": 9,
+      "scenarios": [
+        "unauthorized direct diagnostics open cannot create or mount UI",
+        "actual ring handler opens diagnostics only at nine activations",
+        "classic mode mounts one health panel in the final diagnostics section",
+        "close and reauthorize preserves overflow and reuses the same panel",
+        "health absent: diagnostics remains usable with visible fallback",
+        "health noop: diagnostics remains usable with visible fallback",
+        "health throw: diagnostics remains usable with visible fallback",
+        "shared health Tools dialog reuses panel and later classic open reclaims it",
+        "mount and close/reopen never invoke tests, network or transport/tempo commands"
+      ],
+      "target": "/workspace/scratch/90c12918c4ba/work-r943",
+      "indexSha256": "7285680f0e2d5ef9f8654aff1c507dc73635f95a6ef1bbc5735d5df9ae661326",
+      "swSha256": "17e9f8990a9cfdd074730e53f9a4aa5aad5c7613e11c79ec0d7995b8f8605293",
+      "healthSha256": "9f3ab6d8c313d89afb3d768a0bd477b6a1c1029338393256cb6376ba3e25702a",
+      "scope": "Actual extracted diagnostic and health UI functions plus actual ring handler; minimal DOM and diagnostic render/read boundaries stubbed; not browser/layout/audio-device validation."
+    },
+    "health-view-results.json": {
+      "build": "r943",
+      "pass": true,
+      "sealed": true,
+      "passed": 22,
+      "total": 22,
+      "target": "/workspace/scratch/90c12918c4ba/work-r943",
+      "indexSha256": "7285680f0e2d5ef9f8654aff1c507dc73635f95a6ef1bbc5735d5df9ae661326",
+      "swSha256": "17e9f8990a9cfdd074730e53f9a4aa5aad5c7613e11c79ec0d7995b8f8605293",
+      "healthViewSha256": "6c5d1f9110ab52eca87b34c2578f3584f1203a3fd9a4ef91ae60c0f4db9063f9",
+      "fixtureSha256": "6de469a15a779450dd1180cb27f2ea4677e83250e8c23d07dffd45214e89b36c",
+      "testEnvironment": "Node VM executes complete real health view module with minimal DOM; AI router and health collector boundaries stubbed; no live provider calls, browser automation, CSS/layout, or audio-device validation.",
+      "results": [
+        {
+          "name": "public view initialization and repeated mounting are passive and idempotent",
+          "ok": true
+        },
+        {
+          "name": "unrun and incomplete reports do not claim successful validation",
+          "ok": true
+        },
+        {
+          "name": "actual r941 phone report remains zero failures, one warning and three unmeasured",
+          "ok": true
+        },
+        {
+          "name": "historical and previous-run incidents stay separate from current failures",
+          "ok": true
+        },
+        {
+          "name": "every check emitted by the health runtime has a human label and actionable explanation",
+          "ok": true
+        },
+        {
+          "name": "observed evidence and invalid statuses never become verified passes",
+          "ok": true
+        },
+        {
+          "name": "AI payload ignores sensitive free text and unknown report branches",
+          "ok": true
+        },
+        {
+          "name": "AI payload accepts only finite bounded metadata, rejecting disguised strings and nonfinite values",
+          "ok": true
+        },
+        {
+          "name": "run, export and mark require explicit clicks and mounting twice binds actions once",
+          "ok": true
+        },
+        {
+          "name": "explicit AI action uses shared router with sanitized payload and renders response as plain text",
+          "ok": true
+        },
+        {
+          "name": "AI request is single-flight and the action becomes usable after settlement",
+          "ok": true
+        },
+        {
+          "name": "cancel aborts only this request and prevents a late response from replacing local results",
+          "ok": true
+        },
+        {
+          "name": "changed measurement aborts the stale AI snapshot and allows a fresh interpretation",
+          "ok": true
+        },
+        {
+          "name": "missing AI key has a friendly local fallback and an explicit settings action",
+          "ok": true
+        },
+        {
+          "name": "provider failure and missing router retain the local result without exposing raw errors",
+          "ok": true
+        },
+        {
+          "name": "bounded AI deadline aborts stalled work and late output cannot displace fallback",
+          "ok": true
+        },
+        {
+          "name": "an AI request does not invalidate itself when the router records its successful response",
+          "ok": true
+        },
+        {
+          "name": "a new completed test invalidates an old answer even if its findings match",
+          "ok": true
+        },
+        {
+          "name": "raw technical report and incident history are collapsed by default",
+          "ok": true
+        },
+        {
+          "name": "offline AI requests do not start a provider request or lose the local summary",
+          "ok": true
+        },
+        {
+          "name": "new test cancels only its own AI request and failed tests re-enable controls",
+          "ok": true
+        },
+        {
+          "name": "a completed but entirely unmeasured report does not claim measured areas are healthy",
+          "ok": true
+        }
+      ]
+    }
+  },
+  "liveObservations": {},
+  "limitations": [
+    "AI entegrasyonu sağlayıcı yanıtı taklitleriyle doğrulanır; gerçek kullanıcı API anahtarıyla canlı model isteği çalıştırılmadı.",
+    "AI açıklaması mevcut yapılandırılmış API bağlantısı ve sağlayıcının kota/ücret koşullarına bağlıdır. Yerel özet yapay zekâ yanıtı olarak etiketlenmez.",
+    "Otomatik DOM/VM kontrolleri gerçek telefon görünümü veya kilit ekranı ses testi değildir. Fiziksel cihaz kontrolü ayrıca gerekir.",
+    "Canlı siteye dağıtım yapılmadı. Paket mevcut kuruluma birleştirilmelidir."
+  ],
+  "files": {
+    "index.html": "7285680f0e2d5ef9f8654aff1c507dc73635f95a6ef1bbc5735d5df9ae661326",
+    "nero.html": "7285680f0e2d5ef9f8654aff1c507dc73635f95a6ef1bbc5735d5df9ae661326",
+    "sw.js": "17e9f8990a9cfdd074730e53f9a4aa5aad5c7613e11c79ec0d7995b8f8605293",
+    "manifest.webmanifest": "2258487faa1c6d1668f74c2e612c8f3d3293ad8528eda59723cd2a8df5886291",
+    "sukun-build-r943.json": "7567cff3f762281d20644f5b793766e454482cc40d576e80ba477ebe791a3b3b"
+  }
+}
