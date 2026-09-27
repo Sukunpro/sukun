@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 
 <!-- ════════════════════════════════════════════════════════════════
-     SÜKÛN r942 — Klasik panelde sistem sağlığı (base r941)
+     SÜKÛN r943 — Görsel sağlık özeti ve uygulama içi AI analizi (base r942)
      Tek dosya • Web Audio API (tüm sesler cihazda sentezlenir)
      Binaural Beats + Isochronic Tones + Esmâ/Zikir Modülü
      ════════════════════════════════════════════════════════════════ -->
 <html class="sukun-jewel-r798" lang="tr">
 <head>
-<link rel="stylesheet" href="./assets/runtime/berhet-layout-r938.css?v=r942" integrity="sha256-VxxQgGA4+szbjaLydVe6tFCvf1drTtuFW9WKMO1USfU=">
-<link id="sukun-r933-materials-style" rel="stylesheet" href="./assets/runtime/berhet-materials-r933.css?v=r942" integrity="sha256-S+EKXiMlSkZEF40I5mQXfh2rYnXIsM6BfXv+7b9eKyQ=">
-<link id="sukun-r933-controls-style" rel="stylesheet" href="./assets/runtime/berhet-controls-r933.css?v=r942" integrity="sha256-hSWilSjEkD6VfxQJX3zbZAid9fl/gL4YqlXvR0k0Wjc=">
-<link id="sukun-r933-dock-style" rel="stylesheet" href="./assets/runtime/berhet-dock-r933.css?v=r942" integrity="sha256-DV+h24tq9LXbizGR6eToLqO0eM4GnWeT1KqPcqEQ43Y=">
+<link rel="stylesheet" href="./assets/runtime/berhet-layout-r938.css?v=r943" integrity="sha256-VxxQgGA4+szbjaLydVe6tFCvf1drTtuFW9WKMO1USfU=">
+<link id="sukun-r933-materials-style" rel="stylesheet" href="./assets/runtime/berhet-materials-r933.css?v=r943" integrity="sha256-S+EKXiMlSkZEF40I5mQXfh2rYnXIsM6BfXv+7b9eKyQ=">
+<link id="sukun-r933-controls-style" rel="stylesheet" href="./assets/runtime/berhet-controls-r933.css?v=r943" integrity="sha256-hSWilSjEkD6VfxQJX3zbZAid9fl/gL4YqlXvR0k0Wjc=">
+<link id="sukun-r933-dock-style" rel="stylesheet" href="./assets/runtime/berhet-dock-r933.css?v=r943" integrity="sha256-DV+h24tq9LXbizGR6eToLqO0eM4GnWeT1KqPcqEQ43Y=">
 <style id="sukun-r920-contract">@layer sukun-r920-contract {
 /* First important layer: each legacy visual has one explicit successor. */
 /* r922: live native voice controls in the shared practice settings. */
@@ -855,11 +855,11 @@ html[data-r853-berhet="1"] body #berhetAtlas .r754SourceJumps button span {font-
 </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r942"/>
+<meta name="sukun-build" content="r943"/>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com https://api.moonshot.ai https://*.workers.dev; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r942" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r943" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6294,7 +6294,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){/* r922 shared settings owns its label. */if(document.getElementById('r920Practice')?.contains(document.getElementById('r679ZikirAyarBox')))return;if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r942"/><script>window.SUKUN_BUILD='r942';document.documentElement.dataset.sukunBuild='r942';</script>
+<meta name="sukun-build" content="r943"/><script>window.SUKUN_BUILD='r943';document.documentElement.dataset.sukunBuild='r943';</script>
 <style id="sukun-r923-esma-gallery">@layer sukun-r920 {
 #r920Practice #r923EsmaOptions{min-width:0;margin:10px 0}
 #r920Practice #r923EsmaOptions[hidden]{display:none!important}
@@ -7409,7 +7409,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN — Uygulama r942 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN — Uygulama r943 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -51608,6 +51608,7 @@ function open(){
 }
 function close(){
   window.SukunRingAccess?.disarm?.();
+  try{window.SukunHealthViewR943?.cancel?.($('r940Health'))}catch(_){}
   const root=ensureUI();
   root.hidden=true;
   document.documentElement.style.overflow=prevHtmlOverflow;
@@ -76845,7 +76846,7 @@ html[data-r913-context="base"] body.r716-shell>#r717Scene{display:block!importan
 html[data-r913-context="base"] body.r716-shell>#r709SceneArt,html[data-r913-context="base"] body.r716-shell>[data-berhet-scene-layer]{display:none!important;opacity:0!important}
 </style>
 <script id="sukun-r913-build-scene-runtime">/* r916: retired competing visual writer; audio engine unchanged. */window.SukunR913={version:'r916',sync:()=>window.SukunR916Visual?.sync?.()};</script>
-<script src="./assets/runtime/esma-scenes-r923.js?v=r942" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
+<script src="./assets/runtime/esma-scenes-r923.js?v=r943" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
 <script id="sukun-r914-runtime">(()=>{'use strict';
 const R=document.documentElement,A='./assets/berhetiyye-premium/',$=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch(_){return d}};
 const atlas=window.SukunR853Scene.nameScenes,originals=window.SukunR853Scene.files;
@@ -76981,11 +76982,11 @@ prop('--r914-scene','none');attr('r920Performance',profile);new MutationObserver
 </script>
 <svg id="r915Filters" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;pointer-events:none"><defs><filter id="r915BlackAlpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 8 8 8 0 0"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
 
-<script src="./assets/runtime/session-r919.js?v=r942" integrity="sha256-h9QV2flm7pkstjEedYrl7XawO7eC/ZNReaILqUZHydk="></script>
-<script src="./assets/runtime/dock-r920.js?v=r942" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
-<script src="./assets/runtime/wheels-r924.js?v=r942" integrity="sha256-ujpNhskOo017WC6rY+CGUVVVqUlYvu8/1okJGIeZuA0="></script>
-<script src="./assets/runtime/berhet-layout-r938.js?v=r942" integrity="sha256-yCefqhIgWIkdr7XOSm8F676iv97FNFbKQwkX9ig36Z8="></script>
-<script src="./assets/runtime/interface-r920.js?v=r942" integrity="sha256-tU5fBI2rn+y0mffE1iWcQxHlXQhT/mmr8MMcXK+b9+I="></script>
+<script src="./assets/runtime/session-r919.js?v=r943" integrity="sha256-h9QV2flm7pkstjEedYrl7XawO7eC/ZNReaILqUZHydk="></script>
+<script src="./assets/runtime/dock-r920.js?v=r943" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
+<script src="./assets/runtime/wheels-r924.js?v=r943" integrity="sha256-ujpNhskOo017WC6rY+CGUVVVqUlYvu8/1okJGIeZuA0="></script>
+<script src="./assets/runtime/berhet-layout-r938.js?v=r943" integrity="sha256-yCefqhIgWIkdr7XOSm8F676iv97FNFbKQwkX9ig36Z8="></script>
+<script src="./assets/runtime/interface-r920.js?v=r943" integrity="sha256-tU5fBI2rn+y0mffE1iWcQxHlXQhT/mmr8MMcXK+b9+I="></script>
 <script id="sukun-r922-voice-settings-ui">
 (function(){'use strict';
 const $=id=>document.getElementById(id);let mounted=false,raf=0,busy=false,modeError='',discovery=null,discoveryTimer=0;
@@ -77061,8 +77062,10 @@ discoveryTimer=setTimeout(()=>{discovery?.disconnect();discovery=null;},15000);q
 
 </script>
 
-<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r942" integrity="sha256-i5ggo2L/y6Zq/6cJGQmrbdTlbIcjdOlYl8LmfUSNs4Y=">
-<script id="sukun-r933-theme" src="./assets/runtime/berhet-theme-r933.js?v=r942" integrity="sha256-2oO498ir9JwAw6ESkdoMAahITnQsSpIL6ds7elb2tDQ="></script>
-<script id="sukun-r940-health" src="./assets/runtime/health-r940.js?v=r942" integrity="sha256-fKQR14YumDuRV9CpvLXfbx8uhtfGkp06niACWd0aeWY="></script>
+<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r943" integrity="sha256-i5ggo2L/y6Zq/6cJGQmrbdTlbIcjdOlYl8LmfUSNs4Y=">
+<script id="sukun-r933-theme" src="./assets/runtime/berhet-theme-r933.js?v=r943" integrity="sha256-2oO498ir9JwAw6ESkdoMAahITnQsSpIL6ds7elb2tDQ="></script>
+<link rel="stylesheet" href="./assets/runtime/health-view-r943.css?v=r943" integrity="sha256-lUh4+kV7IyyXdJ/7F7Ua0fDXKS+wM++a5tgJaMBN+3g=">
+<script id="sukun-r943-health-view" src="./assets/runtime/health-view-r943.js?v=r943" integrity="sha256-bF0fkRCrUuyoezTCV481hPEgOj/ZpO+RrmDA9NuQY/k="></script>
+<script id="sukun-r940-health" src="./assets/runtime/health-r940.js?v=r943" integrity="sha256-nzq22MMT2Jr7PXaKC9R3tqHBApM4OTJWy2N2uj4lcCo="></script>
 </body>
 </html>

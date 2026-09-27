@@ -1,0 +1,24 @@
+SÜKÛN r943 — GÜNCELLEMEYİ TAMAMLAMA
+
+27 Eylül 2026 kontrolünde canlı sitede nero.html, sw.js, manifest.webmanifest
+ve sukun-latest.json r942 olarak sunuluyordu. sukun-build-r943.json eksikti.
+Bazı yeni AI/sağlık dosyaları ulaşmıştı. Bu, tamamlanmamış yüklemedir.
+
+Bu küçük paket daha önce doğrulanan r943 sürümünün aynı kod dosyalarını içerir.
+Yeni bir r944 sürümü değildir. Mevcut r942/r943 karışık yüklemeyi tamamlar.
+
+1. ZIP'i cihazında aç. ZIP dosyasını olduğu gibi GitHub'a koyma.
+2. İçindeki index.html, nero.html, sw.js, manifest.webmanifest,
+   sukun-build-r943.json ve sukun-latest.json dosyalarını mevcut aynı adlı
+   dosyaların olduğu sukun deposunun köküne yükle. Yeni alt klasör açma.
+3. assets/runtime içeriğini depodaki assets/runtime klasörüne birleştir.
+   Diğer assets dosyalarını, görselleri ve kayıtları silme.
+4. Mümkünse hepsini tek commit ile kaydet. GitHub Actions içindeki Pages
+   dağıtımının başarıyla bitmesini bekle.
+5. https://sukunpro.github.io/sukun/sukun-latest.json adresi r943 göstermeli.
+6. Devam eden zikri Bitir ile kapat, uygulamadaki Güncelle'ye dokun.
+   Beklenen durum: Uygulama r943 / SW r943.
+
+Telefondaki site verilerini veya kendi ses kayıtlarını temizleme.
+Bu paket kod, sürüm ve temel çalışma dosyaları içindir; görsel/ses arşivi içermez.
+R943'ün 66 otomatik senaryo sonuçları tam pakette DOGRULAMA_r943.json'dadır.
