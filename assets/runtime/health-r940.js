@@ -341,7 +341,7 @@
     const existing = document.getElementById('r940Health');
     if (existing) { if (!host.contains(existing)) host.append(existing); mounted=existing; render(); return; }
     const panel = document.createElement('details'); panel.id = 'r940Health'; panel.open = true;
-    panel.innerHTML = '<summary>Sağlık özeti <span data-health-summary></span></summary><div class="dBody"><p class="dNote">Hata anı ve önceki olaylar otomatik ve sınırlı kaydedilir. Ses dosyaları, niyet metni ve URL sorguları rapora alınmaz. Denetim oturumu değiştirmez.</p><div class="dHeadBtns"><button type="button" data-r940="deep">Sağlık denetimini çalıştır</button><button type="button" data-r940="export">JSON Rapor</button><button type="button" data-r940="mark">Sorun şimdi oldu</button></div><div data-health-results class="dTests"></div></div>';
+    panel.innerHTML = '<summary>Sistem sağlığı <span data-health-summary></span></summary><div class="dBody"><p class="dNote">Hata anı ve önceki olaylar otomatik ve sınırlı kaydedilir. Ses dosyaları, niyet metni ve URL sorguları rapora alınmaz. Denetim oturumu değiştirmez.</p><div class="dHeadBtns"><button type="button" data-r940="deep">Sağlık denetimini çalıştır</button><button type="button" data-r940="export">JSON Rapor</button><button type="button" data-r940="mark">Sorun şimdi oldu</button></div><div data-health-results class="dTests"></div></div>';
     panel.addEventListener('click', async event => {
       const button = event.target.closest?.('[data-r940]'); if (!button) return;
       const action = button.dataset.r940;
