@@ -324,7 +324,10 @@
   }
   function render() {
     if (!mounted?.isConnected) return;
-    const data = read(), summary = mounted.querySelector('[data-health-summary]'), output = mounted.querySelector('[data-health-results]');
+    const data = read();
+    if (safe(() => window.SukunHealthViewR943?.render?.(mounted,data),false)) return;
+    const summary = mounted.querySelector('[data-health-summary]'), output = mounted.querySelector('[data-health-results]');
+    if (!summary || !output) return;
     summary.textContent = data.summary.currentFailures + ' hata · ' + data.summary.currentWarnings + ' uyarı · ' + data.summary.recordedIncidents + ' olay kaydı · ' + data.summary.unmeasured + ' ölçülmedi';
     output.replaceChildren();
     const entries = [...data.incidents.slice(-8).reverse().map(x => ({...x,status:x.severity})), ...data.checks];
@@ -341,6 +344,11 @@
     const existing = document.getElementById('r940Health');
     if (existing) { if (!host.contains(existing)) host.append(existing); mounted=existing; render(); return; }
     const panel = document.createElement('details'); panel.id = 'r940Health'; panel.open = true;
+    const visual = safe(() => window.SukunHealthViewR943?.mount?.(panel,{
+      read,run,exportReport,
+      mark: () => { record('user-problem-marker', { context: evidenceContext() }); persist('user-problem-marker'); render(); return read(); }
+    }),false);
+    if (!visual) {
     panel.innerHTML = '<summary>Sistem sağlığı <span data-health-summary></span></summary><div class="dBody"><p class="dNote">Hata anı ve önceki olaylar otomatik ve sınırlı kaydedilir. Ses dosyaları, niyet metni ve URL sorguları rapora alınmaz. Denetim oturumu değiştirmez.</p><div class="dHeadBtns"><button type="button" data-r940="deep">Sağlık denetimini çalıştır</button><button type="button" data-r940="export">JSON Rapor</button><button type="button" data-r940="mark">Sorun şimdi oldu</button></div><div data-health-results class="dTests"></div></div>';
     panel.addEventListener('click', async event => {
       const button = event.target.closest?.('[data-r940]'); if (!button) return;
@@ -350,16 +358,18 @@
       const buttons = [...panel.querySelectorAll('[data-r940="run"],[data-r940="deep"]')]; buttons.forEach(x => x.disabled = true);
       try { await run({deep:action === 'deep'}); } finally { buttons.forEach(x => x.disabled = false); render(); }
     });
+    }
     const anchor = host.querySelector('#r455MetricGrid'); if (anchor) anchor.after(panel); else host.append(panel);
     mounted = panel; render();
   }
-  function close() { if (dialog?.open) dialog.close(); if (priorFocus?.isConnected && priorFocus.getClientRects().length) priorFocus.focus({preventScroll:true}); }
+  function close() { safe(() => window.SukunHealthViewR943?.cancel?.(mounted)); if (dialog?.open) dialog.close(); if (priorFocus?.isConnected && priorFocus.getClientRects().length) priorFocus.focus({preventScroll:true}); }
   function open() {
     priorFocus = document.activeElement;
     safe(() => window.SukunFriendlyUI?.closeTools?.());
     if (!dialog) {
       dialog = document.createElement('dialog'); dialog.id = 'r940HealthDialog';
       dialog.setAttribute('aria-labelledby','r940HealthTitle');
+      dialog.addEventListener('close', () => safe(() => window.SukunHealthViewR943?.cancel?.(mounted)));
       const style = document.createElement('style'); style.textContent = '#r940HealthDialog{box-sizing:border-box;width:min(720px,calc(100vw - 20px));max-height:calc(100dvh - 24px);padding:18px;color:#f0e8d4;background:#0c1927;border:1px solid #a68b55;border-radius:18px;overflow:auto;overscroll-behavior:contain;touch-action:pan-y pinch-zoom;font:14px/1.5 system-ui;text-align:left}#r940HealthDialog::backdrop{background:#0009}#r940HealthDialog .dHeadBtns{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}#r940HealthDialog button{min-height:44px;padding:10px 14px;border:1px solid #60798c;border-radius:12px;background:#183347;color:#fff;font:600 13px system-ui;touch-action:manipulation}#r940HealthDialog button:disabled{opacity:.6}#r940HealthDialog .dTest{display:block;padding:12px 0;border-bottom:1px solid #ffffff24;overflow-wrap:anywhere}#r940HealthDialog summary{padding:12px 0}#r940HealthDialog [data-health-summary]{display:block;font-size:12px}#r940HealthDialog .dNote{color:#c0cbd2}';
       document.head.append(style);
       const header = document.createElement('div'); header.style.cssText='display:flex;justify-content:space-between;align-items:center;gap:10px';
