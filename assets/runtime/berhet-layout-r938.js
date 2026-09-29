@@ -18,7 +18,7 @@ function build(root){
  host=root;host.dataset.r938Layout='1';
  hero=document.createElement('div');hero.id='r938Hero';
  const wheel=$('r924WheelFrame');wheel.before(hero);
- for(const node of [root.querySelector('.r920Identity'),wheel,$('r920Phase'),root.querySelector('.r920Stats'),$('r920RecordingError'),$('r920SceneError')])move(node,hero);
+ for(const node of [root.querySelector('.r920Identity'),wheel,root.querySelector('.r920Stats'),$('r920RecordingError'),$('r920SceneError')])move(node,hero);
  panel=document.createElement('section');panel.id='r938Panel';panel.setAttribute('aria-label','Zikir kontrolleri');root.append(panel);
  const quick=$('r932WheelControls');move(quick,panel);
  const easy=quick.querySelector('.r932EasyTransport');move(easy,quick);
@@ -35,7 +35,7 @@ function sync(root,tef){
  if(!host)build(root);
  if(lastTef!==tef){lastTef=tef;setOpen(!tef)}
  // Native handlers continue to own status and count; this is only an empty-state caption.
- const phase=$('r920Phase');if(root.dataset.phase==='PLAYING'&&!phase.textContent)phase.textContent='Zikir sürüyor';
+ const phase=$('r920Phase'),wheel=$('r924WheelFrame');if(phase&&wheel&&phase.parentElement!==wheel)wheel.append(phase);if(root.dataset.phase==='PLAYING'&&!phase.textContent)phase.textContent='Zikir sürüyor';
 }
 window.SukunBerhetLayout=Object.freeze({version:'r938',sync,snapshot:()=>({active:!!host,open,tef:lastTef})});
 })();
