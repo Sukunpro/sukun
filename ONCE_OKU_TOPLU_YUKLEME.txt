@@ -1,35 +1,24 @@
-r948 — Nefs rehberi ve kişisel muhasebe
+r949 — Ses yaşam döngüsü, tempo devamlılığı ve daha büyük Tefekkür çarkı
 
-Bu paket mevcut SÜKÛN kurulumuna birleştirme güncellemesidir. Mevcut assets klasörünü, site verilerini veya kullanıcı kayıtlarını silmeyin. Canlı siteye tarafımızdan yükleme yapılmadı.
+Bu paket mevcut SÜKÛN kurulumuna birleştirme güncellemesidir. Canlı siteye yükleme yapılmadı.
 
-Nereden açılır?
-Zikir bölümünde Kontroller ve görünüm / diğer araçları açın. Seyirler içindeki Nefs & Letâif alanında “Nefs rehberi ve muhasebe”yi seçin. Eski “Sıfat Muhasebesi” girişi de yeni bölümü açar. Önceki günlük ve seyir kayıtları “Seyir ve önceki muhasebe” altında korunur.
+1. ZIP içeriğini Sukunpro/sukun site köküne yükleyin. assets klasörünü mevcut assets ile birleştirin; paket dışında kalan eski dosyaları veya kullanıcı verilerini silmeyin.
+2. index.html, nero.html, sw.js, manifest, sürüm JSON dosyaları ve assets/runtime dosyalarını birlikte yayımlayın. Yalnız HTML yüklemek yeterli değildir.
+3. Yayın tamamlandıktan sonra aktif sesinizi durdurun ve uygulamanın Güncelle düğmesini kullanın. Sağlık kontrolünde uygulama r949 / SW r949 eşleşmesini görün.
+4. Yayın sonrası adres: https://sukunpro.github.io/sukun/nero.html?v=r949
+   Adresteki v parametresi tek başına güncelleme yapmaz; dosyaların sunucuda yayımlanması gerekir.
 
-İçerik
-• 12 alanda 96 davranış ve 24 gündelik durum sorusu.
-• Ayrı değerlendirilen 28 bilgi sorusu; puanlanmayan 16 düşünme sorusu.
-• 79 rehber bölümü, yedi mertebenin açıklaması ve 124 kaynak/kapsam kaydı.
-• Nasuh tövbesi ve 54 farz için ayrı kaynaklı okuma bölümleri.
-• Her sorunun kaynağa ilişkin öğretim bağlamı; soruların özgün olduğu açıkça belirtilir.
-• Son 30 gün esas alınır. Uygulanamaz/hatırlamıyorum seçeneği puan sıfırı değildir.
-• Cevap ve kişisel notlar cihazda saklanır; bu modül AI'ye veya sunucuya yanıt göndermez.
+Neler değişti?
+Kendi kayıt sesinin görünür/gizli ekran geçişi aynı kaynak, hız ve çevrimle çalışır. Reddedilmiş arka plan başlatması döngü halinde zorlanmaz. Sistem durdurması ile sizin Duraklat/Bitir tercihiniz ayrılır. Çizim işi azaltıldı, sahne önizlemeleri küçültüldü ve yönetilen sahne sayısı sınırlandı. Berhetiyye Tefekkür çarkı büyüdü; alt kontrolleri gizleyince daha da büyür. Sağlık raporuna sesin gerçek durumu, sekme yaşam döngüsü ve ek kaynak göstergeleri eklendi.
 
-Kişisel sonuç
-Sonuç dört ayrı başlıkta gerçek yanıtlardan dayanak gösterir: düzelt, sürdür, değiştir, zorlandığın durumlar. Öncelikli alanlardan yedi günlük küçük bir uygulama planı üretir. Olumlu cevaplarda eksik, olumsuz cevaplarda güçlü yön uydurmaz. Tüm sonucu tek bir sayıya indirgemez; yeterlilik, alan farkları ve yeniden düşünülmesi gereken cevap çiftleri görünürdür.
+Sağlık kontrolü
+Klasik düzende yüzüğe 9 kez dokununca açılan araçların en altındaki sağlık kontrolünü açın. Sorunu yaşadığınız anda “Sorun şimdi oldu”, ardından “Raporu indir” kullanın.
 
-Mertebe yorumu nasıl okunmalı?
-Bu bir manevi makam tespit aracı veya psikometrik olarak geçerlenmiş ölçek değildir. Yeterli yanıt varsa cevapların hangi mertebeye ilişkin öğretim temalarına benzediği koşullu biçimde gösterilir. Gerçek manevi mertebe, ilahi kabul, ledün bilgisi veya üstünlük puanla belirlenmez. Râdıye, mardıyye ve kâmile sonuç unvanı olarak atanmaz; rehberde açıklanır. Bilgi puanı davranış sonucunu yükseltmez. Yüksek ve düşük sonuçlar için ayrı edep notları vardır.
+Tempo nasıl hesaplanıyor?
+Kendi kayıt için seçtiğiniz aralık, okunan kaydın süresinden kısa ise kayıt kesilmez; en az kayıt süresi + küçük geçiş payı kullanılır. Bu hesap ekran açık/gizli değişmez. 28/99 seyirde ara ve okuma hızı, kelime biterken uygulanır. Telefonun gerçek kilit ekranı testi bu ortamda yapılamadı; TELEFON_TESTI_r949.txt bu ayrımı açıklar.
 
-Kaynakların kapsamı
-Kur'an ayetleri; Müzekki'n-Nüfûs, Fütûhât-ı Mekkiyye, Fusûsu'l-Hikem, Mârifetnâme, Envârü'l-Âşıkîn ve Gazzâlî ile ilgili erişilebilen seçilmiş metinler veya akademik eser tanıtımları kullanıldı. Her kaynak kartında birincil metin / çeviri / ikincil tanıtım ayrımı bulunur. Eserlerin tamamının okunduğu iddia edilmez.
+Korunan özellikler
+r948 nefs rehberi, test soruları, sonuç modeli ve arayüz dosyaları değişmedi. Önceki günlükler, kayıtlar ve tema verileri silinmez. Eski r919/r940/r948 gibi runtime dosya adları bileşen sürümleridir; ana uygulama ve SW sürümü r949 olmalıdır.
 
-Synergy Kendiyas'ın erişilebilen seçilmiş kendi Telegram metinleri değerlendirildi. Spotify kanal kimliği ve erişilebilen bölüm açıklamaları incelendi; bütün kanal dinlenmedi. YouTube bağlantılarıyla yayımlanmış ilgili yazılı metinler ayrı kaynak olarak gösterilir; tüm videoların izlendiği veya tam transkriptlerinin okunduğu iddia edilmez. İstenen X hesaplarının kimlikleri araştırıldı fakat tam paylaşım arşivlerine erişilemedi. Erişilemeyen paylaşımlar soru kaynağı gibi gösterilmedi. Ledün kavramı rehberde bilgi sınırlarıyla açıklanır; sezgi veya rüya puan kanıtı yapılmaz.
-
-Kayıt ve yedek
-Test yarım bırakılabilir; yanıtlar ve kaldığınız soru geri gelir. Modülün dışa aktar/içe aktar araçları vardır; dışa aktarma cevaplarınızı ve kişisel notlarınızı içerir. Mevcut uygulama yedeği yeni muhasebe anahtarını da kapsar. Sıfırla yalnız bu yeni modülün taslağını kaldırır. Önceki muhasebe, kayıt ve ambiyans verileri korunur.
-
-Yükleme
-ZIP içeriğini Sukunpro/sukun site köküne yükleyin; assets klasörünü mevcut klasörle birleştirin. HTML, Service Worker, sürüm dosyaları ve runtime dosyalarını birlikte yayımlayın. Ardından uygulamanın Güncelle düğmesini kullanın. Uygulama r948 / SW r948 eşleşmesini kontrol edin. Yayın sonrası adres: https://sukunpro.github.io/sukun/nero.html?v=r948
-
-Doğrulama kapsamı
-Paket içindeki DOGRULAMA_r948.json gerçek çalıştırılmış testleri ve kaynak hashlerini içerir. İçerik/model testleri; mobil Chromium görünüm, taslak, içe aktarma ve sonuç akışları; çevrimdışı dosya doğrulaması ve r947'den güncellemede kayıt koruma denetlenir. Bu kontroller manevi ölçüm geçerliliğini veya fiziksel Android ekran kilidindeki sesi doğrulamaz.
+Doğrulama
+RAPOR_r949.md ve DOGRULAMA_r949.json gerçek testlerin kapsamını açıklar. Son paket otomatik kontrolleri geçti. 30 dakika soak erken r949 adayında yapıldı; sonraki düzeltmeler hedefli testlerle doğrulandı. “Her telefonda kesin kesintisiz” garantisi verilmez. Temiz siteye kurulum için gereken tüm tarihsel dosyalar bu birleştirme paketinde bulunmayabilir.

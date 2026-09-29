@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 
 <!-- ════════════════════════════════════════════════════════════════
-     SÜKÛN r948 — Nefs Rehberi ve Kapsamlı Muhasebe (base r947)
+     SÜKÛN r949 — Ses yaşam döngüsü ve çizim kararlılığı (base r948)
      Tek dosya • Web Audio API (tüm sesler cihazda sentezlenir)
      Binaural Beats + Isochronic Tones + Esmâ/Zikir Modülü
      ════════════════════════════════════════════════════════════════ -->
 <html class="sukun-jewel-r798" lang="tr">
 <head>
-<link rel="stylesheet" href="./assets/runtime/berhet-layout-r938.css?v=r948" integrity="sha256-iQtFBUjYR7OkeGqeKH9KVHA4GTakpfuH64J/FIvARY4=">
-<link id="sukun-r933-materials-style" rel="stylesheet" href="./assets/runtime/berhet-materials-r933.css?v=r948" integrity="sha256-S+EKXiMlSkZEF40I5mQXfh2rYnXIsM6BfXv+7b9eKyQ=">
-<link id="sukun-r933-controls-style" rel="stylesheet" href="./assets/runtime/berhet-controls-r933.css?v=r948" integrity="sha256-hSWilSjEkD6VfxQJX3zbZAid9fl/gL4YqlXvR0k0Wjc=">
-<link id="sukun-r933-dock-style" rel="stylesheet" href="./assets/runtime/berhet-dock-r933.css?v=r948" integrity="sha256-DV+h24tq9LXbizGR6eToLqO0eM4GnWeT1KqPcqEQ43Y=">
+<link rel="stylesheet" href="./assets/runtime/berhet-layout-r938.css?v=r949" integrity="sha256-RkSRDGjGL03HtsPOVRGqqKTE2TWurijMkJGcJRs3DC0=">
+<link id="sukun-r933-materials-style" rel="stylesheet" href="./assets/runtime/berhet-materials-r933.css?v=r949" integrity="sha256-S+EKXiMlSkZEF40I5mQXfh2rYnXIsM6BfXv+7b9eKyQ=">
+<link id="sukun-r933-controls-style" rel="stylesheet" href="./assets/runtime/berhet-controls-r933.css?v=r949" integrity="sha256-hSWilSjEkD6VfxQJX3zbZAid9fl/gL4YqlXvR0k0Wjc=">
+<link id="sukun-r933-dock-style" rel="stylesheet" href="./assets/runtime/berhet-dock-r933.css?v=r949" integrity="sha256-DV+h24tq9LXbizGR6eToLqO0eM4GnWeT1KqPcqEQ43Y=">
 <style id="sukun-r920-contract">@layer sukun-r920-contract {
 /* First important layer: each legacy visual has one explicit successor. */
 /* r922: live native voice controls in the shared practice settings. */
@@ -855,11 +855,13 @@ html[data-r853-berhet="1"] body #berhetAtlas .r754SourceJumps button span {font-
 </style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta name="sukun-build" content="r948"/>
+<meta name="sukun-build" content="r949"/>
+<script src="./assets/runtime/background-owner-r949.js?v=r949" integrity="sha256-3DnwvBwN+OsBOPNStNBkOf2KNhVxCIRhE8TpHEN00Kg="></script>
+<script src="./assets/runtime/lifecycle-r949.js?v=r949" integrity="sha256-wt4w1kZDcba8ZTrLlAUOzlq7GTlW9xMsPEljctdQXNY="></script>
 <script id="r768-active-glass-owner-flag">window.__SUKUN_R768_ACTIVE_GLASS_OWNER__=1;</script>
 <meta content="no-referrer" name="referrer"/>
 <meta content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob: https://api.anthropic.com https://api.groq.com https://openrouter.ai https://generativelanguage.googleapis.com https://api.moonshot.ai https://*.workers.dev; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'" http-equiv="Content-Security-Policy"/>
-<link href="./manifest.webmanifest?v=r948" rel="manifest"/>
+<link href="./manifest.webmanifest?v=r949" rel="manifest"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -6294,7 +6296,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 }
 </style>
 <script id="sukun-r862-berhetiyye-settings-label">(()=>{'use strict';function sync(){/* r922 shared settings owns its label. */if(document.getElementById('r920Practice')?.contains(document.getElementById('r679ZikirAyarBox')))return;if(document.documentElement.dataset.r853Berhet!=='1')return;const b=document.querySelector('#r679ZikirAyarBox .r679SettingsTitle b');if(b)b.textContent='Zikir Ayarları';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();['pageshow','sukun:visualcontextchange','sukun:domhydrate'].forEach(e=>addEventListener(e,()=>requestAnimationFrame(sync),{passive:true}));})();</script>
-<meta name="sukun-build" content="r948"/><script>window.SUKUN_BUILD='r948';document.documentElement.dataset.sukunBuild='r948';</script>
+<meta name="sukun-build" content="r949"/><script>window.SUKUN_BUILD='r949';document.documentElement.dataset.sukunBuild='r949';</script>
 <style id="sukun-r923-esma-gallery">@layer sukun-r920 {
 #r920Practice #r923EsmaOptions{min-width:0;margin:10px 0}
 #r920Practice #r923EsmaOptions[hidden]{display:none!important}
@@ -6309,7 +6311,9 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 #r920Practice #r923SceneSources a{display:inline-flex;min-height:44px;align-items:center;padding:4px 10px 4px 0;color:#9fdfd5;text-decoration:underline}
 #r920Practice #r923SceneRetry{min-height:44px;margin:4px 0;touch-action:manipulation}
 }</style>
-</head>
+<style id="r949-hidden-motion">
+@layer sukun-r938-layout { html[data-r949-hidden="1"] *,html[data-r949-hidden="1"] *::before,html[data-r949-hidden="1"] *::after{animation-play-state:paused!important} }
+</style></head>
 <body data-perf="dengeli">
 <!-- ═══ r519 — AÇILIŞ PERDESİ ═══════════════════════════════════════════
      Markup ve CSS BİLEREK burada, <body>'nin en başında ve satır içinde:
@@ -7414,7 +7418,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 <input accept=".json,application/json" aria-label="Ayar yedeği dosyası" hidden="" id="bakFile" type="file"/>
 <div class="bakStat" id="bakStat"></div>
 </details>
-<span id="surumEtiket">SÜKÛN — Uygulama r948 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
+<span id="surumEtiket">SÜKÛN — Uygulama r949 · SW denetleniyor…</span> — kalp huzuru niyetiyle <span aria-label="Mühür" id="vaultTrigger" role="button" tabindex="0"><span class="ico" data-ico="ring"></span></span><br/>
 </footer>
 </div>
 <!-- ══ İLK AÇILIŞ TURU ══ -->
@@ -10917,7 +10921,7 @@ html[data-r853-berhet="1"] body #r679ZikirAyarBox button{max-width:100%!importan
 </div>
 </div>
 </div>
-<script src="./assets/runtime/audio-palette-r945.js?v=r948" integrity="sha256-DfYTHVboafIroBGghDANS7nd3cTUFYnmNDaFBJIAO9E="></script>
+<script src="./assets/runtime/audio-palette-r945.js?v=r949" integrity="sha256-DfYTHVboafIroBGghDANS7nd3cTUFYnmNDaFBJIAO9E="></script>
 <script id="r514-core-icons-ambience">
 /* ═══════════════════════════════════════════════════════════════════
    r514-core-icons-ambience
@@ -12007,43 +12011,52 @@ const src=type=>{const s=ctx.createBufferSource();s.buffer=NOISE.get(type);s.loo
    Web Audio zamanlaması kayıyor. Artık TEK döngü var; görünmeyen ya da
    arka plandaki işler hiç çalışmaz. */
 const CIZ={
-  isler:new Map(), raf:null, aktif:false, son:0,
-  ekle(ad,fn,opt){ this.isler.set(ad,{fn,opt:opt||{}}); this.basla(); },
-  cikar(ad){ this.isler.delete(ad); if(!this.isler.size)this.dur(); },
-  basla(){
-    if(this.aktif)return;
-    this.aktif=true;
-    const dongu=(simdi)=>{
-      if(!this.aktif)return;
-      this.raf=requestAnimationFrame(dongu);
-      if(document.hidden)return;
-      /* r173: Bütün çizim sağlayıcıları tek rAF altında kalırken profil
-         gerçek kare bütçesini de belirler. Ses zamanlaması görsel süsten
-         daha önceliklidir: Tam≈60, Dengeli≈30, Pil≈8 kare/sn. */
-      const kip=document.body.dataset.perf||'dengeli';
-      const ara=kip==='tam'?16.5:(kip==='pil'?125:33);
-      simdi=Number.isFinite(simdi)?simdi:performance.now();
-      if(simdi-this.son<ara)return;
-      this.son=simdi;
-      for(const [ad,is] of this.isler){
-        try{
-          if(is.opt.el){
-            const el=(typeof is.opt.el==='string')?document.getElementById(is.opt.el):is.opt.el;
-            if(!el)continue;
-            if(el.offsetParent===null&&getComputedStyle(el).position!=='fixed')continue;
-          }
-          is.fn();
-        }catch(e){}
-      }
-    };
-    this.raf=requestAnimationFrame(dongu);
+  isler:new Map(), raf:null, aktif:false, son:0, frames:0, reads:0, writes:0, errors:0,
+  _io:null,_ro:null,_targets:new Map(),_frozen:false,
+  _init(){
+    if(this._io||!window.IntersectionObserver)return;
+    this._io=new IntersectionObserver(entries=>{for(const e of entries){for(const job of this._targets.get(e.target)||[])job.visible=e.isIntersecting;}this.basla();});
+    if(window.ResizeObserver)this._ro=new ResizeObserver(entries=>{for(const e of entries){for(const job of this._targets.get(e.target)||[]){job.box={width:e.contentRect.width,height:e.contentRect.height};job.dirty=true;}}this.basla();});
   },
-  dur(){ this.aktif=false; if(this.raf)cancelAnimationFrame(this.raf); this.raf=null; }
+  ekle(ad,fn,opt){
+    this.cikar(ad);this._init();opt=opt||{};
+    const el=typeof opt.el==='string'?document.getElementById(opt.el):opt.el;
+    const job={fn,opt,el,visible:!opt.el||!this._io,dirty:true,box:null};this.isler.set(ad,job);
+    if(el){if(!this._targets.has(el)){this._targets.set(el,new Set());this._io?.observe(el);this._ro?.observe(el);}this._targets.get(el).add(job);}
+    this.basla();return ad;
+  },
+  cikar(ad){
+    const job=this.isler.get(ad);if(job?.el){const jobs=this._targets.get(job.el);jobs?.delete(job);if(!jobs?.size){this._io?.unobserve(job.el);this._ro?.unobserve(job.el);this._targets.delete(job.el);}}
+    this.isler.delete(ad);if(!this.isler.size)this.dur();
+  },
+  basla(){
+    if(this.aktif||document.hidden||this._frozen||!this.isler.size)return;
+    this.aktif=true;this.son=0;
+    const frame=simdi=>{
+      this.raf=null;if(!this.aktif||document.hidden||this._frozen){this.dur();return;}
+      const kip=document.body?.dataset.perf||'dengeli',ara=kip==='tam'?16.5:kip==='pil'?125:33;
+      if(simdi-this.son>=ara){
+        this.son=simdi;this.frames++;
+        // Visibility/dimensions arrive from IO/RO. All explicit reads precede
+        // every writer; never use offsetParent/computedStyle in the frame loop.
+        const jobs=[];
+        for(const job of this.isler.values()){
+          if(!job.visible||job.el&&!job.el.isConnected)continue;
+          try{if(job.opt.active&&!job.opt.active())continue;if(job.opt.read&&job.dirty){job.measure=job.opt.read(job.box);job.dirty=false;this.reads++;}jobs.push(job);}catch(e){this.errors++;}
+        }
+        for(const job of jobs){try{job.fn(simdi,job.measure,job.box);this.writes++;}catch(e){this.errors++;}}
+      }
+      if(this.aktif)this.raf=requestAnimationFrame(frame);
+    };
+    this.raf=requestAnimationFrame(frame);
+  },
+  dur(){this.aktif=false;if(this.raf!=null)cancelAnimationFrame(this.raf);this.raf=null;},
+  snapshot(){return{version:'r949',jobs:this.isler.size,visible:[...this.isler.values()].filter(j=>j.visible).length,active:!!this.aktif,pendingFrames:this.raf==null?0:1,frames:this.frames,reads:this.reads,writes:this.writes,errors:this.errors,names:[...this.isler.keys()]};}
 };
 window.CIZ=CIZ;
-document.addEventListener('visibilitychange',()=>{
-  if(document.hidden)CIZ.dur(); else if(CIZ.isler.size)CIZ.basla();
-});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)CIZ.dur();else CIZ.basla();});
+document.addEventListener('freeze',()=>{CIZ._frozen=true;CIZ.dur();},{passive:true});
+document.addEventListener('resume',()=>{CIZ._frozen=false;CIZ.basla();},{passive:true});
 
 
 /* Kanal ortamı: başlatılan kaynakları, zamanlayıcıları ve düğümleri
@@ -15893,6 +15906,7 @@ function r476Audio(){
   return a;
 }
 function r476Prime(){
+  if(document.hidden||_r476Hidden?.mode==='recording')return false;
   try{
     const a=r476Audio();
     r946LockLease(a);
@@ -16030,7 +16044,7 @@ async function r477RenderLockTrack(blob,key){
        ana nedeni buydu. Ses dosyasını 1x/orijinal pitch'te render ediyoruz.
        Hız daha sonra native <audio>.playbackRate + preservesPitch ile uygulanır. */
     const spokenWallSec=Math.max(.12,decoded.duration/readRate);
-    const cycleWallSec=Math.max(spokenWallSec,Math.max(.18,Number(Z?.tempo)||1));
+    const cycleWallSec=r949CycleMs(decoded.duration*1000,readRate)/1000;
 
     /* Native player readRate hızında oynatacağı için medya dosyasının kaynak
        süresi wall-cycle * readRate olmalı. Böylece tempo duvar saatinde değişmez. */
@@ -16096,7 +16110,14 @@ async function r477RenderLockTrack(blob,key){
   }
 }
 
-async function r476Prepare(){
+let _r949PrepareTask=null;
+function r476Prepare(){
+ const key=[zikirKey(),r477FxSignature(zikirKey()),window.SukunVoiceSettings?.epoch?.()||0].join('|');
+ if(_r949PrepareTask?.key===key)return _r949PrepareTask.promise;
+ const task={key,promise:null};const promise=r949PrepareCore();task.promise=promise;_r949PrepareTask=task;
+ promise.finally(()=>{if(_r949PrepareTask===task)_r949PrepareTask=null;}).catch(()=>{});return promise;
+}
+async function r949PrepareCore(){
   const seq=++_r476PrepareSeq;
   const preferenceCurrent=window.SukunVoiceSettings?.capture?.()||(()=>true),voiceEpoch=window.SukunVoiceSettings?.epoch?.()||0;
   let key='';try{key=zikirKey()}catch(e){}
@@ -16114,7 +16135,7 @@ async function r476Prepare(){
   if(seq!==_r476PrepareSeq||!preferenceCurrent()){r946RetireLockUrl(url);return false;}
 
   const speed=Math.max(.5,Math.min(2,Number(window.OKUMA_HIZ)||1));
-  let cycleMs=Math.max(zAutoTempoMs(),durationMs?Math.round(durationMs/speed):0,650);
+  let cycleMs=r949CycleMs(durationMs,speed);
   const nextPrepared={
     key,blob,url,durationMs,voiceEpoch,unavailable:t.unavailable||'',
     fxUrl:'',fxSig:'',cycleMs,fxReady:false,playRate:speed,
@@ -16169,8 +16190,9 @@ async function r476Prepare(){
        yalnız gerçekten BAŞKA bir isme geçildiyse kaynak değiştirilir. */
     const calanAnahtar=a?(a.dataset.sukLockKey||''):'';
     const yeniAnahtar=_r476Prepared.key||'';
-    if(a&&yeni&&yeniAnahtar&&yeniAnahtar!==calanAnahtar&&!a.paused&&a.src&&a.src!==_r476SilentUrl){
+    if(a&&yeni&&yeniAnahtar&&(yeniAnahtar!==calanAnahtar||a.dataset.sukLockSignature!==_r476Prepared.fxSig)&&!a.paused&&a.src&&a.src!==_r476SilentUrl){
       const oran=Math.max(.5,Math.min(2,Number(_r476Prepared.playRate)||1));
+      if(_r476Hidden){r838CaptureAudible(_r476Hidden,true);_r476Hidden.audibleMs=0;_r476Hidden.credited=0;_r476Hidden.phaseMs=0;_r476Hidden.lastMediaTime=0;_r476Hidden.cycleMs=_r476Prepared.cycleMs;}
       r946LockLease(a);a.loop=true;
       a.src=yeni;
       try{delete a.dataset.sukSilentCarrier}catch(e){}
@@ -16178,8 +16200,9 @@ async function r476Prepare(){
       a.playbackRate=oran;
       try{a.preservesPitch=true}catch(e){}
       a.load();
-      try{a.dataset.sukLockKey=yeniAnahtar;a.dataset.sukLockFx=_r476Prepared.fxUrl?'1':'0'}catch(e){}
-      const pp=a.play(); if(pp&&pp.catch)pp.catch(()=>{});
+      try{a.dataset.sukLockKey=yeniAnahtar;a.dataset.sukLockSignature=_r476Prepared.fxSig;a.dataset.sukLockFx=_r476Prepared.fxUrl?'1':'0'}catch(e){}
+      const lease=window.SukunBackgroundAudioOwner.claim('single',a,yeniAnahtar+'|'+_r476Prepared.fxSig+'|'+_r476Prepared.voiceEpoch);
+      const pp=window.SukunBackgroundAudioOwner.play(lease);pp.catch(error=>r946LockDiagnostic('background-play',r946LockEvidence(a,'source-replace',_r476Prepared.fxUrl?'baked':'recording',{errorName:error.name}),error));
       try{window.SukunNativeEchoBridge?.start?.(a,{src:yeni,wet:KAYIT?.yankiMik,volume:a.volume,rate:a.playbackRate,key:yeniAnahtar,mode:'lock-zikir',baked:!!_r476Prepared.fxUrl})}catch(e){}
       try{r476MediaSession('recording')}catch(e){}
     }
@@ -16222,20 +16245,17 @@ window.SukunLockAudio={
     try{ return this.etkin()&&!!_r476LockAudio.paused }catch(e){ return false }
   },
   surdur(){
-    try{
-      if(!this.etkin())return false;
-      const a=_r476LockAudio;
-      if(!a.paused)return true;
-      a.loop=true;
-      const p=a.play(); if(p&&p.catch)p.catch(()=>{});
-      try{window.SukunNativeEchoBridge?.resume?.(a)}catch(e){}
-      try{navigator.mediaSession.playbackState='playing'}catch(e){}
-      return true;
-    }catch(e){ return false }
+    if(!this.etkin())return false;
+    const a=_r476LockAudio,o=window.SukunBackgroundAudioOwner;
+    const id=o.claim('single',a,(a.dataset.sukLockKey||'')+'|'+_r476Prepared.fxSig+'|'+_r476Prepared.voiceEpoch);
+    if(!o.allowed(id))return false;
+    o.play(id).then(ok=>{if(ok){window.SukunNativeEchoBridge?.resume?.(a);r476MediaSession('recording');}}).catch(()=>{});
+    return true;
   },
   duraklat(){
     try{
       if(!this.etkin())return false;
+      const bg=window.SukunBackgroundAudioOwner;if(bg?.snapshot().owner==='single')bg.userPause(bg.snapshot().lease);
       _r476LockAudio.pause();
       try{window.SukunNativeEchoBridge?.pause?.(_r476LockAudio)}catch(e){}
       try{navigator.mediaSession.playbackState='paused'}catch(e){}
@@ -16304,20 +16324,22 @@ function r476StartTtsBatch(){
  }catch(e){b.active=false;return false;}
 }
 let _r838HiddenStart=null;
-async function r476BeginHidden(retry=0){
- if(!Z.auto||!document.hidden||!zikirSesliAktifMi()||ZIKIR_BIRLIKTE)return false;
+async function r476BeginHidden(allowVisible=false){
+ if(!Z.auto||(!document.hidden&&!allowVisible)||!zikirSesliAktifMi()||ZIKIR_BIRLIKTE)return false;
+ if(!document.hidden&&(!_r476Prepared.fxReady||!_r476Prepared.url))return false;
  if(_r476Hidden)return true;
  if(_r838HiddenStart)return _r838HiddenStart;
  const expected=zikirKey(),generation=window.SukunZikirTransportGate?.snapshot?.().generation;
  const preferenceCurrent=window.SukunVoiceSettings?.capture?.()||(()=>true);
- const valid=()=>preferenceCurrent()&&Z.auto&&document.hidden&&zikirKey()===expected&&!ZIKIR_BIRLIKTE&&(generation==null||generation===window.SukunZikirTransportGate?.snapshot?.().generation);
- let retryAfterVoice=null,heldSource='',metadataCleanup=null;
+ const valid=()=>preferenceCurrent()&&Z.auto&&(document.hidden||allowVisible)&&zikirKey()===expected&&!ZIKIR_BIRLIKTE&&(generation==null||generation===window.SukunZikirTransportGate?.snapshot?.().generation);
+ let heldSource='',metadataCleanup=null;
  const task=(async()=>{
-  if(_r476Prepared.key!==expected||_r476Prepared.voiceEpoch!==(window.SukunVoiceSettings?.epoch?.()||0)){try{await r476Prepare()}catch(e){}}
+  if(_r949PrepareTask||_r476Prepared.key!==expected||_r476Prepared.voiceEpoch!==(window.SukunVoiceSettings?.epoch?.()||0)||RECKEYS.has(expected)&&!_r476Prepared.url){try{await r476Prepare()}catch(e){}}
   if(!valid()||_r476Prepared.key!==expected)return false;
   const prepared={..._r476Prepared},sourceUrl=prepared.fxUrl||prepared.url||'';
+  if(!sourceUrl&&!document.hidden)return false;
   if(!sourceUrl&&prepared.unavailable){window.SukunVoiceSettings?.unavailable?.(prepared.unavailable);return false;}
-  const cycleMs=Math.max(650,prepared.cycleMs||prepared.durationMs||zAutoTempoMs());
+  const cycleMs=prepared.cycleMs||r949CycleMs(prepared.durationMs,prepared.playRate);
   let phaseMs=0;
   try{const playing=[...SES.ler].find(x=>x&&!x.paused&&!x.ended);if(playing)phaseMs=Math.max(0,playing.currentTime*1000/Math.max(.1,playing.playbackRate||1));}catch(e){}
   const a=r476Audio();
@@ -16329,14 +16351,16 @@ async function r476BeginHidden(retry=0){
   let nativeLease=0;
   const ownsNative=()=>a._sukunLockEpoch===nativeLease&&a.src===sourceUrl&&a.dataset?.sukLockKey===expected;
   if(sourceUrl){
+   const bgOwner=window.SukunBackgroundAudioOwner,lease=bgOwner.claim('single',a,expected+'|'+prepared.fxSig+'|'+prepared.voiceEpoch);
+   if(!bgOwner.allowed(lease))return false;
    heldSource=sourceUrl;_r946HandoffSource=sourceUrl;nativeLease=r946LockLease(a);
    try{
     a.pause();a.loop=true;a.volume=intendedVolume();a.src=sourceUrl;
-    delete a.dataset.sukSilentCarrier;a.dataset.sukLockKey=expected;a.dataset.sukLockFx=prepared.fxUrl?'1':'0';
+    delete a.dataset.sukSilentCarrier;a.dataset.sukLockKey=expected;a.dataset.sukLockSignature=prepared.fxSig;a.dataset.sukLockFx=prepared.fxUrl?'1':'0';
     a.defaultPlaybackRate=a.playbackRate=Math.max(.5,Math.min(2,Number(prepared.playRate)||1));a.preservesPitch=true;a.load();
     const seek=()=>{try{if(valid()&&ownsNative()&&Number.isFinite(a.duration)&&a.duration>0)a.currentTime=Math.min(phaseMs/1000*a.playbackRate,Math.max(0,a.duration-.04));}catch(e){}};
     if(a.readyState>=1)seek();else{a.addEventListener('loadedmetadata',seek,{once:true});metadataCleanup=()=>a.removeEventListener('loadedmetadata',seek);}
-    await a.play();
+    if(!await bgOwner.play(lease))return false;
     if(!valid()||!ownsNative()){if(ownsNative())a.pause();return false;}
     window.SukunZikirTransportGate?.invalidate?.('background-handoff');
     window.SukunZikirTransportGate?.reset?.('background-handoff');
@@ -16354,9 +16378,7 @@ async function r476BeginHidden(retry=0){
     try{if(owned)a.pause()}catch(e){}
     if(!eligible||!owned)return false;
     r946LockDiagnostic('background-play',evidence,error);
-    // Only one transient interruption retry, after foreground settlement and
-    // after this attempt releases ownership. Permission failures never loop.
-    if(retry<1&&error?.name==='AbortError'&&valid())retryAfterVoice=window.__SUKUN_ZIKIR_VOICE_PROMISE__||null;
+    // Rejected hidden source stays BLOCKED until visible or a new source.
     return false;
    }
   }
@@ -16372,7 +16394,7 @@ async function r476BeginHidden(retry=0){
   if(_r838HiddenStart===task)_r838HiddenStart=null;
   if(heldSource&&_r946HandoffSource===heldSource)_r946HandoffSource='';
   r946ReleaseLockUrls();
-  if(retryAfterVoice)Promise.resolve(retryAfterVoice).then(()=>{if(valid()&&!_r476Hidden)r476BeginHidden(retry+1);},()=>{if(valid()&&!_r476Hidden)r476BeginHidden(retry+1);}).catch(()=>{});
+
   if(Z.auto&&document.hidden&&!_r476Hidden&&(zikirKey()!==expected||(generation!=null&&generation!==window.SukunZikirTransportGate?.snapshot?.().generation)))setTimeout(()=>r476BeginHidden(),0);
  }
 }
@@ -16390,10 +16412,10 @@ function r838CaptureAudible(s,playing){
  /* A native loop may report waiting before playing. Retain only that
     physically observed wrap; emit its beat after verified playback resumes. */
  if(wrapped)s.pendingRhythmWrap=true;
- if(playing&&s.pendingRhythmWrap&&document.hidden&&s===_r476Hidden){
+ if(playing&&s.pendingRhythmWrap&&s===_r476Hidden){
    s.pendingRhythmWrap=false;
    const expected=s.preparedKey;
-   window.SukunRhythm?.voiceStarted?.(()=>s===_r476Hidden&&Z.auto&&document.hidden&&a&&!a.paused&&!a.ended&&(!expected||a.dataset?.sukLockKey===expected),'native-loop');
+   window.SukunRhythm?.voiceStarted?.(()=>s===_r476Hidden&&Z.auto&&a&&!a.paused&&!a.ended&&(!expected||a.dataset?.sukLockKey===expected),'native-loop');
  }
 }
 function r838EarnedRepeats(s){
@@ -16486,6 +16508,8 @@ async function r476SilentApply(reps){
   }
 }
 async function r476EndHidden(){
+  if(Z.auto&&_r476Hidden?.mode==='recording'&&!_r476LockAudio?.paused&&!_r476LockAudio?.ended)return 0;
+  window.SukunBackgroundAudioOwner?.release('single','foreground-return');
   const s=_r476Hidden;if(!s)return 0;
   _r476Hidden=null;
   if(s.mode==='recording')r946LockDiagnostic('background-handoff',r946LockEvidence(_r476LockAudio,'released',s.fx?'baked':'recording'));
@@ -16552,6 +16576,7 @@ async function r476EndHidden(){
   return reps;
 }
 function r476Stop(all=true){
+  window.SukunBackgroundAudioOwner?.release('single','single-stop');
   _r476Hidden=null;r476StopTtsBatch();
   try{
     const a=_r476LockAudio;
@@ -16587,6 +16612,11 @@ document.addEventListener('click',e=>{
 window.addEventListener('sukun:voicesource',r477PrepareSoon,{passive:true});
 
 function zAutoTempoMs(){ return Math.max(180,Math.round((+Z.tempo||1)*1000)); }
+// One target onset interval for visible single recordings and native loop WAVs.
+// Never shorten the spoken clip to fit a faster selected tempo.
+function r949CycleMs(durationMs,rate=1){return Math.max(zAutoTempoMs(),Math.max(0,Number(durationMs)||0)/Math.max(.5,Math.min(2,Number(rate)||1))+40);}
+function r949CurrentCycleMs(){return _r476Prepared?.key===zikirKey()&&_r476Prepared.url?r949CycleMs(_r476Prepared.durationMs,_r476Prepared.playRate):zAutoTempoMs();}
+window.SukunCadence=Object.freeze({version:'r949',cycle:r949CycleMs,snapshot:()=>({requestedMs:zAutoTempoMs(),effectiveMs:r949CurrentCycleMs(),recordingMs:_r476Prepared?.durationMs||0,readRate:Math.max(.5,Math.min(2,Number(window.OKUMA_HIZ)||1)),minimumGapMs:40,scope:'single recording; shared onset interval, browser scheduling may delay starts'})});
 function zSessizTamamla(n){
   window.__SUKUN_DEFER_ZIKIR_TRANSITION__=false;
   window.__SUKUN_PENDING_ZIKIR_TRANSITION__=null;
@@ -16614,6 +16644,8 @@ function zSessizTamamla(n){
 let _zAutoPlanSeq=0;
 function zAutoKur(yeniden){
   if(!Z.auto)return;
+  if(_r476Hidden?.mode==='recording')return;
+  if(!document.hidden&&_r476Prepared.key===zikirKey()&&_r476Prepared.fxReady&&zikirSesliAktifMi()&&!ZIKIR_BIRLIKTE&&!zikirSesMesgul()&&!r485NiyetDue()){r476BeginHidden(true);return;}
 
   const planSeq=++_zAutoPlanSeq;
 
@@ -16630,7 +16662,7 @@ function zAutoKur(yeniden){
 
   const planla=(ms)=>{
     if(planSeq!==_zAutoPlanSeq||!Z.auto)return;
-    Z.autoId=setTimeout(dongu,Math.max(40,ms));
+    Z.autoId=setTimeout(dongu,Math.max(4,ms));
   };
 
   const sesBitincePlanla=()=>{
@@ -16638,7 +16670,8 @@ function zAutoKur(yeniden){
     if(p){
       Promise.resolve(p).finally(()=>{
         if(planSeq!==_zAutoPlanSeq||!Z.auto||document.hidden)return;
-        const kalan=Math.max(40,zAutoTempoMs()-Math.max(0,Date.now()-_zAutoSon));
+        if(_r476Prepared.key===zikirKey()&&_r476Prepared.fxReady&&!r485NiyetDue()){zAutoKur(false);return;}
+        const kalan=Math.max(4,r949CurrentCycleMs()-Math.max(0,Date.now()-_zAutoSon));
         planla(kalan);
       });
     }else{
@@ -16690,7 +16723,7 @@ function zAutoKur(yeniden){
   if(seriSes&&zikirSesMesgul()){
     sesBitincePlanla();
   }else{
-    const bekle=Math.max(40,zAutoTempoMs()-Math.max(0,Date.now()-_zAutoSon));
+    const bekle=Math.max(4,r949CurrentCycleMs()-Math.max(0,Date.now()-_zAutoSon));
     planla(bekle);
   }
 }
@@ -18810,7 +18843,7 @@ CIZ.ekle('vis',function visLoop(){
       ? (Math.sin(2*Math.PI*FR.b*ctx.currentTime)>0?AVE.int:0).toFixed(3)
       : 0;
   }
-});
+},{active:()=>!!ctx&&(FR.playing||Object.keys(AMB).length||VH.playing||AVE.on)});
 
 /* ── Vird programı — haftanın esmâları ── */
 const DAYS_TR=['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
@@ -19117,7 +19150,7 @@ function partInit(){
     partSeed();
   };
   rs(); addEventListener('resize',rs);
-  if(!PART.raf)CIZ.ekle('part',partLoop,{el:'ebruC'});
+  if(!PART.raf)PART.raf=CIZ.ekle('part',partLoop,{el:PART.c});
 }
 
 function bgInit(){
@@ -21983,6 +22016,10 @@ async function sukunJourneyNativeRecording(blob,ad,opt,kalite){
     if(gapIncludedMs){try{a.currentTime=document.hidden&&!opt.gapAlreadyWaited?0:gapIncludedMs*echoRate/1000}catch(e){}}
     try{if(!gapIncludedMs&&kalite&&kalite.trimStart>.04&&isFinite(a.duration))a.currentTime=Math.min(kalite.trimStart,Math.max(0,a.duration-.2))}catch(e){}
 
+    J.ownerSource=[recordingKey,signature,J.playUrl||J.url].join('|');
+    J.settingsSig=[gapMs,echoRate,echoWet,KAYIT?.mekan?1:0].join('|');
+    const nativeOwner=window.SukunBackgroundAudioOwner;
+    const nativeLease=nativeOwner.claim('journey',a,J.ownerSource);
     RECPLAYING=true;SES.ad=ad||'journey-native';SES.ler.add(a);
     try{window.SesCapa?.ensure?.(opt.title||'SÜKÛN — Zikir Seyri');window.SesCapa?.retitle?.(opt.title||'SÜKÛN — Zikir Seyri')}catch(e){}
     try{window.sukunSourceSet?.('recording',opt.reason||'Kilit ekranı uyumlu kendi kayıt',opt.title||recordingKey)}catch(e){}
@@ -22064,43 +22101,23 @@ async function sukunJourneyNativeRecording(blob,ad,opt,kalite){
         }catch(e){}
       };
       a._sukunFinish=done;
-      a.onended=()=>done(true,'ended');
+      a.onended=()=>{if(window.SukunLockJourneyTransportV2?.finishCycle?.(a))return;done(true,'ended')};
       a.onerror=()=>done(false,'error');
       a.addEventListener('playing',markPlaying,{once:true});
 
-      /* r621 — source değişiminde canplay'i BEKLEME.
-         Aynı <audio> elementi, kullanıcı tarafından daha önce başlatılmış medya
-         oturumunun sahibi olmaya devam ediyor. play() HAVE_NOTHING durumunda da
-         yüklemeyi başlatır. canplay/loadeddata yalnız ek bir kick görevi görür.
-         Bu, kilitte Rahmân bittiğinde Rahîm gibi yeni src'ye geçişin canplay
-         olayı gelmediği için sonsuza kadar askıda kalmasını önler. */
+      // r949: exactly one native play request for this source lease. Metadata,
+      // pause and retry timers cannot reopen a rejected play. A visible handoff
+      // or genuinely different source is required to recover.
       const go=()=>{
-        if(finished||played||attempts>=5)return;
+        if(finished||played||attempts)return;
         if(typeof opt.isCurrent==='function'&&!opt.isCurrent()){done(false,'stale-sequence');return}
         attempts++;
-        try{
-          const p=a.play();
-          Promise.resolve(p).then(markPlaying).catch(()=>{
-            if(finished||played)return;
-            if(attempts>=5)done(false,'play-rejected');
-          });
-        }catch(e){
-          if(attempts>=5)done(false,'exception');
-        }
+        nativeOwner.play(nativeLease).then(ok=>{
+          if(finished||played)return;
+          if(ok)markPlaying();else done(false,'native-lease-blocked');
+        }).catch(()=>{if(!finished&&!played)done(false,'play-rejected')});
       };
-
-      if(sourceChanged){
-        a.addEventListener('canplay',go,{once:true});
-        a.addEventListener('loadeddata',go,{once:true});
-      }
-
-      /* İlk çağrı her koşulda senkron yapılır. Hidden durumda artık canplay
-         şartı yoktur. Android arka plan scheduler'ı ilk play isteğini yutarsa
-         aynı persistent elemente kontrollü yeniden-kick uygulanır. */
       go();
-      timers.push(setTimeout(go, document.hidden?450:220));
-      timers.push(setTimeout(go, document.hidden?1400:700));
-      timers.push(setTimeout(go, document.hidden?3200:1600));
 
       /* Sonsuz Promise yerine uzun bir emniyet sınırı. Başlatma başarısızsa
          mevcut systemHold/recovery mantığı devralır; kullanıcı ilerlemesi
@@ -22162,6 +22179,9 @@ async function playRecording(blob,ad,opt){
          geldiğinde currentTime sıfırlanıp yeniden çalınıyor. Havuz kayıt
          adına göre anahtarlanıyor, en çok altı eleman tutuluyor. */
       const recordingKey=sukunRecordingKeyFrom(ad,opt);
+      const r949SingleCycle=!!(Z.auto&&!ZIKIR_BIRLIKTE&&!window.SukunR698Transport?.hasJourney?.()&&recordingKey===zikirKey());
+      // Both visibility modes play the same complete source duration.
+      if(r949SingleCycle&&kalite)kalite={...kalite,trimStart:0,trimEnd:0,tailTrim:0};
       const blobSig=String(blob?.size||0)+'|'+String(blob?.type||'');
       const havuzAnahtar=recordingKey?('rec:'+recordingKey):('ad:'+String(ad||'kayit'));
       if(!window.__sukSesHavuz)window.__sukSesHavuz=new Map();
@@ -22280,6 +22300,7 @@ async function playRecording(blob,ad,opt){
         if(bitti)return;if(!ownsElement()){done(false,'stale-sequence');return}
         if(!r919Current()){done(false,'stale-sequence');return}
         calabildi=true;
+        if(r949SingleCycle&&!document.hidden)_zAutoSon=Date.now();
         if(recordingKey)window.SukunRhythm?.voiceStarted?.(()=>!bitti&&r919Current(),'recording');
         try{
           if(grafik&&ctx){
@@ -22391,7 +22412,7 @@ function okumaHizAyarla(v){
   window.OKUMA_HIZ = Math.max(0.5, Math.min(3, +v||1));
   S.set('sukun.okumaHiz', window.OKUMA_HIZ);
   /* o an çalan kayıtlara anında uygula */
-  try{ SES.ler.forEach(a=>{ try{ a.playbackRate=window.OKUMA_HIZ; a.preservesPitch=true; }catch(e){} }); }catch(e){}
+  try{ SES.ler.forEach(a=>{ try{ if(a._r648Lease||a._r651Lease)return; a.playbackRate=window.OKUMA_HIZ; a.preservesPitch=true; }catch(e){} }); }catch(e){}
   document.querySelectorAll('[data-hiz]').forEach(b=>
     b.classList.toggle('on', Math.abs(+b.dataset.hiz - window.OKUMA_HIZ) < 0.01));
   const et=document.getElementById('okumaHizV');
@@ -30701,11 +30722,11 @@ const MUHR={
   },
 
   loop(){
-    if(document.body.classList.contains('r716-shell')&&!document.body.classList.contains('r716-motion')){this.raf=null;return;}
+    if(document.body.classList.contains('r716-shell')&&!document.body.classList.contains('r716-motion')){CIZ.cikar('muhr');this.raf=null;return;}
     const sec=document.getElementById('tab-zkr');
-    if(!this.x||document.hidden||!sec||sec.hidden){ this.raf=null; return; }   /* uyu */
+    if(!this.x||document.hidden||!sec||sec.hidden){ CIZ.cikar('muhr');this.raf=null; return; }   /* uyu */
     if(document.body.dataset.perf==='pil'){ this.raf=null; this.draw(); return; }
-    this.raf=requestAnimationFrame(()=>this.loop());
+    if(!this.raf)this.raf=CIZ.ekle('muhr',()=>this.loop(),{el:this.c});
     const now=performance.now();
     const kare=document.body.dataset.perf==='tam'?16:32;
     if(now-this.last<kare)return;
@@ -30874,11 +30895,11 @@ const FRM={
 
   loop(){
     const sec=document.getElementById('tab-frq');
-    if(!this.x||document.hidden||!sec||sec.hidden){ this.raf=null; return; }   /* uyu */
+    if(!this.x||document.hidden||!sec||sec.hidden){ CIZ.cikar('frMirror');this.raf=null; return; }   /* uyu */
     if(document.body.dataset.perf==='pil'){ this.raf=null; this.draw(0); return; }
-    this.raf=requestAnimationFrame(()=>this.loop());
-    const box=$('#frMirror');
-    if(box&&box.clientWidth&&Math.abs(box.clientWidth-this.W)>1){ this.resize(); }
+    if(!this.raf)this.raf=CIZ.ekle('frMirror',()=>this.loop(),{el:this.c,read:box=>box});
+    const box=CIZ.isler.get('frMirror')?.box;
+    if(box?.width&&Math.abs(box.width-this.W)>1){const d=Math.min(devicePixelRatio||1,2);this.W=box.width;this.H=box.height||104;this.c.width=Math.round(this.W*d);this.c.height=Math.round(this.H*d);this.x.setTransform(d,0,0,d,0,0);}
     const now=performance.now();
     const kare=document.body.dataset.perf==='tam'?16:32;
     if(now-this.last<kare)return;
@@ -36453,7 +36474,7 @@ function cymTick(){
   if (!c) return;
   const simdi=performance.now(), kip=document.body.dataset.perf||'dengeli';
   const ara=kip==='tam'?16:(kip==='pil'?125:33);
-  if(CYM._lastFrame&&simdi-CYM._lastFrame<ara){CYM.raf=requestAnimationFrame(cymTick);return;}
+  if(CYM._lastFrame&&simdi-CYM._lastFrame<ara)return;
   CYM._lastFrame=simdi;
   c.fillStyle = 'rgba(7,7,20,0.30)'; c.fillRect(0,0,size,size);
   const eps = 1.6;
@@ -36508,15 +36529,14 @@ function cymTick(){
   }
   c.fillStyle = 'rgba(180,205,255,0.92)';
   c.fill(path);
-  CYM.raf = requestAnimationFrame(cymTick);
+  // r949: CIZ owns the next visual frame.
 }
 function cymEnter(){
   cymResize();
   if (!CYM.ready) cymSeed();
-  cancelAnimationFrame(CYM.raf);
-  cymTick();
+  CIZ.cikar('cym');CYM.raf=CIZ.ekle('cym',cymTick,{el:CYM.canvas});
 }
-function cymPauseVisual(){ cancelAnimationFrame(CYM.raf); CYM.raf=null; }
+function cymPauseVisual(){CIZ.cikar('cym');CYM.raf=null;}
 
 function cymBuildGrid(){
   const host = document.getElementById('cymGrid'); if (!host || host.dataset.built) return;
@@ -36754,10 +36774,10 @@ const SPEC = {
        Artık döngüyü yine de kuruyoruz: loop() her karede build()'i tekrar
        dener, analyser doğduğu an şerit kendiliğinden canlanır. */
     this.build();
-    this.loop();
+    this.raf=CIZ.ekle('spectrum',()=>this.loop(),{el:this.cv});
   },
 
-  stop(){ if(this.raf){ cancelAnimationFrame(this.raf); this.raf=null; } },
+  stop(){CIZ.cikar('spectrum');this.raf=null;},
 
   loop(){
     /* Bu döngü gizliyken de dönmeye devam ediyordu: her karede rAF isteyip
@@ -36766,8 +36786,11 @@ const SPEC = {
     if(document.hidden || typeof this.fit!=='function'){ this.raf=null; return; }
     /* r694: fit() offsetWidth/offsetHeight okuyup canvas transformu yazar.
        Eski loop aynı karede iki kez çağırarak gereksiz layout flush üretiyordu. */
-    if(!this.fit()){ this.raf=null; return; }   /* panel/sekme gizli → uyu */
-    this.raf=requestAnimationFrame(()=>this.loop());
+    const box=CIZ.isler.get('spectrum')?.box;if(!box?.width)return;
+    const d=Math.min(devicePixelRatio||1,2),w=box.width,h=box.height;
+    if(this.cv.width!==Math.round(w*d)||this.cv.height!==Math.round(h*d)){this.cv.width=Math.round(w*d);this.cv.height=Math.round(h*d);this.frozen=false;}
+    this.W=w;this.H=h;this.dpr=d;this.c.setTransform(d,0,0,d,0,0);   /* panel/sekme gizli → uyu */
+
     if(!this.map && !this.build()) return;     /* analyser sonradan doğabilir */
     const simdi=performance.now(), kip=document.body.dataset.perf||'dengeli';
     const ara=kip==='tam'?16:(kip==='pil'?125:33);
@@ -37731,9 +37754,7 @@ const HV = {
     if (this.rafIds[canvasId]) return; // already animating, just keep going
     let son=0;
     const draw = (simdi) => {
-      this.rafIds[canvasId] = requestAnimationFrame(draw);
-      const canvas=document.getElementById(canvasId);
-      if(document.hidden||!canvas||canvas.offsetParent===null)return;
+      if(document.hidden)return;
       const kip=document.body.dataset.perf||'dengeli';
       if(kip==='pil'){ this.stop(canvasId); this.render(canvasId); return; }
       const ara=kip==='tam'?16:33;
@@ -37742,7 +37763,7 @@ const HV = {
       son=simdi;
       this.render(canvasId);
     };
-    draw();
+    this.rafIds[canvasId]=CIZ.ekle('hv:'+canvasId,draw,{el:canvasId});
   },
 
   // Beat frekansını referans alarak görsel hızı senkronlar
@@ -37896,14 +37917,14 @@ const HV = {
   setHue(h) { this.hue = h; },
 
   stop(canvasId) {
-    if(this.rafIds[canvasId])cancelAnimationFrame(this.rafIds[canvasId]);
+    CIZ.cikar('hv:'+canvasId);
     delete this.rafIds[canvasId];
   },
 
   // Cancels every running canvas RAF loop — call this whenever the module is closed,
   // otherwise the mandala/spiral/fraktal animation keeps redrawing forever in the background.
   stopAll() {
-    Object.keys(this.rafIds).forEach(id => cancelAnimationFrame(this.rafIds[id]));
+    Object.keys(this.rafIds).forEach(id => CIZ.cikar('hv:'+id));
     this.rafIds = {};
   },
 };
@@ -39089,6 +39110,9 @@ const SukunVoiceResolver=window.SukunVoiceResolver=(()=>{
       });
 
       if(rr===undefined||rr===true||rr?.ok)return{source:'recording',ok:true,key,reason:rr?.reason||'ended'};
+      // A rejected hidden media lease is a system hold, not a fabricated user Pause.
+      if(document.hidden&&window.SukunBackgroundAudioOwner?.snapshot()?.owner==='journey'&&window.SukunBackgroundAudioOwner.snapshot().blocked)
+        return{source:'recording',ok:false,key,backgroundBlocked:true,reason:'native-lease-blocked'};
       /* r624: Başlamış ama ilerlememiş kayıt da gerçek oynatma hatasıdır.
          `cancelled` diye yutulursa çözümleyici TTS'ye düşemez ve seyir aynı
          isimde kalır. Yalnız kasıtlı/sahiplik kaynaklı kesmeler iptaldir. */
@@ -39511,14 +39535,14 @@ async function seyirLoop(token){
            systemHold üretmez. Continuous Lock Transport aynı persistent audio
            elementini canlı tutar; geçici native hata aynı tekrar sayılmadan iki
            kez kontrollü yeniden denenir. Bu kullanıcı pause'u değildir. */
-        if(transient&&document.hidden&&!window.AudioLife?.userPaused&&autoRetries<2){
+        if(transient&&!window.SukunBackgroundAudioOwner?.snapshot()?.blocked&&document.hidden&&!window.AudioLife?.userPaused&&autoRetries<2){
           autoRetries++;BS.recoveries++;
           try{window.dispatchEvent(new CustomEvent('sukun:journey-background-retry',{detail:{owner:'journey28',index:BS.i,rep:BS.rep,reason,attempt:autoRetries,at:Date.now()}}))}catch(e){}
           try{await Promise.race([Promise.resolve(window.SukunLockContinuousTransport?.revive?.('berhet:'+BS.i)),new Promise(x=>setTimeout(x,800))])}catch(e){}
           await new Promise(x=>setTimeout(x,180));
           continue;
         }
-        if(transient&&!document.hidden&&!window.AudioLife?.userPaused&&autoRetries<1){
+        if(transient&&!window.SukunBackgroundAudioOwner?.snapshot()?.blocked&&!document.hidden&&!window.AudioLife?.userPaused&&autoRetries<1){
           autoRetries++;BS.recoveries++;
           seyirUI('Ses toparlanıyor · aynı tekrar yeniden deneniyor');
           try{window.SukunVoiceSource?.set?.('recovering','TOPARLANIYOR',reason)}catch(e){}
@@ -39677,7 +39701,7 @@ window.SukunBerhetiyyeSeyir=Object.freeze({
     return true;
   },
   resume(opt){seyirSurdur(!(opt&&opt.system));return true},
-  pause(){if(BS.run||!BS.paused)seyirKes('Duraklatıldı',true);return true},
+  pause(){if(BS.run||!BS.paused||BS.systemHold)seyirKes('Duraklatıldı',true);return true},
   stop(){seyirKes('Bitirildi',false);return true},
   jumpTo(index){
     const i=Math.max(0,Math.min(27,Number.isFinite(+index)?Math.trunc(+index):0));
@@ -55427,10 +55451,14 @@ if(window.SukunEsma99Seyir?.version==='r553')return;
 const $=id=>document.getElementById(id);
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
+let r949SecretUI=null;
 function secretSync(){
   const open=!!window.SukunSecretPolicy?.unlocked?.();
   const bs=$('berhetSeyir');
   const alertRow=$('berhetAlertRow'),alertToggle=$('berhetAlertTgl');
+  // Count changes do not change access or notification contents.
+  if(r949SecretUI&&r949SecretUI.open===open&&r949SecretUI.row===alertRow&&r949SecretUI.toggle===alertToggle&&r949SecretUI.bs===bs)return;
+  r949SecretUI={open,row:alertRow,toggle:alertToggle,bs};
   if(alertRow){alertRow.hidden=!open;alertRow.style.display=open?'':'none';alertRow.setAttribute('aria-hidden',open?'false':'true')}
   if(alertToggle){alertToggle.disabled=!open;alertToggle.setAttribute('aria-disabled',open?'false':'true')}
   if(!open){
@@ -55606,13 +55634,13 @@ async function loop(token){
         /* r643 — 99 Esmâ da aynı continuous native lock transportu kullanır.
            Hidden scheduler gecikmesi kullanıcı pause'u değildir; sayaç aynı
            tekrarda kalırken iki kontrollü arka plan recovery hakkı vardır. */
-        if(transient&&document.hidden&&!window.AudioLife?.userPaused&&autoRetries<2){
+        if(transient&&!window.SukunBackgroundAudioOwner?.snapshot()?.blocked&&document.hidden&&!window.AudioLife?.userPaused&&autoRetries<2){
           autoRetries++;ES.recoveries++;
           try{window.dispatchEvent(new CustomEvent('sukun:journey-background-retry',{detail:{owner:'journey99',index:ES.i,rep:ES.rep,reason,attempt:autoRetries,at:Date.now()}}))}catch(e){}
           try{await Promise.race([Promise.resolve(window.SukunLockContinuousTransport?.revive?.('esma:'+ES.i+':nida')),sleep(800)])}catch(e){}
           await sleep(180);continue;
         }
-        if(transient&&!document.hidden&&!window.AudioLife?.userPaused&&autoRetries<1){
+        if(transient&&!window.SukunBackgroundAudioOwner?.snapshot()?.blocked&&!document.hidden&&!window.AudioLife?.userPaused&&autoRetries<1){
           autoRetries++;ES.recoveries++;ui('Ses toparlanıyor · aynı tekrar yeniden deneniyor');
           try{window.SukunVoiceSource?.set?.('recovering','TOPARLANIYOR',reason)}catch(e){}
           try{const p=window.AudioLife?.recover?.('esma99-auto-retry');if(p&&typeof p.then==='function')await Promise.race([p,sleep(700)])}catch(e){}
@@ -59572,6 +59600,7 @@ window.SukunDockCollapse={version:'r592',get:()=>collapsed,set:setCollapsed,togg
 (function(){
   function duzelt(){
     try{
+      const practice=document.getElementById('r920Practice');if(document.hidden||practice&&!practice.hidden)return;
       const h=document.getElementById('zMegaHost');
       if(!h)return;
       const kart=h.closest('.card');
@@ -63778,14 +63807,18 @@ function derive(reason='snapshot'){
     ['preparing','recovering','interrupted'].includes(clean(life.state))&&
     Date.now()-(life.lastChange||0)<2500;
 
+  const nativeOwner=window.SukunBackgroundAudioOwner?.snapshot();
+  const backgroundInterrupted=nativeOwner?.active&&(nativeOwner.blocked||nativeOwner.phase==='INTERRUPTED');
   let canonical='idle';
-  if(userPaused){canonical=(nonMixPaused||nonMixPlaying||norm(ctl?.state)==='paused'||norm(ctl?.state)==='playing'||phy.journey28||phy.journey99)?'paused':'idle'}
+  if(backgroundInterrupted)canonical='interrupted';
+  else if(userPaused){canonical=(nonMixPaused||nonMixPlaying||norm(ctl?.state)==='paused'||norm(ctl?.state)==='playing'||phy.journey28||phy.journey99)?'paused':'idle'}
   else if(tangible)canonical='playing';
   else if(!pendingPhysical&&(nonMixPaused||norm(ctl?.state)==='paused'))canonical='paused';
   else if(regState==='stopping')canonical='stopping';
   const observed=[...(arb?.observed?.spokenOwners||[])];
   const owner=arb?.owner||((observed[0])?{type:observed[0],id:observed[0],identity:observed[0],title:observed[0]}:null);
   const issues=[];
+  if(backgroundInterrupted)issues.push('background-native-interrupted');
   const hubN=norm(hub.state),lifeN=norm(life.state);
   if(canonical==='paused'&&hubN==='playing')issues.push('hub-playing-while-paused');
   if(canonical==='paused'&&lifeN==='playing')issues.push('life-playing-while-paused');
@@ -63793,7 +63826,7 @@ function derive(reason='snapshot'){
   if(canonical==='idle'&&lifeN==='playing')issues.push('life-playing-without-tangible');
   if(regState==='playing'&&!tangible&&!userPaused)issues.push('registry-playing-without-tangible');
   if(arb?.owner&&observed.length&&!observed.includes(arb.owner.type)&&!arb.owner.persistent)issues.push('arbiter-owner-not-observed');
-  return Object.freeze({version:VERSION,seq:seq+1,at:Date.now(),reason,pendingPhysical,state:canonical,playing:canonical==='playing',paused:canonical==='paused',userPaused,tangible,source:owner?.type||(nonMixPlaying?clean(ctl?.id):phy.lock?'lock-audio':phy.speech?'tts':phy.background?'mix':'idle'),owner,registry:Object.freeze({state:regState,provider:clean(ctl?.id||''),controllerState:norm(ctl?.state),aggregate:agg}),life:Object.freeze({...life,state:clean(life.state||'idle')}),hub:Object.freeze({...hub,state:clean(hub.state||'idle')}),arbiter:arb,physical:phy,issues:Object.freeze(issues)});
+  return Object.freeze({version:VERSION,seq:seq+1,at:Date.now(),reason,backgroundInterrupted:!!backgroundInterrupted,nativeOwner,pendingPhysical,state:canonical,playing:canonical==='playing',paused:canonical==='paused',userPaused,tangible,source:owner?.type||(nonMixPlaying?clean(ctl?.id):phy.lock?'lock-audio':phy.speech?'tts':phy.background?'mix':'idle'),owner,registry:Object.freeze({state:regState,provider:clean(ctl?.id||''),controllerState:norm(ctl?.state),aggregate:agg}),life:Object.freeze({...life,state:clean(life.state||'idle')}),hub:Object.freeze({...hub,state:clean(hub.state||'idle')}),arbiter:arb,physical:phy,issues:Object.freeze(issues)});
 }
 function signature(s){return[s.state,s.userPaused,s.tangible,s.source,s.owner?.type,s.registry.state,s.registry.provider,s.registry.controllerState,s.life.state,s.hub.state,...s.issues].join('|')}
 function reconcile(reason='event'){
@@ -63816,6 +63849,9 @@ function reconcile(reason='event'){
       }
       if(L&&explicitPause&&!L.userPaused)L.userPaused=true;
       if(L&&norm(L.state)!=='paused')try{L.set?.('paused','truth:'+reason)}catch(e){}
+    }else if(s.state==='interrupted'){
+      if(H){H.state='interrupted';H.reason='truth:native-interrupted';}
+      if(L&&L.state!=='interrupted')try{L.set?.('interrupted','truth:native-interrupted')}catch(e){}
     }else if(s.state==='playing'){
       if(H&&H.userPaused&&!L?.userPaused)H.userPaused=false;
       if(L&&L.userPaused===false&&norm(L.state)!=='playing'&&!['interrupted','recovering'].includes(clean(L.state)))try{L.set?.('playing','truth:'+reason)}catch(e){}
@@ -63839,7 +63875,7 @@ function schedule(reason='event'){if(timer)return;timer=setTimeout(()=>{timer=0;
 function snapshot(){return state||reconcile('snapshot')}
 function subscribe(fn){if(typeof fn!=='function')return()=>{};listeners.add(fn);try{fn(snapshot())}catch(e){};return()=>listeners.delete(fn)}
 window.SukunAudioTruth=Object.freeze({version:VERSION,snapshot,refresh:reconcile,subscribe});
-['sukun:audiosessionchange','sukun:audioaggregatechange','sukun:playbackchange','sukun:audiostate','sukun:sessionstate','sukun:foregroundqueuechange','sukun:foregroundvoicechange','sukun:terkipvoicechange','sukun:journey-advance','sukun:sectionidentitycommit','sukun:journey-complete','sukun:zikirtransportgate'].forEach(ev=>window.addEventListener(ev,()=>schedule(ev),{passive:true}));
+['sukun:backgroundownerchange','sukun:audiosessionchange','sukun:audioaggregatechange','sukun:playbackchange','sukun:audiostate','sukun:sessionstate','sukun:foregroundqueuechange','sukun:foregroundvoicechange','sukun:terkipvoicechange','sukun:journey-advance','sukun:sectionidentitycommit','sukun:journey-complete','sukun:zikirtransportgate'].forEach(ev=>window.addEventListener(ev,()=>schedule(ev),{passive:true}));
 document.addEventListener('visibilitychange',()=>schedule('visibility'),{passive:true});window.addEventListener('pageshow',()=>schedule('pageshow'),{passive:true});
 setTimeout(()=>reconcile('boot'),350);
 })();
@@ -65018,6 +65054,8 @@ async function playOwn(cat,idx,item,opt={}){
      no authority to credit success or pause a newly selected recording. */
   if(!opt.isCurrent())return{ok:false,source:'recording',cancelled:true,key:rec.key,reason:'stale-sequence',priorityLock:true};
   if(r===undefined||r===true||r?.ok){note('recording-play-ok',{cat:clean(cat),idx:+idx||0,key:rec.key,reason:clean(r?.reason||'ended')});return{ok:true,source:'recording',key:rec.key,reason:r?.reason||'ended',priorityLock:true}};
+  if(document.hidden&&window.SukunBackgroundAudioOwner?.snapshot()?.owner==='journey'&&window.SukunBackgroundAudioOwner.snapshot().blocked)
+    return{ok:false,source:'recording',key:rec.key,backgroundBlocked:true,reason:'native-lease-blocked',priorityLock:true};
   if(r&&!['play-rejected','error','exception','play-timeout','playback-stalled'].includes(r.reason))
     return{ok:false,source:'recording',cancelled:true,key:rec.key,reason:r.reason||'cancelled',priorityLock:true};
   /* r693 — Android kilit dönüşünde ilk foreground play() bazı cihazlarda
@@ -65025,7 +65063,7 @@ async function playOwn(cat,idx,item,opt={}){
      aynı kayıt normal çalabiliyor. Kayıt mevcutken bunu doğrudan TTS'e
      düşürmek kendi-kayıt önceliğini fiilen bozuyordu. play-rejected için
      yalnız bir kısa recovery+retry yap; ikinci hata gerçek fallback sayılır. */
-  if(r?.reason==='play-rejected'&&!document.hidden&&!opt.__r693Retry){
+  if(r?.reason==='play-rejected'&&!window.SukunBackgroundAudioOwner?.snapshot()?.blocked&&!document.hidden&&!opt.__r693Retry){
     note('recording-play-retry',{cat:clean(cat),idx:+idx||0,key:rec.key,reason:'visible-play-rejected'});
     try{await window.AudioLife?.recover?.('r693-recording-retry')}catch(e){}
     await new Promise(resolve=>setTimeout(resolve,140));
@@ -65640,7 +65678,7 @@ window.SukunBootCheckpoint=Object.freeze({version:'r932',snapshot:()=>({version:
 'use strict';
 if(window.__SUKUN_R648_LOCK_JOURNEY_V2__)return;
 window.__SUKUN_R648_LOCK_JOURNEY_V2__=1;
-const VERSION='r932';
+const VERSION='r949';
 const clean=v=>String(v??'').trim();
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,Number.isFinite(+n)?+n:a));
 const now=()=>Date.now();
@@ -65650,7 +65688,7 @@ const L={
   pauseAt:0,pausedAccumMs:0,targetTimer:0,baseVolume:1,reason:'ready',lastAt:now(),
   leases:0,settlements:0,settledCycles:0,switches:0,visibleHandoffs:0,revives:0,
   overshootCycles:0,stalls:0,lastError:'',playEvents:0,suppressedRevives:0,
-  dormant:false,frozen:false,abortLocked:false,pauseEvents:0,abortLockouts:0,
+  dormant:false,frozen:false,abortLocked:false,pauseEvents:0,abortLockouts:0,settingsSig:'',settingsPending:false,
   visibleDrains:0,hiddenPlayAttempts:0,history:[]
 };
 let boundAudio=null;
@@ -65726,7 +65764,7 @@ function totalCyclesAt(){
 }
 function completedCycles(){return Math.max(0,totalCyclesAt())}
 function ownsProgress(owner,key,index){
-  const a=audio();return !!(document.hidden&&L.active&&L.owner===owner&&L.key===key&&L.index===index&&
+  const a=audio();return !!(L.active&&L.owner===owner&&L.key===key&&L.index===index&&
     !L.dormant&&!L.frozen&&a&&!a.paused&&!a.ended&&sourceMatches(key)&&a.readyState>=2&&now()-L.lastProgressAt<6500);
 }
 function remainingFor(ji=info()){
@@ -65782,14 +65820,27 @@ function targetDelay(ji=info()){
   return Math.max(280,remaining*cycle-phase);
 }
 function scheduleTarget(reason='target'){
-  clearTarget();if(!L.active||!document.hidden||machinePaused())return;
+  clearTarget();if(!L.active||machinePaused())return;
   const ji=info();if(!ji||ji.owner!==L.owner||ji.index!==L.index)return;
   const ms=targetDelay(ji);if(ms<=0){L.targetTimer=setTimeout(()=>targetReached(reason),20);return}
   L.targetTimer=setTimeout(()=>targetReached(reason),ms);
   log('target-arm',{delay:Math.round(ms),remaining:remainingFor(ji),reason});
 }
+function requestedSettings(){
+  return [sukunJourneyGapMs(L.key),clamp(window.OKUMA_HIZ||1,.5,2),clamp(KAYIT?.yankiMik||0,0,1),KAYIT?.mekan?1:0].join('|');
+}
+function finishCycle(a){
+  if(!L.active||a!==boundAudio||!L.settingsPending)return false;
+  // ended is the natural word boundary. Credit the remaining native-clock
+  // movement exactly once; the awaiting journey must not add a second count.
+  L.mediaProgressMs+=Math.max(0,(Number(a.duration)||0)-L.lastCurrent)/clamp(a.playbackRate||1,.5,2)*1000;
+  L.lastCurrent=Number(a.duration)||0;settleNow('settings-word-end');
+  if(!remainingFor())advance('settings-target');else handoff('settings-change',false);
+  return true;
+}
 function onTime(){
   if(!L.active||this!==boundAudio)return;
+  if(!L.settingsPending&&requestedSettings()!==L.settingsSig){L.settingsPending=true;this.loop=false;log('settings-after-word');}
   const cur=Math.max(0,Number(this.currentTime)||0),dur=Math.max(0,Number(this.duration)||0);
   const wrapped=dur>0&&L.lastCurrent>dur*.55&&cur+Math.max(.08,dur*.08)<L.lastCurrent;
   let delta=wrapped?Math.max(0,dur-L.lastCurrent)+cur:Math.max(0,cur-L.lastCurrent);
@@ -65828,7 +65879,7 @@ async function revive(reason='revive'){
   if(L.abortLocked||L.dormant&&reason!=='arm'){L.suppressedRevives++;log('revive-suppressed',{reason,abortLocked:L.abortLocked,dormant:L.dormant});return false}
   try{
     a.loop=true;a.muted=false;a.volume=L.baseVolume||normalVolume(a);
-    L.hiddenPlayAttempts++;L.revives++;await a.play();L.lastProgressAt=now();L.dormant=false;log('revive',{reason});return true;
+    L.hiddenPlayAttempts++;L.revives++;const bg=window.SukunBackgroundAudioOwner,id=bg.claim('journey',a,native()?.ownerSource||L.key);if(!await bg.play(id))return false;L.lastProgressAt=now();L.dormant=false;log('revive',{reason});return true;
   }catch(e){
     L.stalls++;L.lastError=clean(e?.name||e?.message||e);L.dormant=true;clearTarget();
     if(L.lastError==='AbortError'){L.abortLocked=true;L.abortLockouts++}
@@ -65840,26 +65891,28 @@ function bind(a){
   a.addEventListener('timeupdate',onTime,{passive:true});a.addEventListener('playing',onPlaying,{passive:true});a.addEventListener('pause',onPause,{passive:true});a.addEventListener('error',onError,{passive:true});
 }
 function arm(reason='arm'){
-  if(!document.hidden||machinePaused())return false;
+  if(machinePaused())return false;
   const ji=info(),j=native(),a=j?.a;if(!ji||!a||!sourceMatches(ji.key)||typeof a._sukunFinish!=='function')return false;
   if(j.gapDesiredMs>0&&!j.gapIncludedMs){log('gap-unprepared');return false}
   const cycle=wallCycleMs(a);if(!cycle){a.addEventListener('loadedmetadata',()=>arm('metadata'),{once:true});return false}
   if(L.active&&L.owner===ji.owner&&L.key===ji.key&&L.index===ji.index){scheduleTarget('rearm');return true}
   if(L.active)handoff('source-replace',false);
   const limit=limitFor(ji),rep=Math.max(0,+ji.raw?.rep||+ji.state?.rep||0),remaining=Math.max(0,limit-rep);if(!remaining)return false;
-  L.active=true;L.owner=ji.owner;L.key=ji.key;L.index=ji.index;L.seq++;L.startedAt=now();L.cycleMs=cycle;L.limit=limit;L.startRep=rep;L.applied=0;L.observedWraps=0;L.mediaProgressMs=0;L.lastCurrent=Math.max(0,Number(a.currentTime)||0);L.startPhaseMs=(L.lastCurrent/clamp(a.playbackRate||1,.5,2))*1000;L.lastProgressAt=now();L.pauseAt=a.paused?now():0;L.pausedAccumMs=0;L.baseVolume=normalVolume(a);L.leases++;L.lastError='';L.dormant=!!a.paused;L.frozen=false;L.abortLocked=false;
+  L.active=true;L.settingsSig=j.settingsSig||'';L.settingsPending=false;L.owner=ji.owner;L.key=ji.key;L.index=ji.index;L.seq++;L.startedAt=now();L.cycleMs=cycle;L.limit=limit;L.startRep=rep;L.applied=0;L.observedWraps=0;L.mediaProgressMs=0;L.lastCurrent=Math.max(0,Number(a.currentTime)||0);L.startPhaseMs=(L.lastCurrent/clamp(a.playbackRate||1,.5,2))*1000;L.lastProgressAt=now();L.pauseAt=a.paused?now():0;L.pausedAccumMs=0;L.baseVolume=normalVolume(a);L.leases++;L.lastError='';L.dormant=!!a.paused;L.frozen=false;L.abortLocked=false;
   try{a._r648Lease=L.seq;a._r651Lease=L.seq;a.loop=true;a.muted=false;a.volume=L.baseVolume;a.preservesPitch=true}catch(e){}
   bind(a);
+  window.SukunBackgroundAudioOwner.claim('journey',a,j.ownerSource||L.key);
   try{window.SukunNativeEchoBridge?.start?.(a,{src:j.playUrl||j.url||a.src,wet:KAYIT?.yankiMik,volume:a.volume,rate:a.playbackRate,key:ji.key,mode:'journey-native-r648',baked:!!j.fx})}catch(e){}
   try{window.SesCapa?.ensure?.(ji.owner==='journey28'?'Berhetiyye 28 İsim Seyri':'Esmâü’l-Hüsnâ 99 İsim Seyri');if('mediaSession'in navigator)navigator.mediaSession.playbackState='playing'}catch(e){}
   if(a.paused)revive('arm');
   scheduleTarget(reason);log('lease-start',{cycleMs:Math.round(cycle),phaseMs:Math.round(L.startPhaseMs),rep,limit,remaining,reason});return true;
 }
 function resetLeaseFields(){
-  L.active=false;L.owner='';L.key='';L.index=-1;L.startedAt=0;L.startPhaseMs=0;L.cycleMs=0;L.limit=0;L.startRep=0;L.applied=0;L.observedWraps=0;L.mediaProgressMs=0;L.lastCurrent=0;L.pauseAt=0;L.pausedAccumMs=0;L.dormant=false;L.frozen=false;L.abortLocked=false;
+  window.SukunBackgroundAudioOwner?.release('journey','journey-release');
+  L.settingsSig='';L.settingsPending=false;L.active=false;L.owner='';L.key='';L.index=-1;L.startedAt=0;L.startPhaseMs=0;L.cycleMs=0;L.limit=0;L.startRep=0;L.applied=0;L.observedWraps=0;L.mediaProgressMs=0;L.lastCurrent=0;L.pauseAt=0;L.pausedAccumMs=0;L.dormant=false;L.frozen=false;L.abortLocked=false;
 }
 function handoff(reason='handoff',settle=true){
-  if(!L.active)return 0;const a=audio();if(settle)settleNow(reason);
+  if(!L.active){if(/(?:pause|stop|reset|complete)/.test(reason))window.SukunBackgroundAudioOwner?.release('journey',reason);return 0;}const a=audio();if(settle)settleNow(reason);
   const owner=L.owner,key=L.key,index=L.index;clearTarget();unbind(a);
   try{if(a){a.loop=false;a._r648Lease=0;a._r651Lease=0}}catch(e){}
   resetLeaseFields();
@@ -65878,7 +65931,7 @@ function advance(reason='target'){
   try{ji.api?.next?.();return true}catch(e){L.lastError=clean(e?.message||e);log('target-switch-failed',{error:L.lastError});return false}
 }
 function targetReached(reason='timer'){
-  L.targetTimer=0;if(!L.active||!document.hidden||machinePaused())return;
+  L.targetTimer=0;if(!L.active||machinePaused())return;
   const ji=info(),a=audio();if(!ji||ji.owner!==L.owner||ji.index!==L.index)return;
   settleNow('target-timer');
   if((+ji.raw?.rep||0)>=limitFor(ji)){advance(reason);return}
@@ -65886,7 +65939,9 @@ function targetReached(reason='timer'){
   scheduleTarget('target-residual');
 }
 function visible(){
-  if(!L.active)return;const ji=info();settleNow('visible');
+  if(!L.active)return;
+  // r949: a healthy native loop owns the same cadence in both screen states.
+  if(!audio()?.paused&&!audio()?.ended&&!L.abortLocked){settleNow('visible-continue');scheduleTarget('visible-continue');return;}const ji=info();settleNow('visible');
   if(ji&&ji.owner===L.owner&&ji.index===L.index&&(+ji.raw?.rep||0)>=limitFor(ji)){advance('visible-target');return}
   const a=audio(),owner=L.owner,key=L.key,index=L.index,wasPlaying=!!(a&&!a.paused&&!a.ended);
   const cur=Math.max(0,Number(a?.currentTime)||0),dur=Math.max(0,Number(a?.duration)||0),rate=Math.max(.25,Number(a?.playbackRate)||1);
@@ -65920,7 +65975,7 @@ function visible(){
 function snapshot(){
   const a=audio(),ji=info(),completed=L.active?completedCycles():0,remaining=ji?remainingFor(ji):0;
   const theoretical=L.active?totalCyclesAt():0,over=L.active?Math.max(0,theoretical-Math.max(0,L.limit-L.startRep)):0;if(over>L.overshootCycles)L.overshootCycles=over;
-  return Object.freeze({version:VERSION,active:!!L.active,owner:L.owner,key:L.key,index:L.index,hidden:document.hidden,playing:!!(a&&!a.paused&&!a.ended&&L.active),loop:!!a?.loop,cycleMs:Math.round(L.cycleMs||0),startRep:L.startRep,applied:L.applied,completed,remaining,observedWraps:L.observedWraps,mediaProgressMs:Math.round(L.mediaProgressMs),countEvidence:'sampled-media-clock',leases:L.leases,settlements:L.settlements,settledCycles:L.settledCycles,switches:L.switches,visibleHandoffs:L.visibleHandoffs,visibleDrains:L.visibleDrains,revives:L.revives,hiddenPlayAttempts:L.hiddenPlayAttempts,playEvents:L.playEvents,pauseEvents:L.pauseEvents,suppressedRevives:L.suppressedRevives,dormant:L.dormant,frozen:L.frozen,abortLocked:L.abortLocked,abortLockouts:L.abortLockouts,lastProgressAgeMs:L.lastProgressAt?Math.max(0,now()-L.lastProgressAt):null,stalls:L.stalls,overshootCycles:L.overshootCycles,lastError:L.lastError,lastReason:L.reason,lastAt:L.lastAt,history:L.history.slice(-18)});
+  return Object.freeze({version:VERSION,foregroundContinuous:true,settingsPending:L.settingsPending,active:!!L.active,owner:L.owner,key:L.key,index:L.index,hidden:document.hidden,playing:!!(a&&!a.paused&&!a.ended&&L.active),loop:!!a?.loop,cycleMs:Math.round(L.cycleMs||0),startRep:L.startRep,applied:L.applied,completed,remaining,observedWraps:L.observedWraps,mediaProgressMs:Math.round(L.mediaProgressMs),countEvidence:'sampled-media-clock',leases:L.leases,settlements:L.settlements,settledCycles:L.settledCycles,switches:L.switches,visibleHandoffs:L.visibleHandoffs,visibleDrains:L.visibleDrains,revives:L.revives,hiddenPlayAttempts:L.hiddenPlayAttempts,playEvents:L.playEvents,pauseEvents:L.pauseEvents,suppressedRevives:L.suppressedRevives,dormant:L.dormant,frozen:L.frozen,abortLocked:L.abortLocked,abortLockouts:L.abortLockouts,lastProgressAgeMs:L.lastProgressAt?Math.max(0,now()-L.lastProgressAt):null,stalls:L.stalls,overshootCycles:L.overshootCycles,lastError:L.lastError,lastReason:L.reason,lastAt:L.lastAt,history:L.history.slice(-18)});
 }
 
 /* r932: Native files contain their repeat silence. A raw/unsupported fallback
@@ -65933,12 +65988,12 @@ window.SukunJourneyGapWait=Object.freeze({version:'r932',wait(ms=0){
 document.addEventListener('visibilitychange',()=>{if(document.hidden)setTimeout(()=>arm('visibility-hidden'),20);else visible()},{passive:true});
 document.addEventListener('freeze',()=>{if(L.active){L.frozen=true;clearTarget();log('freeze-hold')}},{passive:true});
 document.addEventListener('resume',()=>{if(L.active){L.frozen=false;if(document.hidden){if(!audio()?.paused)scheduleTarget('resume-hidden-playing');else log('resume-hidden-dormant')}else visible()}},{passive:true});
-window.addEventListener('sukun:journey-native-playing',()=>{if(document.hidden)setTimeout(()=>arm('native-playing'),0)},{passive:true});
-window.addEventListener('sukun:journey-native-source',()=>{if(document.hidden)setTimeout(()=>arm('native-source'),30)},{passive:true});
+window.addEventListener('sukun:journey-native-playing',()=>setTimeout(()=>arm('native-playing'),0),{passive:true});
+window.addEventListener('sukun:journey-native-source',()=>setTimeout(()=>arm('native-source'),30),{passive:true});
 window.addEventListener('sukun:journeyaudiostate',e=>{const s=e?.detail;if(s?.state==='USER_PAUSED'&&L.active){settleNow('user-pause');handoff('user-pause',false)}},{passive:true});
 window.addEventListener('sukun:journey-complete',()=>{if(L.active)handoff('complete',true)},{passive:true});
 window.addEventListener('pagehide',()=>{if(L.active)settleNow('pagehide')},{passive:true});
-window.SukunLockJourneyTransportV2=Object.freeze({version:VERSION,arm,revive,settle:settleNow,handoff,advance,ownsProgress,snapshot});
+window.SukunLockJourneyTransportV2=Object.freeze({version:VERSION,arm,revive,finishCycle,settle:settleNow,handoff,advance,ownsProgress,snapshot});
 })();
 
 </script>
@@ -66031,6 +66086,7 @@ function transport(){
   const lock=!!(l2.playing||l2.active||l.playing||l.audible||l.keepalive);return{truth:t,lock,lockSnapshot:l,lockV2:l2,playing:!!t.playing||lock,paused:!!t.paused&&!lock};
 }
 function recentFatal(j){
+  if(j?.systemHold)return'';
   const at=+j?.lastFailureAt||0,reason=clean(j?.lastFailure||'');
   if(!reason||!at||now()-at>6000)return'';
   if(['superseded','journey-native-superseded','journey-superseded','stale-sequence','duplicate-start-suppressed','cancelled','visible-fast-handoff','visible-drain-deadline'].includes(reason))return'';
@@ -66055,7 +66111,7 @@ function decide(v){
 }
 function derive(reason='refresh'){
   const ji=journeyInfo(),tr=transport();reconcilePauseIntent(ji,tr,reason);const fatal=recentFatal(ji.j);if(fatal){lastError=fatal;errorUntil=now()+4500}
-  const complete=now()<completeUntil,err=now()<errorUntil&&!!lastError,conflict=foregroundConflict(ji.owner);
+  const complete=now()<completeUntil,err=!ji.j?.systemHold&&now()<errorUntil&&!!lastError,conflict=foregroundConflict(ji.owner);
   const v={owner:ji.owner,j:ji.j,transport:tr,hidden:document.hidden,intent:intentSnapshot(),switching:now()<switchUntil,complete,fatal:err?lastError:'',conflict};
   const next=decide(v);
   return Object.freeze({version:VERSION,revision:REVISION,state:next,seq:seq+1,at:now(),reason,activeJourney:ji.owner,hidden:document.hidden,key:ji.key,intent:intentSnapshot(),intentReconcile:Object.freeze({graceMs:INTENT_RECONCILE_GRACE,...reconcileMetric}),recoveryBudget:Object.freeze({attempts:recoveryAttempts,max:MAX_RECOVERY_ATTEMPTS,nextAt:recoveryNextAt,inFlight:recoveryInFlight,exhaustions:recoveryExhaustions}),foregroundConflict:conflict,journey:ji.j?Object.freeze({...ji.j}):null,transport:Object.freeze({playing:tr.playing,paused:tr.paused,lock:tr.lock,truthState:clean(tr.truth?.state||'idle'),userPaused:!!tr.truth?.userPaused}),switching:v.switching,lastError:err?lastError:'',states:STATES});
@@ -66074,6 +66130,7 @@ function publish(reason='refresh',force=false){
 function schedule(reason='event',delay=45){if(timer)clearTimeout(timer);timer=setTimeout(()=>{timer=0;publish(reason)},Math.max(0,delay))}
 function cancelRecovery(){if(recoveryTimer){clearTimeout(recoveryTimer);recoveryTimer=0}recoverySeq++}
 function scheduleRecovery(s){
+  if(document.hidden&&window.SukunBackgroundAudioOwner?.snapshot()?.blocked)return;
   if(recoveryTimer||recoveryInFlight||!s?.activeJourney||intentBlocked()||s.foregroundConflict||!recoverableAggregate())return;
   if(recoveryBudgetOwner!==s.activeJourney){resetRecoveryBudget();recoveryBudgetOwner=s.activeJourney;}
   if(recoveryAttempts>=MAX_RECOVERY_ATTEMPTS)return;
@@ -67992,7 +68049,7 @@ function safetyHandoff(){
     if(document.hidden)return;
     try{
       const api=window.SukunLockJourneyTransportV2,s=api?.snapshot?.();
-      if(!s?.active||s.hidden)return;
+      if(!s?.active||s.hidden||s.foregroundContinuous&&s.playing&&!s.dormant)return;
       api.settle?.('r689-visible-safety');
       const n=api.handoff?.('r689-visible-safety',false)||0;
       if(n)S.fastHandoffs+=n;
@@ -68067,7 +68124,7 @@ const M=window.__SUKUN_R693_LOCK_TARGET_METRICS__={
 let bound=null,armed=null,token=0,progressTimer=0,settling=false;
 const clean=v=>String(v??'').trim();
 function a(){try{return _r476LockAudio||null}catch(e){return null}}
-function hidden(){try{return !!(_r476Hidden&&document.hidden&&Z.auto&&zikirSesliAktifMi()&&!ZIKIR_BIRLIKTE)}catch(e){return false}}
+function hidden(){try{return !!(_r476Hidden&&(_r476Hidden.mode==='recording'||document.hidden)&&Z.auto&&zikirSesliAktifMi()&&!ZIKIR_BIRLIKTE)}catch(e){return false}}
 function key(){try{return clean(typeof zikirKey==='function'?zikirKey():'')}catch(e){return''}}
 function audioKey(){try{return clean(a()?.dataset?.sukLockKey||'')}catch(e){return''}}
 function clear(reason='clear'){
@@ -68163,7 +68220,7 @@ function onPlaying(){if(!hidden()||!physicalMatches())return;r838CaptureAudible(
 function onMeta(){if(hidden())setTimeout(()=>{if(syncEpoch('metadata')){arm('metadata');progress();}},0);}
 function onPause(event){if(!hidden())return;window.SukunRhythm?.stop?.();r838CaptureAudible(_r476Hidden,false);if(event?.type==='pause')_r476Hidden.pendingRhythmWrap=false;settleProgress();clear('audio-paused');}
 function onTime(){if(hidden()&&physicalMatches()&&a().readyState>=2){if(_r476Hidden.audibleSince==null)onPlaying();else settleProgress();}}
-function visibility(){bindAudio();if(document.hidden){setTimeout(()=>{bindAudio();if(syncEpoch('visibility-hidden')){arm('visibility-hidden');progress();}},40);}else clear('visible');}
+function visibility(){bindAudio();if(document.hidden){setTimeout(()=>{bindAudio();if(syncEpoch('visibility-hidden')){arm('visibility-hidden');progress();}},40);}else if(hidden()){onPlaying();}else clear('visible');}
 window.addEventListener('sukun:lock-ready',()=>{bindAudio();onPlaying();},{passive:true});
 document.addEventListener('visibilitychange',visibility,{passive:true});
 window.addEventListener('sukun:zikirtransaction',e=>{
@@ -69442,8 +69499,8 @@ function updateIntensity(){
 
 function allowed(){return active&&visible&&!document.hidden&&!disposed&&!!ctx&&root?.isConnected&&!B.classList.contains('r716-shell')}
 function moving(){return allowed()&&!stationary()}
-function stopFrame(){if(raf)cancelAnimationFrame(raf);raf=0;last=0}
-function schedule(){if(!raf&&moving())raf=requestAnimationFrame(tick)}
+function stopFrame(){CIZ.cikar('atmosphere');raf=0;last=0}
+function schedule(){if(moving())raf=CIZ.ekle('atmosphere',tick,{el:canvas})}
 function draw(){
  if(!ctx||!allowed())return;
  const start=performance.now(),t=time;ctx.clearRect(0,0,w,h);ctx.globalCompositeOperation='screen';
@@ -69472,9 +69529,9 @@ function draw(){
  if(drawMs>18){if(++expensiveFrames>=5){frameMs=100;recoverAt=performance.now()+30000;expensiveFrames=0}}else expensiveFrames=Math.max(0,expensiveFrames-1);
 }
 function tick(now){
- raf=0;if(!moving())return;
+ if(!moving())return;
  if(!last||now-last>=frameMs){const dt=last?Math.min((now-last)/1000,.15):.05;last=now;time+=dt;flare=Math.max(0,flare-dt*1.3);draw();if(recoverAt&&now>=recoverAt){frameMs=50;recoverAt=0}}
- schedule();
+ 
 }
 function resize(){
  resizeRaf=0;if(!root||!ctx||!active||document.hidden)return;
@@ -70569,7 +70626,7 @@ function ensureSeal(){
  ring.appendChild(aura);
 }
 function syncMuhr(motion){
- safe(()=>{if(typeof MUHR==='undefined')return;if(motion)MUHR.wake();else{if(MUHR.raf)cancelAnimationFrame(MUHR.raf);MUHR.raf=null;MUHR.draw()}});
+ safe(()=>{if(typeof MUHR==='undefined')return;if(motion)MUHR.wake();else{CIZ.cikar('muhr');MUHR.raf=null;MUHR.draw()}});
 }
 
 function setClass(name,on){if(B.classList.contains(name)!==on)B.classList.toggle(name,on)}
@@ -76773,7 +76830,8 @@ html body #zList.compactOneRow>.zItem.act{position:relative!important;left:auto!
 (()=>{'use strict';if(window.SukunR900NameRail)return;
  const rail=()=>document.getElementById('zList');
  function sync(){const r=rail();if(!r)return;r.setAttribute('role','listbox');r.setAttribute('aria-label',((window.Z&&Z.cat)==='berhet'?'Kasem-i Berhetiyye':'Esmâü’l-Hüsnâ')+' isimleri · yatay kaydır');}
- function reveal(){const r=rail(),a=r?.querySelector('.zItem.act');if(!r||!a||!r.classList.contains('compactOneRow'))return;requestAnimationFrame(()=>r.scrollTo({left:Math.max(0,a.offsetLeft-r.offsetLeft-(r.clientWidth-a.clientWidth)/2),behavior:'smooth'}));}
+ let lastActive=null;
+ function reveal(){const r=rail(),a=r?.querySelector('.zItem.act');if(document.hidden||!r||!a||a===lastActive||!r.classList.contains('compactOneRow'))return;lastActive=a;requestAnimationFrame(()=>r.scrollTo({left:Math.max(0,a.offsetLeft-r.offsetLeft-(r.clientWidth-a.clientWidth)/2),behavior:'smooth'}));}
  ['pageshow','sukun:zikirchange','sukun:zikirselectionchange','sukun:currentzikirchange','sukun:domhydrate','sukun:tabchange'].forEach(e=>addEventListener(e,()=>{sync();reveal()},{passive:true}));
  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',()=>{sync();reveal()},{once:true}):(sync(),reveal());
  window.SukunR900NameRail=Object.freeze({version:'r900',sync,reveal});
@@ -76951,7 +77009,7 @@ html[data-r913-context="base"] body.r716-shell>#r717Scene{display:block!importan
 html[data-r913-context="base"] body.r716-shell>#r709SceneArt,html[data-r913-context="base"] body.r716-shell>[data-berhet-scene-layer]{display:none!important;opacity:0!important}
 </style>
 <script id="sukun-r913-build-scene-runtime">/* r916: retired competing visual writer; audio engine unchanged. */window.SukunR913={version:'r916',sync:()=>window.SukunR916Visual?.sync?.()};</script>
-<script src="./assets/runtime/esma-scenes-r923.js?v=r948" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
+<script src="./assets/runtime/esma-scenes-r923.js?v=r949" integrity="sha256-3JfNqm8x9jWT8Vdq2ex9OyBvD1X/GyrO2PQ7AgLUSFQ="></script>
 <script id="sukun-r914-runtime">(()=>{'use strict';
 const R=document.documentElement,A='./assets/berhetiyye-premium/',$=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch(_){return d}};
 const atlas=window.SukunR853Scene.nameScenes,originals=window.SukunR853Scene.files;
@@ -76960,7 +77018,7 @@ const files={palace:'scene-01-billur.png',seal:'scene-06-yuzuk.png',wind:'scene-
 const namedScenes=new Map(atlas.map(scene=>[scene.sceneId,scene]));
 const validBerhetScene=value=>value==='auto'||Object.prototype.hasOwnProperty.call(files,value)||namedScenes.has(value);
 const classicTitles={palace:'Billur Saray',seal:'Mühr-ü Süleyman',wind:'Rüzgâr',crystal:'Billur Geçit',night:'Gece Sarayı',hudhud:'Hüdhüd Yolu'};
-const berhetScenes=Object.freeze([...atlas.map(scene=>Object.freeze({id:scene.sceneId,title:scene.title,name:scene.name,ordinal:scene.ordinal,asset:'./'+scene.runtimeAsset,note:scene.note})),...Object.keys(files).map(id=>Object.freeze({id,title:classicTitles[id],name:'Klasik sahne',asset:'./assets/scenes/mobile-r918/'+files[id].replace(/\.png$/,'.webp'),note:'Sabit arka plan'}))]);
+const berhetScenes=Object.freeze([...atlas.map(scene=>Object.freeze({id:scene.sceneId,title:scene.title,name:scene.name,ordinal:scene.ordinal,asset:'./'+scene.runtimeAsset,thumbnail:'./assets/scenes/thumb-r949/'+scene.runtimeAsset.split('/').pop().replace(/\.[^.]+$/,'.webp'),note:scene.note})),...Object.keys(files).map(id=>Object.freeze({id,title:classicTitles[id],name:'Klasik sahne',asset:'./assets/scenes/mobile-r918/'+files[id].replace(/\.png$/,'.webp'),thumbnail:'./assets/scenes/thumb-r949/'+files[id].replace(/\.png$/,'.webp'),note:'Sabit arka plan'}))]);
 const wheels={crystal:'wheel-alpha-r915.png',seal:'wheel-seal-r916.svg',pearls:'wheel-pearls-r916.svg'};
 const basePath='./assets/scenes/mobile-r918/mevlevi.webp',baseFallback='./assets/sukun-nur-sanctuary-r757.png';
 const esmaScenes=window.SukunEsmaScenes,esmaById=new Map(esmaScenes.map(s=>[s.id,s]));
@@ -76980,12 +77038,24 @@ const attr=(k,v)=>{if(R.dataset[k]!==v)R.dataset[k]=v},prop=(k,v)=>{if(R.style.g
 const canonical=i=>Number.isInteger(i)&&i>=0&&i<atlas.length?atlas[i]:null;
 function scenePath(i){const scene=canonical(Number(i)),fixed=namedScenes.get(choice);return !scene?null:choice==='auto'?'./'+scene.runtimeAsset:fixed?'./'+fixed.runtimeAsset:'./assets/scenes/mobile-r918/'+files[choice].replace(/\.png$/,'.webp')}
 function sceneFor(i){const path=scenePath(i);return path?`url('${path}')`:'none'}
-const ready=new Set(),pending=new Map();
+const ready=new Map(),pending=new Map();
+let currentPath=null,previousPath=null,nextPath=null,peakResident=0,releases=0;
+function retainOnly(paths){
+ const keep=new Set(paths.filter(Boolean));
+ for(const [path,image]of ready)if(!keep.has(path)){image.onload=image.onerror=null;image.removeAttribute('src');ready.delete(path);releases++;}
+ for(const [path,job]of pending)if(!keep.has(path))job.cancel();
+}
+function residency(){
+ let bytes=0;for(const image of ready.values())bytes+=image.naturalWidth*image.naturalHeight*4;
+ return{limit:3,residentSceneCount:ready.size,pendingSceneCount:pending.size,peakResident,releases,decodedImageEstimateBytes:bytes,estimateScope:'managed scene images only; width × height × 4; not GPU measurement',roles:{previous:!!previousPath,current:!!currentPath,next:!!nextPath}};
+}
 function loadImage(path){
  if(ready.has(path))return Promise.resolve(path);if(pending.has(path))return pending.get(path).promise;
+ // Current, transition predecessor and this request are the only retained images.
+ retainOnly([currentPath,previousPath,path]);
  let cancel;
- const promise=new Promise((resolve,reject)=>{let image=new Image(),done=false;image.decoding='async';
-  const finish=error=>{if(done)return;done=true;clearTimeout(timer);image.onload=image.onerror=null;if(error)image.src='';image=null;pending.delete(path);if(error)reject(error);else{ready.add(path);resolve(path)}};
+ const promise=new Promise((resolve,reject)=>{const image=new Image();let done=false;image.decoding='async';
+  const finish=error=>{if(done)return;done=true;clearTimeout(timer);image.onload=image.onerror=null;pending.delete(path);if(error){image.removeAttribute('src');reject(error);}else{ready.set(path,image);peakResident=Math.max(peakResident,ready.size);resolve(path);}};
   cancel=()=>{cancelledLoads++;const error=new Error('obsolete scene request');error.name='AbortError';finish(error)};
   const timer=setTimeout(()=>finish(new Error('scene image timeout')),6000);
   image.onload=()=>{if(!image.naturalWidth){finish(new Error('empty image'));return}const decoded=image.decode?.();if(decoded)decoded.then(()=>finish(),()=>finish(new Error('scene decode failed')));else finish()};
@@ -76993,14 +77063,15 @@ function loadImage(path){
  });pending.set(path,{promise,cancel});maxPendingLoads=Math.max(maxPendingLoads,pending.size);return promise;
 }
 function cancelExcept(path){for(const [p,job] of pending)if(p!==path)job.cancel()}
-function clearTransition(){clearTimeout(transitionTimer);attr('r920SceneTransition','');prop('--r920-scene-previous','none')}
+function clearTransition(){clearTimeout(transitionTimer);previousPath=null;attr('r920SceneTransition','');prop('--r920-scene-previous','none');retainOnly([currentPath,nextPath,...pending.keys()])}
 function paintScene(css,id){
  if(paintedCSS===css&&paintedId===id){safe(()=>dispatchEvent(new CustomEvent('sukun:scenechange',{detail:{sceneId:id,sceneLoad,profile}})));return;}
- const oldCSS=paintedCSS,oldId=paintedId;clearTransition();paintedCSS=css;paintedId=id;
+ const oldCSS=paintedCSS,oldId=paintedId,oldPath=currentPath;clearTransition();currentPath=nextPath;nextPath=null;paintedCSS=css;paintedId=id;
  prop('--r914-scene',css);
  if(oldId&&id&&oldId!==id&&oldCSS!=='none'&&css!=='none'&&profile!=='saving'&&!reduced.matches&&!document.hidden){
-  prop('--r920-scene-previous',oldCSS);attr('r920SceneTransition',++transitionRevision%2?'a':'b');transitionTimer=setTimeout(clearTransition,1250);
+  previousPath=oldPath;prop('--r920-scene-previous',oldCSS);attr('r920SceneTransition',++transitionRevision%2?'a':'b');transitionTimer=setTimeout(clearTransition,1250);
  }
+ retainOnly([currentPath,previousPath]);
  safe(()=>dispatchEvent(new CustomEvent('sukun:scenechange',{detail:{sceneId:id,previousSceneId:oldId,sceneLoad,profile}})));
 }
 function requestScene(i,key,visible,esma){
@@ -77009,7 +77080,7 @@ function requestScene(i,key,visible,esma){
  const main=visible?scenePath(i):esma?esma.asset:basePath;
  const paths=[...new Set(visible?[main,selectedChoice==='auto'?'./'+scene.asset:fixedScene?'./'+fixedScene.asset:A+files[selectedChoice]]:esma?[main,esma.lite,basePath,baseFallback]:[basePath,baseFallback])];
  const family=visible?'berhet':esma?'esma':'base';
- clearTimeout(warmTimer);cancelExcept(main);sceneLoad='loading';fallbackLevel=0;sceneRequests++;
+ clearTimeout(warmTimer);clearTransition();nextPath=null;retainOnly([currentPath,main]);cancelExcept(main);sceneLoad='loading';fallbackLevel=0;sceneRequests++;
  // Never leave another family's artwork behind during a delayed load.
  if(requestedFamily!==family){sceneCSS='none';loadedKey=null;resolvedSceneId=null;paintScene('none',null)}
  requestedFamily=family;
@@ -77024,10 +77095,10 @@ function requestScene(i,key,visible,esma){
  }
  resolve().then(result=>{
   if(!result||token!==loadToken||requestKey!==key)return;
-  const {loaded,level}=result;fallbackLevel=level;sceneCSS=`url('${loaded}')`;loadedKey=key;
+  const {loaded,level}=result;nextPath=loaded;fallbackLevel=level;sceneCSS=`url('${loaded}')`;loadedKey=key;
   resolvedSceneId=esma&&loaded!==esma.asset&&loaded!==esma.lite?'mevlevi-fallback':requestedId;
   sceneLoad='ready';paintScene(sceneCSS,resolvedSceneId);queue();
-  if(visible&&selectedChoice==='auto'&&i+1<atlas.length&&profile!=='saving'&&!navigator.connection?.saveData&&!document.hidden)warmTimer=setTimeout(()=>{if(token===loadToken)loadImage('./'+atlas[i+1].runtimeAsset).catch(()=>{})},700);
+  if(visible&&selectedChoice==='auto'&&i+1<atlas.length&&profile!=='saving'&&!navigator.connection?.saveData&&!document.hidden)warmTimer=setTimeout(()=>{if(token===loadToken&&!document.hidden){nextPath='./'+atlas[i+1].runtimeAsset;loadImage(nextPath).catch(()=>{nextPath=null;});}},700);
  }).catch(error=>{if(token===loadToken&&error.name!=='AbortError'){sceneCSS='none';loadedKey=null;resolvedSceneId=null;sceneLoad='error';paintScene('none',null);queue()}});
 }
 function setProfile(value){
@@ -77077,26 +77148,26 @@ function sync(){raf=0;const cat=safe(()=>typeof zKat==='function'?zKat():'',''),
  mountMotion();
 }
 function mountMotion(){const body=document.querySelector('#r679ZikirAyarBox>.r679SettingsBody');if(!body||$('r910WheelMotion'))return;const d=document.createElement('div');d.id='r910WheelMotion';d.innerHTML='<label>Çark hareketi <select id="r916Motion"><option value="sync">Zikre senkron</option><option value="flow">Akıcı</option><option value="fast">Hızlı</option></select></label>';d.querySelector('select').value=safe(()=>localStorage.getItem('sukun:r910:wheelMotion'),'sync')||'sync';d.addEventListener('change',e=>{safe(()=>localStorage.setItem('sukun:r910:wheelMotion',e.target.value));queue()});body.prepend(d)}
-function queue(){if(!raf)raf=requestAnimationFrame(sync)}
+function queue(){if(document.hidden)return;if(!raf)raf=requestAnimationFrame(sync)}
 function setScene(v){if(!validBerhetScene(v))return false;choice=v;safe(()=>{localStorage.setItem('sukun.berhet.background.r918',v);localStorage.setItem('sukun.berhet.background.r829',v)});queue();return true}
 function setEsmaScene(v){if(!esmaPolicy.validChoice(v))return false;esmaChoice=v;safe(()=>localStorage.setItem('sukun.esma.background.r923',v));queue();return true}
 function setWheel(v){if(!wheels[v])return false;wheel=v;safe(()=>localStorage.setItem('sukun.berhet.wheel.r916',v));queue();return true}
-const api=Object.freeze({version:'r927',sync:queue,setScene,setEsmaScene,esmaSceneFor:esmaScene,esmaScenes,berhetScenes,setWheel,setProfile,sceneFor,retry:()=>{if(sceneLoad==='error'||fallbackLevel>0){requestKey=null;queue();return true}return false},snapshot:()=>({scene:choice,esmaChoice,esmaScene:esmaScene(),fallbackLevel,sceneRequests,requestedFamily,wheel,profile,context:R.dataset.r914Context,originals:[...originals],activeSceneId:activeEsma?.sceneId||activeScene?.sceneId||null,activeIndex:activeEsma?Number(safe(()=>zIdx(),NaN)):activeScene?.index??null,sceneResolutions,sceneLoad,loadedKey,resolvedSceneId,renderedScene:sceneCSS,pendingLoads:pending.size,maxPendingLoads,failedLoads,cancelledLoads,transitioning:!!R.dataset.r920SceneTransition})});window.SukunSceneEngine=api;window.SukunR920Visual=api;window.SukunR916Visual=api;window.SukunR917Visual=api;window.SukunR918Visual=api;window.SukunR832VisualAuthority=api;window.SukunR829Visuals=api;window.SukunR914=api;window.SukunR910=api;
+const api=Object.freeze({version:'r927',sync:queue,setScene,setEsmaScene,esmaSceneFor:esmaScene,esmaScenes,berhetScenes,setWheel,setProfile,sceneFor,retry:()=>{if(sceneLoad==='error'||fallbackLevel>0){requestKey=null;queue();return true}return false},snapshot:()=>({scene:choice,esmaChoice,esmaScene:esmaScene(),fallbackLevel,sceneRequests,requestedFamily,wheel,profile,context:R.dataset.r914Context,originals:[...originals],activeSceneId:activeEsma?.sceneId||activeScene?.sceneId||null,activeIndex:activeEsma?Number(safe(()=>zIdx(),NaN)):activeScene?.index??null,sceneResolutions,sceneLoad,loadedKey,resolvedSceneId,renderedScene:sceneCSS,residency:residency(),pendingLoads:pending.size,maxPendingLoads,failedLoads,cancelledLoads,transitioning:!!R.dataset.r920SceneTransition})});window.SukunSceneEngine=api;window.SukunR920Visual=api;window.SukunR916Visual=api;window.SukunR917Visual=api;window.SukunR918Visual=api;window.SukunR832VisualAuthority=api;window.SukunR829Visuals=api;window.SukunR914=api;window.SukunR910=api;
 ['DOMContentLoaded','pageshow','sukun:domhydrate','sukun:tabchange','sukun:r616viewchange','sukun:zikirchange','sukun:currentzikirchange','sukun:zikirselectionchange','sukun:journey-advance','sukun:tefekkurchange','sukun:secretaccesschange'].forEach(e=>addEventListener(e,queue,{passive:true}));
 document.addEventListener('change',e=>{if(e.target.id==='r829SceneSel')setScene(e.target.value)},{passive:true});
 addEventListener('online',()=>{if(sceneLoad==='error'){requestKey=null;queue()}},{passive:true});
-document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTransition();clearTimeout(warmTimer);if(sceneLoad!=='loading')cancelExcept(null)}else queue()},{passive:true});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0;clearTimeout(warmTimer);nextPath=null;clearTransition();cancelExcept(null);retainOnly([currentPath]);if(sceneLoad==='loading'){loadToken++;requestKey=null;sceneLoad='idle';}}else queue()},{passive:true});
 reduced.addEventListener?.('change',()=>{if(reduced.matches)clearTransition()});
 prop('--r914-scene','none');attr('r920Performance',profile);new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});queue();
 })();
 </script>
 <svg id="r915Filters" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;pointer-events:none"><defs><filter id="r915BlackAlpha" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 8 8 8 0 0"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
 
-<script src="./assets/runtime/session-r919.js?v=r948" integrity="sha256-h9QV2flm7pkstjEedYrl7XawO7eC/ZNReaILqUZHydk="></script>
-<script src="./assets/runtime/dock-r920.js?v=r948" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
-<script src="./assets/runtime/wheels-r924.js?v=r948" integrity="sha256-ujpNhskOo017WC6rY+CGUVVVqUlYvu8/1okJGIeZuA0="></script>
-<script src="./assets/runtime/berhet-layout-r938.js?v=r948" integrity="sha256-yCefqhIgWIkdr7XOSm8F676iv97FNFbKQwkX9ig36Z8="></script>
-<script src="./assets/runtime/interface-r920.js?v=r948" integrity="sha256-J7Bni8YGoryJpb/CpFru+/QUZceyHwhQA07mgcRnJDU="></script>
+<script src="./assets/runtime/session-r919.js?v=r949" integrity="sha256-Aip6W5cPGq/+L3PAApHlYIuyTXpHWTbPE0Ew+jPbV04="></script>
+<script src="./assets/runtime/dock-r920.js?v=r949" integrity="sha256-2dhsfCHrU+hAsfT6loo6swuMDgV9wtwUoHBLrhnvPfA="></script>
+<script src="./assets/runtime/wheels-r924.js?v=r949" integrity="sha256-ujpNhskOo017WC6rY+CGUVVVqUlYvu8/1okJGIeZuA0="></script>
+<script src="./assets/runtime/berhet-layout-r938.js?v=r949" integrity="sha256-yCefqhIgWIkdr7XOSm8F676iv97FNFbKQwkX9ig36Z8="></script>
+<script src="./assets/runtime/interface-r920.js?v=r949" integrity="sha256-J7Bni8YGoryJpb/CpFru+/QUZceyHwhQA07mgcRnJDU="></script>
 <script id="sukun-r922-voice-settings-ui">
 (function(){'use strict';
 const $=id=>document.getElementById(id);let mounted=false,raf=0,busy=false,modeError='',discovery=null,discoveryTimer=0;
@@ -77176,16 +77247,16 @@ discoveryTimer=setTimeout(()=>{discovery?.disconnect();discovery=null;},15000);q
 
 </script>
 
-<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r948" integrity="sha256-i5ggo2L/y6Zq/6cJGQmrbdTlbIcjdOlYl8LmfUSNs4Y=">
-<script id="sukun-r933-theme" src="./assets/runtime/berhet-theme-r933.js?v=r948" integrity="sha256-2oO498ir9JwAw6ESkdoMAahITnQsSpIL6ds7elb2tDQ="></script>
-<link rel="stylesheet" href="./assets/runtime/health-view-r943.css?v=r948" integrity="sha256-k0xodZIkCc54Ib372RXS2Yc4fqBFvKhmGr0UYokiFD4=">
-<script id="sukun-r943-health-view" src="./assets/runtime/health-view-r943.js?v=r948" integrity="sha256-uhcReQGIwtKKi70m7qxIhvV2SXlHuqnoOt5T8u07SOA="></script>
-<link rel="stylesheet" href="./assets/runtime/scene-picker-r945.css?v=r948" integrity="sha256-tgW/XsT8jFhyborqTjGMz5nDaNNrknS7IgaXR8F/cvE=">
-<script src="./assets/runtime/scene-picker-r945.js?v=r948" integrity="sha256-xxZVvhdyNPZCyAiAr1NybmS+rGbLCHxeKdycxw3YooM="></script>
-<script id="sukun-r940-health" src="./assets/runtime/health-r940.js?v=r948" integrity="sha256-4/pC+8GYQYE82RJQZbb3DAtxnx9P4wVZI885z8EedJE="></script>
-<link rel="stylesheet" href="./assets/runtime/nefs-r948.css?v=r948" integrity="sha256-lMzZ2ti9ZfJQH5DYO/uK7h4nIp/Ho/SXxdUdBWSEjt8=">
-<script src="./assets/runtime/nefs-data-r948.js?v=r948" integrity="sha256-wp9C6sqgFLkLh7hdkG8kaPkag0fd1IZGe5rR18OcIUw="></script>
-<script src="./assets/runtime/nefs-model-r948.js?v=r948" integrity="sha256-tdT5Zz4m8B6lyzcU9cRaHKQcHO4XRfckYe1xtU/HGFs="></script>
-<script src="./assets/runtime/nefs-ui-r948.js?v=r948" integrity="sha256-33ozz/B9K5sLfB4PHaFSghCbvaqDKLhyylnnIBW8/GI="></script>
+<link id="sukun-r924-wheel-style" rel="stylesheet" href="./assets/runtime/wheels-r924.css?v=r949" integrity="sha256-i5ggo2L/y6Zq/6cJGQmrbdTlbIcjdOlYl8LmfUSNs4Y=">
+<script id="sukun-r933-theme" src="./assets/runtime/berhet-theme-r933.js?v=r949" integrity="sha256-2oO498ir9JwAw6ESkdoMAahITnQsSpIL6ds7elb2tDQ="></script>
+<link rel="stylesheet" href="./assets/runtime/health-view-r943.css?v=r949" integrity="sha256-k0xodZIkCc54Ib372RXS2Yc4fqBFvKhmGr0UYokiFD4=">
+<script id="sukun-r943-health-view" src="./assets/runtime/health-view-r943.js?v=r949" integrity="sha256-H43iA6q+kLcZs6ta7ZS9Jw4NfasTKzBBQJ+tBDUcE7g="></script>
+<link rel="stylesheet" href="./assets/runtime/scene-picker-r945.css?v=r949" integrity="sha256-tgW/XsT8jFhyborqTjGMz5nDaNNrknS7IgaXR8F/cvE=">
+<script src="./assets/runtime/scene-picker-r945.js?v=r949" integrity="sha256-KSpwexFdSiteSJMMuVdz3AFcHjIxG72jXwmF0L+pCdg="></script>
+<script id="sukun-r940-health" src="./assets/runtime/health-r940.js?v=r949" integrity="sha256-+sqcfFOWVWHQFxf16TRHMknjPPQyMghkhkXs+/26wuM="></script>
+<link rel="stylesheet" href="./assets/runtime/nefs-r948.css?v=r949" integrity="sha256-lMzZ2ti9ZfJQH5DYO/uK7h4nIp/Ho/SXxdUdBWSEjt8=">
+<script src="./assets/runtime/nefs-data-r948.js?v=r949" integrity="sha256-wp9C6sqgFLkLh7hdkG8kaPkag0fd1IZGe5rR18OcIUw="></script>
+<script src="./assets/runtime/nefs-model-r948.js?v=r949" integrity="sha256-tdT5Zz4m8B6lyzcU9cRaHKQcHO4XRfckYe1xtU/HGFs="></script>
+<script src="./assets/runtime/nefs-ui-r948.js?v=r949" integrity="sha256-33ozz/B9K5sLfB4PHaFSghCbvaqDKLhyylnnIBW8/GI="></script>
 </body>
 </html>
