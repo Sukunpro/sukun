@@ -3,6 +3,19 @@
  * Four scene images at a time, created only while the chooser is open. */
 (()=>{'use strict';
  if(window.SukunScenePicker)return;
+ // r955: deploys may lack the optional thumbnail directory. Fall back once
+ // to the existing scene image; never retry a broken URL in a loop.
+ function loadPreview(image,fallback,scene){
+  const sources=[...new Set([scene.thumbnail,scene.asset].filter(x=>typeof x==='string'&&x.trim()))];
+  let next=0;
+  const loadNext=()=>{
+   if(next>=sources.length){image.hidden=true;fallback.hidden=false;return}
+   image.hidden=false;fallback.hidden=true;image.src=sources[next++];
+  };
+  image.onerror=loadNext;
+  image.onload=()=>{image.hidden=false;fallback.hidden=true};
+  loadNext();
+ }
  const $=id=>document.getElementById(id),size=4;
  const text=(node,value)=>{value=String(value??'');if(node&&node.textContent!==value)node.textContent=value};
  const attr=(node,key,value)=>{value=String(value);if(node&&node.getAttribute(key)!==value)node.setAttribute(key,value)};
@@ -64,13 +77,11 @@
    clearCards();const fragment=document.createDocumentFragment();
    for(const scene of visible){
     const b=document.createElement('button');b.type='button';b.className='r945SceneCard';b.dataset.scene=scene.id;
-    const image=document.createElement('img');image.alt='';image.decoding='async';image.loading='lazy';image.width=180;image.height=160;image.draggable=false;
+    const image=document.createElement('img');image.alt='';image.decoding='async';image.loading='eager';image.width=180;image.height=160;image.draggable=false;
     const label=document.createElement('strong');label.textContent=scene.title;
     const name=document.createElement('small');name.textContent=scene.ordinal?scene.ordinal+'. '+scene.name:scene.name;
     const fallback=document.createElement('span');fallback.className='r945SceneFallback';fallback.textContent='Önizleme yüklenemedi';fallback.hidden=true;
-    image.onerror=()=>{image.hidden=true;fallback.hidden=false};
-    image.onload=()=>{image.hidden=false;fallback.hidden=true};
-    image.src=scene.thumbnail;b.append(image,fallback,label,name);fragment.append(b);
+    b.append(image,fallback,label,name);fragment.append(b);loadPreview(image,fallback,scene);
    }
    grid.append(fragment);listKey=key;
   }
@@ -101,6 +112,6 @@
  ['DOMContentLoaded','pageshow','sukun:scenechange','sukun:sessionchange','sukun:tefekkurchange','sukun:secretaccesschange','sukun:domhydrate'].forEach(name=>addEventListener(name,queue,{passive:true}));
  document.addEventListener('click',event=>{if(event.target.closest('#r932QuickScene,#r932QuickWheel,#r932QuickClose,#r938PanelToggle'))render()},{passive:true});
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&opened)queue()},{passive:true,capture:true});
- window.SukunScenePicker=Object.freeze({version:'r945',refresh:queue,snapshot:()=>({open:opened,page:page+1,pageSize:size,count:catalog().length,choice:lastChoice,renderedCards:$('r945SceneGrid')?.children.length||0})});
+ window.SukunScenePicker=Object.freeze({version:'r955',refresh:queue,snapshot:()=>({open:opened,page:page+1,pageSize:size,count:catalog().length,choice:lastChoice,renderedCards:$('r945SceneGrid')?.children.length||0})});
  queue();
 })();
