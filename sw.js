@@ -1,39 +1,47 @@
-/* SÜKÛN r947 — honor requested volume before background native playback
+/* SÜKÛN r948 — unified knowledge, local self-reflection and evidence-based practice guide
    Amaç: yeni sürümün "waiting/install mismatch" yüzünden eski shell'de
    kilitlenmesini önlemek. Controller değişimi aktif sesi kendiliğinden
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r947';
-const CACHE = 'sukun-r947-background-start-20260927-v1';
-const CACHE_META = './sukun-cache-meta-r947.json';
-const BUILD_MARKER = './sukun-build-r947.json';
+const SURUM = 'r948';
+const CACHE = 'sukun-r948-nefs-muhasebe-20260928-v1';
+const CACHE_META = './sukun-cache-meta-r948.json';
+const BUILD_MARKER = './sukun-build-r948.json';
 const LATEST_MARKER = './sukun-latest.json';
-const REQUIRED_RUNTIME = [{"url":"./assets/runtime/berhet-layout-r938.css?v=r947","sha256":"890b450548d847b3a4786a9e287f4a5470381936a4a5fb87eb827f148bc0458e"},{"url":"./assets/runtime/berhet-materials-r933.css?v=r947","sha256":"4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"},{"url":"./assets/runtime/berhet-controls-r933.css?v=r947","sha256":"8525a29528c4903e957f14095f7cdb64089df5f97f80be18aa55ef4749345a37"},{"url":"./assets/runtime/berhet-dock-r933.css?v=r947","sha256":"0d5fa1db8b6af4b5db8b3191e9e4e82ea3b478ce069d6793d4aa8f72a110e376"},{"url":"./assets/runtime/audio-palette-r945.js?v=r947","sha256":"0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1"},{"url":"./assets/runtime/esma-scenes-r923.js?v=r947","sha256":"dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"},{"url":"./assets/runtime/session-r919.js?v=r947","sha256":"87d415d9f966ee992cb6311e758ae5ed76b03bb782fd935179a20ba94647c9d9"},{"url":"./assets/runtime/dock-r920.js?v=r947","sha256":"d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0"},{"url":"./assets/runtime/wheels-r924.js?v=r947","sha256":"ba3a4d86c90ea34d7b582eab63e086515555a94958beef3fd68909188799b80d"},{"url":"./assets/runtime/berhet-layout-r938.js?v=r947","sha256":"c8279faa122058891dafb5ce4a6f05ebbea2bfdec53456ca430917f62837e99f"},{"url":"./assets/runtime/interface-r920.js?v=r947","sha256":"27b0678bc606a2bc89a5bfc2a45aeefbf41465c7b21f0850034ee681c4672435"},{"url":"./assets/runtime/wheels-r924.css?v=r947","sha256":"8b9820a362ffcba66affa7091909ab6dd4e56c872374e95897c2e67d448db386"},{"url":"./assets/runtime/berhet-theme-r933.js?v=r947","sha256":"da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434"},{"url":"./assets/runtime/health-view-r943.css?v=r947","sha256":"934c6875922409ce7821bdfbd915d2d987387ea045bca8661abd14628922143e"},{"url":"./assets/runtime/health-view-r943.js?v=r947","sha256":"ba1711790188c2d28a8bbd26eeac4886f576497947baa9e83ade53f2ed3b48e0"},{"url":"./assets/runtime/scene-picker-r945.css?v=r947","sha256":"b605bf5ec4fc8c58726e8aea4e318ccf99c368d36b9274bb22069747c17f72f1"},{"url":"./assets/runtime/scene-picker-r945.js?v=r947","sha256":"c71655be177234f642c80880af53726e64beac66cb087c5e29dc9cc70dd8a283"},{"url":"./assets/runtime/health-r940.js?v=r947","sha256":"e3fa42fbc19841813cd9125065b6f70c0b719f1f4fe3055923cf39cfc11e7491"}];
+const REQUIRED_RUNTIME = [{"url":"./assets/runtime/berhet-layout-r938.css?v=r948","sha256":"890b450548d847b3a4786a9e287f4a5470381936a4a5fb87eb827f148bc0458e"},{"url":"./assets/runtime/berhet-materials-r933.css?v=r948","sha256":"4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"},{"url":"./assets/runtime/berhet-controls-r933.css?v=r948","sha256":"8525a29528c4903e957f14095f7cdb64089df5f97f80be18aa55ef4749345a37"},{"url":"./assets/runtime/berhet-dock-r933.css?v=r948","sha256":"0d5fa1db8b6af4b5db8b3191e9e4e82ea3b478ce069d6793d4aa8f72a110e376"},{"url":"./assets/runtime/audio-palette-r945.js?v=r948","sha256":"0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1"},{"url":"./assets/runtime/esma-scenes-r923.js?v=r948","sha256":"dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"},{"url":"./assets/runtime/session-r919.js?v=r948","sha256":"87d415d9f966ee992cb6311e758ae5ed76b03bb782fd935179a20ba94647c9d9"},{"url":"./assets/runtime/dock-r920.js?v=r948","sha256":"d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0"},{"url":"./assets/runtime/wheels-r924.js?v=r948","sha256":"ba3a4d86c90ea34d7b582eab63e086515555a94958beef3fd68909188799b80d"},{"url":"./assets/runtime/berhet-layout-r938.js?v=r948","sha256":"c8279faa122058891dafb5ce4a6f05ebbea2bfdec53456ca430917f62837e99f"},{"url":"./assets/runtime/interface-r920.js?v=r948","sha256":"27b0678bc606a2bc89a5bfc2a45aeefbf41465c7b21f0850034ee681c4672435"},{"url":"./assets/runtime/wheels-r924.css?v=r948","sha256":"8b9820a362ffcba66affa7091909ab6dd4e56c872374e95897c2e67d448db386"},{"url":"./assets/runtime/berhet-theme-r933.js?v=r948","sha256":"da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434"},{"url":"./assets/runtime/health-view-r943.css?v=r948","sha256":"934c6875922409ce7821bdfbd915d2d987387ea045bca8661abd14628922143e"},{"url":"./assets/runtime/health-view-r943.js?v=r948","sha256":"ba1711790188c2d28a8bbd26eeac4886f576497947baa9e83ade53f2ed3b48e0"},{"url":"./assets/runtime/scene-picker-r945.css?v=r948","sha256":"b605bf5ec4fc8c58726e8aea4e318ccf99c368d36b9274bb22069747c17f72f1"},{"url":"./assets/runtime/scene-picker-r945.js?v=r948","sha256":"c71655be177234f642c80880af53726e64beac66cb087c5e29dc9cc70dd8a283"},{"url":"./assets/runtime/health-r940.js?v=r948","sha256":"e3fa42fbc19841813cd9125065b6f70c0b719f1f4fe3055923cf39cfc11e7491"},{"url":"./assets/runtime/nefs-r948.css?v=r948","sha256":"94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf"},{"url":"./assets/runtime/nefs-data-r948.js?v=r948","sha256":"c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c"},{"url":"./assets/runtime/nefs-model-r948.js?v=r948","sha256":"b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b"},{"url":"./assets/runtime/nefs-ui-r948.js?v=r948","sha256":"df7a33cff07d2b9b0b7c1e0f1da15282109bbdaa8328b872ca59e72015bcfc62"}];
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
    Shell doğrulaması bağımsız; geri kalan assetler yalnız görünüm istediğinde
    normal fetch sırasında current cache'e yazılır. Toplu görsel indirme
    install/activate yaşam döngüsünü veya aktif ses oturumunu meşgul etmez. */
 const CORE = [
-  "./assets/runtime/berhet-layout-r938.css?v=r947",
-  "./assets/runtime/berhet-materials-r933.css?v=r947",
-  "./assets/runtime/berhet-controls-r933.css?v=r947",
-  "./assets/runtime/berhet-dock-r933.css?v=r947",
-  "./assets/runtime/audio-palette-r945.js?v=r947",
-  "./assets/runtime/esma-scenes-r923.js?v=r947",
-  "./assets/runtime/session-r919.js?v=r947",
-  "./assets/runtime/dock-r920.js?v=r947",
-  "./assets/runtime/wheels-r924.js?v=r947",
-  "./assets/runtime/berhet-layout-r938.js?v=r947",
-  "./assets/runtime/interface-r920.js?v=r947",
-  "./assets/runtime/wheels-r924.css?v=r947",
-  "./assets/runtime/berhet-theme-r933.js?v=r947",
-  "./assets/runtime/health-view-r943.css?v=r947",
-  "./assets/runtime/health-view-r943.js?v=r947",
-  "./assets/runtime/scene-picker-r945.css?v=r947",
-  "./assets/runtime/scene-picker-r945.js?v=r947",
-  "./assets/runtime/health-r940.js?v=r947",
+  "./assets/runtime/berhet-layout-r938.css?v=r948",
+  "./assets/runtime/berhet-materials-r933.css?v=r948",
+  "./assets/runtime/berhet-controls-r933.css?v=r948",
+  "./assets/runtime/berhet-dock-r933.css?v=r948",
+  "./assets/runtime/audio-palette-r945.js?v=r948",
+  "./assets/runtime/esma-scenes-r923.js?v=r948",
+  "./assets/runtime/session-r919.js?v=r948",
+  "./assets/runtime/dock-r920.js?v=r948",
+  "./assets/runtime/wheels-r924.js?v=r948",
+  "./assets/runtime/berhet-layout-r938.js?v=r948",
+  "./assets/runtime/interface-r920.js?v=r948",
+  "./assets/runtime/wheels-r924.css?v=r948",
+  "./assets/runtime/berhet-theme-r933.js?v=r948",
+  "./assets/runtime/health-view-r943.css?v=r948",
+  "./assets/runtime/health-view-r943.js?v=r948",
+  "./assets/runtime/scene-picker-r945.css?v=r948",
+  "./assets/runtime/scene-picker-r945.js?v=r948",
+  "./assets/runtime/health-r940.js?v=r948",
+  "./assets/runtime/nefs-r948.css?v=r948",
+  "./assets/runtime/nefs-data-r948.js?v=r948",
+  "./assets/runtime/nefs-model-r948.js?v=r948",
+  "./assets/runtime/nefs-ui-r948.js?v=r948",
+
+
+
+
 
 
 
@@ -66,6 +74,7 @@ const CORE = [
 ];
 
 const NOTLAR = [
+  'r948 · Nefs rehberi ve muhasebe birleşti: 120 davranış/senaryo, 16 bilgi, 8 tefekkür sorusu; kaynak kapsamı ve kişisel uygulama önerileri eklendi.',
   'r947 · Arka plan kaydı başlamadan ses düzeyi uygulanır; sessiz başlangıç çakışması giderildi.',
   'r946 · Arka plan kayıt geçişinde kaynak ömrü düzeltmesi, sınırlı yeniden deneme ve ayrıntılı hata kanıtı.',
   'r945 · Görsel sahne seçimi, okunur seçim alanları, yeni ambiyans ve tempoya bağlı eşlik tınıları.',
