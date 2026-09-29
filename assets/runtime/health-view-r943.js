@@ -9,11 +9,11 @@
   const ICON = {PASS:'✓', WARN:'!', FAIL:'!', OBSERVED:'◌', NOT_MEASURED:'—', PENDING:'◌'};
   const GROUPS = [
     {id:'files',label:'Sürüm ve dosyalar',icon:'◈',codes:['BUILD','SW_IDENTITY','SW_CACHE_COMPLETE','RUNTIME_INTEGRITY','SW_RESPONSE']},
-    {id:'audio',label:'Ses ve zikir akışı',icon:'♪',codes:['SESSION_OBSERVATION','TEMPO_RANGE','AUDIO_CONSISTENCY','BACKGROUND_HANDOFF','BACKGROUND_FX','AUDIO_CONTEXTS']},
-    {id:'response',label:'Tepki ve dokunma',icon:'↗',codes:['INPUT_DELIVERY','LONG_TASKS','LATENCY_ATTRIBUTION','EARLY_RUNTIME_ERRORS','HEALTH_COLLECTION']},
-    {id:'storage',label:'Bellek ve depolama',icon:'▤',codes:['PERSISTENCE','STORAGE_QUOTA','HEAP']},
+    {id:'audio',label:'Ses ve zikir akışı',icon:'♪',codes:['SESSION_OBSERVATION','TEMPO_RANGE','AUDIO_CONSISTENCY','BACKGROUND_OWNER','BACKGROUND_HANDOFF','BACKGROUND_FX','AUDIO_CONTEXTS']},
+    {id:'response',label:'Tepki ve dokunma',icon:'↗',codes:['INPUT_DELIVERY','LONG_TASKS','LATENCY_ATTRIBUTION','EARLY_RUNTIME_ERRORS','HEALTH_COLLECTION','VISUAL_SCHEDULER']},
+    {id:'storage',label:'Bellek ve depolama',icon:'▤',codes:['PERSISTENCE','STORAGE_QUOTA','HEAP','RESOURCE_RESIDENCY']},
     {id:'ai',label:'AI bağlantıları',icon:'✦',codes:['AI_CONNECTIONS']},
-    {id:'device',label:'Cihaz ve ekran kilidi',icon:'◉',codes:['DEVICE_AUDIO','TTS_CAPABILITY']}
+    {id:'device',label:'Cihaz ve ekran kilidi',icon:'◉',codes:['PAGE_LIFECYCLE','DEVICE_AUDIO','TTS_CAPABILITY']}
   ];
   const OPTIONAL = new Set(['SW_RESPONSE','HEALTH_COLLECTION','LATENCY_ATTRIBUTION','BACKGROUND_HANDOFF']);
   const META = {
@@ -35,6 +35,10 @@
     HEALTH_COLLECTION:['Kontrolün tamamlanması','Bazı ölçümler tamamlanamadı.','Testi yeniden çalıştırın; eksik ölçümler başarılı sayılmaz.'],
     PERSISTENCE:['Son durumun saklanması','Son durum kaydının saklanabildiği kontrol edildi.','Tarayıcının depolama iznini ve boş alanını kontrol edin; kayıtlarınızı silmeyin.'],
     STORAGE_QUOTA:['Cihazda uygulamanın kullandığı alan','Tarayıcının bildirdiği depolama kullanımı gözlendi.','Alan daralıyorsa önce kendi kayıtlarınızı yedekleyin. Bu denetim veri silmez.'],
+    PAGE_LIFECYCLE:['Sekmenin arka plan geçmişi','Sekmenin dondurulması, yeniden yüklenmesi ve tarayıcının bildirdiği atılma bilgisi izleniyor.','Dondurulma çökme demek değildir. Beklenmeyen kapanış yaşadıysanız raporu saklayın.'],
+    RESOURCE_RESIDENCY:['Görsel ve ses yükü','Aktif sahneler, canvas yüzeyleri ve izlenebilen ses düğümleri gözlendi. Bu tahminler telefonun toplam RAM veya GPU tüketimi değildir.','Etkin sahne sınırı aşılmışsa raporu paylaşın; önceki görsellerin tarayıcı önbelleğinden ne zaman silineceğine tarayıcı karar verir.'],
+    BACKGROUND_OWNER:['Arka plan sesinin gerçek durumu','Yerel oynatıcının kabul ettiği veya engellediği ses başlatmaları gözleniyor.','Başlatma engellendiyse uygulamaya dönün. Yeniden başlaması, kilitli ekranda sorunsuz çalıştığını doğrulamaz.'],
+    VISUAL_SCHEDULER:['Görsel hareketlerin yükü','Ortak çizim motorundaki işler gözlendi; gizliyken görsel hareketler durur.','Görsel iş sayısı, ses zamanlayıcılarının toplamı değildir.'],
     HEAP:['Uygulamanın bellek kullanımı','Tarayıcının sunduğu bellek ölçümü gözlendi. Tek ölçüm bellek sızıntısını göstermez.','Uygulama yavaşsa ağır işlemin bitmesini bekleyip yeniden kontrol edin.'],
     AI_CONNECTIONS:['AI bağlantısının son durumu','Yapılandırılmış AI bağlantılarının son durumu okundu. Bu test AI isteği göndermez.','Gerçek bir açıklama isteği için aşağıdaki AI düğmesini kullanın.'],
     DEVICE_AUDIO:['Duyulan ses ve ekran kilidi','Tarayıcı, hoparlörden gerçekten ses çıktığını veya kilitli ekranda sesin sürdüğünü doğrulayamaz.','Kısa bir sesi dinleyin, ardından ekranı kilitleyip devam edip etmediğini kendiniz kontrol edin.'],

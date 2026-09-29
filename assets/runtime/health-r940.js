@@ -267,6 +267,14 @@
       'Gecikme anını, kontrol hedefini ve kaynak dosyasını birlikte inceleyin. Aynı zamana denk gelmek tek başına nedensellik değildir. Örnekler INP veya fiziksel kilit testi değildir.'));
     if (fx) out.push(status('BACKGROUND_FX', fx.fallbackActive ? 'WARN' : 'OBSERVED', 'Kayıt yankı / 8D yolu', fx,
       'Fallback tap yolu ekran kilidinde kısıtlanabilir; hazırlanmış baked kayıt yolu ve kaynak bütçesi incelenmelidir.'));
+    const resources=safe(()=>window.SukunLifecycleR949?.snapshot());
+    if(resources){
+      out.push(status('PAGE_LIFECYCLE',resources.wasDiscarded===true||resources.unexpectedReload==='POSSIBLE_UNCLOSED_ACTIVE_SESSION'?'WARN':'OBSERVED','Sekme yaşam döngüsü',{bootId:resources.bootId,wasDiscarded:resources.wasDiscarded,discardSupported:resources.discardSupported,unexpectedReload:resources.unexpectedReload,previousBoot:resources.previousBoot,navigationType:resources.navigationType,freezeEvents:resources.freezeEvents,resumeEvents:resources.resumeEvents},'Freeze tek başına çökme değildir. Discard kaydı bellek tükenmesinin neden olduğunu kanıtlamaz; açık oturum kaydı yalnız olası beklenmedik dönüş işaretidir.'));
+      out.push(status('RESOURCE_RESIDENCY',resources.scene?.residentSceneCount>3?'FAIL':'OBSERVED','Görsel ve ses kaynakları',{scene:resources.scene,canvas:resources.canvas,audioNodes:resources.audioNodes},'Görsel/canvas baytları boyuttan hesaplanan tahmindir; GPU veya toplam telefon belleği ölçülmez. Ses düğümleri yalnız izlenebilen zayıf JS başvurularıdır.'));
+      const bg=resources.backgroundOwner;
+      out.push(status('BACKGROUND_OWNER',bg?.blocked||bg?.phase==='INTERRUPTED'?'WARN':bg?.active?'OBSERVED':'NOT_MEASURED','Yerel arka plan ses sahibi',{...(bg||{}),cadence:resources.cadence},'Engellenen kaynak görünür ekrana dönene veya kaynak değişene kadar yeniden denenmez. Hoparlörden ses geldiği ancak cihazda dinlenerek doğrulanır.'));
+      out.push(status('VISUAL_SCHEDULER',document.hidden&&resources.scheduler?.pendingFrames?'WARN':'OBSERVED','Görsel çizim zamanlayıcısı',resources.scheduler||{},'Bu sayı CIZ tarafından yönetilen görsel işleri kapsar; tek seferlik yerleşim ve ses zamanlayıcıları ayrı işlerdir.'));
+    }
     const ai = safe(() => window.SukunAIRouter?.snapshot?.());
     if (ai) out.push(status('AI_CONNECTIONS', ai.lastResult?.code === 'OK' ? 'OBSERVED' : ai.lastResult?.code && !['CANCELLED','MISSING_KEY','CONSENT_REQUIRED'].includes(ai.lastResult.code) ? 'WARN' : 'NOT_MEASURED', 'AI bağlantıları (anahtarsız tanı)', ai, 'AUTH: anahtarı düzeltin. QUOTA: kota süresini bekleyin. ACCESS/BILLING: sağlayıcı hesabını kontrol edin. NETWORK_OR_CORS: bağlantı veya tarayıcı erişimi. NVIDIA için kendi aracı servisiniz gerekir. Sağlık denetimi AI isteği göndermez.'));
     return out.concat(checks);

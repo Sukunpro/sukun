@@ -41,15 +41,18 @@ body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r920Eyebrow{font-s
 body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r920NameInfo{min-height:44px!important;padding:3px 10px!important;border:0!important;border-image:none!important;background:transparent!important;gap:0!important}
 body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r920ActiveName{font-size:clamp(18px,5vw,24px)!important;line-height:1.2!important}
 body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] :is(#r920Arabic,#r920SceneTitle,#r920VoiceSource){display:none!important}
-body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r924WheelFrame{width:min(76vw,30dvh,300px)!important;margin:2px auto!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r924WheelFrame{width:min(80vw,39dvh,360px)!important;margin:2px auto!important}
 body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r938Panel{margin-top:auto!important;max-height:none!important;overflow:visible!important}
 body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r920TefExit{display:flex!important;flex:none!important;width:min(100%,280px)!important;min-height:48px!important;margin:0 auto!important;padding:10px 24px!important;font-size:12px!important}
 body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r920More{display:none!important}
 #r920Practice[data-r938-layout="1"] button:focus-visible{outline:2px solid #ffe1a0!important;outline-offset:2px!important}
+/* r949: hiding optional controls gives the wheel the released space. */
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"]:has(#r938Panel[data-open="false"]) #r924WheelFrame{width:min(94vw,51dvh,440px)!important;max-width:calc(100% + 16px)!important;margin-inline:0!important}
 /* Landscape uses two columns in the same scrolling page. */
 @media(max-height:520px) and (orientation:landscape){
 body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"]{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;align-items:start!important;max-width:960px!important}
-body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r924WheelFrame{width:min(38vw,48dvh,230px)!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r924WheelFrame{width:min(40vw,62dvh,300px)!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"]:has(#r938Panel[data-open="false"]) #r924WheelFrame{width:min(42vw,70dvh,340px)!important}
 body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r938Panel{margin:0 auto!important;max-height:none!important}
 }
 }

@@ -14,7 +14,8 @@
   const bootId = Date.now().toString(36);
   let epoch = 0, requestId = 0, revision = 0, state = null, identity = '', signature = '';
   let pendingStart = null, refreshQueued = false, collecting = false, commandFailure = null;
-  let completion = null, lastReason = 'boot';
+  let completion = null, lastReason = 'boot', establishedEpoch = -1;
+  let voiceCycle = Object.freeze({phase:'IDLE',revision:0}), voiceSignature = '';
 
   function journeys() {
     const selected = clean(read(() => window.SukunJourneyController?.target(), 'single'));
@@ -67,16 +68,24 @@
     if (identity && identity !== nextIdentity) { epoch++; completion = null; commandFailure = null; }
     identity = nextIdentity;
     const failed = !!(matchingFailure || transport.failed || commandFailure);
-    let phase = failed ? 'ERROR' : paused ? 'PAUSED' : preparing ? 'PREPARING' :
+    const bg = read(() => window.SukunBackgroundAudioOwner?.snapshot());
+    const interrupted = !!(hasZikirOwner && bg?.active && (bg.blocked || bg.phase === 'INTERRUPTED'));
+    if(playing && !preparing && !interrupted && !failed) establishedEpoch = epoch;
+    const cyclePhase = failed ? 'ERROR' : paused ? 'PAUSED' : interrupted ? 'INTERRUPTED' : preparing ? 'PREPARING' : playing ? 'PLAYING' : 'ENDED';
+    const cycleSig = [epoch,cyclePhase,source.kind || 'idle'].join('|');
+    if(cycleSig !== voiceSignature){voiceSignature=cycleSig;voiceCycle=freeze({phase:cyclePhase,revision:voiceCycle.revision+1,epoch,at:Date.now()});const detail=voiceCycle;queueMicrotask(()=>window.dispatchEvent(new CustomEvent('sukun:voicecyclechange',{detail})));}
+    let phase = failed ? 'ERROR' : paused ? 'PAUSED' : interrupted ? 'INTERRUPTED' : playing && establishedEpoch === epoch ? 'PLAYING' : preparing ? 'PREPARING' :
       playing ? 'PLAYING' : hasZikirOwner && ['interrupted', 'recovering'].includes(life.state) ? 'INTERRUPTED' :
       (jd?.complete || completion?.identity === identity) ? 'COMPLETED' : 'IDLE';
     const rawKind = clean(source.kind && source.kind !== 'idle' ? source.kind : flow.source?.kind || np.sourceKind || 'none').toLowerCase().replace(/_/g, '-');
-    const audioSource = /error|fail/.test(rawKind) ? 'ERROR' :
+    let audioSource = /error|fail/.test(rawKind) ? 'ERROR' :
       /local|file|sample/.test(rawKind) ? 'LOCAL_RECORDING' :
       /tts|speech/.test(rawKind) || rawKind === 'ses' ? 'TTS' :
       /^reader/.test(rawKind) ? 'READER_RECORDING' :
       /^(recording|user-recording|own-recording|user-record)$/.test(rawKind) ? 'USER_RECORDING' :
       /^(silent|silence|none|idle)$/.test(rawKind) ? 'SILENCE' : rawKind.toUpperCase();
+    // An idle per-word source during a running session is not a new source selection.
+    if(phase === 'PLAYING' && establishedEpoch === epoch && state?.epoch === epoch && ['SILENCE','PREPARING'].includes(audioSource) && state.audioSource !== 'SILENCE') audioSource=state.audioSource;
     const activeName = name;
     const total = j.view ? Number(j.view.kind) : Math.max(0, number(z.length));
     return {
@@ -100,7 +109,7 @@
       phase, playbackState: phase.toLowerCase(), playing: phase === 'PLAYING', paused: phase === 'PAUSED',
       preparing: phase === 'PREPARING', audioSource,
       recordingSource: matchingFailure ? 'USER_RECORDING_FAILED' : audioSource === 'USER_RECORDING' ? 'USER_RECORDING' : null,
-      sourceLabel: clean(source.label || flow.source?.label || ''),
+      sourceLabel: clean(source.label || flow.source?.label || (phase === 'PLAYING' && state?.epoch === epoch ? state?.sourceLabel : '') || ''),
       sceneId: scene.activeSceneId || scene.sceneId || null,
       resolvedSceneId: scene.resolvedSceneId || null,
       backgroundState: scene.sceneLoad || scene.backgroundState || 'unknown',
@@ -149,13 +158,21 @@
     const direct = window.SukunR698Transport;
     if (action === 'stop') return direct?.stop ? direct.stop('r919-command') : pc?.stopAll?.();
     if (action === 'pause') {
-      if (before.paused || before.phase === 'IDLE' || before.phase === 'COMPLETED') return true;
+      if (before.phase === 'IDLE' || before.phase === 'COMPLETED') return true;
+      // A system hold is not a user's Pause: retain a new explicit intent even
+      // when the physical source was already stopped by the browser.
+      read(() => window.SukunJourneyAudioMachine?.intent?.('pause', 'ui:r919-command'));
+      if (active?.state.systemHold) active.api.pause?.();
       return registry?.pauseAll ? registry.pauseAll('ui:r919-command') : active?.api.pause ? active.api.pause() : pc?.pause?.(before.provider || undefined);
     }
     if (action === 'play' || action === 'start' || action === 'resume') {
       if (window.SukunVoiceSettings?.checkReady?.() === false) return false;
       if (before.playing || before.preparing) return true;
       if (before.recordingSource === 'USER_RECORDING_FAILED') return false;
+      if (choice && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return false;
+      // This command is an explicit Start/Resume. Release its matching pause
+      // intent before entering the provider; lifecycle recovery never uses it.
+      read(() => window.SukunJourneyAudioMachine?.intent?.('play', 'ui:r919-command'));
       if (before.paused && read(() => registry?.aggregateSnapshot()?.paused, false) && registry?.resumeAll) return registry.resumeAll();
       if (choice) {
         if (!read(() => window.SukunSecretPolicy?.unlocked(), false)) return false;
@@ -324,10 +341,11 @@
     });
     document.body.append(box);
   }
+  window.SukunVoiceCycle = freeze({version:'r949',snapshot:()=>voiceCycle});
   window.SukunSessionState = freeze({ version: 'r919', snapshot, peek: () => state, refresh, subscribe, command, health, exportHealth,
     token: () => freeze({ sessionId: snapshot().sessionId, epoch }), isCurrent: token => token?.epoch === snapshot().epoch });
   if (!window.SessionState) window.SessionState = window.SukunSessionState;
-  const events = ['sukun:currentzikirchange', 'sukun:currentflowchange', 'sukun:nowplayingchange', 'sukun:playbackchange',
+  const events = ['sukun:backgroundownerchange', 'sukun:currentzikirchange', 'sukun:currentflowchange', 'sukun:nowplayingchange', 'sukun:playbackchange',
     'sukun:audioaggregatechange', 'sukun:audiotruthchange', 'sukun:voicesource', 'sukun:voicesettingschange', 'sukun:foregroundqueuechange',
     'sukun:journey-advance', 'sukun:tefekkurchange', 'sukun:recordingerror', 'sukun:recordingretry',
     'sukun:scenechange', 'sukun:scenestate', 'sukun:recordingrecovered', 'sukun:tabchange', 'sukun:zikirtransportgate'];

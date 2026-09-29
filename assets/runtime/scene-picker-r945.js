@@ -70,7 +70,7 @@
     const fallback=document.createElement('span');fallback.className='r945SceneFallback';fallback.textContent='Önizleme yüklenemedi';fallback.hidden=true;
     image.onerror=()=>{image.hidden=true;fallback.hidden=false};
     image.onload=()=>{image.hidden=false;fallback.hidden=true};
-    image.src=scene.asset;b.append(image,fallback,label,name);fragment.append(b);
+    image.src=scene.thumbnail;b.append(image,fallback,label,name);fragment.append(b);
    }
    grid.append(fragment);listKey=key;
   }
@@ -96,7 +96,8 @@
   if(!opened){const index=catalog().findIndex(scene=>scene.id===(state().scene||'auto'));page=index<0?Math.floor(Math.max(0,Number(state().activeIndex)||0)/size):Math.floor(index/size);opened=true;$('r945SceneHeading')?.focus({preventScroll:true})}
   renderCards();
  }
- function queue(){if(!raf)raf=requestAnimationFrame(render)}
+ function queue(){if(document.hidden)return;if(!raf)raf=requestAnimationFrame(render)}
+ document.addEventListener('visibilitychange',()=>{if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0;clearCards();}else queue();},{passive:true});
  ['DOMContentLoaded','pageshow','sukun:scenechange','sukun:sessionchange','sukun:tefekkurchange','sukun:secretaccesschange','sukun:domhydrate'].forEach(name=>addEventListener(name,queue,{passive:true}));
  document.addEventListener('click',event=>{if(event.target.closest('#r932QuickScene,#r932QuickWheel,#r932QuickClose,#r938PanelToggle'))render()},{passive:true});
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&opened)queue()},{passive:true,capture:true});
