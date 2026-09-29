@@ -1,0 +1,11 @@
+r952 — Yumuşak ışıklar, dolaşım ve iç çember durumu
+
+• X/+ gibi görünen kesişen parıltı çizgileri tamamen kaldırıldı. Yumuşak yuvarlak ışık noktaları kullanılır; çark görselleri değişmez.
+• Yoğun neon ışık katmanı gücü r951'e göre %28 azaltıldı. Belirgin seviyesi de dengelendi.
+• İsim, çark ve görünüm > Nur hareketi: Zikre uyumlu nefes / Dolaşımsal ışıltı / Dalgalı dolaşım. Nur parlaklığı ayrı ayarlanır: Kapalı / Yumuşak / Belirgin / Yoğun neon. Seçimler cihazda saklanır.
+• Dolaşım saat yönünün tersine ilerler. Hızı gerçek sayım aralıklarına uyarlanır; ses motorunu ve sayacı yönetmez. Duraklatma/bitirme/gizli ekran/azaltılmış hareket durumunda dolaşım animasyonu iptal edilir. Sabit nur kalabilir; Kapalı tüm ışık katmanlarını kaldırır.
+• Berhetiyye yerleşim kodunun durum yazısını çark dışına taşıması düzeltildi. Esmâ ve Berhetiyye için Zikir sürüyor, Duraklatıldı ve diğer durum yazıları iç çemberde kalır.
+
+Kontroller: Chromium tam uygulama açılışı, nefes/dolaşım/dalga, aç/kapa, pause, kayıtlı tercih, azaltılmış hareket ve salt okunur sayaç. Berhetiyye yerleşim modülü bağımsız DOM düzeninde normal/tefekkür/geri dönüş geçişlerinde kontrol edildi; kilitli içeriğin erişim kuralı değiştirilmedi. Çark görselleri ve ses kaynak kodları byte düzeyinde aynı. SRI/runtime hashleri doğrulandı. Fiziksel Android testi yapılmadı.
+
+Paketi site köküne birleştirerek yükleyin; kayıtları ve site verilerini silmeyin. Uygulama ve SW r952 olmalı. Canlı siteye yüklenmedi.
