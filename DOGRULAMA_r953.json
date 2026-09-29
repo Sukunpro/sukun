@@ -1,0 +1,110 @@
+{
+  "results": [
+    {
+      "test": "automatic target boundary",
+      "hidden": false,
+      "cat": "berhet",
+      "out": {
+        "cat": "berhet",
+        "idx": 4,
+        "auto": true,
+        "count": 0,
+        "target": 80,
+        "tempo": 1
+      }
+    },
+    {
+      "test": "automatic target boundary",
+      "hidden": false,
+      "cat": "esma",
+      "out": {
+        "cat": "esma",
+        "idx": 4,
+        "auto": true,
+        "count": 0,
+        "target": 131,
+        "tempo": 1
+      }
+    },
+    {
+      "test": "automatic target boundary",
+      "hidden": true,
+      "cat": "berhet",
+      "out": {
+        "cat": "berhet",
+        "idx": 4,
+        "auto": true,
+        "count": 0,
+        "target": 80,
+        "tempo": 1
+      }
+    },
+    {
+      "test": "automatic target boundary",
+      "hidden": true,
+      "cat": "esma",
+      "out": {
+        "cat": "esma",
+        "idx": 4,
+        "auto": true,
+        "count": 0,
+        "target": 131,
+        "tempo": 1
+      }
+    },
+    {
+      "test": "non-advancing completion retains prior behavior",
+      "terminal": {
+        "cat": "esma",
+        "auto": false
+      }
+    },
+    {
+      "test": "delayed completion cannot overwrite new selection",
+      "stale": {
+        "cat": "berhet",
+        "idx": 7,
+        "count": 9,
+        "auto": true
+      }
+    },
+    {
+      "test": "pause cancels pending parking",
+      "pause": {
+        "cat": "berhet",
+        "idx": 3,
+        "auto": false
+      }
+    },
+    {
+      "test": "native recording handoff and continued count",
+      "start": {
+        "ok": true,
+        "cycle": 1000,
+        "key": "berhet:3"
+      },
+      "native": {
+        "cat": "berhet",
+        "idx": 4,
+        "auto": true,
+        "key": "berhet:4",
+        "paused": false,
+        "count": 1,
+        "owner": "single",
+        "cycle": 1000
+      },
+      "visibilityPreservesSourceAndCadence": true
+    },
+    {
+      "test": "runtime errors",
+      "errors": []
+    }
+  ],
+  "physicalPhoneTest": false,
+  "build": "r953",
+  "base": "r952",
+  "inlineJavaScriptSyntaxBlocks": 242,
+  "runtimeHashAndSRI": true,
+  "entryFilesIdentical": true,
+  "originalFailureReproduced": true
+}
