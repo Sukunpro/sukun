@@ -20,23 +20,24 @@
  const text=(node,value)=>{value=String(value??'');if(node&&node.textContent!==value)node.textContent=value};
  const attr=(node,key,value)=>{value=String(value);if(node&&node.getAttribute(key)!==value)node.setAttribute(key,value)};
  const engine=()=>window.SukunSceneEngine;
- const catalog=()=>engine()?.berhetScenes||[];
- const mode=()=>window.SukunSessionState?.snapshot?.().activeMode;
+ const mode=()=>window.SukunSessionState?.snapshot?.().activeMode==='berhet'?'berhet':'esma';
+ const catalog=()=>mode()==='berhet'?(engine()?.berhetScenes||[]):(engine()?.esmaScenes||[]).map((scene,index)=>({...scene,ordinal:index+1,name:scene.group,thumbnail:scene.lite}));
  const state=()=>engine()?.snapshot?.()||{};
- let picker=null,page=0,raf=0,opened=false,lastChoice='',listKey='',sourceSelect=null;
+ const choice=()=>mode()==='berhet'?state().scene:state().esmaChoice;
+ let picker=null,page=0,raf=0,opened=false,lastChoice='',listKey='',sourceSelect=null,renderedMode='';
  const nativeSelects=new WeakSet();
  function updateNativeOptions(){
-  const source=$('r920SceneSelect'),all=catalog();if(!source||!all.length)return;
+  const family=mode(),source=$(family==='berhet'?'r920SceneSelect':'r923EsmaSceneSelect'),all=catalog();if(!source||!all.length)return;
   sourceSelect=source;
-  for(const native of ['r920SceneSelect','r829SceneSel','r916SceneChoice'].map($).filter(Boolean)){
+  for(const native of (family==='berhet'?['r920SceneSelect','r829SceneSel','r916SceneChoice']:[]).map($).filter(Boolean)){
    if(nativeSelects.has(native))continue;
    const frag=document.createDocumentFragment();
    const auto=document.createElement('option');auto.value='auto';auto.textContent='İsme göre otomatik';frag.append(auto);
    for(const scene of all){const o=document.createElement('option');o.value=scene.id;o.textContent=(scene.ordinal?scene.ordinal+'. '+scene.name+' · ':'')+scene.title;frag.append(o)}
    native.replaceChildren(frag);native.value=state().scene||'auto';nativeSelects.add(native);
   }
-  const parent=$('r920BerhetOptions');if(parent&&!$('r945OpenScenes')){
-   const button=document.createElement('button');button.type='button';button.id='r945OpenScenes';button.textContent='Sahneleri görerek seç';button.setAttribute('aria-controls','r945ScenePicker');
+  const parent=$(family==='berhet'?'r920BerhetOptions':'r923EsmaOptions'),buttonId=family==='berhet'?'r945OpenScenes':'r956OpenEsmaScenes';if(parent&&!$(buttonId)){
+   const button=document.createElement('button');button.type='button';button.id=buttonId;button.textContent='Sahneleri görerek seç';button.setAttribute('aria-controls','r945ScenePicker');
    button.addEventListener('click',()=>{
     if(window.SukunWheelQuickControls?.snapshot?.().openKind!=='scene')$('r932QuickScene')?.click();
     render();const title=$('r945SceneHeading');title?.focus({preventScroll:true});picker?.scrollIntoView({block:'start',behavior:'auto'});
@@ -57,8 +58,8 @@
   return true;
  }
  function choose(id){
-  if(mode()!=='berhet')return false;
-  const same=state().scene===id;if(!engine()?.setScene?.(id))return false;
+  const same=choice()===id;
+  const accepted=mode()==='berhet'?engine()?.setScene?.(id):engine()?.setEsmaScene?.(id);if(!accepted)return false;
   if(same&&state().sceneLoad==='error')engine()?.retry?.();
   if(sourceSelect)sourceSelect.value=id;
   window.SukunPracticeUI?.refresh?.();window.SukunWheelQuickControls?.render?.();
@@ -90,21 +91,23 @@
   text($('r945ScenePage'),`${page+1} / ${pages}`);updateSelection();
  }
  function updateSelection(){
-  if(!picker)return;const snapshot=state(),choice=snapshot.scene||'auto',all=catalog(),selected=all.find(x=>x.id===choice);
-  attr($('r945SceneAuto'),'aria-pressed',choice==='auto');
-  for(const button of $('r945SceneGrid').children)attr(button,'aria-pressed',button.dataset.scene===choice);
-  const active=all.find(x=>x.ordinal===Number(snapshot.activeIndex)+1);
-  const title=choice==='auto'?'Otomatik'+(active?' · '+active.title:''):selected?.title||'Sabit sahne';
+  if(!picker)return;const snapshot=state(),selectedChoice=choice()||'auto',all=catalog(),selected=all.find(x=>x.id===selectedChoice);
+  attr($('r945SceneAuto'),'aria-pressed',selectedChoice==='auto');
+  for(const button of $('r945SceneGrid').children)attr(button,'aria-pressed',button.dataset.scene===selectedChoice);
+  const active=mode()==='berhet'?all.find(x=>x.ordinal===Number(snapshot.activeIndex)+1):snapshot.esmaScene;
+  const title=selectedChoice==='auto'?'Otomatik'+(active?' · '+active.title:''):selected?.title||'Sabit sahne';
   const status=snapshot.sceneLoad==='error'?'Görsel açılamadı. Yeniden denemek için seçime dokun.':snapshot.sceneLoad==='loading'?'Sahne yükleniyor…':title;
-  text($('r945SceneSelection'),status);lastChoice=choice;
+  text($('r945SceneSelection'),status);lastChoice=selectedChoice;
  }
  function render(){
   raf=0;updateNativeOptions();if(!make())return;
-  const quick=window.SukunWheelQuickControls?.snapshot?.(),visible=mode()==='berhet'&&quick?.openKind==='scene'&&!$('r932QuickPicker').hidden&&!$('r932QuickPicker').closest('[hidden]');
+  const quick=window.SukunWheelQuickControls?.snapshot?.(),visible=quick?.openKind==='scene'&&!$('r932QuickPicker').hidden&&!$('r932QuickPicker').closest('[hidden]');
   if(picker.hidden===visible)picker.hidden=!visible;
   const host=$('r932QuickPicker');if(host.classList.contains('r945VisualScenes')!==visible)host.classList.toggle('r945VisualScenes',visible);
   if(!visible){if(opened)clearCards();opened=false;return}
-  if(!opened){const index=catalog().findIndex(scene=>scene.id===(state().scene||'auto'));page=index<0?Math.floor(Math.max(0,Number(state().activeIndex)||0)/size):Math.floor(index/size);opened=true;$('r945SceneHeading')?.focus({preventScroll:true})}
+  if(renderedMode!==mode()){clearCards();opened=false;renderedMode=mode()}
+  text($('r945SceneHeading'),mode()==='berhet'?'Süleyman (A.S.) sahneleri':'Esmâ arka planları');
+  if(!opened){const index=catalog().findIndex(scene=>scene.id===(choice()||'auto'));page=index<0?(mode()==='berhet'?Math.floor(Math.max(0,Number(state().activeIndex)||0)/size):Math.floor(Math.max(0,catalog().findIndex(scene=>scene.id===state().esmaScene?.id))/size)):Math.floor(index/size);opened=true;$('r945SceneHeading')?.focus({preventScroll:true})}
   renderCards();
  }
  function queue(){if(document.hidden)return;if(!raf)raf=requestAnimationFrame(render)}
@@ -112,6 +115,6 @@
  ['DOMContentLoaded','pageshow','sukun:scenechange','sukun:sessionchange','sukun:tefekkurchange','sukun:secretaccesschange','sukun:domhydrate'].forEach(name=>addEventListener(name,queue,{passive:true}));
  document.addEventListener('click',event=>{if(event.target.closest('#r932QuickScene,#r932QuickWheel,#r932QuickClose,#r938PanelToggle'))render()},{passive:true});
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&opened)queue()},{passive:true,capture:true});
- window.SukunScenePicker=Object.freeze({version:'r955',refresh:queue,snapshot:()=>({open:opened,page:page+1,pageSize:size,count:catalog().length,choice:lastChoice,renderedCards:$('r945SceneGrid')?.children.length||0})});
+ window.SukunScenePicker=Object.freeze({version:'r956',refresh:queue,snapshot:()=>({mode:mode(),open:opened,page:page+1,pageSize:size,count:catalog().length,choice:lastChoice,renderedCards:$('r945SceneGrid')?.children.length||0})});
  queue();
 })();
