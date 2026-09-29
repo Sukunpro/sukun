@@ -330,7 +330,7 @@
           if (url.origin !== location.origin || !/\/assets\/runtime\/[A-Za-z0-9_.-]+$/.test(url.pathname) || !/^[a-f0-9]{64}$/.test(entry.sha256)) { result.push({ path: path(url.href), status: 'INVALID_ENTRY' }); continue; }
           try {
             if (total > 1048576) throw new Error('TOTAL_SIZE_LIMIT');
-            const data = await fetchBytes(url.href, 262144, controller); total += data.length;
+            const data = await fetchBytes(url.href, 524288, controller); total += data.length;
             const digest = await crypto.subtle.digest('SHA-256', data);
             const actual = [...new Uint8Array(digest)].map(x => x.toString(16).padStart(2,'0')).join('');
             result.push({ path: path(url.href), status: actual === entry.sha256 ? 'MATCH' : 'HASH_MISMATCH', expected: entry.sha256, actual });
