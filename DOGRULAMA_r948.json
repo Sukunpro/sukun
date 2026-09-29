@@ -1,0 +1,894 @@
+{
+  "build": "r948",
+  "base": "r947",
+  "pass": true,
+  "date": "2026-09-29",
+  "scope": "Kaynaklı nefs rehberi, 164 soru, cevaplara dayalı dört öneri alanı ve yedi günlük plan",
+  "production": {
+    "indexSha256": "0c54b6dba9da3cd3ead363d4679d3446ed81f574012ccb04816d3f1d53bd5708",
+    "swSha256": "4a8d0bc9dc946d54bc83c832a9d42d5631cd15cf1ce773b7219fc026b3c8e601",
+    "runtimeFiles": 22,
+    "changedBaselineFiles": [
+      "sw.js",
+      "sukun-latest.json",
+      "index.html",
+      "nero.html",
+      "manifest.webmanifest",
+      "PAKET_KAPSAMI.json"
+    ],
+    "preservedBaselineFiles": 239,
+    "duplicateIds": []
+  },
+  "limitations": [
+    "Ölçek psikometrik olarak geçerlenmiş değildir; gerçek manevi makamı veya ilahi kabulü tespit etmez.",
+    "Spotify kanalının tamamı dinlenmedi; X paylaşım arşivlerine tam erişilemedi. Kaynak kartlarında erişim kapsamı açıklanır.",
+    "Fiziksel Android ekran kilidi ve işitilebilir ses testi yapılmadı.",
+    "Mevcut kuruluma birleştirme paketidir; bütün tarihsel görselleri içeren temiz kurulum paketi değildir.",
+    "Canlı siteye yüklenmedi."
+  ],
+  "checks": {
+    "release": {
+      "suite": "r948-release",
+      "build": "r948",
+      "startedAt": "2026-09-29T09:56:45.299Z",
+      "physicalDeviceLockScreen": "NOT_RUN",
+      "checks": [
+        {
+          "name": "HTML entry points identical and current",
+          "status": "PASS",
+          "entryPoints": [
+            "index.html",
+            "nero.html"
+          ],
+          "build": "r948"
+        },
+        {
+          "name": "Release marker, manifest and SW identities agree",
+          "status": "PASS",
+          "runtimeFiles": 22
+        },
+        {
+          "name": "All required runtime files match SHA-256 and HTML SRI",
+          "status": "PASS",
+          "runtimeFiles": 22
+        },
+        {
+          "name": "All executable scripts parse",
+          "status": "PASS",
+          "inline": 242,
+          "external": 14
+        }
+      ],
+      "browser": [
+        {
+          "name": "Clean mobile Chromium install has verified matching controller",
+          "status": "PASS",
+          "identity": {
+            "version": "r948",
+            "appVersion": "r948",
+            "phase": "ready",
+            "workerVersion": "r948",
+            "controllerVersion": "r948",
+            "activeVersion": "r948",
+            "waitingVersion": "",
+            "cache": "sukun-r948-nefs-muhasebe-20260928-v1",
+            "complete": true,
+            "controllerCache": "sukun-r948-nefs-muhasebe-20260928-v1",
+            "controllerComplete": true,
+            "waitingCache": "",
+            "waitingComplete": null,
+            "lastError": "",
+            "lastChange": 1790675830651,
+            "hasWaiting": false,
+            "hasController": true,
+            "versionMatch": true,
+            "updateQueued": false,
+            "reloadPending": false,
+            "sessionBusy": false
+          }
+        },
+        {
+          "name": "Clean installed shell and every runtime work offline",
+          "status": "PASS",
+          "runtimeFiles": 22
+        },
+        {
+          "name": "Clean installation and offline reload have no JS page errors",
+          "status": "PASS"
+        },
+        {
+          "name": "r947 remains active while verified r948 waits",
+          "status": "PASS",
+          "waiting": {
+            "version": "r947",
+            "appVersion": "r947",
+            "phase": "waiting",
+            "workerVersion": "r947",
+            "controllerVersion": "r947",
+            "activeVersion": "r947",
+            "waitingVersion": "r948",
+            "cache": "sukun-r947-background-start-20260927-v1",
+            "complete": true,
+            "controllerCache": "sukun-r947-background-start-20260927-v1",
+            "controllerComplete": true,
+            "waitingCache": "sukun-r948-nefs-muhasebe-20260928-v1",
+            "waitingComplete": true,
+            "lastError": "",
+            "lastChange": 1790675866633,
+            "hasWaiting": true,
+            "hasController": true,
+            "versionMatch": true,
+            "updateQueued": false,
+            "reloadPending": false,
+            "sessionBusy": false
+          }
+        },
+        {
+          "name": "User-triggered r947 to r948 update reloads once and preserves actual recording/ambience IndexedDB, chosen theme and localStorage",
+          "status": "PASS",
+          "reloads": 1,
+          "stores": [
+            "sukunRec/clips",
+            "sukunCustomAmb/sounds"
+          ],
+          "fixtureBytes": 46,
+          "theme": {
+            "stored": "\"gul\"",
+            "applied": "gul"
+          }
+        },
+        {
+          "name": "Updated release works offline and retains stored user fixture data",
+          "status": "PASS",
+          "runtimeFiles": 22
+        },
+        {
+          "name": "r947 to r948 upgrade and offline reload have no JS page errors",
+          "status": "PASS"
+        },
+        {
+          "name": "missing required r948 runtime rejects installation and keeps verified r947 usable offline",
+          "status": "PASS",
+          "rejectedRuntime": "assets/runtime/health-r940.js",
+          "activeBuild": "r947",
+          "unwantedReloads": 0,
+          "deliberateOfflineReloads": 1,
+          "stagedComplete": false
+        },
+        {
+          "name": "tampered required r948 runtime rejects installation and keeps verified r947 usable offline",
+          "status": "PASS",
+          "rejectedRuntime": "assets/runtime/health-r940.js",
+          "activeBuild": "r947",
+          "unwantedReloads": 0,
+          "deliberateOfflineReloads": 1,
+          "stagedComplete": false
+        }
+      ],
+      "errors": [],
+      "hashes": {
+        "html": "0c54b6dba9da3cd3ead363d4679d3446ed81f574012ccb04816d3f1d53bd5708",
+        "sw": "4a8d0bc9dc946d54bc83c832a9d42d5631cd15cf1ce773b7219fc026b3c8e601",
+        "marker": "e111eccbf0d22c5e50d1dbe015b155f3af2cca17d589f69344830fc113f48ed7",
+        "latest": "d5728258878fbda06bcbb7202699509d9c305ae8d565f5dda0be90ab04bc599f",
+        "manifest": "3ae18cb4d9b60b2ec76954da7ee397d996af0e49340e8db78eeed3feca4e9be8",
+        "runtime": [
+          {
+            "url": "./assets/runtime/berhet-layout-r938.css?v=r948",
+            "sha256": "890b450548d847b3a4786a9e287f4a5470381936a4a5fb87eb827f148bc0458e"
+          },
+          {
+            "url": "./assets/runtime/berhet-materials-r933.css?v=r948",
+            "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"
+          },
+          {
+            "url": "./assets/runtime/berhet-controls-r933.css?v=r948",
+            "sha256": "8525a29528c4903e957f14095f7cdb64089df5f97f80be18aa55ef4749345a37"
+          },
+          {
+            "url": "./assets/runtime/berhet-dock-r933.css?v=r948",
+            "sha256": "0d5fa1db8b6af4b5db8b3191e9e4e82ea3b478ce069d6793d4aa8f72a110e376"
+          },
+          {
+            "url": "./assets/runtime/audio-palette-r945.js?v=r948",
+            "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1"
+          },
+          {
+            "url": "./assets/runtime/esma-scenes-r923.js?v=r948",
+            "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"
+          },
+          {
+            "url": "./assets/runtime/session-r919.js?v=r948",
+            "sha256": "87d415d9f966ee992cb6311e758ae5ed76b03bb782fd935179a20ba94647c9d9"
+          },
+          {
+            "url": "./assets/runtime/dock-r920.js?v=r948",
+            "sha256": "d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0"
+          },
+          {
+            "url": "./assets/runtime/wheels-r924.js?v=r948",
+            "sha256": "ba3a4d86c90ea34d7b582eab63e086515555a94958beef3fd68909188799b80d"
+          },
+          {
+            "url": "./assets/runtime/berhet-layout-r938.js?v=r948",
+            "sha256": "c8279faa122058891dafb5ce4a6f05ebbea2bfdec53456ca430917f62837e99f"
+          },
+          {
+            "url": "./assets/runtime/interface-r920.js?v=r948",
+            "sha256": "27b0678bc606a2bc89a5bfc2a45aeefbf41465c7b21f0850034ee681c4672435"
+          },
+          {
+            "url": "./assets/runtime/wheels-r924.css?v=r948",
+            "sha256": "8b9820a362ffcba66affa7091909ab6dd4e56c872374e95897c2e67d448db386"
+          },
+          {
+            "url": "./assets/runtime/berhet-theme-r933.js?v=r948",
+            "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434"
+          },
+          {
+            "url": "./assets/runtime/health-view-r943.css?v=r948",
+            "sha256": "934c6875922409ce7821bdfbd915d2d987387ea045bca8661abd14628922143e"
+          },
+          {
+            "url": "./assets/runtime/health-view-r943.js?v=r948",
+            "sha256": "ba1711790188c2d28a8bbd26eeac4886f576497947baa9e83ade53f2ed3b48e0"
+          },
+          {
+            "url": "./assets/runtime/scene-picker-r945.css?v=r948",
+            "sha256": "b605bf5ec4fc8c58726e8aea4e318ccf99c368d36b9274bb22069747c17f72f1"
+          },
+          {
+            "url": "./assets/runtime/scene-picker-r945.js?v=r948",
+            "sha256": "c71655be177234f642c80880af53726e64beac66cb087c5e29dc9cc70dd8a283"
+          },
+          {
+            "url": "./assets/runtime/health-r940.js?v=r948",
+            "sha256": "e3fa42fbc19841813cd9125065b6f70c0b719f1f4fe3055923cf39cfc11e7491"
+          },
+          {
+            "url": "./assets/runtime/nefs-r948.css?v=r948",
+            "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf"
+          },
+          {
+            "url": "./assets/runtime/nefs-data-r948.js?v=r948",
+            "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c"
+          },
+          {
+            "url": "./assets/runtime/nefs-model-r948.js?v=r948",
+            "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b"
+          },
+          {
+            "url": "./assets/runtime/nefs-ui-r948.js?v=r948",
+            "sha256": "df7a33cff07d2b9b0b7c1e0f1da15282109bbdaa8328b872ca59e72015bcfc62"
+          }
+        ]
+      },
+      "baseline": {
+        "build": "r947",
+        "source": "checksum-verified-directory",
+        "directory": "work-r947",
+        "zip": null,
+        "html": "10b482695f5fa646a529c070d29c078c694f28d16cb4a17e033a57fa0ea1cf76",
+        "sw": "4703ce2a6b2782ca88c2c98aae0547b8eb43e2915ec02b66d28360085921bcb6"
+      },
+      "browserVersion": "153.0.8010.0",
+      "optionalOverlayMisses": [
+        "assets/feyz-ornament.svg",
+        "assets/feyz-pattern-r718.svg",
+        "assets/sukun-nur-mist-r759.svg",
+        "assets/sukun-nur-orbit-r757.svg",
+        "assets/sukun-tesbih-weave-r759.svg",
+        "assets/tefekkur-sanctuary-r710.webp"
+      ],
+      "status": "PASS",
+      "finishedAt": "2026-09-29T09:59:29.866Z"
+    },
+    "ui": {
+      "suite": "r948-independent-nefs-ui",
+      "startedAt": "2026-09-29T09:56:48.267Z",
+      "physicalLockScreen": "NOT_RUN",
+      "serviceWorkers": "blocked; covered by root release suite",
+      "fixtures": [
+        "390px/320px: existing onboarding dismissed with obClose; startup acilisPerde display hidden; existing opening classes allowed to settle; displayed daily quote dismissed through its Âmîn button. No auth state changes.",
+        "Explicit localStorage fixture: all 120 actual bank questions answered; first four domains low, remaining domains high, normalized through each item direction/options. No source bank or model mutations.",
+        "Playback check: valid generated two-second PCM tone stored under current esma recording key using existing REC_DB; existing app autoStart transport. No visibility or media method mocks."
+      ],
+      "checks": [
+        {
+          "name": "open route brings module heading into viewport",
+          "status": "PASS",
+          "evidence": {
+            "x": 35,
+            "y": 187.453125,
+            "width": 320,
+            "height": 79.5
+          }
+        },
+        {
+          "name": "feature mounted inside existing nefsBox and content counts are present",
+          "status": "PASS",
+          "evidence": {
+            "contained": true,
+            "q": 120,
+            "knowledge": 28,
+            "notes": 16
+          }
+        },
+        {
+          "name": "manual answer selection does not auto-advance; draft and cursor survive reload",
+          "status": "PASS",
+          "evidence": {
+            "id": "B001",
+            "persistedAnswer": 2,
+            "cursor": 1
+          }
+        },
+        {
+          "name": "insufficient responses withhold stage and scored domains",
+          "status": "PASS",
+          "evidence": {
+            "stage": {
+              "id": "withheld",
+              "title": "Yorum için kapsamı tamamla",
+              "explanation": "Bir tema yorumu için her alanda en az 6 davranış ve 1 senaryo cevabı, toplamda en az 96 geçerli cevap gerekiyor. Boş ve “değerlendiremiyorum” cevapları puanlanmaz.",
+              "limitations": "Bu, yalnızca seçtiğin cevaplara dayanan sınırlı bir öz-bildirim okumasıdır; manevî makamını, imanını veya Allah’ın rızasını belirlemez. Eşikler pedagojik örnektir; psikometrik olarak doğrulanmış değildir."
+            },
+            "answered": 1
+          }
+        },
+        {
+          "name": "knowledge answer changes no behavior result and feedback appears only after answer",
+          "status": "PASS",
+          "evidence": {
+            "compared": "all analysis fields except independent knowledge summary"
+          }
+        },
+        {
+          "name": "malicious reflection remains literal after render and reload",
+          "status": "PASS",
+          "evidence": {
+            "literalLength": 88,
+            "injectedNodes": 0
+          }
+        },
+        {
+          "name": "import cancel preserves draft; accepted sanitized import replaces only feature draft",
+          "status": "PASS",
+          "evidence": {
+            "cancelledThenAccepted": true,
+            "extraFieldsDropped": true
+          }
+        },
+        {
+          "name": "invalid import reports failure and leaves data untouched",
+          "status": "PASS"
+        },
+        {
+          "name": "reset cancel preserves draft; confirm clears only feature data",
+          "status": "PASS",
+          "evidence": {
+            "cancelledThenAccepted": true,
+            "otherStoragePreserved": true
+          }
+        },
+        {
+          "name": "all not-applicable fixture produces no score or stage",
+          "status": "PASS"
+        },
+        {
+          "name": "complete mixed profile has four action sections backed by observed answers",
+          "status": "PASS",
+          "evidence": {
+            "titles": [
+              "Düzelt",
+              "Korumaya devam et",
+              "Alışkanlığını değiştir",
+              "Zayıf düştüğün durumlar"
+            ],
+            "evidenceInAllFourSections": true,
+            "days": 7
+          }
+        },
+        {
+          "name": "390px complete-profile home fits host and has 44px controls",
+          "status": "PASS",
+          "evidence": {
+            "textOverflow": [],
+            "host": {
+              "left": 22,
+              "right": 368,
+              "width": 346,
+              "client": 346,
+              "scroll": 346
+            },
+            "viewport": 390,
+            "overflow": [],
+            "tooSmall": [],
+            "controlCount": 15
+          }
+        },
+        {
+          "name": "390px complete-profile guide fits host and has 44px controls",
+          "status": "PASS",
+          "evidence": {
+            "textOverflow": [],
+            "host": {
+              "left": 22,
+              "right": 368,
+              "width": 346,
+              "client": 346,
+              "scroll": 346
+            },
+            "viewport": 390,
+            "overflow": [],
+            "tooSmall": [],
+            "controlCount": 99
+          }
+        },
+        {
+          "name": "390px complete-profile test fits host and has 44px controls",
+          "status": "PASS",
+          "evidence": {
+            "textOverflow": [],
+            "host": {
+              "left": 22,
+              "right": 368,
+              "width": 346,
+              "client": 346,
+              "scroll": 346
+            },
+            "viewport": 390,
+            "overflow": [],
+            "tooSmall": [],
+            "controlCount": 24
+          }
+        },
+        {
+          "name": "390px complete-profile result fits host and has 44px controls",
+          "status": "PASS",
+          "evidence": {
+            "textOverflow": [],
+            "host": {
+              "left": 22,
+              "right": 368,
+              "width": 346,
+              "client": 346,
+              "scroll": 346
+            },
+            "viewport": 390,
+            "overflow": [],
+            "tooSmall": [],
+            "controlCount": 38
+          }
+        },
+        {
+          "name": "390px complete-profile journal fits host and has 44px controls",
+          "status": "PASS",
+          "evidence": {
+            "textOverflow": [],
+            "host": {
+              "left": 22,
+              "right": 368,
+              "width": 346,
+              "client": 346,
+              "scroll": 346
+            },
+            "viewport": 390,
+            "overflow": [],
+            "tooSmall": [],
+            "controlCount": 27
+          }
+        },
+        {
+          "name": "390px complete-profile sources fits host and has 44px controls",
+          "status": "PASS",
+          "evidence": {
+            "textOverflow": [],
+            "host": {
+              "left": 22,
+              "right": 368,
+              "width": 346,
+              "client": 346,
+              "scroll": 346
+            },
+            "viewport": 390,
+            "overflow": [],
+            "tooSmall": [],
+            "controlCount": 132
+          }
+        },
+        {
+          "name": "complete low fixture shows bounded themes and response evidence",
+          "status": "PASS",
+          "evidence": {
+            "overall": 0,
+            "theme": "Emmâre ile mücadele temaları",
+            "automaticHigherStages": false
+          }
+        },
+        {
+          "name": "complete high fixture shows bounded themes and response evidence",
+          "status": "PASS",
+          "evidence": {
+            "overall": 100,
+            "theme": "Mutmainne temaları",
+            "automaticHigherStages": false
+          }
+        },
+        {
+          "name": "question interactions issue no network requests",
+          "status": "PASS",
+          "evidence": {
+            "requests": 0
+          }
+        },
+        {
+          "name": "idle audio/session/counter/tempo unchanged while opening and answering",
+          "status": "PASS",
+          "evidence": {
+            "before": {
+              "tempo": 1,
+              "count": 0,
+              "auto": false,
+              "key": "esma:0",
+              "sessionId": "mumi9vr5:0",
+              "epoch": 0,
+              "requestId": 0,
+              "owner": "",
+              "phase": "IDLE",
+              "audioSource": "SILENCE",
+              "contexts": 1,
+              "mediaPlaying": 0
+            },
+            "after": {
+              "tempo": 1,
+              "count": 0,
+              "auto": false,
+              "key": "esma:0",
+              "sessionId": "mumi9vr5:0",
+              "epoch": 0,
+              "requestId": 0,
+              "owner": "",
+              "phase": "IDLE",
+              "audioSource": "SILENCE",
+              "contexts": 1,
+              "mediaPlaying": 0
+            }
+          }
+        },
+        {
+          "name": "real recording playback keeps session, tempo and source while using feature",
+          "status": "PASS",
+          "evidence": {
+            "before": {
+              "tempo": 1,
+              "count": 1,
+              "auto": true,
+              "key": "esma:0",
+              "sessionId": "mumib4vg:1",
+              "epoch": 1,
+              "requestId": 1,
+              "owner": "auto-zikir",
+              "phase": "PLAYING",
+              "audioSource": "USER_RECORDING",
+              "contexts": 1,
+              "mediaPlaying": 1
+            },
+            "after": {
+              "tempo": 1,
+              "count": 5,
+              "auto": true,
+              "key": "esma:0",
+              "sessionId": "mumib4vg:1",
+              "epoch": 1,
+              "requestId": 1,
+              "owner": "auto-zikir",
+              "phase": "PLAYING",
+              "audioSource": "USER_RECORDING",
+              "contexts": 1,
+              "mediaPlaying": 1
+            },
+            "tefBefore": {
+              "tempo": 1,
+              "count": 6,
+              "auto": true,
+              "key": "esma:0",
+              "sessionId": "mumib4vg:1",
+              "epoch": 1,
+              "requestId": 1,
+              "owner": "auto-zikir",
+              "phase": "PLAYING",
+              "audioSource": "USER_RECORDING",
+              "contexts": 1,
+              "mediaPlaying": 1
+            },
+            "tefAfterCancel": {
+              "tempo": 1,
+              "count": 6,
+              "auto": true,
+              "key": "esma:0",
+              "sessionId": "mumib4vg:1",
+              "epoch": 1,
+              "requestId": 1,
+              "owner": "auto-zikir",
+              "phase": "PLAYING",
+              "audioSource": "USER_RECORDING",
+              "contexts": 1,
+              "mediaPlaying": 1
+            },
+            "tefAfterAccept": {
+              "tempo": 1,
+              "count": 7,
+              "auto": true,
+              "key": "esma:0",
+              "sessionId": "mumib4vg:1",
+              "epoch": 1,
+              "requestId": 1,
+              "owner": "auto-zikir",
+              "phase": "PLAYING",
+              "audioSource": "USER_RECORDING",
+              "contexts": 1,
+              "mediaPlaying": 1
+            },
+            "tefConfirmCancelAndAccept": true,
+            "audibleSound": "NOT_MEASURED; real Chromium native recording playback observed"
+          }
+        },
+        {
+          "name": "feature browsing raises no page errors",
+          "status": "PASS",
+          "evidence": {
+            "errors": []
+          }
+        },
+        {
+          "name": "320px open route brings module heading into viewport",
+          "status": "PASS",
+          "evidence": {
+            "x": 33,
+            "y": 188.21875,
+            "width": 254,
+            "height": 100.390625
+          }
+        },
+        {
+          "name": "320px complete-profile home fits host and has 44px controls",
+          "status": "PASS",
+          "evidence": {
+            "textOverflow": [],
+            "host": {
+              "left": 22,
+              "right": 298,
+              "width": 276,
+              "client": 276,
+              "scroll": 276
+            },
+            "viewport": 320,
+            "overflow": [],
+            "tooSmall": [],
+            "controlCount": 15
+          }
+        },
+        {
+          "name": "320px complete-profile guide fits host and has 44px controls",
+          "status": "PASS",
+          "evidence": {
+            "textOverflow": [],
+            "host": {
+              "left": 22,
+              "right": 298,
+              "width": 276,
+              "client": 276,
+              "scroll": 276
+            },
+            "viewport": 320,
+            "overflow": [],
+            "tooSmall": [],
+            "controlCount": 99
+          }
+        },
+        {
+          "name": "320px complete-profile test fits host and has 44px controls",
+          "status": "PASS",
+          "evidence": {
+            "textOverflow": [],
+            "host": {
+              "left": 22,
+              "right": 298,
+              "width": 276,
+              "client": 276,
+              "scroll": 276
+            },
+            "viewport": 320,
+            "overflow": [],
+            "tooSmall": [],
+            "controlCount": 24
+          }
+        },
+        {
+          "name": "320px complete-profile result fits host and has 44px controls",
+          "status": "PASS",
+          "evidence": {
+            "textOverflow": [],
+            "host": {
+              "left": 22,
+              "right": 298,
+              "width": 276,
+              "client": 276,
+              "scroll": 276
+            },
+            "viewport": 320,
+            "overflow": [],
+            "tooSmall": [],
+            "controlCount": 38
+          }
+        },
+        {
+          "name": "320px complete-profile journal fits host and has 44px controls",
+          "status": "PASS",
+          "evidence": {
+            "textOverflow": [],
+            "host": {
+              "left": 22,
+              "right": 298,
+              "width": 276,
+              "client": 276,
+              "scroll": 276
+            },
+            "viewport": 320,
+            "overflow": [],
+            "tooSmall": [],
+            "controlCount": 27
+          }
+        },
+        {
+          "name": "320px complete-profile sources fits host and has 44px controls",
+          "status": "PASS",
+          "evidence": {
+            "textOverflow": [],
+            "host": {
+              "left": 22,
+              "right": 298,
+              "width": 276,
+              "client": 276,
+              "scroll": 276
+            },
+            "viewport": 320,
+            "overflow": [],
+            "tooSmall": [],
+            "controlCount": 132
+          }
+        },
+        {
+          "name": "tested five files unchanged during test execution",
+          "status": "PASS",
+          "evidence": {
+            "nero.html": "0c54b6dba9da3cd3ead363d4679d3446ed81f574012ccb04816d3f1d53bd5708",
+            "assets/runtime/nefs-data-r948.js": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+            "assets/runtime/nefs-model-r948.js": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+            "assets/runtime/nefs-ui-r948.js": "df7a33cff07d2b9b0b7c1e0f1da15282109bbdaa8328b872ca59e72015bcfc62",
+            "assets/runtime/nefs-r948.css": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf"
+          }
+        }
+      ],
+      "errors": [],
+      "hashes": {
+        "nero.html": "0c54b6dba9da3cd3ead363d4679d3446ed81f574012ccb04816d3f1d53bd5708",
+        "assets/runtime/nefs-data-r948.js": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+        "assets/runtime/nefs-model-r948.js": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+        "assets/runtime/nefs-ui-r948.js": "df7a33cff07d2b9b0b7c1e0f1da15282109bbdaa8328b872ca59e72015bcfc62",
+        "assets/runtime/nefs-r948.css": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf"
+      },
+      "screenshots": [
+        "qa948/screenshots/390-home.png",
+        "qa948/screenshots/390-question.png",
+        "qa948/screenshots/390-result.png",
+        "qa948/screenshots/320-home.png",
+        "qa948/screenshots/320-question.png",
+        "qa948/screenshots/320-result.png"
+      ],
+      "browser": "153.0.8010.0",
+      "status": "PASS",
+      "finishedAt": "2026-09-29T10:02:23.293Z",
+      "revalidation": {
+        "method": "Full final-snapshot suite: 30 checks passed; one inter-repeat phase sampling assertion revalidated by bounded atomic playback snapshot on identical production hashes. No production changes for revalidation.",
+        "previousFailure": {
+          "name": "real recording playback keeps session, tempo and source while using feature",
+          "status": "FAIL",
+          "error": "phase\n+ actual - expected\n\n+ 'PREPARING'\n- 'PLAYING'\n"
+        },
+        "targetedReport": "ui-audio-results.json",
+        "completedAt": "2026-09-29T10:02:08.044Z"
+      },
+      "testScriptSha256": "751d36f6e42910fc2199920c617f5666ae6cd8471fa1c1ec58cda2e0117fb296"
+    },
+    "model": {
+      "build": "r948",
+      "generatedAt": "2026-09-29T09:56:43.573Z",
+      "status": "passed",
+      "sha256": {
+        "work-r948/assets/runtime/nefs-model-r948.js": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+        "work-r948/assets/runtime/nefs-data-r948.js": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+        "work-r948/assets/runtime/nefs-ui-r948.js": "df7a33cff07d2b9b0b7c1e0f1da15282109bbdaa8328b872ca59e72015bcfc62",
+        "qa948/model-tests.cjs": "64cd14c57e66fb31f164a0c29b289a5ae5603246d4bfcba1ffd6eb275495e6b5",
+        "qa948/complete-content.json": "adcd17ca7702469676ede931b38b411d7e3b4399dcefeea1b6db9f526b10cf3d"
+      },
+      "testRun": {
+        "passed": 16,
+        "tests": [
+          "browser and CommonJS expose the same three pure functions; no storage or network access",
+          "all missing answers withhold domains, overall and stage",
+          "all N/A answers remain missing, never zero",
+          "zero is valid, reverse-keyed behavior is corrected, scenario IDs use explicit values",
+          "all high answers are conditional themes with a neutral uniform-pattern notice",
+          "all low answers contain no fabricated strength and do offer concrete repair",
+          "knowledge alone cannot produce spirituality scores, and correct knowledge never changes them",
+          "domain coverage requires 6/8 behavior plus 1/2 scenario; overall additionally requires 96/120",
+          "invalid types and out-of-range answers are omitted rather than coerced",
+          "illustrative thresholds are exact and never assign advanced atlas stations",
+          "four context discrepancies withhold theme without deleting scores; three do not",
+          "all recommendations cite observed answers in their own scored domain",
+          "draft defaults are fresh, stable and have a narrowly bounded schema",
+          "corrupt, cross-version, prototype-polluting and accessor drafts cannot import data",
+          "analysis is deterministic, leaves inputs unchanged and excludes private reflections",
+          "production bank has expected coverage and supports full high, low and knowledge-only paths"
+        ]
+      },
+      "productionBank": {
+        "domains": 12,
+        "behavior": 96,
+        "scenario": 24,
+        "knowledge": 28,
+        "reflections": 16
+      },
+      "productionDataParity": "Exact runtime data and complete-content equality; high/mid/low analysis equal.",
+      "limitations": [
+        "Pedagogical thresholds are not psychometrically validated.",
+        "Self-reports cannot certify a spiritual station or divine acceptance.",
+        "Physical Android background audio not tested by this model suite."
+      ]
+    },
+    "content": {
+      "reviewDate": "2026-09-29T09:58:11.835976+00:00",
+      "reviewer": "Root editor: manual review of all supplement sources/guides and K017–K028/R009–R016; automated structural validation. Prior base-bank fairness review retained as historical evidence, not an independent new review.",
+      "scope": [
+        "qa948/complete-content.json",
+        "qa948/build-content.py",
+        "work-r948/assets/runtime/nefs-data-r948.js"
+      ],
+      "productionEdited": false,
+      "snapshotSha256": {
+        "qa948/complete-content.json": "adcd17ca7702469676ede931b38b411d7e3b4399dcefeea1b6db9f526b10cf3d",
+        "qa948/build-content.py": "85e98a6c4081e7513b842a17bae20cd13d259adce2a8630e8196b74ed09323df",
+        "work-r948/assets/runtime/nefs-data-r948.js": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c"
+      },
+      "overall": "PASS: final source scopes, conditional result wording, added metaphysical learning material and structural checks reviewed; no unresolved release-blocking content issue identified.",
+      "facts": {
+        "allItems": 164,
+        "behaviorItems": 96,
+        "reverseItems": 48,
+        "scenarioItems": 24,
+        "knowledgeItems": 28,
+        "reflectionItems": 16,
+        "domains": 12,
+        "guides": 79,
+        "sourceRecords": 124
+      },
+      "findings": [
+        "All question, guide, stage and optional reflection references resolve; IDs are unique; 28 knowledge answer keys and 24 scenario value sets valid.",
+        "Old Qadiri bibliography-only questionSourceMap was not applied. Attribution research is not used as behavioural scoring evidence.",
+        "Primary excerpt, translation, secondary summary, catalogue, search-index fragment, unavailable full text and attribution uncertainty are distinguished in source cards.",
+        "Maâricü’l-Kuds, Sırrü’l-Esrâr, Gavsiyye, Tabsıra and Miftâhu’l-Kulûb attribution limits/corrections visible. Risâletü’s-Sülûk exact attribution not verified and not used as question evidence.",
+        "New metaphysical content covers positive concepts as well as interpretation boundaries; knowledge and private reflection do not change behavioural theme results.",
+        "No extraordinary-experience points, divine-approval claims, fixed spiritual-rank certification, compulsory obedience, harmful deprivation or illness-as-moral-failure inference found in reviewed additions.",
+        "Every added guide distinguishes its original exercise from a historical text or validated measurement tool. Full books/audio/social archives are not claimed to have been read.",
+        "High/low result edep, evidence-backed repair/maintain/change/observation suggestions and seven-day plan remain in base content and tested model."
+      ],
+      "limitations": [
+        "Religious interpretation has not received an independent scholarly endorsement.",
+        "Pedagogical self-report thresholds are not psychometrically validated and cannot ascertain a spiritual station.",
+        "Many requested books have only selected excerpt or bibliographic coverage; requested full social/media corpus not accessed."
+      ]
+    }
+  }
+}
