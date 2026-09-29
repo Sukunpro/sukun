@@ -1,24 +1,7 @@
-r949 — Ses yaşam döngüsü, tempo devamlılığı ve daha büyük Tefekkür çarkı
+r954 — Kilitte sonraki isimde eko ve 8D
 
-Bu paket mevcut SÜKÛN kurulumuna birleştirme güncellemesidir. Canlı siteye yükleme yapılmadı.
-
-1. ZIP içeriğini Sukunpro/sukun site köküne yükleyin. assets klasörünü mevcut assets ile birleştirin; paket dışında kalan eski dosyaları veya kullanıcı verilerini silmeyin.
-2. index.html, nero.html, sw.js, manifest, sürüm JSON dosyaları ve assets/runtime dosyalarını birlikte yayımlayın. Yalnız HTML yüklemek yeterli değildir.
-3. Yayın tamamlandıktan sonra aktif sesinizi durdurun ve uygulamanın Güncelle düğmesini kullanın. Sağlık kontrolünde uygulama r949 / SW r949 eşleşmesini görün.
-4. Yayın sonrası adres: https://sukunpro.github.io/sukun/nero.html?v=r949
-   Adresteki v parametresi tek başına güncelleme yapmaz; dosyaların sunucuda yayımlanması gerekir.
-
-Neler değişti?
-Kendi kayıt sesinin görünür/gizli ekran geçişi aynı kaynak, hız ve çevrimle çalışır. Reddedilmiş arka plan başlatması döngü halinde zorlanmaz. Sistem durdurması ile sizin Duraklat/Bitir tercihiniz ayrılır. Çizim işi azaltıldı, sahne önizlemeleri küçültüldü ve yönetilen sahne sayısı sınırlandı. Berhetiyye Tefekkür çarkı büyüdü; alt kontrolleri gizleyince daha da büyür. Sağlık raporuna sesin gerçek durumu, sekme yaşam döngüsü ve ek kaynak göstergeleri eklendi.
-
-Sağlık kontrolü
-Klasik düzende yüzüğe 9 kez dokununca açılan araçların en altındaki sağlık kontrolünü açın. Sorunu yaşadığınız anda “Sorun şimdi oldu”, ardından “Raporu indir” kullanın.
-
-Tempo nasıl hesaplanıyor?
-Kendi kayıt için seçtiğiniz aralık, okunan kaydın süresinden kısa ise kayıt kesilmez; en az kayıt süresi + küçük geçiş payı kullanılır. Bu hesap ekran açık/gizli değişmez. 28/99 seyirde ara ve okuma hızı, kelime biterken uygulanır. Telefonun gerçek kilit ekranı testi bu ortamda yapılamadı; TELEFON_TESTI_r949.txt bu ayrımı açıklar.
-
-Korunan özellikler
-r948 nefs rehberi, test soruları, sonuç modeli ve arayüz dosyaları değişmedi. Önceki günlükler, kayıtlar ve tema verileri silinmez. Eski r919/r940/r948 gibi runtime dosya adları bileşen sürümleridir; ana uygulama ve SW sürümü r949 olmalıdır.
-
-Doğrulama
-RAPOR_r949.md ve DOGRULAMA_r949.json gerçek testlerin kapsamını açıklar. Son paket otomatik kontrolleri geçti. 30 dakika soak erken r949 adayında yapıldı; sonraki düzeltmeler hedefli testlerle doğrulandı. “Her telefonda kesin kesintisiz” garantisi verilmez. Temiz siteye kurulum için gereken tüm tarihsel dosyalar bu birleştirme paketinde bulunmayabilir.
+Bu paket mevcut kuruluma birleştirme güncellemesidir; canlı siteye yükleme yapılmadı.
+ZIP içeriğini aynı site köküne yükleyin, assets klasörünü mevcut assets ile birleştirin.
+Kullanıcı kayıtlarını/verilerini veya paket dışında kalan dosyaları silmeyin.
+Aktif okumayı durdurup uygulamayı güncelleyin. Uygulama ve SW r954 olmalı.
+Düzeltme ayrıntıları, test sınırları ve telefon denemesi: RAPOR_r954.md.
