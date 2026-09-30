@@ -1,0 +1,576 @@
+{
+  "build": "r957",
+  "audio": {
+    "method": "r957 production functions extracted; fake media/decode host. Fake native Audio host and synthetic PCM inputs; no audible output or device lock test.",
+    "results": [
+      {
+        "id": "AUD-01-hidden-cold-fx-deadline",
+        "actual": {
+          "fx": false,
+          "playUrl": "",
+          "gapDesiredMs": 1000,
+          "volume": 1,
+          "plays": 0,
+          "paused": true,
+          "prepared": false,
+          "fallbacks": []
+        },
+        "afterPreparation": {
+          "fx": true,
+          "playUrl": "blob:prepared-FX",
+          "gapDesiredMs": 1000,
+          "gapIncludedMs": 1000,
+          "volume": 1,
+          "plays": 1,
+          "paused": false,
+          "prepared": true,
+          "fallbacks": []
+        },
+        "completion": {
+          "ok": false,
+          "reason": "audit-end"
+        },
+        "events": [
+          {
+            "type": "sukun:journey-native-source",
+            "detail": {
+              "key": "berhet:2",
+              "hidden": true,
+              "fx": true,
+              "spatial": true,
+              "at": 1790737529962
+            }
+          },
+          {
+            "type": "sukun:journey-native-playing",
+            "detail": {
+              "key": "berhet:2",
+              "hidden": true,
+              "attempts": 1,
+              "at": 1790737529963
+            }
+          }
+        ],
+        "pass": true
+      },
+      {
+        "id": "AUD-02-hidden-cached-fx",
+        "actual": {
+          "fx": true,
+          "playUrl": "blob:prepared-FX",
+          "gapDesiredMs": 1000,
+          "gapIncludedMs": 1000,
+          "volume": 1,
+          "plays": 1,
+          "paused": false,
+          "prepared": false,
+          "fallbacks": []
+        },
+        "afterPreparation": null,
+        "completion": {
+          "ok": false,
+          "reason": "audit-end"
+        },
+        "events": [
+          {
+            "type": "sukun:journey-native-source",
+            "detail": {
+              "key": "berhet:2",
+              "hidden": true,
+              "fx": true,
+              "spatial": true,
+              "at": 1790737530067
+            }
+          },
+          {
+            "type": "sukun:journey-native-playing",
+            "detail": {
+              "key": "berhet:2",
+              "hidden": true,
+              "attempts": 1,
+              "at": 1790737530068
+            }
+          }
+        ],
+        "pass": true
+      },
+      {
+        "id": "AUD-03-zero-zikir-volume",
+        "actual": {
+          "fx": true,
+          "playUrl": "blob:prepared-FX",
+          "gapDesiredMs": 1000,
+          "gapIncludedMs": 1000,
+          "volume": 0,
+          "plays": 1,
+          "paused": false,
+          "prepared": false,
+          "fallbacks": []
+        },
+        "afterPreparation": null,
+        "completion": {
+          "ok": false,
+          "reason": "audit-end"
+        },
+        "events": [
+          {
+            "type": "sukun:journey-native-source",
+            "detail": {
+              "key": "berhet:2",
+              "hidden": true,
+              "fx": true,
+              "spatial": true,
+              "at": 1790737530100
+            }
+          },
+          {
+            "type": "sukun:journey-native-playing",
+            "detail": {
+              "key": "berhet:2",
+              "hidden": true,
+              "attempts": 1,
+              "at": 1790737530101
+            }
+          }
+        ],
+        "pass": true
+      },
+      {
+        "id": "AUD-04-zero-step",
+        "actual": {
+          "fx": true,
+          "playUrl": "blob:prepared-FX",
+          "gapDesiredMs": 1000,
+          "gapIncludedMs": 1000,
+          "volume": 0,
+          "plays": 1,
+          "paused": false,
+          "prepared": false,
+          "fallbacks": []
+        },
+        "afterPreparation": null,
+        "completion": {
+          "ok": false,
+          "reason": "audit-end"
+        },
+        "events": [
+          {
+            "type": "sukun:journey-native-source",
+            "detail": {
+              "key": "berhet:2",
+              "hidden": true,
+              "fx": true,
+              "spatial": true,
+              "at": 1790737530133
+            }
+          },
+          {
+            "type": "sukun:journey-native-playing",
+            "detail": {
+              "key": "berhet:2",
+              "hidden": true,
+              "attempts": 1,
+              "at": 1790737530133
+            }
+          }
+        ],
+        "pass": true
+      },
+      {
+        "id": "AUD-05-zero-main-echo-taps",
+        "actual": {
+          "mainVolume": 0,
+          "tapVolumes": [
+            0,
+            0,
+            0
+          ]
+        },
+        "pass": true,
+        "scope": "legacy native tap fallback; journey-native suppresses this fallback"
+      },
+      {
+        "id": "AUD-08-fx-failure-no-dry",
+        "pass": true,
+        "result": {
+          "ok": false,
+          "reason": "fx-prepare-failed"
+        }
+      },
+      {
+        "id": "AUD-09-user-stop-during-preparation",
+        "pass": true
+      },
+      {
+        "id": "AUD-10-settings-change-during-preparation",
+        "pass": true
+      },
+      {
+        "id": "AUD-11-late-old-source-cannot-overwrite",
+        "pass": true
+      },
+      {
+        "id": "AUD-12-deadline-no-late-play",
+        "pass": true,
+        "result": {
+          "ok": false,
+          "reason": "fx-prepare-timeout"
+        }
+      },
+      {
+        "id": "AUD-06-dsp-short-echo-stereo-gap",
+        "frames": 144000,
+        "channels": 2,
+        "impulses": [
+          {
+            "index": 48000,
+            "left": 0.7683852314949036,
+            "right": 0.13410469889640808
+          },
+          {
+            "index": 52320,
+            "left": 0.07845089584589005,
+            "right": 0.015667052939534187
+          },
+          {
+            "index": 56880,
+            "left": 0.04332895204424858,
+            "right": 0.012149164453148842
+          },
+          {
+            "index": 62880,
+            "left": 0.02260749228298664,
+            "right": 0.01067245565354824
+          }
+        ],
+        "pass": true
+      },
+      {
+        "id": "AUD-07-dsp-long-stereo-budget",
+        "duration": 40,
+        "sampleRate": 48000,
+        "channels": 2,
+        "estimatedWorkingBytes": 38400000,
+        "error": "PCM FX bellek sınırı",
+        "guardConfirmed": true,
+        "classification": "Intentional memory limit; contributes to cold-FX fallback risk, not itself a defect."
+      }
+    ]
+  },
+  "serviceWorker": {
+    "method": "Unchanged r957 sw.js executed in Node VM with modeled fetch and CacheStorage; no browser service-worker lifecycle was run.",
+    "results": [
+      {
+        "id": "SW-01-install-valid",
+        "expected": "complete=true with 24 verified runtime files",
+        "pass": true,
+        "actual": {
+          "v": "r957",
+          "cache": "sukun-r957-lifecycle-20260929-v1",
+          "at": 1790737885197,
+          "shell": true,
+          "manifest": true,
+          "marker": true,
+          "latest": true,
+          "runtime": {
+            "./assets/runtime/berhet-layout-r938.css?v=r957": true,
+            "./assets/runtime/background-owner-r949.js?v=r957": true,
+            "./assets/runtime/berhet-dock-r933.css?v=r957": true,
+            "./assets/runtime/lifecycle-r949.js?v=r957": true,
+            "./assets/runtime/audio-palette-r945.js?v=r957": true,
+            "./assets/runtime/esma-scenes-r923.js?v=r957": true,
+            "./assets/runtime/dock-r920.js?v=r957": true,
+            "./assets/runtime/session-r919.js?v=r957": true,
+            "./assets/runtime/berhet-layout-r938.js?v=r957": true,
+            "./assets/runtime/wheels-r924.js?v=r957": true,
+            "./assets/runtime/interface-r920.js?v=r957": true,
+            "./assets/runtime/berhet-theme-r933.js?v=r957": true,
+            "./assets/runtime/wheels-r924.css?v=r957": true,
+            "./assets/runtime/health-view-r943.css?v=r957": true,
+            "./assets/runtime/scene-picker-r945.css?v=r957": true,
+            "./assets/runtime/health-view-r943.js?v=r957": true,
+            "./assets/runtime/scene-picker-r945.js?v=r957": true,
+            "./assets/runtime/berhet-materials-r933.css?v=r957": true,
+            "./assets/runtime/berhet-controls-r933.css?v=r957": true,
+            "./assets/runtime/health-r940.js?v=r957": true,
+            "./assets/runtime/nefs-r948.css?v=r957": true,
+            "./assets/runtime/nefs-model-r948.js?v=r957": true,
+            "./assets/runtime/nefs-ui-r948.js?v=r957": true,
+            "./assets/runtime/nefs-data-r948.js?v=r957": true
+          },
+          "runtimeRequired": 24,
+          "complete": true,
+          "errors": []
+        }
+      },
+      {
+        "id": "SW-02-install-assets",
+        "cachedCount": 29,
+        "artCached": [],
+        "iconsCached": [],
+        "declaredCoreCount": 34,
+        "note": "Design/coverage limitation: CORE is declared but is never consumed by prepareShell."
+      },
+      {
+        "id": "SW-03-warm-offline-shell",
+        "status": 200,
+        "build": "r957",
+        "pass": true
+      },
+      {
+        "id": "SW-15-offline-current-manifest",
+        "status": 200,
+        "pass": true
+      },
+      {
+        "id": "SW-04-offline-runtime",
+        "status": 200,
+        "bytes": 9632,
+        "pass": true
+      },
+      {
+        "id": "SW-05-unvisited-offline-image",
+        "type": "error",
+        "status": 0,
+        "limitationConfirmed": true
+      },
+      {
+        "id": "SW-06-navigation-CARKLAR_ONIZLEME.html",
+        "requested": "CARKLAR_ONIZLEME.html",
+        "status": 200,
+        "returnedContentType": "text/html; charset=utf-8",
+        "returnedBuild": "",
+        "returnedBytes": 9440,
+        "pass": true
+      },
+      {
+        "id": "SW-06-navigation-icon-192.png",
+        "requested": "icon-192.png",
+        "status": 200,
+        "returnedContentType": "image/png",
+        "returnedBuild": "",
+        "returnedBytes": 105204,
+        "pass": true
+      },
+      {
+        "id": "SW-07-query-busting",
+        "networkCalls": 1,
+        "returnedUpdated": true,
+        "pass": true
+      },
+      {
+        "id": "SW-12-offline-helper-CARKLAR_ONIZLEME.html",
+        "pass": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "id": "SW-12-offline-helper-icon-192.png",
+        "pass": true,
+        "contentType": "image/png"
+      },
+      {
+        "id": "SW-13-correct-offline-version",
+        "pass": true
+      },
+      {
+        "id": "SW-14-uncached-version-not-old",
+        "pass": true
+      },
+      {
+        "id": "SW-08-visited-offline-image",
+        "status": 200,
+        "type": "default",
+        "pass": true
+      },
+      {
+        "id": "SW-09-repair-online-hash",
+        "status": 200,
+        "pass": true
+      },
+      {
+        "id": "SW-10-reject-corrupt-offline",
+        "type": "error",
+        "status": 0,
+        "pass": true
+      },
+      {
+        "id": "SW-11-first-ever-offline",
+        "status": 503,
+        "pass": true,
+        "note": "Expected limitation, not a defect."
+      }
+    ],
+    "calls": [
+      {
+        "url": "https://sukun-audit.invalid/sukun/sukun-build-r957.json",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/sukun-latest.json",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/manifest.webmanifest",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/nero.html",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/berhet-layout-r938.css?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/berhet-materials-r933.css?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/berhet-controls-r933.css?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/berhet-dock-r933.css?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/background-owner-r949.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/lifecycle-r949.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/audio-palette-r945.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/esma-scenes-r923.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/session-r919.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/dock-r920.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/wheels-r924.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/berhet-layout-r938.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/interface-r920.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/wheels-r924.css?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/berhet-theme-r933.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/health-view-r943.css?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/health-view-r943.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/scene-picker-r945.css?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/scene-picker-r945.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/health-r940.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/nefs-r948.css?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/nefs-data-r948.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/nefs-model-r948.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/nefs-ui-r948.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/nero.html?v=r957",
+        "offline": true
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/scenes/esma-r923/cami-avlusu.webp",
+        "offline": true
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/CARKLAR_ONIZLEME.html",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/icon-192.png",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/scenes/esma-r923/cami-avlusu.webp?v=one",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/scenes/esma-r923/cami-avlusu.webp?v=two",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/scenes/esma-r923/cami-avlusu.webp?v=three",
+        "offline": true
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/scene-picker-r945.js?v=r957",
+        "offline": false
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/assets/runtime/scene-picker-r945.js?v=r957",
+        "offline": true
+      },
+      {
+        "url": "https://sukun-audit.invalid/sukun/",
+        "offline": true
+      }
+    ]
+  },
+  "release": {
+    "build": "r957",
+    "scriptsParsed": 259,
+    "inlineScripts": 242,
+    "externalJS": 17,
+    "runtimeHashes": 24,
+    "sri": "PASS",
+    "duplicateStaticIDs": [],
+    "htmlEquality": "PASS",
+    "versionAlignment": "PASS",
+    "originalR956MatchesReport": true,
+    "browserAndroidTest": "NOT_RUN"
+  },
+  "limitations": [
+    "Native media and CacheStorage modeled; no real Android lock test",
+    "Unvisited artwork is not automatically available offline",
+    "15-second FX failure stops recording instead of silently dropping effects"
+  ]
+}
