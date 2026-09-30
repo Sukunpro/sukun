@@ -140,3 +140,14 @@ html body #r920Practice[data-phase="PAUSED"] #r924WheelFrame #r920Phase{color:#f
 #r920Practice #r924WheelFrame .r952PointC{left:76.6%!important;top:62%!important;}
 #r920Practice #r924WheelFrame .r952Trail{inset:0!important;border-radius:50%!important;background:conic-gradient(from 0deg,rgba(var(--r950-b),.8),transparent 55deg,transparent 120deg,rgba(var(--r950-a),.75) 121deg,transparent 175deg,transparent 240deg,rgba(var(--r950-b),.8) 241deg,transparent 295deg)!important;mask:radial-gradient(circle,transparent 49%,#000 53%,#000 60%,transparent 65%)!important;-webkit-mask:radial-gradient(circle,transparent 49%,#000 53%,#000 60%,transparent 65%)!important;}
 }
+
+/* r958: progress is stationary, above artwork, and driven only by count. */
+@layer sukun-r920-contract {
+#r920Practice #r924WheelFrame .r920Progress{z-index:6!important;opacity:1!important;isolation:isolate;animation:none!important;transform:rotate(-90deg)!important}
+#r920Practice #r924WheelFrame .r920Track{stroke:#74573788!important;stroke-width:9!important}
+#r920Practice #r924WheelFrame .r920Arc{stroke:url(#r958RopeGold)!important;stroke-width:8!important;filter:drop-shadow(0 1px 1px #0009)!important;transition:stroke-dashoffset .22s linear!important}
+#r920Practice #r924WheelFrame .r958RopeMask{fill:none;stroke:white;stroke-width:10;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--r920-progress,0));transition:stroke-dashoffset .22s linear}
+#r920Practice #r924WheelFrame .r958RopeBraid{fill:none;stroke:#fff1bd;stroke-width:5;stroke-dasharray:1.5 3;opacity:.72;pointer-events:none}
+#r920Practice #r924WheelFrame #r920Counter{z-index:7!important}
+@media(prefers-reduced-motion:reduce){#r920Practice #r924WheelFrame .r920Arc{transition:none!important}#r920Practice #r924WheelFrame .r958RopeMask{transition:none!important}}
+}
