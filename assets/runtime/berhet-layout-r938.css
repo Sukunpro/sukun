@@ -61,12 +61,37 @@ body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r938Panel{margin:0
 @layer sukun-r938-layout {
 #r920Practice[data-r938-layout="1"] .r920Transport{display:grid!important;grid-template-columns:1fr 1.2fr 1fr!important;width:100%!important;margin:0!important;gap:6px!important}
 #r920Practice[data-r938-layout="1"] .r920Transport button{min-height:48px!important;font-size:12px!important;padding:8px 5px!important}
-#r920Practice[data-r938-layout="1"] #r967PrimaryActions{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(72px,.55fr)!important;gap:6px!important;width:100%!important}
-#r920Practice[data-r938-layout="1"] #r967PrimaryActions>button{width:100%!important;min-height:48px!important;max-width:none!important;margin:0!important;font-size:13px!important}
-#r920Practice[data-r938-layout="1"] #r967PrimaryActions>[hidden]{display:none!important}
-#r920Practice[data-r938-layout="1"] #r920TefEnter{background:var(--r920-selected)!important;border-color:var(--r920-accent)!important}
+#r920Practice[data-r938-layout="1"] #r968PrimaryActions{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(72px,.55fr)!important;gap:6px!important;width:100%!important}
+#r920Practice[data-r938-layout="1"] #r968PrimaryActions>button{width:100%!important;min-height:48px!important;max-width:none!important;margin:0!important;font-size:13px!important}
+#r920Practice[data-r938-layout="1"] #r968PrimaryActions>[hidden]{display:none!important}
+
 #r920Practice[data-r938-layout="1"] #r920TefExit{grid-column:auto!important}
-#r920Practice[data-r938-layout="1"] #r932EasyStop{grid-column:2!important;grid-row:1!important;--r933-control-art:none!important;background:#301b25!important;border-color:#d79087!important}
+#r920Practice[data-r938-layout="1"] #r932EasyStop{grid-column:2!important;grid-row:1!important;--r933-control-art:var(--r933-gem-ruby)!important;--r933-control-dark:#421726!important}
 #r920Practice[data-r938-layout="1"] .r920Path:empty{display:none!important}
 body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r938Panel{margin-top:8px!important}
+}
+
+/* r968: one disclosure hides the complete lower panel. The wheel stays usable. */
+@layer sukun-r938-layout {
+#r920Practice[data-r938-layout="1"] #r938Panel{padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;gap:0!important}
+#r920Practice[data-r938-layout="1"] #r938PanelToggle{width:min(100%,260px)!important;align-self:center!important;min-height:44px!important;border-radius:18px 18px 8px 8px!important;position:relative!important;padding:10px 22px!important;box-shadow:0 -2px 8px #0003!important}
+#r920Practice[data-r938-layout="1"] #r938PanelBody:not([hidden]){padding:10px!important;border:1px solid #d4b67788!important;border-radius:18px!important;background:linear-gradient(150deg,#081927ed,#061521e8)!important}
+#r920Practice[data-r938-layout="1"] .r920Path{justify-content:center!important;flex-wrap:wrap!important;gap:12px!important;max-width:300px!important;margin:10px auto 16px!important}
+#r920Practice[data-r938-layout="1"] .r920Path>button,#r920Practice[data-r938-layout="1"] #r920JourneyLabel{width:120px!important;flex:0 1 120px!important;min-width:0!important}
+#r920Practice[data-r938-layout="1"] #r920JourneyMode{width:100%!important;min-height:44px!important}
+#r920Practice[data-r938-layout="1"] .r920Stats{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;width:min(92%,320px)!important;gap:10px!important}
+#r920Practice[data-r938-layout="1"] .r920Stats>span{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;align-items:center!important;align-content:center!important;min-width:0!important;box-sizing:border-box!important;gap:0 4px!important;padding:11px 22px!important;font-size:11px!important;text-align:center!important}
+#r920Practice[data-r938-layout="1"] .r920Stats b{display:block!important;flex:0 0 100%!important;width:100%!important;min-width:0!important;max-width:100%!important;margin:0!important;white-space:nowrap!important;font-size:clamp(18px,5.2vw,22px)!important;line-height:1.1!important;text-align:center!important;font-variant-numeric:tabular-nums!important}
+#r920Practice[data-r938-layout="1"] .r920Stats[data-digits="large"] b{font-size:16px!important}
+#r920Practice[data-r938-layout="1"] #r968ManualHint{font:400 11px/1.4 system-ui!important;color:#dcd8cc!important;text-align:center!important;margin:0!important;padding:0 5px!important}
+#r920Practice[data-r938-layout="1"] #r968ManualHint:empty{display:none!important}
+/* Same first important layer as layout: no plain background can cover the art. */
+#r920Practice[data-r938-layout="1"][data-mode="berhet"] :is(#r920TefEnter,#r920TefExit,#r932EasyStop,#r938PanelToggle){
+ background:var(--r933-control-art) center/100% 100% no-repeat,radial-gradient(ellipse,var(--r933-control-dark),transparent 72%) center/86% 76% no-repeat!important;
+ border:0!important;color:#fff4d5!important;text-shadow:0 1px 3px #02090b,0 0 5px #02090b!important;box-shadow:none!important;
+ padding-inline:18px!important;overflow:hidden!important;
+}
+#r920Practice[data-r938-layout="1"][data-mode="berhet"] :is(#r920TefEnter,#r920TefExit){--r933-control-art:var(--r933-gem-amethyst)!important;--r933-control-dark:#29183a!important}
+#r920Practice[data-r938-layout="1"][data-mode="berhet"] #r938PanelToggle{--r933-control-art:var(--r933-gem-diamond)!important;--r933-control-dark:#152737!important}
+#r920Practice[data-r938-layout="1"] #r920TefEnter[hidden],#r920Practice[data-r938-layout="1"] #r920TefExit[hidden]{display:none!important}
 }

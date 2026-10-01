@@ -250,11 +250,16 @@
 
   function command(action, options = {}) {
     action = clean(action).toLowerCase();
-    if (!['start', 'play', 'pause', 'resume', 'stop', 'next', 'previous', 'restart', 'retry', 'select'].includes(action))
+    if (!['start', 'play', 'pause', 'resume', 'stop', 'next', 'previous', 'restart', 'retry', 'select', 'adjust'].includes(action))
       return Promise.resolve({ accepted: false, reason: 'unsupported-action', snapshot: snapshot() });
     const before = snapshot();
     if (options.epoch != null && Number(options.epoch) !== epoch)
       return Promise.resolve({ accepted: false, stale: true, reason: 'stale-session', epoch, requestId, snapshot: before });
+    if(action==='adjust'){
+      // A correction cannot supersede a queued Start or manufacture a new audio epoch.
+      const value=window.SukunCountCorrection?.adjust?.(options.delta);
+      return Promise.resolve(freeze({accepted:value===true,epoch,requestId,snapshot:refresh('manual-correction')}));
+    }
     const isStart = ['start', 'play', 'resume', 'retry'].includes(action);
     if (isStart && pendingStart?.epoch === epoch) return pendingStart.promise;
     if (action === 'stop' || action === 'next' || action === 'previous' || action === 'restart' || action === 'select') {

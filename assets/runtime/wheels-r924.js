@@ -226,7 +226,7 @@ window.SukunWheels=Object.freeze({version:'r928',catalog,connect,render,choose,s
   text($('r932CurrentWheel'),wheel?.title||'Çark seç');text($('r932CurrentScene'),sceneLabel);
   attr($('r932QuickWheel'),'aria-label','Çarkı değiştir. '+(wheel?.title||''));attr($('r932QuickScene'),'aria-label','Arka planı değiştir. '+sceneLabel);
   const busy=state?.phase==='PLAYING'||state?.phase==='PREPARING',playLabel=busy?'Duraklat':state?.phase==='PAUSED'?'Devam et':'Başlat';text($('r932EasyPlay'),playLabel);attr($('r932EasyPlay'),'aria-label',busy?'Zikri duraklat':state?.phase==='PAUSED'?'Zikre devam et':'Zikri başlat');
-  for(const [action,id]of Object.entries(sources)){const button=$('r932Easy'+action[0].toUpperCase()+action.slice(1)),source=$(id);const manual=action==='minus'||action==='plus';const disabled=manual?state?.journeyKind!=='single'||busy:!!source?.disabled;if(button.disabled!==disabled)button.disabled=disabled;if(manual)attr(button,'title',disabled?'Elle saymak için tekil zikri duraklat':action==='minus'?'Bir azalt':'Bir artır')}
+  for(const [action,id]of Object.entries(sources)){const button=$('r932Easy'+action[0].toUpperCase()+action.slice(1)),source=$(id);const manual=action==='minus'||action==='plus';const gate=manual?window.SukunCountCorrection?.status?.(action==='minus'?-1:1):null;const disabled=manual?!gate?.allowed:!!source?.disabled;if(button.disabled!==disabled)button.disabled=disabled;if(manual)attr(button,'aria-describedby','r968ManualHint');if(manual)attr(button,'title',gate?.reason|| (action==='minus'?'Bir azalt':'Bir artır'))}
   updateOptions();
  }
  window.SukunWheelQuickControls=Object.freeze({version:'r932',connect,render,snapshot:()=>({connected:!!box?.isConnected,openKind,mode:lastMode})});

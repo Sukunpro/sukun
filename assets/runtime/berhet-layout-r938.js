@@ -20,13 +20,13 @@ function build(root){
  const wheel=$('r924WheelFrame');wheel.before(hero);
  for(const node of [root.querySelector('.r920Identity'),wheel,root.querySelector('.r920Stats'),$('r920RecordingError'),$('r920SceneError')])move(node,hero);
  panel=document.createElement('section');panel.id='r938Panel';panel.setAttribute('aria-label','Zikir kontrolleri');hero.after(panel);
- const quick=$('r932WheelControls');move(quick,panel);
- primary=document.createElement('div');primary.id='r967PrimaryActions';quick.append(primary);
+ toggle=document.createElement('button');toggle.id='r938PanelToggle';toggle.type='button';toggle.setAttribute('aria-controls','r938PanelBody');toggle.innerHTML='Kontroller ve görünüm <span aria-hidden="true">⌄</span>';panel.append(toggle);
+ body=document.createElement('div');body.id='r938PanelBody';body.setAttribute('role','region');body.setAttribute('aria-label','Zikir kontrolleri ve görünüm');panel.append(body);
+ const quick=$('r932WheelControls');move(quick,body);
+ primary=document.createElement('div');primary.id='r968PrimaryActions';quick.append(primary);
  const nav=root.querySelector('.r920Transport');move(nav,quick);quick.insertBefore(nav,primary);
  for(const node of [$('r920TefEnter'),$('r920TefExit'),$('r932EasyStop')])move(node,primary);
- toggle=document.createElement('button');toggle.id='r938PanelToggle';toggle.type='button';toggle.setAttribute('aria-controls','r938PanelBody');toggle.innerHTML='Kontroller ve görünüm <span aria-hidden="true">⌄</span>';quick.append(toggle);
- body=document.createElement('div');body.id='r938PanelBody';body.setAttribute('role','region');body.setAttribute('aria-label','Görünüm ve ek zikir kontrolleri');quick.append(body);
- for(const node of [quick.querySelector('.r932VisualShortcuts'),$('r932QuickPicker'),$('r920Actions'),$('r920JourneySettings'),$('r679ZikirAyarBox'),$('r920ViewOptions'),$('r920More')])move(node,body);
+ for(const node of [$('r968ManualHint'),$('r920Actions'),$('r920JourneySettings'),$('r679ZikirAyarBox'),$('r920ViewOptions'),$('r920More')])move(node,quick);
 
  toggle.onclick=()=>setOpen(!open);
  panel.addEventListener('keydown',e=>{if(e.key==='Escape'&&open&&!e.defaultPrevented){e.preventDefault();setOpen(false,true)}});
@@ -39,5 +39,5 @@ function sync(root,tef){
  // Native handlers continue to own status and count; this is only an empty-state caption.
  const phase=$('r920Phase'),wheel=$('r924WheelFrame');if(phase&&wheel&&phase.parentElement!==wheel)wheel.append(phase);if(root.dataset.phase==='PLAYING'&&!phase.textContent)phase.textContent='Zikir sürüyor';
 }
-window.SukunBerhetLayout=Object.freeze({version:'r967',sync,snapshot:()=>({active:!!host,open,tef:lastTef})});
+window.SukunBerhetLayout=Object.freeze({version:'r968',sync,snapshot:()=>({active:!!host,open,tef:lastTef})});
 })();
