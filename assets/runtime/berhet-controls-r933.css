@@ -2,10 +2,12 @@
    Input semantics, hidden states, motion geometry and playback stay untouched.
    Declare this important layer before the legacy contract layer. */
 @layer sukun-r933-controls {
-/* r972: material coverage follows the existing Berhetiyye selection.
+/* r974: coat panel controls, never a hotspot within the wheel frame.
+   Gem actions, counter and material-matched leaf navigation retain their own
+   transparent paint and fitted geometry from wheels-r924.css.
    No display, positioning, dimensions or input handlers are changed here. */
 html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet,#r642ZikirInfoCard) :is(
- button:not(.sw):not(.r924Gem):not(#r920Counter):not(#zCountVisual),
+ button:not(.sw):not(.r924Gem):not(.r959WheelNav):not(#r920Counter):not(#zCountVisual):not(:where(#r924WheelFrame *)),
  select,summary) {
  --r972-art:var(--r933-gem-sapphire);--r972-face:#0a2637;
  border:1px solid transparent!important;
@@ -68,7 +70,7 @@ html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) button.sw.on::before {
 html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) button.sw.on::after {
  background:var(--r933-gem-emerald) center/100% 100% no-repeat!important;
 }
-html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) :is(button,select,summary,input):focus-visible {
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) :is(button,select,summary,input):not(:where(#r924WheelFrame *)):focus-visible {
  outline:2px solid #ffeab2!important;outline-offset:2px!important;
 }
 #r920Practice[data-mode="berhet"]:not([hidden]) {
@@ -284,10 +286,10 @@ html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) input[type="range"]::-
 #r920Practice[data-mode="berhet"]:not([hidden]) #r924WheelGallery>button[aria-pressed="true"] {
  border-color:#dfc88a!important;box-shadow:inset 0 -3px 0 #8ccbaa!important;
 }
-#r920Practice[data-mode="berhet"]:not([hidden]) :is(button,select,input,summary):focus-visible {
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(button,select,input,summary):not(:where(#r924WheelFrame *)):focus-visible {
  outline:2px solid #fff0ba!important;outline-offset:3px!important;
 }
-#r920Practice[data-mode="berhet"]:not([hidden]) button:disabled:not(.r924Gem):not(#r920Counter) {
+#r920Practice[data-mode="berhet"]:not([hidden]) button:disabled:not(.r924Gem):not(.r959WheelNav):not(#r920Counter):not(:where(#r924WheelFrame *)) {
  opacity:.56!important;filter:saturate(.55)!important;
 }
 /* Record-ready, recording, and selected remain visually distinct. */

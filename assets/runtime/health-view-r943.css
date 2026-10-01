@@ -1,92 +1,66 @@
-/* Scoped to the one movable health panel. No polling, motion, or inner scroller. */
-#r940Health.hv-r943,
-#r455Diag #r940Health.hv-r943{--hv-ink:#ecf3ef;--hv-muted:#b3c7c3;--hv-line:#38534f;--hv-gold:#e4c783;--hv-teal:#88d5bd;--hv-warn:#f0cd8a;--hv-fail:#ffb3ad;box-sizing:border-box;min-width:0;margin:16px 0 0;border:1px solid #4b6660;border-radius:20px;background:#102b28;color:var(--hv-ink);font:14px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-align:left;overflow:visible;color-scheme:dark}
-#r940Health.hv-r943 *,#r455Diag #r940Health.hv-r943 *{box-sizing:border-box;min-width:0}
-#r940Health.hv-r943 [hidden],#r455Diag #r940Health.hv-r943 [hidden]{display:none!important}
-#r940Health.hv-r943 summary,#r455Diag #r940Health.hv-r943 summary{min-height:44px;cursor:pointer;list-style:none;white-space:normal;color:var(--hv-ink);font:inherit;letter-spacing:normal;text-transform:none;touch-action:manipulation}
-#r940Health.hv-r943 summary::-webkit-details-marker{display:none}
-#r940Health.hv-r943 summary::marker{content:""}
-#r940Health.hv-r943 .hv-panel-summary,#r455Diag #r940Health.hv-r943 .hv-panel-summary{display:grid;gap:5px;padding:20px 22px;border:0;background:transparent}
-#r940Health.hv-r943 .hv-kicker{color:var(--hv-gold);font-size:10px;font-weight:750;letter-spacing:.13em}
-#r940Health.hv-r943 .hv-panel-summary>strong{font-size:19px;font-weight:720;line-height:1.3}
-#r940Health.hv-r943 [data-health-summary],#r455Diag #r940Health.hv-r943 [data-health-summary]{display:block;margin:0;color:var(--hv-muted);font-size:12px;line-height:1.5;font-weight:500}
-#r940Health.hv-r943 .hv-body{padding:0 20px 20px}
-#r940Health.hv-r943 h3,#r455Diag #r940Health.hv-r943 h3{margin:0;color:var(--hv-ink);font-size:19px;line-height:1.35;letter-spacing:-.015em;font-weight:700}
-#r940Health.hv-r943 p{margin:0;overflow-wrap:anywhere}
-#r940Health.hv-r943 .hv-overall{display:grid;grid-template-columns:42px minmax(0,1fr);gap:14px;padding:18px;background:#193e37;border:1px solid #52786a;border-radius:15px}
-#r940Health.hv-r943 .hv-overall[data-status="WARN"]{background:#383628;border-color:#9b804d}
-#r940Health.hv-r943 .hv-overall[data-status="FAIL"]{background:#402d2b;border-color:#a96960}
-#r940Health.hv-r943 .hv-overall-icon{display:grid;place-items:center;width:42px;height:42px;border:1px solid currentColor;border-radius:50%;color:var(--hv-gold);font:600 24px/1 system-ui}
-#r940Health.hv-r943 .hv-overall[data-status="PASS"] .hv-overall-icon{color:var(--hv-teal)}
-#r940Health.hv-r943 .hv-overall[data-status="FAIL"] .hv-overall-icon{color:var(--hv-fail)}
-#r940Health.hv-r943 .hv-overall p[data-health-advice]{margin-top:8px;color:#d3dfd9;font-size:13px}
-#r940Health.hv-r943 .hv-stamp{margin:0 0 5px;color:var(--hv-muted);font-size:11px}
-#r940Health.hv-r943 .hv-counts{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px}
-#r940Health.hv-r943 .hv-stat{display:inline-flex;align-items:baseline;gap:5px;padding:6px 10px;border:1px solid var(--hv-line);border-radius:9px;color:var(--hv-muted);font-size:12px}
-#r940Health.hv-r943 .hv-stat strong{font-size:17px;font-weight:720;color:var(--hv-ink)}
-#r940Health.hv-r943 .hv-stat[data-status="WARN"] strong{color:var(--hv-warn)}
-#r940Health.hv-r943 .hv-stat[data-status="FAIL"] strong{color:var(--hv-fail)}
-#r940Health.hv-r943 .hv-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
-#r940Health.hv-r943 button,#r455Diag #r940Health.hv-r943 button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;max-width:100%;padding:11px 14px;border:1px solid #66817a;border-radius:11px;background:#203e38;color:var(--hv-ink);font:650 13px/1.35 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:normal;text-transform:none;white-space:normal;overflow-wrap:anywhere;cursor:pointer;touch-action:manipulation;box-shadow:none;transform:none}
-#r940Health.hv-r943 button.hv-primary,#r455Diag #r940Health.hv-r943 button.hv-primary{background:var(--hv-gold);color:#1c2b23;border-color:var(--hv-gold);font-weight:750}
-#r940Health.hv-r943 button.hv-ai-button,#r455Diag #r940Health.hv-r943 button.hv-ai-button{border-color:var(--hv-gold);color:#ffe1a4;background:#3b412e}
-#r940Health.hv-r943 button:disabled,#r455Diag #r940Health.hv-r943 button:disabled{opacity:.65;cursor:default}
-#r940Health.hv-r943 :is(button,summary):focus-visible{outline:3px solid #f4d88f;outline-offset:3px}
-#r940Health.hv-r943 .hv-caption,#r940Health.hv-r943 .hv-feedback{margin-top:10px;color:var(--hv-muted);font-size:12px}
-#r940Health.hv-r943 .hv-feedback:empty{display:none}
-#r940Health.hv-r943 .hv-feedback{color:#d6eddf}
-#r940Health.hv-r943 .hv-legend{display:flex;flex-wrap:wrap;gap:5px 14px;margin:18px 0 10px;color:var(--hv-muted);font-size:11px}
-#r940Health.hv-r943 .hv-areas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start}
-#r940Health.hv-r943 details.hv-area,#r455Diag #r940Health.hv-r943 details.hv-area{margin:0;min-width:0;background:#15342f;border:1px solid #426159;border-radius:14px;overflow:visible}
-#r940Health.hv-r943 details.hv-area[data-status="WARN"]{border-color:#9c824e}
-#r940Health.hv-r943 details.hv-area[data-status="FAIL"]{border-color:#a76e65}
-#r940Health.hv-r943 .hv-area-head,#r455Diag #r940Health.hv-r943 .hv-area-head{display:grid;grid-template-columns:30px minmax(0,1fr);align-items:start;gap:9px;padding:15px;background:transparent;border:0}
-#r940Health.hv-r943 .hv-area-icon{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:#23483f;color:var(--hv-gold);font-size:19px;line-height:1}
-#r940Health.hv-r943 .hv-area-text{display:block}
-#r940Health.hv-r943 .hv-area-text>strong{display:block;font-size:13px;font-weight:700;line-height:1.4}
-#r940Health.hv-r943 .hv-area-note{display:block;margin-top:5px;color:var(--hv-muted);font-size:12px;line-height:1.5}
-#r940Health.hv-r943 .hv-badge{display:inline-flex;align-items:center;gap:4px;width:fit-content;max-width:100%;padding:3px 8px;border:1px solid #5b746e;border-radius:7px;color:#c5d7d0;background:#223c36;font-size:10px;font-weight:700;line-height:1.5;white-space:normal}
-#r940Health.hv-r943 .hv-area-head>.hv-badge{grid-column:2}
-#r940Health.hv-r943 .hv-badge[data-status="PASS"]{color:#a4e7c8;border-color:#5e9077;background:#214738}
-#r940Health.hv-r943 .hv-badge[data-status="WARN"]{color:#ffdea0;border-color:#9c824e;background:#463d29}
-#r940Health.hv-r943 .hv-badge[data-status="FAIL"]{color:#ffc1b8;border-color:#a96a60;background:#4e302d}
-#r940Health.hv-r943 .hv-checks{padding:0 14px 5px;border-top:1px solid var(--hv-line)}
-#r940Health.hv-r943 .hv-check{padding:12px 0;border-bottom:1px solid #36564c}
-#r940Health.hv-r943 .hv-check:last-child{border-bottom:0}
-#r940Health.hv-r943 .hv-check-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;margin-bottom:5px}
-#r940Health.hv-r943 .hv-check-head strong{font-size:12px;font-weight:650}
-#r940Health.hv-r943 .hv-check p{color:#c0d3ca;font-size:12px;line-height:1.55}
-#r940Health.hv-r943 .hv-check .hv-next{margin-top:5px;color:#e8d8b4}
-#r940Health.hv-r943 .hv-ai{margin-top:18px;padding:18px;border:1px solid #887751;border-radius:15px;background:#1c352f}
-#r940Health.hv-r943 .hv-ai-head{display:flex;gap:12px;align-items:start}
-#r940Health.hv-r943 .hv-ai-glyph{color:var(--hv-gold);font-size:26px;line-height:1.2}
-#r940Health.hv-r943 .hv-ai h3{font-size:17px}
-#r940Health.hv-r943 .hv-ai-head p{margin-top:5px;color:var(--hv-muted);font-size:12px}
-#r940Health.hv-r943 .hv-local{margin-top:14px;padding:13px;background:#142b26;border-left:2px solid #a7bdb0;border-radius:0 9px 9px 0}
-#r940Health.hv-r943 .hv-local>strong{display:block;margin-bottom:5px;color:#d9e6dd;font-size:11px;letter-spacing:.035em}
-#r940Health.hv-r943 .hv-local p{color:#c8d9cf;font-size:12px}
-#r940Health.hv-r943 .hv-privacy{margin-top:12px;color:#c2d0c6;font-size:11px;line-height:1.6}
-#r940Health.hv-r943 .hv-ai-status{margin-top:12px;color:#f1ddb2;font-size:12px}
-#r940Health.hv-r943 .hv-provider{margin-top:8px;color:var(--hv-muted);font-size:10px}
-#r940Health.hv-r943 .hv-ai-output{margin-top:10px;padding:14px;border:1px solid #566c55;border-radius:10px;background:#132d25;color:#eef1df;font:14px/1.65 system-ui;white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%}
-#r940Health.hv-r943 .hv-ai-output:empty,#r940Health.hv-r943 .hv-provider:empty{display:none}
-#r940Health.hv-r943 details.hv-history,#r940Health.hv-r943 details.hv-technical,#r455Diag #r940Health.hv-r943 details.hv-history,#r455Diag #r940Health.hv-r943 details.hv-technical{margin:12px 0 0;border:1px solid #3e5a50;border-radius:12px;background:#132f29;overflow:visible}
-#r940Health.hv-r943 .hv-history>summary,#r940Health.hv-r943 .hv-technical>summary,#r455Diag #r940Health.hv-r943 .hv-history>summary,#r455Diag #r940Health.hv-r943 .hv-technical>summary{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:13px 14px;font-size:12px;font-weight:650;background:transparent}
-#r940Health.hv-r943 .hv-history>summary span,#r940Health.hv-r943 .hv-technical>summary span{color:var(--hv-muted);font-size:11px;font-weight:400}
-#r940Health.hv-r943 .hv-disclosure-body{padding:0 14px 14px}
-#r940Health.hv-r943 .hv-muted{color:var(--hv-muted);font-size:12px}
-#r940Health.hv-r943 .hv-history-item{padding-top:12px;margin-top:12px;border-top:1px solid var(--hv-line);font-size:12px}
-#r940Health.hv-r943 .hv-history-item>strong{color:#e6d8ba;font-size:11px}
-#r940Health.hv-r943 .hv-history-item p{margin-top:4px;color:#c6d6ce}
-#r940Health.hv-r943 pre{margin:12px 0 0;max-width:100%;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;color:#bfcfc7;font:11px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;overflow:visible}
-@media(max-width:560px){#r940Health.hv-r943 .hv-areas{grid-template-columns:minmax(0,1fr)}#r940Health.hv-r943 .hv-body{padding:0 12px 14px}#r940Health.hv-r943 .hv-panel-summary,#r455Diag #r940Health.hv-r943 .hv-panel-summary{padding:16px 14px}#r940Health.hv-r943 .hv-overall{gap:10px;padding:14px;grid-template-columns:32px minmax(0,1fr)}#r940Health.hv-r943 .hv-overall-icon{width:32px;height:32px;font-size:19px}#r940Health.hv-r943 h3,#r455Diag #r940Health.hv-r943 h3{font-size:17px}#r940Health.hv-r943 .hv-ai{padding:14px}#r940Health.hv-r943 .hv-ai .hv-actions button{flex:1 1 150px}#r940Health.hv-r943 .hv-panel-summary>strong{font-size:18px}}
-@media(prefers-contrast:more){#r940Health.hv-r943{--hv-muted:#d3e2da;--hv-line:#9bb6aa}#r940Health.hv-r943 button{border-width:2px}}
-
-#r940Health.hv-r943 .hv-area-head::after{content:"Ayrıntılar ▾";position:static;inset:auto;transform:none;width:auto;height:auto;margin:0;background:none;grid-column:2;justify-self:start;color:var(--hv-muted);font:11px/1.5 system-ui}
-#r940Health.hv-r943 details[open]>.hv-area-head::after{content:"Ayrıntıları kapat ▴"}
-#r940Health.hv-r943 .hv-device-guide{margin:18px 0 0;border:1px solid var(--hv-line);border-radius:12px;background:#132f29;overflow:visible}
-#r940Health.hv-r943 .hv-device-guide>summary{padding:13px 14px;font-size:13px;font-weight:650}
-#r940Health.hv-r943 .hv-device-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(140px,42%);align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--hv-line);font-size:12px}
-#r940Health.hv-r943 .hv-device-row select{box-sizing:border-box;width:100%;min-height:44px;padding:9px;border:1px solid #66817a;border-radius:9px;background:#203e38;color:var(--hv-ink);font:inherit;touch-action:manipulation}
-#r940Health.hv-r943 [data-health-action="device-save"]{margin-top:12px}
-@media(max-width:560px){#r940Health.hv-r943 .hv-device-row{grid-template-columns:minmax(0,1fr)}}
+/* r975 — a calm, scoped diagnostics surface with honest unknown states. */
+#r940Health.hv-r943{--hv-ink:#f2eee3;--hv-muted:#bfccd1;--hv-border:#334b52;--hv-surface:#122831;--hv-accent:#90d9c4;color:var(--hv-ink);font:15px/1.55 system-ui,-apple-system,sans-serif;max-width:680px;margin:14px auto;text-align:start;overflow-wrap:anywhere;color-scheme:dark}
+#r940Health.hv-r943 *{box-sizing:border-box}
+#r940Health.hv-r943>.hv-panel-summary{display:flex;align-items:center;gap:14px;list-style:none;padding:12px 0;border-bottom:1px solid var(--hv-border);cursor:pointer}
+#r940Health.hv-r943>.hv-panel-summary::-webkit-details-marker{display:none}
+#r940Health.hv-r943>.hv-panel-summary>span{font-size:11px;letter-spacing:.16em;color:#dcc48a}
+#r940Health.hv-r943>.hv-panel-summary>strong{font-size:18px;flex:1}
+#r940Health.hv-r943>.hv-panel-summary:after{content:'−';font-size:20px;color:var(--hv-muted)}
+#r940Health.hv-r943:not([open])>.hv-panel-summary:after{content:'+'}
+#r940Health.hv-r943 .hv-connection{color:var(--hv-muted);font-size:12px;margin:12px 0 18px}
+#r940Health.hv-r943 p{margin:8px 0 14px}
+#r940Health.hv-r943 h3{font-size:23px;line-height:1.3;margin:8px 0 14px;letter-spacing:0}
+#r940Health.hv-r943 h4{font-size:16px;margin:20px 0 8px}
+#r940Health.hv-r943 button,#r940Health.hv-r943 select{min-height:46px;border:1px solid #45616b;border-radius:12px;padding:11px 14px;background:#18343f;color:var(--hv-ink);font:600 14px/1.3 system-ui;cursor:pointer;touch-action:manipulation;white-space:normal;overflow-wrap:anywhere;max-width:100%}
+#r940Health.hv-r943 button:hover{border-color:#80b0b0;background:#204551}
+#r940Health.hv-r943 button:focus-visible,#r940Health.hv-r943 summary:focus-visible,#r940Health.hv-r943 select:focus-visible,#r940Health.hv-r943 input:focus-visible{outline:3px solid #b2e8da;outline-offset:3px}
+#r940Health.hv-r943 button:disabled{opacity:.55;cursor:default}
+#r940Health.hv-r943 button.hv-primary{display:block;width:100%;background:#90d9c4;color:#102b2b;border-color:#90d9c4;min-height:51px;font-size:16px}
+#r940Health.hv-r943 button.hv-primary:hover{background:#a6e6d4}
+#r940Health.hv-r943 button.hv-text-button,#r940Health.hv-r943 button.hv-back{background:transparent;border-color:transparent;color:#a8dccf;text-decoration:underline;text-underline-offset:3px;padding-inline:6px}
+#r940Health.hv-r943 .hv-overall{border:1px solid var(--hv-border);border-inline-start:4px solid #77bca7;border-radius:16px;padding:18px 18px 12px;background:var(--hv-surface);margin:0 0 18px}
+#r940Health.hv-r943 .hv-overall[data-status='WARN'],#r940Health.hv-r943 .hv-overall[data-status='NOT_MEASURED'],#r940Health.hv-r943 .hv-overall[data-status='PENDING']{border-inline-start-color:#e2ba7a}
+#r940Health.hv-r943 .hv-overall[data-status='FAIL']{border-inline-start-color:#ee9994}
+#r940Health.hv-r943 .hv-stamp,#r940Health.hv-r943 .hv-caption{font-size:12px;color:var(--hv-muted)}
+#r940Health.hv-r943 .hv-caption{text-align:center;margin:8px 0 12px}
+#r940Health.hv-r943 .hv-advice{color:#ead6ac}
+#r940Health.hv-r943 .hv-center{text-align:center}
+#r940Health.hv-r943 .hv-areas{display:grid;gap:10px;margin:15px 0 20px}
+#r940Health.hv-r943 .hv-area,#r940Health.hv-r943 .hv-advanced{border:1px solid var(--hv-border);border-radius:13px;background:#0f242d;overflow:hidden}
+#r940Health.hv-r943 .hv-area>summary,#r940Health.hv-r943 .hv-advanced>summary{min-height:58px;padding:14px;display:flex;gap:10px;align-items:center;list-style:none;cursor:pointer}
+#r940Health.hv-r943 .hv-area>summary::-webkit-details-marker,#r940Health.hv-r943 .hv-advanced>summary::-webkit-details-marker{display:none}
+#r940Health.hv-r943 .hv-area>summary>strong{flex:1;font-size:15px;font-weight:600}
+#r940Health.hv-r943 .hv-area>summary:after,#r940Health.hv-r943 .hv-advanced>summary:after{content:'⌄';color:#b4c8cb;flex:none}
+#r940Health.hv-r943 .hv-area[open]>summary:after,#r940Health.hv-r943 .hv-advanced[open]>summary:after{content:'⌃'}
+#r940Health.hv-r943 .hv-badge{display:inline-block;flex:none;padding:4px 8px;border:1px solid #486169;border-radius:8px;font-size:11px;line-height:1.3;color:#c5d4d8;max-width:130px;white-space:normal}
+#r940Health.hv-r943 .hv-badge[data-status='PASS']{background:#173c32;color:#b1e8d3;border-color:#467b67}
+#r940Health.hv-r943 .hv-badge[data-status='WARN'],#r940Health.hv-r943 .hv-badge[data-status='NOT_MEASURED']{background:#302a1e;color:#e8c995;border-color:#716044}
+#r940Health.hv-r943 .hv-badge[data-status='FAIL']{background:#422726;color:#ffc1b9;border-color:#925d57}
+#r940Health.hv-r943 .hv-checks,#r940Health.hv-r943 .hv-advanced-body{padding:0 14px 14px}
+#r940Health.hv-r943 .hv-check{border-top:1px solid #2d444b;padding:15px 0 3px}
+#r940Health.hv-r943 .hv-check-head{display:flex;align-items:start;justify-content:space-between;gap:10px}
+#r940Health.hv-r943 .hv-check-head strong{font-size:14px;font-weight:600}
+#r940Health.hv-r943 .hv-check p{font-size:13px;margin-top:9px}
+#r940Health.hv-r943 .hv-guides{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 18px}
+#r940Health.hv-r943 .hv-action-list{display:grid;gap:10px;margin:18px 0}
+#r940Health.hv-r943 .hv-action-list button{text-align:start}
+#r940Health.hv-r943 .hv-advanced{margin:22px 0}
+#r940Health.hv-r943 .hv-advanced-body{font-size:13px}
+#r940Health.hv-r943 .hv-history-item{border-inline-start:2px solid #53676b;padding-inline-start:10px}
+#r940Health.hv-r943 .hv-box{padding:16px;border:1px solid var(--hv-border);border-radius:14px;background:var(--hv-surface);margin:18px 0}
+#r940Health.hv-r943 .hv-box h4{margin-top:0}
+#r940Health.hv-r943 .hv-eyebrow{font-size:11px;letter-spacing:.08em;color:#9ccebd}
+#r940Health.hv-r943 .hv-pre-line{white-space:pre-line}
+#r940Health.hv-r943 pre{font:12px/1.5 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%;max-height:350px;overflow:auto;color:#cddadd;background:#091b22;padding:12px;border-radius:8px}
+#r940Health.hv-r943 .hv-consent{display:flex;align-items:start;gap:12px;padding:14px 0;margin:10px 0 18px;font-size:14px;cursor:pointer}
+#r940Health.hv-r943 input[type='checkbox']{width:22px;height:22px;margin:2px 0 0;accent-color:#90d9c4;flex:none}
+#r940Health.hv-r943 .hv-device-row{display:grid;gap:8px;padding:14px 0;border-bottom:1px solid var(--hv-border)}
+#r940Health.hv-r943 .hv-device-row select{width:100%;font-weight:400}
+#r940Health.hv-r943 .hv-device-result{font-size:13px;border-top:1px solid var(--hv-border);padding-top:10px}
+#r940Health.hv-r943 .hv-feedback{font-size:13px;color:#e5d4ad;min-height:1.5em;margin:14px 0}
+#r940Health.hv-r943 .hv-footer{border-top:1px solid var(--hv-border);padding-top:10px;margin-top:20px}
+#r940Health.hv-r943 .hv-footer>p{font-size:11px;color:var(--hv-muted);text-align:center}
+#r940Health.hv-r943 [data-health-action='incident']{border-color:#976c59;color:#f2ceae}
+#r940HealthDialog:has(.hv-r943){padding:18px;width:min(720px,calc(100vw - 20px));max-height:calc(100dvh - 24px)}
+@media(max-width:380px){#r940Health.hv-r943{font-size:14px}#r940Health.hv-r943 h3{font-size:21px}#r940Health.hv-r943 .hv-overall{padding:14px}#r940Health.hv-r943 .hv-area>summary{padding:12px;gap:7px}#r940Health.hv-r943 .hv-area>summary>strong{font-size:14px}#r940Health.hv-r943 .hv-badge{font-size:10px;padding:4px 6px}#r940Health.hv-r943 .hv-guides{grid-template-columns:1fr}#r940HealthDialog:has(.hv-r943){padding:12px}}
+@media(prefers-reduced-motion:reduce){#r940Health.hv-r943 *{scroll-behavior:auto}}

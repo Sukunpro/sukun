@@ -28,7 +28,28 @@
    display rule defeated the generic [hidden] reset and exposed empty fields. */
 #r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox):not([hidden]){display:block!important;margin:0!important;visibility:visible!important;pointer-events:auto!important}
 #r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)[hidden]{display:none!important}
-#r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)>summary{min-height:46px!important;padding:10px 14px!important;border-image:none!important;background:#0d2032!important;border:1px solid #c4aa714f!important;border-radius:10px!important}
+/* r974: this first important layer keeps disclosure geometry. Its old plain
+   paint covered the later gemstone skin, so plain paint now belongs to Esma. */
+#r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)>summary{min-height:46px!important;padding:10px 14px!important;border-radius:10px!important}
+#r920Practice[data-r938-layout="1"]:not([data-mode="berhet"]) #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)>summary{border-image:none!important;background:#0d2032!important;border:1px solid #c4aa714f!important}
+/* Paint only: the native summary is still the sole accordion hit target.
+   The same settings summary can be reparented into the actual tools portal. */
+#r920Practice[data-r938-layout="1"][data-mode="berhet"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)>summary,
+html body.r754-berhet-theme #r616ToolsSheet :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)>summary{
+ --r933-summary-art:var(--r933-gem-amethyst);--r933-summary-face:#281337;
+ border:1px solid transparent!important;
+ border-image:var(--r933-summary-art) 330 fill / 9px / 0 stretch!important;
+ background:var(--r933-summary-face)!important;color:#fff0cb!important;
+ text-shadow:0 1px 3px #020811!important;box-shadow:none!important;
+}
+#r920Practice[data-r938-layout="1"][data-mode="berhet"] #r938PanelBody #r920JourneySettings>summary,
+html body.r754-berhet-theme #r616ToolsSheet #r920JourneySettings>summary{
+ --r933-summary-art:var(--r933-gem-emerald);--r933-summary-face:#083b2c;
+}
+#r920Practice[data-r938-layout="1"][data-mode="berhet"] #r938PanelBody #r679ZikirAyarBox>summary,
+html body.r754-berhet-theme #r616ToolsSheet #r679ZikirAyarBox>summary{
+ --r933-summary-art:var(--r933-gem-sapphire);--r933-summary-face:#0a2637;
+}
 #r920Practice[data-r938-layout="1"] #r938PanelBody #r679ZikirAyarBox .r679SettingsTitle small{display:none!important}
 #r920Practice[data-r938-layout="1"] #r938PanelBody #r679ZikirAyarBox .r679SettingsTitle b{font-size:12px!important}
 #r920Practice[data-r938-layout="1"] #r938PanelBody #r920More{display:block!important;margin:0!important;visibility:visible!important;pointer-events:auto!important}
