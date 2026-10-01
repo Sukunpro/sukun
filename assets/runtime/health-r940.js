@@ -35,7 +35,7 @@
     while (rows.length < 6 && (hit = re.exec(stack))) rows.push({ file:path(hit[1]),line:Number(hit[2]),column:Number(hit[3]) });
     return rows;
   }
-  const historicKeys = new Set('at seq kind code severity title certainty firstAt lastAt occurrences eventSeq context evidence hidden session tempo truth sw lock phase mode index count target epoch requestId journey owner source reason tefekkur dualJourney audioIssues state tangible pending life hub issues app controller waiting hasController complete error value previous cancelledGestures pendingGesture active playing frozen cycleMs mediaProgressMs lastProgressAgeMs stalls overshootCycles applied name file line column frames asset tag lagMs thresholdMs elapsedMs checkpointAt scope build online previousCheckpoint bytes lastEvent measuredAt snapshot type phaseMs rep limit cycles remaining delay wraps remainMs provider model http durationMs background outcome errorName stage path sourceKind paused ended readyState networkState mediaErrorCode eligible generationCurrent scope transition disposition singleSnapshot singleMeasuredAt snapshotPath preparing'.split(' '));
+  const historicKeys = new Set('at seq kind code severity title certainty firstAt lastAt occurrences eventSeq context evidence hidden session tempo truth sw lock phase mode index count target epoch requestId journey owner source reason tefekkur dualJourney audioIssues state tangible pending life hub issues app controller waiting hasController complete error value previous cancelledGestures pendingGesture active playing frozen cycleMs mediaProgressMs lastProgressAgeMs stalls overshootCycles applied name file line column frames asset tag lagMs thresholdMs elapsedMs checkpointAt scope build online previousCheckpoint bytes lastEvent measuredAt snapshot type phaseMs rep limit cycles remaining delay wraps remainMs provider model http durationMs background outcome errorName stage path sourceKind paused ended readyState networkState mediaErrorCode eligible generationCurrent scope transition disposition singleSnapshot singleMeasuredAt snapshotPath preparing browserLifecycle wasDiscarded navigationType previous previousExit crashConfirmed pagehide mediaPlaying mediaTime'.split(' '));
   function historic(value, depth = 0) {
     if (depth > 5 || value == null) return null;
     if (typeof value === 'boolean') return value;
@@ -74,7 +74,19 @@
       ...compactBackground({evidence:single}),cycleMs:finite(single.cycleMs)
     }};
   }
-  function evidenceContext() { return { hidden: document.hidden, session, tempo, truth, sw, lock, background }; }
+  // r970: read-only browser restart evidence, distinct from audio handoff errors.
+  function compactLifecycle() {
+    const bootState = safe(() => window.SukunBootCheckpoint?.snapshot?.());
+    const p = bootState?.previous;
+    const navigationType = safe(() => performance.getEntriesByType('navigation')[0]?.type, 'unknown');
+    return { wasDiscarded: document.wasDiscarded === true, navigationType: token(navigationType),
+      previousExit: token(bootState?.previousExit || 'unknown'), crashConfirmed: false,
+      previous: p ? { at: finite(p.at), build: token(p.build), reason: token(p.reason),
+        hidden: bool(p.hidden), playing: bool(p.playing), paused: bool(p.paused),
+        owner: token(p.owner), index: finite(p.index), count: finite(p.count),
+        pagehide: bool(p.pagehide), mediaPlaying: bool(p.mediaPlaying), mediaTime: finite(p.mediaTime) } : null };
+  }
+  function evidenceContext() { return { hidden: document.hidden, session, tempo, truth, sw, lock, background, browserLifecycle: compactLifecycle() }; }
   function record(kind, evidence = {}) {
     const row = { seq: ++seq, at: now(), kind: token(kind), evidence };
     events.push(row); if (events.length > MAX_EVENTS) { events.shift(); droppedEvents++; }
@@ -93,7 +105,7 @@
   }
   function checkpoint(reason) {
     return { schema: SCHEMA, at: now(), boot, build, reason, hidden: document.hidden,
-      closed: reason === 'pagehide', session, tempo, sw, background, deviceCheck, incidents: incidents.slice(-8), events: events.slice(-18) };
+      closed: reason === 'pagehide', session, tempo, sw, background, browserLifecycle: compactLifecycle(), deviceCheck, incidents: incidents.slice(-8), events: events.slice(-18) };
   }
   function persist(reason) {
     const saved = checkpoint(reason); let data = JSON.stringify(saved), trimmed = 0;
@@ -116,7 +128,7 @@
       session: old.session ? { phase: token(old.session.phase), count: finite(old.session.count), index: finite(old.session.index), mode: token(old.session.mode) } : null,
       incidentCodes: (Array.isArray(old.incidents) ? old.incidents : []).slice(-8).map(x => token(x.code)),
       incidents: historic((Array.isArray(old.incidents) ? old.incidents : []).slice(-8)),
-      events: historic((Array.isArray(old.events) ? old.events : []).slice(-18)), background:historic(old.background), deviceCheck: compactDeviceCheck(old.deviceCheck) };
+      events: historic((Array.isArray(old.events) ? old.events : []).slice(-18)), background:historic(old.background), browserLifecycle:historic(old.browserLifecycle), deviceCheck: compactDeviceCheck(old.deviceCheck) };
     if (!old.closed && /PLAYING|PREPARING|INTERRUPTED/.test(previous.session?.phase || ''))
       issue('PREVIOUS_UNCLOSED_SESSION', 'WARN', 'Önceki etkin oturumun kapanışı gözlenmedi',
         { checkpointAt: old.at, scope: previousScope, phase: previous.session.phase, reason: previous.reason },
@@ -327,10 +339,13 @@
       async function worker() {
         while (cursor < entries.length) {
           const entry = entries[cursor++], url = new URL(entry.url, location.href);
-          if (url.origin !== location.origin || !/\/assets\/runtime\/[A-Za-z0-9_.-]+$/.test(url.pathname) || !/^[a-f0-9]{64}$/.test(entry.sha256)) { result.push({ path: path(url.href), status: 'INVALID_ENTRY' }); continue; }
+          const runtime = /\/assets\/runtime\/[A-Za-z0-9_.-]+$/.test(url.pathname);
+          const navigationArt = /\/assets\/wheel-navigation-r964\/(?:gold|copper|silver|dark|crystal)\.png$/.test(url.pathname);
+          if (url.origin !== location.origin || !(runtime || navigationArt) || !/^[a-f0-9]{64}$/.test(entry.sha256)) { result.push({ path: path(url.href), status: 'INVALID_ENTRY' }); continue; }
           try {
-            if (total > 1048576) throw new Error('TOTAL_SIZE_LIMIT');
-            const data = await fetchBytes(url.href, 524288, controller); total += data.length;
+            const maxFileBytes = navigationArt ? 2097152 : 524288;
+            if (total + maxFileBytes > 8388608) throw new Error('TOTAL_SIZE_LIMIT');
+            const data = await fetchBytes(url.href, maxFileBytes, controller); total += data.length;
             const digest = await crypto.subtle.digest('SHA-256', data);
             const actual = [...new Uint8Array(digest)].map(x => x.toString(16).padStart(2,'0')).join('');
             result.push({ path: path(url.href), status: actual === entry.sha256 ? 'MATCH' : 'HASH_MISMATCH', expected: entry.sha256, actual });
