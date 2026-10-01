@@ -1,0 +1,97 @@
+/* r939: one viewport scroll surface; expanded controls stay in normal flow. */
+@layer sukun-r938-layout {
+#r920Practice[hidden]{display:none!important}
+#r920Practice[data-r938-layout="1"]{background:linear-gradient(180deg,#06152387,#06152335 50%,#06152370)!important}
+#r920Practice[data-r938-layout="1"] #r938Hero{display:flex!important;flex-direction:column!important;align-items:center!important;flex:0 0 auto!important;min-width:0!important;width:100%!important;gap:4px!important}
+#r920Practice[data-r938-layout="1"] #r924WheelFrame{width:min(86vw,360px)!important;margin:4px auto!important;flex:none!important}
+#r920Practice[data-r938-layout="1"] .r920Stats{width:min(100%,340px)!important;gap:10px!important;margin:4px auto!important;flex:none!important}
+#r920Practice[data-r938-layout="1"] .r920Stats>span{padding:10px 18px!important;gap:0 4px!important;line-height:1.1!important;align-content:center!important;min-height:56px!important}
+#r920Practice[data-r938-layout="1"] .r920Stats b{font-size:clamp(20px,5.8vw,24px)!important;line-height:1.1!important}
+#r920Practice[data-r938-layout="1"] #r920Phase{background:none!important;border:0!important;padding:0!important;margin:2px 0!important;min-height:17px!important;font-size:11px!important;line-height:17px!important;color:#e2dfcb!important;text-shadow:0 1px 4px #000!important}
+#r920Practice[data-r938-layout="1"] #r938Panel{display:flex!important;flex-direction:column!important;min-height:0!important;flex:0 0 auto!important;width:100%!important;max-width:420px!important;margin:8px auto 0!important;padding:8px!important;gap:4px!important;border:1px solid #d4b67788!important;border-radius:19px!important;background:linear-gradient(150deg,#081927ed,#061521d9)!important;box-shadow:0 5px 22px #0004!important}
+#r920Practice[data-r938-layout="1"] #r932WheelControls{display:flex!important;flex-direction:column!important;flex:1 1 auto!important;min-height:0!important;margin:0!important;width:100%!important;gap:6px!important}
+#r920Practice[data-r938-layout="1"] .r932EasyTransport{display:grid!important;grid-template-columns:52px minmax(0,1fr) 52px!important;gap:8px!important;flex:none!important}
+#r920Practice[data-r938-layout="1"] .r932EasyTransport button{min-height:48px!important;padding:10px 12px!important;font-size:13px!important}
+#r920Practice[data-r938-layout="1"] #r932EasyPlay{--r933-control-art:var(--r933-gem-emerald)!important;--r933-control-dark:#053529!important}
+#r920Practice[data-r938-layout="1"] :is(#r932EasyMinus,#r932EasyPlus){--r933-control-art:var(--r933-gem-amethyst)!important;--r933-control-dark:#29183a!important}
+#r920Practice[data-r938-layout="1"] #r938PanelToggle{display:flex!important;flex:none!important;align-items:center!important;justify-content:center!important;gap:9px!important;min-height:44px!important;width:100%!important;background:#0d2032a8!important;border:1px solid #c4aa714f!important;border-radius:12px!important;padding:8px 12px!important;font:500 12px/1.4 system-ui!important;color:#f1e5c7!important;cursor:pointer!important}
+#r920Practice[data-r938-layout="1"] #r938PanelBody{display:flex!important;flex-direction:column!important;flex:1 1 auto!important;min-height:0!important;gap:8px!important;padding:2px 3px 6px!important;height:auto!important;max-height:none!important;overflow:visible!important}
+#r920Practice[data-r938-layout="1"] #r938PanelBody[hidden]{display:none!important}
+#r920Practice[data-r938-layout="1"] #r938PanelBody>*{flex-shrink:0!important}
+#r920Practice[data-r938-layout="1"] .r920Transport{grid-template-columns:repeat(3,minmax(0,1fr))!important;margin:0!important;gap:6px!important}
+#r920Practice[data-r938-layout="1"] .r932VisualShortcuts{margin:0!important;gap:6px!important}
+#r920Practice[data-r938-layout="1"] .r932VisualShortcuts button{min-height:52px!important;height:52px!important;padding:5px 13px!important}
+#r920Practice[data-r938-layout="1"] #r920Actions{display:block!important;margin:0!important;visibility:visible!important;pointer-events:auto!important}
+#r920Practice[data-r938-layout="1"] #r920Actions .spkBtn{height:52px!important;min-height:52px!important;max-height:52px!important;padding:7px!important;gap:3px!important}
+/* r945: layout must honor the native owner’s hidden state. In single-zikir
+   mode the journey selects are intentionally unpopulated. The former three-ID
+   display rule defeated the generic [hidden] reset and exposed empty fields. */
+#r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox):not([hidden]){display:block!important;margin:0!important;visibility:visible!important;pointer-events:auto!important}
+#r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)[hidden]{display:none!important}
+#r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)>summary{min-height:46px!important;padding:10px 14px!important;border-image:none!important;background:#0d2032!important;border:1px solid #c4aa714f!important;border-radius:10px!important}
+#r920Practice[data-r938-layout="1"] #r938PanelBody #r679ZikirAyarBox .r679SettingsTitle small{display:none!important}
+#r920Practice[data-r938-layout="1"] #r938PanelBody #r679ZikirAyarBox .r679SettingsTitle b{font-size:12px!important}
+#r920Practice[data-r938-layout="1"] #r938PanelBody #r920More{display:block!important;margin:0!important;visibility:visible!important;pointer-events:auto!important}
+#r920Practice[data-r938-layout="1"] #r938PanelBody [hidden]{display:none!important}
+#r920Practice[data-r938-layout="1"] #r932EasyStop{width:100%!important;min-height:44px!important;max-width:180px!important;align-self:center!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"]{position:relative!important;inset:auto!important;z-index:100!important;overflow-anchor:auto!important;display:flex!important;flex-direction:column!important;gap:8px!important;height:auto!important;min-height:100svh!important;max-height:none!important;padding: max(12px,env(safe-area-inset-top)) 12px max(8px,env(safe-area-inset-bottom))!important;margin:0 auto!important;overflow:visible!important;background:linear-gradient(180deg,#03132155,transparent 52%,#03132122)!important;border:0!important}
+body.sukun-tefekkur-mode:has(#r920Practice[data-r938-layout="1"]) #tab-zkr{inset:0!important;height:100dvh!important;max-height:100dvh!important;padding:0!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:contain!important;touch-action:pan-y pinch-zoom!important;scroll-behavior:auto!important;scroll-padding:12px!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] .r920Identity{min-height:0!important;max-width:100%!important;margin:0!important;padding:0!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r920Eyebrow{font-size:10px!important;margin:0!important;line-height:16px!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r920NameInfo{min-height:44px!important;padding:3px 10px!important;border:0!important;border-image:none!important;background:transparent!important;gap:0!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r920ActiveName{font-size:clamp(18px,5vw,24px)!important;line-height:1.2!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] :is(#r920Arabic,#r920SceneTitle,#r920VoiceSource){display:none!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r924WheelFrame{width:min(80vw,39dvh,360px)!important;margin:2px auto!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r938Panel{margin-top:auto!important;max-height:none!important;overflow:visible!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r920TefExit{display:flex!important;flex:none!important;width:min(100%,280px)!important;min-height:48px!important;margin:0 auto!important;padding:10px 24px!important;font-size:12px!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r920More{display:none!important}
+#r920Practice[data-r938-layout="1"] button:focus-visible{outline:2px solid #ffe1a0!important;outline-offset:2px!important}
+/* r949: hiding optional controls gives the wheel the released space. */
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"]:has(#r938Panel[data-open="false"]) #r924WheelFrame{width:min(94vw,51dvh,440px)!important;max-width:calc(100% + 16px)!important;margin-inline:0!important}
+/* Landscape uses two columns in the same scrolling page. */
+@media(max-height:520px) and (orientation:landscape){
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"]{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;align-items:start!important;max-width:960px!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r924WheelFrame{width:min(40vw,62dvh,300px)!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"]:has(#r938Panel[data-open="false"]) #r924WheelFrame{width:min(42vw,70dvh,340px)!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r938Panel{margin:0 auto!important;max-height:none!important}
+}
+}
+
+/* r967: all primary actions remain beside the wheel, outside advanced settings. */
+@layer sukun-r938-layout {
+#r920Practice[data-r938-layout="1"] .r920Transport{display:grid!important;grid-template-columns:1fr 1.2fr 1fr!important;width:100%!important;margin:0!important;gap:6px!important}
+#r920Practice[data-r938-layout="1"] .r920Transport button{min-height:48px!important;font-size:12px!important;padding:8px 5px!important}
+#r920Practice[data-r938-layout="1"] #r968PrimaryActions{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(72px,.55fr)!important;gap:6px!important;width:100%!important}
+#r920Practice[data-r938-layout="1"] #r968PrimaryActions>button{width:100%!important;min-height:48px!important;max-width:none!important;margin:0!important;font-size:13px!important}
+#r920Practice[data-r938-layout="1"] #r968PrimaryActions>[hidden]{display:none!important}
+
+#r920Practice[data-r938-layout="1"] #r920TefExit{grid-column:auto!important}
+#r920Practice[data-r938-layout="1"] #r932EasyStop{grid-column:2!important;grid-row:1!important;--r933-control-art:var(--r933-gem-ruby)!important;--r933-control-dark:#421726!important}
+#r920Practice[data-r938-layout="1"] .r920Path:empty{display:none!important}
+body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r938Panel{margin-top:8px!important}
+}
+
+/* r968: one disclosure hides the complete lower panel. The wheel stays usable. */
+@layer sukun-r938-layout {
+#r920Practice[data-r938-layout="1"] #r938Panel{padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;gap:0!important}
+#r920Practice[data-r938-layout="1"] #r938PanelToggle{width:min(100%,260px)!important;align-self:center!important;min-height:44px!important;border-radius:18px 18px 8px 8px!important;position:relative!important;padding:10px 22px!important;box-shadow:0 -2px 8px #0003!important}
+#r920Practice[data-r938-layout="1"] #r938PanelBody:not([hidden]){padding:10px!important;border:1px solid #d4b67788!important;border-radius:18px!important;background:linear-gradient(150deg,#081927ed,#061521e8)!important}
+#r920Practice[data-r938-layout="1"] .r920Path{justify-content:center!important;flex-wrap:wrap!important;gap:12px!important;max-width:300px!important;margin:10px auto 16px!important}
+#r920Practice[data-r938-layout="1"] .r920Path>button,#r920Practice[data-r938-layout="1"] #r920JourneyLabel{width:120px!important;flex:0 1 120px!important;min-width:0!important}
+#r920Practice[data-r938-layout="1"] #r920JourneyMode{width:100%!important;min-height:44px!important}
+#r920Practice[data-r938-layout="1"] .r920Stats{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;width:min(92%,320px)!important;gap:10px!important}
+#r920Practice[data-r938-layout="1"] .r920Stats>span{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;align-items:center!important;align-content:center!important;min-width:0!important;box-sizing:border-box!important;gap:0 4px!important;padding:11px 22px!important;font-size:11px!important;text-align:center!important}
+#r920Practice[data-r938-layout="1"] .r920Stats b{display:block!important;flex:0 0 100%!important;width:100%!important;min-width:0!important;max-width:100%!important;margin:0!important;white-space:nowrap!important;font-size:clamp(18px,5.2vw,22px)!important;line-height:1.1!important;text-align:center!important;font-variant-numeric:tabular-nums!important}
+#r920Practice[data-r938-layout="1"] .r920Stats[data-digits="large"] b{font-size:16px!important}
+#r920Practice[data-r938-layout="1"] #r968ManualHint{font:400 11px/1.4 system-ui!important;color:#dcd8cc!important;text-align:center!important;margin:0!important;padding:0 5px!important}
+#r920Practice[data-r938-layout="1"] #r968ManualHint:empty{display:none!important}
+/* Same first important layer as layout: no plain background can cover the art. */
+#r920Practice[data-r938-layout="1"][data-mode="berhet"] :is(#r920TefEnter,#r920TefExit,#r932EasyStop,#r938PanelToggle){
+ background:var(--r933-control-art) center/100% 100% no-repeat,radial-gradient(ellipse,var(--r933-control-dark),transparent 72%) center/86% 76% no-repeat!important;
+ border:0!important;color:#fff4d5!important;text-shadow:0 1px 3px #02090b,0 0 5px #02090b!important;box-shadow:none!important;
+ padding-inline:18px!important;overflow:hidden!important;
+}
+#r920Practice[data-r938-layout="1"][data-mode="berhet"] :is(#r920TefEnter,#r920TefExit){--r933-control-art:var(--r933-gem-amethyst)!important;--r933-control-dark:#29183a!important}
+#r920Practice[data-r938-layout="1"][data-mode="berhet"] #r938PanelToggle{--r933-control-art:var(--r933-gem-diamond)!important;--r933-control-dark:#152737!important}
+#r920Practice[data-r938-layout="1"] #r920TefEnter[hidden],#r920Practice[data-r938-layout="1"] #r920TefExit[hidden]{display:none!important}
+}

@@ -1,0 +1,312 @@
+/* r933 material skin; r934 compacts the six native action cells.
+   Input semantics, hidden states, motion geometry and playback stay untouched.
+   Declare this important layer before the legacy contract layer. */
+@layer sukun-r933-controls {
+/* r972: material coverage follows the existing Berhetiyye selection.
+   No display, positioning, dimensions or input handlers are changed here. */
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet,#r642ZikirInfoCard) :is(
+ button:not(.sw):not(.r924Gem):not(#r920Counter):not(#zCountVisual),
+ select,summary) {
+ --r972-art:var(--r933-gem-sapphire);--r972-face:#0a2637;
+ border:1px solid transparent!important;
+ border-image:var(--r972-art) 330 fill / 9px / 0 stretch!important;
+ background:var(--r972-face)!important;color:#fff1d5!important;
+ box-shadow:none!important;text-shadow:0 1px 3px #000!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet,#r642ZikirInfoCard) :is(
+ summary,#r938PanelToggle,#r920Restart,#r920More,#r972TickDelete) {
+ --r972-art:var(--r933-gem-diamond);--r972-face:#142733;
+}
+html body.r754-berhet-theme #tab-zkr :is(
+ #r932EasyStop,#r972TickRecord,.recording,[data-act="stop"],button[id$="Stop"]) {
+ --r972-art:var(--r933-gem-ruby);--r972-face:#401023;
+}
+html body.r754-berhet-theme #tab-zkr :is(
+ #r920TefEnter,#r920TefExit,#r932QuickWheel,[data-r616-znav="tef"],#r972TickTest) {
+ --r972-art:var(--r933-gem-amethyst);--r972-face:#281337;
+}
+html body.r754-berhet-theme #tab-zkr :is(
+ #r932EasyPlay,#r920ModeBerhet,#r920AtlasOpen,[data-act="transport"],button[id$="Play"],button[aria-pressed="true"]:not(#r972TickRecord):not(.recording)) {
+ --r972-art:var(--r933-gem-emerald);--r972-face:#083b2c;
+}
+html body.r754-berhet-theme #tab-zkr :is(
+ #r971ManualFeedbackSettings,#r972TickSoundSettings,fieldset,.zMegaGroup,.zMegaBody,
+ .r616AccCard,.r616SheetCard,#berhetAtlas,#berhetSeyir,#r938Panel,.targetDetailCard) {
+ border:1px solid #bba06b88!important;
+ border-image:var(--r933-panel-frame) 250 / 8px / 0 stretch!important;
+ background:linear-gradient(145deg,#0b2826e8,#071725ed)!important;
+ color:#f4ead1!important;box-shadow:none!important;
+}
+/* The main menu is coated only while the Zikir tab is selected. */
+html body.r754-berhet-theme:has(#tab-zkr.active) .tabs,
+html body.r754-berhet-theme:has(.tabs [data-t="zkr"].act) .tabs {
+ border:1px solid transparent!important;
+ border-image:var(--r933-panel-frame) 250 / 7px / 0 stretch!important;
+ background:linear-gradient(135deg,#112825f5,#081824f5)!important;
+}
+html body.r754-berhet-theme:has(.tabs [data-t="zkr"].act) .tabs :is(button,.tabTekke) {
+ border:1px solid transparent!important;
+ border-image:var(--r933-gem-diamond) 330 fill / 6px / 0 stretch!important;
+ background:#10262beb!important;color:#f8e7c4!important;box-shadow:none!important;
+}
+html body.r754-berhet-theme:has(.tabs [data-t="zkr"].act) .tabs button.act {
+ border-image-source:var(--r933-gem-emerald)!important;background:#10382e!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) input:not([type="range"]):not([type="checkbox"]):not([type="radio"]) {
+ border-color:#bba06b99!important;background:#0e202cee!important;color:#f7ead1!important;
+ box-shadow:inset 0 0 0 1px #d1b76f22!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) button.sw::before {
+ border-color:#b29a64!important;background:linear-gradient(140deg,#283744,#0b1927)!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) button.sw::after {
+ background:var(--r933-gem-diamond) center/100% 100% no-repeat!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) button.sw.on::before {
+ background:linear-gradient(140deg,#206a4b,#0b3025)!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) button.sw.on::after {
+ background:var(--r933-gem-emerald) center/100% 100% no-repeat!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) :is(button,select,summary,input):focus-visible {
+ outline:2px solid #ffeab2!important;outline-offset:2px!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) {
+ --r933-control-art:var(--r933-gem-diamond,none);--r933-control-ink:#fff4d5;
+ --r933-control-dark:#101d28;--r920-accent:#decda2;--r920-muted:#d8d8ce;
+}
+
+/* Settings can be reparented into the tools dialog. Coat the actual host. */
+html body.r754-berhet-theme :is(#r616ToolsSheet,.r616SheetCard,.r616AccCard) {
+ border:1px solid #bba06b88!important;
+ border-image:var(--r933-panel-frame) 250 / 9px / 0 stretch!important;
+ background:linear-gradient(145deg,#0b2826f8,#071725fa)!important;color:#f4ead1!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) input[type="range"] {
+ accent-color:#b5d4a8!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) input[type="range"]::-webkit-slider-runnable-track {
+ background:linear-gradient(90deg,#c8b775,#466953)!important;border:1px solid #bba16a!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) input[type="range"]::-webkit-slider-thumb {
+ background:var(--r933-gem-diamond) center/100% 100% no-repeat!important;border-color:#d7b66d!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) input[type="range"]::-moz-range-thumb {
+ background:var(--r933-gem-diamond) center/100% 100% no-repeat!important;border-color:#d7b66d!important;
+}
+
+/* Small controls use the same real blank gemstones as the larger cards.
+   Each native hit target remains the sole input owner. No overlay is added. */
+#r920Practice[data-mode="berhet"]:not([hidden]) :where(
+ .r920Modes button,.r920Path>button,#r932WheelControls button,
+ .r920Transport button,#r920Actions .spkBtn,#r920More,
+ #r920RecordingRetry,#r920SceneRetry,#r924WheelRetry,#r925UpdateAction,
+ #r679ZikirAyarBox button:not(.sw):not(#targetHint)) {
+ background:var(--r933-control-art,none) center/100% 100% no-repeat,
+  radial-gradient(ellipse,var(--r933-control-dark,#101d28) 0 54%,transparent 72%) center/86% 76% no-repeat!important;
+ border:0!important;border-radius:13px!important;box-shadow:none!important;
+ color:var(--r933-control-ink,#fff4d5)!important;text-shadow:0 1px 3px #02090b,0 0 5px #02090bbf!important;
+ filter:none!important;overflow:hidden!important;
+}
+/* The native name card and long explanation button use a hollow frame so
+   Arabic, long names, and help text keep their complete usable text area. */
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(#r920NameInfo,#targetHint) {
+ border:1px solid #b6a06b77!important;
+ border-image:var(--r933-panel-frame,none) 250 / 8px / 0 stretch!important;
+ background:linear-gradient(135deg,#10362d8f,#0a1d328f)!important;
+ color:#f4e8c9!important;text-shadow:0 1px 3px #001218!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r920Phase:not(:empty) {
+ color:#dfddc8!important;text-shadow:0 1px 3px #001019!important;
+}
+/* Material assignment is semantic and stable when a control changes state. */
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(
+ #r920ModeBerhet,#r920AtlasOpen,#r932EasyPlay,#r932EasyPlus,#favBtn,
+ #ebCalcBtn,#freeApplyBtn,#r924WheelRetry) {
+ --r933-control-art:var(--r933-gem-emerald,none);--r933-control-dark:#053529;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(
+ #r932QuickWheel,#r920TefEnter,#niyetRecBtn,#r920More,#tgtManBtn) {
+ --r933-control-art:var(--r933-gem-amethyst,none);--r933-control-dark:#29183a;
+}
+#r920Practice[data-mode="berhet"]:not([hidden])[data-phase="PLAYING"] #r932EasyPlay,
+#r920Practice[data-mode="berhet"]:not([hidden])[data-phase="PREPARING"] #r932EasyPlay {
+ --r933-control-art:var(--r933-gem-amethyst,none);--r933-control-dark:#29183a;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(
+ #r932QuickScene,#r920Previous,#r920Next,#spkOnce,
+ #r852VoiceRefresh,#r852ArTest,#huDinle,#r920SceneRetry) {
+ --r933-control-art:var(--r933-gem-sapphire,none);--r933-control-dark:#122d53;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #zDonguBtn {
+ --r933-control-art:var(--r935-gem-topaz,none);--r933-control-dark:#492803;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(
+ #r932EasyStop,#itemRecBtn,#r922RecordVoice,#huKayit,#r920RecordingRetry) {
+ --r933-control-art:var(--r933-gem-ruby,none);--r933-control-dark:#421726;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(
+ #r932EasyMinus,#r932QuickClose,#r920Restart,#r920ModeEsma,#zBarHelp,
+ #ebBtn,#freeBtn,#r679ZikirAyarBox .huK) {
+ --r933-control-art:var(--r933-gem-diamond,none);--r933-control-dark:#152737;
+}
+/* Nine-slice wide controls retain a constant-width bezel: long labels stay
+   over the flat gemstone face instead of crossing stretched facet edges. */
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(#r932QuickWheel,#r932QuickScene,#r920More,#r852VoiceRefresh,#r922RecordVoice,#huKayit,#huDinle) {
+ background:radial-gradient(ellipse,var(--r933-control-dark,#101d28),transparent 72%)!important;
+ border:1px solid transparent!important;
+ border-image:var(--r933-control-art,none) 330 fill / 11px / 0 stretch!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(#r852VoiceRefresh,#r922RecordVoice,#huKayit,#huDinle) {
+ height:auto!important;max-height:none!important;padding:10px 17px!important;
+ white-space:normal!important;overflow-wrap:break-word!important;
+}
+/* Captions retain their current layout. Reserve the artwork's raised edges. */
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(.r920Transport button,.r920Modes button,.r920Path>button) {
+ padding-inline:12px!important;font-weight:650!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r932WheelControls .r932VisualShortcuts button {
+ padding-inline:14px!important;min-height:58px!important;height:58px!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r932WheelControls .r932VisualShortcuts small {
+ color:#e1e8e1!important;text-shadow:0 1px 3px #00111a!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r920Actions .spkBtn {
+ padding:8px 9px!important;min-height:64px!important;color:#fff3d5!important;
+ /* Legacy nth-child rules made Favorite and Help span two grid columns. */
+ grid-column:auto!important;grid-row:auto!important;min-width:0!important;
+ width:100%!important;max-width:100%!important;box-sizing:border-box!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r920Actions :is(#niyetRecBtn,#favBtn,#zBarHelp) {
+ height:56px!important;min-height:56px!important;max-height:56px!important;
+ padding:6px 8px!important;gap:4px!important;
+ align-items:center!important;justify-content:center!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r920Actions .spkBtn :is(svg,.ico) {
+ color:#f4e6bb!important;filter:drop-shadow(0 1px 2px #02121e)!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r920Actions .spkBtn span {
+ color:inherit!important;letter-spacing:.04em!important;font-weight:650!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(#favBtn.on,#r679ZikirAyarBox .huK.on,#r679ZikirAyarBox .targetModeBtn.act,.r920Modes button[aria-pressed="true"]) {
+ box-shadow:inset 0 -3px 0 #e9d78b!important;
+}
+/* Counter cards remain two equal responsive cells. Their values have room for
+   large Ebced targets, rather than forcing a single unbroken horizontal line. */
+#r920Practice[data-mode="berhet"]:not([hidden]) .r920Stats {
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ gap:8px!important;max-width:420px!important;margin-inline:auto!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) .r920Stats>span {
+ display:flex!important;flex-wrap:wrap!important;align-items:center!important;justify-content:center!important;
+ align-content:center!important;box-sizing:border-box!important;
+ gap:1px 5px!important;min-width:0!important;padding:14px 18px!important;border:0!important;
+ background:var(--r933-gem-diamond,none) center/100% 100% no-repeat,
+  linear-gradient(145deg,#19303be8,#0a1927ec) center/86% 76% no-repeat!important;
+ color:#e6e5d7!important;font-size:11px!important;line-height:1.15!important;text-shadow:0 1px 3px #001019!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) .r920Stats>span>b {
+ display:block!important;flex:1 0 100%!important;max-width:100%!important;margin:0!important;
+ text-align:center!important;font-size:clamp(20px,6vw,26px)!important;line-height:1.12!important;overflow-wrap:anywhere!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) .r920Stats svg {
+ width:15px!important;height:15px!important;flex:0 0 15px!important;stroke:#ecdba7!important;
+}
+/* Details are calm dark panels with ornament at their boundary, not in text. */
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(
+ #r920ViewOptions,#r920JourneySettings,#r679ZikirAyarBox,#r932QuickPicker) {
+ border:1px solid #b8964f8c!important;border-radius:14px!important;
+ border-image:var(--r933-panel-frame,none) 250 / 10px / 0 stretch!important;
+ background:linear-gradient(145deg,#102923f5,#091522f5)!important;
+ box-shadow:inset 0 0 0 2px #100e0866,inset 0 1px 0 #f6d69140!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(#r920ViewOptions,#r920JourneySettings,#r679ZikirAyarBox)>summary {
+ --r933-control-art:var(--r933-gem-amethyst,none);
+ background:var(--r933-control-art) center/100% 100% no-repeat,
+  linear-gradient(130deg,#211331,#0c1a25) center/89% 78% no-repeat!important;
+ color:#fff0cb!important;text-shadow:0 1px 3px #020811!important;
+ padding:14px 20px!important;min-height:56px!important;height:auto!important;max-height:none!important;border-radius:12px!important;
+ border:1px solid transparent!important;border-image:var(--r933-control-art) 330 fill / 12px / 0 stretch!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r920JourneySettings>summary {
+ --r933-control-art:var(--r933-gem-emerald,none);
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r679ZikirAyarBox>summary {
+ --r933-control-art:var(--r933-gem-sapphire,none);
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r679ZikirAyarBox .r679SettingsTitle small {
+ color:#d8e2e0!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(#r924WheelGalleryDetails,.r852Advanced)>summary {
+ border-bottom:1px solid #d6b87363!important;color:#f2dfb4!important;
+}
+/* Keep real select affordances and option menus; no decorative layer blocks them. */
+#r920Practice[data-mode="berhet"]:not([hidden]) select {
+ color:#f3ecd7!important;background:linear-gradient(130deg,#153745,#10192d)!important;
+ border:1px solid #c2a261ad!important;border-radius:12px!important;
+ box-shadow:inset 0 1px 0 #f5d68b2b,inset 0 -2px 0 #041019!important;
+ border-image:var(--r933-gem-sapphire,none) 300 fill / 8px / 0 stretch!important;
+ color-scheme:dark!important;appearance:auto!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(select option,select optgroup) {
+ background:#10272b!important;color:#f2ead8!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(input[type="number"],input[type="text"]) {
+ border-color:#baa16c99!important;background:#101f2bf2!important;color:#f3e8ce!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(input[type="range"],input[type="checkbox"]) {
+ accent-color:#92cfae!important;
+}
+/* Existing switches retain their original native state and thumb position. */
+#r920Practice[data-mode="berhet"]:not([hidden]) #r679ZikirAyarBox button.sw:not(#arTgl):not(#optSpeak)::before {
+ border-color:#ae9a6777!important;background:linear-gradient(150deg,#253044,#111d2c)!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r679ZikirAyarBox button.sw:not(#arTgl):not(#optSpeak)::after {
+ background:var(--r933-gem-diamond,none) center/100% 100% no-repeat,#d9e0cf!important;
+ box-shadow:0 1px 3px #0008!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r679ZikirAyarBox button.sw.on:not(#arTgl):not(#optSpeak)::before {
+ border-color:#b4c99b!important;background:linear-gradient(140deg,#12684f,#0b342c)!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r679ZikirAyarBox button.sw.on:not(#arTgl):not(#optSpeak)::after {
+ background:var(--r933-gem-emerald,none) center/100% 100% no-repeat,#a3d8ad!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r852VoiceCard :is(#arTgl,#optSpeak) {
+ background:var(--r933-gem-diamond,none) center/100% 100% no-repeat,#10242d!important;
+ color:#f6efd6!important;border:0!important;text-shadow:0 1px 3px #00101b!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r852VoiceCard :is(#arTgl.on,#optSpeak.on) {
+ background:var(--r933-gem-emerald,none) center/100% 100% no-repeat,#143d31!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r924WheelGallery>button {
+ border-color:#be9c6477!important;background:linear-gradient(145deg,#102d29e8,#0c1a2ae8)!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) #r924WheelGallery>button[aria-pressed="true"] {
+ border-color:#dfc88a!important;box-shadow:inset 0 -3px 0 #8ccbaa!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(button,select,input,summary):focus-visible {
+ outline:2px solid #fff0ba!important;outline-offset:3px!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) button:disabled:not(.r924Gem):not(#r920Counter) {
+ opacity:.56!important;filter:saturate(.55)!important;
+}
+/* Record-ready, recording, and selected remain visually distinct. */
+#r920Practice[data-mode="berhet"]:not([hidden]) #r920Actions .spkBtn.has:not(.recording) {
+ box-shadow:inset 0 -3px 0 #b8e5bd!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) :is(#itemRecBtn.recording,#niyetRecBtn.recording,#r922RecordVoice[aria-pressed="true"]) {
+ --r933-control-art:var(--r933-gem-ruby,none);--r933-control-dark:#571321;
+ outline:2px solid #ffbbac!important;outline-offset:1px!important;
+ box-shadow:inset 0 -3px 0 #ffb4a1!important;color:#fff0e7!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) input[type="range"]::-webkit-slider-thumb {
+ background:var(--r933-gem-diamond,none) center/100% 100% no-repeat,#d5e8de!important;
+ border-color:#d5b875!important;
+}
+#r920Practice[data-mode="berhet"]:not([hidden]) input[type="range"]::-moz-range-thumb {
+ background:var(--r933-gem-diamond,none) center/100% 100% no-repeat,#d5e8de!important;
+ border-color:#d5b875!important;
+}
+/* Wheel hotspots and their fitted labels intentionally keep their measured
+   geometry, transparency and counter-rotation from wheels-r924.css. */
+}
