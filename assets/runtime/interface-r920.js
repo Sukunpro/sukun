@@ -10,7 +10,7 @@ const completed=safe(()=>JSON.parse(localStorage.getItem('sukun.r920.completed')
 const allowed=()=>!!window.SukunSecretPolicy?.unlocked?.();
 const items=mode=>safe(()=>ZIKIR[mode]?.items||[],[]);
 const scenes=()=>window.SukunR853Scene?.nameScenes||[];
-const itemName=(mode,i)=>mode==='berhet'?scenes()[i]?.name||items(mode)[i]?.tr||items(mode)[i]?.t||'':items(mode)[i]?.t||'';
+const itemName=(mode,i)=>mode==='berhet'?scenes()[i]?.name||items(mode)[i]?.tr||items(mode)[i]?.t||'':items(mode)[i]?.t||items(mode)[i]?.tr||'';
 const snap=()=>window.SukunSessionState?.snapshot?.();
 function command(action,options){const result=window.SukunSessionState?.command?.(action,options);Promise.resolve(result).then(queue,queue);return result}
 function persist(){safe(()=>localStorage.setItem('sukun.r920.completed',JSON.stringify(completed)))}
@@ -19,12 +19,12 @@ function make(){
  if(root?.isConnected)return true;const tab=$('tab-zkr');if(!tab||!window.SukunSessionState)return false;
  root=document.createElement('section');root.id='r920Practice';root.setAttribute('aria-label','Zikir ve seyir');
  root.innerHTML=`<div class="r920Modes" role="group" aria-label="Zikir ailesi"><button id="r920ModeEsma" type="button">99 Esmâ</button><button id="r920ModeBerhet" type="button" hidden>28 Berhetiyye</button></div>
- <div class="r920Path"><button id="r920AtlasOpen" type="button">Atlas</button><label id="r920JourneyLabel"><span>Okuyuş</span><select id="r920JourneyMode" aria-label="Tekil zikir veya seyir"><option value="single">Tekil zikir</option><option value="journey">Seyir</option></select></label><button id="r920TefEnter" type="button">Tefekkür</button></div>
+ <div class="r920Path"><button id="r920AtlasOpen" type="button">Atlas</button><label id="r920JourneyLabel"><span>Okuyuş</span><select id="r920JourneyMode" aria-label="Tekil zikir veya seyir"><option value="single">Tekil zikir</option><option value="journey">Seyir</option></select></label><button id="r920TefEnter" type="button">Tefekküre geç</button></div>
  <div class="r920Identity"><p id="r920Eyebrow"></p><button id="r920NameInfo" type="button" aria-label="Aktif ismin açıklaması"><span id="r920Arabic" lang="ar" dir="rtl"></span><span id="r920ActiveName"></span></button><p id="r920SceneTitle"></p><p id="r920VoiceSource" role="status"></p></div>
  <div id="r924WheelFrame" data-wheel-state="loading"><div id="r925WheelRotor"><img id="r920Wheel" alt="" aria-hidden="true" decoding="async"><button id="r920Minus" class="r924Gem" type="button" aria-label="Bir azalt"><span class="r925GemLabel">−1</span></button><button id="r920Plus" class="r924Gem" type="button" aria-label="Bir artır"><span class="r925GemLabel">+1</span></button><button id="r920Stop" class="r924Gem" type="button"><span class="r925GemLabel r927GemAction"><span aria-hidden="true" class="r927GemIcon">■</span><span class="r927GemCaption">Bitir</span></span></button><button id="r920Play" class="r924Gem" type="button"><span id="r925PlayLabel" class="r925GemLabel r927GemAction"><span id="r927PlayIcon" class="r927GemIcon" aria-hidden="true">▶</span><span id="r927PlayCaption" class="r927GemCaption">Başlat</span></span></button></div><svg class="r920Progress" viewBox="0 0 300 300" aria-hidden="true"><defs><filter id="r921EsmaMatte" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  10 10 10 0 0"/></filter></defs><circle cx="150" cy="150" r="75" class="r920Track"></circle><circle cx="150" cy="150" r="75" class="r920Arc" pathLength="100"></circle><circle cx="150" cy="150" r="75" class="r959LightCore" pathLength="100"></circle></svg><button id="r920Counter" type="button" aria-label="Bir zikir say"><span class="r920CounterCore"><small>TEKRAR</small><strong id="r920Count">0</strong><span id="r920Percent">%0</span></span></button><button id="r959WheelPrevious" class="r959WheelNav" type="button" aria-label="Önceki zikre geç" title="Önceki zikre geç"><svg class="r925GemLabel r962NavGlyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 5v14M18 5L9 12l9 7Z"/></svg></button><button id="r959WheelNext" class="r959WheelNav" type="button" aria-label="Sonraki zikre geç" title="Sonraki zikre geç"><svg class="r925GemLabel r962NavGlyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17 5v14M6 5l9 7-9 7Z"/></svg></button><div id="r920Phase" role="status" aria-live="polite" aria-atomic="true"></div></div>
  <div class="r920Stats"><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>Hedef <b id="r920Target"></b></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3v4l5 5-5 5v4m10-18v4l-5 5 5 5v4"/></svg>Kalan <b id="r920Remaining"></b></span></div>
 
- <div class="r920Transport"><button id="r920Previous" type="button">Önceki</button><button id="r920Restart" type="button">Baştan</button><button id="r920Next" type="button">Sonraki</button></div>
+ <div class="r920Transport"><button id="r920Previous" type="button">Önceki</button><button id="r920Restart" type="button">Baştan başla</button><button id="r920Next" type="button">Sonraki</button></div>
  <div id="r920RecordingError" role="alert" hidden><p>Kendi kaydın açılamadı. Oturum duraklatıldı.</p><button id="r920RecordingRetry" type="button">Kaydı yeniden dene</button></div>
  <div id="r920SceneError" role="status" hidden><span>Sahne açılamadı.</span><button id="r920SceneRetry" type="button">Yeniden dene</button></div>
  <div id="r920Actions"></div>
@@ -83,7 +83,7 @@ function make(){
 }
 async function select(mode,index,journey){
  if(mode==='berhet'&&!allowed())return false;wake();
- const s=snap(),isJourney=journey??(s?.journeyKind&&s.journeyKind!=='single');
+ const s=snap(),isJourney=['esma','berhet'].includes(mode)&&(journey??(s?.journeyKind&&s.journeyKind!=='single'));
  const result=await command('select',{mode,index,journeyKind:isJourney?(mode==='berhet'?'28':'99'):'single'});queue();return result;
 }
 function manual(delta){const s=snap();if(!s||s.journeyKind!=='single'||s.phase==='PLAYING'||s.phase==='PREPARING')return;safe(()=>$(delta<0?'undoBtn':'plusBtn')?.click());window.SukunSessionState.refresh('manual');wake();queue()}
@@ -108,15 +108,15 @@ function renderAtlas(){
  const esma=window.SukunSceneEngine?.esmaSceneFor?.(atlasIndex);text($('r920AtlasScene'),scene?`Sahne: ${scene.title}`:'Sahne: '+(esma?.title||'Klasik Mevlevî'));text($('r920AtlasNote'),scene?[scene.layer,scene.note].filter(Boolean).join(' · '):esma?.note||'');
 }
 function render(){raf=0;if(!make())return;const s=snap();if(!s)return;renders++;
- const mode=s.activeMode,valid=mode==='esma'||mode==='berhet'&&allowed(),tef=!!window.SUKUN_TEFEKKUR?.active?.();
+ const mode=s.activeMode,valid=items(mode).length>0&&(mode!=='berhet'||allowed()),tef=!!window.SUKUN_TEFEKKUR?.active?.();
  if(document.body.classList.contains('r920-practice-on')!==valid)document.body.classList.toggle('r920-practice-on',valid);if(root.hidden===valid)root.hidden=!valid;if(!valid){window.SukunBerhetLayout?.sync(root,tef);if(dialog.open)dialog.close();return}
  attr(root,'data-mode',mode);attr(root,'data-phase',s.phase);const journey=s.journeyKind&&s.journeyKind!=='single';
- prop($('r920ModeBerhet'),'hidden',!allowed());prop($('r920JourneyLabel'),'hidden',!allowed());attr($('r920ModeEsma'),'aria-pressed',mode==='esma');attr($('r920ModeBerhet'),'aria-pressed',mode==='berhet');
+ prop($('r920ModeBerhet'),'hidden',!allowed());prop($('r920JourneyLabel'),'hidden',!allowed()||!['esma','berhet'].includes(mode));attr($('r920ModeEsma'),'aria-pressed',mode==='esma');attr($('r920ModeBerhet'),'aria-pressed',mode==='berhet');
  value($('r920JourneyMode'),journey?'journey':'single');prop($('r920TefExit'),'hidden',!tef);prop($('r920TefEnter'),'hidden',tef);
  syncJourneySettings(s);
  const i=Number(s.activeIndex)||0,it=items(mode)[i]||{},name=s.activeName||itemName(mode,i),scene=mode==='berhet'?scenes()[i]:null;
- text($('r920Eyebrow'),mode==='berhet'?(journey?'BERHETİYYE SEYRİ':'BERHETİYYE ZİKRİ'):(journey?'99 ESMÂ SEYRİ':'ESMÂÜ’L-HÜSNÂ'));
- text($('r920ActiveName'),/^y[aâ]/i.test(name)?name:'Yâ '+name);text($('r920Arabic'),it.a||it.ar||'');text($('r920SceneTitle'),scene?.title||it.m||'');prop($('r920SceneTitle'),'hidden',!safe(()=>Z.mean,true));
+ text($('r920Eyebrow'),mode==='berhet'?(journey?'BERHETİYYE SEYRİ':'BERHETİYYE ZİKRİ'):(mode==='esma'?(journey?'99 ESMÂ SEYRİ':'ESMÂÜ’L-HÜSNÂ'):safe(()=>ZIKIR[mode].n||ZIKIR[mode].t,mode==='terkip'?'ESMÂ TERKİBİ':'ZİKİR')));
+ text($('r920ActiveName'),mode!=='esma'||/^y[aâ]/i.test(name)?name:'Yâ '+name);text($('r920Arabic'),it.a||it.ar||'');text($('r920SceneTitle'),scene?.title||it.m||'');prop($('r920SceneTitle'),'hidden',!safe(()=>Z.mean,true));
  const source=String(s.audioSource||'').toUpperCase();text($('r920VoiceSource'),({USER_RECORDING:'Kendi sesin',LOCAL_RECORDING:'Yerel kayıt',READER_RECORDING:'Kayıtlı okuyucu',TTS:'Cihaz sesi · TTS',SILENCE:'Ses kapalı',SILENT:'Ses kapalı',NONE:'Ses kapalı'})[source]||'Ses kaynağı hazır olduğunda gösterilir');
  const count=Math.max(0,Number(s.count)||0),target=Math.max(0,Number(s.target)||0),pct=target?Math.min(100,count/target*100):0;
  attr($('r924WheelFrame'),'data-count-digits',String(count).length);text($('r920Count'),count);text($('r920Target'),target||'∞');text($('r920Remaining'),target?Math.max(0,target-count):'∞');text($('r920Percent'),target?'%'+Math.floor(pct):'Serbest');

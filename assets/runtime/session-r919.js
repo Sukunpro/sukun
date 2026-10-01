@@ -178,7 +178,7 @@
         if (!read(() => window.SukunSecretPolicy?.unlocked(), false)) return false;
         return choice.state.paused ? choice.api.resume({ system: false, reason: 'r919-command' }) : choice.api.play();
       }
-      if (direct?.playPause && ['esma', 'berhet', 'tevhid', 'dua', 'salavat', 'fav'].includes(before.activeMode)) return direct.playPause('r919-command');
+      if (direct?.playPause && read(() => !!ZIKIR[before.activeMode]?.items, false)) return direct.playPause('r919-command');
       return pc?.play?.(before.provider || undefined);
     }
     if (action === 'retry') {
@@ -203,15 +203,16 @@
 
   async function select(options, token, commandId) {
     const mode = clean(options.mode), kind = clean(options.journeyKind || 'single');
-    if (!['esma', 'berhet'].includes(mode) || !['single', '99', '28'].includes(kind)) return false;
+    if (!read(() => !!ZIKIR[mode]?.items, false) || !['single', '99', '28'].includes(kind)) return false;
     if ((mode === 'berhet' || kind !== 'single') && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return false;
     if (kind === '28' && mode !== 'berhet' || kind === '99' && mode !== 'esma') return false;
-    const index = options.index == null ? null : Number(options.index), max = mode === 'berhet' ? 28 : 99;
+    const index = options.index == null ? null : Number(options.index), max = read(() => ZIKIR[mode].items.length, 0);
     if (index != null && (!Number.isInteger(index) || index < 0 || index >= max)) return false;
     const category = document.querySelector('#zCats [data-c="' + mode + '"]');
     if (!category) return false;
     // Cancel the native owner's queued Start as well as this boundary's token.
     // A selected name must not inherit the preceding owner's delayed start.
+    read(() => window.SukunOpening?.cancel?.());
     read(() => window.SukunR698Transport?.cancelPending?.('r919-selection'));
     const current = snapshot(), oldJourney = journeys().active;
     if (current.playing || current.preparing || current.paused || oldJourney) {
@@ -219,7 +220,7 @@
       // Retire just that foreground owner; stop() saves i/rep without resetting.
       let retired;
       if (oldJourney) retired = oldJourney.api.stop();
-      else if (['esma', 'berhet', 'tevhid', 'dua', 'salavat', 'fav'].includes(current.activeMode))
+      else if (read(() => !!ZIKIR[current.activeMode]?.items, false))
         retired = window.SukunDirectZikirTransportR698?.stop?.();
       else retired = window.PlaybackController?.stop?.(current.provider || undefined);
       if (retired && typeof retired.then === 'function') {
