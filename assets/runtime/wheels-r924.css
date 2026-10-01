@@ -179,3 +179,14 @@ html body #r920Practice[data-phase="PAUSED"] #r924WheelFrame #r920Phase{color:#f
 #r920Practice #r924WheelFrame[data-navigation-material="dark"]{--r964-navigation-art:url("../wheel-navigation-r964/dark.png?v=r964")}
 #r920Practice #r924WheelFrame[data-navigation-material="crystal"]{--r964-navigation-art:url("../wheel-navigation-r964/crystal.png?v=r964")}
 }
+
+/* r977: approved wheels carry native diagonal surfaces. No added plate artwork. */
+@layer sukun-r920-contract {
+#r920Practice #r924WheelFrame[data-navigation-native="1"] .r959WheelNav{width:14%!important;height:14%!important;min-width:44px!important;min-height:44px!important;color:var(--r977-control-ink)!important}
+#r920Practice #r924WheelFrame[data-navigation-native="1"] #r959WheelPrevious{left:var(--r924-previous-x)!important;top:var(--r924-previous-y)!important}
+#r920Practice #r924WheelFrame[data-navigation-native="1"] #r959WheelNext{left:var(--r924-next-x)!important;top:var(--r924-next-y)!important}
+#r920Practice #r924WheelFrame[data-navigation-native="1"] .r959WheelNav::before{content:none!important;display:none!important;background:none!important}
+#r920Practice #r924WheelFrame[data-navigation-native="1"] .r959WheelNav svg.r962NavGlyph{left:calc((100% - var(--r928-label-width,24px)) / 2)!important;top:calc((100% - var(--r928-label-height,24px)) / 2)!important;width:var(--r928-label-width,24px)!important;height:var(--r928-label-height,24px)!important;color:var(--r977-control-ink)!important;filter:var(--r977-nav-shadow)!important}
+#r920Practice #r924WheelFrame[data-navigation-native="1"] :is(.r924Gem,.r925GemLabel,.r927GemIcon){color:var(--r977-control-ink)!important;text-shadow:var(--r977-control-shadow)!important}
+#r920Practice #r924WheelFrame[data-navigation-native="1"] .r959WheelNav:active:not(:disabled) svg{opacity:.75!important}
+}
