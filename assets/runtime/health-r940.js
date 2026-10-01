@@ -263,6 +263,10 @@
       audioConsistency(),
       status('DEVICE_AUDIO', 'NOT_MEASURED', 'Fiziksel hoparlör ve ekran kilidi doğrulaması', { reason: 'Tarayıcı olayları işitilebilir sesi veya işletim sistemi süreç sonlandırmasını ispatlamaz' }),
       status('PERSISTENCE', storageError ? 'WARN' : lastSaved ? 'PASS' : 'NOT_MEASURED', 'Son durum kaydı', { lastSaved, error: storageError, trimmedRecords:checkpointTrimmed })];
+    const memory = safe(() => window.SukunSessionMemory?.diagnostics?.());
+    if (memory) out.push(status('SESSION_MEMORY', memory.error ? 'WARN' : memory.bootPending ? 'OBSERVED' : memory.writes > 0 ? 'PASS' : 'NOT_MEASURED',
+      'Zikir ilerleme kaydı', { version:token(memory.version),bootPending:bool(memory.bootPending),bootCancelled:bool(memory.bootCancelled),writePending:bool(memory.writePending),writes:finite(memory.writes),lastWriteAt:finite(memory.lastWriteAt),error:token(memory.error) },
+      'Başarılı yazım işletim sistemi kapanmasını önlemez. Kayıt hatası varsa ilerlemenin kalıcılığı garanti edilmez; kişisel sesleri silmeden yedek alın.'));
     if (background) out.push(status('BACKGROUND_HANDOFF',background.outcome === 'failed' ? 'WARN' : 'OBSERVED',
       'Son arka plan ses aktarımı',{...background,scope:'last-attempt-not-current-audibility'},
       'Bu sonuç son arka plan aktarımı içindir. Ekrana dönünce sesin devam etmesi arka plan sorununun çözüldüğünü kanıtlamaz. Raporu kaydedin; kullanıcı kayıtlarını silmeyin.'));

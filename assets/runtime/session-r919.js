@@ -262,6 +262,12 @@
     }
     const isStart = ['start', 'play', 'resume', 'retry'].includes(action);
     if (isStart && pendingStart?.epoch === epoch) return pendingStart.promise;
+    // Pause supersedes a queued Start. An immediate Resume must get a fresh
+    // request, while both requests still wait for the native stop barrier.
+    if (action === 'pause' && pendingStart) {
+      pendingStart = null;
+      read(() => window.SukunR698Transport?.cancelPending?.('r973-pause-pending-start'));
+    }
     if (action === 'stop' || action === 'next' || action === 'previous' || action === 'restart' || action === 'select') {
       epoch++; pendingStart = null; completion = null;
     }
@@ -269,6 +275,7 @@
     commandFailure = null;
     commands.push({ at: Date.now(), action, requestId: id, epoch: token });
     if (commands.length > 40) commands.shift();
+    window.dispatchEvent(new CustomEvent('sukun:sessioncommand', { detail: freeze({ action, requestId: id, epoch: token }) }));
     // Invoke within the user's gesture, before Promise scheduling (audio unlock).
     let result, waitingStop = false;
     try {

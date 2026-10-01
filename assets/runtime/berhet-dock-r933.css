@@ -2,6 +2,19 @@
    State is supplied by the common foreground decorator. This file owns no
    geometry, visibility, drag, scroll, timers, counters or playback handlers. */
 @layer sukun-r920-contract {
+ /* r972: future/secondary native menu buttons receive the dock material too.
+    Existing named transport semantics below retain their assigned gemstone. */
+ html[data-r933-berhet-dock="1"] body.r920-dock #r588DockShell :is(button,select) {
+  border:1px solid transparent!important;
+  border-image:var(--r933-gem-sapphire) 310 fill / 8px / 0 stretch!important;
+  background:#092734!important;color:#fff1d5!important;
+  box-shadow:none!important;text-shadow:0 1px 3px #000!important;
+ }
+ html[data-r933-berhet-dock="1"] body.r920-dock #r588DockShell summary {
+  border:1px solid transparent!important;
+  border-image:var(--r933-gem-diamond) 310 fill / 7px / 0 stretch!important;
+  background:#132b30!important;color:#fff1d5!important;
+ }
  html[data-r933-berhet-dock="1"] body.r920-dock #r170Now.r588-authority:not([hidden]) {
   border:1px solid transparent!important;
   border-image:var(--r933-panel-frame,url('../berhetiyye-premium/panel-emerald-r932.webp')) 250 / 12px / 0 stretch!important;

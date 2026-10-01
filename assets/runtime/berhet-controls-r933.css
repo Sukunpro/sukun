@@ -2,10 +2,99 @@
    Input semantics, hidden states, motion geometry and playback stay untouched.
    Declare this important layer before the legacy contract layer. */
 @layer sukun-r933-controls {
+/* r972: material coverage follows the existing Berhetiyye selection.
+   No display, positioning, dimensions or input handlers are changed here. */
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet,#r642ZikirInfoCard) :is(
+ button:not(.sw):not(.r924Gem):not(#r920Counter):not(#zCountVisual),
+ select,summary) {
+ --r972-art:var(--r933-gem-sapphire);--r972-face:#0a2637;
+ border:1px solid transparent!important;
+ border-image:var(--r972-art) 330 fill / 9px / 0 stretch!important;
+ background:var(--r972-face)!important;color:#fff1d5!important;
+ box-shadow:none!important;text-shadow:0 1px 3px #000!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet,#r642ZikirInfoCard) :is(
+ summary,#r938PanelToggle,#r920Restart,#r920More,#r972TickDelete) {
+ --r972-art:var(--r933-gem-diamond);--r972-face:#142733;
+}
+html body.r754-berhet-theme #tab-zkr :is(
+ #r932EasyStop,#r972TickRecord,.recording,[data-act="stop"],button[id$="Stop"]) {
+ --r972-art:var(--r933-gem-ruby);--r972-face:#401023;
+}
+html body.r754-berhet-theme #tab-zkr :is(
+ #r920TefEnter,#r920TefExit,#r932QuickWheel,[data-r616-znav="tef"],#r972TickTest) {
+ --r972-art:var(--r933-gem-amethyst);--r972-face:#281337;
+}
+html body.r754-berhet-theme #tab-zkr :is(
+ #r932EasyPlay,#r920ModeBerhet,#r920AtlasOpen,[data-act="transport"],button[id$="Play"],button[aria-pressed="true"]:not(#r972TickRecord):not(.recording)) {
+ --r972-art:var(--r933-gem-emerald);--r972-face:#083b2c;
+}
+html body.r754-berhet-theme #tab-zkr :is(
+ #r971ManualFeedbackSettings,#r972TickSoundSettings,fieldset,.zMegaGroup,.zMegaBody,
+ .r616AccCard,.r616SheetCard,#berhetAtlas,#berhetSeyir,#r938Panel,.targetDetailCard) {
+ border:1px solid #bba06b88!important;
+ border-image:var(--r933-panel-frame) 250 / 8px / 0 stretch!important;
+ background:linear-gradient(145deg,#0b2826e8,#071725ed)!important;
+ color:#f4ead1!important;box-shadow:none!important;
+}
+/* The main menu is coated only while the Zikir tab is selected. */
+html body.r754-berhet-theme:has(#tab-zkr.active) .tabs,
+html body.r754-berhet-theme:has(.tabs [data-t="zkr"].act) .tabs {
+ border:1px solid transparent!important;
+ border-image:var(--r933-panel-frame) 250 / 7px / 0 stretch!important;
+ background:linear-gradient(135deg,#112825f5,#081824f5)!important;
+}
+html body.r754-berhet-theme:has(.tabs [data-t="zkr"].act) .tabs :is(button,.tabTekke) {
+ border:1px solid transparent!important;
+ border-image:var(--r933-gem-diamond) 330 fill / 6px / 0 stretch!important;
+ background:#10262beb!important;color:#f8e7c4!important;box-shadow:none!important;
+}
+html body.r754-berhet-theme:has(.tabs [data-t="zkr"].act) .tabs button.act {
+ border-image-source:var(--r933-gem-emerald)!important;background:#10382e!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) input:not([type="range"]):not([type="checkbox"]):not([type="radio"]) {
+ border-color:#bba06b99!important;background:#0e202cee!important;color:#f7ead1!important;
+ box-shadow:inset 0 0 0 1px #d1b76f22!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) button.sw::before {
+ border-color:#b29a64!important;background:linear-gradient(140deg,#283744,#0b1927)!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) button.sw::after {
+ background:var(--r933-gem-diamond) center/100% 100% no-repeat!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) button.sw.on::before {
+ background:linear-gradient(140deg,#206a4b,#0b3025)!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) button.sw.on::after {
+ background:var(--r933-gem-emerald) center/100% 100% no-repeat!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) :is(button,select,summary,input):focus-visible {
+ outline:2px solid #ffeab2!important;outline-offset:2px!important;
+}
 #r920Practice[data-mode="berhet"]:not([hidden]) {
  --r933-control-art:var(--r933-gem-diamond,none);--r933-control-ink:#fff4d5;
  --r933-control-dark:#101d28;--r920-accent:#decda2;--r920-muted:#d8d8ce;
 }
+
+/* Settings can be reparented into the tools dialog. Coat the actual host. */
+html body.r754-berhet-theme :is(#r616ToolsSheet,.r616SheetCard,.r616AccCard) {
+ border:1px solid #bba06b88!important;
+ border-image:var(--r933-panel-frame) 250 / 9px / 0 stretch!important;
+ background:linear-gradient(145deg,#0b2826f8,#071725fa)!important;color:#f4ead1!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) input[type="range"] {
+ accent-color:#b5d4a8!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) input[type="range"]::-webkit-slider-runnable-track {
+ background:linear-gradient(90deg,#c8b775,#466953)!important;border:1px solid #bba16a!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) input[type="range"]::-webkit-slider-thumb {
+ background:var(--r933-gem-diamond) center/100% 100% no-repeat!important;border-color:#d7b66d!important;
+}
+html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) input[type="range"]::-moz-range-thumb {
+ background:var(--r933-gem-diamond) center/100% 100% no-repeat!important;border-color:#d7b66d!important;
+}
+
 /* Small controls use the same real blank gemstones as the larger cards.
    Each native hit target remains the sole input owner. No overlay is added. */
 #r920Practice[data-mode="berhet"]:not([hidden]) :where(
