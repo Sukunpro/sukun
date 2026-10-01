@@ -34,7 +34,7 @@ const catalog=Object.freeze({
 const storageKey=mode=>'sukun.wheel.r924.'+mode;
 const choiceFor=mode=>{const stored=safe(()=>localStorage.getItem(storageKey(mode)));return catalog[mode].some(item=>item.id===stored)?stored:catalog[mode][0].id};
 const choices={berhet:choiceFor('berhet'),esma:choiceFor('esma')};
-let host=null,mode='',key='',generation=0,cancel=null,pending=false,resolved=null,status='idle',fallback=0,requests=0,geometryItem=null,geometryObserver=null;
+let host=null,mode='',key='',generation=0,cancel=null,pending=false,resolved=null,status='idle',fallback=0,requests=0,geometryItem=null,geometryObserver=null,measuredWidth=0;
 const $=id=>host?.querySelector('#'+id)||null;
 const setText=(node,value)=>{if(node&&node.textContent!==value)node.textContent=value};
 const setAttr=(node,name,value)=>{if(node&&node.getAttribute(name)!==String(value))node.setAttribute(name,String(value))};
@@ -50,7 +50,7 @@ function syncStatus(){
 function updateGeometry(item){
  if(item)geometryItem=item;
  const frame=$('r924WheelFrame');if(!frame)return;
- const geometry=geometryItem?.geometry||baseGeometry,width=frame.clientWidth;
+ const geometry=geometryItem?.geometry||baseGeometry,width=measuredWidth;
  setAttr(frame,'data-wheel-id',geometryItem?.id||'classic');
  setAttr(frame,'data-navigation-material',navigationMaterials[geometryItem?.id||'classic']||'crystal');
  setAttr(frame,'data-navigation-native',geometryItem?.nativeNavigation?'1':'0');
@@ -71,8 +71,10 @@ function updateGeometry(item){
   // Touch target remains >=44px. Visible paint is sized independently of it.
   // A .80D x .54D caption rectangle has diagonal .966D; the compact .67D
   // square has diagonal .948D. Both stay in the safe circle for all angles.
+  setAttr(button,'data-safe-radius',position[2]);
+  if(width<=0){setAttr(button,'data-compact','1');continue} // ResizeObserver supplies the first measured width.
   const diameter=Math.max(0,width*position[2]/50),compact=diameter<50||geometryItem?.classic;
-  setAttr(button,'data-safe-radius',position[2]);setAttr(button,'data-compact',compact?'1':'0');
+  setAttr(button,'data-compact',compact?'1':'0');
   const values={
    '--r928-safe-diameter':diameter+'px',
    '--r928-label-width':(diameter*(compact?.67:.80))+'px',
@@ -127,8 +129,10 @@ async function resolveSelection(){
 }
 function connect(nextHost){
  if(host===nextHost&&host?.isConnected)return;
- cancel?.();generation++;geometryObserver?.disconnect();host=nextHost;mode='';key='';pending=false;resolved=null;geometryItem=null;status='idle';
- if(typeof ResizeObserver==='function'){geometryObserver=new ResizeObserver(()=>updateGeometry());const frame=$('r924WheelFrame');if(frame)geometryObserver.observe(frame)}
+ cancel?.();generation++;geometryObserver?.disconnect();host=nextHost;mode='';key='';pending=false;resolved=null;geometryItem=null;measuredWidth=0;status='idle';
+ const frame=$('r924WheelFrame');
+ if(typeof ResizeObserver==='function'){geometryObserver=new ResizeObserver(entries=>{const entry=entries.find(entry=>entry.target===frame);const width=Number(entry?.contentRect?.width)||0;if(width>0&&width!==measuredWidth){measuredWidth=width;updateGeometry()}});if(frame)geometryObserver.observe(frame)}
+ else if(frame){measuredWidth=frame.clientWidth;updateGeometry()} // legacy browser fallback
  const gallery=$('r924WheelGallery');if(gallery)gallery.onclick=event=>{const button=event.target.closest('[data-wheel]');if(button&&gallery.contains(button))choose(mode,button.dataset.wheel)};
  const retry=$('r924WheelRetry');if(retry)retry.onclick=()=>resolveSelection();
 }
@@ -152,7 +156,7 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
  const pointers=new Set();
  let enabled=true;try{enabled=localStorage.getItem('sukun.wheel.motion')!=='0'}catch(e){}
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- function render(s=window.SukunSessionState?.snapshot?.()){
+ function render(s=window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.()){
   if(!frame)return;
   const saving=window.SukunSceneEngine?.snapshot?.().profile==='saving';
   const run=enabled&&!reduced.matches&&!saving&&!document.hidden&&!hold&&!keyHold&&s?.phase==='PLAYING';
@@ -199,7 +203,7 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
  const attr=(node,key,value)=>{if(node&&node.getAttribute(key)!==String(value))node.setAttribute(key,String(value))};
  let host=null,box=null,openKind='',optionKey='',lastMode='';
  const sources={minus:'r920Minus',play:'r920Play',plus:'r920Plus',stop:'r920Stop'};
- const activeMode=()=>window.SukunSessionState?.snapshot?.().activeMode==='berhet'?'berhet':'esma';
+ const activeMode=()=>(window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.())?.activeMode==='berhet'?'berhet':'esma';
  const sceneSource=()=>$(activeMode()==='berhet'?'r920SceneSelect':'r923EsmaSceneSelect');
  function close(restoreFocus=false){const previous=openKind;openKind='';if(!box)return;$('r932QuickPicker').hidden=true;for(const k of ['wheel','scene'])attr($('r932Quick'+(k==='wheel'?'Wheel':'Scene')),'aria-expanded','false');if(restoreFocus&&previous)$('r932Quick'+(previous==='wheel'?'Wheel':'Scene'))?.focus({preventScroll:true})}
  function updateOptions(){
@@ -232,7 +236,7 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
   });render();
  }
  function render(){
-  if(!box?.isConnected)return;const mode=activeMode(),state=window.SukunSessionState?.snapshot?.(),visual=window.SukunSceneEngine?.snapshot?.()||{};
+  if(!box?.isConnected)return;const mode=activeMode(),state=window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.(),visual=window.SukunSceneEngine?.snapshot?.()||{};
   if(lastMode&&lastMode!==mode)close();lastMode=mode;
   const wheel=window.SukunWheels?.catalog?.[mode]?.find(item=>item.id===window.SukunWheels?.snapshot?.().choices?.[mode]);
   const source=sceneSource(),sceneChoice=mode==='berhet'?visual.scene:visual.esmaChoice;

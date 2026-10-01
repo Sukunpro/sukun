@@ -12,6 +12,9 @@ const items=mode=>safe(()=>ZIKIR[mode]?.items||[],[]);
 const scenes=()=>window.SukunR853Scene?.nameScenes||[];
 const itemName=(mode,i)=>mode==='berhet'?scenes()[i]?.name||items(mode)[i]?.tr||items(mode)[i]?.t||'':items(mode)[i]?.t||items(mode)[i]?.tr||'';
 const snap=()=>window.SukunSessionState?.snapshot?.();
+// r978: presentation consumes the event-updated model. Commands still take a
+// fresh snapshot; passive paints do not collect it repeatedly after DOM writes.
+const view=()=>window.SukunSessionState?.peek?.()||snap();
 function command(action,options){const result=window.SukunSessionState?.command?.(action,options);Promise.resolve(result).then(queue,queue);return result}
 function persist(){safe(()=>localStorage.setItem('sukun.r920.completed',JSON.stringify(completed)))}
 function markComplete(mode,i){if(!['esma','berhet'].includes(mode)||i<0||i>=items(mode).length)return;const key=mode+':'+i;if(!completed[key]){completed[key]=Date.now();persist();if(dialog?.open)renderAtlas()}}
@@ -93,7 +96,7 @@ function syncJourneySettings(s){
  for(const [suffix,id] of [['Mode','r920RepeatMode'],['Gap','r920RepeatGap']]){const native=$(prefix+suffix),control=$(id);if(!native)continue;const key=prefix+':'+Array.from(native.options,o=>o.value+'='+o.textContent).join('|');if(control.dataset.options!==key){control.replaceChildren(...Array.from(native.options,o=>{const option=document.createElement('option');option.value=o.value;option.textContent=o.textContent;return option}));control.dataset.options=key}value(control,native.value)}
  const native=$(prefix+'Custom'),control=$('r920RepeatCustom');prop($('r920RepeatCustomLabel'),'hidden',$(prefix+'Mode')?.value!=='custom');if(native)value(control,native.value);
 }
-function wake(){clearTimeout(focusTimer);if(document.body.classList.contains('r920-focus-rest'))document.body.classList.remove('r920-focus-rest');if(focusEnabled&&snap()?.phase==='PLAYING')focusTimer=setTimeout(()=>{if(snap()?.phase==='PLAYING')document.body.classList.add('r920-focus-rest')},4500)}
+function wake(){clearTimeout(focusTimer);if(document.body.classList.contains('r920-focus-rest'))document.body.classList.remove('r920-focus-rest');if(focusEnabled&&view()?.phase==='PLAYING')focusTimer=setTimeout(()=>{if(view()?.phase==='PLAYING')document.body.classList.add('r920-focus-rest')},4500)}
 function renderAtlas(){
  if(!dialog)return;if(atlasMode==='berhet'&&!allowed()){if(dialog.open)dialog.close();return}
  const list=items(atlasMode),s=snap();text($('r920AtlasTitle'),atlasMode==='berhet'?'Berhetiyye Atlası':'Esmâ Atlası');text($('r920AtlasCaption'),`${list.length} durak · Bu cihazda gözlenen tamamlanmalar`);
@@ -107,7 +110,7 @@ function renderAtlas(){
  text($('r920AtlasProgress'),active?`Aktif · ${s.count} / ${s.target||'∞'}${rate!==null?' · %'+rate:''}`:completed[atlasMode+':'+atlasIndex]?'Tamamlandı':'Henüz tamamlanmadı');
  const esma=window.SukunSceneEngine?.esmaSceneFor?.(atlasIndex);text($('r920AtlasScene'),scene?`Sahne: ${scene.title}`:'Sahne: '+(esma?.title||'Klasik Mevlevî'));text($('r920AtlasNote'),scene?[scene.layer,scene.note].filter(Boolean).join(' · '):esma?.note||'');
 }
-function render(){raf=0;if(!make())return;const s=snap();if(!s)return;renders++;
+function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view();if(!s)return;renders++;
  const mode=s.activeMode,valid=items(mode).length>0&&(mode!=='berhet'||allowed()),tef=!!window.SUKUN_TEFEKKUR?.active?.();
  if(document.body.classList.contains('r920-practice-on')!==valid)document.body.classList.toggle('r920-practice-on',valid);if(root.hidden===valid)root.hidden=!valid;if(!valid){window.SukunBerhetLayout?.sync(root,tef);if(dialog.open)dialog.close();return}
  attr(root,'data-mode',mode);attr(root,'data-phase',s.phase);const journey=s.journeyKind&&s.journeyKind!=='single';
@@ -150,7 +153,8 @@ function render(){raf=0;if(!make())return;const s=snap();if(!s)return;renders++;
  window.SukunBerhetLayout?.sync(root,tef);
  if(dialog.open)renderAtlas();
 }
-function queue(){if(!raf)raf=requestAnimationFrame(render)}
+function queue(){if(!document.hidden&&!raf)raf=requestAnimationFrame(render)}
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0;clearTimeout(focusTimer)}else queue()},{passive:true});
 ['DOMContentLoaded','pageshow','sukun:sessionchange','sukun:scenechange','sukun:performancechange','sukun:tefekkurchange','sukun:secretaccesschange','sukun:voicesource','sukun:recordingerror','sukun:recordingrecovered'].forEach(event=>addEventListener(event,queue,{passive:true}));
 addEventListener('sukun:journey-advance',e=>{const mode=e.detail?.owner==='journey28'?'berhet':e.detail?.owner==='journey99'?'esma':null;if(mode)markComplete(mode,Number(e.detail.index)-1);queue()});
 document.addEventListener('pointerdown',()=>{if(root&&!root.hidden)wake()},{passive:true});document.addEventListener('keydown',wake,{passive:true});

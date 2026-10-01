@@ -5,9 +5,11 @@
 /* r974: coat panel controls, never a hotspot within the wheel frame.
    Gem actions, counter and material-matched leaf navigation retain their own
    transparent paint and fitted geometry from wheels-r924.css.
-   No display, positioning, dimensions or input handlers are changed here. */
+   No display, positioning, dimensions or input handlers are changed here.
+   r978: full-card interaction surfaces stay transparent. Their native text
+   is a lower sibling, so a filled gemstone skin would hide the entire card. */
 html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet,#r642ZikirInfoCard) :is(
- button:not(.sw):not(.r924Gem):not(.r959WheelNav):not(#r920Counter):not(#zCountVisual):not(:where(#r924WheelFrame *)),
+ button:not(.sw):not(.r924Gem):not(.r959WheelNav):not(.r746EsmaCardBtn):not(#r611CurrentZikirName):not(#r920NameInfo):not(#r920Counter):not(#zCountVisual):not(:where(#r924WheelFrame *)),
  select,summary) {
  --r972-art:var(--r933-gem-sapphire);--r972-face:#0a2637;
  border:1px solid transparent!important;
