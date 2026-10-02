@@ -326,7 +326,9 @@
       main.innerHTML=(views[state.screen]||homeView)(state);state.renderedScreen=state.screen;
       if(focusAction)try{main.querySelector(`[data-health-action="${focusAction}"]`)?.focus({preventScroll:true});}catch(_){}
     }
-    get(panel,'feedback').textContent=state.feedback||'';buttons(panel,state);return true;
+    get(panel,'feedback').textContent=state.feedback||'';buttons(panel,state);
+    try{window.SukunCadenceUI?.mountHealth?.(panel,state.screen)}catch(_){}
+    return true;
   }
   function navigate(panel,state,screen) {
     const changed=screen!==state.screen;if(changed&&state.job)cancel(panel);
@@ -362,7 +364,7 @@
     if(!panel||!api||typeof api.read!=='function')return false;
     const existing=states.get(panel);if(existing){existing.api=api;return true;}
     panel.classList.add('hv-r943');panel.setAttribute('data-i18n-owned','health-r975');
-    panel.innerHTML='<summary class="hv-panel-summary"><span>SÜKÛN</span><strong data-health-summary></strong></summary><div class="hv-connection" data-health-connection></div><div class="hv-content" data-health-content></div><p class="hv-feedback" data-health-feedback role="status" aria-live="polite"></p><footer class="hv-footer"><div class="hv-guides"><button type="button" data-health-action="incident" data-health-incident-label></button><button type="button" data-health-action="report" data-health-report-label></button></div><p data-health-privacy></p></footer>';
+    panel.innerHTML='<summary class="hv-panel-summary"><span>SÜKÛN</span><strong data-health-summary></strong></summary><div class="hv-connection" data-health-connection></div><div class="hv-content" data-health-content></div><section data-cadence-health></section><p class="hv-feedback" data-health-feedback role="status" aria-live="polite"></p><footer class="hv-footer"><div class="hv-guides"><button type="button" data-health-action="incident" data-health-incident-label></button><button type="button" data-health-action="report" data-health-report-label></button></div><p data-health-privacy></p></footer>';
     const state={api,report:null,reportKey:'',renderKey:'',screen:'home',guide:'manual',step:0,revision:0,running:'',job:null,preview:null,consent:false,answer:'',provider:'',feedback:'',onlineCheck:true,deviceDraft:{},openAreas:new Set(),advancedOpen:false};states.set(panel,state);
     function refresh(){get(panel,'incident-label').textContent=T('Sorun şimdi oldu');get(panel,'report-label').textContent=T('Raporu hazırla');get(panel,'privacy').textContent=T('Ses kayıtların ve yazdığın metinler rapora alınmaz.');render(panel,state.api.read());}
     panel.addEventListener('change',event=>{

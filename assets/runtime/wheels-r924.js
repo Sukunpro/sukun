@@ -158,7 +158,7 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  function render(s=window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.()){
   if(!frame)return;
-  const saving=window.SukunSceneEngine?.snapshot?.().profile==='saving';
+  const d=document.body?.dataset||{},saving=document.documentElement?.dataset?.r920Performance==='saving'||d.perf==='pil'||d.perfEffective==='pil';
   const run=enabled&&!reduced.matches&&!saving&&!document.hidden&&!hold&&!keyHold&&s?.phase==='PLAYING';
   const state=run?'running':'paused';if(frame.dataset.motion!==state)frame.dataset.motion=state;
  }
@@ -190,8 +190,8 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
  document.addEventListener('visibilitychange',()=>{if(document.hidden)resetGesture();else render()});
  addEventListener('blur',resetGesture);
  reduced.addEventListener('change',()=>render());
- addEventListener('sukun:performancechange',()=>render());
- window.SukunWheelMotion=Object.freeze({version:'r929',connect,render,snapshot:()=>({enabled,reduced:reduced.matches,state:frame?.dataset.motion||'none',activePointers:pointers.size,holding:hold,keyboardHolding:keyHold})});
+ ['sukun:performancechange','sukun:performance','sukun:performance-effective'].forEach(name=>addEventListener(name,()=>render()));
+ window.SukunWheelMotion=Object.freeze({version:'r980',connect,render,snapshot:()=>({enabled,reduced:reduced.matches,state:frame?.dataset.motion||'none',activePointers:pointers.size,holding:hold,keyboardHolding:keyHold})});
 })();
 
 
@@ -268,7 +268,8 @@ let setting='intense';try{setting=localStorage.getItem(key)||'intense';if(!local
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 function cancel(){animations.forEach(a=>a.cancel());animations=[]}
 function cancelFlow(){flowAnimations.forEach(a=>a.cancel());flowAnimations=[];flowMode=''}
-function syncFlow(s){const active=!!(s?.playing&&!s.presentationOnly&&!document.hidden&&!reduced.matches&&setting!=='off'&&motion!=='breath');if(!active){cancelFlow();return}if(flowMode===motion&&flowAnimations.length)return;cancelFlow();flowMode=motion;flowAnimations=[travel.animate([{transform:'rotate(0deg)'},{transform:'rotate(-360deg)'}],{duration:9600,iterations:Infinity,easing:'linear'})];if(motion==='wave')flowAnimations.push(travel.animate([{opacity:.35},{opacity:.95,offset:.5},{opacity:.35}],{duration:2400,iterations:Infinity,easing:'ease-in-out'}))}
+function saving(){const d=document.body?.dataset||{};return document.documentElement?.dataset?.r920Performance==='saving'||d.perf==='pil'||d.perfEffective==='pil'}
+function syncFlow(s){const active=!!(s?.playing&&!s.presentationOnly&&!document.hidden&&!reduced.matches&&!saving()&&setting!=='off'&&motion!=='breath');if(!active){cancelFlow();return}if(flowMode===motion&&flowAnimations.length)return;cancelFlow();flowMode=motion;flowAnimations=[travel.animate([{transform:'rotate(0deg)'},{transform:'rotate(-360deg)'}],{duration:9600,iterations:Infinity,easing:'linear'})];if(motion==='wave')flowAnimations.push(travel.animate([{opacity:.35},{opacity:.95,offset:.5},{opacity:.35}],{duration:2400,iterations:Infinity,easing:'ease-in-out'}))}
 function appearance(){if(!frame)return;const p=palettes[frame.dataset.wheelId]||palettes.crystal;frame.style.setProperty('--r950-a',p[0]);frame.style.setProperty('--r950-b',p[1]);frame.dataset.r950Light=setting;frame.dataset.r952Motion=motion;}
 function mount(){const next=document.getElementById('r924WheelFrame');if(!next)return false;if(next!==frame){cancel();cancelFlow();observer?.disconnect();frame=next;
  halo=document.createElement('div');halo.className='r950Nur r950Halo';halo.setAttribute('aria-hidden','true');halo.innerHTML='<i class="r950Outer"></i><i class="r950Inner"></i><i class="r951Aura"></i><i class="r951Filaments"></i>';frame.prepend(halo);travel=document.createElement('div');travel.className='r950Nur r952Travel';travel.setAttribute('aria-hidden','true');travel.innerHTML='<i class="r952Trail"></i><i class="r952Point r952PointA"></i><i class="r952Point r952PointB"></i><i class="r952Point r952PointC"></i>';frame.append(travel);
@@ -285,7 +286,7 @@ function update(s){if(!s||!mount())return;lastState=s;syncFlow(s);
  const identity=[s.sessionId,s.activeMode,s.activeIndex,s.journeyKind].join(':');const count=Number(s.count)||0;
  const increased=previous&&previous.identity===identity&&count>previous.count;
  const continuous=increased&&s.playing&&previous.playing;previous={identity,count,playing:s.playing};
- if(document.hidden||reduced.matches||setting==='off'||['PAUSED','PREPARING','ERROR','INTERRUPTED','COMPLETED'].includes(s.phase)||s.presentationOnly){cancel();lastBeat=0;return}
+ if(document.hidden||reduced.matches||saving()||setting==='off'||['PAUSED','PREPARING','ERROR','INTERRUPTED','COMPLETED'].includes(s.phase)||s.presentationOnly){cancel();lastBeat=0;return}
  if(!increased){if(!s.playing){cancel();lastBeat=0}return}
  const now=performance.now(),duration=continuous&&lastBeat?Math.max(350,Math.min(8000,now-lastBeat)):1200;lastBeat=now;
  flowAnimations.forEach(a=>a.updatePlaybackRate(Math.max(.3,Math.min(2,1200/duration))));
@@ -294,6 +295,7 @@ function update(s){if(!s||!mount())return;lastState=s;syncFlow(s);
 }
 function read(){update(window.SukunSessionState?.peek?.())}
 window.addEventListener('sukun:sessionchange',e=>update(e.detail));document.addEventListener('visibilitychange',()=>{cancel();cancelFlow();previous=null;lastBeat=0;read()});reduced.addEventListener('change',()=>{cancel();cancelFlow();read()});window.addEventListener('pagehide',()=>{cancel();cancelFlow()});
+['sukun:performancechange','sukun:performance','sukun:performance-effective'].forEach(name=>window.addEventListener(name,()=>{cancel();cancelFlow();lastBeat=0;read()}));
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',read,{once:true});else read();
-window.SukunWheelLight=Object.freeze({version:'r952',snapshot:()=>({setting,motion,flowAnimations:flowAnimations.filter(a=>a.playState==='running').length,pulses,activeAnimations:animations.filter(a=>a.playState==='running').length,wheel:frame?.dataset.wheelId||null,readOnly:true})});
+window.SukunWheelLight=Object.freeze({version:'r980',snapshot:()=>({setting,motion,saving:saving(),flowAnimations:flowAnimations.filter(a=>a.playState==='running').length,pulses,activeAnimations:animations.filter(a=>a.playState==='running').length,wheel:frame?.dataset.wheelId||null,readOnly:true})});
 })();

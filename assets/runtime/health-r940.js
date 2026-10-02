@@ -321,7 +321,7 @@
         'Sayfa / Service Worker eşleşmesi', sw || { controlled: !!navigator.serviceWorker?.controller }, 'Farklıysa aktif sesi durdurduktan sonra uygulamanın Güncelle düğmesini kullanın; kayıtları silmeyin.'),
       status('SW_CACHE_COMPLETE', sw?.complete === true ? 'PASS' : sw?.complete === false ? 'FAIL' : 'NOT_MEASURED', 'SW çekirdek dosyaları', { complete: sw?.complete ?? null }),
       status('SESSION_OBSERVATION', session ? 'PASS' : 'NOT_MEASURED', 'Pasif oturum durumu', session || { reason: 'Henüz oturum olayı alınmadı' }),
-      status('TEMPO_RANGE', tempo?.value == null ? 'NOT_MEASURED' : tempo.value >= .8 && tempo.value <= 6 ? 'PASS' : 'FAIL', 'Tempo yetkisi', tempo || {}),
+      status('TEMPO_RANGE', tempo?.value == null ? 'NOT_MEASURED' : tempo.value >= .6 && tempo.value <= 6 ? 'PASS' : 'FAIL', 'Tempo yetkisi', tempo || {}),
       audioConsistency(),
       status('DEVICE_AUDIO', 'NOT_MEASURED', 'Fiziksel hoparlör ve ekran kilidi doğrulaması', { reason: 'Tarayıcı olayları işitilebilir sesi veya işletim sistemi süreç sonlandırmasını ispatlamaz' }),
       status('PERSISTENCE', storageError ? 'WARN' : lastSaved ? 'PASS' : 'NOT_MEASURED', 'Son durum kaydı', { lastSaved, error: storageError, trimmedRecords:checkpointTrimmed })];
@@ -362,6 +362,17 @@
     if (ai) out.push(status('AI_CONNECTIONS', ai.lastResult?.code === 'OK' ? 'OBSERVED' : ai.lastResult?.code && !['CANCELLED','MISSING_KEY','CONSENT_REQUIRED'].includes(ai.lastResult.code) ? 'WARN' : 'NOT_MEASURED', 'AI bağlantıları (anahtarsız tanı)', ai, 'AUTH: anahtarı düzeltin. QUOTA: kota süresini bekleyin. ACCESS/BILLING: sağlayıcı hesabını kontrol edin. NETWORK_OR_CORS: bağlantı veya tarayıcı erişimi. NVIDIA için kendi aracı servisiniz gerekir. Sağlık denetimi AI isteği göndermez.'));
     return out.concat(checks);
   }
+  function compactFlowObservation() {
+    const raw = safe(() => window.SukunCadenceUI?.observation?.());
+    if (!raw || typeof raw !== 'object') return null;
+    const statuses = new Set(['RUNNING','OBSERVED','WARN','NOT_MEASURED']);
+    const reasons = new Set(['complete','idle','hidden','cancelled','closed','owner-changed','session-stopped','not-run']);
+    const boundedNumber = (key, max) => typeof raw[key] === 'number' && Number.isFinite(raw[key]) && raw[key] >= 0 ? Math.min(max,Math.round(raw[key])) : null;
+    return {version:'r981',status:statuses.has(raw.status)?raw.status:'NOT_MEASURED',reason:reasons.has(raw.reason)?raw.reason:'not-run',
+      durationMs:boundedNumber('durationMs',3600000),samples:boundedNumber('samples',1000),verifiedMediaPairs:boundedNumber('verifiedMediaPairs',1000),
+      observedMediaAdvanceMs:boundedNumber('observedMediaAdvanceMs',3600000),observedCountAdvance:boundedNumber('observedCountAdvance',1000000),
+      maxCallbackDelayMs:boundedNumber('maxCallbackDelayMs',3600000),audibleSound:'NOT_MEASURED',screenLock:'NOT_MEASURED',network:'NOT_USED'};
+  }
   function read() {
     const result = currentChecks();
     return { schema: SCHEMA, version: VERSION, build, generatedAt: new Date().toISOString(), boot,
@@ -370,7 +381,9 @@
         privacy: 'metadata-only-no-recording-no-text-no-url-query', previousScope },
       summary: { currentFailures: result.filter(x => x.status === 'FAIL').length, currentWarnings: result.filter(x => x.status === 'WARN').length,
         unmeasured: result.filter(x => x.status === 'NOT_MEASURED').length, recordedIncidents: incidents.length },
-      current: copy(evidenceContext()), checks: copy(result), deviceCheck:copy(deviceCheck), modelCheck:copy(modelCheck), incidents: copy(incidents), timeline: copy(events), previous: copy(previous), lastRun: copy(lastRun) };
+      current: copy(evidenceContext()), checks: copy(result), deviceCheck:copy(deviceCheck), modelCheck:copy(modelCheck),
+      flowObservation:compactFlowObservation(),
+      incidents: copy(incidents), timeline: copy(events), previous: copy(previous), lastRun: copy(lastRun) };
   }
   async function bounded(promise, ms = 2000) {
     let timer; try { return await Promise.race([promise, new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('timeout')), ms); })]); }
@@ -435,7 +448,7 @@
       let marker;try {marker=JSON.parse(new TextDecoder().decode(bytes));} catch(_) {
         return status('RUNTIME_INTEGRITY','FAIL','Sürüm dosya listesi geçersiz',{reason:'MARKER_INVALID_JSON',checkedAt:now(),scope:'served-through-current-service-worker',configurationErrors:1},'İndirilen sürüm listesi okunamadı. Tam sürüm paketini birlikte yükleyin.');
       }
-      if (marker.build!==build||!Array.isArray(marker.runtime)||marker.runtime.length>32)
+      if (marker.build!==build||!Array.isArray(marker.runtime)||marker.runtime.length>64)
         return status('RUNTIME_INTEGRITY','FAIL','Sürüm dosya listesi geçersiz',{reason:'MARKER_INVALID',checkedAt:now(),scope:'served-through-current-service-worker',configurationErrors:1},'İndirilen dosya listesi bu sürümün yapısına uymuyor. Raporu saklayın.');
       expected=marker.runtime.length;
       if (!crypto?.subtle) return integrityResult([],expected,0,{reason:'CRYPTO_UNAVAILABLE'});
