@@ -154,6 +154,9 @@ function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view
  if(dialog.open)renderAtlas();
 }
 function queue(){if(!document.hidden&&!raf)raf=requestAnimationFrame(render)}
+// r979: bounded foreground repair can paint synchronously if a suspended
+// requestAnimationFrame handle survived restoration. No transport command.
+function restorePresentation(){if(document.hidden)return false;if(raf)cancelAnimationFrame(raf);raf=0;render();return !!root?.isConnected&&!root.hidden}
 document.addEventListener('visibilitychange',()=>{if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0;clearTimeout(focusTimer)}else queue()},{passive:true});
 ['DOMContentLoaded','pageshow','sukun:sessionchange','sukun:scenechange','sukun:performancechange','sukun:tefekkurchange','sukun:secretaccesschange','sukun:voicesource','sukun:recordingerror','sukun:recordingrecovered'].forEach(event=>addEventListener(event,queue,{passive:true}));
 addEventListener('sukun:journey-advance',e=>{const mode=e.detail?.owner==='journey28'?'berhet':e.detail?.owner==='journey99'?'esma':null;if(mode)markComplete(mode,Number(e.detail.index)-1);queue()});
@@ -161,7 +164,7 @@ document.addEventListener('pointerdown',()=>{if(root&&!root.hidden)wake()},{pass
 new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});
 // Re-render after the native setting handler; never duplicate the native toggle.
 document.addEventListener('click',e=>{if(e.target.closest('#optMean'))queue()},{passive:true});
-window.SukunPracticeUI=Object.freeze({version:'r944',refresh:queue,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,renders,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
+window.SukunPracticeUI=Object.freeze({version:'r979',refresh:queue,restorePresentation,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,renders,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
 queue();
 })();
 

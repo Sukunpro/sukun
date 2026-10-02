@@ -8,12 +8,14 @@
  const wasDiscarded=typeof document.wasDiscarded==='boolean'?document.wasDiscarded:null;
  const unexpectedReload=wasDiscarded===true?'DISCARDED':previous&&!previous.pagehideSeen&&previous.active?'POSSIBLE_UNCLOSED_ACTIVE_SESSION':'NOT_OBSERVED';
  function checkpoint(){try{sessionStorage.setItem(key,JSON.stringify({boot,at:Date.now(),pagehideSeen,hidden:document.hidden,active:['PLAYING','PREPARING','INTERRUPTED'].includes(window.SukunSessionState?.peek?.()?.phase)}));}catch(e){storageAvailable=false;}}
- function hidden(){document.documentElement.dataset.r949Hidden=document.hidden||frozen?'1':'0';checkpoint();}
+ // A visible document is runnable even if a browser restores it without a
+ // matching resume event. Never leave the global animation gate latched.
+ function hidden(){if(!document.hidden)frozen=false;document.documentElement.dataset.r949Hidden=document.hidden||frozen?'1':'0';checkpoint();}
  document.addEventListener('visibilitychange',hidden,{passive:true});
- document.addEventListener('freeze',()=>{frozen=true;freezeEvents++;hidden();},{passive:true});
+ document.addEventListener('freeze',()=>{frozen=true;freezeEvents++;document.documentElement.dataset.r949Hidden='1';checkpoint();},{passive:true});
  document.addEventListener('resume',()=>{frozen=false;resumeEvents++;hidden();},{passive:true});
  addEventListener('pagehide',()=>{pagehideSeen=true;checkpoint();},{passive:true});
- addEventListener('pageshow',()=>{pagehideSeen=false;checkpoint();},{passive:true});
+ addEventListener('pageshow',()=>{pagehideSeen=false;hidden();},{passive:true});
  // Session changes already exist; no new polling or unload handler.
  let lastSave=0;addEventListener('sukun:sessionchange',e=>{if(Date.now()-lastSave>15000||e.detail.phase!=='PLAYING'){lastSave=Date.now();checkpoint();}},{passive:true});
  const refs=[],maxNodes=4096;let created=0,dropped=0;

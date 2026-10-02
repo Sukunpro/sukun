@@ -16,7 +16,7 @@
   const DEVICE_FIELDS = ['foregroundSound','lockedSound','tempoStable','effectsPreserved','nameTransition','manualCount','manualFeedback','manualVoice','voiceRate','terkipOpen','virdOpen','navigationControls','privateGate'];
   const DEVICE_ANSWERS = new Set(['NOT_TRIED','AS_EXPECTED','ISSUE']);
   let previous = null, previousScope = 'none', lastSampleEpoch = 0, eventWindowAt = born, eventWindowCount = 0;
-  let visibleLagMs = 0, lastIncidentAt = 0, mounted = null, dialog = null, priorFocus = null, tts = null, taps = null, checkpointTrimmed = 0;
+  let visibleLagMs = 0, lastIncidentAt = 0, lastPresentationSave = 0, mounted = null, dialog = null, priorFocus = null, tts = null, taps = null, checkpointTrimmed = 0;
   const safe = (fn, fallback = null) => { try { return fn() ?? fallback; } catch (_) { return fallback; } };
   const finite = x => Number.isFinite(Number(x)) ? Number(x) : null;
   const token = (x, max = 80) => String(x ?? '').replace(/[^A-Za-z0-9_.:+/-]/g, '').slice(0, max);
@@ -36,7 +36,7 @@
     while (rows.length < 6 && (hit = re.exec(stack))) rows.push({ file:path(hit[1]),line:Number(hit[2]),column:Number(hit[3]) });
     return rows;
   }
-  const historicKeys = new Set('at seq kind code severity title certainty firstAt lastAt occurrences eventSeq context evidence hidden session tempo truth sw lock phase mode index count target epoch requestId journey owner source reason tefekkur dualJourney audioIssues state tangible pending life hub issues app controller waiting hasController complete error value previous cancelledGestures pendingGesture active playing frozen cycleMs mediaProgressMs lastProgressAgeMs stalls overshootCycles applied name file line column frames asset tag lagMs thresholdMs elapsedMs checkpointAt scope build online previousCheckpoint bytes lastEvent measuredAt snapshot issueType markerSeq type phaseMs rep limit cycles remaining delay wraps remainMs provider model http durationMs background outcome errorName stage path sourceKind paused ended readyState networkState mediaErrorCode eligible generationCurrent scope transition disposition singleSnapshot singleMeasuredAt snapshotPath preparing browserLifecycle wasDiscarded navigationType previous previousExit crashConfirmed pagehide mediaPlaying mediaTime'.split(' '));
+  const historicKeys = new Set('at seq kind code severity title certainty firstAt lastAt occurrences eventSeq context evidence hidden session tempo truth sw lock phase mode index count target epoch requestId journey owner source reason tefekkur dualJourney audioIssues state tangible pending life hub issues app controller waiting hasController complete error value previous cancelledGestures pendingGesture active playing frozen cycleMs mediaProgressMs lastProgressAgeMs stalls overshootCycles applied name file line column frames asset tag lagMs thresholdMs elapsedMs checkpointAt scope build online previousCheckpoint bytes lastEvent measuredAt snapshot issueType markerSeq type phaseMs rep limit cycles remaining delay wraps remainMs provider model http durationMs background outcome errorName stage path sourceKind paused ended readyState networkState mediaErrorCode eligible generationCurrent scope transition disposition singleSnapshot singleMeasuredAt snapshotPath preparing browserLifecycle wasDiscarded navigationType previous previousExit crashConfirmed pagehide persisted mediaPlaying mediaTime errorCode errorHttp errorStage errorAsset lastChange presentation version checks recoveries lastReason lastAt lastProbe lastRepair actions tef selectedTab viewportWidth viewportHeight scrollX scrollY frameObserved frameDelayMs domSurfaceVisible openingActive openingPresent lifecycleHidden bodyFlags roots wrap tab practice nav connected display visibility opacity width height inViewport blocker'.split(' '));
   function historic(value, depth = 0) {
     if (depth > 5 || value == null) return null;
     if (typeof value === 'boolean') return value;
@@ -59,9 +59,21 @@
     return { state: token(s?.state), tangible: bool(s?.tangible), pending: bool(s?.pendingPhysical), source: token(s?.source),
       issues: (s?.issues || []).slice(0, 8).map(x => token(x)), life: token(s?.life?.state), hub: token(s?.hub?.state) };
   }
-  function compactSW(s) { return { app: token(s?.appVersion || build), controller: token(s?.controllerVersion || s?.v),
-    waiting: token(s?.waitingVersion), phase: token(s?.phase), hasController: bool(s?.hasController),
-    complete: s?.controllerComplete ?? s?.complete ?? null, error: !!s?.lastError || !!s?.error }; }
+  function compactSW(s) {
+    // Browser SW errors may contain full URLs. Retain actual bounded error
+    // metadata, never raw messages, URL queries or recording/user text.
+    const raw=s?.lastError || s?.error || '', text=typeof raw==='string'?raw.slice(0,4000):String(raw?.name || ''), failed=!!raw || s?.phase==='error';
+    const names=['AbortError','NotAllowedError','NotSupportedError','InvalidStateError','NetworkError','SecurityError','TypeError','TimeoutError','Error'];
+    const errorName=failed ? names.find(name=>new RegExp('\\b'+name+'\\b').test(text)) || 'UnknownError' : '';
+    const http=text.match(/\b(?:HTTP[_ :]*|status(?: code)?[: =]*)([45]\d\d)\b/i), errorHttp=http?Number(http[1]):null;
+    const errorCode=!failed?'':errorHttp?'HTTP_'+errorHttp:/timeout|timed out|süre.*dol|zaman.*aş/i.test(text)?'TIMEOUT':/dosyaları.*tamamlanamadı|incomplete|cache.*refresh/i.test(text)?'UPDATE_INCOMPLETE':/activation|aktivasyon/i.test(text)?'ACTIVATION_FAILED':/network|fetch|connection|bağlantı/i.test(text)?'NETWORK_OR_FETCH':'UNCLASSIFIED';
+    const errorStage=!failed?'':/activation|aktivasyon/i.test(text)?'activation':/update|güncelle/i.test(text)?'update':/register|registration|kurul/i.test(text)?'registration':'unknown';
+    const url=text.match(/https?:\/\/[^\s'"<>]+/i);
+    return { app: token(s?.appVersion || build), controller: token(s?.controllerVersion || s?.v),
+      waiting: token(s?.waitingVersion), phase: token(s?.phase), hasController: bool(s?.hasController),
+      complete: s?.controllerComplete ?? s?.complete ?? null, error:failed,
+      errorName,errorCode,errorHttp,errorStage,errorAsset:url?path(url[0]):null,lastChange:finite(s?.lastChange) };
+  }
   function compactLock(s) { return { active: bool(s?.active), playing: bool(s?.playing), owner: token(s?.owner),
     frozen: bool(s?.frozen), reason: token(s?.lastReason), ...numeric(s, ['cycleMs','mediaProgressMs','lastProgressAgeMs','stalls','overshootCycles','applied','index']) }; }
   function sampleLock() {
@@ -84,10 +96,28 @@
       previousExit: token(bootState?.previousExit || 'unknown'), crashConfirmed: false,
       previous: p ? { at: finite(p.at), build: token(p.build), reason: token(p.reason),
         hidden: bool(p.hidden), playing: bool(p.playing), paused: bool(p.paused),
-        owner: token(p.owner), index: finite(p.index), count: finite(p.count),
-        pagehide: bool(p.pagehide), mediaPlaying: bool(p.mediaPlaying), mediaTime: finite(p.mediaTime) } : null };
+        owner: token(p.owner), mode:token(p.mode), phase:token(p.phase), index: finite(p.index), count: finite(p.count),
+        pagehide: bool(p.pagehide), persisted:typeof p.persisted==='boolean'?p.persisted:null, mediaPlaying: bool(p.mediaPlaying), mediaTime: finite(p.mediaTime) } : null };
   }
-  function evidenceContext() { return { hidden: document.hidden, session, tempo, truth, sw, lock, background, browserLifecycle: compactLifecycle() }; }
+  function compactPresentation(input) {
+    // snapshot() is a cached observation supplied by the presentation owner.
+    // Health neither probes the DOM nor repairs/repaints the page.
+    if(!input || typeof input!=='object')return null;
+    const number=x=>typeof x==='number'&&Number.isFinite(x)&&Math.abs(x)<=1e15?x:null;
+    const string=x=>typeof x==='string'?token(x,80):'';
+    const flags=x=>Array.isArray(x)?x.slice(0,16).map(string).filter(Boolean):[];
+    const p=input.lastProbe, roots={};
+    if(p?.roots)for(const key of ['wrap','tab','practice','nav']) {
+      const r=p.roots[key];if(!r||typeof r!=='object')continue;
+      roots[key]={connected:bool(r.connected),display:string(r.display),visibility:string(r.visibility),opacity:number(r.opacity),width:number(r.width),height:number(r.height),inViewport:bool(r.inViewport),blocker:r.blocker==null?null:string(r.blocker)};
+    }
+    return {version:string(input.version),state:['ready','hidden','checking','recovered','attention'].includes(input.state)?input.state:'unknown',checks:number(input.checks),recoveries:number(input.recoveries),lastReason:string(input.lastReason),lastAt:number(input.lastAt),
+      lastProbe:p&&typeof p==='object'?{at:number(p.at),reason:string(p.reason),hidden:bool(p.hidden),tef:bool(p.tef),selectedTab:string(p.selectedTab),readyState:string(p.readyState),viewportWidth:number(p.viewportWidth),viewportHeight:number(p.viewportHeight),scrollX:number(p.scrollX),scrollY:number(p.scrollY),frameObserved:bool(p.frameObserved),frameDelayMs:number(p.frameDelayMs),domSurfaceVisible:bool(p.domSurfaceVisible),openingActive:bool(p.openingActive),openingPresent:bool(p.openingPresent),lifecycleHidden:bool(p.lifecycleHidden),bodyFlags:flags(p.bodyFlags),roots}:null,
+      lastRepair:input.lastRepair&&typeof input.lastRepair==='object'?{at:number(input.lastRepair.at),actions:flags(input.lastRepair.actions)}:null,
+      scope:'DOM visibility and observed animation frame; not raster or physical display test'};
+  }
+  function presentationSnapshot() {return compactPresentation(safe(()=>window.SukunPresentationRecovery?.snapshot?.()));}
+  function evidenceContext() { return { hidden: document.hidden, session, tempo, truth, sw, lock, background, browserLifecycle: compactLifecycle(), presentation:presentationSnapshot() }; }
   function record(kind, evidence = {}) {
     const row = { seq: ++seq, at: now(), kind: token(kind), evidence };
     events.push(row); if (events.length > MAX_EVENTS) { events.shift(); droppedEvents++; }
@@ -106,7 +136,7 @@
   }
   function checkpoint(reason) {
     return { schema: SCHEMA, at: now(), boot, build, reason, hidden: document.hidden,
-      closed: reason === 'pagehide', session, tempo, sw, background, browserLifecycle: compactLifecycle(), deviceCheck, modelCheck, incidents: incidents.slice(-8), events: events.slice(-18) };
+      closed: reason === 'pagehide', session, tempo, sw, background, browserLifecycle: compactLifecycle(), presentation:presentationSnapshot(), deviceCheck, modelCheck, incidents: incidents.slice(-8), events: events.slice(-18) };
   }
   function persist(reason) {
     const saved = checkpoint(reason); let data = JSON.stringify(saved), trimmed = 0;
@@ -129,7 +159,7 @@
       session: old.session ? { phase: token(old.session.phase), count: finite(old.session.count), index: finite(old.session.index), mode: token(old.session.mode) } : null,
       incidentCodes: (Array.isArray(old.incidents) ? old.incidents : []).slice(-8).map(x => token(x.code)),
       incidents: historic((Array.isArray(old.incidents) ? old.incidents : []).slice(-8)),
-      events: historic((Array.isArray(old.events) ? old.events : []).slice(-18)), background:historic(old.background), browserLifecycle:historic(old.browserLifecycle), deviceCheck: compactDeviceCheck(old.deviceCheck) };
+      events: historic((Array.isArray(old.events) ? old.events : []).slice(-18)), background:historic(old.background), browserLifecycle:historic(old.browserLifecycle), presentation:compactPresentation(old.presentation), deviceCheck: compactDeviceCheck(old.deviceCheck) };
     if (!old.closed && /PLAYING|PREPARING|INTERRUPTED/.test(previous.session?.phase || ''))
       issue('PREVIOUS_UNCLOSED_SESSION', 'WARN', 'Önceki etkin oturumun kapanışı gözlenmedi',
         { checkpointAt: old.at, scope: previousScope, phase: previous.session.phase, reason: previous.reason },
@@ -192,7 +222,7 @@
   function lifecycle(kind, persisted) {
     cancelTimer(); progressAt = now(); sessionChangedAt = now();
     sampleLock();
-    record(kind, { hidden: document.hidden, persisted: !!persisted, phase: session?.phase || 'unknown', lock:lock ? copy(lock) : null });
+    record(kind, { hidden: document.hidden, persisted: !!persisted, phase: session?.phase || 'unknown', lock:lock ? copy(lock) : null, presentation:presentationSnapshot() });
     persist(kind);
     if (!document.hidden && kind !== 'pagehide' && kind !== 'freeze') arm();
   }
@@ -295,6 +325,11 @@
       audioConsistency(),
       status('DEVICE_AUDIO', 'NOT_MEASURED', 'Fiziksel hoparlör ve ekran kilidi doğrulaması', { reason: 'Tarayıcı olayları işitilebilir sesi veya işletim sistemi süreç sonlandırmasını ispatlamaz' }),
       status('PERSISTENCE', storageError ? 'WARN' : lastSaved ? 'PASS' : 'NOT_MEASURED', 'Son durum kaydı', { lastSaved, error: storageError, trimmedRecords:checkpointTrimmed })];
+    if(sw)out.push(status('SW_OPERATION',sw.error || sw.phase==='error'?'WARN':'OBSERVED','Çevrimdışı motorun son işlemi',sw,
+      sw.error || sw.phase==='error'?'Çevrimdışı motorun bir işlemi tamamlanamadı. Sayfa ve çalışan sürüm eşleşiyorsa ve temel dosyalar tamamsa bu, mevcut önbelleğin bozuk olduğunu göstermez. Bağlantı uygun olduğunda güncelleme denetimini yeniden deneyin; kayıtlarınızı silmeyin.':''));
+    const presentation=presentationSnapshot();
+    if(presentation)out.push(status('PRESENTATION',presentation.state==='attention'?'WARN':'OBSERVED','Ekrana dönüş gözlemi',presentation,
+      'Bu gözlem DOM görünürlüğü ve çizim çağrısı içindir; ekrandaki gerçek pikselleri ölçmez. Siyah ekran sürerse raporu saklayın.'));
     const memory = safe(() => window.SukunSessionMemory?.diagnostics?.());
     if (memory) out.push(status('SESSION_MEMORY', memory.error ? 'WARN' : memory.bootPending ? 'OBSERVED' : memory.writes > 0 ? 'PASS' : 'NOT_MEASURED',
       'Zikir ilerleme kaydı', { version:token(memory.version),bootPending:bool(memory.bootPending),bootCancelled:bool(memory.bootCancelled),writePending:bool(memory.writePending),writes:finite(memory.writes),lastWriteAt:finite(memory.lastWriteAt),error:token(memory.error) },
@@ -628,6 +663,13 @@
     truth = next;
   }, {passive:true});
   window.addEventListener('sukun:swstate', e => { sw = compactSW(e.detail); record('sw', sw); }, {passive:true});
+  window.addEventListener('sukun:presentationrecovery', () => {
+    const presentation=presentationSnapshot();if(!presentation)return;
+    record('presentation',presentation);
+    if(['attention','recovered'].includes(presentation.state) && now()-lastPresentationSave>=15000) {
+      lastPresentationSave=now();persist('presentation');
+    }
+  }, {passive:true});
   window.addEventListener('sukun:lockjourneyv2', e => {
     const d=e.detail || {}, observed={at:finite(d.at),type:token(d.type),owner:token(d.owner),index:finite(d.index),reason:token(d.reason),...numeric(d,['cycleMs','phaseMs','rep','limit','cycles','remaining','delay','wraps','remainMs'])};
     lock = {...(lock || {}),lastEvent:observed}; record('lock-transport',observed);
