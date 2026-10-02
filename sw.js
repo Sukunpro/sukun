@@ -4,43 +4,44 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r978';
+const SURUM = 'r979';
 const ART_CACHE = 'sukun-art-persistent-v1';
-const CACHE = 'sukun-r978-lifecycle-20261001-v11';
-const CACHE_META = './sukun-cache-meta-r978.json';
-const BUILD_MARKER = './sukun-build-r978.json';
+const CACHE = 'sukun-r979-lifecycle-20261002-v12';
+const CACHE_META = './sukun-cache-meta-r979.json';
+const BUILD_MARKER = './sukun-build-r979.json';
 const LATEST_MARKER = './sukun-latest.json';
-const REQUIRED_RUNTIME = [{"url": "./assets/runtime/berhet-layout-r938.css?v=r978", "sha256": "eae6f5e4977feaf7a627791bdce03f9c545cf5e6f30e45e4d291c0580767165d"}, {"url": "./assets/runtime/berhet-materials-r933.css?v=r978", "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"}, {"url": "./assets/runtime/berhet-controls-r933.css?v=r978", "sha256": "4f4a64f90342dc3750bd5498394b89ba6cb581ae453ff66969630b3c913f1670"}, {"url": "./assets/runtime/berhet-dock-r933.css?v=r978", "sha256": "8ee1fba13a12f78500721cd6b5a5653b5a7d4914c02fa0be19046ebfd18bbc12"}, {"url": "./assets/runtime/background-owner-r949.js?v=r978", "sha256": "dc39f0bc1c0df8eb0138f352b4d06439fd8a36157108846113c4e91c4374d0a8"}, {"url": "./assets/runtime/lifecycle-r949.js?v=r978", "sha256": "c2de30d6464371b6bc653acb94050ece5abb193956f7132c3c496372d7505cd6"}, {"url": "./assets/runtime/audio-palette-r945.js?v=r978", "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1"}, {"url": "./assets/runtime/esma-scenes-r923.js?v=r978", "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"}, {"url": "./assets/runtime/session-r919.js?v=r978", "sha256": "659c21f0e122a18b34870ebefd89a86d1d8c28556c4746d8c3c1db44a8c21c16"}, {"url": "./assets/runtime/dock-r920.js?v=r978", "sha256": "d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0"}, {"url": "./assets/runtime/wheels-r924.js?v=r978", "sha256": "ee3413fcad42981477b13701a747c80fb98d8e48c9bfc0f04882beed1638e29b"}, {"url": "./assets/runtime/berhet-layout-r938.js?v=r978", "sha256": "2fb07e8b3f69875fca33f3ae700b73419b2943abb140e32ab7192277601ae366"}, {"url": "./assets/runtime/interface-r920.js?v=r978", "sha256": "6a6360d572f8edd54742e0138e8ed419fcc6d534af7bdf0c52a3f701278b3578"}, {"url": "./assets/runtime/wheels-r924.css?v=r978", "sha256": "22a07233940d7a8deebec8613885dcb534cd8a35482e0615b0ffd7febd240a2f"}, {"url": "./assets/runtime/berhet-theme-r933.js?v=r978", "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434"}, {"url": "./assets/runtime/health-view-r943.css?v=r978", "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3"}, {"url": "./assets/runtime/health-view-r943.js?v=r978", "sha256": "391f9c9b8dc19625db72e0a13537e31d918921ef3b6da246052851d9f8ee86a0"}, {"url": "./assets/runtime/scene-picker-r945.css?v=r978", "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2"}, {"url": "./assets/runtime/scene-picker-r945.js?v=r978", "sha256": "77d78e9a81f94eb76e1846744ad961f52787e436f2b1b98a9d25e37fc8766d04"}, {"url": "./assets/runtime/health-r940.js?v=r978", "sha256": "d2d51a560537b56133dbf033f86381d587b13b92ab0e5dab4aab00c117827c29"}, {"url": "./assets/runtime/nefs-r948.css?v=r978", "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf"}, {"url": "./assets/runtime/nefs-data-r948.js?v=r978", "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c"}, {"url": "./assets/runtime/nefs-model-r948.js?v=r978", "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b"}, {"url": "./assets/runtime/nefs-ui-r948.js?v=r978", "sha256": "df7a33cff07d2b9b0b7c1e0f1da15282109bbdaa8328b872ca59e72015bcfc62"}, {"url": "./assets/runtime/offline-scenes-r962.js?v=r978", "sha256": "c3481d0d6d5b6eca388dc2766d62418d25400ccc14202cd45f41d4a600d1b7e6"}, {"url": "./assets/wheel-navigation-r964/gold.png?v=r978", "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2"}, {"url": "./assets/wheel-navigation-r964/copper.png?v=r978", "sha256": "b731ba244c0f04a972276580a70e3b203a8a9e839abe35841cfd08c372283012"}, {"url": "./assets/wheel-navigation-r964/silver.png?v=r978", "sha256": "d7095d1597bdeb288035bd3aa87c4168c63a4dd6b98c7f6ab860f0f7c24a516f"}, {"url": "./assets/wheel-navigation-r964/dark.png?v=r978", "sha256": "c6407489d8c52d1b65985dbbdb8d5c3df625b184739c413c40c6d423d70c55bb"}, {"url": "./assets/wheel-navigation-r964/crystal.png?v=r978", "sha256": "dd751abc6483a3c5f3585e170d0c9888fdef5ccb69e276bd61d765b33bdb6b85"}];
+const REQUIRED_RUNTIME = [{"url": "./assets/runtime/berhet-layout-r938.css?v=r979", "sha256": "eae6f5e4977feaf7a627791bdce03f9c545cf5e6f30e45e4d291c0580767165d"}, {"url": "./assets/runtime/berhet-materials-r933.css?v=r979", "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"}, {"url": "./assets/runtime/berhet-controls-r933.css?v=r979", "sha256": "4f4a64f90342dc3750bd5498394b89ba6cb581ae453ff66969630b3c913f1670"}, {"url": "./assets/runtime/berhet-dock-r933.css?v=r979", "sha256": "8ee1fba13a12f78500721cd6b5a5653b5a7d4914c02fa0be19046ebfd18bbc12"}, {"url": "./assets/runtime/background-owner-r949.js?v=r979", "sha256": "dc39f0bc1c0df8eb0138f352b4d06439fd8a36157108846113c4e91c4374d0a8"}, {"url": "./assets/runtime/lifecycle-r949.js?v=r979", "sha256": "23c80a9fdd863ed691402a0facc2119b6e72d86d8ec0bd9cfe2e42e4f67a8367"}, {"url": "./assets/runtime/audio-palette-r945.js?v=r979", "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1"}, {"url": "./assets/runtime/esma-scenes-r923.js?v=r979", "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"}, {"url": "./assets/runtime/session-r919.js?v=r979", "sha256": "659c21f0e122a18b34870ebefd89a86d1d8c28556c4746d8c3c1db44a8c21c16"}, {"url": "./assets/runtime/dock-r920.js?v=r979", "sha256": "d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0"}, {"url": "./assets/runtime/wheels-r924.js?v=r979", "sha256": "ee3413fcad42981477b13701a747c80fb98d8e48c9bfc0f04882beed1638e29b"}, {"url": "./assets/runtime/berhet-layout-r938.js?v=r979", "sha256": "2fb07e8b3f69875fca33f3ae700b73419b2943abb140e32ab7192277601ae366"}, {"url": "./assets/runtime/interface-r920.js?v=r979", "sha256": "09ad8d74ae1c02e51254bae127ce7738b0ca59c07751b0095b1c8215e4962854"}, {"url": "./assets/runtime/wheels-r924.css?v=r979", "sha256": "22a07233940d7a8deebec8613885dcb534cd8a35482e0615b0ffd7febd240a2f"}, {"url": "./assets/runtime/berhet-theme-r933.js?v=r979", "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434"}, {"url": "./assets/runtime/health-view-r943.css?v=r979", "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3"}, {"url": "./assets/runtime/health-view-r943.js?v=r979", "sha256": "db72f7ca97700663af00b54d6432c388a70682cbe3a8cdbffefd18e4b90bff5e"}, {"url": "./assets/runtime/scene-picker-r945.css?v=r979", "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2"}, {"url": "./assets/runtime/scene-picker-r945.js?v=r979", "sha256": "77d78e9a81f94eb76e1846744ad961f52787e436f2b1b98a9d25e37fc8766d04"}, {"url": "./assets/runtime/health-r940.js?v=r979", "sha256": "416175e5592b6729f50a7e527e11f1524878c80f5b02957b00b492fa0154af99"}, {"url": "./assets/runtime/nefs-r948.css?v=r979", "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf"}, {"url": "./assets/runtime/nefs-data-r948.js?v=r979", "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c"}, {"url": "./assets/runtime/nefs-model-r948.js?v=r979", "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b"}, {"url": "./assets/runtime/nefs-ui-r948.js?v=r979", "sha256": "df7a33cff07d2b9b0b7c1e0f1da15282109bbdaa8328b872ca59e72015bcfc62"}, {"url": "./assets/runtime/offline-scenes-r962.js?v=r979", "sha256": "2f9c2b2118c0e5387e10d56ea72bb91f1b6f54e2f0d779c12a7bde9b6435ca71"}, {"url": "./assets/wheel-navigation-r964/gold.png?v=r979", "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2"}, {"url": "./assets/wheel-navigation-r964/copper.png?v=r979", "sha256": "b731ba244c0f04a972276580a70e3b203a8a9e839abe35841cfd08c372283012"}, {"url": "./assets/wheel-navigation-r964/silver.png?v=r979", "sha256": "d7095d1597bdeb288035bd3aa87c4168c63a4dd6b98c7f6ab860f0f7c24a516f"}, {"url": "./assets/wheel-navigation-r964/dark.png?v=r979", "sha256": "c6407489d8c52d1b65985dbbdb8d5c3df625b184739c413c40c6d423d70c55bb"}, {"url": "./assets/wheel-navigation-r964/crystal.png?v=r979", "sha256": "dd751abc6483a3c5f3585e170d0c9888fdef5ccb69e276bd61d765b33bdb6b85"}, {"url": "./assets/runtime/presentation-r979.js?v=r979", "sha256": "12a36845037782ccf9fe851b3b498cd856771b85d412facb0e928918f70eaa19"}];
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
    Shell doğrulaması bağımsız; geri kalan assetler yalnız görünüm istediğinde
    normal fetch sırasında current cache'e yazılır. Toplu görsel indirme
    install/activate yaşam döngüsünü veya aktif ses oturumunu meşgul etmez. */
 const CORE = [
-  "./assets/runtime/lifecycle-r949.js?v=r978",
-  "./assets/runtime/background-owner-r949.js?v=r978",
-  "./assets/runtime/berhet-layout-r938.css?v=r978",
-  "./assets/runtime/berhet-materials-r933.css?v=r978",
-  "./assets/runtime/berhet-controls-r933.css?v=r978",
-  "./assets/runtime/berhet-dock-r933.css?v=r978",
-  "./assets/runtime/audio-palette-r945.js?v=r978",
-  "./assets/runtime/esma-scenes-r923.js?v=r978",
-  "./assets/runtime/session-r919.js?v=r978",
-  "./assets/runtime/dock-r920.js?v=r978",
-  "./assets/runtime/wheels-r924.js?v=r978",
-  "./assets/runtime/berhet-layout-r938.js?v=r978",
-  "./assets/runtime/interface-r920.js?v=r978",
-  "./assets/runtime/wheels-r924.css?v=r978",
-  "./assets/runtime/berhet-theme-r933.js?v=r978",
-  "./assets/runtime/health-view-r943.css?v=r978",
-  "./assets/runtime/health-view-r943.js?v=r978",
-  "./assets/runtime/scene-picker-r945.css?v=r978",
-  "./assets/runtime/scene-picker-r945.js?v=r978",
-  "./assets/runtime/health-r940.js?v=r978",
-  "./assets/runtime/nefs-r948.css?v=r978",
-  "./assets/runtime/nefs-data-r948.js?v=r978",
-  "./assets/runtime/nefs-model-r948.js?v=r978",
-  "./assets/runtime/nefs-ui-r948.js?v=r978",
+  "./assets/runtime/presentation-r979.js?v=r979",
+  "./assets/runtime/lifecycle-r949.js?v=r979",
+  "./assets/runtime/background-owner-r949.js?v=r979",
+  "./assets/runtime/berhet-layout-r938.css?v=r979",
+  "./assets/runtime/berhet-materials-r933.css?v=r979",
+  "./assets/runtime/berhet-controls-r933.css?v=r979",
+  "./assets/runtime/berhet-dock-r933.css?v=r979",
+  "./assets/runtime/audio-palette-r945.js?v=r979",
+  "./assets/runtime/esma-scenes-r923.js?v=r979",
+  "./assets/runtime/session-r919.js?v=r979",
+  "./assets/runtime/dock-r920.js?v=r979",
+  "./assets/runtime/wheels-r924.js?v=r979",
+  "./assets/runtime/berhet-layout-r938.js?v=r979",
+  "./assets/runtime/interface-r920.js?v=r979",
+  "./assets/runtime/wheels-r924.css?v=r979",
+  "./assets/runtime/berhet-theme-r933.js?v=r979",
+  "./assets/runtime/health-view-r943.css?v=r979",
+  "./assets/runtime/health-view-r943.js?v=r979",
+  "./assets/runtime/scene-picker-r945.css?v=r979",
+  "./assets/runtime/scene-picker-r945.js?v=r979",
+  "./assets/runtime/health-r940.js?v=r979",
+  "./assets/runtime/nefs-r948.css?v=r979",
+  "./assets/runtime/nefs-data-r948.js?v=r979",
+  "./assets/runtime/nefs-model-r948.js?v=r979",
+  "./assets/runtime/nefs-ui-r948.js?v=r979",
 
 
 
@@ -76,7 +77,7 @@ const CORE = [
 
 ];
 
-const NOTLAR = ["r978 · Terkip okuma/sayım, canlı eko ayarları ve Berhetiyye kart/yerleşim düzeltmeleri."];
+const NOTLAR = ["r979 · Kilitten dönüşte görünüm/çizim toparlama ve sağlık raporunda görünürlük kanıtları."];
 
 function buildOfHtml(text){
  const tags=String(text||'').match(/<meta\b[^>]*>/gi)||[];
