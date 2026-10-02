@@ -16,18 +16,46 @@ const snap=()=>window.SukunSessionState?.snapshot?.();
 // fresh snapshot; passive paints do not collect it repeatedly after DOM writes.
 const view=()=>window.SukunSessionState?.peek?.()||snap();
 function command(action,options){const result=window.SukunSessionState?.command?.(action,options);Promise.resolve(result).then(queue,queue);return result}
-// r985: footer navigation must reveal the same extras owner as the More button.
-// Capture runs before its existing details/scroll handler; no audio command is sent.
+// r986: a section is reachable only when every enclosing disclosure is open.
+// Reuse the three native buttons and the native total; neither has a new data owner.
+const sectionIds=new Set(['zmgOkumalar','zmgSeyirler','zmgAraclar']);
 function showExtras(open){
  document.body.classList.toggle('r920-details-open',open);
+ if(open&&$('r616ZikirTools'))$('r616ZikirTools').open=true;
  attr($('r920More'),'aria-expanded',open);
  text($('r920More'),open?'Ek araçları kapat':'Zikir ayarları, kayıtlar ve diğer araçlar');
 }
-function revealFooterExtras(e){
- if(!e.target?.closest?.('.sukun-bottom-nav button')||!root||root.hidden||root.getAttribute('data-mode')!=='berhet'||!document.body.classList.contains('sukun-zikir-tab')||document.body.classList.contains('sukun-tefekkur-mode'))return;
- showExtras(true);
+function openSection(id){
+ const target=$(id),tab=$('tab-zkr');
+ if(!sectionIds.has(id)||!target||!tab||!root||root.hidden||tab.hidden||document.body.classList.contains('sukun-tefekkur-mode'))return false;
+ // Honor intentionally hidden content; opening a disclosure is not an unlock.
+ const chain=[];for(let node=target;node&&node!==tab;node=node.parentElement){if(node.hidden)return false;chain.push(node)}
+ if(!chain.length||!tab.contains(target))return false;
+ showExtras(true);wake();
+ for(const node of chain.reverse())if(node.tagName==='DETAILS')node.open=true;
+ const nav=$('r986Sections');if(nav)for(const button of nav.querySelectorAll('button')){const current=button.getAttribute('aria-controls')===id;button.classList.toggle('active',current);attr(button,'aria-expanded',$(button.getAttribute('aria-controls'))?.open===true)}
+ requestAnimationFrame(()=>{
+  if(!target.isConnected||tab.hidden||root.hidden||!document.body.classList.contains('r920-details-open')||document.body.classList.contains('sukun-tefekkur-mode'))return;
+  target.scrollIntoView({behavior:'auto',block:'start'});
+  target.querySelector(':scope > summary')?.focus?.({preventScroll:true});
+ });
+ return true;
 }
-document.addEventListener('click',revealFooterExtras,{capture:true});
+function mountSectionAccess(){
+ if(!root||root.hidden)return;
+ const nav=document.querySelector('.sukun-bottom-nav'),hero=$('r938Hero');
+ if(nav){
+  nav.id='r986Sections';attr(nav,'aria-label','Zikir alt bölümleri');
+  for(const [i,button] of [...nav.querySelectorAll('button')].entries()){const id=[...sectionIds][i];if(id){attr(button,'aria-controls',id);attr(button,'aria-expanded',$(id)?.open===true)}}
+  if(nav.parentElement!==root){if(hero)hero.after(nav);else root.append(nav)}
+ }
+ const total=$('totalCnt'),line=total?.closest('.statLine');
+ if(line){
+  line.id='r986Total';attr(line,'role','group');attr(line,'aria-label','Bu cihazda toplam zikir');
+  if(!$('r986TotalLabel')){const caption=document.createElement('span');caption.id='r986TotalLabel';caption.textContent='Toplam zikir';line.replaceChildren(caption,total)}
+  const parent=hero||root;if(line.parentElement!==parent)parent.append(line);
+ }
+}
 function persist(){safe(()=>localStorage.setItem('sukun.r920.completed',JSON.stringify(completed)))}
 function markComplete(mode,i){if(!['esma','berhet'].includes(mode)||i<0||i>=items(mode).length)return;const key=mode+':'+i;if(!completed[key]){completed[key]=Date.now();persist();if(dialog?.open)renderAtlas()}}
 function make(){
@@ -124,7 +152,8 @@ function renderAtlas(){
 }
 function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view();if(!s)return;renders++;
  const mode=s.activeMode,valid=items(mode).length>0&&(mode!=='berhet'||allowed()),tef=!!window.SUKUN_TEFEKKUR?.active?.();
- if(document.body.classList.contains('r920-practice-on')!==valid)document.body.classList.toggle('r920-practice-on',valid);if(root.hidden===valid)root.hidden=!valid;if(!valid){window.SukunBerhetLayout?.sync(root,tef);if(dialog.open)dialog.close();return}
+ if(document.body.classList.contains('r920-practice-on')!==valid)document.body.classList.toggle('r920-practice-on',valid);if(root.hidden===valid)root.hidden=!valid;if(!valid){window.SukunBerhetLayout?.sync(root,tef);
+ mountSectionAccess();if(dialog.open)dialog.close();return}
  attr(root,'data-mode',mode);attr(root,'data-phase',s.phase);const journey=s.journeyKind&&s.journeyKind!=='single';
  prop($('r920ModeBerhet'),'hidden',!allowed());prop($('r920JourneyLabel'),'hidden',!allowed()||!['esma','berhet'].includes(mode));attr($('r920ModeEsma'),'aria-pressed',mode==='esma');attr($('r920ModeBerhet'),'aria-pressed',mode==='berhet');
  value($('r920JourneyMode'),journey?'journey':'single');prop($('r920TefExit'),'hidden',!tef);prop($('r920TefEnter'),'hidden',tef);
@@ -176,7 +205,7 @@ document.addEventListener('pointerdown',()=>{if(root&&!root.hidden)wake()},{pass
 new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});
 // Re-render after the native setting handler; never duplicate the native toggle.
 document.addEventListener('click',e=>{if(e.target.closest('#optMean'))queue()},{passive:true});
-window.SukunPracticeUI=Object.freeze({version:'r979',refresh:queue,restorePresentation,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,renders,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
+window.SukunPracticeUI=Object.freeze({version:'r986',refresh:queue,restorePresentation,openSection,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,renders,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
 queue();
 })();
 

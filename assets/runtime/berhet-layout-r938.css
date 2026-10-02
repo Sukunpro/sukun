@@ -1,3 +1,82 @@
+/* r986: accessible sections and totals live outside the collapsed control panel.
+   This first important layer owns geometry; gemstone paint is mode-scoped. */
+@layer sukun-r986-access {
+html body.sukun-zikir-tab:not(.sukun-tefekkur-mode) #r920Practice:not([hidden])>#r986Sections:not([hidden]){
+ display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ position:relative!important;inset:auto!important;transform:none!important;z-index:auto!important;
+ width:min(100%,420px)!important;max-width:100%!important;min-width:0!important;height:auto!important;
+ margin:12px auto 4px!important;padding:7px!important;gap:6px!important;box-sizing:border-box!important;
+ opacity:1!important;visibility:visible!important;pointer-events:auto!important;overflow:visible!important;
+ border:1px solid #688f9255!important;border-image:none!important;border-radius:16px!important;
+ background:#09232af2!important;box-shadow:none!important;backdrop-filter:none!important;
+}
+html body #r920Practice>#r986Sections>button:not([hidden]){
+ display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+ min-width:0!important;min-height:52px!important;height:auto!important;max-height:none!important;
+ padding:8px 4px!important;gap:3px!important;font:700 12px/1.4 system-ui,sans-serif!important;
+ white-space:normal!important;overflow-wrap:break-word!important;opacity:1!important;visibility:visible!important;
+ color:#f3f1df!important;-webkit-text-fill-color:#f3f1df!important;
+ border:1px solid #7aa7a955!important;border-image:none!important;border-radius:10px!important;
+ background:#0a2b32!important;box-shadow:none!important;text-shadow:none!important;
+}
+html body #r920Practice>#r986Sections>button.active{background:#155349!important;border-color:#91c7ae!important}
+html body #r920Practice>#r986Sections>button>span{color:inherit!important;-webkit-text-fill-color:inherit!important;font-size:16px!important;opacity:1!important}
+html body #r920Practice>#r986Sections>button:focus-visible{outline:2px solid #fff0b8!important;outline-offset:2px!important}
+html body #r920Practice[data-mode="berhet"]>#r986Sections{
+ border:1px solid #cfad70!important;border-image:var(--r933-panel-frame) 250 / 7px / 0 stretch!important;
+ background:#0c202deF!important;
+}
+html body #r920Practice[data-mode="berhet"]>#r986Sections>button{
+ border:1px solid transparent!important;border-image:var(--r933-gem-sapphire) 330 fill / 7px / 0 stretch!important;
+ background:#102638!important;color:#fff2d5!important;-webkit-text-fill-color:#fff2d5!important;text-shadow:0 1px 3px #001019!important;
+}
+html body #r920Practice[data-mode="berhet"]>#r986Sections>button.active{
+ border-image-source:var(--r933-gem-emerald)!important;background:#0a332d!important;
+}
+html body #r920Practice:not([hidden]) #r986Total{
+ display:flex!important;align-items:center!important;justify-content:space-between!important;flex:0 0 auto!important;
+ position:relative!important;inset:auto!important;width:min(100%,340px)!important;max-width:100%!important;
+ min-height:56px!important;height:auto!important;margin:7px auto!important;padding:12px 20px!important;gap:12px!important;
+ box-sizing:border-box!important;opacity:1!important;visibility:visible!important;overflow:visible!important;
+ border:1px solid #80ada977!important;border-image:none!important;border-radius:14px!important;
+ background:#09252af5!important;color:#f5f0db!important;text-shadow:0 1px 2px #021216!important;
+ font:700 14px/1.4 system-ui,sans-serif!important;box-shadow:none!important;
+}
+html body #r920Practice #r986TotalLabel{display:block!important;opacity:1!important;visibility:visible!important;color:#dbeae4!important;-webkit-text-fill-color:#dbeae4!important}
+html body #r920Practice #r986Total #totalCnt{
+ display:block!important;opacity:1!important;visibility:visible!important;font-size:24px!important;font-weight:800!important;
+ font-variant-numeric:tabular-nums!important;color:#fff1bf!important;-webkit-text-fill-color:#fff1bf!important;overflow-wrap:anywhere!important;
+}
+html body #r920Practice[data-mode="berhet"] #r986Total{
+ border:1px solid #d5b779!important;border-image:var(--r933-panel-frame) 250 / 8px / 0 stretch!important;
+ background:linear-gradient(145deg,#12362ff5,#0a1d2cf5)!important;
+}
+html body.sukun-tefekkur-mode #r920Practice>#r986Sections,
+html body #r920Practice[hidden]>#r986Sections,
+html body #r920Practice>#r986Sections[hidden]{display:none!important;pointer-events:none!important}
+/* Helpers use their own reserved cells, never the volume icon or tiny timer caption. */
+html body :is(.mbRow,#dockTimer)>button.dockTipHelp[data-i18n-owned]{
+ position:static!important;inset:auto!important;transform:none!important;float:none!important;
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ flex:0 0 32px!important;width:32px!important;height:32px!important;min-width:32px!important;max-width:32px!important;
+ min-height:32px!important;max-height:32px!important;margin:0!important;padding:0!important;box-sizing:border-box!important;
+ border:1px solid #bda96c88!important;border-image:none!important;border-radius:50%!important;
+ background:#0b2633!important;background-image:none!important;color:#f3deb1!important;-webkit-text-fill-color:#f3deb1!important;
+ font:700 15px/1 system-ui,sans-serif!important;box-shadow:none!important;text-shadow:none!important;
+}
+html body .mbRow{gap:8px!important;min-width:0!important}
+html body .mbRow>#masterVol{flex:1 1 auto!important;min-width:0!important;width:0!important;margin:0!important}
+html body #dockTimer{
+ display:grid!important;grid-template-columns:20px minmax(0,1fr) 32px!important;grid-template-rows:minmax(44px,auto) auto!important;
+ align-items:center!important;gap:3px 6px!important;min-width:0!important;min-height:68px!important;height:auto!important;max-height:none!important;
+ padding:7px 10px!important;box-sizing:border-box!important;
+}
+html body #dockTimer>.di{grid-column:1!important;grid-row:1!important;margin:0!important}
+html body #dockTimer>#sleepTimer{grid-column:2!important;grid-row:1!important;min-width:0!important;width:100%!important;min-height:44px!important;height:auto!important;margin:0!important;font-size:13px!important}
+html body #dockTimer>.dockTipHelp{grid-column:3!important;grid-row:1!important}
+html body #dockTimer>.dl{grid-column:1 / -1!important;grid-row:2!important;position:static!important;inset:auto!important;transform:none!important;margin:0!important;font-size:11px!important;line-height:1.3!important;opacity:1!important}
+}
+
 /* r939: one viewport scroll surface; expanded controls stay in normal flow. */
 @layer sukun-r938-layout {
 #r920Practice[hidden]{display:none!important}
