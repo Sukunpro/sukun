@@ -313,4 +313,67 @@ html body.r754-berhet-theme :is(#tab-zkr,#r616ToolsSheet) input[type="range"]::-
 }
 /* Wheel hotspots and their fitted labels intentionally keep their measured
    geometry, transparency and counter-rotation from wheels-r924.css. */
+
+/* r983 — named colours and Berhetiyye-only shared surfaces. Paint only:
+   no event handlers, overlays, transport, display or wheel hotspot changes. */
+html body #r920Practice .r920Modes #r920ModeEsma {
+ --r933-control-art:var(--r933-gem-emerald);--r933-control-dark:#053b2c;
+ --r972-art:var(--r933-gem-emerald);--r972-face:#053b2c;
+ background:var(--r933-gem-emerald) center/100% 100% no-repeat,#053b2c!important;
+ border-image-source:var(--r933-gem-emerald)!important;color:#fff7de!important;
+ font-weight:750!important;
+}
+html body #r920Practice .r920Modes #r920ModeBerhet {
+ --r933-control-art:var(--r935-gem-topaz);--r933-control-dark:#674409;
+ --r972-art:var(--r935-gem-topaz);--r972-face:#674409;
+ background:var(--r935-gem-topaz) center/100% 100% no-repeat,#674409!important;
+ border-image-source:var(--r935-gem-topaz)!important;color:#fff8df!important;
+ font-weight:750!important;
+}
+html body #r920Practice #r920JourneyLabel #r920JourneyMode,
+html body #r920Practice #r920JourneyMode option {font-weight:750!important}
+html body #r925UpdatePanel #r925UpdateAction {
+ --r972-art:var(--r935-gem-topaz);--r972-face:#ad420b;
+ --r933-control-art:var(--r935-gem-topaz);--r933-control-dark:#ad420b;
+ border:1px solid #f4bd66!important;
+ border-image:var(--r935-gem-topaz) 330 / 10px / 0 stretch!important;
+ background:linear-gradient(145deg,#ed8b26,#b84c0d 58%,#833108)!important;
+ color:#fff8e8!important;text-shadow:0 1px 3px #572006!important;font-weight:750!important;
+}
+html body.r754-berhet-theme.sukun-zikir-tab :is(
+ #prDashboard,#todayCard,#vakitBox,.wrap>footer,#r616BottomNav,#rutRow) {
+ border:1px solid #bd9e6588!important;
+ border-image:var(--r933-panel-frame) 250 / 9px / 0 stretch!important;
+ background:linear-gradient(145deg,#102a2aeb,#081a2bef)!important;
+ color:#f5ecd6!important;box-shadow:none!important;
+ backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+html body.r754-berhet-theme.sukun-zikir-tab :is(
+ #prDashboard .prMetric,#prDashboard .prNow,#todayCard .tcStat,#tcVirdSug,#anaVakit,#sozKutu,#vkSug) {
+ border:1px solid #c0a16b88!important;
+ border-image:var(--r933-panel-frame) 250 / 6px / 0 stretch!important;
+ background:linear-gradient(145deg,#10322cde,#0a2036e8)!important;color:#f5ecd6!important;
+ box-shadow:none!important;
+}
+html body.r754-berhet-theme.sukun-zikir-tab :is(
+ #prDashboard,#todayCard,#vakitBox,#bakBox,#rutRow,#r616BottomNav) :is(button:not(.sw),summary) {
+ border:1px solid transparent!important;
+ border-image:var(--r933-gem-sapphire) 330 fill / 8px / 0 stretch!important;
+ background:#102638!important;color:#fff2d5!important;
+ box-shadow:none!important;text-shadow:0 1px 3px #001019!important;font-weight:700!important;
+}
+html body.r754-berhet-theme.sukun-zikir-tab :is(
+ #vakitBox>summary,#bakBox>summary,#r616BottomNav button.active,#r616BottomNav button[aria-current="page"]) {
+ border-image-source:var(--r933-gem-emerald)!important;background:#0a332d!important;
+}
+html body.r754-berhet-theme.sukun-zikir-tab :is(
+ #prDashboard .prMetric small,#prDashboard .prNowText small,#prDashboard .prEyebrow,
+ #todayCard .tcL,#todayCard .tcSub,#sozKutu .sozKim i,#sozKutu .sozTur,#vakitBox .vkRow i,#vakitBox .vkRow .vkT,
+ #vakitBox .vkFoot,#bakBox .bakStat) {color:#cedddc!important;text-shadow:0 1px 2px #001019!important}
+html body.r754-berhet-theme.sukun-zikir-tab #vakitBox .vkRow {
+ background:#092135cc!important;border-color:#9c865550!important;
+}
+html body.r754-berhet-theme.sukun-zikir-tab #vakitBox .vkRow.act {
+ background:#17433bdc!important;border-color:#e1c075!important;
+}
 }
