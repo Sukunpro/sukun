@@ -28,6 +28,7 @@ function showExtras(open){
 function openSection(id){
  const target=$(id),tab=$('tab-zkr');
  if(!sectionIds.has(id)||!target||!tab||!root||root.hidden||tab.hidden||document.body.classList.contains('sukun-tefekkur-mode'))return false;
+ window.SukunSeyirYerlesim?.repair?.();
  // Honor intentionally hidden content; opening a disclosure is not an unlock.
  const chain=[];for(let node=target;node&&node!==tab;node=node.parentElement){if(node.hidden)return false;chain.push(node)}
  if(!chain.length||!tab.contains(target))return false;
@@ -43,6 +44,7 @@ function openSection(id){
 }
 function mountSectionAccess(){
  if(!root||root.hidden)return;
+ window.SukunSeyirYerlesim?.repair?.();
  const nav=document.querySelector('.sukun-bottom-nav'),hero=$('r938Hero');
  if(nav){
   nav.id='r986Sections';attr(nav,'aria-label','Zikir alt bölümleri');
@@ -205,7 +207,7 @@ document.addEventListener('pointerdown',()=>{if(root&&!root.hidden)wake()},{pass
 new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});
 // Re-render after the native setting handler; never duplicate the native toggle.
 document.addEventListener('click',e=>{if(e.target.closest('#optMean'))queue()},{passive:true});
-window.SukunPracticeUI=Object.freeze({version:'r986',refresh:queue,restorePresentation,openSection,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,renders,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
+window.SukunPracticeUI=Object.freeze({version:'r987',refresh:queue,restorePresentation,openSection,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,renders,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
 queue();
 })();
 

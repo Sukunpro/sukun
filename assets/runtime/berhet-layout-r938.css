@@ -1,6 +1,11 @@
 /* r986: accessible sections and totals live outside the collapsed control panel.
    This first important layer owns geometry; gemstone paint is mode-scoped. */
 @layer sukun-r986-access {
+/* r987: compact density must not remove the public reading/tool entry cards.
+   Intentional hidden fields and private readings keep their native policy. */
+html body:not(.sukun-tefekkur-mode) #tab-zkr #zMegaHost :is(#tvBox,#dlBox,#vhBox):not([hidden]){
+ display:block!important;
+}
 html body.sukun-zikir-tab:not(.sukun-tefekkur-mode) #r920Practice:not([hidden])>#r986Sections:not([hidden]){
  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
  position:relative!important;inset:auto!important;transform:none!important;z-index:auto!important;
