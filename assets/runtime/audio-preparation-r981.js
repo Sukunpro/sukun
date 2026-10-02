@@ -17,15 +17,15 @@
   if(bytes+resident()>BUDGET)throw error('PREP_MEMORY_LIMIT');
   activeEstimate=Math.max(activeEstimate,bytes);metrics.peakEstimate=Math.max(metrics.peakEstimate,bytes+resident());
  }
- function notify(code,key=''){
+ function notify(code,key='',purpose=''){
   metrics.rejected++;const en=w.I18N?.lang==='en';
-  const text=code==='PREP_UNKNOWN_DURATION'?(en?'The recording duration could not be verified. Your original recording remains available; echo and 8D preparation were skipped.':'Kaydın süresi doğrulanamadı. Asıl kayıt kullanılabilir; eko ve 8D hazırlığı yapılamadı.'):
+  const text=purpose==='studio'?(code==='PREP_CANCELLED'?(en?'Outdated recording analysis or editing was cancelled. Your original recording was kept.':'Eski kayıt analizi veya düzenlemesi iptal edildi. Asıl kayıt korundu.'):(en?'The recording could not be processed within the verified format, memory or time limits. Your original recording was kept.':'Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.')):code==='PREP_UNKNOWN_DURATION'?(en?'The recording duration could not be verified. Your original recording remains available; echo and 8D preparation were skipped.':'Kaydın süresi doğrulanamadı. Asıl kayıt kullanılabilir; eko ve 8D hazırlığı yapılamadı.'):
    code==='PREP_CANCELLED'?(en?'Outdated sound preparation was cancelled.':'Eski ses hazırlığı iptal edildi.'):
    (en?'This recording could not be prepared within the device memory or time limit. Your original recording remains available; prepared echo and 8D are unavailable for this attempt.':'Bu kayıt cihazın bellek veya süre sınırında hazırlanamadı. Asıl kayıt kullanılabilir; bu denemede hazırlanmış eko ve 8D kullanılamıyor.');
-  last={code,key:String(key||''),text,at:Date.now()};
+  last={code,key:String(key||''),purpose:String(purpose||''),text,at:Date.now()};
   try{w.dispatchEvent(new CustomEvent('sukun:audio-preparation',{detail:{...last}}))}catch(_){}
-  if(code==='PREP_CANCELLED')return;
-  try{const target=document.getElementById('spkMsg')||document.getElementById('itemRecStatus')||document.getElementById('mbQuality');if(target){target.textContent=text;target.setAttribute('role','status');target.dataset.sukPreparation=code;}}catch(_){}
+  if(code==='PREP_CANCELLED'||purpose==='studio')return;
+  try{const target=(purpose==='studio'?document.getElementById('r170StudioStat'):null)||document.getElementById('spkMsg')||document.getElementById('itemRecStatus')||document.getElementById('mbQuality');if(target){target.textContent=text;target.setAttribute('role','status');target.dataset.sukPreparation=code;}}catch(_){}
  }
  function riff(bytes){
   const v=new DataView(bytes),b=new Uint8Array(bytes),word=o=>String.fromCharCode(...b.subarray(o,o+4));
@@ -124,8 +124,8 @@
   do{check(task);step=gen.next();if(!step.done)await new Promise(r=>setTimeout(r,0));}while(!step.done);return step.value;
  }
  function run(blob,decode,opt={}){
-  if(pending>=MAX_QUEUE){const e=error('PREP_QUEUE_FULL');notify(e.code,opt.key);return Promise.reject(e);}
-  if(!blob||blob.size>SOURCE){const e=error('PREP_SOURCE_LIMIT');notify(e.code,opt.key);return Promise.reject(e)}
+  if(pending>=MAX_QUEUE){const e=error('PREP_QUEUE_FULL');notify(e.code,opt.key,opt.purpose);return Promise.reject(e);}
+  if(!blob||blob.size>SOURCE){const e=error('PREP_SOURCE_LIMIT');notify(e.code,opt.key,opt.purpose);return Promise.reject(e)}
   pending++;const task={...opt,expired:false,meta:null},before=tail;let release;tail=new Promise(r=>release=r);
   let timer=0;const work=(async()=>{await before;try{
    check(task);active++;metrics.maxConcurrent=Math.max(metrics.maxConcurrent,active);activeCreated=new Set();activeEstimate=0;
@@ -135,9 +135,9 @@
    reserve(estimate(task.meta,task,decoded));
    const result=task.use?await task.use(decoded,{cpu:(options)=>cpu(decoded,options,task),meta:task.meta,check:()=>check(task),createUrl:blob=>{check(task);return createUrl(blob)}}):decoded;
    check(task);return result;
-  }catch(e){if(e.code==='PREP_CANCELLED')metrics.cancelled++;notify(e.code||'PREP_FAILED',task.key);throw e;}finally{clearTimeout(timer);active=Math.max(0,active-1);activeCreated=null;activeEstimate=0;pending--;release();}})();
+  }catch(e){if(e.code==='PREP_CANCELLED')metrics.cancelled++;notify(e.code||'PREP_FAILED',task.key,task.purpose);throw e;}finally{clearTimeout(timer);active=Math.max(0,active-1);activeCreated=null;activeEstimate=0;pending--;release();}})();
   // A timed-out native decode cannot be forcibly aborted: the queue remains leased until it settles.
-  const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>{task.expired=true;metrics.timedOut++;task.cancelCpu?.();const e=error('PREP_TIMEOUT');notify(e.code,task.key);reject(e)},20000)});
+  const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>{task.expired=true;metrics.timedOut++;task.cancelCpu?.();try{task.onExpire?.()}catch(_){}const e=error('PREP_TIMEOUT');notify(e.code,task.key,task.purpose);reject(e)},20000)});
   work.catch(()=>{});return Promise.race([work,deadline]);
  }
  const api=Object.freeze({version:'r981',inspect,run,

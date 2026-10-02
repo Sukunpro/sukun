@@ -9,7 +9,7 @@
   const LOCK='sukun.dhikr.owner.r981', MIRROR='sukun.tab.owner.r981', DB='sukun-tab-owner-r981';
   const id=globalThis.crypto?.randomUUID?.() || Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
   const protectedKeys=new Set(['sukun.total','sukun.dayZk','sukun.esmaCount','sukun.session.r470',
-    'sukun.berhet.seyir.state','sukun.esma99.seyir.state','sukun.resume.policy.v1','sukun.lifecycle.checkpoint','sukun.session.player.v2']);
+    'sukun.berhet.seyir.state','sukun.esma99.seyir.state','sukun.resume.policy.v1','sukun.lifecycle.checkpoint','sukun.session.player.v2','sukun.progress.journal.v1']);
   const safe=(fn,d=null)=>{try{return fn()??d;}catch(_){return d;}};
   let held=false, method=navigator.locks?.request?'web-locks':'indexeddb', releaseLock=null, acquirePromise=null;
   let generation=0, epoch=0, claimGeneration=0, acquireGeneration=-1, retiring=false, revoking=false, terminal=false, drainTimer=0, binding={}, remote=null, reason='idle';
@@ -74,15 +74,15 @@
       tx.oncomplete=()=>resolve(result);tx.onerror=()=>reject(tx.error||Error('claim-error'));tx.onabort=()=>reject(tx.error||Error('claim-aborted'));
     });
   }
-  function grant(token){
+  function grant(token,kind='single'){
     if(token!==generation)return false;
     held=true;epoch++;claimGeneration=token;remote=null;reason='owned';notice='';retiring=false;terminal=false;clearTimeout(drainTimer);drainTimer=0;
-    grantedBefore=key();safe(()=>binding.rebase?.());grantedAfter=key();announce('held');render();emit();return true;
+    grantedBefore=key();let rebased=false;try{rebased=binding.rebase?.(kind)!==false}catch(_){rebased=false}if(!rebased){held=false;epoch++;reason='progress-recovery-required';return false}grantedAfter=key();announce('held');render();emit();return true;
   }
-  function acquire(){
+  function acquire(kind='single'){
     if(held)return Promise.resolve(true);
     if(revoking){warn('preparing');return Promise.resolve(false);}
-    if(acquirePromise)return acquireGeneration===generation?acquirePromise:acquirePromise.then(()=>acquire());
+    if(acquirePromise)return acquireGeneration===generation?acquirePromise:acquirePromise.then(()=>acquire(kind));
     acquireGeneration=generation;
     const token=generation;reason='preparing';notice=textFor('preparing');render();emit();
     const work=method==='web-locks'?new Promise(resolve=>{
@@ -97,7 +97,7 @@
             catch(_){warn('unavailable');done(false);return;}
           }else{warn('unavailable');done(false);return;}
           if(token!==generation){if(idbLease){await idbClaim(id,true);idbLease=false;}done(false);return;}
-          const holding=new Promise(release=>{releaseLock=release;});grant(token);done(true);return holding;
+          const holding=new Promise(release=>{releaseLock=release;});if(!grant(token,kind)){releaseLock=null;if(idbLease){await idbClaim(id,true);idbLease=false}done(false);return}done(true);return holding;
         });
         Promise.resolve(request).catch(()=>{if(held&&claimGeneration===token)revoke('web-lock-error');warn('unavailable');done(false);});
       }catch(_){warn('unavailable');done(false);}
@@ -106,7 +106,7 @@
       try{
         const ok=await idbClaim();if(!ok){warn();return false;}
         if(token!==generation){await idbClaim(id,true);return false;}
-        idbLease=true;return grant(token);
+        idbLease=true;const granted=grant(token,kind);if(!granted){await idbClaim(id,true);idbLease=false}return granted;
       }catch(_){warn('unavailable');return false;}
     })();
     acquirePromise=Promise.resolve(work).finally(()=>{acquirePromise=null;emit();});return acquirePromise;
@@ -118,7 +118,7 @@
     if(revoking)return warn('preparing');
     retiring=false;terminal=false;clearTimeout(drainTimer);drainTimer=0;
     if(held)return action();prime();const token=generation,selected=key();
-    if(!await acquire()||token!==generation||selected!==grantedBefore||key()!==grantedAfter||opt.keepSelection&&selected!==key()||typeof opt.isCurrent==='function'&&!opt.isCurrent()){
+    if(!await acquire(kind)||token!==generation||selected!==grantedBefore||key()!==grantedAfter||opt.keepSelection&&selected!==key()||typeof opt.isCurrent==='function'&&!opt.isCurrent()){
       if(held&&claimGeneration===token)retire('cancelled-acquire');return false;
     }
     const lease=epoch;let value,failed=true;
@@ -140,7 +140,7 @@
   function allowed(){if(owns())return true;warn(maintenanceActive?'maintenance':'blocked');return false;}
   async function release(why='released',opt={}){
     if(!held&&!revoking)return false;
-    if(held&&!maintenanceActive&&!opt.skipFlush)safe(()=>binding.flush?.());held=false;epoch++;revoking=true;retiring=false;terminal=false;clearTimeout(drainTimer);drainTimer=0;reason=why;generation++;
+    if(held&&!maintenanceActive&&!opt.skipFlush)safe(()=>binding.flush?.());if(held&&!maintenanceActive&&!opt.skipFlush)safe(()=>window.SukunProgressJournal?.commit?.('owner-release'));held=false;epoch++;revoking=true;retiring=false;terminal=false;clearTimeout(drainTimer);drainTimer=0;reason=why;generation++;
     announce('released');const unlock=releaseLock;releaseLock=null;
     if(idbLease||method==='indexeddb')try{await idbClaim(id,true);}catch(_){}
     idbLease=false;revoking=false;if(unlock)unlock();
