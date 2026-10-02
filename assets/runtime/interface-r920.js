@@ -16,6 +16,18 @@ const snap=()=>window.SukunSessionState?.snapshot?.();
 // fresh snapshot; passive paints do not collect it repeatedly after DOM writes.
 const view=()=>window.SukunSessionState?.peek?.()||snap();
 function command(action,options){const result=window.SukunSessionState?.command?.(action,options);Promise.resolve(result).then(queue,queue);return result}
+// r985: footer navigation must reveal the same extras owner as the More button.
+// Capture runs before its existing details/scroll handler; no audio command is sent.
+function showExtras(open){
+ document.body.classList.toggle('r920-details-open',open);
+ attr($('r920More'),'aria-expanded',open);
+ text($('r920More'),open?'Ek araçları kapat':'Zikir ayarları, kayıtlar ve diğer araçlar');
+}
+function revealFooterExtras(e){
+ if(!e.target?.closest?.('.sukun-bottom-nav button')||!root||root.hidden||root.getAttribute('data-mode')!=='berhet'||!document.body.classList.contains('sukun-zikir-tab')||document.body.classList.contains('sukun-tefekkur-mode'))return;
+ showExtras(true);
+}
+document.addEventListener('click',revealFooterExtras,{capture:true});
 function persist(){safe(()=>localStorage.setItem('sukun.r920.completed',JSON.stringify(completed)))}
 function markComplete(mode,i){if(!['esma','berhet'].includes(mode)||i<0||i>=items(mode).length)return;const key=mode+':'+i;if(!completed[key]){completed[key]=Date.now();persist();if(dialog?.open)renderAtlas()}}
 function make(){
@@ -53,7 +65,7 @@ function make(){
  $('r920TefEnter').onclick=()=>{wake();const summary=$('r470SessionSummary');if(summary)summary.hidden=true;window.SUKUN_TEFEKKUR?.enter?.();queue();setTimeout(()=>$('r938PanelToggle')?.focus({preventScroll:true}),100)};
  $('r920TefExit').onclick=()=>{window.SUKUN_TEFEKKUR?.exit?.();wake();queue()};
  $('r920NameInfo').onclick=()=>{safe(()=>$('r611CurrentZikirName')?.click());wake()};
- $('r920More').onclick=()=>{const open=document.body.classList.toggle('r920-details-open');attr($('r920More'),'aria-expanded',open);text($('r920More'),open?'Ek araçları kapat':'Zikir ayarları, kayıtlar ve diğer araçlar')};
+ $('r920More').onclick=()=>showExtras(!document.body.classList.contains('r920-details-open'));
  window.SukunWheels?.connect?.(root);
  window.SukunWheelMotion?.connect?.(root);
  $('r920WheelSelect').onchange=e=>{window.SukunWheels?.choose?.(snap()?.activeMode||'esma',e.target.value);queue()};
