@@ -17,7 +17,7 @@
  }
  function update(s,phase,reason=''){
   if(current!==s)return;
-  last={phase,active:phase!=='idle'&&phase!=='ended'&&phase!=='error',native:!!s.audio,index:s.index,total:s.steps.length,reason,set:s.key,seconds:Number(s.audio?.currentTime)||0,duration:s.duration||0,bytes:s.bytes||0};
+  last={phase,active:phase!=='idle'&&phase!=='ended'&&phase!=='error',native:!!s.audio,index:s.index,total:s.steps.length,reason,stage:s.timeline?.[s.index]&&Number(s.audio?.currentTime)>=s.timeline[s.index].voiceEnd?'quiet':'reading',set:s.key,seconds:Number(s.audio?.currentTime)||0,duration:s.duration||0,bytes:s.bytes||0};
   safe(()=>s.onState?.({...last}));
   safe(()=>window.dispatchEvent(new CustomEvent('sukun:tekke-sequence',{detail:{...last}})));
   safe(()=>window.SukunAudioSessionRegistry?.schedule?.('tekke-sequence'));
@@ -40,6 +40,7 @@
   const time=Math.max(0,Number(s.audio.currentTime)||0);
   const found=s.timeline.findIndex((step,i)=>time<step.end||i===s.timeline.length-1);
   if(found!==s.index){s.index=Math.max(0,found);safe(()=>s.onStep?.(s.index));}
+  const stage=time>=s.timeline[s.index]?.voiceEnd?'quiet':'reading';if(last.stage!==stage)update(s,last.phase);
  }
  async function prepare(s){
   const parts=[],timeline=[];let bytes=0,time=0;
@@ -100,8 +101,8 @@
    listen('ended',()=>{if(!alive(s))return;observe(s);update(s,'ended');cleanup(s,'ended')});
    listen('error',()=>{if(!alive(s))return;update(s,'error','media-error');cleanup(s,'media-error')});
    safe(()=>options.onAudio?.(a));safe(()=>s.onStep?.(0));
-   if('mediaSession'in navigator)safe(()=>{navigator.mediaSession.metadata=new MediaMetadata({title:options.title||'Tekke tefekkürü',artist:'SÜKÛN · Kendi kayıt',album:'Tekke'});navigator.mediaSession.playbackState='playing'});
-   await play(s);return{handled:true,done};
+   if('mediaSession'in navigator)safe(()=>{navigator.mediaSession.metadata=new MediaMetadata({title:options.title||'Tekke tefekkürü',artist:'SÜKÛN · Kendi kayıt',album:'Tekke'});navigator.mediaSession.playbackState=options.autoPlay===false?'paused':'playing'});
+   if(options.autoPlay===false)update(s,'paused');else await play(s);return{handled:true,done};
   }catch(error){
    if(alive(s)){update(s,'error',String(error?.code||error?.message||'prepare-failed'));safe(()=>s.onError?.(error));}
    cleanup(s,'prepare-failed');return{handled:true,done,reason:'prepare-failed'};
@@ -114,9 +115,13 @@
   if(window.SukunBackgroundAudioOwner?.snapshot?.()?.blocked)safe(()=>window.SukunBackgroundAudioOwner.release(OWNER,'explicit-resume'));
   return play(s);
  }
+ function seekStep(index){const s=current;if(!alive(s)||!s.audio||!Number.isInteger(index)||!s.timeline[index])return false;
+  const paused=s.audio.paused;
+  try{s.audio.currentTime=s.timeline[index].start;s.index=index;safe(()=>s.onStep?.(index,{seek:true}));update(s,paused?'paused':'playing');return true;}catch(_){return false;}
+ }
  function setVolume(value){if(current?.audio)current.audio.volume=clamp(value)}
  const snapshot=()=>({...last,index:current?.index??last.index,seconds:Number(current?.audio?.currentTime)||last.seconds||0,active:!!current,native:!!current?.audio,mediaCount:current?.audio?1:0});
- const api=Object.freeze({version:'r988',start,stop,pause,resume,setVolume,snapshot});window.SukunTekkeSequence=api;
+ const api=Object.freeze({version:'r993',seekStep,start,stop,pause,resume,setVolume,snapshot});window.SukunTekkeSequence=api;
  safe(()=>window.SukunAudioSessionRegistry?.register?.(PROVIDER,{priority:120,title:'Tekke tefekkürü',
   getState:()=>!current?'idle':current.audio?.paused?'paused':current.audio?'playing':'idle',
   play:resume,resume,pause,stop:()=>stop('registry-stop'),getVolume:()=>current?.audio?.volume??.6,setVolume}));
