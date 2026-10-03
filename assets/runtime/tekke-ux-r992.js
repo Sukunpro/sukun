@@ -7,7 +7,7 @@
  copy=(tr,en)=>english()?en:tr;
  let root=null,api=null,chosen=safe(()=>JSON.parse(localStorage.getItem('tekke.purpose')),'dhikr'),
  collapsed=safe(()=>JSON.parse(localStorage.getItem('tekke.set.collapsed'))) !== false,
- tab='session',returnFocus=null;
+ tab='session',returnFocus=null,viewportHeight=0;
  if(!['dhikr','set','quiet'].includes(chosen))chosen='dhikr';
  const $=s=>root?.querySelector(s),all=s=>root?[...root.querySelectorAll(s)]:[];
  const save=(k,v)=>safe(()=>{if(window.SukunTabOwner?.canPersist?.(k)!==false)localStorage.setItem(k,JSON.stringify(v))});
@@ -50,6 +50,8 @@
   tabs.after(sound);
   const body=document.createElement('div');body.id='r992PanelBody';body.setAttribute('role','tabpanel');body.tabIndex=0;sound.before(body);for(const sec of all('#panel > .pSec'))body.append(sec);
   const foot=section('r992PanelFooter','r992SheetFoot');foot.append(button('','close-settings','r992GoldBtn'));foot.firstElementChild.dataset.tkCopy='Tamam|Done';const notice=document.createElement('p');notice.id='r992PanelNotice';foot.append(notice);panel.append(foot);
+  // The title, close action and tabs share one sticky header, including text zoom.
+  header.append(tabs);
   tabs.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;const bs=[...tabs.querySelectorAll('[data-tk-tab]')],i=bs.findIndex(b=>b.dataset.tkTab===tab),n=e.key==='Home'?0:e.key==='End'?3:(i+(e.key==='ArrowRight'?1:3))%4;e.preventDefault();chooseTab(bs[n].dataset.tkTab);bs[n].focus();});
   chooseTab(tab);
  }
@@ -65,7 +67,7 @@
    const check=document.createElement('span');check.className='r992PurposeCheck';check.setAttribute('aria-hidden','true');b.append(icon,body,check);intro.append(b);
   }
   $('#gT').after(intro);
-  const settings=button('','settings','r992SettingsBtn');settings.id='r992GateSettings';settings.dataset.tkCopy='⚙ Mihrap · Ayarlar|⚙ Mihrab · Settings';$('#gBtn').after(settings);
+  const settings=button('','settings','r992SettingsBtn');settings.id='r992GateSettings';settings.dataset.tkCopy='⚙ Mihrap · Ayarlar|⚙ Mihrab · Settings';$('#topR').append(settings);
   const summary=document.createElement('p');summary.id='r992RecordingSummary';summary.setAttribute('role','status');$('#gSetSelect').after(summary);
   $('#gBtn').onclick=()=>factory()?.startPurpose?.(chosen);
   groupSettings();
@@ -97,10 +99,20 @@
   $('#panel').addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();factory()?.closeSettings?.();}});
   $('#panelBtn').title=copy('Mihrap ayarlarını açar; akışı durdurmaz.','Open Mihrab settings; the session continues.');
   $('#backSukun').title=copy('SÜKÛN’a dön; akış devam eder.','Return to Home; the session continues.');
+  fitViewport();
+  const resize=()=>{if(!root.hidden)fitViewport();};
+  window.addEventListener('resize',resize,{passive:true});
+  window.addEventListener('orientationchange',resize,{passive:true});
+  window.visualViewport?.addEventListener('resize',resize,{passive:true});
   render();
+ }
+ function fitViewport(){
+  const height=window.visualViewport?.height||window.innerHeight;
+  if(Number.isFinite(height)&&height>0&&height!==viewportHeight){viewportHeight=height;root?.style.setProperty?.('--tkux-view-height',height+'px');}
  }
  function compactCard(){
   const card=$('#r990TekkeSetCard');if(!card)return;
+  const stage=$('#stage');if(stage&&card.parentElement!==stage)stage.prepend(card);
   if(!card.querySelector('.r992SetExpand')){const expand=button('⌄','expand','r992IconBtn r992SetExpand');card.prepend(expand);}
   card.classList.toggle('r992Collapsed',collapsed);card.dataset.reason=window.SukunTekkeSet?.snapshot?.()?.reason||'';
   const exp=card.querySelector('.r992SetExpand');exp.setAttribute('aria-expanded',String(!collapsed));exp.setAttribute('aria-controls','r992SetStepText');exp.setAttribute('aria-label',copy(collapsed?'Adım metnini göster':'Adım metnini daralt',collapsed?'Show step text':'Collapse step text'));exp.title=copy('Daraltmak sesi durdurmaz.','Collapsing keeps the audio playing.');exp.textContent=collapsed?'⌄':'⌃';
@@ -113,6 +125,11 @@
   root.dataset.tkPurpose=entered?st.purpose:chosen;
   root.dataset.tkSessionPhase=st.phase;
   root.dataset.tkEntered=entered?'1':'0';
+  fitViewport();
+  $('#r992GateSettings').hidden=!!entered;
+  const mihrab=$('#panelBtn');mihrab.textContent=copy('⚙ Mihrap','⚙ Mihrab');mihrab.setAttribute('aria-label',copy('Mihrap ayarlarını aç','Open Mihrab settings'));
+  // Keep native feedback in the scrollable stage, above the transport.
+  const center=$('#center');for(const id of ['#tkGuide','#telkin']){const n=$(id);if(n&&center&&n.parentElement!==center)center.append(n);}
   for(const n of all('[data-tk-copy]'))n.textContent=copy(...n.dataset.tkCopy.split('|'));
   for(const b of all('[data-tk-purpose]')){const on=b.dataset.tkPurpose===chosen;b.setAttribute('aria-pressed',String(on));b.querySelector('.r992PurposeCheck').textContent=on?'✓':'›';}
   const summary=$('#r992RecordingSummary');if(summary)summary.textContent=v.recorded==null?copy('Kayıtlar kontrol ediliyor…','Checking recordings…'):`${v.selection?.total||0} ${copy('adım','steps')} · ${v.recorded} ${copy('kendi kaydın','your recordings')} · ${Math.max(0,(v.selection?.total||0)-v.recorded)} ${copy('cihaz sesi','device voices')}`;
