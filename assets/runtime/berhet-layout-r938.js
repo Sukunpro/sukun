@@ -10,6 +10,7 @@ function setOpen(next,focus=false){
  panel.dataset.open=String(open);if(focus)toggle.focus({preventScroll:true});
 }
 function restore(){
+ if(host)delete host.querySelector('.r920Stats')?.dataset.r989ExitRow;
  for(const [node,anchor]of anchors.reverse()){if(anchor.isConnected)anchor.replaceWith(node)}anchors=[];
  body?.remove();toggle?.remove();primary?.remove();hero?.remove();panel?.remove();if(host)delete host.dataset.r938Layout;
  host=hero=panel=body=toggle=null;lastTef=null;
@@ -33,13 +34,28 @@ function build(root){
  toggle.onclick=()=>setOpen(!open);
  panel.addEventListener('keydown',e=>{if(e.key==='Escape'&&open&&!e.defaultPrevented){e.preventDefault();setOpen(false,true)}});
 }
+// Reparent the existing action, never clone it or attach another transport owner.
+function placeExit(root,tef){
+ const exit=$('r920TefExit'),stats=root.querySelector('.r920Stats');if(!exit||!stats)return;
+ const row=tef&&root.dataset.mode==='berhet';
+ if(row){
+  const remaining=stats.querySelector('#r920Remaining')?.parentElement;
+  if(!remaining)return;
+  if(exit.parentElement!==stats||exit.nextElementSibling!==remaining)stats.insertBefore(exit,remaining);
+  stats.dataset.r989ExitRow='1';
+ }else{
+  delete stats.dataset.r989ExitRow;
+  if(exit.parentElement!==hero)hero.append(exit);
+ }
+}
 function sync(root,tef){
  if(root.hidden){if(host)restore();return}
  if(!root.querySelector('#r932WheelControls'))return;
  if(!host)build(root);
  if(lastTef!==tef){lastTef=tef;setOpen(false)}
+ placeExit(root,tef);
  // Native handlers continue to own status and count; this is only an empty-state caption.
  const phase=$('r920Phase'),wheel=$('r924WheelFrame');if(phase&&wheel&&phase.parentElement!==wheel)wheel.append(phase);if(root.dataset.phase==='PLAYING'&&!phase.textContent)phase.textContent='Zikir sürüyor';
 }
-window.SukunBerhetLayout=Object.freeze({version:'r988',sync,snapshot:()=>({active:!!host,open,tef:lastTef})});
+window.SukunBerhetLayout=Object.freeze({version:'r989',sync,snapshot:()=>({active:!!host,open,tef:lastTef})});
 })();
