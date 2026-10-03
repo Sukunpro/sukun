@@ -3,7 +3,7 @@
 const $=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch{return d}},text=(n,v)=>{if(n&&n.textContent!==String(v))n.textContent=String(v)},attr=(n,k,v)=>{if(n&&n.getAttribute(k)!==String(v))n.setAttribute(k,String(v))};
 // r929: idle UI refreshes must not rewrite attributes under an active pointer.
 const prop=(n,k,v)=>{if(n&&n[k]!==v)n[k]=v},value=(n,v)=>{if(n&&document.activeElement!==n)prop(n,'value',String(v))};
-let root,dialog,raf=0,focusTimer=0,sourceMode='',atlasMode='',atlasIndex=0,lastSnapshot=null,completionKey='',renders=0;
+let root,dialog,raf=0,focusTimer=0,sourceMode='',atlasMode='',atlasIndex=0,lastSnapshot=null,completionKey='',renders=0,focusOrigin=null,focusGeneration=0;
 let wheelNavEnabled=safe(()=>localStorage.getItem('sukun.wheel.navigation')!=='0',true);
 let focusEnabled=safe(()=>localStorage.getItem('sukun.r920.focus')==='1',false);
 const completed=safe(()=>JSON.parse(localStorage.getItem('sukun.r920.completed')||'{}'),{})||{};
@@ -76,7 +76,7 @@ function make(){
  <details id="r920JourneySettings" hidden><summary>Seyir tekrarları ve ara</summary><label>Her isim<select id="r920RepeatMode"></select></label><label id="r920RepeatCustomLabel" hidden>Özel tekrar<input id="r920RepeatCustom" type="number" min="1" max="9999" inputmode="numeric"></label><label>Ara<select id="r920RepeatGap"></select></label></details>
  <details id="r920ViewOptions"><summary>İsim, çark ve görünüm</summary><label>İsim<select id="r920NameSelect"></select></label><div id="r924WheelOptions"><label><span id="r924WheelFamily">Esmâ çarkı</span><select id="r920WheelSelect" aria-describedby="r924WheelStatus"></select></label><p id="r924WheelStatus" role="status"></p><button id="r924WheelRetry" type="button" hidden>Çarkı yeniden yükle</button><details id="r924WheelGalleryDetails"><summary>Çarkları görerek seç</summary><div id="r924WheelGallery" role="group" aria-label="Çark seçenekleri"></div></details></div><div id="r920BerhetOptions"><label>Sahne<select id="r920SceneSelect"><option value="auto">İsme göre otomatik</option><option value="palace">Billur Saray</option><option value="seal">Mühr-ü Süleyman</option><option value="wind">Rüzgâr</option><option value="crystal">Billur Geçit</option><option value="night">Gece Sarayı</option><option value="hudhud">Hüdhüd Yolu</option></select></label></div><div id="r923EsmaOptions"><label>Esmâ sahnesi<select id="r923EsmaSceneSelect" aria-describedby="r923SceneStatus"></select></label><div id="r923ScenePreview"><img id="r923SceneThumb" alt="Seçilen sahnenin önizlemesi" loading="lazy" decoding="async"><div><strong id="r923SceneName"></strong><p id="r923SceneStatus" role="status"></p><button id="r923SceneRetry" type="button" hidden>Sahneyi yeniden yükle</button></div></div><details id="r923SceneNotes"><summary>Sahne hakkında ve kaynaklar</summary><p id="r923SceneNote"></p><div id="r923SceneSources"></div></details></div><label>Görsel kalite<select id="r920Performance"><option value="cinematic">Sinematik</option><option value="balanced">Dengeli</option><option value="saving">Tasarruf</option></select></label><label class="r920FocusLabel"><input id="r925WheelMotion" type="checkbox" checked>Çark dönüşü</label><label class="r920FocusLabel"><input id="r962WheelNavToggle" type="checkbox">Çark içi önceki–sonraki düğmeleri</label><button id="r962OfflineScenes" type="button">Çarkları ve arka planları çevrimdışı kaydet</button><p id="r962OfflineStatus" role="status" aria-live="polite"></p><label class="r920FocusLabel"><input id="r920Focus" type="checkbox">Otomatik odak görünümü</label></details>
  <button id="r920More" type="button" aria-expanded="false">Zikir ayarları, kayıtlar ve diğer araçlar</button>
- <button id="r920TefExit" type="button" hidden>Tefekkürden Çık</button>`;
+ <button id="r920TefExit" type="button" aria-label="Tefekkürden çık" title="Tefekkürden çık" hidden><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 4H5v16h5M9 12h11M16 8l4 4-4 4"/></svg></button>`;
  tab.prepend(root);
  for(const id of ['r959WheelPrevious','r959WheelNext'])$('r925WheelRotor').append($(id));root.addEventListener('focusout',queue,{passive:true});
  dialog=document.createElement('dialog');dialog.id='r920Atlas';dialog.setAttribute('aria-labelledby','r920AtlasTitle');
@@ -197,6 +197,19 @@ function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view
  if(dialog.open)renderAtlas();
 }
 function queue(){if(!document.hidden&&!raf)raf=requestAnimationFrame(render)}
+// Entry/exit is a presentation boundary. Save the ordinary reading position
+// once, paint the focus layout immediately and settle only the current entry.
+function beginFocus(){if(!focusOrigin)focusOrigin={x:window.scrollX||0,y:window.scrollY||0,tab:$('tab-zkr')?.scrollTop||0}}
+function settleFocus(active){
+ const generation=++focusGeneration;restorePresentation();
+ const origin=focusOrigin;if(!active)focusOrigin=null;
+ const settle=()=>{
+  if(generation!==focusGeneration||document.hidden||!!window.SUKUN_TEFEKKUR?.active?.()!==active)return;
+  const tab=$('tab-zkr');if(tab)tab.scrollTop=active?0:origin?.tab||0;
+  window.scrollTo({left:active?0:origin?.x||0,top:active?0:origin?.y||0,behavior:'instant'});
+ };
+ settle();requestAnimationFrame(settle);
+}
 // r979: bounded foreground repair can paint synchronously if a suspended
 // requestAnimationFrame handle survived restoration. No transport command.
 function restorePresentation(){if(document.hidden)return false;if(raf)cancelAnimationFrame(raf);raf=0;render();return !!root?.isConnected&&!root.hidden}
@@ -207,7 +220,7 @@ document.addEventListener('pointerdown',()=>{if(root&&!root.hidden)wake()},{pass
 new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});
 // Re-render after the native setting handler; never duplicate the native toggle.
 document.addEventListener('click',e=>{if(e.target.closest('#optMean'))queue()},{passive:true});
-window.SukunPracticeUI=Object.freeze({version:'r987',refresh:queue,restorePresentation,openSection,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,renders,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
+window.SukunPracticeUI=Object.freeze({version:'r988',refresh:queue,restorePresentation,beginFocus,settleFocus,openSection,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,renders,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
 queue();
 })();
 

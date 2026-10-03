@@ -4,11 +4,11 @@
  const CHUNK=4096;
  function* render(p){
   const {input,sampleRate:sr,length}=p, opt=p.options||{}, spatial=!!opt.spatial;
-  const channels=spatial?2:Math.min(2,input.length),frames=Math.max(length,Math.ceil(opt.frames||length));
+  const channels=spatial||opt.outputChannels===2?2:Math.min(2,input.length),frames=Math.max(length,Math.ceil(opt.frames||length));
   const rate=Math.max(.5,Math.min(2,+opt.rate||1)),wet=Math.max(0,Math.min(1,+opt.wet||0));
   if(!frames||!sr||input.length<1||input.length>2||frames*channels*6+length*input.length*4>32*1024*1024)throw Error('PCM budget');
   const data=Array.from({length:channels},()=>new Float32Array(frames)),offset=Math.round(Math.max(0,+opt.gapMs||0)*rate*sr/1000);
-  const taps=wet>.01?[[0,.78],[.09*rate,wet*.16],[.185*rate,wet*.09],[.310*rate,wet*.05]]:[[0,.96]];
+  const taps=wet>.01?[[0,.96],[.09*rate,wet*.30],[.185*rate,wet*.20],[.310*rate,wet*.12]]:[[0,.96]];
   for(const [seconds,gain] of taps){
    const start=offset+Math.round(seconds*sr);
    for(let c=0;c<channels;c++){
@@ -24,6 +24,12 @@
     else if(pan<=0){const a=(pan+1)*Math.PI/2;left[i]=l+r*Math.cos(a);right[i]=r*Math.sin(a)}
     else{const a=pan*Math.PI/2;left[i]=l*Math.cos(a);right[i]=r+l*Math.sin(a)}
    }yield;}
+  }
+  // A single selected tesbih pulse is baked into each native repeat. It
+  // follows the media clock even when JavaScript is suspended on lock.
+  const tick=opt.tickSamples;
+  if(tick instanceof Float32Array&&tick.length<=sr*.34){
+   for(let c=0;c<channels;c++)for(let i=0,n=Math.min(tick.length,frames-offset);i<n;i++)data[c][offset+i]+=tick[i];
   }
   return yield* pack({input:data,sampleRate:sr,length:frames});
  }

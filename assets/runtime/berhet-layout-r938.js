@@ -25,7 +25,9 @@ function build(root){
  const quick=$('r932WheelControls');move(quick,body);
  primary=document.createElement('div');primary.id='r968PrimaryActions';quick.append(primary);
  const nav=root.querySelector('.r920Transport');move(nav,quick);quick.insertBefore(nav,primary);
- for(const node of [$('r920TefEnter'),$('r920TefExit'),$('r932EasyStop')])move(node,primary);
+ for(const node of [$('r920TefEnter'),$('r932EasyStop')])move(node,primary);
+ // Exit belongs to the main focus surface, independently of disclosure.
+ move($('r920TefExit'),hero);
  for(const node of [$('r968ManualHint'),$('r920Actions'),$('r920JourneySettings'),$('r679ZikirAyarBox'),$('r920ViewOptions'),$('r920More')])move(node,quick);
 
  toggle.onclick=()=>setOpen(!open);
@@ -39,5 +41,5 @@ function sync(root,tef){
  // Native handlers continue to own status and count; this is only an empty-state caption.
  const phase=$('r920Phase'),wheel=$('r924WheelFrame');if(phase&&wheel&&phase.parentElement!==wheel)wheel.append(phase);if(root.dataset.phase==='PLAYING'&&!phase.textContent)phase.textContent='Zikir sürüyor';
 }
-window.SukunBerhetLayout=Object.freeze({version:'r968',sync,snapshot:()=>({active:!!host,open,tef:lastTef})});
+window.SukunBerhetLayout=Object.freeze({version:'r988',sync,snapshot:()=>({active:!!host,open,tef:lastTef})});
 })();

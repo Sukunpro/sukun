@@ -1,6 +1,44 @@
 /* r986: accessible sections and totals live outside the collapsed control panel.
    This first important layer owns geometry; gemstone paint is mode-scoped. */
 @layer sukun-r986-access {
+/* r988: focus fills the viewport on its first paint. An old narrow tab or
+   a saved reading scroll position cannot shift the wheel's coordinate space. */
+html body.sukun-tefekkur-mode:has(#r920Practice[data-r938-layout="1"]) > .wrap{
+ transform:none!important;filter:none!important;max-width:none!important;width:100%!important;
+}
+html body.sukun-tefekkur-mode:has(#r920Practice[data-r938-layout="1"]) #tab-zkr{
+ position:fixed!important;inset:0!important;width:100vw!important;max-width:none!important;min-width:0!important;
+ height:100dvh!important;max-height:100dvh!important;margin:0!important;padding:0!important;box-sizing:border-box!important;
+ overflow-x:hidden!important;overflow-y:auto!important;overflow-anchor:none!important;scroll-behavior:auto!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"]{
+ width:100%!important;max-width:680px!important;min-height:100dvh!important;box-sizing:border-box!important;
+ margin:0 auto!important;overflow-anchor:none!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r938Hero{
+ flex:1 0 auto!important;justify-content:center!important;min-width:0!important;position:relative!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r924WheelFrame{
+ width:min(86vw,39dvh,360px)!important;max-width:100%!important;margin:4px auto!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"]:has(#r938Panel[data-open="false"]) #r924WheelFrame{
+ width:min(94vw,56dvh,440px)!important;margin:4px auto!important;
+}
+/* The mini amethyst exit stays outside the collapsed controls. */
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r938Hero>#r920TefExit:not([hidden]){
+ display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 48px!important;
+ position:absolute!important;inset:0 2px auto auto!important;transform:none!important;align-self:center!important;z-index:5!important;
+ width:48px!important;min-width:48px!important;max-width:48px!important;height:48px!important;min-height:48px!important;max-height:48px!important;
+ margin:0!important;padding:0!important;box-sizing:border-box!important;border:0!important;border-image:none!important;border-radius:12px!important;
+ --r933-control-art:var(--r933-gem-amethyst)!important;--r933-control-dark:#29183a!important;
+ background:var(--r933-gem-amethyst) center/100% 100% no-repeat,radial-gradient(ellipse,#29183a,transparent 72%) center/86% 76% no-repeat!important;
+ color:#fff4ff!important;box-shadow:none!important;overflow:visible!important;pointer-events:auto!important;cursor:pointer!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r938Hero>.r920Identity{width:calc(100% - 112px)!important;align-self:center!important;box-sizing:border-box!important}
+html body.sukun-tefekkur-mode #r920Practice #r938Hero>#r920TefExit>svg{
+ display:block!important;width:21px!important;height:21px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.8!important;stroke-linecap:round!important;stroke-linejoin:round!important;
+ filter:drop-shadow(0 1px 2px #1d073e)!important;pointer-events:none!important;
+}
 /* r987: compact density must not remove the public reading/tool entry cards.
    Intentional hidden fields and private readings keep their native policy. */
 html body:not(.sukun-tefekkur-mode) #tab-zkr #zMegaHost :is(#tvBox,#dlBox,#vhBox):not([hidden]){
