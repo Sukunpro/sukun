@@ -1,11 +1,12 @@
 /* One selected guided set and one transport, shared by Home and Tekke.
  * Complete recordings retain r988's single native WAV. Mixed sets never
  * skip an unrecorded step: each uses its own recording, otherwise TTS.
- * A stopped generation cannot advance, speak, or repaint a replacement. */
+ * A stopped generation cannot advance, speak, or repaint a replacement.
+ * r996: explicit set starts acquire the tab lease before any voice starts. */
 (()=>{'use strict';
  if(window.SukunTekkeSet)return;
  const CHECKPOINT_KEY='tekke.journey.checkpoint',KEY='tekke.imge.selected',VISIBLE_KEY='tekke.imge.visible',safe=(fn,d=null)=>{try{return fn()}catch(_){return d}};
- const tr=t=>((window.I18N?.lang==='en'||document.documentElement.lang==='en')?({'Detaylar':'Details','Detayları gizle':'Hide details'}[t]):null)||window.I18N?.t?.(t)||t;
+ const tr=t=>((window.I18N?.lang==='en'||document.documentElement.lang==='en')?({'Detaylar':'Details','Detayları gizle':'Hide details','Set başlatılamadı. Diğer SÜKÛN sekmesini bitir veya kapat; sonra Tekrar başlat düğmesine dokun.':'Set could not start. Finish or close the other SÜKÛN tab, then press Retry.','Ses erişimi beklerken süre doldu. Kayıtların korundu; Tekrar başlat düğmesine dokun.':'Audio access timed out. Your recordings are retained; press Retry.','Kayıt yüklenirken süre doldu. Kayıtların korundu; Tekrar başlat düğmesine dokun.':'Recording loading timed out. Your recordings are retained; press Retry.','Ses başlamadı. Aynı adımı yeniden denemek için Devam et düğmesine dokun.':'Audio did not start. Press Resume to retry the same step.'}[t]):null)||window.I18N?.t?.(t)||t;
  let catalog=null,options={},selected='',run=null,generation=0,scan=0,recorded=null;
  let last={phase:'idle',key:'',index:0,total:0,source:'',stage:'',reason:''};
  const listeners=new Set(),cards=[];let homeExpanded=false;
@@ -29,13 +30,13 @@
  const snapshot=()=>({...last,active:!!run,visible,selected:selected||selection?.key||'',selection:selection?{...selection}:null,recorded,elapsed:elapsed(run),checkpoint:validCheckpoint(),completed:run?.completed.size??last.completed??0});
  function publish(){const state=snapshot();for(const f of listeners)safe(()=>f(state));paint();safe(()=>window.SukunAudioSessionRegistry?.schedule?.('tekke-set'));}
  function state(s,phase,patch={}){if(!active(s))return;clock(s,phase);last={...last,...patch,phase,key:s.key,title:s.set.ad,total:s.set.adimlar.length,index:s.index};persistProgress();publish();}
- function detach(s){s.task?.stop?.();s.task=null;s.gate?.();s.gate=null;s.gap?.stop?.();s.gap=null;}
+ function detach(s){s.waitCancel?.();s.waitCancel=null;s.task?.stop?.();s.task=null;s.gate?.();s.gate=null;s.gap?.stop?.();s.gap=null;}
  function finish(s,phase,reason=''){if(!active(s))return;accrue(s);persistProgress();detach(s);progressTimer(false);run=null;
-  last={...last,phase,reason,elapsed:s.elapsed,completed:s.completed.size,source:'',stage:''};if(phase==='ended')clearCheckpoint();publish();}
+  last={...last,phase,reason,elapsed:s.elapsed,completed:s.completed.size,source:'',stage:''};if(phase==='ended')clearCheckpoint();publish();safe(()=>window.SukunTabOwner?.retire?.('tekke-set-'+phase,true));}
  
  function stop(reason='user-stop'){const s=run;if(s){accrue(s);persistProgress();}generation++;run=null;progressTimer(false);
-  if(s){detach(s);if(s.native)window.SukunTekkeSequence?.stop?.(reason);}if(['user-stop','card-close'].includes(reason))clearCheckpoint();
-  last={...last,phase:'idle',reason,elapsed:s?.elapsed||last.elapsed||0,completed:s?.completed.size||0,source:'',stage:''};publish();return !!s;}
+  if(s){if(s.claimPending)safe(()=>window.SukunTabOwner?.cancelPending?.('tekke-set:'+reason));detach(s);if(s.native)window.SukunTekkeSequence?.stop?.(reason);}if(['user-stop','card-close'].includes(reason))clearCheckpoint();
+  last={...last,phase:'idle',reason,elapsed:s?.elapsed||last.elapsed||0,completed:s?.completed.size||0,source:'',stage:''};publish();if(s)safe(()=>window.SukunTabOwner?.retire?.('tekke-set:'+reason,true));return !!s;}
  
  function setVisible(value){
   const next=!!value;if(visible===next)return;
@@ -67,33 +68,42 @@
  }
  function recording(s,blob){
   return new Promise(resolve=>{
-   const a=document.createElement('audio'),url=URL.createObjectURL(blob);let ended=false,cleanup=null,attempt=0;
+   const a=document.createElement('audio'),url=URL.createObjectURL(blob);let ended=false,cleanup=null,attempt=0,startTimer=null;
+   const clearStart=()=>{clearTimeout(startTimer);startTimer=null;};
    a.preload='auto';a.playsInline=true;a.src=url;a.volume=options.volume?.()??.6;
    cleanup=safe(()=>options.routeAudio?.(a));
-   const complete=ok=>{if(ended)return;ended=true;attempt++;a.onended=null;a.onerror=null;safe(()=>a.pause());safe(()=>a.removeAttribute('src'));safe(()=>a.load());safe(()=>cleanup?.());URL.revokeObjectURL(url);s.task=null;resolve(ok);};
+   const complete=ok=>{if(ended)return;ended=true;attempt++;clearStart();a.onended=null;a.onerror=null;a.onplaying=null;safe(()=>a.pause());safe(()=>a.removeAttribute('src'));safe(()=>a.load());safe(()=>cleanup?.());URL.revokeObjectURL(url);s.task=null;resolve(ok);};
    a.onended=()=>complete(true);a.onerror=()=>complete(false);
-   const play=async()=>{const ticket=++attempt;try{await a.play();if(ended||!active(s)){a.pause();return;}if(last.phase==='paused'){a.pause();return;}if(ticket!==attempt)return;state(s,'playing',{reason:''});}catch(e){if(!ended&&active(s)&&ticket===attempt)state(s,'paused',{reason:'play-blocked'});}};
-   s.task={kind:'recorded',audio:a,pause(){attempt++;a.pause();},resume:play,stop:()=>complete(false)};
+   a.onplaying=()=>{if(ended||!active(s)||last.phase==='paused'){a.pause();return;}clearStart();state(s,'playing',{reason:''});};
+   const play=async()=>{clearStart();const ticket=++attempt;
+    startTimer=setTimeout(()=>{if(ended||!active(s)||ticket!==attempt)return;attempt++;clearStart();a.pause();state(s,'paused',{reason:'play-start-timeout'});},8000);
+    try{await a.play();if(ended||!active(s)){a.pause();return;}if(ticket!==attempt)return;clearStart();if(last.phase==='paused'){a.pause();return;}state(s,'playing',{reason:''});}
+    catch(e){if(!ended&&active(s)&&ticket===attempt){clearStart();state(s,'paused',{reason:'play-blocked'});}}
+   };
+   s.task={kind:'recorded',audio:a,pause(){attempt++;clearStart();a.pause();},resume:play,stop:()=>complete(false)};
    play();
   });
  }
  function speech(s,text){
   return new Promise(resolve=>{
-   const synth=window.speechSynthesis;let ended=false,ticket=0;
-   const complete=ok=>{if(ended)return;ended=true;ticket++;s.task=null;resolve(ok);};
+   const synth=window.speechSynthesis;let ended=false,ticket=0,startTimer=null;
+   const clearStart=()=>{clearTimeout(startTimer);startTimer=null;};
+   const complete=ok=>{if(ended)return;ended=true;ticket++;clearStart();s.task=null;resolve(ok);};
    const speak=()=>{
     if(ended||!active(s))return;
     if(!synth||!window.SpeechSynthesisUtterance){complete(false);return;}
-    const id=++ticket,u=safe(()=>options.utterance?.(text))||new SpeechSynthesisUtterance(text);
+    clearStart();const id=++ticket,u=safe(()=>options.utterance?.(text))||new SpeechSynthesisUtterance(text);
+    u.onstart=()=>{if(id===ticket&&active(s)){clearStart();state(s,'playing',{reason:''});}};
     u.onend=()=>{if(id===ticket)complete(true);};
     u.onerror=e=>{if(id!==ticket||!active(s))return;
-     if(['not-allowed','interrupted','canceled'].includes(e.error)){state(s,'paused',{reason:'tts-restart'});}else complete(false);
+     clearStart();if(['not-allowed','interrupted','canceled'].includes(e.error)){state(s,'paused',{reason:'tts-restart'});}else complete(false);
     };
+    startTimer=setTimeout(()=>{if(id!==ticket||ended||!active(s))return;ticket++;clearStart();safe(()=>synth.cancel());state(s,'paused',{reason:'tts-start-timeout'});},8000);
     try{synth.resume();synth.speak(u);}catch(_){complete(false);}
    };
    // Mobile TTS pause/resume is inconsistent. Cancel only our current
    // utterance; explicit Resume restarts this step, never advances it.
-   s.task={kind:'tts',pause(){ticket++;safe(()=>synth?.cancel());},resume:speak,stop(){ticket++;safe(()=>synth?.cancel());complete(false);}};
+   s.task={kind:'tts',pause(){ticket++;clearStart();safe(()=>synth?.cancel());},resume:speak,stop(){ticket++;clearStart();safe(()=>synth?.cancel());complete(false);}};
    speak();
   });
  }
@@ -102,14 +112,20 @@
   // Explicit playback restores its transport controls; showing a card by
   // itself never starts audio.
   setVisible(true);
-  if(window.SukunTabOwner?.owns?.()===false)return false;
   const offset=Math.max(0,Math.min(catalog[key].adimlar.length-1,Number.isInteger(startOptions.index)?startOptions.index:0));
   stop('replace');const s=run={key,set:catalog[key],generation,index:offset,offset,elapsed:Math.max(0,Number(startOptions.elapsed)||0),clockAt:null,completed:new Set(Array.isArray(startOptions.completed)?startOptions.completed.filter(i=>Number.isInteger(i)&&i>=0&&i<catalog[key].adimlar.length):Array.from({length:offset},(_,i)=>i)),task:null,gap:null,gate:null,native:false};progressTimer(true);
   const settings=options.settings?.()||{};
   last={phase:'preparing',key,title:s.set.ad,index:offset,total:s.set.adimlar.length,source:'',stage:'',reason:'',elapsed:s.elapsed,completed:s.completed.size};persistProgress();publish();
+  // Prime the audio context on the actual tap, before ownership/DB awaits.
+  safe(()=>options.prime?.());
+  const playSet=async()=>{
   const blobs=[];
   try{
-   for(let i=0;i<s.set.adimlar.length;i++){blobs.push(await options.load(key,i).catch(()=>null));if(!active(s))return false;}
+   for(let i=0;i<s.set.adimlar.length;i++){
+    let timer;const cancelled=new Promise(resolve=>{s.waitCancel=()=>resolve(null);});const timeout=new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('recording-load-timeout')),10000);});
+    try{blobs.push(await Promise.race([Promise.resolve().then(()=>options.load(key,i)).catch(()=>null),timeout,cancelled]));}finally{clearTimeout(timer);s.waitCancel=null;}
+    if(!active(s))return false;
+   }
    if(blobs.every(Boolean)&&window.SukunTekkeSequence){
     s.native=true;
     const sequence=await window.SukunTekkeSequence.start({key,title:tr(s.set.ad),steps:s.set.adimlar.slice(offset),load:i=>Promise.resolve(blobs[i+offset]),...settings,autoPlay:!startOptions.paused,
@@ -138,13 +154,28 @@
     await quiet(s,Number.isFinite(seconds)?seconds:20);if(!active(s))return false;s.completed.add(i);
    }
    finish(s,'ended');return true;
-  }catch(_){if(active(s))finish(s,'error','set-error');return false;}
+  }catch(error){if(active(s))finish(s,'error',error?.message==='recording-load-timeout'?'recording-load-timeout':'set-error');return false;}
+  };
+  const owner=window.SukunTabOwner;
+  if(owner?.owns?.()===false){
+   s.claimPending=true;state(s,'preparing',{reason:'tab-claim'});
+   let timer;const expired=new Promise(resolve=>{timer=setTimeout(()=>{if(active(s)&&s.claimPending){safe(()=>owner.cancelPending?.('tekke-set-claim-timeout'));finish(s,'error','tab-claim-timeout');}resolve(false);},12000);});
+   const cancelled=new Promise(resolve=>{s.waitCancel=()=>{clearTimeout(timer);resolve(false);};});
+   const claim=Promise.resolve().then(()=>!active(s)?false:owner.run('tekke-set',()=>{
+    clearTimeout(timer);s.waitCancel=null;s.claimPending=false;if(!active(s))return false;return playSet();
+   },{isCurrent:()=>active(s),keepSelection:true})).catch(()=>false);
+   const ok=await Promise.race([claim,expired,cancelled]);clearTimeout(timer);s.waitCancel=null;
+   if(active(s)&&s.claimPending){s.claimPending=false;finish(s,'error','tab-access');}
+   return ok;
+  }
+  return playSet();
  }
  function pause(){const s=run;if(!s||last.phase!=='playing')return false;
   if(s.native)return window.SukunTekkeSequence.pause();
   state(s,'paused',{reason:s.task?.kind==='tts'?'tts-restart':''});s.task?.pause?.();s.gap?.pause?.();return true;
  }
  async function resume(){const s=run;if(!s||last.phase!=='paused'||options.canPlay?.()===false||window.SukunTabOwner?.owns?.()===false)return false;
+  safe(()=>options.prime?.());
   if(s.native)return window.SukunTekkeSequence.resume();
   state(s,'playing',{reason:''});s.gate?.();s.gap?.resume?.();await s.task?.resume?.();return active(s)&&last.phase==='playing';
  }
@@ -221,6 +252,10 @@
    const step=el.querySelector('.r990SetStep');step.hidden=!playing||v.phase==='preparing';step.textContent=playing?tr(catalog?.[v.key]?.adimlar[v.index]?.t||''):'';
    let hint=tr('Adımlar sırayla ilerler. Önce kendi kaydın, eksik adımda cihaz sesi kullanılır.');
    if(v.reason==='tts-unavailable')hint=tr('Cihaz sesi kullanılamadı. Eksik adımı kaydet veya cihazındaki TTS dilini kontrol et; sonra yeniden başlat.');
+   else if(v.reason==='tab-access')hint=tr('Set başlatılamadı. Diğer SÜKÛN sekmesini bitir veya kapat; sonra Tekrar başlat düğmesine dokun.');
+   else if(v.reason==='tab-claim-timeout')hint=tr('Ses erişimi beklerken süre doldu. Kayıtların korundu; Tekrar başlat düğmesine dokun.');
+   else if(v.reason==='recording-load-timeout')hint=tr('Kayıt yüklenirken süre doldu. Kayıtların korundu; Tekrar başlat düğmesine dokun.');
+   else if(['play-start-timeout','tts-start-timeout'].includes(v.reason))hint=tr('Ses başlamadı. Aynı adımı yeniden denemek için Devam et düğmesine dokun.');
    else if(v.reason==='play-blocked')hint=tr('Tarayıcı sesi başlatmadı. Devam et düğmesine dokun.');
    else if(v.reason==='tts-restart')hint=tr('Devam et dediğinde duraklattığın metin aynı adımın başından okunur.');
    else if(v.phase==='error')hint=tr('Set oynatılamadı. Kayıtların korundu; yeniden başlatabilirsin.');

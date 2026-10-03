@@ -24,7 +24,7 @@
  }
  function alive(s){return current===s&&s.generation===generation&&s.isCurrent()}
  function cleanup(s,reason){
-  if(!s||s.finished)return;s.finished=true;
+  if(!s||s.finished)return;s.finished=true;s.cancelPlay?.();s.cancelPlay=null;s.signalPlay=null;
   for(const [type,fn]of s.events)s.audio?.removeEventListener(type,fn);
   if(current===s){safe(()=>window.SukunBackgroundAudioOwner?.release?.(OWNER,reason));current=null;}
   safe(()=>{s.audio?.pause();s.audio?.removeAttribute('src');s.audio?.load()});
@@ -72,14 +72,22 @@
  async function play(s){
   if(!alive(s)||!s.audio||!s.url)return false;
   const owner=window.SukunBackgroundAudioOwner;
+  const attempt=s.playAttempt=(s.playAttempt||0)+1;s.playBlocked=false;
   const lease=owner?.claim?.(OWNER,s.audio,s.url);s.lease=lease;
-  update(s,'preparing');
+  update(s,'preparing');let timer;
+  const cancelled=new Promise(resolve=>{s.cancelPlay=()=>resolve(false);});
+  const started=new Promise(resolve=>{s.signalPlay=()=>resolve(true);});
+  const timeout=new Promise(resolve=>{timer=setTimeout(()=>{
+   if(alive(s)&&s.playAttempt===attempt){s.playBlocked=true;s.audio.pause();safe(()=>owner?.release?.(OWNER,'play-start-timeout'));update(s,'paused','play-start-timeout');}resolve(false);
+  },8000);});
   try{
-   const ok=owner?await owner.play(lease):await s.audio.play().then(()=>true);
-   if(!alive(s))return false;
-   if(!ok){update(s,'paused','play-blocked');return false;}
+   const result=owner?owner.play(lease):s.audio.play().then(()=>true);
+   const ok=await Promise.race([result,timeout,cancelled,started]);
+   if(!alive(s)||s.playAttempt!==attempt)return false;
+   if(!ok){if(!s.playBlocked){s.playBlocked=true;s.audio.pause();update(s,'paused','play-blocked');}return false;}
    update(s,'playing');return true;
-  }catch(error){if(alive(s))update(s,'paused',String(error?.name||'play-blocked'));return false;}
+  }catch(error){if(alive(s)&&s.playAttempt===attempt){s.playBlocked=true;s.audio.pause();update(s,'paused',String(error?.name||'play-blocked'));}return false;}
+  finally{clearTimeout(timer);if(s.playAttempt===attempt){s.cancelPlay=null;s.signalPlay=null;}}
  }
  async function start(options){
   stop('replace');
@@ -96,7 +104,7 @@
    a.setAttribute('playsinline','');a.setAttribute('aria-hidden','true');a.dataset.sukunTekkeSequence='1';a.style.display='none';document.body.append(a);
    const listen=(type,fn)=>{s.events.push([type,fn]);a.addEventListener(type,fn,{passive:true})};
    listen('timeupdate',()=>observe(s));
-   listen('playing',()=>{if(alive(s))update(s,'playing')});
+   listen('playing',()=>{if(!alive(s))return;if(s.playBlocked){s.audio.pause();return;}s.signalPlay?.();update(s,'playing')});
    listen('pause',()=>{if(alive(s)&&!a.ended)update(s,'paused')});
    listen('ended',()=>{if(!alive(s))return;observe(s);update(s,'ended');cleanup(s,'ended')});
    listen('error',()=>{if(!alive(s))return;update(s,'error','media-error');cleanup(s,'media-error')});
@@ -108,7 +116,7 @@
    cleanup(s,'prepare-failed');return{handled:true,done,reason:'prepare-failed'};
   }
  }
- function pause(){const s=current;if(!s?.audio)return false;safe(()=>window.SukunBackgroundAudioOwner?.userPause?.(s.lease));s.audio.pause();update(s,'paused');return true}
+ function pause(){const s=current;if(!s?.audio)return false;s.playBlocked=true;s.playAttempt=(s.playAttempt||0)+1;s.cancelPlay?.();s.cancelPlay=null;safe(()=>window.SukunBackgroundAudioOwner?.userPause?.(s.lease));s.audio.pause();update(s,'paused');return true}
  function resume(){const s=current;if(!s?.audio)return Promise.resolve(false);
   // Only an explicit Resume may retry a rejected source. Retain its file and
   // currentTime; background lifecycle events never issue another play.
