@@ -3,7 +3,7 @@
 const $=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch{return d}},text=(n,v)=>{if(n&&n.textContent!==String(v))n.textContent=String(v)},attr=(n,k,v)=>{if(n&&n.getAttribute(k)!==String(v))n.setAttribute(k,String(v))};
 // r929: idle UI refreshes must not rewrite attributes under an active pointer.
 const prop=(n,k,v)=>{if(n&&n[k]!==v)n[k]=v},value=(n,v)=>{if(n&&document.activeElement!==n)prop(n,'value',String(v))};
-let root,dialog,raf=0,focusTimer=0,sourceMode='',atlasMode='',atlasIndex=0,lastSnapshot=null,completionKey='',renders=0;
+let root,dialog,raf=0,focusTimer=0,sourceMode='',atlasMode='',atlasIndex=0,lastSnapshot=null,completionKey='',renders=0,focusOrigin=null,focusGeneration=0;
 let wheelNavEnabled=safe(()=>localStorage.getItem('sukun.wheel.navigation')!=='0',true);
 let focusEnabled=safe(()=>localStorage.getItem('sukun.r920.focus')==='1',false);
 const completed=safe(()=>JSON.parse(localStorage.getItem('sukun.r920.completed')||'{}'),{})||{};
@@ -12,7 +12,52 @@ const items=mode=>safe(()=>ZIKIR[mode]?.items||[],[]);
 const scenes=()=>window.SukunR853Scene?.nameScenes||[];
 const itemName=(mode,i)=>mode==='berhet'?scenes()[i]?.name||items(mode)[i]?.tr||items(mode)[i]?.t||'':items(mode)[i]?.t||items(mode)[i]?.tr||'';
 const snap=()=>window.SukunSessionState?.snapshot?.();
+// r978: presentation consumes the event-updated model. Commands still take a
+// fresh snapshot; passive paints do not collect it repeatedly after DOM writes.
+const view=()=>window.SukunSessionState?.peek?.()||snap();
 function command(action,options){const result=window.SukunSessionState?.command?.(action,options);Promise.resolve(result).then(queue,queue);return result}
+// r986: a section is reachable only when every enclosing disclosure is open.
+// Reuse the three native buttons and the native total; neither has a new data owner.
+const sectionIds=new Set(['zmgOkumalar','zmgSeyirler','zmgAraclar']);
+function showExtras(open){
+ document.body.classList.toggle('r920-details-open',open);
+ if(open&&$('r616ZikirTools'))$('r616ZikirTools').open=true;
+ attr($('r920More'),'aria-expanded',open);
+ text($('r920More'),open?'Ek araçları kapat':'Zikir ayarları, kayıtlar ve diğer araçlar');
+}
+function openSection(id){
+ const target=$(id),tab=$('tab-zkr');
+ if(!sectionIds.has(id)||!target||!tab||!root||root.hidden||tab.hidden||document.body.classList.contains('sukun-tefekkur-mode'))return false;
+ window.SukunSeyirYerlesim?.repair?.();
+ // Honor intentionally hidden content; opening a disclosure is not an unlock.
+ const chain=[];for(let node=target;node&&node!==tab;node=node.parentElement){if(node.hidden)return false;chain.push(node)}
+ if(!chain.length||!tab.contains(target))return false;
+ showExtras(true);wake();
+ for(const node of chain.reverse())if(node.tagName==='DETAILS')node.open=true;
+ const nav=$('r986Sections');if(nav)for(const button of nav.querySelectorAll('button')){const current=button.getAttribute('aria-controls')===id;button.classList.toggle('active',current);attr(button,'aria-expanded',$(button.getAttribute('aria-controls'))?.open===true)}
+ requestAnimationFrame(()=>{
+  if(!target.isConnected||tab.hidden||root.hidden||!document.body.classList.contains('r920-details-open')||document.body.classList.contains('sukun-tefekkur-mode'))return;
+  target.scrollIntoView({behavior:'auto',block:'start'});
+  target.querySelector(':scope > summary')?.focus?.({preventScroll:true});
+ });
+ return true;
+}
+function mountSectionAccess(){
+ if(!root||root.hidden)return;
+ window.SukunSeyirYerlesim?.repair?.();
+ const nav=document.querySelector('.sukun-bottom-nav'),hero=$('r938Hero');
+ if(nav){
+  nav.id='r986Sections';attr(nav,'aria-label','Zikir alt bölümleri');
+  for(const [i,button] of [...nav.querySelectorAll('button')].entries()){const id=[...sectionIds][i];if(id){attr(button,'aria-controls',id);attr(button,'aria-expanded',$(id)?.open===true)}}
+  if(nav.parentElement!==root){if(hero)hero.after(nav);else root.append(nav)}
+ }
+ const total=$('totalCnt'),line=total?.closest('.statLine');
+ if(line){
+  line.id='r986Total';attr(line,'role','group');attr(line,'aria-label','Bu cihazda toplam zikir');
+  if(!$('r986TotalLabel')){const caption=document.createElement('span');caption.id='r986TotalLabel';caption.textContent='Toplam zikir';line.replaceChildren(caption,total)}
+  const parent=hero||root;if(line.parentElement!==parent)parent.append(line);
+ }
+}
 function persist(){safe(()=>localStorage.setItem('sukun.r920.completed',JSON.stringify(completed)))}
 function markComplete(mode,i){if(!['esma','berhet'].includes(mode)||i<0||i>=items(mode).length)return;const key=mode+':'+i;if(!completed[key]){completed[key]=Date.now();persist();if(dialog?.open)renderAtlas()}}
 function make(){
@@ -29,9 +74,9 @@ function make(){
  <div id="r920SceneError" role="status" hidden><span>Sahne açılamadı.</span><button id="r920SceneRetry" type="button">Yeniden dene</button></div>
  <p id="r968ManualHint" role="status" aria-live="polite"></p><div id="r920Actions"></div>
  <details id="r920JourneySettings" hidden><summary>Seyir tekrarları ve ara</summary><label>Her isim<select id="r920RepeatMode"></select></label><label id="r920RepeatCustomLabel" hidden>Özel tekrar<input id="r920RepeatCustom" type="number" min="1" max="9999" inputmode="numeric"></label><label>Ara<select id="r920RepeatGap"></select></label></details>
- <details id="r920ViewOptions"><summary>İsim, çark ve görünüm</summary><label>İsim<select id="r920NameSelect"></select></label><div id="r924WheelOptions"><label><span id="r924WheelFamily">Esmâ çarkı</span><select id="r920WheelSelect" aria-describedby="r924WheelStatus"></select></label><p id="r924WheelStatus" role="status"></p><button id="r924WheelRetry" type="button" hidden>Çarkı yeniden yükle</button><details id="r924WheelGalleryDetails"><summary>Çarkları görerek seç</summary><div id="r924WheelGallery" role="group" aria-label="Çark seçenekleri"></div></details></div><div id="r920BerhetOptions"><label>Sahne<select id="r920SceneSelect"><option value="auto">İsme göre otomatik</option><option value="palace">Billur Saray</option><option value="seal">Mühr-ü Süleyman</option><option value="wind">Rüzgâr</option><option value="crystal">Billur Geçit</option><option value="night">Gece Sarayı</option><option value="hudhud">Hüdhüd Yolu</option></select></label></div><div id="r923EsmaOptions"><label>Esmâ sahnesi<select id="r923EsmaSceneSelect" aria-describedby="r923SceneStatus"></select></label><div id="r923ScenePreview"><img id="r923SceneThumb" alt="Seçilen sahnenin önizlemesi" loading="lazy" decoding="async"><div><strong id="r923SceneName"></strong><p id="r923SceneStatus" role="status"></p><button id="r923SceneRetry" type="button" hidden>Sahneyi yeniden yükle</button></div></div><details id="r923SceneNotes"><summary>Sahne hakkında ve kaynaklar</summary><p id="r923SceneNote"></p><div id="r923SceneSources"></div></details></div><label>Görsel kalite<select id="r920Performance"><option value="cinematic">Sinematik</option><option value="balanced">Dengeli</option><option value="saving">Tasarruf</option></select></label><label class="r920FocusLabel"><input id="r925WheelMotion" type="checkbox" checked>Çark dönüşü</label><label class="r920FocusLabel"><input id="r962WheelNavToggle" type="checkbox">Çark içi önceki–sonraki düğmeleri</label><button id="r962OfflineScenes" type="button">Arka planları çevrimdışı hazırla</button><p id="r962OfflineStatus" role="status" aria-live="polite"></p><label class="r920FocusLabel"><input id="r920Focus" type="checkbox">Otomatik odak görünümü</label></details>
+ <details id="r920ViewOptions"><summary>İsim, çark ve görünüm</summary><label>İsim<select id="r920NameSelect"></select></label><div id="r924WheelOptions"><label><span id="r924WheelFamily">Esmâ çarkı</span><select id="r920WheelSelect" aria-describedby="r924WheelStatus"></select></label><p id="r924WheelStatus" role="status"></p><button id="r924WheelRetry" type="button" hidden>Çarkı yeniden yükle</button><details id="r924WheelGalleryDetails"><summary>Çarkları görerek seç</summary><div id="r924WheelGallery" role="group" aria-label="Çark seçenekleri"></div></details></div><div id="r920BerhetOptions"><label>Sahne<select id="r920SceneSelect"><option value="auto">İsme göre otomatik</option><option value="palace">Billur Saray</option><option value="seal">Mühr-ü Süleyman</option><option value="wind">Rüzgâr</option><option value="crystal">Billur Geçit</option><option value="night">Gece Sarayı</option><option value="hudhud">Hüdhüd Yolu</option></select></label></div><div id="r923EsmaOptions"><label>Esmâ sahnesi<select id="r923EsmaSceneSelect" aria-describedby="r923SceneStatus"></select></label><div id="r923ScenePreview"><img id="r923SceneThumb" alt="Seçilen sahnenin önizlemesi" loading="lazy" decoding="async"><div><strong id="r923SceneName"></strong><p id="r923SceneStatus" role="status"></p><button id="r923SceneRetry" type="button" hidden>Sahneyi yeniden yükle</button></div></div><details id="r923SceneNotes"><summary>Sahne hakkında ve kaynaklar</summary><p id="r923SceneNote"></p><div id="r923SceneSources"></div></details></div><label>Görsel kalite<select id="r920Performance"><option value="cinematic">Sinematik</option><option value="balanced">Dengeli</option><option value="saving">Tasarruf</option></select></label><label class="r920FocusLabel"><input id="r925WheelMotion" type="checkbox" checked>Çark dönüşü</label><label class="r920FocusLabel"><input id="r962WheelNavToggle" type="checkbox">Çark içi önceki–sonraki düğmeleri</label><button id="r962OfflineScenes" type="button">Çarkları ve arka planları çevrimdışı kaydet</button><p id="r962OfflineStatus" role="status" aria-live="polite"></p><label class="r920FocusLabel"><input id="r920Focus" type="checkbox">Otomatik odak görünümü</label></details>
  <button id="r920More" type="button" aria-expanded="false">Zikir ayarları, kayıtlar ve diğer araçlar</button>
- <button id="r920TefExit" type="button" hidden>Tefekkürden Çık</button>`;
+ <button id="r920TefExit" type="button" aria-label="Tefekkürden çık" title="Tefekkürden çık" hidden><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 4H5v16h5M9 12h11M16 8l4 4-4 4"/></svg></button>`;
  tab.prepend(root);
  for(const id of ['r959WheelPrevious','r959WheelNext'])$('r925WheelRotor').append($(id));root.addEventListener('focusout',queue,{passive:true});
  dialog=document.createElement('dialog');dialog.id='r920Atlas';dialog.setAttribute('aria-labelledby','r920AtlasTitle');
@@ -50,7 +95,7 @@ function make(){
  $('r920TefEnter').onclick=()=>{wake();const summary=$('r470SessionSummary');if(summary)summary.hidden=true;window.SUKUN_TEFEKKUR?.enter?.();queue();setTimeout(()=>$('r938PanelToggle')?.focus({preventScroll:true}),100)};
  $('r920TefExit').onclick=()=>{window.SUKUN_TEFEKKUR?.exit?.();wake();queue()};
  $('r920NameInfo').onclick=()=>{safe(()=>$('r611CurrentZikirName')?.click());wake()};
- $('r920More').onclick=()=>{const open=document.body.classList.toggle('r920-details-open');attr($('r920More'),'aria-expanded',open);text($('r920More'),open?'Ek araçları kapat':'Zikir ayarları, kayıtlar ve diğer araçlar')};
+ $('r920More').onclick=()=>showExtras(!document.body.classList.contains('r920-details-open'));
  window.SukunWheels?.connect?.(root);
  window.SukunWheelMotion?.connect?.(root);
  $('r920WheelSelect').onchange=e=>{window.SukunWheels?.choose?.(snap()?.activeMode||'esma',e.target.value);queue()};
@@ -93,7 +138,7 @@ function syncJourneySettings(s){
  for(const [suffix,id] of [['Mode','r920RepeatMode'],['Gap','r920RepeatGap']]){const native=$(prefix+suffix),control=$(id);if(!native)continue;const key=prefix+':'+Array.from(native.options,o=>o.value+'='+o.textContent).join('|');if(control.dataset.options!==key){control.replaceChildren(...Array.from(native.options,o=>{const option=document.createElement('option');option.value=o.value;option.textContent=o.textContent;return option}));control.dataset.options=key}value(control,native.value)}
  const native=$(prefix+'Custom'),control=$('r920RepeatCustom');prop($('r920RepeatCustomLabel'),'hidden',$(prefix+'Mode')?.value!=='custom');if(native)value(control,native.value);
 }
-function wake(){clearTimeout(focusTimer);if(document.body.classList.contains('r920-focus-rest'))document.body.classList.remove('r920-focus-rest');if(focusEnabled&&snap()?.phase==='PLAYING')focusTimer=setTimeout(()=>{if(snap()?.phase==='PLAYING')document.body.classList.add('r920-focus-rest')},4500)}
+function wake(){clearTimeout(focusTimer);if(document.body.classList.contains('r920-focus-rest'))document.body.classList.remove('r920-focus-rest');if(focusEnabled&&view()?.phase==='PLAYING')focusTimer=setTimeout(()=>{if(view()?.phase==='PLAYING')document.body.classList.add('r920-focus-rest')},4500)}
 function renderAtlas(){
  if(!dialog)return;if(atlasMode==='berhet'&&!allowed()){if(dialog.open)dialog.close();return}
  const list=items(atlasMode),s=snap();text($('r920AtlasTitle'),atlasMode==='berhet'?'Berhetiyye Atlası':'Esmâ Atlası');text($('r920AtlasCaption'),`${list.length} durak · Bu cihazda gözlenen tamamlanmalar`);
@@ -107,9 +152,10 @@ function renderAtlas(){
  text($('r920AtlasProgress'),active?`Aktif · ${s.count} / ${s.target||'∞'}${rate!==null?' · %'+rate:''}`:completed[atlasMode+':'+atlasIndex]?'Tamamlandı':'Henüz tamamlanmadı');
  const esma=window.SukunSceneEngine?.esmaSceneFor?.(atlasIndex);text($('r920AtlasScene'),scene?`Sahne: ${scene.title}`:'Sahne: '+(esma?.title||'Klasik Mevlevî'));text($('r920AtlasNote'),scene?[scene.layer,scene.note].filter(Boolean).join(' · '):esma?.note||'');
 }
-function render(){raf=0;if(!make())return;const s=snap();if(!s)return;renders++;
+function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view();if(!s)return;renders++;
  const mode=s.activeMode,valid=items(mode).length>0&&(mode!=='berhet'||allowed()),tef=!!window.SUKUN_TEFEKKUR?.active?.();
- if(document.body.classList.contains('r920-practice-on')!==valid)document.body.classList.toggle('r920-practice-on',valid);if(root.hidden===valid)root.hidden=!valid;if(!valid){window.SukunBerhetLayout?.sync(root,tef);if(dialog.open)dialog.close();return}
+ if(document.body.classList.contains('r920-practice-on')!==valid)document.body.classList.toggle('r920-practice-on',valid);if(root.hidden===valid)root.hidden=!valid;if(!valid){window.SukunBerhetLayout?.sync(root,tef);
+ mountSectionAccess();if(dialog.open)dialog.close();return}
  attr(root,'data-mode',mode);attr(root,'data-phase',s.phase);const journey=s.journeyKind&&s.journeyKind!=='single';
  prop($('r920ModeBerhet'),'hidden',!allowed());prop($('r920JourneyLabel'),'hidden',!allowed()||!['esma','berhet'].includes(mode));attr($('r920ModeEsma'),'aria-pressed',mode==='esma');attr($('r920ModeBerhet'),'aria-pressed',mode==='berhet');
  value($('r920JourneyMode'),journey?'journey':'single');prop($('r920TefExit'),'hidden',!tef);prop($('r920TefEnter'),'hidden',tef);
@@ -150,14 +196,31 @@ function render(){raf=0;if(!make())return;const s=snap();if(!s)return;renders++;
  window.SukunBerhetLayout?.sync(root,tef);
  if(dialog.open)renderAtlas();
 }
-function queue(){if(!raf)raf=requestAnimationFrame(render)}
+function queue(){if(!document.hidden&&!raf)raf=requestAnimationFrame(render)}
+// Entry/exit is a presentation boundary. Save the ordinary reading position
+// once, paint the focus layout immediately and settle only the current entry.
+function beginFocus(){if(!focusOrigin)focusOrigin={x:window.scrollX||0,y:window.scrollY||0,tab:$('tab-zkr')?.scrollTop||0}}
+function settleFocus(active){
+ const generation=++focusGeneration;restorePresentation();
+ const origin=focusOrigin;if(!active)focusOrigin=null;
+ const settle=()=>{
+  if(generation!==focusGeneration||document.hidden||!!window.SUKUN_TEFEKKUR?.active?.()!==active)return;
+  const tab=$('tab-zkr');if(tab)tab.scrollTop=active?0:origin?.tab||0;
+  window.scrollTo({left:active?0:origin?.x||0,top:active?0:origin?.y||0,behavior:'instant'});
+ };
+ settle();requestAnimationFrame(settle);
+}
+// r979: bounded foreground repair can paint synchronously if a suspended
+// requestAnimationFrame handle survived restoration. No transport command.
+function restorePresentation(){if(document.hidden)return false;if(raf)cancelAnimationFrame(raf);raf=0;render();return !!root?.isConnected&&!root.hidden}
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0;clearTimeout(focusTimer)}else queue()},{passive:true});
 ['DOMContentLoaded','pageshow','sukun:sessionchange','sukun:scenechange','sukun:performancechange','sukun:tefekkurchange','sukun:secretaccesschange','sukun:voicesource','sukun:recordingerror','sukun:recordingrecovered'].forEach(event=>addEventListener(event,queue,{passive:true}));
 addEventListener('sukun:journey-advance',e=>{const mode=e.detail?.owner==='journey28'?'berhet':e.detail?.owner==='journey99'?'esma':null;if(mode)markComplete(mode,Number(e.detail.index)-1);queue()});
 document.addEventListener('pointerdown',()=>{if(root&&!root.hidden)wake()},{passive:true});document.addEventListener('keydown',wake,{passive:true});
 new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});
 // Re-render after the native setting handler; never duplicate the native toggle.
 document.addEventListener('click',e=>{if(e.target.closest('#optMean'))queue()},{passive:true});
-window.SukunPracticeUI=Object.freeze({version:'r944',refresh:queue,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,renders,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
+window.SukunPracticeUI=Object.freeze({version:'r988',refresh:queue,restorePresentation,beginFocus,settleFocus,openSection,select,atlas:()=>{if(root)$('r920AtlasOpen').click()},snapshot:()=>({mode:snap()?.activeMode,renders,focusEnabled,tef:!!window.SUKUN_TEFEKKUR?.active?.(),renderer:'one-session-presentation'})});
 queue();
 })();
 

@@ -1,3 +1,162 @@
+/* r986: accessible sections and totals live outside the collapsed control panel.
+   This first important layer owns geometry; gemstone paint is mode-scoped. */
+@layer sukun-r986-access {
+/* r988: focus fills the viewport on its first paint. An old narrow tab or
+   a saved reading scroll position cannot shift the wheel's coordinate space. */
+html body.sukun-tefekkur-mode:has(#r920Practice[data-r938-layout="1"]) > .wrap{
+ transform:none!important;filter:none!important;max-width:none!important;width:100%!important;
+}
+html body.sukun-tefekkur-mode:has(#r920Practice[data-r938-layout="1"]) #tab-zkr{
+ position:fixed!important;inset:0!important;width:100vw!important;max-width:none!important;min-width:0!important;
+ height:100dvh!important;max-height:100dvh!important;margin:0!important;padding:0!important;box-sizing:border-box!important;
+ overflow-x:hidden!important;overflow-y:auto!important;overflow-anchor:none!important;scroll-behavior:auto!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"]{
+ width:100%!important;max-width:680px!important;min-height:100dvh!important;box-sizing:border-box!important;
+ margin:0 auto!important;overflow-anchor:none!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r938Hero{
+ flex:1 0 auto!important;justify-content:center!important;min-width:0!important;position:relative!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r924WheelFrame{
+ width:min(86vw,39dvh,360px)!important;max-width:100%!important;margin:4px auto!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"]:has(#r938Panel[data-open="false"]) #r924WheelFrame{
+ width:min(94vw,56dvh,440px)!important;margin:4px auto!important;
+}
+/* The mini amethyst exit stays outside the collapsed controls. */
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r938Hero #r920TefExit:not([hidden]){
+ display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 48px!important;
+ position:absolute!important;inset:0 2px auto auto!important;transform:none!important;align-self:center!important;z-index:5!important;
+ width:48px!important;min-width:48px!important;max-width:48px!important;height:48px!important;min-height:48px!important;max-height:48px!important;
+ margin:0!important;padding:0!important;box-sizing:border-box!important;border:0!important;border-image:none!important;border-radius:12px!important;
+ --r933-control-art:var(--r933-gem-amethyst)!important;--r933-control-dark:#29183a!important;
+ background:var(--r933-gem-amethyst) center/100% 100% no-repeat,radial-gradient(ellipse,#29183a,transparent 72%) center/86% 76% no-repeat!important;
+ color:#fff4ff!important;box-shadow:none!important;overflow:visible!important;pointer-events:auto!important;cursor:pointer!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r938Hero>.r920Identity{width:calc(100% - 112px)!important;align-self:center!important;box-sizing:border-box!important}
+html body.sukun-tefekkur-mode #r920Practice #r938Hero #r920TefExit>svg{
+ display:block!important;width:21px!important;height:21px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.8!important;stroke-linecap:round!important;stroke-linejoin:round!important;
+ filter:drop-shadow(0 1px 2px #1d073e)!important;pointer-events:none!important;
+}
+/* r989: the reference composition applies only to Berhetiyye focus.
+   The exit has its own middle grid cell and is never a fixed overlay. */
+html body #r920Practice[data-r938-layout="1"] #r920TefExit[hidden]{display:none!important}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-mode="berhet"] #r938Hero>.r920Identity{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:6px!important;
+ width:fit-content!important;min-width:156px!important;max-width:min(88%,280px)!important;
+ margin:0 auto!important;padding:0!important;box-sizing:border-box!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-mode="berhet"] :is(#r920Eyebrow,#r920NameInfo){
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ width:100%!important;max-width:100%!important;box-sizing:border-box!important;margin:0!important;
+ border:1px solid transparent!important;border-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgNDAwIDEyOCIgZmlsbD0ibm9uZSI+CiA8ZGVmcz4KICA8bGluZWFyR3JhZGllbnQgaWQ9ImdvbGQiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxMjgiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KICAgPHN0b3Agc3RvcC1jb2xvcj0iI2ZmZjJhZSIvPjxzdG9wIG9mZnNldD0iLjIiIHN0b3AtY29sb3I9IiNkOTk5MWMiLz48c3RvcCBvZmZzZXQ9Ii40OCIgc3RvcC1jb2xvcj0iI2ZmZTc4NCIvPjxzdG9wIG9mZnNldD0iLjc2IiBzdG9wLWNvbG9yPSIjYWQ2NTEwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmZkYzY5Ii8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8ZyBpZD0iY29ybmVyIiBzdHJva2U9InVybCgjZ29sZCkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CiAgIDxwYXRoIGQ9Ik04IDM4VjE4UTggOCAxOCA4SDM4TTE0IDM4VjIxUTE0IDE0IDIxIDE0SDM4IiBzdHJva2Utd2lkdGg9IjEuOCIvPgogICA8cGF0aCBkPSJNNiAzMEMyMyAzMiAzNSAxNiAyOCA2QzIyLTIgOSAzIDEwIDEzQzExIDIzIDI5IDI2IDM1IDEzQzM5IDYgMjggMiAyNCA4QzIwIDE0IDI4IDI1IDM1IDMwQzQwIDM0IDM0IDM5IDMwIDM0QzI1IDI3IDE0IDIwIDggMjRDMiAyOCA2IDM5IDEzIDM1QzI2IDI5IDIzIDExIDEzIDEwIiBzdHJva2Utd2lkdGg9IjEuMyIvPgogICA8cGF0aCBkPSJNMTggMThMMjQgMjRMMTggMzBMMTIgMjRaIiBzdHJva2Utd2lkdGg9IjEuMSIvPgogICA8Y2lyY2xlIGN4PSIxOCIgY3k9IjI0IiByPSIxLjQiIGZpbGw9IiNmZmU5YTAiIHN0cm9rZT0ibm9uZSIvPgogIDwvZz4KIDwvZGVmcz4KIDxwYXRoIGQ9Ik0zOCA4SDM2Mk0zOCAxNEgzNjJNMzggMTIwSDM2Mk0zOCAxMTRIMzYyTTggMzhWOTBNMTQgMzhWOTBNMzkyIDM4VjkwTTM4NiAzOFY5MCIgc3Ryb2tlPSJ1cmwoI2dvbGQpIiBzdHJva2Utd2lkdGg9IjEuNiIvPgogPHVzZSBocmVmPSIjY29ybmVyIi8+PHVzZSBocmVmPSIjY29ybmVyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0MDAgMCkgc2NhbGUoLTEgMSkiLz4KIDx1c2UgaHJlZj0iI2Nvcm5lciIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxMjgpIHNjYWxlKDEgLTEpIi8+PHVzZSBocmVmPSIjY29ybmVyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0MDAgMTI4KSBzY2FsZSgtMSAtMSkiLz4KPC9zdmc+Cg==') 38 / 14px / 0 stretch!important;
+ border-radius:0!important;background:#061e2859!important;box-shadow:none!important;
+ color:#fff0c8!important;text-shadow:0 1px 3px #041019,0 0 6px #041019!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-mode="berhet"] #r920Eyebrow{
+ min-height:30px!important;padding:8px 20px!important;font:500 10px/1.4 system-ui,sans-serif!important;
+ letter-spacing:1.7px!important;text-align:center!important;white-space:normal!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-mode="berhet"] #r920NameInfo{
+ min-height:44px!important;padding:10px 20px!important;overflow:visible!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-mode="berhet"] #r920ActiveName{
+ font-size:clamp(20px,5vw,26px)!important;line-height:1.18!important;
+ white-space:normal!important;overflow-wrap:anywhere!important;text-align:center!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-mode="berhet"] .r920Stats[data-r989-exit-row="1"]{
+ display:grid!important;grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr)!important;
+ width:min(100%,340px)!important;max-width:100%!important;align-items:center!important;gap:10px!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-mode="berhet"] .r920Stats[data-r989-exit-row="1"]>span{
+ min-height:48px!important;padding:10px 14px!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-mode="berhet"] #r938Hero>.r920Stats[data-r989-exit-row="1"]>#r920TefExit:not([hidden]){
+ position:static!important;inset:auto!important;grid-column:2!important;grid-row:1!important;z-index:auto!important;
+ padding:0!important;justify-self:center!important;overflow:visible!important;
+}
+/* r987: compact density must not remove the public reading/tool entry cards.
+   Intentional hidden fields and private readings keep their native policy. */
+html body:not(.sukun-tefekkur-mode) #tab-zkr #zMegaHost :is(#tvBox,#dlBox,#vhBox):not([hidden]){
+ display:block!important;
+}
+html body.sukun-zikir-tab:not(.sukun-tefekkur-mode) #r920Practice:not([hidden])>#r986Sections:not([hidden]){
+ display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ position:relative!important;inset:auto!important;transform:none!important;z-index:auto!important;
+ width:min(100%,420px)!important;max-width:100%!important;min-width:0!important;height:auto!important;
+ margin:12px auto 4px!important;padding:7px!important;gap:6px!important;box-sizing:border-box!important;
+ opacity:1!important;visibility:visible!important;pointer-events:auto!important;overflow:visible!important;
+ border:1px solid #688f9255!important;border-image:none!important;border-radius:16px!important;
+ background:#09232af2!important;box-shadow:none!important;backdrop-filter:none!important;
+}
+html body #r920Practice>#r986Sections>button:not([hidden]){
+ display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+ min-width:0!important;min-height:52px!important;height:auto!important;max-height:none!important;
+ padding:8px 4px!important;gap:3px!important;font:700 12px/1.4 system-ui,sans-serif!important;
+ white-space:normal!important;overflow-wrap:break-word!important;opacity:1!important;visibility:visible!important;
+ color:#f3f1df!important;-webkit-text-fill-color:#f3f1df!important;
+ border:1px solid #7aa7a955!important;border-image:none!important;border-radius:10px!important;
+ background:#0a2b32!important;box-shadow:none!important;text-shadow:none!important;
+}
+html body #r920Practice>#r986Sections>button.active{background:#155349!important;border-color:#91c7ae!important}
+html body #r920Practice>#r986Sections>button>span{color:inherit!important;-webkit-text-fill-color:inherit!important;font-size:16px!important;opacity:1!important}
+html body #r920Practice>#r986Sections>button:focus-visible{outline:2px solid #fff0b8!important;outline-offset:2px!important}
+html body #r920Practice[data-mode="berhet"]>#r986Sections{
+ border:1px solid #cfad70!important;border-image:var(--r933-panel-frame) 250 / 7px / 0 stretch!important;
+ background:#0c202deF!important;
+}
+html body #r920Practice[data-mode="berhet"]>#r986Sections>button{
+ border:1px solid transparent!important;border-image:var(--r933-gem-sapphire) 330 fill / 7px / 0 stretch!important;
+ background:#102638!important;color:#fff2d5!important;-webkit-text-fill-color:#fff2d5!important;text-shadow:0 1px 3px #001019!important;
+}
+html body #r920Practice[data-mode="berhet"]>#r986Sections>button.active{
+ border-image-source:var(--r933-gem-emerald)!important;background:#0a332d!important;
+}
+html body #r920Practice:not([hidden]) #r986Total{
+ display:flex!important;align-items:center!important;justify-content:space-between!important;flex:0 0 auto!important;
+ position:relative!important;inset:auto!important;width:min(100%,340px)!important;max-width:100%!important;
+ min-height:56px!important;height:auto!important;margin:7px auto!important;padding:12px 20px!important;gap:12px!important;
+ box-sizing:border-box!important;opacity:1!important;visibility:visible!important;overflow:visible!important;
+ border:1px solid #80ada977!important;border-image:none!important;border-radius:14px!important;
+ background:#09252af5!important;color:#f5f0db!important;text-shadow:0 1px 2px #021216!important;
+ font:700 14px/1.4 system-ui,sans-serif!important;box-shadow:none!important;
+}
+html body #r920Practice #r986TotalLabel{display:block!important;opacity:1!important;visibility:visible!important;color:#dbeae4!important;-webkit-text-fill-color:#dbeae4!important}
+html body #r920Practice #r986Total #totalCnt{
+ display:block!important;opacity:1!important;visibility:visible!important;font-size:24px!important;font-weight:800!important;
+ font-variant-numeric:tabular-nums!important;color:#fff1bf!important;-webkit-text-fill-color:#fff1bf!important;overflow-wrap:anywhere!important;
+}
+html body #r920Practice[data-mode="berhet"] #r986Total{
+ border:1px solid #d5b779!important;border-image:var(--r933-panel-frame) 250 / 8px / 0 stretch!important;
+ background:linear-gradient(145deg,#12362ff5,#0a1d2cf5)!important;
+}
+html body.sukun-tefekkur-mode #r920Practice>#r986Sections,
+html body #r920Practice[hidden]>#r986Sections,
+html body #r920Practice>#r986Sections[hidden]{display:none!important;pointer-events:none!important}
+/* Helpers use their own reserved cells, never the volume icon or tiny timer caption. */
+html body :is(.mbRow,#dockTimer)>button.dockTipHelp[data-i18n-owned]{
+ position:static!important;inset:auto!important;transform:none!important;float:none!important;
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ flex:0 0 32px!important;width:32px!important;height:32px!important;min-width:32px!important;max-width:32px!important;
+ min-height:32px!important;max-height:32px!important;margin:0!important;padding:0!important;box-sizing:border-box!important;
+ border:1px solid #bda96c88!important;border-image:none!important;border-radius:50%!important;
+ background:#0b2633!important;background-image:none!important;color:#f3deb1!important;-webkit-text-fill-color:#f3deb1!important;
+ font:700 15px/1 system-ui,sans-serif!important;box-shadow:none!important;text-shadow:none!important;
+}
+html body .mbRow{gap:8px!important;min-width:0!important}
+html body .mbRow>#masterVol{flex:1 1 auto!important;min-width:0!important;width:0!important;margin:0!important}
+html body #dockTimer{
+ display:grid!important;grid-template-columns:20px minmax(0,1fr) 32px!important;grid-template-rows:minmax(44px,auto) auto!important;
+ align-items:center!important;gap:3px 6px!important;min-width:0!important;min-height:68px!important;height:auto!important;max-height:none!important;
+ padding:7px 10px!important;box-sizing:border-box!important;
+}
+html body #dockTimer>.di{grid-column:1!important;grid-row:1!important;margin:0!important}
+html body #dockTimer>#sleepTimer{grid-column:2!important;grid-row:1!important;min-width:0!important;width:100%!important;min-height:44px!important;height:auto!important;margin:0!important;font-size:13px!important}
+html body #dockTimer>.dockTipHelp{grid-column:3!important;grid-row:1!important}
+html body #dockTimer>.dl{grid-column:1 / -1!important;grid-row:2!important;position:static!important;inset:auto!important;transform:none!important;margin:0!important;font-size:11px!important;line-height:1.3!important;opacity:1!important}
+}
+
 /* r939: one viewport scroll surface; expanded controls stay in normal flow. */
 @layer sukun-r938-layout {
 #r920Practice[hidden]{display:none!important}
@@ -28,7 +187,28 @@
    display rule defeated the generic [hidden] reset and exposed empty fields. */
 #r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox):not([hidden]){display:block!important;margin:0!important;visibility:visible!important;pointer-events:auto!important}
 #r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)[hidden]{display:none!important}
-#r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)>summary{min-height:46px!important;padding:10px 14px!important;border-image:none!important;background:#0d2032!important;border:1px solid #c4aa714f!important;border-radius:10px!important}
+/* r974: this first important layer keeps disclosure geometry. Its old plain
+   paint covered the later gemstone skin, so plain paint now belongs to Esma. */
+#r920Practice[data-r938-layout="1"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)>summary{min-height:46px!important;padding:10px 14px!important;border-radius:10px!important}
+#r920Practice[data-r938-layout="1"]:not([data-mode="berhet"]) #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)>summary{border-image:none!important;background:#0d2032!important;border:1px solid #c4aa714f!important}
+/* Paint only: the native summary is still the sole accordion hit target.
+   The same settings summary can be reparented into the actual tools portal. */
+#r920Practice[data-r938-layout="1"][data-mode="berhet"] #r938PanelBody :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)>summary,
+html body.r754-berhet-theme #r616ToolsSheet :is(#r920JourneySettings,#r920ViewOptions,#r679ZikirAyarBox)>summary{
+ --r933-summary-art:var(--r933-gem-amethyst);--r933-summary-face:#281337;
+ border:1px solid transparent!important;
+ border-image:var(--r933-summary-art) 330 fill / 9px / 0 stretch!important;
+ background:var(--r933-summary-face)!important;color:#fff0cb!important;
+ text-shadow:0 1px 3px #020811!important;box-shadow:none!important;
+}
+#r920Practice[data-r938-layout="1"][data-mode="berhet"] #r938PanelBody #r920JourneySettings>summary,
+html body.r754-berhet-theme #r616ToolsSheet #r920JourneySettings>summary{
+ --r933-summary-art:var(--r933-gem-emerald);--r933-summary-face:#083b2c;
+}
+#r920Practice[data-r938-layout="1"][data-mode="berhet"] #r938PanelBody #r679ZikirAyarBox>summary,
+html body.r754-berhet-theme #r616ToolsSheet #r679ZikirAyarBox>summary{
+ --r933-summary-art:var(--r933-gem-sapphire);--r933-summary-face:#0a2637;
+}
 #r920Practice[data-r938-layout="1"] #r938PanelBody #r679ZikirAyarBox .r679SettingsTitle small{display:none!important}
 #r920Practice[data-r938-layout="1"] #r938PanelBody #r679ZikirAyarBox .r679SettingsTitle b{font-size:12px!important}
 #r920Practice[data-r938-layout="1"] #r938PanelBody #r920More{display:block!important;margin:0!important;visibility:visible!important;pointer-events:auto!important}
