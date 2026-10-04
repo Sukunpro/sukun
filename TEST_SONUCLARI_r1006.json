@@ -1,0 +1,53 @@
+{
+  "build": "r1006",
+  "sourceSHA256": "db1e6eead56889205b469818187f4d12eac0f3fc55a08c66ce9e2ffc7f7821af",
+  "regressionPassed": 85,
+  "regressionNotRun": 3,
+  "baselineAcceptancePassed": 14,
+  "targetedScenariosPassed": 109,
+  "targetedSuites": [
+    {
+      "file": "tests_r1006/storage/storage-r1006-results.json",
+      "scenarios": 23,
+      "status": "PASS"
+    },
+    {
+      "file": "tests_r1006/audio/confirmed-credit-results.json",
+      "scenarios": 49,
+      "status": "PASS"
+    },
+    {
+      "file": "tests_r1006/audio/intention-results.json",
+      "scenarios": 11,
+      "status": "PASS"
+    },
+    {
+      "file": "tests_r1006/offline/results.json",
+      "scenarios": 8,
+      "status": "PASS"
+    },
+    {
+      "file": "tests_r1006/ui/ui_acceptance_results.json",
+      "scenarios": 5,
+      "status": "PASS"
+    },
+    {
+      "file": "tests_r1006/review/storage_review_results.json",
+      "scenarios": 9,
+      "status": "PASS"
+    },
+    {
+      "file": "tests_r1006/review/native_review_results.json",
+      "scenarios": 4,
+      "status": "PASS"
+    }
+  ],
+  "failures": [],
+  "method": "Actual production functions with modeled DOM/media/IndexedDB/network and clocks; static integrity checks. Not native device verification.",
+  "notRun": [
+    "Three absent authentic historical source fixtures: r999/r1001/r1003",
+    "Native browser rendering and IndexedDB quota behavior",
+    "Physical Android/iOS screen lock, audible echo/8D and OS process eviction"
+  ],
+  "zipRecheck": "PASS"
+}

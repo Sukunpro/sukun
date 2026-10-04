@@ -1,0 +1,98 @@
+{
+  "build": "r1006",
+  "baseline": "r1005",
+  "findings": [
+    {
+      "id": "ST-NEW-01",
+      "severity": "P1",
+      "title": "Boş base64 içeren ses yedeği mevcut kaydı sıfır byte ile eziyor",
+      "status": "FIXED_WITH_MODELED_ACCEPTANCE",
+      "change": "Bütün girdiler yazmadan önce sıkı base64, MIME ve pozitif çözümlenmiş bayt kontrolünden geçer; boş/padding-only içerik kaydı değiştirmez."
+    },
+    {
+      "id": "ST-NEW-02",
+      "severity": "P2",
+      "title": "Ses içe aktarıcı transaction hatalarını yutup kısmi yüklemeyi başarı gibi bitiriyor",
+      "status": "FIXED_WITH_MODELED_ACCEPTANCE",
+      "change": "Bir ses parçası tek atomik REC_DB transaction ile yazılır; kota, abort veya sahiplik kaybında parça bütünü geri alınır. Hata başarı olarak bildirilmez."
+    },
+    {
+      "id": "ST-NEW-03",
+      "severity": "P2",
+      "title": "Parçalı yedekte eksik/yanlış set fark edilmiyor ve tamamlama durumu yok",
+      "status": "FIXED_WITH_MODELED_ACCEPTANCE",
+      "change": "Sürüm 2 ses yedekleri set kimliği, parça/hash manifesti ve kalıcı eksik parça takibi taşır; tamamlanma önceki parçaların mevcut baytlarını yeniden doğrular. Eski setler doğrulanmamış olarak belirtilir."
+    },
+    {
+      "id": "ST-06-RESIDUAL",
+      "severity": "P1",
+      "title": "Tam-yedek dışa aktarıcı kendi importerinin sınırlarını paylaşmıyor",
+      "status": "FIXED_WITH_MODELED_ACCEPTANCE",
+      "change": "Tam dışa aktarma ortak sayı ve boyut sınırlarını base64/indirmeden önce denetler. Büyük tam arşiv güvenle reddedilir; ayarlar-only ve parçalı ses seçenekleri sunulur. Tam arşiv yeni bir multipart biçimine çevrilmedi."
+    },
+    {
+      "id": "SW-NEW-01",
+      "severity": "P2",
+      "title": "Görsel indirme zaman aşımı isteği iptal etmiyor; yanıt gövdesi için süre sınırı yok",
+      "status": "FIXED_WITH_MODELED_ACCEPTANCE",
+      "change": "Başlık ve gövde ortak süre sınırında tüketilir; AbortController ve reader iptali slotu serbest bırakır. Geç yanıt önbelleğe yazılamaz."
+    },
+    {
+      "id": "SW-NEW-02",
+      "severity": "P3",
+      "title": "Manifestte doğrulanan gezinme PNG’lerinin gerçek CSS isteği SHA kontrolünü atlıyor",
+      "status": "FIXED_WITH_MODELED_ACCEPTANCE",
+      "change": "Zorunlu PNG adresleri optional art dalından önce hash doğrulamasına gider; CSS component sürümü canonical release dosyasına eşlenir."
+    },
+    {
+      "id": "A-NEW-01",
+      "severity": "P1",
+      "title": "Tamamlanmamış sesli tekrar doğrulanmış ilerleme olarak kalıcılaşabiliyor",
+      "status": "FIXED_WITH_MODELED_ACCEPTANCE",
+      "change": "Sesli otomatik tekrar tamamlanma tokenı doğrulanmadan Z/count/total veya kalıcı journal değiştirilmez; çift/eski/iptal/sahipliksiz callback kredi alamaz."
+    },
+    {
+      "id": "A-NEW-02",
+      "severity": "P2",
+      "title": "Yarım kalan son tekrar haftalık virdi tamamlanmış bırakıyor",
+      "status": "FIXED_WITH_MODELED_ACCEPTANCE",
+      "change": "Günlük/isim/haftalık vird muhasebesi yalnız kesinleşen krediye bağlandı; yarım son tekrar tamamlandı işareti üretmez."
+    },
+    {
+      "id": "A-NEW-03",
+      "severity": "P2",
+      "title": "Tamamlanan 28/99 seyir tekrarı günlük/isim istatistik yolunu atlıyor",
+      "status": "FIXED_WITH_MODELED_ACCEPTANCE",
+      "change": "Görünür ve native 28/99 yolları ortak günlük/isim/vird muhasebesini tamamlama ve isim geçişinden önce çağırır; duplicate native olaylar kredi tekrarlamaz."
+    },
+    {
+      "id": "A-NEW-04",
+      "severity": "P2",
+      "title": "Her devirde niyet kapalıyken resolver ikinci devirde niyeti yeniden okuyor",
+      "status": "FIXED_WITH_MODELED_ACCEPTANCE",
+      "change": "Niyet resolverı her devir tercihini kendi girişinde denetler; tercih kapalıyken ikinci devirde yeniden okumaz, yeni isimde niyet okunur."
+    },
+    {
+      "id": "UI-03",
+      "severity": "P2",
+      "title": "İngilizce arayüzde temel gezinme/araç ve erişilebilir ad çevirileri eksik kalıyor",
+      "status": "FIXED_WITH_MODELED_ACCEPTANCE",
+      "change": "Temel shell/araçlar ve dinamik ARIA şablonları İngilizce sözlüğe eklendi; özel isimler ve kullanıcının yazdığı içerik korunur."
+    },
+    {
+      "id": "UI-NEW-01",
+      "severity": "P2",
+      "title": "Yardım açıkken Ctrl+K, yardım ile genel aramayı karşılıklı inert yapıyor",
+      "status": "FIXED_WITH_MODELED_ACCEPTANCE",
+      "change": "Yardım, kayıt ve arama ortak modal otoritesi kullanır; yalnız üst pencere etkindir. Arama sonuç seçimi alt pencereleri kapatıp gerçek hedefe geçer."
+    },
+    {
+      "id": "UI-NEW-02",
+      "severity": "P3",
+      "title": "Genel arama kısayolunun tekrar çağrılması kapanış odağını kaybettiriyor",
+      "status": "FIXED_WITH_MODELED_ACCEPTANCE",
+      "change": "Tekrarlanan Ctrl/Meta+K gerçek açıcıyı değiştirmez; X/Escape/dış alan üst pencereyi kapatıp odağı geri verir; Tab tek otoriteye bağlıdır."
+    }
+  ],
+  "nativeDeviceVerification": "NOT_RUN"
+}
