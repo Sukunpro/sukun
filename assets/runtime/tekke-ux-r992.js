@@ -211,7 +211,7 @@
  window.addEventListener('tekke:opened',()=>{mount();render();});
  window.addEventListener('tekke:started',()=>{mount();render();});
  window.addEventListener('tekke:closed',render);
- window.addEventListener('languagechange',render);window.addEventListener('sukun:language',render);
+ window.addEventListener('languagechange',render);window.addEventListener('sukun:language',render);window.addEventListener('sukun:languagechange',render);
  if(window.SukunTekkeSet){window.SukunTekkeSet.subscribe(()=>{mount();render();});}
  mount();
 })();

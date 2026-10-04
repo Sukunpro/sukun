@@ -17,8 +17,8 @@
   loadNext();
  }
  const $=id=>document.getElementById(id),size=4;
- const text=(node,value)=>{value=String(value??'');if(node&&node.textContent!==value)node.textContent=value};
- const attr=(node,key,value)=>{value=String(value);if(node&&node.getAttribute(key)!==value)node.setAttribute(key,value)};
+ const text=(node,value)=>{value=String(value??'');if(window.I18N?.writeText)return window.I18N.writeText(node,value);if(node&&node.textContent!==value)node.textContent=value};
+ const attr=(node,key,value)=>{value=String(value);if(window.I18N?.writeAttr&&['title','aria-label','placeholder'].includes(key))return window.I18N.writeAttr(node,key,value);if(node&&node.getAttribute(key)!==value)node.setAttribute(key,value)};
  const engine=()=>window.SukunSceneEngine;
  const mode=()=>window.SukunSessionState?.snapshot?.().activeMode==='berhet'?'berhet':'esma';
  const catalog=()=>mode()==='berhet'?(engine()?.berhetScenes||[]):(engine()?.esmaScenes||[]).map((scene,index)=>({...scene,ordinal:index+1,name:scene.group,thumbnail:scene.lite}));

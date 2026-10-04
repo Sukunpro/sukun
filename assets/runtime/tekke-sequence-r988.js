@@ -109,7 +109,7 @@
    listen('ended',()=>{if(!alive(s))return;observe(s);update(s,'ended');cleanup(s,'ended')});
    listen('error',()=>{if(!alive(s))return;update(s,'error','media-error');cleanup(s,'media-error')});
    safe(()=>options.onAudio?.(a));safe(()=>s.onStep?.(0));
-   if('mediaSession'in navigator)safe(()=>{navigator.mediaSession.metadata=new MediaMetadata({title:options.title||'Tekke tefekkürü',artist:'SÜKÛN · Kendi kayıt',album:'Tekke'});navigator.mediaSession.playbackState=options.autoPlay===false?'paused':'playing'});
+   if('mediaSession'in navigator)safe(()=>{const translate=value=>window.I18N?.t?.(value)||value;navigator.mediaSession.metadata=new MediaMetadata({title:translate(options.title||'Tekke tefekkürü'),artist:translate('SÜKÛN · Kendi kayıt'),album:translate('Tekke')});navigator.mediaSession.playbackState=options.autoPlay===false?'paused':'playing'});
    if(options.autoPlay===false)update(s,'paused');else await play(s);return{handled:true,done};
   }catch(error){
    if(alive(s)){update(s,'error',String(error?.code||error?.message||'prepare-failed'));safe(()=>s.onError?.(error));}

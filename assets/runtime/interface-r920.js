@@ -1,6 +1,6 @@
 /* One presentation for the existing single/99/28 engines. No timer advances a count. */
 (()=>{'use strict';
-const $=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch{return d}},text=(n,v)=>{if(n&&n.textContent!==String(v))n.textContent=String(v)},attr=(n,k,v)=>{if(n&&n.getAttribute(k)!==String(v))n.setAttribute(k,String(v))};
+const $=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch{return d}},text=(n,v)=>{if(window.I18N?.writeText)return window.I18N.writeText(n,v);if(n&&n.textContent!==String(v))n.textContent=String(v)},attr=(n,k,v)=>{if(window.I18N?.writeAttr&&['title','aria-label','placeholder'].includes(k))return window.I18N.writeAttr(n,k,v);if(n&&n.getAttribute(k)!==String(v))n.setAttribute(k,String(v))};
 // r929: idle UI refreshes must not rewrite attributes under an active pointer.
 const prop=(n,k,v)=>{if(n&&n[k]!==v)n[k]=v},value=(n,v)=>{if(n&&document.activeElement!==n)prop(n,'value',String(v))};
 let root,dialog,raf=0,focusTimer=0,sourceMode='',atlasMode='',atlasIndex=0,lastSnapshot=null,completionKey='',renders=0,focusOrigin=null,focusGeneration=0;
@@ -91,7 +91,7 @@ function make(){
  $('r920Counter').onclick=()=>manual(1);$('r920Plus').onclick=()=>manual(1);$('r920Minus').onclick=()=>manual(-1);
  $('r920Play').onclick=()=>{wake();const s=snap();command(s?.phase==='PLAYING'||s?.phase==='PREPARING'?'pause':s?.phase==='PAUSED'?'resume':'start')};
  $('r959WheelPrevious').onclick=()=>{const source=$('r920Previous');if(source&&!source.disabled)source.click()};$('r959WheelNext').onclick=()=>{const source=$('r920Next');if(source&&!source.disabled)source.click()};
- $('r920Previous').onclick=()=>command('previous');$('r920Next').onclick=()=>command('next');$('r920Restart').onclick=()=>{const s=snap();if(s?.activeMode==='berhet'&&s.journeyKind!=='single'&&Number(s.count)>0&&!window.confirm('Bu zikrin sayacı sıfırlanacak. Baştan başlamak istiyor musun?'))return;command('restart')};$('r920Stop').onclick=()=>command('stop');
+ $('r920Previous').onclick=()=>command('previous');$('r920Next').onclick=()=>command('next');$('r920Restart').onclick=()=>{const s=snap();if(s?.activeMode==='berhet'&&s.journeyKind!=='single'&&Number(s.count)>0&&!window.confirm(window.I18N?.t?.('Bu zikrin sayacı sıfırlanacak. Baştan başlamak istiyor musun?')||'Bu zikrin sayacı sıfırlanacak. Baştan başlamak istiyor musun?'))return;command('restart')};$('r920Stop').onclick=()=>command('stop');
  $('r920TefEnter').onclick=()=>{wake();const summary=$('r470SessionSummary');if(summary)summary.hidden=true;window.SUKUN_TEFEKKUR?.enter?.();queue();setTimeout(()=>$('r938PanelToggle')?.focus({preventScroll:true}),100)};
  $('r920TefExit').onclick=()=>{window.SUKUN_TEFEKKUR?.exit?.();wake();queue()};
  $('r920NameInfo').onclick=()=>{safe(()=>$('r611CurrentZikirName')?.click());wake()};

@@ -36,8 +36,8 @@ const choiceFor=mode=>{const stored=safe(()=>localStorage.getItem(storageKey(mod
 const choices={berhet:choiceFor('berhet'),esma:choiceFor('esma')};
 let host=null,mode='',key='',generation=0,cancel=null,pending=false,resolved=null,status='idle',fallback=0,requests=0,geometryItem=null,geometryObserver=null,measuredWidth=0;
 const $=id=>host?.querySelector('#'+id)||null;
-const setText=(node,value)=>{if(node&&node.textContent!==value)node.textContent=value};
-const setAttr=(node,name,value)=>{if(node&&node.getAttribute(name)!==String(value))node.setAttribute(name,String(value))};
+const setText=(node,value)=>{if(window.I18N?.writeText)return window.I18N.writeText(node,value);if(node&&node.textContent!==value)node.textContent=value};
+const setAttr=(node,name,value)=>{if(window.I18N?.writeAttr&&['title','aria-label','placeholder'].includes(name))return window.I18N.writeAttr(node,name,value);if(node&&node.getAttribute(name)!==String(value))node.setAttribute(name,String(value))};
 const setHidden=(node,value)=>{if(node&&node.hidden!==value)node.hidden=value};
 const current=()=>catalog[mode]?.find(item=>item.id===choices[mode]);
 function syncStatus(){
@@ -203,8 +203,8 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
    No playback clock, counter state or independent action handler lives here. */
 (()=>{'use strict';
  const $=id=>document.getElementById(id);
- const text=(node,value)=>{if(node&&node.textContent!==String(value))node.textContent=String(value)};
- const attr=(node,key,value)=>{if(node&&node.getAttribute(key)!==String(value))node.setAttribute(key,String(value))};
+ const text=(node,value)=>{if(window.I18N?.writeText)return window.I18N.writeText(node,value);if(node&&node.textContent!==String(value))node.textContent=String(value)};
+ const attr=(node,key,value)=>{if(window.I18N?.writeAttr&&['title','aria-label','placeholder'].includes(key))return window.I18N.writeAttr(node,key,value);if(node&&node.getAttribute(key)!==String(value))node.setAttribute(key,String(value))};
  let host=null,box=null,openKind='',optionKey='',lastMode='';
  const sources={minus:'r920Minus',play:'r920Play',plus:'r920Plus',stop:'r920Stop'};
  const activeMode=()=>(window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.())?.activeMode==='berhet'?'berhet':'esma';

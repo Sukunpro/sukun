@@ -278,7 +278,7 @@
  window.addEventListener('visibilitychange',persistProgress);
  window.addEventListener('storage',e=>{if(e.key===CHECKPOINT_KEY&&!run){checkpoint=safe(()=>JSON.parse(e.newValue));publish();}});
  window.addEventListener('tekke:opened',()=>{mount();paint();});
- window.addEventListener('languagechange',paint);window.addEventListener('sukun:language',paint);
+ window.addEventListener('languagechange',paint);window.addEventListener('sukun:language',paint);window.addEventListener('sukun:languagechange',paint);
  if(typeof MutationObserver!=='undefined'){
   const observer=new MutationObserver(paint);observer.observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
   observer.observe(document.body,{attributes:true,attributeFilter:['class']});
