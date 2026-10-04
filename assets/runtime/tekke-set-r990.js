@@ -15,11 +15,11 @@
  function validCheckpoint(){const c=checkpoint,set=catalog?.[c?.key];return c?.schema===1&&set&&c.signature===signature(set)&&Number.isInteger(c.index)&&c.index>=0&&c.index<set.adimlar.length&&Number.isFinite(c.elapsed)&&c.elapsed>=0&&c.elapsed<604800&&(!c.completed||Array.isArray(c.completed)&&c.completed.every(i=>Number.isInteger(i)&&i>=0&&i<set.adimlar.length))?{...c,title:set.ad,total:set.adimlar.length}:null;}
  function elapsed(s){return s?Math.max(0,s.elapsed+(s.clockAt==null?0:(performance.now()-s.clockAt)/1000)):last.elapsed||0;}
  function accrue(s){s.elapsed=elapsed(s);s.clockAt=null;}
- function persistProgress(){const s=run;if(!s)return;
+ function persistProgress(){const s=run;if(!s||!s.owned||s.claimPending||window.SukunTabOwner?.owns?.()===false)return;
   checkpoint={schema:1,key:s.key,signature:signature(s.set),index:s.index,completed:[...s.completed],elapsed:elapsed(s),updated:Date.now()};
   safe(()=>options.persist?.(CHECKPOINT_KEY,checkpoint));
  }
- function clearCheckpoint(){checkpoint=null;safe(()=>options.persist?.(CHECKPOINT_KEY,null));}
+ function clearCheckpoint(){if(window.SukunTabOwner?.canPersist?.(CHECKPOINT_KEY)===false)return;checkpoint=null;safe(()=>options.persist?.(CHECKPOINT_KEY,null));}
  function clock(s,phase){if(s.clockAt!=null)accrue(s);if(phase==='playing')s.clockAt=performance.now();}
  function progressTimer(on){if(saveTimer!=null){clearInterval(saveTimer);saveTimer=null;}if(on&&typeof setInterval==='function')saveTimer=setInterval(persistProgress,5000);}
  
@@ -113,12 +113,14 @@
   // itself never starts audio.
   setVisible(true);
   const offset=Math.max(0,Math.min(catalog[key].adimlar.length-1,Number.isInteger(startOptions.index)?startOptions.index:0));
-  stop('replace');const s=run={key,set:catalog[key],generation,index:offset,offset,elapsed:Math.max(0,Number(startOptions.elapsed)||0),clockAt:null,completed:new Set(Array.isArray(startOptions.completed)?startOptions.completed.filter(i=>Number.isInteger(i)&&i>=0&&i<catalog[key].adimlar.length):Array.from({length:offset},(_,i)=>i)),task:null,gap:null,gate:null,native:false};progressTimer(true);
+  stop('replace');const s=run={key,set:catalog[key],generation,index:offset,offset,elapsed:Math.max(0,Number(startOptions.elapsed)||0),clockAt:null,completed:new Set(Array.isArray(startOptions.completed)?startOptions.completed.filter(i=>Number.isInteger(i)&&i>=0&&i<catalog[key].adimlar.length):Array.from({length:offset},(_,i)=>i)),task:null,gap:null,gate:null,native:false,owned:false};
   const settings=options.settings?.()||{};
   last={phase:'preparing',key,title:s.set.ad,index:offset,total:s.set.adimlar.length,source:'',stage:'',reason:'',elapsed:s.elapsed,completed:s.completed.size};persistProgress();publish();
   // Prime the audio context on the actual tap, before ownership/DB awaits.
   safe(()=>options.prime?.());
   const playSet=async()=>{
+  if(!active(s)||window.SukunTabOwner?.owns?.()===false)return false;
+  s.owned=true;persistProgress();progressTimer(true);
   const blobs=[];
   try{
    for(let i=0;i<s.set.adimlar.length;i++){
@@ -179,7 +181,7 @@
   if(s.native)return window.SukunTekkeSequence.resume();
   state(s,'playing',{reason:''});s.gate?.();s.gap?.resume?.();await s.task?.resume?.();return active(s)&&last.phase==='playing';
  }
- function discardCheckpoint(){clearCheckpoint();publish();}
+ function discardCheckpoint(){const owner=window.SukunTabOwner;if(owner?.owns?.()===false)return owner.run('tekke-checkpoint-discard',()=>{clearCheckpoint();publish();return true;},{releaseAfter:true});clearCheckpoint();publish();return true;}
  function recover(){const c=validCheckpoint();if(!c)return false;select(c.key);return window.Tekke?.hazirla?.()?.startSet?.(c.key,{index:c.index,elapsed:c.elapsed,completed:c.completed});}
  function jump(index){const s=run;if(!s||!['playing','paused'].includes(last.phase)||!Number.isInteger(index)||index<0||index>=s.set.adimlar.length||window.SukunTabOwner?.owns?.()===false||options.canPlay?.()===false)return false;
   const paused=last.phase==='paused';

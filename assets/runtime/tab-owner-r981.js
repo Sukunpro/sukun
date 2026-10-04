@@ -8,7 +8,7 @@
   if (window.SukunTabOwner?.version === 'r981') return;
   const LOCK='sukun.dhikr.owner.r981', MIRROR='sukun.tab.owner.r981', DB='sukun-tab-owner-r981';
   const id=globalThis.crypto?.randomUUID?.() || Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
-  const protectedKeys=new Set(['sukun.total','sukun.dayZk','sukun.esmaCount','sukun.session.r470',
+  const protectedKeys=new Set(['tekke.journey.checkpoint','sukun.total','sukun.dayZk','sukun.esmaCount','sukun.session.r470',
     'sukun.berhet.seyir.state','sukun.esma99.seyir.state','sukun.resume.policy.v1','sukun.lifecycle.checkpoint','sukun.session.player.v2','sukun.progress.journal.v1']);
   const safe=(fn,d=null)=>{try{return fn()??d;}catch(_){return d;}};
   let held=false, method=navigator.locks?.request?'web-locks':'indexeddb', releaseLock=null, acquirePromise=null;

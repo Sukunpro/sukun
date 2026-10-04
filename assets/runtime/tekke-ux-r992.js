@@ -45,7 +45,7 @@
   for(const sec of all('#panel > .pSec')){
    sec.dataset.tkGroup=sec.querySelector('#imgRecList, #imgeRow')?'recordings':sec.querySelector('#tkTemaRow')?'appearance':sec.querySelector('#rehberTgl, #bpmSld, #vNey')?'sounds':'session';
    // Existing collapsible headers remain keyboard reachable.
-   const heading=sec.querySelector('.pT');if(heading){heading.tabIndex=0;heading.setAttribute('role','button');heading.setAttribute('aria-expanded',String(!sec.classList.contains('kapali')));heading.addEventListener('click',()=>heading.setAttribute('aria-expanded',String(!sec.classList.contains('kapali'))));heading.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();heading.click();}});}
+   const heading=sec.querySelector('.pT');if(heading){heading.tabIndex=0;heading.setAttribute('role','button');heading.setAttribute('aria-expanded',String(!sec.classList.contains('kapali')));const syncExpanded=()=>heading.setAttribute('aria-expanded',String(!sec.classList.contains('kapali')));syncExpanded();if(typeof MutationObserver!=='undefined')new MutationObserver(syncExpanded).observe(sec,{attributes:true,attributeFilter:['class']});heading.addEventListener('click',()=>Promise.resolve().then(syncExpanded));heading.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();heading.click();}});}
   }
   tabs.after(sound);
   const body=document.createElement('div');body.id='r992PanelBody';body.setAttribute('role','tabpanel');body.tabIndex=0;sound.before(body);for(const sec of all('#panel > .pSec'))body.append(sec);
