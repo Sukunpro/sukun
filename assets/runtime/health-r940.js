@@ -48,6 +48,7 @@
     return out;
   }
   function numeric(obj, fields) { const out = {}; for (const key of fields) out[key] = finite(obj?.[key]); return out; }
+  function nullableNumeric(obj, fields) { const out = {}; for (const key of fields) { const value=obj?.[key]; out[key]=typeof value==='number'&&Number.isFinite(value)?value:null; } return out; }
   function compactSession(s) {
     if (!s || typeof s !== 'object') return null;
     return { phase: token(s.phase), mode: token(s.activeMode), index: finite(s.activeIndex), count: finite(s.count),
@@ -528,7 +529,7 @@
     if (timing) latency = {version:token(timing.version),timeBase:'navigation-start-ms',eventThresholdMs:40,supported:{eventTiming:bool(timing.supported?.eventTiming),loaf:bool(timing.supported?.loaf)},notINP:true,
       ...numeric(timing,['measuredInteractions','measuredFrames','ignoredDiagnostics']),
       interactions:(Array.isArray(timing.interactions)?timing.interactions:[]).slice(-24).map(x=>({at:finite(x.at),kind:token(x.kind),target:token(x.target,120),...numeric(x,['durationMs','inputDelayMs','handlerMs','presentationDelayMs'])})),
-      frames:(Array.isArray(timing.frames)?timing.frames:[]).slice(-16).map(x=>({at:finite(x.at),...numeric(x,['durationMs','blockingMs']),scripts:(Array.isArray(x.scripts)?x.scripts:[]).slice(-5).map(s=>({source:s.source?path(s.source):null,charOffset:Number.isFinite(s.charOffset)?s.charOffset:null,function:token(s.function),...numeric(s,['durationMs','forcedLayoutMs'])}))}))};
+      frames:(Array.isArray(timing.frames)?timing.frames:[]).slice(-16).map(x=>({at:finite(x.at),...numeric(x,['durationMs','blockingMs']),...nullableNumeric(x,['renderStartMs','styleAndLayoutStartMs','renderDurationMs','scriptCount','retainedScriptCount']),scripts:(Array.isArray(x.scripts)?x.scripts:[]).slice(-5).map(s=>({source:s.source?path(s.source):null,charOffset:Number.isFinite(s.charOffset)?s.charOffset:null,function:token(s.function),...numeric(s,['durationMs','forcedLayoutMs'])}))}))};
     sampleLock();
     const bridge = safe(() => window.SukunNativeEchoBridge?.snapshot?.());
     if (bridge) fx = { version: token(bridge.effectsVersion), ...numeric(bridge,['cacheBytes','cache','rendering','pending','active','attached','renderBudgetBytes','sourceBudgetBytes']),

@@ -11,7 +11,7 @@
   const cancel=error=>{try{ctl.abort(error)}catch(_){}try{const target=reader,work=target?target.cancel(error):response?.body?.cancel(error);work?.catch(()=>{}).finally(()=>{try{target?.releaseLock()}catch(_){}})}catch(_){}};
   const finish=(fn,value)=>{if(settled)return;settled=true;clearTimeout(timer);fn(value)};
   const timer=setTimeout(()=>{const error=new DOMException('Offline image timeout','TimeoutError');cancel(error);finish(reject,error)},10000);
-  Promise.resolve().then(async()=>{if(settled)return;response=await fetch(path+'?v=r1006',{signal:ctl.signal});if(settled){cancel(ctl.signal.reason);return}
+  Promise.resolve().then(async()=>{if(settled)return;response=await fetch(path+'?v=r1007',{signal:ctl.signal});if(settled){cancel(ctl.signal.reason);return}
    if(!response.ok||!/^image\//i.test(response.headers.get('content-type')||''))throw Error('image');
    if(response.body){reader=response.body.getReader();for(;;){const part=await reader.read();if(settled)return;if(part.done)break}reader.releaseLock();reader=null}
    finish(resolve);

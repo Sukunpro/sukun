@@ -234,7 +234,7 @@ queue();
  let measuredInteractions=0,measuredFrames=0,ignoredDiagnostics=0;
  const round=value=>Math.max(0,Math.round((Number(value)||0)*10)/10);
  const controls=new Set(('r959WheelPrevious r959WheelNext r920Play r920Stop r920Plus r920Minus r920Counter r920Previous r920Next r920Restart r920TefEnter r920TefExit r920More r920AtlasOpen r920AtlasClose r920AtlasChoose r920NameInfo r920ModeEsma r920ModeBerhet r920JourneyMode r920RepeatMode r920RepeatCustom r920RepeatGap r920NameSelect r920WheelSelect r920SceneSelect r920Performance r920Focus r925WheelMotion r923EsmaSceneSelect r923SceneRetry r932EasyPlay r932EasyStop r932EasyPlus r932EasyMinus r932WheelControls r938PanelToggle r679ZikirAyarBox r920ViewOptions r920JourneySettings optTick optVib optMean optAdv optSpeak arTgl tempoSld r829Tempo csTempo r922VoiceMode r922RecordVoice itemRecBtn spkOnce spkLoop niyetBtn favBtn helpBtn r588Play r588Pause r588Stop r588Prev r588Next r588Reset r588Hide r588Details r633DockGrip').split(' '));
- const sourceFiles=new Set(['index.html','nero.html','interface-r920.js','session-r919.js','dock-r920.js','wheels-r924.js','berhet-layout-r938.js','berhet-theme-r933.js','health-r940.js','health-view-r943.js','esma-scenes-r923.js']);
+ const sourceFiles=new Set(['index.html','nero.html','interface-r920.js','session-r919.js','dock-r920.js','wheels-r924.js','berhet-layout-r938.js','berhet-theme-r933.js','health-r940.js','health-view-r943.js','esma-scenes-r923.js','audio-cpu-r981.js','audio-preparation-r981.js','studio-preparation-r982.js','progress-journal-r982.js','tab-owner-r981.js','background-owner-r949.js','lifecycle-r949.js','audio-palette-r945.js','scene-picker-r945.js','presentation-r979.js','nefs-data-r948.js','nefs-model-r948.js','nefs-ui-r948.js','offline-scenes-r962.js','cadence-r981.js','tekke-sequence-r988.js','tekke-set-r990.js','tekke-ux-r992.js','tekke-journey-r993.js']);
  const diagnosticSelector='#r455Diag,#prDiagOverlay,#r940Health,#r940HealthDialog';
  const name=node=>{let p=node;for(let i=0;p&&i<6;i++,p=p.parentElement)if(controls.has(p.id))return '#'+p.id;const tag=String(node?.tagName||'').toLowerCase();return ['button','input','select','summary','a','textarea'].includes(tag)?tag:'other'};
  const diagnostic=(entry,target)=>!!(target?.closest?.(diagnosticSelector)||window.SukunDiagnosticWork?.owns?.(entry));
@@ -243,6 +243,18 @@ queue();
   const file=source(script.sourceURL);if(!file)return null;
   const fn=String(script.sourceFunctionName||'');
   return{source:file,charOffset:Number.isInteger(script.sourceCharPosition)&&script.sourceCharPosition>=0?script.sourceCharPosition:null,function:/^[A-Za-z_$][\w$]{0,79}$/.test(fn)?fn:'',durationMs:round(script.duration),forcedLayoutMs:round(script.forcedStyleAndLayoutDuration)};
+ }
+ // Navigation-start milliseconds. Zero denotes no rendering phase in LoAF;
+ // keep absent/inconsistent phases unknown rather than inferring a duration.
+ // renderDurationMs covers rendering update callbacks and style/layout, not
+ // time until physical pixels are presented or a separate paint measurement.
+ function framePhases(e){
+  const start=e.startTime,duration=e.duration,end=start+duration;
+  const validFrame=typeof start==='number'&&Number.isFinite(start)&&start>=0&&typeof duration==='number'&&Number.isFinite(duration)&&duration>=0&&Number.isFinite(end);
+  const phase=at=>validFrame&&typeof at==='number'&&Number.isFinite(at)&&at>0&&at>=start&&at<=end?at:null;
+  const phaseRound=value=>{const rounded=round(value);return Number.isFinite(rounded)?rounded:value};
+  const render=phase(e.renderStart),style=phase(e.styleAndLayoutStart);
+  return{renderStartMs:render===null?null:phaseRound(render),styleAndLayoutStartMs:render!==null&&style!==null&&style>=render?phaseRound(style):null,renderDurationMs:render===null?null:phaseRound(end-render)};
  }
  function keep(list,item,max){list.push(item);if(list.length>max)list.splice(0,list.length-max)}
  function observe(type,options,handle,key){
@@ -257,8 +269,8 @@ queue();
  observe('long-animation-frame',{},entries=>{for(const e of entries){
   if(diagnostic(e)){ignoredDiagnostics++;continue;}
   measuredFrames++;
-  const scripts=Array.from(e.scripts||[]).map(scriptEvidence).filter(Boolean).sort((a,b)=>b.durationMs-a.durationMs).slice(0,4);
-  keep(frames,{at:round(e.startTime),durationMs:round(e.duration),blockingMs:round(e.blockingDuration),scripts},limit.frames);
+  const rawScripts=Array.from(e.scripts||[]),scripts=rawScripts.map(scriptEvidence).filter(Boolean).sort((a,b)=>b.durationMs-a.durationMs).slice(0,4);
+  keep(frames,{at:round(e.startTime),durationMs:round(e.duration),blockingMs:round(e.blockingDuration),...framePhases(e),scriptCount:rawScripts.length,retainedScriptCount:scripts.length,scripts},limit.frames);
  }},'loaf');
  window.SukunInteractionDiagnostics=Object.freeze({version:'r944',snapshot:()=>({version:'r944',supported:{...supported},interactions:interactions.map(e=>({...e})),frames:frames.map(e=>({...e,scripts:e.scripts.map(s=>({...s}))})),measuredInteractions,measuredFrames,ignoredDiagnostics,retention:{...limit},timeBase:'navigation-start-ms',eventThresholdMs:40,notINP:true,privacy:'known-control-ids-known-file-names-no-text-no-url-query',scope:'browser-observed-slow-samples'})});
 })();
