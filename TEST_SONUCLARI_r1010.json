@@ -1,0 +1,104 @@
+{
+  "build": "r1010",
+  "status": "PASS",
+  "HTMLsha256": "d27caa2fdb9b971ac377368cfcb4aa23c0f6c49147b697cf4b679bd9709dabcc",
+  "behaviorScenarios": 313,
+  "suites": [
+    {
+      "suite": "legacy",
+      "status": "PASS",
+      "scenarios": 131,
+      "method": "Actual production functions with controlled media, DOM, storage and clocks"
+    },
+    {
+      "suite": "voice-policy",
+      "status": "PASS",
+      "scenarios": 12,
+      "method": "Actual start/scheduler/rep bodies; controlled completion events"
+    },
+    {
+      "suite": "section-lifecycle",
+      "status": "PASS",
+      "scenarios": 21,
+      "method": "Shipped UI entry/layout with connected DOM and delivered mutation queues; classic, classic/Feyz, simple"
+    },
+    {
+      "suite": "cached-evidence",
+      "status": "PASS",
+      "scenarios": 21,
+      "method": "Entire production collector; passive cached evidence and export"
+    },
+    {
+      "suite": "health-presentation",
+      "status": "PASS",
+      "scenarios": 11,
+      "method": "Production collector/presenter with controlled lifecycle and privacy fixtures"
+    },
+    {
+      "suite": "health-view",
+      "status": "PASS",
+      "scenarios": 40,
+      "method": "Production collector/presenter, TR/EN voice reasons and bounded integrity flow"
+    },
+    {
+      "suite": "reader-handoff",
+      "status": "PASS",
+      "scenarios": 1,
+      "method": "Actual native start, actual reader start/stop and fresh native lease; controlled media APIs"
+    },
+    {
+      "suite": "preparation",
+      "status": "PASS",
+      "scenarios": 13,
+      "method": "Actual cold Prime, preparation runtime, CPU, own recording resolver, foreground and confirmed-credit ledger; controlled browser endpoints and timers"
+    },
+    {
+      "suite": "preparation-runtime",
+      "status": "PASS",
+      "scenarios": 9,
+      "method": "Actual preparation runtime and PCM generation with real WAV and controlled native decode and Worker leaves"
+    },
+    {
+      "suite": "hidden-start",
+      "status": "PASS",
+      "scenarios": 8,
+      "method": "Actual native start, hidden scheduler and checked settle gate with controlled media rejection and ownership changes"
+    },
+    {
+      "suite": "recording-source-priority",
+      "status": "PASS",
+      "scenarios": 14,
+      "method": "Actual recording preference, source selection and rep bodies; controlled IndexedDB and browser media leaves"
+    },
+    {
+      "suite": "automatic-recording-priority",
+      "status": "PASS",
+      "scenarios": 6,
+      "method": "Actual automatic Start, preparation deadline, original recording fallback and confirmed-credit guards; controlled browser media leaves"
+    },
+    {
+      "suite": "recording-lookup",
+      "status": "PASS",
+      "scenarios": 18,
+      "method": "Actual shared recording candidate lookup; bounded IndexedDB discovery, preferred modes, cancellation and revision fences"
+    },
+    {
+      "suite": "native-recording-priority",
+      "status": "PASS",
+      "scenarios": 8,
+      "method": "Actual automatic native preparation with recorded aliases, fallback, TTS after confirmed absence, source revision and canceled lookup"
+    }
+  ],
+  "releaseVerification": {
+    "passed": 149,
+    "failed": 0,
+    "required_runtime": 44,
+    "parsed_javascript": 272
+  },
+  "limits": [
+    "No physical Android microphone, audible playback, OS screen-lock or on-device scrolling measurement.",
+    "Skin checks cover DOM ownership and lifecycle; they do not measure rendered CSS or phone frame times.",
+    "The attached r1007 reports do not contain marker-time input latency measurements."
+  ],
+  "failures": []
+}
