@@ -38,8 +38,11 @@
   }
   const historicKeys = new Set('at seq kind code severity title certainty firstAt lastAt occurrences eventSeq context evidence hidden session tempo truth sw lock phase mode index count target epoch requestId journey owner source reason tefekkur dualJourney audioIssues state tangible pending life hub issues app controller waiting hasController complete error value previous cancelledGestures pendingGesture active playing frozen cycleMs mediaProgressMs lastProgressAgeMs stalls overshootCycles applied name file line column frames asset tag lagMs thresholdMs elapsedMs checkpointAt scope build online previousCheckpoint bytes lastEvent measuredAt snapshot issueType markerSeq type phaseMs rep limit cycles remaining delay wraps remainMs provider model http durationMs background outcome errorName stage path sourceKind paused ended readyState networkState mediaErrorCode eligible generationCurrent scope transition disposition singleSnapshot singleMeasuredAt snapshotPath preparing browserLifecycle wasDiscarded navigationType previous previousExit crashConfirmed pagehide persisted mediaPlaying mediaTime errorCode errorHttp errorStage errorAsset lastChange presentation version checks recoveries lastReason lastAt lastProbe lastRepair actions tef selectedTab viewportWidth viewportHeight scrollX scrollY frameObserved frameDelayMs domSurfaceVisible openingActive openingPresent lifecycleHidden bodyFlags roots wrap tab practice nav connected display visibility opacity width height inViewport blocker'.split(' '));
   ['voiceExpectation','voiceEnabled','intendedAudible','togetherEnabled','readerActive','voiceIntent','enabled','latched','explicitOff','actualSessionSource','sessionPhase'].forEach(key=>historicKeys.add(key));
+  ['recordingPreparation','recording','audio','ageMs','stageAgeMs','originalReady','foregroundBudgetMs','decodeBlocked','budgetBytes','sourceBudgetBytes','residentBytes','activeEstimate','worker','decodeStarts','timedOut','maxConcurrent','purpose'].forEach(key=>historicKeys.add(key));
   function historic(value, depth = 0) {
-    if (depth > 5 || value == null) return null;
+    // Marker context contains one nested pair of cached preparation owners.
+    // The field allowlist and checkpoint byte cap still bound retained data.
+    if (depth > 6 || value == null) return null;
     if (typeof value === 'boolean') return value;
     if (typeof value === 'number') return Number.isFinite(value) ? value : null;
     if (typeof value === 'string') return token(value,200);
@@ -131,6 +134,14 @@
       voiceIntent:choice&&typeof choice==='object'?{enabled:knownBool(choice.enabled),latched:knownBool(choice.latched),explicitOff:knownBool(choice.explicitOff)}:null,
       actualSessionSource:session?.source||'',sessionPhase:session?.phase||'',scope:'configured-policy-not-physical-sound'};
   }
+  function recordingPreparationSnapshot() {
+    const recording=safe(()=>window.SukunRecordingPreparation?.snapshot?.()),audio=safe(()=>window.SukunAudioPreparation?.snapshot?.());
+    if(!recording&&!audio)return null;
+    // Only cached control metadata. No recording key, source URL, text, decode,
+    // playback, DOM probe, timer, or analysis is requested by report reads.
+    return {recording:recording?{version:token(recording.version),pending:bool(recording.pending),stage:token(recording.stage),originalReady:bool(recording.originalReady),...numeric(recording,['ageMs','stageAgeMs','foregroundBudgetMs'])}:null,
+      audio:audio?{version:token(audio.version),stage:token(audio.stage),decodeBlocked:bool(audio.decodeBlocked),worker:token(audio.worker),...numeric(audio,['pending','active','stageAgeMs','budgetBytes','sourceBudgetBytes','residentBytes','activeEstimate','decodeStarts','timedOut','cancelled','maxConcurrent'])}:null};
+  }
   function cachedTapSnapshot() {
     const tap=safe(()=>window.SukunR688TapAuthority?.snapshot?.());
     if(!tap || typeof tap!=='object')return null;
@@ -147,7 +158,7 @@
       interactions:(Array.isArray(timing.interactions)?timing.interactions:[]).slice(-24).map(x=>({at:finite(x.at),kind:token(x.kind),target:token(x.target,120),...numeric(x,['durationMs','inputDelayMs','handlerMs','presentationDelayMs'])})),
       frames:(Array.isArray(timing.frames)?timing.frames:[]).slice(-16).map(x=>({at:finite(x.at),...numeric(x,['durationMs','blockingMs']),...nullableNumeric(x,['renderStartMs','styleAndLayoutStartMs','renderDurationMs','scriptCount','retainedScriptCount']),scripts:(Array.isArray(x.scripts)?x.scripts:[]).slice(-5).map(s=>({source:s.source?path(s.source):null,charOffset:Number.isFinite(s.charOffset)?s.charOffset:null,function:token(s.function),...numeric(s,['durationMs','forcedLayoutMs'])}))}))};
   }
-  function evidenceContext(voiceExpectation=voiceExpectationSnapshot()) { return { hidden: document.hidden, session, tempo, truth, sw, lock, background, voiceExpectation, browserLifecycle: compactLifecycle(), presentation:presentationSnapshot() }; }
+  function evidenceContext(voiceExpectation=voiceExpectationSnapshot(),recordingPreparation=recordingPreparationSnapshot()) { return { hidden: document.hidden, session, tempo, truth, sw, lock, background, voiceExpectation, recordingPreparation, browserLifecycle: compactLifecycle(), presentation:presentationSnapshot() }; }
   function record(kind, evidence = {}) {
     const row = { seq: ++seq, at: now(), kind: token(kind), evidence };
     events.push(row); if (events.length > MAX_EVENTS) { events.shift(); droppedEvents++; }
@@ -345,7 +356,7 @@
       } finally {safe(()=>window.SukunDiagnosticWork?.end?.(span,500));}
     }).finally(()=>{modelPromise=null;});return modelPromise;
   }
-  function currentChecks(cachedInput={},voiceExpectation=null) {
+  function currentChecks(cachedInput={},voiceExpectation=null,recordingPreparation=null) {
     const inputTap=cachedInput.taps??taps, inputLatency=cachedInput.latency??latency;
     const out = [status('BUILD', /^r\d+$/.test(build) ? 'PASS' : 'WARN', 'Uygulama sürümü', { build }),
       status('SW_IDENTITY', !sw?.hasController ? 'NOT_MEASURED' : !sw.controller ? 'NOT_MEASURED' : sw.controller === build ? 'PASS' : 'FAIL',
@@ -358,6 +369,8 @@
       status('PERSISTENCE', storageError ? 'WARN' : lastSaved ? 'PASS' : 'NOT_MEASURED', 'Son durum kaydı', { lastSaved, error: storageError, trimmedRecords:checkpointTrimmed })];
     if(sw)out.push(status('SW_OPERATION',sw.error || sw.phase==='error'?'WARN':'OBSERVED','Çevrimdışı motorun son işlemi',sw,
       sw.error || sw.phase==='error'?'Çevrimdışı motorun bir işlemi tamamlanamadı. Sayfa ve çalışan sürüm eşleşiyorsa ve temel dosyalar tamamsa bu, mevcut önbelleğin bozuk olduğunu göstermez. Bağlantı uygun olduğunda güncelleme denetimini yeniden deneyin; kayıtlarınızı silmeyin.':''));
+    if(recordingPreparation)out.push(status('AUDIO_PREPARATION',recordingPreparation.audio?.decodeBlocked?'WARN':'OBSERVED','Kendi kayıt hazırlığı',recordingPreparation,
+      'Hazırlık aşaması ve bekleyen ses çözümlemesi gözlenir. Ekran açıkken efekt hazırlığı uzarsa özgün kayıt kullanılır; bu rapor duyulan sesi ölçmez.'));
     const presentation=presentationSnapshot();
     if(presentation)out.push(status('PRESENTATION',presentation.state==='attention'?'WARN':'OBSERVED','Ekrana dönüş gözlemi',presentation,
       'Bu gözlem DOM görünürlüğü ve çizim çağrısı içindir; ekrandaki gerçek pikselleri ölçmez. Siyah ekran sürerse raporu saklayın.'));
@@ -407,15 +420,15 @@
   function read() {
     // Both snapshot APIs return existing bounded buffers; this does not start
     // observers, collect a new timing sample, scan layout, or change playback.
-    const cachedInput={taps:cachedTapSnapshot(),latency:cachedLatencySnapshot()}, voiceExpectation=voiceExpectationSnapshot();
-    const result = currentChecks(cachedInput,voiceExpectation);
+    const cachedInput={taps:cachedTapSnapshot(),latency:cachedLatencySnapshot()}, voiceExpectation=voiceExpectationSnapshot(),recordingPreparation=recordingPreparationSnapshot();
+    const result = currentChecks(cachedInput,voiceExpectation,recordingPreparation);
     return { schema: SCHEMA, version: VERSION, build, generatedAt: new Date().toISOString(), boot,
       coverage: { since: born, events: events.length, discardedEvents: droppedEvents, incidentLimit: MAX_ISSUES,
         discardedIncidents: droppedIncidents, hiddenSampling: 'event-only-no-poll', physicalLockScreenTest: deviceCheck && deviceCheck.responses.lockedSound !== 'NOT_TRIED' ? 'USER_REPORTED' : 'NOT_RUN',
         privacy: 'metadata-only-no-recording-no-text-no-url-query', previousScope },
       summary: { currentFailures: result.filter(x => x.status === 'FAIL').length, currentWarnings: result.filter(x => x.status === 'WARN').length,
         unmeasured: result.filter(x => x.status === 'NOT_MEASURED').length, recordedIncidents: incidents.length },
-      current: copy(evidenceContext(voiceExpectation)), checks: copy(result), deviceCheck:copy(deviceCheck), modelCheck:copy(modelCheck),
+      current: copy(evidenceContext(voiceExpectation,recordingPreparation)), checks: copy(result), deviceCheck:copy(deviceCheck), modelCheck:copy(modelCheck),
       flowObservation:compactFlowObservation(),
       incidents: copy(incidents), timeline: copy(events), previous: copy(previous), lastRun: copy(lastRun) };
   }
@@ -725,6 +738,12 @@
     issue('QUALITY_DECODE_FAILED','WARN','Ses kalite analizi tamamlanamadı',data,'Kaydın dosya biçimini ve bozuk/eksik olup olmadığını kontrol edin. Analiz motoru kapanışı ve kaynak hata satırını bu raporla eşleştirin.');
   }, {passive:true});
   window.addEventListener('sukun:diagnostic', passiveDiagnostic, {passive:true});
+  window.addEventListener('sukun:recordingstartup', e => {
+    const d=e.detail||{};record('recording-startup',{phase:token(d.phase),code:token(d.code),stage:token(d.stage),hidden:document.hidden});
+  }, {passive:true});
+  window.addEventListener('sukun:audio-preparation', e => {
+    const d=e.detail||{};record('audio-preparation',{code:token(d.code),purpose:token(d.purpose),at:finite(d.at),hidden:document.hidden});
+  }, {passive:true});
   window.addEventListener('error', errorEvent, true);
   window.addEventListener('unhandledrejection', rejection, {passive:true});
   document.addEventListener('visibilitychange', () => lifecycle('visibilitychange'), {passive:true});
