@@ -521,10 +521,11 @@
           try {url=new URL(entry?.url,location.href);}catch(_) {result.push({path:'[invalid]',status:'INVALID_ENTRY'});continue;}
           const runtime=/\/assets\/runtime\/[A-Za-z0-9_.-]+$/.test(url.pathname);
           const navigationArt=/\/assets\/wheel-navigation-r964\/(?:gold|copper|silver|dark|crystal)\.png$/.test(url.pathname);
-          if (url.origin!==location.origin||!(runtime||navigationArt)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
+          const cabirArt=/\/assets\/scenes\/tekke-r1014\/berhet-billur\.webp$/.test(url.pathname);
+          if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;
           }
-          const maxFileBytes=navigationArt?2097152:524288;let allowance=0;
+          const maxFileBytes=navigationArt||cabirArt?2097152:524288;let allowance=0;
           try {
             allowance=await reserveBytes(maxFileBytes);
             let data;

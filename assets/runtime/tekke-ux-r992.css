@@ -38,7 +38,7 @@ html body #tk[data-tk-ux="r992"]:not([data-tk-purpose="set"]) #r990TekkeSetCard{
 #tk[data-tk-ux="r992"] .r992Transport{position:absolute;bottom:0;left:0;right:0;z-index:90;padding:16px max(16px,calc((100vw - 600px)/2)) calc(12px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#062732ed,#051b25);border-top:1px solid #d9be8388;border-radius:28px 28px 0 0;color:var(--tkux-ink);touch-action:pan-y}
 #tk[data-tk-ux="r992"] .r992TransportTitle{text-align:center;font-size:13px;letter-spacing:2px;color:var(--tkux-gold);margin-bottom:12px}#tk[data-tk-ux="r992"] .r992TransportControls{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(70px,.7fr) minmax(86px,1fr);gap:8px}
 #tk[data-tk-ux="r992"] .r992TransportControls button{min-height:62px;border:1px solid #d9be8355;border-radius:16px;background:#0a2630;color:var(--tkux-ink);font-family:inherit;font-size:16px;font-weight:600;line-height:1.3;padding:8px}#tk[data-tk-ux="r992"] .r992TransportControls .r992PauseBtn{border-color:#d5bf86;background:linear-gradient(120deg,#145748,#082934)}
-#tk[data-tk-ux="r992"] .r992TransportVolume{min-width:0;border:1px solid #d9be8355;border-radius:16px;padding:8px 10px;font-size:12px;display:grid;grid-template-columns:1fr auto;gap:3px;align-items:center}#tk[data-tk-ux="r992"] .r992TransportVolume input{grid-column:1/-1;width:100%;min-height:30px;accent-color:#ddbc7a;touch-action:pan-y}#tk[data-tk-ux="r992"] #r992NavigationHint{font-size:11px;color:#d0d9d8;text-align:center;line-height:1.5;margin:10px 0 0}
+#tk[data-tk-ux="r992"] .r992TransportVolume{min-width:0;border:1px solid #d9be8355;border-radius:16px;padding:8px 10px;font-size:12px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px;align-items:center}#tk[data-tk-ux="r992"] .r992TransportVolume input{grid-column:1/-1;width:100%;min-width:0;max-width:100%;box-sizing:border-box;min-height:30px;accent-color:#ddbc7a;touch-action:pan-y}#tk[data-tk-ux="r992"] #r992NavigationHint{font-size:11px;color:#d0d9d8;text-align:center;line-height:1.5;margin:10px 0 0}
 #tk[data-tk-ux="r992"][data-tk-purpose="dhikr"] #tkGuide{bottom:calc(174px + env(safe-area-inset-bottom));font-size:12px}#tk[data-tk-ux="r992"][data-tk-purpose="dhikr"] #center{transform:translateY(-40px)}
 #tk[data-tk-ux="r992"] #panel{z-index:110;max-height:85dvh;bottom:0;padding:0 18px;border:1px solid #d9be8388;border-bottom:0;border-radius:28px 28px 0 0;background:var(--tkux-panel);overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;box-shadow:0 -8px 36px #0005}
 #tk[data-tk-ux="r992"] #pGrip,#tk[data-tk-ux="r992"] #panelDurum{display:none}#tk[data-tk-ux="r992"] .r992SheetHead{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:16px 0 12px}#tk[data-tk-ux="r992"] .r992SheetHead h2{font:400 25px/1.3 Georgia,serif;margin:0}
@@ -60,12 +60,12 @@ html body.r821-tekke-open #tk[data-tk-ux="r992"] #gT{font-size:28px!important;le
 
 html body.r436-tekke-gate #tk[data-tk-ux="r992"] #top{z-index:95!important}
 
-/* r994: the visual viewport owns height. The old 100vh minimum extended
-   under mobile browser bars, clipping the absolute bottom controls. */
+/* The stable small viewport owns height. Toolbar scroll animations must not
+   stretch the grid; JavaScript supplies a keyboard/legacy pixel fallback. */
 html body.r821-tekke-open #tk[data-tk-ux="r992"]{
  width:100%!important;min-width:0!important;max-width:100%!important;
- height:100%!important;height:var(--tkux-view-height,100dvh)!important;
- min-height:0!important;max-height:var(--tkux-view-height,100dvh)!important;
+ height:100%!important;height:var(--tkux-view-height,100svh)!important;
+ min-height:0!important;max-height:var(--tkux-view-height,100svh)!important;
  display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;
  padding:env(safe-area-inset-top) 0 0;box-sizing:border-box!important;
 }
@@ -161,7 +161,7 @@ html body #tk[data-tk-ux="r992"] #r993StepNav button{min-height:44px;padding:6px
  html body #tk[data-tk-ux="r992"] #r992NavigationHint{display:none}
  html body #tk[data-tk-ux="r992"] .r992TransportControls button{min-height:44px}
  html body #tk[data-tk-ux="r992"] #r993StepNav button:last-child{flex-basis:auto}
- html body #tk[data-tk-ux="r992"] #tkGuide,html body #tk[data-tk-ux="r992"] #telkin{display:none}
+ html body #tk[data-tk-ux="r992"] #tkGuide,html body #tk[data-tk-ux="r992"] #telkin{font-size:11px}
 }
 
 /* r997: help is a single opaque, scrollable dialog above the entire scene.
@@ -197,10 +197,10 @@ html body #tk[data-tk-ux="r992"] [inert]{pointer-events:none!important}
 /* One measured square owns the SVG and the unbroken Arabic glyph. The stage
    reserves the set card before centering; long text uses normal native scroll. */
 html body #tk[data-tk-ux="r992"] #stage{display:flex;flex-direction:column;align-items:center;gap:0}
-html body #tk[data-tk-ux="r992"] #center{flex:1 0 auto;min-height:0;gap:8px;padding:8px 0;align-self:stretch}
+html body #tk[data-tk-ux="r992"] #center{flex:1 0 auto;min-height:0;gap:8px;padding:16px 0;align-self:stretch;justify-content:flex-start}
 html body #tk[data-tk-ux="r992"] #huZone{
  display:block;flex:none;position:relative;margin:0 auto;
- width:var(--tkux-hu-size,min(64vw,30vh,240px));height:var(--tkux-hu-size,min(64vw,30vh,240px));
+ width:var(--tkux-hu-size,min(64vw,30svh,240px));height:var(--tkux-hu-size,min(64vw,30svh,240px));
  min-width:0;min-height:0;pointer-events:auto;touch-action:pan-y;
 }
 html body #tk[data-tk-ux="r992"] #bArcSvg{
@@ -212,7 +212,7 @@ html body #tk[data-tk-ux="r992"] #huWrap{
 html body #tk[data-tk-ux="r992"] #hu{
  display:block;width:max-content;max-width:none;white-space:nowrap;word-break:normal;overflow-wrap:normal;
  direction:rtl;unicode-bidi:isolate;text-align:center;letter-spacing:0;
- font-size:calc(var(--tkux-hu-size,min(64vw,30vh,240px)) * .52);line-height:1.4;
+ font-size:calc(var(--tkux-hu-size,min(64vw,30svh,240px)) * .52);line-height:1.4;
 }
 html body #tk[data-tk-ux="r992"] #phase{bottom:6px;font-size:10px;line-height:1.4;letter-spacing:.16em}
 html body #tk[data-tk-ux="r992"] #bArcBg{stroke:color-mix(in srgb,var(--ink) 18%,transparent)}
@@ -248,3 +248,140 @@ html body #tk[data-tk-ux="r992"] .r992PurposeSymbol,
 html body #tk[data-tk-ux="r992"] .r992PurposeCheck{flex:none}
 html body #tk[data-tk-ux="r992"] #gT,
 html body #tk[data-tk-ux="r992"] #gEst{overflow-wrap:anywhere}
+
+/* r1014: captions grow below a fixed breath square, never recenter the scene.
+   Controls keep equal touch targets, and the slider owns a full mobile row. */
+html body #tk[data-tk-ux="r992"] #tkGuide,
+html body #tk[data-tk-ux="r992"] #telkin{min-height:3.2em}
+@media(max-width:600px){
+ html body #tk[data-tk-ux="r992"] .r992TransportControls{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ html body #tk[data-tk-ux="r992"] .r992TransportVolume{grid-column:1/-1;grid-template-columns:minmax(0,1fr) auto;padding:6px 12px}
+ html body #tk[data-tk-ux="r992"] .r992TransportVolume input{grid-column:1/-1;min-width:0;max-width:100%;min-height:30px}
+}
+/* r1014 geometry end */
+
+/* r1014 Cabir Tekkesi: a live, scoped Berhetiyye presentation.
+   The palace is one root background; gemstone paint never owns interaction. */
+@supports selector(body:has(*)){
+ html body.r821-tekke-open:has(#tk[data-tk-scene-family="berhet"]:not([hidden]))::after{
+  content:'';position:fixed;inset:0;z-index:2147481999!important;pointer-events:none;
+  opacity:1!important;animation:none!important;transform:none!important;filter:none!important;
+  background-color:#071327!important;
+  background-image:linear-gradient(180deg,#020d2226,#020d2261 48%,#020d2226),url('../scenes/tekke-r1014/berhet-billur.webp?v=r1014')!important;
+  background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important;
+ }
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"]{
+ --tkux-gold:#eed598;--tkux-ink:#fff1d7;--tkux-mint:#bcf5dd;
+ --tkux-panel:#071525;--gold:#eed598;
+ background-color:#071327!important;
+ background-image:linear-gradient(180deg,#020d2226,#020d2261 48%,#020d2226),url('../scenes/tekke-r1014/berhet-billur.webp?v=r1014')!important;
+ background-position:center center!important;background-size:cover!important;background-repeat:no-repeat!important;
+ color:var(--tkux-ink);
+}
+@supports selector(body:has(*)){
+ html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"]{background-color:transparent!important;background-image:none!important}
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(#top,#r992Transport){
+ background:linear-gradient(140deg,#041425e8,#071521ec)!important;
+ border:1px solid #d3b477b3!important;box-shadow:inset 0 0 0 3px #b98d3d1c;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #top{margin:4px 8px!important;padding:6px!important;border-radius:16px}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(button,select):not(.sw){
+ --cabir-art:var(--r933-gem-sapphire);--cabir-face:#081e36;
+ border:1px solid transparent!important;border-image:var(--cabir-art) 330 fill / 8px / 0 stretch!important;
+ background:var(--cabir-face)!important;color:#fff1d7!important;
+ text-shadow:0 1px 3px #000!important;box-shadow:none!important;
+ font-family:inherit;touch-action:pan-y;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(#backSukun,#helpBtn,.r992IconBtn,#r997HelpClose){
+ --cabir-art:var(--r933-gem-amethyst);--cabir-face:#251238;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(#r992Pause,#gBtn,.r992PurposeBtn[aria-pressed="true"]){
+ --cabir-art:var(--r933-gem-emerald);--cabir-face:#073429;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r992Finish{
+ --cabir-art:var(--r933-gem-ruby);--cabir-face:#410c24;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(#panelBtn,#r992GateSettings,#r1014CabirChange){
+ --cabir-art:var(--r933-gem-sapphire);--cabir-face:#071c37;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(button,select):disabled{opacity:.55}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(button,select,input):focus-visible{outline:2px solid #ffebac!important;outline-offset:3px!important}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r992SessionBadge{
+ background:#061b30eb;border-color:#d6b477a3;border-radius:8px;color:#f8ebce;
+ min-height:24px;box-sizing:border-box;max-width:calc(100% - 32px);
+}
+#tk #r1014CabirIdentity[hidden],#tk #r1014CabirSelection[hidden]{display:none!important}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r1014CabirIdentity{
+ width:100%;max-width:440px;flex:none;text-align:center;padding:4px 8px 8px;margin:0 auto;
+ color:#ffe2a4;text-shadow:0 2px 6px #030817;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r1014CabirIdentity :is(h1,h2){
+ font:500 clamp(20px,6vw,30px)/1.3 Georgia,serif;letter-spacing:.12em;margin:0 0 4px;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r1014CabirIdentity p{font-size:12px;line-height:1.4;margin:0}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #huZone{
+ border-radius:50%;background:radial-gradient(circle,#06132ca6 35%,#073c4a40 65%,transparent 73%);
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(#ebruC,#muk,#tkEfekt){display:none!important}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #huZone::before{
+ content:'';position:absolute;inset:4%;border:1px solid #f0d594a3;border-radius:50%;pointer-events:none;
+ box-shadow:0 0 12px #ab57c34d,inset 0 0 10px #4dc6bb33;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #bArcBg{stroke:#b49add55}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #bArc{stroke:#ffe4a3;filter:drop-shadow(0 0 3px #d6b268)}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #hu{color:#ffe6bd!important;text-shadow:0 0 18px #d7a6506b,0 2px 4px #031326!important}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #phase{color:#fff0d2;text-shadow:0 1px 4px #000}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #zk{width:100%;max-width:440px;margin:0 auto;text-shadow:0 1px 4px #000}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #zkAr{color:#ffe2aa;font-size:27px;line-height:1.5}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #zkTr{display:none}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r1014CabirSelection{
+ display:block;pointer-events:auto;
+ border:1px solid #d3b477a3;border-radius:14px;background:linear-gradient(140deg,#05172bea,#071a24eb);
+ padding:8px 10px;width:100%;box-sizing:border-box;margin:6px 0 8px;min-height:60px;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r1014CabirSelectionRow{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r1014CabirSelectionHint{font-size:10px;line-height:1.5;color:#d8d4cb;margin:4px 0 0;text-align:start}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r1014CabirGateSubtitle{text-align:center;font-size:13px;margin:0;color:#f4d59a}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r1014CabirSelectedName{
+ min-width:0;font:500 19px/1.4 Georgia,serif;overflow-wrap:anywhere;text-align:start;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r1014CabirChange{
+ min-width:86px;min-height:44px;padding:9px 12px;font-size:13px;white-space:normal;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #zkPill{
+ display:inline-flex;flex-direction:column;gap:2px;min-width:106px;min-height:52px;justify-content:center;
+ border:1px solid #d3b477b3;border-radius:16px;background:#061425eb;padding:5px 16px;
+ font-size:20px;line-height:1.4;font-variant-numeric:tabular-nums;color:#fff0cc;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #zkPill::before{content:'TEKRAR';font:11px/1.3 Georgia,serif;letter-spacing:.1em;color:#efcd8b}
+html[lang="en"] body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #zkPill::before{content:'REPETITIONS'}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(#tkGuide,#telkin,#zkHand){color:#f6ead6;text-shadow:0 1px 5px #030714}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r992Transport{
+ width:calc(100% - 16px)!important;max-width:calc(100% - 16px)!important;min-width:0;box-sizing:border-box;
+ margin:0 8px 6px;border-radius:18px;padding:10px 10px calc(8px + env(safe-area-inset-bottom));
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r992TransportTitle{display:none}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] .r992TransportControls button{min-height:54px;font-size:17px;font-family:Georgia,serif;padding:10px 8px}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] .r992TransportVolume{
+ border-color:#d3b4779c;background:#05182dd9;border-radius:12px;color:#ffefd4;
+ grid-template-columns:auto minmax(0,1fr) auto;gap:10px;min-height:44px;padding:4px 10px;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] .r992TransportVolume input{
+ grid-column:auto;min-width:0;width:100%;max-width:100%;accent-color:#e6c878;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r992VolumeValue{font-variant-numeric:tabular-nums;min-width:3.5em;text-align:end}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r992NavigationHint{color:#e8dec9;font-size:10px;margin-top:6px}
+html body.r821-tekke-open #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #gate:not(.bye){
+ background:linear-gradient(180deg,#04132670,#041326b8)!important;
+}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #gT{color:#ffe1a3;letter-spacing:.12em!important}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(#gContext,#panel .pSec,#r990TekkeSetCard){background:#071a2be8;border-color:#d3b47788}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(#panel,#tkHelp){background:#061426!important;border-color:#d3b4779c;color:#fff0d4}
+html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(.r992SheetHead,.r992SheetFoot,#r992PanelTabs,#r997HelpHeader){background:#061426!important;border-color:#d3b47760}
+@media(max-width:360px){
+ html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r1014CabirSelectedName{font-size:16px}
+ html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r1014CabirSelection{padding:6px 8px}
+ html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] .r992TransportControls button{font-size:15px}
+}

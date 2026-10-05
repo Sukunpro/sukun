@@ -7,7 +7,7 @@
  copy=(tr,en)=>english()?en:tr;
  let root=null,api=null,chosen=safe(()=>JSON.parse(localStorage.getItem('tekke.purpose')),'dhikr'),
  collapsed=safe(()=>JSON.parse(localStorage.getItem('tekke.set.collapsed'))) !== false,
- tab='session',viewportHeight=0,overlay=null,overlayFocus=null,blocked=[],sceneFrame=null,huSize=0;
+ tab='session',viewportHeight=0,viewportWidth=0,viewportOrientation='',viewportStyle='',overlay=null,overlayFocus=null,blocked=[],sceneFrame=null,huSize=0;
  if(!['dhikr','set','quiet'].includes(chosen))chosen='dhikr';
  const $=s=>root?.querySelector(s),all=s=>root?[...root.querySelectorAll(s)]:[];
  const save=(k,v)=>safe(()=>{if(window.SukunTabOwner?.canPersist?.(k)!==false)localStorage.setItem(k,JSON.stringify(v))});
@@ -152,23 +152,40 @@
   // in the symbol's layout budget before an actual session is visible.
   if(!root||root.hidden||overlay||root.dataset.tkEntered!=='1')return;
   const stage=$('#stage'),center=$('#center');if(!stage?.clientHeight||!stage.clientWidth)return;
-  const visible=n=>!n.hidden&&safe(()=>getComputedStyle(n).display!=='none',true);
-  const siblings=[...stage.children].filter(n=>n===center?false:n.id==='r990TekkeSetCard'||n.id==='r992ReflectionGuide');
-  const outer=siblings.filter(visible).reduce((v,n)=>v+n.offsetHeight+12,0);
-  const inner=[...center.children].filter(n=>n.id!=='huZone'&&visible(n)).reduce((v,n)=>v+n.offsetHeight+8,0);
-  // Long text remains scrollable; the symbol and SVG always share one square.
-  const size=Math.round(Math.max(112,Math.min(260,stage.clientWidth-48,stage.clientHeight-outer-inner-32)));
+  // Narration and telkin change line count during a breath. Their live height
+  // must not resize the symbol. Long captions/cards use the stage's native
+  // scroll instead; the square depends only on width and the stable viewport.
+  if(viewportStyle==='100svh'&&root.clientHeight>0)viewportHeight=Math.round(root.clientHeight);
+  const height=viewportHeight||root.clientHeight||window.innerHeight;
+  const size=Math.round(Math.max(112,Math.min(260,stage.clientWidth-48,height*.36)));
   if(size!==huSize){huSize=size;root.style.setProperty('--tkux-hu-size',size+'px');}
  }
  function fitViewport(){
-  // Pinch zoom changes the visual viewport, not the application's layout
-  // viewport. Feeding that zoomed height back into the grid moves its controls
-  // while the gesture is in progress. Browser-bar/keyboard resizes at scale 1
-  // still use the visible height; ignore subpixel resize noise.
+  if(!root||root.hidden)return;
+  // Chrome's toolbar animates the visual viewport on every scroll. Use the
+  // native small viewport so those intermediate heights cannot resize the
+  // application. The pixel fallback stays fixed until an orientation/width
+  // change or a substantial real resize. A focused text field may temporarily
+  // use the keyboard's smaller visual viewport, then restores the same base.
   const view=window.visualViewport,scale=Number(view?.scale)||1;
   if(Math.abs(scale-1)>=.01&&viewportHeight)return;
   const height=Math.round(Math.abs(scale-1)<.01?(view?.height||window.innerHeight):window.innerHeight);
-  if(Number.isFinite(height)&&height>0&&(!viewportHeight||Math.abs(height-viewportHeight)>1)){viewportHeight=height;root?.style.setProperty?.('--tkux-view-height',height+'px');}
+  if(!Number.isFinite(height)||height<=0)return;
+  const width=Math.round(window.innerWidth||document.documentElement?.clientWidth||view?.width||0);
+  const orientation=safe(()=>window.screen.orientation.type,'')||String(width>window.innerHeight?'landscape':'portrait');
+  const stable=safe(()=>window.CSS.supports('height','100svh'),false);
+  const focused=document.activeElement;
+  const editable=!!focused&&root.contains(focused)&&(focused.isContentEditable||focused.tagName==='TEXTAREA'||focused.tagName==='INPUT'&&!['range','button','checkbox','radio','submit','reset','file','color','image','hidden'].includes(focused.type));
+  const changed=!viewportHeight||Math.abs(width-viewportWidth)>1||orientation!==viewportOrientation;
+  if(changed||!stable&&!editable&&Math.abs(height-viewportHeight)>Math.max(140,viewportHeight*.2)){
+   viewportHeight=height;viewportWidth=width;viewportOrientation=orientation;
+  }
+  const keyboard=Math.abs(scale-1)<.01&&editable&&height<viewportHeight-Math.max(120,viewportHeight*.18);
+  const value=keyboard?height+'px':stable?'100svh':viewportHeight+'px';
+  if(value!==viewportStyle){viewportStyle=value;root.style.setProperty('--tkux-view-height',value);}
+  // Native svh reacts to real window/orientation changes without reacting to
+  // toolbar animation. Retain that base budget while a keyboard is visible.
+  if(stable&&!keyboard&&root.clientHeight>0)viewportHeight=Math.round(root.clientHeight);
  }
  function compactCard(){
   const card=$('#r990TekkeSetCard');if(!card)return;
