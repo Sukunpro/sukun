@@ -1,0 +1,32 @@
+'use strict';
+// Deterministic DOM fixture adapted from tests_r1014/health/recovered/health_ui_audit.cjs.
+// No browser execution or recording access. Explicit sibling dependency for r1017 health tests.
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert'),crypto=require('crypto');
+module.exports=function createFixture(root){
+ const collector=fs.readFileSync(path.join(root,'assets/runtime/health-r940.js'),'utf8'),view=fs.readFileSync(path.join(root,'assets/runtime/health-view-r943.js'),'utf8');
+function decode(s){return String(s).replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');}
+class Node {
+ constructor(tag,doc){Object.assign(this,{tagName:tag.toUpperCase(),doc,children:[],dataset:{},attributes:{},style:{},listeners:{},disabled:false,hidden:false,open:false,checked:false,textContent:'',scrollTop:0});this.classList={add:c=>this.attributes.class=((this.attributes.class||'')+' '+c).trim(),contains:c=>(this.attributes.class||'').split(/\s+/).includes(c)};}
+ setAttribute(k,v){this.attributes[k]=String(v);if(k==='id')this.id=v;if(k==='disabled')this.disabled=true;if(k==='open')this.open=true;if(k==='checked')this.checked=true;if(k==='value')this.value=v;if(k==='content')this.content=v;if(k.startsWith('data-'))this.dataset[k.slice(5).replace(/-([a-z])/g,(_,c)=>c.toUpperCase())]=String(v);}
+ getAttribute(k){return this.attributes[k]??null;}append(...nodes){for(const n of nodes){n.remove();this.children.push(n);n.parentElement=this;}}remove(){if(this.parentElement){this.parentElement.children.splice(this.parentElement.children.indexOf(this),1);this.parentElement=null;}}
+ contains(n){return this===n||this.children.some(c=>c.contains(n));}get isConnected(){return this===this.doc.body||this===this.doc.head||this.doc.body?.contains(this)||this.doc.head?.contains(this);}
+ all(){return this.children.flatMap(x=>[x,...x.all()]);}matches(selector){return selector.split(',').some(part=>{part=part.trim();if(part.includes(' '))return false;const tag=part.match(/^[a-zA-Z]+/);if(tag&&this.tagName!==tag[0].toUpperCase())return false;const id=part.match(/#([\w-]+)/);if(id&&this.id!==id[1])return false;for(const c of part.matchAll(/\.([\w-]+)/g))if(!this.classList.contains(c[1]))return false;for(const a of part.matchAll(/\[([\w-]+)(?:="([^"]*)")?\]/g)){if(a[1]==='open'){if(!this.open)return false;}else if(!(a[1] in this.attributes)||(a[2]!==undefined&&this.attributes[a[1]]!==a[2]))return false;}return true;});}
+ querySelectorAll(s){return this.all().filter(n=>n.matches(s));}querySelector(s){return this.querySelectorAll(s)[0]||null;}closest(s){return this.matches(s)?this:this.parentElement?.closest(s)||null;}
+ set innerHTML(html){this._html=html;this.children=[];const stack=[this];for(const m of html.matchAll(/<\/?([a-zA-Z][\w-]*)\b([^>]*)>/g)){if(m[0][1]==='/'){while(stack.length>1){const top=stack.pop();if(top.tagName===m[1].toUpperCase())break;}continue;}const n=new Node(m[1],this.doc);for(const a of m[2].matchAll(/([\w-]+)(?:="([^"]*)")?/g))n.setAttribute(a[1],decode(a[2]??''));stack.at(-1).append(n);if(!['input','br','meta','hr','img'].includes(m[1]))stack.push(n);}}
+ get innerHTML(){return this._html||'';}addEventListener(k,fn){(this.listeners[k]??=[]).push(fn);}focus(){this.doc.activeElement=this;}scrollIntoView(){}getClientRects(){return this.isConnected?[{}]:[];}click(){return this.doc.panel?.fire('click',{target:this});}showModal(){this.open=true;}close(){this.open=false;for(const fn of this.listeners.close||[])fn({target:this});}
+ async fire(type,e){for(const fn of this.listeners[type]||[])await fn(e);}after(n){this.parentElement?.append(n);}
+}
+function harness(full=false){
+ const timers=new Map(),store=new Map(),eventListeners={},transportCalls=[],fetches=[],c={console,URL,Response,Blob,AbortController,TextDecoder,TextEncoder,Uint8Array,crypto:crypto.webcrypto,Date,Math,JSON,Promise,DOMException};let timerId=0;
+ c.setTimeout=(fn,ms)=>{const id=++timerId;timers.set(id,{fn,ms});return id;};c.clearTimeout=id=>timers.delete(id);c.setInterval=()=>{throw Error('unexpected interval')};c.clearInterval=()=>{};
+ const d={readyState:'loading',hidden:false,wasDiscarded:false,activeElement:null,listeners:{},createElement:tag=>new Node(tag,d),addEventListener(k,fn){(this.listeners[k]??=[]).push(fn);}};d.body=new Node('body',d);d.head=new Node('head',d);const meta=new Node('meta',d);meta.setAttribute('name','sukun-build');meta.setAttribute('content','r986');d.head.append(meta);d.querySelector=s=>d.head.querySelector(s)||d.body.querySelector(s);d.getElementById=id=>d.body.querySelector('#'+id)||d.head.querySelector('#'+id);c.document=d;
+ c.navigator={onLine:true,storage:{estimate:async()=>({usage:100,quota:10000})},serviceWorker:{controller:{postMessage(){transportCalls.push('STATUS');}},addEventListener(){}}};
+ c.performance={now:()=>Date.now(),getEntriesByType:()=>[]};c.PerformanceObserver={supportedEntryTypes:[]};c.localStorage={getItem:k=>store.get(k)||null,setItem:(k,v)=>store.set(k,v)};c.location={href:'https://test.invalid/sukun/nero.html',origin:'https://test.invalid'};
+ c.fetch=async url=>{fetches.push(url);throw Error('HTTP unavailable')};c.addEventListener=(k,fn)=>(eventListeners[k]??=[]).push(fn);c.dispatch=async(k,detail)=>{for(const fn of eventListeners[k]||[])await fn({detail})};c.I18N={lang:'tr'};c.SukunSessionState={peek:()=>({phase:'paused',activeMode:'esma',count:20,target:100,epoch:7,owner:'user'})};c.SukunSessionMemory={diagnostics:()=>({writes:1,version:'r970',error:''})};c.SukunAIRouter={snapshot:()=>({providers:[],lastResult:null}),hasAnyKey:()=>true};c.window=c;
+ for(const name of ['SukunLockAudio','SukunLockJourneyTransportV2','SukunAudioHub','SukunTempoAuthority'])c[name]=new Proxy({snapshot:()=>null,get:()=>1},{get:(o,k)=>k in o?o[k]:(...args)=>transportCalls.push([name,k,args])});
+ vm.createContext(c);vm.runInContext(view,c);if(full)vm.runInContext(collector,c);const panel=new Node('details',d);panel.id='r940Health';panel.open=true;d.body.append(panel);d.panel=panel;
+ return {c,d,panel,timers,transportCalls,fetches,store,async click(action){const node=panel.querySelector(`[data-health-action="${action}"]`);assert(node,'missing action '+action);await panel.fire('click',{target:node});},async consent(){const input=panel.querySelector('[data-health-consent]');assert(input);input.checked=true;await panel.fire('change',{target:input});}};
+}
+
+return harness;
+};

@@ -175,6 +175,29 @@
         comparison:{status:comparison,countDelta,blobBytesDelta,causality:'not-determined'}};
     },empty);
   }
+  function recordingInspectionSnapshot() {
+    // The inspection owner alone reads and retains recording metadata. Health
+    // only copies its cached snapshot; never request inspect() from this path.
+    const owner=safe(()=>window.SukunRecordingInspection);if(!owner)return null;
+    const empty={version:null,phase:'unknown',current:null,lastSuccessful:null,persistence:'unavailable'};
+    return safe(()=>{
+      const s=owner.snapshot();if(!s||typeof s!=='object'||Array.isArray(s))return empty;
+      const integer=x=>Number.isSafeInteger(x)&&x>=0?x:null;
+      const version=x=>typeof x==='string'&&/^r\d{1,8}$/.test(x)?x:null;
+      const states=new Set(['ok','missing','unsupported','unavailable','timed-out','cancelled','blocked']);
+      const errors=new Set(['idb-unavailable','db-missing','store-missing','db-blocked','db-open-failed','read-failed','read-aborted','read-timeout','inspection-cancelled','invalid-record','unsafe-total','SecurityError','VersionError','UnknownError','InvalidStateError','QuotaExceededError','AbortError']);
+      const observation=x=>{
+        if(!x||typeof x!=='object'||Array.isArray(x))return null;
+        const count=integer(x.count),blobBytes=integer(x.blobBytes),ok=x.status==='ok'&&x.errorCode===null&&count!==null&&blobBytes!==null;
+        return {at:integer(x.at)!==null&&x.at<=8640000000000000?x.at:null,build:version(x.build),
+          status:ok?'ok':x.status!=='ok'&&states.has(x.status)?x.status:'unavailable',count:ok?count:null,blobBytes:ok?blobBytes:null,
+          errorCode:ok?null:errors.has(x.errorCode)?x.errorCode:'unknown'};
+      };
+      const current=observation(s.current),lastSuccessful=observation(s.lastSuccessful);
+      return {version:s.version==='r1017'?'r1017':null,phase:['idle','reading'].includes(s.phase)?s.phase:'unknown',current,
+        lastSuccessful:lastSuccessful?.status==='ok'?lastSuccessful:null,persistence:s.persistence==='available'?'available':'unavailable'};
+    },empty);
+  }
   function cachedTapSnapshot() {
     const tap=safe(()=>window.SukunR688TapAuthority?.snapshot?.());
     if(!tap || typeof tap!=='object')return null;
@@ -403,7 +426,7 @@
       } finally {safe(()=>window.SukunDiagnosticWork?.end?.(span,500));}
     }).finally(()=>{modelPromise=null;});return modelPromise;
   }
-  function currentChecks(cachedInput={},voiceExpectation=null,recordingPreparation=null,recordingContinuity=null) {
+  function currentChecks(cachedInput={},voiceExpectation=null,recordingPreparation=null,recordingContinuity=null,recordingInspection=null) {
     const inputTap=cachedInput.taps??taps, inputLatency=cachedInput.latency??latency;
     const out = [status('BUILD', /^r\d+$/.test(build) ? 'PASS' : 'WARN', 'Uygulama sürümü', { build }),
       status('SW_IDENTITY', !sw?.hasController ? 'NOT_MEASURED' : !sw.controller ? 'NOT_MEASURED' : sw.controller === build ? 'PASS' : 'FAIL',
@@ -420,6 +443,8 @@
       'Hazırlık aşaması ve bekleyen ses çözümlemesi gözlenir. Ekran açıkken efekt hazırlığı uzarsa özgün kayıt kullanılır; bu rapor duyulan sesi ölçmez.'));
     if(recordingContinuity)out.push(status('RECORDING_CONTINUITY',recordingContinuity.status==='different'?'WARN':['same','baseline'].includes(recordingContinuity.status)?'OBSERVED':'NOT_MEASURED',
       'Güncelleme öncesi / sonrası kayıtlar',recordingContinuity,'Yalnız son yerel gözlem çifti. Farkın nedeni belirlenmedi; eşit toplamlar aynı içeriği doğrulamaz. Kayıtlarını silme.'));
+    if(recordingInspection)out.push(status('RECORDING_INSPECTION',recordingInspection.phase==='idle'&&recordingInspection.current?.status==='ok'?'OBSERVED':'NOT_MEASURED',
+      'Son kayıt incelemesi',recordingInspection,'Yalnız istekle alınmış son yerel gözlem. Zaman ve sürüm gözlemin kapsamını belirtir; silinme, kurtarma veya ses içeriği doğrulanmaz. AI’ye gönderilmez.'));
     const presentation=presentationSnapshot();
     if(presentation)out.push(status('PRESENTATION',presentation.state==='attention'?'WARN':'OBSERVED','Ekrana dönüş gözlemi',presentation,
       'Bu gözlem DOM görünürlüğü ve çizim çağrısı içindir; ekrandaki gerçek pikselleri ölçmez. Siyah ekran sürerse raporu saklayın.'));
@@ -469,15 +494,15 @@
   function read() {
     // Both snapshot APIs return existing bounded buffers; this does not start
     // observers, collect a new timing sample, scan layout, or change playback.
-    const cachedInput={taps:cachedTapSnapshot(),latency:cachedLatencySnapshot()}, voiceExpectation=voiceExpectationSnapshot(),recordingPreparation=recordingPreparationSnapshot(),recordingContinuity=recordingContinuitySnapshot();
-    const result = currentChecks(cachedInput,voiceExpectation,recordingPreparation,recordingContinuity);
+    const cachedInput={taps:cachedTapSnapshot(),latency:cachedLatencySnapshot()}, voiceExpectation=voiceExpectationSnapshot(),recordingPreparation=recordingPreparationSnapshot(),recordingContinuity=recordingContinuitySnapshot(),recordingInspection=recordingInspectionSnapshot();
+    const result = currentChecks(cachedInput,voiceExpectation,recordingPreparation,recordingContinuity,recordingInspection);
     return { schema: SCHEMA, version: VERSION, build, generatedAt: new Date().toISOString(), boot,
       coverage: { since: born, events: events.length, discardedEvents: droppedEvents, incidentLimit: MAX_ISSUES,
         discardedIncidents: droppedIncidents, hiddenSampling: 'event-only-no-poll', physicalLockScreenTest: deviceCheck && deviceCheck.responses.lockedSound !== 'NOT_TRIED' ? 'USER_REPORTED' : 'NOT_RUN',
         privacy: 'metadata-only-no-recording-no-text-no-url-query', previousScope },
       summary: { currentFailures: result.filter(x => x.status === 'FAIL').length, currentWarnings: result.filter(x => x.status === 'WARN').length,
         unmeasured: result.filter(x => x.status === 'NOT_MEASURED').length, recordedIncidents: incidents.length },
-      current: copy({...evidenceContext(voiceExpectation,recordingPreparation),recordingContinuity}), checks: copy(result), deviceCheck:copy(deviceCheck), modelCheck:copy(modelCheck),
+      current: copy({...evidenceContext(voiceExpectation,recordingPreparation),recordingContinuity,recordingInspection}), checks: copy(result), deviceCheck:copy(deviceCheck), modelCheck:copy(modelCheck),
       flowObservation:compactFlowObservation(),
       incidents: copy(incidents), timeline: copy(events), previous: copy(previous), lastRun: copy(lastRun) };
   }
