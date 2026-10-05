@@ -10,7 +10,7 @@
  const metrics={decodeStarts:0,workerJobs:0,fallbackJobs:0,rejected:0,timedOut:0,cancelled:0,peakEstimate:0,maxConcurrent:0};
  const error=(code,message)=>Object.assign(Error(message||code),{code});
  function resident(){let bytes=0;for(const [url,x]of urls)if(!activeCreated?.has(url))bytes+=x;for(const get of residents.values())try{bytes+=Math.max(0,+get()||0)}catch(_){}return bytes;}
- let activeCreated=null,activeEstimate=0;
+ let activeCreated=null,activeEstimate=0,activeTask=null;
  function reserve(bytes){
   if(!Number.isFinite(bytes)||bytes<0||bytes>BUDGET)throw error('PREP_MEMORY_LIMIT');
   if(bytes+resident()>BUDGET)for(const trim of trimmers){try{trim(Math.max(0,BUDGET-bytes))}catch(_){}if(bytes+resident()<=BUDGET)break;}
@@ -101,10 +101,11 @@
  }
  function current(task){return !task.expired&&!task.signal?.aborted&&(!task.isCurrent||task.isCurrent());}
  function check(task){if(!current(task))throw error('PREP_CANCELLED');}
+ function stage(task,value){task.stage=value;task.stageAt=Date.now();try{task.onStage?.(value)}catch(_){};}
  function createUrl(blob){const url=URL.createObjectURL(blob);urls.set(url,blob.size);activeCreated?.add(url);return url;}
  function stopWorker(){try{worker?.terminate()}catch(_){}worker=null;}
  async function cpu(decoded,options={},task){
-  check(task);reserve(estimate(task.meta,{...task,purpose:options.kind==='quality'?'quality':'fx',spatial:options.spatial,extraSeconds:Math.max(0,(+options.frames||decoded.length)/decoded.sampleRate-decoded.duration)},decoded));
+  check(task);stage(task,'cpu');reserve(estimate(task.meta,{...task,purpose:options.kind==='quality'?'quality':'fx',spatial:options.spatial,extraSeconds:Math.max(0,(+options.frames||decoded.length)/decoded.sampleRate-decoded.duration)},decoded));
   const make=()=>({kind:options.kind||'render',input:Array.from({length:Math.min(2,decoded.numberOfChannels)},(_,c)=>new Float32Array(decoded.getChannelData(c))),sampleRate:decoded.sampleRate,length:options.kind==='pack'?Math.max(decoded.length,Math.ceil(options.frames||0)):decoded.length,options});
   if(!workerDisabled&&typeof w.Worker==='function'){
    try{
@@ -124,26 +125,38 @@
   do{check(task);step=gen.next();if(!step.done)await new Promise(r=>setTimeout(r,0));}while(!step.done);return step.value;
  }
  function run(blob,decode,opt={}){
+  // A cancelled native decode can remain unresolved in Chrome. It still owns
+  // its memory lease; reject new preparation immediately instead of queueing
+  // another 20-second wait behind it or opening another unbounded decoder.
+  if(activeTask?.stage==='decode'&&!current(activeTask)){const e=error('PREP_DECODE_BUSY');notify(e.code,opt.key,opt.purpose);return Promise.reject(e);}
   if(pending>=MAX_QUEUE){const e=error('PREP_QUEUE_FULL');notify(e.code,opt.key,opt.purpose);return Promise.reject(e);}
   if(!blob||blob.size>SOURCE){const e=error('PREP_SOURCE_LIMIT');notify(e.code,opt.key,opt.purpose);return Promise.reject(e)}
-  pending++;const task={...opt,expired:false,meta:null},before=tail;let release;tail=new Promise(r=>release=r);
-  let timer=0;const work=(async()=>{await before;try{
-   check(task);active++;metrics.maxConcurrent=Math.max(metrics.maxConcurrent,active);activeCreated=new Set();activeEstimate=0;
-   reserve(blob.size*3+65536);task.meta=await inspect(blob);check(task);reserve(estimate(task.meta,task));metrics.decodeStarts++;
-   const bytes=await blob.arrayBuffer();check(task);const decoded=await decode(bytes,{check:()=>check(task)});check(task);
+  pending++;const task={...opt,expired:false,meta:null,stage:'queued',stageAt:Date.now()},before=tail;let release;tail=new Promise(r=>release=r);
+  stage(task,'queued');let timer=0,abort=null;
+  const work=(async()=>{await before;try{
+   check(task);active++;activeTask=task;metrics.maxConcurrent=Math.max(metrics.maxConcurrent,active);activeCreated=new Set();activeEstimate=0;
+   stage(task,'inspect');reserve(blob.size*3+65536);task.meta=await inspect(blob);check(task);reserve(estimate(task.meta,task));metrics.decodeStarts++;
+   const bytes=await blob.arrayBuffer();check(task);stage(task,'decode');const decoded=await decode(bytes,{check:()=>check(task)});check(task);
    if(!decoded||!Number.isFinite(decoded.duration)||decoded.duration>MAX_SECONDS||decoded.numberOfChannels>2)throw error('PREP_MEMORY_LIMIT');
    reserve(estimate(task.meta,task,decoded));
    const result=task.use?await task.use(decoded,{cpu:(options)=>cpu(decoded,options,task),meta:task.meta,check:()=>check(task),createUrl:blob=>{check(task);return createUrl(blob)}}):decoded;
    check(task);return result;
-  }catch(e){if(e.code==='PREP_CANCELLED')metrics.cancelled++;notify(e.code||'PREP_FAILED',task.key,task.purpose);throw e;}finally{clearTimeout(timer);active=Math.max(0,active-1);activeCreated=null;activeEstimate=0;pending--;release();}})();
-  // A timed-out native decode cannot be forcibly aborted: the queue remains leased until it settles.
+  }catch(e){if(e.code==='PREP_CANCELLED'){if(!task.cancelCounted){metrics.cancelled++;task.cancelCounted=true;}}if(!task.abortNotified)notify(e.code||'PREP_FAILED',task.key,task.purpose);throw e;}finally{
+   clearTimeout(timer);if(activeTask===task){active=Math.max(0,active-1);activeTask=null;activeCreated=null;activeEstimate=0;}pending--;release();
+  }})();
+  // Cancellation settles the caller promptly, while the underlying browser
+  // decode retains the queue and budget until it actually settles.
+  const cancelled=new Promise((_,reject)=>{
+   abort=()=>{if(task.expired)return;task.expired=true;if(!task.cancelCounted){metrics.cancelled++;task.cancelCounted=true;}task.cancelCpu?.();const e=error('PREP_CANCELLED');task.abortNotified=true;notify(e.code,task.key,task.purpose);reject(e);};
+   if(task.signal?.aborted)abort();else task.signal?.addEventListener?.('abort',abort,{once:true});
+  });
   const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>{task.expired=true;metrics.timedOut++;task.cancelCpu?.();try{task.onExpire?.()}catch(_){}const e=error('PREP_TIMEOUT');notify(e.code,task.key,task.purpose);reject(e)},20000)});
-  work.catch(()=>{});return Promise.race([work,deadline]);
+  work.catch(()=>{});return Promise.race([work,deadline,cancelled]).finally(()=>{clearTimeout(timer);task.signal?.removeEventListener?.('abort',abort);});
  }
  const api=Object.freeze({version:'r981',inspect,run,
   createUrl,
   forgetUrl(url){urls.delete(url)},addTrimmer(fn){trimmers.add(fn)},addResident(name,get){residents.set(String(name),get)},
-  notify,snapshot:()=>({version:'r981',budgetBytes:BUDGET,sourceBudgetBytes:SOURCE,pending,active,residentBytes:resident(),activeEstimate,worker:workerDisabled?'fallback':worker?'ready':'idle',...metrics,last}),
+  notify,snapshot:()=>({version:'r981',budgetBytes:BUDGET,sourceBudgetBytes:SOURCE,pending,active,stage:activeTask?(activeTask.expired?'cancelled-':'')+activeTask.stage:'idle',stageAgeMs:activeTask?Math.max(0,Date.now()-activeTask.stageAt):0,decodeBlocked:!!(activeTask?.stage==='decode'&&!current(activeTask)),residentBytes:resident(),activeEstimate,worker:workerDisabled?'fallback':worker?'ready':'idle',...metrics,last}),
   // Pure parsers are exposed for the offline health/audit layer; they do not decode or play.
   inspectBytes:bytes=>riff(bytes)||webm(bytes)
  });w.SukunAudioPreparation=api;

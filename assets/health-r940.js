@@ -37,8 +37,13 @@
     return rows;
   }
   const historicKeys = new Set('at seq kind code severity title certainty firstAt lastAt occurrences eventSeq context evidence hidden session tempo truth sw lock phase mode index count target epoch requestId journey owner source reason tefekkur dualJourney audioIssues state tangible pending life hub issues app controller waiting hasController complete error value previous cancelledGestures pendingGesture active playing frozen cycleMs mediaProgressMs lastProgressAgeMs stalls overshootCycles applied name file line column frames asset tag lagMs thresholdMs elapsedMs checkpointAt scope build online previousCheckpoint bytes lastEvent measuredAt snapshot issueType markerSeq type phaseMs rep limit cycles remaining delay wraps remainMs provider model http durationMs background outcome errorName stage path sourceKind paused ended readyState networkState mediaErrorCode eligible generationCurrent scope transition disposition singleSnapshot singleMeasuredAt snapshotPath preparing browserLifecycle wasDiscarded navigationType previous previousExit crashConfirmed pagehide persisted mediaPlaying mediaTime errorCode errorHttp errorStage errorAsset lastChange presentation version checks recoveries lastReason lastAt lastProbe lastRepair actions tef selectedTab viewportWidth viewportHeight scrollX scrollY frameObserved frameDelayMs domSurfaceVisible openingActive openingPresent lifecycleHidden bodyFlags roots wrap tab practice nav connected display visibility opacity width height inViewport blocker'.split(' '));
+  ['voiceExpectation','voiceEnabled','intendedAudible','togetherEnabled','readerActive','voiceIntent','enabled','latched','explicitOff','actualSessionSource','sessionPhase'].forEach(key=>historicKeys.add(key));
+  ['recordingPreparation','recording','audio','ageMs','stageAgeMs','originalReady','foregroundBudgetMs','decodeBlocked','budgetBytes','sourceBudgetBytes','residentBytes','activeEstimate','worker','decodeStarts','timedOut','maxConcurrent','purpose'].forEach(key=>historicKeys.add(key));
+  ['tabOwner','revision','method','protection','owned','maintenance','blocked','recoveryRequired','failureStage','lockFallbackError','requestFailures'].forEach(key=>historicKeys.add(key));
   function historic(value, depth = 0) {
-    if (depth > 5 || value == null) return null;
+    // Marker context contains one nested pair of cached preparation owners.
+    // The field allowlist and checkpoint byte cap still bound retained data.
+    if (depth > 6 || value == null) return null;
     if (typeof value === 'boolean') return value;
     if (typeof value === 'number') return Number.isFinite(value) ? value : null;
     if (typeof value === 'string') return token(value,200);
@@ -48,6 +53,7 @@
     return out;
   }
   function numeric(obj, fields) { const out = {}; for (const key of fields) out[key] = finite(obj?.[key]); return out; }
+  function nullableNumeric(obj, fields) { const out = {}; for (const key of fields) { const value=obj?.[key]; out[key]=typeof value==='number'&&Number.isFinite(value)?value:null; } return out; }
   function compactSession(s) {
     if (!s || typeof s !== 'object') return null;
     return { phase: token(s.phase), mode: token(s.activeMode), index: finite(s.activeIndex), count: finite(s.count),
@@ -117,7 +123,57 @@
       scope:'DOM visibility and observed animation frame; not raster or physical display test'};
   }
   function presentationSnapshot() {return compactPresentation(safe(()=>window.SukunPresentationRecovery?.snapshot?.()));}
-  function evidenceContext() { return { hidden: document.hidden, session, tempo, truth, sw, lock, background, browserLifecycle: compactLifecycle(), presentation:presentationSnapshot() }; }
+  function voiceExpectationSnapshot() {
+    // This owner exposes policy only. Do not call VoiceHealth.snapshot(), whose
+    // derive path updates metrics and arms a timer, from a passive report read.
+    const policy=safe(()=>window.SukunZikirVoicePolicy?.snapshot?.());
+    if(!policy || typeof policy!=='object')return null;
+    const choice=policy.voiceIntent, knownBool=x=>typeof x==='boolean'?x:null;
+    return {version:token(policy.version),voiceEnabled:knownBool(policy.voiceEnabled),intendedAudible:knownBool(policy.intendedAudible),
+      togetherEnabled:knownBool(policy.togetherEnabled),readerActive:knownBool(policy.readerActive),
+      reason:['voice-off','reader-running','voice-on'].includes(policy.reason)?policy.reason:'unknown',
+      voiceIntent:choice&&typeof choice==='object'?{enabled:knownBool(choice.enabled),latched:knownBool(choice.latched),explicitOff:knownBool(choice.explicitOff)}:null,
+      actualSessionSource:session?.source||'',sessionPhase:session?.phase||'',scope:'configured-policy-not-physical-sound'};
+  }
+  function recordingPreparationSnapshot() {
+    const recording=safe(()=>window.SukunRecordingPreparation?.snapshot?.()),audio=safe(()=>window.SukunAudioPreparation?.snapshot?.());
+    if(!recording&&!audio)return null;
+    // Only cached control metadata. No recording key, source URL, text, decode,
+    // playback, DOM probe, timer, or analysis is requested by report reads.
+    return {recording:recording?{version:token(recording.version),pending:bool(recording.pending),stage:token(recording.stage),originalReady:bool(recording.originalReady),...numeric(recording,['ageMs','stageAgeMs','foregroundBudgetMs'])}:null,
+      audio:audio?{version:token(audio.version),stage:token(audio.stage),decodeBlocked:bool(audio.decodeBlocked),worker:token(audio.worker),...numeric(audio,['pending','active','stageAgeMs','budgetBytes','sourceBudgetBytes','residentBytes','activeEstimate','decodeStarts','timedOut','cancelled','maxConcurrent'])}:null};
+  }
+  function cachedTapSnapshot() {
+    const tap=safe(()=>window.SukunR688TapAuthority?.snapshot?.());
+    if(!tap || typeof tap!=='object')return null;
+    return {version:token(tap.revision || tap.version), ...numeric(tap,['downs','ups','nativeClicks','activePointers','pending','scrollEvents','styleSamples','unmatchedUps']),
+      cancelReasons:Object.fromEntries(Object.entries(tap.cancelReasons || {}).slice(0,16).map(([k,v])=>[token(k),finite(v)])),
+      outcomes:(Array.isArray(tap.outcomes)?tap.outcomes:[]).slice(-16).map(x=>({at:finite(x.at),seq:finite(x.seq),target:token(x.target,120),status:token(x.status),kind:token(x.kind),durationMs:finite(x.durationMs),maxDistancePx:finite(x.maxDistancePx),touchAction:token(x.touchAction),scrolled:bool(x.scrolled),detached:bool(x.detached),hitChanged:bool(x.hitChanged)})),
+      history:(Array.isArray(tap.history)?tap.history:[]).slice(-16).map(x=>({at:finite(x.at),seq:finite(x.seq),type:token(x.type),target:token(x.target,120)}))};
+  }
+  function cachedLatencySnapshot() {
+    const timing=safe(()=>window.SukunInteractionDiagnostics?.snapshot?.());
+    if(!timing || typeof timing!=='object')return null;
+    return {version:token(timing.version),timeBase:'navigation-start-ms',eventThresholdMs:40,supported:{eventTiming:bool(timing.supported?.eventTiming),loaf:bool(timing.supported?.loaf)},notINP:true,
+      ...numeric(timing,['measuredInteractions','measuredFrames','ignoredDiagnostics']),
+      interactions:(Array.isArray(timing.interactions)?timing.interactions:[]).slice(-24).map(x=>({at:finite(x.at),kind:token(x.kind),target:token(x.target,120),...numeric(x,['durationMs','inputDelayMs','handlerMs','presentationDelayMs'])})),
+      frames:(Array.isArray(timing.frames)?timing.frames:[]).slice(-16).map(x=>({at:finite(x.at),...numeric(x,['durationMs','blockingMs']),...nullableNumeric(x,['renderStartMs','styleAndLayoutStartMs','renderDurationMs','scriptCount','retainedScriptCount']),scripts:(Array.isArray(x.scripts)?x.scripts:[]).slice(-5).map(s=>({source:s.source?path(s.source):null,charOffset:Number.isFinite(s.charOffset)?s.charOffset:null,function:token(s.function),...numeric(s,['durationMs','forcedLayoutMs'])}))}))};
+  }
+  function tabOwnerSnapshot() {
+    // Cached access metadata only; no lock acquisition, database access, user
+    // recording key, remote tab identity, raw error text or recovery action.
+    const s=safe(()=>window.SukunTabOwner?.snapshot?.());if(!s||typeof s!=='object')return null;
+    const stages=new Set(['','web-lock-request','owner-db-open','owner-db-claim','action']);
+    const names=new Set(['','Error','TypeError','RangeError','SecurityError','InvalidStateError','NotSupportedError','AbortError','UnknownError','QuotaExceededError','VersionError','NotFoundError','ConstraintError','DataError','ReadOnlyError','TransactionInactiveError','InvalidAccessError','TimeoutError','BlockedError']);
+    const version=value=>/^r\d+$/.test(String(value||''))?String(value):'unknown';
+    return {version:version(s.version),revision:version(s.revision),method:['web-locks','indexeddb'].includes(s.method)?s.method:'unknown',
+      protection:['web-lock-strict','idb-confirmed-recovery'].includes(s.protection)?s.protection:'unknown',
+      owned:bool(s.owned),maintenance:bool(s.maintenance),pending:bool(s.pending),blocked:bool(s.blocked),recoveryRequired:bool(s.recoveryRequired),
+      failureStage:stages.has(s.failureStage)?s.failureStage:'unknown',errorName:names.has(s.errorName)?s.errorName:'Error',
+      lockFallbackError:names.has(s.lockFallbackError)?s.lockFallbackError:'Error',
+      requestFailures:typeof s.requestFailures==='number'&&Number.isFinite(s.requestFailures)&&s.requestFailures>=0?Math.min(1000000,Math.floor(s.requestFailures)):null};
+  }
+  function evidenceContext(voiceExpectation=voiceExpectationSnapshot(),recordingPreparation=recordingPreparationSnapshot()) { return { hidden: document.hidden, session, tempo, truth, sw, lock, background, voiceExpectation, recordingPreparation, tabOwner:tabOwnerSnapshot(), browserLifecycle: compactLifecycle(), presentation:presentationSnapshot() }; }
   function record(kind, evidence = {}) {
     const row = { seq: ++seq, at: now(), kind: token(kind), evidence };
     events.push(row); if (events.length > MAX_EVENTS) { events.shift(); droppedEvents++; }
@@ -262,13 +318,13 @@
       issue('RUNTIME_' + kind.toUpperCase().replace(/[^A-Z0-9]/g, '_'), 'WARN', 'Çalışma zamanı uyarısı: ' + kind,
         data, 'Bu uyarının hemen öncesindeki ses, görünürlük ve tempo olaylarını raporda eşleştirin.', 'correlation');
   }
-  function audioConsistency() {
+  function audioConsistency(voiceExpectation) {
     if (!truth) return status('AUDIO_CONSISTENCY','NOT_MEASURED','Ses sahipliği tutarlılığı',{});
     // The lifecycle can lag physical playback during an interruption/handoff.
     // This transition is not a proven defect, but cannot be a successful check.
     const transition = truth.state === 'playing' && ['interrupted','recovering','preparing','suspended'].includes(truth.life);
     return status('AUDIO_CONSISTENCY',truth.issues.length ? 'WARN' : transition ? 'OBSERVED' : 'PASS',
-      'Ses sahipliği tutarlılığı',{...truth,transition},transition ? 'Ses çalıyor bilgisi ile ses motorunun geçiş durumu henüz eşleşmiyor. Bu tek örnek kalıcı arıza veya duyulan ses kanıtı değildir.' : '');
+      'Ses sahipliği tutarlılığı',{...truth,transition,actualSessionSource:session?.source||'',voiceExpectation,scope:'transport-state-not-audibility',audibility:'NOT_MEASURED'},transition ? 'Ses çalıyor bilgisi ile ses motorunun geçiş durumu henüz eşleşmiyor. Bu tek örnek kalıcı arıza veya duyulan ses kanıtı değildir.' : 'Bu kontrol ses sahiplerinin durumunu karşılaştırır; sessiz tempo da etkin olabilir. Duyulan zikir sesi cihazda ayrıca doğrulanır.');
   }
   function status(code, result, title, evidence, remedy = '') { return { code, status: result, title, evidence, remedy }; }
   function compactDeviceCheck(input) {
@@ -315,18 +371,21 @@
       } finally {safe(()=>window.SukunDiagnosticWork?.end?.(span,500));}
     }).finally(()=>{modelPromise=null;});return modelPromise;
   }
-  function currentChecks() {
+  function currentChecks(cachedInput={},voiceExpectation=null,recordingPreparation=null) {
+    const inputTap=cachedInput.taps??taps, inputLatency=cachedInput.latency??latency;
     const out = [status('BUILD', /^r\d+$/.test(build) ? 'PASS' : 'WARN', 'Uygulama sürümü', { build }),
       status('SW_IDENTITY', !sw?.hasController ? 'NOT_MEASURED' : !sw.controller ? 'NOT_MEASURED' : sw.controller === build ? 'PASS' : 'FAIL',
         'Sayfa / Service Worker eşleşmesi', sw || { controlled: !!navigator.serviceWorker?.controller }, 'Farklıysa aktif sesi durdurduktan sonra uygulamanın Güncelle düğmesini kullanın; kayıtları silmeyin.'),
       status('SW_CACHE_COMPLETE', sw?.complete === true ? 'PASS' : sw?.complete === false ? 'FAIL' : 'NOT_MEASURED', 'SW çekirdek dosyaları', { complete: sw?.complete ?? null }),
       status('SESSION_OBSERVATION', session ? 'PASS' : 'NOT_MEASURED', 'Pasif oturum durumu', session || { reason: 'Henüz oturum olayı alınmadı' }),
       status('TEMPO_RANGE', tempo?.value == null ? 'NOT_MEASURED' : tempo.value >= .6 && tempo.value <= 6 ? 'PASS' : 'FAIL', 'Tempo yetkisi', tempo || {}),
-      audioConsistency(),
+      audioConsistency(voiceExpectation),
       status('DEVICE_AUDIO', 'NOT_MEASURED', 'Fiziksel hoparlör ve ekran kilidi doğrulaması', { reason: 'Tarayıcı olayları işitilebilir sesi veya işletim sistemi süreç sonlandırmasını ispatlamaz' }),
       status('PERSISTENCE', storageError ? 'WARN' : lastSaved ? 'PASS' : 'NOT_MEASURED', 'Son durum kaydı', { lastSaved, error: storageError, trimmedRecords:checkpointTrimmed })];
     if(sw)out.push(status('SW_OPERATION',sw.error || sw.phase==='error'?'WARN':'OBSERVED','Çevrimdışı motorun son işlemi',sw,
       sw.error || sw.phase==='error'?'Çevrimdışı motorun bir işlemi tamamlanamadı. Sayfa ve çalışan sürüm eşleşiyorsa ve temel dosyalar tamamsa bu, mevcut önbelleğin bozuk olduğunu göstermez. Bağlantı uygun olduğunda güncelleme denetimini yeniden deneyin; kayıtlarınızı silmeyin.':''));
+    if(recordingPreparation)out.push(status('AUDIO_PREPARATION',recordingPreparation.audio?.decodeBlocked?'WARN':'OBSERVED','Kendi kayıt hazırlığı',recordingPreparation,
+      'Hazırlık aşaması ve bekleyen ses çözümlemesi gözlenir. Ekran açıkken efekt hazırlığı uzarsa özgün kayıt kullanılır; bu rapor duyulan sesi ölçmez.'));
     const presentation=presentationSnapshot();
     if(presentation)out.push(status('PRESENTATION',presentation.state==='attention'?'WARN':'OBSERVED','Ekrana dönüş gözlemi',presentation,
       'Bu gözlem DOM görünürlüğü ve çizim çağrısı içindir; ekrandaki gerçek pikselleri ölçmez. Siyah ekran sürerse raporu saklayın.'));
@@ -337,7 +396,7 @@
     if (background) out.push(status('BACKGROUND_HANDOFF',background.outcome === 'failed' ? 'WARN' : 'OBSERVED',
       'Son arka plan ses aktarımı',{...background,scope:'last-attempt-not-current-audibility'},
       'Bu sonuç son arka plan aktarımı içindir. Ekrana dönünce sesin devam etmesi arka plan sorununun çözüldüğünü kanıtlamaz. Raporu kaydedin; kullanıcı kayıtlarını silmeyin.'));
-    if (taps) out.push(status('INPUT_DELIVERY','OBSERVED','Tıklama / kaydırma kanıtı',taps,'scroll-or-gesture normal kaydırmadır. no-click-observed, target-detached, hit-target-changed ve unresolved-cancel kayıtlarını hedef/zaman ile inceleyin; her iptal hata değildir.'));
+    if (inputTap) out.push(status('INPUT_DELIVERY','OBSERVED','Tıklama / kaydırma kanıtı',inputTap,'scroll-or-gesture normal kaydırmadır. no-click-observed, target-detached, hit-target-changed ve unresolved-cancel kayıtlarını hedef/zaman ile inceleyin; her iptal hata değildir.'));
     if (tts) out.push(status('TTS_CAPABILITY', !tts.supported || tts.voices === 0 ? 'NOT_MEASURED' : 'OBSERVED', 'Cihaz konuşma motoru', tts, 'Sıfır ses, cihaz/tarayıcı özelliği veya henüz yüklenmemiş ses listesidir; tek başına uygulama hatası değildir. Kendi kayıtlarınız bu motordan bağımsızdır.'));
     if (probe) {
       out.push(status('EARLY_RUNTIME_ERRORS',probe.earlyErrors.length ? 'FAIL' : 'PASS','Hata kaydı başlamadan önceki JavaScript hataları',{errors:probe.earlyErrors},'Kaynak dosya ve satır başlangıç yüklemesi sırasında hata verdi; ham hata metni gizlilik için alınmaz.'));
@@ -346,7 +405,7 @@
         'Bellek göstergesi', { heapBytes: probe.heapBytes, heapLimit: probe.heapLimit, ratio: probe.heapRatio }, 'Bu tarayıcı ölçümüdür; tek örnek bellek sızıntısını kanıtlamaz.'));
       out.push(status('LONG_TASKS', !probe.longTaskSupported ? 'NOT_MEASURED' : probe.longTaskWindow.count ? 'WARN' : probe.longTaskWindow.windowComplete === true ? 'PASS' : 'NOT_MEASURED', 'Son iki dakika ana iş parçacığı', { supported:probe.longTaskSupported, ...probe.longTaskWindow, tasks: probe.recentLongTasks }, 'Tanılama işlemleri bu listeden çıkarılır. Liste son 12 örnektir; sayı ve en uzun süre eldeki pencerenin tamamından hesaplanır. Tampon dolmuşsa sayı alt sınırdır. Bu ölçüm dokunma gecikmesi veya INP değildir.'));
     }
-    if (latency) out.push(status('LATENCY_ATTRIBUTION', latency.interactions.length || latency.frames.length ? 'OBSERVED' : 'NOT_MEASURED', 'Etkileşim gecikmesi ve kaynak gözlemi', latency,
+    if (inputLatency) out.push(status('LATENCY_ATTRIBUTION', inputLatency.interactions.length || inputLatency.frames.length ? 'OBSERVED' : 'NOT_MEASURED', 'Etkileşim gecikmesi ve kaynak gözlemi', inputLatency,
       'Gecikme anını, kontrol hedefini ve kaynak dosyasını birlikte inceleyin. Aynı zamana denk gelmek tek başına nedensellik değildir. Örnekler INP veya fiziksel kilit testi değildir.'));
     if (fx) out.push(status('BACKGROUND_FX', fx.fallbackActive ? 'WARN' : 'OBSERVED', 'Kayıt yankı / 8D yolu', fx,
       'Fallback tap yolu ekran kilidinde kısıtlanabilir; hazırlanmış baked kayıt yolu ve kaynak bütçesi incelenmelidir.'));
@@ -374,14 +433,17 @@
       maxCallbackDelayMs:boundedNumber('maxCallbackDelayMs',3600000),audibleSound:'NOT_MEASURED',screenLock:'NOT_MEASURED',network:'NOT_USED'};
   }
   function read() {
-    const result = currentChecks();
+    // Both snapshot APIs return existing bounded buffers; this does not start
+    // observers, collect a new timing sample, scan layout, or change playback.
+    const cachedInput={taps:cachedTapSnapshot(),latency:cachedLatencySnapshot()}, voiceExpectation=voiceExpectationSnapshot(),recordingPreparation=recordingPreparationSnapshot();
+    const result = currentChecks(cachedInput,voiceExpectation,recordingPreparation);
     return { schema: SCHEMA, version: VERSION, build, generatedAt: new Date().toISOString(), boot,
       coverage: { since: born, events: events.length, discardedEvents: droppedEvents, incidentLimit: MAX_ISSUES,
         discardedIncidents: droppedIncidents, hiddenSampling: 'event-only-no-poll', physicalLockScreenTest: deviceCheck && deviceCheck.responses.lockedSound !== 'NOT_TRIED' ? 'USER_REPORTED' : 'NOT_RUN',
         privacy: 'metadata-only-no-recording-no-text-no-url-query', previousScope },
       summary: { currentFailures: result.filter(x => x.status === 'FAIL').length, currentWarnings: result.filter(x => x.status === 'WARN').length,
         unmeasured: result.filter(x => x.status === 'NOT_MEASURED').length, recordedIncidents: incidents.length },
-      current: copy(evidenceContext()), checks: copy(result), deviceCheck:copy(deviceCheck), modelCheck:copy(modelCheck),
+      current: copy(evidenceContext(voiceExpectation,recordingPreparation)), checks: copy(result), deviceCheck:copy(deviceCheck), modelCheck:copy(modelCheck),
       flowObservation:compactFlowObservation(),
       incidents: copy(incidents), timeline: copy(events), previous: copy(previous), lastRun: copy(lastRun) };
   }
@@ -459,10 +521,11 @@
           try {url=new URL(entry?.url,location.href);}catch(_) {result.push({path:'[invalid]',status:'INVALID_ENTRY'});continue;}
           const runtime=/\/assets\/runtime\/[A-Za-z0-9_.-]+$/.test(url.pathname);
           const navigationArt=/\/assets\/wheel-navigation-r964\/(?:gold|copper|silver|dark|crystal)\.png$/.test(url.pathname);
-          if (url.origin!==location.origin||!(runtime||navigationArt)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
+          const cabirArt=/\/assets\/scenes\/tekke-r1014\/berhet-billur\.webp$/.test(url.pathname);
+          if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;
           }
-          const maxFileBytes=navigationArt?2097152:524288;let allowance=0;
+          const maxFileBytes=navigationArt||cabirArt?2097152:524288;let allowance=0;
           try {
             allowance=await reserveBytes(maxFileBytes);
             let data;
@@ -507,11 +570,7 @@
   function sampleExplicit() {
     sampleTempo();
     tts = { supported: !!window.speechSynthesis, voices: safe(() => window.speechSynthesis.getVoices().length, 0) };
-    const tap = safe(() => window.SukunR688TapAuthority?.snapshot?.());
-    if (tap) taps = { version:token(tap.revision || tap.version), ...numeric(tap,['downs','ups','nativeClicks','activePointers','pending','scrollEvents','styleSamples','unmatchedUps']),
-      cancelReasons:Object.fromEntries(Object.entries(tap.cancelReasons || {}).slice(0,16).map(([k,v])=>[token(k),finite(v)])),
-      outcomes:(tap.outcomes || []).slice(-16).map(x=>({at:finite(x.at),seq:finite(x.seq),target:token(x.target,120),status:token(x.status),kind:token(x.kind),durationMs:finite(x.durationMs),maxDistancePx:finite(x.maxDistancePx),touchAction:token(x.touchAction),scrolled:bool(x.scrolled),detached:bool(x.detached),hitChanged:bool(x.hitChanged)})),
-      history:(tap.history || []).slice(-16).map(x=>({at:finite(x.at),seq:finite(x.seq),type:token(x.type),target:token(x.target,120)})) };
+    taps=cachedTapSnapshot();
     const p = safe(() => window.SukunRuntimeProbe?.snapshot?.());
     if (p) {
       const perfNow = performance.now(), retained = Array.isArray(p.longTasks) ? p.longTasks : [];
@@ -524,11 +583,7 @@
       longTaskWindow:{count:recent.length,maxDurationMs:recent.reduce((max,x)=>Math.max(max,x.duration),0),windowMs:120000,observedForMs:Math.min(120000,Math.max(0,finite(p.uptime) || 0)),windowComplete:truncated === null ? null : !truncated,sampleLimit:12},
       recentLongTasks: recent.slice(-12).map(x => ({ durationMs: finite(x.duration), uptimeAt: finite(x.at) })) };
     }
-    const timing = safe(() => window.SukunInteractionDiagnostics?.snapshot?.());
-    if (timing) latency = {version:token(timing.version),timeBase:'navigation-start-ms',eventThresholdMs:40,supported:{eventTiming:bool(timing.supported?.eventTiming),loaf:bool(timing.supported?.loaf)},notINP:true,
-      ...numeric(timing,['measuredInteractions','measuredFrames','ignoredDiagnostics']),
-      interactions:(Array.isArray(timing.interactions)?timing.interactions:[]).slice(-24).map(x=>({at:finite(x.at),kind:token(x.kind),target:token(x.target,120),...numeric(x,['durationMs','inputDelayMs','handlerMs','presentationDelayMs'])})),
-      frames:(Array.isArray(timing.frames)?timing.frames:[]).slice(-16).map(x=>({at:finite(x.at),...numeric(x,['durationMs','blockingMs']),scripts:(Array.isArray(x.scripts)?x.scripts:[]).slice(-5).map(s=>({source:s.source?path(s.source):null,charOffset:Number.isFinite(s.charOffset)?s.charOffset:null,function:token(s.function),...numeric(s,['durationMs','forcedLayoutMs'])}))}))};
+    latency=cachedLatencySnapshot();
     sampleLock();
     const bridge = safe(() => window.SukunNativeEchoBridge?.snapshot?.());
     if (bridge) fx = { version: token(bridge.effectsVersion), ...numeric(bridge,['cacheBytes','cache','rendering','pending','active','attached','renderBudgetBytes','sourceBudgetBytes']),
@@ -699,6 +754,12 @@
     issue('QUALITY_DECODE_FAILED','WARN','Ses kalite analizi tamamlanamadı',data,'Kaydın dosya biçimini ve bozuk/eksik olup olmadığını kontrol edin. Analiz motoru kapanışı ve kaynak hata satırını bu raporla eşleştirin.');
   }, {passive:true});
   window.addEventListener('sukun:diagnostic', passiveDiagnostic, {passive:true});
+  window.addEventListener('sukun:recordingstartup', e => {
+    const d=e.detail||{};record('recording-startup',{phase:token(d.phase),code:token(d.code),stage:token(d.stage),hidden:document.hidden});
+  }, {passive:true});
+  window.addEventListener('sukun:audio-preparation', e => {
+    const d=e.detail||{};record('audio-preparation',{code:token(d.code),purpose:token(d.purpose),at:finite(d.at),hidden:document.hidden});
+  }, {passive:true});
   window.addEventListener('error', errorEvent, true);
   window.addEventListener('unhandledrejection', rejection, {passive:true});
   document.addEventListener('visibilitychange', () => lifecycle('visibilitychange'), {passive:true});

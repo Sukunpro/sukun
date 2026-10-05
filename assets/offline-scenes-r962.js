@@ -4,11 +4,24 @@
  const en=()=>window.I18N?.lang==='en';
  const label=(tr,eng)=>en()?eng:tr;
  let busy=false;
+ /* Consume each image inside a bounded, abortable job. The page keeps the
+    two download slots occupied until the body completes or is cancelled. */
+ function downloadImage(path){return new Promise((resolve,reject)=>{
+  const ctl=new AbortController();let settled=false,response=null,reader=null;
+  const cancel=error=>{try{ctl.abort(error)}catch(_){}try{const target=reader,work=target?target.cancel(error):response?.body?.cancel(error);work?.catch(()=>{}).finally(()=>{try{target?.releaseLock()}catch(_){}})}catch(_){}};
+  const finish=(fn,value)=>{if(settled)return;settled=true;clearTimeout(timer);fn(value)};
+  const timer=setTimeout(()=>{const error=new DOMException('Offline image timeout','TimeoutError');cancel(error);finish(reject,error)},10000);
+  Promise.resolve().then(async()=>{if(settled)return;response=await fetch(path+'?v=r1007',{signal:ctl.signal});if(settled){cancel(ctl.signal.reason);return}
+   if(!response.ok||!/^image\//i.test(response.headers.get('content-type')||''))throw Error('image');
+   if(response.body){reader=response.body.getReader();for(;;){const part=await reader.read();if(settled)return;if(part.done)break}reader.releaseLock();reader=null}
+   finish(resolve);
+  }).catch(error=>{cancel(error);finish(reject,error)});
+ })}
  async function download(){
   const button=document.getElementById('r962OfflineScenes'),status=document.getElementById('r962OfflineStatus');if(busy)return;
   if(!navigator.serviceWorker?.controller){status.textContent=label('Çevrimdışı hazırlık için uygulama güncellemesini tamamlayıp yeniden aç.','Complete the app update and reopen it to prepare offline backgrounds.');return}
   busy=true;button.disabled=true;let done=0,failed=0,index=0;
-  try{await Promise.all([0,1].map(async()=>{while(index<paths.length){const path=paths[index++];try{const r=await fetch(path+'?v=r990');if(!r.ok||!/^image\//i.test(r.headers.get('content-type')||''))throw Error('image');await r.arrayBuffer()}catch(_){failed++}done++;status.textContent=label('Hazırlanıyor: ','Preparing: ')+done+' / '+paths.length}}));const receipt=await new Promise((resolve,reject)=>{const ch=new MessageChannel(),timer=setTimeout(()=>reject(Error('cache status timeout')),8000);ch.port1.onmessage=e=>{clearTimeout(timer);ch.port1.close();resolve(e.data)};navigator.serviceWorker.controller.postMessage({type:'ART_STATUS',paths},[ch.port2])});failed=paths.length-receipt.saved;status.textContent=failed?label('Hazır: ','Saved: ')+(done-failed)+' / '+paths.length+label(' · Eksikler için yeniden dene.',' · Retry to save missing images.'):label('Arka planlar ve yeni çarklar çevrimdışı kullanıma hazır.','Backgrounds and new wheels are ready for offline use.')}catch(_){status.textContent=label('Çevrimdışı kayıt doğrulanamadı. Yeniden dene.','Offline storage could not be verified. Please retry.')}finally{busy=false;button.disabled=false}
+  try{await Promise.all([0,1].map(async()=>{while(index<paths.length){const path=paths[index++];try{await downloadImage(path)}catch(_){failed++}done++;status.textContent=label('Hazırlanıyor: ','Preparing: ')+done+' / '+paths.length}}));const receipt=await new Promise((resolve,reject)=>{const ch=new MessageChannel(),close=()=>{ch.port1.close();ch.port2.close()},timer=setTimeout(()=>{close();reject(Error('cache status timeout'))},8000);ch.port1.onmessage=e=>{clearTimeout(timer);close();resolve(e.data)};navigator.serviceWorker.controller.postMessage({type:'ART_STATUS',paths},[ch.port2])});failed=paths.length-receipt.saved;status.textContent=failed?label('Hazır: ','Saved: ')+(done-failed)+' / '+paths.length+label(' · Eksikler için yeniden dene.',' · Retry to save missing images.'):label('Arka planlar ve yeni çarklar çevrimdışı kullanıma hazır.','Backgrounds and new wheels are ready for offline use.')}catch(_){status.textContent=label('Çevrimdışı kayıt doğrulanamadı. Yeniden dene.','Offline storage could not be verified. Please retry.')}finally{busy=false;button.disabled=false}
  }
  window.SukunOfflineScenes=Object.freeze({download,paths});
 })();

@@ -17,14 +17,14 @@
  }
  function update(s,phase,reason=''){
   if(current!==s)return;
-  last={phase,active:phase!=='idle'&&phase!=='ended'&&phase!=='error',native:!!s.audio,index:s.index,total:s.steps.length,reason,set:s.key,seconds:Number(s.audio?.currentTime)||0,duration:s.duration||0,bytes:s.bytes||0};
+  last={phase,active:phase!=='idle'&&phase!=='ended'&&phase!=='error',native:!!s.audio,index:s.index,total:s.steps.length,reason,stage:s.timeline?.[s.index]&&Number(s.audio?.currentTime)>=s.timeline[s.index].voiceEnd?'quiet':'reading',set:s.key,seconds:Number(s.audio?.currentTime)||0,duration:s.duration||0,bytes:s.bytes||0};
   safe(()=>s.onState?.({...last}));
   safe(()=>window.dispatchEvent(new CustomEvent('sukun:tekke-sequence',{detail:{...last}})));
   safe(()=>window.SukunAudioSessionRegistry?.schedule?.('tekke-sequence'));
  }
  function alive(s){return current===s&&s.generation===generation&&s.isCurrent()}
  function cleanup(s,reason){
-  if(!s||s.finished)return;s.finished=true;
+  if(!s||s.finished)return;s.finished=true;s.cancelPlay?.();s.cancelPlay=null;s.signalPlay=null;
   for(const [type,fn]of s.events)s.audio?.removeEventListener(type,fn);
   if(current===s){safe(()=>window.SukunBackgroundAudioOwner?.release?.(OWNER,reason));current=null;}
   safe(()=>{s.audio?.pause();s.audio?.removeAttribute('src');s.audio?.load()});
@@ -40,6 +40,7 @@
   const time=Math.max(0,Number(s.audio.currentTime)||0);
   const found=s.timeline.findIndex((step,i)=>time<step.end||i===s.timeline.length-1);
   if(found!==s.index){s.index=Math.max(0,found);safe(()=>s.onStep?.(s.index));}
+  const stage=time>=s.timeline[s.index]?.voiceEnd?'quiet':'reading';if(last.stage!==stage)update(s,last.phase);
  }
  async function prepare(s){
   const parts=[],timeline=[];let bytes=0,time=0;
@@ -71,14 +72,22 @@
  async function play(s){
   if(!alive(s)||!s.audio||!s.url)return false;
   const owner=window.SukunBackgroundAudioOwner;
+  const attempt=s.playAttempt=(s.playAttempt||0)+1;s.playBlocked=false;
   const lease=owner?.claim?.(OWNER,s.audio,s.url);s.lease=lease;
-  update(s,'preparing');
+  update(s,'preparing');let timer;
+  const cancelled=new Promise(resolve=>{s.cancelPlay=()=>resolve(false);});
+  const started=new Promise(resolve=>{s.signalPlay=()=>resolve(true);});
+  const timeout=new Promise(resolve=>{timer=setTimeout(()=>{
+   if(alive(s)&&s.playAttempt===attempt){s.playBlocked=true;s.audio.pause();safe(()=>owner?.release?.(OWNER,'play-start-timeout'));update(s,'paused','play-start-timeout');}resolve(false);
+  },8000);});
   try{
-   const ok=owner?await owner.play(lease):await s.audio.play().then(()=>true);
-   if(!alive(s))return false;
-   if(!ok){update(s,'paused','play-blocked');return false;}
+   const result=owner?owner.play(lease):s.audio.play().then(()=>true);
+   const ok=await Promise.race([result,timeout,cancelled,started]);
+   if(!alive(s)||s.playAttempt!==attempt)return false;
+   if(!ok){if(!s.playBlocked){s.playBlocked=true;s.audio.pause();update(s,'paused','play-blocked');}return false;}
    update(s,'playing');return true;
-  }catch(error){if(alive(s))update(s,'paused',String(error?.name||'play-blocked'));return false;}
+  }catch(error){if(alive(s)&&s.playAttempt===attempt){s.playBlocked=true;s.audio.pause();update(s,'paused',String(error?.name||'play-blocked'));}return false;}
+  finally{clearTimeout(timer);if(s.playAttempt===attempt){s.cancelPlay=null;s.signalPlay=null;}}
  }
  async function start(options){
   stop('replace');
@@ -95,28 +104,32 @@
    a.setAttribute('playsinline','');a.setAttribute('aria-hidden','true');a.dataset.sukunTekkeSequence='1';a.style.display='none';document.body.append(a);
    const listen=(type,fn)=>{s.events.push([type,fn]);a.addEventListener(type,fn,{passive:true})};
    listen('timeupdate',()=>observe(s));
-   listen('playing',()=>{if(alive(s))update(s,'playing')});
+   listen('playing',()=>{if(!alive(s))return;if(s.playBlocked){s.audio.pause();return;}s.signalPlay?.();update(s,'playing')});
    listen('pause',()=>{if(alive(s)&&!a.ended)update(s,'paused')});
    listen('ended',()=>{if(!alive(s))return;observe(s);update(s,'ended');cleanup(s,'ended')});
    listen('error',()=>{if(!alive(s))return;update(s,'error','media-error');cleanup(s,'media-error')});
    safe(()=>options.onAudio?.(a));safe(()=>s.onStep?.(0));
-   if('mediaSession'in navigator)safe(()=>{navigator.mediaSession.metadata=new MediaMetadata({title:options.title||'Tekke tefekkürü',artist:'SÜKÛN · Kendi kayıt',album:'Tekke'});navigator.mediaSession.playbackState='playing'});
-   await play(s);return{handled:true,done};
+   if('mediaSession'in navigator)safe(()=>{const translate=value=>window.I18N?.t?.(value)||value;navigator.mediaSession.metadata=new MediaMetadata({title:translate(options.title||'Tekke tefekkürü'),artist:translate('SÜKÛN · Kendi kayıt'),album:translate('Tekke')});navigator.mediaSession.playbackState=options.autoPlay===false?'paused':'playing'});
+   if(options.autoPlay===false)update(s,'paused');else await play(s);return{handled:true,done};
   }catch(error){
    if(alive(s)){update(s,'error',String(error?.code||error?.message||'prepare-failed'));safe(()=>s.onError?.(error));}
    cleanup(s,'prepare-failed');return{handled:true,done,reason:'prepare-failed'};
   }
  }
- function pause(){const s=current;if(!s?.audio)return false;safe(()=>window.SukunBackgroundAudioOwner?.userPause?.(s.lease));s.audio.pause();update(s,'paused');return true}
+ function pause(){const s=current;if(!s?.audio)return false;s.playBlocked=true;s.playAttempt=(s.playAttempt||0)+1;s.cancelPlay?.();s.cancelPlay=null;safe(()=>window.SukunBackgroundAudioOwner?.userPause?.(s.lease));s.audio.pause();update(s,'paused');return true}
  function resume(){const s=current;if(!s?.audio)return Promise.resolve(false);
   // Only an explicit Resume may retry a rejected source. Retain its file and
   // currentTime; background lifecycle events never issue another play.
   if(window.SukunBackgroundAudioOwner?.snapshot?.()?.blocked)safe(()=>window.SukunBackgroundAudioOwner.release(OWNER,'explicit-resume'));
   return play(s);
  }
+ function seekStep(index){const s=current;if(!alive(s)||!s.audio||!Number.isInteger(index)||!s.timeline[index])return false;
+  const paused=s.audio.paused;
+  try{s.audio.currentTime=s.timeline[index].start;s.index=index;safe(()=>s.onStep?.(index,{seek:true}));update(s,paused?'paused':'playing');return true;}catch(_){return false;}
+ }
  function setVolume(value){if(current?.audio)current.audio.volume=clamp(value)}
  const snapshot=()=>({...last,index:current?.index??last.index,seconds:Number(current?.audio?.currentTime)||last.seconds||0,active:!!current,native:!!current?.audio,mediaCount:current?.audio?1:0});
- const api=Object.freeze({version:'r988',start,stop,pause,resume,setVolume,snapshot});window.SukunTekkeSequence=api;
+ const api=Object.freeze({version:'r993',seekStep,start,stop,pause,resume,setVolume,snapshot});window.SukunTekkeSequence=api;
  safe(()=>window.SukunAudioSessionRegistry?.register?.(PROVIDER,{priority:120,title:'Tekke tefekkürü',
   getState:()=>!current?'idle':current.audio?.paused?'paused':current.audio?'playing':'idle',
   play:resume,resume,pause,stop:()=>stop('registry-stop'),getVolume:()=>current?.audio?.volume??.6,setVolume}));
