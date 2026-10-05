@@ -39,6 +39,7 @@
   const historicKeys = new Set('at seq kind code severity title certainty firstAt lastAt occurrences eventSeq context evidence hidden session tempo truth sw lock phase mode index count target epoch requestId journey owner source reason tefekkur dualJourney audioIssues state tangible pending life hub issues app controller waiting hasController complete error value previous cancelledGestures pendingGesture active playing frozen cycleMs mediaProgressMs lastProgressAgeMs stalls overshootCycles applied name file line column frames asset tag lagMs thresholdMs elapsedMs checkpointAt scope build online previousCheckpoint bytes lastEvent measuredAt snapshot issueType markerSeq type phaseMs rep limit cycles remaining delay wraps remainMs provider model http durationMs background outcome errorName stage path sourceKind paused ended readyState networkState mediaErrorCode eligible generationCurrent scope transition disposition singleSnapshot singleMeasuredAt snapshotPath preparing browserLifecycle wasDiscarded navigationType previous previousExit crashConfirmed pagehide persisted mediaPlaying mediaTime errorCode errorHttp errorStage errorAsset lastChange presentation version checks recoveries lastReason lastAt lastProbe lastRepair actions tef selectedTab viewportWidth viewportHeight scrollX scrollY frameObserved frameDelayMs domSurfaceVisible openingActive openingPresent lifecycleHidden bodyFlags roots wrap tab practice nav connected display visibility opacity width height inViewport blocker'.split(' '));
   ['voiceExpectation','voiceEnabled','intendedAudible','togetherEnabled','readerActive','voiceIntent','enabled','latched','explicitOff','actualSessionSource','sessionPhase'].forEach(key=>historicKeys.add(key));
   ['recordingPreparation','recording','audio','ageMs','stageAgeMs','originalReady','foregroundBudgetMs','decodeBlocked','budgetBytes','sourceBudgetBytes','residentBytes','activeEstimate','worker','decodeStarts','timedOut','maxConcurrent','purpose'].forEach(key=>historicKeys.add(key));
+  ['tabOwner','revision','method','protection','owned','maintenance','blocked','recoveryRequired','failureStage','lockFallbackError','requestFailures'].forEach(key=>historicKeys.add(key));
   function historic(value, depth = 0) {
     // Marker context contains one nested pair of cached preparation owners.
     // The field allowlist and checkpoint byte cap still bound retained data.
@@ -158,7 +159,21 @@
       interactions:(Array.isArray(timing.interactions)?timing.interactions:[]).slice(-24).map(x=>({at:finite(x.at),kind:token(x.kind),target:token(x.target,120),...numeric(x,['durationMs','inputDelayMs','handlerMs','presentationDelayMs'])})),
       frames:(Array.isArray(timing.frames)?timing.frames:[]).slice(-16).map(x=>({at:finite(x.at),...numeric(x,['durationMs','blockingMs']),...nullableNumeric(x,['renderStartMs','styleAndLayoutStartMs','renderDurationMs','scriptCount','retainedScriptCount']),scripts:(Array.isArray(x.scripts)?x.scripts:[]).slice(-5).map(s=>({source:s.source?path(s.source):null,charOffset:Number.isFinite(s.charOffset)?s.charOffset:null,function:token(s.function),...numeric(s,['durationMs','forcedLayoutMs'])}))}))};
   }
-  function evidenceContext(voiceExpectation=voiceExpectationSnapshot(),recordingPreparation=recordingPreparationSnapshot()) { return { hidden: document.hidden, session, tempo, truth, sw, lock, background, voiceExpectation, recordingPreparation, browserLifecycle: compactLifecycle(), presentation:presentationSnapshot() }; }
+  function tabOwnerSnapshot() {
+    // Cached access metadata only; no lock acquisition, database access, user
+    // recording key, remote tab identity, raw error text or recovery action.
+    const s=safe(()=>window.SukunTabOwner?.snapshot?.());if(!s||typeof s!=='object')return null;
+    const stages=new Set(['','web-lock-request','owner-db-open','owner-db-claim','action']);
+    const names=new Set(['','Error','TypeError','RangeError','SecurityError','InvalidStateError','NotSupportedError','AbortError','UnknownError','QuotaExceededError','VersionError','NotFoundError','ConstraintError','DataError','ReadOnlyError','TransactionInactiveError','InvalidAccessError','TimeoutError','BlockedError']);
+    const version=value=>/^r\d+$/.test(String(value||''))?String(value):'unknown';
+    return {version:version(s.version),revision:version(s.revision),method:['web-locks','indexeddb'].includes(s.method)?s.method:'unknown',
+      protection:['web-lock-strict','idb-confirmed-recovery'].includes(s.protection)?s.protection:'unknown',
+      owned:bool(s.owned),maintenance:bool(s.maintenance),pending:bool(s.pending),blocked:bool(s.blocked),recoveryRequired:bool(s.recoveryRequired),
+      failureStage:stages.has(s.failureStage)?s.failureStage:'unknown',errorName:names.has(s.errorName)?s.errorName:'Error',
+      lockFallbackError:names.has(s.lockFallbackError)?s.lockFallbackError:'Error',
+      requestFailures:typeof s.requestFailures==='number'&&Number.isFinite(s.requestFailures)&&s.requestFailures>=0?Math.min(1000000,Math.floor(s.requestFailures)):null};
+  }
+  function evidenceContext(voiceExpectation=voiceExpectationSnapshot(),recordingPreparation=recordingPreparationSnapshot()) { return { hidden: document.hidden, session, tempo, truth, sw, lock, background, voiceExpectation, recordingPreparation, tabOwner:tabOwnerSnapshot(), browserLifecycle: compactLifecycle(), presentation:presentationSnapshot() }; }
   function record(kind, evidence = {}) {
     const row = { seq: ++seq, at: now(), kind: token(kind), evidence };
     events.push(row); if (events.length > MAX_EVENTS) { events.shift(); droppedEvents++; }

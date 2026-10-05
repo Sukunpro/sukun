@@ -1,4 +1,4 @@
-/* r981: one explicit dhikr writer/voice tab per origin. No audio or count clock.
+/* r981 / r1012: one explicit dhikr writer/voice tab per origin. No audio or count clock.
  * A Web Lock has no heartbeat deadline: hidden/frozen audible tabs retain it.
  * The IndexedDB fallback atomically claims a non-expiring record; an unclean
  * exit requires the user's explicit closed-other-tabs recovery, never autoplay.
@@ -11,14 +11,21 @@
   const protectedKeys=new Set(['tekke.journey.checkpoint','sukun.total','sukun.dayZk','sukun.esmaCount','sukun.session.r470',
     'sukun.berhet.seyir.state','sukun.esma99.seyir.state','sukun.resume.policy.v1','sukun.lifecycle.checkpoint','sukun.session.player.v2','sukun.progress.journal.v1']);
   const safe=(fn,d=null)=>{try{return fn()??d;}catch(_){return d;}};
+  const OWNER_WAIT_MS=10000;
+  const errorNames=new Set(['Error','TypeError','RangeError','SecurityError','InvalidStateError','NotSupportedError','AbortError','UnknownError','QuotaExceededError','VersionError','NotFoundError','ConstraintError','DataError','ReadOnlyError','TransactionInactiveError','InvalidAccessError','TimeoutError','BlockedError']);
+  const errorName=e=>errorNames.has(e?.name)?e.name:'Error';
+  const ownerError=(stage,e)=>Object.assign(new Error(errorName(e)),{name:errorName(e),ownerStage:stage});
+  const timeoutError=stage=>ownerError(stage,{name:'TimeoutError'});
   let held=false, method=navigator.locks?.request?'web-locks':'indexeddb', releaseLock=null, acquirePromise=null;
   let generation=0, epoch=0, claimGeneration=0, acquireGeneration=-1, retiring=false, revoking=false, terminal=false, drainTimer=0, binding={}, remote=null, reason='idle';
   let grantedBefore='',grantedAfter='';
   let dbPromise=null, idbLease=false, maintenanceActive=false, channel=null, pendingAction=null, notice='', writesBlocked=0, wrappedSession=null;
+  let failureStage='',lastErrorName='',lockFallbackError='',requestFailures=0;
   const readMirror=()=>safe(()=>JSON.parse(localStorage.getItem(MIRROR)||'null'));
   const owns=()=>held&&!maintenanceActive;
   const key=()=>safe(()=>binding.identity?.(),'');
-  function snapshot(){return Object.freeze({version:'r981',method,protection:method==='web-locks'?'web-lock-strict':'idb-confirmed-recovery',owned:owns(),maintenance:maintenanceActive,epoch,intent:generation,pending:!!acquirePromise,
+  function snapshot(){return Object.freeze({version:'r981',revision:'r1012',method,protection:method==='web-locks'?'web-lock-strict':'idb-confirmed-recovery',owned:owns(),maintenance:maintenanceActive,epoch,intent:generation,pending:!!acquirePromise,
+    failureStage,errorName:lastErrorName,lockFallbackError,requestFailures,
     blocked:!held&&!!remote,reason,retiring,writesBlocked,recoveryRequired:!held&&!!remote&&(remote.method==='indexeddb'||method==='indexeddb')});}
   function emit(){safe(()=>window.dispatchEvent(new CustomEvent('sukun:tabownerchange',{detail:snapshot()})));}
   function announce(type){
@@ -30,7 +37,11 @@
   const en=()=>window.I18N?.lang==='en'||document.documentElement?.lang==='en';
   function textFor(kind='blocked'){
     if(kind==='preparing')return en()?'Checking the active SÜKÛN tab…':'Etkin SÜKÛN sekmesi kontrol ediliyor…';
-    if(kind==='unavailable')return en()?'This browser could not verify single-tab access. Try opening SÜKÛN in your browser.':'Bu tarayıcı tek sekme erişimini doğrulayamadı. SÜKÛN’ü tarayıcında açmayı dene.';
+    if(kind==='unavailable'){
+      if(failureStage==='owner-db-open'||failureStage==='owner-db-claim')return en()?'Stored data could not be accessed. Playback and recording remain stopped; try again.':'Kayıt deposuna erişilemedi. Ses ve kayıt durduruldu; yeniden dene.';
+      return en()?'Single-tab access could not be verified. Close other SÜKÛN tabs and try again.':'Tek sekme erişimi doğrulanamadı. Diğer SÜKÛN sekmelerini kapatıp yeniden dene.';
+    }
+    if(kind==='action-failed')return en()?'The audio operation could not finish. Try the recording again.':'Ses işlemi tamamlanamadı. Kaydı yeniden dene.';
     if(kind==='finish-first')return en()?'Finish the active or paused dhikr with Finish before changing stored data.':'Saklanan veriyi değiştirmeden önce etkin veya duraklatılmış zikri Bitir ile tamamla.';
     if(kind==='maintenance')return en()?'Stored data is being updated. Wait for it to finish.':'Saklanan veri güncelleniyor. İşlem bitene kadar bekle.';
     return en()?'Dhikr is active in another SÜKÛN tab. Finish it there or close that tab, then press Start here. This keeps the voice and counter together.':'Zikir başka bir SÜKÛN sekmesinde etkin. Orada Bitir’e dokun veya o sekmeyi kapat; sonra burada Başlat’a dokun. Böylece ses ve sayaç çakışmaz.';
@@ -50,33 +61,44 @@
     const close=document.createElement('button');close.type='button';close.textContent=en()?'Close':'Kapat';close.setAttribute('aria-label',en()?'Close message':'Mesajı kapat');
     close.style.cssText='margin-top:10px;margin-left:8px;background:transparent;color:inherit;border:0;text-decoration:underline';close.onclick=()=>{notice='';render();};p.appendChild(close);
   }
-  function warn(kind='blocked'){reason=kind;notice=textFor(kind);render();emit();return false;}
+  function warn(kind='blocked',stage='',error=null){if(stage){failureStage=stage;lastErrorName=errorName(error);}reason=kind;notice=textFor(kind);render();emit();return false;}
   function bind(value){binding={...binding,...value};return true;}
   function openDB(){
     if(dbPromise)return dbPromise;
     dbPromise=new Promise((resolve,reject)=>{
-      if(!window.indexedDB){reject(Error('idb-unavailable'));return;}
-      const r=indexedDB.open(DB,1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('owner'))r.result.createObjectStore('owner');};
-      r.onsuccess=()=>{const db=r.result;db.onversionchange=()=>{db.close();dbPromise=null;};resolve(db);};r.onerror=()=>reject(r.error||Error('idb-error'));r.onblocked=()=>reject(Error('idb-blocked'));
+      let settled=false,r=null;
+      const finish=(e,db)=>{if(settled)return;settled=true;clearTimeout(timer);if(e)reject(ownerError('owner-db-open',e));else resolve(db);};
+      const timer=setTimeout(()=>finish(timeoutError('owner-db-open')),OWNER_WAIT_MS);
+      if(!window.indexedDB){finish({name:'NotSupportedError'});return;}
+      try{r=indexedDB.open(DB,1);}catch(e){finish(e);return;}
+      r.onupgradeneeded=()=>{if(settled){safe(()=>r.transaction?.abort());return;}if(!r.result.objectStoreNames.contains('owner'))r.result.createObjectStore('owner');};
+      r.onsuccess=()=>{const db=r.result;if(settled){safe(()=>db.close());return;}db.onversionchange=()=>{db.close();dbPromise=null;};finish(null,db);};
+      r.onerror=()=>finish(r.error||Error('idb-error'));r.onblocked=()=>finish({name:'BlockedError'});
     }).catch(e=>{dbPromise=null;throw e;});return dbPromise;
   }
   async function idbClaim(expected,remove=false){
     const db=await openDB();return await new Promise((resolve,reject)=>{
-      const tx=db.transaction('owner','readwrite'),store=tx.objectStore('owner');let result=false;
-      const r=store.get('active');r.onsuccess=()=>{
-        const existing=r.result;
-        if(remove){if(existing?.id===expected){store.delete('active');result=true;}return;}
-        // An exclusive Web Lock proves a prior Web Lock callback has ended.
-        // It cannot prove that a fallback owner is silent.
-        if(existing&&existing.id!==id&&!(method==='web-locks'&&existing.method==='web-locks')){remote=existing;return;}
-        store.put({v:1,id,method},'active');result=true;
+      let tx=null,settled=false,result=false;
+      const finish=e=>{if(settled)return;settled=true;clearTimeout(timer);if(e)reject(ownerError('owner-db-claim',e));else resolve(result);};
+      const timer=setTimeout(()=>{finish(timeoutError('owner-db-claim'));safe(()=>tx?.abort());},OWNER_WAIT_MS);
+      let store,r;try{tx=db.transaction('owner','readwrite');store=tx.objectStore('owner');r=store.get('active');}catch(e){finish(e);safe(()=>tx?.abort());return;}
+      r.onsuccess=()=>{
+        if(settled)return;
+        try{
+          const existing=r.result;
+          if(remove){if(existing?.id===expected){store.delete('active');result=true;}return;}
+          // An exclusive Web Lock proves a prior Web Lock callback has ended.
+          // It cannot prove that a fallback owner is silent.
+          if(existing&&existing.id!==id&&!(method==='web-locks'&&existing.method==='web-locks')){remote=existing;return;}
+          store.put({v:1,id,method},'active');result=true;
+        }catch(e){finish(e);safe(()=>tx.abort());}
       };
-      tx.oncomplete=()=>resolve(result);tx.onerror=()=>reject(tx.error||Error('claim-error'));tx.onabort=()=>reject(tx.error||Error('claim-aborted'));
+      tx.oncomplete=()=>finish();tx.onerror=()=>{finish(tx.error||Error('claim-error'));safe(()=>tx.abort());};tx.onabort=()=>finish(tx.error||{name:'AbortError'});
     });
   }
   function grant(token,kind='single'){
     if(token!==generation)return false;
-    held=true;epoch++;claimGeneration=token;remote=null;reason='owned';notice='';retiring=false;terminal=false;clearTimeout(drainTimer);drainTimer=0;
+    held=true;epoch++;claimGeneration=token;remote=null;reason='owned';notice='';failureStage='';lastErrorName='';retiring=false;terminal=false;clearTimeout(drainTimer);drainTimer=0;
     grantedBefore=key();let rebased=false;try{rebased=binding.rebase?.(kind)!==false}catch(_){rebased=false}if(!rebased){held=false;epoch++;reason='progress-recovery-required';return false}grantedAfter=key();announce('held');render();emit();return true;
   }
   function acquire(kind='single'){
@@ -84,31 +106,43 @@
     if(revoking){warn('preparing');return Promise.resolve(false);}
     if(acquirePromise)return acquireGeneration===generation?acquirePromise:acquirePromise.then(()=>acquire(kind));
     acquireGeneration=generation;
-    const token=generation;reason='preparing';notice=textFor('preparing');render();emit();
-    const work=method==='web-locks'?new Promise(resolve=>{
-      let settled=false;const done=v=>{if(!settled){settled=true;resolve(v);}};
-      try{
-        const request=navigator.locks.request(LOCK,{mode:'exclusive',ifAvailable:true},async lock=>{
-          if(!lock){remote=readMirror()||{id:'unknown',method:'web-locks'};warn();done(false);return;}
-          // A shared atomic record also serializes a context lacking Web Locks.
-          // The mirror is messaging only, never the winner of a claim race.
-          if(window.indexedDB){
-            try{if(!await idbClaim()){warn();done(false);return;}idbLease=true;}
-            catch(_){warn('unavailable');done(false);return;}
-          }else{warn('unavailable');done(false);return;}
-          if(token!==generation){if(idbLease){await idbClaim(id,true);idbLease=false;}done(false);return;}
-          const holding=new Promise(release=>{releaseLock=release;});if(!grant(token,kind)){releaseLock=null;if(idbLease){await idbClaim(id,true);idbLease=false}done(false);return}done(true);return holding;
-        });
-        Promise.resolve(request).catch(()=>{if(held&&claimGeneration===token)revoke('web-lock-error');warn('unavailable');done(false);});
-      }catch(_){warn('unavailable');done(false);}
-    }):(async()=>{
+    const token=generation;reason='preparing';notice=textFor('preparing');failureStage='';lastErrorName='';render();emit();
+    const fallbackClaim=async()=>{
+      if(token!==generation)return false;
       const mirror=readMirror();if(mirror?.method==='web-locks'&&mirror.id!==id){remote=mirror;warn();return false;}
       try{
         const ok=await idbClaim();if(!ok){warn();return false;}
         if(token!==generation){await idbClaim(id,true);return false;}
         idbLease=true;const granted=grant(token,kind);if(!granted){await idbClaim(id,true);idbLease=false}return granted;
-      }catch(_){warn('unavailable');return false;}
-    })();
+      }catch(e){warn('unavailable',e.ownerStage||'owner-db-claim',e);return false;}
+    };
+    const work=method==='web-locks'?new Promise(resolve=>{
+      let settled=false,callbackStarted=false;const done=v=>{if(!settled){settled=true;resolve(v);}};
+      const requestFailed=async e=>{
+        // A rejection before the callback ran proves no Web Lock was granted.
+        // Only then may the shared atomic IndexedDB claim be used instead.
+        // A busy/null callback or a callback failure never changes lock method.
+        if(callbackStarted){if(held&&claimGeneration===token)revoke('web-lock-error');warn('unavailable','web-lock-request',e);done(false);return;}
+        requestFailures++;lockFallbackError=errorName(e);
+        if(token!==generation){done(false);return;}
+        method='indexeddb';done(await fallbackClaim());
+      };
+      try{
+        const request=navigator.locks.request(LOCK,{mode:'exclusive',ifAvailable:true},async lock=>{
+          callbackStarted=true;
+          if(!lock){remote=readMirror()||{id:'unknown',method:'web-locks'};warn();done(false);return;}
+          // A shared atomic record also serializes a context lacking Web Locks.
+          // The mirror is messaging only, never the winner of a claim race.
+          if(window.indexedDB){
+            try{if(!await idbClaim()){warn();done(false);return;}idbLease=true;}
+            catch(e){warn('unavailable',e.ownerStage||'owner-db-claim',e);done(false);return;}
+          }else{warn('unavailable','owner-db-open',{name:'NotSupportedError'});done(false);return;}
+          if(token!==generation){if(idbLease){await idbClaim(id,true);idbLease=false;}done(false);return;}
+          const holding=new Promise(release=>{releaseLock=release;});if(!grant(token,kind)){releaseLock=null;if(idbLease){await idbClaim(id,true);idbLease=false}done(false);return}done(true);return holding;
+        });
+        Promise.resolve(request).catch(requestFailed);
+      }catch(e){requestFailed(e);}
+    }):fallbackClaim();
     acquirePromise=Promise.resolve(work).finally(()=>{acquirePromise=null;emit();});return acquirePromise;
   }
   function prime(){safe(()=>binding.prime?.());}
@@ -130,7 +164,7 @@
     if(maintenanceActive)return warn('maintenance');
     if(held)return action();if(pendingAction)return false;
     const token=generation;pendingAction={token,kind};
-    Promise.resolve(run(kind,action,opt)).catch(()=>warn('unavailable')).finally(()=>{
+    Promise.resolve(run(kind,action,opt)).catch(e=>warn('action-failed','action',e)).finally(()=>{
       if(pendingAction?.token===token)pendingAction=null;
       if(kind==='manual'&&!maintenanceActive&&claimGeneration===token)retire('manual-drained');
     });return false;
@@ -174,7 +208,7 @@
     const message=en()?'Close every other SÜKÛN tab first. If another tab is still playing, clearing this lock may allow two voices. Clear the abandoned lock? Playback will stay stopped.':'Önce diğer tüm SÜKÛN sekmelerini kapat. Başka sekmede ses hâlâ çalıyorsa kilidi temizlemek iki ses açılmasına izin verebilir. Sahipsiz kilit temizlensin mi? Zikir kendiliğinden başlamaz.';
     if(!safe(()=>window.confirm(message),false))return false;
     cancelPending('explicit-recovery');
-    try{if((old.method==='indexeddb'||method==='indexeddb')&&!await idbClaim(old.id,true))return warn();}catch(_){return warn('unavailable');}
+    try{if((old.method==='indexeddb'||method==='indexeddb')&&!await idbClaim(old.id,true))return warn();}catch(e){return warn('unavailable',e.ownerStage||'owner-db-claim',e);}
     if(readMirror()?.id===old.id)safe(()=>localStorage.removeItem(MIRROR));
     safe(()=>channel?.postMessage({v:1,type:'revoked',id:old.id,method:old.method}));
     remote=null;reason='recovered-stopped';notice=en()?'Lock cleared. Press Start when ready.':'Kilit temizlendi. Hazır olduğunda Başlat’a dokun.';render();emit();return true;
