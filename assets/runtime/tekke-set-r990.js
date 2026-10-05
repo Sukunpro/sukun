@@ -7,7 +7,8 @@
  if(window.SukunTekkeSet)return;
  const CHECKPOINT_KEY='tekke.journey.checkpoint',KEY='tekke.imge.selected',VISIBLE_KEY='tekke.imge.visible',safe=(fn,d=null)=>{try{return fn()}catch(_){return d}};
  const tr=t=>((window.I18N?.lang==='en'||document.documentElement.lang==='en')?({'Detaylar':'Details','Detayları gizle':'Hide details','Set başlatılamadı. Diğer SÜKÛN sekmesini bitir veya kapat; sonra Tekrar başlat düğmesine dokun.':'Set could not start. Finish or close the other SÜKÛN tab, then press Retry.','Ses erişimi beklerken süre doldu. Kayıtların korundu; Tekrar başlat düğmesine dokun.':'Audio access timed out. Your recordings are retained; press Retry.','Kayıt yüklenirken süre doldu. Kayıtların korundu; Tekrar başlat düğmesine dokun.':'Recording loading timed out. Your recordings are retained; press Retry.','Ses başlamadı. Aynı adımı yeniden denemek için Devam et düğmesine dokun.':'Audio did not start. Press Resume to retry the same step.'}[t]):null)||window.I18N?.t?.(t)||t;
- let catalog=null,options={},selected='',run=null,generation=0,scan=0,recorded=null;
+ let catalog=null,options={},selected='',run=null,generation=0,scan=0,recorded=null,recordingsAvailable=null;
+ const recordingWarning=()=>window.I18N?.lang==='en'||document.documentElement.lang==='en'?'Recording storage could not be read. This does not mean your recordings were deleted. Retry.':'Kayıt deposu okunamadı. Bu, kayıtların silindiği anlamına gelmez. Yeniden dene.';
  let last={phase:'idle',key:'',index:0,total:0,source:'',stage:'',reason:''};
  const listeners=new Set(),cards=[];let homeExpanded=false;
  let checkpoint=safe(()=>JSON.parse(localStorage.getItem(CHECKPOINT_KEY))),saveTimer=null;
@@ -27,7 +28,7 @@
  let selection=stored&&typeof stored.key==='string'&&typeof stored.title==='string'?stored:null;
  let visible=safe(()=>JSON.parse(localStorage.getItem(VISIBLE_KEY)))!==false;
  const active=s=>run===s&&s.generation===generation;
- const snapshot=()=>({...last,active:!!run,visible,selected:selected||selection?.key||'',selection:selection?{...selection}:null,recorded,elapsed:elapsed(run),checkpoint:validCheckpoint(),completed:run?.completed.size??last.completed??0});
+ const snapshot=()=>({...last,active:!!run,visible,selected:selected||selection?.key||'',selection:selection?{...selection}:null,recorded,recordingsAvailable,elapsed:elapsed(run),checkpoint:validCheckpoint(),completed:run?.completed.size??last.completed??0});
  function publish(){const state=snapshot();for(const f of listeners)safe(()=>f(state));paint();safe(()=>window.SukunAudioSessionRegistry?.schedule?.('tekke-set'));}
  function state(s,phase,patch={}){if(!active(s))return;clock(s,phase);last={...last,...patch,phase,key:s.key,title:s.set.ad,total:s.set.adimlar.length,index:s.index};persistProgress();publish();}
  function detach(s){s.waitCancel?.();s.waitCancel=null;s.task?.stop?.();s.task=null;s.gate?.();s.gate=null;s.gap?.stop?.();s.gap=null;}
@@ -48,11 +49,15 @@
  async function refresh(){
   if(!catalog||!catalog[selected])return;
   const ticket=++scan,key=selected,steps=catalog[key].adimlar;let n=0;
-  for(let i=0;i<steps.length;i++){if(ticket!==scan)return;const blob=await safe(()=>options.load(key,i),Promise.resolve(null)).catch(()=>null);if(blob)n++;}
-  if(ticket!==scan||selected!==key)return;recorded=n;publish();
+  try{
+   for(let i=0;i<steps.length;i++){if(ticket!==scan)return;const blob=await options.load(key,i);if(blob)n++;}
+   if(ticket!==scan||selected!==key)return;recorded=n;recordingsAvailable=true;publish();return {ok:true,recorded};
+  }catch(error){
+   if(ticket!==scan||selected!==key)return;recordingsAvailable=false;publish();return {ok:false,error};
+  }
  }
  function select(key){
-  if(!catalog?.[key])return false;selected=key;recorded=null;scan++;
+  if(!catalog?.[key])return false;selected=key;recorded=null;recordingsAvailable=null;scan++;
   selection={key,title:catalog[key].ad,total:catalog[key].adimlar.length};
   if(!run)last={...last,phase:'idle',reason:'',key,index:0,total:selection.total};
   safe(()=>options.persist?.(KEY,selection));safe(()=>options.selectionChanged?.(key));publish();refresh();return true;
@@ -125,7 +130,7 @@
   try{
    for(let i=0;i<s.set.adimlar.length;i++){
     let timer;const cancelled=new Promise(resolve=>{s.waitCancel=()=>resolve(null);});const timeout=new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('recording-load-timeout')),10000);});
-    try{blobs.push(await Promise.race([Promise.resolve().then(()=>options.load(key,i)).catch(()=>null),timeout,cancelled]));}finally{clearTimeout(timer);s.waitCancel=null;}
+    try{blobs.push(await Promise.race([Promise.resolve().then(()=>options.load(key,i)).catch(error=>{throw Object.assign(Error('recording-unavailable'),{cause:error});}),timeout,cancelled]));}finally{clearTimeout(timer);s.waitCancel=null;}
     if(!active(s))return false;
    }
    if(blobs.every(Boolean)&&window.SukunTekkeSequence){
@@ -156,7 +161,7 @@
     await quiet(s,Number.isFinite(seconds)?seconds:20);if(!active(s))return false;s.completed.add(i);
    }
    finish(s,'ended');return true;
-  }catch(error){if(active(s))finish(s,'error',error?.message==='recording-load-timeout'?'recording-load-timeout':'set-error');return false;}
+  }catch(error){if(active(s)){if(['recording-load-timeout','recording-unavailable'].includes(error?.message))recordingsAvailable=false;finish(s,'error',['recording-load-timeout','recording-unavailable'].includes(error?.message)?error.message:'set-error');}return false;}
   };
   const owner=window.SukunTabOwner;
   if(owner?.owns?.()===false){
@@ -181,7 +186,17 @@
   if(s.native)return window.SukunTekkeSequence.resume();
   state(s,'playing',{reason:''});s.gate?.();s.gap?.resume?.();await s.task?.resume?.();return active(s)&&last.phase==='playing';
  }
- function discardCheckpoint(){const owner=window.SukunTabOwner;if(owner?.owns?.()===false)return owner.run('tekke-checkpoint-discard',()=>{clearCheckpoint();publish();return true;},{releaseAfter:true});clearCheckpoint();publish();return true;}
+ function discardCheckpoint(opt={}){
+  // Finishing a scene must not open storage just to discard an absent bookmark.
+  // An explicit recovery-card discard may claim ownership; terminal Stop may not.
+  if(!checkpoint)return true;
+  const owner=window.SukunTabOwner;
+  if(owner?.owns?.()===false){
+   if(opt.acquire===false)return false;
+   return owner.run('tekke-checkpoint-discard',()=>{clearCheckpoint();publish();return true;},{releaseAfter:true});
+  }
+  clearCheckpoint();publish();return true;
+ }
  function recover(){const c=validCheckpoint();if(!c)return false;select(c.key);return window.Tekke?.hazirla?.()?.startSet?.(c.key,{index:c.index,elapsed:c.elapsed,completed:c.completed});}
  function jump(index){const s=run;if(!s||!['playing','paused'].includes(last.phase)||!Number.isInteger(index)||index<0||index>=s.set.adimlar.length||window.SukunTabOwner?.owns?.()===false||options.canPlay?.()===false)return false;
   const paused=last.phase==='paused';
@@ -249,11 +264,12 @@
    const dismiss=el.querySelector('[data-set-action="dismiss"]');dismiss.setAttribute('aria-label',tr('Seti kapat'));dismiss.title=tr('Seti durdurur ve kartını gizler. İlk Tekke ayarlarından yeniden gösterebilirsin; kayıtların korunur.');
    el.querySelector('.r990SetName').textContent=tr(shown.title);
    let status=playing?`${v.index+1} / ${shown.total} · ${tr(v.phase==='preparing'?'Hazırlanıyor':v.phase==='paused'?'Duraklatıldı':v.stage==='quiet'?'Tefekkür arası':v.source==='recorded'?'Kendi kaydın':'Cihaz sesi (TTS)')}`:
-    v.phase==='ended'&&v.key===shown.key?tr('Set tamamlandı'):v.phase==='error'&&v.key===shown.key?tr('Set durdu'):recorded==null?tr('Kayıtlar kontrol ediliyor'):`${recorded} / ${shown.total} · ${tr('adım kendi sesinle')}`;
+    v.phase==='ended'&&v.key===shown.key?tr('Set tamamlandı'):v.phase==='error'&&v.key===shown.key?tr('Set durdu'):recordingsAvailable===false?recordingWarning():recorded==null?tr('Kayıtlar kontrol ediliyor'):`${recorded} / ${shown.total} · ${tr('adım kendi sesinle')}`;
    el.querySelector('.r990SetStatus').textContent=status;
    const step=el.querySelector('.r990SetStep');step.hidden=!playing||v.phase==='preparing';step.textContent=playing?tr(catalog?.[v.key]?.adimlar[v.index]?.t||''):'';
    let hint=tr('Adımlar sırayla ilerler. Önce kendi kaydın, eksik adımda cihaz sesi kullanılır.');
    if(v.reason==='tts-unavailable')hint=tr('Cihaz sesi kullanılamadı. Eksik adımı kaydet veya cihazındaki TTS dilini kontrol et; sonra yeniden başlat.');
+   else if(v.reason==='recording-unavailable'||!playing&&recordingsAvailable===false)hint=recordingWarning();
    else if(v.reason==='tab-access')hint=tr('Set başlatılamadı. Diğer SÜKÛN sekmesini bitir veya kapat; sonra Tekrar başlat düğmesine dokun.');
    else if(v.reason==='tab-claim-timeout')hint=tr('Ses erişimi beklerken süre doldu. Kayıtların korundu; Tekrar başlat düğmesine dokun.');
    else if(v.reason==='recording-load-timeout')hint=tr('Kayıt yüklenirken süre doldu. Kayıtların korundu; Tekrar başlat düğmesine dokun.');
