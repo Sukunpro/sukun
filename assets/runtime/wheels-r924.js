@@ -1,0 +1,305 @@
+/* r924: artwork and preference presentation only; never owns playback or counting. */
+(()=>{'use strict';
+const safe=(fn,fallback=null)=>{try{return fn()}catch{return fallback}};
+const normalMode=mode=>mode==='berhet'?'berhet':'esma';
+/* r928: [x%, y%, safe radius%]. Premium centers/radii were inspected on each
+   1024px source. The inscribed circle excludes metal/claws and is invariant
+   under counter-rotation. Classics have no large action stones: compact
+   circular glass badges use a declared quiet control region instead. */
+const measuredGeometry={"ham-kristal":{"minus":[11.0352,49.2188,7.0312],"plus":[89.3555,49.0234,7.0312],"stop":[50.0,11.4258,7.0312],"play":[50.0,86.7188,7.0312]},"faset-kesim":{"minus":[10.9375,49.6094,6.6406],"plus":[89.2578,49.6094,6.6406],"stop":[50.0,10.7422,6.6406],"play":[50.0,87.793,6.543]},"ametist-yuvarlak":{"minus":[11.6211,49.2188,6.25],"plus":[88.9648,49.2188,6.25],"stop":[50.0,11.3281,6.25],"play":[50.0,86.4258,6.25]},"ametist-saltanati":{"minus":[8.7891,50.0,5.8594],"plus":[91.0156,50.0,5.8594],"stop":[50.0977,8.9844,6.0547],"play":[49.9023,90.0391,5.8594]},"zumrut-tac":{"minus":[12.0117,49.3164,6.543],"plus":[88.5742,49.3164,6.543],"stop":[50.0,12.0117,6.543],"play":[50.0,84.668,6.543]},"safir-ruzgari":{"minus":[10.8398,48.9258,6.0547],"plus":[89.0625,48.5352,6.0547],"stop":[50.0,10.7422,6.0547],"play":[49.8047,84.1797,6.0547]},"obsidyen-muhur":{"minus":[10.8398,47.3633,6.0547],"plus":[89.0625,47.3633,6.0547],"stop":[50.0,10.8398,6.1523],"play":[50.0,85.4492,6.0547]},"bakir-ruzgari":{"minus":[10.7422,49.6094,6.1523],"plus":[89.3555,49.6094,6.1523],"stop":[50.0,11.3281,6.1523],"play":[50.0,86.7188,6.1523]},"yakut-muhur":{"minus":[11.8164,49.2188,6.0547],"plus":[87.8906,49.2188,6.0547],"stop":[50.0,11.4258,6.0547],"play":[50.0,86.2305,6.0547]},"billur-hisar":{"minus":[11.9141,49.0234,5.957],"plus":[88.6719,49.2188,5.957],"stop":[49.8047,10.8398,5.957],"play":[49.8047,85.4492,5.6641]},"lacivert-usturlap":{"minus":[11.2305,49.2188,6.543],"plus":[88.1836,49.2188,6.543],"stop":[49.8047,11.0352,6.543],"play":[50.0,85.6445,6.543]},"inci-sema":{"minus":[9.668,50.3906,5.5664],"plus":[90.625,50.3906,5.5664],"stop":[50.0,10.2539,5.8594],"play":[50.0,87.8906,5.5664]},"zumrut-tesbih":{"minus":[10.7422,48.8281,5.1758],"plus":[89.3555,48.8281,5.1758],"stop":[50.0,12.207,4.8828],"play":[50.0,85.5469,4.8828]},"oniks-sukuneti":{"minus":[10.9375,49.4141,5.3711],"plus":[88.7695,49.4141,5.5664],"stop":[49.8047,10.2539,5.5664],"play":[49.8047,87.3047,5.3711]},"kehribar-tesbih":{"minus":[10.2539,48.8281,5.8594],"plus":[90.332,48.8281,5.8594],"stop":[50.0,10.4492,5.8594],"play":[50.0,87.6953,5.8594]},"sedef-nuru":{"minus":[9.668,49.4141,5.8594],"plus":[90.332,49.4141,5.8594],"stop":[50.0,9.2773,5.8594],"play":[50.0,88.4766,5.8594]},"crystal":{"minus":[12,50,6.5],"plus":[88,50,6.5],"stop":[50,12,6.5],"play":[50,88,6.5]},"seal":{"minus":[12,50,6.5],"plus":[88,50,6.5],"stop":[50,12,6.5],"play":[50,88,6.5]},"pearls":{"minus":[12,50,6.5],"plus":[88,50,6.5],"stop":[50,12,6.5],"play":[50,88,6.5]},"classic":{"minus":[12,50,6.5],"plus":[88,50,6.5],"stop":[50,12,6.5],"play":[50,88,6.5]}};
+/* r977: six native surfaces, measured per new transparent artwork. */
+Object.assign(measuredGeometry,{"ceviz-naksi": {"minus": [9.8086, 48.5646, 5.5821], "plus": [90.7496, 48.5646, 5.5821], "stop": [49.8405, 9.6491, 5.5821], "play": [49.8405, 88.0383, 5.5821], "previous": [24.0829, 78.5486, 5.1834], "next": [76.3158, 78.5486, 5.1834]}, "zeytin-tesbihi": {"minus": [8.2935, 48.4848, 5.5821], "plus": [91.547, 48.4848, 5.5821], "stop": [49.9203, 8.453, 5.5821], "play": [49.9203, 88.9155, 5.5821], "previous": [21.2919, 78.7081, 5.1834], "next": [78.7081, 78.7081, 5.1834]}, "abanoz-sukunu": {"minus": [9.8086, 48.6443, 5.5821], "plus": [90.7496, 48.6443, 5.5821], "stop": [49.9203, 9.5694, 5.5821], "play": [49.9203, 87.7193, 5.5821], "previous": [23.3652, 77.1132, 4.9442], "next": [77.2727, 77.1132, 4.9442]}, "sandal-halkasi": {"minus": [9.4099, 50.2392, 5.4226], "plus": [90.9091, 50.2392, 5.4226], "stop": [49.9203, 10.0478, 5.4226], "play": [49.9203, 88.756, 5.4226], "previous": [19.8565, 74.0829, 5.4226], "next": [80.0638, 74.0829, 5.4226]}, "altin-nakis": {"minus": [11.9617, 48.1659, 4.7847], "plus": [87.4003, 48.1659, 4.7847], "stop": [49.9203, 12.5997, 4.7847], "play": [49.9203, 85.6459, 4.7847], "previous": [22.3285, 72.0096, 3.9872], "next": [77.5917, 72.0096, 3.9872]}, "elmas-taci": {"minus": [16.3477, 36.5231, 4.386], "plus": [83.3333, 36.5231, 4.386], "stop": [49.9203, 12.4402, 5.1834], "play": [49.9203, 85.6459, 5.1834], "previous": [19.7767, 69.6172, 4.386], "next": [79.9841, 69.6172, 4.386]}, "gumus-telkari": {"minus": [12.4402, 48.8836, 4.7847], "plus": [87.4003, 48.8836, 4.7847], "stop": [49.9203, 13.1579, 4.7847], "play": [49.9203, 85.7257, 4.7847], "previous": [22.4083, 72.8868, 4.1467], "next": [77.5917, 72.8868, 4.1467]}, "sultan-taslari": {"minus": [13.1579, 47.3684, 4.7847], "plus": [86.9219, 47.3684, 4.7847], "stop": [49.9203, 12.5199, 4.7847], "play": [49.9203, 84.051, 4.7847], "previous": [22.0893, 70.9729, 3.9872], "next": [77.9904, 70.9729, 3.9872]}});
+for(const g of Object.values(measuredGeometry)){for(const p of Object.values(g))Object.freeze(p);Object.freeze(g)}Object.freeze(measuredGeometry);
+const navigationMaterials=Object.freeze({"ham-kristal": "gold", "faset-kesim": "gold", "ametist-yuvarlak": "gold", "ametist-saltanati": "gold", "zumrut-tac": "gold", "safir-ruzgari": "silver", "obsidyen-muhur": "dark", "bakir-ruzgari": "copper", "yakut-muhur": "gold", "billur-hisar": "gold", "lacivert-usturlap": "gold", "inci-sema": "gold", "zumrut-tesbih": "gold", "oniks-sukuneti": "dark", "kehribar-tesbih": "gold", "sedef-nuru": "gold", "crystal": "gold", "seal": "gold", "pearls": "gold", "classic": "crystal"});
+const baseGeometry=measuredGeometry.classic;
+const premium=(mode,id,title)=>Object.freeze({mode,id,title,src:`./assets/wheels-r924/${mode==='berhet'?'berhetiyye':'esma'}/${id}.webp`,classic:false,matte:false,geometry:measuredGeometry[id]||baseGeometry});
+const classic=(mode,id,title,src,matte=false)=>Object.freeze({mode,id,title,src,classic:true,matte,geometry:measuredGeometry[id]||baseGeometry});
+const newWheels=Object.freeze([["ceviz-naksi", "Ceviz Nakşı"], ["zeytin-tesbihi", "Zeytin Tesbihi"], ["abanoz-sukunu", "Abanoz Sükûnu"], ["sandal-halkasi", "Sandal Halkası"], ["altin-nakis", "Altın Nakış"], ["elmas-taci", "Elmas Tacı"], ["gumus-telkari", "Gümüş Telkâri"], ["sultan-taslari", "Sultan Taşları"]]);
+const darkInk=new Set(["zeytin-tesbihi","sandal-halkasi","altin-nakis","elmas-taci","gumus-telkari"]);
+const nativeWheel=(mode,id,title)=>Object.freeze({mode,id,title,src:`./assets/wheels-r977/${id}.webp`,classic:false,matte:false,nativeNavigation:true,darkNavigation:id==="sultan-taslari",darkInk:darkInk.has(id),geometry:measuredGeometry[id]});
+const catalog=Object.freeze({
+ berhet:Object.freeze([
+  ['ham-kristal','Ham Kristal'],['faset-kesim','Faset Kesim'],['ametist-yuvarlak','Yuvarlak Ametist'],['ametist-saltanati','Ametist Saltanatı'],['zumrut-tac','Zümrüt Taç'],['safir-ruzgari','Safir Rüzgârı'],['obsidyen-muhur','Obsidyen Mühür'],['bakir-ruzgari','Bakır Rüzgârı'],['yakut-muhur','Yakut Mühür'],['billur-hisar','Billur Hisar'],['lacivert-usturlap','Lacivert Usturlap']
+ ].map(([id,title])=>premium('berhet',id,title)).concat([
+  classic('berhet','crystal','Klasik · Kristal Taç','./assets/berhetiyye-premium/wheel-alpha-r915.png'),
+  classic('berhet','seal','Klasik · Süleyman Mührü','./assets/berhetiyye-premium/wheel-seal-r916.svg'),
+  classic('berhet','pearls','Klasik · İnci Halkası','./assets/berhetiyye-premium/wheel-pearls-r916.svg')
+ ]).concat(newWheels.map(([id,title])=>nativeWheel('berhet',id,title)))),
+ esma:Object.freeze([
+  ['inci-sema','İnci Semâ'],['zumrut-tesbih','Zümrüt Tesbih'],['oniks-sukuneti','Oniks Sükûneti'],['kehribar-tesbih','Kehribar Tesbih'],['sedef-nuru','Sedef Nuru']
+ ].map(([id,title])=>premium('esma',id,title)).concat([
+  classic('esma','classic','Klasik · Nur Halkası','./assets/sukun-nur-ring-r757.png',true)
+ ]).concat(newWheels.map(([id,title])=>nativeWheel('esma',id,title))))
+});
+const storageKey=mode=>'sukun.wheel.r924.'+mode;
+const choiceFor=mode=>{const stored=safe(()=>localStorage.getItem(storageKey(mode)));return catalog[mode].some(item=>item.id===stored)?stored:catalog[mode][0].id};
+const choices={berhet:choiceFor('berhet'),esma:choiceFor('esma')};
+let host=null,mode='',key='',generation=0,cancel=null,pending=false,resolved=null,status='idle',fallback=0,requests=0,geometryItem=null,geometryObserver=null,measuredWidth=0;
+const $=id=>host?.querySelector('#'+id)||null;
+const setText=(node,value)=>{if(window.I18N?.writeText)return window.I18N.writeText(node,value);if(node&&node.textContent!==value)node.textContent=value};
+const setAttr=(node,name,value)=>{if(window.I18N?.writeAttr&&['title','aria-label','placeholder'].includes(name))return window.I18N.writeAttr(node,name,value);if(node&&node.getAttribute(name)!==String(value))node.setAttribute(name,String(value))};
+const setHidden=(node,value)=>{if(node&&node.hidden!==value)node.hidden=value};
+const current=()=>catalog[mode]?.find(item=>item.id===choices[mode]);
+function syncStatus(){
+ const selection=current();if(!selection)return;
+ const select=$('r920WheelSelect');if(select&&select.value!==selection.id)select.value=selection.id;
+ const message=status==='loading'?'Çark yükleniyor…':status==='error'?'Görsel açılamadı; sade nur halkası kullanılıyor.':fallback?'Seçilen görsel açılamadı; klasik çark gösteriliyor.':selection.title+' seçildi.';
+ setText($('r924WheelStatus'),message);setHidden($('r924WheelRetry'),status==='loading'||!fallback&&status!=='error');
+ for(const button of $('r924WheelGallery')?.querySelectorAll('[data-wheel]')||[])setAttr(button,'aria-pressed',button.dataset.wheel===selection.id);
+}
+function updateGeometry(item){
+ if(item)geometryItem=item;
+ const frame=$('r924WheelFrame');if(!frame)return;
+ const geometry=geometryItem?.geometry||baseGeometry,width=measuredWidth;
+ setAttr(frame,'data-wheel-id',geometryItem?.id||'classic');
+ setAttr(frame,'data-navigation-material',navigationMaterials[geometryItem?.id||'classic']||'crystal');
+ setAttr(frame,'data-navigation-native',geometryItem?.nativeNavigation?'1':'0');
+ const ink=geometryItem?.darkInk?'#20160b':'#fff4dc';
+ frame.style.setProperty('--r977-control-ink',ink);
+ frame.style.setProperty('--r977-control-shadow',geometryItem?.darkInk?'0 1px 2px #fff9,0 0 3px #fff7':'0 1px 3px #000,0 0 5px #000');
+ frame.style.setProperty('--r977-nav-shadow',geometryItem?.darkInk?'drop-shadow(0 1px 1px #fff9)':'drop-shadow(0 1px 2px #000)');
+ for(const action of ['minus','plus','stop','play','previous','next']){
+  const position=geometry[action];if(!position)continue;
+  for(const [i,axis]of ['x','y'].entries()){
+   const prop=`--r924-${action}-${axis}`,value=position[i]+'%';if(frame.style.getPropertyValue(prop)!==value)frame.style.setProperty(prop,value);
+  }
+  const button=$(['previous','next'].includes(action)?'r959Wheel'+action[0].toUpperCase()+action.slice(1):'r920'+action[0].toUpperCase()+action.slice(1));if(!button)continue;
+  // Sultan's two gold navigation faces need dark ink independently of its gems.
+  const darkNav=geometryItem?.darkNavigation&&['previous','next'].includes(action);
+  if(darkNav){button.style.setProperty('--r977-control-ink','#20160b');button.style.setProperty('--r977-nav-shadow','drop-shadow(0 1px 1px #fff9)')}
+  else {button.style.removeProperty('--r977-control-ink');button.style.removeProperty('--r977-nav-shadow')}
+  // Touch target remains >=44px. Visible paint is sized independently of it.
+  // A .80D x .54D caption rectangle has diagonal .966D; the compact .67D
+  // square has diagonal .948D. Both stay in the safe circle for all angles.
+  setAttr(button,'data-safe-radius',position[2]);
+  if(width<=0){setAttr(button,'data-compact','1');continue} // ResizeObserver supplies the first measured width.
+  const diameter=Math.max(0,width*position[2]/50),compact=diameter<50||geometryItem?.classic;
+  setAttr(button,'data-compact',compact?'1':'0');
+  const values={
+   '--r928-safe-diameter':diameter+'px',
+   '--r928-label-width':(diameter*(compact?.67:.80))+'px',
+   '--r928-label-height':(diameter*(compact?.67:.54))+'px',
+   '--r928-icon-size':(compact?Math.min(18,diameter*.38):14)+'px',
+   '--r928-text-size':Math.min(18,diameter*.40)+'px'
+  };
+  for(const [prop,value]of Object.entries(values))if(button.style.getPropertyValue(prop)!==value)button.style.setProperty(prop,value);
+ }
+}
+function buildOptions(){
+ const selection=current(),select=$('r920WheelSelect'),gallery=$('r924WheelGallery');if(!selection||!select||!gallery)return;
+ setText($('r924WheelFamily'),mode==='berhet'?'Berhetiyye çarkı':'Esmâ çarkı');
+ select.replaceChildren(...catalog[mode].map(item=>{const option=document.createElement('option');option.value=item.id;option.textContent=item.title;return option}));
+ gallery.replaceChildren(...catalog[mode].map(item=>{
+  const button=document.createElement('button');button.type='button';button.dataset.wheel=item.id;button.setAttribute('aria-label',item.title+' çarkını seç');
+  const thumb=document.createElement('img');thumb.src=item.src;thumb.alt='';thumb.loading='lazy';thumb.decoding='async';thumb.setAttribute('aria-hidden','true');
+  if(item.matte)thumb.className='r924MatteThumb';
+  thumb.onerror=()=>{thumb.style.visibility='hidden'};
+  const label=document.createElement('span');label.textContent=item.title;button.append(thumb,label);return button;
+ }));syncStatus();
+}
+function loadImage(src,token){
+ requests++;
+ return new Promise((resolve,reject)=>{
+  const image=new Image();let settled=false;
+  const cleanup=()=>{clearTimeout(timer);image.onload=image.onerror=null;if(cancel===abort)cancel=null};
+  const finish=(error)=>{if(settled)return;settled=true;cleanup();error?reject(error):resolve(src)};
+  const abort=()=>{if(settled)return;finish(new Error('cancelled'));image.src=''};
+  const timer=setTimeout(()=>finish(new Error('timeout')),8000);cancel=abort;
+  image.onerror=()=>finish(new Error('image load failed'));
+  image.onload=async()=>{try{if(typeof image.decode==='function')await image.decode();if(token!==generation)return finish(new Error('cancelled'));if(!image.naturalWidth)return finish(new Error('empty image'));finish()}catch(error){finish(error)}};
+  image.decoding='async';image.src=src;
+ });
+}
+async function resolveSelection(){
+ const selection=current();if(!selection)return;
+ cancel?.();const token=++generation;resolved=null;pending=true;status='loading';fallback=0;
+ const frame=$('r924WheelFrame'),image=$('r920Wheel');
+ if(!frame||!image)return;
+ image.removeAttribute('src');image.hidden=true;
+ setAttr(frame,'data-wheel-state','loading');setAttr(frame,'data-wheel-matte','0');setAttr(frame,'data-wheel-classic','0');updateGeometry(selection);syncStatus();
+ const legacy=catalog[mode].find(item=>item.classic),candidates=selection===legacy?[selection]:[selection,legacy];
+ for(let index=0;index<candidates.length;index++){
+  const candidate=candidates[index];try{
+   await loadImage(candidate.src,token);if(token!==generation||!host?.isConnected)return;
+   resolved=candidate;pending=false;status='ready';fallback=index;
+   image.src=candidate.src;image.hidden=false;setAttr(frame,'data-wheel-state','ready');setAttr(frame,'data-wheel-matte',candidate.matte?'1':'0');setAttr(frame,'data-wheel-classic',candidate.classic?'1':'0');updateGeometry(candidate);syncStatus();return;
+  }catch(error){if(token!==generation)return;}
+ }
+ if(token!==generation)return;pending=false;status='error';fallback=candidates.length;setAttr(frame,'data-wheel-state','error');updateGeometry(legacy);syncStatus();
+}
+function connect(nextHost){
+ if(host===nextHost&&host?.isConnected)return;
+ cancel?.();generation++;geometryObserver?.disconnect();host=nextHost;mode='';key='';pending=false;resolved=null;geometryItem=null;measuredWidth=0;status='idle';
+ const frame=$('r924WheelFrame');
+ if(typeof ResizeObserver==='function'){geometryObserver=new ResizeObserver(entries=>{const entry=entries.find(entry=>entry.target===frame);const width=Number(entry?.contentRect?.width)||0;if(width>0&&width!==measuredWidth){measuredWidth=width;updateGeometry()}});if(frame)geometryObserver.observe(frame)}
+ else if(frame){measuredWidth=frame.clientWidth;updateGeometry()} // legacy browser fallback
+ const gallery=$('r924WheelGallery');if(gallery)gallery.onclick=event=>{const button=event.target.closest('[data-wheel]');if(button&&gallery.contains(button))choose(mode,button.dataset.wheel)};
+ const retry=$('r924WheelRetry');if(retry)retry.onclick=()=>resolveSelection();
+}
+function render(nextMode){
+ if(!host?.isConnected)return;
+ const family=normalMode(nextMode),changed=family!==mode;
+ mode=family;if(changed)buildOptions();
+ window.SukunWheelQuickControls?.connect(host);window.SukunWheelQuickControls?.render();
+ const nextKey=mode+':'+choices[mode];if(nextKey!==key){key=nextKey;void resolveSelection()}else syncStatus();
+}
+function choose(nextMode,id){
+ const family=normalMode(nextMode);if(!catalog[family].some(item=>item.id===id))return false;
+ choices[family]=id;safe(()=>localStorage.setItem(storageKey(family),id));if(family===mode)render(family);return true;
+}
+window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,snapshot:()=>({version:'r977',mode,choice:choices[mode]||null,choices:{...choices},resolved:resolved?.id||null,src:resolved?.src||null,status,fallback,requests,pending})});
+})();
+
+/* r929: compositor-only motion; natural taps and pans retain browser ownership. */
+(()=>{'use strict';
+ let host,frame,keyHold=false,keyboardMode=false,releaseTimer=0,hold=false,listeners=null;
+ const pointers=new Set();
+ let enabled=true;try{enabled=localStorage.getItem('sukun.wheel.motion')!=='0'}catch(e){}
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ function render(s=window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.()){
+  if(!frame)return;
+  const d=document.body?.dataset||{},saving=document.documentElement?.dataset?.r920Performance==='saving'||d.perf==='pil'||d.perfEffective==='pil';
+  const run=enabled&&!reduced.matches&&!saving&&!document.hidden&&!hold&&!keyHold&&s?.phase==='PLAYING';
+  const state=run?'running':'paused';if(frame.dataset.motion!==state)frame.dataset.motion=state;
+ }
+ function resetGesture(){clearTimeout(releaseTimer);releaseTimer=0;pointers.clear();hold=false;keyHold=false;keyboardMode=false;render()}
+ function connect(next){if(host===next&&frame?.isConnected)return;
+  listeners?.abort();clearTimeout(releaseTimer);pointers.clear();hold=false;keyHold=false;releaseTimer=0;
+  host=next;frame=host?.querySelector('#r924WheelFrame');if(!frame)return;
+  listeners=new AbortController();const signal=listeners.signal;
+  const toggle=host.querySelector('#r925WheelMotion');if(toggle){toggle.checked=enabled;toggle.onchange=()=>{enabled=toggle.checked;try{localStorage.setItem('sukun.wheel.motion',enabled?'1':'0')}catch(e){}render()}}
+  frame.addEventListener('pointerdown',e=>{
+   if(e.pointerType==='mouse'&&e.button!==0)return;
+   clearTimeout(releaseTimer);releaseTimer=0;pointers.add(e.pointerId);hold=true;keyHold=false;render();
+  },{capture:true,passive:true,signal});
+  const release=e=>{
+   // An unrelated finger/mouse release must not unfreeze an active wheel touch.
+   if(!pointers.delete(e.pointerId)||pointers.size)return;
+   clearTimeout(releaseTimer);releaseTimer=0;
+   if(e.type==='pointercancel'){hold=false;render();return}
+   // Leave the stone still through the browser's native click, without the old
+   // 650 ms visual stall. No synthetic click, pointer capture or scroll veto.
+   releaseTimer=setTimeout(()=>{releaseTimer=0;hold=false;render()},120);
+  };
+  document.addEventListener('pointerup',release,{passive:true,signal});
+  document.addEventListener('pointercancel',release,{passive:true,signal});
+  // A pointer click leaves focus on its button. Only real keyboard focus
+  // holds a moving target still; pointer focus must resume after pointerup.
+  document.addEventListener('pointerdown',()=>{keyboardMode=false;keyHold=false;render()},{capture:true,passive:true,signal});
+  document.addEventListener('keydown',()=>{keyboardMode=true},{capture:true,signal});
+  frame.addEventListener('focusin',()=>{if(!hold&&keyboardMode){keyHold=true;render()}},{signal});
+  frame.addEventListener('focusout',e=>{if(!frame.contains(e.relatedTarget)){keyHold=false;render()}},{signal});
+  frame.addEventListener('keydown',()=>{keyHold=true;render()},{signal});render();
+ }
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)resetGesture();else render()});
+ addEventListener('blur',resetGesture);
+ reduced.addEventListener('change',()=>render());
+ ['sukun:performancechange','sukun:performance','sukun:performance-effective'].forEach(name=>addEventListener(name,()=>render()));
+ window.SukunWheelMotion=Object.freeze({version:'r988',connect,render,snapshot:()=>({enabled,reduced:reduced.matches,state:frame?.dataset.motion||'none',activePointers:pointers.size,holding:hold,keyboardHolding:keyHold})});
+})();
+
+
+/* r932: stationary shortcuts share the existing controls and preferences.
+   No playback clock, counter state or independent action handler lives here. */
+(()=>{'use strict';
+ const $=id=>document.getElementById(id);
+ const text=(node,value)=>{if(window.I18N?.writeText)return window.I18N.writeText(node,value);if(node&&node.textContent!==String(value))node.textContent=String(value)};
+ const attr=(node,key,value)=>{if(window.I18N?.writeAttr&&['title','aria-label','placeholder'].includes(key))return window.I18N.writeAttr(node,key,value);if(node&&node.getAttribute(key)!==String(value))node.setAttribute(key,String(value))};
+ let host=null,box=null,openKind='',optionKey='',lastMode='';
+ const sources={minus:'r920Minus',play:'r920Play',plus:'r920Plus',stop:'r920Stop'};
+ const activeMode=()=>(window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.())?.activeMode==='berhet'?'berhet':'esma';
+ const sceneSource=()=>$(activeMode()==='berhet'?'r920SceneSelect':'r923EsmaSceneSelect');
+ function close(restoreFocus=false){const previous=openKind;openKind='';if(!box)return;$('r932QuickPicker').hidden=true;for(const k of ['wheel','scene'])attr($('r932Quick'+(k==='wheel'?'Wheel':'Scene')),'aria-expanded','false');if(restoreFocus&&previous)$('r932Quick'+(previous==='wheel'?'Wheel':'Scene'))?.focus({preventScroll:true})}
+ function updateOptions(){
+  if(!openKind)return;const select=$('r932QuickSelect'),mode=activeMode(),source=openKind==='wheel'?$('r920WheelSelect'):sceneSource();if(!source)return;
+  const nextKey=openKind+':'+mode+':'+source.innerHTML;
+  if(nextKey!==optionKey){select.replaceChildren(...Array.from(source.children,node=>node.cloneNode(true)));optionKey=nextKey}
+  const v=openKind==='wheel'?window.SukunWheels?.snapshot?.().choices?.[mode]:mode==='berhet'?window.SukunSceneEngine?.snapshot?.().scene:window.SukunSceneEngine?.snapshot?.().esmaChoice;
+  if(select.value!==v)select.value=v||'auto';text($('r932QuickLabel'),openKind==='wheel'?'Çark görünümü':'Arka plan');
+ }
+ function show(kind){
+  if(openKind===kind){close(true);return}openKind=kind;$('r932QuickPicker').hidden=false;
+  for(const k of ['wheel','scene'])attr($('r932Quick'+(k==='wheel'?'Wheel':'Scene')),'aria-expanded',kind===k);
+  updateOptions();$('r932QuickSelect')?.focus({preventScroll:true});
+ }
+ function connect(next){
+  if(host===next&&box?.isConnected)return;host=next;const wheel=host?.querySelector('#r924WheelFrame');if(!wheel)return;
+  box=document.createElement('section');box.id='r932WheelControls';box.setAttribute('aria-label','Çark ve kolay kontroller');
+  box.innerHTML='<div class="r932VisualShortcuts"><button id="r932QuickWheel" type="button" aria-controls="r932QuickPicker" aria-expanded="false"><span>Çark</span><small id="r932CurrentWheel"></small></button><button id="r932QuickScene" type="button" aria-controls="r932QuickPicker" aria-expanded="false"><span>Arka plan</span><small id="r932CurrentScene"></small></button></div><div id="r932QuickPicker" hidden><label id="r932QuickLabel" for="r932QuickSelect">Çark görünümü</label><div class="r932PickerRow"><select id="r932QuickSelect"></select><button id="r932QuickClose" type="button" aria-label="Görünüm seçimini kapat">Kapat</button></div></div><div class="r932EasyTransport" role="group" aria-label="Zikir kontrolleri"><button id="r932EasyMinus" type="button" data-action="minus" aria-label="Bir azalt">−1</button><button id="r932EasyPlay" type="button" data-action="play">Başlat</button><button id="r932EasyPlus" type="button" data-action="plus" aria-label="Bir artır">+1</button><button id="r932EasyStop" type="button" data-action="stop" aria-label="Zikri bitir">Bitir</button></div>';
+  wheel.after(box);openKind='';optionKey='';lastMode='';
+  $('r932QuickWheel').onclick=()=>show('wheel');$('r932QuickScene').onclick=()=>show('scene');$('r932QuickClose').onclick=()=>close(true);
+  $('r932QuickSelect').onchange=e=>{
+   if(openKind==='wheel')window.SukunWheels?.choose?.(activeMode(),e.target.value);
+   else{const source=sceneSource();if(source){source.value=e.target.value;source.dispatchEvent(new Event('change',{bubbles:true}))}}
+   close(true);window.SukunPracticeUI?.refresh?.();render();
+  };
+  box.addEventListener('keydown',event=>{if(event.key==='Escape'&&openKind){event.preventDefault();event.stopPropagation();close(true)}});
+  box.addEventListener('click',event=>{
+   const action=event.target.closest('button[data-action]');if(!action||action.disabled)return;
+   const source=$(sources[action.dataset.action]);if(source&&!source.disabled){source.click();window.SukunPracticeUI?.refresh?.()}
+  });render();
+ }
+ function render(){
+  if(!box?.isConnected)return;const mode=activeMode(),state=window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.(),visual=window.SukunSceneEngine?.snapshot?.()||{};
+  if(lastMode&&lastMode!==mode)close();lastMode=mode;
+  const wheel=window.SukunWheels?.catalog?.[mode]?.find(item=>item.id===window.SukunWheels?.snapshot?.().choices?.[mode]);
+  const source=sceneSource(),sceneChoice=mode==='berhet'?visual.scene:visual.esmaChoice;
+  const sceneLabel=sceneChoice==='auto'?'İsme göre otomatik':Array.from(source?.options||[]).find(option=>option.value===sceneChoice)?.textContent||'Seçili sahne';
+  text($('r932CurrentWheel'),wheel?.title||'Çark seç');text($('r932CurrentScene'),sceneLabel);
+  attr($('r932QuickWheel'),'aria-label','Çarkı değiştir. '+(wheel?.title||''));attr($('r932QuickScene'),'aria-label','Arka planı değiştir. '+sceneLabel);
+  const busy=state?.phase==='PLAYING'||state?.phase==='PREPARING',playLabel=busy?'Duraklat':state?.phase==='PAUSED'?'Devam et':'Başlat';text($('r932EasyPlay'),playLabel);attr($('r932EasyPlay'),'aria-label',busy?'Zikri duraklat':state?.phase==='PAUSED'?'Zikre devam et':'Zikri başlat');
+  for(const [action,id]of Object.entries(sources)){const button=$('r932Easy'+action[0].toUpperCase()+action.slice(1)),source=$(id);const manual=action==='minus'||action==='plus';const gate=manual?window.SukunCountCorrection?.status?.(action==='minus'?-1:1):null;const disabled=manual?!gate?.allowed:!!source?.disabled;if(button.disabled!==disabled)button.disabled=disabled;if(manual)attr(button,'aria-describedby','r968ManualHint');if(manual)attr(button,'title',gate?.reason|| (action==='minus'?'Bir azalt':'Bir artır'))}
+  updateOptions();
+ }
+ window.SukunWheelQuickControls=Object.freeze({version:'r932',connect,render,snapshot:()=>({connected:!!box?.isConnected,openKind,mode:lastMode})});
+})();
+/* r950: read-only light presentation. Never commands playback or increments counts. */
+(()=>{'use strict';
+const key='sukun.wheel.light.r950', palettes={
+"ceviz-naksi":["211,155,90", "255,220,158"],"zeytin-tesbihi":["227,177,91", "255,229,170"],"abanoz-sukunu":["204,143,101", "239,210,173"],"sandal-halkasi":["230,186,119", "255,231,180"],"altin-nakis":["255,185,70", "255,239,178"],"elmas-taci":["202,233,255", "248,250,255"],"gumus-telkari":["103,213,220", "215,244,255"],"sultan-taslari":["77,226,158", "133,193,255"],
+ 'ham-kristal':['166,112,255','109,229,255'],'faset-kesim':['157,107,255','223,183,255'],
+ 'ametist-yuvarlak':['173,105,255','234,164,255'],'ametist-saltanati':['163,90,255','243,164,255'],
+ 'zumrut-tac':['58,238,164','172,255,208'],'zumrut-tesbih':['58,228,162','186,255,222'],
+ 'safir-ruzgari':['70,153,255','125,228,255'],'lacivert-usturlap':['94,136,255','162,194,255'],
+ 'obsidyen-muhur':['164,123,238','209,188,255'],'oniks-sukuneti':['133,158,211','219,232,255'],
+ 'bakir-ruzgari':['255,155,89','255,218,153'],'kehribar-tesbih':['255,180,70','255,229,163'],
+ 'yakut-muhur':['255,76,130','255,168,192'],'billur-hisar':['153,237,255','230,220,255'],
+ 'inci-sema':['200,224,255','255,225,243'],'sedef-nuru':['190,241,231','240,210,255'],
+ crystal:['169,126,255','145,232,255'],seal:['255,199,97','255,234,174'],pearls:['202,237,249','240,221,255'],classic:['90,231,189','165,225,255']};
+let frame=null,halo=null,gems=null,observer=null,previous=null,lastBeat=0,animations=[],pulses=0,travel=null,flowAnimations=[],flowMode='',lastState=null;
+let motion='breath';try{motion=localStorage.getItem('sukun.wheel.motion.r952')||'breath'}catch{}if(!['breath','orbit','wave'].includes(motion))motion='breath';
+let setting='intense';try{setting=localStorage.getItem(key)||'intense';if(!localStorage.getItem('sukun.wheel.light.r951.migrated')){if(setting!=='off')setting='intense';localStorage.setItem(key,setting);localStorage.setItem('sukun.wheel.light.r951.migrated','1')}}catch{}if(!['off','soft','bright','intense'].includes(setting))setting='intense';
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+function cancel(){animations.forEach(a=>a.cancel());animations=[]}
+function cancelFlow(){flowAnimations.forEach(a=>a.cancel());flowAnimations=[];flowMode=''}
+function saving(){const d=document.body?.dataset||{};return document.documentElement?.dataset?.r920Performance==='saving'||d.perf==='pil'||d.perfEffective==='pil'}
+function syncFlow(s){const active=!!(s?.playing&&!s.presentationOnly&&!document.hidden&&!reduced.matches&&!saving()&&setting!=='off'&&motion!=='breath');if(!active){cancelFlow();return}if(flowMode===motion&&flowAnimations.length)return;cancelFlow();flowMode=motion;flowAnimations=[travel.animate([{transform:'rotate(0deg)'},{transform:'rotate(-360deg)'}],{duration:9600,iterations:Infinity,easing:'linear'})];if(motion==='wave')flowAnimations.push(travel.animate([{opacity:.35},{opacity:.95,offset:.5},{opacity:.35}],{duration:2400,iterations:Infinity,easing:'ease-in-out'}))}
+function appearance(){if(!frame)return;const p=palettes[frame.dataset.wheelId]||palettes.crystal;frame.style.setProperty('--r950-a',p[0]);frame.style.setProperty('--r950-b',p[1]);frame.dataset.r950Light=setting;frame.dataset.r952Motion=motion;}
+function mount(){const next=document.getElementById('r924WheelFrame');if(!next)return false;if(next!==frame){cancel();cancelFlow();observer?.disconnect();frame=next;
+ halo=document.createElement('div');halo.className='r950Nur r950Halo';halo.setAttribute('aria-hidden','true');halo.innerHTML='<i class="r950Outer"></i><i class="r950Inner"></i><i class="r951Aura"></i><i class="r951Filaments"></i>';frame.prepend(halo);travel=document.createElement('div');travel.className='r950Nur r952Travel';travel.setAttribute('aria-hidden','true');travel.innerHTML='<i class="r952Trail"></i><i class="r952Point r952PointA"></i><i class="r952Point r952PointB"></i><i class="r952Point r952PointC"></i>';frame.append(travel);
+ gems=document.createElement('div');gems.className='r950Nur r950Gems';gems.setAttribute('aria-hidden','true');
+ for(const [x,y]of [[24,21],[76,21],[19,69],[81,69],[34,88],[66,88],[15,33],[85,33],[32,13],[68,13],[22,80],[78,80]]){const light=document.createElement('i');light.style.left=x+'%';light.style.top=y+'%';gems.append(light)}
+ for(const action of ['minus','plus','stop','play']){const light=document.createElement('i');light.className='r951MajorGem';light.style.left='var(--r924-'+action+'-x)';light.style.top='var(--r924-'+action+'-y)';gems.append(light)}
+ (document.getElementById('r925WheelRotor')||frame).append(gems);
+ observer=new MutationObserver(appearance);observer.observe(frame,{attributes:true,attributeFilter:['data-wheel-id']});appearance();
+ }
+ const options=document.getElementById('r920ViewOptions');if(options&&!document.getElementById('r950LightChoice')){const label=document.createElement('label');label.textContent='Çark nuru';const select=document.createElement('select');select.id='r950LightChoice';select.innerHTML='<option value="off">Kapalı</option><option value="soft">Zikre uyumlu · Yumuşak</option><option value="bright">Zikre uyumlu · Belirgin</option><option value="intense">Zikre uyumlu · Yoğun neon</option>';select.value=setting;select.addEventListener('change',()=>{setting=select.value;try{localStorage.setItem(key,setting)}catch{}cancel();appearance();syncFlow(lastState)});label.append(select);options.append(label)}
+ if(options&&!document.getElementById('r952MotionChoice')){const label=document.createElement('label');label.textContent='Nur hareketi';const select=document.createElement('select');select.id='r952MotionChoice';select.innerHTML='<option value="breath">Zikre uyumlu nefes</option><option value="orbit">Dolaşımsal ışıltı</option><option value="wave">Dalgalı dolaşım</option>';select.value=motion;select.addEventListener('change',()=>{motion=select.value;try{localStorage.setItem('sukun.wheel.motion.r952',motion)}catch{}appearance();syncFlow(lastState)});label.append(select);options.append(label)}return true;
+}
+function update(s){if(!s||!mount())return;lastState=s;syncFlow(s);
+ const identity=[s.sessionId,s.activeMode,s.activeIndex,s.journeyKind].join(':');const count=Number(s.count)||0;
+ const increased=previous&&previous.identity===identity&&count>previous.count;
+ const continuous=increased&&s.playing&&previous.playing;previous={identity,count,playing:s.playing};
+ if(document.hidden||reduced.matches||saving()||setting==='off'||['PAUSED','PREPARING','ERROR','INTERRUPTED','COMPLETED'].includes(s.phase)||s.presentationOnly){cancel();lastBeat=0;return}
+ if(!increased){if(!s.playing){cancel();lastBeat=0}return}
+ const now=performance.now(),duration=continuous&&lastBeat?Math.max(350,Math.min(8000,now-lastBeat)):1200;lastBeat=now;
+ flowAnimations.forEach(a=>a.updatePlaybackRate(Math.max(.3,Math.min(2,1200/duration))));
+ cancel();const strength=1,base=setting==='intense'?.65:setting==='bright'?.45:.15;
+ animations=[halo.animate([{opacity:base,transform:'scale(.98)'},{opacity:strength,transform:'scale(1.015)',offset:.38},{opacity:base,transform:'scale(.98)'}],{duration,easing:'ease-in-out'}),gems.animate([{opacity:base},{opacity:strength,offset:.28},{opacity:base}],{duration,easing:'ease-in-out'})];pulses++;
+}
+function read(){update(window.SukunSessionState?.peek?.())}
+window.addEventListener('sukun:sessionchange',e=>update(e.detail));document.addEventListener('visibilitychange',()=>{cancel();cancelFlow();previous=null;lastBeat=0;read()});reduced.addEventListener('change',()=>{cancel();cancelFlow();read()});window.addEventListener('pagehide',()=>{cancel();cancelFlow()});
+['sukun:performancechange','sukun:performance','sukun:performance-effective'].forEach(name=>window.addEventListener(name,()=>{cancel();cancelFlow();lastBeat=0;read()}));
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',read,{once:true});else read();
+window.SukunWheelLight=Object.freeze({version:'r980',snapshot:()=>({setting,motion,saving:saving(),flowAnimations:flowAnimations.filter(a=>a.playState==='running').length,pulses,activeAnimations:animations.filter(a=>a.playState==='running').length,wheel:frame?.dataset.wheelId||null,readOnly:true})});
+})();
