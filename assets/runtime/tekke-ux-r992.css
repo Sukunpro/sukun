@@ -218,3 +218,33 @@ html body #tk[data-tk-ux="r992"] #phase{bottom:6px;font-size:10px;line-height:1.
 html body #tk[data-tk-ux="r992"] #bArcBg{stroke:color-mix(in srgb,var(--ink) 18%,transparent)}
 html body #tk[data-tk-ux="r992"] #r990TekkeSetCard[data-preview="0"],
 html body #tk[data-tk-ux="r992"] #r992ReflectionGuide{flex:none}
+
+/* r1013: the full-screen viewport owns the only grid column. An implicit
+   auto column could grow to a header/text intrinsic width and clip the right
+   side of the entrance. Wrapping text remains inside that same column. */
+html body.r821-tekke-open #tk[data-tk-ux="r992"]{
+ grid-template-columns:minmax(0,1fr);
+}
+html body.r821-tekke-open #tk[data-tk-ux="r992"] #top,
+html body.r821-tekke-open #tk[data-tk-ux="r992"] #center{
+ min-width:0;max-width:100%!important;
+}
+html body #tk[data-tk-ux="r992"] #topR{
+ width:auto;min-width:0;flex:1 1 0;
+}
+html body.r821-tekke-open #tk[data-tk-ux="r992"] #gate>*{
+ min-width:0;max-width:100%!important;
+}
+html body #tk[data-tk-ux="r992"] .r992Purpose{
+ width:100%;min-width:0;
+}
+html body #tk[data-tk-ux="r992"] .r992PurposeBtn{
+ min-width:0;max-width:100%;
+}
+html body #tk[data-tk-ux="r992"] .r992PurposeBtn>span:nth-child(2){
+ flex:1 1 0;min-width:0;overflow-wrap:anywhere;
+}
+html body #tk[data-tk-ux="r992"] .r992PurposeSymbol,
+html body #tk[data-tk-ux="r992"] .r992PurposeCheck{flex:none}
+html body #tk[data-tk-ux="r992"] #gT,
+html body #tk[data-tk-ux="r992"] #gEst{overflow-wrap:anywhere}

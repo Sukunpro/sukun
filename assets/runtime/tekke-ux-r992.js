@@ -148,7 +148,9 @@
  }
  function scheduleSceneFit(){if(sceneFrame!==null)return;sceneFrame=true;requestAnimationFrame(()=>{sceneFrame=null;fitScene();});}
  function fitScene(){
-  if(!root||root.hidden||overlay)return;
+  // The entrance overlays the scene. Its hidden preview must not participate
+  // in the symbol's layout budget before an actual session is visible.
+  if(!root||root.hidden||overlay||root.dataset.tkEntered!=='1')return;
   const stage=$('#stage'),center=$('#center');if(!stage?.clientHeight||!stage.clientWidth)return;
   const visible=n=>!n.hidden&&safe(()=>getComputedStyle(n).display!=='none',true);
   const siblings=[...stage.children].filter(n=>n===center?false:n.id==='r990TekkeSetCard'||n.id==='r992ReflectionGuide');
@@ -159,8 +161,14 @@
   if(size!==huSize){huSize=size;root.style.setProperty('--tkux-hu-size',size+'px');}
  }
  function fitViewport(){
-  const height=window.visualViewport?.height||window.innerHeight;
-  if(Number.isFinite(height)&&height>0&&height!==viewportHeight){viewportHeight=height;root?.style.setProperty?.('--tkux-view-height',height+'px');}
+  // Pinch zoom changes the visual viewport, not the application's layout
+  // viewport. Feeding that zoomed height back into the grid moves its controls
+  // while the gesture is in progress. Browser-bar/keyboard resizes at scale 1
+  // still use the visible height; ignore subpixel resize noise.
+  const view=window.visualViewport,scale=Number(view?.scale)||1;
+  if(Math.abs(scale-1)>=.01&&viewportHeight)return;
+  const height=Math.round(Math.abs(scale-1)<.01?(view?.height||window.innerHeight):window.innerHeight);
+  if(Number.isFinite(height)&&height>0&&(!viewportHeight||Math.abs(height-viewportHeight)>1)){viewportHeight=height;root?.style.setProperty?.('--tkux-view-height',height+'px');}
  }
  function compactCard(){
   const card=$('#r990TekkeSetCard');if(!card)return;
