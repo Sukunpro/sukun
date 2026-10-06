@@ -218,15 +218,17 @@
     // Cached access metadata only; no lock acquisition, database access, user
     // recording key, remote tab identity, raw error text or recovery action.
     const s=safe(()=>window.SukunTabOwner?.snapshot?.());if(!s||typeof s!=='object')return null;
-    const stages=new Set(['','web-lock-request','owner-db-open','owner-db-claim','action']);
-    const names=new Set(['','Error','TypeError','RangeError','SecurityError','InvalidStateError','NotSupportedError','AbortError','UnknownError','QuotaExceededError','VersionError','NotFoundError','ConstraintError','DataError','ReadOnlyError','TransactionInactiveError','InvalidAccessError','TimeoutError','BlockedError']);
+    const stages=new Set(['','web-lock-request','owner-db-open','owner-db-claim','action','maintenance-busy-check','maintenance-paused-check','maintenance-action']);
+    const names=new Set(['','Error','TypeError','ReferenceError','RangeError','SecurityError','InvalidStateError','NotSupportedError','AbortError','UnknownError','QuotaExceededError','VersionError','NotFoundError','ConstraintError','DataError','ReadOnlyError','TransactionInactiveError','InvalidAccessError','TimeoutError','BlockedError']);
+    const codes=new Set(['finish-first','maintenance-busy','maintenance-cancelled','owner-blocked','owner-unavailable','owner-preparing','progress-recovery-required','maintenance-check-failed','maintenance-check-unavailable','maintenance-action-failed','maintenance-unavailable']);
+    const failure=s.lastMaintenanceFailure,lastMaintenanceFailure=failure&&typeof failure==='object'?{code:codes.has(failure.code)?failure.code:'maintenance-unavailable',stage:stages.has(failure.stage)?failure.stage:'unknown',errorName:names.has(failure.errorName)?failure.errorName:'Error'}:null;
     const version=value=>/^r\d+$/.test(String(value||''))?String(value):'unknown';
     return {version:version(s.version),revision:version(s.revision),method:['web-locks','indexeddb'].includes(s.method)?s.method:'unknown',
       protection:['web-lock-strict','idb-confirmed-recovery'].includes(s.protection)?s.protection:'unknown',
       owned:bool(s.owned),maintenance:bool(s.maintenance),pending:bool(s.pending),blocked:bool(s.blocked),recoveryRequired:bool(s.recoveryRequired),
       failureStage:stages.has(s.failureStage)?s.failureStage:'unknown',errorName:names.has(s.errorName)?s.errorName:'Error',
       lockFallbackError:names.has(s.lockFallbackError)?s.lockFallbackError:'Error',
-      requestFailures:typeof s.requestFailures==='number'&&Number.isFinite(s.requestFailures)&&s.requestFailures>=0?Math.min(1000000,Math.floor(s.requestFailures)):null};
+      requestFailures:typeof s.requestFailures==='number'&&Number.isFinite(s.requestFailures)&&s.requestFailures>=0?Math.min(1000000,Math.floor(s.requestFailures)):null,lastMaintenanceFailure};
   }
   function evidenceContext(voiceExpectation=voiceExpectationSnapshot(),recordingPreparation=recordingPreparationSnapshot()) { return { hidden: document.hidden, session, tempo, truth, sw, lock, background, voiceExpectation, recordingPreparation, tabOwner:tabOwnerSnapshot(), browserLifecycle: compactLifecycle(), presentation:presentationSnapshot() }; }
   function record(kind, evidence = {}) {
