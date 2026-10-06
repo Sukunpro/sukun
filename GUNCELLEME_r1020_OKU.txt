@@ -1,0 +1,53 @@
+SÜKÛN r1020 — SES KORUMA VE KURTARMA DÜZELTMESİ
+
+Bu güncelleme paketi çalışan r1019 üzerine uygulanır. Bağımsız tam site değildir.
+Dosyaları aynı dizin yapısıyla mevcut siteye birleştir. assets klasörünü silme.
+Tarayıcı/site verilerini, kayıt deposunu veya kurtarma kopyalarını temizleme.
+
+DOĞRULANAN HATA
+r1019, yarım kalmış veri geri yükleme günlüğünü açılışta otomatik uygularken,
+eski boş işlem öncesi kopyayla sonradan eklenen sesleri silebiliyordu. Kontrollü
+testte bu hata üretildi. Telefonda görülen kaybın bu yoldan olduğu kanıtlanmadı.
+Bu paket telefondaki 291 sesi kendiliğinden geri getirmiş sayılmaz.
+
+KURTARMA ADIMLARI
+1. Dosyaları yükle ve normal güncelleme işlemiyle r1020'ye geç. Diğer SÜKÛN
+   sekmelerini kapat; site verilerini silme.
+2. Kayıtlarım & Yedekleme içindeki 🛟 Kurtarma Merkezi > Kayıp sesler alanını aç.
+3. Yerel ses kopyalarını ara düğmesini kullan. Bu tarama yalnız okur.
+   Eski kişisel veri noktaları, gizli işlem öncesi noktalar, stüdyo özgün/yeni
+   kopyaları, karantina ve sayfada hâlâ bulunan geçici sesler kontrol edilir.
+4. Kaynak bulunursa seç; doğrula ve yalnız eksik sesleri ekle.
+   Mevcut ses üzerine yazılmaz. Önce ayrı, doğrulanmış karantina kopyası tutulur.
+5. Bekleyen veri işlemi varsa seslere dokunmadan işlem kaydını kapatabilir veya
+   doğrulanmış önceki kopyadan yalnız eksikleri ekleyebilirsin. Otomatik işlem yok.
+6. Kaynak yoksa JSON yedeği seç ile ses yedeğini içe aktar; parçalı yedekte bütün
+   parçaları seç. Yalnız eksik sesler eklenir, ayarlar ve mevcut sesler değişmez.
+7. Tanılama raporunu indir. Rapor sayıları/baytları/depo durumunu gösterir;
+   ses içerikleri, kayıt isim/anahtarları, kişisel ayarlar ve gizli anahtarlar içermez.
+
+Yerel kopya ve harici ses yedeği kalmamışsa uygulama silinen sesi yeniden
+üretemez. Eski uygulama dosyası/önbelleği kişisel sesleri içermez.
+
+r1020 KORUMALARI
+- Açılışta kurtarma günlüğü uygulanmaz; ses deposuna otomatik yazılmaz.
+- Tam kişisel veri geri yükleme, eski üzerine-yazan JSON içeaktarmaları ve toplu
+  ses silme inceleme sırasında kapalı. Yeni eksik-ses kurtarması kullanılabilir.
+- Önbelleği yenile yalnız uygulama dosyalarını doğrulayarak yeniler; sesleri,
+  ayarları veya mevcut önbellekleri silmez.
+- Depo okumaları yok olan veritabanını oluşturmaz. Güncel 0 ölçümü ile önceki
+  dolu gözlem ayrı gösterilir; geçmiş sayı güncel ses sayısı gibi sunulmaz.
+- Eski/gizli kişisel noktalar ve stüdyo kopyaları korunur; liste son 5 noktayı
+  gösterir. Toplu stüdyo işlemi ve doğrulamalı geri alma mevcut sesleri korur.
+- r1019'a dönüş ve bilinen güvensiz eski kurtarma kodu engellenir. Önceden açık
+  sekmede zaten çalışan eski kod için r1020'ye geçiş ve diğer sekmeleri kapatma gerekir.
+- İsteğe bağlı görseller ortak önbellekte tutulur; sürümlerde çoğaltılmaz.
+- Kalıcı depolama iste yalnız kullanıcı düğmesiyle çağrılır; elle veri temizleme
+  karşısında koruma sağlamaz. Harici ses yedeği indirip sakla.
+
+DOĞRULAMA
+Gerçek ürün kodu üzerinde kontrollü IDB/CacheStorage modelleri: eski boş günlük,
+sonraki yeni sesler, eksik veritabanı, bozuk yedek, değiştirilmiş ses/ayar/checksum,
+iptal, kota, eşzamanlı kayıt, yarım ekleme, kopya koruma ve sürüm geçişi.
+Dağıtımın JS sözdizimi, SRI, SHA-256, güncelleme dosyaları ve tam site yedek
+envanteri kontrol edildi. Fiziksel Android'de kayıt/dinleme testi yapılmadı.

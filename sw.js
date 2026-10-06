@@ -4,79 +4,80 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r1019';
+const SURUM = 'r1020';
 const ART_CACHE = 'sukun-art-persistent-v1';
-const CACHE = 'sukun-r1019-rescue-20261006-v1';
-const CACHE_META = './sukun-cache-meta-r1019.json';
-const BUILD_MARKER = './sukun-build-r1019.json';
+const CACHE = 'sukun-r1020-voice-rescue-20261006-v1';
+const CACHE_META = './sukun-cache-meta-r1020.json';
+const BUILD_MARKER = './sukun-build-r1020.json';
 const LATEST_MARKER = './sukun-latest.json';
-const REQUIRED_RUNTIME = [{"url": "./assets/runtime/berhet-layout-r938.css?v=r1019", "sha256": "e963103a4742717dd1845452d7fba881210a7c901fe0193e284ec047d323b172"}, {"url": "./assets/runtime/berhet-materials-r933.css?v=r1019", "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"}, {"url": "./assets/runtime/berhet-controls-r933.css?v=r1019", "sha256": "b446d7e2ea1041ee2bd350b042a67f4dbbcd9e98cbcf48c41368b6b5b9d5c415"}, {"url": "./assets/runtime/berhet-dock-r933.css?v=r1019", "sha256": "8ee1fba13a12f78500721cd6b5a5653b5a7d4914c02fa0be19046ebfd18bbc12"}, {"url": "./assets/runtime/background-owner-r949.js?v=r1019", "sha256": "0a76964b1cabf66ca701a1910a5938cc7046b78ed6ce8576b1000f47717c068e"}, {"url": "./assets/runtime/lifecycle-r949.js?v=r1019", "sha256": "23c80a9fdd863ed691402a0facc2119b6e72d86d8ec0bd9cfe2e42e4f67a8367"}, {"url": "./assets/runtime/audio-palette-r945.js?v=r1019", "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1"}, {"url": "./assets/runtime/esma-scenes-r923.js?v=r1019", "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"}, {"url": "./assets/runtime/session-r919.js?v=r1019", "sha256": "659c21f0e122a18b34870ebefd89a86d1d8c28556c4746d8c3c1db44a8c21c16"}, {"url": "./assets/runtime/dock-r920.js?v=r1019", "sha256": "d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0"}, {"url": "./assets/runtime/wheels-r924.js?v=r1019", "sha256": "3fdcfd5eb41e2f473eb86a8a16e6820e717cf679f327cdb9f73430b6301a1632"}, {"url": "./assets/runtime/berhet-layout-r938.js?v=r1019", "sha256": "e4b7019979fcd5c2921dac09a7162e9548e3e1740301e38eb580aaa01b3436da"}, {"url": "./assets/runtime/interface-r920.js?v=r1019", "sha256": "29f94e1b485d6b7281dfb3d30a1e0b2211a49ee660e1a06780cf8622c8f5afc0"}, {"url": "./assets/runtime/wheels-r924.css?v=r1019", "sha256": "22a07233940d7a8deebec8613885dcb534cd8a35482e0615b0ffd7febd240a2f"}, {"url": "./assets/runtime/berhet-theme-r933.js?v=r1019", "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434"}, {"url": "./assets/runtime/health-view-r943.css?v=r1019", "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3"}, {"url": "./assets/runtime/health-view-r943.js?v=r1019", "sha256": "91ef0974953e02ddaf64029de0c687764acdb370e74b8062c9a4aa7945c67c56"}, {"url": "./assets/runtime/scene-picker-r945.css?v=r1019", "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2"}, {"url": "./assets/runtime/scene-picker-r945.js?v=r1019", "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75"}, {"url": "./assets/runtime/health-r940.js?v=r1019", "sha256": "adc2265de74c98d9a07dc8860924d43c2aaac6c8d37386d1228632730a8e8624"}, {"url": "./assets/runtime/nefs-r948.css?v=r1019", "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf"}, {"url": "./assets/runtime/nefs-data-r948.js?v=r1019", "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c"}, {"url": "./assets/runtime/nefs-model-r948.js?v=r1019", "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b"}, {"url": "./assets/runtime/nefs-ui-r948.js?v=r1019", "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721"}, {"url": "./assets/runtime/offline-scenes-r962.js?v=r1019", "sha256": "d1afd56086c4f2535ae6ddaf4324a63a1864b71a63da53e72c6ceb25ece974ba"}, {"url": "./assets/wheel-navigation-r964/gold.png?v=r1019", "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2"}, {"url": "./assets/wheel-navigation-r964/copper.png?v=r1019", "sha256": "b731ba244c0f04a972276580a70e3b203a8a9e839abe35841cfd08c372283012"}, {"url": "./assets/wheel-navigation-r964/silver.png?v=r1019", "sha256": "d7095d1597bdeb288035bd3aa87c4168c63a4dd6b98c7f6ab860f0f7c24a516f"}, {"url": "./assets/wheel-navigation-r964/dark.png?v=r1019", "sha256": "c6407489d8c52d1b65985dbbdb8d5c3df625b184739c413c40c6d423d70c55bb"}, {"url": "./assets/wheel-navigation-r964/crystal.png?v=r1019", "sha256": "dd751abc6483a3c5f3585e170d0c9888fdef5ccb69e276bd61d765b33bdb6b85"}, {"url": "./assets/runtime/presentation-r979.js?v=r1019", "sha256": "12a36845037782ccf9fe851b3b498cd856771b85d412facb0e928918f70eaa19"}, {"url": "./assets/runtime/audio-cpu-r981.js?v=r1019", "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f"}, {"url": "./assets/runtime/audio-preparation-r981.js?v=r1019", "sha256": "2765a389211c07220f996061843727273c34e5b8f6aeb326002afb6dc3d8eea9"}, {"url": "./assets/runtime/tab-owner-r981.js?v=r1019", "sha256": "d844192f7ff18faf38dec19d42922697eba53ac09f7475dec68bb337d7bf9f3f"}, {"url": "./assets/runtime/cadence-r981.css?v=r1019", "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992"}, {"url": "./assets/runtime/cadence-r981.js?v=r1019", "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda"}, {"url": "./assets/runtime/studio-preparation-r982.js?v=r1019", "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e"}, {"url": "./assets/runtime/progress-journal-r982.js?v=r1019", "sha256": "b7fbd70dbcf9d08abdd88ec2c2d29566d56d75c8c76aca7ce7347149f59b48bc"}, {"url": "./assets/runtime/tekke-sequence-r988.js?v=r1019", "sha256": "c453373ee648876e06413a6272c27d4669d5abb895a495792f8fe52d1e7fe5f8"}, {"url": "./assets/runtime/tekke-set-r990.js?v=r1019", "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a"}, {"url": "./assets/runtime/tekke-ux-r992.css?v=r1019", "sha256": "8fde58107301e708b36c16a8f25093dfed6144711b5ab6775199355109123113"}, {"url": "./assets/runtime/tekke-ux-r992.js?v=r1019", "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d"}, {"url": "./assets/runtime/tekke-journey-r993.css?v=r1019", "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863"}, {"url": "./assets/runtime/tekke-journey-r993.js?v=r1019", "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a"}, {"url": "./assets/scenes/tekke-r1014/berhet-billur.webp?v=r1019", "sha256": "17cbb4b7cc419bcc7e4fd0618c012ede1104523ed956aeed380280d169af6a50"}, {"url": "./assets/runtime/recording-continuity-r1016.js?v=r1019", "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e"}, {"url": "./assets/runtime/recording-inspection-r1017.js?v=r1019", "sha256": "bf6da054904b556dbc00f786fec6a680c5fc548da058d3945c03c1d89fbe1b46"}, {"url": "./assets/runtime/studio-batch-r1019.js?v=r1019", "sha256": "44cb7e7ad49cdcb9c5c2f68ffdd908b9a7e51d886881f625c4c395f51da8abf8"}, {"url": "./assets/runtime/recovery-versions-r1019.js?v=r1019", "sha256": "d2bf8ffe36ea53a4b06b2974f24ba567eea5beabb6b23484880c5f23d101718c"}, {"url": "./assets/runtime/recovery-data-r1019.js?v=r1019", "sha256": "2dea716fd13543aa6a087c81102af04c1eaa05decfa1aebce7792c658d1f3bc0"}, {"url": "./assets/runtime/site-backup-r1019.js?v=r1019", "sha256": "25819a3a78b45ba51df2e4b8835f965caedc583f1b02ac9da6dfc3dedd9f9dbc"}, {"url": "./assets/runtime/recovery-ui-r1019.js?v=r1019", "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541"}];
+const REQUIRED_RUNTIME = [{"url": "./assets/runtime/berhet-layout-r938.css?v=r1020", "sha256": "e963103a4742717dd1845452d7fba881210a7c901fe0193e284ec047d323b172"}, {"url": "./assets/runtime/berhet-materials-r933.css?v=r1020", "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"}, {"url": "./assets/runtime/berhet-controls-r933.css?v=r1020", "sha256": "b446d7e2ea1041ee2bd350b042a67f4dbbcd9e98cbcf48c41368b6b5b9d5c415"}, {"url": "./assets/runtime/berhet-dock-r933.css?v=r1020", "sha256": "8ee1fba13a12f78500721cd6b5a5653b5a7d4914c02fa0be19046ebfd18bbc12"}, {"url": "./assets/runtime/background-owner-r949.js?v=r1020", "sha256": "0a76964b1cabf66ca701a1910a5938cc7046b78ed6ce8576b1000f47717c068e"}, {"url": "./assets/runtime/lifecycle-r949.js?v=r1020", "sha256": "23c80a9fdd863ed691402a0facc2119b6e72d86d8ec0bd9cfe2e42e4f67a8367"}, {"url": "./assets/runtime/audio-palette-r945.js?v=r1020", "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1"}, {"url": "./assets/runtime/esma-scenes-r923.js?v=r1020", "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"}, {"url": "./assets/runtime/session-r919.js?v=r1020", "sha256": "659c21f0e122a18b34870ebefd89a86d1d8c28556c4746d8c3c1db44a8c21c16"}, {"url": "./assets/runtime/dock-r920.js?v=r1020", "sha256": "d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0"}, {"url": "./assets/runtime/wheels-r924.js?v=r1020", "sha256": "3fdcfd5eb41e2f473eb86a8a16e6820e717cf679f327cdb9f73430b6301a1632"}, {"url": "./assets/runtime/berhet-layout-r938.js?v=r1020", "sha256": "e4b7019979fcd5c2921dac09a7162e9548e3e1740301e38eb580aaa01b3436da"}, {"url": "./assets/runtime/interface-r920.js?v=r1020", "sha256": "29f94e1b485d6b7281dfb3d30a1e0b2211a49ee660e1a06780cf8622c8f5afc0"}, {"url": "./assets/runtime/wheels-r924.css?v=r1020", "sha256": "22a07233940d7a8deebec8613885dcb534cd8a35482e0615b0ffd7febd240a2f"}, {"url": "./assets/runtime/berhet-theme-r933.js?v=r1020", "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434"}, {"url": "./assets/runtime/health-view-r943.css?v=r1020", "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3"}, {"url": "./assets/runtime/health-view-r943.js?v=r1020", "sha256": "91ef0974953e02ddaf64029de0c687764acdb370e74b8062c9a4aa7945c67c56"}, {"url": "./assets/runtime/scene-picker-r945.css?v=r1020", "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2"}, {"url": "./assets/runtime/scene-picker-r945.js?v=r1020", "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75"}, {"url": "./assets/runtime/health-r940.js?v=r1020", "sha256": "adc2265de74c98d9a07dc8860924d43c2aaac6c8d37386d1228632730a8e8624"}, {"url": "./assets/runtime/nefs-r948.css?v=r1020", "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf"}, {"url": "./assets/runtime/nefs-data-r948.js?v=r1020", "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c"}, {"url": "./assets/runtime/nefs-model-r948.js?v=r1020", "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b"}, {"url": "./assets/runtime/nefs-ui-r948.js?v=r1020", "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721"}, {"url": "./assets/runtime/offline-scenes-r962.js?v=r1020", "sha256": "d1afd56086c4f2535ae6ddaf4324a63a1864b71a63da53e72c6ceb25ece974ba"}, {"url": "./assets/wheel-navigation-r964/gold.png?v=r1020", "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2"}, {"url": "./assets/wheel-navigation-r964/copper.png?v=r1020", "sha256": "b731ba244c0f04a972276580a70e3b203a8a9e839abe35841cfd08c372283012"}, {"url": "./assets/wheel-navigation-r964/silver.png?v=r1020", "sha256": "d7095d1597bdeb288035bd3aa87c4168c63a4dd6b98c7f6ab860f0f7c24a516f"}, {"url": "./assets/wheel-navigation-r964/dark.png?v=r1020", "sha256": "c6407489d8c52d1b65985dbbdb8d5c3df625b184739c413c40c6d423d70c55bb"}, {"url": "./assets/wheel-navigation-r964/crystal.png?v=r1020", "sha256": "dd751abc6483a3c5f3585e170d0c9888fdef5ccb69e276bd61d765b33bdb6b85"}, {"url": "./assets/runtime/presentation-r979.js?v=r1020", "sha256": "12a36845037782ccf9fe851b3b498cd856771b85d412facb0e928918f70eaa19"}, {"url": "./assets/runtime/audio-cpu-r981.js?v=r1020", "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f"}, {"url": "./assets/runtime/audio-preparation-r981.js?v=r1020", "sha256": "2765a389211c07220f996061843727273c34e5b8f6aeb326002afb6dc3d8eea9"}, {"url": "./assets/runtime/tab-owner-r981.js?v=r1020", "sha256": "d844192f7ff18faf38dec19d42922697eba53ac09f7475dec68bb337d7bf9f3f"}, {"url": "./assets/runtime/cadence-r981.css?v=r1020", "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992"}, {"url": "./assets/runtime/cadence-r981.js?v=r1020", "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda"}, {"url": "./assets/runtime/studio-preparation-r982.js?v=r1020", "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e"}, {"url": "./assets/runtime/progress-journal-r982.js?v=r1020", "sha256": "b7fbd70dbcf9d08abdd88ec2c2d29566d56d75c8c76aca7ce7347149f59b48bc"}, {"url": "./assets/runtime/tekke-sequence-r988.js?v=r1020", "sha256": "c453373ee648876e06413a6272c27d4669d5abb895a495792f8fe52d1e7fe5f8"}, {"url": "./assets/runtime/tekke-set-r990.js?v=r1020", "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a"}, {"url": "./assets/runtime/tekke-ux-r992.css?v=r1020", "sha256": "8fde58107301e708b36c16a8f25093dfed6144711b5ab6775199355109123113"}, {"url": "./assets/runtime/tekke-ux-r992.js?v=r1020", "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d"}, {"url": "./assets/runtime/tekke-journey-r993.css?v=r1020", "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863"}, {"url": "./assets/runtime/tekke-journey-r993.js?v=r1020", "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a"}, {"url": "./assets/scenes/tekke-r1014/berhet-billur.webp?v=r1020", "sha256": "17cbb4b7cc419bcc7e4fd0618c012ede1104523ed956aeed380280d169af6a50"}, {"url": "./assets/runtime/recording-continuity-r1016.js?v=r1020", "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e"}, {"url": "./assets/runtime/recording-inspection-r1020.js?v=r1020", "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04"}, {"url": "./assets/runtime/studio-batch-r1020.js?v=r1020", "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda"}, {"url": "./assets/runtime/recovery-versions-r1019.js?v=r1020", "sha256": "6ec06065e10db9268e88d06fcd0f226cb9b4572754772f7484ada01e4e6cde77"}, {"url": "./assets/runtime/recovery-data-r1020.js?v=r1020", "sha256": "df96ed113ee05fe8865555c991e0ff907f394aff3e4e4525ac166d70d1961fbb"}, {"url": "./assets/runtime/site-backup-r1020.js?v=r1020", "sha256": "f9b983f5c909c7aa7993ef253be95e5aa904a5a27b35e20549d7b817cbaec685"}, {"url": "./assets/runtime/recovery-ui-r1019.js?v=r1020", "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541"}, {"url": "./assets/runtime/recording-salvage-r1020.js?v=r1020", "sha256": "865fd55c9f50a582ba5849141bd9e6fb2b52e7d759260f59cc10ebce9d7b8d0e"}];
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
    Shell doğrulaması bağımsız; geri kalan assetler yalnız görünüm istediğinde
-   normal fetch sırasında current cache'e yazılır. Toplu görsel indirme
+   normal fetch sırasında ortak görsel cache'ine yazılır. Toplu görsel indirme
    install/activate yaşam döngüsünü veya aktif ses oturumunu meşgul etmez. */
 const CORE = [
-  "./sukun-site-assets-r1019.json?v=r1019",
-  "./assets/runtime/recovery-ui-r1019.js?v=r1019",
-  "./assets/runtime/site-backup-r1019.js?v=r1019",
-  "./assets/runtime/recovery-data-r1019.js?v=r1019",
-  "./assets/runtime/recovery-versions-r1019.js?v=r1019",
-  "./assets/runtime/studio-batch-r1019.js?v=r1019",
-  './assets/runtime/recording-inspection-r1017.js?v=r1019',
-  './assets/runtime/recording-continuity-r1016.js?v=r1019',
-  "./assets/runtime/offline-scenes-r962.js?v=r1019",
-  "./assets/wheel-navigation-r964/gold.png?v=r1019",
-  "./assets/wheel-navigation-r964/copper.png?v=r1019",
-  "./assets/wheel-navigation-r964/silver.png?v=r1019",
-  "./assets/wheel-navigation-r964/dark.png?v=r1019",
-  "./assets/wheel-navigation-r964/crystal.png?v=r1019",
+  "./assets/runtime/recording-salvage-r1020.js?v=r1020",
+  "./sukun-site-assets-r1020.json?v=r1020",
+  "./assets/runtime/recovery-ui-r1019.js?v=r1020",
+  "./assets/runtime/site-backup-r1020.js?v=r1020",
+  "./assets/runtime/recovery-data-r1020.js?v=r1020",
+  "./assets/runtime/recovery-versions-r1019.js?v=r1020",
+  "./assets/runtime/studio-batch-r1020.js?v=r1020",
+  './assets/runtime/recording-inspection-r1020.js?v=r1020',
+  './assets/runtime/recording-continuity-r1016.js?v=r1020',
+  "./assets/runtime/offline-scenes-r962.js?v=r1020",
+  "./assets/wheel-navigation-r964/gold.png?v=r1020",
+  "./assets/wheel-navigation-r964/copper.png?v=r1020",
+  "./assets/wheel-navigation-r964/silver.png?v=r1020",
+  "./assets/wheel-navigation-r964/dark.png?v=r1020",
+  "./assets/wheel-navigation-r964/crystal.png?v=r1020",
 
-  "./assets/runtime/tekke-journey-r993.css?v=r1019",
-  "./assets/runtime/tekke-journey-r993.js?v=r1019",
+  "./assets/runtime/tekke-journey-r993.css?v=r1020",
+  "./assets/runtime/tekke-journey-r993.js?v=r1020",
 
-  "./assets/runtime/tekke-ux-r992.css?v=r1019",
-  "./assets/runtime/tekke-ux-r992.js?v=r1019",
+  "./assets/runtime/tekke-ux-r992.css?v=r1020",
+  "./assets/runtime/tekke-ux-r992.js?v=r1020",
 
-  "./assets/runtime/tekke-set-r990.js?v=r1019",
+  "./assets/runtime/tekke-set-r990.js?v=r1020",
 
 
-  "./assets/runtime/tekke-sequence-r988.js?v=r1019",
+  "./assets/runtime/tekke-sequence-r988.js?v=r1020",
 
-  "./assets/runtime/studio-preparation-r982.js?v=r1019",
-  "./assets/runtime/progress-journal-r982.js?v=r1019",
+  "./assets/runtime/studio-preparation-r982.js?v=r1020",
+  "./assets/runtime/progress-journal-r982.js?v=r1020",
 
-  "./assets/runtime/audio-cpu-r981.js?v=r1019",
-  "./assets/runtime/audio-preparation-r981.js?v=r1019",
-  "./assets/runtime/tab-owner-r981.js?v=r1019",
-  "./assets/runtime/cadence-r981.css?v=r1019",
-  "./assets/runtime/cadence-r981.js?v=r1019",
+  "./assets/runtime/audio-cpu-r981.js?v=r1020",
+  "./assets/runtime/audio-preparation-r981.js?v=r1020",
+  "./assets/runtime/tab-owner-r981.js?v=r1020",
+  "./assets/runtime/cadence-r981.css?v=r1020",
+  "./assets/runtime/cadence-r981.js?v=r1020",
 
-  "./assets/runtime/presentation-r979.js?v=r1019",
-  "./assets/runtime/lifecycle-r949.js?v=r1019",
-  "./assets/runtime/background-owner-r949.js?v=r1019",
-  "./assets/runtime/berhet-layout-r938.css?v=r1019",
-  "./assets/runtime/berhet-materials-r933.css?v=r1019",
-  "./assets/runtime/berhet-controls-r933.css?v=r1019",
-  "./assets/runtime/berhet-dock-r933.css?v=r1019",
-  "./assets/runtime/audio-palette-r945.js?v=r1019",
-  "./assets/runtime/esma-scenes-r923.js?v=r1019",
-  "./assets/runtime/session-r919.js?v=r1019",
-  "./assets/runtime/dock-r920.js?v=r1019",
-  "./assets/runtime/wheels-r924.js?v=r1019",
-  "./assets/runtime/berhet-layout-r938.js?v=r1019",
-  "./assets/runtime/interface-r920.js?v=r1019",
-  "./assets/runtime/wheels-r924.css?v=r1019",
-  "./assets/runtime/berhet-theme-r933.js?v=r1019",
-  "./assets/runtime/health-view-r943.css?v=r1019",
-  "./assets/runtime/health-view-r943.js?v=r1019",
-  "./assets/runtime/scene-picker-r945.css?v=r1019",
-  "./assets/runtime/scene-picker-r945.js?v=r1019",
-  "./assets/runtime/health-r940.js?v=r1019",
-  "./assets/runtime/nefs-r948.css?v=r1019",
-  "./assets/runtime/nefs-data-r948.js?v=r1019",
-  "./assets/runtime/nefs-model-r948.js?v=r1019",
-  "./assets/runtime/nefs-ui-r948.js?v=r1019",
+  "./assets/runtime/presentation-r979.js?v=r1020",
+  "./assets/runtime/lifecycle-r949.js?v=r1020",
+  "./assets/runtime/background-owner-r949.js?v=r1020",
+  "./assets/runtime/berhet-layout-r938.css?v=r1020",
+  "./assets/runtime/berhet-materials-r933.css?v=r1020",
+  "./assets/runtime/berhet-controls-r933.css?v=r1020",
+  "./assets/runtime/berhet-dock-r933.css?v=r1020",
+  "./assets/runtime/audio-palette-r945.js?v=r1020",
+  "./assets/runtime/esma-scenes-r923.js?v=r1020",
+  "./assets/runtime/session-r919.js?v=r1020",
+  "./assets/runtime/dock-r920.js?v=r1020",
+  "./assets/runtime/wheels-r924.js?v=r1020",
+  "./assets/runtime/berhet-layout-r938.js?v=r1020",
+  "./assets/runtime/interface-r920.js?v=r1020",
+  "./assets/runtime/wheels-r924.css?v=r1020",
+  "./assets/runtime/berhet-theme-r933.js?v=r1020",
+  "./assets/runtime/health-view-r943.css?v=r1020",
+  "./assets/runtime/health-view-r943.js?v=r1020",
+  "./assets/runtime/scene-picker-r945.css?v=r1020",
+  "./assets/runtime/scene-picker-r945.js?v=r1020",
+  "./assets/runtime/health-r940.js?v=r1020",
+  "./assets/runtime/nefs-r948.css?v=r1020",
+  "./assets/runtime/nefs-data-r948.js?v=r1020",
+  "./assets/runtime/nefs-model-r948.js?v=r1020",
+  "./assets/runtime/nefs-ui-r948.js?v=r1020",
 
 
 
@@ -112,7 +113,7 @@ const CORE = [
 
 ];
 
-const NOTLAR = ["Kayıt Stüdyosu: erişilebilir tüm seslere dengeleme, sessizlik kırpma veya ikisini birlikte uygula. Özgün sesler doğrulanmış geri alma kopyasında saklanır.", "Toplu kayıt işlemi tek atomik yazmayla tamamlanır; hata sonrası otomatik geri alma denenir. Yeniden açıldığında da geri al kullanılabilir; daha yeni ses değişiklikleri üzerine yazılmaz.", "🛟 Kurtarma Merkezi: son 5 kişisel veri noktası, JSON yedeği, doğrulamalı geri yükleme ve son veri geri yüklemesini geri alma. Yarım kalan işlem için kalıcı kurtarma günlüğü tutulur.", "Güncel uygulama ve cihazda doğrulanmış en fazla 5 eski sürüm saklanır. Eski sürüm dosyaları karıştırılmadan açılır; acil kurtarma sayfasından güncele dönülebilir. Geçmiş bundan sonra birikir.", "Tam site ZIP yedeği: site dosyaları SHA-256 ile kontrol edilir ve kişisel JSON yedeği eklenir. Eksik veya değişmiş dosyada tamamlanmış yedek indirilmez. İsteğe bağlı internet fontları ve dış AI hizmetleri ayrıca internet gerektirir."];
+const NOTLAR = ["Kayıt koruması: yarım kalmış veri kurtarma günlüğü açılışta otomatik uygulanmaz. Tam veri geri yükleme ve toplu silme inceleme sırasında kapalıdır.", "🛟 Kayıp sesler: eski kişisel veri noktaları, stüdyo asılları ve doğrulanmış JSON yedekleri taranır. Yalnız eksik sesler eklenir; mevcut sesler değiştirilmez.", "Güncel depo sonucu ile önceki dolu gözlem ayrı gösterilir. Sıfır sonucu geçmişi silmez; okumalar eksik bir ses deposunu kendiliğinden oluşturmaz.", "Önbelleği yenileme sesleri veya ayarları silmez. Eski ve gizli veri noktaları ile stüdyo kopyaları korunur. r1019 sürümüne dönüş engellenmiştir.", "İsteğe bağlı görseller ortak önbelleğe alınır; sürüm başına yeniden çoğaltılmaz. Yerel kopya kalmamış seslerin kurtarılması için harici JSON yedeği gerekir."];
 
 function buildOfHtml(text){
  const tags=String(text||'').match(/<meta\b[^>]*>/gi)||[];
@@ -181,6 +182,17 @@ const RECOVERY_CONTROL_CACHE = 'sukun-recovery-control-v1';
 const RECOVERY_STATE_KEY = './__sukun_recovery_state__';
 const RECOVERY_ROUTE = './__sukun_recovery__';
 const RECOVERY_MAX_PREVIOUS = 5;
+// r1019 could replay an automatic restore journal at startup. A later worker
+// must never reopen that shell through rollback, a persisted pin, or fallback.
+const RECOVERY_BLOCKED_BUILDS = new Set(['r1019']);
+const recoveryUnsafeBuild = build => build!==SURUM&&RECOVERY_BLOCKED_BUILDS.has(build);
+function recoveryUnsafeExecutable(url){
+ if(url.origin!==self.location.origin||!/\.(?:m?js|css|html)$/i.test(url.pathname))return false;
+ // An old controlled tab can ask for a file absent from the current manifest;
+ // reject before generic cache/network fallback has a chance to serve it.
+ if(url.searchParams.getAll('v').some(recoveryUnsafeBuild))return true;
+ return recoveryUnsafeBuild('r1019')&&url.pathname===sameOriginPath('./assets/runtime/recovery-data-r1019.js');
+}
 const isAppCacheName = name => /^sukun-r\d+(?:-|$)/.test(String(name));
 const recoveryUrl = path => new URL(path,self.location.href).href;
 const recoveryPath = path => new URL(path,self.location.href).pathname;
@@ -225,7 +237,7 @@ async function recoveryVerifyCache(name,enroll=false){
  try{
   const cache=await caches.open(name),htmlResponse=await cache.match('./nero.html',{ignoreSearch:true});
   if(!htmlResponse?.ok)return null;
-  const html=await htmlResponse.clone().text(),build=buildOfHtml(html);if(!/^r\d+$/.test(build)||!name.startsWith('sukun-'+build+'-'))return null;
+  const html=await htmlResponse.clone().text(),build=buildOfHtml(html);if(!/^r\d+$/.test(build)||!name.startsWith('sukun-'+build+'-')||recoveryUnsafeBuild(build))return null;
   const metaResponse=await cache.match('./sukun-cache-meta-'+build+'.json',{ignoreSearch:true});
   const markerResponse=await cache.match('./sukun-build-'+build+'.json',{ignoreSearch:true});
   const manifestResponse=await cache.match('./manifest.webmanifest',{ignoreSearch:true});
@@ -285,6 +297,7 @@ async function recoveryPrune(){
 let recoveryPinMemo=null;
 async function recoveryPinned(){
  const state=await recoveryReadState();if(!state.pin){recoveryPinMemo=null;return null;}
+ if(recoveryUnsafeBuild(state.pin.build))throw Error('UNSAFE_PIN');
  if(!recoveryPinMemo||recoveryPinMemo.cache!==state.pin.cache){recoveryPinMemo={cache:state.pin.cache,check:recoveryVerifyCache(state.pin.cache,false)};}
  const entry=await recoveryPinMemo.check;
  if(!entry||entry.build!==state.pin.build)throw Error('PIN_INVALID');return entry;
@@ -315,7 +328,9 @@ async function recoverySwitch(event,mode){
   await recoveryMutationSource(event);assertLive();recoveryPinMemo=null;
   await recoveryWriteState({schema:1,pin:null});return {ok:true,build:SURUM,cache:CACHE,rollback:false,reload:true};
  }
- const {cache,build}=event.data||{},report=await recoveryVersions(true);
+ const {cache,build}=event.data||{};
+ if(recoveryUnsafeBuild(build)||recoveryUnsafeBuild(String(cache||'').match(/^sukun-(r\d+)(?:-|$)/)?.[1]))throw Error('HISTORICAL_BUILD_UNSAFE');
+ const report=await recoveryVersions(true);
  const targets=report.versions.filter(e=>vnum(e.build)<vnum(SURUM)).slice(0,RECOVERY_MAX_PREVIOUS);
  const entry=targets.find(e=>e.cache===cache&&e.build===build);if(!entry)throw Error('HISTORICAL_BUILD_UNAVAILABLE');
  const verified=await recoveryVerifyCache(entry.cache,false);if(!verified)throw Error('HISTORICAL_BUILD_NOT_VERIFIED');
@@ -429,6 +444,7 @@ function prepareShell(){
 }
 
 async function cachedShellFrom(cacheName){
+ if(recoveryUnsafeBuild(String(cacheName||'').match(/^sukun-(r\d+)(?:-|$)/)?.[1]))return null;
  try{const entry=await recoveryVerifyCache(cacheName,true);if(!entry)return null;const c=await caches.open(cacheName),res=await c.match('./nero.html',{ignoreSearch:true});return res?{res,build:entry.build,cache:cacheName}:null}catch(_){return null}
 }
 async function bestCachedShell(){
@@ -459,8 +475,10 @@ self.addEventListener('activate',event=>{
  event.waitUntil((async()=>{
   if(!await currentComplete()){const meta=await prepareShell();if(!meta.complete)throw Error('Incomplete release cannot activate')}
   await self.clients.claim();
-  const art=await caches.open(ART_CACHE);
-  for(const name of (await caches.keys()).filter(n=>isAppCacheName(n))){const old=await caches.open(name);for(const req of await old.keys()){if(isArt(new URL(req.url))){const res=await old.match(req);if(validArt(res))await put(art,artKey(req),res)}}}
+  // Optional visuals are shared once across the retained releases. Migration
+  // only removes a duplicate after its shared bytes match; release-manifest
+  // runtime images remain in every release's verified cache.
+  try{await compactOptionalArt()}catch(_){}
   await recoveryPrune();
   // Optional art is cached only by assetResponse when the page requests it.
   // Do not start detached warm-up work here: it competes with playback and may
@@ -524,13 +542,76 @@ async function runtimeResponse(request,entry){
 function isArt(url){return /\.(?:png|jpe?g|webp|svg)$/i.test(url.pathname)&&url.pathname.includes('/assets/')}
 function validArt(res){return res?.ok&&res.type!=='opaque'&&/^image\//i.test(res.headers.get('content-type')||'')}
 function artKey(request){const url=new URL(request.url||request,self.location.href);url.searchParams.delete('v');url.searchParams.delete('t');return new Request(url.href)}
+// This ceiling stops new optional admissions; it never evicts a user's
+// already available offline scenes to make room for another scene. Cache
+// storage shares the origin quota with recordings, so leave a reserve when
+// an estimate is available. No personal data store is accessed here.
+const ART_MAX_BYTES=256*1024*1024,ART_MAX_ENTRIES=400,ART_QUOTA_RESERVE=64*1024*1024;
+let artBudgetPromise=null,artWriteQueue=Promise.resolve();
+async function artByteLength(response){
+ const reader=response.clone().body?.getReader();if(!reader)return 0;
+ let bytes=0;
+ try{for(;;){const chunk=await reader.read();if(chunk.done)break;bytes+=chunk.value.byteLength;if(bytes>ART_MAX_BYTES){try{await reader.cancel()}catch(_){}return bytes}}return bytes}
+ finally{try{reader.releaseLock()}catch(_){}}
+}
+async function artBudget(cache){
+ if(!artBudgetPromise)artBudgetPromise=(async()=>{
+  const sizes=new Map();let bytes=0;
+  for(const request of await cache.keys()){
+   const response=await cache.match(request);if(!response)continue;
+   const size=await artByteLength(response);sizes.set(request.url,size);bytes+=size;
+  }
+  return {sizes,bytes};
+ })().catch(error=>{artBudgetPromise=null;throw error});
+ return artBudgetPromise;
+}
+async function artHasHeadroom(bytes){
+ try{
+  const storage=self.navigator?.storage;if(typeof storage?.estimate!=='function')return true;
+  const estimate=await storage.estimate(),quota=Number(estimate.quota),usage=Number(estimate.usage);
+  if(Number.isFinite(quota)&&quota>0&&Number.isFinite(usage)&&usage>=0)return quota-usage>=Math.max(ART_QUOTA_RESERVE,bytes*2);
+ }catch(_){}
+ return true;
+}
+function storeOptionalArt(request,response){
+ const work=async()=>{
+  if(!validArt(response))return false;
+  const cache=await caches.open(ART_CACHE),key=artKey(request),budget=await artBudget(cache),size=await artByteLength(response);
+  const previous=budget.sizes.get(key.url)||0,newBytes=budget.bytes-previous+size;
+  if(size>ART_MAX_BYTES||newBytes>ART_MAX_BYTES||(!budget.sizes.has(key.url)&&budget.sizes.size>=ART_MAX_ENTRIES)||!await artHasHeadroom(Math.max(0,size-previous)))return false;
+  if(!await put(cache,key,response))return false;
+  budget.bytes=newBytes;budget.sizes.set(key.url,size);return true;
+ };
+ const result=artWriteQueue.then(work,work).catch(()=>false);artWriteQueue=result.then(()=>{});return result;
+}
+async function compactOptionalArt(){
+ const shared=await caches.open(ART_CACHE);
+ // Newer artwork wins the unversioned shared key. A differing older image
+ // keeps its own release copy; only a verified identical duplicate is deleted.
+ const names=(await caches.keys()).filter(isAppCacheName).sort((a,b)=>vnum(b)-vnum(a));
+ for(const name of names){
+  const cache=await caches.open(name),build=name.match(/^sukun-(r\d+)/)?.[1];
+  let marker;try{const response=await cache.match('./sukun-build-'+build+'.json',{ignoreSearch:true});marker=response?await response.json():null}catch(_){}
+  // Missing metadata cannot establish which historical images are mandatory.
+  if(!Array.isArray(marker?.runtime))continue;
+  const protectedPaths=new Set(marker.runtime.map(entry=>{try{return sameOriginPath(entry.url)}catch(_){return ''}}));
+  for(const request of await cache.keys()){
+   const url=new URL(request.url);if(!isArt(url)||protectedPaths.has(url.pathname))continue;
+   const original=await cache.match(request);if(!validArt(original))continue;
+   const key=artKey(request);let saved=await shared.match(key);
+   if(!validArt(saved)){if(!await storeOptionalArt(key,original))continue;saved=await shared.match(key)}
+   if(validArt(saved)&&await sha256Response(saved)===await sha256Response(original))await cache.delete(request);
+  }
+ }
+}
 async function artResponse(request){
  const current=await caches.open(CACHE),art=await caches.open(ART_CACHE),key=artKey(request);
- const exact=await current.match(request,{ignoreSearch:false});if(validArt(exact)){await put(art,key,exact.clone());return exact}
- try{const fresh=await timedFetch(request,6000);if(!validArt(fresh))throw Error('art unavailable');await put(current,request,fresh.clone());await put(art,key,fresh.clone());return fresh}catch(_){const saved=await art.match(key);if(validArt(saved))return saved;return Response.error()}
+ const exact=await current.match(request,{ignoreSearch:false});if(validArt(exact)){await storeOptionalArt(key,exact);return exact}
+ try{const fresh=await timedFetch(request,6000);if(!validArt(fresh))throw Error('art unavailable');await storeOptionalArt(key,fresh);return fresh}catch(_){const saved=await art.match(key);if(validArt(saved))return saved;return Response.error()}
 }
 async function assetResponse(request){
   const url=new URL(request.url);
+  if(recoveryUnsafeExecutable(url))return Response.error();
   if(url.pathname===recoveryPath(RECOVERY_ROUTE))return recoveryPage();
   try{const pin=await recoveryPinned();if(pin)return recoveryAsset(request,pin)}catch(e){return Response.error()}
   const current=await caches.open(CACHE);
@@ -563,7 +644,7 @@ async function assetResponse(request){
     if(res?.ok&&res.type!=='opaque'&&(!/\.(?:png|jpe?g|webp|svg)$/i.test(url.pathname)||/^image\//i.test(res.headers.get('content-type')||'')))await put(current,request,res.clone());
     return res;
   }catch(e){
-    const keys=(await caches.keys()).filter(k=>isAppCacheName(k)&&k!==CACHE).sort((a,b)=>vnum(b)-vnum(a));
+    const keys=(await caches.keys()).filter(k=>isAppCacheName(k)&&k!==CACHE&&!recoveryUnsafeBuild(k.match(/^sukun-(r\d+)(?:-|$)/)?.[1])).sort((a,b)=>vnum(b)-vnum(a));
     for(const k of keys){try{const c=await caches.open(k),r=await c.match(request,{ignoreSearch:false});if(r)return r}catch(_){} }
     return Response.error();
   }
@@ -572,7 +653,12 @@ async function assetResponse(request){
 self.addEventListener('fetch',event=>{
   const req=event.request;if(req.method!=='GET')return;
   const url=new URL(req.url);if(url.origin!==self.location.origin)return;
-  event.respondWith(req.mode==='navigate'&&isAppNavigation(req)?navigationResponse(req):assetResponse(req));
+  // Installed launchers retain their old start_url query. Recognized app
+  // navigations still choose a verified safe shell; this exception never
+  // permits an old executable or an arbitrary auxiliary HTML response.
+  const appNavigation=req.mode==='navigate'&&isAppNavigation(req);
+  if(!appNavigation&&recoveryUnsafeExecutable(url)){event.respondWith(Promise.resolve(Response.error()));return;}
+  event.respondWith(appNavigation?navigationResponse(req):assetResponse(req));
 });
 
 self.addEventListener('message',event=>{
