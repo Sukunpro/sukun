@@ -249,6 +249,50 @@ html body #tk[data-tk-ux="r992"] .r992PurposeCheck{flex:none}
 html body #tk[data-tk-ux="r992"] #gT,
 html body #tk[data-tk-ux="r992"] #gEst{overflow-wrap:anywhere}
 
+/* r1018: the shared entrance stays within one viewport column for 99 Esma,
+   Berhetiyye and reflection purposes. Paint and session owners stay separate. */
+html body.r821-tekke-open #tk[data-tk-ux="r992"]{
+ grid-template-columns:minmax(0,1fr)!important;
+}
+html body #tk[data-tk-ux="r992"] :is(#top,#stage,#r992SessionBadge,#r992Transport){
+ grid-column:1;min-width:0;box-sizing:border-box;
+}
+html body.r821-tekke-open #tk[data-tk-ux="r992"][data-tk-entered="0"] #gate:not(.bye){
+ min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
+ align-items:center!important;flex-direction:column!important;
+}
+html body.r821-tekke-open #tk[data-tk-ux="r992"][data-tk-entered="0"] #gate>*{
+ flex:none!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
+}
+html body #tk[data-tk-ux="r992"][data-tk-entered="0"] #gate :is(.r992Purpose,#gContext,.gPick,#gSetSettings,#gEst,#gBtn){
+ width:100%!important;max-width:520px!important;min-width:0!important;box-sizing:border-box!important;
+}
+html body #tk[data-tk-ux="r992"][data-tk-entered="0"] #topR{
+ display:grid!important;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px!important;
+ width:100%;min-width:0;max-width:100%;
+}
+html body #tk[data-tk-ux="r992"][data-tk-entered="0"] #backSukun{grid-column:1;grid-row:1;margin-right:0!important}
+html body #tk[data-tk-ux="r992"][data-tk-entered="0"] #r992GateSettings{
+ grid-column:2;grid-row:1;justify-self:end;min-width:0!important;max-width:100%!important;
+ white-space:normal!important;overflow-wrap:anywhere;box-sizing:border-box;
+}
+html body #tk[data-tk-ux="r992"][data-tk-entered="0"] .r992PurposeBtn{
+ width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
+}
+html body #tk[data-tk-ux="r992"][data-tk-entered="0"] #gate :is(strong,small,#gContextName,#gContextMeta,#gContextMean,#gEst){
+ white-space:normal;overflow-wrap:anywhere;
+}
+html body #tk[data-tk-ux="r992"][data-tk-entered="0"] :is(#gDur,#gMode){
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;min-width:0;
+}
+html body #tk[data-tk-ux="r992"][data-tk-entered="0"] #gDur{grid-template-columns:repeat(4,minmax(0,1fr))}
+html body #tk[data-tk-ux="r992"][data-tk-entered="0"] :is(#gDur,#gMode) .chip{
+ min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere;box-sizing:border-box;
+}
+@media(max-width:360px){
+ html body #tk[data-tk-ux="r992"][data-tk-entered="0"] #gDur{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
 /* r1014: captions grow below a fixed breath square, never recenter the scene.
    Controls keep equal touch targets, and the slider owns a full mobile row. */
 html body #tk[data-tk-ux="r992"] #tkGuide,
