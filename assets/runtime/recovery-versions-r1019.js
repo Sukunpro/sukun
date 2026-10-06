@@ -9,13 +9,15 @@
   EXPLICIT_CONFIRM_REQUIRED:'Sürüm değişikliği için onay gerekiyor.',
   OTHER_APP_TAB_OPEN:'Diğer SÜKÛN sekmelerini kapatıp yeniden dene.',
   HISTORICAL_BUILD_UNAVAILABLE:'Bu eski sürümün doğrulanmış dosyaları cihazda bulunmuyor.',
+  HISTORICAL_BUILD_UNSAFE:'Bu sürüm kayıt koruması nedeniyle kapalı. Güncel sürümü kullan.',
+  UNSAFE_PIN:'Seçili eski sürüm kayıt koruması nedeniyle kapalı. Kurtarma sayfasından güncele dön.',
   HISTORICAL_BUILD_NOT_VERIFIED:'Eski sürümün dosya kontrolü başarısız oldu.',
   CURRENT_NOT_VERIFIED:'Güncel sürüm dosyaları hazır değil. Bağlantı varken güncellemeyi kontrol et.',
   PIN_INVALID:'Korunan sürüm doğrulanamadı. Kurtarma sayfasından güncel sürüme dön.',
   RECOVERY_STATE_UNREADABLE:'Kurtarma durumu okunamadı. Kurtarma sayfasından güncel sürüme dön.',
   RECOVERY_BUSY:'Önce aktif ses oturumunu bitir ve veri işleminin tamamlanmasını bekle.',
   RECOVERY_REQUEST_EXPIRED:'Sürüm değiştirme süresi doldu. Sürüm listesini yeniden kontrol edip dene.',
-  RECOVERY_UNSUPPORTED:'Bu servis çalışanında sürüm kurtarma yok. r1019 güncellemesini tamamla.',
+  RECOVERY_UNSUPPORTED:'Bu servis çalışanında sürüm kurtarma yok. r1020 güncellemesini tamamla.',
   NO_CONTROLLER:'Kurtarma için uygulamanın çevrimdışı servisi hazır olmalı. Sayfayı tekrar aç.'
  };
  const messagesEn={
@@ -23,13 +25,15 @@
   EXPLICIT_CONFIRM_REQUIRED:'Confirm the application version change first.',
   OTHER_APP_TAB_OPEN:'Close the other SÜKÛN tabs and try again.',
   HISTORICAL_BUILD_UNAVAILABLE:'Verified files for this older version are not available on this device.',
+  HISTORICAL_BUILD_UNSAFE:'This version is blocked to protect recordings. Use the current version.',
+  UNSAFE_PIN:'The selected older version is blocked to protect recordings. Return to current from the recovery page.',
   HISTORICAL_BUILD_NOT_VERIFIED:'The older version failed its file checks.',
   CURRENT_NOT_VERIFIED:'The current version files are not ready. Check for updates while online.',
   PIN_INVALID:'The selected recovery version could not be verified. Return to the current version from the recovery page.',
   RECOVERY_STATE_UNREADABLE:'The recovery state could not be read. Return to the current version from the recovery page.',
   RECOVERY_BUSY:'Finish the active audio session and wait for the data operation to complete.',
   RECOVERY_REQUEST_EXPIRED:'The version change timed out. Check the version list and try again.',
-  RECOVERY_UNSUPPORTED:'This service worker does not support version recovery. Complete the r1019 update first.',
+  RECOVERY_UNSUPPORTED:'This service worker does not support version recovery. Complete the r1020 update first.',
   NO_CONTROLLER:'Recovery requires the application offline service to be ready. Open the page again.'
  };
  function error(code){const selected=window.I18N?.lang==='en'?messagesEn:messages;const e=Error(selected[code]||code);e.code=code;return e;}
