@@ -6,7 +6,7 @@
 
 const SURUM = 'r1017';
 const ART_CACHE = 'sukun-art-persistent-v1';
-const CACHE = 'sukun-r1017-lifecycle-20261005-v47';
+const CACHE = 'sukun-r1017-catalog-20261006-v1';
 const CACHE_META = './sukun-cache-meta-r1017.json';
 const BUILD_MARKER = './sukun-build-r1017.json';
 const LATEST_MARKER = './sukun-latest.json';
