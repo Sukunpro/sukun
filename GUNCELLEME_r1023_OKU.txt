@@ -1,0 +1,18 @@
+SÜKÛN r1023 — YALNIZ GÜNCELLEME
+7 Ekim 2026
+
+Ön koşul: Tam r1022 uygulama dosyaları mevcut olmalı. Bu ZIP tam uygulama veya kişisel JSON veri yedeği değildir; uygulamadaki JSON içe aktarma düğmelerine yüklenmez.
+
+Kurulum
+1. ZIP içindeki dosyaları mevcut r1022 uygulama klasörüyle birleştir; aynı adlı uygulama dosyalarını değiştir. Mevcut diğer dosyaları silme.
+2. Site/tarayıcı verilerini temizleme. Ayrı JSON ses yedeğini sakla. Bu paket kişisel ses veya veri yedeği içermez.
+3. Dosyaları sen yayımladıktan sonra uygulamadaki Güncellemeyi kontrol et yoluyla App r1023 ve SW r1023 durumunu kontrol et. Bu paketin hazırlanması siteyi kendiliğinden yayımlamaz.
+
+Düzeltme
+Akıllı Seans kartlarında değişmeyen ses kaynağı etiketlerinin kendi güncellemesini yeniden tetiklemesi durduruldu. Düzeltme Türkçe/İngilizce etiketleri korur ve gerçek kaynak değişimini göstermeye devam eder. Ses motoru, kayıt deposu, kurtarma işlemleri ve sayaç zamanlaması değiştirilmedi.
+
+Kontroller ve sınırlar
+602/602 kontrollü kaynak/model ve bütünlük kontrolü geçti. r1022 tabanı üzerine paket içeriği, SHA-256 değerleri ve ZIP bütünlüğü ayrıca doğrulandı. Gözlemci döngüsü eski kaynakta yeniden üretildi; düzeltilmiş kaynakta durduğu doğrulandı.
+Fiziksel Android/tarayıcı testi çalıştırılamadı. Bu dar düzeltmenin telefonda bildirilen tüm donma, kaydırma ve tıklama sorunlarını tamamen çözdüğü henüz doğrulanmadı.
+
+SHA256SUMS_r1023.txt uygulama dosyalarının ve bu açıklamanın SHA-256 değerlerini içerir.
