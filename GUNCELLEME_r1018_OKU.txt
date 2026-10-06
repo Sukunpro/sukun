@@ -1,0 +1,22 @@
+SÜKÛN r1018 — Yalnız güncelleme paketi
+
+Gerekli başlangıç: Çalışan r1017 kurulumu.
+
+1. ZIP içeriğini aç. index.html, nero.html, sw.js, manifest.webmanifest,
+   sukun-latest.json ve sukun-build-r1018.json dosyalarını site köküne yükle.
+2. assets/runtime/tekke-ux-r992.css dosyasını aynı konumda değiştir.
+   assets klasörünü mevcut klasörle birleştir; bütün klasörü silme.
+3. Güncelleme bildirimi geldiğinde uygulamadaki normal güncelleme akışını kullan.
+   Site verilerini veya ses kayıtlarını temizleme. Bu ZIP doğrudan dosya olarak
+   açılacak bağımsız tam uygulama değildir; mevcut r1017 üzerine yüklenir.
+
+Düzeltmeler:
+- 99 Esmâ Tekke girişinde sağa taşan kartlar, üst menü ve seçenekler sınırlandı.
+- Kayıt bilgisi ile yeniden tarama düğmesi ayrı satırlara alındı.
+- Yedek açıklamasının düğmesi doğal akışa alındı; metin/düğme çakışması giderildi.
+
+Kayıt deposu, ses içerikleri, sayaç/tempo ve salt okunur kontrol bileşeni
+değiştirilmedi. Elle yeniden tarama r1017'deki gibi geçici olarak durdurulmuştur.
+Bu paket silinmiş seslerin kurtarıldığını veya seslerin dinleme testinden
+geçtiğini iddia etmez. Statik sürüm/dosya/JS kontrolleri yapılmıştır;
+fiziksel Android görsel doğrulaması yapılmamıştır.
