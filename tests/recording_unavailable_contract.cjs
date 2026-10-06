@@ -18,6 +18,7 @@ function fixture(initial=['tekke:imge:one:0']){
  for(const key of ['one','two'])badges[key]=node();
  let fail=false,reads=0,getHook=null,listHook=null,keyHook=null;
  const c={Blob,Promise,Map,Set,Math,Number,String,Error,Object,Array,Date,JSON,setTimeout,clearTimeout,
+  addEventListener:noop,dispatchEvent:noop,CustomEvent:class{constructor(type,options){this.type=type;this.detail=options?.detail;}},
   RECKEYS:new Set(initial),I18N:{lang:'tr',walk:noop},navigator:{storage:{estimate:async()=>({quota:1000,usage:20}),persisted:async()=>true}},S:{get:(k,d)=>d},
   document:{getElementById:id=>nodes[id]||null,querySelector:selector=>{const k=selector.match(/data-kayitli="([^"]+)"/);return k?badges[k[1]]:null;}},$:s=>nodes[s.slice(1)]||null,hesc:String,boyutYaz:n=>'size:'+n,imgMetin:s=>s,
   IMGELEME:{one:{adimlar:[{t:'first'},{t:'second'}]},two:{adimlar:[{t:'other'}]}},SukunTekkeSet:{refresh:noop},

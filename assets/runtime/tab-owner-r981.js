@@ -1,4 +1,4 @@
-/* r981 / r1015: one explicit dhikr writer/voice tab per origin. No audio or count clock.
+/* r981 / r1021: one explicit dhikr writer/voice tab per origin. No audio or count clock.
  * A Web Lock has no heartbeat deadline: hidden/frozen audible tabs retain it.
  * The IndexedDB fallback atomically claims a non-expiring record; an unclean
  * exit requires the user's explicit closed-other-tabs recovery, never autoplay.
@@ -12,7 +12,7 @@
     'sukun.berhet.seyir.state','sukun.esma99.seyir.state','sukun.resume.policy.v1','sukun.lifecycle.checkpoint','sukun.session.player.v2','sukun.progress.journal.v1']);
   const safe=(fn,d=null)=>{try{return fn()??d;}catch(_){return d;}};
   const OWNER_WAIT_MS=10000;
-  const errorNames=new Set(['Error','TypeError','RangeError','SecurityError','InvalidStateError','NotSupportedError','AbortError','UnknownError','QuotaExceededError','VersionError','NotFoundError','ConstraintError','DataError','ReadOnlyError','TransactionInactiveError','InvalidAccessError','TimeoutError','BlockedError']);
+  const errorNames=new Set(['Error','TypeError','ReferenceError','RangeError','SecurityError','InvalidStateError','NotSupportedError','AbortError','UnknownError','QuotaExceededError','VersionError','NotFoundError','ConstraintError','DataError','ReadOnlyError','TransactionInactiveError','InvalidAccessError','TimeoutError','BlockedError']);
   const errorName=e=>errorNames.has(e?.name)?e.name:'Error';
   const ownerError=(stage,e)=>Object.assign(new Error(errorName(e)),{name:errorName(e),ownerStage:stage});
   const timeoutError=stage=>ownerError(stage,{name:'TimeoutError'});
@@ -20,12 +20,13 @@
   let generation=0, epoch=0, claimGeneration=0, acquireGeneration=-1, retiring=false, revoking=false, terminal=false, drainTimer=0, binding={}, remote=null, reason='idle';
   let grantedBefore='',grantedAfter='';
   let dbPromise=null, dbConnection=null, dbAttempt=null, idbLease=false, maintenanceActive=false, channel=null, pendingAction=null, notice='', writesBlocked=0, wrappedSession=null;
+  let maintenanceAttempt=0,lastMaintenanceFailure=null;
   let failureStage='',lastErrorName='',lockFallbackError='',requestFailures=0,noticeEpoch=0,dismissedNoticeEpoch=-1,warningSignature='';
   const readMirror=()=>safe(()=>JSON.parse(localStorage.getItem(MIRROR)||'null'));
   const owns=()=>held&&!maintenanceActive;
   const key=()=>safe(()=>binding.identity?.(),'');
-  function snapshot(){return Object.freeze({version:'r981',revision:'r1015',method,protection:method==='web-locks'?'web-lock-strict':'idb-confirmed-recovery',owned:owns(),maintenance:maintenanceActive,epoch,intent:generation,pending:!!acquirePromise,
-    failureStage,errorName:lastErrorName,lockFallbackError,requestFailures,
+  function snapshot(){return Object.freeze({version:'r981',revision:'r1021',method,protection:method==='web-locks'?'web-lock-strict':'idb-confirmed-recovery',owned:owns(),maintenance:maintenanceActive,epoch,intent:generation,pending:!!acquirePromise,
+    failureStage,errorName:lastErrorName,lockFallbackError,requestFailures,lastMaintenanceFailure:lastMaintenanceFailure?Object.freeze({...lastMaintenanceFailure}):null,
     blocked:!held&&!!remote,reason,retiring,writesBlocked,recoveryRequired:!held&&!!remote&&(remote.method==='indexeddb'||method==='indexeddb')});}
   function emit(){safe(()=>window.dispatchEvent(new CustomEvent('sukun:tabownerchange',{detail:snapshot()})));}
   function announce(type){
@@ -43,6 +44,7 @@
     }
     if(kind==='action-failed')return en()?'The audio operation could not finish. Try the recording again.':'Ses işlemi tamamlanamadı. Kaydı yeniden dene.';
     if(kind==='finish-first')return en()?'Finish the active or paused dhikr with Finish before changing stored data.':'Saklanan veriyi değiştirmeden önce etkin veya duraklatılmış zikri Bitir ile tamamla.';
+    if(kind==='state-unavailable')return en()?'Audio state could not be checked safely. No data operation started; wait for the app to finish loading and try again.':'Ses durumu güvenle kontrol edilemedi. Veri işlemi başlatılmadı; uygulamanın açılmasını bekleyip yeniden dene.';
     if(kind==='maintenance')return en()?'Stored data is being updated. Wait for it to finish.':'Saklanan veri güncelleniyor. İşlem bitene kadar bekle.';
     return en()?'Dhikr is active in another SÜKÛN tab. Finish it there or close that tab, then press Start here. This keeps the voice and counter together.':'Zikir başka bir SÜKÛN sekmesinde etkin. Orada Bitir’e dokun veya o sekmeyi kapat; sonra burada Başlat’a dokun. Böylece ses ve sayaç çakışmaz.';
   }
@@ -303,21 +305,67 @@
     const wrapped=function(...args){if(maintenanceActive)return false;return held?previous.apply(this,args):run('smart',()=>previous.apply(this,args));};
     Object.assign(wrapped,previous);wrapped.__r981Owner=true;player.play=wrapped;
   }
-  async function maintenance(kind,action){
-    if(typeof action!=='function'||maintenanceActive)return warn('maintenance');
-    if(held&&(safe(()=>binding.busy?.(),true)||safe(()=>binding.paused?.(),false)))return warn('finish-first');
+  // Import callers opt into per-attempt failures. Legacy callers keep their
+  // boolean contract; no warning snapshot is consulted after lease cleanup.
+  function maintenanceFailure(code,stage='',error=null){
+    const messages={
+      'finish-first':['Etkin veya duraklatılmış zikri Bitir ile tamamla; açık dinleme ve mikrofon kaydını da bitir.','Finish active or paused dhikr, listening and microphone recording first.'],
+      'maintenance-busy':['Başka bir veri işlemi sürüyor. Bitmesini bekleyip yedeği yeniden seç.','Another data operation is running. Wait for it to finish and select the backup again.'],
+      'maintenance-cancelled':['İşlem, oturum veya sekme durumu değiştiği için iptal edildi. Uygulama boşta kaldığında yedeği yeniden seç.','The operation was cancelled because the session or tab state changed. Select the backup again when the app is idle.'],
+      'owner-blocked':['Başka bir SÜKÛN sekmesi ses/veri kilidini tutuyor. O sekmedeki işlemi bitir veya sekmeyi kapat, sonra yeniden dene.','Another SÜKÛN tab holds the audio/data lock. Finish its operation or close it, then try again.'],
+      'owner-unavailable':['Tek sekme erişimi için kilit deposu doğrulanamadı. Seslerin silindiği anlamına gelmez; yeniden dene.','Lock storage for single-tab access could not be verified. This does not mean recordings were deleted; try again.'],
+      'owner-preparing':['Önceki ses işleminin güvenli kapanışı sürüyor. Biraz bekleyip yeniden dene.','The previous audio operation is still closing safely. Wait briefly and try again.'],
+      'progress-recovery-required':['Saklanan oturum ilerlemesi güvenle hazırlanamadı. Veri değiştirilmedi; Kurtarma Merkezi durumunu kontrol et.','Stored session progress could not be prepared safely. No data was changed; check Recovery Centre status.'],
+      'maintenance-check-failed':['Ses veya duraklatma durumu kontrolünde hata oluştu. Veri işlemi başlatılmadı; uygulamanın açılmasını bekleyip yeniden dene.','Checking audio or pause state failed. No data operation started; wait for the app to finish loading and try again.'],
+      'maintenance-check-unavailable':['Ses güvenlik kontrolü henüz hazır değil. Veri işlemi başlatılmadı; uygulamanın açılmasını bekleyip yeniden dene.','The audio safety check is not ready. No data operation started; wait for the app to finish loading and try again.'],
+      'maintenance-action-failed':['Veri işlemi tamamlanamadı. Hata türü kaydedildi; yeniden denemeden önce sonucu kontrol et.','The data operation did not finish. Its error category was recorded; check the result before trying again.'],
+      'maintenance-unavailable':['Veri işlemi için güvenli erişim doğrulanamadı. İşlem başlatılmadı; yeniden dene.','Safe access for the data operation could not be verified. The operation did not start; try again.']
+    };
+    if(!Object.hasOwn(messages,code))code='maintenance-unavailable';
+    if(!['maintenance-busy-check','maintenance-paused-check','maintenance-action','owner-db-open','owner-db-claim','web-lock-request'].includes(stage))stage='';
+    const detail=' ['+code+(stage?'; '+stage+(error?'/'+errorName(error):''):'')+']';
+    const [tr,english]=messages[code],backupTR=tr+detail,backupEN=english+detail;
+    return Object.assign(new Error(en()?backupEN:backupTR),{name:'SukunMaintenanceError',code,backupTR,backupEN,ownerStage:stage,errorName:error?errorName(error):''});
+  }
+  async function maintenance(kind,action,opt={}){
+    const attempt=++maintenanceAttempt;lastMaintenanceFailure=null;
+    const remember=error=>{if(attempt===maintenanceAttempt){lastMaintenanceFailure=Object.freeze({code:error.code,stage:error.ownerStage,errorName:error.errorName});emit();}};
+    const denied=(code,warning='',stage='',error=null)=>{
+      const failure=maintenanceFailure(code,stage,error);remember(failure);
+      if(warning)warn(warning,stage,error);
+      if(opt.throwOnBlocked)throw failure;
+      return false;
+    };
+    const check=(name,fallback)=>{
+      if(!opt.throwOnBlocked)return safe(()=>binding[name]?.(),fallback);
+      if(typeof binding[name]!=='function')return denied('maintenance-check-unavailable','state-unavailable','maintenance-'+name+'-check');
+      let value;try{value=binding[name](true);}
+      catch(e){return denied('maintenance-check-failed','state-unavailable','maintenance-'+name+'-check',e);}
+      if(typeof value!=='boolean')return denied('maintenance-check-unavailable','state-unavailable','maintenance-'+name+'-check');
+      return value;
+    };
+    if(typeof action!=='function')return denied('maintenance-unavailable','maintenance');
+    if(maintenanceActive)return denied('maintenance-busy','maintenance');
+    if(held&&(check('busy',true)||check('paused',false)))return denied('finish-first','finish-first');
     cancelPending('data-maintenance');const requestToken=generation;maintenanceActive=true;retiring=false;terminal=false;clearTimeout(drainTimer);drainTimer=0;emit();
     let lease=-1;
     try{
-      if(!held&&!await acquire())return false;
+      if(!held&&!await acquire()){
+        if(requestToken!==generation)return denied('maintenance-cancelled');
+        const code=reason==='blocked'?'owner-blocked':reason==='unavailable'?'owner-unavailable':reason==='preparing'?'owner-preparing':reason==='progress-recovery-required'?reason:'maintenance-unavailable';
+        return denied(code,'',failureStage,lastErrorName?{name:lastErrorName}:null);
+      }
       lease=epoch;const token=generation;
-      if(token!==requestToken)return false;
+      if(token!==requestToken)return denied('maintenance-cancelled');
       // A merely restored paused suggestion in a previously unowned tab is
       // not a live audio reservation. Owned pauses were rejected above.
-      if(safe(()=>binding.busy?.(),true))return warn('finish-first');
+      if(check('busy',true))return denied('finish-first','finish-first');
       const current=()=>held&&maintenanceActive&&epoch===lease&&generation===token;
-      const assertCurrent=()=>{if(!current())throw Error('data-maintenance-cancelled');return true;};
+      const assertCurrent=()=>{if(!current())throw opt.throwOnBlocked?maintenanceFailure('maintenance-cancelled'):Error('data-maintenance-cancelled');return true;};
       assertCurrent();reason='data-maintenance';emit();return await action(Object.freeze({current,assertCurrent}));
+    }catch(error){
+      remember(error?.name==='SukunMaintenanceError'?maintenanceFailure(error.code,error.ownerStage,error.errorName?{name:error.errorName}:null):maintenanceFailure('maintenance-action-failed','maintenance-action',error));
+      throw error;
     }finally{
       // Imported/deleted progress is authoritative. Never flush the old local
       // counter/session over it when releasing this silent maintenance claim.
