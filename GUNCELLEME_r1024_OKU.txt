@@ -1,0 +1,18 @@
+SÜKÛN r1024 — YALNIZ GÜNCELLEME
+7 Ekim 2026
+
+Ön koşul: Tam r1023 uygulama dosyaları mevcut olmalı. Bu ZIP tam uygulama veya kişisel JSON veri yedeği değildir; uygulamadaki JSON içe aktarma düğmelerine yüklenmez.
+
+Kurulum
+1. ZIP içindeki dosyaları mevcut r1023 uygulama klasörüyle birleştir; aynı adlı uygulama dosyalarını değiştir. Mevcut diğer dosyaları silme.
+2. Site/tarayıcı verilerini temizleme. Ayrı JSON ses yedeğini sakla. Bu paket kişisel ses veya veri yedeği içermez.
+3. Dosyaları sen yayımladıktan sonra uygulamadaki Güncellemeyi kontrol et yoluyla App r1024 ve SW r1024 durumunu kontrol et. Bu paketin hazırlanması siteyi kendiliğinden yayımlamaz.
+
+Düzeltme
+Kendi ses döngüsü başa dönerken aynı konum için yinelenen bekleme/konum bildirimleri, gözlenen tamamlanmış tekrarı sayımdan düşürmez. Sayım mevcut ses-zamanı kanıtını kullanır; sırf süre geçti diye tekrar eklemez. Mevcut döngü/konum-atlama ayırma sınırları değiştirilmedi. r1023 etiket düzeltmesi korunur. Ses dosyaları, kayıt deposu ve kurtarma işlemleri değiştirilmedi.
+
+Kontroller ve sınırlar
+689/689 kontrollü kaynak/model ve bütünlük kontrolü geçti. r1023 tabanı üzerine paket içeriği, SHA-256 değerleri ve ZIP bütünlüğü ayrıca doğrulandı. Kısa bekleme içeren ses döngüsünde eski kaynakta sıfırda kalan sayaç hatası yeniden üretildi; düzeltilmiş kaynakta tamamlanan tekrarların bir kez sayıldığı doğrulandı.
+Fiziksel Android/tarayıcı testi çalıştırılamadı. Telefondaki Berhetîhin sorunuyla aynı olay dizisinin yaşandığı ve bu düzeltmenin telefondaki sorunu tamamen çözdüğü henüz doğrulanmadı.
+
+SHA256SUMS_r1024.txt uygulama dosyalarının ve bu açıklamanın SHA-256 değerlerini içerir.
