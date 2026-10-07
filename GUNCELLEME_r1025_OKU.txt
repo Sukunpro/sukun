@@ -1,0 +1,18 @@
+SÜKÛN r1025 — YALNIZ GÜNCELLEME
+7 Ekim 2026
+
+Ön koşul: Tam r1024 uygulama dosyaları mevcut olmalı. Bu ZIP tam uygulama veya kişisel JSON veri yedeği değildir; uygulamadaki JSON içe aktarma düğmelerine yüklenmez.
+
+Kurulum
+1. ZIP içindeki dosyaları mevcut r1024 uygulama klasörüyle birleştir; aynı adlı uygulama dosyalarını değiştir. Mevcut diğer dosyaları silme.
+2. Site/tarayıcı verilerini temizleme. Ayrı JSON ses yedeğini sakla. Bu paket kişisel ses veya veri yedeği içermez.
+3. Dosyaları sen yayımladıktan sonra uygulamadaki Güncellemeyi kontrol et yoluyla App r1025 ve SW r1025 durumunu kontrol et. Bu paketin hazırlanması siteyi kendiliğinden yayımlamaz.
+
+Düzeltme
+Ekran denetimlerinin hazırlığı, kısa çalışma bütçesi dolduğunda sonraki parçaya bırakılır. Atlanan/eski kuyruk öğeleri de bütçeye dahil edilir; kaba saat ölçümünde de bir turdaki iş miktarı sınırlandırılır. Hazırlık tamamlanana kadar kaldığı yerden sürer. Erişilebilirlik etiketleri ve sonradan eklenen denetimler korunur. Ses, sayaç, kayıt, kurtarma ve tek sekme korumasının işleyişi değiştirilmedi. r1023 etiket ve r1024 sayaç düzeltmeleri korunur.
+
+Kontroller ve sınırlar
+773/773 kontrollü kaynak/model ve bütünlük kontrolü geçti. r1024 tabanı üzerine paket içeriği, SHA-256 değerleri ve ZIP bütünlüğü ayrıca doğrulandı. Eski kaynakta çalışma bütçesinin aşıldığı yeniden üretildi; düzeltilmiş kaynakta işlerin küçük dilimlerde ilerleyip tamamlandığı doğrulandı. Tek bir eşzamanlı tarayıcı işlemi kendi içinde kesilemez.
+Fiziksel Android/tarayıcı testi çalıştırılamadı. Bu hazırlık işleminin önceki uzun gecikmenin tek nedeni olduğu veya telefondaki bütün takılmaların bu paketle giderildiği henüz doğrulanmadı. Gerçek cihazdaki hızlanma ölçülmedi.
+
+SHA256SUMS_r1025.txt uygulama dosyalarının ve bu açıklamanın SHA-256 değerlerini içerir.
