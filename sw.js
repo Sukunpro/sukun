@@ -6,7 +6,7 @@
 
 const SURUM = 'r1042';
 const ART_CACHE = 'sukun-art-persistent-v1';
-const CACHE = 'sukun-r1042-foreground-render-20261010-v1';
+const CACHE = 'sukun-r1042-foreground-render-20261010-frmpaint-v2';
 const CACHE_META = './sukun-cache-meta-r1042.json';
 const BUILD_MARKER = './sukun-build-r1042.json';
 const LATEST_MARKER = './sukun-latest.json';

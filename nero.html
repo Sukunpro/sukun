@@ -30155,6 +30155,10 @@ const FRM={
   },
 
   wake(){
+    if(sukunGraphicsSleepingR1042())return;
+    // Static reduced-motion canvases have no loop to repaint a hidden resize.
+    // Measure the current visible box and paint once without starting a RAF.
+    if(this.reduced){ this.resize(); return; }
     if(document.body.dataset.perf==='pil'){ this.draw(0); return; }
     if(!this.raf && !this.reduced && this.x){ this.last=performance.now(); this.loop(); }
   },
@@ -30223,6 +30227,8 @@ document.querySelector('.tabs')?.addEventListener('click',()=>{
 document.addEventListener('visibilitychange',()=>{
   if(!document.hidden){ MUHR.wake(); FRM.wake(); }
 });
+// Freeze can resume while still visible, without another visibilitychange.
+document.addEventListener('resume',()=>FRM.wake(),{passive:true});
 
 /* ═══════════════════════════════════════════════════════════════
    İ18N — İngilizce arayüz
@@ -43291,7 +43297,7 @@ const GORSEL=window.SukunPerformance={
   uyandir(){
     if(document.hidden||this.mode==='pil'){
       try{if(typeof MUHR!=='undefined')MUHR.draw()}catch(e){}
-      try{if(typeof FRM!=='undefined')FRM.draw(0)}catch(e){}
+      try{if(typeof FRM!=='undefined')FRM.wake()}catch(e){}
       return;
     }
     try{if(window.CIZ&&CIZ.isler&&CIZ.isler.size)CIZ.basla()}catch(e){}
