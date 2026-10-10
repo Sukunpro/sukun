@@ -1,0 +1,61 @@
+'use strict';
+const vm=require('node:vm'),fs=require('fs'),path=require('path'),crypto=require('crypto');
+const wav=fs.readFileSync(path.join(__dirname,'../../assets/audio/sukun-intro-signature-r1037.wav'));
+const expectedBytes=wav.buffer.slice(wav.byteOffset,wav.byteOffset+wav.byteLength);
+function hub(){return{listeners:new Map(),addEventListener(t,fn){if(!this.listeners.has(t))this.listeners.set(t,new Set());this.listeners.get(t).add(fn);},removeEventListener(t,fn){this.listeners.get(t)?.delete(fn);},dispatchEvent(e){for(const fn of [...this.listeners.get(e.type)||[]])fn(e);return true;}};}
+function fire(target,type,extra={}){target.dispatchEvent({type,isTrusted:true,...extra});}
+function createFixture(code,clock,options={}){
+ let now=options.now??0,next=0,cssOrigin=options.cssOrigin??null;const jobs=new Map(),frames=new Map(),contexts=[],root=hub(),document=hub(),window=hub(),reads=[];
+ root.dataset={started:'0'};root.hidden=false;document.hidden=!!options.hidden;
+ document.getElementById=()=>options.noRoot?null:root;document.querySelectorAll=selector=>{if(selector==='audio,video'&&options.onMediaRead)options.onMediaRead();return selector==='audio,video'?options.media||[]:options.dialogs||[];};
+ function ensureCSS(){if(cssOrigin===null)cssOrigin=now;}
+ const timeline={get currentTime(){return options.timelineTime??now;}};document.timeline=timeline;
+ const animation={animationName:'sukunIntroExit',pending:false,playbackRate:1,timeline,
+  get startTime(){ensureCSS();return Object.hasOwn(options,'cssStartTime')?options.cssStartTime:cssOrigin;},
+  get currentTime(){ensureCSS();return Object.hasOwn(options,'cssCurrentTime')?options.cssCurrentTime:(options.timelineTime??now)-cssOrigin;},
+  get playState(){return options.animationState||((this.currentTime??0)>=(1000+(options.introDuration??4800))?'finished':'running');},
+  effect:{getTiming:()=>({delay:1000,duration:options.introDuration??4800,iterations:1,iterationStart:0,endDelay:0,direction:'normal',fill:'both',...options.animationTiming})}};
+ root.getAnimations=()=>{ensureCSS();if(options.noAnimationClock)return[];Object.assign(animation,options.animationProps||{});return options.duplicateAnimation?[animation,animation]:[animation];};
+ window.getComputedStyle=node=>{if(node!==root)return{display:'block',visibility:'visible',opacity:'1',...node.styleData};ensureCSS();return{display:root.hidden?'none':'grid',visibility:now-cssOrigin>=(1000+(options.introDuration??4800))?'hidden':'visible',opacity:now-cssOrigin>=(1000+(options.introDuration??4800))?'0':'1',...options.rootCSS};};
+ if(options.raf){window.requestAnimationFrame=fn=>{frames.set(++next,fn);return next;};window.cancelAnimationFrame=id=>frames.delete(id);}
+ function param(){return{value:1,schedule:[],cancelScheduledValues(t){this.schedule.push(['cancel',t]);},setValueAtTime(v,t){this.schedule.push(['set',v,t]);},linearRampToValueAtTime(v,t){this.schedule.push(['linear',v,t]);},exponentialRampToValueAtTime(v,t){this.schedule.push(['exponential',v,t]);}};}
+ class AC{
+  constructor(){if(options.throwConstruct)throw Error('unsupported');this.state=options.state||'running';this._currentTime=10;this.currentTimeReads=[];this.destination={};this.oscillators=[];this.buffers=[];this.gains=[];this.decodeCalls=0;this.closeCalls=0;this.resumeCalls=0;Object.assign(this,hub());contexts.push(this);this.pendingResume=new Promise((resolve,reject)=>{this.resolve=resolve;this.reject=reject;});this.pendingDecode=new Promise((resolve,reject)=>{this.resolveDecode=resolve;this.rejectDecode=reject;});}
+  get currentTime(){if(options.onReadAudioTime)options.onReadAudioTime(this);const value=typeof options.audioCurrentTime==='function'?options.audioCurrentTime(now,this):options.audioCurrentTime??this._currentTime;this.currentTimeReads.push({wall:now,value,oscillators:this.oscillators.length,buffers:this.buffers.length,gains:this.gains.length});return value;}
+  set currentTime(value){this._currentTime=value;}
+  createGain(){const g={gain:param(),connections:[],disconnected:false,connect(dest){this.connections.push(dest);},disconnect(){this.disconnected=true;}};this.gains.push(g);if(options.onCreateGain)options.onCreateGain(this.gains.length,g,this);return g;}
+  createOscillator(){if(options.failOscillatorAt===this.oscillators.length+1)throw Error('graph failure');const osc={frequency:param(),starts:[],stops:[],disconnected:false,connect(){},disconnect(){this.disconnected=true;},start(t){this.starts.push(t);this.startedAt=now;},stop(t){this.stops.push(t);}};this.oscillators.push(osc);if(options.onCreateOscillator)options.onCreateOscillator(this.oscillators.length,osc,this);return osc;}
+  createBufferSource(){if(options.sourceThrow)throw Error('source');const source={buffer:null,loop:true,playbackRate:{value:1},starts:[],stops:[],disconnected:false,onended:null,connect(dest){this.destination=dest;},disconnect(){this.disconnected=true;},start(t){if(options.startThrow)throw Error('start');this.starts.push(t);this.startedAt=now;},stop(t){this.stops.push(t);}};this.buffers.push(source);if(options.onCreateBuffer)options.onCreateBuffer(source,this);return source;}
+  decodeAudioData(bytes){this.decodeCalls++;if(options.onDecode)options.onDecode(this);if(options.decodeThrow)throw Error('decode');if(options.decodeReject)return Promise.reject(Error('decode'));if(options.decodePending)return this.pendingDecode;return Promise.resolve({duration:options.bufferDuration??3,numberOfChannels:options.bufferChannels??1,length:144000,sampleRate:48000});}
+  close(){this.closeCalls++;if(options.closeThrow)throw Error('close blocked');if(options.closeReject)return Promise.reject(Error('close rejected'));this.state='closed';return Promise.resolve();}
+  resume(){this.resumeCalls++;if(options.resumeMode==='throw')throw Error('resume blocked');if(options.resumeMode==='reject')return Promise.reject(Error('autoplay denied'));if(options.resumeMode==='resolve'){this.state='running';return Promise.resolve();}if(options.resumeMode==='resolve-suspended')return Promise.resolve();return this.pendingResume;}
+ }
+ window.matchMedia=()=>{if(options.mediaQueryThrows)throw Error('unknown preference');return{matches:!!options.reduced};};window.AudioContext=options.noAudio?undefined:AC;
+ window.AudioLife={busy:()=>options.busy??false};window.SukunSessionState={snapshot:()=>({phase:options.phase||'IDLE'})};window.SukunTickSound={isRecording:()=>options.tickRecording??false};window.SukunPhysicalRecordingBusyR696=()=>options.recording??false;
+ window.SukunAudioSessionRegistry={aggregateSnapshot:()=>options.aggregate||{paused:false,providerIds:[],mixCaptured:false}};
+ window.SukunTabOwner={snapshot:()=>{if(options.ownerAPIThrows)throw Error('owner unknown');return options.ownerState||{owned:false,pending:false,blocked:false,maintenance:false,retiring:false,recoveryRequired:false};},acquire(){throw Error('unexpected acquire');}};
+ if(options.missingAPI)delete window[options.missingAPI];
+ if(options.apiThrow)window.AudioLife.busy=()=>{throw Error('unknown state');};
+ const fetchCalls=[],assetControl={};assetControl.pending=new Promise((resolve,reject)=>{assetControl.resolve=resolve;assetControl.reject=reject;});
+ const response=()=>({ok:!options.assetHttpFail,arrayBuffer:()=>Promise.resolve(options.assetWrongSize?new ArrayBuffer(10):expectedBytes.slice(0))});
+ window.AbortController=class{constructor(){this.signal={aborted:false};}abort(){this.signal.aborted=true;}};
+ window.crypto={subtle:{digest:async(name,bytes)=>{if(options.digestReject)throw Error('digest');const d=crypto.createHash('sha256').update(Buffer.from(bytes)).digest();if(options.badDigest)d[0]^=255;return d.buffer.slice(d.byteOffset,d.byteOffset+d.byteLength);}}};
+ window.fetch=(url,init)=>{fetchCalls.push({url,init});if(options.fetchThrow)throw Error('fetch');if(options.fetchReject)return Promise.reject(Error('fetch'));return options.fetchPending?assetControl.pending:Promise.resolve(response());};
+ if(options.noCrypto)delete window.crypto;
+ const ctx={window,document,performance:{now:()=>now},Promise,Number,Event:class{constructor(type){this.type=type;this.isTrusted=false;}},
+  localStorage:{getItem(key){reads.push(key);if(options.storageThrows)throw Error('storage denied');return options.owner||null;},setItem(){throw Error('unexpected write');},removeItem(){throw Error('unexpected delete');}},
+  setTimeout:(fn,ms)=>{jobs.set(++next,{fn,when:now+ms});return next;},clearTimeout:id=>jobs.delete(id)};
+ for(const key of ['caches','indexedDB','fetch','ac','gongSentez'])Object.defineProperty(ctx,key,{get(){throw Error('unexpected shared API: '+key);}});
+ vm.createContext(ctx);
+ function runClock(){vm.runInContext(clock,ctx);if(options.audioUnitWindow)tick(1000);}
+ function run(){vm.runInContext(code,ctx);}
+ function nextJob(until){return[...jobs].filter(([,v])=>v.when<=until).sort((a,b)=>a[1].when-b[1].when||a[0]-b[0])[0];}
+ function tick(ms){const until=now+ms;for(;;){const found=nextJob(until);if(!found)break;now=Math.max(now,found[1].when);jobs.delete(found[0]);found[1].fn();}now=until;}
+ async function flush(){for(let i=0;i<30;i++)await Promise.resolve();}
+ async function advance(ms){await flush();const until=now+ms;for(;;){const found=nextJob(until);if(!found)break;now=Math.max(now,found[1].when);jobs.delete(found[0]);found[1].fn();await flush();}now=until;await flush();}
+ function paint(at){if(at!==undefined)now=at;ensureCSS();const callbacks=[...frames.values()];frames.clear();callbacks.forEach(fn=>fn(now));}
+ function resolveResume(state='running',emit=true){const c=contexts[0];c.state=state;c.resolve();if(emit)fire(c,'statechange');}
+ function rejectResume(){contexts[0].reject(Error('autoplay denied'));}
+ return{fetchCalls,resolveAsset:()=>assetControl.resolve(response()),rejectAsset:()=>assetControl.reject(Error("asset")),root,document,window,animation,timeline,contexts,jobs,frames,reads,options,run,runClock,tick,advance,flush,paint,resolveResume,rejectResume,setNow:n=>now=n,get now(){return now;}};
+}
+module.exports={hub,fire,createFixture};

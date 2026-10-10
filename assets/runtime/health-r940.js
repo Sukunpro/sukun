@@ -510,11 +510,12 @@
       };
       const states=['suspended','running','closed','interrupted'];
       const result={...empty,
-        outcome:choice('audioOutcome',['waiting_readiness','visual_only','ready','waiting','scheduled','load_expired','readiness_timeout','resume_timeout','onset_expired','blocked','cancelled','hidden','ineligible','unavailable','failed','interrupted','unsafe-owner','unsafe-audio','dialog','reduced-motion','timing_unavailable','timing_pending','visual_pending','frame_timeout'])||'unknown',
+        outcome:choice('audioOutcome',['waiting_readiness','visual_only','ready','waiting','scheduled','load_expired','readiness_timeout','resume_timeout','onset_expired','blocked','cancelled','hidden','ineligible','unavailable','failed','interrupted','unsafe-owner','unsafe-audio','dialog','reduced-motion','timing_unavailable','timing_pending','visual_pending','frame_timeout','asset_failed'])||'unknown',
         phase:choice('introPhase',['waiting','running','fallback','done','abandoned']),
         visualStarted:flag('visualStarted'),visualEnded:flag('visualEnded'),sourcesScheduled:flag('audioSourcesScheduled'),
         contextInitialState:choice('audioContextInitialState',states),contextState:choice('audioContextState',states),contextStopState:choice('audioContextStopState',states),
         resumeState:choice('audioResumeState',['not_requested','pending','fulfilled','rejected','threw']),resumeSettledAfterStop:flag('audioResumeSettledAfterStop'),
+        assetState:choice('audioAssetState',['loading','ready','failed','integrity_failed']),decodeState:choice('audioDecodeState',['not_started','decoding','ready','failed','invalid']),assetReadyAgeMs:amount('audioAssetReadyAgeMs'),bufferDurationMs:amount('audioBufferDurationMs',0,10000),
         resumeError:choice('audioResumeError',['AbortError','NotAllowedError','NotSupportedError','InvalidStateError','NetworkError','SecurityError','TypeError','TimeoutError','Error','UnknownError']),
         moduleAgeMs:amount('audioModuleAgeMs'),readyAgeMs:amount('audioReadyAgeMs'),firstFrameAgeMs:amount('firstFrameAgeMs'),
         visualCssAgeMs:amount('visualCssAgeMs',-1000),onsetBudgetMs:amount('audioOnsetBudgetMs',-10000,10000),pendingApis:null};

@@ -28,15 +28,18 @@ await test('changing getters are sampled once before whitelisting',()=>{const ra
 await test('untrusted presenter outcomes remain NOT_MEASURED',()=>{const h=setup();for(const outcome of ['unlisted',{},[],1,true,null]){const r=h.api.read();row(r).evidence.outcome=outcome;row(r).status='PASS';const v=h.view.summarize(r).areas.find(x=>x.id==='audio').checks.find(x=>x.code==='INTRO_AUDIO');assert.equal(v.status,'NOT_MEASURED');assert.match(v.detail,/unknown/)}passive(h)});
 await test('actual fallback phase and frame_timeout stay known observations',()=>{const h=setup({...good,introPhase:'fallback',audioOutcome:'frame_timeout'}),r=h.api.read(),v=h.view.summarize(r).areas.find(x=>x.id==='audio').checks.find(x=>x.code==='INTRO_AUDIO');assert.equal(r.current.introAudio.phase,'fallback');assert.equal(r.current.introAudio.outcome,'frame_timeout');assert.match(v.detail,/frame_timeout/);assert.equal(v.status,'OBSERVED');passive(h)});
 await test('real production intro snapshot reaches Health without any new audio operation',async()=>{
- const {createFixture}=require(path.join(root,'tests/helpers/startup-intro-fixture.cjs'));
+ const {createFixture}=require(path.join(root,'tests/r1037/intro-fixture.cjs'));
  const code=fs.readFileSync(path.join(root,'assets/runtime/startup-intro-r1027.js'),'utf8');
  const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
  const clock=html.match(/<script id="sukun-auto-intro-clock">([\s\S]*?)<\/script>/)[1];
- const f=createFixture(code,clock,{audioUnitWindow:true,state:'suspended'});f.runClock();f.run();await f.advance(1730);
+ const f=createFixture(code,clock,{audioUnitWindow:true,state:'suspended'});f.runClock();f.run();await f.advance(1780);
  const before={jobs:f.jobs.size,contexts:f.contexts.length,voices:f.contexts[0].voices?.length,reads:f.reads.length};
  const h=setup();h.c.SukunIntroAudioDiagnostics=f.window.SukunIntroAudioDiagnostics;const r=h.api.read().current.introAudio;
  assert.equal(r.outcome,'resume_timeout');assert.equal(r.contextInitialState,'suspended');assert.equal(r.contextStopState,'suspended');assert.equal(r.contextState,'closed');assert.equal(r.resumeState,'pending');assert.equal(r.sourcesScheduled,false);assert.equal(r.onsetBudgetMs,0);assert.equal(r.audibleSound,'NOT_MEASURED');
  assert.deepEqual({jobs:f.jobs.size,contexts:f.contexts.length,voices:f.contexts[0].voices?.length,reads:f.reads.length},before);passive(h);
 });
+await test('verified asset/decode evidence remains passive and bounded',()=>{const h=setup({...good,audioAssetState:'ready',audioDecodeState:'ready',audioAssetReadyAgeMs:'25',audioBufferDurationMs:'3000'}),r=h.api.read().current.introAudio;assert.equal(r.assetState,'ready');assert.equal(r.decodeState,'ready');assert.equal(r.assetReadyAgeMs,25);assert.equal(r.bufferDurationMs,3000);assert.equal(r.audibleSound,'NOT_MEASURED');passive(h)});
+await test('asset failure is observed, not misreported as a physical sound test',()=>{const h=setup({...good,audioOutcome:'asset_failed',audioAssetState:'integrity_failed',audioDecodeState:'not_started'}),r=h.api.read(),v=h.view.summarize(r).areas.find(x=>x.id==='audio').checks.find(x=>x.code==='INTRO_AUDIO');assert.equal(r.current.introAudio.outcome,'asset_failed');assert.equal(v.status,'OBSERVED');assert.match(v.detail,/asset_failed/);passive(h)});
+await test('asset metadata cannot leak unknown text or unbounded duration',()=>{const h=setup({...good,audioAssetState:'SECRET_URL',audioDecodeState:'SECRET_ERROR',audioAssetReadyAgeMs:'NaN',audioBufferDurationMs:'10001'}),r=h.api.read().current.introAudio;assert.equal(r.assetState,null);assert.equal(r.decodeState,null);assert.equal(r.assetReadyAgeMs,null);assert.equal(r.bufferDurationMs,null);assert(!JSON.stringify(r).includes('SECRET'));passive(h)});
 console.log(JSON.stringify({passed:results.filter(x=>x.passed).length,total:results.length,results},null,2));if(results.some(x=>!x.passed))process.exitCode=1;
 })();

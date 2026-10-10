@@ -1,4 +1,4 @@
-/* One automatic, optional bass hit. Completely separate from app audio.
+/* One automatic, optional approved audio signature. Completely separate from app audio.
    A denied/late/hidden attempt is discarded, never queued for a future tap. */
 (function(){
   'use strict';
@@ -10,7 +10,7 @@
   try{
     var diagnosticKeys=['introBootstrap','introPhase','bootStarted','firstFrameAgeMs','started','visualClock','visualCssAgeMs','visualStarted','visualEnded','cancelled',
       'audioAttempted','audioModuleAgeMs','audioReadyAgeMs','audioOutcome','audioDisabled','audioContextInitialState','audioContextState','audioContextStopState',
-      'audioResumeState','audioResumeSettledAfterStop','audioResumeError','audioOnsetBudgetMs','audioPendingApis','audioSourcesScheduled'];
+      'audioResumeState','audioResumeSettledAfterStop','audioResumeError','audioOnsetBudgetMs','audioPendingApis','audioSourcesScheduled','audioAssetState','audioDecodeState','audioAssetReadyAgeMs','audioBufferDurationMs'];
     window.SukunIntroAudioDiagnostics=Object.freeze({snapshot:function(){
       var result={};diagnosticKeys.forEach(function(key){try{var value=root.dataset[key];result[key]=typeof value==='string'?value:null;}catch(_){result[key]=null;}});
       return Object.freeze(result);
@@ -21,7 +21,7 @@
   if(handshake)root.dataset.audioModuleAgeMs=String(Math.max(0,Math.round(performance.now()-boot)));
   if(handshake&&(root.dataset.introPhase==='done'||root.dataset.introPhase==='abandoned'))return;
   if(!handshake)root.dataset.audioOutcome='ineligible';
-  var started=Number(root.dataset.started),INTRO_MS=2400,HIT_MS=650,LEAD_MS=20,ineligibleReason='ineligible';
+  var started=Number(root.dataset.started),INTRO_MS=4800,HIT_MS=3000,LEAD_MS=20,ineligibleReason='ineligible';
   // Per-load observations only: bounded enums/numbers, no app or device data.
   // Missing/failed diagnostic writes can never affect the audio decision.
   function diagnostic(key,value){try{value=String(value);if(root.dataset[key]!==value)root.dataset[key]=value;}catch(_){}}
@@ -57,6 +57,22 @@
   }
   diagnostic('audioResumeState','not_requested');diagnostic('audioSourcesScheduled','0');
   function deny(reason){ineligibleReason=reason;if(reason==='apis_pending'||reason==='unavailable')pendingDiagnostic();return false;}
+  // Reused around potentially costly DOM/layout reads so a changed recording
+  // or owner is not accepted from an earlier snapshot. Read-only, no lock claim.
+  function criticalAudioIdle(){
+    if(window.AudioLife.busy()!==false||window.SukunTickSound.isRecording()!==false||
+       window.SukunPhysicalRecordingBusyR696()!==false||
+       window.SukunSessionState.snapshot().phase!=='IDLE')return deny('unsafe-audio');
+    var owner=window.SukunTabOwner.snapshot();
+    if(!owner||typeof owner!=='object'||Array.isArray(owner)||
+       ['owned','pending','blocked','maintenance','retiring','recoveryRequired'].some(function(key){return typeof owner[key]!=='boolean';}))return deny('unavailable');
+    if(owner.owned||owner.pending||owner.blocked||owner.maintenance||owner.retiring||owner.recoveryRequired)return deny('unsafe-owner');
+    var sessions=window.SukunAudioSessionRegistry.aggregateSnapshot();
+    if(!sessions||typeof sessions!=='object'||Array.isArray(sessions)||typeof sessions.paused!=='boolean'||
+       typeof sessions.mixCaptured!=='boolean'||!Array.isArray(sessions.providerIds))return deny('unavailable');
+    if(sessions.active||sessions.playing||sessions.running||sessions.paused||sessions.mixCaptured||sessions.providerIds.length)return deny('unsafe-audio');
+    return true;
+  }
   function eligible(requiredMs,preparing){
     var age=performance.now()-started;
     if(handshake){
@@ -86,14 +102,7 @@
          !window.SukunTabOwner||typeof window.SukunTabOwner.snapshot!=='function'||
          !window.SukunAudioSessionRegistry||typeof window.SukunAudioSessionRegistry.aggregateSnapshot!=='function')return deny(preparing?'apis_pending':'unavailable');
       diagnostic('audioPendingApis','{"audioLife":false,"sessionState":false,"tickSound":false,"physicalRecording":false,"tabOwner":false,"sessionRegistry":false}');
-      if(window.AudioLife.busy()!==false||window.SukunTickSound.isRecording()!==false||
-         window.SukunPhysicalRecordingBusyR696()!==false||
-         window.SukunSessionState.snapshot().phase!=='IDLE')return deny('unsafe-audio');
-      var owner=window.SukunTabOwner.snapshot();
-      if(window.SukunTabOwner&&(!owner||owner.owned||owner.pending||owner.blocked||owner.maintenance||owner.retiring))return deny('unsafe-owner');
-      var sessions=window.SukunAudioSessionRegistry.aggregateSnapshot();
-      if(!sessions||typeof sessions!=='object')return deny('unavailable');
-      if(sessions&&(sessions.active||sessions.playing||sessions.running||sessions.paused||(sessions.providerIds||[]).length))return deny('unsafe-audio');
+      if(!criticalAudioIdle())return false;
       var dialogs=document.querySelectorAll('dialog[open],[role="dialog"],[role="alertdialog"]');
       for(var d=0;d<dialogs.length;d++){
         var node=dialogs[d],visible=!!(node.getClientRects&&node.getClientRects().length);
@@ -106,6 +115,8 @@
       }
       var media=document.querySelectorAll('audio,video');
       for(var m=0;m<media.length;m++)if(!media[m].paused&&!media[m].ended)return deny('unsafe-audio');
+      if(localStorage.getItem('sukun.tab.owner.r981'))return deny('unsafe-owner');
+      if(!criticalAudioIdle())return false;
       // Safety reads/layout can consume the last onset allowance in this task.
       // Reuse the validated origin, never refresh it from a stale CSS sample.
       age=performance.now()-(handshake?clock.started:started);
@@ -115,6 +126,7 @@
     }catch(_){return deny('unavailable');}
   }
   var AudioContextClass=window.AudioContext||window.webkitAudioContext;
+  var assetBytes=null,buffer=null,assetController=null,decodeStarted=false;
   var context=null,voices=[],bus=null,stopped=false,closing=false,playing=false,resumeReady=false,resumeRequested=false,watchdog=0,guardTimer=0;
   var activityEvents=['storage','sukun:tabownerchange','sukun:audioaggregatechange','sukun:audiostate','sukun:itemrecordingchange'];
   function listen(target,type,handler){target.addEventListener(type,handler,{capture:true,passive:true});}
@@ -128,8 +140,10 @@
     if(readinessTimer)clearTimeout(readinessTimer);
     readinessTimer=0;
     watchdog=0;guardTimer=0;
+    if(assetController){try{assetController.abort();}catch(_){}assetController=null;}
+    assetBytes=null;buffer=null;
     try{if(bus){bus.gain.cancelScheduledValues(0);bus.gain.value=0;bus.disconnect();}}catch(_){}
-    voices.forEach(function(voice){try{voice.osc.stop();}catch(_){}try{voice.osc.disconnect();voice.gain.disconnect();}catch(_){}});
+    voices.forEach(function(voice){try{voice.osc.stop();}catch(_){}try{voice.osc.disconnect();if(voice.gain)voice.gain.disconnect();}catch(_){}});
     voices=[];bus=null;
     unlisten(document,'pointerdown',input);unlisten(document,'keydown',input);unlisten(document,'click',input);
     unlisten(document,'visibilitychange',visibility);unlisten(window,'pagehide',stop);
@@ -163,52 +177,69 @@
     if(!stopped)guardTimer=setTimeout(guard,25);
   }
   function start(){
-    if(stopped||playing||!resumeReady||context.state!=='running')return;
+    if(stopped||playing||!resumeReady||!buffer||!context||context.state!=='running')return;
     if(!eligible(HIT_MS+LEAD_MS)){stop(ineligibleReason);return;}
     playing=true;
     try{
       bus=context.createGain();bus.gain.value=0;bus.connect(context.destination);
-      // r1036: a clearer deep hit and one quiet synthetic reflection. Both
-      // groups share this cancellable bus; no delay feedback or device vibration.
-      // Absolute amplitude bound: (0.30 + 0.14 + 0.07) * 0.75 * 1.12 = 0.4284.
-      [{delay:0,level:1},{delay:0.12,level:0.12}].forEach(function(layer){
-        [{ratio:1,peak:0.30},{ratio:2,peak:0.14},{ratio:3,peak:0.07}].forEach(function(part){
-          var osc=context.createOscillator(),gain=context.createGain();
-          voices.push({osc:osc,gain:gain,ratio:part.ratio,peak:part.peak*layer.level,
-            delay:layer.delay,floor:0.0001*layer.level});osc.type='sine';
-          gain.gain.value=0;
-          osc.connect(gain);gain.connect(bus);
-        });
-      });
-      // Recheck after graph construction as well: a slow attempt must not
-      // schedule its first source after input, ownership change or expiry.
+      var source=context.createBufferSource();voices.push({osc:source,gain:null});
+      source.buffer=buffer;source.loop=false;source.playbackRate.value=1;
+      source.connect(bus);
+      // Buffer/node preparation and ownership reads may advance the audio clock.
+      // Check again, then anchor this one whole signature to the fresh clock.
       if(stopped)return;
       if(context.state!=='running'){stop('interrupted');return;}
       if(!eligible(HIT_MS+LEAD_MS)){stop(ineligibleReason);return;}
       if(stopped)return;
       if(context.state!=='running'){stop('interrupted');return;}
-      // Graph construction and DOM/ownership checks can stall the main thread
-      // while the audio clock keeps advancing. Anchor every envelope only now,
-      // then submit the hit with a short lead; never reuse a pre-check time.
       var t=context.currentTime+LEAD_MS/1000;
       if(!Number.isFinite(t)||t<0){stop('failed');return;}
-      bus.gain.value=0.75;
-      voices.forEach(function(voice){
-        var onset=t+voice.delay;
-        voice.osc.frequency.setValueAtTime(86*voice.ratio,onset);
-        voice.osc.frequency.exponentialRampToValueAtTime(48*voice.ratio,onset+0.13);
-        voice.gain.gain.setValueAtTime(0,onset);
-        voice.gain.gain.linearRampToValueAtTime(voice.peak,onset+0.016);
-        voice.gain.gain.exponentialRampToValueAtTime(voice.floor,onset+0.49);
-        voice.gain.gain.linearRampToValueAtTime(0,onset+0.52);
-      });
-      // Last reflection is explicitly zero by t+0.640; every oscillator stops
-      // at the existing t+0.650 limit, including on cancellation or navigation.
-      voices.forEach(function(voice){voice.osc.start(t+voice.delay);diagnostic('audioSourcesScheduled','1');voice.osc.stop(t+0.65);});
-      root.dataset.audioOutcome='scheduled';
+      bus.gain.value=1;source.onended=function(){if(!stopped)stop();};
+      source.start(t);diagnostic('audioSourcesScheduled','1');source.stop(t+HIT_MS/1000);
+      root.dataset.audioOutcome='scheduled';assetBytes=null;buffer=null;
       clearTimeout(watchdog);
-      watchdog=setTimeout(stop,Math.min(760+LEAD_MS,INTRO_MS-(performance.now()-started)));
+      watchdog=setTimeout(stop,Math.min(HIT_MS+110+LEAD_MS,INTRO_MS-(performance.now()-started)));
     }catch(_){stop('failed');}
+  }
+  function decodeAsset(){
+    if(stopped||decodeStarted||!context||!assetBytes)return;
+    if(!eligible(HIT_MS+LEAD_MS)){stop(ineligibleReason);return;}
+    decodeStarted=true;diagnostic('audioDecodeState','decoding');
+    try{
+      var pending=context.decodeAudioData(assetBytes.slice(0));
+      Promise.resolve(pending).then(function(value){
+        if(stopped)return;
+        if(!eligible(HIT_MS+LEAD_MS)){stop(ineligibleReason);return;}
+        if(!value||!Number.isFinite(value.duration)||Math.abs(value.duration-3)>0.001||value.numberOfChannels!==1){
+          diagnostic('audioDecodeState','invalid');stop('asset_failed');return;
+        }
+        buffer=value;assetBytes=null;diagnostic('audioDecodeState','ready');diagnostic('audioBufferDurationMs',Math.round(value.duration*1000));start();
+      },function(){if(!stopped){diagnostic('audioDecodeState','failed');stop('asset_failed');}});
+    }catch(_){diagnostic('audioDecodeState','failed');stop('asset_failed');}
+  }
+  function loadAsset(){
+    if(stopped)return;
+    diagnostic('audioAssetState','loading');diagnostic('audioDecodeState','not_started');
+    try{
+      if(!window.crypto||!window.crypto.subtle){diagnostic('audioAssetState','failed');stop('asset_failed');return;}
+      assetController=typeof window.AbortController==='function'?new window.AbortController():null;
+      var options={cache:'force-cache',credentials:'same-origin',integrity:'sha256-GecAJ60xJdEWWgn9tSnIeIEEjChmCU6I4aFp5B995Fc='};
+      if(assetController)options.signal=assetController.signal;
+      window.fetch('./assets/audio/sukun-intro-signature-r1037.wav?v=r1037',options).then(function(response){
+        if(stopped)return null;
+        if(!response||!response.ok)throw Error('asset');
+        return response.arrayBuffer();
+      }).then(function(bytes){
+        if(stopped||!bytes)return null;
+        if(bytes.byteLength!==288044)throw Error('length');
+        return window.crypto.subtle.digest('SHA-256',bytes).then(function(digest){
+          if(stopped)return;
+          var actual=Array.prototype.map.call(new Uint8Array(digest),function(x){return x.toString(16).padStart(2,'0');}).join('');
+          if(actual!=='19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457'){diagnostic('audioAssetState','integrity_failed');stop('asset_failed');return;}
+          assetBytes=bytes;diagnostic('audioAssetState','ready');diagnostic('audioAssetReadyAgeMs',Math.max(0,Math.round(performance.now()-boot)));decodeAsset();
+        });
+      }).catch(function(){if(!stopped){diagnostic('audioAssetState','failed');stop('asset_failed');}});
+    }catch(_){diagnostic('audioAssetState','failed');stop('asset_failed');}
   }
   function beginAudio(){
     if(stopped||context)return;
@@ -221,6 +252,8 @@
       context.addEventListener('statechange',state);
       if(stopped||!eligible(HIT_MS+LEAD_MS)){stop(ineligibleReason);return;}
       watchdog=setTimeout(function(){stop('resume_timeout');},INTRO_MS-HIT_MS-LEAD_MS-(performance.now()-started));
+      decodeAsset();
+      if(stopped)return;
       if(context.state==='running')resumeReady=true;
       else if(context.state==='suspended'){
         // Exactly one automatic request. Pending/denied autoplay never gets a
@@ -260,5 +293,6 @@
     root.addEventListener('sukun:intro-cancel',stop);
     root.addEventListener('sukun:intro-start',visualStart);
     if(handshake)readiness();else beginAudio();
+    if(!stopped)loadAsset();
   }catch(_){stop('failed');}
 })();
