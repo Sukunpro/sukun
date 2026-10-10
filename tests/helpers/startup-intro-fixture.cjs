@@ -11,10 +11,10 @@ function createFixture(code,clock,options={}){
  const animation={animationName:'sukunIntroExit',pending:false,playbackRate:1,timeline,
   get startTime(){ensureCSS();return Object.hasOwn(options,'cssStartTime')?options.cssStartTime:cssOrigin;},
   get currentTime(){ensureCSS();return Object.hasOwn(options,'cssCurrentTime')?options.cssCurrentTime:(options.timelineTime??now)-cssOrigin;},
-  get playState(){return options.animationState||((this.currentTime??0)>=2300?'finished':'running');},
-  effect:{getTiming:()=>({delay:1000,duration:1300,iterations:1,iterationStart:0,endDelay:0,direction:'normal',fill:'both',...options.animationTiming})}};
+  get playState(){return options.animationState||((this.currentTime??0)>=3400?'finished':'running');},
+  effect:{getTiming:()=>({delay:1000,duration:2400,iterations:1,iterationStart:0,endDelay:0,direction:'normal',fill:'both',...options.animationTiming})}};
  root.getAnimations=()=>{ensureCSS();if(options.noAnimationClock)return[];Object.assign(animation,options.animationProps||{});return options.duplicateAnimation?[animation,animation]:[animation];};
- window.getComputedStyle=node=>{if(node!==root)return{display:'block',visibility:'visible',opacity:'1',...node.styleData};ensureCSS();return{display:root.hidden?'none':'grid',visibility:now-cssOrigin>=2300?'hidden':'visible',opacity:now-cssOrigin>=2300?'0':'1',...options.rootCSS};};
+ window.getComputedStyle=node=>{if(node!==root)return{display:'block',visibility:'visible',opacity:'1',...node.styleData};ensureCSS();return{display:root.hidden?'none':'grid',visibility:now-cssOrigin>=3400?'hidden':'visible',opacity:now-cssOrigin>=3400?'0':'1',...options.rootCSS};};
  if(options.raf){window.requestAnimationFrame=fn=>{frames.set(++next,fn);return next;};window.cancelAnimationFrame=id=>frames.delete(id);}
  function param(){return{value:1,schedule:[],cancelScheduledValues(t){this.schedule.push(['cancel',t]);},setValueAtTime(v,t){this.schedule.push(['set',v,t]);},linearRampToValueAtTime(v,t){this.schedule.push(['linear',v,t]);},exponentialRampToValueAtTime(v,t){this.schedule.push(['exponential',v,t]);}};}
  class AC{

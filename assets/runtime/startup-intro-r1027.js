@@ -5,19 +5,65 @@
   var root=document.getElementById('sukun-auto-intro');
   if(!root||root.dataset.audioAttempted==='1')return;
   root.dataset.audioAttempted='1';
+  // Read-only Health projection: use this captured root, never rescan the DOM
+  // or sample audio, app state, clocks, storage, or personal data on demand.
+  try{
+    var diagnosticKeys=['introBootstrap','introPhase','bootStarted','firstFrameAgeMs','started','visualClock','visualCssAgeMs','visualStarted','visualEnded','cancelled',
+      'audioAttempted','audioModuleAgeMs','audioReadyAgeMs','audioOutcome','audioDisabled','audioContextInitialState','audioContextState','audioContextStopState',
+      'audioResumeState','audioResumeSettledAfterStop','audioResumeError','audioOnsetBudgetMs','audioPendingApis','audioSourcesScheduled'];
+    window.SukunIntroAudioDiagnostics=Object.freeze({snapshot:function(){
+      var result={};diagnosticKeys.forEach(function(key){try{var value=root.dataset[key];result[key]=typeof value==='string'?value:null;}catch(_){result[key]=null;}});
+      return Object.freeze(result);
+    }});
+  }catch(_){}
   // Ephemeral, nonvisual diagnostics only; scheduled does not prove audibility.
   var boot=Number(root.dataset.bootStarted),handshake=root.dataset.introBootstrap==='r1033',readinessTimer=0,readySent=false;
   if(handshake)root.dataset.audioModuleAgeMs=String(Math.max(0,Math.round(performance.now()-boot)));
   if(handshake&&(root.dataset.introPhase==='done'||root.dataset.introPhase==='abandoned'))return;
   if(!handshake)root.dataset.audioOutcome='ineligible';
-  var started=Number(root.dataset.started),INTRO_MS=1300,HIT_MS=650,ineligibleReason='ineligible';
-  function deny(reason){ineligibleReason=reason;return false;}
+  var started=Number(root.dataset.started),INTRO_MS=2400,HIT_MS=650,ineligibleReason='ineligible';
+  // Per-load observations only: bounded enums/numbers, no app or device data.
+  // Missing/failed diagnostic writes can never affect the audio decision.
+  function diagnostic(key,value){try{value=String(value);if(root.dataset[key]!==value)root.dataset[key]=value;}catch(_){}}
+  function contextDiagnostic(key){
+    try{
+      if(!context)return;
+      var value=context.state;
+      if(['running','suspended','interrupted','closed'].indexOf(value)===-1)value='unknown';
+      diagnostic('audioContextState',value);if(key)diagnostic(key,value);
+    }catch(_){}
+  }
+  function budgetDiagnostic(origin){
+    try{var value=INTRO_MS-HIT_MS-(performance.now()-origin);
+      if(Number.isFinite(value))diagnostic('audioOnsetBudgetMs',Math.max(-10000,Math.min(10000,Math.round(value))));
+    }catch(_){}
+  }
+  function pendingDiagnostic(){
+    try{diagnostic('audioPendingApis',JSON.stringify({
+      audioLife:!window.AudioLife||typeof window.AudioLife.busy!=='function',
+      sessionState:!window.SukunSessionState||typeof window.SukunSessionState.snapshot!=='function',
+      tickSound:!window.SukunTickSound||typeof window.SukunTickSound.isRecording!=='function',
+      physicalRecording:typeof window.SukunPhysicalRecordingBusyR696!=='function',
+      tabOwner:!window.SukunTabOwner||typeof window.SukunTabOwner.snapshot!=='function',
+      sessionRegistry:!window.SukunAudioSessionRegistry||typeof window.SukunAudioSessionRegistry.aggregateSnapshot!=='function'
+    }));}catch(_){}
+  }
+  function resumeDiagnostic(value,error){
+    diagnostic('audioResumeState',value);
+    if(value==='fulfilled'||value==='rejected')diagnostic('audioResumeSettledAfterStop',stopped?'1':'0');
+    if(error){try{var name=error.name;
+      diagnostic('audioResumeError',['NotAllowedError','InvalidStateError','NotSupportedError','AbortError','SecurityError'].indexOf(name)!==-1?name:'Error');
+    }catch(_){diagnostic('audioResumeError','Error');}}
+  }
+  diagnostic('audioResumeState','not_requested');diagnostic('audioSourcesScheduled','0');
+  function deny(reason){ineligibleReason=reason;if(reason==='apis_pending'||reason==='unavailable')pendingDiagnostic();return false;}
   function eligible(requiredMs,preparing){
     var age=performance.now()-started;
     if(handshake){
       var clock=typeof root.sukunIntroReadClock==='function'?root.sukunIntroReadClock():null;
       if(!clock)return deny('timing_unavailable');
       if(clock.pending)return deny('timing_pending');
+      if(Number.isFinite(clock.started))budgetDiagnostic(clock.started);
       if(clock.ended)return deny(resumeRequested?'resume_timeout':'load_expired');
       if(clock.waiting){if(!preparing)return deny('visual_pending');}
       else{
@@ -39,6 +85,7 @@
          typeof window.SukunPhysicalRecordingBusyR696!=='function'||
          !window.SukunTabOwner||typeof window.SukunTabOwner.snapshot!=='function'||
          !window.SukunAudioSessionRegistry||typeof window.SukunAudioSessionRegistry.aggregateSnapshot!=='function')return deny(preparing?'apis_pending':'unavailable');
+      diagnostic('audioPendingApis','{"audioLife":false,"sessionState":false,"tickSound":false,"physicalRecording":false,"tabOwner":false,"sessionRegistry":false}');
       if(window.AudioLife.busy()!==false||window.SukunTickSound.isRecording()!==false||
          window.SukunPhysicalRecordingBusyR696()!==false||
          window.SukunSessionState.snapshot().phase!=='IDLE')return deny('unsafe-audio');
@@ -73,7 +120,7 @@
   function listen(target,type,handler){target.addEventListener(type,handler,{capture:true,passive:true});}
   function unlisten(target,type,handler){target.removeEventListener(type,handler,{capture:true});}
   function stop(reason){
-    if(stopped)return;stopped=true;
+    if(stopped)return;contextDiagnostic('audioContextStopState');if(Number.isFinite(started))budgetDiagnostic(started);stopped=true;
     if(typeof reason==='string')root.dataset.audioOutcome=reason;
     else if(root.dataset.audioOutcome==='waiting')root.dataset.audioOutcome='cancelled';
     if(watchdog)clearTimeout(watchdog);
@@ -95,7 +142,7 @@
       // Pending resumes have no graph. Even if close fails, a late resolution
       // sees stopped=true and can never schedule sources or register an unlock.
       if(!closing&&context.state!=='closed'){
-        closing=true;try{Promise.resolve(context.close()).catch(function(){});}catch(_){}
+        closing=true;try{Promise.resolve(context.close()).then(function(){contextDiagnostic();},function(){contextDiagnostic();});contextDiagnostic();}catch(_){contextDiagnostic();}
       }
     }
   }
@@ -103,7 +150,7 @@
   function visibility(){if(document.hidden)stop('hidden');}
   function activity(){if(!stopped&&context&&!eligible(playing?0:HIT_MS))stop(ineligibleReason);}
   function state(){
-    if(stopped)return;
+    if(stopped)return;contextDiagnostic();
     if(context.state==='running'){start();return;}
     if(playing||context.state!=='suspended')stop('interrupted');
   }
@@ -139,7 +186,7 @@
       if(stopped)return;
       if(context.state!=='running'){stop('interrupted');return;}
       if(!eligible(HIT_MS)){stop(ineligibleReason);return;}
-      voices.forEach(function(voice){voice.osc.start(t);voice.osc.stop(t+0.65);});
+      voices.forEach(function(voice){voice.osc.start(t);diagnostic('audioSourcesScheduled','1');voice.osc.stop(t+0.65);});
       root.dataset.audioOutcome='scheduled';
       clearTimeout(watchdog);
       watchdog=setTimeout(stop,Math.min(760,INTRO_MS-(performance.now()-started)));
@@ -152,7 +199,7 @@
     if(!AudioContextClass){stop('unavailable');return;}
     try{
       root.dataset.audioOutcome='waiting';
-      context=new AudioContextClass({latencyHint:'interactive'});
+      context=new AudioContextClass({latencyHint:'interactive'});contextDiagnostic('audioContextInitialState');
       context.addEventListener('statechange',state);
       if(stopped||!eligible(HIT_MS)){stop(ineligibleReason);return;}
       watchdog=setTimeout(function(){stop('resume_timeout');},INTRO_MS-HIT_MS-(performance.now()-started));
@@ -160,12 +207,13 @@
       else if(context.state==='suspended'){
         // Exactly one automatic request. Pending/denied autoplay never gets a
         // graph, and cannot borrow a later gesture or exceed this visual run.
-        resumeRequested=true;
-        var result;try{result=context.resume();}catch(_){stop('blocked');return;}
+        resumeRequested=true;resumeDiagnostic('pending');
+        var result;try{result=context.resume();}catch(error){resumeDiagnostic('threw',error);stop('blocked');return;}
         Promise.resolve(result).then(function(){
+          resumeDiagnostic('fulfilled');contextDiagnostic();
           if(stopped)return;
           resumeReady=true;state();
-        },function(){stop('blocked');});
+        },function(error){resumeDiagnostic('rejected',error);contextDiagnostic();stop('blocked');});
       }else{stop('interrupted');return;}
       guard();
     }catch(_){stop('failed');}

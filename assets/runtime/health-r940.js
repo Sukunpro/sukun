@@ -493,18 +493,57 @@
       observedMediaAdvanceMs:boundedNumber('observedMediaAdvanceMs',3600000),observedCountAdvance:boundedNumber('observedCountAdvance',1000000),
       maxCallbackDelayMs:boundedNumber('maxCallbackDelayMs',3600000),audibleSound:'NOT_MEASURED',screenLock:'NOT_MEASURED',network:'NOT_USED'};
   }
+  // Per-load intro evidence is copied from the already captured root. No DOM
+  // search, audio call, storage write or new measurement belongs in read().
+  function introAudioSnapshot() {
+    const empty={scope:'current-load-only',outcome:'unknown',audibleSound:'NOT_MEASURED'};
+    try {
+      const owner=window.SukunIntroAudioDiagnostics;
+      if(!owner)return null;
+      const snapshot=owner.snapshot;if(typeof snapshot!=='function')return null;
+      const raw=snapshot.call(owner);if(!raw||typeof raw!=='object'||Array.isArray(raw))return empty;
+      const choice=(key,values)=>{const value=raw[key];return values.includes(value)?value:null;};
+      const flag=key=>{const value=raw[key];return value==='1'?true:value==='0'?false:null;};
+      const amount=(key,min=0,max=3600000)=>{
+        const x=raw[key];if(typeof x!=='string'||! /^-?\d+(?:\.\d+)?$/.test(x))return null;
+        const n=Number(x);return Number.isFinite(n)&&n>=min&&n<=max?n:null;
+      };
+      const states=['suspended','running','closed','interrupted'];
+      const result={...empty,
+        outcome:choice('audioOutcome',['waiting_readiness','visual_only','ready','waiting','scheduled','load_expired','readiness_timeout','resume_timeout','onset_expired','blocked','cancelled','hidden','ineligible','unavailable','failed','interrupted','unsafe-owner','unsafe-audio','dialog','reduced-motion','timing_unavailable','timing_pending','visual_pending','frame_timeout'])||'unknown',
+        phase:choice('introPhase',['waiting','running','fallback','done','abandoned']),
+        visualStarted:flag('visualStarted'),visualEnded:flag('visualEnded'),sourcesScheduled:flag('audioSourcesScheduled'),
+        contextInitialState:choice('audioContextInitialState',states),contextState:choice('audioContextState',states),contextStopState:choice('audioContextStopState',states),
+        resumeState:choice('audioResumeState',['not_requested','pending','fulfilled','rejected','threw']),resumeSettledAfterStop:flag('audioResumeSettledAfterStop'),
+        resumeError:choice('audioResumeError',['AbortError','NotAllowedError','NotSupportedError','InvalidStateError','NetworkError','SecurityError','TypeError','TimeoutError','Error','UnknownError']),
+        moduleAgeMs:amount('audioModuleAgeMs'),readyAgeMs:amount('audioReadyAgeMs'),firstFrameAgeMs:amount('firstFrameAgeMs'),
+        visualCssAgeMs:amount('visualCssAgeMs',-1000),onsetBudgetMs:amount('audioOnsetBudgetMs',-10000,10000),pendingApis:null};
+      const bootAt=amount('bootStarted',0,86400000),visualAt=amount('started',0,86400000);
+      result.visualStartAgeMs=bootAt!==null&&visualAt!==null&&visualAt>=bootAt&&visualAt-bootAt<=3600000?Math.round((visualAt-bootAt)*1000)/1000:null;
+      const pendingRaw=raw.audioPendingApis;
+      if(typeof pendingRaw==='string'&&pendingRaw.length<=256){
+        const pending=JSON.parse(pendingRaw);
+        if(pending&&typeof pending==='object'&&!Array.isArray(pending)){
+          result.pendingApis={};for(const key of ['audioLife','sessionState','tickSound','physicalRecording','tabOwner','sessionRegistry'])result.pendingApis[key]=typeof pending[key]==='boolean'?pending[key]:null;
+        }
+      }
+      return result;
+    } catch (_) { return empty; }
+  }
   function read() {
     // Both snapshot APIs return existing bounded buffers; this does not start
     // observers, collect a new timing sample, scan layout, or change playback.
     const cachedInput={taps:cachedTapSnapshot(),latency:cachedLatencySnapshot()}, voiceExpectation=voiceExpectationSnapshot(),recordingPreparation=recordingPreparationSnapshot(),recordingContinuity=recordingContinuitySnapshot(),recordingInspection=recordingInspectionSnapshot();
     const result = currentChecks(cachedInput,voiceExpectation,recordingPreparation,recordingContinuity,recordingInspection);
+    const introAudio=introAudioSnapshot();
+    if(introAudio)result.push(status('INTRO_AUDIO',introAudio.outcome==='unknown'?'NOT_MEASURED':'OBSERVED','Açılış sesi gözlemi',introAudio));
     return { schema: SCHEMA, version: VERSION, build, generatedAt: new Date().toISOString(), boot,
       coverage: { since: born, events: events.length, discardedEvents: droppedEvents, incidentLimit: MAX_ISSUES,
         discardedIncidents: droppedIncidents, hiddenSampling: 'event-only-no-poll', physicalLockScreenTest: deviceCheck && deviceCheck.responses.lockedSound !== 'NOT_TRIED' ? 'USER_REPORTED' : 'NOT_RUN',
         privacy: 'metadata-only-no-recording-no-text-no-url-query', previousScope },
       summary: { currentFailures: result.filter(x => x.status === 'FAIL').length, currentWarnings: result.filter(x => x.status === 'WARN').length,
         unmeasured: result.filter(x => x.status === 'NOT_MEASURED').length, recordedIncidents: incidents.length },
-      current: copy({...evidenceContext(voiceExpectation,recordingPreparation),recordingContinuity,recordingInspection}), checks: copy(result), deviceCheck:copy(deviceCheck), modelCheck:copy(modelCheck),
+      current: copy({...evidenceContext(voiceExpectation,recordingPreparation),recordingContinuity,recordingInspection,introAudio}), checks: copy(result), deviceCheck:copy(deviceCheck), modelCheck:copy(modelCheck),
       flowObservation:compactFlowObservation(),
       incidents: copy(incidents), timeline: copy(events), previous: copy(previous), lastRun: copy(lastRun) };
   }
