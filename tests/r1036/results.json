@@ -1,0 +1,93 @@
+{
+  "build": "r1036",
+  "runtimeSha256": "0ddab28e67bbd79600f402effead79b10dce49fb16e912c6d4f6a8b7ed09edab",
+  "passed": 444,
+  "total": 444,
+  "groups": [
+    {
+      "passed": 52,
+      "total": 52,
+      "suite": "r1027/startup-intro.cjs",
+      "exitCode": 0
+    },
+    {
+      "passed": 16,
+      "total": 16,
+      "suite": "r1029/transparent-intro.cjs",
+      "exitCode": 0
+    },
+    {
+      "passed": 98,
+      "total": 98,
+      "suite": "r1031/startup-intro-async.cjs",
+      "exitCode": 0
+    },
+    {
+      "passed": 109,
+      "total": 109,
+      "suite": "r1032/startup-intro-readiness.cjs",
+      "exitCode": 0
+    },
+    {
+      "passed": 33,
+      "total": 33,
+      "suite": "r1033/startup-intro-diagnostics.cjs",
+      "exitCode": 0
+    },
+    {
+      "passed": 18,
+      "total": 18,
+      "suite": "r1034/intro-health-diagnostic.cjs",
+      "exitCode": 0
+    },
+    {
+      "passed": 25,
+      "total": 25,
+      "suite": "r1035/startup-intro-fresh-clock.cjs",
+      "exitCode": 0
+    },
+    {
+      "passed": 47,
+      "total": 47,
+      "suite": "r1017/health_inspection_contract.cjs",
+      "exitCode": 0
+    },
+    {
+      "passed": 41,
+      "total": 41,
+      "suite": "r1036/startup-intro-timbre.cjs",
+      "exitCode": 0
+    },
+    {
+      "passed": 5,
+      "total": 5,
+      "suite": "r1036/measure-waveform.cjs",
+      "exitCode": 0
+    }
+  ],
+  "waveform48kHz": {
+    "r1035": {
+      "peak": 0.17842457290569871,
+      "peakDbFS": -14.970906682780662,
+      "rms650ms": 0.03267744815504536,
+      "rmsDbFS": -29.715037314184194,
+      "lastNonzeroSeconds": 0.6499791666666667,
+      "conservativeBound": 0.243,
+      "conservativeHeadroomDb": 12.287874528033758,
+      "clippedSamples": 0
+    },
+    "r1036": {
+      "peak": 0.27114841441054005,
+      "peakDbFS": -11.335858616734743,
+      "rms650ms": 0.04210472478416538,
+      "rmsDbFS": -27.513383340979182,
+      "lastNonzeroSeconds": 0.6399791666666667,
+      "conservativeBound": 0.4284,
+      "conservativeHeadroomDb": 7.363010756803639,
+      "clippedSamples": 0
+    },
+    "rmsIncreaseDb": 2.201653973205012,
+    "peakIncreaseDb": 3.6350480660459183
+  },
+  "scope": "Controlled production-source tests and analytic waveform; physical device loudness is not measured."
+}

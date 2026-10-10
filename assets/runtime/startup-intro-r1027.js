@@ -168,13 +168,17 @@
     playing=true;
     try{
       bus=context.createGain();bus.gain.value=0;bus.connect(context.destination);
-      // One shared onset, three sine partials. Their amplitude upper bound is
-      // (0.28 + 0.09 + 0.035) * 0.6 = 0.243, well below digital full scale.
-      [{ratio:1,peak:0.28},{ratio:2,peak:0.09},{ratio:3,peak:0.035}].forEach(function(part){
-        var osc=context.createOscillator(),gain=context.createGain();
-        voices.push({osc:osc,gain:gain,ratio:part.ratio,peak:part.peak});osc.type='sine';
-        gain.gain.value=0;
-        osc.connect(gain);gain.connect(bus);
+      // r1036: a clearer deep hit and one quiet synthetic reflection. Both
+      // groups share this cancellable bus; no delay feedback or device vibration.
+      // Absolute amplitude bound: (0.30 + 0.14 + 0.07) * 0.75 * 1.12 = 0.4284.
+      [{delay:0,level:1},{delay:0.12,level:0.12}].forEach(function(layer){
+        [{ratio:1,peak:0.30},{ratio:2,peak:0.14},{ratio:3,peak:0.07}].forEach(function(part){
+          var osc=context.createOscillator(),gain=context.createGain();
+          voices.push({osc:osc,gain:gain,ratio:part.ratio,peak:part.peak*layer.level,
+            delay:layer.delay,floor:0.0001*layer.level});osc.type='sine';
+          gain.gain.value=0;
+          osc.connect(gain);gain.connect(bus);
+        });
       });
       // Recheck after graph construction as well: a slow attempt must not
       // schedule its first source after input, ownership change or expiry.
@@ -188,15 +192,19 @@
       // then submit the hit with a short lead; never reuse a pre-check time.
       var t=context.currentTime+LEAD_MS/1000;
       if(!Number.isFinite(t)||t<0){stop('failed');return;}
-      bus.gain.value=0.6;
+      bus.gain.value=0.75;
       voices.forEach(function(voice){
-        voice.osc.frequency.setValueAtTime(86*voice.ratio,t);
-        voice.osc.frequency.exponentialRampToValueAtTime(48*voice.ratio,t+0.13);
-        voice.gain.gain.setValueAtTime(0,t);
-        voice.gain.gain.linearRampToValueAtTime(voice.peak,t+0.016);
-        voice.gain.gain.exponentialRampToValueAtTime(0.0001,t+0.62);
+        var onset=t+voice.delay;
+        voice.osc.frequency.setValueAtTime(86*voice.ratio,onset);
+        voice.osc.frequency.exponentialRampToValueAtTime(48*voice.ratio,onset+0.13);
+        voice.gain.gain.setValueAtTime(0,onset);
+        voice.gain.gain.linearRampToValueAtTime(voice.peak,onset+0.016);
+        voice.gain.gain.exponentialRampToValueAtTime(voice.floor,onset+0.49);
+        voice.gain.gain.linearRampToValueAtTime(0,onset+0.52);
       });
-      voices.forEach(function(voice){voice.osc.start(t);diagnostic('audioSourcesScheduled','1');voice.osc.stop(t+0.65);});
+      // Last reflection is explicitly zero by t+0.640; every oscillator stops
+      // at the existing t+0.650 limit, including on cancellation or navigation.
+      voices.forEach(function(voice){voice.osc.start(t+voice.delay);diagnostic('audioSourcesScheduled','1');voice.osc.stop(t+0.65);});
       root.dataset.audioOutcome='scheduled';
       clearTimeout(watchdog);
       watchdog=setTimeout(stop,Math.min(760+LEAD_MS,INTRO_MS-(performance.now()-started)));

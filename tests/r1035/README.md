@@ -34,3 +34,11 @@ The shared fixture retains its default constant 10-second audio clock. Tests
 can provide audioCurrentTime as a number or a function of wall time/context,
 onReadAudioTime, onCreateGain and onCreateOscillator hooks. currentTimeReads
 captures each sample and the graph size at that moment.
+
+## Current r1036 synthesis contract
+
+The timing guards above are retained. Current production now uses six sine
+sources (dry plus one quiet reflection) and seven gains. Current exact-envelope
+and peak assertions are shared in tests/helpers/intro-hit-contract.cjs; the
+conservative bound is now0.4284. See tests/r1036/README.md. Graph-completion
+stall hooks were updated to six sources/seven gains, without removing cases.
