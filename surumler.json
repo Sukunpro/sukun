@@ -1,5 +1,16 @@
 [
   {
+    "v": "r1027",
+    "t": "10 Ekim 2026",
+    "b": [
+      "Kayıtlı dua başarısız veya iptal edilmişse tamamlandı sayılmaz. Geç kalan eski oynatma sonucu yeni okumanın durumunu değiştirmez.",
+      "Kayıt deposu okunamadığında bilinen kendi sesin yok sayılmaz. Başarısız silme kaydı listeden düşürmez; iptal edilen veya takılan silme işlemi sonuçlanır.",
+      "Tam site ZIP yedeği güncel sürümün dosya ve hash envanterini doğrular. Ses hatasından sonra yeniden deneme ve manuel sayıma dönüş açıklamaları netleştirildi.",
+      "Açılışta yalnız SÜKÛN logosu kısa bir efektle görünür ve dokunma beklemeden ana sayfa açılır. Tek bas vuruşu tarayıcı izin verirse çalar; ses engellense de açılış aynı sürede tamamlanır. Ayrı sade kurtarma adresi veriyi veya sürümü kendiliğinden değiştirmez.",
+      "Kurtarma hatası yenilemede kaybolmaz. İngilizce günlük açıklamaları, yeni sürüm notları ve acil kurtarma görünümü tamamlandı. Mevcut sesler, ayarlar, sayaçlar ve güvenlik korumaları korunur."
+    ]
+  },
+  {
     "v": "r1026",
     "t": "7 Ekim 2026",
     "b": [
@@ -50,6 +61,579 @@
       "Ses yedeği yükleme: güvenli işlem engelinin gerçek nedeni gösterilir; her başarısız işlem artık etkin zikir diye etiketlenmez.",
       "Kayıt koruması: yalnız eksik sesler eklenir. Mevcut sesler, ayarlar, sayaçlar ve yerel kurtarma kopyaları korunur; açılışta otomatik geri yükleme yapılmaz.",
       "Uygulama ve çevrimdışı servis birlikte güncellendi. Testler sentetik kayıtlarla yapılır; telefonun gerçek verileri veya sesleri yayımlanmaz."
+    ]
+  },
+  {
+    "v": "r1020",
+    "t": "6 Ekim 2026",
+    "b": [
+      "Kayıt koruması: yarım kalmış veri kurtarma günlüğü açılışta otomatik uygulanmaz. Tam veri geri yükleme ve toplu silme inceleme sırasında kapalıdır.",
+      "🛟 Kayıp sesler: eski kişisel veri noktaları, stüdyo asılları ve doğrulanmış JSON yedekleri taranır. Yalnız eksik sesler eklenir; mevcut sesler değiştirilmez.",
+      "Güncel depo sonucu ile önceki dolu gözlem ayrı gösterilir. Sıfır sonucu geçmişi silmez; okumalar eksik bir ses deposunu kendiliğinden oluşturmaz.",
+      "Önbelleği yenileme sesleri veya ayarları silmez. Eski ve gizli veri noktaları ile stüdyo kopyaları korunur. r1019 sürümüne dönüş engellenmiştir.",
+      "İsteğe bağlı görseller ortak önbelleğe alınır; sürüm başına yeniden çoğaltılmaz. Yerel kopya kalmamış seslerin kurtarılması için harici JSON yedeği gerekir."
+    ]
+  },
+  {
+    "v": "r1019",
+    "t": "6 Ekim 2026",
+    "b": [
+      "Kayıt Stüdyosu: erişilebilir tüm seslere dengeleme, sessizlik kırpma veya ikisini birlikte uygula. Özgün sesler doğrulanmış geri alma kopyasında saklanır.",
+      "Toplu kayıt işlemi tek atomik yazmayla tamamlanır; hata sonrası otomatik geri alma denenir. Yeniden açıldığında da geri al kullanılabilir; daha yeni ses değişiklikleri üzerine yazılmaz.",
+      "🛟 Kurtarma Merkezi: son 5 kişisel veri noktası, JSON yedeği, doğrulamalı geri yükleme ve son veri geri yüklemesini geri alma. Yarım kalan işlem için kalıcı kurtarma günlüğü tutulur.",
+      "Güncel uygulama ve cihazda doğrulanmış en fazla 5 eski sürüm saklanır. Eski sürüm dosyaları karıştırılmadan açılır; acil kurtarma sayfasından güncele dönülebilir. Geçmiş bundan sonra birikir.",
+      "Tam site ZIP yedeği: site dosyaları SHA-256 ile kontrol edilir ve kişisel JSON yedeği eklenir. Eksik veya değişmiş dosyada tamamlanmış yedek indirilmez. İsteğe bağlı internet fontları ve dış AI hizmetleri ayrıca internet gerektirir."
+    ]
+  },
+  {
+    "v": "r1018",
+    "t": "6 Ekim 2026",
+    "b": [
+      "99 Esmâ Tekke girişi dar ekranda tek genişlik içinde tutulur; amaç kartları, süre ve arayüz seçenekleri normal satıra geçer.",
+      "Kayıt bilgisi ve geçici olarak durdurulan yeniden tarama düğmesi ayrı satırlara alındı; alan adı dar bir sütuna sıkışmaz.",
+      "Yedekleme açıklama düğmesi metnin altında doğal akıştadır. Daraltma yalnız açıklama içeriğini gizler; düğmeyi kesmez.",
+      "Kayıt deposu, salt okunur denetim ve ses/sayaç işleyişi korunur. Statik kontroller yapıldı; fiziksel Android görsel doğrulaması yapılmadı."
+    ]
+  },
+  {
+    "v": "r1017",
+    "t": "6 Ekim 2026",
+    "b": [
+      "Kayıt sayaçları ve kendi seslerim kütüphanesi aynı tamamlanan katalogdan güncellenir; arama ve filtre yeni depo taraması başlatmaz.",
+      "Bilinen dolu kayıt listesiyle çelişen boş sonuç listeyi sıfırlamaz. Depo doğrulanamadı uyarısıyla son bilinen liste korunur; bu koruma ses baytlarını geri yüklemez.",
+      "Katalog uyuşmazlığında bulunamayan bilinen kendi ses kaydı TTS’ye sessizce düşmez; geçerli alternatif okuyuş varsa kullanılmaya devam eder.",
+      "Yedekleme, çakışma kontrolü ve geri yükleme sonrası liste yenileme ortak katalog korumasını kullanır; başarısız denetim sıfır kayıt veya tamamlanmış geri yükleme olarak sunulmaz.",
+      "Elle Kayıtları yeniden tara geçici olarak durduruldu. Kayıt deposunu kontrol et yalnız salt okunur denetim yapar; eksik veritabanını oluşturmaz ve kayıt kurtarma işlemi değildir.",
+      "Feyz/Klasik, Berhetiyye/Cabir Tekke görselleri ve mevcut dokunma/kaydırma düzeltmeleri korunur. Fiziksel Android doğrulaması yapılmadı."
+    ]
+  },
+  {
+    "v": "r1016",
+    "t": "5 Ekim 2026",
+    "b": [
+      "JSON içe aktarma ve korumalı veri işlemi sürerken güncelleme bekler; işlem sonuçlandıktan sonra yalnız onaylanmış güncelleme devam eder.",
+      "Güncelleme öncesi ve sonrası kayıt adedi, toplam ses boyutu ve sınırlı depo hata kodları yalnız cihazda tutulan tanıya eklenir. Ses içerikleri, isimler ve kayıt anahtarları alınmaz.",
+      "Okunamayan depo ile başarılı sıfır kayıt ölçümü ayrı gösterilir. Farklı sonuçlar silinme nedenini veya kurtarma başarısını kanıtlamaz; tanı kendiliğinden geri yükleme yapmaz.",
+      "İlk kurulumda önceki sürümün ölçümü bulunmaz; başlangıç ölçümü ile eşleştirilen güncelleme çifti ayrı belirtilir. Tanı AI özetlerine gönderilmez."
+    ]
+  },
+  {
+    "v": "r1015",
+    "t": "5 Ekim 2026",
+    "b": [
+      "Bitir yeni sekme sahipliği veya depo isteği başlatmaz. Kapatılan eski erişim uyarıları geç kalan işlemden yeniden açılmaz.",
+      "Kapanmış kayıt ve sekme-sahipliği bağlantıları güvenli biçimde bırakılır. Başarısız okuma, kayıt yok veya sıfır kayıt diye gösterilmez.",
+      "Kayıt erişim hatasında kendi sesinin yerine otomatik cihaz sesi başlatılmaz; gerçek eksik kayıt durumundaki mevcut davranış korunur.",
+      "Pencere odağı kaybolan dokunuş, sonraki kaydırma ve yerleşimi kilitlemez. Kayıtlar, veritabanı şeması, sayaç ve tempo değiştirilmez."
+    ]
+  },
+  {
+    "v": "r1014",
+    "t": "5 Ekim 2026",
+    "b": [
+      "Cabir Tekkesi: Berhetiyye isimlerinin tamamı için tek parça billur saray, Hüthüt ve mücevher menü/düğmeler. Canlı zikir adı, Arapça metin ve sayaç korunur.",
+      "Android Chrome adres çubuğu hareketi yerleşimi yeniden boyutlandırmaz; nefes halkası değişen telkin metninden bağımsız ölçülür. Uzun açıklamalar doğal kaydırılır.",
+      "SÜKÛN ametist, Mihrap safir, Duraklat zümrüt ve Bitir yakut olur. Dar ekranda iki eşit oynatma düğmesi ve ayrı ses satırı kullanılır.",
+      "Tema saklanan Tekke seansının Berhetiyye bağlamını izler; erişim kapatılırsa özel görünüm ve metinler kaldırılır. Önceki ses, kayıt ve kaydırma/tıklama düzeltmeleri korunur."
+    ]
+  },
+  {
+    "v": "r1013",
+    "t": "5 Ekim 2026",
+    "b": [
+      "Tekke girişinde menü, amaç kartları ve düğmeler tek ekran genişliği içinde tutulur. Uzun metinler dar ekranda satıra geçer; Feyz/Klasik görünümü korunur.",
+      "Giriş ekranı açıkken gizli nefes sahnesi yeniden ölçülmez. Ekran yüksekliğinde kesirli piksel değişimleri ve yakınlaştırma hareketi yerleşimi gereksiz yere değiştirmez.",
+      "Nefes animasyonu ve zikir akışı korunur. r1012 ses kaydı, kayıt listesi, erişim ve önceki kaydırma/tıklama düzeltmeleri bu pakette bulunur."
+    ]
+  },
+  {
+    "v": "r1012",
+    "t": "5 Ekim 2026",
+    "b": [
+      "Tek sekme kontrolünde hata aşaması ayrılır; Web Locks isteği callback başlamadan reddedilirse atomik IndexedDB erişimi denenir. Başka sekmenin etkin ses kilidi geçilmez.",
+      "Mikrofon kayıt durdurma ve kaydetme işlemleri süre sınırıyla sonuçlanır. Boş kayıt ve depolama hatası önceki sesi değiştirmez; yeniden deneme için mikrofon bırakılır.",
+      "Sistem raporu erişim yöntemini ve hata aşamasını kişisel ses içermeden gösterir. r1011 eksik ses geri yükleme ve Feyz/Klasik kaydırma düzeltmeleri korunur."
+    ]
+  },
+  {
+    "v": "r1011",
+    "t": "5 Ekim 2026",
+    "b": [
+      "Eski ses yedeğinden eksik kayıtları tamamla: mevcut kayıtlar, ayarlar ve sayaçlar korunur; yalnız cihazda olmayan ses anahtarları eklenir.",
+      "r1004 ses ve tam yedek biçimleri ile doğrulanmış parçalı ses yedekleri desteklenir. Dosyalar yazmadan önce kontrol edilir; depolama hatasında eklenen sesler geri alınır.",
+      "Kaydırıp başlangıca dönen veya hedefin dışına çıkan hareketler Tefekkür dokunuşu ve manuel sayaç olarak sayılmaz. Bekleyen otomatik hizalama, yeni dokunma veya kaydırma başlayınca iptal edilir.",
+      "Kayıt denetiminde 64 MB yedek sınırı veya boş MIME bilgisi tek başına bozuk ses sayılmaz. r1010 kendi kayıt önceliği korunur."
+    ]
+  },
+  {
+    "v": "r1010",
+    "t": "5 Ekim 2026",
+    "b": [
+      "Manuel ve otomatik zikir aynı kayıt aramasını kullanır; seçili biçim, aynı ismin diğer biçimleri ve eski kayıt anahtarlarıyla saklanan kendi sesin bulunur.",
+      "Otomatik başlangıç eksik veya eski kayıt listesine dayanarak TTS’ye atlamaz. Kayıt veritabanı sorgulanır; yalnız kayıt yoksa TTS kullanılır.",
+      "Kayıt hatası, geç gelen eski hazırlık ve kayıt yenileme sırasında sayaç korunur. Başka isimlerin kayıtları kullanılmaz.",
+      "r1009 hazırlık sınırı ve özgün kayıt alternatifi, r1008 Klasik/Feyz düzeltmeleri korunur."
+    ]
+  },
+  {
+    "v": "r1009",
+    "t": "5 Ekim 2026",
+    "b": [
+      "Kendi kayıt efekt hazırlığını beklerken başlangıç takılması giderildi; ekran açıkken 3 saniyelik hazırlık bütçesi aşılırsa özgün kayıt kullanılır.",
+      "Yanıt vermeyen ses çözümlemesi sonraki efektleri bekletmez; aynı anda yeni çözücüler açılmaz. Sayaç yalnız tamamlanan okuyuşa sayı ekler.",
+      "Hazırlık mesajı başarılı, durdurulmuş veya başarısız işlemlerde güncellenir; hazırlığın hangi aşamada olduğu gösterilir.",
+      "Klasik ve Feyz düzen düzeltmeleri korunur. Sağlık raporuna kayıt hazırlığı ve bekleyen çözümleme metadata gözlemleri eklenir."
+    ]
+  },
+  {
+    "v": "r1008",
+    "t": "5 Ekim 2026",
+    "b": [
+      "Zikir ve okuma birlikte ayarı, yalnız gerçekten metin okunurken zikir sesini bekletir; kayıtlı tercih tek başına TTS ve kendi sesi susturmaz.",
+      "Metin okuyucusuna geçerken önceki kayıtlı zikir sesi bırakılır; okuma bittikten sonra zikir akışı tekrar sesli ilerler.",
+      "Toplam sayaç satırı geçici panel kapanışında korunur; klasik ve Feyz düzenlerindeki tekrar yerleşim işleri azaltılır.",
+      "Ses raporu seçili okuyuş, sessizlik nedeni ve mevcut tıklama/çizim gözlemlerini içerir. Fiziksel hoparlör ölçümü değildir."
+    ]
+  },
+  {
+    "v": "r1007",
+    "t": "4 Ekim 2026",
+    "b": [
+      "Kayıtlı sesle Zikri başlat akışındaki süresiz hazırlık ve oynatma beklemeleri sonlandırılır. Durdur sonrası yeniden Başlat, eski bekleyen işlemi devralmaz.",
+      "Efekt için hazırlanamayınca ekran açıkken özgün kayıt oynatılır; sayaç yalnız tamamlanan okuyuşta ilerler. Kilit ekranı için hazırlanamayınca açık bir bilgi gösterilir.",
+      "Mikrofon hazırlığı görünür ve ikinci KAYIT dokunuşuyla iptal edilebilir. İptalden sonra geç gelen mikrofon yanıtı kayıt başlatmaz.",
+      "Takılmaların incelenmesi için sistem raporuna ekran yenileme evreleri eklendi."
+    ]
+  },
+  {
+    "v": "r1006",
+    "t": "4 Ekim 2026",
+    "b": [
+      "Boş veya bozuk ses yedeği yazmadan önce reddedilir; ses geri yükleme işlem hataları açıkça bildirilir. Parçalı ses yedeklerinin kimliği, bütünlüğü ve eksik parçaları izlenir.",
+      "Sesli tekrar yalnız başarıyla tamamlanınca sayaç, günlük, isim ve haftalık vird ilerlemesine yazılır. Seyir istatistikleri ve her devirde niyet tercihi düzeltildi.",
+      "Takılan çevrimdışı görsel indirmeleri süre sonunda iptal edilir. Gezinme görsellerinin CSS adresleri de bütünlük kontrolünden geçer; İngilizce etiketler ve yardım/arama odağı düzeltildi."
+    ]
+  },
+  {
+    "v": "r1005",
+    "t": "4 Ekim 2026",
+    "b": [
+      "r1004 denetimi: yedek/geri yükleme, veri silme, parola kalıcılığı, sekme sahipliği, Duraklat tercihi ve çevrimdışı sürüm eşliği düzeltildi.",
+      "Arama, İngilizce etiketler, Sade dil seçimi ve yardım penceresi klavye erişimi düzeltildi. Dağıtım paketinden eski test arşivleri ayrıldı."
+    ]
+  },
+  {
+    "v": "r1004",
+    "t": "4 Ekim 2026",
+    "b": [
+      "Eng kayıt paneli oluşturulduğu anda çevrilir; kayıt tarama sonuçları, seans uyarıları, ses kaynağı seçenekleri ve bildirim açıklamaları tamamlandı."
+    ]
+  },
+  {
+    "v": "r1003",
+    "t": "4 Ekim 2026",
+    "b": [
+      "Eng dilinde Kaynak Merkezi, Atlas tamamlanma bilgisi, seans adı, kayıt adedi ve seans oluşturucunun dinamik açıklamaları tamamlandı."
+    ]
+  },
+  {
+    "v": "r1002",
+    "t": "4 Ekim 2026",
+    "b": [
+      "Eng dilinde Okumalar, Seyir, günün sözleri, kayıt sayıları, seans grafikleri ve yeni seans oluşturucu metinlerinin eksik çevirileri tamamlandı.",
+      "Atlas menzil takvimi ve parçalı kaynak açıklamaları İngilizceye çevrildi. Özel isimler, eser künyeleri, kullanıcı metinleri, ses ve sayaç mantığı korunur."
+    ]
+  },
+  {
+    "v": "r1001",
+    "t": "4 Ekim 2026",
+    "b": [
+      "Eng dilinde güç etiketi Power, 28 İsim Atlası arama açıklaması Search among the 28 Names… olarak düzeltildi. Türkçe metinler ve arama/sayaç davranışı korunur."
+    ]
+  },
+  {
+    "v": "r1000",
+    "t": "4 Ekim 2026",
+    "b": [
+      "Eng arayüzü için yeni özellikler, Nefs içeriği, kaynak/ambiyans açıklamaları, kayıt ve seyir durumları yeniden tarandı; eksik çeviriler tamamlandı.",
+      "Native onay/uyarı pencereleri ve kilit ekranı medya bilgileri de seçili dili kullanır. Dil geçişinde açık alanlar, özel notlar, seçimler ve ses/sayaç durumu korunur.",
+      "Tekke dil önbelleği ve tekrarlanan metin/erişilebilirlik yazımları düzeltildi; mevcut Türkçe kaynaklar ve Arapça/okunuş metinleri korunur."
+    ]
+  },
+  {
+    "v": "r999",
+    "t": "4 Ekim 2026",
+    "b": [
+      "Eng modundaki hedef, ses seçimi, bildirim, ambiyans, seyir ve güncelleme metinleri tamamlandı. Ebced İngilizcede Abjad olarak gösterilir.",
+      "99 kaynak kartının anlam ve açıklama alanları İngilizceye çevrildi; Arapça metinler, isimler, kaynak atıfları ve özgün Türkçe veri korundu.",
+      "Sayı, gün ve cihaz sesiyle oluşturulan durumlar dile göre çevrilir. Tekrarlanan arayüz yazımları çeviri gözlemcisiyle yarışmaz; dil değişimi kayıtları, seçimi, tempoyu veya sayacı değiştirmez."
+    ]
+  },
+  {
+    "v": "r998",
+    "t": "4 Ekim 2026",
+    "b": [
+      "Yardım açıklamaları kart katmanlarının dışında, kapatılabilir ve kaydırılabilir olarak açılır. Dar ekran ve İngilizce açıklamaları için ek kontroller eklendi.",
+      "Eng seçeneğinde eksik yardım, niyet, ayar ve dinamik arayüz metinleri çevrilir; Türkçeye dönünce özgün metinler geri gelir.",
+      "Kayıt normalizasyonu ekran kilitlendiğinde atlanmaz. Seçilmiş yankı ve ses seviyesi görünür ve arka plan oynatımında aynı kaynaktan uygulanır.",
+      "Niyet gösterimi ve seslendirmesi bağımsızdır. Zikir geçişinde kendi niyet kaydı, Arapça cihaz sesi, ardından Türkçe TTS denenir. Niyet sayaçta tekrar olarak sayılmaz; eski ses girişimleri iptal edilir."
+    ]
+  },
+  {
+    "v": "r997",
+    "t": "4 Ekim 2026",
+    "b": [
+      "Tekke rehberi tek, opak ve kaydırılabilir pencere olarak açılır. Set kartı, durum rozeti ve kontroller açıklamaların üzerine binmez; kapatınca mevcut akış korunur.",
+      "Hû satır kırılmadan nefes halkasıyla aynı karede merkezlenir. Kullanılabilir sahne alanına göre boyutu ölçülür; uzun içerik doğal kaydırılır.",
+      "Yardım ve Mihrap geçişinde dokunma/odak kilitleri tam geri yüklenir. Kaydırma ve iptal edilen dokunuş manuel nefesi tetiklemez.",
+      "Ses başlatma, kayıt önceliği, seçilmiş tempo ve güncelleme iptal/yeniden deneme güvenlikleri korunur. Fiziksel Android ve tarayıcı görüntüsü ayrıca doğrulanmalıdır."
+    ]
+  },
+  {
+    "v": "r996",
+    "t": "3 Ekim 2026",
+    "b": [
+      "Tekke seti Başlat ile ses sekmesinin sahipliğini alır; hazırlama ve duraklatma boyunca bu sahiplik korunur. Kendi kayıt önceliği ve eksik adımda TTS korunur.",
+      "Ses veya kayıt yüklemesi başlamazsa süre sınırı ve yeniden deneme vardır. Hazır ekranda devre dışı Duraklat yerine Başlat gösterilir. Kayıtlar ve seçilmiş tempo değiştirilmez."
+    ]
+  },
+  {
+    "v": "r995",
+    "t": "3 Ekim 2026",
+    "b": [
+      "Güncellemede takılı kalan doğrulama ve kayıt hazırlığı için süre sınırı, yeniden deneme ve beklemeyi iptal etme eklendi. Kişisel kayıtlar silinmez.",
+      "Dosya hazırlama ilerlemesi gösterilir; geç yanıtlar ve kilit ekranından dönüş güncellemeyi kendiliğinden uygulamaz. r994 Tekke yerleşimi ve Berhetiyye topaz görünümü korunur."
+    ]
+  },
+  {
+    "v": "r994",
+    "t": "3 Ekim 2026",
+    "b": [
+      "Tekke ekranı mobil tarayıcının görünür yüksekliğine uyar; alt oynatma kontrolleri kesilmez, uzun sahne içeriği kendi alanında kayar.",
+      "Mihrap üst çubukta erişilebilir; giriş ekranındaki sahne yazıları ve sabit düğme çakışmaları giderildi.",
+      "Berhetiyye güncelleme paneli ve bildirimi altın çerçeve ve turuncu topaz taşla tema ailesine uyarlandı."
+    ]
+  },
+  {
+    "v": "r993",
+    "t": "3 Ekim 2026",
+    "b": [
+      "Tekke tefekkür setlerinde uygulama kapanınca yarım kalan adımı kullanıcı seçimiyle geri alma, güvenli adım geçişi ve tekrar dinleme eklendi.",
+      "Çevrimdışı hazırlık, kendi sesini kaydetme ve onaylı sessizlik kesme rehberi, kişisel düzenler, seans sonu notu ve kaynaklı açıklamalar eklendi. Tempo ve kayıt önceliği korunur.",
+      "Ana sayfa set kartı kısaltıldı; ayrıntılar isteğe bağlı açılır. Zikir ve tam ekran çark görünümüne taşan set katmanı kaldırıldı."
+    ]
+  },
+  {
+    "v": "r992",
+    "t": "3 Ekim 2026",
+    "b": [
+      "Tekke girişine Zikir ve nefes, Tefekkür seti ve Sessiz tefekkür amaçları eklendi. Set şeridi daraltılır; adım metni isteğe bağlı açılır.",
+      "Tekke oynatma kontrolleri tek alanda toplandı. Mihrap ayarları ve ana sayfaya dönüş akışı durdurmaz; Duraklat ve Bitir ayrıdır.",
+      "Mihrap, Seans · Sesler · Kayıtlar · Görünüm başlıklarına ayrıldı. Mevcut ayarlar ve kendi kayıt önceliği korundu."
+    ]
+  },
+  {
+    "v": "r991",
+    "t": "3 Ekim 2026",
+    "b": [
+      "Tekke set kartına × eklendi. Kart kapatılınca yalnız set anlatımı durur; Tekke zikir ve nefes akışı ile kayıtlar korunur.",
+      "İlk Tekke giriş ayarlarından tefekkür seti seçilebilir ve kartın ana sayfa/Tekke görünürlüğü ayarlanabilir. Tercih saklanır; kartı yeniden göstermek sesi başlatmaz."
+    ]
+  },
+  {
+    "v": "r990",
+    "t": "3 Ekim 2026",
+    "b": [
+      "Seçilen Tekke tefekkür seti, adı ve Başlat düğmesiyle ana ekrana taşındı. Aynı set Tekke sahnesinden de duraklatılabilir, devam ettirilebilir ve bitirilebilir.",
+      "Adımlar sırayla akarken kendi kaydın önceliklidir; eksik adımları cihaz sesi okur. Set seçimi saklanır, sessiz aralar duraklatmada korunur ve bitirilen akışın geç gelen sesleri engellenir."
+    ]
+  },
+  {
+    "v": "r989",
+    "t": "3 Ekim 2026",
+    "b": [
+      "Berhetiyye tefekkür ekranında mor çıkış taşı Hedef ile Kalan arasına yerleştirildi. Kontroller kapalıyken de görünür; aynı çıkış işlevi korunur.",
+      "Berhetiyye tefekkür başlığı ve aktif isim ince altın işlemeli ayrı çerçevelere alındı. Seçilmiş çark, diğer modların görünümü, ses, tempo ve kayıt tercihleri korunur."
+    ]
+  },
+  {
+    "v": "r988",
+    "t": "3 Ekim 2026",
+    "b": [
+      "Performans profili yalnız kullanıcı seçimiyle değişir; kilit, tefekkür ve uzun işlemler otomatik Pil moduna geçirmez. Küçük mor kristal çıkış simgesi ana tefekkür ekranında, kapalı kontrol panelinin dışında yer alır.",
+      "Çarka dokunduktan sonra dönüşün durmasına yol açan odak kilidi giderildi. Tefekkür ilk girişte ortalanır ve çıkışta önceki kaydırma konumu geri gelir.",
+      "Çarktan Sonraki/Önceki ile geçiş oturum sonu uyarısını açmaz; süren zikir yeni seçimde devam eder.",
+      "Kayıtlı otomatik zikrin eko ve seçilmiş tesbih tıkı aynı native ses dosyasında taşınır; görünür/kilit geçişi efekt seviyesini değiştirmez.",
+      "Tekke Kâbe dahil tam kayıtlı imgeleme setleri bekleme aralıklarıyla tek ses sırası olarak hazırlanır. Adım geçişi kilitte JavaScript zamanlayıcısına bağlı değildir. Eksik kayıtlarda mevcut cihaz sesi yedeği korunur."
+    ]
+  },
+  {
+    "v": "r987",
+    "t": "2 Ekim 2026",
+    "b": [
+      "Klasik/Feyz görünümünde Okumalar, Seyirler ve Araçlar içeriğinin gizli eski gezinme alanına taşınması düzeltildi. Tövbe, Hizbü’l-Vikâye ve gerçek araç kartlarının yerleşimi düğmelerden bağımsızdır.",
+      "Bölüm bağlantıları geç yerleşimi onarır ve bütün üst akordiyonları açar. Kompakt görünümde Tövbe, Delâil ve kendi sesin kartları da erişilebilir; özel erişim ve kasıtlı gizli alanlar korunur."
+    ]
+  },
+  {
+    "v": "r986",
+    "t": "2 Ekim 2026",
+    "b": [
+      "Okumalar, Seyirler ve Araçlar bağlantıları kontrol paneli kapalıyken de erişilebilir. Bölüm açılırken tüm kapalı üst akordiyonlar açılır.",
+      "Ana ses ve uyku zamanlayıcısının açıklama düğmeleri ayrı hücrelere taşındı; küçük simge ve süre etiketiyle üst üste binmez.",
+      "Toplam zikir Mevlevi ve Berhetiyye görünümünde çarkın yanında okunaklıdır. Altın çerçeve yalnız Berhetiyye için uygulanır; mevcut toplam sayacı korunur."
+    ]
+  },
+  {
+    "v": "r985",
+    "t": "2 Ekim 2026",
+    "b": [
+      "Yalnız Berhetiyye’de aile düğmeleri 99 Esmâ yeşil / seçim vurgusu yakut, 28 Berhetiyye portakal / seçim vurgusu ametist oldu; kaplama çakışması giderildi.",
+      "Berhetiyye bilgi kartları, kaynak etiketleri ve Atlas alanlarının kaplamaları tamamlandı.",
+      "Okumalar / Seyirler / Araçlar alt menüsünün görünürlüğü ve gizli ek bölümlere erişimi düzeltildi; Esmâ ekranı ve ses akışı korunur."
+    ]
+  },
+  {
+    "v": "r984",
+    "t": "2 Ekim 2026",
+    "b": [
+      "Berhetiyye kaplamaları yalnız görünür Berhetiyye ekranına sınırlandı; Esmâ ekranına taşan yeni taş kaplamalar kaldırıldı.",
+      "Okumalar, Seyirler ve Araçlar alt menüsünün gerçek öğeleri giydirildi; seçim ve dokunma davranışı korunur."
+    ]
+  },
+  {
+    "v": "r983",
+    "t": "2 Ekim 2026",
+    "b": [
+      "Berhetiyye ana özet, vakit ve alt menü kaplamaları tamamlandı; metinlerin okunurluğu artırıldı.",
+      "Güncelleme düğmesi turuncu, 99 Esmâ zümrüt yeşili, 28 Berhetiyye sarı; tekil zikir seçimi kalın yazılıdır."
+    ]
+  },
+  {
+    "v": "r982",
+    "t": "2 Ekim 2026",
+    "b": [
+      "Studio analiz, normalizasyon ve kırpma: ortak worker ve bellek koruması.",
+      "Tek ilerleme günlüğü: sayaç, isim, seyir ve akıllı sıranın durmuş halde kurtarılması.",
+      "Geç ses hazırlığının Bitir sonrası oturumu başlatması engellendi; sabit tekrar kurtarma konumu doğrulanmış bitişlerden alınır.",
+      "Minimum tempo 0,6 sn; ilk kullanım 1 sn; geçerli kullanıcı seçimi korunur."
+    ]
+  },
+  {
+    "v": "r981",
+    "t": "2 Ekim 2026",
+    "b": [
+      "Kayıt hazırlama: worker, tek işlem sırası ve işlem öncesi bellek sınırı.",
+      "Tek zikir sekmesi: ses ve ilerleme için ortak sahiplik koruması.",
+      "Tempo açıklaması ve Health Check'te 12 saniyelik salt okunur cihaz gözlemi.",
+      "En düşük tempo 0,6 sn; ilk kullanım 1 sn; geçerli kullanıcı seçimi korunur."
+    ]
+  },
+  {
+    "v": "r980",
+    "t": "2 Ekim 2026",
+    "b": [
+      "Tempo alt sınırı 0,6 saniye, ilk kullanım değeri 1 saniyedir. Geçerli kullanıcı seçimi korunur; performans koruması seçilmiş tempoyu değiştirmez.",
+      "Kısa kayıt döngüsünde sayaç takibi güçlendirildi. Seçilen tempo kaydı bitmeden yeni sesi başlatmaz; görünür ve kilitli akış aynı kayıt süresini kullanır.",
+      "Çizim yükünde tasarruf ve geçici performans kısıtlamaları birlikte değerlendirilir. Kayıtlı zikir ve sayaç bu kare hızından etkilenmez; sesle birlikte çalışan mevcut Tekke işi önceki zamanlama düzenini korur.",
+      "Mikrofon kaydı başladığı isimle eşleştirilir. İzin beklerken yinelenen kayıt girişimi önlenir; iptal edilen girişimin mikrofon kaynağı temizlenir."
+    ]
+  },
+  {
+    "v": "r979",
+    "t": "2 Ekim 2026",
+    "b": [
+      "Kilitten dönüşte animasyon ve çizim kilidi görünür sayfada yeniden açılır. Donmuş kalan çizim işleri ve bekleyen arayüz karesi, ses ve sayaca dokunmadan yenilenir.",
+      "Tamamlanmış açılış perdesinden kalan gizleme sınıfları temizlenir. Tefekkür görünümü yeniden gösterilir; yalnız tamamen ekran dışında kalan odak yüzeyi ve kullanıcı henüz dokunmamışsa konumu toparlanır.",
+      "Sağlık raporuna kilitten dönüşte DOM görünürlüğü, scroll, açılış perdesi ve gözlenen kare bilgisi eklendi. Bu bilgiler fiziksel ekran çiziminin kanıtı sayılmaz.",
+      "Çevrimdışı motorun başarısız işlemi sürüm ve önbellek kontrolünden ayrı uyarılır. Oturum gözlemi tekil otomatik zikrin gerçek esmâ ve sayısını da kaydeder."
+    ]
+  },
+  {
+    "v": "r978",
+    "t": "1 Ekim 2026",
+    "b": [
+      "Terkipler ses geçişinde kendi okumasını iptal etmez; formüller sırayla okunur ve yalnız tamamlanan tur sayılır. Uzun okumalar için süre bütçesi düzenlendi.",
+      "Kayıtlı seste eko sonradan açılabilir; canlı ayarlar ses zincirine uygulanır. Hazırlanmış ekran kilidi sesinde güncel efekt seçimi denetlenir.",
+      "Berhetiyye bilgi kartının yazısını örten mavi kaplama kaldırıldı. Tekrarlanan yerleşim ölçümleri azaltıldı; kaydırma ve tıklama ayrımı korunur.",
+      "Yâ Serîu formüllerinin kaynak açıklaması genişletildi; doğrulanmış eser kaydı ile kesin kaynağı bulunamayan derleme adetleri ayrıldı."
+    ]
+  },
+  {
+    "v": "r977",
+    "t": "1 Ekim 2026",
+    "b": [
+      "Esmâ ve Berhetiyye seçimine dört ahşap ve dört kıymetli taş çarkı eklendi; Altın Nakış ve Sultan Taşları onaylı zenginleştirilmiş tasarımları kullanır.",
+      "Yeni çarklarda önceki–sonraki simgeleri kendi yüzeylerine yerleşir; ayrı dış çerçeve eklenmez. Kontroller her görselin yüzeyine ayrı ayrı hizalandı.",
+      "Yeni çarklar çevrimdışı hazırlığa ve iki dilde seçime eklendi. Eski çarklar, ayrı bölüm tercihleri ve ses/sayım akışı korunur."
+    ]
+  },
+  {
+    "v": "r976",
+    "t": "1 Ekim 2026",
+    "b": [
+      "Açıklama balonlarında kaydırma, hareket ve çoklu dokunuş basılı tutmayı iptal eder; doğal ayar alanlarının açıklaması ayrı yardım düğmesinden açılır.",
+      "Kaydırma sırasında ses/hız/perde kaydırıcısının ilk dokunuşta ayarı değiştirmesi önlendi; kısa dokunuş ve yatay ayar sürüklemesi korunur.",
+      "Frekans düğmeleri dokunmatikte dikey sayfa kaydırmasını serbest bırakır; yatay sürükleme ayar yapar. Artır/azalt basılı tutma hareket/iptalde durur.",
+      "r975 ses tercihi, çevrimdışı sistem kontrolü, iki dil ve doğal çark kaplamaları korunarak etkileşim regresyonları doğrulandı."
+    ]
+  },
+  {
+    "v": "r975",
+    "t": "1 Ekim 2026",
+    "b": [
+      "Arapça hız/perde ve cihaz sesi tercihi mevcut zikri kesmeden sonraki okuyuşa uygulanır; ses düzeyi değişiminde eski okuyuşu yeniden başlatan yol kaldırıldı.",
+      "Kilit ekranında yeni ses kuyruğu güncel Arapça hız, perde ve seçili sesi kullanır; geçerli ayarlar ekranda ve kilitte aynı kalır.",
+      "Onaylı Sistem kontrolü ekranı uygulandı: sade sonuçlar, çevrimdışı açıklama, isteğe bağlı AI yorumu, adımlı cihaz denemeleri ve rapor indirme.",
+      "İngilizce arayüz çevirileri ve açıklama balonları tamamlandı; dil değişiminde dinamik etiketlerin eski metne dönmesi düzeltildi."
+    ]
+  },
+  {
+    "v": "r974",
+    "t": "1 Ekim 2026",
+    "b": [
+      "Çark üzerindeki Önceki/Sonraki doğal yaprak parçalarına sonradan binen kare taş çerçeve kaldırıldı.",
+      "Berhetiyye ayar ve görünüm akordiyon başlıklarının kaplaması, yerleşim katmanı çakışması giderilerek tamamlandı.",
+      "Sistem kontrolü için sade, çevrimdışı açıklamalı ve isteğe bağlı AI akışlı mockup pakete eklendi; henüz uygulamaya entegre edilmedi."
+    ]
+  },
+  {
+    "v": "r973",
+    "t": "1 Ekim 2026",
+    "b": [
+      "Açılış olaylarının eski zikir ilerlemesini boş sayaçla ezmesi engellendi; yeni kullanıcı işlemi gecikmiş geri yüklemeyi iptal eder.",
+      "Bekleyen Başlat sırasında Duraklat–Devam, eski başlatma isteğini kullanmaz; ses temizliği tamamlanınca yalnız yeni istek yürür.",
+      "Sürekli olay akışında ilerleme kaydı gecikmez. Depolama yazım hataları Sistem sağlığı raporunda görünür.",
+      "r972 manuel zikir sesi, tok tık ve kişisel tık kaydı korunur."
+    ]
+  },
+  {
+    "v": "r972",
+    "t": "1 Ekim 2026",
+    "b": [
+      "Tok ahşap/taş tıkı, klasik tık ve kendi kısa tık kaydı seçenekleri eklendi.",
+      "Berhetiyye barı, menüsü ve araçlara taşınan ayar kontrollerinin taş kaplaması tamamlandı.",
+      "Manuel dokunuşla kayıtlı zikir veya uygun Arapça/Türkçe cihaz sesi isteğe bağlı okunur; tamamlanan okuyuş bir kez sayılır.",
+      "Otomatik akışta manuel sayımın neden duraklatma gerektirdiği açıklanır."
+    ]
+  },
+  {
+    "v": "r971",
+    "t": "1 Ekim 2026",
+    "b": [
+      "Manuel dokunuşta titreşim ve kısa tempo vuruşu zikir ayarlarından ayrı ayrı açılıp kapatılır.",
+      "Kabul edilen elle sayım veya ±1 düzeltmesi tek geri bildirim verir; otomatik sayım ve ses sahipliği korunur."
+    ]
+  },
+  {
+    "v": "r970",
+    "t": "1 Ekim 2026",
+    "b": [
+      "Akordiyona taşınan güncelleme panelinin NotFoundError hatası giderildi.",
+      "Gezinme görselleri bütünlük denetimine doğru limitlerle dahil edildi. Yeniden yüklenme/bellekten çıkarılma bilgisi tanı raporuna eklendi.",
+      "Türkçe hız ayarının akışı kesmeyen r969 düzeltmesi korunur."
+    ]
+  },
+  {
+    "v": "r969",
+    "t": "1 Ekim 2026",
+    "b": [
+      "Türkçe okuma hızı değişince zikir duraklamaz; yeni hız sonraki okumaya uygulanır.",
+      "Zikir paneli ve genel ayarların hız kaydırıcıları aynı tercihi kullanır. Sayaç ve kendi ses kayıtlarının hızı korunur."
+    ]
+  },
+  {
+    "v": "r964",
+    "t": "30 Eylül 2026",
+    "b": [
+      "Çark içi önceki–sonraki düğmeleri, halkanın malzemesine uyumlu yaprak tokalarıyla yenilendi.",
+      "20 çark için altın, bakır, eskitilmiş gümüş, koyu metal ve billur parça eşleştirmesi eklendi."
+    ]
+  },
+  {
+    "v": "r963",
+    "t": "30 Eylül 2026",
+    "b": [
+      "Yeni gezinme taşlarını gizleyen eski CSS kuralı düzeltildi; taş görseli görünür katmanda açılır.",
+      "Önceki–sonraki yön simgelerinin daralması giderildi. GitHub yükleme dosya ve klasör kılavuzu eklendi."
+    ]
+  },
+  {
+    "v": "r962",
+    "t": "30 Eylül 2026",
+    "b": [
+      "Önceki–sonraki kontrolleri çark halkasına gömülü kristal taş eklentilerine dönüştürüldü.",
+      "Taşlar temanın açık renk tonları ve beyazımsı kristal parçalarıyla uyumlanır; yön simgeleri çark dönerken okunur kalır.",
+      "Çarkla orantılı boyutlanma ve ayardan aç/kapat tercihi korundu."
+    ]
+  },
+  {
+    "v": "r961",
+    "t": "30 Eylül 2026",
+    "b": [
+      "Çark içi önceki–sonraki düğmeleri küçültüldü, taş paletiyle uyumlu yuvarlak metal çerçeveye alındı ve sayının iki yanına yerleştirildi.",
+      "Düğmeler çarkla orantılı boyutlanır; görünüm ayarından açılıp kapatılır ve tercih saklanır.",
+      "Açılan sahneler kalıcı görsel önbelleğinde saklanır. Arka planları çevrimdışı hazırla seçeneği tüm sahneleri indirir."
+    ]
+  },
+  {
+    "v": "r960",
+    "t": "30 Eylül 2026",
+    "b": [
+      "Dar ekranlarda çarkın önceki ve sonraki düğmeleri arasında sabit boşluk bırakıldı; dokunma alanlarının çakışması giderildi."
+    ]
+  },
+  {
+    "v": "r959",
+    "t": "30 Eylül 2026",
+    "b": [
+      "İlerleme çemberi ince neon ışık yayına dönüştürüldü; taş rengiyle eşleşir ve çarkın iç boşluğunda durur.",
+      "Çarkın iç alt kısmına sabit önceki ve sonraki zikir düğmeleri eklendi."
+    ]
+  },
+  {
+    "v": "r958",
+    "t": "30 Eylül 2026",
+    "b": [
+      "Sürüm geçmişi güncellendi; son değişiklikler artık listenin başında.",
+      "Zikir ilerlemesi kalın, örgülü altın çemberle gösterilir; çember dönen çarkın üzerinde sabit kalır.",
+      "Yeni çark, ışık ve sahne kontrollerinin İngilizce çevirileri tamamlandı."
+    ]
+  },
+  {
+    "v": "r957",
+    "t": "29 Eylül 2026",
+    "b": [
+      "Kilit ekranında isim geçişi, eko ve 8D ses hazırlanmasını bekler; hazırlık başarısızsa efekt kaybıyla devam etmek yerine durur.",
+      "Sıfır ses düzeyi korunur; önbellek sayfa ve görsel adreslerini daha kesin eşleştirir."
+    ]
+  },
+  {
+    "v": "r956",
+    "t": "29 Eylül 2026",
+    "b": [
+      "Esmâ arka planları numaralı, iki sütunlu önizleme kartlarıyla seçilir."
+    ]
+  },
+  {
+    "v": "r955",
+    "t": "29 Eylül 2026",
+    "b": [
+      "Sahne küçük resmi yüklenemezse asıl görsel önizleme olarak denenir."
+    ]
+  },
+  {
+    "v": "r954",
+    "t": "29 Eylül 2026",
+    "b": [
+      "Eko ve 8D işleme kilit ekranındaki ses dosyasına uygulanır."
+    ]
+  },
+  {
+    "v": "r953",
+    "t": "29 Eylül 2026",
+    "b": [
+      "Hedefe ulaşınca sıradaki isme geçiş düzeltildi."
     ]
   },
   {
@@ -204,7 +788,7 @@
     "v": "r771",
     "t": "11 Eylül 2026",
     "b": [
-      "r771 · Mücevher Sarayı görünümünde zikir sayacının halkası taşlandı: altın yuva üzerinde 12 taş (zümrüt, ametist, yakut, safir) ve aralarında 12 inci; ardında sıcak fener yansıması.",
+      "r771 · Mücevher Sarayı görünümünde zikir çarkının halkası taşlandı: altın yuva üzerinde 12 taş (zümrüt, ametist, yakut, safir) ve aralarında 12 inci; ardında sıcak fener yansıması.",
       "Taşlar tek sözde-öğede duran 25 radial-gradient. Animasyon, canvas ve yeni DOM yok; halka 320–412px arası büyürken taşlar birlikte ölçekleniyor.",
       "Taşlar rakamların ve ilerleme yayının altında kalır, tıklamayı yemez; görsel efektler kapalıyken ve düşük performans profilinde halo sadeleşir. Diğer iki görünüm hiç etkilenmez.",
       "Android'de URL çubuğu geri geldiğinde ekranın altında kalan “Oynatıcıyı göster” düğmesi düzeltildi: sabit peek artık görsel viewport'u kare başına en fazla bir kez, parmak ekrandayken bile takip ediyor.",
@@ -1960,9 +2544,9 @@
     "v": "r570",
     "t": "30 Ağustos 2026",
     "b": [
-      "Seyir paneli ile zikir sayacı ayrı sayıyordu ve birbirinden kayabiliyordu; ekranda panel üç derken sayaç iki diyordu. Her ikisi de kendi tekrar sayısını tutuyordu.",
-      "Sayma ölçütü tesbih mantığına göre netleştirildi: bir okuma tamamlanınca sayılır, başlarken değil. Zikir sayacı zaten böyle çalışıyordu.",
-      "Panel artık kendi sayısını tutmuyor, doğrudan zikir sayacını gösteriyor. Tek kaynak olduğu için iki yerde her zaman aynı rakam görünüyor. Sayaç başka bir isimdeyse panelin kendi sayısına düşülüyor, böylece seyir dışı durumlarda da doğru görünüyor.",
+      "Seyir paneli ile zikir çarkı ayrı sayıyordu ve birbirinden kayabiliyordu; ekranda panel üç derken sayaç iki diyordu. Her ikisi de kendi tekrar sayısını tutuyordu.",
+      "Sayma ölçütü tesbih mantığına göre netleştirildi: bir okuma tamamlanınca sayılır, başlarken değil. Zikir çarkı zaten böyle çalışıyordu.",
+      "Panel artık kendi sayısını tutmuyor, doğrudan zikir çarkını gösteriyor. Tek kaynak olduğu için iki yerde her zaman aynı rakam görünüyor. Sayaç başka bir isimdeyse panelin kendi sayısına düşülüyor, böylece seyir dışı durumlarda da doğru görünüyor.",
       "Aynı düzeltme her iki seyre de uygulandı; yirmi sekiz isim ve doksan dokuz Esmâ seyri artık aynı sayma mantığını paylaşıyor.",
       "Ölçüm: üç tamamlanmış okuma sayacı sırayla bire, ikiye ve üçe taşıyor. Panel gösterimi başsız tarayıcıda tetiklenemedi; okuma yolu kod düzeyinde denetlendi."
     ]
@@ -2004,7 +2588,7 @@
     "v": "r566",
     "t": "30 Ağustos 2026",
     "b": [
-      "ÇÖZÜLDÜ · Yirmi sekiz isim seyri zikir sayacını hiç ilerletmiyordu. Sayaç bozuk değildi; seyre hiç bağlanmamıştı.",
+      "ÇÖZÜLDÜ · Yirmi sekiz isim seyri zikir çarkını hiç ilerletmiyordu. Sayaç bozuk değildi; seyre hiç bağlanmamıştı.",
       "Seyir döngüsü yalnız kendi tekrar sayacını tutuyordu. Uygulamanın sayma yoluna ait hiçbir çağrı bu döngüde geçmiyordu: ne tekrar, ne toplam, ne hedef kontrolü. Bu yüzden isim okunuyor, halka dönüyor, ses çıkıyor ama tekrar rakamı yerinde kalıyordu.",
       "Her başarılı okumadan sonra uygulamanın kendi sayma yolu çağrılıyor. Tekrar, devir, günlük toplam, nabız, tık sesi ve hedefe varış kontrolü elle sayarkenki ile birebir aynı işliyor; ayrı bir sayaç mantığı kurulmadı.",
       "Sayma yolu seyir döngüsünden farklı bir blokta olduğu için dışarıya açıldı; davranışı değişmedi.",
@@ -2565,7 +3149,7 @@
       "Görünüm kademeleri tersine çalışıyordu. Sade mod uygulamanın zikir kütüphanesini kapatıp laboratuvarını açık bırakıyordu: Âyetü'l-Kürsî, Salavât, Seyyidü'l-İstiğfar, Nasuh Tövbesi, Delâil ve esmâ listesi gizleniyor; ama NeuroSync binaural laboratuvarı, Kimatik, Sweep, Spektrum, Frekans Kütüphanesi ve fotik uyarım her üç modda da görünüyordu.",
       "Üstelik Okumalar başlığı yerinde duruyor, altındaki bütün okuyucular gizlendiği için başlık boş kalıyordu.",
       "Yeni ölçüt: Basit mod günlük pratiktir — sabah yarı uykulu açtığında lazım olan. Geniş mod seyirdir — oturup niyetle yapılan süreli işler. Tam mod laboratuvardır — ince ayar, ölçüm, deney.",
-      "Basit modda artık şunlar var: zikir sayacı ve esmâ listesi, ambiyans kanalları, kayıtlı karışımlar, frekans hazır setleri, Âyetü'l-Kürsî, Salavât-ı Şerife, Seyyidü'l-İstiğfar, Yâ Mezcelin ve Yâ Bezcelin, Vird programı, Tekke giriş düğmesi ve günlük sayaçları.",
+      "Basit modda artık şunlar var: zikir çarkı ve esmâ listesi, ambiyans kanalları, kayıtlı karışımlar, frekans hazır setleri, Âyetü'l-Kürsî, Salavât-ı Şerife, Seyyidü'l-İstiğfar, Yâ Mezcelin ve Yâ Bezcelin, Vird programı, Tekke giriş düğmesi ve günlük sayaçları.",
       "Geniş moda eklenenler: Nasuh Tövbesi, Delâilü'l-Hayrât, Esmâ Hatmi, Letâif Seyri, Nefs Mertebeleri, Enerji Merkezleri, kendi sesinle zikir halkası, taşıyıcı ve vuruş çipleri, esmâ araması.",
       "Tam moda taşınanlar: NeuroSync laboratuvarının tamamı (Kimatik, Frekans Taraması, Spektrum ve Frekans Kütüphanesi bu düğmenin arkasında), Ledün Lab, ikinci binaural katman, kendi rotanı kur, ses ve hız ince ayarı, fotik uyarım ile ışık şiddeti, harmonikler ve üç boyutlu uzamsal ses bloğu, bendir usûlü, ayar dışa ve içe aktarma.",
       "Berhetiyye ile sistem tanılaması bilerek kademesiz bırakıldı; ikisinin de kendi kapısı var — parolalı kasa ve gizli giriş — ikinci bir kapı yalnız karışıklık yapardı."
@@ -2737,7 +3321,7 @@
     "t": "24 Ağustos 2026",
     "b": [
       "Sağ kenarda görünen yarım metin/fragment kalıntısı için taşma-kırpma hotfixi eklendi",
-      "Zikir Sayaç kartı, canlı bar telemetri satırı ve Seçili Esmâ badge için overflow containment güçlendirildi",
+      "Zikir Çarkı kartı, canlı bar telemetri satırı ve Seçili Esmâ badge için overflow containment güçlendirildi",
       "Canlı bar ve sayaç çevresinde tekil text fragmentleri ellipsis + clip ile görsel olarak temizlendi"
     ]
   },

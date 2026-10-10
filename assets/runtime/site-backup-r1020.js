@@ -5,16 +5,22 @@
 (function(w){
  'use strict';
  if(w.SukunSiteBackup)return;
- const BUILD='r1020',MANIFEST='sukun-site-assets-r1020.json';
+ // Component filenames stay stable; the active release comes from the shell.
+ const COMPONENT='assets/runtime/site-backup-r1020.js';
  const LIMIT=512*1024*1024,MANIFEST_LIMIT=2*1024*1024,FILE_LIMIT=64*1024*1024,FETCH_MS=20000;
  const MAX_FILES=3000,ZIP_LIMIT=0xffffffff,encoder=new TextEncoder();
  let task=null,last={code:'ready'},observer=null,booted=false,downloadPending=false;
  const en=()=>w.I18N?.lang==='en'||document.documentElement?.lang==='en';
  const tr=(a,b)=>en()?b:a;
  const fail=(code,file='')=>Object.assign(new Error(code),{code,file});
- const build=()=>String(w.SUKUN_BUILD||document.querySelector('meta[name="sukun-build"]')?.content||'');
+ function build(){
+  const script=String(w.SUKUN_BUILD||''),meta=String(document.querySelector('meta[name="sukun-build"]')?.content||'');
+  if(script&&meta&&script!==meta)return '';
+  const value=script||meta;return /^r[1-9]\d{2,8}$/.test(value)?value:'';
+ }
+ const releasePaths=value=>({build:value,marker:'sukun-build-'+value+'.json',manifest:'sukun-site-assets-'+value+'.json',personal:'recovery/SUKUN_KISISEL_YEDEK_'+value+'.json'});
  const base=()=>new URL('./',w.location.href);
- const check=t=>{if(t.controller.signal.aborted||t.lease&&!t.lease.current())throw fail('SITE_CANCELLED');};
+ const check=t=>{if(t.controller.signal.aborted||t.lease&&!t.lease.current())throw fail('SITE_CANCELLED');if(build()!==t.release.build)throw fail('SITE_UNSUPPORTED_BUILD');};
  const tick=()=>new Promise(resolve=>setTimeout(resolve,0));
  function safePath(path){
   if(typeof path!=='string'||!path||path.length>600||/^[\/\\]|[\\\u0000-\u001f?#%]/.test(path)||path.split('/').some(s=>!s||s==='.'||s==='..'))throw fail('SITE_MANIFEST_INVALID');
@@ -22,16 +28,16 @@
   if(url.origin!==w.location.origin||!url.pathname.startsWith(base().pathname))throw fail('SITE_MANIFEST_INVALID');
   return path;
  }
- function validateManifest(value){
-  if(value?.schema!==1||value.build!==BUILD||!Array.isArray(value.files)||!value.files.length||value.files.length>MAX_FILES)throw fail('SITE_MANIFEST_INVALID');
+ function validateManifest(value,release){
+  if(value?.schema!==1||value.build!==release.build||!Array.isArray(value.files)||!value.files.length||value.files.length>MAX_FILES)throw fail('SITE_MANIFEST_INVALID');
   let total=0,largest=0;const paths=new Set();
   for(const entry of value.files){
    safePath(entry?.path);
-   if(paths.has(entry.path)||[MANIFEST,'recovery/SUKUN_KISISEL_YEDEK_r1020.json','recovery/OKU_README.txt'].includes(entry.path)||!Number.isSafeInteger(entry.bytes)||entry.bytes<0||entry.bytes>FILE_LIMIT||!/^[a-f0-9]{64}$/.test(entry.sha256||''))throw fail('SITE_MANIFEST_INVALID');
+   if(paths.has(entry.path)||[release.manifest,release.personal,'recovery/OKU_README.txt'].includes(entry.path)||!Number.isSafeInteger(entry.bytes)||entry.bytes<0||entry.bytes>FILE_LIMIT||!/^[a-f0-9]{64}$/.test(entry.sha256||''))throw fail('SITE_MANIFEST_INVALID');
    paths.add(entry.path);total+=entry.bytes;largest=Math.max(largest,entry.bytes);
   }
   if(!Number.isSafeInteger(total)||total!==value.totalBytes||total>LIMIT)throw fail('SITE_MEMORY_LIMIT');
-  for(const required of ['index.html','nero.html','sw.js','manifest.webmanifest','sukun-build-r1020.json','assets/runtime/site-backup-r1020.js','LICENSE'])if(!paths.has(required))throw fail('SITE_MANIFEST_INCOMPLETE',required);
+  for(const required of ['index.html','nero.html','sw.js','manifest.webmanifest',release.marker,COMPONENT,'sukun-latest.json','LICENSE'])if(!paths.has(required))throw fail('SITE_MANIFEST_INCOMPLETE',required);
   // Current page dependencies also have to be portable; this catches a stale
   // inventory without claiming to discover dynamic/worker assets from the DOM.
   for(const element of document.querySelectorAll('script[src],link[rel="stylesheet"][href],link[rel="manifest"][href]')){
@@ -49,12 +55,47 @@
   }
   return {value,total,largest};
  }
+ function parseJson(bytes){try{return JSON.parse(new TextDecoder().decode(bytes));}catch(_){throw fail('SITE_MANIFEST_INVALID');}}
+ function validateMarker(marker,release){
+  if(!marker||String(marker.build||marker.v)!==release.build||['build','v'].some(k=>marker[k]!==undefined&&marker[k]!==release.build))throw fail('SITE_MANIFEST_INVALID',release.marker);
+  // A marker may select only its own canonical same-origin inventory. Never
+  // follow arbitrary URLs or a latest-release alias during an in-flight export.
+  if(marker.siteBackupManifestUrl!=='./'+release.manifest&&marker.siteBackupManifestUrl!==release.manifest)throw fail('SITE_MANIFEST_INVALID',release.marker);
+  if(!Array.isArray(marker.runtime)||!marker.runtime.length||marker.runtime.length>MAX_FILES||!/^[a-f0-9]{64}$/.test(marker.shell?.sha256||''))throw fail('SITE_MANIFEST_INVALID',release.marker);
+ }
+ function validateReleaseInventory(marker,inventory,release){
+  const files=new Map(inventory.value.files.map(f=>[f.path,f])),seen=new Set();
+  for(const entry of marker.runtime){
+   if(typeof entry?.url!=='string')throw fail('SITE_MANIFEST_INVALID',release.marker);
+   const url=new URL(entry.url,base());
+   if(url.origin!==w.location.origin||!url.pathname.startsWith(base().pathname)||url.hash||url.search!=='?v='+release.build)throw fail('SITE_MANIFEST_INVALID',release.marker);
+   const path=safePath(decodeURIComponent(url.pathname.slice(base().pathname.length)));
+   if(seen.has(path)||!/^[a-f0-9]{64}$/.test(entry.sha256||'')||files.get(path)?.sha256!==entry.sha256)throw fail('SITE_MANIFEST_INVALID',path);
+   seen.add(path);
+  }
+  if(!seen.has(COMPONENT)||files.get('index.html')?.sha256!==marker.shell.sha256||files.get('nero.html')?.sha256!==marker.shell.sha256)throw fail('SITE_MANIFEST_INVALID',release.marker);
+ }
+ function validateReleaseFile(path,bytes,release){
+  if(path==='manifest.webmanifest'){
+   const value=parseJson(bytes),url=new URL(value.start_url||'',base());
+   if(value.short_name!=='SÜKÛN'||url.origin!==w.location.origin||!['index.html','nero.html'].some(p=>url.pathname===new URL(p,base()).pathname)||url.searchParams.get('v')!==release.build)throw fail('SITE_MANIFEST_INVALID',path);
+  }else if(path==='sukun-latest.json'){
+   const value=parseJson(bytes);if(value.recoveryPinned||['v','build','latest'].some(k=>value[k]!==release.build))throw fail('SITE_MANIFEST_INVALID',path);
+  }else if(path==='sw.js'){
+   const text=new TextDecoder().decode(bytes),declared=text.match(/\bconst\s+SURUM\s*=\s*['"](r\d+)['"]/);
+   if(declared?.[1]!==release.build)throw fail('SITE_MANIFEST_INVALID',path);
+  }else if(path==='index.html'||path==='nero.html'){
+   const text=new TextDecoder().decode(bytes),tags=text.match(/<meta\b[^>]*>/gi)||[];
+   const versions=tags.filter(tag=>/\bname\s*=\s*["']sukun-build["']/i.test(tag)).map(tag=>tag.match(/\bcontent\s*=\s*["'](r\d+)["']/i)?.[1]);
+   if(!versions.length||versions.some(value=>value!==release.build))throw fail('SITE_MANIFEST_INVALID',path);
+  }
+ }
  async function readFile(t,path,expected=null){
   check(t);safePath(path);
   const controller=new AbortController(),abort=()=>controller.abort();let timedOut=false;
   t.controller.signal.addEventListener('abort',abort,{once:true});
   const timer=setTimeout(()=>{timedOut=true;controller.abort();},FETCH_MS);
-  const url=new URL(path,base());url.searchParams.set('v',BUILD);
+  const url=new URL(path,base());url.searchParams.set('v',t.release.build);
   try{
    const response=await w.fetch(url.href,{cache:'no-store',credentials:'same-origin',redirect:'error',signal:controller.signal});
    check(t);
@@ -141,15 +182,16 @@
   e.setUint32(0,0x06054b50,true);e.setUint16(8,entries.length,true);e.setUint16(10,entries.length,true);e.setUint32(12,centralBytes,true);e.setUint32(16,offset,true);
   check(t);return new Blob([...parts,...central,end],{type:'application/zip'});
  }
- function readme(date){
+ function readme(date,release){
+  const BUILD=release.build;
   return 'SÜKÛN '+BUILD+' — TAM SİTE + KİŞİSEL VERİ YEDEĞİ / FULL SITE + PERSONAL DATA BACKUP\n'+date.toISOString()+'\n\n'+
-   'TR: Bu ZIP, doğrulanmış '+BUILD+' uygulama dosyalarını, yerel görselleri ve diğer site varlıklarını içerir. Kişisel ses ve ayar yedeği recovery/SUKUN_KISISEL_YEDEK_r1020.json içindedir. ZIP özel seslerini içerir; paylaşırken bunu gözet. Bu dosyaları site klasörüne topluca yükleyerek aynı sürümü barındırabilirsin. Dosyaları tarayıcıda file:// adresiyle açmak, kurulu siteyi geri yüklemez. Kişisel JSON’u SÜKÛN Kurtarma Aracı üzerinden içe aktar. Yükleme öncesi yeni bir kişisel yedek al. Google Fonts isteğe bağlıdır ve internet gerektirir; bu dış hizmetin dosyaları ZIP’e alınmaz. Çevrimdışında gömülü Amiri/Cormorant ve sistem yazı tipleri kullanılır; görünüm birebir aynı olmayabilir. Yapay zekâ gibi isteğe bağlı dış hizmetler de internet gerektirir ve yedeklenmez. Bu ZIP, GitHub hesabını, sunucu geçmişini veya tarayıcının kendisini yedeklemez. Başka alan adında kişisel veriler kendiliğinden görünmez; JSON’u orada içe aktar. Başarı mesajı tüm uygulama dosyaları SHA-256 doğrulamasını tamamladıktan sonra verilir.\n\n'+
-   'EN: This ZIP contains verified '+BUILD+' application files, local artwork and other site assets. The personal voice/settings backup is recovery/SUKUN_KISISEL_YEDEK_r1020.json. The archive contains private recordings; take care when sharing it. Deploy the entire folder together to host this version. Opening files with file:// does not restore an installed site. Import the personal JSON through the SÜKÛN Recovery Tool and make a fresh personal backup first. Optional Google Fonts requires internet; files from that external service are not archived. Offline, embedded Amiri/Cormorant and system fonts are used, so the appearance may differ. Optional external services such as AI also require internet and are not backed up. This archive does not include a GitHub account, server history or the browser itself. A new origin does not automatically receive personal data; import the JSON there. Every application file passed SHA-256 verification before this archive was created.\n';
+   'TR: Bu ZIP, doğrulanmış '+BUILD+' uygulama dosyalarını, yerel görselleri ve diğer site varlıklarını içerir. Kişisel ses ve ayar yedeği '+release.personal+' içindedir. ZIP özel seslerini içerir; paylaşırken bunu gözet. Bu dosyaları site klasörüne topluca yükleyerek aynı sürümü barındırabilirsin. Dosyaları tarayıcıda file:// adresiyle açmak, kurulu siteyi geri yüklemez. Kişisel JSON’u SÜKÛN Kurtarma Aracı üzerinden içe aktar. Yükleme öncesi yeni bir kişisel yedek al. Google Fonts isteğe bağlıdır ve internet gerektirir; bu dış hizmetin dosyaları ZIP’e alınmaz. Çevrimdışında gömülü Amiri/Cormorant ve sistem yazı tipleri kullanılır; görünüm birebir aynı olmayabilir. Yapay zekâ gibi isteğe bağlı dış hizmetler de internet gerektirir ve yedeklenmez. Bu ZIP, GitHub hesabını, sunucu geçmişini veya tarayıcının kendisini yedeklemez. Başka alan adında kişisel veriler kendiliğinden görünmez; JSON’u orada içe aktar. Başarı mesajı tüm uygulama dosyaları SHA-256 doğrulamasını tamamladıktan sonra verilir.\n\n'+
+   'EN: This ZIP contains verified '+BUILD+' application files, local artwork and other site assets. The personal voice/settings backup is '+release.personal+'. The archive contains private recordings; take care when sharing it. Deploy the entire folder together to host this version. Opening files with file:// does not restore an installed site. Import the personal JSON through the SÜKÛN Recovery Tool and make a fresh personal backup first. Optional Google Fonts requires internet; files from that external service are not archived. Offline, embedded Amiri/Cormorant and system fonts are used, so the appearance may differ. Optional external services such as AI also require internet and are not backed up. This archive does not include a GitHub account, server history or the browser itself. A new origin does not automatically receive personal data; import the JSON there. Every application file passed SHA-256 verification before this archive was created.\n';
  }
  function describe(code){
   const texts={
    ready:['Tam site ZIP’i; uygulama dosyaları, görseller, kendi seslerin ve ayarlar birlikte indirilir.','Full site ZIP: download application files, artwork, your recordings and settings together.'],
-   SITE_UNSUPPORTED_BUILD:['Tam site yedeği r1020’da kullanılabilir. Önce güncel sürüme dön.','Full site backup is available on r1020. Return to the current version first.'],
+   SITE_UNSUPPORTED_BUILD:['Açık uygulamanın sürümü doğrulanamadı veya yedekleme sırasında değişti. Güncellemeyi tamamlayıp yeniden dene.','The open application version could not be verified or changed during backup. Finish the update and try again.'],
    SITE_CANCELLED:['Yedekleme iptal edildi; kayıtların değiştirilmedi.','Backup cancelled; your recordings were not changed.'],
    SITE_MEMORY_LIMIT:['Bu yedek bu cihaz için güvenli bellek sınırını aşıyor. Kişisel JSON yedeğini ayrı indir; tam site için bilgisayar kullan.','This backup exceeds the safe memory limit. Download the personal JSON separately and use a computer for the full site archive.'],
    SITE_MANIFEST_INVALID:['Site dosya listesi doğrulanamadı. Eksik yedek indirilmedi.','The site file inventory could not be verified. No incomplete backup was downloaded.'],
@@ -182,15 +224,19 @@
  async function exportSite(options={}){
   if(task)return {ok:false,error:'SITE_BUSY'};
   if(downloadPending){setStatus('SITE_DOWNLOAD_PENDING');return {ok:false,error:'SITE_DOWNLOAD_PENDING'};}
-  if(build()!==BUILD){setStatus('SITE_UNSUPPORTED_BUILD');return {ok:false,error:'SITE_UNSUPPORTED_BUILD'};}
+  if(!build()){setStatus('SITE_UNSUPPORTED_BUILD');return {ok:false,error:'SITE_UNSUPPORTED_BUILD'};}
   if(!w.crypto?.subtle){setStatus('SITE_HASH_UNAVAILABLE');return {ok:false,error:'SITE_HASH_UNAVAILABLE'};}
-  const t={controller:new AbortController(),phase:'preparing',done:0,total:0,lease:null};task=t;render();
+  const t={release:releasePaths(build()),controller:new AbortController(),phase:'preparing',done:0,total:0,lease:null};task=t;render();
   const work=async lease=>{
    t.lease=lease;check(t);
-   if(build()!==BUILD)throw fail('SITE_UNSUPPORTED_BUILD');
-   const manifestBytes=await readFile(t,MANIFEST);
-   let manifest;try{manifest=JSON.parse(new TextDecoder().decode(manifestBytes));}catch(_){throw fail('SITE_MANIFEST_INVALID');}
-   const inventory=validateManifest(manifest);check(t);
+   const release=t.release,markerBytes=await readFile(t,release.marker);
+   const marker=parseJson(markerBytes);validateMarker(marker,release);
+   const manifestBytes=await readFile(t,release.manifest),manifest=parseJson(manifestBytes);
+   const inventory=validateManifest(manifest,release);validateReleaseInventory(marker,inventory,release);check(t);
+   // Verify the already-read marker against the inventory before reading personal data.
+   const markerEntry=await hashedEntry(t,release.marker,markerBytes,inventory.value.files.find(f=>f.path===release.marker).sha256);
+   if(markerEntry.bytes!==inventory.value.files.find(f=>f.path===release.marker).bytes)throw fail('SITE_ASSET_SIZE',release.marker);
+   if(inventory.total+inventory.largest*3+8*1024*1024>LIMIT)throw fail('SITE_MEMORY_LIMIT');
    if(typeof w.SukunRecoveryData?.capturePortable!=='function')throw fail('SITE_PERSONAL_UNAVAILABLE');
    t.phase='personal';render();
    let personal=await w.SukunRecoveryData.capturePortable({lease,signal:t.controller.signal,download:false});check(t);
@@ -201,16 +247,18 @@
    const estimate=inventory.total+inventory.largest*3+personalBlob.size*4+8*1024*1024;
    if(!Number.isSafeInteger(estimate)||estimate>LIMIT)throw fail('SITE_MEMORY_LIMIT');
    const created=new Date(),entries=[];t.total=manifest.files.length;t.phase='assets';render();
-   entries.push(await unverifiedEntry(t,'recovery/SUKUN_KISISEL_YEDEK_r1020.json',personalBlob));
+   entries.push(await unverifiedEntry(t,release.personal,personalBlob));
    for(const file of manifest.files){
-    check(t);const bytes=await readFile(t,file.path,file.bytes);
-    entries.push(await hashedEntry(t,file.path,bytes,file.sha256));t.done++;render();
+    check(t);
+    if(file.path===release.marker)entries.push(markerEntry);
+    else{const bytes=await readFile(t,file.path,file.bytes);const entry=await hashedEntry(t,file.path,bytes,file.sha256);validateReleaseFile(file.path,bytes,release);entries.push(entry);}
+    t.done++;render();
    }
    check(t);t.phase='packaging';render();
-   entries.push(await unverifiedEntry(t,MANIFEST,new Blob([manifestBytes],{type:'application/json'})));
-   entries.push(await unverifiedEntry(t,'recovery/OKU_README.txt',new Blob([readme(created)],{type:'text/plain;charset=utf-8'})));
+   entries.push(await unverifiedEntry(t,release.manifest,new Blob([manifestBytes],{type:'application/json'})));
+   entries.push(await unverifiedEntry(t,'recovery/OKU_README.txt',new Blob([readme(created,release)],{type:'text/plain;charset=utf-8'})));
    const blob=zipStore(t,entries,created);check(t);
-   const filename='SUKUN_r1020_TAM_SITE_YEDEGI_'+created.toISOString().slice(0,19).replace(/[-:]/g,'').replace('T','_')+'.zip';
+   const filename='SUKUN_'+release.build+'_TAM_SITE_YEDEGI_'+created.toISOString().slice(0,19).replace(/[-:]/g,'').replace('T','_')+'.zip';
    if(options.download!==false){check(t);download(blob,filename);setStatus('SITE_DONE');}
    return {ok:true,blob,filename,files:entries.length,bytes:blob.size};
   };
@@ -233,12 +281,12 @@
   const box=document.getElementById('r1020SiteBackup');if(!box)return;
   box.querySelector('[data-site-title]').textContent=tr('Tüm siteyi yedekle','Back up the whole site');
   box.querySelector('[data-site-note]').textContent=tr('Uygulama dosyaları ve özel seslerin aynı ZIP’e alınır. Eksik veya uyuşmayan dosyada işlem durur. Site sürümü değiştirilmez. Büyük yedek birkaç dakika sürebilir. Google yazı tipleri ve yapay zekâ gibi dış hizmetler internet gerektirir; çevrimdışında gömülü veya sistem yazı tipleri kullanılır.','Application files and private recordings go into one ZIP. Any missing or mismatched file stops the export. The site version stays unchanged. A large backup can take several minutes. External services such as Google Fonts and AI require internet; offline, embedded or system fonts are used.');
-  const start=box.querySelector('[data-site-start]');start.textContent=tr('↓ Tam site ZIP yedeğini indir','↓ Download full site ZIP backup');start.disabled=!!task||downloadPending||build()!==BUILD;
+  const start=box.querySelector('[data-site-start]');start.textContent=tr('↓ Tam site ZIP yedeğini indir','↓ Download full site ZIP backup');start.disabled=!!task||downloadPending||!build();
   const stop=box.querySelector('[data-site-cancel]');stop.textContent=tr('İptal et','Cancel');stop.hidden=!task;
   const status=box.querySelector('[data-site-status]');
   if(task){
    status.textContent=task.phase==='assets'?tr('Site dosyaları doğrulanıyor: '+task.done+' / '+task.total,'Verifying site files: '+task.done+' / '+task.total):task.phase==='personal'?tr('Kendi seslerin ve ayarların okunuyor…','Reading your recordings and settings…'):task.phase==='packaging'?tr('Doğrulanmış dosyalar ZIP’e hazırlanıyor…','Preparing verified files as a ZIP…'):tr('Güvenli yedekleme hazırlanıyor…','Preparing a safe backup…');
-  }else status.textContent=(build()!==BUILD?describe('SITE_UNSUPPORTED_BUILD'):last.detail?tr(last.detail.tr,last.detail.en):describe(last.code))+(last.file?' ('+last.file+')':'');
+  }else status.textContent=(!build()?describe('SITE_UNSUPPORTED_BUILD'):last.detail?tr(last.detail.tr,last.detail.en):describe(last.code))+(last.file?' ('+last.file+')':'');
   const progress=box.querySelector('progress');progress.hidden=!task||task.phase!=='assets';progress.max=task?.total||1;progress.value=task?.done||0;
  }
  function mount(){
@@ -255,7 +303,7 @@
   w.addEventListener('sukun:tabownerchange',()=>{if(task?.lease&&!task.lease.current())cancel();});
   w.addEventListener('pagehide',cancel);document.addEventListener('freeze',cancel);
  }
- w.SukunSiteBackup=Object.freeze({version:BUILD,exportSite,cancel,mount,describe,
-  snapshot:()=>({version:BUILD,busy:!!task,downloadPending,phase:task?.phase||'idle',done:task?.done||0,total:task?.total||0,code:last.code})});
+ w.SukunSiteBackup=Object.freeze({get version(){return build();},exportSite,cancel,mount,describe,
+  snapshot:()=>({version:build(),busy:!!task,downloadPending,phase:task?.phase||'idle',done:task?.done||0,total:task?.total||0,code:last.code})});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })(window);

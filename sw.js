@@ -4,80 +4,84 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r1026';
+const SURUM = 'r1027';
 const ART_CACHE = 'sukun-art-persistent-v1';
-const CACHE = 'sukun-r1026-header-watermark-20261007-v1';
-const CACHE_META = './sukun-cache-meta-r1026.json';
-const BUILD_MARKER = './sukun-build-r1026.json';
+const CACHE = 'sukun-r1027-recording-recovery-20261010-v1';
+const CACHE_META = './sukun-cache-meta-r1027.json';
+const BUILD_MARKER = './sukun-build-r1027.json';
 const LATEST_MARKER = './sukun-latest.json';
-const REQUIRED_RUNTIME = [{"url": "./assets/runtime/berhet-layout-r938.css?v=r1026", "sha256": "e963103a4742717dd1845452d7fba881210a7c901fe0193e284ec047d323b172"}, {"url": "./assets/runtime/berhet-materials-r933.css?v=r1026", "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"}, {"url": "./assets/runtime/berhet-controls-r933.css?v=r1026", "sha256": "b446d7e2ea1041ee2bd350b042a67f4dbbcd9e98cbcf48c41368b6b5b9d5c415"}, {"url": "./assets/runtime/berhet-dock-r933.css?v=r1026", "sha256": "8ee1fba13a12f78500721cd6b5a5653b5a7d4914c02fa0be19046ebfd18bbc12"}, {"url": "./assets/runtime/background-owner-r949.js?v=r1026", "sha256": "0a76964b1cabf66ca701a1910a5938cc7046b78ed6ce8576b1000f47717c068e"}, {"url": "./assets/runtime/lifecycle-r949.js?v=r1026", "sha256": "23c80a9fdd863ed691402a0facc2119b6e72d86d8ec0bd9cfe2e42e4f67a8367"}, {"url": "./assets/runtime/audio-palette-r945.js?v=r1026", "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1"}, {"url": "./assets/runtime/esma-scenes-r923.js?v=r1026", "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"}, {"url": "./assets/runtime/session-r919.js?v=r1026", "sha256": "659c21f0e122a18b34870ebefd89a86d1d8c28556c4746d8c3c1db44a8c21c16"}, {"url": "./assets/runtime/dock-r920.js?v=r1026", "sha256": "d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0"}, {"url": "./assets/runtime/wheels-r924.js?v=r1026", "sha256": "3fdcfd5eb41e2f473eb86a8a16e6820e717cf679f327cdb9f73430b6301a1632"}, {"url": "./assets/runtime/berhet-layout-r938.js?v=r1026", "sha256": "e4b7019979fcd5c2921dac09a7162e9548e3e1740301e38eb580aaa01b3436da"}, {"url": "./assets/runtime/interface-r920.js?v=r1026", "sha256": "29f94e1b485d6b7281dfb3d30a1e0b2211a49ee660e1a06780cf8622c8f5afc0"}, {"url": "./assets/runtime/wheels-r924.css?v=r1026", "sha256": "22a07233940d7a8deebec8613885dcb534cd8a35482e0615b0ffd7febd240a2f"}, {"url": "./assets/runtime/berhet-theme-r933.js?v=r1026", "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434"}, {"url": "./assets/runtime/health-view-r943.css?v=r1026", "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3"}, {"url": "./assets/runtime/health-view-r943.js?v=r1026", "sha256": "91ef0974953e02ddaf64029de0c687764acdb370e74b8062c9a4aa7945c67c56"}, {"url": "./assets/runtime/scene-picker-r945.css?v=r1026", "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2"}, {"url": "./assets/runtime/scene-picker-r945.js?v=r1026", "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75"}, {"url": "./assets/runtime/health-r940.js?v=r1026", "sha256": "298b64a623fb48206c0699371be9c308a04ed7c1fded80e6e37dfb83ab7713e5"}, {"url": "./assets/runtime/nefs-r948.css?v=r1026", "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf"}, {"url": "./assets/runtime/nefs-data-r948.js?v=r1026", "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c"}, {"url": "./assets/runtime/nefs-model-r948.js?v=r1026", "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b"}, {"url": "./assets/runtime/nefs-ui-r948.js?v=r1026", "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721"}, {"url": "./assets/runtime/offline-scenes-r962.js?v=r1026", "sha256": "d1afd56086c4f2535ae6ddaf4324a63a1864b71a63da53e72c6ceb25ece974ba"}, {"url": "./assets/wheel-navigation-r964/gold.png?v=r1026", "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2"}, {"url": "./assets/wheel-navigation-r964/copper.png?v=r1026", "sha256": "b731ba244c0f04a972276580a70e3b203a8a9e839abe35841cfd08c372283012"}, {"url": "./assets/wheel-navigation-r964/silver.png?v=r1026", "sha256": "d7095d1597bdeb288035bd3aa87c4168c63a4dd6b98c7f6ab860f0f7c24a516f"}, {"url": "./assets/wheel-navigation-r964/dark.png?v=r1026", "sha256": "c6407489d8c52d1b65985dbbdb8d5c3df625b184739c413c40c6d423d70c55bb"}, {"url": "./assets/wheel-navigation-r964/crystal.png?v=r1026", "sha256": "dd751abc6483a3c5f3585e170d0c9888fdef5ccb69e276bd61d765b33bdb6b85"}, {"url": "./assets/runtime/presentation-r979.js?v=r1026", "sha256": "12a36845037782ccf9fe851b3b498cd856771b85d412facb0e928918f70eaa19"}, {"url": "./assets/runtime/audio-cpu-r981.js?v=r1026", "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f"}, {"url": "./assets/runtime/audio-preparation-r981.js?v=r1026", "sha256": "2765a389211c07220f996061843727273c34e5b8f6aeb326002afb6dc3d8eea9"}, {"url": "./assets/runtime/tab-owner-r981.js?v=r1026", "sha256": "d24db3b8292038910df842b34a3b2f6fc45acb374ba9828315dfb4d96e2a6537"}, {"url": "./assets/runtime/cadence-r981.css?v=r1026", "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992"}, {"url": "./assets/runtime/cadence-r981.js?v=r1026", "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda"}, {"url": "./assets/runtime/studio-preparation-r982.js?v=r1026", "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e"}, {"url": "./assets/runtime/progress-journal-r982.js?v=r1026", "sha256": "b7fbd70dbcf9d08abdd88ec2c2d29566d56d75c8c76aca7ce7347149f59b48bc"}, {"url": "./assets/runtime/tekke-sequence-r988.js?v=r1026", "sha256": "c453373ee648876e06413a6272c27d4669d5abb895a495792f8fe52d1e7fe5f8"}, {"url": "./assets/runtime/tekke-set-r990.js?v=r1026", "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a"}, {"url": "./assets/runtime/tekke-ux-r992.css?v=r1026", "sha256": "8fde58107301e708b36c16a8f25093dfed6144711b5ab6775199355109123113"}, {"url": "./assets/runtime/tekke-ux-r992.js?v=r1026", "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d"}, {"url": "./assets/runtime/tekke-journey-r993.css?v=r1026", "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863"}, {"url": "./assets/runtime/tekke-journey-r993.js?v=r1026", "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a"}, {"url": "./assets/scenes/tekke-r1014/berhet-billur.webp?v=r1026", "sha256": "17cbb4b7cc419bcc7e4fd0618c012ede1104523ed956aeed380280d169af6a50"}, {"url": "./assets/runtime/recording-continuity-r1016.js?v=r1026", "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e"}, {"url": "./assets/runtime/recording-inspection-r1020.js?v=r1026", "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04"}, {"url": "./assets/runtime/studio-batch-r1020.js?v=r1026", "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda"}, {"url": "./assets/runtime/recovery-versions-r1019.js?v=r1026", "sha256": "6ec06065e10db9268e88d06fcd0f226cb9b4572754772f7484ada01e4e6cde77"}, {"url": "./assets/runtime/recovery-data-r1020.js?v=r1026", "sha256": "df96ed113ee05fe8865555c991e0ff907f394aff3e4e4525ac166d70d1961fbb"}, {"url": "./assets/runtime/site-backup-r1020.js?v=r1026", "sha256": "f9b983f5c909c7aa7993ef253be95e5aa904a5a27b35e20549d7b817cbaec685"}, {"url": "./assets/runtime/recovery-ui-r1019.js?v=r1026", "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541"}, {"url": "./assets/runtime/recording-salvage-r1020.js?v=r1026", "sha256": "fb0f99eb5d3fdffdbdd4322a184c01c7db11c1f1dafdaf7374f0e27f9fadc455"}];
+const REQUIRED_RUNTIME = [{"url": "./assets/runtime/berhet-layout-r938.css?v=r1027", "sha256": "e963103a4742717dd1845452d7fba881210a7c901fe0193e284ec047d323b172"}, {"url": "./assets/runtime/berhet-materials-r933.css?v=r1027", "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"}, {"url": "./assets/runtime/berhet-controls-r933.css?v=r1027", "sha256": "b446d7e2ea1041ee2bd350b042a67f4dbbcd9e98cbcf48c41368b6b5b9d5c415"}, {"url": "./assets/runtime/berhet-dock-r933.css?v=r1027", "sha256": "8ee1fba13a12f78500721cd6b5a5653b5a7d4914c02fa0be19046ebfd18bbc12"}, {"url": "./assets/runtime/background-owner-r949.js?v=r1027", "sha256": "0a76964b1cabf66ca701a1910a5938cc7046b78ed6ce8576b1000f47717c068e"}, {"url": "./assets/runtime/lifecycle-r949.js?v=r1027", "sha256": "23c80a9fdd863ed691402a0facc2119b6e72d86d8ec0bd9cfe2e42e4f67a8367"}, {"url": "./assets/runtime/audio-palette-r945.js?v=r1027", "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1"}, {"url": "./assets/runtime/esma-scenes-r923.js?v=r1027", "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"}, {"url": "./assets/runtime/session-r919.js?v=r1027", "sha256": "659c21f0e122a18b34870ebefd89a86d1d8c28556c4746d8c3c1db44a8c21c16"}, {"url": "./assets/runtime/dock-r920.js?v=r1027", "sha256": "d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0"}, {"url": "./assets/runtime/wheels-r924.js?v=r1027", "sha256": "3fdcfd5eb41e2f473eb86a8a16e6820e717cf679f327cdb9f73430b6301a1632"}, {"url": "./assets/runtime/berhet-layout-r938.js?v=r1027", "sha256": "e4b7019979fcd5c2921dac09a7162e9548e3e1740301e38eb580aaa01b3436da"}, {"url": "./assets/runtime/interface-r920.js?v=r1027", "sha256": "7c84000b6e450997179b14f2d087438a222c6238f65a4b813ef1e95102799d58"}, {"url": "./assets/runtime/wheels-r924.css?v=r1027", "sha256": "22a07233940d7a8deebec8613885dcb534cd8a35482e0615b0ffd7febd240a2f"}, {"url": "./assets/runtime/berhet-theme-r933.js?v=r1027", "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434"}, {"url": "./assets/runtime/health-view-r943.css?v=r1027", "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3"}, {"url": "./assets/runtime/health-view-r943.js?v=r1027", "sha256": "91ef0974953e02ddaf64029de0c687764acdb370e74b8062c9a4aa7945c67c56"}, {"url": "./assets/runtime/scene-picker-r945.css?v=r1027", "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2"}, {"url": "./assets/runtime/scene-picker-r945.js?v=r1027", "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75"}, {"url": "./assets/runtime/health-r940.js?v=r1027", "sha256": "298b64a623fb48206c0699371be9c308a04ed7c1fded80e6e37dfb83ab7713e5"}, {"url": "./assets/runtime/nefs-r948.css?v=r1027", "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf"}, {"url": "./assets/runtime/nefs-data-r948.js?v=r1027", "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c"}, {"url": "./assets/runtime/nefs-model-r948.js?v=r1027", "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b"}, {"url": "./assets/runtime/nefs-ui-r948.js?v=r1027", "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721"}, {"url": "./assets/runtime/offline-scenes-r962.js?v=r1027", "sha256": "d1afd56086c4f2535ae6ddaf4324a63a1864b71a63da53e72c6ceb25ece974ba"}, {"url": "./assets/wheel-navigation-r964/gold.png?v=r1027", "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2"}, {"url": "./assets/wheel-navigation-r964/copper.png?v=r1027", "sha256": "b731ba244c0f04a972276580a70e3b203a8a9e839abe35841cfd08c372283012"}, {"url": "./assets/wheel-navigation-r964/silver.png?v=r1027", "sha256": "d7095d1597bdeb288035bd3aa87c4168c63a4dd6b98c7f6ab860f0f7c24a516f"}, {"url": "./assets/wheel-navigation-r964/dark.png?v=r1027", "sha256": "c6407489d8c52d1b65985dbbdb8d5c3df625b184739c413c40c6d423d70c55bb"}, {"url": "./assets/wheel-navigation-r964/crystal.png?v=r1027", "sha256": "dd751abc6483a3c5f3585e170d0c9888fdef5ccb69e276bd61d765b33bdb6b85"}, {"url": "./assets/runtime/presentation-r979.js?v=r1027", "sha256": "12a36845037782ccf9fe851b3b498cd856771b85d412facb0e928918f70eaa19"}, {"url": "./assets/runtime/audio-cpu-r981.js?v=r1027", "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f"}, {"url": "./assets/runtime/audio-preparation-r981.js?v=r1027", "sha256": "2765a389211c07220f996061843727273c34e5b8f6aeb326002afb6dc3d8eea9"}, {"url": "./assets/runtime/tab-owner-r981.js?v=r1027", "sha256": "d24db3b8292038910df842b34a3b2f6fc45acb374ba9828315dfb4d96e2a6537"}, {"url": "./assets/runtime/cadence-r981.css?v=r1027", "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992"}, {"url": "./assets/runtime/cadence-r981.js?v=r1027", "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda"}, {"url": "./assets/runtime/studio-preparation-r982.js?v=r1027", "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e"}, {"url": "./assets/runtime/progress-journal-r982.js?v=r1027", "sha256": "b7fbd70dbcf9d08abdd88ec2c2d29566d56d75c8c76aca7ce7347149f59b48bc"}, {"url": "./assets/runtime/tekke-sequence-r988.js?v=r1027", "sha256": "c453373ee648876e06413a6272c27d4669d5abb895a495792f8fe52d1e7fe5f8"}, {"url": "./assets/runtime/tekke-set-r990.js?v=r1027", "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a"}, {"url": "./assets/runtime/tekke-ux-r992.css?v=r1027", "sha256": "8fde58107301e708b36c16a8f25093dfed6144711b5ab6775199355109123113"}, {"url": "./assets/runtime/tekke-ux-r992.js?v=r1027", "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d"}, {"url": "./assets/runtime/tekke-journey-r993.css?v=r1027", "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863"}, {"url": "./assets/runtime/tekke-journey-r993.js?v=r1027", "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a"}, {"url": "./assets/scenes/tekke-r1014/berhet-billur.webp?v=r1027", "sha256": "17cbb4b7cc419bcc7e4fd0618c012ede1104523ed956aeed380280d169af6a50"}, {"url": "./assets/runtime/recording-continuity-r1016.js?v=r1027", "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e"}, {"url": "./assets/runtime/recording-inspection-r1020.js?v=r1027", "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04"}, {"url": "./assets/runtime/studio-batch-r1020.js?v=r1027", "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda"}, {"url": "./assets/runtime/recovery-versions-r1019.js?v=r1027", "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c"}, {"url": "./assets/runtime/recovery-data-r1020.js?v=r1027", "sha256": "df96ed113ee05fe8865555c991e0ff907f394aff3e4e4525ac166d70d1961fbb"}, {"url": "./assets/runtime/site-backup-r1020.js?v=r1027", "sha256": "6cd889fb289fee35181d579b5c7da57bc773bcda9e8cebd04987c553196debce"}, {"url": "./assets/runtime/recovery-ui-r1019.js?v=r1027", "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541"}, {"url": "./assets/runtime/recording-salvage-r1020.js?v=r1027", "sha256": "fb0f99eb5d3fdffdbdd4322a184c01c7db11c1f1dafdaf7374f0e27f9fadc455"}, {"url": "./assets/runtime/recovery-entry-r1027.js?v=r1027", "sha256": "3342528113a5dc5607916c65d2a1ee5f60c62e16cc7dac9a5fe4f995f4b74cb6"}, {"url": "./assets/runtime/startup-intro-r1027.js?v=r1027", "sha256": "20e4fc81a848268f179a5d05edd68064ad2a0fcff99016ea781ad17ed1eb057b"}, {"url": "./assets/branding/sukun-logo-existing.png?v=r1027", "sha256": "95e253f4f04b8422845a561c10429763fbbada8471eddf1811733a5e62f155c1"}, {"url": "./rescue.html?v=r1027", "sha256": "9a93fc4a8c957d291e0bc713ab5062f9644001b1e8adbf241b837758844737dc"}];
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
    Shell doğrulaması bağımsız; geri kalan assetler yalnız görünüm istediğinde
    normal fetch sırasında ortak görsel cache'ine yazılır. Toplu görsel indirme
    install/activate yaşam döngüsünü veya aktif ses oturumunu meşgul etmez. */
 const CORE = [
-  "./assets/runtime/recording-salvage-r1020.js?v=r1026",
-  "./sukun-site-assets-r1026.json?v=r1026",
-  "./assets/runtime/recovery-ui-r1019.js?v=r1026",
-  "./assets/runtime/site-backup-r1020.js?v=r1026",
-  "./assets/runtime/recovery-data-r1020.js?v=r1026",
-  "./assets/runtime/recovery-versions-r1019.js?v=r1026",
-  "./assets/runtime/studio-batch-r1020.js?v=r1026",
-  './assets/runtime/recording-inspection-r1020.js?v=r1026',
-  './assets/runtime/recording-continuity-r1016.js?v=r1026',
-  "./assets/runtime/offline-scenes-r962.js?v=r1026",
-  "./assets/wheel-navigation-r964/gold.png?v=r1026",
-  "./assets/wheel-navigation-r964/copper.png?v=r1026",
-  "./assets/wheel-navigation-r964/silver.png?v=r1026",
-  "./assets/wheel-navigation-r964/dark.png?v=r1026",
-  "./assets/wheel-navigation-r964/crystal.png?v=r1026",
+  "./assets/runtime/recovery-entry-r1027.js?v=r1027",
+  "./assets/runtime/startup-intro-r1027.js?v=r1027",
+  "./assets/branding/sukun-logo-existing.png?v=r1027",
+  "./rescue.html?v=r1027",
+  "./assets/runtime/recording-salvage-r1020.js?v=r1027",
+  "./sukun-site-assets-r1027.json?v=r1027",
+  "./assets/runtime/recovery-ui-r1019.js?v=r1027",
+  "./assets/runtime/site-backup-r1020.js?v=r1027",
+  "./assets/runtime/recovery-data-r1020.js?v=r1027",
+  "./assets/runtime/recovery-versions-r1019.js?v=r1027",
+  "./assets/runtime/studio-batch-r1020.js?v=r1027",
+  './assets/runtime/recording-inspection-r1020.js?v=r1027',
+  './assets/runtime/recording-continuity-r1016.js?v=r1027',
+  "./assets/runtime/offline-scenes-r962.js?v=r1027",
+  "./assets/wheel-navigation-r964/gold.png?v=r1027",
+  "./assets/wheel-navigation-r964/copper.png?v=r1027",
+  "./assets/wheel-navigation-r964/silver.png?v=r1027",
+  "./assets/wheel-navigation-r964/dark.png?v=r1027",
+  "./assets/wheel-navigation-r964/crystal.png?v=r1027",
 
-  "./assets/runtime/tekke-journey-r993.css?v=r1026",
-  "./assets/runtime/tekke-journey-r993.js?v=r1026",
+  "./assets/runtime/tekke-journey-r993.css?v=r1027",
+  "./assets/runtime/tekke-journey-r993.js?v=r1027",
 
-  "./assets/runtime/tekke-ux-r992.css?v=r1026",
-  "./assets/runtime/tekke-ux-r992.js?v=r1026",
+  "./assets/runtime/tekke-ux-r992.css?v=r1027",
+  "./assets/runtime/tekke-ux-r992.js?v=r1027",
 
-  "./assets/runtime/tekke-set-r990.js?v=r1026",
+  "./assets/runtime/tekke-set-r990.js?v=r1027",
 
 
-  "./assets/runtime/tekke-sequence-r988.js?v=r1026",
+  "./assets/runtime/tekke-sequence-r988.js?v=r1027",
 
-  "./assets/runtime/studio-preparation-r982.js?v=r1026",
-  "./assets/runtime/progress-journal-r982.js?v=r1026",
+  "./assets/runtime/studio-preparation-r982.js?v=r1027",
+  "./assets/runtime/progress-journal-r982.js?v=r1027",
 
-  "./assets/runtime/audio-cpu-r981.js?v=r1026",
-  "./assets/runtime/audio-preparation-r981.js?v=r1026",
-  "./assets/runtime/tab-owner-r981.js?v=r1026",
-  "./assets/runtime/cadence-r981.css?v=r1026",
-  "./assets/runtime/cadence-r981.js?v=r1026",
+  "./assets/runtime/audio-cpu-r981.js?v=r1027",
+  "./assets/runtime/audio-preparation-r981.js?v=r1027",
+  "./assets/runtime/tab-owner-r981.js?v=r1027",
+  "./assets/runtime/cadence-r981.css?v=r1027",
+  "./assets/runtime/cadence-r981.js?v=r1027",
 
-  "./assets/runtime/presentation-r979.js?v=r1026",
-  "./assets/runtime/lifecycle-r949.js?v=r1026",
-  "./assets/runtime/background-owner-r949.js?v=r1026",
-  "./assets/runtime/berhet-layout-r938.css?v=r1026",
-  "./assets/runtime/berhet-materials-r933.css?v=r1026",
-  "./assets/runtime/berhet-controls-r933.css?v=r1026",
-  "./assets/runtime/berhet-dock-r933.css?v=r1026",
-  "./assets/runtime/audio-palette-r945.js?v=r1026",
-  "./assets/runtime/esma-scenes-r923.js?v=r1026",
-  "./assets/runtime/session-r919.js?v=r1026",
-  "./assets/runtime/dock-r920.js?v=r1026",
-  "./assets/runtime/wheels-r924.js?v=r1026",
-  "./assets/runtime/berhet-layout-r938.js?v=r1026",
-  "./assets/runtime/interface-r920.js?v=r1026",
-  "./assets/runtime/wheels-r924.css?v=r1026",
-  "./assets/runtime/berhet-theme-r933.js?v=r1026",
-  "./assets/runtime/health-view-r943.css?v=r1026",
-  "./assets/runtime/health-view-r943.js?v=r1026",
-  "./assets/runtime/scene-picker-r945.css?v=r1026",
-  "./assets/runtime/scene-picker-r945.js?v=r1026",
-  "./assets/runtime/health-r940.js?v=r1026",
-  "./assets/runtime/nefs-r948.css?v=r1026",
-  "./assets/runtime/nefs-data-r948.js?v=r1026",
-  "./assets/runtime/nefs-model-r948.js?v=r1026",
-  "./assets/runtime/nefs-ui-r948.js?v=r1026",
+  "./assets/runtime/presentation-r979.js?v=r1027",
+  "./assets/runtime/lifecycle-r949.js?v=r1027",
+  "./assets/runtime/background-owner-r949.js?v=r1027",
+  "./assets/runtime/berhet-layout-r938.css?v=r1027",
+  "./assets/runtime/berhet-materials-r933.css?v=r1027",
+  "./assets/runtime/berhet-controls-r933.css?v=r1027",
+  "./assets/runtime/berhet-dock-r933.css?v=r1027",
+  "./assets/runtime/audio-palette-r945.js?v=r1027",
+  "./assets/runtime/esma-scenes-r923.js?v=r1027",
+  "./assets/runtime/session-r919.js?v=r1027",
+  "./assets/runtime/dock-r920.js?v=r1027",
+  "./assets/runtime/wheels-r924.js?v=r1027",
+  "./assets/runtime/berhet-layout-r938.js?v=r1027",
+  "./assets/runtime/interface-r920.js?v=r1027",
+  "./assets/runtime/wheels-r924.css?v=r1027",
+  "./assets/runtime/berhet-theme-r933.js?v=r1027",
+  "./assets/runtime/health-view-r943.css?v=r1027",
+  "./assets/runtime/health-view-r943.js?v=r1027",
+  "./assets/runtime/scene-picker-r945.css?v=r1027",
+  "./assets/runtime/scene-picker-r945.js?v=r1027",
+  "./assets/runtime/health-r940.js?v=r1027",
+  "./assets/runtime/nefs-r948.css?v=r1027",
+  "./assets/runtime/nefs-data-r948.js?v=r1027",
+  "./assets/runtime/nefs-model-r948.js?v=r1027",
+  "./assets/runtime/nefs-ui-r948.js?v=r1027",
 
 
 
@@ -369,9 +373,102 @@ async function recoveryAsset(request,pin){
  if(isArt(url)){const art=await caches.open(ART_CACHE),res=await art.match(artKey(request));if(validArt(res))return res;}
  return Response.error();
 }
+// This standalone client is serialized into the emergency document, so it has
+// no dependency on a possibly broken application shell or external runtime.
+function recoveryPageClient(){
+ 'use strict';
+ const query=new URL(location.href).searchParams.get('lang');
+ const lang=query==='en'||query==='tr'?query:/^en(?:-|$)/i.test(navigator.language||'')?'en':'tr';
+ const en=lang==='en',text=(tr,eng)=>en?eng:tr;
+ document.documentElement.lang=lang;
+ document.title=text('SÜKÛN Kurtarma','SÜKÛN Recovery');
+ const node=id=>document.getElementById(id),status=node('status'),errorBox=node('error'),current=node('current'),list=node('versions'),retry=node('retry');
+ node('heading').textContent='🛟 '+document.title;
+ node('intro').textContent=text('Yalnız bu cihazda doğrulanmış uygulama sürümleri açılır. Kişisel kayıtlar ve ayarlar değiştirilmez.','Only application versions verified on this device can be opened. Personal recordings and settings are not changed.');
+ node('warning').textContent=text('Başka SÜKÛN sekmesi açıksa kapat. Eski sürüm, daha yeni kişisel veri biçimlerini desteklemeyebilir. Ses ve ayar yedeğini güncel sürümden ayrıca al.','Close any other SÜKÛN tabs. Older versions may not support newer personal data formats. Export a separate recording and settings backup from the current version.');
+ current.textContent=text('Güncel sürüme dön','Return to current version');retry.textContent=text('Listeyi yeniden kontrol et','Check versions again');
+ node('app').textContent=text('Uygulamayı aç','Open application');
+ node('static').textContent=text('Bağımsız kurtarma sayfası','Independent recovery page');node('static').href='./rescue.html?lang='+lang;
+ node('language').textContent=en?'Türkçe':'English';node('language').href='./__sukun_recovery__?lang='+(en?'tr':'en');
+ const messages={
+  OTHER_APP_TAB_OPEN:['Diğer SÜKÛN sekmelerini kapatıp yeniden dene.','Close the other SÜKÛN tabs and try again.'],
+  SAME_ORIGIN_WINDOW_REQUIRED:['Kurtarma yalnız bu sitedeki SÜKÛN sayfasından kullanılabilir.','Recovery is available only from the SÜKÛN page on this site.'],
+  EXPLICIT_CONFIRM_REQUIRED:['Sürüm değişikliği için onay gerekiyor.','Confirm the application version change first.'],
+  HISTORICAL_BUILD_UNAVAILABLE:['Bu eski sürümün doğrulanmış dosyaları cihazda bulunmuyor.','Verified files for this older version are not available on this device.'],
+  HISTORICAL_BUILD_UNSAFE:['Bu sürüm kayıt koruması nedeniyle kapalı. Güncel sürümü kullan.','This version is blocked to protect recordings. Use the current version.'],
+  HISTORICAL_BUILD_NOT_VERIFIED:['Eski sürümün dosya kontrolü başarısız oldu.','The older version failed its file checks.'],
+  CURRENT_NOT_VERIFIED:['Güncel sürüm dosyaları hazır değil. Bağlantı varken güncellemeyi kontrol et.','The current version files are not ready. Check for updates while online.'],
+  PIN_INVALID:['Korunan sürüm doğrulanamadı. Güncel sürüme dön.','The selected recovery version could not be verified. Return to the current version.'],
+  UNSAFE_PIN:['Seçili eski sürüm kayıt koruması nedeniyle kapalı. Güncel sürüme dön.','The selected older version is blocked to protect recordings. Return to the current version.'],
+  RECOVERY_STATE_UNREADABLE:['Kurtarma durumu okunamadı. Bağımsız kurtarma sayfasını aç; site verilerini silme.','The recovery state could not be read. Open the independent recovery page; do not clear site data.'],
+  RECOVERY_REQUEST_EXPIRED:['Sürüm değiştirme süresi doldu. Listeyi yeniden kontrol edip dene.','The version change timed out. Check the version list and try again.'],
+  NO_CONTROLLER:['Etkin SÜKÛN servisi bulunamadı. Bağımsız kurtarma sayfasını aç.','No active SÜKÛN service worker was found. Open the independent recovery page.'],
+  RECOVERY_TIMEOUT:['Kontrol zaman aşımına uğradı. Yeniden dene.','The check timed out. Try again.'],
+  RECOVERY_FAILED:['İşlem tamamlanamadı. Yeniden dene; site verilerini silme.','The operation could not finish. Try again; do not clear site data.']
+ };
+ let busy=false,report=null;
+ const explain=e=>text(...(messages[e?.message]||messages.RECOVERY_FAILED));
+ function showError(e){errorBox.textContent=explain(e);errorBox.hidden=false;}
+ function buttons(){
+  current.disabled=busy||!report?.rollback||report.currentReady!==true;
+  retry.disabled=busy;
+  list.querySelectorAll('button').forEach(b=>{b.disabled=busy||b.dataset.selected==='true';});
+ }
+ function ask(type,extra={}){
+  const worker=navigator.serviceWorker?.controller;
+  let workerUrl;try{workerUrl=new URL(worker?.scriptURL,location.href);}catch(_){}
+  const expected=new URL('./sw.js',location.href);
+  if(!worker||workerUrl?.origin!==expected.origin||workerUrl.pathname!==expected.pathname)return Promise.reject(Error('NO_CONTROLLER'));
+  return new Promise((resolve,reject)=>{
+   let channel,timer,done=false;
+   const finish=(fn,value)=>{if(done)return;done=true;clearTimeout(timer);try{channel?.port1.close();channel?.port2.close();}catch(_){}fn(value);};
+   try{
+    channel=new MessageChannel();timer=setTimeout(()=>finish(reject,Error('RECOVERY_TIMEOUT')),60000);
+    channel.port1.onmessage=e=>{const data=e.data;if(!data||data.ok!==true)return finish(reject,Error(data?.error||'RECOVERY_FAILED'));finish(resolve,data);};
+    channel.port1.onmessageerror=()=>finish(reject,Error('RECOVERY_FAILED'));
+    worker.postMessage({type,...extra},[channel.port2]);
+   }catch(_){finish(reject,Error('RECOVERY_FAILED'));}
+  });
+ }
+ async function refresh(){
+  status.textContent=text('Sürümler kontrol ediliyor…','Checking versions…');
+  try{
+   const r=await ask('RECOVERY_LIST');
+   if(!Array.isArray(r.versions)||!/^r\d+$/.test(r.current||'')||!/^r\d+$/.test(r.selected||''))throw Error('RECOVERY_FAILED');
+   report=r;
+   status.textContent=text('Açılan sürüm: ','Selected version: ')+r.selected+text(' · güncel: ',' · current: ')+r.current+text(' · mevcut eski sürüm: ',' · available older versions: ')+r.availablePrevious+' / '+text('en çok 5','up to 5');
+   list.replaceChildren();
+   for(const v of r.versions.filter(v=>!v.current).slice(0,5)){
+    if(!/^r\d+$/.test(v.build||'')||typeof v.cache!=='string')continue;
+    const li=document.createElement('li'),button=document.createElement('button');button.type='button';
+    button.textContent=v.build+(v.selected?text(' · seçili',' · selected'):text(' · bu sürüme dön',' · return to this version'));
+    button.dataset.selected=String(!!v.selected);button.onclick=()=>act('RECOVERY_ROLLBACK',{cache:v.cache,build:v.build});li.append(button);list.append(li);
+   }
+  }catch(e){report=null;list.replaceChildren();status.textContent=text('Sürüm listesi okunamadı.','The version list could not be read.');if(errorBox.hidden)showError(e);}
+  buttons();
+ }
+ async function act(type,extra={}){
+  if(busy)return;
+  if(!confirm(text('Uygulama sürümü değiştirilsin mi? Kişisel kayıtlar geri yüklenmez.','Change the application version? Personal recordings will not be restored.')))return;
+  busy=true;buttons();errorBox.hidden=true;errorBox.textContent='';
+  try{
+   const result=await ask(type,{confirm:true,expiresAt:Date.now()+55000,...extra});
+   const expected=type==='RECOVERY_ROLLBACK'?extra.build:report?.current;
+   if(result.build!==expected||result.reload!==true)throw Error('RECOVERY_FAILED');
+   location.href='./nero.html';
+  }catch(e){
+   // The actionable mutation error has its own alert. A successful list read
+   // below must never replace it with the normal version summary.
+   showError(e);await refresh();
+  }finally{busy=false;buttons();}
+ }
+ current.onclick=()=>act('RECOVERY_CURRENT');
+ retry.onclick=async()=>{if(busy)return;busy=true;buttons();errorBox.hidden=true;errorBox.textContent='';try{await refresh();}finally{busy=false;buttons();}};
+ busy=true;buttons();refresh().finally(()=>{busy=false;buttons();});
+}
 function recoveryPage(){
- const html='<!doctype html><html lang="tr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SÜKÛN Kurtarma</title><style>body{margin:0;background:#081820;color:#f3ead0;font:16px/1.6 system-ui}main{max-width:640px;margin:auto;padding:22px}button,a{font:inherit;border:1px solid #557d75;border-radius:12px;padding:12px;color:#fff;background:#153c39;cursor:pointer;display:block;margin:12px 0}button:disabled{opacity:.45}li{margin:15px 0}small{color:#b1c6c2}</style><main><h1>🛟 SÜKÛN Kurtarma</h1><p>Yalnız bu cihazda doğrulanmış uygulama sürümleri açılır. Kişisel kayıtlar ve ayarlar değiştirilmez.</p><p id="status" role="status">Sürümler kontrol ediliyor…</p><button id="current" disabled>Güncel sürüme dön</button><ul id="versions"></ul><a href="./nero.html">Uygulamayı aç</a><small>Başka SÜKÛN sekmesi açıksa kapat. Eski sürüm, daha yeni kişisel veri biçimlerini desteklemeyebilir. Ses ve ayar yedeğini güncel sürümden ayrıca al.</small></main><script>(function(){const status=document.getElementById("status"),current=document.getElementById("current"),list=document.getElementById("versions");let busy=false;async function ask(type,extra){const worker=navigator.serviceWorker.controller;if(!worker)throw Error("Etkin servis çalışanı yok. Bu sayfayı yeniden aç.");return new Promise((resolve,reject)=>{const ch=new MessageChannel(),timer=setTimeout(()=>reject(Error("Kontrol zaman aşımı")),60000);ch.port1.onmessage=e=>{clearTimeout(timer);ch.port1.close();e.data.ok===false?reject(Error(e.data.error)):resolve(e.data)};worker.postMessage(Object.assign({type},extra),[ch.port2])})}async function act(type,extra){if(busy)return;if(!confirm("Uygulama sürümü değiştirilsin mi? Kişisel kayıtlar geri yüklenmez."))return;busy=true;current.disabled=true;list.querySelectorAll("button").forEach(b=>b.disabled=true);try{await ask(type,Object.assign({confirm:true,expiresAt:Date.now()+55000},extra));location.href="./nero.html"}catch(e){status.textContent=e.message;busy=false;await refresh()}}async function refresh(){try{const r=await ask("RECOVERY_LIST");status.textContent="Açılan sürüm: "+r.selected+" · güncel: "+r.current+" · mevcut eski sürüm: "+r.availablePrevious+" / en çok 5";current.disabled=!r.rollback;list.replaceChildren();for(const v of r.versions.filter(v=>!v.current).slice(0,5)){const li=document.createElement("li"),b=document.createElement("button");b.textContent=v.build+(v.selected?" · seçili":" · bu sürüme dön");b.disabled=v.selected;b.onclick=()=>act("RECOVERY_ROLLBACK",{cache:v.cache,build:v.build});li.append(b);list.append(li)}}catch(e){status.textContent=e.message}}current.onclick=()=>act("RECOVERY_CURRENT");refresh()})();<\/script></html>';
- return new Response(html.replace('<\\/script>','</script>'),{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}});
+ const html='<!doctype html><html lang="tr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>SÜKÛN Kurtarma / Recovery</title><style>body{margin:0;background:#081820;color:#f3ead0;font:16px/1.6 system-ui}main{max-width:640px;margin:auto;padding:22px}button,a{font:inherit;border:1px solid #557d75;border-radius:12px;padding:12px;color:#fff;background:#153c39;cursor:pointer;display:block;margin:12px 0}button:disabled{opacity:.45}li{margin:15px 0}small{color:#b1c6c2}#error{padding:12px;border:1px solid #edbd80;border-radius:8px;color:#ffe0b6} [hidden]{display:none!important}</style><main><h1 id="heading">🛟 SÜKÛN Kurtarma / Recovery</h1><p id="intro"></p><p id="error" role="alert" aria-live="assertive" hidden></p><p id="status" role="status"></p><button id="current" type="button" disabled></button><button id="retry" type="button"></button><ul id="versions"></ul><a id="app" href="./nero.html">SÜKÛN</a><a id="static" href="./rescue.html">Kurtarma / Recovery</a><a id="language" href="./__sukun_recovery__?lang=en">English</a><small id="warning"></small></main><script>('+recoveryPageClient.toString()+')();</script></html>';
+ return new Response(html,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','Content-Security-Policy':"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
 }
 
 /* Required executable assets are verified against the release manifest. */
@@ -613,6 +710,14 @@ async function assetResponse(request){
   const url=new URL(request.url);
   if(recoveryUnsafeExecutable(url))return Response.error();
   if(url.pathname===recoveryPath(RECOVERY_ROUTE))return recoveryPage();
+  if(url.pathname===recoveryPath('./rescue.html')){
+   const entry=REQUIRED_RUNTIME.find(e=>recoveryPath(e.url)===url.pathname);
+   if(!entry)return recoveryPage();
+   // A recovery page is outside the pinned application's executable graph.
+   // Use only the active worker's hash-verified independent page, never a
+   // generic cache/network fallback or an older unverified HTML response.
+   return runtimeResponse(new Request(new URL(entry.url,self.location.href)),entry);
+  }
   try{const pin=await recoveryPinned();if(pin)return recoveryAsset(request,pin)}catch(e){return Response.error()}
   const current=await caches.open(CACHE);
   const runtime=REQUIRED_RUNTIME.find(entry=>sameOriginPath(entry.url)===url.pathname);if(runtime)return runtimeResponse(request,runtime);

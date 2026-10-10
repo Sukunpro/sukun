@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SÜKÛN · Kurtarma / Recovery</title>
+<style>
+:root{color-scheme:dark;font:17px/1.6 system-ui,sans-serif;color:#eee7d9;background:#09141c}
+*{box-sizing:border-box}body{margin:0;padding:28px 20px}main{max-width:660px;margin:auto}
+h1{font-size:1.65rem;margin:.4em 0}h2{font-size:1.15rem;margin:1.5em 0 .5em}p{margin:.8em 0}
+a{color:#ecd493;text-underline-offset:.2em}a:focus-visible{outline:3px solid #aee5ff;outline-offset:5px}
+nav{display:flex;gap:20px;flex-wrap:wrap}nav a,.action{display:inline-block;padding:10px 0;min-height:44px}
+.action{border:1px solid #8b7d60;border-radius:10px;padding:10px 16px;margin:6px 0}
+.note{color:#c3d0d8;font-size:.94rem}section+section{border-top:1px solid #56616a;margin-top:28px;padding-top:20px}
+code{overflow-wrap:anywhere} [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<nav aria-label="Dil / Language"><a href="./rescue.html?lang=tr" lang="tr">Türkçe</a><a href="./rescue.html?lang=en" lang="en">English</a></nav>
+<section data-language="tr" lang="tr">
+<h1>SÜKÛN · Kurtarma</h1>
+<p>Bu küçük sayfa ana uygulamanın JavaScript ve stil dosyalarından bağımsızdır. Yalnız açılması kayıtlarını, ayarlarını veya seçili sürümünü değiştirmez.</p>
+<p><a class="action" href="./index.html">Uygulamayı aç</a></p>
+<p class="note">Bu bağlantı normal uygulama açılışını dener. Önceden seçilmiş eski bir sürüm varsa onu değiştirmez. Ana uygulama hâlâ bozuksa buraya geri dön.</p>
+<h2>Sürüm kurtarma</h2>
+<p id="status-tr" class="note" role="status">Sürüm seçenekleri için bu sayfayı aynı SÜKÛN adresinde, uygulamanın etkin çevrimdışı servisi denetlerken ve JavaScript açıkken kullanmalısın.</p>
+<a id="worker-tr" class="action" hidden>Sürüm kurtarma seçeneklerini aç</a>
+<p class="note">Çevrimdışı servis yoksa bu sayfa kayıtlı sürümleri inceleyemez veya geri yükleyemez. Çevrimdışıyken bu sayfanın daha önce güvenli biçimde önbelleğe alınmış olması gerekir. Hiçbir yerel kopyada kalmamış sesleri kurtarmak için harici JSON yedeği gerekir.</p>
+<h2>Bu adresi sakla</h2>
+<p>Tarayıcında bu sayfayı yer imlerine ekle: <code>rescue.html</code>. Ana uygulama açılmasa bile aynı site adresindeki bu dosyayı doğrudan açabilirsin.</p>
+<p class="note">Uygulama başlığındaki SÜKÛN yazısını 1,2 saniye basılı tutup bırakmak da burayı açar. Klavyeyle sayfanın ilk kurtarma bağlantısına Tab ile ulaşabilirsin. Kaydırma veya kısa dokunuş kurtarmayı açmaz.</p>
+</section>
+<section data-language="en" lang="en">
+<h1>SÜKÛN · Recovery</h1>
+<p>This small page is independent of the main app's JavaScript and styles. Opening it does not change your recordings, settings, or selected version.</p>
+<p><a class="action" href="./index.html">Open app</a></p>
+<p class="note">This link tries the normal app entry. It does not change a previously selected older version. Return here if the main app still does not work.</p>
+<h2>Version recovery</h2>
+<p id="status-en" class="note" role="status">Version options require JavaScript and this page to be controlled by SÜKÛN's active offline service on the same site.</p>
+<a id="worker-en" class="action" hidden>Open version recovery options</a>
+<p class="note">Without that offline service, this page cannot inspect or restore saved versions. Offline access requires a previously verified cached copy of this page. Recordings absent from all local copies require an external JSON backup.</p>
+<h2>Keep this address</h2>
+<p>Bookmark this page in your browser: <code>rescue.html</code>. Open this file directly at the same site address even if the main app will not start.</p>
+<p class="note">You can also hold the SÜKÛN title for 1.2 seconds and release to open this page. With a keyboard, Tab to the app's first recovery link. Scrolling or a short tap does not open recovery.</p>
+</section>
+<noscript><p>JavaScript kapalı: uygulama bağlantısı çalışır; sürüm kurtarma seçenekleri bu sayfada doğrulanamaz. / JavaScript is off: the app link works; version recovery options cannot be checked here.</p></noscript>
+</main>
+<script id="sukun-static-rescue">
+(function(){
+  'use strict';
+  // Presentation only. Never register/update/unregister a worker, read personal
+  // stores, clear caches, select a version, restore data or navigate on load.
+  var language='tr';
+  try{
+    var requested=new URL(location.href).searchParams.get('lang');
+    language=requested==='en'||requested==='tr'?requested:(/^en\b/i.test(navigator.language||'')?'en':'tr');
+  }catch(_){}
+  document.documentElement.lang=language;
+  document.querySelectorAll('[data-language]').forEach(function(section){section.hidden=section.getAttribute('data-language')!==language;});
+  var sw=null;
+  try{sw=navigator.serviceWorker;}catch(_){}
+  function sync(){
+    var relevant=false;
+    try{
+      var controller=sw&&sw.controller;
+      var expected=new URL('./sw.js',location.href);
+      var actual=controller&&new URL(controller.scriptURL);
+      relevant=!!(controller&&controller.state==='activated'&&actual.origin===expected.origin&&actual.pathname===expected.pathname);
+    }catch(_){}
+    ['tr','en'].forEach(function(lang){
+      var link=document.getElementById('worker-'+lang),status=document.getElementById('status-'+lang);
+      link.hidden=!relevant;
+      if(relevant){
+        link.href='./__sukun_recovery__?lang='+lang;
+        status.textContent=lang==='en'?'SÜKÛN’s offline service is active. You can open its recovery options; availability depends on the installed service version. Choose any version change explicitly on that page.':'SÜKÛN çevrimdışı servisi etkin. Kurtarma seçeneklerini açabilirsin; kullanılabilirlik kurulu servis sürümüne bağlıdır. Sürüm değişikliğini o sayfada ayrıca seçmelisin.';
+      }else{
+        link.removeAttribute('href');
+        status.textContent=lang==='en'?'No active SÜKÛN offline service controls this page. You can try opening the app. This page does not install or reset the service.':'Bu sayfayı denetleyen etkin bir SÜKÛN çevrimdışı servisi yok. Uygulamayı açmayı deneyebilirsin. Bu sayfa servisi kurmaz veya sıfırlamaz.';
+      }
+    });
+  }
+  sync();
+  if(sw&&sw.addEventListener)sw.addEventListener('controllerchange',sync);
+})();
+</script>
+</body>
+</html>

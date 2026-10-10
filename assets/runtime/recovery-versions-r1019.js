@@ -38,7 +38,8 @@
  };
  function error(code){const selected=window.I18N?.lang==='en'?messagesEn:messages;const e=Error(selected[code]||code);e.code=code;return e;}
  function emit(){try{window.dispatchEvent(new CustomEvent('sukun:recoveryversions',{detail:snapshot()}))}catch(_){};}
- function snapshot(){return {version:'r1019',busy:!!operation,last:last?{...last,versions:[...(last.versions||[])]}:null,rescueUrl:new URL('./__sukun_recovery__',location.href).href};}
+ function rescueUrl(){const url=new URL('./__sukun_recovery__',location.href);const lang=window.I18N?.lang||document.documentElement?.lang;url.searchParams.set('lang',lang==='en'?'en':'tr');return url.href;}
+ function snapshot(){return {version:'r1019',busy:!!operation,last:last?{...last,versions:[...(last.versions||[])]}:null,rescueUrl:rescueUrl()};}
  function ask(type,extra={},timeout=65000){
   const controller=navigator.serviceWorker?.controller;if(!controller)return Promise.reject(error('NO_CONTROLLER'));
   return new Promise((resolve,reject)=>{
@@ -90,6 +91,6 @@
   version:'r1019',list,status:list,snapshot,busy,assertSingleClient,
   rollback:(target,options)=>mutate('RECOVERY_ROLLBACK',{cache:String(target?.cache||''),build:String(target?.build||'')},options),
   current,returnCurrent:current,
-  openRescue:()=>{if(operation||busy())throw error('RECOVERY_BUSY');location.href=new URL('./__sukun_recovery__',location.href).href;}
+  openRescue:()=>{if(operation||busy())throw error('RECOVERY_BUSY');location.href=rescueUrl();}
  });
 })();

@@ -1,0 +1,12 @@
+'use strict';
+const assert=require('node:assert/strict');
+const {environment,ticks,KEY,OLD_KEY}=require('./recording-inspection-active.cjs');
+const results=[];const test=async(name,fn)=>{await fn();results.push({name,passed:true});};
+(async()=>{
+ await test('r1020 retains last nonempty receipt when the next completed read is empty',async()=>{const e=environment();const good=await e.api.inspect();e.config.values=[];await e.api.inspect();const s=e.snapshot();assert.equal(s.current.count,0);assert.equal(s.lastSuccessful.count,0);assert.deepEqual(s.lastNonEmpty,JSON.parse(JSON.stringify(good)));assert.equal(s.previouslyPopulatedNowEmpty,true);e.assertNoWrites();});
+ await test('r1020 reload keeps the empty-now warning without a startup database scan',async()=>{const e=environment();await e.api.inspect();e.config.values=[];await e.api.inspect();const next=environment({},e.shared);assert.equal(next.snapshot().previouslyPopulatedNowEmpty,true);assert.equal(next.snapshot().lastNonEmpty.count,2);assert.equal(next.stats.opens,0);assert.equal(next.stats.storageWrites,0);});
+ await test('r1020 imports valid positive continuity history without changing that receipt',async()=>{const raw=JSON.stringify({schema:1,before:{at:1800000000000,appVersion:'r1016',status:'ok',count:3,blobBytes:20},after:null}),e=environment({},new Map([[OLD_KEY,raw]]));assert.equal(e.snapshot().lastNonEmpty.count,3);assert.equal(e.shared.get(OLD_KEY),raw);e.config.values=[];await e.api.inspect();assert.equal(e.snapshot().previouslyPopulatedNowEmpty,true);assert.equal(e.shared.get(OLD_KEY),raw);});
+ await test('r1020 does not call an unavailable read a zero or discard prior nonempty history',async()=>{const e=environment();await e.api.inspect();e.config.openError=true;await e.api.inspect();const s=e.snapshot();assert.equal(s.current.count,null);assert.equal(s.lastNonEmpty.count,2);assert.equal(s.previouslyPopulatedNowEmpty,false);});
+ await test('r1020 newest positive reading updates history and clears empty-now warning',async()=>{const e=environment();await e.api.inspect();e.config.values=[];await e.api.inspect();await e.advance(1000);e.config.values=[new Blob(['123'])];await e.api.inspect();assert.equal(e.snapshot().lastNonEmpty.count,1);assert.equal(e.snapshot().lastNonEmpty.blobBytes,3);assert.equal(e.snapshot().previouslyPopulatedNowEmpty,false);});
+ console.log(JSON.stringify({passed:results.length,total:results.length,results},null,2));
+})().catch(e=>{console.error(e);process.exitCode=1});

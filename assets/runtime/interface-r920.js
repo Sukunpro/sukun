@@ -181,8 +181,8 @@ function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view
  const visual=window.SukunR918Visual?.snapshot?.()||{};
  window.SukunWheels?.render?.(mode);
  window.SukunWheelMotion?.render?.(s);
- const busy=s.phase==='PLAYING'||s.phase==='PREPARING';text($('r927PlayIcon'),busy?'Ⅱ':'▶');text($('r927PlayCaption'),busy?'Duraklat':s.phase==='PAUSED'?'Devam':'Başlat');
- const actionNames={r920Play:busy?'Zikri duraklat':s.phase==='PAUSED'?'Zikre devam et':'Zikri başlat',r920Stop:'Zikri bitir',r920Minus:'Bir azalt',r920Plus:'Bir artır'};
+ const busy=s.phase==='PLAYING'||s.phase==='PREPARING';text($('r927PlayIcon'),busy?'Ⅱ':'▶');text($('r927PlayCaption'),busy?'Duraklat':s.phase==='PAUSED'?'Devam':s.phase==='ERROR'?'Yeniden dene':'Başlat');
+ const actionNames={r920Play:busy?'Zikri duraklat':s.phase==='PAUSED'?'Zikre devam et':s.phase==='ERROR'?'Sesi yeniden dene':'Zikri başlat',r920Stop:'Zikri bitir',r920Minus:'Bir azalt',r920Plus:'Bir artır'};
  for(const [id,label]of Object.entries(actionNames)){attr($(id),'aria-label',label);attr($(id),'title',label)}
  for(const [button,source] of [['r959WheelPrevious','r920Previous'],['r959WheelNext','r920Next']])prop($(button),'disabled',!!$(source)?.disabled);
  const labels={PREPARING:'Ses hazırlanıyor',PAUSED:'Duraklatıldı',COMPLETING:'Tamamlanıyor',COMPLETED:'Seyir tamamlandı',INTERRUPTED:'Ses kesintisi',RECOVERING:'Ses yeniden hazırlanıyor',ERROR:'Ses açılamadı'};text($('r920Phase'),labels[s.phase]||(s.phase==='PLAYING'?'Zikir sürüyor':''));
