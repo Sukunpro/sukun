@@ -21,7 +21,7 @@
   if(handshake)root.dataset.audioModuleAgeMs=String(Math.max(0,Math.round(performance.now()-boot)));
   if(handshake&&(root.dataset.introPhase==='done'||root.dataset.introPhase==='abandoned'))return;
   if(!handshake)root.dataset.audioOutcome='ineligible';
-  var started=Number(root.dataset.started),INTRO_MS=2400,HIT_MS=650,ineligibleReason='ineligible';
+  var started=Number(root.dataset.started),INTRO_MS=2400,HIT_MS=650,LEAD_MS=20,ineligibleReason='ineligible';
   // Per-load observations only: bounded enums/numbers, no app or device data.
   // Missing/failed diagnostic writes can never affect the audio decision.
   function diagnostic(key,value){try{value=String(value);if(root.dataset[key]!==value)root.dataset[key]=value;}catch(_){}}
@@ -34,7 +34,7 @@
     }catch(_){}
   }
   function budgetDiagnostic(origin){
-    try{var value=INTRO_MS-HIT_MS-(performance.now()-origin);
+    try{var value=INTRO_MS-HIT_MS-LEAD_MS-(performance.now()-origin);
       if(Number.isFinite(value))diagnostic('audioOnsetBudgetMs',Math.max(-10000,Math.min(10000,Math.round(value))));
     }catch(_){}
   }
@@ -148,7 +148,7 @@
   }
   function input(event){if(event.isTrusted===true)stop('cancelled');}
   function visibility(){if(document.hidden)stop('hidden');}
-  function activity(){if(!stopped&&context&&!eligible(playing?0:HIT_MS))stop(ineligibleReason);}
+  function activity(){if(!stopped&&context&&!eligible(playing?0:HIT_MS+LEAD_MS))stop(ineligibleReason);}
   function state(){
     if(stopped)return;contextDiagnostic();
     if(context.state==='running'){start();return;}
@@ -164,45 +164,55 @@
   }
   function start(){
     if(stopped||playing||!resumeReady||context.state!=='running')return;
-    if(!eligible(HIT_MS)){stop(ineligibleReason);return;}
+    if(!eligible(HIT_MS+LEAD_MS)){stop(ineligibleReason);return;}
     playing=true;
     try{
-      bus=context.createGain();bus.gain.value=0.6;bus.connect(context.destination);
-      var t=context.currentTime;
+      bus=context.createGain();bus.gain.value=0;bus.connect(context.destination);
       // One shared onset, three sine partials. Their amplitude upper bound is
       // (0.28 + 0.09 + 0.035) * 0.6 = 0.243, well below digital full scale.
       [{ratio:1,peak:0.28},{ratio:2,peak:0.09},{ratio:3,peak:0.035}].forEach(function(part){
         var osc=context.createOscillator(),gain=context.createGain();
-        voices.push({osc:osc,gain:gain});osc.type='sine';
-        osc.frequency.setValueAtTime(86*part.ratio,t);
-        osc.frequency.exponentialRampToValueAtTime(48*part.ratio,t+0.13);
-        gain.gain.setValueAtTime(0,t);
-        gain.gain.linearRampToValueAtTime(part.peak,t+0.016);
-        gain.gain.exponentialRampToValueAtTime(0.0001,t+0.62);
+        voices.push({osc:osc,gain:gain,ratio:part.ratio,peak:part.peak});osc.type='sine';
+        gain.gain.value=0;
         osc.connect(gain);gain.connect(bus);
       });
       // Recheck after graph construction as well: a slow attempt must not
       // schedule its first source after input, ownership change or expiry.
       if(stopped)return;
       if(context.state!=='running'){stop('interrupted');return;}
-      if(!eligible(HIT_MS)){stop(ineligibleReason);return;}
+      if(!eligible(HIT_MS+LEAD_MS)){stop(ineligibleReason);return;}
+      if(stopped)return;
+      if(context.state!=='running'){stop('interrupted');return;}
+      // Graph construction and DOM/ownership checks can stall the main thread
+      // while the audio clock keeps advancing. Anchor every envelope only now,
+      // then submit the hit with a short lead; never reuse a pre-check time.
+      var t=context.currentTime+LEAD_MS/1000;
+      if(!Number.isFinite(t)||t<0){stop('failed');return;}
+      bus.gain.value=0.6;
+      voices.forEach(function(voice){
+        voice.osc.frequency.setValueAtTime(86*voice.ratio,t);
+        voice.osc.frequency.exponentialRampToValueAtTime(48*voice.ratio,t+0.13);
+        voice.gain.gain.setValueAtTime(0,t);
+        voice.gain.gain.linearRampToValueAtTime(voice.peak,t+0.016);
+        voice.gain.gain.exponentialRampToValueAtTime(0.0001,t+0.62);
+      });
       voices.forEach(function(voice){voice.osc.start(t);diagnostic('audioSourcesScheduled','1');voice.osc.stop(t+0.65);});
       root.dataset.audioOutcome='scheduled';
       clearTimeout(watchdog);
-      watchdog=setTimeout(stop,Math.min(760,INTRO_MS-(performance.now()-started)));
+      watchdog=setTimeout(stop,Math.min(760+LEAD_MS,INTRO_MS-(performance.now()-started)));
     }catch(_){stop('failed');}
   }
   function beginAudio(){
     if(stopped||context)return;
     started=Number(root.dataset.started);
-    if(!eligible(HIT_MS)){stop(ineligibleReason);return;}
+    if(!eligible(HIT_MS+LEAD_MS)){stop(ineligibleReason);return;}
     if(!AudioContextClass){stop('unavailable');return;}
     try{
       root.dataset.audioOutcome='waiting';
       context=new AudioContextClass({latencyHint:'interactive'});contextDiagnostic('audioContextInitialState');
       context.addEventListener('statechange',state);
-      if(stopped||!eligible(HIT_MS)){stop(ineligibleReason);return;}
-      watchdog=setTimeout(function(){stop('resume_timeout');},INTRO_MS-HIT_MS-(performance.now()-started));
+      if(stopped||!eligible(HIT_MS+LEAD_MS)){stop(ineligibleReason);return;}
+      watchdog=setTimeout(function(){stop('resume_timeout');},INTRO_MS-HIT_MS-LEAD_MS-(performance.now()-started));
       if(context.state==='running')resumeReady=true;
       else if(context.state==='suspended'){
         // Exactly one automatic request. Pending/denied autoplay never gets a
@@ -221,7 +231,7 @@
   function visualStart(){if(stopped||context)return;readySent=false;if(readinessTimer)clearTimeout(readinessTimer);readinessTimer=0;readiness();}
   function readiness(){
     readinessTimer=0;if(stopped||readySent)return;
-    if(!eligible(HIT_MS,true)){
+    if(!eligible(HIT_MS+LEAD_MS,true)){
       if(ineligibleReason==='apis_pending'||ineligibleReason==='timing_pending'){
         root.dataset.audioOutcome='waiting_readiness';
         readinessTimer=setTimeout(readiness,25);return;

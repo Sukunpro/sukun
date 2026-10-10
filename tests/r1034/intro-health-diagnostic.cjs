@@ -32,7 +32,7 @@ await test('real production intro snapshot reaches Health without any new audio 
  const code=fs.readFileSync(path.join(root,'assets/runtime/startup-intro-r1027.js'),'utf8');
  const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
  const clock=html.match(/<script id="sukun-auto-intro-clock">([\s\S]*?)<\/script>/)[1];
- const f=createFixture(code,clock,{audioUnitWindow:true,state:'suspended'});f.runClock();f.run();await f.advance(1750);
+ const f=createFixture(code,clock,{audioUnitWindow:true,state:'suspended'});f.runClock();f.run();await f.advance(1730);
  const before={jobs:f.jobs.size,contexts:f.contexts.length,voices:f.contexts[0].voices?.length,reads:f.reads.length};
  const h=setup();h.c.SukunIntroAudioDiagnostics=f.window.SukunIntroAudioDiagnostics;const r=h.api.read().current.introAudio;
  assert.equal(r.outcome,'resume_timeout');assert.equal(r.contextInitialState,'suspended');assert.equal(r.contextStopState,'suspended');assert.equal(r.contextState,'closed');assert.equal(r.resumeState,'pending');assert.equal(r.sourcesScheduled,false);assert.equal(r.onsetBudgetMs,0);assert.equal(r.audibleSound,'NOT_MEASURED');
