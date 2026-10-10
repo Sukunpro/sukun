@@ -10,7 +10,7 @@
   try{
     var diagnosticKeys=['introBootstrap','introPhase','bootStarted','firstFrameAgeMs','started','visualClock','visualCssAgeMs','visualStarted','visualEnded','cancelled',
       'audioAttempted','audioModuleAgeMs','audioReadyAgeMs','audioOutcome','audioDisabled','audioContextInitialState','audioContextState','audioContextStopState',
-      'audioResumeState','audioResumeSettledAfterStop','audioResumeError','audioOnsetBudgetMs','audioPendingApis','audioSourcesScheduled','audioAssetState','audioDecodeState','audioAssetReadyAgeMs','audioBufferDurationMs'];
+      'audioResumeState','audioResumeSettledAfterStop','audioResumeError','audioOnsetBudgetMs','audioPendingApis','audioSourcesScheduled','audioAssetState','audioDecodeState','audioAssetReadyAgeMs','audioBufferDurationMs','audioSafetyReason','audioScheduledAgeMs','audioPlaybackElapsedMs','audioCompleted'];
     window.SukunIntroAudioDiagnostics=Object.freeze({snapshot:function(){
       var result={};diagnosticKeys.forEach(function(key){try{var value=root.dataset[key];result[key]=typeof value==='string'?value:null;}catch(_){result[key]=null;}});
       return Object.freeze(result);
@@ -59,10 +59,15 @@
   function deny(reason){ineligibleReason=reason;if(reason==='apis_pending'||reason==='unavailable')pendingDiagnostic();return false;}
   // Reused around potentially costly DOM/layout reads so a changed recording
   // or owner is not accepted from an earlier snapshot. Read-only, no lock claim.
+  function unsafeAudio(reason){diagnostic('audioSafetyReason',reason);return deny('unsafe-audio');}
+  function knownSilentCarrier(media){
+    try{return !!(window.SukunSilentCarrierIdentity&&typeof window.SukunSilentCarrierIdentity.isSilent==='function'&&window.SukunSilentCarrierIdentity.isSilent(media)===true);}catch(_){return false;}
+  }
   function criticalAudioIdle(){
-    if(window.AudioLife.busy()!==false||window.SukunTickSound.isRecording()!==false||
-       window.SukunPhysicalRecordingBusyR696()!==false||
-       window.SukunSessionState.snapshot().phase!=='IDLE')return deny('unsafe-audio');
+    if(window.AudioLife.busy()!==false)return unsafeAudio('lifecycle-busy');
+    if(window.SukunTickSound.isRecording()!==false)return unsafeAudio('tick-recording');
+    if(window.SukunPhysicalRecordingBusyR696()!==false)return unsafeAudio('physical-recording');
+    if(window.SukunSessionState.snapshot().phase!=='IDLE')return unsafeAudio('session-non-idle');
     var owner=window.SukunTabOwner.snapshot();
     if(!owner||typeof owner!=='object'||Array.isArray(owner)||
        ['owned','pending','blocked','maintenance','retiring','recoveryRequired'].some(function(key){return typeof owner[key]!=='boolean';}))return deny('unavailable');
@@ -70,7 +75,7 @@
     var sessions=window.SukunAudioSessionRegistry.aggregateSnapshot();
     if(!sessions||typeof sessions!=='object'||Array.isArray(sessions)||typeof sessions.paused!=='boolean'||
        typeof sessions.mixCaptured!=='boolean'||!Array.isArray(sessions.providerIds))return deny('unavailable');
-    if(sessions.active||sessions.playing||sessions.running||sessions.paused||sessions.mixCaptured||sessions.providerIds.length)return deny('unsafe-audio');
+    if(sessions.active||sessions.playing||sessions.running||sessions.paused||sessions.mixCaptured||sessions.providerIds.length)return unsafeAudio('aggregate-active');
     return true;
   }
   function eligible(requiredMs,preparing){
@@ -114,7 +119,7 @@
         if(visible)return deny('dialog');
       }
       var media=document.querySelectorAll('audio,video');
-      for(var m=0;m<media.length;m++)if(!media[m].paused&&!media[m].ended)return deny('unsafe-audio');
+      for(var m=0;m<media.length;m++)if(!media[m].paused&&!media[m].ended&&!knownSilentCarrier(media[m]))return unsafeAudio('media-active');
       if(localStorage.getItem('sukun.tab.owner.r981'))return deny('unsafe-owner');
       if(!criticalAudioIdle())return false;
       // Safety reads/layout can consume the last onset allowance in this task.
@@ -127,12 +132,13 @@
   }
   var AudioContextClass=window.AudioContext||window.webkitAudioContext;
   var assetBytes=null,buffer=null,assetController=null,decodeStarted=false;
+  var sourceStartedAt=null;
   var context=null,voices=[],bus=null,stopped=false,closing=false,playing=false,resumeReady=false,resumeRequested=false,watchdog=0,guardTimer=0;
   var activityEvents=['storage','sukun:tabownerchange','sukun:audioaggregatechange','sukun:audiostate','sukun:itemrecordingchange'];
   function listen(target,type,handler){target.addEventListener(type,handler,{capture:true,passive:true});}
   function unlisten(target,type,handler){target.removeEventListener(type,handler,{capture:true});}
   function stop(reason){
-    if(stopped)return;contextDiagnostic('audioContextStopState');if(Number.isFinite(started))budgetDiagnostic(started);stopped=true;
+    if(stopped)return;if(sourceStartedAt!==null)diagnostic('audioPlaybackElapsedMs',Math.max(0,Math.round(performance.now()-sourceStartedAt)));contextDiagnostic('audioContextStopState');if(Number.isFinite(started))budgetDiagnostic(started);stopped=true;
     if(typeof reason==='string')root.dataset.audioOutcome=reason;
     else if(root.dataset.audioOutcome==='waiting')root.dataset.audioOutcome='cancelled';
     if(watchdog)clearTimeout(watchdog);
@@ -194,8 +200,8 @@
       if(context.state!=='running'){stop('interrupted');return;}
       var t=context.currentTime+LEAD_MS/1000;
       if(!Number.isFinite(t)||t<0){stop('failed');return;}
-      bus.gain.value=1;source.onended=function(){if(!stopped)stop();};
-      source.start(t);diagnostic('audioSourcesScheduled','1');source.stop(t+HIT_MS/1000);
+      bus.gain.value=1;source.onended=function(){if(!stopped){diagnostic('audioCompleted','1');stop();}};
+      source.start(t);sourceStartedAt=performance.now();diagnostic('audioScheduledAgeMs',Math.max(0,Math.round(sourceStartedAt-boot)));diagnostic('audioSourcesScheduled','1');source.stop(t+HIT_MS/1000);
       root.dataset.audioOutcome='scheduled';assetBytes=null;buffer=null;
       clearTimeout(watchdog);
       watchdog=setTimeout(stop,Math.min(HIT_MS+110+LEAD_MS,INTRO_MS-(performance.now()-started)));
@@ -225,7 +231,7 @@
       assetController=typeof window.AbortController==='function'?new window.AbortController():null;
       var options={cache:'force-cache',credentials:'same-origin',integrity:'sha256-GecAJ60xJdEWWgn9tSnIeIEEjChmCU6I4aFp5B995Fc='};
       if(assetController)options.signal=assetController.signal;
-      window.fetch('./assets/audio/sukun-intro-signature-r1037.wav?v=r1037',options).then(function(response){
+      window.fetch('./assets/audio/sukun-intro-signature-r1037.wav?v=r1038',options).then(function(response){
         if(stopped)return null;
         if(!response||!response.ok)throw Error('asset');
         return response.arrayBuffer();

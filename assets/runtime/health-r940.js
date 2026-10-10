@@ -515,6 +515,7 @@
         visualStarted:flag('visualStarted'),visualEnded:flag('visualEnded'),sourcesScheduled:flag('audioSourcesScheduled'),
         contextInitialState:choice('audioContextInitialState',states),contextState:choice('audioContextState',states),contextStopState:choice('audioContextStopState',states),
         resumeState:choice('audioResumeState',['not_requested','pending','fulfilled','rejected','threw']),resumeSettledAfterStop:flag('audioResumeSettledAfterStop'),
+        safetyReason:choice('audioSafetyReason',['lifecycle-busy','tick-recording','physical-recording','session-non-idle','aggregate-active','media-active']),scheduledAgeMs:amount('audioScheduledAgeMs'),playbackElapsedMs:amount('audioPlaybackElapsedMs',0,10000),completed:flag('audioCompleted'),
         assetState:choice('audioAssetState',['loading','ready','failed','integrity_failed']),decodeState:choice('audioDecodeState',['not_started','decoding','ready','failed','invalid']),assetReadyAgeMs:amount('audioAssetReadyAgeMs'),bufferDurationMs:amount('audioBufferDurationMs',0,10000),
         resumeError:choice('audioResumeError',['AbortError','NotAllowedError','NotSupportedError','InvalidStateError','NetworkError','SecurityError','TypeError','TimeoutError','Error','UnknownError']),
         moduleAgeMs:amount('audioModuleAgeMs'),readyAgeMs:amount('audioReadyAgeMs'),firstFrameAgeMs:amount('firstFrameAgeMs'),
