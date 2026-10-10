@@ -6,7 +6,7 @@
  const $=id=>document.getElementById(id),safe=(fn,fallback=null)=>{try{return fn()}catch(_){return fallback}};
  const flags=['r608-opening-active','r610-opening-active','sukun-tefekkur-mode','sukun-focus-mode','r920-practice-on','r920-focus-rest','r920-details-open','r433-dock-hidden','sukun-resume-settling'];
  const tabs=['tab-amb','tab-frq','tab-zkr','tab-rx','tab-ntf'];
- const state={version:'r979',state:'ready',checks:0,recoveries:0,lastReason:'boot',lastAt:0,lastProbe:null,lastRepair:null,scope:'DOM visibility and observed animation frame; not raster or physical display test'};
+ const state={version:'r1042',state:'ready',checks:0,recoveries:0,lastReason:'boot',lastAt:0,lastProbe:null,lastRepair:null,scope:'DOM visibility and observed animation frame; not raster or physical display test'};
  let timer=0,frame=0,fallback=0,generation=0,gestures=0,lastWake=0,notice=null,wasHidden=!!document.hidden,pendingReturn=false,returnGesture=0;
  const at=()=>Date.now(),round=n=>Math.round((Number(n)||0)*10)/10;
  function cancel(){clearTimeout(timer);clearTimeout(fallback);if(frame)cancelAnimationFrame(frame);timer=frame=fallback=0;generation++}
@@ -63,10 +63,13 @@
    // Only expired opening flags are removed. A live opening is left intact.
    if(!before.openingActive)for(const name of ['r608-opening-active','r610-opening-active'])if(body?.classList.contains(name)){body.classList.remove(name);actions.push('clear-'+name)}
    if(before.tef&&$('tab-zkr')?.hidden){$('tab-zkr').hidden=false;actions.push('show-tefekkur-tab')}
-   if(!before.openingActive){
-    const needed=before.tef&&!before.roots.practice.inViewport||before.roots.practice.blocker==='hidden'||!before.roots.practice.connected||!observed;
+   // A delivered RAF runs before paint. Rebuilding an already visible practice
+   // here delays the first foreground frame and duplicates its queued render.
+   // Recheck small repairs first; hidden practice on another tab is intentional.
+   const surface=actions.length?safe(()=>probe(reason,observed,delay),before):before;
+   if(!surface.openingActive&&(!observed||!surface.domSurfaceVisible)){
     const restored=safe(()=>window.SukunPracticeUI?.restorePresentation?.(),false);
-    if(needed&&restored)actions.push('refresh-practice');
+    if(restored)actions.push('refresh-practice');
    }
    // Preserve legitimate positions within the reading/settings surface. Only
    // rescue an entirely off-screen focus surface after return, before input.
@@ -96,6 +99,6 @@
  addEventListener('pagehide',hide,{passive:true});addEventListener('pageshow',e=>schedule(e.persisted?'pageshow-persisted':'pageshow'),{passive:true});
  addEventListener('focus',()=>schedule('focus'),{passive:true});
  for(const event of ['pointerdown','wheel','keydown'])document.addEventListener(event,()=>{gestures++},{capture:true,passive:true});
- window.SukunPresentationRecovery=Object.freeze({version:'r979',snapshot,recover:()=>schedule('manual',true)});
+ window.SukunPresentationRecovery=Object.freeze({version:'r1042',snapshot,recover:()=>schedule('manual',true)});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>schedule('boot'),{once:true});else schedule('boot');
 })();

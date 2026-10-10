@@ -14,7 +14,7 @@
  document.addEventListener('visibilitychange',hidden,{passive:true});
  document.addEventListener('freeze',()=>{frozen=true;freezeEvents++;document.documentElement.dataset.r949Hidden='1';checkpoint();},{passive:true});
  document.addEventListener('resume',()=>{frozen=false;resumeEvents++;hidden();},{passive:true});
- addEventListener('pagehide',()=>{pagehideSeen=true;checkpoint();},{passive:true});
+ addEventListener('pagehide',()=>{pagehideSeen=true;document.documentElement.dataset.r949Hidden='1';checkpoint();},{passive:true});
  addEventListener('pageshow',()=>{pagehideSeen=false;hidden();},{passive:true});
  // Session changes already exist; no new polling or unload handler.
  let lastSave=0;addEventListener('sukun:sessionchange',e=>{if(Date.now()-lastSave>15000||e.detail.phase!=='PLAYING'){lastSave=Date.now();checkpoint();}},{passive:true});
