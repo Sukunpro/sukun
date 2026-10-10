@@ -106,6 +106,10 @@ html body #r920Practice[data-mode="berhet"]>#r986Sections{
  border:1px solid #cfad70!important;border-image:var(--r933-panel-frame) 250 / 7px / 0 stretch!important;
  background:#0c202deF!important;
 }
+/* Match the active section owner, then limit the lighter frame to Berhetiyye. */
+html body.sukun-zikir-tab:not(.sukun-tefekkur-mode) #r920Practice[data-mode="berhet"]:not([hidden])>#r986Sections:not([hidden]){
+ background:#0c202d99!important;
+}
 html body #r920Practice[data-mode="berhet"]>#r986Sections>button{
  border:1px solid transparent!important;border-image:var(--r933-gem-sapphire) 330 fill / 7px / 0 stretch!important;
  background:#102638!important;color:#fff2d5!important;-webkit-text-fill-color:#fff2d5!important;text-shadow:0 1px 3px #001019!important;
@@ -256,6 +260,9 @@ body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"] #r938Panel{margin-t
 #r920Practice[data-r938-layout="1"] #r938Panel{padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;gap:0!important}
 #r920Practice[data-r938-layout="1"] #r938PanelToggle{width:min(100%,260px)!important;align-self:center!important;min-height:44px!important;border-radius:18px 18px 8px 8px!important;position:relative!important;padding:10px 22px!important;box-shadow:0 -2px 8px #0003!important}
 #r920Practice[data-r938-layout="1"] #r938PanelBody:not([hidden]){padding:10px!important;border:1px solid #d4b67788!important;border-radius:18px!important;background:linear-gradient(150deg,#081927ed,#061521e8)!important}
+/* This layer owns the panel paint; later skin rules cannot override it.
+   The frame is 60% dark, with separate text scrims inside the disclosures. */
+#r920Practice[data-r938-layout="1"][data-mode="berhet"] #r938PanelBody:not([hidden]){background:linear-gradient(150deg,#08192799,#06152199)!important}
 #r920Practice[data-r938-layout="1"] .r920Path{justify-content:center!important;flex-wrap:wrap!important;gap:12px!important;max-width:300px!important;margin:10px auto 16px!important}
 #r920Practice[data-r938-layout="1"] .r920Path>button,#r920Practice[data-r938-layout="1"] #r920JourneyLabel{width:120px!important;flex:0 1 120px!important;min-width:0!important}
 #r920Practice[data-r938-layout="1"] #r920JourneyMode{width:100%!important;min-height:44px!important}

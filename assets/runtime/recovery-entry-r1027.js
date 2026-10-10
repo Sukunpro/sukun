@@ -1,5 +1,5 @@
 /* Independent, read-only entry. The native rescue link still works if this or
-   any main app script fails. No audio, recovery-state or storage ownership. */
+   any main app script fails. No audio or storage ownership. Recovery opens only on explicit intent. */
 (function(){
   'use strict';
   var title=document.querySelector('[data-sukun-recovery-title]');
@@ -45,6 +45,34 @@
   window.addEventListener('blur',cancel,{passive:true});
   window.addEventListener('pagehide',cancel,{passive:true});
   window.addEventListener('pageshow',function(){cancel();opening=false;},{passive:true});
-  // Only this explicit native link is decorated; its base href works with no JS.
-  fallback.addEventListener('click',function(){fallback.href=destination();});
+  function localize(){
+    var english=document.documentElement.lang==='en';
+    var label=english?'Open recovery options':'Kurtarma seçeneklerini aç';
+    fallback.setAttribute('aria-label',label);fallback.setAttribute('title',label);
+    var intention=document.querySelector('[data-sukun-intention]');
+    if(intention)intention.textContent=english?'With the intention of a heart at peace':'Kalp huzuru niyetiyle';
+  }
+  function openData(){
+    try{return window.SukunRecoveryData&&typeof window.SukunRecoveryData.open==='function'&&window.SukunRecoveryData.open()===true;}
+    catch(_){return false;}
+  }
+  // Native navigation remains the fallback if main scripts are missing. This
+  // sibling link never dispatches an activation to the seven-click ring.
+  fallback.addEventListener('click',function(event){
+    fallback.href=destination();localize();
+    if(event.button>0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+    event.stopPropagation();
+    if(openData())event.preventDefault();
+  });
+  // The standalone page can explicitly request data options. Consume that
+  // navigation intent once; refresh/Back must not resurrect a dismissed panel.
+  function requestedData(){
+    if(location.hash!=='#sukun-data-recovery')return;
+    if(!openData())return;
+    try{var url=new URL(location.href);url.hash='';history.replaceState(history.state,'',url.href);}catch(_){}
+  }
+  localize();requestedData();
+  window.addEventListener('sukun:languagechange',localize,{passive:true});
+  window.addEventListener('sukun:recoverymounted',requestedData,{passive:true});
+  window.addEventListener('pageshow',localize,{passive:true});
 })();

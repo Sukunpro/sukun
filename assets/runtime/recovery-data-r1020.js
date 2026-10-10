@@ -405,8 +405,12 @@
 
   function render() {
     const root = document.getElementById('r1019DataRecovery'); if (!root) return;
-    const emergency = document.getElementById('r1019RecoveryOpen');
-    if (emergency) { emergency.hidden = !(pending || needsReload); emergency.textContent = text('🛟 Kurtarmayı aç', '🛟 Open recovery'); }
+    const overlay = document.getElementById('r1019RecoveryEmergency');
+    if (overlay) {
+      overlay.setAttribute('aria-label', text('Kurtarma Merkezi', 'Recovery Centre'));
+      const standalone = overlay.querySelector('[data-independent-rescue]');
+      if (standalone) { standalone.textContent = text('Bağımsız kurtarma sayfasını aç', 'Open independent recovery page'); standalone.href = './rescue.html?lang=' + (window.I18N?.lang === 'en' ? 'en' : 'tr'); }
+    }
     root.querySelector('[data-role="title"]').textContent = text('🛟 KURTARMA MERKEZİ', '🛟 RECOVERY CENTRE');
     root.querySelector('[data-role="intro"]').textContent = text('Kişisel veri noktası: ayarlar, sayaçlar, günlükler, seanslar, kendi seslerin ve özel ambiyanslar. Son 5 doğrulanmış nokta listelenir. İnceleme sırasında eski ve gizli güvenli kopyalar da silinmeden tutulur. Uygulama sürümü ayrı seçilir.', 'Personal data point: settings, counters, journals, sessions, your recordings and custom ambience. The last 5 verified points are listed. Older and hidden safe copies are also retained during the investigation. App version is selected separately.');
     const labels = { create: ['Güvenli kurtarma noktası oluştur', 'Create safe restore point'], export: ['Kişisel tam yedeği indir', 'Download full personal backup'], import: ['JSON yedeğini geri yükle', 'Restore JSON backup'], restore: ['Seçili noktaya dön', 'Restore selected point'], undo: ['Son veri geri yüklemesini geri al', 'Undo last data restore'], recover: ['Bekleyen kopyadan yalnız eksik sesleri ekle', 'Add only missing voices from pending copy'], ack: ['Bekleyen işlemi kapat (seslere dokunmaz)', 'Close pending operation (no recording changes)'], cancel: ['İptal et', 'Cancel'], reload: ['Uygulamayı yeniden aç', 'Reload application'] };
@@ -432,30 +436,36 @@
   async function runUI(work) { try { await work(); } catch (e) { lastMessage = message(e) + (e.rolledBack ? text(' Önceki veriler geri getirildi.', ' Previous data was restored.') : ''); } finally { render(); await renderList(); } }
   function openEmergency() {
     const panel = document.getElementById('r1019DataRecovery'), overlay = document.getElementById('r1019RecoveryEmergency');
-    if (!panel || !overlay) return;
+    if (!panel || !overlay) return false;
     overlay.hidden = false; overlay.appendChild(panel); panel.open = true;
     const close = overlay.querySelector('[data-emergency-close]'); close.textContent = text('Kurtarma penceresini kapat', 'Close recovery window'); close.focus();
     render(); renderList();
+    return true;
   }
   function mount() {
     if (document.getElementById('r1019DataRecovery')) return;
-    const host = document.getElementById('ydkBox') || document.querySelector('#zmgAraclar .zMegaBody') || document.getElementById('tab-zkr'); if (!host) return;
+    // Keep the data centre out of ordinary home/tools layout. Only an explicit
+    // rescue activation exposes this dialog, even while storage is pending.
+    if (!document.body) return;
     const panel = document.createElement('details'); panel.id = 'r1019DataRecovery'; panel.className = 'r170Hub';
+    // Explicit recovery intent must survive the ordinary startup accordion sweep.
+    panel.setAttribute('data-hep-acik', '');
     panel.innerHTML = '<summary><b data-role="title"></b></summary><div class="r170Body"><p data-role="intro"></p><div class="r1019RecoveryActions"><button type="button" class="r170Btn" data-action="create"></button><button type="button" class="r170Btn" data-action="export"></button><button type="button" class="r170Btn" data-action="import"></button></div><input type="file" data-role="file" accept="application/json,.json" hidden><label data-role="listlabel" for="r1019DataPointSelect"></label><select id="r1019DataPointSelect" data-role="points"></select><div class="r1019RecoveryActions"><button type="button" class="r170Btn" data-action="restore"></button><button type="button" class="r170Btn" data-action="undo"></button><button type="button" class="r170Btn" data-action="recover" hidden></button><button type="button" class="r170Btn" data-action="ack" hidden></button><button type="button" class="r170Btn" data-action="cancel" hidden></button><button type="button" class="r170Btn" data-action="reload" hidden></button></div><p role="status" aria-live="polite" data-role="status"></p><p data-role="warning"></p><div id="r1019VersionRecovery"></div><div id="r1019SiteBackupSlot"></div></div>';
-    const style = document.createElement('style'); style.id = 'r1019RecoveryDataStyle'; style.textContent = '#r1019DataRecovery{min-width:0;max-width:100%;box-sizing:border-box}#r1019DataRecovery p{white-space:normal;overflow-wrap:anywhere;line-height:1.55}#r1019DataRecovery .r1019RecoveryActions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}#r1019DataRecovery button.r170Btn{min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere;flex:1 1 190px}#r1019DataRecovery select{width:100%;max-width:100%;min-width:0;margin:8px 0;padding:10px;box-sizing:border-box}#r1019DataRecovery [data-role="warning"]{font-size:.88em;color:var(--dim,#b7c5c1)}#r1019RecoveryOpen{position:fixed!important;right:14px!important;bottom:calc(18px + env(safe-area-inset-bottom))!important;z-index:2147483000!important;max-width:80vw!important;padding:12px 16px!important;border:1px solid #d3c294!important;border-radius:14px!important;background:#172e34!important;color:#fff2da!important;font:600 15px/1.3 system-ui!important;box-shadow:0 5px 24px #0008!important}#r1019RecoveryOpen[hidden],#r1019RecoveryEmergency[hidden]{display:none!important}#r1019RecoveryEmergency{position:fixed!important;inset:0!important;z-index:2147483001!important;overflow:auto!important;padding:calc(18px + env(safe-area-inset-top)) 16px calc(18px + env(safe-area-inset-bottom))!important;background:#082229!important;color:#f5e9d5!important;box-sizing:border-box!important;touch-action:pan-y!important}#r1019RecoveryEmergency>button{padding:12px!important;margin-bottom:12px!important;background:#1c3740!important;color:#fff0d1!important;border:1px solid #c7b588!important;border-radius:12px!important}'; document.head.appendChild(style); host.appendChild(panel);
+    const style = document.createElement('style'); style.id = 'r1019RecoveryDataStyle'; style.textContent = '#r1019DataRecovery{min-width:0;max-width:100%;box-sizing:border-box}#r1019DataRecovery p{white-space:normal;overflow-wrap:anywhere;line-height:1.55}#r1019DataRecovery .r1019RecoveryActions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}#r1019DataRecovery button.r170Btn{min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere;flex:1 1 190px}#r1019DataRecovery select{width:100%;max-width:100%;min-width:0;margin:8px 0;padding:10px;box-sizing:border-box}#r1019DataRecovery [data-role="warning"]{font-size:.88em;color:var(--dim,#b7c5c1)}#r1019RecoveryEmergency[hidden]{display:none!important}#r1019RecoveryEmergency{position:fixed!important;inset:0!important;z-index:2147483001!important;overflow:auto!important;padding:calc(18px + env(safe-area-inset-top)) 16px calc(18px + env(safe-area-inset-bottom))!important;background:#082229!important;color:#f5e9d5!important;box-sizing:border-box!important;touch-action:pan-y!important}#r1019RecoveryEmergency>a{display:inline-block;min-height:44px;margin:0 12px;color:#fff0d1;text-decoration:underline}#r1019RecoveryEmergency>button{padding:12px!important;margin-bottom:12px!important;background:#1c3740!important;color:#fff0d1!important;border:1px solid #c7b588!important;border-radius:12px!important}'; document.head.appendChild(style);
     const emergency = document.createElement('div'); emergency.id = 'r1019RecoveryEmergency'; emergency.hidden = true; emergency.setAttribute('role', 'dialog'); emergency.setAttribute('aria-modal', 'true'); emergency.setAttribute('aria-label', text('Kurtarma Merkezi', 'Recovery Centre'));
     style.textContent += '#r1019DataRecovery button.r170Btn{min-height:44px}';
-    const close = document.createElement('button'); close.type = 'button'; close.setAttribute('data-emergency-close', ''); close.onclick = () => { emergency.hidden = true; host.appendChild(panel); document.getElementById('r1019RecoveryOpen')?.focus(); }; emergency.appendChild(close); document.body.appendChild(emergency);
+    const close = document.createElement('button'); close.type = 'button'; close.setAttribute('data-emergency-close', ''); close.onclick = () => { emergency.hidden = true; panel.open = false; document.getElementById('sukun-rescue-link')?.focus(); }; emergency.appendChild(close);
+    const standalone = document.createElement('a'); standalone.setAttribute('data-independent-rescue', ''); standalone.href = './rescue.html'; emergency.appendChild(standalone);
+    emergency.appendChild(panel); document.body.appendChild(emergency);
     emergency.addEventListener('keydown', event => {
       if (event.key === 'Escape') { event.preventDefault(); close.click(); return; }
       if (event.key !== 'Tab') return;
-      const candidates = [...emergency.querySelectorAll('button:not([disabled]):not([hidden]),select:not([disabled]),input:not([hidden]),summary')].filter(el => el.getClientRects().length);
+      const candidates = [...emergency.querySelectorAll('button:not([disabled]):not([hidden]),select:not([disabled]),input:not([hidden]),a[href],summary')].filter(el => el.getClientRects().length);
       if (!candidates.length) { event.preventDefault(); close.focus(); return; }
       const first = candidates[0], last = candidates[candidates.length - 1], active = document.activeElement;
       if (event.shiftKey && (active === first || !emergency.contains(active))) { event.preventDefault(); last.focus(); }
       else if (!event.shiftKey && (active === last || !emergency.contains(active))) { event.preventDefault(); first.focus(); }
     });
-    const open = document.createElement('button'); open.type = 'button'; open.id = 'r1019RecoveryOpen'; open.onclick = openEmergency; document.body.appendChild(open);
     const file = panel.querySelector('[data-role="file"]');
     panel.querySelector('[data-role="points"]').onchange = render;
     panel.querySelector('[data-action="create"]').onclick = () => runUI(() => create());
@@ -474,7 +484,7 @@
   // An unresolved old journal blocks ordinary controls until explicitly
   // acknowledged by additive rescue. Scanners stay read-only.
   document.addEventListener('click', event => {
-    if (!(pending || needsReload || operation) || event.target.closest?.('#r1019DataRecovery,#r1019VersionRecovery,#r1019RecoveryOpen,#r1019RecoveryEmergency,#r1020VoiceRescue')) return;
+    if (!(pending || needsReload || operation) || event.target.closest?.('#r1019DataRecovery,#r1019VersionRecovery,#sukun-rescue-link,#r1019RecoveryEmergency,#r1020VoiceRescue')) return;
     const interactive = event.target.closest?.('button,input,select,a,[role="button"]');
     if (!interactive) return;
     event.preventDefault(); event.stopImmediatePropagation(); lastMessage = text('Önce Kurtarma Merkezi işlemini tamamla veya uygulamayı yeniden aç.', 'Finish the Recovery Centre operation or reload the app first.'); render();
@@ -482,13 +492,13 @@
   const api = {
     version: 'r1020', create, list, restore, undo, export: exportPersonal, import: importPersonal, recoverPending, rescuePending: recoverPending, ackPending, pendingInfo, capturePortable,
     hasPending: () => pending || needsReload, cancel: () => { if (operation) operation.cancelled = true; render(); },
-    status: () => ({ version: 'r1020', pending, busy: !!operation, operation: operation?.kind || null, reloadRequired: needsReload, error: readyError, maxPoints: MAX_POINTS, automaticReplay: false, exactRestoreEnabled: false }), mount
+    status: () => ({ version: 'r1020', pending, busy: !!operation, operation: operation?.kind || null, reloadRequired: needsReload, error: readyError, maxPoints: MAX_POINTS, automaticReplay: false, exactRestoreEnabled: false }), mount, open: openEmergency
   };
   window.SukunRecoveryData = Object.freeze(api);
   const boot = async () => {
     mount();
     try { const journal = await getMeta('journal'); pending = !!journal; if (journal) lastMessage = text('Bekleyen eski işlem bulundu. Otomatik geri yükleme kapalı; mevcut seslere dokunulmadı. Yalnız eksik sesleri eklemek için bekleyen işlemi güvenle kapat.', 'An old pending operation was found. Automatic replay is disabled; existing recordings were not touched. Safely close the pending operation by adding only missing voices.'); render(); }
-    catch (e) { pending = true; readyError = message(e); render(); openEmergency(); }
+    catch (e) { pending = true; readyError = message(e); render(); }
     return api.status();
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true }); else void boot();

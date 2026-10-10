@@ -19,7 +19,8 @@
   border:1px solid transparent!important;
   border-image:var(--r933-panel-frame,url('../berhetiyye-premium/panel-emerald-r932.webp')) 250 / 12px / 0 stretch!important;
   border-radius:22px!important;
-  background:radial-gradient(ellipse at 20% 0%,#174a35f2,#08281ff7 40%,#031811fa)!important;
+  /* A local dark scrim preserves small-label contrast without blurring the scene. */
+  background:radial-gradient(ellipse at 20% 0%,#0b2826c7,#08281fc7 40%,#031811cc)!important;
   box-shadow:0 16px 42px #0008,inset 0 0 0 2px #b4985159,inset 0 2px 12px #ddc78215!important;
   backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
  }

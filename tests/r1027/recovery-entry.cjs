@@ -5,8 +5,8 @@ const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const rescue=fs.readFileSync(path.join(root,'rescue.html'),'utf8');
 const entry=fs.readFileSync(path.join(root,'assets/runtime/recovery-entry-r1027.js'),'utf8');
 const rescueCode=rescue.match(/<script id="sukun-static-rescue">([\s\S]*?)<\/script>/)[1];
-function hub(){return{handlers:{},addEventListener(type,fn,options){(this.handlers[type]??=[]).push({fn,options})}};}
-function fire(target,type,data={}){for(const {fn} of target.handlers[type]||[])fn({type,isTrusted:true,pointerId:1,isPrimary:true,button:0,clientX:10,clientY:10,...data});}
+function hub(){return{attrs:{},setAttribute(k,v){this.attrs[k]=v;},handlers:{},addEventListener(type,fn,options){(this.handlers[type]??=[]).push({fn,options})}};}
+function fire(target,type,data={}){for(const {fn} of target.handlers[type]||[])fn({type,preventDefault(){},stopPropagation(){},isTrusted:true,pointerId:1,isPrimary:true,button:0,clientX:10,clientY:10,...data});}
 function deny(){throw Error('Unexpected data/network mutation or read');}
 function entryFixture(){
  let next=0,at=0;const jobs=new Map(),navigation=[],title=hub(),fallback=hub(),document=hub(),window=hub();
@@ -32,7 +32,7 @@ function rescueFixture(options={}){
 const results=[];function test(name,fn){try{fn();results.push({name,status:'PASS'});}catch(e){results.push({name,status:'FAIL',error:e.message});}}
 test('No legacy tap curtain, visible tap label or obsolete toggle markup',()=>{for(const id of ['acilisPerde','apDokun','acilisTgl','sukun-startup-curtain-runtime'])assert(!new RegExp('id="'+id+'"').test(html),id);});
 test('Rescue does not import main JavaScript, CSS or any remote asset',()=>{assert(!/<script[^>]+src=|<link[^>]+(?:stylesheet|preload)|https?:\/\//i.test(rescue));new vm.Script(rescueCode);});
-test('Native keyboard fallback is a plain focusable same-origin link without main JS',()=>{assert.match(html,/<a id="sukun-rescue-link" href="\.\/rescue\.html">/);assert(!/<a id="sukun-rescue-link"[^>]*(?:tabindex="-1"|onclick=|hidden)/.test(html));assert.match(html,/#sukun-rescue-link:focus/);});
+test('Native keyboard fallback is a plain focusable same-origin link without main JS',()=>{assert.match(html,/<a id="sukun-rescue-link" href="\.\/rescue\.html"[^>]*>/);assert(!/<a id="sukun-rescue-link"[^>]*(?:tabindex="-1"|onclick=|hidden)/.test(html));assert.match(html,/#sukun-rescue-link:focus/);});
 test('Independent entry script is deferred and has no main-runtime dependency',()=>{assert.match(html,/<script defer src="\.\/assets\/runtime\/recovery-entry-r1027\.js\?v=r\d+"/);const f=entryFixture();f.down();f.tick(1200);f.up();assert.deepEqual(f.navigation,['https://example.test/app/rescue.html?lang=tr']);});
 test('Short click remains unchanged and never navigates',()=>{const f=entryFixture();f.down();f.tick(1199);f.up();f.tick(100);assert.equal(f.navigation.length,0);assert.equal(f.jobs.size,0);});
 test('Long press requires release and navigates once',()=>{const f=entryFixture();f.down();f.tick(1500);assert.equal(f.navigation.length,0);f.up();f.up();assert.equal(f.navigation.length,1);});
@@ -46,7 +46,7 @@ test('Movement during press cancels without preventing scroll',()=>{const f=entr
 test('Moved release cancels even when move event was missed',()=>{const f=entryFixture();f.down();f.tick(1200);f.up({clientY:30});assert.equal(f.navigation.length,0);});
 test('Second finger cancels the initial intent',()=>{const f=entryFixture();f.down();fire(f.document,'pointerdown',{pointerId:2,isPrimary:false});f.tick(1200);f.up();assert.equal(f.navigation.length,0);});
 test('Right button and untrusted input cannot open hidden entry',()=>{for(const e of [{button:2},{isTrusted:false},{isPrimary:false}]){const f=entryFixture();f.down(e);f.tick(1400);f.up();assert.equal(f.navigation.length,0);}});
-test('Ordinary input handlers never prevent default, stop propagation or capture pointers',()=>{assert(!/\.preventDefault\(|\.stopPropagation\(|\.setPointerCapture\(/.test(entry));});
+test('Title gesture handlers never prevent default, stop propagation or capture pointers',()=>{assert(!/\.preventDefault\(|\.stopPropagation\(|\.setPointerCapture\(/.test(entry.slice(0,entry.indexOf('  function localize()'))));});
 test('Returning through Back allows a fresh deliberate entry',()=>{const f=entryFixture();f.down();f.tick(1200);f.up();fire(f.window,'pageshow');f.down();f.tick(1200);f.up();assert.equal(f.navigation.length,2);});
 for(const options of [{noSW:true},{},{throwSW:true}])test('Static page remains usable without accessible controlling SW: '+JSON.stringify(options),()=>{const f=rescueFixture(options);assert.equal(f.elements['worker-tr'].hidden,true);assert.equal(f.elements['worker-tr'].href,undefined);assert.match(rescue,/<a class="action" href="\.\/index\.html">/);});
 test('Only the matching activated same-origin worker exposes version options',()=>{for(const controller of [{state:'activated',scriptURL:'https://evil.test/app/sw.js'},{state:'activated',scriptURL:'https://example.test/other/sw.js'},{state:'installing',scriptURL:'https://example.test/app/sw.js'}])assert(rescueFixture({controller}).elements['worker-tr'].hidden);const f=rescueFixture({controller:{state:'activated',scriptURL:'https://example.test/app/sw.js?v=r1026'}});assert.equal(f.elements['worker-tr'].hidden,false);assert.equal(f.elements['worker-en'].href,'./__sukun_recovery__?lang=en');});

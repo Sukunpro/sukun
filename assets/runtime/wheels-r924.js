@@ -156,10 +156,11 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
  const pointers=new Set();
  let enabled=true;try{enabled=localStorage.getItem('sukun.wheel.motion')!=='0'}catch(e){}
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ const tekkeVisible=()=>document.body?.classList.contains('r436-tekke-open')||document.getElementById('tk')?.hidden===false;
  function render(s=window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.()){
   if(!frame)return;
   const d=document.body?.dataset||{},saving=document.documentElement?.dataset?.r920Performance==='saving'||d.perf==='pil'||d.perfEffective==='pil';
-  const run=enabled&&!reduced.matches&&!saving&&!document.hidden&&!hold&&!keyHold&&s?.phase==='PLAYING';
+  const run=enabled&&!reduced.matches&&!saving&&!document.hidden&&!tekkeVisible()&&!hold&&!keyHold&&s?.phase==='PLAYING';
   const state=run?'running':'paused';if(frame.dataset.motion!==state)frame.dataset.motion=state;
  }
  function resetGesture(){clearTimeout(releaseTimer);releaseTimer=0;pointers.clear();hold=false;keyHold=false;keyboardMode=false;render()}
@@ -194,7 +195,7 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
  document.addEventListener('visibilitychange',()=>{if(document.hidden)resetGesture();else render()});
  addEventListener('blur',resetGesture);
  reduced.addEventListener('change',()=>render());
- ['sukun:performancechange','sukun:performance','sukun:performance-effective'].forEach(name=>addEventListener(name,()=>render()));
+ ['sukun:performancechange','sukun:performance','sukun:performance-effective','tekke:opened','tekke:closed'].forEach(name=>addEventListener(name,()=>render()));
  window.SukunWheelMotion=Object.freeze({version:'r988',connect,render,snapshot:()=>({enabled,reduced:reduced.matches,state:frame?.dataset.motion||'none',activePointers:pointers.size,holding:hold,keyboardHolding:keyHold})});
 })();
 
@@ -273,7 +274,8 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 function cancel(){animations.forEach(a=>a.cancel());animations=[]}
 function cancelFlow(){flowAnimations.forEach(a=>a.cancel());flowAnimations=[];flowMode=''}
 function saving(){const d=document.body?.dataset||{};return document.documentElement?.dataset?.r920Performance==='saving'||d.perf==='pil'||d.perfEffective==='pil'}
-function syncFlow(s){const active=!!(s?.playing&&!s.presentationOnly&&!document.hidden&&!reduced.matches&&!saving()&&setting!=='off'&&motion!=='breath');if(!active){cancelFlow();return}if(flowMode===motion&&flowAnimations.length)return;cancelFlow();flowMode=motion;flowAnimations=[travel.animate([{transform:'rotate(0deg)'},{transform:'rotate(-360deg)'}],{duration:9600,iterations:Infinity,easing:'linear'})];if(motion==='wave')flowAnimations.push(travel.animate([{opacity:.35},{opacity:.95,offset:.5},{opacity:.35}],{duration:2400,iterations:Infinity,easing:'ease-in-out'}))}
+const tekkeVisible=()=>document.body?.classList.contains('r436-tekke-open')||document.getElementById('tk')?.hidden===false;
+function syncFlow(s){const active=!!(s?.playing&&!s.presentationOnly&&!tekkeVisible()&&!document.hidden&&!reduced.matches&&!saving()&&setting!=='off'&&motion!=='breath');if(!active){cancelFlow();return}if(flowMode===motion&&flowAnimations.length)return;cancelFlow();flowMode=motion;flowAnimations=[travel.animate([{transform:'rotate(0deg)'},{transform:'rotate(-360deg)'}],{duration:9600,iterations:Infinity,easing:'linear'})];if(motion==='wave')flowAnimations.push(travel.animate([{opacity:.35},{opacity:.95,offset:.5},{opacity:.35}],{duration:2400,iterations:Infinity,easing:'ease-in-out'}))}
 function appearance(){if(!frame)return;const p=palettes[frame.dataset.wheelId]||palettes.crystal;frame.style.setProperty('--r950-a',p[0]);frame.style.setProperty('--r950-b',p[1]);frame.dataset.r950Light=setting;frame.dataset.r952Motion=motion;}
 function mount(){const next=document.getElementById('r924WheelFrame');if(!next)return false;if(next!==frame){cancel();cancelFlow();observer?.disconnect();frame=next;
  halo=document.createElement('div');halo.className='r950Nur r950Halo';halo.setAttribute('aria-hidden','true');halo.innerHTML='<i class="r950Outer"></i><i class="r950Inner"></i><i class="r951Aura"></i><i class="r951Filaments"></i>';frame.prepend(halo);travel=document.createElement('div');travel.className='r950Nur r952Travel';travel.setAttribute('aria-hidden','true');travel.innerHTML='<i class="r952Trail"></i><i class="r952Point r952PointA"></i><i class="r952Point r952PointB"></i><i class="r952Point r952PointC"></i>';frame.append(travel);
@@ -290,7 +292,7 @@ function update(s){if(!s||!mount())return;lastState=s;syncFlow(s);
  const identity=[s.sessionId,s.activeMode,s.activeIndex,s.journeyKind].join(':');const count=Number(s.count)||0;
  const increased=previous&&previous.identity===identity&&count>previous.count;
  const continuous=increased&&s.playing&&previous.playing;previous={identity,count,playing:s.playing};
- if(document.hidden||reduced.matches||saving()||setting==='off'||['PAUSED','PREPARING','ERROR','INTERRUPTED','COMPLETED'].includes(s.phase)||s.presentationOnly){cancel();lastBeat=0;return}
+ if(tekkeVisible()||document.hidden||reduced.matches||saving()||setting==='off'||['PAUSED','PREPARING','ERROR','INTERRUPTED','COMPLETED'].includes(s.phase)||s.presentationOnly){cancel();lastBeat=0;return}
  if(!increased){if(!s.playing){cancel();lastBeat=0}return}
  const now=performance.now(),duration=continuous&&lastBeat?Math.max(350,Math.min(8000,now-lastBeat)):1200;lastBeat=now;
  flowAnimations.forEach(a=>a.updatePlaybackRate(Math.max(.3,Math.min(2,1200/duration))));
@@ -298,6 +300,8 @@ function update(s){if(!s||!mount())return;lastState=s;syncFlow(s);
  animations=[halo.animate([{opacity:base,transform:'scale(.98)'},{opacity:strength,transform:'scale(1.015)',offset:.38},{opacity:base,transform:'scale(.98)'}],{duration,easing:'ease-in-out'}),gems.animate([{opacity:base},{opacity:strength,offset:.28},{opacity:base}],{duration,easing:'ease-in-out'})];pulses++;
 }
 function read(){update(window.SukunSessionState?.peek?.())}
+// Reconcile the current session after the overlay, without inventing a count beat.
+['tekke:opened','tekke:closed'].forEach(name=>window.addEventListener(name,()=>{cancel();cancelFlow();previous=null;lastBeat=0;read()}));
 window.addEventListener('sukun:sessionchange',e=>update(e.detail));document.addEventListener('visibilitychange',()=>{cancel();cancelFlow();previous=null;lastBeat=0;read()});reduced.addEventListener('change',()=>{cancel();cancelFlow();read()});window.addEventListener('pagehide',()=>{cancel();cancelFlow()});
 ['sukun:performancechange','sukun:performance','sukun:performance-effective'].forEach(name=>window.addEventListener(name,()=>{cancel();cancelFlow();lastBeat=0;read()}));
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',read,{once:true});else read();
