@@ -624,10 +624,16 @@
           const runtime=/\/assets\/runtime\/[A-Za-z0-9_.-]+$/.test(url.pathname);
           const navigationArt=/\/assets\/wheel-navigation-r964\/(?:gold|copper|silver|dark|crystal)\.png$/.test(url.pathname);
           const cabirArt=/\/assets\/scenes\/tekke-r1014\/berhet-billur\.webp$/.test(url.pathname);
-          if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
+          // The release also hashes the recovery page and these exact opening
+          // assets. Permit their app-relative paths, not arbitrary HTML/art/audio.
+          const rescuePage=url.pathname===new URL('./rescue.html',location.href).pathname;
+          const introArt=['./assets/branding/sukun-frameless-logo-r1029.png','./assets/branding/sukun-intro-pattern-r1029.svg']
+            .some(p=>url.pathname===new URL(p,location.href).pathname);
+          const introAudio=url.pathname===new URL('./assets/audio/sukun-intro-signature-r1037.wav',location.href).pathname;
+          if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||introAudio)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;
           }
-          const maxFileBytes=navigationArt||cabirArt?2097152:524288;let allowance=0;
+          const maxFileBytes=navigationArt||cabirArt||introArt?2097152:524288;let allowance=0;
           try {
             allowance=await reserveBytes(maxFileBytes);
             let data;
