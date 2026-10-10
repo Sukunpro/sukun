@@ -75,4 +75,31 @@
   window.addEventListener('sukun:languagechange',localize,{passive:true});
   window.addEventListener('sukun:recoverymounted',requestedData,{passive:true});
   window.addEventListener('pageshow',localize,{passive:true});
+  // The simple/focus shell hides the legacy footer. Move the complete row,
+  // preserving the original ring node/listeners and the classic insertion point.
+  var row=document.getElementById('sukun-heart-intention');
+  var originalParent=row&&row.closest('footer');
+  if(row&&originalParent&&document.body){
+    var following=row.nextSibling;
+    function placeIntention(){
+      var shell=document.body.classList.contains('r616-ui');
+      var host=document.getElementById('sukun-shell-intention');
+      if(shell){
+        var wrap=document.querySelector('.wrap');if(!wrap)return;
+        if(!host){host=document.createElement('div');host.id='sukun-shell-intention';wrap.appendChild(host);}
+        if(row.parentNode!==host)host.appendChild(row);
+      }else if(row.parentNode!==originalParent){
+        originalParent.insertBefore(row,following&&following.parentNode===originalParent?following:null);
+      }
+    }
+    placeIntention();
+    document.addEventListener('DOMContentLoaded',placeIntention,{once:true});
+    window.addEventListener('pageshow',placeIntention,{passive:true});
+    // Shell construction adds r616-ui synchronously; class observation runs
+    // after construction. No subtree observer or repeated DOM rewrite is needed.
+    if(typeof MutationObserver==='function'){
+      var shellObserver=new MutationObserver(placeIntention);
+      shellObserver.observe(document.body,{attributes:true,attributeFilter:['class']});
+    }
+  }
 })();
