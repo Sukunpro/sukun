@@ -6,25 +6,31 @@
   if(!root||root.dataset.audioAttempted==='1')return;
   root.dataset.audioAttempted='1';
   // Ephemeral, nonvisual diagnostics only; scheduled does not prove audibility.
-  var boot=Number(root.dataset.bootStarted),handshake=root.dataset.introBootstrap==='r1032',readinessTimer=0,readySent=false;
+  var boot=Number(root.dataset.bootStarted),handshake=root.dataset.introBootstrap==='r1033',readinessTimer=0,readySent=false;
   if(handshake)root.dataset.audioModuleAgeMs=String(Math.max(0,Math.round(performance.now()-boot)));
-  if(handshake&&root.dataset.introPhase==='done')return;
+  if(handshake&&(root.dataset.introPhase==='done'||root.dataset.introPhase==='abandoned'))return;
   if(!handshake)root.dataset.audioOutcome='ineligible';
   var started=Number(root.dataset.started),INTRO_MS=1300,HIT_MS=650,ineligibleReason='ineligible';
   function deny(reason){ineligibleReason=reason;return false;}
   function eligible(requiredMs,preparing){
     var age=performance.now()-started;
-    // Leave room for the complete unchanged hit before the visual exit.
-    if(preparing){
-      var waitStarted=Number(root.dataset.waitStarted);
-      if(!Number.isFinite(boot)||performance.now()-boot<0||Number.isFinite(waitStarted)&&performance.now()-waitStarted>=1000)return deny('load_expired');
+    if(handshake){
+      var clock=typeof root.sukunIntroReadClock==='function'?root.sukunIntroReadClock():null;
+      if(!clock)return deny('timing_unavailable');
+      if(clock.pending)return deny('timing_pending');
+      if(clock.ended)return deny(resumeRequested?'resume_timeout':'load_expired');
+      if(clock.waiting){if(!preparing)return deny('visual_pending');}
+      else{
+        started=clock.started;age=clock.elapsed;root.dataset.started=String(started);
+        if(age<0||age+requiredMs>=INTRO_MS)return deny(resumeRequested?'resume_timeout':'load_expired');
+      }
     }else if(!Number.isFinite(started)||!Number.isFinite(age)||age<0||age+requiredMs>=INTRO_MS)return deny(resumeRequested?'resume_timeout':'onset_expired');
     if(root.dataset.cancelled==='1')return deny('cancelled');
     if(root.hidden||document.hidden)return deny('hidden');
     // Unknown/active ownership is a reason for silence, never a reason to claim
     // or clear another tab's lock. These checks only read existing app state.
     try{
-      if(root.dataset.audioDisabled==='reduced-motion')return deny('reduced-motion');
+      if(root.dataset.audioDisabled)return deny(root.dataset.audioDisabled);
       if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){root.dataset.audioDisabled='reduced-motion';return deny('reduced-motion');}
       if(localStorage.getItem('sukun.tab.owner.r981'))return deny('unsafe-owner');
       if(!window.AudioLife||typeof window.AudioLife.busy!=='function'||
@@ -53,6 +59,11 @@
       }
       var media=document.querySelectorAll('audio,video');
       for(var m=0;m<media.length;m++)if(!media[m].paused&&!media[m].ended)return deny('unsafe-audio');
+      // Safety reads/layout can consume the last onset allowance in this task.
+      // Reuse the validated origin, never refresh it from a stale CSS sample.
+      age=performance.now()-(handshake?clock.started:started);
+      if(!Number.isFinite(age)||(!preparing&&age<0)||age+requiredMs>=INTRO_MS)
+        return deny(resumeRequested?'resume_timeout':'load_expired');
       return true;
     }catch(_){return deny('unavailable');}
   }
@@ -78,8 +89,7 @@
     unlisten(document,'play',activity);
     activityEvents.forEach(function(type){unlisten(window,type,activity);});
     root.removeEventListener('sukun:intro-cancel',stop);
-    root.removeEventListener('sukun:intro-start',beginAudio);
-    root.removeEventListener('sukun:intro-check',checkReady);
+    root.removeEventListener('sukun:intro-start',visualStart);
     if(context){
       try{context.removeEventListener('statechange',state);}catch(_){}
       // Pending resumes have no graph. Even if close fails, a late resolution
@@ -160,21 +170,20 @@
       guard();
     }catch(_){stop('failed');}
   }
-  function checkReady(){
-    if(stopped)return;
-    if(!eligible(HIT_MS,true)){stop(ineligibleReason);root.dispatchEvent(new Event('sukun:intro-skip'));}
-  }
+  function visualStart(){if(stopped||context)return;readySent=false;if(readinessTimer)clearTimeout(readinessTimer);readinessTimer=0;readiness();}
   function readiness(){
     readinessTimer=0;if(stopped||readySent)return;
     if(!eligible(HIT_MS,true)){
-      if(ineligibleReason==='apis_pending'){
+      if(ineligibleReason==='apis_pending'||ineligibleReason==='timing_pending'){
         root.dataset.audioOutcome='waiting_readiness';
         readinessTimer=setTimeout(readiness,25);return;
       }
-      stop(ineligibleReason);root.dispatchEvent(new Event(ineligibleReason==='reduced-motion'?'sukun:intro-ready':'sukun:intro-skip'));return;
+      stop(ineligibleReason);if(ineligibleReason==='dialog')root.dispatchEvent(new Event('sukun:intro-skip'));return;
     }
     readySent=true;root.dataset.audioReadyAgeMs=String(Math.max(0,Math.round(performance.now()-boot)));
-    root.dataset.audioOutcome='ready';root.dispatchEvent(new Event('sukun:intro-ready'));
+    root.dataset.audioOutcome='ready';
+    var clock=root.sukunIntroReadClock();
+    if(clock&&!clock.waiting)beginAudio();
   }
   try{
     // Register cancellation before the readiness handshake or context creation.
@@ -183,11 +192,7 @@
     listen(document,'play',activity);
     activityEvents.forEach(function(type){listen(window,type,activity);});
     root.addEventListener('sukun:intro-cancel',stop);
-    root.addEventListener('sukun:intro-start',beginAudio);
-    root.addEventListener('sukun:intro-check',checkReady);
-    if(handshake){
-      if(root.dataset.introPhase==='running')beginAudio();
-      else readiness();
-    }else beginAudio();
+    root.addEventListener('sukun:intro-start',visualStart);
+    if(handshake)readiness();else beginAudio();
   }catch(_){stop('failed');}
 })();

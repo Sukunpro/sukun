@@ -3,10 +3,18 @@ const vm=require('node:vm');
 function hub(){return{listeners:new Map(),addEventListener(t,fn){if(!this.listeners.has(t))this.listeners.set(t,new Set());this.listeners.get(t).add(fn);},removeEventListener(t,fn){this.listeners.get(t)?.delete(fn);},dispatchEvent(e){for(const fn of [...this.listeners.get(e.type)||[]])fn(e);return true;}};}
 function fire(target,type,extra={}){target.dispatchEvent({type,isTrusted:true,...extra});}
 function createFixture(code,clock,options={}){
- let now=options.now??0,next=0;const jobs=new Map(),frames=new Map(),contexts=[],root=hub(),document=hub(),window=hub(),reads=[];
+ let now=options.now??0,next=0,cssOrigin=options.cssOrigin??null;const jobs=new Map(),frames=new Map(),contexts=[],root=hub(),document=hub(),window=hub(),reads=[];
  root.dataset={started:'0'};root.hidden=false;document.hidden=!!options.hidden;
  document.getElementById=()=>options.noRoot?null:root;document.querySelectorAll=selector=>selector==='audio,video'?options.media||[]:options.dialogs||[];
- window.getComputedStyle=node=>node===root?{display:root.hidden?'none':'grid',visibility:'visible',opacity:'1',...options.rootCSS}:{display:'block',visibility:'visible',opacity:'1',...node.styleData};
+ function ensureCSS(){if(cssOrigin===null)cssOrigin=now;}
+ const timeline={get currentTime(){return options.timelineTime??now;}};document.timeline=timeline;
+ const animation={animationName:'sukunIntroExit',pending:false,playbackRate:1,timeline,
+  get startTime(){ensureCSS();return Object.hasOwn(options,'cssStartTime')?options.cssStartTime:cssOrigin;},
+  get currentTime(){ensureCSS();return Object.hasOwn(options,'cssCurrentTime')?options.cssCurrentTime:(options.timelineTime??now)-cssOrigin;},
+  get playState(){return options.animationState||((this.currentTime??0)>=2300?'finished':'running');},
+  effect:{getTiming:()=>({delay:1000,duration:1300,iterations:1,iterationStart:0,endDelay:0,direction:'normal',fill:'both',...options.animationTiming})}};
+ root.getAnimations=()=>{ensureCSS();if(options.noAnimationClock)return[];Object.assign(animation,options.animationProps||{});return options.duplicateAnimation?[animation,animation]:[animation];};
+ window.getComputedStyle=node=>{if(node!==root)return{display:'block',visibility:'visible',opacity:'1',...node.styleData};ensureCSS();return{display:root.hidden?'none':'grid',visibility:now-cssOrigin>=2300?'hidden':'visible',opacity:now-cssOrigin>=2300?'0':'1',...options.rootCSS};};
  if(options.raf){window.requestAnimationFrame=fn=>{frames.set(++next,fn);return next;};window.cancelAnimationFrame=id=>frames.delete(id);}
  function param(){return{value:1,schedule:[],cancelScheduledValues(t){this.schedule.push(['cancel',t]);},setValueAtTime(v,t){this.schedule.push(['set',v,t]);},linearRampToValueAtTime(v,t){this.schedule.push(['linear',v,t]);},exponentialRampToValueAtTime(v,t){this.schedule.push(['exponential',v,t]);}};}
  class AC{
@@ -27,15 +35,15 @@ function createFixture(code,clock,options={}){
   setTimeout:(fn,ms)=>{jobs.set(++next,{fn,when:now+ms});return next;},clearTimeout:id=>jobs.delete(id)};
  for(const key of ['caches','indexedDB','fetch','ac','gongSentez'])Object.defineProperty(ctx,key,{get(){throw Error('unexpected shared API: '+key);}});
  vm.createContext(ctx);
- function runClock(){vm.runInContext(clock,ctx);}
+ function runClock(){vm.runInContext(clock,ctx);if(options.audioUnitWindow)tick(1000);}
  function run(){vm.runInContext(code,ctx);}
  function nextJob(until){return[...jobs].filter(([,v])=>v.when<=until).sort((a,b)=>a[1].when-b[1].when||a[0]-b[0])[0];}
  function tick(ms){const until=now+ms;for(;;){const found=nextJob(until);if(!found)break;now=Math.max(now,found[1].when);jobs.delete(found[0]);found[1].fn();}now=until;}
  async function flush(){for(let i=0;i<8;i++)await Promise.resolve();}
  async function advance(ms){await flush();const until=now+ms;for(;;){const found=nextJob(until);if(!found)break;now=Math.max(now,found[1].when);jobs.delete(found[0]);found[1].fn();await flush();}now=until;await flush();}
- function paint(at){if(at!==undefined)now=at;const callbacks=[...frames.values()];frames.clear();callbacks.forEach(fn=>fn(now));}
+ function paint(at){if(at!==undefined)now=at;ensureCSS();const callbacks=[...frames.values()];frames.clear();callbacks.forEach(fn=>fn(now));}
  function resolveResume(state='running',emit=true){const c=contexts[0];c.state=state;c.resolve();if(emit)fire(c,'statechange');}
  function rejectResume(){contexts[0].reject(Error('autoplay denied'));}
- return{root,document,window,contexts,jobs,frames,reads,options,run,runClock,tick,advance,flush,paint,resolveResume,rejectResume,setNow:n=>now=n,get now(){return now;}};
+ return{root,document,window,animation,timeline,contexts,jobs,frames,reads,options,run,runClock,tick,advance,flush,paint,resolveResume,rejectResume,setNow:n=>now=n,get now(){return now;}};
 }
 module.exports={hub,fire,createFixture};
