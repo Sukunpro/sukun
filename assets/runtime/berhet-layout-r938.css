@@ -1,6 +1,31 @@
 /* r986: accessible sections and totals live outside the collapsed control panel.
    This first important layer owns geometry; gemstone paint is mode-scoped. */
 @layer sukun-r986-access {
+/* r1041: compact native action order; paint remains owned by each theme. */
+#r920Practice[data-r938-layout="1"] #r932WheelControls .r932VisualShortcuts{
+ grid-template-columns:minmax(0,1fr) minmax(88px,.9fr) minmax(0,1fr)!important;gap:6px!important;
+}
+#r920Practice[data-r938-layout="1"] #r932WheelControls .r932VisualShortcuts>button{
+ min-width:44px!important;min-height:48px!important;height:auto!important;padding:5px 8px!important;
+}
+#r920Practice[data-r938-layout="1"] #r932WheelControls #r932EasyPlay{
+ white-space:normal!important;overflow-wrap:anywhere!important;font-size:13px!important;line-height:1.25!important;
+}
+#r920Practice[data-r938-layout="1"] #r932WheelControls .r932EasyTransport{
+ grid-template-columns:48px minmax(0,1fr) 48px!important;gap:8px!important;
+ width:min(100%,280px)!important;align-self:center!important;
+}
+#r920Practice[data-r938-layout="1"] #r932WheelControls .r932EasyTransport>button{
+ min-width:44px!important;min-height:48px!important;height:auto!important;padding:8px!important;
+}
+#r920Practice[data-r938-layout="1"] #r932WheelControls #r932EasyStop{
+ grid-column:2!important;grid-row:1!important;width:100%!important;max-width:none!important;
+}
+#r920Practice[data-r938-layout="1"] #r968PrimaryActions{
+ grid-template-columns:minmax(0,1fr)!important;
+}
+#r920Practice[data-r938-layout="1"] #r968PrimaryActions:not(:has(>button:not([hidden]))){display:none!important}
+
 /* r988: focus fills the viewport on its first paint. An old narrow tab or
    a saved reading scroll position cannot shift the wheel's coordinate space. */
 html body.sukun-tefekkur-mode:has(#r920Practice[data-r938-layout="1"]) > .wrap{

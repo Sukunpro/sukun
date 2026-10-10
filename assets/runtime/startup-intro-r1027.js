@@ -231,7 +231,7 @@
       assetController=typeof window.AbortController==='function'?new window.AbortController():null;
       var options={cache:'force-cache',credentials:'same-origin',integrity:'sha256-GecAJ60xJdEWWgn9tSnIeIEEjChmCU6I4aFp5B995Fc='};
       if(assetController)options.signal=assetController.signal;
-      window.fetch('./assets/audio/sukun-intro-signature-r1037.wav?v=r1040',options).then(function(response){
+      window.fetch('./assets/audio/sukun-intro-signature-r1037.wav?v=r1041',options).then(function(response){
         if(stopped)return null;
         if(!response||!response.ok)throw Error('asset');
         return response.arrayBuffer();

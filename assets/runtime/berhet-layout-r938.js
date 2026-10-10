@@ -26,7 +26,17 @@ function build(root){
  const quick=$('r932WheelControls');move(quick,body);
  primary=document.createElement('div');primary.id='r968PrimaryActions';quick.append(primary);
  const nav=root.querySelector('.r920Transport');move(nav,quick);quick.insertBefore(nav,primary);
- for(const node of [$('r920TefEnter'),$('r932EasyStop')])move(node,primary);
+ // r1041: compact, shared Esma/Berhet controls. Reparent native buttons;
+ // the quick-controls section retains its existing delegated click owner.
+ const shortcuts=quick.querySelector('.r932VisualShortcuts');
+ const transport=quick.querySelector('.r932EasyTransport');
+ if(shortcuts&&transport){
+  move($('r932EasyPlay'),shortcuts);
+  shortcuts.insertBefore($('r932EasyPlay'),$('r932QuickScene'));
+  move($('r932EasyStop'),transport);
+  transport.insertBefore($('r932EasyStop'),$('r932EasyPlus'));
+ }
+ move($('r920TefEnter'),primary);
  // Exit belongs to the main focus surface, independently of disclosure.
  move($('r920TefExit'),hero);
  for(const node of [$('r968ManualHint'),$('r920Actions'),$('r920JourneySettings'),$('r679ZikirAyarBox'),$('r920ViewOptions'),$('r920More')])move(node,quick);
