@@ -1,0 +1,160 @@
+{
+  "version": "r1035",
+  "productionRuntime": "assets/runtime/startup-intro-r1027.js",
+  "passed": 351,
+  "total": 351,
+  "failed": 0,
+  "scope": "Controlled production-source tests verify scheduling,650-ms envelopes,20-ms lead, strict1730-ms admission, fresh advancing audio-clock reads, duplicate-state and cancellation guards. Audible speaker output and Android Chrome autoplay permission are not measured.",
+  "suites": [
+    {
+      "suite": "tests/r1027/startup-intro.cjs",
+      "passed": 52,
+      "total": 52,
+      "exitCode": 0,
+      "results": []
+    },
+    {
+      "suite": "tests/r1029/transparent-intro.cjs",
+      "passed": 16,
+      "total": 16,
+      "exitCode": 0,
+      "results": []
+    },
+    {
+      "suite": "tests/r1031/startup-intro-async.cjs",
+      "passed": 98,
+      "total": 98,
+      "exitCode": 0,
+      "results": []
+    },
+    {
+      "suite": "tests/r1032/startup-intro-readiness.cjs",
+      "passed": 109,
+      "total": 109,
+      "exitCode": 0,
+      "results": []
+    },
+    {
+      "suite": "tests/r1033/startup-intro-diagnostics.cjs",
+      "passed": 33,
+      "total": 33,
+      "exitCode": 0,
+      "results": []
+    },
+    {
+      "suite": "tests/r1034/intro-health-diagnostic.cjs",
+      "passed": 18,
+      "total": 18,
+      "exitCode": 0,
+      "results": []
+    },
+    {
+      "suite": "tests/r1035/startup-intro-fresh-clock.cjs",
+      "passed": 25,
+      "total": 25,
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "Default fixture keeps its existing constant10-second audio clock and20-ms future onset",
+          "status": "PASS"
+        },
+        {
+          "name": "running context advances both clocks during graph creation before taking the shared fresh onset",
+          "status": "PASS"
+        },
+        {
+          "name": "suspended context advances both clocks during graph creation before taking the shared fresh onset",
+          "status": "PASS"
+        },
+        {
+          "name": "Final eligibility read consumes600 ms and advancing audio is sampled afterwards",
+          "status": "PASS"
+        },
+        {
+          "name": "Graph plus final safety stalls preserve every original frequency, peak and650-ms duration",
+          "status": "PASS"
+        },
+        {
+          "name": "Full650-ms hit plus20-ms lead uses strict1730-ms admission: 1729",
+          "status": "PASS"
+        },
+        {
+          "name": "Full650-ms hit plus20-ms lead uses strict1730-ms admission: 1730",
+          "status": "PASS"
+        },
+        {
+          "name": "Full650-ms hit plus20-ms lead uses strict1730-ms admission: 1731",
+          "status": "PASS"
+        },
+        {
+          "name": "Full650-ms hit plus20-ms lead uses strict1730-ms admission: 1749",
+          "status": "PASS"
+        },
+        {
+          "name": "Full650-ms hit plus20-ms lead uses strict1730-ms admission: 1750",
+          "status": "PASS"
+        },
+        {
+          "name": "graph stall crossing the1730-ms boundary is silent for running",
+          "status": "PASS"
+        },
+        {
+          "name": "graph stall crossing the1730-ms boundary is silent for suspended",
+          "status": "PASS"
+        },
+        {
+          "name": "last-safety-read stall crossing the1730-ms boundary is silent for running",
+          "status": "PASS"
+        },
+        {
+          "name": "last-safety-read stall crossing the1730-ms boundary is silent for suspended",
+          "status": "PASS"
+        },
+        {
+          "name": "Trusted input before resume settlement still cancels without audio clock reads or sources",
+          "status": "PASS"
+        },
+        {
+          "name": "Trusted pointerdown during future20-ms lead mutes before the following app handler",
+          "status": "PASS"
+        },
+        {
+          "name": "Trusted keydown during future20-ms lead mutes before the following app handler",
+          "status": "PASS"
+        },
+        {
+          "name": "Trusted click during future20-ms lead mutes before the following app handler",
+          "status": "PASS"
+        },
+        {
+          "name": "recording starts during graph construction and no oscillator/envelope is submitted",
+          "status": "PASS"
+        },
+        {
+          "name": "tickRecording starts during graph construction and no oscillator/envelope is submitted",
+          "status": "PASS"
+        },
+        {
+          "name": "Recording signal during future lead immediately stops already scheduled hit and never retries",
+          "status": "PASS"
+        },
+        {
+          "name": "Context interrupted during final eligibility read cannot schedule after that read",
+          "status": "PASS"
+        },
+        {
+          "name": "Invalid fresh audio clock NaN closes a muted graph without scheduling",
+          "status": "PASS"
+        },
+        {
+          "name": "Invalid fresh audio clock Infinity closes a muted graph without scheduling",
+          "status": "PASS"
+        },
+        {
+          "name": "Invalid fresh audio clock -1 closes a muted graph without scheduling",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}
