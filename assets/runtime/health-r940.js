@@ -520,6 +520,26 @@
         resumeError:choice('audioResumeError',['AbortError','NotAllowedError','NotSupportedError','InvalidStateError','NetworkError','SecurityError','TypeError','TimeoutError','Error','UnknownError']),
         moduleAgeMs:amount('audioModuleAgeMs'),readyAgeMs:amount('audioReadyAgeMs'),firstFrameAgeMs:amount('firstFrameAgeMs'),
         visualCssAgeMs:amount('visualCssAgeMs',-1000),onsetBudgetMs:amount('audioOnsetBudgetMs',-10000,10000),pendingApis:null};
+      // Saved rejection evidence only. Never call the live carrier inspector here.
+      result.rejectedMedia=null;
+      try{
+        const rejectedRaw=raw.audioRejectedMedia;
+        if(typeof rejectedRaw==='string'&&rejectedRaw.length<=2048){
+          const value=JSON.parse(rejectedRaw);
+          if(value&&typeof value==='object'&&!Array.isArray(value)&&value.guardResult==='rejected'&&value.samplePhase==='after-rejection'){
+            const pick=(obj,key,values)=>{try{const v=obj[key];return values.includes(v)?v:null;}catch(_){return null;}};
+            const fields={identity:['match','mismatch','unavailable'],flag:['match','mismatch','missing','unavailable'],expectedSource:['ready','missing','unavailable'],
+              requestedSource:['match','mismatch','empty','missing','unavailable'],currentSource:['match','mismatch','empty','missing','unavailable'],srcObject:['null','non-null','undefined','unavailable'],srcObjectPresent:[true,false,'unavailable']};
+            const carrier=obj=>{if(!obj||typeof obj!=='object'||Array.isArray(obj))return null;const out={};for(const key of Object.keys(fields))out[key]=pick(obj,key,fields[key]);return out;};
+            result.rejectedMedia={guardResult:'rejected',samplePhase:'after-rejection',
+              inspectApi:pick(value,'inspectApi',['present','missing','throws','invalid']),anchorInspectApi:pick(value,'anchorInspectApi',['present','missing','throws','invalid']),
+              mediaType:pick(value,'mediaType',['audio','video','unknown','unavailable']),
+              paused:typeof value.paused==='boolean'?value.paused:null,ended:typeof value.ended==='boolean'?value.ended:null,
+              readyState:pick(value,'readyState',['nothing','metadata','current','future','enough','unavailable']),networkState:pick(value,'networkState',['empty','idle','loading','no-source','unavailable']),
+              lock:carrier(value.lock),anchor:carrier(value.anchor)};
+          }
+        }
+      }catch(_){}
       const bootAt=amount('bootStarted',0,86400000),visualAt=amount('started',0,86400000);
       result.visualStartAgeMs=bootAt!==null&&visualAt!==null&&visualAt>=bootAt&&visualAt-bootAt<=3600000?Math.round((visualAt-bootAt)*1000)/1000:null;
       const pendingRaw=raw.audioPendingApis;

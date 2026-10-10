@@ -10,7 +10,7 @@
   try{
     var diagnosticKeys=['introBootstrap','introPhase','bootStarted','firstFrameAgeMs','started','visualClock','visualCssAgeMs','visualStarted','visualEnded','cancelled',
       'audioAttempted','audioModuleAgeMs','audioReadyAgeMs','audioOutcome','audioDisabled','audioContextInitialState','audioContextState','audioContextStopState',
-      'audioResumeState','audioResumeSettledAfterStop','audioResumeError','audioOnsetBudgetMs','audioPendingApis','audioSourcesScheduled','audioAssetState','audioDecodeState','audioAssetReadyAgeMs','audioBufferDurationMs','audioSafetyReason','audioScheduledAgeMs','audioPlaybackElapsedMs','audioCompleted'];
+      'audioResumeState','audioResumeSettledAfterStop','audioResumeError','audioOnsetBudgetMs','audioPendingApis','audioSourcesScheduled','audioAssetState','audioDecodeState','audioAssetReadyAgeMs','audioBufferDurationMs','audioSafetyReason','audioScheduledAgeMs','audioPlaybackElapsedMs','audioCompleted','audioRejectedMedia'];
     window.SukunIntroAudioDiagnostics=Object.freeze({snapshot:function(){
       var result={};diagnosticKeys.forEach(function(key){try{var value=root.dataset[key];result[key]=typeof value==='string'?value:null;}catch(_){result[key]=null;}});
       return Object.freeze(result);
@@ -62,6 +62,37 @@
   function unsafeAudio(reason){diagnostic('audioSafetyReason',reason);return deny('unsafe-audio');}
   function knownSilentCarrier(media){
     try{return !!(window.SukunSilentCarrierIdentity&&typeof window.SukunSilentCarrierIdentity.isSilent==='function'&&window.SukunSilentCarrierIdentity.isSilent(media)===true);}catch(_){return false;}
+  }
+  var rejectedMediaCaptured=false;
+  function rejectedMediaDiagnostic(media){
+    if(rejectedMediaCaptured)return;rejectedMediaCaptured=true;
+    // This is AFTER the existing false decision, not an atomic replay of it.
+    // Never use these observations to admit audio or retain a DOM reference.
+    try{
+      var evidence={guardResult:'rejected',samplePhase:'after-rejection',inspectApi:'missing',anchorInspectApi:'missing',lock:null,anchor:null};
+      function read(key,fn){try{evidence[key]=fn();}catch(_){evidence[key]='unavailable';}}
+      function scope(value){
+        if(!value||typeof value!=='object'||Array.isArray(value))return null;
+        var out={},allowed={identity:['match','mismatch'],flag:['match','mismatch','missing'],expectedSource:['ready','missing'],
+          requestedSource:['match','mismatch','empty','missing'],currentSource:['match','mismatch','empty','missing'],srcObject:['null','non-null','undefined'],srcObjectPresent:[true,false]};
+        Object.keys(allowed).forEach(function(key){try{var v=value[key];out[key]=allowed[key].indexOf(v)!==-1?v:'unavailable';}catch(_){out[key]='unavailable';}});return out;
+      }
+      read('mediaType',function(){var v=media.tagName;return v==='AUDIO'?'audio':v==='VIDEO'?'video':'unknown';});
+      read('paused',function(){var v=media.paused;return typeof v==='boolean'?v:'unavailable';});
+      read('ended',function(){var v=media.ended;return typeof v==='boolean'?v:'unavailable';});
+      read('readyState',function(){var v=media.readyState;return [0,1,2,3,4].indexOf(v)!==-1?['nothing','metadata','current','future','enough'][v]:'unavailable';});
+      read('networkState',function(){var v=media.networkState;return [0,1,2,3].indexOf(v)!==-1?['empty','idle','loading','no-source'][v]:'unavailable';});
+      try{
+        var owner=window.SukunSilentCarrierIdentity,inspect=owner&&owner.inspect;
+        if(typeof inspect==='function'){
+          evidence.inspectApi='present';var raw=inspect.call(owner,media);
+          if(!raw||typeof raw!=='object'||Array.isArray(raw))evidence.inspectApi='invalid';
+          else{evidence.lock=scope(raw.lock);evidence.anchor=scope(raw.anchor);
+            var anchorInspectApi=raw.anchorInspectApi;evidence.anchorInspectApi=['present','missing','throws'].indexOf(anchorInspectApi)!==-1?anchorInspectApi:'invalid';}
+        }
+      }catch(_){evidence.inspectApi='throws';}
+      diagnostic('audioRejectedMedia',JSON.stringify(evidence));
+    }catch(_){}
   }
   function criticalAudioIdle(){
     if(window.AudioLife.busy()!==false)return unsafeAudio('lifecycle-busy');
@@ -119,7 +150,7 @@
         if(visible)return deny('dialog');
       }
       var media=document.querySelectorAll('audio,video');
-      for(var m=0;m<media.length;m++)if(!media[m].paused&&!media[m].ended&&!knownSilentCarrier(media[m]))return unsafeAudio('media-active');
+      for(var m=0;m<media.length;m++)if(!media[m].paused&&!media[m].ended&&!knownSilentCarrier(media[m])){rejectedMediaDiagnostic(media[m]);return unsafeAudio('media-active');}
       if(localStorage.getItem('sukun.tab.owner.r981'))return deny('unsafe-owner');
       if(!criticalAudioIdle())return false;
       // Safety reads/layout can consume the last onset allowance in this task.
@@ -231,7 +262,7 @@
       assetController=typeof window.AbortController==='function'?new window.AbortController():null;
       var options={cache:'force-cache',credentials:'same-origin',integrity:'sha256-GecAJ60xJdEWWgn9tSnIeIEEjChmCU6I4aFp5B995Fc='};
       if(assetController)options.signal=assetController.signal;
-      window.fetch('./assets/audio/sukun-intro-signature-r1037.wav?v=r1044',options).then(function(response){
+      window.fetch('./assets/audio/sukun-intro-signature-r1037.wav?v=r1045',options).then(function(response){
         if(stopped)return null;
         if(!response||!response.ok)throw Error('asset');
         return response.arrayBuffer();

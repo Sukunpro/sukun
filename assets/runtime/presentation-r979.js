@@ -37,16 +37,20 @@
  function snapshot(){return JSON.parse(JSON.stringify(state))}
  function notify(){safe(()=>window.dispatchEvent(new CustomEvent('sukun:presentationrecovery',{detail:snapshot()})))}
  function isEnglish(){return /^en\b/i.test(document.documentElement.lang||'')}
+ function localizeNotice(){
+  if(!notice)return;
+  notice.firstElementChild.textContent=isEnglish()?'The interface could not be verified after returning. Redisplay it without resetting your count.':'Ekrana dönüşte görünüm doğrulanamadı. Sayacı sıfırlamadan yeniden göster.';
+  notice.lastElementChild.textContent=isEnglish()?'Redisplay interface':'Görünümü yeniden göster';
+ }
  function showNotice(show){
   if(!show){if(notice)notice.hidden=true;return}
-  if(!notice){notice=document.createElement('aside');notice.id='r979PresentationNotice';notice.setAttribute('role','status');
+  if(!notice){notice=document.createElement('aside');notice.id='r979PresentationNotice';notice.dataset.i18nOwned='r979';notice.setAttribute('role','status');
    const text=document.createElement('p'),button=document.createElement('button');button.type='button';notice.append(text,button);document.body.append(notice);
    Object.assign(notice.style,{position:'fixed',inset:'auto 12px 18px',zIndex:'2147483000',maxWidth:'480px',margin:'0 auto',padding:'14px',border:'1px solid #c3a06e',borderRadius:'16px',background:'#071d27',color:'#f5e7c9',fontFamily:'system-ui,sans-serif',boxShadow:'0 8px 28px #0008'});
    Object.assign(button.style,{minHeight:'44px',width:'100%',border:'1px solid #c3a06e',borderRadius:'10px',background:'#123d48',color:'inherit',font:'inherit',cursor:'pointer'});
    button.addEventListener('click',()=>schedule('manual',true));
   }
-  notice.firstElementChild.textContent=isEnglish()?'The interface could not be verified after returning. Redisplay it without resetting your count.':'Ekrana dönüşte görünüm doğrulanamadı. Sayacı sıfırlamadan yeniden göster.';
-  notice.lastElementChild.textContent=isEnglish()?'Redisplay interface':'Görünümü yeniden göster';notice.hidden=false;
+  localizeNotice();notice.hidden=false;
  }
  function observeFrame(seq,callback){
   const start=performance.now();let finished=false;
@@ -98,6 +102,9 @@
  document.addEventListener('freeze',hide,{passive:true});document.addEventListener('resume',()=>schedule('resume'),{passive:true});
  addEventListener('pagehide',hide,{passive:true});addEventListener('pageshow',e=>schedule(e.persisted?'pageshow-persisted':'pageshow'),{passive:true});
  addEventListener('focus',()=>schedule('focus'),{passive:true});
+ // Labels belong to this notice; a language change must not recover, reveal
+ // or dismiss it. The app updates html.lang before publishing this event.
+ addEventListener('sukun:languagechange',localizeNotice,{passive:true});
  for(const event of ['pointerdown','wheel','keydown'])document.addEventListener(event,()=>{gestures++},{capture:true,passive:true});
  window.SukunPresentationRecovery=Object.freeze({version:'r1042',snapshot,recover:()=>schedule('manual',true)});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>schedule('boot'),{once:true});else schedule('boot');
