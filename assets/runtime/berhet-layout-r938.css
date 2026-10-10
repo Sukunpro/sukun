@@ -76,6 +76,20 @@ html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-mode="ber
  position:static!important;inset:auto!important;grid-column:2!important;grid-row:1!important;z-index:auto!important;
  padding:0!important;justify-self:center!important;overflow:visible!important;
 }
+/* Esma focus shares the centered native exit row, with its own quiet line-icon skin. */
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-mode="esma"] .r920Stats[data-r989-exit-row="1"]{
+ display:grid!important;grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr)!important;
+ width:min(100%,340px)!important;max-width:100%!important;align-items:center!important;gap:10px!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-mode="esma"] #r938Hero>.r920Stats[data-r989-exit-row="1"]>#r920TefExit:not([hidden]){
+ position:static!important;inset:auto!important;grid-column:2!important;grid-row:1!important;z-index:auto!important;
+ justify-self:center!important;padding:0!important;border:1px solid #c9b47788!important;border-radius:14px!important;
+ background:linear-gradient(145deg,#123d35e8,#082b29e8)!important;color:#e5d29b!important;
+ --r933-control-art:none!important;--r933-control-dark:#082b29!important;
+}
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-mode="esma"] #r938Hero #r920TefExit>svg{
+ width:22px!important;height:22px!important;stroke-width:1.6!important;filter:none!important;
+}
 /* r987: compact density must not remove the public reading/tool entry cards.
    Intentional hidden fields and private readings keep their native policy. */
 html body:not(.sukun-tefekkur-mode) #tab-zkr #zMegaHost :is(#tvBox,#dlBox,#vhBox):not([hidden]){

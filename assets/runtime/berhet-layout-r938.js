@@ -37,7 +37,7 @@ function build(root){
 // Reparent the existing action, never clone it or attach another transport owner.
 function placeExit(root,tef){
  const exit=$('r920TefExit'),stats=root.querySelector('.r920Stats');if(!exit||!stats)return;
- const row=tef&&root.dataset.mode==='berhet';
+ const row=tef&&(root.dataset.mode==='berhet'||root.dataset.mode==='esma');
  if(row){
   const remaining=stats.querySelector('#r920Remaining')?.parentElement;
   if(!remaining)return;
