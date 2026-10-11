@@ -7,7 +7,7 @@ const harness=Function('require','__dirname',header+'\nreturn harness;')(require
 const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const setter=html.slice(html.indexOf('function setZVol('),html.indexOf('\nfunction setLayerVol('));
 const drain=()=>new Promise(resolve=>setImmediate(resolve));let passed=0;const failures=[];
-function prepare(opts){const h=harness(opts);Object.assign(h.context,{clamp:(v,min,max)=>Math.max(min,Math.min(max,v)),S:{set:()=>{}},$:()=>null,pct:v=>String(v)});vm.runInContext(setter,h.context);return h}
+function prepare(opts){const h=harness(opts);Object.assign(h.context,{clamp:(v,min,max)=>Math.max(min,Math.min(max,v)),S:{set:()=>{}},$:()=>null,pct:v=>String(v)});const start=html.indexOf('function sukunRecordingLevelRefresh('),end=html.indexOf('/* Kayıttan çalan sesi',start);if(start>=0&&end>start)vm.runInContext(html.slice(start,end),h.context);vm.runInContext(setter,h.context);return h}
 async function scenario(label,fn){try{await fn();passed++}catch(e){failures.push({label,error:e.message})}}
 async function finish(h,a,p){a._sukunFinish(false,'user-stop');await p;assert.equal(h.document.count('visibilitychange'),0);assert.equal(h.timers.size,0);assert.equal(a.plays,1)}
 (async()=>{
@@ -15,7 +15,7 @@ async function finish(h,a,p){a._sukunFinish(false,'user-stop');await p;assert.eq
   await scenario(`${phase} latest ${value}`,async()=>{
    const h=prepare({volume:.8,deferPlay:true});const p=h.context.playRecording({size:12,type:'audio/webm'},'test',{resume:false});const a=h.instances[0];
    if(phase.startsWith('attack')){a.start();await drain();h.advance(6)}
-   h.context.setZVol(value);assert.equal(a.volume,value);
+   h.context.setZVol(value);const onsetPreserved=html.includes('function sukunRecordingLevelRefresh(');assert.equal(a.volume,onsetPreserved?(phase.startsWith('attack')?value/3:0):value);
    if(phase.endsWith('hide'))h.hide();else if(phase==='pending-start'){a.start();await drain();h.advance(30)}else h.advance(30);
    assert(Math.abs(a.volume-value)<1e-12,`${phase}: expected current level ${value}, received ${a.volume}`);
    if(phase==='pending-hide'){a.start();await drain();assert.equal(a.volume,value)}

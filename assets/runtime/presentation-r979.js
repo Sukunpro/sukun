@@ -8,6 +8,7 @@
  const tabs=['tab-amb','tab-frq','tab-zkr','tab-rx','tab-ntf'];
  const state={version:'r1042',state:'ready',checks:0,recoveries:0,lastReason:'boot',lastAt:0,lastProbe:null,lastRepair:null,scope:'DOM visibility and observed animation frame; not raster or physical display test'};
  let timer=0,frame=0,fallback=0,generation=0,gestures=0,lastWake=0,notice=null,wasHidden=!!document.hidden,pendingReturn=false,returnGesture=0;
+ let noticeTimer=0,noticeResize=null,noticeMutations=null,noticeFocus=null;
  const at=()=>Date.now(),round=n=>Math.round((Number(n)||0)*10)/10;
  function cancel(){clearTimeout(timer);clearTimeout(fallback);if(frame)cancelAnimationFrame(frame);timer=frame=fallback=0;generation++}
  function rootEvidence(node){
@@ -37,20 +38,66 @@
  function snapshot(){return JSON.parse(JSON.stringify(state))}
  function notify(){safe(()=>window.dispatchEvent(new CustomEvent('sukun:presentationrecovery',{detail:snapshot()})))}
  function isEnglish(){return /^en\b/i.test(document.documentElement.lang||'')}
+ function placeNotice(){
+  if(!notice||notice.hidden||document.hidden)return;
+  const v=window.visualViewport,top=(v?.offsetTop||0)+12,bottom=(v?.offsetTop||0)+(v?.height||innerHeight)-12;
+  const width=Math.max(1,Math.min(480,(v?.width||innerWidth)-24)),left=(v?.offsetLeft||0)+((v?.width||innerWidth)-width)/2;
+  // Protect the rendered player, its hidden-mode restore control and navigation.
+  // In very short viewports the player also keeps stacking priority over the notice.
+  const obstacles=['r170Now','r433DockPeek','r616BottomNav'].map($).filter(e=>e&&rootEvidence(e).inViewport&&getComputedStyle(e).pointerEvents!=='none');
+  let ranges=[[top,bottom]],z=11999;
+  for(const e of obstacles){
+   const r=e.getBoundingClientRect(),s=getComputedStyle(e),layer=parseInt(s.zIndex,10);if(Number.isFinite(layer)&&layer>0)z=Math.min(z,layer-1);
+   if(r.right<=left||r.left>=left+width)continue;
+   const a=r.top-10,b=r.bottom+10,next=[];
+   for(const [lo,hi] of ranges){if(b<=lo||a>=hi)next.push([lo,hi]);else{if(a>lo)next.push([lo,Math.min(a,hi)]);if(b<hi)next.push([Math.max(b,lo),hi]);}}
+   ranges=next;
+  }
+  const range=ranges.sort((a,b)=>(b[1]-b[0])-(a[1]-a[0]))[0],room=range?range[1]-range[0]:0;
+  // Keep both actions usable, with scrolling if only a compact free strip remains.
+  // No free strip: draw below the player and pass background pointer events through.
+  const usable=room>=72,limit=Math.max(1,usable?room:bottom-top);
+  Object.assign(notice.style,{inset:'auto',left:left+'px',right:'auto',top:(usable?range[0]:top)+'px',bottom:'auto',width:width+'px',maxWidth:'none',maxHeight:limit+'px',zIndex:String(z)});
+ }
+ function queueNoticePlacement(){
+  if(!notice||notice.hidden||document.hidden||noticeTimer)return;
+  // A warning produced by a missing RAF must not depend on another RAF to move.
+  noticeTimer=setTimeout(()=>{noticeTimer=0;safe(placeNotice)},0);
+ }
+ function watchNotice(){
+  if(noticeResize||noticeMutations)return;
+  const nodes=['r170Now','r433DockPeek','r616BottomNav'].map($).filter(Boolean);
+  if(typeof ResizeObserver==='function'){noticeResize=new ResizeObserver(queueNoticePlacement);for(const e of [notice,...nodes])safe(()=>noticeResize.observe(e));}
+  if(typeof MutationObserver==='function'){noticeMutations=new MutationObserver(queueNoticePlacement);for(const e of [document.documentElement,document.body,...nodes])safe(()=>noticeMutations.observe(e,{attributes:true,attributeFilter:['class','style','hidden']}));}
+ }
+ function stopNoticeWatch(){
+  clearTimeout(noticeTimer);noticeTimer=0;safe(()=>noticeResize?.disconnect());safe(()=>noticeMutations?.disconnect());noticeResize=noticeMutations=null;
+ }
+ function dismissNotice(){
+  const focused=safe(()=>notice?.contains(document.activeElement),false);showNotice(false);
+  if(focused){const target=noticeFocus?.isConnected?noticeFocus:$('r588Play');safe(()=>target?.focus?.({preventScroll:true}));}
+ }
  function localizeNotice(){
   if(!notice)return;
   notice.firstElementChild.textContent=isEnglish()?'The interface could not be verified after returning. Redisplay it without resetting your count.':'Ekrana dönüşte görünüm doğrulanamadı. Sayacı sıfırlamadan yeniden göster.';
   notice.lastElementChild.textContent=isEnglish()?'Redisplay interface':'Görünümü yeniden göster';
+  const close=notice.children[1],label=isEnglish()?'Dismiss interface notice':'Görünüm uyarısını kapat';close.setAttribute('aria-label',label);close.title=label;
+  safe(placeNotice);
  }
  function showNotice(show){
-  if(!show){if(notice)notice.hidden=true;return}
+  if(!show){if(notice)notice.hidden=true;stopNoticeWatch();return}
+  if(!notice||notice.hidden)noticeFocus=document.activeElement;
   if(!notice){notice=document.createElement('aside');notice.id='r979PresentationNotice';notice.dataset.i18nOwned='r979';notice.setAttribute('role','status');
-   const text=document.createElement('p'),button=document.createElement('button');button.type='button';notice.append(text,button);document.body.append(notice);
-   Object.assign(notice.style,{position:'fixed',inset:'auto 12px 18px',zIndex:'2147483000',maxWidth:'480px',margin:'0 auto',padding:'14px',border:'1px solid #c3a06e',borderRadius:'16px',background:'#071d27',color:'#f5e7c9',fontFamily:'system-ui,sans-serif',boxShadow:'0 8px 28px #0008'});
-   Object.assign(button.style,{minHeight:'44px',width:'100%',border:'1px solid #c3a06e',borderRadius:'10px',background:'#123d48',color:'inherit',font:'inherit',cursor:'pointer'});
+   const text=document.createElement('p'),close=document.createElement('button'),button=document.createElement('button');button.type=close.type='button';close.id='r979PresentationNoticeDismiss';close.textContent='×';notice.append(text,close,button);document.body.append(notice);
+   Object.assign(notice.style,{position:'fixed',inset:'auto',zIndex:'11999',boxSizing:'border-box',margin:'0',padding:'14px',border:'1px solid #c3a06e',borderRadius:'16px',background:'#071d27',color:'#f5e7c9',fontFamily:'system-ui,sans-serif',boxShadow:'0 8px 28px #0008',overflow:'auto',pointerEvents:'none'});
+   Object.assign(text.style,{margin:'0 42px 10px 0'});
+   Object.assign(button.style,{minHeight:'44px',width:'100%',border:'1px solid #c3a06e',borderRadius:'10px',background:'#123d48',color:'inherit',font:'inherit',cursor:'pointer',pointerEvents:'auto'});
+   Object.assign(close.style,{position:'absolute',top:'8px',right:'8px',width:'44px',minHeight:'44px',border:'1px solid #c3a06e',borderRadius:'10px',background:'#123d48',color:'inherit',font:'24px system-ui,sans-serif',cursor:'pointer',pointerEvents:'auto'});
    button.addEventListener('click',()=>schedule('manual',true));
+   close.addEventListener('click',dismissNotice);
+   notice.addEventListener('keydown',e=>{if(e.key==='Escape'&&!e.defaultPrevented){e.preventDefault();e.stopPropagation?.();dismissNotice();}});
   }
-  localizeNotice();notice.hidden=false;
+  localizeNotice();notice.hidden=false;safe(placeNotice);watchNotice();
  }
  function observeFrame(seq,callback){
   const start=performance.now();let finished=false;
@@ -105,6 +152,8 @@
  // Labels belong to this notice; a language change must not recover, reveal
  // or dismiss it. The app updates html.lang before publishing this event.
  addEventListener('sukun:languagechange',localizeNotice,{passive:true});
+ for(const event of ['resize','sukun:r698modechange','sukun:miniflowglasschange','sukun:r616viewchange'])addEventListener(event,queueNoticePlacement,{passive:true});
+ window.visualViewport?.addEventListener?.('resize',queueNoticePlacement,{passive:true});window.visualViewport?.addEventListener?.('scroll',queueNoticePlacement,{passive:true});
  for(const event of ['pointerdown','wheel','keydown'])document.addEventListener(event,()=>{gestures++},{capture:true,passive:true});
  window.SukunPresentationRecovery=Object.freeze({version:'r1042',snapshot,recover:()=>schedule('manual',true)});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>schedule('boot'),{once:true});else schedule('boot');

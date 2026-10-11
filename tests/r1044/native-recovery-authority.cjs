@@ -26,7 +26,7 @@ function setup({queued=true,withTransport=false}={}){
  Object.assign(c,{SES:{ad:null,ler:new Set()},RECPLAYING:false,KAYIT:{yankiMik:0,mekan:false},ZVOL:1,Z:{cat:'esma',idx:1,auto:false},
    URL:{createObjectURL:()=> 'blob:test',revokeObjectURL:()=>{}},sukunJourneyGapMs:()=>0,sukunRecordingKeyFrom:()=> 'esma:1:nida',r957Volume:x=>x==null?1:x,sukunVoiceOverlapGuard:()=>{},duaRecCancel:()=>{},
    setInterval:c.setTimeout,clearInterval:c.clearTimeout,navigator:{},localStorage:{getItem:()=>null,setItem:()=>{}}});
- vm.runInContext(voice+'\n'+journey+'\n'+stops+(withTransport?'\n'+transport:''),c);
+ const preview=html.match(/let _r1048RecordingPreviewSeq=[\s\S]*?(?=\/\* Kayıttan çalan sesi)/);if(preview)vm.runInContext(preview[0],c);vm.runInContext(voice+'\n'+journey+'\n'+stops+(withTransport?'\n'+transport:''),c);
  f.valid=true;
  f.begin=()=>c.sukunJourneyNativeRecording({size:10,type:'audio/webm'},'journey',{detail:true,isCurrent:f.window.SukunVoiceAttempt.capture({isCurrent:()=>f.valid})},null);
  f.drainPause=()=>f.tick(0);

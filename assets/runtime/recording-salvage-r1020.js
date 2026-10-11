@@ -98,16 +98,16 @@
  // Native point checksum matches r1019's complete immutable snapshot serial.
  // Personal setting values participate in verification but are never applied,
  // returned by the API or included in the diagnostic download.
- async function verifyPoint(point,t,lease){
+ async function verifyPoint(point,t,lease,checkCurrent=()=>assert(t,lease)){
   if(point.schema!==1||point.app!=='SUKUN-Recovery'||!Number.isSafeInteger(point.at)||point.at<=0||point.at>Date.now()+60000||!/^r\d{1,8}$/.test(point.build||'')||!isObject(point.ls)||Object.keys(point.ls).length>1000||!isObject(point.stores)||Object.keys(point.stores).length!==2||!/^[a-f0-9]{64}$/.test(point.digest||''))throw failure('invalid-source');
   let settings=0,total=0;for(const [key,value] of Object.entries(point.ls)){if(typeof key!=='string'||typeof value!=='string'||value.length>LIMIT.setting)throw failure('invalid-source');settings+=value.length*2;if(settings>LIMIT.settings)throw failure('source-limit');}
   const serial={schema:1,app:point.app,at:point.at,build:point.build,ls:Object.entries(point.ls).sort(([a],[b])=>a.localeCompare(b)),stores:{}};
   for(const name of ['sukunRec','sukunCustomAmb']){
    const saved=point.stores[name];if(!isObject(saved)||typeof saved.present!=='boolean'||saved.version!==1||!Array.isArray(saved.entries)||saved.entries.length>LIMIT.clips||!saved.present&&saved.entries.length)throw failure('invalid-source');
-   const seen=new Set(),entries=[];for(const pair of saved.entries){assert(t,lease);if(!Array.isArray(pair)||pair.length!==2||!validKey(pair[0])||seen.has(pair[0]))throw failure('invalid-source');const [key,value]=pair,blob=audio(name==='sukunRec'?value:value?.blob);seen.add(key);total+=blob.size;if(total>LIMIT.total)throw failure('source-limit');let metadata=null;if(name==='sukunCustomAmb'){if(!isObject(value)||typeof value.name!=='string'||Object.keys(value).some(k=>!['name','blob','mix','hybrid'].includes(k)))throw failure('invalid-source');metadata=Object.fromEntries(Object.entries(value).filter(([k])=>k!=='blob').sort(([a],[b])=>a.localeCompare(b)));}entries.push([key,{size:blob.size,type:blob.type,sum:await hash(blob),metadata}]);}
+   const seen=new Set(),entries=[];for(const pair of saved.entries){checkCurrent();if(!Array.isArray(pair)||pair.length!==2||!validKey(pair[0])||seen.has(pair[0]))throw failure('invalid-source');const [key,value]=pair,blob=audio(name==='sukunRec'?value:value?.blob);seen.add(key);total+=blob.size;if(total>LIMIT.total)throw failure('source-limit');let metadata=null;if(name==='sukunCustomAmb'){if(!isObject(value)||typeof value.name!=='string'||Object.keys(value).some(k=>!['name','blob','mix','hybrid'].includes(k)))throw failure('invalid-source');metadata=Object.fromEntries(Object.entries(value).filter(([k])=>k!=='blob').sort(([a],[b])=>a.localeCompare(b)));}entries.push([key,{size:blob.size,type:blob.type,sum:await hash(blob),metadata}]);}
    serial.stores[name]={present:saved.present,version:1,entries:entries.sort(([a],[b])=>a.localeCompare(b))};
   }
-  assert(t,lease);if(await digest(JSON.stringify(serial))!==point.digest)throw failure('checksum-failed');
+  checkCurrent();if(await digest(JSON.stringify(serial))!==point.digest)throw failure('checksum-failed');checkCurrent();
  }
  async function verifySource(source,t,lease){
   stats(source.entries);if(source.kind==='point')await verifyPoint(source.point,t,lease);
@@ -169,29 +169,35 @@
   const alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';if(padding&&(alphabet.indexOf(encoded[encoded.length-padding-1])&(padding===2?15:3)))throw failure('invalid-audio');
   const decoded=atob(encoded);if(decoded.length!==size)throw failure('invalid-audio');const bytes=new Uint8Array(size);for(let i=0;i<size;i++)bytes[i]=decoded.charCodeAt(i);return audio(new Blob([bytes],{type}));
  }
+ // Shared read-only validator for both missing-voice import entries. The
+ // caller supplies its current-operation check; no task or store is changed.
+ async function validateNativeJSON(data,{assertCurrent=()=>true}={}){
+  assertCurrent();
+  if(!isObject(data)||data.app!=='SUKUN'||data.fmt!==2||!isObject(data.recovery)||data.recovery.schema!==1||data.recovery.mode!=='exact-personal-data'||!isObject(data.idb)||Object.keys(data.idb).length!==2||!isObject(data.recovery.presence))throw failure('invalid-source');
+  const point={schema:1,app:'SUKUN-Recovery',at:data.t,build:data.build,ls:data.ls,stores:{},digest:data.recovery.digest};let bytes=0;
+  for(const name of ['sukunRec','sukunCustomAmb']){
+   const input=data.idb[name];if(!isObject(input)||Object.keys(input).length>LIMIT.clips)throw failure('invalid-source');const entries=[];
+   for(const [key,value]of Object.entries(input)){
+    assertCurrent();if(!validKey(key)||!isObject(value))throw failure('invalid-source');let converted;
+    if(name==='sukunRec')converted=nativeAudioURI(value.__blob,value.type);
+    else{const item=key.startsWith('h:')?value.__hybridRecord:value.__audioRecord;if(!isObject(item))throw failure('invalid-source');converted=Object.fromEntries(Object.entries(item).filter(([key])=>!['blob','type'].includes(key)));converted.blob=nativeAudioURI(item.blob,item.type);}
+    bytes+=(name==='sukunRec'?converted:converted.blob).size;if(bytes>LIMIT.total)throw failure('source-limit');entries.push([key,converted]);
+   }
+   point.stores[name]={present:data.recovery.presence[name],version:1,entries};
+  }
+  await verifyPoint(point,null,null,assertCurrent);assertCurrent();
+  return point.stores.sukunRec.entries;
+ }
  async function verifyNativeJSON(files,t,lease){
   const nativeEntries=[],legacyFiles=[];
   for(const file of files){
    assert(t,lease);if(!(file instanceof Blob)||!file.size||file.size>300*1048576)throw failure('file-limit');
    const data=JSON.parse(await file.text());assert(t,lease);
-   // Legacy voice/full backups keep their existing planner and part manifest
-   // checks. A native exact backup must verify its OLD complete digest, rather
-   // than treating freshly hashed, possibly corrupted bytes as trusted input.
-   if(!data?.recovery){legacyFiles.push(file);continue;}
-   if(data.app!=='SUKUN'||data.fmt!==2||data.recovery.schema!==1||data.recovery.mode!=='exact-personal-data'||!isObject(data.idb)||Object.keys(data.idb).length!==2||!isObject(data.recovery.presence))throw failure('invalid-source');
-   const point={schema:1,app:'SUKUN-Recovery',at:data.t,build:data.build,ls:data.ls,stores:{},digest:data.recovery.digest};let bytes=0;
-   for(const name of ['sukunRec','sukunCustomAmb']){
-    const input=data.idb[name];if(!isObject(input)||Object.keys(input).length>LIMIT.clips)throw failure('invalid-source');const entries=[];
-    for(const [key,value]of Object.entries(input)){
-     assert(t,lease);if(!validKey(key)||!isObject(value))throw failure('invalid-source');let converted;
-     if(name==='sukunRec')converted=nativeAudioURI(value.__blob,value.type);
-     else{const item=key.startsWith('h:')?value.__hybridRecord:value.__audioRecord;if(!isObject(item))throw failure('invalid-source');converted=Object.fromEntries(Object.entries(item).filter(([key])=>!['blob','type'].includes(key)));converted.blob=nativeAudioURI(item.blob,item.type);}
-     bytes+=(name==='sukunRec'?converted:converted.blob).size;if(bytes>LIMIT.total)throw failure('source-limit');entries.push([key,converted]);
-    }
-    point.stores[name]={present:data.recovery.presence[name],version:1,entries};
-   }
-   await verifyPoint(point,t,lease);assert(t,lease);
-   for(const pair of point.stores.sukunRec.entries)if(canSee(pair[0]))nativeEntries.push(pair);
+   // Only absence of the recovery field identifies a legacy backup. A null,
+   // malformed or unsupported recovery claim must not bypass verification.
+   if(!isObject(data)||!Object.prototype.hasOwnProperty.call(data,'recovery')){legacyFiles.push(file);continue;}
+   const entries=await validateNativeJSON(data,{assertCurrent:()=>assert(t,lease)});assert(t,lease);
+   for(const pair of entries)if(canSee(pair[0]))nativeEntries.push(pair);
   }
   return {nativeEntries,legacyFiles};
  }
@@ -230,6 +236,6 @@
   host.appendChild(box);const run=work=>{Promise.resolve().then(work).catch(error=>{if(!(Number(error?.added)>0))lastMessage=describe(error);render();});};box.querySelector('[data-action="scan"]').onclick=()=>run(scan);box.querySelector('[data-action="restore"]').onclick=()=>run(()=>restore(box.querySelector('select').value));const input=box.querySelector('input');box.querySelector('[data-action="file"]').onclick=()=>input.click();input.onchange=()=>{const files=Array.from(input.files||[]);input.value='';if(files.length)run(()=>importJSON(files));};box.querySelector('[data-action="report"]').onclick=downloadReport;box.querySelector('[data-action="persist"]').onclick=()=>{w.navigator.storage.persist().then(granted=>{lastMessage=granted?tr('Tarayıcı kalıcı depolamayı kabul etti. Bu, elle silmeye karşı koruma değildir; JSON yedeğini ayrıca indir.','The browser granted persistent storage. This does not protect against manual deletion; download a JSON backup too.'):tr('Tarayıcı kalıcı depolama isteğini kabul etmedi. JSON yedeğini ayrıca indir.','The browser did not grant persistent storage. Download a JSON backup too.');render();},()=>{lastMessage=tr('Kalıcı depolama isteği tamamlanamadı. Sesler değiştirilmedi.','Persistent storage request did not finish. Voices were unchanged.');render();});};box.querySelector('[data-action="cancel"]').onclick=()=>{if(task&&!['merging','verifying'].includes(task.phase))task.controller.abort();};render();
  }
  function boot(){const style=document.createElement('style');style.textContent='#r1020VoiceRescue{margin:14px 0;padding:12px;border:1px solid #68887a;border-radius:14px;min-width:0;overflow-wrap:anywhere}#r1020VoiceRescue h4{margin:0 0 8px}#r1020VoiceRescue p{font-size:12px;line-height:1.65}.r1020RescueActions{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}#r1020VoiceRescue button,#r1020VoiceRescue select{width:100%;max-width:100%;min-width:0;min-height:44px;white-space:normal;font:inherit}#r1020VoiceRescue select{background:#102b32;color:inherit;padding:8px;border-radius:9px}#r1020VoiceRescue [hidden]{display:none!important}#r1020VoiceRescue [data-pending]{color:#ecd48e}';document.head.appendChild(style);mount();if(document.getElementById('r1020VoiceRescue'))return;const observer=new MutationObserver(()=>{mount();if(document.getElementById('r1020VoiceRescue'))observer.disconnect();});observer.observe(document.body,{childList:true,subtree:true});}
- w.SukunRecordingSalvage=Object.freeze({version:VERSION,scan,restore,importJSON,downloadReport,mount,listSources:()=>Array.from(sources,([id,s])=>({id,kind:s.kind,count:s.information.count,bytes:s.information.bytes,at:Number(s.at)||0})),status:()=>({busy:!!task,phase:task?.phase||'idle',sourceCount:sources.size,pending:pending()}),snapshot:()=>lastReport?JSON.parse(JSON.stringify(lastReport)):null});
+ w.SukunRecordingSalvage=Object.freeze({version:VERSION,scan,restore,importJSON,validateNativeJSON,downloadReport,mount,listSources:()=>Array.from(sources,([id,s])=>({id,kind:s.kind,count:s.information.count,bytes:s.information.bytes,at:Number(s.at)||0})),status:()=>({busy:!!task,phase:task?.phase||'idle',sourceCount:sources.size,pending:pending()}),snapshot:()=>lastReport?JSON.parse(JSON.stringify(lastReport)):null});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();w.addEventListener('sukun:languagechange',render);w.addEventListener('sukun:recoverydata',render);w.addEventListener('sukun:secretaccesschange',()=>{if(task)task.controller.abort();else{sources.clear();render();}});
 })(window);

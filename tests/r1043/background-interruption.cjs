@@ -2,7 +2,7 @@
 // Execute the production owner with native media events and a controlled clock.
 // This verifies ownership and bounded recovery; it cannot measure Android sound.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
-const source=path.resolve(__dirname,'../../assets/runtime/background-owner-r949.js'),code=fs.readFileSync(source,'utf8');
+const source=path.resolve(process.argv[2]||path.join(__dirname,'../..'),'assets/runtime/background-owner-r949.js'),code=fs.readFileSync(source,'utf8');
 function fixture(){
  let at=10000,next=0;const jobs=new Map();
  const hub=()=>({handlers:new Map(),addEventListener(type,fn){if(!this.handlers.has(type))this.handlers.set(type,new Set());this.handlers.get(type).add(fn)},removeEventListener(type,fn){this.handlers.get(type)?.delete(fn)},dispatchEvent(event){for(const fn of [...(this.handlers.get(event.type)||[])])fn(event)}});
