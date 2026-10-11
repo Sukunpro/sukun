@@ -152,8 +152,7 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
 
 /* r929: compositor-only motion; natural taps and pans retain browser ownership. */
 (()=>{'use strict';
- let host,frame,keyHold=false,keyboardMode=false,releaseTimer=0,hold=false,listeners=null,manualAngle=0,manualSteps=0;
- const pointers=new Set();
+ let host,frame,keyHold=false,keyboardMode=false,listeners=null,manualAngle=0,manualSteps=0;
  let enabled=true;try{enabled=localStorage.getItem('sukun.wheel.motion')!=='0'}catch(e){}
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const tekkeVisible=()=>document.body?.classList.contains('r436-tekke-open')||document.getElementById('tk')?.hidden===false;
@@ -163,7 +162,7 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
  }
  function render(s=window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.()){
   if(!frame)return;
-  const motion=eligible(),run=motion&&!hold&&!keyHold&&s?.phase==='PLAYING';
+  const motion=eligible(),run=motion&&!keyHold&&s?.phase==='PLAYING';
   const manual=motion?'on':'off';if(frame.dataset.manualMotion!==manual)frame.dataset.manualMotion=manual;
   const state=run?'running':'paused';if(frame.dataset.motion!==state)frame.dataset.motion=state;
  }
@@ -176,41 +175,27 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
   frame.style.setProperty('--r1053-manual-counter-angle',-manualAngle+'deg');
   return true;
  }
- function resetGesture(){clearTimeout(releaseTimer);releaseTimer=0;pointers.clear();hold=false;keyHold=false;keyboardMode=false;render()}
+ function resetFocus(){keyHold=false;keyboardMode=false;render()}
  function connect(next){if(host===next&&frame?.isConnected)return;
-  listeners?.abort();clearTimeout(releaseTimer);pointers.clear();hold=false;keyHold=false;releaseTimer=0;
+  listeners?.abort();keyHold=false;keyboardMode=false;
   host=next;frame=host?.querySelector('#r924WheelFrame');manualAngle=0;manualSteps=0;if(!frame)return;
   frame.style.setProperty('--r1053-manual-angle','0deg');frame.style.setProperty('--r1053-manual-counter-angle','0deg');
   listeners=new AbortController();const signal=listeners.signal;
   const toggle=host.querySelector('#r925WheelMotion');if(toggle){toggle.checked=enabled;toggle.onchange=()=>{enabled=toggle.checked;try{localStorage.setItem('sukun.wheel.motion',enabled?'1':'0')}catch(e){}render()}}
-  frame.addEventListener('pointerdown',e=>{
-   if(e.pointerType==='mouse'&&e.button!==0)return;
-   clearTimeout(releaseTimer);releaseTimer=0;pointers.add(e.pointerId);hold=true;keyHold=false;render();
-  },{capture:true,passive:true,signal});
-  const release=e=>{
-   // An unrelated finger/mouse release must not unfreeze an active wheel touch.
-   if(!pointers.delete(e.pointerId)||pointers.size)return;
-   clearTimeout(releaseTimer);releaseTimer=0;
-   if(e.type==='pointercancel'){hold=false;render();return}
-   // Leave the stone still through the browser's native click, without the old
-   // 650 ms visual stall. No synthetic click, pointer capture or scroll veto.
-   releaseTimer=setTimeout(()=>{releaseTimer=0;hold=false;render()},120);
-  };
-  document.addEventListener('pointerup',release,{passive:true,signal});
-  document.addEventListener('pointercancel',release,{passive:true,signal});
-  // A pointer click leaves focus on its button. Only real keyboard focus
-  // holds a moving target still; pointer focus must resume after pointerup.
+  // r1054: touching or holding the wheel never freezes automatic rotation.
+  // Only real keyboard focus holds targets still for accessible activation.
+  // Pointer focus cannot inherit that keyboard hold; no release timer exists.
   document.addEventListener('pointerdown',()=>{keyboardMode=false;keyHold=false;render()},{capture:true,passive:true,signal});
   document.addEventListener('keydown',()=>{keyboardMode=true},{capture:true,signal});
-  frame.addEventListener('focusin',()=>{if(!hold&&keyboardMode){keyHold=true;render()}},{signal});
+  frame.addEventListener('focusin',()=>{if(keyboardMode){keyHold=true;render()}},{signal});
   frame.addEventListener('focusout',e=>{if(!frame.contains(e.relatedTarget)){keyHold=false;render()}},{signal});
   frame.addEventListener('keydown',()=>{keyHold=true;render()},{signal});render();
  }
- document.addEventListener('visibilitychange',()=>{if(document.hidden)resetGesture();else render()});
- addEventListener('blur',resetGesture);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)resetFocus();else render()});
+ addEventListener('blur',resetFocus);
  reduced.addEventListener('change',()=>render());
  ['sukun:performancechange','sukun:performance','sukun:performance-effective','tekke:opened','tekke:closed'].forEach(name=>addEventListener(name,()=>render()));
- window.SukunWheelMotion=Object.freeze({version:'r1053',connect,render,manualStep,snapshot:()=>({enabled,reduced:reduced.matches,state:frame?.dataset.motion||'none',activePointers:pointers.size,holding:hold,keyboardHolding:keyHold,manualAngle,manualSteps})});
+ window.SukunWheelMotion=Object.freeze({version:'r1054',connect,render,manualStep,snapshot:()=>({enabled,reduced:reduced.matches,state:frame?.dataset.motion||'none',activePointers:0,holding:false,keyboardHolding:keyHold,manualAngle,manualSteps})});
 })();
 
 

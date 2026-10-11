@@ -42,18 +42,11 @@ for(const mode of ['hidden','reduced','saving','disabled','loading','disconnecte
  assert.equal(f.api.manualStep(),false);assert.equal(f.api.snapshot().manualSteps,0);assert.equal(f.api.snapshot().manualAngle,0);assert.equal(f.commands.length,0);assert.equal(f.c.Z.count,42);assert.equal(f.timers.size,0);
 });
 test('automatic session counter updates never add a manual offset',()=>{const f=fixture({phase:'PLAYING'});f.setState({count:100,total:200});f.api.render();assert.equal(f.api.snapshot().manualSteps,0);assert.equal(f.frame.style.getPropertyValue('--r1053-manual-angle'),'0deg');assert.equal(f.commands.length,0)});
-test('pointer hold stops only CSS and resumes 120 ms after release',()=>{
- const f=fixture({phase:'PLAYING'}),before=f.state();assert.equal(f.frame.dataset.motion,'running');f.down();assert.equal(f.frame.dataset.motion,'paused');assert.equal(f.api.snapshot().holding,true);assert.deepEqual(f.state(),before);assert.equal(f.c.Z.auto,true);assert.equal(f.c.Z.count,42);assert.equal(f.commands.length,0);
- f.up();f.tick(119);assert.equal(f.frame.dataset.motion,'paused');f.tick(1);assert.equal(f.frame.dataset.motion,'running');assert.equal(f.api.snapshot().holding,false);assert.equal(f.commands.length,0);assert.equal(f.c.Z.count,42);
+test('ordinary touch never changes the automatic transform state or schedules a release',()=>{
+ const f=fixture({phase:'PLAYING'}),before=f.state();f.down();f.tick(10000);f.up();assert.equal(f.frame.dataset.motion,'running');assert.equal(f.api.snapshot().holding,false);assert.equal(f.api.snapshot().activePointers,0);assert.deepEqual(f.state(),before);assert.equal(f.commands.length,0);assert.equal(f.timers.size,0);assert.equal(f.api.snapshot().manualAngle,0);
 });
-test('unrelated pointer release and first of two fingers cannot unfreeze another held finger',()=>{
- const f=fixture({phase:'PLAYING'});f.down(1);f.down(2);f.up(9);f.tick(1000);assert.equal(f.frame.dataset.motion,'paused');f.up(1);f.tick(1000);assert.equal(f.frame.dataset.motion,'paused');assert.equal(f.api.snapshot().activePointers,1);f.up(2);f.tick(120);assert.equal(f.frame.dataset.motion,'running');assert.equal(f.commands.length,0);
-});
-test('last pointercancel resumes immediately with no release timer',()=>{const f=fixture({phase:'PLAYING'});f.down();f.up(1,'pointercancel');assert.equal(f.frame.dataset.motion,'running');assert.equal(f.timers.size,0);assert.equal(f.commands.length,0)});
-test('a new hold cancels the previous release timer',()=>{const f=fixture({phase:'PLAYING'});f.down(1);f.up(1);f.tick(60);f.down(2);f.tick(120);assert.equal(f.frame.dataset.motion,'paused');f.up(2);f.tick(120);assert.equal(f.frame.dataset.motion,'running');assert.equal(f.commands.length,0)});
-test('right mouse button creates no held pointer or transport change',()=>{const f=fixture({phase:'PLAYING'});f.down(1,'mouse',2);assert.equal(f.api.snapshot().activePointers,0);assert.equal(f.frame.dataset.motion,'running');assert.equal(f.commands.length,0)});
-test('hide retires a gesture and return resumes only current playback eligibility',()=>{
- const f=fixture({phase:'PLAYING'});f.down();f.up();f.visible(true);assert.equal(f.timers.size,0);assert.equal(f.api.snapshot().holding,false);f.tick(1000);assert.equal(f.frame.dataset.motion,'paused');f.visible(false);assert.equal(f.frame.dataset.motion,'running');f.setState({phase:'PAUSED',playing:false});f.visible(true);f.visible(false);assert.equal(f.frame.dataset.motion,'paused');assert.equal(f.commands.length,0);
+test('hide and return obey current playback eligibility independently of a prior touch',()=>{
+ const f=fixture({phase:'PLAYING'});f.down();f.visible(true);assert.equal(f.frame.dataset.motion,'paused');f.visible(false);assert.equal(f.frame.dataset.motion,'running');f.setState({phase:'PAUSED',playing:false});f.visible(true);f.visible(false);assert.equal(f.frame.dataset.motion,'paused');assert.equal(f.commands.length,0);assert.equal(f.timers.size,0);
 });
 test('mini-step writes only composed angle variables and preserves fixed counter/clip geometry',()=>{
  const f=fixture();f.api.manualStep();assert(f.writes.length);assert(f.writes.every(([id,key])=>id==='r924WheelFrame'&&['--r1053-manual-angle','--r1053-manual-counter-angle'].includes(key)));assert.equal(f.counter.style.getPropertyValue('transform'),'');assert.equal(f.clip.style.getPropertyValue('transform'),'');assert.equal(f.rotor.style.getPropertyValue('animation'),'');assert.equal(f.rotor.style.getPropertyValue('transform'),'');
