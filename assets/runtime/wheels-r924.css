@@ -68,6 +68,11 @@ body.sukun-tefekkur-mode #r920Practice #r924WheelFrame #r920Counter {
 #r920Practice .r925GemLabel{display:flex!important;pointer-events:none!important;transform-origin:50% 50%!important;animation:r925LabelTurn 72s linear infinite!important;animation-play-state:paused!important}
 #r920Practice #r924WheelFrame[data-motion="running"] #r925WheelRotor,
 #r920Practice #r924WheelFrame[data-motion="running"] .r925GemLabel{animation-play-state:running!important}
+/* r1053: one small human-credit step, independent of automatic rotation.
+   Art and stone targets stay registered; their labels remain upright. */
+#r920Practice #r925WheelRotor{rotate:var(--r1053-manual-angle,0deg)!important;transition:rotate 180ms cubic-bezier(.2,.75,.25,1)!important}
+#r920Practice .r925GemLabel{rotate:var(--r1053-manual-counter-angle,0deg)!important;transition:rotate 180ms cubic-bezier(.2,.75,.25,1)!important}
+#r920Practice #r924WheelFrame[data-manual-motion="off"] :is(#r925WheelRotor,.r925GemLabel){transition:none!important}
 #r925UpdatePanel{display:grid!important;gap:8px!important;width:100%!important;max-width:540px!important;margin:8px auto!important;padding:8px!important;box-sizing:border-box!important}
 #r925ReleaseVersions{font:500 12px/1.5 system-ui!important;overflow-wrap:anywhere!important;color:#e3e5dc!important}
 #r925UpdateStatus{font:400 13px/1.5 system-ui!important;margin:0!important;overflow-wrap:anywhere!important}
@@ -75,7 +80,7 @@ body.sukun-tefekkur-mode #r920Practice #r924WheelFrame #r920Counter {
 #r925UpdateAction{display:block!important;min-height:44px!important;max-width:100%!important;border:1px solid #b5cbb970!important;border-radius:14px!important;background:#09222ce8!important;color:#f1e4c2!important;padding:10px 15px!important;font:500 14px/1.4 system-ui!important;pointer-events:auto!important;touch-action:manipulation!important}
 @keyframes r925WheelTurn{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
 @keyframes r925LabelTurn{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){#r920Practice #r925WheelRotor,#r920Practice .r925GemLabel{animation:none!important}}
+@media(prefers-reduced-motion:reduce){#r920Practice #r925WheelRotor,#r920Practice .r925GemLabel{animation:none!important;transition:none!important}}
 }
 
 

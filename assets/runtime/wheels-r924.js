@@ -152,21 +152,35 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
 
 /* r929: compositor-only motion; natural taps and pans retain browser ownership. */
 (()=>{'use strict';
- let host,frame,keyHold=false,keyboardMode=false,releaseTimer=0,hold=false,listeners=null;
+ let host,frame,keyHold=false,keyboardMode=false,releaseTimer=0,hold=false,listeners=null,manualAngle=0,manualSteps=0;
  const pointers=new Set();
  let enabled=true;try{enabled=localStorage.getItem('sukun.wheel.motion')!=='0'}catch(e){}
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const tekkeVisible=()=>document.body?.classList.contains('r436-tekke-open')||document.getElementById('tk')?.hidden===false;
+ function eligible(){
+  const d=document.body?.dataset||{},saving=document.documentElement?.dataset?.r920Performance==='saving'||d.perf==='pil'||d.perfEffective==='pil';
+  return enabled&&!reduced.matches&&!saving&&!document.hidden&&!tekkeVisible();
+ }
  function render(s=window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.()){
   if(!frame)return;
-  const d=document.body?.dataset||{},saving=document.documentElement?.dataset?.r920Performance==='saving'||d.perf==='pil'||d.perfEffective==='pil';
-  const run=enabled&&!reduced.matches&&!saving&&!document.hidden&&!tekkeVisible()&&!hold&&!keyHold&&s?.phase==='PLAYING';
+  const motion=eligible(),run=motion&&!hold&&!keyHold&&s?.phase==='PLAYING';
+  const manual=motion?'on':'off';if(frame.dataset.manualMotion!==manual)frame.dataset.manualMotion=manual;
   const state=run?'running':'paused';if(frame.dataset.motion!==state)frame.dataset.motion=state;
+ }
+ // r1053: compose with the existing automatic transform; never restart its
+ // phase or touch playback. CSS retargets one transition even under rapid taps.
+ function manualStep(){
+  if(!frame?.isConnected||frame.dataset.wheelState!=='ready'||!eligible())return false;
+  render();manualAngle-=8;manualSteps++;
+  frame.style.setProperty('--r1053-manual-angle',manualAngle+'deg');
+  frame.style.setProperty('--r1053-manual-counter-angle',-manualAngle+'deg');
+  return true;
  }
  function resetGesture(){clearTimeout(releaseTimer);releaseTimer=0;pointers.clear();hold=false;keyHold=false;keyboardMode=false;render()}
  function connect(next){if(host===next&&frame?.isConnected)return;
   listeners?.abort();clearTimeout(releaseTimer);pointers.clear();hold=false;keyHold=false;releaseTimer=0;
-  host=next;frame=host?.querySelector('#r924WheelFrame');if(!frame)return;
+  host=next;frame=host?.querySelector('#r924WheelFrame');manualAngle=0;manualSteps=0;if(!frame)return;
+  frame.style.setProperty('--r1053-manual-angle','0deg');frame.style.setProperty('--r1053-manual-counter-angle','0deg');
   listeners=new AbortController();const signal=listeners.signal;
   const toggle=host.querySelector('#r925WheelMotion');if(toggle){toggle.checked=enabled;toggle.onchange=()=>{enabled=toggle.checked;try{localStorage.setItem('sukun.wheel.motion',enabled?'1':'0')}catch(e){}render()}}
   frame.addEventListener('pointerdown',e=>{
@@ -196,7 +210,7 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
  addEventListener('blur',resetGesture);
  reduced.addEventListener('change',()=>render());
  ['sukun:performancechange','sukun:performance','sukun:performance-effective','tekke:opened','tekke:closed'].forEach(name=>addEventListener(name,()=>render()));
- window.SukunWheelMotion=Object.freeze({version:'r988',connect,render,snapshot:()=>({enabled,reduced:reduced.matches,state:frame?.dataset.motion||'none',activePointers:pointers.size,holding:hold,keyboardHolding:keyHold})});
+ window.SukunWheelMotion=Object.freeze({version:'r1053',connect,render,manualStep,snapshot:()=>({enabled,reduced:reduced.matches,state:frame?.dataset.motion||'none',activePointers:pointers.size,holding:hold,keyboardHolding:keyHold,manualAngle,manualSteps})});
 })();
 
 
