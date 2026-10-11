@@ -139,7 +139,11 @@
    const bytes=await blob.arrayBuffer();check(task);stage(task,'decode');const decoded=await decode(bytes,{check:()=>check(task)});check(task);
    if(!decoded||!Number.isFinite(decoded.duration)||decoded.duration>MAX_SECONDS||decoded.numberOfChannels>2)throw error('PREP_MEMORY_LIMIT');
    reserve(estimate(task.meta,task,decoded));
-   const result=task.use?await task.use(decoded,{cpu:(options)=>cpu(decoded,options,task),meta:task.meta,check:()=>check(task),createUrl:blob=>{check(task);return createUrl(blob)}}):decoded;
+   const result=task.use?await task.use(decoded,{cpu:(options)=>cpu(decoded,options,task),meta:task.meta,check:()=>check(task),
+    // Shared PCM Blob slices still belong to the native media lease. Bound
+    // their final size while the original decode/FX allocation remains live.
+    packedBudget:maxBytes=>{check(task);return Math.max(44,Math.min(Math.max(44,+maxBytes||0),BUDGET-resident()-activeEstimate));},
+    createUrl:blob=>{check(task);return createUrl(blob)}}):decoded;
    check(task);return result;
   }catch(e){if(e.code==='PREP_CANCELLED'){if(!task.cancelCounted){metrics.cancelled++;task.cancelCounted=true;}}if(!task.abortNotified)notify(e.code||'PREP_FAILED',task.key,task.purpose);throw e;}finally{
    clearTimeout(timer);if(activeTask===task){active=Math.max(0,active-1);activeTask=null;activeCreated=null;activeEstimate=0;}pending--;release();

@@ -35,8 +35,12 @@ function identityFixture() {
     document: {
       createElement(tag) {
         assert.equal(tag, 'audio');
+        const listeners = new Map();
         return {dataset: {}, style: {}, srcObject: null, currentSrc: '',
-          paused: false, ended: false, setAttribute() {}};
+          paused: false, ended: false, setAttribute() {},
+          addEventListener(type,fn) {if(!listeners.has(type))listeners.set(type,new Set());listeners.get(type).add(fn);},
+          removeEventListener(type,fn) {listeners.get(type)?.delete(fn);},
+          dispatchEvent(event) {for(const fn of [...listeners.get(event.type)||[]])fn(event);}};
       },
       body: {appendChild(element) { appended.push(element); }}
     }

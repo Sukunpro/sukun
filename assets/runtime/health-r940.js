@@ -40,6 +40,7 @@
   ['voiceExpectation','voiceEnabled','intendedAudible','togetherEnabled','readerActive','voiceIntent','enabled','latched','explicitOff','actualSessionSource','sessionPhase'].forEach(key=>historicKeys.add(key));
   ['recordingPreparation','recording','audio','ageMs','stageAgeMs','originalReady','foregroundBudgetMs','decodeBlocked','budgetBytes','sourceBudgetBytes','residentBytes','activeEstimate','worker','decodeStarts','timedOut','maxConcurrent','purpose'].forEach(key=>historicKeys.add(key));
   ['tabOwner','revision','method','protection','owned','maintenance','blocked','recoveryRequired','failureStage','lockFallbackError','requestFailures'].forEach(key=>historicKeys.add(key));
+  ['currentTime','duration','mediaSpanSeconds','unitSeconds','repeatCycles','playbackRate','volume','muted','loop','mediaProgressSeconds','appliedCycles','lastPauseReason','lastPauseAt'].forEach(key=>historicKeys.add(key));
   function historic(value, depth = 0) {
     // Marker context contains one nested pair of cached preparation owners.
     // The field allowlist and checkpoint byte cap still bound retained data.
@@ -90,7 +91,7 @@
     const single = safe(() => window.SukunLockAudio?.snapshot?.());
     if (single) lock = {...(lock || {}), singleMeasuredAt:now(), singleSnapshot:{
       path:'single-recording',active:bool(single.active),preparing:bool(single.preparing),playing:bool(single.playing),
-      ...compactBackground({evidence:single}),cycleMs:finite(single.cycleMs)
+      ...compactBackground({evidence:single}),...compactMediaEvidence(single),cycleMs:finite(single.cycleMs)
     }};
   }
   // r970: read-only browser restart evidence, distinct from audio handoff errors.
@@ -341,6 +342,19 @@
   }
   const AUDIO_ERRORS = new Set(['AbortError','NotAllowedError','NotSupportedError','InvalidStateError','NetworkError','EncodingError','SecurityError','TimeoutError','TypeError','Error']);
   const AUDIO_STAGES = new Set(['native-play','started','restored','released','prepare','eligibility','source-attach','handoff','resume']);
+  function compactMediaEvidence(data) {
+    // Media properties are observations, not proof that sound reached a speaker.
+    // Retain only finite numeric metadata and known command/event reason codes.
+    const result = {};
+    for (const key of ['currentTime','duration','mediaSpanSeconds','unitSeconds','repeatCycles','playbackRate','volume','mediaProgressSeconds','appliedCycles','lastPauseAt']) {
+      const value=data?.[key];
+      if (typeof value==='number' && Number.isFinite(value) && value>=0 && value<=1e15) result[key]=value;
+    }
+    for (const key of ['muted','loop']) if (typeof data?.[key]==='boolean') result[key]=data[key];
+    const reason=data?.lastPauseReason;
+    if (typeof reason==='string' && /^(?:native-pause|browser-pause|user-pause|pause|stop|finish|source-replace|source-change|handoff|reset|release|recovery|prepare|single-pause|single-stop|unknown|none)$/.test(reason)) result.lastPauseReason=reason;
+    return result;
+  }
   function compactBackground(detail) {
     const data = detail?.evidence || {}, result = {hidden:document.hidden};
     // Never retain arbitrary error messages, extra text, media URLs or keys.
@@ -354,7 +368,7 @@
     for (const key of ['paused','ended','eligible','generationCurrent']) if (typeof data[key] === 'boolean') result[key] = data[key];
     for (const [key,max] of [['readyState',4],['networkState',3],['mediaErrorCode',4]])
       if (Number.isInteger(data[key]) && data[key] >= 0 && data[key] <= max) result[key] = data[key];
-    return result;
+    return {...result,...compactMediaEvidence(data)};
   }
   function passiveDiagnostic(e) {
     const kind = token(e.detail?.kind || 'runtime'), isBackground = ['background-play','background-handoff','background-tts'].includes(kind);
