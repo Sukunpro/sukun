@@ -203,8 +203,11 @@ async function test(name, fn) { try { const detail = await fn(); results.push({ 
     const f = fixture(), t = f.tab(); f.disk.setHold(true);
     let resolved = false;
     const operation = t.window.SukunRecordingSalvage.importJSON([new File([first], 'first.json')]).then(result => { resolved = true; return result; });
-    for (let i = 0; i < 150 && !f.disk.held.length; i++) { await f.world.flush(); await tick(); }
-    assert.equal(f.disk.held.length, 1); assert.equal(resolved, false); assert.equal(f.disk.rows().length, 0);
+    // Blob reads and SHA-256 run asynchronously outside the modeled event
+    // queue. Wait for the held main transaction, not a machine-speed tick count.
+    const deadline = Date.now() + 5000;
+    while (!f.disk.held.length && !resolved && Date.now() < deadline) { await f.world.flush(); await tick(); }
+    assert.equal(f.disk.held.length, 1, 'Main write did not reach held oncomplete within five seconds'); assert.equal(resolved, false); assert.equal(f.disk.rows().length, 0);
     f.disk.release(); assert.equal((await f.settle(operation)).added, 1); assert.equal(f.disk.rows().length, 1);
   });
   await test('Repeated import is idempotent and does not replace different bytes on an existing key', async () => {

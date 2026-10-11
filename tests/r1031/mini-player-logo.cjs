@@ -17,7 +17,18 @@ test('Full uncropped square canvas preserves the logo aspect ratio',()=>{for(con
 test('Visible approved alpha bounds fit inside the 44px target',()=>{const scale=64/512,offset=(44-64)/2,bbox=[156,91,357,420],shown=bbox.map(v=>offset+v*scale);assert.deepEqual(shown,[9.5,1.375,34.625,42.5]);assert(shown.every(v=>v>=0&&v<=44));assert.equal((bbox[2]-bbox[0])*scale,25.125);assert.equal((bbox[3]-bbox[1])*scale,41.125);});
 test('Decoration cannot capture clicks and contributes no accessible text',()=>{assert.equal((block.match(/pointer-events:none!important/g)||[]).length,2);assert(block.includes('content:""!important'));assert.match(html,/grip\.innerHTML='<span aria-hidden="true"><\/span><small aria-hidden="true">↕<\/small>/);});
 test('Mini grip keeps the existing 44px button at its original position',()=>{const rule=html.match(/body\.r920-dock\.r588-mode-mini #r588DockShell>#r633DockGrip \{([^}]+)\}/)[1];assert(rule.includes('top:12px!important;left:6px!important'));assert(rule.includes('width:44px!important;min-width:44px!important;height:44px!important;margin:0!important'));assert(!block.includes('touch-action:'));});
-test('Focus, drag and one real grip owner remain byte-for-byte unchanged',()=>{assert.equal(sha(script('r633-flow-dock-placement-runtime')),'3de62f7285749fa5f7d8c23be92734d8fa2b832e784341fd49d4573ee990a48c');assert.equal(sha(script('r698-ui-integration-runtime')),'c6ca01aa6b2038c82726cc8f473e1b87f4dd7cdc86b800c18ce23ed3d7df2d41');assert.match(html,/#r588DockShell button:focus-visible \{outline:2px solid #c8dcb3!important;outline-offset:2px!important\}/);});
+test('Focus, drag and grip owner remain unchanged outside the approved progress invalidation block',()=>{
+ const owner=script('r633-flow-dock-placement-runtime');assert(owner);
+ const start=owner.indexOf("const events=['sukun:r616viewchange'",owner.indexOf('// r929: content ResizeObserver'));
+ const end=owner.indexOf('// Release inert/backdrop immediately.',start);assert(start>=0&&end>start);
+ // r1050 changes only the authority event filter. Pin that exact reviewed
+ // block, then restore its old bytes before checking the original owner hash.
+ // tests/r1050/dock-progress-invalidation.cjs executes the actual new filter.
+ assert.equal(sha(owner.slice(start,end)),'42435bd54a16a9602313a5cf85795dbe86c0a2035aa96af804f9657ee8832c93');
+ const originalEvents="const events=['sukun:r616viewchange','sukun:r698modechange','sukun:tabchange','sukun:playbackchange','sukun:zikirnav','sukun:zikirrestart','sukun:miniflowglasschange','sukun:authoritychange','sukun:journey-advance','sukun:mediasessionwakeguard','pageshow'];events.forEach(ev=>window.addEventListener(ev,()=>schedule(ev),{passive:true}));\n";
+ assert.equal(sha(owner.slice(0,start)+originalEvents+owner.slice(end)),'3de62f7285749fa5f7d8c23be92734d8fa2b832e784341fd49d4573ee990a48c');
+ assert.equal(sha(script('r698-ui-integration-runtime')),'c6ca01aa6b2038c82726cc8f473e1b87f4dd7cdc86b800c18ce23ed3d7df2d41');assert.match(html,/#r588DockShell button:focus-visible \{outline:2px solid #c8dcb3!important;outline-offset:2px!important\}/);
+});
 test('Transport, mode and volume runtime remain untouched',()=>assert.equal(sha(fs.readFileSync(path.join(root,'assets/runtime/dock-r920.js'))),'d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0'));
 const bind=html.slice(html.indexOf('function bindGrip(grip){'),html.indexOf('\nfunction naturalHeight',html.indexOf('function bindGrip(grip){')));
 function fixture(){

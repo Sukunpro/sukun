@@ -69,15 +69,28 @@
     identity = nextIdentity;
     const failed = !!(matchingFailure || transport.failed || commandFailure);
     const bg = read(() => window.SukunBackgroundAudioOwner?.snapshot());
+    // The accepted single-loop media remains authoritative between words and
+    // while paused. A stale resolver badge cannot relabel that same source as
+    // silence/TTS. Only a live owner with the current canonical key qualifies;
+    // a primed zero carrier or an old/different recording never supplies proof.
+    const single = read(() => window.SukunLockAudio?.snapshot());
+    const singleKey = clean(read(() => window.SukunLockAudio?.anahtar(), ''));
+    const expectedSingleKey = clean(read(() => window.SukunLockAudio?.beklenenAnahtar(), ''));
+    const matchingSingleRecording = !j.view && hasZikirOwner && bg?.active && bg.owner === 'single' &&
+      single?.active && single.path === 'single-recording' && ['baked','recording'].includes(single.sourceKind) &&
+      singleKey && singleKey === expectedSingleKey;
+    const singleSource = read(() => window.SukunSourceState);
+    const observedSource = matchingSingleRecording ? {kind:'recording',
+      label:singleSource?.kind === 'recording' && clean(singleSource.reason) || 'Kendi kayıt'} : source;
     const interrupted = !!(hasZikirOwner && bg?.active && (bg.blocked || bg.phase === 'INTERRUPTED'));
     if(playing && !preparing && !interrupted && !failed) establishedEpoch = epoch;
     const cyclePhase = failed ? 'ERROR' : paused ? 'PAUSED' : interrupted ? 'INTERRUPTED' : preparing ? 'PREPARING' : playing ? 'PLAYING' : 'ENDED';
-    const cycleSig = [epoch,cyclePhase,source.kind || 'idle'].join('|');
+    const cycleSig = [epoch,cyclePhase,observedSource.kind || 'idle'].join('|');
     if(cycleSig !== voiceSignature){voiceSignature=cycleSig;voiceCycle=freeze({phase:cyclePhase,revision:voiceCycle.revision+1,epoch,at:Date.now()});const detail=voiceCycle;queueMicrotask(()=>window.dispatchEvent(new CustomEvent('sukun:voicecyclechange',{detail})));}
     let phase = failed ? 'ERROR' : paused ? 'PAUSED' : interrupted ? 'INTERRUPTED' : playing && establishedEpoch === epoch ? 'PLAYING' : preparing ? 'PREPARING' :
       playing ? 'PLAYING' : hasZikirOwner && ['interrupted', 'recovering'].includes(life.state) ? 'INTERRUPTED' :
       (jd?.complete || completion?.identity === identity) ? 'COMPLETED' : 'IDLE';
-    const rawKind = clean(source.kind && source.kind !== 'idle' ? source.kind : flow.source?.kind || np.sourceKind || 'none').toLowerCase().replace(/_/g, '-');
+    const rawKind = clean(observedSource.kind && observedSource.kind !== 'idle' ? observedSource.kind : flow.source?.kind || np.sourceKind || 'none').toLowerCase().replace(/_/g, '-');
     let audioSource = /error|fail/.test(rawKind) ? 'ERROR' :
       /local|file|sample/.test(rawKind) ? 'LOCAL_RECORDING' :
       /tts|speech/.test(rawKind) || rawKind === 'ses' ? 'TTS' :
@@ -109,7 +122,7 @@
       phase, playbackState: phase.toLowerCase(), playing: phase === 'PLAYING', paused: phase === 'PAUSED',
       preparing: phase === 'PREPARING', audioSource,
       recordingSource: matchingFailure ? 'USER_RECORDING_FAILED' : audioSource === 'USER_RECORDING' ? 'USER_RECORDING' : null,
-      sourceLabel: clean(source.label || flow.source?.label || (phase === 'PLAYING' && state?.epoch === epoch ? state?.sourceLabel : '') || ''),
+      sourceLabel: clean(observedSource.label || flow.source?.label || (phase === 'PLAYING' && state?.epoch === epoch ? state?.sourceLabel : '') || ''),
       sceneId: scene.activeSceneId || scene.sceneId || null,
       resolvedSceneId: scene.resolvedSceneId || null,
       backgroundState: scene.sceneLoad || scene.backgroundState || 'unknown',
