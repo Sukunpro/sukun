@@ -2,8 +2,8 @@
 // Actual playRecording and real setZVol, with controlled media/timer events.
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),assert=require('node:assert/strict');
 const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
-const header=fs.readFileSync(path.join(root,'tests/r1043/recording-attack.cjs'),'utf8').split('function clean(')[0];
-const harness=Function('require','__dirname',header+'\nreturn harness;')(require,path.join(root,'tests/r1043'));
+const header=fs.readFileSync(path.join(__dirname,'../r1043/recording-attack.cjs'),'utf8').split('function clean(')[0];
+const harness=Function('require','__dirname',header+'\nreturn harness;')(require,path.join(__dirname,'../r1043'));
 const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const setter=html.slice(html.indexOf('function setZVol('),html.indexOf('\nfunction setLayerVol('));
 const drain=()=>new Promise(resolve=>setImmediate(resolve));let passed=0;const failures=[];

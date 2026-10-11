@@ -3,9 +3,9 @@
 // Browser-like pause mode queues events only on a real paused-state transition.
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),assert=require('node:assert/strict');
 const root=path.resolve(process.argv[2]||process.env.SUKUN_ROOT||path.join(__dirname,'../..'));
-let header=fs.readFileSync(path.join(root,'tests/r1043/background-interruption.cjs'),'utf8').split('const results=[];')[0];
+let header=fs.readFileSync(path.join(__dirname,'../r1043/background-interruption.cjs'),'utf8').split('const results=[];')[0];
 header=header.replace('return{window,document,a,owner,events,jobs,fire,tick,claim,start,hide,visible,pause};','return{window,document,a,owner,events,jobs,fire,tick,claim,start,hide,visible,pause,context,media};');
-const fixture=Function('require','__dirname',header+'\nreturn fixture;')(require,path.join(root,'tests/r1043'));
+const fixture=Function('require','__dirname',header+'\nreturn fixture;')(require,path.join(__dirname,'../r1043'));
 const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const journey=html.slice(html.indexOf('async function sukunJourneyNativeRecording('),html.indexOf('/* r1043: an accepted raw recording'));
 const stops=html.slice(html.indexOf('function sesDuraklat('),html.indexOf('/* Bütün metin okuyucularını'));

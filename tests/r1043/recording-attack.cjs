@@ -54,7 +54,12 @@ function harness({hidden=false,volume=.6,deferPlay=false}={}){
     r957Volume:v=>v==null?1:v,r657ContinuityBump:()=>{},r658BoundaryBump:()=>{},sukunVoiceOverlapGuard:()=>{},
     sukunPoolDispose:()=>{},Date:{now:()=>now},CustomEvent:class {},
   };
-  vm.createContext(context);vm.runInContext(playbackSource,context);
+  vm.createContext(context);
+  // r1049 adds a production attempt-identity capability; load that real
+  // helper rather than bypassing it in this extracted playback fixture.
+  const authorityStart=html.indexOf('window.SukunRecordingStartIntent=')>=0?html.indexOf('window.SukunRecordingStartIntent='):html.indexOf('function r1049RecordingIntentAuthority('),authorityEnd=html.indexOf('/* r1048: live recording level',authorityStart);
+  if(authorityStart>=0&&authorityEnd>authorityStart)vm.runInContext(html.slice(authorityStart,authorityEnd),context);
+  vm.runInContext(playbackSource,context);
   return {context,document,timers,instances,Media,advance,stale:()=>{current=false},
     hide:()=>{document.hidden=true;document.dispatch('visibilitychange')},
     throttle:ms=>{now+=ms;advance(0)},

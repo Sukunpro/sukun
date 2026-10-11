@@ -8,7 +8,7 @@ const predicatePattern=/  function isSilentCarrier\(element\)\{[\s\S]*?\n  \}\n/
 const baselineHTML=h=>h.replace(predicatePattern,oldPredicate);
 const hash=v=>crypto.createHash('sha256').update(v).digest('hex');
 function integration(root){
- const file=path.join(ROOT,'tests/r1039/silent-anchor-init.cjs'),source=fs.readFileSync(file,'utf8').split('(async () => {')[0],m={exports:{}},localRequire=createRequire(file);
+ const file=path.join(__dirname,'../r1039/silent-anchor-init.cjs'),source=fs.readFileSync(file,'utf8').split('(async () => {')[0],m={exports:{}},localRequire=createRequire(file);
  const fixtureFS={...fs,readFileSync(file,...args){const value=fs.readFileSync(file,...args);return root===BASE&&path.resolve(String(file))===path.join(ROOT,'index.html')?baselineHTML(String(value)):value;}};
  vm.runInNewContext(source+'\nmodule.exports={setup,boot,playing,finish,stoppedForMedia,anchorLiteral};',{require:name=>name==='node:fs'?fixtureFS:localRequire(name),__dirname:path.dirname(file),module:m,process:{argv:['node',file,ROOT]},console,Blob,ArrayBuffer,DataView,queueMicrotask});return m.exports;
 }

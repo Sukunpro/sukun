@@ -37,7 +37,7 @@
   request.onblocked=()=>finish(null,failure('db-blocked'));
   request.onsuccess=()=>finish(request.result);
  });}
- async function readStores(name,names,t){
+ async function readStores(name,names,t,queries={}){
   const db=await openExisting(name);try{assert(t);}catch(error){db?.close();throw error;}if(!db)return {exists:false,rows:{}};
   try{
    if(db.version!==1||names.some(n=>!db.objectStoreNames.contains(n)))throw failure('unsupported-schema');
@@ -51,7 +51,7 @@
      tx=db.transaction(names,'readonly');db.onversionchange=()=>abort(failure('database-changed'));
      t.controller.signal.addEventListener('abort',cancel,{once:true});
      tx.oncomplete=()=>done(ended===names.length?null:failure('incomplete-read'));tx.onabort=tx.onerror=()=>done(failure('read-failed'));
-     for(const name of names){const cursor=tx.objectStore(name).openCursor();cursor.onsuccess=()=>{try{assert(t);const item=cursor.result;if(!item){ended++;return;}if(++count>LIMIT.rows)throw failure('source-limit');rows[name].push([item.key,item.value]);item.continue();}catch(error){abort(error);}};}
+     for(const name of names){const cursor=tx.objectStore(name).openCursor(queries[name]);cursor.onsuccess=()=>{try{assert(t);const item=cursor.result;if(!item){ended++;return;}if(++count>LIMIT.rows)throw failure('source-limit');rows[name].push([item.key,item.value]);item.continue();}catch(error){abort(error);}};}
     }catch(error){abort(error);}
    });
   }finally{db.close();}
@@ -139,7 +139,10 @@
   if(!Number.isFinite(space?.quota)||!Number.isFinite(space?.usage)||space.quota-space.usage<information.bytes*2+16*1048576)throw failure('quota-low');
   t.phase='staging';render();const job={id:w.crypto.randomUUID(),at:Date.now(),build:build(),state:'verified-source',version:VERSION,count:information.count,bytes:information.bytes};
   await quarantineWrite(job,plan.entries,plan.hashes,t,lease);assert(t,lease);
-  const saved=await readStores(QUARANTINE,['jobs','clips'],t);assert(t,lease);const rows=saved.rows.clips.filter(([,c])=>c.jobId===job.id).map(([,c])=>c);
+  // Previous rescue copies are intentionally retained. Read only this job's
+  // compound primary-key range so accumulated history cannot exhaust the
+  // scan limit or be copied into memory on every new import.
+  const saved=await readStores(QUARANTINE,['jobs','clips'],t,{jobs:w.IDBKeyRange.only(job.id),clips:w.IDBKeyRange.bound([job.id,''],[job.id,'\uffff'])});assert(t,lease);const rows=saved.rows.clips.filter(([,c])=>c.jobId===job.id).map(([,c])=>c);
   if(rows.length!==information.count)throw failure('quarantine-verification-failed');
   for(const row of rows){assert(t,lease);if(await hash(row.blob)!==plan.hashes.get(row.key)||row.hash!==plan.hashes.get(row.key))throw failure('quarantine-verification-failed');}
   assert(t,lease);if(pending())throw failure('recovery-pending');await w.SukunRecoveryGuard.assertSingleClient(lease);assert(t,lease);

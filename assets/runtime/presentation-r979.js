@@ -73,10 +73,17 @@
  function stopNoticeWatch(){
   clearTimeout(noticeTimer);noticeTimer=0;safe(()=>noticeResize?.disconnect());safe(()=>noticeMutations?.disconnect());noticeResize=noticeMutations=null;
  }
- function dismissNotice(){
-  const focused=safe(()=>notice?.contains(document.activeElement),false);showNotice(false);
-  if(focused){const target=noticeFocus?.isConnected?noticeFocus:$('r588Play');safe(()=>target?.focus?.({preventScroll:true}));}
+ function restoreNoticeFocus(){
+  // A successful probe can hide the warning too. Keep keyboard focus out of
+  // that hidden subtree, without stealing focus the user moved elsewhere.
+  if(document.hidden||!safe(()=>notice?.contains(document.activeElement),false))return;
+  const candidates=[noticeFocus,$('r588Play'),$('r433DockPeek'),document.querySelector('.tab.act[data-t]')];
+  for(const target of candidates){
+   if(!target?.isConnected||target.disabled||typeof target.focus!=='function'||safe(()=>rootEvidence(target).blocker,'unverified'))continue;
+   safe(()=>target.focus({preventScroll:true}));if(document.activeElement===target)return;
+  }
  }
+ function dismissNotice(){showNotice(false)}
  function localizeNotice(){
   if(!notice)return;
   notice.firstElementChild.textContent=isEnglish()?'The interface could not be verified after returning. Redisplay it without resetting your count.':'Ekrana dönüşte görünüm doğrulanamadı. Sayacı sıfırlamadan yeniden göster.';
@@ -85,7 +92,7 @@
   safe(placeNotice);
  }
  function showNotice(show){
-  if(!show){if(notice)notice.hidden=true;stopNoticeWatch();return}
+  if(!show){restoreNoticeFocus();if(notice)notice.hidden=true;stopNoticeWatch();return}
   if(!notice||notice.hidden)noticeFocus=document.activeElement;
   if(!notice){notice=document.createElement('aside');notice.id='r979PresentationNotice';notice.dataset.i18nOwned='r979';notice.setAttribute('role','status');
    const text=document.createElement('p'),close=document.createElement('button'),button=document.createElement('button');button.type=close.type='button';close.id='r979PresentationNoticeDismiss';close.textContent='×';notice.append(text,close,button);document.body.append(notice);

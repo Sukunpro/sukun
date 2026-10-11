@@ -26,6 +26,8 @@ const singleClientSource = extract(swSource, 'async function recoverySource(even
 const updateSource = extract(swSource, "  if(d.type==='SKIP_WAITING'){", "  if(d.type==='SURUM_NOTU')");
 const tick = () => new Promise(resolve => setImmediate(resolve));
 const failure = name => Object.assign(new Error(name), { name });
+const compareKey = (a, b) => { if (Array.isArray(a) && Array.isArray(b)) { for (let i = 0; i < Math.min(a.length, b.length); i++) { const value = compareKey(a[i], b[i]); if (value) return value; } return a.length - b.length; } return a < b ? -1 : a > b ? 1 : 0; };
+const IDBKeyRange = { only: key => ({ includes: other => compareKey(key, other) === 0 }), bound: (lower, upper) => ({ includes: key => compareKey(lower, key) <= 0 && compareKey(key, upper) <= 0 }) };
 
 // Transaction writes remain private until oncomplete. All transactions on a
 // database are serialized, with abort preserving the committed store exactly.
@@ -64,11 +66,11 @@ function storageModel() {
               add: (value, k = autoKey(value)) => request(store => { assert.equal(mode, 'readwrite'); if (store.has(key(k))) throw failure('ConstraintError'); store.set(key(k), { key: k, value }); return k; }),
               put: (value, k = autoKey(value)) => request(store => { assert.equal(mode, 'readwrite'); store.set(key(k), { key: k, value }); return k; }),
               delete: k => request(store => { assert.equal(mode, 'readwrite'); store.delete(key(k)); }),
-              openCursor() {
+              openCursor(query) {
                 const req = {}; let values, position = 0; tx.pending++;
                 const run = () => setImmediate(() => {
                   if (tx.ended) return;
-                  if (!values) values = [...tx.working.get(name).values()];
+                  if (!values) values = [...tx.working.get(name).values()].filter(item => query === undefined || query === null || (typeof query.includes === 'function' ? query.includes(item.key) : compareKey(query, item.key) === 0));
                   const item = values[position++];
                   req.result = item ? { key: item.key, value: item.value, continue: run } : null;
                   try { req.onsuccess?.({ target: req }); } catch (_) { tx.abort(); return; }
@@ -139,7 +141,7 @@ function fixture() {
   const tab = () => {
     const t = world.tab(), c = t.window;
     Object.assign(c, { Blob, File, TextEncoder, Uint8Array, AbortController, Map, Set, Promise, atob, URL,
-      MessageChannel: channel, indexedDB: disk.indexedDB,
+      MessageChannel: channel, indexedDB: disk.indexedDB, IDBKeyRange,
       removeEventListener() {},
       close: () => { t.busy = false; t.paused = false; t.finishCalls = (t.finishCalls || 0) + 1; },
       tkSessionChanged() {},

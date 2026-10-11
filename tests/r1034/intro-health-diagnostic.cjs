@@ -1,7 +1,7 @@
 'use strict';
 const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert/strict');
 const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
-const baseline=path.join(root,'tests/r1017/health_inspection_contract.cjs');
+const baseline=path.join(__dirname,'../r1017/health_inspection_contract.cjs');
 const source=fs.readFileSync(baseline,'utf8').split('// Explicit sibling dependency;')[0];
 const mod={exports:{}};vm.runInNewContext(source+'\nmodule.exports={harness};',{require,process:{argv:['node','fixture',root]},__dirname:path.dirname(baseline),module:mod,console,Blob,AbortController,DOMException,TextEncoder,TextDecoder,URL});
 const harness=mod.exports.harness,plain=x=>JSON.parse(JSON.stringify(x));
@@ -28,7 +28,7 @@ await test('changing getters are sampled once before whitelisting',()=>{const ra
 await test('untrusted presenter outcomes remain NOT_MEASURED',()=>{const h=setup();for(const outcome of ['unlisted',{},[],1,true,null]){const r=h.api.read();row(r).evidence.outcome=outcome;row(r).status='PASS';const v=h.view.summarize(r).areas.find(x=>x.id==='audio').checks.find(x=>x.code==='INTRO_AUDIO');assert.equal(v.status,'NOT_MEASURED');assert.match(v.detail,/unknown/)}passive(h)});
 await test('actual fallback phase and frame_timeout stay known observations',()=>{const h=setup({...good,introPhase:'fallback',audioOutcome:'frame_timeout'}),r=h.api.read(),v=h.view.summarize(r).areas.find(x=>x.id==='audio').checks.find(x=>x.code==='INTRO_AUDIO');assert.equal(r.current.introAudio.phase,'fallback');assert.equal(r.current.introAudio.outcome,'frame_timeout');assert.match(v.detail,/frame_timeout/);assert.equal(v.status,'OBSERVED');passive(h)});
 await test('real production intro snapshot reaches Health without any new audio operation',async()=>{
- const {createFixture}=require(path.join(root,'tests/r1037/intro-fixture.cjs'));
+ const {createFixture}=require(path.join(__dirname,'../r1037/intro-fixture.cjs'));
  const code=fs.readFileSync(path.join(root,'assets/runtime/startup-intro-r1027.js'),'utf8');
  const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
  const clock=html.match(/<script id="sukun-auto-intro-clock">([\s\S]*?)<\/script>/)[1];

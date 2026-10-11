@@ -4,11 +4,11 @@ const {createRequire}=require('node:module');
 const root=path.resolve(process.argv[2]||path.join(__dirname,'../..')),base=path.resolve(process.argv[3]||root);
 const plain=x=>JSON.parse(JSON.stringify(x));
 function integration(target){
- const file=path.join(root,'tests/r1039/silent-anchor-init.cjs'),source=fs.readFileSync(file,'utf8').split('(async () => {')[0],m={exports:{}};
+ const file=path.join(__dirname,'../r1039/silent-anchor-init.cjs'),source=fs.readFileSync(file,'utf8').split('(async () => {')[0],m={exports:{}};
  vm.runInNewContext(source+'\nmodule.exports={setup,boot,playing,finish,stoppedForMedia,anchorLiteral};',{require:createRequire(file),module:m,__dirname:path.dirname(file),process:{argv:['node',file,target]},console,Blob,ArrayBuffer,DataView,queueMicrotask});return m.exports;
 }
 function health(){
- const file=path.join(root,'tests/r1017/health_inspection_contract.cjs'),source=fs.readFileSync(file,'utf8').split('// Explicit sibling dependency;')[0],m={exports:{}};
+ const file=path.join(__dirname,'../r1017/health_inspection_contract.cjs'),source=fs.readFileSync(file,'utf8').split('// Explicit sibling dependency;')[0],m={exports:{}};
  vm.runInNewContext(source+'\nmodule.exports={harness};',{require:createRequire(file),process:{argv:['node',file,root]},__dirname:path.dirname(file),module:m,console,Blob,AbortController,DOMException,TextEncoder,TextDecoder,URL});return m.exports.harness();
 }
 const tests=[];async function test(name,fn){try{await fn();tests.push({name,passed:true});}catch(e){tests.push({name,passed:false,error:e.stack});}}
