@@ -92,6 +92,18 @@
   const permitted=session?.activeMode!=='berhet'||!!window.SukunSecretPolicy?.unlocked?.();
   const value=String(!permitted?'SÜKÛN':zikir&&session.activeName?session.activeName:$('r588Title')?.textContent||'SÜKÛN').trim();
   text(name,value);if(name.title!==value)name.title=value;
+  // One short source line reuses the accepted session, including a paused
+  // generic native lease. Never derive it from archive availability alone.
+  let sourceLabel=$('r1056DockSource');
+  const metaLine=shell.querySelector('.r588Stats .r588Stat:first-child')||container;
+  if(!sourceLabel){sourceLabel=document.createElement('small');sourceLabel.id='r1056DockSource';sourceLabel.setAttribute('data-noi18n','');metaLine.append(sourceLabel);}
+  else if(sourceLabel.parentElement!==metaLine)metaLine.append(sourceLabel);
+  const labels=window.SukunAudioSourceText,show=permitted&&zikir;
+  if(sourceLabel.hidden!==!show)sourceLabel.hidden=!show;text(sourceLabel,show?(labels?.label?.(session)||session.sourceLabel||''):'');
+  const detail=show?[labels?.chain?.(),labels?.explanation?.(session)].filter(Boolean).join(' · '):'';
+  if(sourceLabel.title!==detail)sourceLabel.title=detail;
+  const origin=show?labels?.origin?.(session)||'none':'none';if(sourceLabel.dataset.sourceOrigin!==origin)sourceLabel.dataset.sourceOrigin=origin;
+
  }
  function mount(){
   const shell=$('r588DockShell'),body=$('r659DockBody'),footer=shell?.querySelector(':scope > .r588Mode');
@@ -129,7 +141,7 @@
   // Text/count/volume presentation must not force full geometry every voice tick.
  }
  function schedule(){if(raf||document.hidden)return;raf=requestAnimationFrame(()=>{raf=0;if(!mounted)mount();else sync();});}
- ['sukun:r698modechange','sukun:r616viewchange','sukun:tabchange','sukun:sessionchange','sukun:currentflowchange','sukun:secretaccesschange','pageshow'].forEach(event=>window.addEventListener(event,schedule,{passive:true}));
+ ['sukun:r698modechange','sukun:r616viewchange','sukun:tabchange','sukun:sessionchange','sukun:currentflowchange','sukun:secretaccesschange','sukun:languagechange','pageshow'].forEach(event=>window.addEventListener(event,schedule,{passive:true}));
  document.addEventListener('visibilitychange',schedule,{passive:true});
  document.addEventListener('click',event=>{if(event.target.closest?.('#mixer [data-ambacctgl],#uiBtn'))requestAnimationFrame(accessibility);},{passive:true});
  function boot(n=0){if(mount())return;if(n<40)setTimeout(()=>boot(n+1),100);}

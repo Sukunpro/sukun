@@ -162,6 +162,33 @@ function renderAtlas(){
  text($('r920AtlasProgress'),active?`Aktif · ${s.count} / ${s.target||'∞'}${rate!==null?' · %'+rate:''}`:completed[atlasMode+':'+atlasIndex]?'Tamamlandı':'Henüz tamamlanmadı');
  const esma=window.SukunSceneEngine?.esmaSceneFor?.(atlasIndex);text($('r920AtlasScene'),scene?`Sahne: ${scene.title}`:'Sahne: '+(esma?.title||'Klasik Mevlevî'));text($('r920AtlasNote'),scene?[scene.layer,scene.note].filter(Boolean).join(' · '):esma?.note||'');
 }
+/* r1056: reuse the current read model and cadence explanation. No measurement
+   loop, transport listener or replacement of a touched control is introduced. */
+function readingSummary(s){
+ let summary=$('r1056ReadingSummary');
+ if(!summary){
+  summary=document.createElement('div');summary.id='r1056ReadingSummary';summary.className='r1056-reading-summary';summary.setAttribute('data-noi18n','');
+  summary.innerHTML='<button id="r1056ReadingSource" type="button" aria-expanded="false" aria-controls="r1056ReadingExplanation"></button><span id="r1056ReadingTempo"></span><p id="r1056ReadingExplanation" hidden></p>';
+  summary.querySelector('#r1056ReadingSource').onclick=()=>{
+   const button=$('r1056ReadingSource'),detail=$('r1056ReadingExplanation');if(!button||!detail)return;
+   const expanded=button.getAttribute('aria-expanded')!=='true';attr(button,'aria-expanded',expanded);detail.hidden=!expanded;
+  };
+  const identity=root.querySelector('.r920Identity');if(identity)identity.after(summary);else root.prepend(summary);
+ }
+ const source=$('r1056ReadingSource'),tempo=$('r1056ReadingTempo'),labels=window.SukunAudioSourceText;
+ const label=labels?.label?.(s)||s.sourceLabel||'Ses kaynağı hazır olduğunda gösterilir';
+ text(source,label);attr(source,'data-source-origin',labels?.origin?.(s)||'none');
+ const sourceReason=[labels?.chain?.(),labels?.explanation?.(s)].filter(Boolean).join(' · ');
+ attr(source,'title',sourceReason);text($('r1056ReadingExplanation'),sourceReason);
+ const en=window.I18N?.lang==='en',cadence=safe(()=>window.SukunCadenceUI?.snapshot?.(),null),base=safe(()=>window.SukunCadence?.snapshot?.(),{});
+ const journey=['28','99'].includes(s.journeyKind);
+ const raw=journey?cadence?.gapMs:cadence?.requestedMs??base?.requestedMs;
+ const ms=typeof raw==='number'&&Number.isFinite(raw)&&raw>=0?raw:null;
+ const seconds=ms===null?'—':(ms/1000).toLocaleString(en?'en-GB':'tr-TR',{maximumFractionDigits:2})+(en?' s':' sn');
+ text(tempo,(journey?(en?'After recitation: ':'Okuyuş sonrası: '):(en?'Selected tempo: ':'Seçili tempo: '))+seconds);
+ const explanation=cadence?safe(()=>window.SukunCadenceUI.view(cadence),null):null;
+ attr(tempo,'title',explanation?.reason||(en?'The selected interval does not cut off a recording or device recitation.':'Seçili aralık, kayıt veya cihaz okuyuşunu yarıda kesmez.'));
+}
 function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view();if(!s)return;renders++;
  const mode=s.activeMode,valid=items(mode).length>0&&(mode!=='berhet'||allowed()),tef=!!window.SUKUN_TEFEKKUR?.active?.();
  if(document.body.classList.contains('r920-practice-on')!==valid)document.body.classList.toggle('r920-practice-on',valid);if(root.hidden===valid)root.hidden=!valid;if(!valid){window.SukunBerhetLayout?.sync(root,tef);
@@ -174,7 +201,9 @@ function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view
  const i=Number(s.activeIndex)||0,it=items(mode)[i]||{},name=s.activeName||itemName(mode,i),scene=mode==='berhet'?scenes()[i]:null;
  text($('r920Eyebrow'),mode==='berhet'?(journey?'BERHETİYYE SEYRİ':'BERHETİYYE ZİKRİ'):(mode==='esma'?(journey?'99 ESMÂ SEYRİ':'ESMÂÜ’L-HÜSNÂ'):safe(()=>ZIKIR[mode].n||ZIKIR[mode].t,mode==='terkip'?'ESMÂ TERKİBİ':'ZİKİR')));
  text($('r920ActiveName'),mode!=='esma'||/^y[aâ]/i.test(name)?name:'Yâ '+name);text($('r920Arabic'),it.a||it.ar||'');text($('r920SceneTitle'),scene?.title||it.m||'');prop($('r920SceneTitle'),'hidden',!safe(()=>Z.mean,true));
- const source=String(s.audioSource||'').toUpperCase();text($('r920VoiceSource'),({USER_RECORDING:'Kendi sesin',LOCAL_RECORDING:'Yerel kayıt',READER_RECORDING:'Kayıtlı okuyucu',TTS:'Cihaz sesi · TTS',SILENCE:'Ses kapalı',SILENT:'Ses kapalı',NONE:'Ses kapalı'})[source]||'Ses kaynağı hazır olduğunda gösterilir');
+ const source=window.SukunAudioSourceText;
+ text($('r920VoiceSource'),source?.label?.(s)||s.sourceLabel||'Ses kaynağı hazır olduğunda gösterilir');
+ attr($('r920VoiceSource'),'title',source?.explanation?.(s)||'');readingSummary(s);
  const count=Math.max(0,Number(s.count)||0),target=Math.max(0,Number(s.target)||0),pct=target?Math.min(100,count/target*100):0;
  attr($('r924WheelFrame'),'data-count-digits',String(count).length);attr(root.querySelector('.r920Stats'),'data-digits',String(Math.max(count,target)).length>5?'large':'normal');text($('r920Count'),count);text($('r920Target'),target||'∞');text($('r920Remaining'),target?Math.max(0,target-count):'∞');text($('r920Percent'),target?'%'+Math.floor(pct):'Serbest');
  if($('r924WheelFrame').style.getPropertyValue('--r920-progress')!==String(pct))$('r924WheelFrame').style.setProperty('--r920-progress',pct);attr($('r924WheelFrame'),'data-near',pct>=90?'1':'0');attr($('r920Counter'),'aria-label',`${name}, ${count} / ${target||'serbest'}. ${journey?'Seyir sayacı':'Bir zikir say'}`);

@@ -1,6 +1,7 @@
 'use strict';
 // Source-owner contracts and real handler fixtures; browser pixel QA is separate.
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto'),vm=require('node:vm');
+const {normalizeApprovedSourceRow}=require('../helpers/dock-r1056-baseline.cjs');
 const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
 const html=fs.readFileSync(path.join(root,'index.html'),'utf8'),results=[];
 const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
@@ -29,7 +30,7 @@ test('Focus, drag and grip owner remain unchanged outside the approved progress 
  assert.equal(sha(owner.slice(0,start)+originalEvents+owner.slice(end)),'3de62f7285749fa5f7d8c23be92734d8fa2b832e784341fd49d4573ee990a48c');
  assert.equal(sha(script('r698-ui-integration-runtime')),'c6ca01aa6b2038c82726cc8f473e1b87f4dd7cdc86b800c18ce23ed3d7df2d41');assert.match(html,/#r588DockShell button:focus-visible \{outline:2px solid #c8dcb3!important;outline-offset:2px!important\}/);
 });
-test('Transport, mode and volume runtime remain untouched',()=>assert.equal(sha(fs.readFileSync(path.join(root,'assets/runtime/dock-r920.js'))),'d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0'));
+test('Transport, mode and volume runtime remain untouched outside the approved accepted-source indicator',()=>assert.equal(sha(normalizeApprovedSourceRow(fs.readFileSync(path.join(root,'assets/runtime/dock-r920.js'),'utf8'))),'d9d86c7c21eb53e840b1f4fa968a3ab30b8c0e057dc2dc14a0704bae19ef3df0'));
 const bind=html.slice(html.indexOf('function bindGrip(grip){'),html.indexOf('\nfunction naturalHeight',html.indexOf('function bindGrip(grip){')));
 function fixture(){
  const listeners={},calls=[],timers=[],classList={add(...v){calls.push(['add',...v]);},remove(...v){calls.push(['remove',...v]);}},host={classList,getBoundingClientRect:()=>({height:68})},grip={dataset:{},addEventListener(type,fn){listeners[type]=fn;},setPointerCapture(id){calls.push(['capture',id]);},releasePointerCapture(id){calls.push(['release',id]);}};

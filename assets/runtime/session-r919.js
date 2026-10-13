@@ -4,6 +4,65 @@
  */
 (() => {
   'use strict';
+  /* r1056: shared presentation text; no storage, transport or audio mutation.
+   * Preserve the historic audioSource enum for cadence/registry consumers;
+   * explicit origin describes whose recorded voice is actually selected. */
+  window.SukunAudioSourceText = Object.freeze((() => {
+    const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
+    const language = value => value === 'en' || value == null && window.I18N?.lang === 'en' ? 'en' : 'tr';
+    const kinds = value => clean(value).toUpperCase().replace(/-/g, '_');
+    function origin(value = {}) {
+      const kind = kinds(value.audioSource || value.kind || value.sourceMetadata?.kind || 'NONE');
+      if (['SILENCE','SILENT','NONE','IDLE','PREPARING'].includes(kind)) return 'none';
+      if (/^(TTS|SPEECH|SES)/.test(kind)) return 'device';
+      const explicit = value.recordingOrigin || value.sourceOrigin || value.sourceMetadata?.origin;
+      if (['personal','generic','device','none','error','other'].includes(explicit)) return explicit;
+      // Compatibility for existing producers. Native explicit origin always
+      // wins over a stale resolver label or a differently translated reason.
+      const recorded = /RECORD|LOCAL|FILE|SAMPLE|READER/.test(kind);
+      const failure = /ERROR|FAIL/.test(kind);
+      const generic = value.generic === true || /jenerik|generic|genel ses arşivi|general voice archive/i.test(clean(value.sourceLabel || value.label) + ' ' + clean(value.reason));
+      if (recorded || failure) {
+        if (generic) return 'generic';
+        if (failure) return /kendi kay|your recording|own recording/i.test(clean(value.sourceLabel || value.label)) ? 'personal' : 'error';
+        if (/LOCAL|FILE|SAMPLE|READER/.test(kind)) return 'other';
+        return 'personal';
+      }
+      return 'other';
+    }
+    function label(value = {}, lang) {
+      const english = language(lang) === 'en', from = origin(value);
+      const failed = /ERROR|FAIL/.test(kinds(value.audioSource || value.kind)) || value.phase === 'ERROR';
+      if (!failed && (value.phase === 'PREPARING' || kinds(value.audioSource || value.kind) === 'PREPARING')) {
+        const preparing = {personal:['Kendi kaydın hazırlanıyor','Preparing your recording'],generic:['Jenerik kayıt hazırlanıyor','Preparing generic recording'],device:['Cihaz sesi hazırlanıyor','Preparing device voice'],none:['Ses hazırlanıyor','Preparing audio'],error:['Ses hazırlanıyor','Preparing audio'],other:['Ses hazırlanıyor','Preparing audio']};
+        return preparing[from][english ? 1 : 0];
+      }
+      const labels = failed ? {personal:['Kendi kaydın açılamadı','Your recording is unavailable'],generic:['Jenerik kayıt açılamadı','Generic recording is unavailable'],device:['Cihaz sesi açılamadı','Device voice is unavailable'],none:['Ses açılamadı','Audio is unavailable'],error:['Ses açılamadı','Audio is unavailable'],other:['Ses açılamadı','Audio is unavailable']} :
+        {personal:['Kendi kaydın','Your recording'],generic:['Jenerik kayıt','Generic recording'],device:['Cihaz sesi','Device voice'],none:['Ses kapalı','Audio off'],error:['Ses açılamadı','Audio is unavailable'],other:['Diğer ses','Other audio']};
+      if (!failed && from === 'other') {
+        const kind = kinds(value.audioSource || value.kind);
+        if (/READER/.test(kind)) return english ? 'Recorded reader' : 'Kayıtlı okuyucu';
+        if (/LOCAL|FILE|SAMPLE/.test(kind)) return english ? 'Local recording' : 'Yerel kayıt';
+      }
+      return labels[from][english ? 1 : 0];
+    }
+    const chain = lang => language(lang) === 'en' ? 'Your recording → enabled generic archive → device voice' : 'Kendi kaydın → etkin jenerik arşiv → cihaz sesi';
+    function modeNote(mode = 'auto', lang) {
+      const english = language(lang) === 'en';
+      if (mode === 'arabic') return english ? 'Arabic text is read with your selected Arabic device voice.' : 'Arapça metin, seçtiğin Arapça cihaz sesiyle okunur.';
+      if (mode === 'turkish') return english ? 'The Turkish recitation is read with your selected Turkish device voice.' : 'Türkçe okunuş, seçtiğin Türkçe cihaz sesiyle okunur.';
+      return english ? 'Your recording plays first. Otherwise an enabled generic recording is used, then a suitable device voice.' : 'Kendi kaydın varsa önce o çalar; yoksa etkin jenerik kayıt, o da yoksa uygun cihaz sesi kullanılır.';
+    }
+    function explanation(value = {}, lang) {
+      const english = language(lang) === 'en', from = origin(value);
+      if (value.phase === 'ERROR' || /ERROR|FAIL/.test(kinds(value.audioSource || value.kind))) return english ? 'Audio could not complete. Your count is kept; use the existing Retry control.' : 'Ses tamamlanamadı. Sayacın korunur; mevcut Yeniden dene düğmesini kullanabilirsin.';
+      if (from === 'personal') return english ? 'Your own recording has priority over the archive and device voice.' : 'Kendi kaydın, arşivden ve cihaz sesinden önce kullanılır.';
+      if (from === 'generic') return english ? 'No own recording was found for this name; the enabled archive recording is used.' : 'Bu isim için kendi kaydın bulunmadı; etkin arşivdeki kayıt kullanılıyor.';
+      if (from === 'device') return modeNote(value.voiceMode || window.SukunVoiceSettings?.getMode?.() || 'auto', lang);
+      return english ? 'The source is shown when a recitation is prepared; no audio is started by this indicator.' : 'Okuyuş hazırlandığında kaynak burada gösterilir; bu gösterge sesi başlatmaz.';
+    }
+    return {version:'r1056',origin,label,chain,modeNote,explanation};
+  })());
   if (window.SukunSessionState?.version === 'r919') return;
   const read = (fn, fallback = null) => { try { return fn() ?? fallback; } catch (_) { return fallback; } };
   const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
@@ -81,6 +140,7 @@
       singleKey && singleKey === expectedSingleKey;
     const singleSource = read(() => window.SukunSourceState);
     const observedSource = matchingSingleRecording ? {kind:'recording',
+      recordingOrigin: ['personal','generic'].includes(single.recordingOrigin) ? single.recordingOrigin : null,
       label:singleSource?.kind === 'recording' && clean(singleSource.reason) || 'Kendi kayıt'} : source;
     const interrupted = !!(hasZikirOwner && bg?.active && (bg.blocked || bg.phase === 'INTERRUPTED'));
     if(playing && !preparing && !interrupted && !failed) establishedEpoch = epoch;
@@ -98,7 +158,16 @@
       /^(recording|user-recording|own-recording|user-record)$/.test(rawKind) ? 'USER_RECORDING' :
       /^(silent|silence|none|idle)$/.test(rawKind) ? 'SILENCE' : rawKind.toUpperCase();
     // An idle per-word source during a running session is not a new source selection.
-    if(phase === 'PLAYING' && establishedEpoch === epoch && state?.epoch === epoch && ['SILENCE','PREPARING'].includes(audioSource) && state.audioSource !== 'SILENCE') audioSource=state.audioSource;
+    const retainedSource = phase === 'PLAYING' && establishedEpoch === epoch && state?.epoch === epoch && ['SILENCE','PREPARING'].includes(audioSource) && state.audioSource !== 'SILENCE';
+    if(retainedSource) audioSource=state.audioSource;
+    const originInput = retainedSource ? state : {audioSource,
+      recordingOrigin: observedSource.recordingOrigin,
+      sourceLabel: observedSource.label || flow.source?.label || '',
+      reason: observedSource.reason || observedSource.detail || ''};
+    const sourceOrigin = window.SukunAudioSourceText.origin(originInput);
+    const recordingOrigin = ['personal','generic'].includes(sourceOrigin) ? sourceOrigin : null;
+    const sourceMetadata = freeze({kind:audioSource,origin:sourceOrigin,recorded:recordingOrigin !== null,
+      provenance:retainedSource ? 'retained' : matchingSingleRecording ? 'native-single' : 'resolver'});
     const activeName = name;
     const total = j.view ? Number(j.view.kind) : Math.max(0, number(z.length));
     return {
@@ -120,7 +189,7 @@
         total, index: j.view ? index : null, complete: !!jd?.complete, paused: !!js?.paused }),
       owner, provider: clean(np.id || flow.playback?.id || ''),
       phase, playbackState: phase.toLowerCase(), playing: phase === 'PLAYING', paused: phase === 'PAUSED',
-      preparing: phase === 'PREPARING', audioSource,
+      preparing: phase === 'PREPARING', audioSource, sourceOrigin, recordingOrigin, sourceMetadata,
       recordingSource: matchingFailure ? 'USER_RECORDING_FAILED' : audioSource === 'USER_RECORDING' ? 'USER_RECORDING' : null,
       sourceLabel: clean(observedSource.label || flow.source?.label || (phase === 'PLAYING' && state?.epoch === epoch ? state?.sourceLabel : '') || ''),
       sceneId: scene.activeSceneId || scene.sceneId || null,
@@ -374,7 +443,7 @@
   const events = ['sukun:backgroundownerchange', 'sukun:currentzikirchange', 'sukun:currentflowchange', 'sukun:nowplayingchange', 'sukun:playbackchange',
     'sukun:audioaggregatechange', 'sukun:audiotruthchange', 'sukun:voicesource', 'sukun:voicesettingschange', 'sukun:foregroundqueuechange',
     'sukun:journey-advance', 'sukun:tefekkurchange', 'sukun:recordingerror', 'sukun:recordingretry',
-    'sukun:scenechange', 'sukun:scenestate', 'sukun:recordingrecovered', 'sukun:tabchange', 'sukun:zikirtransportgate'];
+    'sukun:scenechange', 'sukun:scenestate', 'sukun:recordingrecovered', 'sukun:tabchange', 'sukun:zikirtransportgate', 'sukun:languagechange'];
   events.forEach(event => window.addEventListener(event, () => schedule(event), { passive: true }));
   window.addEventListener('sukun:journey-complete', () => { completion = { identity }; schedule('complete'); }, { passive: true });
   document.addEventListener('visibilitychange', () => schedule('visibility'), { passive: true });
