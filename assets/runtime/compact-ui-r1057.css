@@ -1,0 +1,105 @@
+/* Load first in <head>: the first important layer owns compact geometry. */
+@layer sukun-r1057-compact {
+/* r938's earlier important font rule otherwise wins over wheel CSS. State
+   text uses the measured fixed opening, independently of the spinning art. */
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"] #r920Phase{
+ left:var(--r1057-phase-left)!important;top:var(--r1057-phase-top)!important;
+ width:var(--r1057-phase-width)!important;max-width:var(--r1057-phase-width)!important;
+ min-height:0!important;height:auto!important;margin:0!important;padding:0!important;
+ font-size:clamp(9px,2.8cqi,11px)!important;line-height:1.1!important;
+ transform:none!important;animation:none!important;white-space:normal!important;
+}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"][data-r1057-center="narrow"] #r920Phase{
+ font-size:clamp(8px,2.7cqi,10px)!important;line-height:1.1!important;
+}
+html body #r920Practice #r1056ReadingSummary[data-r1057-compact="1"]{
+ display:grid!important;grid-template-columns:minmax(88px,.75fr) minmax(0,1.55fr)!important;
+ grid-template-rows:minmax(44px,auto) auto!important;gap:0 10px!important;
+ width:min(100%,360px)!important;max-width:100%!important;min-width:0!important;
+ align-items:center!important;align-self:center!important;flex:0 0 auto!important;
+ margin:3px auto 1px!important;padding:5px 10px!important;box-sizing:border-box!important;
+ border:1px solid #95c1b947!important;border-radius:12px!important;background:#071f29ba!important;
+ color:#eceddf!important;box-shadow:inset 0 1px 0 #e7edda0b!important;
+ font:500 11px/1.3 system-ui,sans-serif!important;text-align:center!important;
+}
+html body #r920Practice #r1056ReadingSummary[data-r1057-compact="1"][hidden]{display:none!important}
+html body #r920Practice #r1056ReadingSummary[data-r1057-compact="1"]>#r986Total{
+ grid-column:1!important;grid-row:1/3!important;display:flex!important;flex-direction:column!important;
+ justify-content:center!important;align-items:center!important;gap:1px!important;min-width:0!important;
+ width:100%!important;min-height:44px!important;height:auto!important;margin:0!important;padding:0 8px 0 0!important;
+ border:0!important;border-right:1px solid #99c0b137!important;border-image:none!important;border-radius:0!important;
+ background:transparent!important;box-shadow:none!important;text-shadow:none!important;
+ font:500 10px/1.3 system-ui,sans-serif!important;
+}
+html body #r920Practice #r1056ReadingSummary[data-r1057-compact="1"] #r986TotalLabel{
+ font-size:10px!important;line-height:1.3!important;white-space:normal!important;
+}
+html body #r920Practice #r1056ReadingSummary[data-r1057-compact="1"] #totalCnt{
+ font-size:clamp(16px,4.5vw,21px)!important;line-height:1.15!important;font-weight:750!important;
+ font-variant-numeric:tabular-nums!important;overflow-wrap:anywhere!important;
+}
+html body #r920Practice #r1056ReadingSummary[data-r1057-compact="1"]>#r1056ReadingSource{
+ grid-column:2!important;grid-row:1!important;justify-self:stretch!important;min-width:0!important;
+ width:100%!important;max-width:100%!important;min-height:44px!important;height:auto!important;
+ margin:0!important;padding:3px 5px!important;border:0!important;border-image:none!important;border-radius:8px!important;
+ background:#10342d66!important;color:#fff0d0!important;font:600 11px/1.2 system-ui,sans-serif!important;
+ white-space:normal!important;overflow-wrap:anywhere!important;box-shadow:none!important;
+}
+html body #r920Practice #r1056ReadingSummary[data-r1057-compact="1"]>#r1056ReadingTempo{
+ grid-column:2!important;grid-row:2!important;width:100%!important;min-width:0!important;
+ margin:0!important;padding:0 0 2px!important;font:500 10px/1.25 system-ui,sans-serif!important;
+ white-space:normal!important;font-variant-numeric:tabular-nums!important;color:#d3e4dc!important;
+}
+html body #r920Practice #r1056ReadingSummary[data-r1057-compact="1"]>#r1056ReadingExplanation{
+ grid-column:1/-1!important;grid-row:3!important;min-width:0!important;width:100%!important;
+ margin:5px 0 0!important;padding:7px 2px 1px!important;font:400 11px/1.5 system-ui,sans-serif!important;
+ text-align:left!important;border-top:1px solid #99c0b137!important;overflow-wrap:anywhere!important;
+}
+html body #r920Practice #r1056ReadingSummary[data-r1057-compact="1"]>#r1056ReadingExplanation[hidden]{display:none!important}
+html body #r920Practice[data-mode="berhet"] #r1056ReadingSummary[data-r1057-compact="1"]{
+ border-color:#d7bf8055!important;background:linear-gradient(135deg,#09242dbc,#161a2bb5)!important;
+}
+/* Keep the actual input/select and its native ? in one row. Anonymous label
+   text is the first grid item; its two controls explicitly occupy row two. */
+html body #tab-zkr button.dockTipHelp[data-i18n-owned]{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ width:32px!important;min-width:32px!important;max-width:32px!important;
+ height:32px!important;min-height:32px!important;max-height:32px!important;flex:0 0 32px!important;
+ padding:0!important;border:1px solid #c8b98470!important;border-image:none!important;border-radius:50%!important;
+ background:#08232bcc!important;color:#ead9ad!important;box-shadow:none!important;
+ font:600 14px/1 system-ui,sans-serif!important;box-sizing:border-box!important;
+}
+html body #tab-zkr label[data-r1057-help-row="1"]{
+ display:grid!important;grid-template-columns:minmax(0,1fr) 32px!important;grid-template-rows:auto minmax(44px,auto)!important;
+ align-items:center!important;gap:4px 7px!important;min-width:0!important;max-width:100%!important;
+}
+html body #tab-zkr label[data-r1057-help-row="1"]>[data-r1057-help-control="1"]{
+ grid-column:1!important;grid-row:2!important;min-width:0!important;width:100%!important;max-width:100%!important;
+}
+html body #tab-zkr label[data-r1057-help-row="1"]>.dockTipHelp{
+ grid-column:2!important;grid-row:2!important;justify-self:center!important;align-self:center!important;
+ margin:0!important;float:none!important;position:static!important;inset:auto!important;transform:none!important;
+}
+html body #tab-zkr [data-r1057-help-caption="1"]{
+ display:inline-flex!important;flex-direction:row!important;align-items:center!important;gap:5px!important;
+}
+html body #tab-zkr [data-r1057-help-caption="1"]>.dockTipHelp{
+ flex:0 0 32px!important;align-self:center!important;margin:0!important;float:none!important;
+ position:static!important;inset:auto!important;transform:none!important;
+}
+html body #tab-frq>#r1057FrequencySafety{
+ display:block!important;width:100%!important;box-sizing:border-box!important;margin:0 0 10px!important;padding:9px 11px!important;
+ border:1px solid #c9b78545!important;border-radius:12px!important;background:#09232bbd!important;
+ color:#dfded0!important;font:400 11px/1.5 system-ui,sans-serif!important;text-align:left!important;
+}
+html body #tab-frq[hidden] #r1057FrequencySafety{display:none!important}
+/* About 60px freed by the shared strip is returned to the focus wheel. */
+html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-r1056-focus-controls="shown"]:has(#r938Panel[data-open="false"]) #r924WheelFrame{
+ width:min(92vw,46dvh,400px)!important;margin:3px auto!important;
+}
+@media(max-height:520px) and (orientation:landscape){
+ html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-r1056-focus-controls="shown"]:has(#r938Panel[data-open="false"]) #r924WheelFrame{
+  width:min(42vw,68dvh,340px)!important;
+ }
+}
+}

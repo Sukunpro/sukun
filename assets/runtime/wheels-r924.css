@@ -198,3 +198,33 @@ html body #r920Practice[data-phase="PAUSED"] #r924WheelFrame #r920Phase{color:#f
 #r920Practice #r924WheelFrame[data-navigation-native="1"] :is(.r924Gem,.r925GemLabel,.r927GemIcon){color:var(--r977-control-ink)!important;text-shadow:var(--r977-control-shadow)!important}
 #r920Practice #r924WheelFrame[data-navigation-native="1"] .r959WheelNav:active:not(:disabled) svg{opacity:.75!important}
 }
+
+/* r1057: centre fitting is shared by Esmâ, Berhetiyye and their journeys.
+   The image remains untouched; only the stationary readouts fit its opening. */
+@layer sukun-r920-contract {
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"] #r920Counter{
+ left:var(--r1057-center-inset)!important;top:var(--r1057-center-inset)!important;width:var(--r1057-center-size)!important;height:var(--r1057-center-size)!important;min-width:44px!important;min-height:44px!important;background:radial-gradient(circle,#071726a8,#07172660 68%,transparent 74%)!important;transform:none!important;animation:none!important;
+}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"] .r920CounterCore{translate:0 -10%!important;gap:2px!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"] .r920CounterCore small{font-size:9px!important;letter-spacing:.08em!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"] #r920Percent{font-size:10px!important;line-height:1.2!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"] #r920Count{font-size:clamp(24px,11cqi,44px)!important;line-height:1!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"] #r920Phase{left:var(--r1057-phase-left)!important;top:var(--r1057-phase-top)!important;width:var(--r1057-phase-width)!important;max-width:var(--r1057-phase-width)!important;min-height:0!important;font-size:clamp(9px,2.8cqi,11px)!important;line-height:1.2!important;transform:none!important;animation:none!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"] .r950Inner{inset:var(--r1057-inner-inset)!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"] .r925GemLabel{border:1px solid #e9dbb780!important;border-radius:50%!important;background:#061b2cdb!important;box-shadow:0 1px 5px #0009,inset 0 1px 2px #fff2!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"] .r962NavGlyph{background:transparent!important;border:0!important;box-shadow:none!important;}
+/* Woven originals retain their small hole and their crystal faces. Compact
+   state labels remain inside the opening, with full accessible descriptions. */
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"][data-r1057-center="narrow"] .r920CounterCore{translate:0 -18%!important;gap:2px!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"][data-r1057-center="narrow"] .r920CounterCore small{font-size:8px!important;letter-spacing:.04em!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"][data-r1057-center="narrow"] #r920Percent{font-size:9px!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"][data-r1057-center="narrow"] #r920Count{font-size:clamp(20px,9cqi,36px)!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"][data-r1057-center="narrow"] #r920Phase{top:var(--r1057-phase-top)!important;left:var(--r1057-phase-left)!important;width:var(--r1057-phase-width)!important;max-width:var(--r1057-phase-width)!important;font-size:clamp(8px,2.7cqi,10px)!important;line-height:1.1!important;}
+/* A long count must fit the transparent centre instead of painting over gems. */
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"][data-count-digits="5"] #r920Count{font-size:clamp(20px,8cqi,32px)!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"][data-count-digits="6"] #r920Count{font-size:clamp(17px,6.7cqi,28px)!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"]:is([data-count-digits="7"],[data-count-digits="8"],[data-count-digits="9"],[data-count-digits="10"]) #r920Count{font-size:clamp(13px,5cqi,20px)!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"][data-r1057-center="narrow"][data-count-digits="5"] #r920Count{font-size:clamp(17px,6.8cqi,27px)!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"][data-r1057-center="narrow"][data-count-digits="6"] #r920Count{font-size:clamp(15px,5.8cqi,23px)!important;}
+html body #r920Practice #r924WheelFrame[data-r1057-wheel="1"][data-r1057-center="narrow"]:is([data-count-digits="7"],[data-count-digits="8"],[data-count-digits="9"],[data-count-digits="10"]) #r920Count{font-size:clamp(10px,4cqi,16px)!important;}
+}

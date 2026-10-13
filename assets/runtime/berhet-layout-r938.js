@@ -19,6 +19,7 @@ function labels(){
 }
 function placeSummary(){
  const summary=$('r1056ReadingSummary');if(!summary||!quick||!transport||quick.contains(summary))return;
+ if(window.SukunCompactUI?.ownsSummary?.(summary))return;
  hiddenStates.set(summary,summary.hidden);
  // A late summary may be created beside the already-moved identity. Its
  // restore point must outlive the temporary hero that owns that identity.
@@ -47,6 +48,7 @@ function setOpen(next,focus=false){
  panel.dataset.open=String(open);if(focus)toggle.focus({preventScroll:true});
 }
 function restore(){
+ window.SukunCompactUI?.beforeRestore?.(host);
  if(host)delete host.querySelector('.r920Stats')?.dataset.r989ExitRow;
  for(const [node,anchor]of anchors.reverse()){if(anchor.isConnected)anchor.replaceWith(node)}anchors=[];
  for(const [node,hidden]of hiddenStates)node.hidden=hidden;hiddenStates.clear();
@@ -106,6 +108,7 @@ function sync(root,tef){
  if(lastTef!==tef){lastTef=tef;setOpen(false)}
  placeSummary();focusControls(tef);
  placeExit(root,tef);
+ window.SukunCompactUI?.sync?.(root,tef);
  // Native handlers continue to own status and count; this is only an empty-state caption.
  const phase=$('r920Phase'),wheel=$('r924WheelFrame');if(phase&&wheel&&phase.parentElement!==wheel)wheel.append(phase);if(root.dataset.phase==='PLAYING'&&!phase.textContent)phase.textContent='Zikir sürüyor';
 }

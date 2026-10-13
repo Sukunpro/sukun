@@ -17,6 +17,22 @@ const classic=(mode,id,title,src,matte=false)=>Object.freeze({mode,id,title,src,
 const newWheels=Object.freeze([["ceviz-naksi", "Ceviz Nakşı"], ["zeytin-tesbihi", "Zeytin Tesbihi"], ["abanoz-sukunu", "Abanoz Sükûnu"], ["sandal-halkasi", "Sandal Halkası"], ["altin-nakis", "Altın Nakış"], ["elmas-taci", "Elmas Tacı"], ["gumus-telkari", "Gümüş Telkâri"], ["sultan-taslari", "Sultan Taşları"]]);
 const darkInk=new Set(["zeytin-tesbihi","sandal-halkasi","altin-nakis","elmas-taci","gumus-telkari"]);
 const nativeWheel=(mode,id,title)=>Object.freeze({mode,id,title,src:`./assets/wheels-r977/${id}.webp`,classic:false,matte:false,nativeNavigation:true,darkNavigation:id==="sultan-taslari",darkInk:darkInk.has(id),geometry:measuredGeometry[id]});
+/* r1057: one shared asset per new design, available in both families. The
+   opening is metadata rather than a mode-specific mask or a recolour. */
+const wovenWheels=Object.freeze([
+ ['copper-amethyst-weave','Bakır Ametist Örgü','Copper Amethyst Weave','copper',32],
+ ['gold-amethyst-weave','Altın Ametist Örgü','Gold Amethyst Weave','gold',32],
+ ['platinum-turquoise-spiral','Platin Turkuaz Sarmal','Platinum Turquoise Spiral','silver',40],
+ ['copper-amber-spiral','Bakır Kehribar Sarmal','Copper Amber Spiral','copper',42],
+ ['copper-ruby-weave','Bakır Yakut Örgü','Copper Ruby Weave','copper',28],
+ ['gold-ruby-weave','Altın Yakut Örgü','Gold Ruby Weave','gold',32],
+ ['gold-emerald-weave','Altın Zümrüt Örgü','Gold Emerald Weave','gold',32],
+ ['gold-emerald-knot','Altın Zümrüt Düğüm','Gold Emerald Knot','gold',40],
+ ['sapphire-torus','Safir Torus','Sapphire Torus','silver',48]
+].map(row=>Object.freeze(row)));
+const wovenWheel=(mode,[id,title,titleEn,material,safeCenterPercent])=>Object.freeze({mode,id,title,titleEn,material,safeCenterPercent,src:`./assets/wheels/${id}-r1057.webp`,classic:false,matte:false,woven:true,geometry:baseGeometry});
+const english=()=>window.I18N?.lang==='en';
+const titleFor=item=>item?(english()?item.titleEn||window.I18N?.t?.(item.title)||item.title:item.title):'';
 const catalog=Object.freeze({
  berhet:Object.freeze([
   ['ham-kristal','Ham Kristal'],['faset-kesim','Faset Kesim'],['ametist-yuvarlak','Yuvarlak Ametist'],['ametist-saltanati','Ametist Saltanatı'],['zumrut-tac','Zümrüt Taç'],['safir-ruzgari','Safir Rüzgârı'],['obsidyen-muhur','Obsidyen Mühür'],['bakir-ruzgari','Bakır Rüzgârı'],['yakut-muhur','Yakut Mühür'],['billur-hisar','Billur Hisar'],['lacivert-usturlap','Lacivert Usturlap']
@@ -24,12 +40,12 @@ const catalog=Object.freeze({
   classic('berhet','crystal','Klasik · Kristal Taç','./assets/berhetiyye-premium/wheel-alpha-r915.png'),
   classic('berhet','seal','Klasik · Süleyman Mührü','./assets/berhetiyye-premium/wheel-seal-r916.svg'),
   classic('berhet','pearls','Klasik · İnci Halkası','./assets/berhetiyye-premium/wheel-pearls-r916.svg')
- ]).concat(newWheels.map(([id,title])=>nativeWheel('berhet',id,title)))),
+ ]).concat(newWheels.map(([id,title])=>nativeWheel('berhet',id,title))).concat(wovenWheels.map(row=>wovenWheel('berhet',row)))),
  esma:Object.freeze([
   ['inci-sema','İnci Semâ'],['zumrut-tesbih','Zümrüt Tesbih'],['oniks-sukuneti','Oniks Sükûneti'],['kehribar-tesbih','Kehribar Tesbih'],['sedef-nuru','Sedef Nuru']
  ].map(([id,title])=>premium('esma',id,title)).concat([
   classic('esma','classic','Klasik · Nur Halkası','./assets/sukun-nur-ring-r757.png',true)
- ]).concat(newWheels.map(([id,title])=>nativeWheel('esma',id,title))))
+ ]).concat(newWheels.map(([id,title])=>nativeWheel('esma',id,title))).concat(wovenWheels.map(row=>wovenWheel('esma',row))))
 });
 const storageKey=mode=>'sukun.wheel.r924.'+mode;
 const choiceFor=mode=>{const stored=safe(()=>localStorage.getItem(storageKey(mode)));return catalog[mode].some(item=>item.id===stored)?stored:catalog[mode][0].id};
@@ -40,10 +56,24 @@ const setText=(node,value)=>{if(window.I18N?.writeText)return window.I18N.writeT
 const setAttr=(node,name,value)=>{if(window.I18N?.writeAttr&&['title','aria-label','placeholder'].includes(name))return window.I18N.writeAttr(node,name,value);if(node&&node.getAttribute(name)!==String(value))node.setAttribute(name,String(value))};
 const setHidden=(node,value)=>{if(node&&node.hidden!==value)node.hidden=value};
 const current=()=>catalog[mode]?.find(item=>item.id===choices[mode]);
+/* Every meaningful state stays in the fixed central opening. Narrow woven
+   openings get concise visible states; assistive technology keeps the full
+   state description, and the count is never replaced by a status word. */
+function fitPhase(){
+ const phase=$('r920Phase');if(!phase)return;
+ const state=window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.(),p=state?.phase||host?.dataset.phase||'IDLE';
+ const fullTr={PREPARING:'Ses hazırlanıyor',PAUSED:'Duraklatıldı',COMPLETING:'Tamamlanıyor',COMPLETED:'Seyir tamamlandı',INTERRUPTED:'Ses kesintisi',RECOVERING:'Ses yeniden hazırlanıyor',ERROR:'Ses açılamadı',PLAYING:'Zikir sürüyor'};
+ const fullEn={PREPARING:'Preparing audio',PAUSED:'Paused',COMPLETING:'Completing',COMPLETED:'Journey completed',INTERRUPTED:'Audio interruption',RECOVERING:'Preparing audio again',ERROR:'Audio could not be opened',PLAYING:'Dhikr in progress'};
+ const compactTr={PREPARING:'Hazırlanıyor',PAUSED:'Duraklatıldı',COMPLETING:'Tamamlanıyor',COMPLETED:'Tamamlandı',INTERRUPTED:'Ses kesildi',RECOVERING:'Yükleniyor',ERROR:'Ses hatası',PLAYING:'Zikir sürüyor'};
+ const compactEn={PREPARING:'Preparing',PAUSED:'Paused',COMPLETING:'Completing',COMPLETED:'Completed',INTERRUPTED:'Interrupted',RECOVERING:'Recovering',ERROR:'Audio error',PLAYING:'Reciting'};
+ const full=(english()?fullEn:fullTr)[p]||'',compact=(english()?compactEn:compactTr)[p]||'';
+ setText(phase,geometryItem?.woven&&geometryItem.safeCenterPercent<36?compact:full);
+ setAttr(phase,'aria-label',full);
+}
 function syncStatus(){
  const selection=current();if(!selection)return;
  const select=$('r920WheelSelect');if(select&&select.value!==selection.id)select.value=selection.id;
- const message=status==='loading'?'Çark yükleniyor…':status==='error'?'Görsel açılamadı; sade nur halkası kullanılıyor.':fallback?'Seçilen görsel açılamadı; klasik çark gösteriliyor.':selection.title+' seçildi.';
+ const message=english()?(status==='loading'?'Loading wheel…':status==='error'?'The image could not be opened; a simple light ring is shown.':fallback?'The selected image could not be opened; the classic wheel is shown.':titleFor(selection)+' selected.'):(status==='loading'?'Çark yükleniyor…':status==='error'?'Görsel açılamadı; sade nur halkası kullanılıyor.':fallback?'Seçilen görsel açılamadı; klasik çark gösteriliyor.':selection.title+' seçildi.');
  setText($('r924WheelStatus'),message);setHidden($('r924WheelRetry'),status==='loading'||!fallback&&status!=='error');
  for(const button of $('r924WheelGallery')?.querySelectorAll('[data-wheel]')||[])setAttr(button,'aria-pressed',button.dataset.wheel===selection.id);
 }
@@ -52,8 +82,21 @@ function updateGeometry(item){
  const frame=$('r924WheelFrame');if(!frame)return;
  const geometry=geometryItem?.geometry||baseGeometry,width=measuredWidth;
  setAttr(frame,'data-wheel-id',geometryItem?.id||'classic');
- setAttr(frame,'data-navigation-material',navigationMaterials[geometryItem?.id||'classic']||'crystal');
+ setAttr(frame,'data-navigation-material',geometryItem?.material||navigationMaterials[geometryItem?.id||'classic']||'crystal');
  setAttr(frame,'data-navigation-native',geometryItem?.nativeNavigation?'1':'0');
+ setAttr(frame,'data-r1057-wheel',geometryItem?.woven?'1':'0');
+ const opening=geometryItem?.safeCenterPercent||50;
+ const narrow=!!geometryItem?.woven&&opening<36;
+ setAttr(frame,'data-r1057-center',narrow?'narrow':'wide');
+ frame.style.setProperty('--r1057-center-size',(opening-4)+'%');
+ frame.style.setProperty('--r1057-center-inset',(52-opening/2)+'%');
+ frame.style.setProperty('--r1057-phase-width',(opening*(narrow?.65:.8))+'%');
+ frame.style.setProperty('--r1057-phase-left',(50-opening*(narrow?.325:.4))+'%');
+ frame.style.setProperty('--r1057-phase-top',(50+opening*(narrow?.2:.205))+'%');
+ frame.style.setProperty('--r1057-inner-inset',(50-opening/2)+'%');
+ // The SVG is stationary. Match its light blade to the actual transparent
+ // opening, so a thick woven ring cannot cover the progress readout.
+ for(const circle of frame.querySelectorAll('.r920Track,.r920Arc,.r959LightCore'))setAttr(circle,'r',geometryItem?.woven?Math.max(20,opening*1.5-4):75);
  const ink=geometryItem?.darkInk?'#20160b':'#fff4dc';
  frame.style.setProperty('--r977-control-ink',ink);
  frame.style.setProperty('--r977-control-shadow',geometryItem?.darkInk?'0 1px 2px #fff9,0 0 3px #fff7':'0 1px 3px #000,0 0 5px #000');
@@ -84,17 +127,18 @@ function updateGeometry(item){
   };
   for(const [prop,value]of Object.entries(values))if(button.style.getPropertyValue(prop)!==value)button.style.setProperty(prop,value);
  }
+ fitPhase();
 }
 function buildOptions(){
  const selection=current(),select=$('r920WheelSelect'),gallery=$('r924WheelGallery');if(!selection||!select||!gallery)return;
- setText($('r924WheelFamily'),mode==='berhet'?'Berhetiyye çarkı':'Esmâ çarkı');
- select.replaceChildren(...catalog[mode].map(item=>{const option=document.createElement('option');option.value=item.id;option.textContent=item.title;return option}));
+ setText($('r924WheelFamily'),mode==='berhet'?(english()?'Berhetiyye wheel':'Berhetiyye çarkı'):(english()?'Divine Names wheel':'Esmâ çarkı'));
+ select.replaceChildren(...catalog[mode].map(item=>{const option=document.createElement('option');option.value=item.id;setText(option,titleFor(item));return option}));
  gallery.replaceChildren(...catalog[mode].map(item=>{
-  const button=document.createElement('button');button.type='button';button.dataset.wheel=item.id;button.setAttribute('aria-label',item.title+' çarkını seç');
+  const button=document.createElement('button');button.type='button';button.dataset.wheel=item.id;setAttr(button,'aria-label',english()?'Select '+titleFor(item)+' wheel':item.title+' çarkını seç');
   const thumb=document.createElement('img');thumb.src=item.src;thumb.alt='';thumb.loading='lazy';thumb.decoding='async';thumb.setAttribute('aria-hidden','true');
   if(item.matte)thumb.className='r924MatteThumb';
   thumb.onerror=()=>{thumb.style.visibility='hidden'};
-  const label=document.createElement('span');label.textContent=item.title;button.append(thumb,label);return button;
+  const label=document.createElement('span');setText(label,titleFor(item));button.append(thumb,label);return button;
  }));syncStatus();
 }
 function loadImage(src,token){
@@ -147,7 +191,8 @@ function choose(nextMode,id){
  const family=normalMode(nextMode);if(!catalog[family].some(item=>item.id===id))return false;
  choices[family]=id;safe(()=>localStorage.setItem(storageKey(family),id));if(family===mode)render(family);return true;
 }
-window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,snapshot:()=>({version:'r977',mode,choice:choices[mode]||null,choices:{...choices},resolved:resolved?.id||null,src:resolved?.src||null,status,fallback,requests,pending})});
+window.SukunWheels=Object.freeze({version:'r1057',catalog,titleFor,fitPhase,connect,render,choose,snapshot:()=>({version:'r1057',mode,choice:choices[mode]||null,choices:{...choices},resolved:resolved?.id||null,src:resolved?.src||null,status,fallback,requests,pending})});
+window.addEventListener?.('sukun:languagechange',()=>{if(host?.isConnected){buildOptions();window.SukunWheelQuickControls?.render();syncStatus();fitPhase()}},{passive:true});
 })();
 
 /* r929: compositor-only motion; natural taps and pans retain browser ownership. */
@@ -245,8 +290,9 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
   const wheel=window.SukunWheels?.catalog?.[mode]?.find(item=>item.id===window.SukunWheels?.snapshot?.().choices?.[mode]);
   const source=sceneSource(),sceneChoice=mode==='berhet'?visual.scene:visual.esmaChoice;
   const sceneLabel=sceneChoice==='auto'?'İsme göre otomatik':Array.from(source?.options||[]).find(option=>option.value===sceneChoice)?.textContent||'Seçili sahne';
-  text($('r932CurrentWheel'),wheel?.title||'Çark seç');text($('r932CurrentScene'),sceneLabel);
-  attr($('r932QuickWheel'),'aria-label','Çarkı değiştir. '+(wheel?.title||''));attr($('r932QuickScene'),'aria-label','Arka planı değiştir. '+sceneLabel);
+  const wheelTitle=window.SukunWheels?.titleFor?.(wheel)||wheel?.title||'';
+  text($('r932CurrentWheel'),wheelTitle||'Çark seç');text($('r932CurrentScene'),sceneLabel);
+  attr($('r932QuickWheel'),'aria-label',window.I18N?.lang==='en'?'Change wheel. '+wheelTitle:'Çarkı değiştir. '+wheelTitle);attr($('r932QuickScene'),'aria-label','Arka planı değiştir. '+sceneLabel);
   const busy=state?.phase==='PLAYING'||state?.phase==='PREPARING',failed=state?.phase==='ERROR',playLabel=busy?'Duraklat':state?.phase==='PAUSED'?'Devam et':failed?'Yeniden dene':'Başlat';text($('r932EasyPlay'),playLabel);attr($('r932EasyPlay'),'aria-label',busy?'Zikri duraklat':state?.phase==='PAUSED'?'Zikre devam et':failed?'Sesi yeniden dene':'Zikri başlat');
   for(const [action,id]of Object.entries(sources)){const button=$('r932Easy'+action[0].toUpperCase()+action.slice(1)),source=$(id);const manual=action==='minus'||action==='plus';const gate=manual?window.SukunCountCorrection?.status?.(action==='minus'?-1:1):null;const disabled=manual?!gate?.allowed:!!source?.disabled;if(button.disabled!==disabled)button.disabled=disabled;if(manual)attr(button,'aria-describedby','r968ManualHint');if(manual)attr(button,'title',gate?.reason|| (action==='minus'?'Bir azalt':'Bir artır'))}
   updateOptions();
@@ -256,6 +302,11 @@ window.SukunWheels=Object.freeze({version:'r977',catalog,connect,render,choose,s
 /* r950: read-only light presentation. Never commands playback or increments counts. */
 (()=>{'use strict';
 const key='sukun.wheel.light.r950', palettes={
+ 'copper-amethyst-weave':['179,111,255','229,193,255'],'gold-amethyst-weave':['186,113,255','248,204,255'],
+ 'platinum-turquoise-spiral':['66,227,222','202,255,254'],'copper-amber-spiral':['255,174,77','255,229,158'],
+ 'copper-ruby-weave':['246,83,119','255,194,204'],'gold-ruby-weave':['255,89,126','255,210,219'],
+ 'gold-emerald-weave':['62,235,166','199,255,227'],'gold-emerald-knot':['58,226,151','190,255,216'],
+ 'sapphire-torus':['84,139,255','188,225,255'],
 "ceviz-naksi":["211,155,90", "255,220,158"],"zeytin-tesbihi":["227,177,91", "255,229,170"],"abanoz-sukunu":["204,143,101", "239,210,173"],"sandal-halkasi":["230,186,119", "255,231,180"],"altin-nakis":["255,185,70", "255,239,178"],"elmas-taci":["202,233,255", "248,250,255"],"gumus-telkari":["103,213,220", "215,244,255"],"sultan-taslari":["77,226,158", "133,193,255"],
  'ham-kristal':['166,112,255','109,229,255'],'faset-kesim':['157,107,255','223,183,255'],
  'ametist-yuvarlak':['173,105,255','234,164,255'],'ametist-saltanati':['163,90,255','243,164,255'],

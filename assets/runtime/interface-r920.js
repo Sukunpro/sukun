@@ -64,8 +64,10 @@ function mountSectionAccess(){
   // This native counter row survives layout teardown. The temporary hero
   // restores only its own anchored controls; placing totals inside it would
   // remove #totalCnt when the selected private mode becomes unavailable.
-  if(hero){if(line.parentElement!==root||line.previousElementSibling!==hero)hero.after(line)}
-  else if(line.parentElement!==root)root.append(line);
+  if(!window.SukunCompactUI?.ownsTotal?.(line)){
+   if(hero){if(line.parentElement!==root||line.previousElementSibling!==hero)hero.after(line)}
+   else if(line.parentElement!==root)root.append(line);
+  }
  }
 }
 function persist(){safe(()=>localStorage.setItem('sukun.r920.completed',JSON.stringify(completed)))}
@@ -215,6 +217,7 @@ function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view
  for(const [id,label]of Object.entries(actionNames)){attr($(id),'aria-label',label);attr($(id),'title',label)}
  for(const [button,source] of [['r959WheelPrevious','r920Previous'],['r959WheelNext','r920Next']])prop($(button),'disabled',!!$(source)?.disabled);
  const labels={PREPARING:'Ses hazırlanıyor',PAUSED:'Duraklatıldı',COMPLETING:'Tamamlanıyor',COMPLETED:'Seyir tamamlandı',INTERRUPTED:'Ses kesintisi',RECOVERING:'Ses yeniden hazırlanıyor',ERROR:'Ses açılamadı'};text($('r920Phase'),labels[s.phase]||(s.phase==='PLAYING'?'Zikir sürüyor':''));
+ window.SukunWheels?.fitPhase?.();
  for(const [id,delta]of [['r920Plus',1],['r920Minus',-1],['r920Counter',1]]){const gate=window.SukunCountCorrection?.status?.(delta);prop($(id),'disabled',!gate?.allowed);attr($(id),'title',gate?.reason||actionNames[id]||'Bir zikir say');attr($(id),'aria-describedby','r968ManualHint')}
  text($('r968ManualHint'),window.SukunCountCorrection?.status?.(1)?.reason||'');
  window.SukunWheelQuickControls?.render?.();
