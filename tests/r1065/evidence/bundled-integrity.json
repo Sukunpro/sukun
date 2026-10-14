@@ -1,0 +1,59 @@
+{
+  "suite": "r1065 shipped Arabic source integrity",
+  "passed": 13,
+  "total": 13,
+  "checks": [
+    {
+      "name": "All six shipped originals match source hashes, license metadata, durations, and required offline graph",
+      "passed": true
+    },
+    {
+      "name": "Verified same-origin bundled lookup: yasin",
+      "passed": true
+    },
+    {
+      "name": "Verified same-origin bundled lookup: fatiha",
+      "passed": true
+    },
+    {
+      "name": "Verified same-origin bundled lookup: ayatul-kursi",
+      "passed": true
+    },
+    {
+      "name": "Verified same-origin bundled lookup: ikhlas",
+      "passed": true
+    },
+    {
+      "name": "Verified same-origin bundled lookup: falaq",
+      "passed": true
+    },
+    {
+      "name": "Verified same-origin bundled lookup: nas",
+      "passed": true
+    },
+    {
+      "name": "Explicit source and meaning requests do not fetch or substitute bundled Arabic",
+      "passed": true
+    },
+    {
+      "name": "Full Yasin source cannot masquerade as selected or repeated verse",
+      "passed": true
+    },
+    {
+      "name": "Corrupted same-size bytes fail closed and are never returned for playback",
+      "passed": true
+    },
+    {
+      "name": "Missing source yields no recording instead of caching a failed response",
+      "passed": true
+    },
+    {
+      "name": "Missing integrity facility never admits unverified audio",
+      "passed": true
+    },
+    {
+      "name": "Cancelled caller rejects ready audio without saving it as a personal recording",
+      "passed": true
+    }
+  ]
+}

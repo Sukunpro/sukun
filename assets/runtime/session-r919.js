@@ -16,7 +16,7 @@
       if (['SILENCE','SILENT','NONE','IDLE','PREPARING'].includes(kind)) return 'none';
       if (/^(TTS|SPEECH|SES)/.test(kind)) return 'device';
       const explicit = value.recordingOrigin || value.sourceOrigin || value.sourceMetadata?.origin;
-      if (['personal','generic','device','none','error','other'].includes(explicit)) return explicit;
+      if (['personal','generic','bundled','device','none','error','other'].includes(explicit)) return explicit;
       // Compatibility for existing producers. Native explicit origin always
       // wins over a stale resolver label or a differently translated reason.
       const recorded = /RECORD|LOCAL|FILE|SAMPLE|READER/.test(kind);
@@ -34,11 +34,11 @@
       const english = language(lang) === 'en', from = origin(value);
       const failed = /ERROR|FAIL/.test(kinds(value.audioSource || value.kind)) || value.phase === 'ERROR';
       if (!failed && (value.phase === 'PREPARING' || kinds(value.audioSource || value.kind) === 'PREPARING')) {
-        const preparing = {personal:['Kendi kaydın hazırlanıyor','Preparing your recording'],generic:['Jenerik kayıt hazırlanıyor','Preparing generic recording'],device:['Cihaz sesi hazırlanıyor','Preparing device voice'],none:['Ses hazırlanıyor','Preparing audio'],error:['Ses hazırlanıyor','Preparing audio'],other:['Ses hazırlanıyor','Preparing audio']};
+        const preparing = {bundled:['Gömülü Arapça kayıt hazırlanıyor','Preparing bundled Arabic recording'],personal:['Kendi kaydın hazırlanıyor','Preparing your recording'],generic:['Jenerik kayıt hazırlanıyor','Preparing generic recording'],device:['Cihaz sesi hazırlanıyor','Preparing device voice'],none:['Ses hazırlanıyor','Preparing audio'],error:['Ses hazırlanıyor','Preparing audio'],other:['Ses hazırlanıyor','Preparing audio']};
         return preparing[from][english ? 1 : 0];
       }
-      const labels = failed ? {personal:['Kendi kaydın açılamadı','Your recording is unavailable'],generic:['Jenerik kayıt açılamadı','Generic recording is unavailable'],device:['Cihaz sesi açılamadı','Device voice is unavailable'],none:['Ses açılamadı','Audio is unavailable'],error:['Ses açılamadı','Audio is unavailable'],other:['Ses açılamadı','Audio is unavailable']} :
-        {personal:['Kendi kaydın','Your recording'],generic:['Jenerik kayıt','Generic recording'],device:['Cihaz sesi','Device voice'],none:['Ses kapalı','Audio off'],error:['Ses açılamadı','Audio is unavailable'],other:['Diğer ses','Other audio']};
+      const labels = failed ? {bundled:['Gömülü Arapça kayıt açılamadı','Bundled Arabic recording is unavailable'],personal:['Kendi kaydın açılamadı','Your recording is unavailable'],generic:['Jenerik kayıt açılamadı','Generic recording is unavailable'],device:['Cihaz sesi açılamadı','Device voice is unavailable'],none:['Ses açılamadı','Audio is unavailable'],error:['Ses açılamadı','Audio is unavailable'],other:['Ses açılamadı','Audio is unavailable']} :
+        {bundled:['Gömülü Arapça kayıt','Bundled Arabic recording'],personal:['Kendi kaydın','Your recording'],generic:['Jenerik kayıt','Generic recording'],device:['Cihaz sesi','Device voice'],none:['Ses kapalı','Audio off'],error:['Ses açılamadı','Audio is unavailable'],other:['Diğer ses','Other audio']};
       if (!failed && from === 'other') {
         const kind = kinds(value.audioSource || value.kind);
         if (/READER/.test(kind)) return english ? 'Recorded reader' : 'Kayıtlı okuyucu';
@@ -60,6 +60,7 @@
     function explanation(value = {}, lang) {
       const english = language(lang) === 'en', from = origin(value);
       if (value.phase === 'ERROR' || /ERROR|FAIL/.test(kinds(value.audioSource || value.kind))) return english ? 'Audio could not complete. Your count is kept; use the existing Retry control.' : 'Ses tamamlanamadı. Sayacın korunur; mevcut Yeniden dene düğmesini kullanabilirsin.';
+      if (from === 'bundled') return english ? 'The bundled Arabic recitation plays in its original recording form.' : 'Gömülü Arapça kıraat özgün kayıt biçimiyle çalar.';
       if (from === 'personal') return window.SukunVoiceSettings?.getMode?.() === 'personal' ? modeNote('personal',lang) : english ? 'Your own recording has priority over the archive and device voice.' : 'Kendi kaydın, arşivden ve cihaz sesinden önce kullanılır.';
       if (from === 'generic') return window.SukunVoiceSettings?.getMode?.() === 'generic' ? modeNote('generic',lang) : english ? 'No own recording was found for this name; the enabled archive recording is used.' : 'Bu isim için kendi kaydın bulunmadı; etkin arşivdeki kayıt kullanılıyor.';
       if (from === 'device') return modeNote(value.voiceMode || window.SukunVoiceSettings?.getMode?.() || 'auto', lang);
@@ -144,7 +145,7 @@
       singleKey && singleKey === expectedSingleKey;
     const singleSource = read(() => window.SukunSourceState);
     const observedSource = matchingSingleRecording ? {kind:'recording',
-      recordingOrigin: ['personal','generic'].includes(single.recordingOrigin) ? single.recordingOrigin : null,
+      recordingOrigin: ['personal','generic','bundled'].includes(single.recordingOrigin) ? single.recordingOrigin : null,
       label:singleSource?.kind === 'recording' && clean(singleSource.reason) || 'Kendi kayıt'} : source;
     const interrupted = !!(hasZikirOwner && bg?.active && (bg.blocked || bg.phase === 'INTERRUPTED'));
     if(playing && !preparing && !interrupted && !failed) establishedEpoch = epoch;
@@ -169,7 +170,7 @@
       sourceLabel: observedSource.label || flow.source?.label || '',
       reason: observedSource.reason || observedSource.detail || ''};
     const sourceOrigin = window.SukunAudioSourceText.origin(originInput);
-    const recordingOrigin = ['personal','generic'].includes(sourceOrigin) ? sourceOrigin : null;
+    const recordingOrigin = ['personal','generic','bundled'].includes(sourceOrigin) ? sourceOrigin : null;
     const sourceMetadata = freeze({kind:audioSource,origin:sourceOrigin,recorded:recordingOrigin !== null,
       provenance:retainedSource ? 'retained' : matchingSingleRecording ? 'native-single' : 'resolver'});
     const activeName = name;

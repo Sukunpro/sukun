@@ -1,0 +1,560 @@
+{
+  "build": "r1065",
+  "groups": 107,
+  "passedGroups": 107,
+  "reportedChecks": 3163,
+  "excluded": {
+    "tests/r1017/recording_inspection_contract.cjs": "Archived r1017 reader; r1027 active/history reader contracts cover the shipped r1020 API.",
+    "tests/r1017/health_inspection_contract.cjs": "Archived reader path and whole-object schema; current health UI/continuity and intro diagnostic contracts remain.",
+    "tests/r1021/release-integrity.cjs": "Historical hardcoded r1021 manifest; current r1027 release-integrity is selected separately.",
+    "tests/r1027/startup-intro.cjs": "Superseded oscillator intro graph; shipped WAV contracts begin in r1037.",
+    "tests/r1031/startup-intro-async.cjs": "Superseded oscillator intro graph.",
+    "tests/r1032/startup-intro-readiness.cjs": "Superseded oscillator intro graph.",
+    "tests/r1033/startup-intro-diagnostics.cjs": "Superseded oscillator intro graph.",
+    "tests/r1035/startup-intro-fresh-clock.cjs": "Superseded oscillator intro graph.",
+    "tests/r1036/startup-intro-timbre.cjs": "Superseded oscillator intro graph.",
+    "tests/r1036/measure-waveform.cjs": "Historical oscillator measurement, not a current WAV regression.",
+    "tests/r1021/persistence-browser.cjs": "Separate real-browser test; not a Node source fixture.",
+    "tests/r1065/full-app-bundled.cjs": "Separate real complete-app browser test; executed directly with native MP3 playback and exact source hashes.",
+    "tests/r1065/offline-bundled.cjs": "Separate real service-worker offline browser test; executed directly.",
+    "tests/r1065/offline-playback.cjs": "Separate real service-worker offline playback test; executed directly with a new JS world.",
+    "tests/r1027/recovery-browser.cjs": "Separate real-browser test; not a Node source fixture."
+  },
+  "results": [
+    {
+      "script": "tests/interaction_gate_lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.119
+    },
+    {
+      "script": "tests/owner-stop-storage.cjs",
+      "exitCode": 0,
+      "seconds": 0.188
+    },
+    {
+      "script": "tests/prayer_recording_faults.cjs",
+      "exitCode": 0,
+      "seconds": 8.389
+    },
+    {
+      "script": "tests/r1016/recording_continuity_contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.267
+    },
+    {
+      "script": "tests/r1016/recording_continuity_health.cjs",
+      "exitCode": 0,
+      "seconds": 0.416
+    },
+    {
+      "script": "tests/r1016/recovered/health_ui_audit.cjs",
+      "exitCode": 0,
+      "seconds": 0.751
+    },
+    {
+      "script": "tests/r1016/update_receipt_integration.cjs",
+      "exitCode": 0,
+      "seconds": 0.156
+    },
+    {
+      "script": "tests/r1017/ui_recording_inspection_contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.273
+    },
+    {
+      "script": "tests/r1021/import-maintenance.cjs",
+      "exitCode": 0,
+      "seconds": 0.193
+    },
+    {
+      "script": "tests/r1021/persistence-model.cjs",
+      "exitCode": 0,
+      "seconds": 0.309
+    },
+    {
+      "script": "tests/r1027/full-release-export.cjs",
+      "exitCode": 0,
+      "seconds": 17.193
+    },
+    {
+      "script": "tests/r1027/locale.cjs",
+      "exitCode": 0,
+      "seconds": 0.129
+    },
+    {
+      "script": "tests/r1027/recording-inspection-active.cjs",
+      "exitCode": 0,
+      "seconds": 0.245
+    },
+    {
+      "script": "tests/r1027/recording-inspection-history.cjs",
+      "exitCode": 0,
+      "seconds": 0.091
+    },
+    {
+      "script": "tests/r1027/recovery-entry.cjs",
+      "exitCode": 0,
+      "seconds": 0.167
+    },
+    {
+      "script": "tests/r1027/recovery-regression.cjs",
+      "exitCode": 0,
+      "seconds": 0.196
+    },
+    {
+      "script": "tests/r1027/site-backup-regression.cjs",
+      "exitCode": 0,
+      "seconds": 0.627
+    },
+    {
+      "script": "tests/r1028/css-grammar-repairs.cjs",
+      "exitCode": 0,
+      "seconds": 0.312
+    },
+    {
+      "script": "tests/r1028/layout-stability-contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.144
+    },
+    {
+      "script": "tests/r1028/media-artwork.cjs",
+      "exitCode": 0,
+      "seconds": 0.139
+    },
+    {
+      "script": "tests/r1029/cinematic-containment-regression.cjs",
+      "exitCode": 0,
+      "seconds": 0.193
+    },
+    {
+      "script": "tests/r1029/recovery-deliberate.cjs",
+      "exitCode": 0,
+      "seconds": 0.419
+    },
+    {
+      "script": "tests/r1029/transparent-intro.cjs",
+      "exitCode": 0,
+      "seconds": 0.218
+    },
+    {
+      "script": "tests/r1029/ui-surface-contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.231
+    },
+    {
+      "script": "tests/r1030/shell-recovery-visibility.cjs",
+      "exitCode": 0,
+      "seconds": 0.386
+    },
+    {
+      "script": "tests/r1030/visible-volume-labels.cjs",
+      "exitCode": 0,
+      "seconds": 0.183
+    },
+    {
+      "script": "tests/r1031/cabir-background-cache.cjs",
+      "exitCode": 0,
+      "seconds": 0.174
+    },
+    {
+      "script": "tests/r1031/mini-player-logo.cjs",
+      "exitCode": 0,
+      "seconds": 0.169
+    },
+    {
+      "script": "tests/r1031/personal-centre-glass.cjs",
+      "exitCode": 0,
+      "seconds": 0.157
+    },
+    {
+      "script": "tests/r1034/intro-health-diagnostic.cjs",
+      "exitCode": 0,
+      "seconds": 0.23
+    },
+    {
+      "script": "tests/r1037/intro-asset-cache.cjs",
+      "exitCode": 0,
+      "seconds": 0.131
+    },
+    {
+      "script": "tests/r1037/intro-audio-lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.602
+    },
+    {
+      "script": "tests/r1037/intro-visual-diagnostics.cjs",
+      "exitCode": 0,
+      "seconds": 0.163
+    },
+    {
+      "script": "tests/r1037/intro-waveform.cjs",
+      "exitCode": 0,
+      "seconds": 0.086
+    },
+    {
+      "script": "tests/r1038/silent-carrier-guard.cjs",
+      "exitCode": 0,
+      "seconds": 0.572
+    },
+    {
+      "script": "tests/r1039/silent-anchor-init.cjs",
+      "exitCode": 0,
+      "seconds": 1.352
+    },
+    {
+      "script": "tests/r1040/esma-exit-placement.cjs",
+      "exitCode": 0,
+      "seconds": 0.086
+    },
+    {
+      "script": "tests/r1041/compact-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.088
+    },
+    {
+      "script": "tests/r1041/real-quick-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.206
+    },
+    {
+      "script": "tests/r1042/foreground-sync.cjs",
+      "exitCode": 0,
+      "seconds": 0.135
+    },
+    {
+      "script": "tests/r1042/frequency-mirror-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.597
+    },
+    {
+      "script": "tests/r1042/graphics-rest.cjs",
+      "exitCode": 0,
+      "seconds": 0.202
+    },
+    {
+      "script": "tests/r1042/hidden-render-audio-ui.cjs",
+      "exitCode": 0,
+      "seconds": 0.334
+    },
+    {
+      "script": "tests/r1042/hidden-render-legacy.cjs",
+      "exitCode": 0,
+      "seconds": 0.268
+    },
+    {
+      "script": "tests/r1042/hidden-render-queue.cjs",
+      "exitCode": 0,
+      "seconds": 0.318
+    },
+    {
+      "script": "tests/r1042/performance-descriptions.cjs",
+      "exitCode": 0,
+      "seconds": 0.376
+    },
+    {
+      "script": "tests/r1042/presentation-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.165
+    },
+    {
+      "script": "tests/r1043/background-interruption.cjs",
+      "exitCode": 0,
+      "seconds": 0.189
+    },
+    {
+      "script": "tests/r1043/recording-attack.cjs",
+      "exitCode": 0,
+      "seconds": 0.195
+    },
+    {
+      "script": "tests/r1044/intro-version-cache.cjs",
+      "exitCode": 0,
+      "seconds": 0.137
+    },
+    {
+      "script": "tests/r1044/native-recovery-authority.cjs",
+      "exitCode": 0,
+      "seconds": 0.253
+    },
+    {
+      "script": "tests/r1044/recording-volume-intent.cjs",
+      "exitCode": 0,
+      "seconds": 0.211
+    },
+    {
+      "script": "tests/r1045/ambient-info.cjs",
+      "exitCode": 0,
+      "seconds": 4.922
+    },
+    {
+      "script": "tests/r1045/intro-rejection-diagnostics.cjs",
+      "exitCode": 0,
+      "seconds": 4.644
+    },
+    {
+      "script": "tests/r1045/presentation-notice.cjs",
+      "exitCode": 0,
+      "seconds": 0.194
+    },
+    {
+      "script": "tests/r1045/quick-error-label.cjs",
+      "exitCode": 0,
+      "seconds": 0.223
+    },
+    {
+      "script": "tests/r1046/silent-anchor-selection.cjs",
+      "exitCode": 0,
+      "seconds": 7.754
+    },
+    {
+      "script": "tests/r1047/frequency-pause-contract.cjs",
+      "exitCode": 0,
+      "seconds": 2.479
+    },
+    {
+      "script": "tests/r1048/audio-single-volume.cjs",
+      "exitCode": 0,
+      "seconds": 0.341
+    },
+    {
+      "script": "tests/r1048/audio-volume-preview.cjs",
+      "exitCode": 0,
+      "seconds": 0.678
+    },
+    {
+      "script": "tests/r1048/backup-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 0.298
+    },
+    {
+      "script": "tests/r1048/offline-recovery.cjs",
+      "exitCode": 0,
+      "seconds": 5.131
+    },
+    {
+      "script": "tests/r1048/presentation-notice.cjs",
+      "exitCode": 0,
+      "seconds": 0.157
+    },
+    {
+      "script": "tests/r1049/audio-global-intent.cjs",
+      "exitCode": 0,
+      "seconds": 0.736
+    },
+    {
+      "script": "tests/r1049/audio-pause-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.654
+    },
+    {
+      "script": "tests/r1049/audio-registry-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.216
+    },
+    {
+      "script": "tests/r1049/backup-quarantine.cjs",
+      "exitCode": 0,
+      "seconds": 0.338
+    },
+    {
+      "script": "tests/r1049/layout-keyboard.cjs",
+      "exitCode": 0,
+      "seconds": 0.295
+    },
+    {
+      "script": "tests/r1049/offline-refresh-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 11.02
+    },
+    {
+      "script": "tests/r1049/ui-notice-focus.cjs",
+      "exitCode": 0,
+      "seconds": 0.157
+    },
+    {
+      "script": "tests/r1050/audio-cadence-evidence.cjs",
+      "exitCode": 0,
+      "seconds": 0.195
+    },
+    {
+      "script": "tests/r1050/dock-progress-invalidation.cjs",
+      "exitCode": 0,
+      "seconds": 0.162
+    },
+    {
+      "script": "tests/r1051/dashboard-error-state.cjs",
+      "exitCode": 0,
+      "seconds": 0.42
+    },
+    {
+      "script": "tests/r1052/health-media-evidence.cjs",
+      "exitCode": 0,
+      "seconds": 0.132
+    },
+    {
+      "script": "tests/r1052/media-clock-authority.cjs",
+      "exitCode": 0,
+      "seconds": 0.185
+    },
+    {
+      "script": "tests/r1052/native-repeat-block.cjs",
+      "exitCode": 0,
+      "seconds": 0.249
+    },
+    {
+      "script": "tests/r1053/manual-count-commit.cjs",
+      "exitCode": 0,
+      "seconds": 0.191
+    },
+    {
+      "script": "tests/r1053/wheel-mini-motion.cjs",
+      "exitCode": 0,
+      "seconds": 0.09
+    },
+    {
+      "script": "tests/r1054/automatic-touch-continuity.cjs",
+      "exitCode": 0,
+      "seconds": 0.95
+    },
+    {
+      "script": "tests/r1055/generic-bank.cjs",
+      "exitCode": 0,
+      "seconds": 0.278
+    },
+    {
+      "script": "tests/r1055/generic-priority.cjs",
+      "exitCode": 0,
+      "seconds": 4.878
+    },
+    {
+      "script": "tests/r1055/generic-ui.cjs",
+      "exitCode": 0,
+      "seconds": 0.28
+    },
+    {
+      "script": "tests/r1056/audio-source-model.cjs",
+      "exitCode": 0,
+      "seconds": 0.16
+    },
+    {
+      "script": "tests/r1056/ui-source-and-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.542
+    },
+    {
+      "script": "tests/r1058/stop-scope.cjs",
+      "exitCode": 0,
+      "seconds": 1.854
+    },
+    {
+      "script": "tests/r1059/background-mix.cjs",
+      "exitCode": 0,
+      "seconds": 0.305
+    },
+    {
+      "script": "tests/r1059/renderer.cjs",
+      "exitCode": 0,
+      "seconds": 32.311
+    },
+    {
+      "script": "tests/r1060/active-source.cjs",
+      "exitCode": 0,
+      "seconds": 0.416
+    },
+    {
+      "script": "tests/r1061/active-layers.cjs",
+      "exitCode": 0,
+      "seconds": 9.453
+    },
+    {
+      "script": "tests/r1061/background-lock.cjs",
+      "exitCode": 0,
+      "seconds": 0.282
+    },
+    {
+      "script": "tests/r1062/dhikr-pause-scope.cjs",
+      "exitCode": 0,
+      "seconds": 5.421
+    },
+    {
+      "script": "tests/r1062/direct-native-pause.cjs",
+      "exitCode": 0,
+      "seconds": 0.36
+    },
+    {
+      "script": "tests/r1063/easy-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.308
+    },
+    {
+      "script": "tests/r1064/arabic-chunks.cjs",
+      "exitCode": 0,
+      "seconds": 0.119
+    },
+    {
+      "script": "tests/r1064/browser-helper.cjs",
+      "exitCode": 0,
+      "seconds": 0.488
+    },
+    {
+      "script": "tests/r1064/catalog.cjs",
+      "exitCode": 0,
+      "seconds": 0.175
+    },
+    {
+      "script": "tests/r1064/reader-owner-lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.111
+    },
+    {
+      "script": "tests/r1064/reading-audio-policy.cjs",
+      "exitCode": 0,
+      "seconds": 0.189
+    },
+    {
+      "script": "tests/r1064/yasin-data.cjs",
+      "exitCode": 0,
+      "seconds": 0.13
+    },
+    {
+      "script": "tests/r1065/audio-priority.cjs",
+      "exitCode": 0,
+      "seconds": 0.161
+    },
+    {
+      "script": "tests/r1065/bundled-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 0.367
+    },
+    {
+      "script": "tests/r1065/bundled-native.cjs",
+      "exitCode": 0,
+      "seconds": 0.155
+    },
+    {
+      "script": "tests/r1065/health-media-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 0.499
+    },
+    {
+      "script": "tests/r1065/legacy-policy.cjs",
+      "exitCode": 0,
+      "seconds": 0.128
+    },
+    {
+      "script": "tests/recording-storage.cjs",
+      "exitCode": 0,
+      "seconds": 1.953
+    },
+    {
+      "script": "tests/recording_unavailable_contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.206
+    },
+    {
+      "script": "tests/tekke_finish_lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.14
+    }
+  ]
+}

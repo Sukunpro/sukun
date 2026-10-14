@@ -1,9 +1,9 @@
-/* SÜKÛN r1064 — strict original/meaning reader. No counter or recording migration. */
+/* SÜKÛN r1065 — bundled Arabic first, safe legacy recording fallback. */
 (()=>{
  'use strict';
  const w=window,ID='reading-r1064',listeners=new Set();
  let sequence=0,partAttempt=0,utterance=null,settleUtterance=null,resumeWaiter=null;
- let state={version:'r1064',id:'',title:'',kind:'',phase:'idle',content:'arabic',source:'auto',sourceKind:'none',part:0,total:0,verse:0,progress:null,reason:'',queue:[]};
+ let state={version:'r1065',id:'',title:'',kind:'',phase:'idle',content:'arabic',source:'auto',sourceKind:'none',part:0,total:0,verse:0,progress:null,reason:'',queue:[]};
  let currentEntry=null,currentOptions=null,ownerPromise=null,activeCurrent=null,settingsEpoch=w.SukunVoiceSettings?.epoch?.()||0,lastAcceptedLeaseEpoch=-1;
  const active=()=>['preparing','playing','paused'].includes(state.phase);
  const snapshot=()=>Object.freeze({...state,queue:state.queue.map(x=>({verse:x.verse||0}))});
@@ -12,9 +12,9 @@
   try{w.dispatchEvent(new CustomEvent('sukun:readingchange',{detail:s}));w.SukunAudioSessionRegistry?.sync?.();w.SukunNowPlayingStore?.refresh?.();w.currentFlowState?.refresh?.('reading:'+reason,true)}catch(_){}
  }
  function change(patch,reason){state={...state,...patch};emit(reason);}
- function sourceLabel(kind){const en=w.I18N?.lang==='en';return kind==='personal'?(en?'Personal recording':'Kendi kayıt'):kind==='generic'?(en?'General recording':'Jenerik kayıt'):state.content==='arabic'?(en?'Arabic TTS':'Arapça TTS'):state.content==='meaning'?(en?'Turkish meaning · TTS':'Türkçe anlam · TTS'):(en?'Latin reading · TTS':'Latin okunuş · TTS');}
+ function sourceLabel(kind){const en=w.I18N?.lang==='en';return kind==='bundled'?(en?'Bundled Arabic recitation':'Gömülü Arapça kıraat'):kind==='personal'?(en?'Personal recording':'Kendi kayıt'):kind==='generic'?(en?'General recording':'Jenerik kayıt'):state.content==='arabic'?(en?'Arabic TTS':'Arapça TTS'):state.content==='meaning'?(en?'Turkish meaning · TTS':'Türkçe anlam · TTS'):(en?'Latin reading · TTS':'Latin okunuş · TTS');}
  function publishSource(kind){
-  const recording=['personal','generic'].includes(kind),label=sourceLabel(kind);
+  const recording=['personal','generic','bundled'].includes(kind),label=sourceLabel(kind);
   try{w.sukunSourceSet?.(recording?'recording':'tts',label,state.title);w.SukunVoiceSource?.set?.(recording?'recording':state.content==='arabic'?'tts-ar':'tts-tr',label,state.title,recording?{recordingOrigin:kind}:undefined)}catch(_){}
  }
  function failure(reason){
@@ -62,10 +62,17 @@
  }
  async function findRecording(entry,opt,current){
   const permissions=w.SukunReadingPolicy.permissions(entry,{entry,...opt}),keys=Array.from(entry.recordingKeys||[]);
+  // Packaged recitations are immutable files, never copied over REC_DB keys.
+  if(opt.source==='auto'&&opt.content!=='meaning'){
+   const bundled=await w.SukunBundledArabicR1065?.find?.(entry,opt,current);
+   if(!current())return null;if(bundled)return bundled;
+  }
+  // The user's automatic priority is Arabic > generic > personal. Explicit
+  // source-only and original/meaning admission remain independent gates.
+  if(permissions.generic&&keys.length){const recording=await w.SukunGenericRecordings?.find?.(keys,{isCurrent:current});if(!current())return null;if(recording)return recording;}
   if(permissions.personal){
    for(const key of keys){const blob=await REC_DB.get(key,{isCurrent:current});if(!current())return null;if(blob)return{blob,key,generic:false};}
   }
-  if(permissions.generic&&keys.length){const recording=await w.SukunGenericRecordings?.find?.(keys,{isCurrent:current});if(!current())return null;if(recording)return recording;}
   return null;
  }
  async function execute(entry,opt,token){
@@ -81,9 +88,9 @@
   if(recording){
    if(state.phase==='paused'&&!await waitForResume(token))return{ok:false,cancelled:true,reason:'stale-sequence'};
    if(!current())return{ok:false,cancelled:true,reason:'stale-sequence'};
-   change({phase:'playing',sourceKind:recording.generic?'generic':'personal',queue:[],part:1,total:1},'recording-start');publishSource(state.sourceKind);
+   change({phase:'playing',sourceKind:recording.bundled?'bundled':recording.generic?'generic':'personal',queue:[],part:1,total:1},'recording-start');publishSource(state.sourceKind);
    for(;;){
-    let r;try{r=await playRecording(recording.blob,'reading-r1064:'+entry.id,{detail:true,resume:false,recordingKey:recording.key,title:state.title,reason:sourceLabel(state.sourceKind),backgroundNative:true,generic:!!recording.generic,isCurrent:current});}catch(_){r={ok:false,reason:'recording-failed'};}
+    let r;try{r=await playRecording(recording.blob,'reading-r1064:'+entry.id,{detail:true,resume:false,recordingKey:recording.key,title:state.title,reason:sourceLabel(state.sourceKind),backgroundNative:true,generic:!!recording.generic,bundled:!!recording.bundled,isCurrent:current});}catch(_){r={ok:false,reason:'recording-failed'};}
     if(!current())return{ok:false,cancelled:true,reason:'stale-sequence'};
     const completed=r===true||r?.ok;
     if(state.phase==='paused'){
@@ -96,7 +103,10 @@
     return failure('recording-required');
    }
   }
-  const plan=w.SukunReadingPolicy.plan(entry,{entry,...opt});
+  // Arabic device speech is an explicit option, never a dependency of Auto.
+  // A full-chapter recording has no invented verse timestamps.
+  if(opt.source==='auto'&&opt.content==='arabic')return failure(opt.onlyVerse||Number(opt.startVerse)>1?'bundled-seek-unavailable':'arabic-audio-unavailable');
+  const plan=w.SukunReadingPolicy.plan(entry,{entry,...opt,...(opt.source==='auto'&&opt.content==='legacy'?{disableArabicAuto:true}:{})});
   if(!plan.ok)return failure(plan.reason);
   const queue=makeQueue(entry,opt,plan);if(!queue?.length)return failure(state.content==='arabic'?'arabic-text-unavailable':'meaning-text-unavailable');
   change({phase:state.phase==='paused'?'paused':'playing',sourceKind:'tts',queue,part:1,total:queue.length,verse:queue[0].verse||0},'tts-prepared');publishSource('tts');
@@ -106,7 +116,7 @@
    const part=queue[i];change({part:i+1,verse:part.verse||0,sectionTitle:part.verse?state.title+' · '+(w.I18N?.lang==='en'?'Verse ':'Âyet ')+part.verse:state.title,progress:i/queue.length*100},'part-start');
    // Text/verse order belongs to the immutable queue. Voice and rate edits
    // are read only when the next utterance is admitted (r976 contract).
-   const nextVoice=w.SukunReadingPolicy.plan(entry,{entry,...opt});
+   const nextVoice=w.SukunReadingPolicy.plan(entry,{entry,...opt,...(opt.source==='auto'&&opt.content==='legacy'?{disableArabicAuto:true}:{})});
    if(!nextVoice.ok)return failure(nextVoice.reason);
    const result=await say(part.text,{...plan,voice:nextVoice.voice,lang:nextVoice.lang,rate:nextVoice.rate,pitch:nextVoice.pitch},token,current);
    if(!current())return{ok:false,cancelled:true,reason:'stale-sequence'};
@@ -165,7 +175,7 @@
   if(!active()||state.phase==='paused')return false;
   activeCurrent?.refreshIntent?.();change({phase:'paused'},'pause');
   if(state.sourceKind==='tts')clearUtterance('paused');
-  else if(['personal','generic'].includes(state.sourceKind))try{sesDuraklat()}catch(_){}
+  else if(['personal','generic','bundled'].includes(state.sourceKind))try{sesDuraklat()}catch(_){}
   return true;
  }
  function resume(opt={}){
@@ -174,16 +184,17 @@
   const aggregateHeld=!!w.SukunAudioSessionRegistry?.aggregateSnapshot?.()?.paused;
   if(w.AudioLife?._terminalIntent||aggregateHeld&&!(opt.registry&&!w.AudioLife?.userPaused))return false;
   activeCurrent?.refreshIntent?.();change({phase:'playing'},'resume');
-  if(['personal','generic'].includes(state.sourceKind))try{sesSurdur()}catch(_){}
+  if(['personal','generic','bundled'].includes(state.sourceKind))try{sesSurdur()}catch(_){}
   wakeResume(true);return true;
  }
  function stop(reason='stopped'){
   const wasActive=active();sequence++;clearUtterance('cancelled');wakeResume(false);activeCurrent=null;
-  if(wasActive&&['personal','generic'].includes(state.sourceKind))try{sesDurdur('reading-'+reason)}catch(_){}
+  if(wasActive&&['personal','generic','bundled'].includes(state.sourceKind))try{sesDurdur('reading-'+reason)}catch(_){}
   change({phase:'idle',reason,sourceKind:'none'},'stop');return wasActive;
  }
  function navigate(delta,repeat=false){
   if(!currentEntry||!currentOptions)return false;
+  if(state.sourceKind==='bundled'&&currentEntry.id==='reading:yasin')return w.SukunReadingPolicy.unavailable('bundled-seek-unavailable');
   const verse=state.verse||Number(currentOptions.startVerse)||1;
   if(Array.isArray(currentEntry.verses)||currentEntry.id==='reading:yasin'){const target=Math.max(1,Math.min(83,repeat?verse:verse+delta));const wasPaused=state.phase==='paused';const promise=play({...currentOptions,id:currentEntry.id,startVerse:target,onlyVerse:repeat?true:currentOptions.onlyVerse});if(wasPaused)pause();return promise;}
   // For non-verse texts Replay begins the same original, never another variant.
@@ -194,7 +205,7 @@
   if(handles(kind)&&!opt.content)return Promise.resolve(state.phase==='paused'?resume():pause());
   return play({...opt,id:entry.id});
  }
- const api=w.SukunReadingAudioR1064=Object.freeze({version:'r1064',play,pause,resume,stop,previous:()=>navigate(-1),next:()=>navigate(1),repeat:()=>navigate(0,true),route,hasSelection,handles,snapshot,subscribe(fn){if(typeof fn!=='function')return()=>{};listeners.add(fn);fn(snapshot());return()=>listeners.delete(fn)}});
+ const api=w.SukunReadingAudioR1064=Object.freeze({version:'r1065',play,pause,resume,stop,previous:()=>navigate(-1),next:()=>navigate(1),repeat:()=>navigate(0,true),route,hasSelection,handles,snapshot,subscribe(fn){if(typeof fn!=='function')return()=>{};listeners.add(fn);fn(snapshot());return()=>listeners.delete(fn)}});
  w.SukunAudioSessionRegistry?.register?.(ID,{priority:105,title:()=>state.title,getState:()=>state.phase==='paused'?'paused':['preparing','playing'].includes(state.phase)?'playing':state.phase==='ended'?'ended':'idle',play:()=>state.phase==='paused'?resume({registry:true}):currentOptions?play(currentOptions):false,resume:()=>resume({registry:true}),pause,stop,previous:api.previous,next:api.next});
  w.addEventListener('sukun:voicesettingschange',()=>{const next=w.SukunVoiceSettings?.epoch?.()||0,changed=next!==settingsEpoch;settingsEpoch=next;if(changed&&active())stop('preference-change');});
  w.addEventListener('sukun:tabownerchange',()=>{if(active()&&activeCurrent&&w.SukunTabOwner&&!w.SukunTabOwner.owns())stop('tab-owner-change');});

@@ -1,0 +1,48 @@
+{
+  "version": "r1065",
+  "scope": "Actual production reader priority with controlled native and device interfaces",
+  "passed": 10,
+  "total": 10,
+  "tests": [
+    {
+      "name": "Auto bundled Arabic works without any device voices and wins over both recording stores",
+      "ok": true
+    },
+    {
+      "name": "Auto without bundled audio prefers generic over personal",
+      "ok": true
+    },
+    {
+      "name": "Auto without bundle or generic still plays existing unknown-content personal recording with no Arabic voice",
+      "ok": true
+    },
+    {
+      "name": "Explicit Arabic Auto never requires a device voice when bundled original exists",
+      "ok": true
+    },
+    {
+      "name": "Strict Arabic Auto without bundled original does not silently speak optional device TTS or play an unknown old recording",
+      "ok": true
+    },
+    {
+      "name": "Personal-only bypasses bundle and generic",
+      "ok": true
+    },
+    {
+      "name": "Generic-only bypasses bundle and personal",
+      "ok": true
+    },
+    {
+      "name": "Meaning never looks up Arabic bundle and preserves Delail meaning recording",
+      "ok": true
+    },
+    {
+      "name": "Stop while bundle fetch is pending prevents late native playback",
+      "ok": true
+    },
+    {
+      "name": "Pause pending bundle fetch holds until Resume",
+      "ok": true
+    }
+  ]
+}

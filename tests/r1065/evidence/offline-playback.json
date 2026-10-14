@@ -1,0 +1,133 @@
+{
+  "suite": "r1065 installed SW offline bundled Arabic playback",
+  "root": "/workspace/scratch/f778a2db1d4a/sukun",
+  "startedAt": "2026-10-14T20:14:34.446Z",
+  "checks": [
+    {
+      "name": "Real service worker installs verified release and takes control",
+      "passed": true,
+      "controller": "http://127.0.0.1:42961/sw.js",
+      "caches": [
+        "sukun-r1065-bundled-arabic-recordings-20261014-v1",
+        "sukun-recovery-control-v1",
+        "sukun-art-persistent-v1"
+      ],
+      "build": "r1065"
+    },
+    {
+      "name": "Online verified warm-up retains all six exact bundle files in installed runtime cache",
+      "passed": true,
+      "results": [
+        {
+          "key": "yasin",
+          "bytes": 21195286
+        },
+        {
+          "key": "fatiha",
+          "bytes": 2351078
+        },
+        {
+          "key": "ayatul-kursi",
+          "bytes": 2222734
+        },
+        {
+          "key": "ikhlas",
+          "bytes": 1017788
+        },
+        {
+          "key": "falaq",
+          "bytes": 1549641
+        },
+        {
+          "key": "nas",
+          "bytes": 1752351
+        }
+      ],
+      "caches": [
+        "sukun-r1065-bundled-arabic-recordings-20261014-v1",
+        "sukun-recovery-control-v1",
+        "sukun-art-persistent-v1"
+      ]
+    },
+    {
+      "name": "New offline page reloads full r1065 shell and reader from service worker",
+      "passed": true,
+      "online": true,
+      "build": "r1065",
+      "appearance": "feyz",
+      "controlled": true,
+      "voices": 0,
+      "networkProbe": {
+        "blocked": true,
+        "error": "TypeError"
+      }
+    },
+    {
+      "name": "yasin: offline cache returns exact MP3 Blob and native clock advances",
+      "passed": true,
+      "sha256": "4096f23ddba18fb4b410e54459cac520d91de178c5b5d2a78232e57723fb6a3d",
+      "bytes": 21195286,
+      "time": 0.338685,
+      "duration": 1260.3278,
+      "error": 0
+    },
+    {
+      "name": "fatiha: offline cache returns exact MP3 Blob and native clock advances",
+      "passed": true,
+      "sha256": "46fe21a5118957d52ac76f5a6a7fdd7e75d52e4a569619ae3e174a23ce5c82bc",
+      "bytes": 2351078,
+      "time": 0.208281,
+      "duration": 58.7755,
+      "error": 0
+    },
+    {
+      "name": "ayatul-kursi: offline cache returns exact MP3 Blob and native clock advances",
+      "passed": true,
+      "sha256": "cb32b4b36012fdc2c4a93460a7106b9e337f1244d5198a549cea76a7edeaeb38",
+      "bytes": 2222734,
+      "time": 0.198565,
+      "duration": 128.211406,
+      "error": 0
+    },
+    {
+      "name": "ikhlas: offline cache returns exact MP3 Blob and native clock advances",
+      "passed": true,
+      "sha256": "9ad15357702fd585cfc9a4cb082c65a7d3930ff34ed1c720f14447a0fc60d361",
+      "bytes": 1017788,
+      "time": 0.233298,
+      "duration": 25.44325,
+      "error": 0
+    },
+    {
+      "name": "falaq: offline cache returns exact MP3 Blob and native clock advances",
+      "passed": true,
+      "sha256": "2e01e8048cca4ff3a7419331e119241d15565e1e5a531fab85bd53d7283afcc9",
+      "bytes": 1549641,
+      "time": 0.218102,
+      "duration": 38.739575,
+      "error": 0
+    },
+    {
+      "name": "nas: offline cache returns exact MP3 Blob and native clock advances",
+      "passed": true,
+      "sha256": "176441a835915036e7b517f723d49d2954a86cfd8bfd12d6172c77edcc85405e",
+      "bytes": 1752351,
+      "time": 0.178433,
+      "duration": 43.807325,
+      "error": 0
+    },
+    {
+      "name": "Offline release has no JavaScript page errors",
+      "passed": true,
+      "pageErrors": [],
+      "blockedLiveHttpRequests": 14
+    }
+  ],
+  "passed": 10,
+  "total": 10,
+  "limitations": [
+    "Fresh isolated headless Chromium; browser network is explicitly offline after a verified installation.",
+    "No physical Android locking or audible output is claimed."
+  ],
+  "finishedAt": "2026-10-14T20:15:20.447Z"
+}

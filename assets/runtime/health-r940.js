@@ -613,13 +613,15 @@
     const configurationErrors=files.filter(x=>x.status==='INVALID_ENTRY').length;
     const unverified=Math.max(0,expected-matched-mismatched), complete=expected>0&&matched===expected;
     return status('RUNTIME_INTEGRITY',mismatched||configurationErrors?'FAIL':complete?'PASS':'NOT_MEASURED',
-      'Çekirdek dosya SHA-256 doğrulaması',{files,bytes,expected,matched,mismatched,unverified,configurationErrors,complete,checkedAt:now(),scope:'served-through-current-service-worker',...extra},
+      'Çekirdek dosya SHA-256 doğrulaması',{files,bytes,mediaBytes:0,verifiedBytes:bytes,expected,matched,mismatched,unverified,configurationErrors,complete,checkedAt:now(),scope:'served-through-current-service-worker',...extra},
       mismatched?'İçerik farkı doğrulandı. Tam sürüm paketini birlikte yükleyin; kayıtlarınızı silmeyin.':configurationErrors?'Sürümdeki dosya listesi geçersiz. Raporu saklayın; kayıtlarınızı silmeyin.':'Erişilemeyen dosya bozuk sayılmaz. Bağlantı veya önbellek erişimi uygun olduğunda yeniden deneyin.');
   }
   async function integrityCheck() {
     const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10000);
-    const result=[];let total=0,reserved=0,expected=0;
-    const byteBudget=8388608,waiters=new Set();
+    const result=[];let total=0,reserved=0,mediaTotal=0,mediaReserved=0,expected=0;
+    // Keep the original bounded core check. The six shipped Arabic recordings
+    // use a separate bounded media allowance and expose their actual byte count.
+    const byteBudget=8388608,mediaByteBudget=33554432,waiters=new Set();
     function wakeBudget(){for(const wake of [...waiters])wake();}
     function waitForBudget(){return new Promise((resolve,reject)=>{
       let done=false;
@@ -627,19 +629,19 @@
       const wake=()=>finish(),abort=()=>finish(new DOMException('Aborted','AbortError'));
       waiters.add(wake);controller.signal.addEventListener('abort',abort,{once:true});if(controller.signal.aborted)abort();
     });}
-    async function reserveBytes(maxBytes){
+    async function reserveBytes(maxBytes,isMedia=false){
       while(true){
         if(controller.signal.aborted)throw new DOMException('Aborted','AbortError');
-        const available=byteBudget-total-reserved;
+        const available=isMedia?mediaByteBudget-mediaTotal-mediaReserved:byteBudget-total-reserved;
         // A temporary reservation is not exhausted capacity. Await its actual
         // byte count before deciding how much the next file may download.
-        if(reserved>0&&available<maxBytes){await waitForBudget();continue;}
+        if((isMedia?mediaReserved:reserved)>0&&available<maxBytes){await waitForBudget();continue;}
         const allowance=Math.min(maxBytes,available);
         if(allowance<=0)throw new Error('TOTAL_SIZE_LIMIT');
-        reserved+=allowance;return allowance;
+        if(isMedia)mediaReserved+=allowance;else reserved+=allowance;return allowance;
       }
     }
-    function settleBytes(allowance,actual=0){reserved-=allowance;total+=actual;wakeBudget();}
+    function settleBytes(allowance,actual=0,isMedia=false){if(isMedia){mediaReserved-=allowance;mediaTotal+=actual;}else{reserved-=allowance;total+=actual;}wakeBudget();}
     try {
       const markerURL=new URL('./sukun-build-'+build+'.json',location.href);
       const bytes=await fetchBytes(markerURL.href,32768,controller);
@@ -664,29 +666,31 @@
           const introArt=['./assets/branding/sukun-frameless-logo-r1029.png','./assets/branding/sukun-intro-pattern-r1029.svg']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
           const introAudio=url.pathname===new URL('./assets/audio/sukun-intro-signature-r1037.wav',location.href).pathname;
-          if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||introAudio)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
+          const bundledArabicAudio=['yasin','fatiha','ayatul-kursi','ikhlas','falaq','nas']
+            .some(name=>url.pathname===new URL('./assets/audio/arabic-r1065/'+name+'.mp3',location.href).pathname);
+          if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||introAudio||bundledArabicAudio)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;
           }
-          const maxFileBytes=navigationArt||cabirArt||introArt?2097152:524288;let allowance=0;
+          const maxFileBytes=bundledArabicAudio?25165824:navigationArt||cabirArt||introArt?2097152:524288;let allowance=0;
           try {
-            allowance=await reserveBytes(maxFileBytes);
+            allowance=await reserveBytes(maxFileBytes,bundledArabicAudio);
             let data;
             try{data=await fetchBytes(url.href,allowance,controller);}
             catch(error){if(allowance<maxFileBytes&&error?.message==='SIZE_LIMIT')throw new Error('TOTAL_SIZE_LIMIT');throw error;}
             // Release the pessimistic reservation immediately. Retaining it
             // through SHA digest would count accepted data twice and incorrectly
             // reject later files even when the whole manifest fits the budget.
-            settleBytes(allowance,data.length);allowance=0;
+            settleBytes(allowance,data.length,bundledArabicAudio);allowance=0;
             const digest=await crypto.subtle.digest('SHA-256',data);
             const actual=[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('');
             result.push({path:path(url.href),status:actual===entry.sha256?'MATCH':'HASH_MISMATCH',expected:entry.sha256,actual});
           } catch(error) {result.push({path:path(url.href),status:token(error?.name==='AbortError'?'TIMEOUT':error?.message||error?.name||'FETCH_ERROR')});}
-          finally {if(allowance)settleBytes(allowance);}
+          finally {if(allowance)settleBytes(allowance,0,bundledArabicAudio);}
 
         }
       }
-      await Promise.all([worker(),worker()]);return integrityResult(result,expected,total);
-    } catch(error) {return integrityResult(result,expected,total,{reason:token(error?.message||error?.name||'FETCH_ERROR')});}
+      await Promise.all([worker(),worker()]);return integrityResult(result,expected,total,{mediaBytes:mediaTotal,verifiedBytes:total+mediaTotal});
+    } catch(error) {return integrityResult(result,expected,total,{mediaBytes:mediaTotal,verifiedBytes:total+mediaTotal,reason:token(error?.message||error?.name||'FETCH_ERROR')});}
     finally {clearTimeout(timer);}
   }
   async function serverVersionCheck() {

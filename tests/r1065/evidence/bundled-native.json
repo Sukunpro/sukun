@@ -1,0 +1,29 @@
+{
+  "version": "r1065",
+  "scope": "Actual bundled recording admission/native source, controlled media events and FX seams; no physical phone/decoder audibility claim",
+  "passed": 5,
+  "total": 5,
+  "allPassed": true,
+  "tests": [
+    {
+      "name": "Bundled long source bypasses quality decode before native admission",
+      "ok": true
+    },
+    {
+      "name": "Own source keeps quality decode before native admission",
+      "ok": true
+    },
+    {
+      "name": "Bundled long native visible source skips FX despite echo/spatial/gap preferences",
+      "ok": true
+    },
+    {
+      "name": "Bundled long native hidden source skips FX despite echo/spatial/gap preferences",
+      "ok": true
+    },
+    {
+      "name": "Personal native source retains selected echo, spatial and gap processing",
+      "ok": true
+    }
+  ]
+}

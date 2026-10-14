@@ -23,6 +23,9 @@ EXCLUDED = {
     'tests/r1036/startup-intro-timbre.cjs': 'Superseded oscillator intro graph.',
     'tests/r1036/measure-waveform.cjs': 'Historical oscillator measurement, not a current WAV regression.',
     'tests/r1021/persistence-browser.cjs': 'Separate real-browser test; not a Node source fixture.',
+    'tests/r1065/full-app-bundled.cjs': 'Separate real complete-app browser test; executed directly with native MP3 playback and exact source hashes.',
+    'tests/r1065/offline-bundled.cjs': 'Separate real service-worker offline browser test; executed directly.',
+    'tests/r1065/offline-playback.cjs': 'Separate real service-worker offline playback test; executed directly with a new JS world.',
     'tests/r1027/recovery-browser.cjs': 'Separate real-browser test; not a Node source fixture.',
 }
 STATIC = 'tests/r1027/release-integrity.cjs'
