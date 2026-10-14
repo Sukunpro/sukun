@@ -85,7 +85,7 @@
       candidates.find(j => j.state.run || j.state.paused || j.state.systemHold);
     const preview = candidates.find(j => j.kind === selected && j.display);
     const direct = read(() => window.currentZikirState?.snapshot(), {});
-    const directPlaying = direct.auto || direct.session?.active;
+    const directPlaying = direct.auto || direct.paused || direct.session?.active;
     return { active, selected, view: active || (!directPlaying && preview) || null };
   }
 
@@ -112,11 +112,11 @@
     const failure = read(() => window.SukunRecordingFailure?.get());
     const matchingFailure = failure && failure.active !== false && (!failure.cat || failure.cat === mode) &&
       (failure.index == null || Number(failure.index) === index) ? failure : null;
-    const hasZikirOwner = !!(js || z.auto || z.session?.active || transportState.direct?.auto ||
+    const hasZikirOwner = !!(js || z.auto || z.paused || z.session?.active || transportState.direct?.auto || transportState.direct?.paused ||
       transportState.direct?.starting || transportState.pendingStart ||
       /^(auto-zikir|journey28|journey99|smart-session)$/.test(clean(arb.owner?.type || truth.owner?.type)) ||
       read(() => typeof MINI !== 'undefined' && MINI.wasAuto, false));
-    const paused = !!(js?.paused || js?.systemHold || z.session?.paused ||
+    const paused = !!(js?.paused || js?.systemHold || z.paused || z.session?.paused || transportState.direct?.paused ||
       hasZikirOwner && (registry.paused || transport.paused || truth.paused));
     const preparing = !!(pendingStart?.waitingStop && pendingStart.epoch === epoch || transportState.pendingStart || transportState.direct?.starting ||
       hasZikirOwner && (transport.preparing || truth.pendingPhysical));
@@ -247,11 +247,12 @@
     }
     if (action === 'pause') {
       if (before.phase === 'IDLE' || before.phase === 'COMPLETED') return true;
-      // A system hold is not a user's Pause: retain a new explicit intent even
-      // when the physical source was already stopped by the browser.
-      read(() => window.SukunJourneyAudioMachine?.intent?.('pause', 'ui:r919-command'));
-      if (active?.state.systemHold) active.api.pause?.();
-      return registry?.pauseAll ? registry.pauseAll('ui:r919-command') : active?.api.pause ? active.api.pause() : pc?.pause?.(before.provider || undefined);
+      // Wheel/easy/local controls hold only their dhikr owner. Ambient and
+      // frequency media keep their own scheduler and aggregate state.
+      if (direct?.pauseDhikr) return direct.pauseDhikr('r919-command');
+      read(() => window.SukunJourneyAudioMachine?.intent?.('pause', 'local:r919-command'));
+      if (active?.api.pause) return active.api.pause();
+      return window.SukunDirectZikirTransportR698?.pause?.() ?? false;
     }
     if (action === 'play' || action === 'start' || action === 'resume') {
       if (window.SukunVoiceSettings?.checkReady?.() === false) return false;
@@ -260,8 +261,11 @@
       if (choice && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return false;
       // This command is an explicit Start/Resume. Release its matching pause
       // intent before entering the provider; lifecycle recovery never uses it.
-      read(() => window.SukunJourneyAudioMachine?.intent?.('play', 'ui:r919-command'));
-      if (before.paused && read(() => registry?.aggregateSnapshot()?.paused, false) && registry?.resumeAll) return registry.resumeAll();
+      // A global Pause remains authoritative. Local Resume never replays its
+      // captured ambient/frequency providers or clears their global hold.
+      if (read(() => registry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent) return false;
+      if (direct?.resumeDhikr && !before.presentationOnly) return direct.resumeDhikr('r919-command');
+      read(() => window.SukunJourneyAudioMachine?.intent?.('play', 'local:r919-command'));
       if (choice) {
         if (!read(() => window.SukunSecretPolicy?.unlocked(), false)) return false;
         return choice.state.paused ? choice.api.resume({ system: false, reason: 'r919-command' }) : choice.api.play();
@@ -372,9 +376,12 @@
         // The native Stop owns its asynchronous cleanup. Starting a new journey
         // before this barrier settles lets old cleanup terminate the new voice.
         read(() => window.SukunDirectZikirTransportR698?.primeGesture?.());
+        if (!read(() => window.SukunAudioSessionRegistry?.aggregateSnapshot()?.paused, false) && !(window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent))
+          read(() => window.AudioLife?.markUserPlay?.('local:r919-pending-start'));
         const barrier = window.SukunR698Transport?.whenStopped?.();
+        const nativeEpoch = read(() => window.SukunR698Transport?.snapshot()?.intentEpoch, null);
         result = barrier ? Promise.resolve(barrier).then(ok => {
-          if (ok === false || token !== epoch || id !== requestId) return false;
+          if (ok === false || token !== epoch || id !== requestId || nativeEpoch !== read(() => window.SukunR698Transport?.snapshot()?.intentEpoch, null) || read(() => window.SukunAudioSessionRegistry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused || window.AudioLife?._terminalIntent) return false;
           return route(action, before);
         }) : false;
       } else result = action === 'select' ? select(options, token, id) : route(action, before);

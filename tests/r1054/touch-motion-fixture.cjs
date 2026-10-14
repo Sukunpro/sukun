@@ -16,7 +16,7 @@ function fixture(root,{enabled=true}={}){
  const reduced=Object.assign(hub(),{matches:false}),win=hub(),Z={cat:'esma',idx:0,count:42,total:142,target:100,auto:false};
  const states={'28':{i:1,rep:42,run:false,paused:false,systemHold:false},'99':{i:1,rep:42,run:false,paused:false,systemHold:false}};
  const media={currentTime:3.25,paused:true,play(){actions.push('media.play');this.paused=false},pause(){actions.push('media.pause');this.paused=true}};
- let directPaused=false;
+ let directPaused=false,aggregatePaused=false;
  function currentOwner(){return ['28','99'].find(kind=>states[kind].run||states[kind].paused||states[kind].systemHold)||'single'}
  function pause(){const kind=currentOwner();if(kind==='single'){Z.auto=false;directPaused=true}else{states[kind].run=false;states[kind].paused=true}media.pause();return true}
  function resume(){const kind=currentOwner();if(kind==='single'){Z.auto=true;directPaused=false}else{states[kind].run=true;states[kind].paused=false}media.play();return true}
@@ -32,8 +32,11 @@ function fixture(root,{enabled=true}={}){
   SukunJourneyController:{target:()=>selected,select(kind){selected=kind;return true}},
   SukunBerhetiyyeSeyir:journey('28'),SukunEsma99Seyir:journey('99'),
   SukunJourneyAudioMachine:{intent:(...args)=>actions.push('intent:'+args[0])},
-  SukunAudioSessionRegistry:{aggregateSnapshot:()=>({paused:directPaused||Object.values(states).some(s=>s.paused)}),pauseAll(){actions.push('registry.pauseAll');return pause()},resumeAll(){actions.push('registry.resumeAll');return resume()},reconcilePauseGate(){}},
-  SukunR698Transport:{snapshot:()=>({direct:{auto:Z.auto,starting:false}}),presentation:()=>({}),cancelPending(){},playPause(){actions.push('direct.play');Z.auto=true;directPaused=false;media.play();return true}},
+  SukunAudioSessionRegistry:{aggregateSnapshot:()=>({paused:aggregatePaused}),pauseAll(){actions.push('registry.pauseAll');aggregatePaused=true;return pause()},resumeAll(){actions.push('registry.resumeAll');aggregatePaused=false;return resume()},reconcilePauseGate(){}},
+  SukunR698Transport:{snapshot:()=>({direct:{auto:Z.auto,paused:directPaused,active:Z.auto||directPaused,starting:false}}),presentation:()=>({}),cancelPending(){},
+   pauseDhikr(){const kind=currentOwner();if(kind==='single'){actions.push('direct.pause');return pause()}return c[kind==='28'?'SukunBerhetiyyeSeyir':'SukunEsma99Seyir'].pause()},
+   resumeDhikr(){if(aggregatePaused)return false;const kind=currentOwner();if(kind!=='single')return c[kind==='28'?'SukunBerhetiyyeSeyir':'SukunEsma99Seyir'].resume();actions.push(directPaused?'direct.resume':'direct.play');return resume()},
+   playPause(){actions.push('direct.play');Z.auto=true;directPaused=false;media.play();return true}},
   setTimeout(fn,delay){const id=++seq;jobs.set(id,{fn,at:at+delay});return id},clearTimeout:id=>jobs.delete(id),
   rep(){throw Error('automatic pointer interaction attempted manual credit')}
  };
