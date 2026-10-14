@@ -238,7 +238,13 @@
     const j = journeys(), active = j.active, choice = active || j.view;
     const pc = window.PlaybackController, registry = window.SukunAudioSessionRegistry;
     const direct = window.SukunR698Transport;
-    if (action === 'stop') return direct?.stop ? direct.stop('r919-command') : pc?.stopAll?.();
+    if (action === 'stop') {
+      // Wheel and local Finish end only dhikr. Global dock Stop owns stopAll.
+      if (direct?.stopDhikr) return direct.stopDhikr('r919-command');
+      if (active?.api?.stop) return active.api.stop();
+      const local = window.SukunDirectZikirTransportR698;
+      return typeof local?.stop === 'function' ? local.stop() !== false : false;
+    }
     if (action === 'pause') {
       if (before.phase === 'IDLE' || before.phase === 'COMPLETED') return true;
       // A system hold is not a user's Pause: retain a new explicit intent even
