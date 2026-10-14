@@ -109,7 +109,7 @@ async function state(p = page) {
     recordingAPI: typeof REC_DB !== 'undefined', owner: window.SukunTabOwner?.snapshot?.() || null,
     salvage: window.SukunRecordingSalvage?.status?.() || null, recovery: window.SukunRecoveryData?.status?.() || null,
     update: window.SukunUpdateManager?.snapshot?.() || null,
-    hasFinish: typeof window.Tekke?.finish === 'function', controller: navigator.serviceWorker?.controller?.scriptURL || null
+    hasFinish: typeof window.SukunDirectZikirTransportR698?.stop === 'function', controller: navigator.serviceWorker?.controller?.scriptURL || null
   }));
 }
 async function ready(expectedBuild) {
@@ -173,8 +173,8 @@ async function finish() {
     // Exercise the shipped terminal action, without starting sound/microphone.
     const button = document.getElementById('r992Finish');
     if (button && !button.disabled) { button.click(); return '#r992Finish click'; }
-    if (typeof window.Tekke?.finish !== 'function') throw Error('Production Finish API unavailable');
-    window.Tekke.finish(); return 'Tekke.finish API';
+    if (typeof window.SukunDirectZikirTransportR698?.stop !== 'function') throw Error('Production Finish API unavailable');
+    window.SukunDirectZikirTransportR698.stop(); return 'SukunDirectZikirTransportR698.stop API';
   });
   await page.waitForTimeout(200);
   checked(stage + ': real Finish invoked', { finishPath, activeAudioScenario: false });

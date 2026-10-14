@@ -1,0 +1,19 @@
+'use strict';
+// Reference hashes were calculated directly from independently downloaded
+// Tanzil v1.1 rows and pinned Wikisource revision 150714, not app output.
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const root=path.resolve(process.argv[2]||path.join(__dirname,'../..')),gold=JSON.parse(fs.readFileSync(path.join(__dirname,'yasin-reference.json'),'utf8'));
+const context={};vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(root,'assets/runtime/yasin-data-r1064.js'),'utf8'),context,{filename:'shipped-yasin-data-r1064.js'});
+const data=context.SukunYasinDataR1064,rows=Array.from(data.verses),hash=s=>crypto.createHash('sha256').update(s).digest('hex'),tests=[];
+function test(name,work){try{work();tests.push({name,passed:true})}catch(e){tests.push({name,passed:false,error:e.stack||String(e)})}}
+test('Yasin is chapter 36 with exactly 83 distinct ordered verses',()=>{assert.equal(data.chapter,36);assert.equal(data.verseCount,83);assert.equal(rows.length,83);assert.deepEqual(rows.map(x=>x.number??x.n??x.verse),Array.from({length:83},(_,i)=>i+1))});
+test('All 83 Uthmani verses exactly match independent source hash',()=>assert.equal(hash(rows.map(x=>x.arabic).join('\n')),gold.arabicVerseJoinSha256));
+test('All 83 spoken Simple verses exactly match independent source hash',()=>assert.equal(hash(rows.map(x=>x.arabicTts).join('\n')),gold.arabicTtsVerseJoinSha256));
+test('All 83 Turkish meal lines exactly match pinned historical source hash',()=>assert.equal(hash(rows.map(x=>x.meaning).join('\n')),gold.meaningVerseJoinSha256));
+test('Opening basmala is separated losslessly from first verse',()=>{assert.equal(data.basmala,gold.basmala);assert.equal(data.basmalaTts,gold.basmalaTts);assert.equal(rows[0].arabic,gold.verse1);assert(!rows[0].arabic.includes(data.basmala));assert(!rows[0].arabicTts.includes(data.basmalaTts));assert(!rows[0].meaning.includes(data.basmalaMeaning))});
+test('Final verse and meal are present and exact',()=>{assert.equal(rows[82].arabic,gold.verse83);assert.equal(rows[0].meaning,gold.meaning1);assert.equal(rows[82].meaning,gold.meaning83)});
+test('Arabic speech data contains no verse numbers, interface labels or transliteration',()=>{for(const row of rows){assert(/\p{Script=Arabic}/u.test(row.arabicTts));assert(!/[0-9\u0660-\u0669A-Za-z]/u.test(row.arabicTts));assert(!/ayet|verse|Arabic|Arapça/i.test(row.arabicTts))}});
+test('Publisher versions and immutable meaning source are retained',()=>{assert.equal(data.arabicSource.sha256,gold.downloadSha256);assert.equal(data.arabicSource.version,'1.1');assert.equal(data.meaningSource.sha256,gold.meaningSourceSha256);assert.equal(data.meaningSource.revision,150714);assert.match(data.meaningSource.url,/oldid=150714/);assert.equal(data.meaningSource.scanCompared,false)});
+test('Redistribution notices and attribution are explicit',()=>{assert.match(data.license.arabicNotice,/Copyright.*Tanzil Project/);assert.match(data.license.arabicNotice,/CHANGING IT IS NOT ALLOWED/);assert.match(data.license.meaning,/CC BY-SA 4\.0/);assert.match(data.license.meaningAttribution,/Muhammed Hamdi Yazır/);assert.match(data.license.meaningLicenseUrl,/creativecommons\.org/)});
+test('Text catalogue is immutable to runtime selection changes',()=>{assert(Object.isFrozen(data));assert(Object.isFrozen(data.verses));assert(rows.every(Object.isFrozen));assert.throws(()=>{rows[0].arabic='changed'},TypeError)});
+console.log(JSON.stringify({suite:'r1064 independent Yasin source fidelity',root,total:tests.length,passed:tests.filter(x=>x.passed).length,method:'Shipped immutable data compared to independent full-chapter hashes; manuscript scan comparison is not claimed.',tests},null,2));if(tests.some(x=>!x.passed))process.exitCode=1;

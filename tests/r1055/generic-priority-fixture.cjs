@@ -43,7 +43,9 @@ module.exports=function environment(root){
  });
  Object.assign(c.document,{hidden:false,getElementById:()=>null,body:{classList:{contains:()=>false}}});
  const extract=(start,end)=>{const a=html.indexOf(start),b=html.indexOf(end,a);assert(a>=0&&b>a,'production boundary '+start);return html.slice(a,b)};
- vm.runInContext("const SPK={on:true,rate:.9,arRate:.85,arPitch:.9,arOn:false,voice:{name:'Synthetic Turkish',lang:'tr-TR'},arVoice:{name:'Synthetic Arabic',lang:'ar-SA'}};const ZIKIR={esma:{items:[]},berhet:{items:[]}};ZIKIR.esma.items[7]={tr:'Yâ Rahmân',ar:'يَا رَحْمَٰن'};ZIKIR.berhet.items[7]={tr:'Yâ Berhet',ar:'يَا بَرْهَت'};const zItem=()=>ZIKIR[Z.cat]?.items[Z.idx]||null;",c);
+ vm.runInContext("const SPK={on:true,rate:.9,arRate:.85,arPitch:.9,arOn:false,voice:{name:'Synthetic Turkish',lang:'tr-TR'},arVoice:{name:'Synthetic Arabic',lang:'ar-SA'}};const ZIKIR={esma:{items:[]},berhet:{items:[]}};ZIKIR.esma.items[7]={tr:'Yâ Rahmân',ar:'يَا رَحْمَٰن',status:'verified'};ZIKIR.berhet.items[7]={tr:'Yâ Berhet',ar:'يَا بَرْهَت',status:'verified'};const zItem=()=>ZIKIR[Z.cat]?.items[Z.idx]||null;",c);
+ vm.runInContext(extract('window.SukunReadingPolicy=(()=>{','/* r922: persisted reading preference;'),c);
+ vm.runInContext(extract('function ttsTemizle(t){','/* Bir bölümün tüm okunabilir parçalarını'),c);
  vm.runInContext(extract('window.SukunVoiceSettings=(()=>{',"  /* '', 'f' (kadın), 'm' (erkek) */"),c);
  vm.runInContext(extract('window.SukunVoiceAttempt=Object.freeze({','const SukunVoiceResolver=window.SukunVoiceResolver=(()=>{'),c);
  vm.runInContext(extract('function keyFor(cat,idx,item){','let R168_TTS_FINISH='),c);

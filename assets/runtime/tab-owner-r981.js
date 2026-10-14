@@ -16,7 +16,7 @@
   const errorName=e=>errorNames.has(e?.name)?e.name:'Error';
   const ownerError=(stage,e)=>Object.assign(new Error(errorName(e)),{name:errorName(e),ownerStage:stage});
   const timeoutError=stage=>ownerError(stage,{name:'TimeoutError'});
-  let held=false, method=navigator.locks?.request?'web-locks':'indexeddb', releaseLock=null, acquirePromise=null;
+  let held=false, method=navigator.locks?.request?'web-locks':'indexeddb', releaseLock=null, acquirePromise=null, webLeaseCompletion=null, closingPromise=null;
   let generation=0, epoch=0, claimGeneration=0, acquireGeneration=-1, retiring=false, revoking=false, terminal=false, drainTimer=0, binding={}, remote=null, reason='idle';
   let grantedBefore='',grantedAfter='';
   let dbPromise=null, dbConnection=null, dbAttempt=null, idbLease=false, maintenanceActive=false, channel=null, pendingAction=null, notice='', writesBlocked=0, wrappedSession=null;
@@ -27,7 +27,7 @@
   const key=()=>safe(()=>binding.identity?.(),'');
   function snapshot(){return Object.freeze({version:'r981',revision:'r1021',method,protection:method==='web-locks'?'web-lock-strict':'idb-confirmed-recovery',owned:owns(),maintenance:maintenanceActive,epoch,intent:generation,pending:!!acquirePromise,
     failureStage,errorName:lastErrorName,lockFallbackError,requestFailures,lastMaintenanceFailure:lastMaintenanceFailure?Object.freeze({...lastMaintenanceFailure}):null,
-    blocked:!held&&!!remote,reason,retiring,writesBlocked,recoveryRequired:!held&&!!remote&&(remote.method==='indexeddb'||method==='indexeddb')});}
+    blocked:!held&&!!remote,reason,retiring,releasing:revoking,writesBlocked,recoveryRequired:!held&&!!remote&&(remote.method==='indexeddb'||method==='indexeddb')});}
   function emit(){safe(()=>window.dispatchEvent(new CustomEvent('sukun:tabownerchange',{detail:snapshot()})));}
   function announce(type){
     // Only anonymous ownership metadata; never names, counts, text or recordings.
@@ -178,7 +178,11 @@
           if(token!==generation){if(idbLease){await idbClaim(id,true);idbLease=false;}done(false);return;}
           const holding=new Promise(release=>{releaseLock=release;});if(!grant(token,kind)){releaseLock=null;if(idbLease){await idbClaim(id,true);idbLease=false}done(false);return}done(true);return holding;
         });
-        Promise.resolve(request).catch(requestFailed);
+        const completion=Promise.resolve(request);
+        // The request settles after the browser releases the physical Web
+        // Lock. Resolving its callback's holding promise is not that boundary.
+        webLeaseCompletion=completion.then(()=>true,()=>false);
+        completion.catch(requestFailed);
       }catch(e){requestFailed(e);}
     }):fallbackClaim();
     acquirePromise=Promise.resolve(work).finally(()=>{acquirePromise=null;emit();});return acquirePromise;
@@ -189,7 +193,16 @@
     if(maintenanceActive)return warn('maintenance');
     if(revoking)return warn('preparing');
     retiring=false;terminal=false;clearTimeout(drainTimer);drainTimer=0;
-    if(held)return action();prime();const token=generation,selected=key();
+    if(held){
+      // Explicit one-shot callers also release a reused lease after their
+      // action drains. Default held calls retain the historical contract.
+      if(opt.releaseAfter!==true)return action();
+      const lease=epoch;
+      try{return await action();}finally{
+        if(held&&!maintenanceActive&&epoch===lease)retire(kind+'-settled');
+      }
+    }
+    prime();const token=generation,selected=key();
     if(!await acquire(kind)||token!==generation||selected!==grantedBefore||key()!==grantedAfter||opt.keepSelection&&selected!==key()||typeof opt.isCurrent==='function'&&!opt.isCurrent()){
       if(held&&claimGeneration===token)retire('cancelled-acquire');return false;
     }
@@ -211,13 +224,25 @@
   function canPersist(k){if(!protectedKeys.has(String(k)))return true;if(held&&!maintenanceActive)return true;writesBlocked++;return false;}
   function allowed(){if(owns())return true;warn(maintenanceActive?'maintenance':'blocked');return false;}
   async function release(why='released',opt={}){
+    if(closingPromise)return closingPromise;
     if(!held&&!revoking)return false;
     if(held&&!maintenanceActive&&!opt.skipFlush)safe(()=>binding.flush?.());if(held&&!maintenanceActive&&!opt.skipFlush)safe(()=>window.SukunProgressJournal?.commit?.('owner-release'));held=false;epoch++;revoking=true;retiring=false;terminal=false;clearTimeout(drainTimer);drainTimer=0;reason=why;generation++;
+    const closingEpoch=epoch,completion=webLeaseCompletion;
     announce('released');const unlock=releaseLock;releaseLock=null;
-    if(idbLease||method==='indexeddb')try{await idbClaim(id,true);}catch(_){}
-    idbLease=false;revoking=false;if(unlock)unlock();
-    emit();return true;
+    const work=(async()=>{
+      if(idbLease||method==='indexeddb')try{await idbClaim(id,true);}catch(_){}
+      idbLease=false;if(unlock)unlock();
+      // Keep the observable closing gate until the UA's original request
+      // promise confirms that the lock itself has been relinquished.
+      if(completion)await completion;
+      if(webLeaseCompletion===completion)webLeaseCompletion=null;
+      if(epoch===closingEpoch&&!held)revoking=false;
+      emit();return true;
+    })();
+    closingPromise=work;
+    try{return await work;}finally{if(closingPromise===work)closingPromise=null;}
   }
+
   function checkDrain(){
     drainTimer=0;if(!retiring||(!held&&!revoking))return;
     // User pause keeps the writer reservation. Terminal Stop is the only

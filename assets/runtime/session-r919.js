@@ -49,19 +49,23 @@
     const chain = lang => language(lang) === 'en' ? 'Your recording → enabled generic archive → device voice' : 'Kendi kaydın → etkin jenerik arşiv → cihaz sesi';
     function modeNote(mode = 'auto', lang) {
       const english = language(lang) === 'en';
+      const meaning = window.SukunVoiceSettings?.getContent?.() === 'meaning';
+      if (mode === 'personal') return english ? 'Only your recording for the selected content is used. Missing or unclassified audio is reported; another source is not substituted.' : 'Yalnız seçilen içeriğe ait kendi kaydın kullanılır. Eksik veya içeriği belirsiz ses belirtilir; başka kaynak kendiliğinden çalmaz.';
+      if (mode === 'generic') return english ? 'Only a matching enabled generic recording is used. Your recordings and device voices are not substituted.' : 'Yalnız eşleşen etkin jenerik kayıt kullanılır. Kendi kayıtların veya cihaz sesi kendiliğinden onun yerine çalmaz.';
       if (mode === 'arabic') return english ? 'Arabic text is read with your selected Arabic device voice.' : 'Arapça metin, seçtiğin Arapça cihaz sesiyle okunur.';
+      if (mode === 'turkish' && meaning) return english ? 'The Turkish meaning is read with your selected Turkish device voice.' : 'Türkçe anlam, seçtiğin Türkçe cihaz sesiyle okunur.';
       if (mode === 'turkish') return english ? 'The Turkish recitation is read with your selected Turkish device voice.' : 'Türkçe okunuş, seçtiğin Türkçe cihaz sesiyle okunur.';
       return english ? 'Your recording plays first. Otherwise an enabled generic recording is used, then a suitable device voice.' : 'Kendi kaydın varsa önce o çalar; yoksa etkin jenerik kayıt, o da yoksa uygun cihaz sesi kullanılır.';
     }
     function explanation(value = {}, lang) {
       const english = language(lang) === 'en', from = origin(value);
       if (value.phase === 'ERROR' || /ERROR|FAIL/.test(kinds(value.audioSource || value.kind))) return english ? 'Audio could not complete. Your count is kept; use the existing Retry control.' : 'Ses tamamlanamadı. Sayacın korunur; mevcut Yeniden dene düğmesini kullanabilirsin.';
-      if (from === 'personal') return english ? 'Your own recording has priority over the archive and device voice.' : 'Kendi kaydın, arşivden ve cihaz sesinden önce kullanılır.';
-      if (from === 'generic') return english ? 'No own recording was found for this name; the enabled archive recording is used.' : 'Bu isim için kendi kaydın bulunmadı; etkin arşivdeki kayıt kullanılıyor.';
+      if (from === 'personal') return window.SukunVoiceSettings?.getMode?.() === 'personal' ? modeNote('personal',lang) : english ? 'Your own recording has priority over the archive and device voice.' : 'Kendi kaydın, arşivden ve cihaz sesinden önce kullanılır.';
+      if (from === 'generic') return window.SukunVoiceSettings?.getMode?.() === 'generic' ? modeNote('generic',lang) : english ? 'No own recording was found for this name; the enabled archive recording is used.' : 'Bu isim için kendi kaydın bulunmadı; etkin arşivdeki kayıt kullanılıyor.';
       if (from === 'device') return modeNote(value.voiceMode || window.SukunVoiceSettings?.getMode?.() || 'auto', lang);
       return english ? 'The source is shown when a recitation is prepared; no audio is started by this indicator.' : 'Okuyuş hazırlandığında kaynak burada gösterilir; bu gösterge sesi başlatmaz.';
     }
-    return {version:'r1056',origin,label,chain,modeNote,explanation};
+    return {version:'r1056',revision:'r1064',origin,label,chain,modeNote,explanation};
   })());
   if (window.SukunSessionState?.version === 'r919') return;
   const read = (fn, fallback = null) => { try { return fn() ?? fallback; } catch (_) { return fallback; } };
