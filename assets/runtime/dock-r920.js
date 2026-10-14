@@ -87,10 +87,11 @@
   let name=$('r921DockName');
   if(!name){name=document.createElement('b');name.id='r921DockName';container.prepend(name);}
   const session=window.SukunSessionState?.snapshot?.();
-  const zikir=!!session&&(session.journey?.active||session.playing||session.paused||session.preparing||
+  const display=window.SukunActiveSource?.read?.();
+  const zikir=display?display.dhikr:!!session&&(session.journey?.active||session.playing||session.paused||session.preparing||
    /^(auto-zikir|journey28|journey99|smart-session)$/.test(session.owner||''));
-  const permitted=session?.activeMode!=='berhet'||!!window.SukunSecretPolicy?.unlocked?.();
-  const value=String(!permitted?'SÜKÛN':zikir&&session.activeName?session.activeName:$('r588Title')?.textContent||'SÜKÛN').trim();
+  const permitted=!zikir||session?.activeMode!=='berhet'||!!window.SukunSecretPolicy?.unlocked?.();
+  const value=String(!permitted?'SÜKÛN':zikir&&session.activeName?session.activeName:display?.current||display?.title||$('r588Title')?.textContent||'SÜKÛN').trim();
   text(name,value);if(name.title!==value)name.title=value;
   // One short source line reuses the accepted session, including a paused
   // generic native lease. Never derive it from archive availability alone.
@@ -118,14 +119,15 @@
    const ambience=button('r920DockAmbience','Ambiyans','Ambiyans ve kendi seslerini aç');ambience.setAttribute('aria-controls','tab-amb');
    prev.addEventListener('click',()=>navigate(-1));next.addEventListener('click',()=>navigate(1));ambience.addEventListener('click',openAmbience);tools.append(prev,next,ambience);
    const level=document.createElement('label');level.id='r920DockLevel';level.htmlFor='r920DockVolume';
-   const name=document.createElement('span');name.textContent='Zikir sesi';
+   const name=document.createElement('span');name.id='r1060DockVolumeLabel';name.textContent='Zikir sesi';
    const input=document.createElement('input');input.id='r920DockVolume';input.type='range';input.min='0';input.max='1';input.step='.01';input.setAttribute('aria-label','Zikir sesi seviyesi');
    const output=document.createElement('output');output.id='r920DockVolumeValue';output.htmlFor=input.id;
-   input.addEventListener('input',()=>{const source=$('zVolSld');if(!source)return;source.value=input.value;source.dispatchEvent(new Event('input',{bubbles:true}));text(output,Math.round(Number(source.value)*100)+'%');});
-   input.addEventListener('change',()=>{const source=$('zVolSld');if(source){source.value=input.value;source.dispatchEvent(new Event('change',{bubbles:true}));}});
+   input.addEventListener('input',()=>{const source=$(input.dataset.r1060VolumeSource||'zVolSld');if(!source)return;source.value=input.value;source.dispatchEvent(new Event('input',{bubbles:true}));text(output,Math.round(Number(source.value)*100)+'%');});
+   input.addEventListener('change',()=>{const source=$(input.dataset.r1060VolumeSource||'zVolSld');if(source){source.value=input.value;source.dispatchEvent(new Event('change',{bubbles:true}));}});
    level.append(name,input,output);
    body.append(tools,level);
    $('zVolSld')?.addEventListener('input',schedule,{passive:true});
+   $('masterVol')?.addEventListener('input',schedule,{passive:true});
    // Existing layout controller owns dimensions, drag, safe areas and scroll.
    window.SukunAdaptiveDockLayout?.rebind?.();
   }
@@ -134,14 +136,17 @@
  function sync(){
   const mode=window.SukunDockSize?.get?.()||'mini';
   miniPresentation(mode);
-  const source=$('zVolSld'),input=$('r920DockVolume');
+  const display=window.SukunActiveSource?.read?.(),sourceId=display&&display.volumeScope!=='zikir'?'masterVol':'zVolSld';
+  const source=$(sourceId),input=$('r920DockVolume');
+  if(input){input.dataset.r1060VolumeSource=sourceId;const zikir=sourceId==='zVolSld',en=window.I18N?.lang==='en';text($('r1060DockVolumeLabel'),zikir?(en?'Dhikr volume':'Zikir sesi'):(en?'Master volume':'Genel ses'));input.setAttribute('aria-label',zikir?(en?'Dhikr volume':'Zikir sesi seviyesi'):(en?'Master volume':'Genel ses seviyesi'));}
+  for(const id of ['r920DockPrev','r920DockNext']){const b=$(id);if(b){const show=display?display.navigation:true;b.hidden=!show;b.dataset.r1060Hide=String(!show);}}
   if(input){input.disabled=!source||source.disabled;if(source&&document.activeElement!==input&&input.value!==source.value)input.value=source.value;text($('r920DockVolumeValue'),source?Math.round(Number(source.value)*100)+'%':'—');}
   const expand=$('r920DockExpand');if(expand)expand.setAttribute('aria-expanded',String(mode!=='mini'));
   // Mode/class and ResizeObserver already invalidate the single layout owner.
   // Text/count/volume presentation must not force full geometry every voice tick.
  }
  function schedule(){if(raf||document.hidden)return;raf=requestAnimationFrame(()=>{raf=0;if(!mounted)mount();else sync();});}
- ['sukun:r698modechange','sukun:r616viewchange','sukun:tabchange','sukun:sessionchange','sukun:currentflowchange','sukun:secretaccesschange','sukun:languagechange','pageshow'].forEach(event=>window.addEventListener(event,schedule,{passive:true}));
+ ['sukun:r698modechange','sukun:r616viewchange','sukun:tabchange','sukun:sessionchange','sukun:currentflowchange','sukun:secretaccesschange','sukun:languagechange','sukun:backgroundmix','pageshow'].forEach(event=>window.addEventListener(event,schedule,{passive:true}));
  document.addEventListener('visibilitychange',schedule,{passive:true});
  document.addEventListener('click',event=>{if(event.target.closest?.('#mixer [data-ambacctgl],#uiBtn'))requestAnimationFrame(accessibility);},{passive:true});
  function boot(n=0){if(mount())return;if(n<40)setTimeout(()=>boot(n+1),100);}
