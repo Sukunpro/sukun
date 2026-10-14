@@ -1,0 +1,47 @@
+{
+  "suite": "r1066 actual navigation controller with controlled policy/gate endpoints",
+  "passed": 10,
+  "total": 10,
+  "tests": [
+    {
+      "name": "Explicit reveal waits for a paint and uses existing policy with preventive focus",
+      "passed": true
+    },
+    {
+      "name": "A later touch cancels delayed reveal and focus",
+      "passed": true
+    },
+    {
+      "name": "A quiet scroll gate defers the request without changing its target",
+      "passed": true
+    },
+    {
+      "name": "New input during quiet wait cancels the reveal even after release",
+      "passed": true
+    },
+    {
+      "name": "The newest explicit destination retires the previous queued reveal",
+      "passed": true
+    },
+    {
+      "name": "Closing/hiding or detaching the target before paint cannot scroll or focus it",
+      "passed": true
+    },
+    {
+      "name": "Native tab click reveals selected content, while internal tab changes remain position-neutral",
+      "passed": true
+    },
+    {
+      "name": "Arrow-key tab selection gets explicit reveal without synthesizing clicks",
+      "passed": true
+    },
+    {
+      "name": "Tefekkür keeps its own scrollport and suppresses header tab auto-reveal",
+      "passed": true
+    },
+    {
+      "name": "Default-prevented tab actions never queue another navigation",
+      "passed": true
+    }
+  ]
+}

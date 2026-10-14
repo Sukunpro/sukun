@@ -26,7 +26,7 @@ function showExtras(open){
  attr($('r920More'),'aria-expanded',open);
  text($('r920More'),open?'Ek araçları kapat':'Zikir ayarları, kayıtlar ve diğer araçlar');
 }
-function openSection(id){
+function openSection(id,options={}){
  const target=$(id),tab=$('tab-zkr');
  if(!sectionIds.has(id)||!target||!tab||!root||root.hidden||tab.hidden||document.body.classList.contains('sukun-tefekkur-mode'))return false;
  window.SukunSeyirYerlesim?.repair?.();
@@ -36,10 +36,15 @@ function openSection(id){
  showExtras(true);wake();
  for(const node of chain.reverse())if(node.tagName==='DETAILS')node.open=true;
  const nav=$('r986Sections');if(nav)for(const button of nav.querySelectorAll('button')){const current=button.getAttribute('aria-controls')===id;button.classList.toggle('active',current);attr(button,'aria-expanded',$(button.getAttribute('aria-controls'))?.open===true)}
+ // A nested destination expands this group without a competing parent reveal.
+ if(options.reveal===false)return true;
+ const navigation=window.SukunViewportPolicy?.captureNavigation?.();
  requestAnimationFrame(()=>{
   if(!target.isConnected||tab.hidden||root.hidden||!document.body.classList.contains('r920-details-open')||document.body.classList.contains('sukun-tefekkur-mode'))return;
-  target.scrollIntoView({behavior:'auto',block:'start'});
-  target.querySelector(':scope > summary')?.focus?.({preventScroll:true});
+  if(navigation&&window.SukunViewportPolicy?.navigationCurrent?.(navigation,{includeScroll:false})===false)return;
+  const summary=target.querySelector(':scope > summary');
+  if(window.SukunNavigationR1066)window.SukunNavigationR1066.reveal(target,{reason:'practice-section',focus:summary,isCurrent:()=>!tab.hidden&&!root.hidden&&target.open});
+  else{target.scrollIntoView({behavior:'auto',block:'start'});summary?.focus?.({preventScroll:true});}
  });
  return true;
 }

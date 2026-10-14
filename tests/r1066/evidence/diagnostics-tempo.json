@@ -1,0 +1,89 @@
+{
+  "suite": "r1066 diagnostics scroll lock and abandoned tempo contact",
+  "passed": 20,
+  "total": 20,
+  "failures": [],
+  "results": [
+    {
+      "name": "Diagnostics repeated acquire restores exact axes and priorities: {}",
+      "passed": true
+    },
+    {
+      "name": "Diagnostics repeated acquire restores exact axes and priorities: {\"overflow-x\":[\"auto\",\"important\"],\"overflow-y\":[\"clip\",\"\"]}",
+      "passed": true
+    },
+    {
+      "name": "Diagnostics repeated acquire restores exact axes and priorities: {\"overflow-x\":[\"hidden\",\"important\"],\"overflow-y\":[\"scroll\",\"important\"]}",
+      "passed": true
+    },
+    {
+      "name": "Duplicate diagnostics close cannot alter a later dialog lock",
+      "passed": true
+    },
+    {
+      "name": "Foreign declaration changed during diagnostics keeps its value and priority",
+      "passed": true
+    },
+    {
+      "name": "Foreign same-value important shorthand is retained while diagnostics owns its lock",
+      "passed": true
+    },
+    {
+      "name": "Mismatched pointer release/capture loss leaves the active tempo contact until its own cleanup",
+      "passed": true
+    },
+    {
+      "name": "Pending tempo candidate cannot survive blur",
+      "passed": true
+    },
+    {
+      "name": "Pending tempo candidate cannot survive lostpointercapture",
+      "passed": true
+    },
+    {
+      "name": "Pending tempo candidate cannot survive pointercancel",
+      "passed": true
+    },
+    {
+      "name": "Pending tempo candidate cannot survive pagehide",
+      "passed": true
+    },
+    {
+      "name": "Pending tempo candidate cannot survive scroll",
+      "passed": true
+    },
+    {
+      "name": "Accepted horizontal tempo remains after blur with no second model/audio write",
+      "passed": true
+    },
+    {
+      "name": "Accepted horizontal tempo remains after lostpointercapture with no second model/audio write",
+      "passed": true
+    },
+    {
+      "name": "Accepted horizontal tempo remains after pointercancel with no second model/audio write",
+      "passed": true
+    },
+    {
+      "name": "Accepted horizontal tempo remains after scroll with no second model/audio write",
+      "passed": true
+    },
+    {
+      "name": "Pending diagonal out-and-return gesture does not commit touchdown candidate",
+      "passed": true
+    },
+    {
+      "name": "Keyboard edits clear abandoned touch and its late-input fence",
+      "passed": true
+    },
+    {
+      "name": "Intentional external input during pending touch keeps its actual new value",
+      "passed": true
+    },
+    {
+      "name": "Fresh tempo touch after a cancelled pan commits a genuine tap",
+      "passed": true
+    }
+  ],
+  "scope": "Production helpers/tempo handler with controlled CSSOM/input/model interfaces; cancellation must not call persistence or audio restart."
+}
