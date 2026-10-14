@@ -39,7 +39,11 @@ const tests=[];async function test(name,fn){try{await fn();tests.push({name,pass
   const html=fs.readFileSync(path.join(ROOT,'index.html'),'utf8'),expected={"constructor": "ad1cd4434ed2ba51d5a72968b1b9a1edee9499993228151d72571b1a8c20dc79", "lock": "01b7bdc21aacb5654570253aaad1e779467fbaa2df3b9028e42153702d15c6ce", "intro": "9ac1908a92e311e53c08e9d8ef825de98c81a05d09b9ceb26d48731807f72a63", "wav": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457"};
   const lock=html.slice(html.indexOf('function r1038IsSilentCarrier(element){'),html.indexOf('function inspectSilentCarriers(element){'));
   const constructor=html.slice(html.indexOf('  function el(){',html.indexOf('const SesCapa=window.SesCapa=')),html.indexOf('  function durum(v){',html.indexOf('const SesCapa=window.SesCapa=')));assert.equal(hash(constructor),expected.constructor);
-  assert.equal(hash(lock),expected.lock);assert.equal(html,fs.readFileSync(path.join(ROOT,'nero.html'),'utf8'));
+  // r1059 delegates only its exact private zero prime to the new controller.
+  // Pin every existing classifier byte after removing that one reviewed line.
+  const backgroundPrime="    if(window.SukunBackgroundMix?.isSilentCarrier?.(element)===true)return true;\n";
+  assert.equal(lock.split(backgroundPrime).length-1,1);
+  assert.equal(hash(lock.replace(backgroundPrime,'')),expected.lock);assert.equal(html,fs.readFileSync(path.join(ROOT,'nero.html'),'utf8'));
   const intro=fs.readFileSync(path.join(ROOT,'assets/runtime/startup-intro-r1027.js'),'utf8').replace(/\?v=r\d+/g,'?v=RELEASE');assert.equal(hash(intro),expected.intro);
   // r1052 intentionally adds native clock/pause metadata to Health. Its
   // passive collection and privacy contract is exercised by r1052 tests;

@@ -646,7 +646,7 @@
       let marker;try {marker=JSON.parse(new TextDecoder().decode(bytes));} catch(_) {
         return status('RUNTIME_INTEGRITY','FAIL','Sürüm dosya listesi geçersiz',{reason:'MARKER_INVALID_JSON',checkedAt:now(),scope:'served-through-current-service-worker',configurationErrors:1},'İndirilen sürüm listesi okunamadı. Tam sürüm paketini birlikte yükleyin.');
       }
-      if (marker.build!==build||!Array.isArray(marker.runtime)||marker.runtime.length>64)
+      if (marker.build!==build||!Array.isArray(marker.runtime)||marker.runtime.length>96)
         return status('RUNTIME_INTEGRITY','FAIL','Sürüm dosya listesi geçersiz',{reason:'MARKER_INVALID',checkedAt:now(),scope:'served-through-current-service-worker',configurationErrors:1},'İndirilen dosya listesi bu sürümün yapısına uymuyor. Raporu saklayın.');
       expected=marker.runtime.length;
       if (!crypto?.subtle) return integrityResult([],expected,0,{reason:'CRYPTO_UNAVAILABLE'});
