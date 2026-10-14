@@ -23,6 +23,7 @@
   meaningRecord:['Bu bölümdeki mevcut kişisel Delâil kayıtları Türkçe anlam kaydıdır; Arapça özgün seçiminde kullanılmaz.','Existing personal Delail recordings in this section contain the Turkish meaning; they are not used for the Arabic original.'],
   unknownRecord:['Dili veya içeriği belirlenmemiş eski kayıt yeniden sınıflandırılmaz; yalnız kaynak ve içerikle eşleşen kayıt kullanılır.','An old recording with unknown language or content is not reclassified; only a recording matching the source and content is used.'],
   yasinTitle:['Yâsîn sûresi · 83 âyet','Surah Ya Sin · 83 verses'],verse:['Başlangıç âyeti','Starting verse'],allMeaning:['Türkçe meali göster','Show Turkish translation'],
+  currentVerse:['Âyet','Verse'],goCurrentVerse:['Okunan âyete git','Go to the current verse'],trackingReady:['Dinlenen âyet burada işaretlenir.','The verse being played is highlighted here.'],trackingUnavailable:['Dinlenen bölüm için âyet eşleşmesi yok.','No verse match is available for the part being played.'],trackingBasmala:['Besmele okunuyor','Reading the basmala'],
   previous:['Önceki âyet','Previous verse'],next:['Sonraki âyet','Next verse'],repeat:['Bu âyeti tekrar dinle','Repeat this verse'],yasinOpen:['Yâsîn metnini aç','Open the Ya Sin text'],
   complete:['83 âyet metni tamdır. Gömülü ses tam sûre kaydıdır; âyet seçimi ve âyet tekrarı için isteğe bağlı Arapça cihaz sesi kullanılır.','The text contains all 83 verses. Bundled audio is a complete surah recording; verse selection and verse repetition use the optional Arabic device voice.'],
   unavailable:['Okuyucu hazırlanamadı. Yeniden dene.','The reader could not be prepared. Please retry.'],ready:['Hazır','Ready'],preparing:['Ses hazırlanıyor','Preparing audio'],playing:['Okunuyor','Playing'],paused:['Duraklatıldı','Paused'],finished:['Okuma bitti','Reading finished'],
@@ -90,6 +91,29 @@
   const error=notice||(phase==='error'?state.reason:'');let status=error?message(error):paused?label('paused'):phase==='preparing'?label('preparing'):playing?label('playing'):['finished','completed','ended'].includes(phase)?label('finished'):label('ready');if((playing||paused)&&state.title)status+=' · '+state.title;if(state.sourceKind==='bundled')status+=' · '+copy('Gömülü Arapça kıraat','Bundled Arabic recitation');
   text($('r1064ReadingStatus'),status);text($('r1064YasinStatus'),status);
   if(state.id==='reading:yasin'&&Number.isInteger(state.verse)&&state.verse>=1&&state.verse<=83)val($('r1064YasinVerse'),state.verse);
+  renderYasinFollow(state);
+ }
+ function yasinFollow(state){
+  const phase=String(state.phase||state.status||'').toLowerCase(),active=state.id==='reading:yasin'&&['playing','paused'].includes(phase);
+  const synced=active&&((state.sourceKind==='tts'&&state.verseSync==='tts')||(state.sourceKind==='bundled'&&state.verseSync==='timestamp'));
+  const verse=synced&&Number.isInteger(state.verse)&&state.verse>=1&&state.verse<=83?state.verse:0;
+  return{phase,active,synced,verse,basmala:synced&&state.sourceKind==='tts'&&state.verse===0};
+ }
+ function renderYasinFollow(state=safe(()=>audio()?.snapshot?.(),{})||{}){
+  if(!yasin?.isConnected)return;const follow=yasinFollow(state),row=follow.verse?$('r1064YasinVerse'+follow.verse):null,basmala=follow.basmala?$('r1064YasinBasmala'):null,target=row||basmala;
+  // Paint only. Audio progress never opens a disclosure, moves focus or scrolls.
+  for(const node of yasin.querySelectorAll('.r1067-current-verse'))if(node!==target){node.classList.remove('r1067-current-verse','r1067-current-paused');node.removeAttribute('aria-current');}
+  if(target){target.classList.add('r1067-current-verse');target.classList.toggle('r1067-current-paused',follow.phase==='paused');attr(target,'aria-current','step');}
+  let status=row?label('currentVerse')+' '+follow.verse+' / 83':basmala?label('trackingBasmala'):follow.active&&!follow.synced?label(state.sourceKind==='tts'?'preparing':'trackingUnavailable'):label('trackingReady');
+  if(target&&follow.phase==='paused')status+=' · '+label('paused');text($('r1067YasinTrackingStatus'),status);
+  if($('r1067YasinCurrentVerse'))$('r1067YasinCurrentVerse').disabled=!row;
+ }
+ function goCurrentVerse(){
+  const follow=yasinFollow(safe(()=>audio()?.snapshot?.(),{})||{}),node=follow.verse?$('r1064YasinVerse'+follow.verse):null;
+  if(!node||!yasin?.open)return false;
+  const options={reason:'yasin-currentverse',block:'nearest',isCurrent:()=>yasin?.open&&yasinFollow(safe(()=>audio()?.snapshot?.(),{})||{}).verse===follow.verse};
+  if(w.SukunNavigationR1066)return w.SukunNavigationR1066.reveal(node,options);
+  return safe(()=>{if(w.SukunViewportPolicy?.scrollTo)return w.SukunViewportPolicy.scrollTo(node,{behavior:'instant',block:'nearest'},options.reason);node.scrollIntoView?.({behavior:'instant',block:'nearest'});return true},false);
  }
  async function play(id,content,options={}){
   const request=++requestSequence;notice='';renderTransport();
@@ -115,7 +139,7 @@
  function yasinData(){const record=yasinRecord(),data=w.SukunYasinDataR1064||w.SUKUN_YASIN_R1064||w.SUKUN_YASIN_DATA_R1064;return {record,verses:record?.verses||data?.verses||[],basmala:record?.basmala||data?.basmala||''}}
  function mountYasin(body){
   if(yasin?.isConnected)return;yasin=$('r1064YasinBox');if(yasin)return;
-  yasin=document.createElement('details');yasin.id='r1064YasinBox';yasin.className='jEd r1064-reading';yasin.setAttribute('data-noi18n','');yasin.innerHTML='<summary data-r1064-label="yasinTitle"></summary><div class="r1064-content"><p class="r1064-note" data-r1064-label="complete"></p><button id="r1064YasinChoices" type="button" data-r1064-label="listeningChoices"></button><p id="r1064YasinSourceSummary" class="r1064-note"></p><label class="r1064-field"><span data-r1064-label="verse"></span><select id="r1064YasinVerse"></select></label><div class="r1064-actions"><button id="r1064YasinArabicListen" type="button" data-r1064-label="arabicListen"></button><button id="r1064YasinMeaningListen" type="button" data-r1064-label="meaningListen"></button></div>'+buttons('r1064Yasin')+'<div class="r1064-actions"><button id="r1064YasinPrevious" type="button" data-r1064-label="previous"></button><button id="r1064YasinRepeat" type="button" data-r1064-label="repeat"></button><button id="r1064YasinNext" type="button" data-r1064-label="next"></button></div><p id="r1064YasinStatus" role="status" aria-live="polite" aria-atomic="true"></p><label class="r1064-check"><input id="r1064YasinShowMeaning" type="checkbox"><span data-r1064-label="allMeaning"></span></label><div id="r1064YasinBasmala" class="r1064-arabic" lang="ar" dir="rtl"></div><div id="r1064YasinVerses"></div><button id="r1064YasinSourceOpen" type="button" data-r1064-label="sources"></button></div>';host.after(yasin);verseSignature='';
+  yasin=document.createElement('details');yasin.id='r1064YasinBox';yasin.className='jEd r1064-reading';yasin.setAttribute('data-noi18n','');yasin.innerHTML='<summary data-r1064-label="yasinTitle"></summary><div class="r1064-content"><p class="r1064-note" data-r1064-label="complete"></p><button id="r1064YasinChoices" type="button" data-r1064-label="listeningChoices"></button><p id="r1064YasinSourceSummary" class="r1064-note"></p><label class="r1064-field"><span data-r1064-label="verse"></span><select id="r1064YasinVerse"></select></label><div class="r1064-actions"><button id="r1064YasinArabicListen" type="button" data-r1064-label="arabicListen"></button><button id="r1064YasinMeaningListen" type="button" data-r1064-label="meaningListen"></button></div>'+buttons('r1064Yasin')+'<div class="r1064-actions"><button id="r1064YasinPrevious" type="button" data-r1064-label="previous"></button><button id="r1064YasinRepeat" type="button" data-r1064-label="repeat"></button><button id="r1064YasinNext" type="button" data-r1064-label="next"></button></div><p id="r1064YasinStatus" role="status" aria-live="polite" aria-atomic="true"></p><p id="r1067YasinTrackingStatus" role="status" aria-live="polite" aria-atomic="true"></p><div class="r1064-actions"><button id="r1067YasinCurrentVerse" type="button" data-r1064-label="goCurrentVerse" disabled></button></div><label class="r1064-check"><input id="r1064YasinShowMeaning" type="checkbox" checked><span data-r1064-label="allMeaning"></span></label><div id="r1064YasinBasmala" class="r1064-arabic" lang="ar" dir="rtl"></div><div id="r1064YasinVerses"></div><button id="r1064YasinSourceOpen" type="button" data-r1064-label="sources"></button></div>';host.after(yasin);verseSignature='';
   const select=$('r1064YasinVerse');for(let i=1;i<=83;i++){const option=document.createElement('option');option.value=String(i);option.textContent=String(i);select.append(option)}
   $('r1064YasinArabicListen').onclick=()=>void play('reading:yasin','arabic',{startVerse:settings()?.getMode?.()==='auto'?1:Number(select.value)||1});$('r1064YasinMeaningListen').onclick=()=>void play('reading:yasin','meaning',{startVerse:Number(select.value)||1});
   for(const [suffix,action] of [['Pause','pause'],['Resume','resume'],['Stop','stop']])$('r1064Yasin'+suffix).onclick=()=>transport(action);
@@ -123,6 +147,7 @@
   $('r1064YasinPrevious').onclick=()=>move(-1);$('r1064YasinNext').onclick=()=>move(1);
   $('r1064YasinRepeat').onclick=()=>{const state=safe(()=>audio()?.snapshot?.(),{})||{};if(state.id==='reading:yasin'&&(state.playing||state.paused||['playing','paused','preparing'].includes(String(state.phase||state.status).toLowerCase())))transport('repeat');else void play('reading:yasin',settings()?.getContent?.()==='meaning'?'meaning':'arabic',{startVerse:Number(select.value)||1,onlyVerse:true})};
   select.onchange=()=>scrollVerse(Number(select.value));$('r1064YasinShowMeaning').onchange=renderYasin;
+  $('r1067YasinCurrentVerse').onclick=goCurrentVerse;
   $('r1064YasinSourceOpen').onclick=()=>{open('reading:yasin');$('r1064ReadingSources').open=true;};$('r1064YasinChoices').onclick=()=>open('reading:yasin');
  }
  function scrollVerse(number){const node=$('r1064YasinVerse'+number);node?.scrollIntoView?.({behavior:'auto',block:'nearest'})}
@@ -136,6 +161,7 @@
   const hasMean=valid&&verses.every(verse=>String(verse.meaning||verse.translation||verse.tr||'').trim());
   const bundledMode=mode==='auto'&&settings()?.getContent?.()!=='meaning';const bundledActive=audio()?.snapshot?.().id==='reading:yasin'&&audio()?.snapshot?.().sourceKind==='bundled'&&['playing','paused','preparing'].includes(audio()?.snapshot?.().phase);$('r1064YasinVerse').disabled=bundledMode;for(const id of ['r1064YasinPrevious','r1064YasinNext','r1064YasinRepeat'])if($(id))$(id).disabled=bundledActive||(id==='r1064YasinRepeat'&&bundledMode);
   $('r1064YasinArabicListen').disabled=!valid||!canArabic(record);$('r1064YasinMeaningListen').disabled=!hasMean||!canMeaning(record);$('r1064YasinShowMeaning').disabled=!hasMean;
+  renderYasinFollow();
  }
  function open(id){if(/^zikir:berhet:/.test(id)&&!w.SukunSecretPolicy?.unlocked?.())return false;if(!mount())return false;if(item(id)){selected=item(id).id||id;render()}host.open=true;safe(()=>w.zMegaReveal?.(host,{reveal:false}));const summary=host.querySelector('summary');if(w.SukunNavigationR1066)w.SukunNavigationR1066.reveal(host,{reason:'reading-explorer',focus:summary,isCurrent:()=>host.open});else{summary?.focus?.({preventScroll:true});host.scrollIntoView?.({behavior:'auto',block:'start'});}return true;}
  function mountShortcuts(){

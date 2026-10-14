@@ -1,0 +1,2325 @@
+{
+  "suite": "r1067 complete-app Ya-Sin verse and meaning frame",
+  "root": "/workspace/scratch/f778a2db1d4a/sukun",
+  "build": "r1067",
+  "stage": "complete",
+  "startedAt": "2026-10-14T22:26:09.319Z",
+  "checks": [
+    {
+      "profile": "320x640 / TTS",
+      "name": "Exact Classic/Feyz app starts with all 83 Arabic/meaning rows and a checked meaning preference",
+      "passed": true,
+      "evidence": {
+        "width": 320,
+        "height": 640
+      }
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "arabic: separate basmala does not mark verse 1; actual utterance start marks exactly the Arabic/meaning row",
+      "passed": true,
+      "evidence": {
+        "frame": {
+          "id": "r1064YasinVerse1",
+          "verse": 1,
+          "paused": false,
+          "outline": "rgb(97, 223, 206)",
+          "width": 206,
+          "height": 127.25,
+          "top": 1349.421875,
+          "bottom": 1476.671875,
+          "current": "step"
+        },
+        "languages": [
+          "ar-SA",
+          "ar-SA"
+        ],
+        "screenshot": "/workspace/scratch/f778a2db1d4a/sukun/qa-r1067/yasin-320-arabic-playing.png",
+        "glyphs": {
+          "client": 182,
+          "scroll": 182,
+          "row": [
+            57,
+            263
+          ],
+          "content": [
+            69,
+            251
+          ],
+          "text": [
+            220,
+            251
+          ]
+        }
+      }
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "arabic: Pause retains the same gold frame and Resume returns to turquoise without geometry changes",
+      "passed": true,
+      "evidence": {
+        "playing": "rgb(97, 223, 206)",
+        "paused": "rgb(230, 209, 138)",
+        "resumed": "rgb(97, 223, 206)"
+      }
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "arabic: the longest original verse retains its frame until completion and then clears it",
+      "passed": true,
+      "evidence": {
+        "verse": 1,
+        "chunks": 1
+      }
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "meaning: separate basmala does not mark verse 1; actual utterance start marks exactly the Arabic/meaning row",
+      "passed": true,
+      "evidence": {
+        "frame": {
+          "id": "r1064YasinVerse1",
+          "verse": 1,
+          "paused": false,
+          "outline": "rgb(97, 223, 206)",
+          "width": 206,
+          "height": 127.25,
+          "top": 731.421875,
+          "bottom": 858.671875,
+          "current": "step"
+        },
+        "languages": [
+          "tr-TR",
+          "tr-TR"
+        ],
+        "screenshot": "/workspace/scratch/f778a2db1d4a/sukun/qa-r1067/yasin-320-meaning-playing.png",
+        "glyphs": {
+          "client": 182,
+          "scroll": 182,
+          "row": [
+            57,
+            263
+          ],
+          "content": [
+            69,
+            251
+          ],
+          "text": [
+            220,
+            251
+          ]
+        }
+      }
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "meaning: Pause retains the same gold frame and Resume returns to turquoise without geometry changes",
+      "passed": true,
+      "evidence": {
+        "playing": "rgb(97, 223, 206)",
+        "paused": "rgb(230, 209, 138)",
+        "resumed": "rgb(97, 223, 206)"
+      }
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "meaning: split long verse retains one frame across every chunk and completion clears it",
+      "passed": true,
+      "evidence": {
+        "verse": 47,
+        "chunks": 2
+      }
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "Next/Previous/Repeat keep exact verse identity; stale callbacks and a non-Yasin start cannot keep an old frame",
+      "passed": true,
+      "evidence": {
+        "staleTarget": 43,
+        "repeatTarget": 42
+      }
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "User hides meaning once; progress, Pause/Resume and UI reconciliation preserve that preference without recording writes",
+      "passed": true,
+      "evidence": {
+        "records": {
+          "keys": [
+            "qa:yasin-follow"
+          ],
+          "records": {
+            "qa:yasin-follow": {
+              "bytes": 6444,
+              "revision": 1,
+              "sha256": "7af11b40099688c97b4d2326b05e77fcb7b41d702d54c13bfed6e320eeffca49"
+            }
+          },
+          "writes": []
+        }
+      }
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "Trusted native pan while an utterance advances changes no viewport/focus/disclosure state beyond the pan",
+      "passed": true,
+      "evidence": {
+        "held": {
+          "scrollY": 16617,
+          "tabScroll": 0,
+          "focus": "r1064YasinShowMeaning",
+          "yasinOpen": true,
+          "explorerOpen": true
+        },
+        "advanced": {
+          "scrollY": 16617,
+          "tabScroll": 0,
+          "focus": "r1064YasinShowMeaning",
+          "yasinOpen": true,
+          "explorerOpen": true
+        },
+        "settled": {
+          "scrollY": 16679,
+          "tabScroll": 0,
+          "focus": "r1064YasinShowMeaning",
+          "yasinOpen": true,
+          "explorerOpen": true
+        },
+        "next": {
+          "scrollY": 16679,
+          "tabScroll": 0,
+          "focus": "r1064YasinShowMeaning",
+          "yasinOpen": true,
+          "explorerOpen": true
+        }
+      }
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "A closed Yasin disclosure stays closed while the current verse progresses",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "scrollY": 15254,
+          "tabScroll": 0,
+          "focus": "SUMMARY",
+          "yasinOpen": false,
+          "explorerOpen": true
+        },
+        "after": {
+          "scrollY": 15254,
+          "tabScroll": 0,
+          "focus": "SUMMARY",
+          "yasinOpen": false,
+          "explorerOpen": true
+        }
+      }
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "The trusted current-verse button reveals its row through the shipped navigation policy",
+      "passed": true,
+      "evidence": {
+        "navigation": {
+          "version": "r1066",
+          "sequence": 3,
+          "pending": false,
+          "last": {
+            "reason": "yasin-currentverse",
+            "result": "revealed",
+            "ok": true,
+            "target": "r1064YasinVerse52",
+            "at": 1792016843093
+          }
+        },
+        "row": {
+          "x": 57,
+          "y": 167.140625,
+          "width": 206,
+          "height": 248.21875
+        }
+      }
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "A later native contact cancels a current-verse button request pending behind the interaction gate",
+      "passed": true,
+      "evidence": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "queued": {
+              "at": 1792016844499,
+              "ticket": {
+                "sequence": 73,
+                "interactionSequence": 40
+              },
+              "navigation": {
+                "version": "r1066",
+                "sequence": 4,
+                "pending": true,
+                "last": {
+                  "reason": "yasin-currentverse",
+                  "result": "revealed",
+                  "ok": true,
+                  "target": "r1064YasinVerse52",
+                  "at": 1792016843093
+                }
+              },
+              "gate": {
+                "version": "r732",
+                "touches": 0,
+                "pointers": 0,
+                "active": false,
+                "quietMs": 155,
+                "pending": false,
+                "deferrals": 0,
+                "events": 52,
+                "sequence": 4,
+                "lastReason": "touchend"
+              }
+            },
+            "trace": [
+              {
+                "at": 1792016844577,
+                "pending": true,
+                "ticket": {
+                  "sequence": 75,
+                  "interactionSequence": 42
+                }
+              }
+            ],
+            "navigation": {
+              "version": "r1066",
+              "sequence": 4,
+              "pending": false,
+              "last": {
+                "reason": "yasin-currentverse",
+                "result": "superseded-or-user-input",
+                "ok": false,
+                "target": "r1064YasinVerse52",
+                "at": 1792016845444
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "English tracking labels and 320/390px frame/meaning controls fit without modifying source text",
+      "passed": true,
+      "evidence": {
+        "width": 320,
+        "overflow": [],
+        "glyphLeaks": [],
+        "glyphScreenshot": "/workspace/scratch/f778a2db1d4a/sukun/qa-r1067/yasin-320-verse33-playing.png"
+      }
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "Stop clears the frame and all UI tracking leaves the synthetic recording bytes/revision untouched",
+      "passed": true
+    },
+    {
+      "profile": "320x640 / TTS",
+      "name": "Every observed HTML/runtime byte matches the tested SRI release with no application/request errors",
+      "passed": true,
+      "evidence": {
+        "filesVerified": 100
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "Exact Classic/Feyz app starts with all 83 Arabic/meaning rows and a checked meaning preference",
+      "passed": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "arabic: separate basmala does not mark verse 1; actual utterance start marks exactly the Arabic/meaning row",
+      "passed": true,
+      "evidence": {
+        "frame": {
+          "id": "r1064YasinVerse1",
+          "verse": 1,
+          "paused": false,
+          "outline": "rgb(97, 223, 206)",
+          "width": 276,
+          "height": 127.25,
+          "top": 1210.453125,
+          "bottom": 1337.703125,
+          "current": "step"
+        },
+        "languages": [
+          "ar-SA",
+          "ar-SA"
+        ],
+        "screenshot": "/workspace/scratch/f778a2db1d4a/sukun/qa-r1067/yasin-390-arabic-playing.png",
+        "glyphs": {
+          "client": 252,
+          "scroll": 252,
+          "row": [
+            57,
+            333
+          ],
+          "content": [
+            69,
+            321
+          ],
+          "text": [
+            290,
+            321
+          ]
+        }
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "arabic: Pause retains the same gold frame and Resume returns to turquoise without geometry changes",
+      "passed": true,
+      "evidence": {
+        "playing": "rgb(97, 223, 206)",
+        "paused": "rgb(230, 209, 138)",
+        "resumed": "rgb(97, 223, 206)"
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "arabic: the longest original verse retains its frame until completion and then clears it",
+      "passed": true,
+      "evidence": {
+        "verse": 1,
+        "chunks": 1
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "meaning: separate basmala does not mark verse 1; actual utterance start marks exactly the Arabic/meaning row",
+      "passed": true,
+      "evidence": {
+        "frame": {
+          "id": "r1064YasinVerse1",
+          "verse": 1,
+          "paused": false,
+          "outline": "rgb(97, 223, 206)",
+          "width": 276,
+          "height": 127.25,
+          "top": 730.453125,
+          "bottom": 857.703125,
+          "current": "step"
+        },
+        "languages": [
+          "tr-TR",
+          "tr-TR"
+        ],
+        "screenshot": "/workspace/scratch/f778a2db1d4a/sukun/qa-r1067/yasin-390-meaning-playing.png",
+        "glyphs": {
+          "client": 252,
+          "scroll": 252,
+          "row": [
+            57,
+            333
+          ],
+          "content": [
+            69,
+            321
+          ],
+          "text": [
+            290,
+            321
+          ]
+        }
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "meaning: Pause retains the same gold frame and Resume returns to turquoise without geometry changes",
+      "passed": true,
+      "evidence": {
+        "playing": "rgb(97, 223, 206)",
+        "paused": "rgb(230, 209, 138)",
+        "resumed": "rgb(97, 223, 206)"
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "meaning: split long verse retains one frame across every chunk and completion clears it",
+      "passed": true,
+      "evidence": {
+        "verse": 47,
+        "chunks": 2
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "Next/Previous/Repeat keep exact verse identity; stale callbacks and a non-Yasin start cannot keep an old frame",
+      "passed": true,
+      "evidence": {
+        "staleTarget": 43,
+        "repeatTarget": 42
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "User hides meaning once; progress, Pause/Resume and UI reconciliation preserve that preference without recording writes",
+      "passed": true,
+      "evidence": {
+        "records": {
+          "keys": [
+            "qa:yasin-follow"
+          ],
+          "records": {
+            "qa:yasin-follow": {
+              "bytes": 6444,
+              "revision": 1,
+              "sha256": "7af11b40099688c97b4d2326b05e77fcb7b41d702d54c13bfed6e320eeffca49"
+            }
+          },
+          "writes": []
+        }
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "Trusted native pan while an utterance advances changes no viewport/focus/disclosure state beyond the pan",
+      "passed": true,
+      "evidence": {
+        "held": {
+          "scrollY": 13251,
+          "tabScroll": 0,
+          "focus": "r1064YasinShowMeaning",
+          "yasinOpen": true,
+          "explorerOpen": true
+        },
+        "advanced": {
+          "scrollY": 13251,
+          "tabScroll": 0,
+          "focus": "r1064YasinShowMeaning",
+          "yasinOpen": true,
+          "explorerOpen": true
+        },
+        "settled": {
+          "scrollY": 13313,
+          "tabScroll": 0,
+          "focus": "r1064YasinShowMeaning",
+          "yasinOpen": true,
+          "explorerOpen": true
+        },
+        "next": {
+          "scrollY": 13313,
+          "tabScroll": 0,
+          "focus": "r1064YasinShowMeaning",
+          "yasinOpen": true,
+          "explorerOpen": true
+        }
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "A closed Yasin disclosure stays closed while the current verse progresses",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "scrollY": 12115,
+          "tabScroll": 0,
+          "focus": "SUMMARY",
+          "yasinOpen": false,
+          "explorerOpen": true
+        },
+        "after": {
+          "scrollY": 12115,
+          "tabScroll": 0,
+          "focus": "SUMMARY",
+          "yasinOpen": false,
+          "explorerOpen": true
+        }
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "The trusted current-verse button reveals its row through the shipped navigation policy",
+      "passed": true,
+      "evidence": {
+        "navigation": {
+          "version": "r1066",
+          "sequence": 3,
+          "pending": false,
+          "last": {
+            "reason": "yasin-currentverse",
+            "result": "revealed",
+            "ok": true,
+            "target": "r1064YasinVerse52",
+            "at": 1792016952117
+          }
+        },
+        "row": {
+          "x": 57,
+          "y": 421.359375,
+          "width": 276,
+          "height": 197.53125
+        }
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "A later native contact cancels a current-verse button request pending behind the interaction gate",
+      "passed": true,
+      "evidence": {
+        "attempts": [
+          {
+            "attempt": 1,
+            "queued": {
+              "at": 1792016953619,
+              "ticket": {
+                "sequence": 74,
+                "interactionSequence": 41
+              },
+              "navigation": {
+                "version": "r1066",
+                "sequence": 4,
+                "pending": true,
+                "last": {
+                  "reason": "yasin-currentverse",
+                  "result": "revealed",
+                  "ok": true,
+                  "target": "r1064YasinVerse52",
+                  "at": 1792016952117
+                }
+              },
+              "gate": {
+                "version": "r732",
+                "touches": 0,
+                "pointers": 0,
+                "active": false,
+                "quietMs": 154,
+                "pending": false,
+                "deferrals": 0,
+                "events": 53,
+                "sequence": 4,
+                "lastReason": "touchend"
+              }
+            },
+            "trace": [
+              {
+                "at": 1792016953684,
+                "pending": true,
+                "ticket": {
+                  "sequence": 76,
+                  "interactionSequence": 43
+                }
+              }
+            ],
+            "navigation": {
+              "version": "r1066",
+              "sequence": 4,
+              "pending": false,
+              "last": {
+                "reason": "yasin-currentverse",
+                "result": "superseded-or-user-input",
+                "ok": false,
+                "target": "r1064YasinVerse52",
+                "at": 1792016954501
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "English tracking labels and 320/390px frame/meaning controls fit without modifying source text",
+      "passed": true,
+      "evidence": {
+        "width": 390,
+        "overflow": [],
+        "glyphLeaks": [],
+        "glyphScreenshot": "/workspace/scratch/f778a2db1d4a/sukun/qa-r1067/yasin-390-verse33-playing.png"
+      }
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "Stop clears the frame and all UI tracking leaves the synthetic recording bytes/revision untouched",
+      "passed": true
+    },
+    {
+      "profile": "390x844 / TTS",
+      "name": "Every observed HTML/runtime byte matches the tested SRI release with no application/request errors",
+      "passed": true,
+      "evidence": {
+        "filesVerified": 100
+      }
+    },
+    {
+      "profile": "320x740 / actual bundled MP3",
+      "name": "Exact source-bound timing API covers the 83 ordered verses without dividing the surah duration",
+      "passed": true,
+      "evidence": {
+        "sourceSha256": "4096f23ddba18fb4b410e54459cac520d91de178c5b5d2a78232e57723fb6a3d",
+        "verses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83
+        ],
+        "method": "Production at() sampled at 0.2-second source-time intervals; does not independently validate transcription/alignment"
+      }
+    },
+    {
+      "profile": "320x740 / actual bundled MP3",
+      "name": "The actual 21-minute bundled MP3 plays with no device voices and its Blob matches the immutable source SHA",
+      "passed": true,
+      "evidence": {
+        "media": {
+          "src": "blob:http://127.0.0.1:34501/dbcbfb66-ba21-448d-9586-590f61ec9ea5",
+          "currentTime": 0.514984,
+          "duration": 1260.3278,
+          "paused": false,
+          "rate": 1,
+          "error": 0,
+          "recordingKey": "bundled:r1065:yasin",
+          "origin": "bundled",
+          "fx": false,
+          "member": true
+        },
+        "digest": {
+          "bytes": 21195286,
+          "sha256": "4096f23ddba18fb4b410e54459cac520d91de178c5b5d2a78232e57723fb6a3d"
+        },
+        "introHasNoFalseVerseFrame": true
+      }
+    },
+    {
+      "profile": "320x740 / actual bundled MP3",
+      "name": "Native seeked/timeupdate events mark exact first/middle/last cue rows and support a backward source-time seek",
+      "passed": true,
+      "evidence": {
+        "samples": [
+          {
+            "verse": 1,
+            "requestedTime": 7.650000000000004,
+            "nativeTime": 8.096856,
+            "readerTime": 8.006318,
+            "frame": {
+              "id": "r1064YasinVerse1",
+              "verse": 1,
+              "paused": false,
+              "outline": "rgb(97, 223, 206)",
+              "width": 206,
+              "height": 127.25,
+              "top": 1452.390625,
+              "bottom": 1579.640625,
+              "current": "step"
+            }
+          },
+          {
+            "verse": 21,
+            "requestedTime": 299.4499999999916,
+            "nativeTime": 299.679285,
+            "readerTime": 299.673179,
+            "frame": {
+              "id": "r1064YasinVerse21",
+              "verse": 21,
+              "paused": false,
+              "outline": "rgb(97, 223, 206)",
+              "width": 206,
+              "height": 224.125,
+              "top": 7632.515625,
+              "bottom": 7856.640625,
+              "current": "step"
+            }
+          },
+          {
+            "verse": 42,
+            "requestedTime": 623.4500000000046,
+            "nativeTime": 623.63906,
+            "readerTime": 623.467404,
+            "frame": {
+              "id": "r1064YasinVerse42",
+              "verse": 42,
+              "paused": false,
+              "outline": "rgb(97, 223, 206)",
+              "width": 206,
+              "height": 224.125,
+              "top": 14163.640625,
+              "bottom": 14387.765625,
+              "current": "step"
+            }
+          },
+          {
+            "verse": 63,
+            "requestedTime": 929.4500000000742,
+            "nativeTime": 929.75758,
+            "readerTime": 929.751569,
+            "frame": {
+              "id": "r1064YasinVerse63",
+              "verse": 63,
+              "paused": false,
+              "outline": "rgb(97, 223, 206)",
+              "width": 206,
+              "height": 201.03125,
+              "top": 20713.359375,
+              "bottom": 20914.390625,
+              "current": "step"
+            }
+          },
+          {
+            "verse": 83,
+            "requestedTime": 1247.6500000001465,
+            "nativeTime": 1247.838295,
+            "readerTime": 1247.83194,
+            "frame": {
+              "id": "r1064YasinVerse83",
+              "verse": 83,
+              "paused": false,
+              "outline": "rgb(97, 223, 206)",
+              "width": 206,
+              "height": 344.09375,
+              "top": 26888.390625,
+              "bottom": 27232.484375,
+              "current": "step"
+            }
+          },
+          {
+            "verse": 7,
+            "requestedTime": 52.450000000000195,
+            "nativeTime": 52.761782,
+            "readerTime": 52.922551,
+            "frame": {
+              "id": "r1064YasinVerse7",
+              "verse": 7,
+              "paused": false,
+              "outline": "rgb(97, 223, 206)",
+              "width": 206,
+              "height": 297.90625,
+              "top": 2523.328125,
+              "bottom": 2821.234375,
+              "current": "step"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "profile": "320x740 / actual bundled MP3",
+      "name": "Bundled Pause holds the same native URL and gold cue frame; real Resume advances time with turquoise frame",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "src": "blob:http://127.0.0.1:34501/dbcbfb66-ba21-448d-9586-590f61ec9ea5",
+          "currentTime": 624.301076,
+          "duration": 1260.3278,
+          "paused": false,
+          "rate": 1,
+          "error": 0,
+          "recordingKey": "bundled:r1065:yasin",
+          "origin": "bundled",
+          "fx": false,
+          "member": true
+        },
+        "held": {
+          "src": "blob:http://127.0.0.1:34501/dbcbfb66-ba21-448d-9586-590f61ec9ea5",
+          "currentTime": 624.417842,
+          "duration": 1260.3278,
+          "paused": true,
+          "rate": 1,
+          "error": 0,
+          "recordingKey": "bundled:r1065:yasin",
+          "origin": "bundled",
+          "fx": false,
+          "member": true
+        },
+        "resumed": {
+          "src": "blob:http://127.0.0.1:34501/dbcbfb66-ba21-448d-9586-590f61ec9ea5",
+          "currentTime": 625.970937,
+          "duration": 1260.3278,
+          "paused": false,
+          "rate": 1,
+          "error": 0,
+          "recordingKey": "bundled:r1065:yasin",
+          "origin": "bundled",
+          "fx": false,
+          "member": true
+        },
+        "colors": {
+          "paused": "rgb(230, 209, 138)",
+          "playing": "rgb(97, 223, 206)"
+        }
+      }
+    },
+    {
+      "profile": "320x740 / actual bundled MP3",
+      "name": "Playback rate changes do not scale or invent verse timestamps: source currentTime remains authoritative",
+      "passed": true,
+      "evidence": {
+        "native": {
+          "src": "blob:http://127.0.0.1:34501/dbcbfb66-ba21-448d-9586-590f61ec9ea5",
+          "currentTime": 931.00156,
+          "duration": 1260.3278,
+          "paused": false,
+          "rate": 1.5,
+          "error": 0,
+          "recordingKey": "bundled:r1065:yasin",
+          "origin": "bundled",
+          "fx": false,
+          "member": true
+        },
+        "readerTime": 931.005429
+      }
+    },
+    {
+      "profile": "320x740 / actual bundled MP3",
+      "name": "Actual bundled clock progress during a trusted native pan paints only and leaves scroll/focus/open state intact",
+      "passed": true,
+      "evidence": {
+        "held": {
+          "scrollY": 16828,
+          "tabScroll": 0,
+          "focus": "SUMMARY",
+          "yasinOpen": true,
+          "explorerOpen": true
+        },
+        "advanced": {
+          "scrollY": 16828,
+          "tabScroll": 0,
+          "focus": "SUMMARY",
+          "yasinOpen": true,
+          "explorerOpen": true
+        },
+        "clock": {
+          "src": "blob:http://127.0.0.1:34501/dbcbfb66-ba21-448d-9586-590f61ec9ea5",
+          "currentTime": 635.597418,
+          "duration": 1260.3278,
+          "paused": false,
+          "rate": 1,
+          "error": 0,
+          "recordingKey": "bundled:r1065:yasin",
+          "origin": "bundled",
+          "fx": false,
+          "member": true
+        }
+      }
+    },
+    {
+      "profile": "320x740 / actual bundled MP3",
+      "name": "Stop/source replacement fence real old clock listeners and a non-Yasin MP3 never inherits the Yasin frame",
+      "passed": true,
+      "evidence": {
+        "oldKey": "bundled:r1065:yasin",
+        "newReader": {
+          "version": "r1065",
+          "id": "reading:fatiha",
+          "title": "Fâtiha Sûresi",
+          "kind": "fatiha",
+          "phase": "playing",
+          "content": "arabic",
+          "source": "auto",
+          "sourceKind": "bundled",
+          "part": 1,
+          "total": 1,
+          "verse": 0,
+          "progress": null,
+          "verseSync": "none",
+          "currentTime": null,
+          "duration": null,
+          "reason": "",
+          "queue": [],
+          "sectionTitle": "Fâtiha Sûresi"
+        }
+      }
+    },
+    {
+      "profile": "320x740 / actual bundled MP3",
+      "name": "Real personal/general Yasin WAVs with unknown verse synchronization do not receive a fabricated frame",
+      "passed": true,
+      "evidence": {
+        "samples": [
+          {
+            "source": "personal",
+            "sha256": "aace0127ffe132a1f3d0eb3134299b737d4ffffd6bf08e77bc316e53e17d1747",
+            "reader": {
+              "version": "r1065",
+              "id": "reading:yasin",
+              "title": "Yâsîn Sûresi",
+              "kind": "yasin",
+              "phase": "playing",
+              "content": "legacy",
+              "source": "personal",
+              "sourceKind": "personal",
+              "part": 1,
+              "total": 1,
+              "verse": 0,
+              "progress": null,
+              "verseSync": "none",
+              "currentTime": null,
+              "duration": null,
+              "reason": "",
+              "queue": [],
+              "sectionTitle": "Yâsîn Sûresi"
+            }
+          },
+          {
+            "source": "generic",
+            "sha256": "caaf5bca5784fb010710d28d261f3873f43c128bea85c241a013255867edb0d6",
+            "reader": {
+              "version": "r1065",
+              "id": "reading:yasin",
+              "title": "Yâsîn Sûresi",
+              "kind": "yasin",
+              "phase": "playing",
+              "content": "legacy",
+              "source": "generic",
+              "sourceKind": "generic",
+              "part": 1,
+              "total": 1,
+              "verse": 0,
+              "progress": null,
+              "verseSync": "none",
+              "currentTime": null,
+              "duration": null,
+              "reason": "",
+              "queue": [],
+              "sectionTitle": "Yâsîn Sûresi"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "profile": "320x740 / actual bundled MP3",
+      "name": "Bundled/unknown recording cases serve exact final HTML/runtime/MP3 bytes with no SRI or application errors",
+      "passed": true,
+      "evidence": {
+        "filesVerified": 81
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "label": "320x640 / TTS",
+      "root": "/workspace/scratch/f778a2db1d4a/sukun",
+      "served": {
+        "nero.html": {
+          "sha256": "a43b5cbea8d07dedf7553b0f3cd1aaaf325b9633453cee037cb2ff2d68a7c325",
+          "bytes": 7211191
+        },
+        "assets/runtime/compact-ui-r1057.css": {
+          "sha256": "7f66c90b8b19c6fdb58a6d127109532ac6b82bd2e04755f7a9195601559a975c",
+          "bytes": 7472
+        },
+        "assets/runtime/berhet-layout-r938.css": {
+          "sha256": "e990051b4c79739ccca15efc1e5c1d0f08adc03d3c0a04365f9350bc0297770d",
+          "bytes": 36758
+        },
+        "assets/runtime/berhet-materials-r933.css": {
+          "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+          "bytes": 622
+        },
+        "assets/runtime/berhet-dock-r933.css": {
+          "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+          "bytes": 12309
+        },
+        "assets/runtime/berhet-controls-r933.css": {
+          "sha256": "14c546edeb397d91bd18a5b80ff8ca8935da7f0fa8e77695f92fb8f64df5f0fb",
+          "bytes": 31528
+        },
+        "assets/runtime/studio-preparation-r982.js": {
+          "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e",
+          "bytes": 3689
+        },
+        "assets/runtime/audio-cpu-r981.js": {
+          "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+          "bytes": 7807
+        },
+        "assets/runtime/audio-preparation-r981.js": {
+          "sha256": "8345207bc48ffa582fde385d607a9fbb79f07dc75bcdc38afd3369d6b738a4f7",
+          "bytes": 17799
+        },
+        "assets/runtime/progress-journal-r982.js": {
+          "sha256": "b7fbd70dbcf9d08abdd88ec2c2d29566d56d75c8c76aca7ce7347149f59b48bc",
+          "bytes": 18325
+        },
+        "assets/runtime/tab-owner-r981.js": {
+          "sha256": "b129a2b94a4ef273cb789d44014c0938884654195741f2c295e65e0543be0f62",
+          "bytes": 32889
+        },
+        "assets/runtime/recording-continuity-r1016.js": {
+          "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+          "bytes": 13251
+        },
+        "assets/runtime/recording-inspection-r1020.js": {
+          "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+          "bytes": 9674
+        },
+        "assets/runtime/background-owner-r949.js": {
+          "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+          "bytes": 11067
+        },
+        "assets/runtime/lifecycle-r949.js": {
+          "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+          "bytes": 4252
+        },
+        "assets/runtime/audio-palette-r945.js": {
+          "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+          "bytes": 6073
+        },
+        "assets/runtime/active-source-r1060.js": {
+          "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+          "bytes": 6128
+        },
+        "assets/runtime/esma-scenes-r923.js": {
+          "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+          "bytes": 4307
+        },
+        "assets/runtime/generic-recordings-ui-r1055.js": {
+          "sha256": "813a7cee85dff6d3ee3482f2be24f533a80b5b1e89b3e08c8ca4f0e704b6cffa",
+          "bytes": 7530
+        },
+        "assets/runtime/generic-recordings-r1055.js": {
+          "sha256": "e92a2f903152bbbb3d316047fb878944bdcf15c20743a6e142b0caebf7876af7",
+          "bytes": 25188
+        },
+        "assets/runtime/session-r919.js": {
+          "sha256": "f2e8d55082e21493784e0244d8b5d916a7d3fcbf0e1a5279ed9989c154e9105a",
+          "bytes": 36279
+        },
+        "assets/runtime/active-layers-r1061.js": {
+          "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+          "bytes": 14049
+        },
+        "assets/runtime/dock-r920.js": {
+          "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+          "bytes": 11007
+        },
+        "assets/runtime/wheels-r924.css": {
+          "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+          "bytes": 34043
+        },
+        "assets/runtime/health-view-r943.css": {
+          "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+          "bytes": 7440
+        },
+        "assets/runtime/scene-picker-r945.css": {
+          "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+          "bytes": 6657
+        },
+        "assets/runtime/nefs-r948.css": {
+          "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+          "bytes": 18988
+        },
+        "assets/runtime/cadence-r981.css": {
+          "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+          "bytes": 1841
+        },
+        "assets/runtime/tekke-ux-r992.css": {
+          "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+          "bytes": 37518
+        },
+        "assets/runtime/tekke-journey-r993.css": {
+          "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+          "bytes": 7044
+        },
+        "assets/runtime/reading-ui-r1064.css": {
+          "sha256": "2a5d3f20fe12abfddaf231c14d9b364ad09c31721a7050d38a19acff94c0e6bc",
+          "bytes": 4179
+        },
+        "assets/runtime/wheels-r924.js": {
+          "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+          "bytes": 41623
+        },
+        "assets/runtime/interface-r920.js": {
+          "sha256": "529f0b85417355c89daec2034cf22dcc22369f44f9731c89450962055e841aac",
+          "bytes": 41182
+        },
+        "assets/runtime/berhet-layout-r938.js": {
+          "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+          "bytes": 8399
+        },
+        "assets/runtime/compact-ui-r1057.js": {
+          "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+          "bytes": 5342
+        },
+        "assets/runtime/health-view-r943.js": {
+          "sha256": "4add13827ef8f50e4ee5dac86db1141ab287433ac5a374b81f14c82c29b125e2",
+          "bytes": 120132
+        },
+        "assets/runtime/berhet-theme-r933.js": {
+          "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434",
+          "bytes": 3453
+        },
+        "assets/runtime/health-r940.js": {
+          "sha256": "62292549287482e8894f0d16fe784ec08338528b12e56a618c7bc62febc1b3e7",
+          "bytes": 89494
+        },
+        "assets/runtime/presentation-r979.js": {
+          "sha256": "c648ddce99e0191ae5cb11bbccd19222a4bf3bb8764453c54d95d8e15831e033",
+          "bytes": 14768
+        },
+        "assets/runtime/scene-picker-r945.js": {
+          "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+          "bytes": 9860
+        },
+        "assets/runtime/nefs-model-r948.js": {
+          "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+          "bytes": 18197
+        },
+        "assets/runtime/offline-scenes-r962.js": {
+          "sha256": "4869b10fc6c231545a8e191aa42a617139b0c749ea65a90f97f71d26bdeed4c5",
+          "bytes": 9284
+        },
+        "assets/runtime/tekke-sequence-r988.js": {
+          "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+          "bytes": 10314
+        },
+        "assets/runtime/nefs-ui-r948.js": {
+          "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+          "bytes": 48398
+        },
+        "assets/runtime/cadence-r981.js": {
+          "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+          "bytes": 23650
+        },
+        "assets/runtime/nefs-data-r948.js": {
+          "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+          "bytes": 283054
+        },
+        "assets/runtime/tekke-set-r990.js": {
+          "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+          "bytes": 27409
+        },
+        "assets/runtime/background-mix-render-r1059.js": {
+          "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e",
+          "bytes": 21067
+        },
+        "assets/runtime/background-mix-r1059.js": {
+          "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38",
+          "bytes": 18625
+        },
+        "assets/runtime/bundled-arabic-r1065.js": {
+          "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+          "bytes": 9208
+        },
+        "assets/runtime/reading-sources-r1064.js": {
+          "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+          "bytes": 67014
+        },
+        "assets/runtime/yasin-data-r1064.js": {
+          "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+          "bytes": 49799
+        },
+        "assets/runtime/yasin-timing-r1067.js": {
+          "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+          "bytes": 5926
+        },
+        "assets/runtime/navigation-r1066.js": {
+          "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+          "bytes": 2624
+        },
+        "assets/runtime/reading-audio-r1064.js": {
+          "sha256": "6ec9d95e33682901fa492df1c017069c275739d40a2c38ce3dbfdb6c92ad40b3",
+          "bytes": 19108
+        },
+        "assets/runtime/reading-ui-r1064.js": {
+          "sha256": "cf50e2d7eeda52810855c1b54d0e429fcc710000d903e6c45b50f8c4e90fe2dc",
+          "bytes": 38061
+        },
+        "assets/runtime/studio-batch-r1020.js": {
+          "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+          "bytes": 23944
+        },
+        "assets/runtime/recovery-versions-r1019.js": {
+          "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+          "bytes": 8407
+        },
+        "assets/runtime/recovery-data-r1020.js": {
+          "sha256": "dcd7e844ea0cab11f990c70e8e746384c81a24a000dfd8a4b6d54bfeba266bd4",
+          "bytes": 51467
+        },
+        "assets/runtime/recording-salvage-r1020.js": {
+          "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+          "bytes": 36787
+        },
+        "assets/branding/sukun-frameless-logo-r1029.png": {
+          "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+          "bytes": 27201
+        },
+        "assets/runtime/site-backup-r1020.js": {
+          "sha256": "6cd889fb289fee35181d579b5c7da57bc773bcda9e8cebd04987c553196debce",
+          "bytes": 28583
+        },
+        "assets/runtime/recovery-ui-r1019.js": {
+          "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+          "bytes": 6054
+        },
+        "assets/audio/sukun-intro-signature-r1037.wav": {
+          "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+          "bytes": 288044
+        },
+        "assets/branding/sukun-intro-pattern-r1029.svg": {
+          "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4",
+          "bytes": 769
+        },
+        "assets/runtime/tekke-ux-r992.js": {
+          "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+          "bytes": 25320
+        },
+        "assets/runtime/recovery-entry-r1027.js": {
+          "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+          "bytes": 5702
+        },
+        "assets/runtime/startup-intro-r1027.js": {
+          "sha256": "92b9bd8eec923ed4d3954cad28846c0ed4dfd7f4205a3fe7e40179102aa48882",
+          "bytes": 22478
+        },
+        "assets/runtime/tekke-journey-r993.js": {
+          "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+          "bytes": 38289
+        },
+        "assets/sukun-nur-orbit-r757.svg": {
+          "sha256": "b9e2f2d8d983b9b19cd4be7d16ab1fe82d47a89c82361c2a60f456f25e478854",
+          "bytes": 248
+        },
+        "assets/scenes/mobile-r918/mevlevi.webp": {
+          "sha256": "38809a4ac966552a60fee4efb9e303b9edd2f9c13cca2b9787ed9cf67bfce565",
+          "bytes": 411132
+        },
+        "assets/sukun-tesbih-weave-r759.svg": {
+          "sha256": "f01e6993b482e6194f479416955b85e888b95c332187a1bc55aaa7b893502bba",
+          "bytes": 1296
+        },
+        "assets/sukun-nur-mist-r759.svg": {
+          "sha256": "4b099628bd538f0a6e2b73b4ffea399319347375444312e7946ada10e8214ccf",
+          "bytes": 20321
+        },
+        "assets/sukun-nur-ring-r757.png": {
+          "sha256": "b9bf594010438b1c49ab693a94ba5022569462c334f606754306bb63f808f6fb",
+          "bytes": 1713434
+        },
+        "assets/scenes/esma-r923/mevlevi-sema.webp": {
+          "sha256": "c7dbea4be096916817a0550c698a1607dbf195d951d134874f0244eef1ef6950",
+          "bytes": 274004
+        },
+        "assets/wheels-r924/esma/inci-sema.webp": {
+          "sha256": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+          "bytes": 238294
+        },
+        "sukun-build-r1067.json": {
+          "sha256": "946aa025123feb1b306ebb89176145e37756e4da528cad25a74ec8384222b63a",
+          "bytes": 24685
+        },
+        "assets/wheel-navigation-r964/gold.png": {
+          "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2",
+          "bytes": 1345326
+        },
+        "assets/scenes/esma-r923/cami-avlusu.webp": {
+          "sha256": "17561714794972eb80240e57bcd07604e6db7d89c19af939e4df4280f339f93f",
+          "bytes": 362610
+        },
+        "assets/wheels-r924/esma/zumrut-tesbih.webp": {
+          "sha256": "f6ef62429640628ef259dc6d3666c3bffd1e2f348a3704cbe79a190ca903dc1f",
+          "bytes": 263780
+        },
+        "assets/wheels-r924/esma/oniks-sukuneti.webp": {
+          "sha256": "924f2399f024e25f51da721711a24e28f64f4350bc5be4943363df6cf01992c0",
+          "bytes": 198836
+        },
+        "assets/wheels-r924/esma/kehribar-tesbih.webp": {
+          "sha256": "efbb1d390e18026fc66a6dda5415e829f7e97a05883fe029df9cf85b51e5155e",
+          "bytes": 236926
+        },
+        "assets/wheels-r924/esma/sedef-nuru.webp": {
+          "sha256": "4a7befc82fc2cd7ebe9a9c2efcce700e7c6710b0772368fdb558365cd54daa0c",
+          "bytes": 235670
+        },
+        "assets/wheels-r977/ceviz-naksi.webp": {
+          "sha256": "86e88d374e02bdfdf6e2d31e59e4ff2dec6ab2eb3a0b5381aa379cd99f56b795",
+          "bytes": 1082544
+        },
+        "assets/wheels-r977/zeytin-tesbihi.webp": {
+          "sha256": "ade875147d0afd253d173ed87558a6fe4128892e415b7b69ff2a5cc33ab34746",
+          "bytes": 875528
+        },
+        "assets/wheels-r977/abanoz-sukunu.webp": {
+          "sha256": "7fc6002cb200e8f7dd9c2e045a20d9529f8a94949429f3fd02d43783cf9bfbd4",
+          "bytes": 1024218
+        },
+        "assets/wheels-r977/sandal-halkasi.webp": {
+          "sha256": "9aa32bbb2bafa81ab026d16abad11cc8f3e96e0ac5696c594c744fddd99b6a54",
+          "bytes": 1024854
+        },
+        "assets/wheels-r977/altin-nakis.webp": {
+          "sha256": "00e57bb2ba9128ce46c2bf2e1f72048c4cee57cd1bc6cb908dd5b14825c840c0",
+          "bytes": 1503206
+        },
+        "assets/wheels-r977/elmas-taci.webp": {
+          "sha256": "37dc4d2ce5ea19f163a6e798f72c1c3ed982f15fcee74a7a20cda554f2411d93",
+          "bytes": 1641778
+        },
+        "assets/wheels-r977/gumus-telkari.webp": {
+          "sha256": "adc84abe1f6a8ed767c9116be868fb2830199a21958ce9925a8b376bafe352bb",
+          "bytes": 1446610
+        },
+        "assets/wheels/platinum-turquoise-spiral-r1057.webp": {
+          "sha256": "7809e312fda0db9bbc34c0f3d181a12c4db273e61626d2286a47b65212fe1121",
+          "bytes": 460508
+        },
+        "assets/wheels/copper-amethyst-weave-r1057.webp": {
+          "sha256": "84e103a19bc8a1d3851c27852c272f733068cc939713680efd0c60f5d8e2b236",
+          "bytes": 600244
+        },
+        "assets/wheels/gold-amethyst-weave-r1057.webp": {
+          "sha256": "499b4eec9585cc5b7e057dc0ae52a31b8ffb95ce54e875e1af2339e696739462",
+          "bytes": 579802
+        },
+        "assets/wheels/copper-amber-spiral-r1057.webp": {
+          "sha256": "973a45d10b917c3d44de2c68c96528a90ddc6366959081f687261a88ec23f77a",
+          "bytes": 437590
+        },
+        "assets/wheels-r977/sultan-taslari.webp": {
+          "sha256": "4f62138580ee38b3cbed0b3e6541703837d3f86d7767e907c62ec0c11cc8043f",
+          "bytes": 1579428
+        },
+        "assets/wheels/copper-ruby-weave-r1057.webp": {
+          "sha256": "d5faec2e398aedacaaebfbeb715a46332c30456014e762f248ad164bf7d8bc10",
+          "bytes": 612604
+        },
+        "assets/wheels/gold-ruby-weave-r1057.webp": {
+          "sha256": "941f1171719eeac81e5d2642a780740f03e0d6d6bb74e87b7f4e9aeffe89c1d1",
+          "bytes": 603890
+        },
+        "assets/wheels/gold-emerald-weave-r1057.webp": {
+          "sha256": "3e7bdeb02100bf34a53c4295db70d9033de3b769fc356cc4cbb9d505dc0c4caf",
+          "bytes": 600304
+        },
+        "assets/wheels/gold-emerald-knot-r1057.webp": {
+          "sha256": "0505562349956fcf51ea6446b42cf3a6d2984a14b0a4dca1cbb25ff8c98dfd68",
+          "bytes": 569720
+        },
+        "assets/wheels/sapphire-torus-r1057.webp": {
+          "sha256": "b291f853c2a689bc0ded9775ecea4b28d411fa08bc0c08bd568003da4733d1a2",
+          "bytes": 571632
+        }
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "failedRequests": [],
+      "externalBlocked": [
+        "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      ]
+    },
+    {
+      "label": "390x844 / TTS",
+      "root": "/workspace/scratch/f778a2db1d4a/sukun",
+      "served": {
+        "nero.html": {
+          "sha256": "a43b5cbea8d07dedf7553b0f3cd1aaaf325b9633453cee037cb2ff2d68a7c325",
+          "bytes": 7211191
+        },
+        "assets/runtime/compact-ui-r1057.css": {
+          "sha256": "7f66c90b8b19c6fdb58a6d127109532ac6b82bd2e04755f7a9195601559a975c",
+          "bytes": 7472
+        },
+        "assets/runtime/berhet-layout-r938.css": {
+          "sha256": "e990051b4c79739ccca15efc1e5c1d0f08adc03d3c0a04365f9350bc0297770d",
+          "bytes": 36758
+        },
+        "assets/runtime/berhet-materials-r933.css": {
+          "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+          "bytes": 622
+        },
+        "assets/runtime/berhet-controls-r933.css": {
+          "sha256": "14c546edeb397d91bd18a5b80ff8ca8935da7f0fa8e77695f92fb8f64df5f0fb",
+          "bytes": 31528
+        },
+        "assets/runtime/berhet-dock-r933.css": {
+          "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+          "bytes": 12309
+        },
+        "assets/runtime/audio-cpu-r981.js": {
+          "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+          "bytes": 7807
+        },
+        "assets/runtime/audio-preparation-r981.js": {
+          "sha256": "8345207bc48ffa582fde385d607a9fbb79f07dc75bcdc38afd3369d6b738a4f7",
+          "bytes": 17799
+        },
+        "assets/runtime/progress-journal-r982.js": {
+          "sha256": "b7fbd70dbcf9d08abdd88ec2c2d29566d56d75c8c76aca7ce7347149f59b48bc",
+          "bytes": 18325
+        },
+        "assets/runtime/tab-owner-r981.js": {
+          "sha256": "b129a2b94a4ef273cb789d44014c0938884654195741f2c295e65e0543be0f62",
+          "bytes": 32889
+        },
+        "assets/runtime/studio-preparation-r982.js": {
+          "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e",
+          "bytes": 3689
+        },
+        "assets/runtime/recording-inspection-r1020.js": {
+          "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+          "bytes": 9674
+        },
+        "assets/runtime/background-owner-r949.js": {
+          "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+          "bytes": 11067
+        },
+        "assets/runtime/audio-palette-r945.js": {
+          "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+          "bytes": 6073
+        },
+        "assets/runtime/lifecycle-r949.js": {
+          "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+          "bytes": 4252
+        },
+        "assets/runtime/recording-continuity-r1016.js": {
+          "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+          "bytes": 13251
+        },
+        "assets/runtime/active-source-r1060.js": {
+          "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+          "bytes": 6128
+        },
+        "assets/runtime/generic-recordings-r1055.js": {
+          "sha256": "e92a2f903152bbbb3d316047fb878944bdcf15c20743a6e142b0caebf7876af7",
+          "bytes": 25188
+        },
+        "assets/runtime/generic-recordings-ui-r1055.js": {
+          "sha256": "813a7cee85dff6d3ee3482f2be24f533a80b5b1e89b3e08c8ca4f0e704b6cffa",
+          "bytes": 7530
+        },
+        "assets/runtime/esma-scenes-r923.js": {
+          "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+          "bytes": 4307
+        },
+        "assets/runtime/session-r919.js": {
+          "sha256": "f2e8d55082e21493784e0244d8b5d916a7d3fcbf0e1a5279ed9989c154e9105a",
+          "bytes": 36279
+        },
+        "assets/runtime/dock-r920.js": {
+          "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+          "bytes": 11007
+        },
+        "assets/runtime/wheels-r924.css": {
+          "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+          "bytes": 34043
+        },
+        "assets/runtime/health-view-r943.css": {
+          "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+          "bytes": 7440
+        },
+        "assets/runtime/nefs-r948.css": {
+          "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+          "bytes": 18988
+        },
+        "assets/runtime/cadence-r981.css": {
+          "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+          "bytes": 1841
+        },
+        "assets/runtime/tekke-ux-r992.css": {
+          "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+          "bytes": 37518
+        },
+        "assets/runtime/scene-picker-r945.css": {
+          "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+          "bytes": 6657
+        },
+        "assets/runtime/tekke-journey-r993.css": {
+          "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+          "bytes": 7044
+        },
+        "assets/runtime/active-layers-r1061.js": {
+          "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+          "bytes": 14049
+        },
+        "assets/runtime/reading-ui-r1064.css": {
+          "sha256": "2a5d3f20fe12abfddaf231c14d9b364ad09c31721a7050d38a19acff94c0e6bc",
+          "bytes": 4179
+        },
+        "assets/runtime/wheels-r924.js": {
+          "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+          "bytes": 41623
+        },
+        "assets/runtime/berhet-layout-r938.js": {
+          "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+          "bytes": 8399
+        },
+        "assets/runtime/interface-r920.js": {
+          "sha256": "529f0b85417355c89daec2034cf22dcc22369f44f9731c89450962055e841aac",
+          "bytes": 41182
+        },
+        "assets/runtime/compact-ui-r1057.js": {
+          "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+          "bytes": 5342
+        },
+        "assets/runtime/berhet-theme-r933.js": {
+          "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434",
+          "bytes": 3453
+        },
+        "assets/runtime/health-view-r943.js": {
+          "sha256": "4add13827ef8f50e4ee5dac86db1141ab287433ac5a374b81f14c82c29b125e2",
+          "bytes": 120132
+        },
+        "assets/runtime/scene-picker-r945.js": {
+          "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+          "bytes": 9860
+        },
+        "assets/runtime/presentation-r979.js": {
+          "sha256": "c648ddce99e0191ae5cb11bbccd19222a4bf3bb8764453c54d95d8e15831e033",
+          "bytes": 14768
+        },
+        "assets/runtime/health-r940.js": {
+          "sha256": "62292549287482e8894f0d16fe784ec08338528b12e56a618c7bc62febc1b3e7",
+          "bytes": 89494
+        },
+        "assets/runtime/nefs-model-r948.js": {
+          "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+          "bytes": 18197
+        },
+        "assets/runtime/nefs-ui-r948.js": {
+          "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+          "bytes": 48398
+        },
+        "assets/runtime/offline-scenes-r962.js": {
+          "sha256": "4869b10fc6c231545a8e191aa42a617139b0c749ea65a90f97f71d26bdeed4c5",
+          "bytes": 9284
+        },
+        "assets/runtime/cadence-r981.js": {
+          "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+          "bytes": 23650
+        },
+        "assets/runtime/tekke-sequence-r988.js": {
+          "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+          "bytes": 10314
+        },
+        "assets/runtime/nefs-data-r948.js": {
+          "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+          "bytes": 283054
+        },
+        "assets/runtime/tekke-set-r990.js": {
+          "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+          "bytes": 27409
+        },
+        "assets/runtime/background-mix-render-r1059.js": {
+          "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e",
+          "bytes": 21067
+        },
+        "assets/runtime/background-mix-r1059.js": {
+          "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38",
+          "bytes": 18625
+        },
+        "assets/runtime/yasin-data-r1064.js": {
+          "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+          "bytes": 49799
+        },
+        "assets/runtime/reading-sources-r1064.js": {
+          "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+          "bytes": 67014
+        },
+        "assets/runtime/bundled-arabic-r1065.js": {
+          "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+          "bytes": 9208
+        },
+        "assets/runtime/yasin-timing-r1067.js": {
+          "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+          "bytes": 5926
+        },
+        "assets/runtime/reading-audio-r1064.js": {
+          "sha256": "6ec9d95e33682901fa492df1c017069c275739d40a2c38ce3dbfdb6c92ad40b3",
+          "bytes": 19108
+        },
+        "assets/runtime/navigation-r1066.js": {
+          "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+          "bytes": 2624
+        },
+        "assets/runtime/reading-ui-r1064.js": {
+          "sha256": "cf50e2d7eeda52810855c1b54d0e429fcc710000d903e6c45b50f8c4e90fe2dc",
+          "bytes": 38061
+        },
+        "assets/runtime/studio-batch-r1020.js": {
+          "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+          "bytes": 23944
+        },
+        "assets/runtime/recovery-versions-r1019.js": {
+          "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+          "bytes": 8407
+        },
+        "assets/runtime/recovery-data-r1020.js": {
+          "sha256": "dcd7e844ea0cab11f990c70e8e746384c81a24a000dfd8a4b6d54bfeba266bd4",
+          "bytes": 51467
+        },
+        "assets/runtime/recovery-ui-r1019.js": {
+          "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+          "bytes": 6054
+        },
+        "assets/runtime/site-backup-r1020.js": {
+          "sha256": "6cd889fb289fee35181d579b5c7da57bc773bcda9e8cebd04987c553196debce",
+          "bytes": 28583
+        },
+        "assets/runtime/recording-salvage-r1020.js": {
+          "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+          "bytes": 36787
+        },
+        "assets/runtime/tekke-ux-r992.js": {
+          "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+          "bytes": 25320
+        },
+        "assets/runtime/tekke-journey-r993.js": {
+          "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+          "bytes": 38289
+        },
+        "assets/runtime/recovery-entry-r1027.js": {
+          "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+          "bytes": 5702
+        },
+        "assets/branding/sukun-frameless-logo-r1029.png": {
+          "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+          "bytes": 27201
+        },
+        "assets/runtime/startup-intro-r1027.js": {
+          "sha256": "92b9bd8eec923ed4d3954cad28846c0ed4dfd7f4205a3fe7e40179102aa48882",
+          "bytes": 22478
+        },
+        "assets/audio/sukun-intro-signature-r1037.wav": {
+          "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+          "bytes": 288044
+        },
+        "assets/branding/sukun-intro-pattern-r1029.svg": {
+          "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4",
+          "bytes": 769
+        },
+        "assets/sukun-nur-orbit-r757.svg": {
+          "sha256": "b9e2f2d8d983b9b19cd4be7d16ab1fe82d47a89c82361c2a60f456f25e478854",
+          "bytes": 248
+        },
+        "assets/sukun-tesbih-weave-r759.svg": {
+          "sha256": "f01e6993b482e6194f479416955b85e888b95c332187a1bc55aaa7b893502bba",
+          "bytes": 1296
+        },
+        "assets/sukun-nur-mist-r759.svg": {
+          "sha256": "4b099628bd538f0a6e2b73b4ffea399319347375444312e7946ada10e8214ccf",
+          "bytes": 20321
+        },
+        "assets/scenes/esma-r923/mevlevi-sema.webp": {
+          "sha256": "c7dbea4be096916817a0550c698a1607dbf195d951d134874f0244eef1ef6950",
+          "bytes": 274004
+        },
+        "assets/scenes/mobile-r918/mevlevi.webp": {
+          "sha256": "38809a4ac966552a60fee4efb9e303b9edd2f9c13cca2b9787ed9cf67bfce565",
+          "bytes": 411132
+        },
+        "assets/sukun-nur-ring-r757.png": {
+          "sha256": "b9bf594010438b1c49ab693a94ba5022569462c334f606754306bb63f808f6fb",
+          "bytes": 1713434
+        },
+        "assets/wheels-r924/esma/inci-sema.webp": {
+          "sha256": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+          "bytes": 238294
+        },
+        "sukun-build-r1067.json": {
+          "sha256": "946aa025123feb1b306ebb89176145e37756e4da528cad25a74ec8384222b63a",
+          "bytes": 24685
+        },
+        "assets/wheel-navigation-r964/gold.png": {
+          "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2",
+          "bytes": 1345326
+        },
+        "assets/scenes/esma-r923/cami-avlusu.webp": {
+          "sha256": "17561714794972eb80240e57bcd07604e6db7d89c19af939e4df4280f339f93f",
+          "bytes": 362610
+        },
+        "assets/wheels-r924/esma/zumrut-tesbih.webp": {
+          "sha256": "f6ef62429640628ef259dc6d3666c3bffd1e2f348a3704cbe79a190ca903dc1f",
+          "bytes": 263780
+        },
+        "assets/wheels-r924/esma/oniks-sukuneti.webp": {
+          "sha256": "924f2399f024e25f51da721711a24e28f64f4350bc5be4943363df6cf01992c0",
+          "bytes": 198836
+        },
+        "assets/wheels-r924/esma/kehribar-tesbih.webp": {
+          "sha256": "efbb1d390e18026fc66a6dda5415e829f7e97a05883fe029df9cf85b51e5155e",
+          "bytes": 236926
+        },
+        "assets/wheels-r924/esma/sedef-nuru.webp": {
+          "sha256": "4a7befc82fc2cd7ebe9a9c2efcce700e7c6710b0772368fdb558365cd54daa0c",
+          "bytes": 235670
+        },
+        "assets/wheels-r977/zeytin-tesbihi.webp": {
+          "sha256": "ade875147d0afd253d173ed87558a6fe4128892e415b7b69ff2a5cc33ab34746",
+          "bytes": 875528
+        },
+        "assets/wheels-r977/abanoz-sukunu.webp": {
+          "sha256": "7fc6002cb200e8f7dd9c2e045a20d9529f8a94949429f3fd02d43783cf9bfbd4",
+          "bytes": 1024218
+        },
+        "assets/wheels-r977/sandal-halkasi.webp": {
+          "sha256": "9aa32bbb2bafa81ab026d16abad11cc8f3e96e0ac5696c594c744fddd99b6a54",
+          "bytes": 1024854
+        },
+        "assets/wheels-r977/ceviz-naksi.webp": {
+          "sha256": "86e88d374e02bdfdf6e2d31e59e4ff2dec6ab2eb3a0b5381aa379cd99f56b795",
+          "bytes": 1082544
+        },
+        "assets/wheels-r977/altin-nakis.webp": {
+          "sha256": "00e57bb2ba9128ce46c2bf2e1f72048c4cee57cd1bc6cb908dd5b14825c840c0",
+          "bytes": 1503206
+        },
+        "assets/wheels-r977/elmas-taci.webp": {
+          "sha256": "37dc4d2ce5ea19f163a6e798f72c1c3ed982f15fcee74a7a20cda554f2411d93",
+          "bytes": 1641778
+        },
+        "assets/wheels/platinum-turquoise-spiral-r1057.webp": {
+          "sha256": "7809e312fda0db9bbc34c0f3d181a12c4db273e61626d2286a47b65212fe1121",
+          "bytes": 460508
+        },
+        "assets/wheels/copper-amber-spiral-r1057.webp": {
+          "sha256": "973a45d10b917c3d44de2c68c96528a90ddc6366959081f687261a88ec23f77a",
+          "bytes": 437590
+        },
+        "assets/wheels/gold-amethyst-weave-r1057.webp": {
+          "sha256": "499b4eec9585cc5b7e057dc0ae52a31b8ffb95ce54e875e1af2339e696739462",
+          "bytes": 579802
+        },
+        "assets/wheels/copper-amethyst-weave-r1057.webp": {
+          "sha256": "84e103a19bc8a1d3851c27852c272f733068cc939713680efd0c60f5d8e2b236",
+          "bytes": 600244
+        },
+        "assets/wheels-r977/gumus-telkari.webp": {
+          "sha256": "adc84abe1f6a8ed767c9116be868fb2830199a21958ce9925a8b376bafe352bb",
+          "bytes": 1446610
+        },
+        "assets/wheels-r977/sultan-taslari.webp": {
+          "sha256": "4f62138580ee38b3cbed0b3e6541703837d3f86d7767e907c62ec0c11cc8043f",
+          "bytes": 1579428
+        },
+        "assets/wheels/copper-ruby-weave-r1057.webp": {
+          "sha256": "d5faec2e398aedacaaebfbeb715a46332c30456014e762f248ad164bf7d8bc10",
+          "bytes": 612604
+        },
+        "assets/wheels/gold-ruby-weave-r1057.webp": {
+          "sha256": "941f1171719eeac81e5d2642a780740f03e0d6d6bb74e87b7f4e9aeffe89c1d1",
+          "bytes": 603890
+        },
+        "assets/wheels/gold-emerald-weave-r1057.webp": {
+          "sha256": "3e7bdeb02100bf34a53c4295db70d9033de3b769fc356cc4cbb9d505dc0c4caf",
+          "bytes": 600304
+        },
+        "assets/wheels/gold-emerald-knot-r1057.webp": {
+          "sha256": "0505562349956fcf51ea6446b42cf3a6d2984a14b0a4dca1cbb25ff8c98dfd68",
+          "bytes": 569720
+        },
+        "assets/wheels/sapphire-torus-r1057.webp": {
+          "sha256": "b291f853c2a689bc0ded9775ecea4b28d411fa08bc0c08bd568003da4733d1a2",
+          "bytes": 571632
+        }
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "failedRequests": [],
+      "externalBlocked": [
+        "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      ]
+    },
+    {
+      "label": "320x740 / actual bundled MP3",
+      "root": "/workspace/scratch/f778a2db1d4a/sukun",
+      "served": {
+        "nero.html": {
+          "sha256": "a43b5cbea8d07dedf7553b0f3cd1aaaf325b9633453cee037cb2ff2d68a7c325",
+          "bytes": 7211191
+        },
+        "assets/runtime/compact-ui-r1057.css": {
+          "sha256": "7f66c90b8b19c6fdb58a6d127109532ac6b82bd2e04755f7a9195601559a975c",
+          "bytes": 7472
+        },
+        "assets/runtime/berhet-layout-r938.css": {
+          "sha256": "e990051b4c79739ccca15efc1e5c1d0f08adc03d3c0a04365f9350bc0297770d",
+          "bytes": 36758
+        },
+        "assets/runtime/berhet-materials-r933.css": {
+          "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+          "bytes": 622
+        },
+        "assets/runtime/berhet-controls-r933.css": {
+          "sha256": "14c546edeb397d91bd18a5b80ff8ca8935da7f0fa8e77695f92fb8f64df5f0fb",
+          "bytes": 31528
+        },
+        "assets/runtime/berhet-dock-r933.css": {
+          "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+          "bytes": 12309
+        },
+        "assets/runtime/audio-cpu-r981.js": {
+          "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+          "bytes": 7807
+        },
+        "assets/runtime/progress-journal-r982.js": {
+          "sha256": "b7fbd70dbcf9d08abdd88ec2c2d29566d56d75c8c76aca7ce7347149f59b48bc",
+          "bytes": 18325
+        },
+        "assets/runtime/studio-preparation-r982.js": {
+          "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e",
+          "bytes": 3689
+        },
+        "assets/runtime/tab-owner-r981.js": {
+          "sha256": "b129a2b94a4ef273cb789d44014c0938884654195741f2c295e65e0543be0f62",
+          "bytes": 32889
+        },
+        "assets/runtime/audio-preparation-r981.js": {
+          "sha256": "8345207bc48ffa582fde385d607a9fbb79f07dc75bcdc38afd3369d6b738a4f7",
+          "bytes": 17799
+        },
+        "assets/runtime/recording-continuity-r1016.js": {
+          "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+          "bytes": 13251
+        },
+        "assets/runtime/recording-inspection-r1020.js": {
+          "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+          "bytes": 9674
+        },
+        "assets/runtime/background-owner-r949.js": {
+          "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+          "bytes": 11067
+        },
+        "assets/runtime/lifecycle-r949.js": {
+          "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+          "bytes": 4252
+        },
+        "assets/runtime/wheels-r924.css": {
+          "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+          "bytes": 34043
+        },
+        "assets/runtime/audio-palette-r945.js": {
+          "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+          "bytes": 6073
+        },
+        "assets/runtime/active-source-r1060.js": {
+          "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+          "bytes": 6128
+        },
+        "assets/runtime/health-view-r943.css": {
+          "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+          "bytes": 7440
+        },
+        "assets/runtime/scene-picker-r945.css": {
+          "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+          "bytes": 6657
+        },
+        "assets/runtime/nefs-r948.css": {
+          "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+          "bytes": 18988
+        },
+        "assets/runtime/tekke-ux-r992.css": {
+          "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+          "bytes": 37518
+        },
+        "assets/runtime/tekke-journey-r993.css": {
+          "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+          "bytes": 7044
+        },
+        "assets/runtime/cadence-r981.css": {
+          "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+          "bytes": 1841
+        },
+        "assets/runtime/esma-scenes-r923.js": {
+          "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+          "bytes": 4307
+        },
+        "assets/runtime/generic-recordings-r1055.js": {
+          "sha256": "e92a2f903152bbbb3d316047fb878944bdcf15c20743a6e142b0caebf7876af7",
+          "bytes": 25188
+        },
+        "assets/runtime/generic-recordings-ui-r1055.js": {
+          "sha256": "813a7cee85dff6d3ee3482f2be24f533a80b5b1e89b3e08c8ca4f0e704b6cffa",
+          "bytes": 7530
+        },
+        "assets/runtime/session-r919.js": {
+          "sha256": "f2e8d55082e21493784e0244d8b5d916a7d3fcbf0e1a5279ed9989c154e9105a",
+          "bytes": 36279
+        },
+        "assets/runtime/dock-r920.js": {
+          "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+          "bytes": 11007
+        },
+        "assets/runtime/active-layers-r1061.js": {
+          "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+          "bytes": 14049
+        },
+        "assets/runtime/wheels-r924.js": {
+          "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+          "bytes": 41623
+        },
+        "assets/runtime/berhet-layout-r938.js": {
+          "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+          "bytes": 8399
+        },
+        "assets/runtime/interface-r920.js": {
+          "sha256": "529f0b85417355c89daec2034cf22dcc22369f44f9731c89450962055e841aac",
+          "bytes": 41182
+        },
+        "assets/runtime/compact-ui-r1057.js": {
+          "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+          "bytes": 5342
+        },
+        "assets/runtime/berhet-theme-r933.js": {
+          "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434",
+          "bytes": 3453
+        },
+        "assets/runtime/health-view-r943.js": {
+          "sha256": "4add13827ef8f50e4ee5dac86db1141ab287433ac5a374b81f14c82c29b125e2",
+          "bytes": 120132
+        },
+        "assets/runtime/presentation-r979.js": {
+          "sha256": "c648ddce99e0191ae5cb11bbccd19222a4bf3bb8764453c54d95d8e15831e033",
+          "bytes": 14768
+        },
+        "assets/runtime/health-r940.js": {
+          "sha256": "62292549287482e8894f0d16fe784ec08338528b12e56a618c7bc62febc1b3e7",
+          "bytes": 89494
+        },
+        "assets/runtime/nefs-model-r948.js": {
+          "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+          "bytes": 18197
+        },
+        "assets/runtime/nefs-data-r948.js": {
+          "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+          "bytes": 283054
+        },
+        "assets/runtime/nefs-ui-r948.js": {
+          "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+          "bytes": 48398
+        },
+        "assets/runtime/scene-picker-r945.js": {
+          "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+          "bytes": 9860
+        },
+        "assets/runtime/reading-ui-r1064.css": {
+          "sha256": "2a5d3f20fe12abfddaf231c14d9b364ad09c31721a7050d38a19acff94c0e6bc",
+          "bytes": 4179
+        },
+        "assets/runtime/offline-scenes-r962.js": {
+          "sha256": "4869b10fc6c231545a8e191aa42a617139b0c749ea65a90f97f71d26bdeed4c5",
+          "bytes": 9284
+        },
+        "assets/runtime/tekke-sequence-r988.js": {
+          "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+          "bytes": 10314
+        },
+        "assets/runtime/cadence-r981.js": {
+          "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+          "bytes": 23650
+        },
+        "assets/runtime/background-mix-render-r1059.js": {
+          "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e",
+          "bytes": 21067
+        },
+        "assets/runtime/tekke-set-r990.js": {
+          "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+          "bytes": 27409
+        },
+        "assets/runtime/background-mix-r1059.js": {
+          "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38",
+          "bytes": 18625
+        },
+        "assets/runtime/yasin-data-r1064.js": {
+          "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+          "bytes": 49799
+        },
+        "assets/runtime/reading-sources-r1064.js": {
+          "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+          "bytes": 67014
+        },
+        "assets/runtime/yasin-timing-r1067.js": {
+          "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+          "bytes": 5926
+        },
+        "assets/runtime/bundled-arabic-r1065.js": {
+          "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+          "bytes": 9208
+        },
+        "assets/runtime/reading-audio-r1064.js": {
+          "sha256": "6ec9d95e33682901fa492df1c017069c275739d40a2c38ce3dbfdb6c92ad40b3",
+          "bytes": 19108
+        },
+        "assets/runtime/navigation-r1066.js": {
+          "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+          "bytes": 2624
+        },
+        "assets/runtime/reading-ui-r1064.js": {
+          "sha256": "cf50e2d7eeda52810855c1b54d0e429fcc710000d903e6c45b50f8c4e90fe2dc",
+          "bytes": 38061
+        },
+        "assets/runtime/recovery-versions-r1019.js": {
+          "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+          "bytes": 8407
+        },
+        "assets/runtime/studio-batch-r1020.js": {
+          "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+          "bytes": 23944
+        },
+        "assets/runtime/recovery-data-r1020.js": {
+          "sha256": "dcd7e844ea0cab11f990c70e8e746384c81a24a000dfd8a4b6d54bfeba266bd4",
+          "bytes": 51467
+        },
+        "assets/runtime/recovery-ui-r1019.js": {
+          "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+          "bytes": 6054
+        },
+        "assets/runtime/site-backup-r1020.js": {
+          "sha256": "6cd889fb289fee35181d579b5c7da57bc773bcda9e8cebd04987c553196debce",
+          "bytes": 28583
+        },
+        "assets/runtime/recording-salvage-r1020.js": {
+          "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+          "bytes": 36787
+        },
+        "assets/runtime/tekke-ux-r992.js": {
+          "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+          "bytes": 25320
+        },
+        "assets/runtime/tekke-journey-r993.js": {
+          "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+          "bytes": 38289
+        },
+        "assets/runtime/recovery-entry-r1027.js": {
+          "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+          "bytes": 5702
+        },
+        "assets/branding/sukun-frameless-logo-r1029.png": {
+          "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+          "bytes": 27201
+        },
+        "assets/audio/sukun-intro-signature-r1037.wav": {
+          "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+          "bytes": 288044
+        },
+        "assets/branding/sukun-intro-pattern-r1029.svg": {
+          "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4",
+          "bytes": 769
+        },
+        "assets/runtime/startup-intro-r1027.js": {
+          "sha256": "92b9bd8eec923ed4d3954cad28846c0ed4dfd7f4205a3fe7e40179102aa48882",
+          "bytes": 22478
+        },
+        "assets/sukun-tesbih-weave-r759.svg": {
+          "sha256": "f01e6993b482e6194f479416955b85e888b95c332187a1bc55aaa7b893502bba",
+          "bytes": 1296
+        },
+        "assets/sukun-nur-mist-r759.svg": {
+          "sha256": "4b099628bd538f0a6e2b73b4ffea399319347375444312e7946ada10e8214ccf",
+          "bytes": 20321
+        },
+        "assets/scenes/mobile-r918/mevlevi.webp": {
+          "sha256": "38809a4ac966552a60fee4efb9e303b9edd2f9c13cca2b9787ed9cf67bfce565",
+          "bytes": 411132
+        },
+        "assets/sukun-nur-orbit-r757.svg": {
+          "sha256": "b9e2f2d8d983b9b19cd4be7d16ab1fe82d47a89c82361c2a60f456f25e478854",
+          "bytes": 248
+        },
+        "assets/sukun-nur-ring-r757.png": {
+          "sha256": "b9bf594010438b1c49ab693a94ba5022569462c334f606754306bb63f808f6fb",
+          "bytes": 1713434
+        },
+        "assets/scenes/esma-r923/mevlevi-sema.webp": {
+          "sha256": "c7dbea4be096916817a0550c698a1607dbf195d951d134874f0244eef1ef6950",
+          "bytes": 274004
+        },
+        "assets/wheels-r924/esma/inci-sema.webp": {
+          "sha256": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+          "bytes": 238294
+        },
+        "sukun-build-r1067.json": {
+          "sha256": "946aa025123feb1b306ebb89176145e37756e4da528cad25a74ec8384222b63a",
+          "bytes": 24685
+        },
+        "assets/wheel-navigation-r964/gold.png": {
+          "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2",
+          "bytes": 1345326
+        },
+        "assets/scenes/esma-r923/cami-avlusu.webp": {
+          "sha256": "17561714794972eb80240e57bcd07604e6db7d89c19af939e4df4280f339f93f",
+          "bytes": 362610
+        },
+        "assets/audio/arabic-r1065/yasin.mp3": {
+          "sha256": "4096f23ddba18fb4b410e54459cac520d91de178c5b5d2a78232e57723fb6a3d",
+          "bytes": 21195286
+        },
+        "assets/audio/arabic-r1065/fatiha.mp3": {
+          "sha256": "46fe21a5118957d52ac76f5a6a7fdd7e75d52e4a569619ae3e174a23ce5c82bc",
+          "bytes": 2351078
+        }
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "failedRequests": [],
+      "externalBlocked": [
+        "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "nero.html": "a43b5cbea8d07dedf7553b0f3cd1aaaf325b9633453cee037cb2ff2d68a7c325",
+    "assets/runtime/compact-ui-r1057.css": "7f66c90b8b19c6fdb58a6d127109532ac6b82bd2e04755f7a9195601559a975c",
+    "assets/runtime/berhet-layout-r938.css": "e990051b4c79739ccca15efc1e5c1d0f08adc03d3c0a04365f9350bc0297770d",
+    "assets/runtime/berhet-materials-r933.css": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+    "assets/runtime/berhet-dock-r933.css": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+    "assets/runtime/berhet-controls-r933.css": "14c546edeb397d91bd18a5b80ff8ca8935da7f0fa8e77695f92fb8f64df5f0fb",
+    "assets/runtime/studio-preparation-r982.js": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e",
+    "assets/runtime/audio-cpu-r981.js": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+    "assets/runtime/audio-preparation-r981.js": "8345207bc48ffa582fde385d607a9fbb79f07dc75bcdc38afd3369d6b738a4f7",
+    "assets/runtime/progress-journal-r982.js": "b7fbd70dbcf9d08abdd88ec2c2d29566d56d75c8c76aca7ce7347149f59b48bc",
+    "assets/runtime/tab-owner-r981.js": "b129a2b94a4ef273cb789d44014c0938884654195741f2c295e65e0543be0f62",
+    "assets/runtime/recording-continuity-r1016.js": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+    "assets/runtime/recording-inspection-r1020.js": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+    "assets/runtime/background-owner-r949.js": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+    "assets/runtime/lifecycle-r949.js": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+    "assets/runtime/audio-palette-r945.js": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+    "assets/runtime/active-source-r1060.js": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+    "assets/runtime/esma-scenes-r923.js": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+    "assets/runtime/generic-recordings-ui-r1055.js": "813a7cee85dff6d3ee3482f2be24f533a80b5b1e89b3e08c8ca4f0e704b6cffa",
+    "assets/runtime/generic-recordings-r1055.js": "e92a2f903152bbbb3d316047fb878944bdcf15c20743a6e142b0caebf7876af7",
+    "assets/runtime/session-r919.js": "f2e8d55082e21493784e0244d8b5d916a7d3fcbf0e1a5279ed9989c154e9105a",
+    "assets/runtime/active-layers-r1061.js": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+    "assets/runtime/dock-r920.js": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+    "assets/runtime/wheels-r924.css": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+    "assets/runtime/health-view-r943.css": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+    "assets/runtime/scene-picker-r945.css": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+    "assets/runtime/nefs-r948.css": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+    "assets/runtime/cadence-r981.css": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+    "assets/runtime/tekke-ux-r992.css": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+    "assets/runtime/tekke-journey-r993.css": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+    "assets/runtime/reading-ui-r1064.css": "2a5d3f20fe12abfddaf231c14d9b364ad09c31721a7050d38a19acff94c0e6bc",
+    "assets/runtime/wheels-r924.js": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+    "assets/runtime/interface-r920.js": "529f0b85417355c89daec2034cf22dcc22369f44f9731c89450962055e841aac",
+    "assets/runtime/berhet-layout-r938.js": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+    "assets/runtime/compact-ui-r1057.js": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+    "assets/runtime/health-view-r943.js": "4add13827ef8f50e4ee5dac86db1141ab287433ac5a374b81f14c82c29b125e2",
+    "assets/runtime/berhet-theme-r933.js": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434",
+    "assets/runtime/health-r940.js": "62292549287482e8894f0d16fe784ec08338528b12e56a618c7bc62febc1b3e7",
+    "assets/runtime/presentation-r979.js": "c648ddce99e0191ae5cb11bbccd19222a4bf3bb8764453c54d95d8e15831e033",
+    "assets/runtime/scene-picker-r945.js": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+    "assets/runtime/nefs-model-r948.js": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+    "assets/runtime/offline-scenes-r962.js": "4869b10fc6c231545a8e191aa42a617139b0c749ea65a90f97f71d26bdeed4c5",
+    "assets/runtime/tekke-sequence-r988.js": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+    "assets/runtime/nefs-ui-r948.js": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+    "assets/runtime/cadence-r981.js": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+    "assets/runtime/nefs-data-r948.js": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+    "assets/runtime/tekke-set-r990.js": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+    "assets/runtime/background-mix-render-r1059.js": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e",
+    "assets/runtime/background-mix-r1059.js": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38",
+    "assets/runtime/bundled-arabic-r1065.js": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+    "assets/runtime/reading-sources-r1064.js": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+    "assets/runtime/yasin-data-r1064.js": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+    "assets/runtime/yasin-timing-r1067.js": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+    "assets/runtime/navigation-r1066.js": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+    "assets/runtime/reading-audio-r1064.js": "6ec9d95e33682901fa492df1c017069c275739d40a2c38ce3dbfdb6c92ad40b3",
+    "assets/runtime/reading-ui-r1064.js": "cf50e2d7eeda52810855c1b54d0e429fcc710000d903e6c45b50f8c4e90fe2dc",
+    "assets/runtime/studio-batch-r1020.js": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+    "assets/runtime/recovery-versions-r1019.js": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+    "assets/runtime/recovery-data-r1020.js": "dcd7e844ea0cab11f990c70e8e746384c81a24a000dfd8a4b6d54bfeba266bd4",
+    "assets/runtime/recording-salvage-r1020.js": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+    "assets/runtime/site-backup-r1020.js": "6cd889fb289fee35181d579b5c7da57bc773bcda9e8cebd04987c553196debce",
+    "assets/runtime/recovery-ui-r1019.js": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+    "assets/runtime/tekke-ux-r992.js": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+    "assets/runtime/recovery-entry-r1027.js": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+    "assets/runtime/startup-intro-r1027.js": "92b9bd8eec923ed4d3954cad28846c0ed4dfd7f4205a3fe7e40179102aa48882",
+    "assets/runtime/tekke-journey-r993.js": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+    "assets/audio/arabic-r1065/yasin.mp3": "4096f23ddba18fb4b410e54459cac520d91de178c5b5d2a78232e57723fb6a3d",
+    "assets/audio/arabic-r1065/fatiha.mp3": "46fe21a5118957d52ac76f5a6a7fdd7e75d52e4a569619ae3e174a23ce5c82bc"
+  },
+  "limitations": [
+    "Fresh isolated Chromium Classic/Feyz profiles; device voices and utterance completion/error use controlled speech seams. No physical Android or audible-output claim.",
+    "Native gestures are trusted CDP browser touch input. Source files are served without rewriting and HTML SRI remains active.",
+    "Bundled cases, when enabled, use the actual source MP3 and source-time media clock; sampling does not claim complete audible listening or independent timing-map transcription validation."
+  ],
+  "total": 41,
+  "passed": 41,
+  "finishedAt": "2026-10-14T22:30:22.569Z"
+}

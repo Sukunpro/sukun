@@ -12,6 +12,9 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 EXCLUDED = {
+    'tests/r1067/yasin-follow-browser.cjs': 'Separate actual mobile browser integration; run directly with native CDP gestures.',
+    'tests/r1067/scroll-audit.cjs': 'Separate actual mobile browser integration; run directly with native CDP gestures.',
+    'tests/r1067/scroll-races.cjs': 'Separate actual mobile browser integration; run directly with native CDP gestures.',
     'tests/r1017/recording_inspection_contract.cjs': 'Archived r1017 reader; r1027 active/history reader contracts cover the shipped r1020 API.',
     'tests/r1017/health_inspection_contract.cjs': 'Archived reader path and whole-object schema; current health UI/continuity and intro diagnostic contracts remain.',
     'tests/r1021/release-integrity.cjs': 'Historical hardcoded r1021 manifest; current r1027 release-integrity is selected separately.',

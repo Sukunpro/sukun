@@ -249,14 +249,14 @@ function queue(){if(!document.hidden&&!raf)raf=requestAnimationFrame(render)}
 // once, paint the focus layout immediately and settle only the current entry.
 function beginFocus(){if(!focusOrigin)focusOrigin={x:window.scrollX||0,y:window.scrollY||0,tab:$('tab-zkr')?.scrollTop||0}}
 function settleFocus(active){
- const generation=++focusGeneration;restorePresentation();
+ const generation=++focusGeneration,policy=window.SukunViewportPolicy,ticket=policy?.captureNavigation?.();restorePresentation();
  const origin=focusOrigin;if(!active)focusOrigin=null;
- const settle=()=>{
-  if(generation!==focusGeneration||document.hidden||!!window.SUKUN_TEFEKKUR?.active?.()!==active)return;
+ const settle=(delayed=false)=>{
+  if(generation!==focusGeneration||document.hidden||!!window.SUKUN_TEFEKKUR?.active?.()!==active||ticket&&policy.navigationCurrent(ticket,{includeScroll:false})===false||delayed&&window.SukunInteractionGateR732?.active?.())return;
   const tab=$('tab-zkr');if(tab)tab.scrollTop=active?0:origin?.tab||0;
   window.scrollTo({left:active?0:origin?.x||0,top:active?0:origin?.y||0,behavior:'instant'});
  };
- settle();requestAnimationFrame(settle);
+ settle();requestAnimationFrame(()=>settle(true));
 }
 // r979: bounded foreground repair can paint synchronously if a suspended
 // requestAnimationFrame handle survived restoration. No transport command.

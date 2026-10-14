@@ -1,0 +1,5371 @@
+{
+  "testScriptSha256": "2c60552ac586018b97e8fbdbf8ca99aa6534fe87ad7b172ce550e3618cf692e6",
+  "build": "r1067",
+  "scope": "Actual Classic/Feyz app and native CDP touches, broad control surfaces; no physical Android guarantee.",
+  "checks": [
+    {
+      "profile": "320x640",
+      "name": "Classic/Feyz startup and no hidden global scroll shield",
+      "passed": true,
+      "evidence": {
+        "classic": true,
+        "appearance": "feyz",
+        "html": "visible",
+        "body": "visible",
+        "gate": {
+          "version": "r732",
+          "touches": 0,
+          "pointers": 0,
+          "active": false,
+          "quietMs": 0,
+          "pending": false,
+          "deferrals": 0,
+          "events": 0,
+          "sequence": 0,
+          "lastReason": "boot"
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "ambience disclosure vertical pan does not toggle; following native first tap does",
+      "passed": true,
+      "evidence": {
+        "old": "false",
+        "after": "true",
+        "gesture": {
+          "before": {
+            "y": 2101,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 0,
+              "events": 1,
+              "sequence": 0,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 3,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016865397
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "after": {
+            "y": 2128,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 96,
+              "pending": false,
+              "deferrals": 0,
+              "events": 16,
+              "sequence": 2,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 17,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016865397
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "point": {
+            "x": 160,
+            "y": 306.03125,
+            "accessible": true,
+            "hit": "preAccHead",
+            "r": [
+              12,
+              284.03125,
+              296,
+              44
+            ],
+            "touch": "manipulation"
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "vertical native pan retains #masterVol",
+      "passed": true,
+      "evidence": {
+        "before": "0.7",
+        "after": "0.7",
+        "gesture": {
+          "before": {
+            "y": 748,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 0,
+              "events": 21,
+              "sequence": 4,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 22,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016868180
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "after": {
+            "y": 798,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 110,
+              "pending": false,
+              "deferrals": 0,
+              "events": 37,
+              "sequence": 6,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 37,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016868180
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "point": {
+            "x": 202.659375,
+            "y": 306.234375,
+            "accessible": true,
+            "hit": "masterVol",
+            "r": [
+              41.90625,
+              292.234375,
+              206.09375,
+              28
+            ],
+            "touch": "pan-y pinch-zoom"
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "vertical native pan retains #r1030ChannelVolume-su_fokurdama",
+      "passed": true,
+      "evidence": {
+        "before": "0.5",
+        "after": "0.5",
+        "gesture": {
+          "before": {
+            "y": 2498,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 0,
+              "events": 38,
+              "sequence": 6,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 38,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016870162
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "after": {
+            "y": 2548,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 95,
+              "pending": false,
+              "deferrals": 0,
+              "events": 54,
+              "sequence": 8,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 53,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016870162
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "point": {
+            "x": 228.32,
+            "y": 305.515625,
+            "accessible": true,
+            "hit": "r1030ChannelVolume-su_fokurdama",
+            "r": [
+              38,
+              291.515625,
+              244,
+              28
+            ],
+            "touch": "pan-y pinch-zoom"
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "vertical native pan retains #beatSld",
+      "passed": true,
+      "evidence": {
+        "before": "7.83",
+        "after": "7.83",
+        "gesture": {
+          "before": {
+            "y": 2440,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 1,
+              "events": 61,
+              "sequence": 10,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 60,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016873950
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "after": {
+            "y": 2490,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 92,
+              "pending": false,
+              "deferrals": 1,
+              "events": 77,
+              "sequence": 12,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 75,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016873950
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "point": {
+            "x": 209.28,
+            "y": 305.9375,
+            "accessible": true,
+            "hit": "beatSld",
+            "r": [
+              111,
+              291.9375,
+              126,
+              28
+            ],
+            "touch": "pan-y pinch-zoom"
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "vertical native pan retains #frVol",
+      "passed": true,
+      "evidence": {
+        "before": "0.5",
+        "after": "0.5",
+        "gesture": {
+          "before": {
+            "y": 3016,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 1,
+              "events": 78,
+              "sequence": 12,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 76,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016875496
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "after": {
+            "y": 3066,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 113,
+              "pending": false,
+              "deferrals": 1,
+              "events": 94,
+              "sequence": 14,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 91,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016875496
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "point": {
+            "x": 210.16,
+            "y": 305.640625,
+            "accessible": true,
+            "hit": "frVol",
+            "r": [
+              115,
+              291.640625,
+              122,
+              28
+            ],
+            "touch": "pan-y pinch-zoom"
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "expanded settings panel first tap works after several successive canceled and real pans",
+      "passed": true,
+      "evidence": {
+        "y": 2403,
+        "scrollers": [
+          {
+            "id": "tab-zkr",
+            "top": 0
+          },
+          {
+            "id": "r659DockBody",
+            "top": 0
+          },
+          {
+            "id": "r674DetailsScroll",
+            "top": 0
+          },
+          {
+            "id": "r554DrawerList",
+            "top": 0
+          }
+        ],
+        "gate": {
+          "version": "r732",
+          "touches": 0,
+          "pointers": 0,
+          "active": false,
+          "quietMs": 0,
+          "pending": false,
+          "deferrals": 1,
+          "events": 150,
+          "sequence": 24,
+          "lastReason": "touchend"
+        },
+        "policy": {
+          "version": "r508",
+          "suppressed": false,
+          "suppressReason": "",
+          "userIntent": true,
+          "userReason": "click",
+          "sequence": 144,
+          "inputActive": false,
+          "blocked": 2,
+          "allowed": 0,
+          "last": {
+            "type": "allow-scope",
+            "reason": "fixture-placement",
+            "at": 1792016884651
+          }
+        },
+        "dock": "mini",
+        "phase": "IDLE",
+        "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion"
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "expanded settings section button remains reachable by native pan and tap",
+      "passed": true,
+      "evidence": {
+        "gesture": {
+          "before": {
+            "y": 2085,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 1,
+              "events": 151,
+              "sequence": 24,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 145,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016886004
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion"
+          },
+          "after": {
+            "y": 2110,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 147,
+              "pending": false,
+              "deferrals": 1,
+              "events": 164,
+              "sequence": 26,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 157,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016886004
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion"
+          },
+          "point": {
+            "x": 71.328125,
+            "y": 295.921875,
+            "accessible": true,
+            "hit": "SPAN",
+            "r": [
+              30,
+              265.828125,
+              82.65625,
+              60.1875
+            ],
+            "touch": "manipulation"
+          }
+        },
+        "hit": {
+          "x": 71.328125,
+          "y": 295.921875,
+          "accessible": true,
+          "hit": "SPAN",
+          "r": [
+            30,
+            265.828125,
+            82.65625,
+            60.1875
+          ],
+          "touch": "manipulation"
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "legacy Nefs rows keep readable full-width text and a separate first-tap guide action",
+      "passed": true,
+      "evidence": {
+        "metrics": {
+          "row": {
+            "x": 83,
+            "y": 218.6875,
+            "width": 154,
+            "height": 162.671875,
+            "right": 237,
+            "bottom": 381.359375
+          },
+          "text": {
+            "x": 96,
+            "y": 281.6875,
+            "width": 128,
+            "height": 48.5,
+            "right": 224,
+            "bottom": 330.1875
+          },
+          "guide": {
+            "x": 180,
+            "y": 229.6875,
+            "width": 44,
+            "height": 44,
+            "right": 224,
+            "bottom": 273.6875
+          }
+        },
+        "title": "3. Nefs-i Mülhime",
+        "gesture": {
+          "before": {
+            "y": 12770,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 1,
+              "events": 182,
+              "sequence": 32,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 175,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016893337
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "after": {
+            "y": 12815,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 88,
+              "pending": false,
+              "deferrals": 1,
+              "events": 197,
+              "sequence": 34,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 189,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016893337
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "point": {
+            "x": 160,
+            "y": 305.9375,
+            "accessible": true,
+            "hit": "SMALL",
+            "r": [
+              96,
+              281.6875,
+              128,
+              48.5
+            ],
+            "touch": "auto"
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Yasin verse list performs a long native fling without stuck gate or accidental controls",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "y": 8316,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 0
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 1,
+            "events": 199,
+            "sequence": 34,
+            "lastReason": "native-scroll"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 191,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792016895768
+            }
+          },
+          "dock": "mini",
+          "phase": "IDLE",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+        },
+        "after": {
+          "y": 8541,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 0
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 1,
+            "events": 212,
+            "sequence": 36,
+            "lastReason": "touchend"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 203,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792016895768
+            }
+          },
+          "dock": "mini",
+          "phase": "IDLE",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "meal checkbox receives exactly the first subsequent native tap after Yasin pan",
+      "passed": true,
+      "evidence": {
+        "old": true,
+        "gesture": {
+          "before": {
+            "y": 5851,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 1,
+              "events": 213,
+              "sequence": 36,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 204,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016897079
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "after": {
+            "y": 5876,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 115,
+              "pending": false,
+              "deferrals": 1,
+              "events": 226,
+              "sequence": 38,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 216,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016897079
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "point": {
+            "x": 67,
+            "y": 296.484375,
+            "accessible": true,
+            "hit": "r1064YasinShowMeaning",
+            "r": [
+              57,
+              286.484375,
+              20,
+              20
+            ],
+            "touch": "manipulation"
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "native summary tap and pan keep independent reading disclosures",
+      "passed": true,
+      "evidence": {
+        "old": true,
+        "gesture": {
+          "before": {
+            "y": 4996,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 1,
+              "events": 236,
+              "sequence": 42,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 226,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016900543
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "after": {
+            "y": 5021,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 106,
+              "pending": false,
+              "deferrals": 1,
+              "events": 249,
+              "sequence": 44,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 238,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016900543
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "point": {
+            "x": 160,
+            "y": 296.265625,
+            "accessible": true,
+            "hit": "SUMMARY",
+            "r": [
+              57,
+              260.96875,
+              206,
+              70.59375
+            ],
+            "touch": "manipulation"
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "playing dock mini keeps visible controls native and reachable",
+      "passed": true,
+      "evidence": {
+        "mode": "mini",
+        "rows": [
+          {
+            "selector": "#r588Play",
+            "x": 234,
+            "y": 598,
+            "accessible": true,
+            "hit": "r588Play",
+            "r": [
+              212,
+              576,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          },
+          {
+            "selector": "#r920DockExpand",
+            "x": 282,
+            "y": 598,
+            "accessible": true,
+            "hit": "r920DockExpand",
+            "r": [
+              260,
+              576,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          }
+        ],
+        "ports": [
+          {
+            "id": "r170Now",
+            "height": 66,
+            "total": 66,
+            "touch": "auto",
+            "overflow": "hidden"
+          },
+          {
+            "id": "r659DockBody",
+            "height": 0,
+            "total": 0,
+            "touch": "pan-y pinch-zoom",
+            "overflow": "auto"
+          }
+        ]
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "playing dock midi keeps visible controls native and reachable",
+      "passed": true,
+      "evidence": {
+        "mode": "midi",
+        "rows": [
+          {
+            "selector": "#r588Play",
+            "x": 184,
+            "y": 600,
+            "accessible": true,
+            "hit": "r588Play",
+            "r": [
+              162,
+              578,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          },
+          {
+            "selector": "#r588Stop",
+            "x": 232,
+            "y": 600,
+            "accessible": true,
+            "hit": "r588Stop",
+            "r": [
+              210,
+              578,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          },
+          {
+            "selector": "#r588Hide",
+            "x": 280,
+            "y": 600,
+            "accessible": true,
+            "hit": "r588Hide",
+            "r": [
+              258,
+              578,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          },
+          {
+            "selector": "#r920DockAmbience",
+            "x": 256,
+            "y": 477,
+            "accessible": true,
+            "hit": "r920DockAmbience",
+            "r": [
+              211,
+              455,
+              90,
+              44
+            ],
+            "touch": "manipulation"
+          }
+        ],
+        "ports": [
+          {
+            "id": "r170Now",
+            "height": 338,
+            "total": 338,
+            "touch": "auto",
+            "overflow": "auto"
+          },
+          {
+            "id": "r659DockBody",
+            "height": 219,
+            "total": 222,
+            "touch": "pan-y pinch-zoom",
+            "overflow": "auto"
+          }
+        ]
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "playing dock max keeps visible controls native and reachable",
+      "passed": true,
+      "evidence": {
+        "mode": "max",
+        "rows": [
+          {
+            "selector": "#r588Play",
+            "x": 184,
+            "y": 600,
+            "accessible": true,
+            "hit": "r588Play",
+            "r": [
+              162,
+              578,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          },
+          {
+            "selector": "#r588Stop",
+            "x": 232,
+            "y": 600,
+            "accessible": true,
+            "hit": "r588Stop",
+            "r": [
+              210,
+              578,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          },
+          {
+            "selector": "#r588Hide",
+            "x": 280,
+            "y": 600,
+            "accessible": true,
+            "hit": "r588Hide",
+            "r": [
+              258,
+              578,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          },
+          {
+            "selector": "#r920DockAmbience",
+            "x": 256,
+            "y": 477,
+            "accessible": true,
+            "hit": "r920DockAmbience",
+            "r": [
+              211,
+              455,
+              90,
+              44
+            ],
+            "touch": "manipulation"
+          }
+        ],
+        "ports": [
+          {
+            "id": "r170Now",
+            "height": 600,
+            "total": 600,
+            "touch": "auto",
+            "overflow": "hidden"
+          },
+          {
+            "id": "r659DockBody",
+            "height": 481,
+            "total": 484,
+            "touch": "pan-y pinch-zoom",
+            "overflow": "auto"
+          }
+        ]
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "native vertical pan retains playing dock volume and uses sole dock scrollport",
+      "passed": true,
+      "evidence": {
+        "before": "1",
+        "after": "1",
+        "gesture": {
+          "before": {
+            "y": 5021,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 3
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 1,
+              "events": 256,
+              "sequence": 46,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 247,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016957061
+              }
+            },
+            "dock": "max",
+            "phase": "PLAYING",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r699-body-scroll r699-overflow r588-mode-max"
+          },
+          "after": {
+            "y": 5021,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 3
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 1,
+              "events": 267,
+              "sequence": 48,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 257,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016957061
+              }
+            },
+            "dock": "max",
+            "phase": "PLAYING",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r699-body-scroll r699-overflow r588-mode-max"
+          },
+          "point": {
+            "x": 208.9665625,
+            "y": 547.296875,
+            "accessible": true,
+            "hit": "r920DockVolume",
+            "r": [
+              19,
+              525.296875,
+              243.546875,
+              44
+            ],
+            "touch": "pan-y pinch-zoom"
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "native dock transport first tap responds after canceled pan",
+      "passed": true,
+      "evidence": {
+        "gesture": {
+          "before": {
+            "y": 5021,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 3
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 1,
+              "events": 267,
+              "sequence": 48,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 257,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016971275
+              }
+            },
+            "dock": "max",
+            "phase": "PLAYING",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r699-body-scroll r699-overflow r588-mode-max"
+          },
+          "after": {
+            "y": 5046,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 3
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 1,
+              "events": 281,
+              "sequence": 50,
+              "lastReason": "touchcancel"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 270,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792016971275
+              }
+            },
+            "dock": "max",
+            "phase": "PLAYING",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r699-body-scroll r699-overflow r588-mode-max"
+          },
+          "point": {
+            "x": 184,
+            "y": 600,
+            "accessible": true,
+            "hit": "r588Play",
+            "r": [
+              162,
+              578,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          }
+        },
+        "state": {
+          "y": 5046,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 3
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 1,
+            "events": 289,
+            "sequence": 54,
+            "lastReason": "touchend"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 278,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792016981971
+            }
+          },
+          "dock": "max",
+          "phase": "PLAYING",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r699-body-scroll r699-overflow r588-mode-max"
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "native details scroll and first close tap release the sheet shield",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "y": 5046,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 3
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 1,
+            "events": 289,
+            "sequence": 54,
+            "lastReason": "touchend"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 278,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792016981971
+            }
+          },
+          "dock": "max",
+          "phase": "PLAYING",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r699-body-scroll r699-overflow r588-mode-max r434-inline-details-open r447-dock-expanded r699-details-open"
+        },
+        "after": {
+          "y": 5046,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 3
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 4,
+            "events": 303,
+            "sequence": 58,
+            "lastReason": "touchend"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 291,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792016981971
+            }
+          },
+          "dock": "max",
+          "phase": "PLAYING",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r699-body-scroll r699-overflow r588-mode-max r447-dock-expanded r716-motion"
+        },
+        "e": {
+          "x": 247,
+          "y": 588,
+          "total": 373,
+          "height": 373
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "notification drawer owns native card scrolling and its first close tap releases the modal shield",
+      "passed": true,
+      "evidence": {
+        "port": {
+          "x": 212.79999999999998,
+          "y": 528,
+          "height": 249,
+          "total": 249,
+          "top": 0,
+          "touch": "pan-y pinch-zoom"
+        },
+        "top": 0,
+        "before": {
+          "y": 5046,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 0
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 4,
+            "events": 303,
+            "sequence": 58,
+            "lastReason": "touchend"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 291,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792016981971
+            }
+          },
+          "dock": "max",
+          "phase": "PLAYING",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r588-mode-max r447-dock-expanded r699-drawer-open"
+        },
+        "panState": {
+          "y": 5046,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 0
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 4,
+            "events": 314,
+            "sequence": 60,
+            "lastReason": "touchend"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 301,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792016981971
+            }
+          },
+          "dock": "max",
+          "phase": "PLAYING",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r588-mode-max r447-dock-expanded r699-drawer-open"
+        },
+        "after": {
+          "y": 5046,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 3
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 6,
+            "events": 318,
+            "sequence": 62,
+            "lastReason": "state-change"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 305,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792016981971
+            }
+          },
+          "dock": "max",
+          "phase": "PLAYING",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r588-mode-max r447-dock-expanded r716-motion r699-body-scroll r699-overflow"
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "stopped invisible dock cannot intercept the first tap on a footer disclosure",
+      "passed": true,
+      "evidence": {
+        "pt": {
+          "x": 160,
+          "y": 500.25,
+          "accessible": true,
+          "hit": "SUMMARY",
+          "r": [
+            26,
+            478.25,
+            268,
+            44
+          ],
+          "touch": "manipulation"
+        },
+        "host": {
+          "visible": false,
+          "display": "none",
+          "opacity": "0",
+          "pointer": "none",
+          "hidden": false
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "diagnostic double-open / close and native page pan do not leave an overflow lock",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "y": 2769,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 0
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 7,
+            "events": 325,
+            "sequence": 64,
+            "lastReason": "native-scroll"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 312,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792017013946
+            }
+          },
+          "dock": "mini",
+          "phase": "IDLE",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-details-open r591-flow-active r447-dock-expanded r716-motion r588-mode-mini"
+        },
+        "after": {
+          "y": 2844,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 0
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 112,
+            "pending": false,
+            "deferrals": 7,
+            "events": 342,
+            "sequence": 66,
+            "lastReason": "touchend"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 328,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792017013946
+            }
+          },
+          "dock": "mini",
+          "phase": "IDLE",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-details-open r591-flow-active r447-dock-expanded r716-motion r588-mode-mini"
+        },
+        "point": {
+          "x": 160,
+          "y": 296.359375,
+          "accessible": true,
+          "hit": "r1056SettingsCaption",
+          "r": [
+            30,
+            274.359375,
+            260,
+            44
+          ],
+          "touch": "manipulation"
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "all served application bytes remain exact; no runtime/SRI faults",
+      "passed": true,
+      "evidence": {
+        "files": 79,
+        "errors": []
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Classic/Feyz startup and no hidden global scroll shield",
+      "passed": true,
+      "evidence": {
+        "classic": true,
+        "appearance": "feyz",
+        "html": "visible",
+        "body": "visible",
+        "gate": {
+          "version": "r732",
+          "touches": 0,
+          "pointers": 0,
+          "active": false,
+          "quietMs": 0,
+          "pending": false,
+          "deferrals": 0,
+          "events": 0,
+          "sequence": 0,
+          "lastReason": "boot"
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "ambience disclosure vertical pan does not toggle; following native first tap does",
+      "passed": true,
+      "evidence": {
+        "old": "false",
+        "after": "true",
+        "gesture": {
+          "before": {
+            "y": 1790,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 0,
+              "events": 1,
+              "sequence": 0,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 3,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017025349
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "after": {
+            "y": 1817,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 104,
+              "pending": false,
+              "deferrals": 0,
+              "events": 15,
+              "sequence": 2,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 16,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017025349
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "point": {
+            "x": 195,
+            "y": 407.796875,
+            "accessible": true,
+            "hit": "preAccHead",
+            "r": [
+              12,
+              385.796875,
+              366,
+              44
+            ],
+            "touch": "manipulation"
+          }
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "vertical native pan retains #masterVol",
+      "passed": true,
+      "evidence": {
+        "before": "0.7",
+        "after": "0.7",
+        "gesture": {
+          "before": {
+            "y": 521,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 0,
+              "events": 20,
+              "sequence": 4,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 21,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017027196
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "after": {
+            "y": 571,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 108,
+              "pending": false,
+              "deferrals": 0,
+              "events": 37,
+              "sequence": 6,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 37,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017027196
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "point": {
+            "x": 257.259375,
+            "y": 408.484375,
+            "accessible": true,
+            "hit": "masterVol",
+            "r": [
+              41.90625,
+              394.484375,
+              276.09375,
+              28
+            ],
+            "touch": "pan-y pinch-zoom"
+          }
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "vertical native pan retains #r1030ChannelVolume-su_fokurdama",
+      "passed": true,
+      "evidence": {
+        "before": "0.5",
+        "after": "0.5",
+        "gesture": {
+          "before": {
+            "y": 2176,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 0,
+              "events": 38,
+              "sequence": 6,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 38,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017028505
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "after": {
+            "y": 2226,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 108,
+              "pending": false,
+              "deferrals": 0,
+              "events": 54,
+              "sequence": 8,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 53,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017028505
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "point": {
+            "x": 151.49,
+            "y": 407.875,
+            "accessible": true,
+            "hit": "r1030ChannelVolume-su_fokurdama",
+            "r": [
+              38,
+              393.875,
+              145.5,
+              28
+            ],
+            "touch": "pan-y pinch-zoom"
+          }
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "vertical native pan retains #beatSld",
+      "passed": true,
+      "evidence": {
+        "before": "7.83",
+        "after": "7.83",
+        "gesture": {
+          "before": {
+            "y": 2120,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 1,
+              "events": 62,
+              "sequence": 10,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 61,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017031201
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "after": {
+            "y": 2170,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 109,
+              "pending": false,
+              "deferrals": 1,
+              "events": 78,
+              "sequence": 12,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 76,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017031201
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "point": {
+            "x": 263.88,
+            "y": 407.828125,
+            "accessible": true,
+            "hit": "beatSld",
+            "r": [
+              111,
+              393.828125,
+              196,
+              28
+            ],
+            "touch": "pan-y pinch-zoom"
+          }
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "vertical native pan retains #frVol",
+      "passed": true,
+      "evidence": {
+        "before": "0.5",
+        "after": "0.5",
+        "gesture": {
+          "before": {
+            "y": 2640,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 1,
+              "events": 79,
+              "sequence": 12,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 77,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017032576
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "after": {
+            "y": 2690,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 108,
+              "pending": false,
+              "deferrals": 1,
+              "events": 95,
+              "sequence": 14,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 92,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017032576
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock"
+          },
+          "point": {
+            "x": 264.76,
+            "y": 408,
+            "accessible": true,
+            "hit": "frVol",
+            "r": [
+              115,
+              394,
+              192,
+              28
+            ],
+            "touch": "pan-y pinch-zoom"
+          }
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "expanded settings panel first tap works after several successive canceled and real pans",
+      "passed": true,
+      "evidence": {
+        "y": 2194,
+        "scrollers": [
+          {
+            "id": "tab-zkr",
+            "top": 0
+          },
+          {
+            "id": "r659DockBody",
+            "top": 0
+          },
+          {
+            "id": "r674DetailsScroll",
+            "top": 0
+          },
+          {
+            "id": "r554DrawerList",
+            "top": 0
+          }
+        ],
+        "gate": {
+          "version": "r732",
+          "touches": 0,
+          "pointers": 0,
+          "active": false,
+          "quietMs": 0,
+          "pending": false,
+          "deferrals": 3,
+          "events": 150,
+          "sequence": 24,
+          "lastReason": "touchend"
+        },
+        "policy": {
+          "version": "r508",
+          "suppressed": false,
+          "suppressReason": "",
+          "userIntent": true,
+          "userReason": "click",
+          "sequence": 144,
+          "inputActive": false,
+          "blocked": 2,
+          "allowed": 0,
+          "last": {
+            "type": "allow-scope",
+            "reason": "fixture-placement",
+            "at": 1792017039884
+          }
+        },
+        "dock": "mini",
+        "phase": "IDLE",
+        "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion"
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "expanded settings section button remains reachable by native pan and tap",
+      "passed": true,
+      "evidence": {
+        "gesture": {
+          "before": {
+            "y": 1876,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 3,
+              "events": 152,
+              "sequence": 24,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 146,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017041070
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion"
+          },
+          "after": {
+            "y": 1901,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 116,
+              "pending": false,
+              "deferrals": 3,
+              "events": 165,
+              "sequence": 26,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 158,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017041070
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion"
+          },
+          "point": {
+            "x": 86.328125,
+            "y": 398.0625,
+            "accessible": true,
+            "hit": "SPAN",
+            "r": [
+              35,
+              367.96875,
+              102.65625,
+              60.1875
+            ],
+            "touch": "manipulation"
+          }
+        },
+        "hit": {
+          "x": 86.328125,
+          "y": 398.0625,
+          "accessible": true,
+          "hit": "SPAN",
+          "r": [
+            35,
+            367.96875,
+            102.65625,
+            60.1875
+          ],
+          "touch": "manipulation"
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "legacy Nefs rows keep readable full-width text and a separate first-tap guide action",
+      "passed": true,
+      "evidence": {
+        "metrics": {
+          "row": {
+            "x": 83,
+            "y": 327.640625,
+            "width": 224,
+            "height": 147.984375,
+            "right": 307,
+            "bottom": 475.625
+          },
+          "text": {
+            "x": 96,
+            "y": 390.640625,
+            "width": 198,
+            "height": 33.8125,
+            "right": 294,
+            "bottom": 424.453125
+          },
+          "guide": {
+            "x": 250,
+            "y": 338.640625,
+            "width": 44,
+            "height": 44,
+            "right": 294,
+            "bottom": 382.640625
+          }
+        },
+        "title": "3. Nefs-i Mülhime",
+        "gesture": {
+          "before": {
+            "y": 10831,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 3,
+              "events": 183,
+              "sequence": 32,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 176,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017045755
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "after": {
+            "y": 10876,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 116,
+              "pending": false,
+              "deferrals": 3,
+              "events": 198,
+              "sequence": 34,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 190,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017045755
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "point": {
+            "x": 195,
+            "y": 407.546875,
+            "accessible": true,
+            "hit": "B",
+            "r": [
+              96,
+              390.640625,
+              198,
+              33.8125
+            ],
+            "touch": "auto"
+          }
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Yasin verse list performs a long native fling without stuck gate or accidental controls",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "y": 7368,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 0
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 3,
+            "events": 199,
+            "sequence": 34,
+            "lastReason": "native-scroll"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 191,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792017048124
+            }
+          },
+          "dock": "mini",
+          "phase": "IDLE",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+        },
+        "after": {
+          "y": 7593,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 0
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 3,
+            "events": 212,
+            "sequence": 36,
+            "lastReason": "touchend"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 203,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792017048124
+            }
+          },
+          "dock": "mini",
+          "phase": "IDLE",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "meal checkbox receives exactly the first subsequent native tap after Yasin pan",
+      "passed": true,
+      "evidence": {
+        "old": true,
+        "gesture": {
+          "before": {
+            "y": 5327,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 3,
+              "events": 213,
+              "sequence": 36,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 204,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017049378
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "after": {
+            "y": 5352,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 109,
+              "pending": false,
+              "deferrals": 3,
+              "events": 226,
+              "sequence": 38,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 216,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017049378
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "point": {
+            "x": 67,
+            "y": 398.453125,
+            "accessible": true,
+            "hit": "r1064YasinShowMeaning",
+            "r": [
+              57,
+              388.453125,
+              20,
+              20
+            ],
+            "touch": "manipulation"
+          }
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "native summary tap and pan keep independent reading disclosures",
+      "passed": true,
+      "evidence": {
+        "old": true,
+        "gesture": {
+          "before": {
+            "y": 4629,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 3,
+              "events": 236,
+              "sequence": 42,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 226,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017052468
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "after": {
+            "y": 4654,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 0
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 111,
+              "pending": false,
+              "deferrals": 3,
+              "events": 249,
+              "sequence": 44,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 238,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017052468
+              }
+            },
+            "dock": "mini",
+            "phase": "IDLE",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "point": {
+            "x": 195,
+            "y": 397.9609375,
+            "accessible": true,
+            "hit": "SUMMARY",
+            "r": [
+              57,
+              374.5625,
+              276,
+              46.796875
+            ],
+            "touch": "manipulation"
+          }
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "playing dock mini keeps visible controls native and reachable",
+      "passed": true,
+      "evidence": {
+        "mode": "mini",
+        "rows": [
+          {
+            "selector": "#r588Play",
+            "x": 304,
+            "y": 802,
+            "accessible": true,
+            "hit": "r588Play",
+            "r": [
+              282,
+              780,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          },
+          {
+            "selector": "#r920DockExpand",
+            "x": 352,
+            "y": 802,
+            "accessible": true,
+            "hit": "r920DockExpand",
+            "r": [
+              330,
+              780,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          }
+        ],
+        "ports": [
+          {
+            "id": "r170Now",
+            "height": 66,
+            "total": 66,
+            "touch": "auto",
+            "overflow": "hidden"
+          },
+          {
+            "id": "r659DockBody",
+            "height": 0,
+            "total": 0,
+            "touch": "pan-y pinch-zoom",
+            "overflow": "auto"
+          }
+        ]
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "playing dock midi keeps visible controls native and reachable",
+      "passed": true,
+      "evidence": {
+        "mode": "midi",
+        "rows": [
+          {
+            "selector": "#r588Play",
+            "x": 254,
+            "y": 804,
+            "accessible": true,
+            "hit": "r588Play",
+            "r": [
+              232,
+              782,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          },
+          {
+            "selector": "#r588Stop",
+            "x": 302,
+            "y": 804,
+            "accessible": true,
+            "hit": "r588Stop",
+            "r": [
+              280,
+              782,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          },
+          {
+            "selector": "#r588Hide",
+            "x": 350,
+            "y": 804,
+            "accessible": true,
+            "hit": "r588Hide",
+            "r": [
+              328,
+              782,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          },
+          {
+            "selector": "#r920DockAmbience",
+            "x": 314.328125,
+            "y": 681,
+            "accessible": true,
+            "hit": "r920DockAmbience",
+            "r": [
+              257.65625,
+              659,
+              113.34375,
+              44
+            ],
+            "touch": "manipulation"
+          }
+        ],
+        "ports": [
+          {
+            "id": "r170Now",
+            "height": 338,
+            "total": 338,
+            "touch": "auto",
+            "overflow": "auto"
+          },
+          {
+            "id": "r659DockBody",
+            "height": 219,
+            "total": 222,
+            "touch": "pan-y pinch-zoom",
+            "overflow": "auto"
+          }
+        ]
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "playing dock max keeps visible controls native and reachable",
+      "passed": true,
+      "evidence": {
+        "mode": "max",
+        "rows": [
+          {
+            "selector": "#r588Play",
+            "x": 254,
+            "y": 804,
+            "accessible": true,
+            "hit": "r588Play",
+            "r": [
+              232,
+              782,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          },
+          {
+            "selector": "#r588Stop",
+            "x": 302,
+            "y": 804,
+            "accessible": true,
+            "hit": "r588Stop",
+            "r": [
+              280,
+              782,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          },
+          {
+            "selector": "#r588Hide",
+            "x": 350,
+            "y": 804,
+            "accessible": true,
+            "hit": "r588Hide",
+            "r": [
+              328,
+              782,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          },
+          {
+            "selector": "#r920DockAmbience",
+            "x": 314.328125,
+            "y": 681,
+            "accessible": true,
+            "hit": "r920DockAmbience",
+            "r": [
+              257.65625,
+              659,
+              113.34375,
+              44
+            ],
+            "touch": "manipulation"
+          }
+        ],
+        "ports": [
+          {
+            "id": "r170Now",
+            "height": 600,
+            "total": 600,
+            "touch": "auto",
+            "overflow": "hidden"
+          },
+          {
+            "id": "r659DockBody",
+            "height": 481,
+            "total": 484,
+            "touch": "pan-y pinch-zoom",
+            "overflow": "auto"
+          }
+        ]
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "native vertical pan retains playing dock volume and uses sole dock scrollport",
+      "passed": true,
+      "evidence": {
+        "before": "1",
+        "after": "1",
+        "gesture": {
+          "before": {
+            "y": 4654,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 3
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 4,
+              "events": 256,
+              "sequence": 46,
+              "lastReason": "native-scroll"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 247,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017087008
+              }
+            },
+            "dock": "max",
+            "phase": "PLAYING",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r699-body-scroll r699-overflow r588-mode-max"
+          },
+          "after": {
+            "y": 4654,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 3
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 4,
+              "events": 267,
+              "sequence": 48,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 257,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017087008
+              }
+            },
+            "dock": "max",
+            "phase": "PLAYING",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r699-body-scroll r699-overflow r588-mode-max"
+          },
+          "point": {
+            "x": 263.56656250000003,
+            "y": 751.296875,
+            "accessible": true,
+            "hit": "r920DockVolume",
+            "r": [
+              19,
+              729.296875,
+              313.546875,
+              44
+            ],
+            "touch": "pan-y pinch-zoom"
+          }
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "native dock transport first tap responds after canceled pan",
+      "passed": true,
+      "evidence": {
+        "gesture": {
+          "before": {
+            "y": 4654,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 3
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 4,
+              "events": 267,
+              "sequence": 48,
+              "lastReason": "touchend"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 257,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017095225
+              }
+            },
+            "dock": "max",
+            "phase": "PLAYING",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r699-body-scroll r699-overflow r588-mode-max"
+          },
+          "after": {
+            "y": 4679,
+            "scrollers": [
+              {
+                "id": "tab-zkr",
+                "top": 0
+              },
+              {
+                "id": "r659DockBody",
+                "top": 3
+              },
+              {
+                "id": "r674DetailsScroll",
+                "top": 0
+              },
+              {
+                "id": "r554DrawerList",
+                "top": 0
+              }
+            ],
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 41,
+              "pending": false,
+              "deferrals": 4,
+              "events": 281,
+              "sequence": 50,
+              "lastReason": "touchcancel"
+            },
+            "policy": {
+              "version": "r508",
+              "suppressed": false,
+              "suppressReason": "",
+              "userIntent": false,
+              "userReason": "",
+              "sequence": 270,
+              "inputActive": false,
+              "blocked": 2,
+              "allowed": 0,
+              "last": {
+                "type": "allow-scope",
+                "reason": "fixture-placement",
+                "at": 1792017095225
+              }
+            },
+            "dock": "max",
+            "phase": "PLAYING",
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r699-body-scroll r699-overflow r588-mode-max"
+          },
+          "point": {
+            "x": 254,
+            "y": 804,
+            "accessible": true,
+            "hit": "r588Play",
+            "r": [
+              232,
+              782,
+              44,
+              44
+            ],
+            "touch": "manipulation"
+          }
+        },
+        "state": {
+          "y": 4679,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 3
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 4,
+            "events": 289,
+            "sequence": 54,
+            "lastReason": "touchend"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": true,
+            "userReason": "click",
+            "sequence": 278,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792017104340
+            }
+          },
+          "dock": "max",
+          "phase": "PLAYING",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r699-body-scroll r699-overflow r588-mode-max"
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "native details scroll and first close tap release the sheet shield",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "y": 4679,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 3
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 4,
+            "events": 289,
+            "sequence": 54,
+            "lastReason": "touchend"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 278,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792017104340
+            }
+          },
+          "dock": "max",
+          "phase": "PLAYING",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r699-body-scroll r699-overflow r588-mode-max r434-inline-details-open r447-dock-expanded r699-details-open"
+        },
+        "after": {
+          "y": 4754,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 3
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 6,
+            "events": 303,
+            "sequence": 58,
+            "lastReason": "touchend"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": true,
+            "userReason": "click",
+            "sequence": 291,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792017104340
+            }
+          },
+          "dock": "max",
+          "phase": "PLAYING",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r699-body-scroll r699-overflow r588-mode-max r447-dock-expanded r716-motion"
+        },
+        "e": {
+          "x": 303,
+          "y": 792,
+          "total": 448,
+          "height": 448
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "notification drawer owns native card scrolling and its first close tap releases the modal shield",
+      "passed": true,
+      "evidence": {
+        "port": {
+          "x": 261.79999999999995,
+          "y": 732,
+          "height": 402,
+          "total": 402,
+          "top": 0,
+          "touch": "pan-y pinch-zoom"
+        },
+        "top": 0,
+        "before": {
+          "y": 4754,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 0
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 6,
+            "events": 303,
+            "sequence": 58,
+            "lastReason": "touchend"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 291,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792017104340
+            }
+          },
+          "dock": "max",
+          "phase": "PLAYING",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r588-mode-max r447-dock-expanded r699-drawer-open"
+        },
+        "panState": {
+          "y": 4754,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 0
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 6,
+            "events": 314,
+            "sequence": 60,
+            "lastReason": "touchend"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 301,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792017104340
+            }
+          },
+          "dock": "max",
+          "phase": "PLAYING",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r588-mode-max r447-dock-expanded r699-drawer-open"
+        },
+        "after": {
+          "y": 4754,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 0
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 10,
+            "events": 319,
+            "sequence": 62,
+            "lastReason": "placement-set"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 306,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792017104340
+            }
+          },
+          "dock": "max",
+          "phase": "PLAYING",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r588-mode-max r447-dock-expanded r716-motion r699-body-scroll r699-overflow"
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "stopped invisible dock cannot intercept the first tap on a footer disclosure",
+      "passed": true,
+      "evidence": {
+        "pt": {
+          "x": 195,
+          "y": 703.765625,
+          "accessible": true,
+          "hit": "SUMMARY",
+          "r": [
+            26,
+            681.765625,
+            338,
+            44
+          ],
+          "touch": "manipulation"
+        },
+        "host": {
+          "visible": false,
+          "display": "none",
+          "opacity": "0",
+          "pointer": "none",
+          "hidden": false
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "diagnostic double-open / close and native page pan do not leave an overflow lock",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "y": 2509,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 0
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 10,
+            "events": 326,
+            "sequence": 64,
+            "lastReason": "native-scroll"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 313,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792017131678
+            }
+          },
+          "dock": "mini",
+          "phase": "IDLE",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-details-open r591-flow-active r447-dock-expanded r716-motion r588-mode-mini"
+        },
+        "after": {
+          "y": 2584,
+          "scrollers": [
+            {
+              "id": "tab-zkr",
+              "top": 0
+            },
+            {
+              "id": "r659DockBody",
+              "top": 0
+            },
+            {
+              "id": "r674DetailsScroll",
+              "top": 0
+            },
+            {
+              "id": "r554DrawerList",
+              "top": 0
+            }
+          ],
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 124,
+            "pending": false,
+            "deferrals": 10,
+            "events": 342,
+            "sequence": 66,
+            "lastReason": "touchend"
+          },
+          "policy": {
+            "version": "r508",
+            "suppressed": false,
+            "suppressReason": "",
+            "userIntent": false,
+            "userReason": "",
+            "sequence": 328,
+            "inputActive": false,
+            "blocked": 2,
+            "allowed": 0,
+            "last": {
+              "type": "allow-scope",
+              "reason": "fixture-placement",
+              "at": 1792017131678
+            }
+          },
+          "dock": "mini",
+          "phase": "IDLE",
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-details-open r591-flow-active r447-dock-expanded r716-motion r588-mode-mini"
+        },
+        "point": {
+          "x": 195,
+          "y": 397.5,
+          "accessible": true,
+          "hit": "r1056SettingsCaption",
+          "r": [
+            65,
+            375.5,
+            260,
+            44
+          ],
+          "touch": "manipulation"
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "all served application bytes remain exact; no runtime/SRI faults",
+      "passed": true,
+      "evidence": {
+        "files": 79,
+        "errors": []
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "label": "320x640",
+      "root": "/workspace/scratch/f778a2db1d4a/sukun",
+      "served": {
+        "nero.html": {
+          "sha256": "a43b5cbea8d07dedf7553b0f3cd1aaaf325b9633453cee037cb2ff2d68a7c325",
+          "bytes": 7211191
+        },
+        "assets/runtime/compact-ui-r1057.css": {
+          "sha256": "7f66c90b8b19c6fdb58a6d127109532ac6b82bd2e04755f7a9195601559a975c",
+          "bytes": 7472
+        },
+        "assets/runtime/berhet-layout-r938.css": {
+          "sha256": "e990051b4c79739ccca15efc1e5c1d0f08adc03d3c0a04365f9350bc0297770d",
+          "bytes": 36758
+        },
+        "assets/runtime/berhet-materials-r933.css": {
+          "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+          "bytes": 622
+        },
+        "assets/runtime/berhet-controls-r933.css": {
+          "sha256": "14c546edeb397d91bd18a5b80ff8ca8935da7f0fa8e77695f92fb8f64df5f0fb",
+          "bytes": 31528
+        },
+        "assets/runtime/berhet-dock-r933.css": {
+          "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+          "bytes": 12309
+        },
+        "assets/runtime/audio-cpu-r981.js": {
+          "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+          "bytes": 7807
+        },
+        "assets/runtime/audio-preparation-r981.js": {
+          "sha256": "8345207bc48ffa582fde385d607a9fbb79f07dc75bcdc38afd3369d6b738a4f7",
+          "bytes": 17799
+        },
+        "assets/runtime/studio-preparation-r982.js": {
+          "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e",
+          "bytes": 3689
+        },
+        "assets/runtime/tab-owner-r981.js": {
+          "sha256": "b129a2b94a4ef273cb789d44014c0938884654195741f2c295e65e0543be0f62",
+          "bytes": 32889
+        },
+        "assets/runtime/progress-journal-r982.js": {
+          "sha256": "b7fbd70dbcf9d08abdd88ec2c2d29566d56d75c8c76aca7ce7347149f59b48bc",
+          "bytes": 18325
+        },
+        "assets/runtime/recording-continuity-r1016.js": {
+          "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+          "bytes": 13251
+        },
+        "assets/runtime/recording-inspection-r1020.js": {
+          "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+          "bytes": 9674
+        },
+        "assets/runtime/background-owner-r949.js": {
+          "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+          "bytes": 11067
+        },
+        "assets/runtime/lifecycle-r949.js": {
+          "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+          "bytes": 4252
+        },
+        "assets/runtime/audio-palette-r945.js": {
+          "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+          "bytes": 6073
+        },
+        "assets/runtime/active-source-r1060.js": {
+          "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+          "bytes": 6128
+        },
+        "assets/runtime/esma-scenes-r923.js": {
+          "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+          "bytes": 4307
+        },
+        "assets/runtime/wheels-r924.css": {
+          "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+          "bytes": 34043
+        },
+        "assets/runtime/health-view-r943.css": {
+          "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+          "bytes": 7440
+        },
+        "assets/runtime/scene-picker-r945.css": {
+          "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+          "bytes": 6657
+        },
+        "assets/runtime/nefs-r948.css": {
+          "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+          "bytes": 18988
+        },
+        "assets/runtime/cadence-r981.css": {
+          "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+          "bytes": 1841
+        },
+        "assets/runtime/tekke-ux-r992.css": {
+          "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+          "bytes": 37518
+        },
+        "assets/runtime/tekke-journey-r993.css": {
+          "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+          "bytes": 7044
+        },
+        "assets/runtime/generic-recordings-r1055.js": {
+          "sha256": "e92a2f903152bbbb3d316047fb878944bdcf15c20743a6e142b0caebf7876af7",
+          "bytes": 25188
+        },
+        "assets/runtime/generic-recordings-ui-r1055.js": {
+          "sha256": "813a7cee85dff6d3ee3482f2be24f533a80b5b1e89b3e08c8ca4f0e704b6cffa",
+          "bytes": 7530
+        },
+        "assets/runtime/session-r919.js": {
+          "sha256": "f2e8d55082e21493784e0244d8b5d916a7d3fcbf0e1a5279ed9989c154e9105a",
+          "bytes": 36279
+        },
+        "assets/runtime/dock-r920.js": {
+          "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+          "bytes": 11007
+        },
+        "assets/runtime/active-layers-r1061.js": {
+          "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+          "bytes": 14049
+        },
+        "assets/runtime/wheels-r924.js": {
+          "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+          "bytes": 41623
+        },
+        "assets/runtime/berhet-layout-r938.js": {
+          "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+          "bytes": 8399
+        },
+        "assets/runtime/compact-ui-r1057.js": {
+          "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+          "bytes": 5342
+        },
+        "assets/runtime/berhet-theme-r933.js": {
+          "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434",
+          "bytes": 3453
+        },
+        "assets/runtime/interface-r920.js": {
+          "sha256": "529f0b85417355c89daec2034cf22dcc22369f44f9731c89450962055e841aac",
+          "bytes": 41182
+        },
+        "assets/runtime/scene-picker-r945.js": {
+          "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+          "bytes": 9860
+        },
+        "assets/runtime/health-view-r943.js": {
+          "sha256": "4add13827ef8f50e4ee5dac86db1141ab287433ac5a374b81f14c82c29b125e2",
+          "bytes": 120132
+        },
+        "assets/runtime/presentation-r979.js": {
+          "sha256": "c648ddce99e0191ae5cb11bbccd19222a4bf3bb8764453c54d95d8e15831e033",
+          "bytes": 14768
+        },
+        "assets/runtime/health-r940.js": {
+          "sha256": "62292549287482e8894f0d16fe784ec08338528b12e56a618c7bc62febc1b3e7",
+          "bytes": 89494
+        },
+        "assets/runtime/nefs-data-r948.js": {
+          "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+          "bytes": 283054
+        },
+        "assets/runtime/nefs-model-r948.js": {
+          "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+          "bytes": 18197
+        },
+        "assets/runtime/offline-scenes-r962.js": {
+          "sha256": "4869b10fc6c231545a8e191aa42a617139b0c749ea65a90f97f71d26bdeed4c5",
+          "bytes": 9284
+        },
+        "assets/runtime/nefs-ui-r948.js": {
+          "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+          "bytes": 48398
+        },
+        "assets/runtime/cadence-r981.js": {
+          "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+          "bytes": 23650
+        },
+        "assets/runtime/reading-ui-r1064.css": {
+          "sha256": "2a5d3f20fe12abfddaf231c14d9b364ad09c31721a7050d38a19acff94c0e6bc",
+          "bytes": 4179
+        },
+        "assets/runtime/tekke-sequence-r988.js": {
+          "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+          "bytes": 10314
+        },
+        "assets/runtime/background-mix-render-r1059.js": {
+          "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e",
+          "bytes": 21067
+        },
+        "assets/runtime/background-mix-r1059.js": {
+          "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38",
+          "bytes": 18625
+        },
+        "assets/runtime/tekke-set-r990.js": {
+          "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+          "bytes": 27409
+        },
+        "assets/runtime/yasin-data-r1064.js": {
+          "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+          "bytes": 49799
+        },
+        "assets/runtime/reading-sources-r1064.js": {
+          "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+          "bytes": 67014
+        },
+        "assets/runtime/bundled-arabic-r1065.js": {
+          "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+          "bytes": 9208
+        },
+        "assets/runtime/yasin-timing-r1067.js": {
+          "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+          "bytes": 5926
+        },
+        "assets/runtime/reading-audio-r1064.js": {
+          "sha256": "6ec9d95e33682901fa492df1c017069c275739d40a2c38ce3dbfdb6c92ad40b3",
+          "bytes": 19108
+        },
+        "assets/runtime/reading-ui-r1064.js": {
+          "sha256": "cf50e2d7eeda52810855c1b54d0e429fcc710000d903e6c45b50f8c4e90fe2dc",
+          "bytes": 38061
+        },
+        "assets/runtime/navigation-r1066.js": {
+          "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+          "bytes": 2624
+        },
+        "assets/runtime/studio-batch-r1020.js": {
+          "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+          "bytes": 23944
+        },
+        "assets/runtime/recovery-versions-r1019.js": {
+          "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+          "bytes": 8407
+        },
+        "assets/runtime/recovery-data-r1020.js": {
+          "sha256": "dcd7e844ea0cab11f990c70e8e746384c81a24a000dfd8a4b6d54bfeba266bd4",
+          "bytes": 51467
+        },
+        "assets/runtime/site-backup-r1020.js": {
+          "sha256": "6cd889fb289fee35181d579b5c7da57bc773bcda9e8cebd04987c553196debce",
+          "bytes": 28583
+        },
+        "assets/runtime/recovery-ui-r1019.js": {
+          "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+          "bytes": 6054
+        },
+        "assets/audio/sukun-intro-signature-r1037.wav": {
+          "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+          "bytes": 288044
+        },
+        "assets/runtime/recording-salvage-r1020.js": {
+          "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+          "bytes": 36787
+        },
+        "assets/branding/sukun-frameless-logo-r1029.png": {
+          "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+          "bytes": 27201
+        },
+        "assets/branding/sukun-intro-pattern-r1029.svg": {
+          "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4",
+          "bytes": 769
+        },
+        "assets/runtime/tekke-ux-r992.js": {
+          "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+          "bytes": 25320
+        },
+        "assets/runtime/tekke-journey-r993.js": {
+          "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+          "bytes": 38289
+        },
+        "assets/runtime/recovery-entry-r1027.js": {
+          "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+          "bytes": 5702
+        },
+        "assets/runtime/startup-intro-r1027.js": {
+          "sha256": "92b9bd8eec923ed4d3954cad28846c0ed4dfd7f4205a3fe7e40179102aa48882",
+          "bytes": 22478
+        },
+        "assets/sukun-nur-mist-r759.svg": {
+          "sha256": "4b099628bd538f0a6e2b73b4ffea399319347375444312e7946ada10e8214ccf",
+          "bytes": 20321
+        },
+        "assets/sukun-nur-orbit-r757.svg": {
+          "sha256": "b9e2f2d8d983b9b19cd4be7d16ab1fe82d47a89c82361c2a60f456f25e478854",
+          "bytes": 248
+        },
+        "assets/sukun-tesbih-weave-r759.svg": {
+          "sha256": "f01e6993b482e6194f479416955b85e888b95c332187a1bc55aaa7b893502bba",
+          "bytes": 1296
+        },
+        "assets/scenes/mobile-r918/mevlevi.webp": {
+          "sha256": "38809a4ac966552a60fee4efb9e303b9edd2f9c13cca2b9787ed9cf67bfce565",
+          "bytes": 411132
+        },
+        "assets/sukun-nur-ring-r757.png": {
+          "sha256": "b9bf594010438b1c49ab693a94ba5022569462c334f606754306bb63f808f6fb",
+          "bytes": 1713434
+        },
+        "assets/scenes/esma-r923/mevlevi-sema.webp": {
+          "sha256": "c7dbea4be096916817a0550c698a1607dbf195d951d134874f0244eef1ef6950",
+          "bytes": 274004
+        },
+        "assets/wheels-r924/esma/inci-sema.webp": {
+          "sha256": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+          "bytes": 238294
+        },
+        "sukun-build-r1067.json": {
+          "sha256": "946aa025123feb1b306ebb89176145e37756e4da528cad25a74ec8384222b63a",
+          "bytes": 24685
+        },
+        "assets/wheel-navigation-r964/gold.png": {
+          "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2",
+          "bytes": 1345326
+        },
+        "assets/scenes/esma-r923/cami-avlusu.webp": {
+          "sha256": "17561714794972eb80240e57bcd07604e6db7d89c19af939e4df4280f339f93f",
+          "bytes": 362610
+        }
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "failedRequests": [],
+      "externalBlocked": [
+        "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      ]
+    },
+    {
+      "label": "390x844",
+      "root": "/workspace/scratch/f778a2db1d4a/sukun",
+      "served": {
+        "nero.html": {
+          "sha256": "a43b5cbea8d07dedf7553b0f3cd1aaaf325b9633453cee037cb2ff2d68a7c325",
+          "bytes": 7211191
+        },
+        "assets/runtime/compact-ui-r1057.css": {
+          "sha256": "7f66c90b8b19c6fdb58a6d127109532ac6b82bd2e04755f7a9195601559a975c",
+          "bytes": 7472
+        },
+        "assets/runtime/berhet-layout-r938.css": {
+          "sha256": "e990051b4c79739ccca15efc1e5c1d0f08adc03d3c0a04365f9350bc0297770d",
+          "bytes": 36758
+        },
+        "assets/runtime/berhet-materials-r933.css": {
+          "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+          "bytes": 622
+        },
+        "assets/runtime/berhet-controls-r933.css": {
+          "sha256": "14c546edeb397d91bd18a5b80ff8ca8935da7f0fa8e77695f92fb8f64df5f0fb",
+          "bytes": 31528
+        },
+        "assets/runtime/berhet-dock-r933.css": {
+          "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+          "bytes": 12309
+        },
+        "assets/runtime/audio-cpu-r981.js": {
+          "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+          "bytes": 7807
+        },
+        "assets/runtime/audio-preparation-r981.js": {
+          "sha256": "8345207bc48ffa582fde385d607a9fbb79f07dc75bcdc38afd3369d6b738a4f7",
+          "bytes": 17799
+        },
+        "assets/runtime/studio-preparation-r982.js": {
+          "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e",
+          "bytes": 3689
+        },
+        "assets/runtime/progress-journal-r982.js": {
+          "sha256": "b7fbd70dbcf9d08abdd88ec2c2d29566d56d75c8c76aca7ce7347149f59b48bc",
+          "bytes": 18325
+        },
+        "assets/runtime/tab-owner-r981.js": {
+          "sha256": "b129a2b94a4ef273cb789d44014c0938884654195741f2c295e65e0543be0f62",
+          "bytes": 32889
+        },
+        "assets/runtime/recording-continuity-r1016.js": {
+          "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+          "bytes": 13251
+        },
+        "assets/runtime/recording-inspection-r1020.js": {
+          "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+          "bytes": 9674
+        },
+        "assets/runtime/background-owner-r949.js": {
+          "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+          "bytes": 11067
+        },
+        "assets/runtime/lifecycle-r949.js": {
+          "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+          "bytes": 4252
+        },
+        "assets/runtime/audio-palette-r945.js": {
+          "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+          "bytes": 6073
+        },
+        "assets/runtime/recovery-entry-r1027.js": {
+          "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+          "bytes": 5702
+        },
+        "assets/audio/sukun-intro-signature-r1037.wav": {
+          "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+          "bytes": 288044
+        },
+        "assets/runtime/reading-ui-r1064.css": {
+          "sha256": "2a5d3f20fe12abfddaf231c14d9b364ad09c31721a7050d38a19acff94c0e6bc",
+          "bytes": 4179
+        },
+        "assets/runtime/startup-intro-r1027.js": {
+          "sha256": "92b9bd8eec923ed4d3954cad28846c0ed4dfd7f4205a3fe7e40179102aa48882",
+          "bytes": 22478
+        },
+        "assets/branding/sukun-frameless-logo-r1029.png": {
+          "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+          "bytes": 27201
+        },
+        "assets/branding/sukun-intro-pattern-r1029.svg": {
+          "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4",
+          "bytes": 769
+        },
+        "assets/runtime/esma-scenes-r923.js": {
+          "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+          "bytes": 4307
+        },
+        "assets/runtime/generic-recordings-r1055.js": {
+          "sha256": "e92a2f903152bbbb3d316047fb878944bdcf15c20743a6e142b0caebf7876af7",
+          "bytes": 25188
+        },
+        "assets/runtime/generic-recordings-ui-r1055.js": {
+          "sha256": "813a7cee85dff6d3ee3482f2be24f533a80b5b1e89b3e08c8ca4f0e704b6cffa",
+          "bytes": 7530
+        },
+        "assets/runtime/active-source-r1060.js": {
+          "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+          "bytes": 6128
+        },
+        "assets/runtime/session-r919.js": {
+          "sha256": "f2e8d55082e21493784e0244d8b5d916a7d3fcbf0e1a5279ed9989c154e9105a",
+          "bytes": 36279
+        },
+        "assets/runtime/dock-r920.js": {
+          "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+          "bytes": 11007
+        },
+        "assets/runtime/wheels-r924.js": {
+          "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+          "bytes": 41623
+        },
+        "assets/runtime/active-layers-r1061.js": {
+          "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+          "bytes": 14049
+        },
+        "assets/runtime/berhet-layout-r938.js": {
+          "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+          "bytes": 8399
+        },
+        "assets/runtime/interface-r920.js": {
+          "sha256": "529f0b85417355c89daec2034cf22dcc22369f44f9731c89450962055e841aac",
+          "bytes": 41182
+        },
+        "assets/runtime/compact-ui-r1057.js": {
+          "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+          "bytes": 5342
+        },
+        "assets/runtime/wheels-r924.css": {
+          "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+          "bytes": 34043
+        },
+        "assets/runtime/health-view-r943.css": {
+          "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+          "bytes": 7440
+        },
+        "assets/runtime/berhet-theme-r933.js": {
+          "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434",
+          "bytes": 3453
+        },
+        "assets/runtime/scene-picker-r945.css": {
+          "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+          "bytes": 6657
+        },
+        "assets/runtime/scene-picker-r945.js": {
+          "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+          "bytes": 9860
+        },
+        "assets/runtime/health-view-r943.js": {
+          "sha256": "4add13827ef8f50e4ee5dac86db1141ab287433ac5a374b81f14c82c29b125e2",
+          "bytes": 120132
+        },
+        "assets/runtime/presentation-r979.js": {
+          "sha256": "c648ddce99e0191ae5cb11bbccd19222a4bf3bb8764453c54d95d8e15831e033",
+          "bytes": 14768
+        },
+        "assets/runtime/nefs-r948.css": {
+          "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+          "bytes": 18988
+        },
+        "assets/runtime/health-r940.js": {
+          "sha256": "62292549287482e8894f0d16fe784ec08338528b12e56a618c7bc62febc1b3e7",
+          "bytes": 89494
+        },
+        "assets/runtime/nefs-model-r948.js": {
+          "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+          "bytes": 18197
+        },
+        "assets/runtime/nefs-ui-r948.js": {
+          "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+          "bytes": 48398
+        },
+        "assets/runtime/offline-scenes-r962.js": {
+          "sha256": "4869b10fc6c231545a8e191aa42a617139b0c749ea65a90f97f71d26bdeed4c5",
+          "bytes": 9284
+        },
+        "assets/runtime/nefs-data-r948.js": {
+          "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+          "bytes": 283054
+        },
+        "assets/runtime/cadence-r981.css": {
+          "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+          "bytes": 1841
+        },
+        "assets/runtime/tekke-ux-r992.css": {
+          "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+          "bytes": 37518
+        },
+        "assets/runtime/tekke-sequence-r988.js": {
+          "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+          "bytes": 10314
+        },
+        "assets/runtime/tekke-set-r990.js": {
+          "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+          "bytes": 27409
+        },
+        "assets/runtime/cadence-r981.js": {
+          "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+          "bytes": 23650
+        },
+        "assets/runtime/tekke-journey-r993.css": {
+          "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+          "bytes": 7044
+        },
+        "assets/runtime/background-mix-render-r1059.js": {
+          "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e",
+          "bytes": 21067
+        },
+        "assets/runtime/yasin-data-r1064.js": {
+          "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+          "bytes": 49799
+        },
+        "assets/runtime/reading-sources-r1064.js": {
+          "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+          "bytes": 67014
+        },
+        "assets/runtime/bundled-arabic-r1065.js": {
+          "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+          "bytes": 9208
+        },
+        "assets/runtime/background-mix-r1059.js": {
+          "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38",
+          "bytes": 18625
+        },
+        "assets/runtime/reading-audio-r1064.js": {
+          "sha256": "6ec9d95e33682901fa492df1c017069c275739d40a2c38ce3dbfdb6c92ad40b3",
+          "bytes": 19108
+        },
+        "assets/runtime/yasin-timing-r1067.js": {
+          "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+          "bytes": 5926
+        },
+        "assets/runtime/recovery-versions-r1019.js": {
+          "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+          "bytes": 8407
+        },
+        "assets/runtime/studio-batch-r1020.js": {
+          "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+          "bytes": 23944
+        },
+        "assets/runtime/reading-ui-r1064.js": {
+          "sha256": "cf50e2d7eeda52810855c1b54d0e429fcc710000d903e6c45b50f8c4e90fe2dc",
+          "bytes": 38061
+        },
+        "assets/runtime/navigation-r1066.js": {
+          "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+          "bytes": 2624
+        },
+        "assets/runtime/site-backup-r1020.js": {
+          "sha256": "6cd889fb289fee35181d579b5c7da57bc773bcda9e8cebd04987c553196debce",
+          "bytes": 28583
+        },
+        "assets/runtime/recovery-data-r1020.js": {
+          "sha256": "dcd7e844ea0cab11f990c70e8e746384c81a24a000dfd8a4b6d54bfeba266bd4",
+          "bytes": 51467
+        },
+        "assets/runtime/recovery-ui-r1019.js": {
+          "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+          "bytes": 6054
+        },
+        "assets/runtime/recording-salvage-r1020.js": {
+          "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+          "bytes": 36787
+        },
+        "assets/runtime/tekke-journey-r993.js": {
+          "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+          "bytes": 38289
+        },
+        "assets/runtime/tekke-ux-r992.js": {
+          "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+          "bytes": 25320
+        },
+        "assets/sukun-nur-orbit-r757.svg": {
+          "sha256": "b9e2f2d8d983b9b19cd4be7d16ab1fe82d47a89c82361c2a60f456f25e478854",
+          "bytes": 248
+        },
+        "assets/sukun-tesbih-weave-r759.svg": {
+          "sha256": "f01e6993b482e6194f479416955b85e888b95c332187a1bc55aaa7b893502bba",
+          "bytes": 1296
+        },
+        "assets/sukun-nur-mist-r759.svg": {
+          "sha256": "4b099628bd538f0a6e2b73b4ffea399319347375444312e7946ada10e8214ccf",
+          "bytes": 20321
+        },
+        "assets/scenes/esma-r923/mevlevi-sema.webp": {
+          "sha256": "c7dbea4be096916817a0550c698a1607dbf195d951d134874f0244eef1ef6950",
+          "bytes": 274004
+        },
+        "assets/scenes/mobile-r918/mevlevi.webp": {
+          "sha256": "38809a4ac966552a60fee4efb9e303b9edd2f9c13cca2b9787ed9cf67bfce565",
+          "bytes": 411132
+        },
+        "assets/sukun-nur-ring-r757.png": {
+          "sha256": "b9bf594010438b1c49ab693a94ba5022569462c334f606754306bb63f808f6fb",
+          "bytes": 1713434
+        },
+        "assets/wheels-r924/esma/inci-sema.webp": {
+          "sha256": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+          "bytes": 238294
+        },
+        "sukun-build-r1067.json": {
+          "sha256": "946aa025123feb1b306ebb89176145e37756e4da528cad25a74ec8384222b63a",
+          "bytes": 24685
+        },
+        "assets/wheel-navigation-r964/gold.png": {
+          "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2",
+          "bytes": 1345326
+        },
+        "assets/scenes/esma-r923/cami-avlusu.webp": {
+          "sha256": "17561714794972eb80240e57bcd07604e6db7d89c19af939e4df4280f339f93f",
+          "bytes": 362610
+        }
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "failedRequests": [],
+      "externalBlocked": [
+        "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      ]
+    }
+  ],
+  "passed": 44,
+  "total": 44
+}

@@ -1,0 +1,174 @@
+{
+  "version": "r1067",
+  "root": "/workspace/scratch/f778a2db1d4a/sukun",
+  "scope": "Actual production selection/focus helpers and dock/rail runtimes; controlled DOM/input/lifecycle. No native-browser or physical-phone gesture claim.",
+  "passed": 41,
+  "total": 41,
+  "allPassed": true,
+  "tests": [
+    {
+      "name": "Nefs selection does not restore an old position after input before first-frame",
+      "ok": true
+    },
+    {
+      "name": "Nefs selection does not restore an old position after input before second-frame",
+      "ok": true
+    },
+    {
+      "name": "Nefs selection does not restore an old position after input before third-frame",
+      "ok": true
+    },
+    {
+      "name": "Nefs selection does not restore an old position after input before fourth-frame",
+      "ok": true
+    },
+    {
+      "name": "Nefs selection does not restore an old position after input before delayed-timer",
+      "ok": true
+    },
+    {
+      "name": "Nefs selection does not restore an old position after input before late-dock-settle",
+      "ok": true
+    },
+    {
+      "name": "Nefs quiet layout shift still restores its selected anchor instantly",
+      "ok": true
+    },
+    {
+      "name": "Quiet selection corrects evolving anchor geometry across four bounded frames",
+      "ok": true
+    },
+    {
+      "name": "Post-click quiet window without an active contact preserves legitimate anchor correction",
+      "ok": true
+    },
+    {
+      "name": "Late dock layout shift settles its quiet Nefs anchor at280ms",
+      "ok": true
+    },
+    {
+      "name": "Nefs correction without an anchor uses the native object scrollTo API instantly",
+      "ok": true
+    },
+    {
+      "name": "Nefs delayed restoration yields while panning",
+      "ok": true
+    },
+    {
+      "name": "Nefs delayed restoration yields while hidden",
+      "ok": true
+    },
+    {
+      "name": "Tefekkür entry immediate reset works but a new touch cancels its delayed reset",
+      "ok": true
+    },
+    {
+      "name": "Tefekkür exit immediate reset works but a new touch cancels its delayed reset",
+      "ok": true
+    },
+    {
+      "name": "Quiet focus restoration still repeats once after layout settles",
+      "ok": true
+    },
+    {
+      "name": "Focus delayed reset yields while panning",
+      "ok": true
+    },
+    {
+      "name": "Focus delayed reset yields while hidden",
+      "ok": true
+    },
+    {
+      "name": "A replacement focus transition retires the previous frame callback",
+      "ok": true
+    },
+    {
+      "name": "Dock blur clears stationary abandoned contact and allows the next mode action",
+      "ok": true
+    },
+    {
+      "name": "Dock blur clears moved abandoned contact and allows the next mode action",
+      "ok": true
+    },
+    {
+      "name": "Dock pagehide clears stationary abandoned contact and allows the next mode action",
+      "ok": true
+    },
+    {
+      "name": "Dock pagehide clears moved abandoned contact and allows the next mode action",
+      "ok": true
+    },
+    {
+      "name": "Dock hidden clears stationary abandoned contact and allows the next mode action",
+      "ok": true
+    },
+    {
+      "name": "Dock hidden clears moved abandoned contact and allows the next mode action",
+      "ok": true
+    },
+    {
+      "name": "Old dock release cannot retire a new contact; new contact accepts movement and ends normally",
+      "ok": true
+    },
+    {
+      "name": "The first subsequent dock-mode click schedules geometry after its normal contact release",
+      "ok": true
+    },
+    {
+      "name": "Horizontal rail quiet reveal centers the selected name in one instant action",
+      "ok": true
+    },
+    {
+      "name": "Queued name-rail reveal is retired by new-input",
+      "ok": true
+    },
+    {
+      "name": "Queued name-rail reveal is retired by panning",
+      "ok": true
+    },
+    {
+      "name": "Queued name-rail reveal is retired by detached",
+      "ok": true
+    },
+    {
+      "name": "Queued name-rail reveal is retired by new-selected",
+      "ok": true
+    },
+    {
+      "name": "Queued name-rail reveal is retired by hidden",
+      "ok": true
+    },
+    {
+      "name": "Queued name-rail reveal is retired by vertical-list",
+      "ok": true
+    },
+    {
+      "name": "Queued name-rail reveal is retired by replaced-rail",
+      "ok": true
+    },
+    {
+      "name": "Queued name-rail reveal is retired by hidden-rail",
+      "ok": true
+    },
+    {
+      "name": "Queued name-rail reveal is retired by inert-parent",
+      "ok": true
+    },
+    {
+      "name": "Two name-rail requests admit only the latest selected name",
+      "ok": true
+    },
+    {
+      "name": "Selected name waits through post-tap quiet then reveals exactly once",
+      "ok": true
+    },
+    {
+      "name": "A newer pan during the quiet window retires the waiting name reveal",
+      "ok": true
+    },
+    {
+      "name": "Superseded waiting rail callback cannot move the current selected name",
+      "ok": true
+    }
+  ]
+}

@@ -3,7 +3,7 @@
  'use strict';
  const w=window,ID='reading-r1064',listeners=new Set();
  let sequence=0,partAttempt=0,utterance=null,settleUtterance=null,resumeWaiter=null;
- let state={version:'r1065',id:'',title:'',kind:'',phase:'idle',content:'arabic',source:'auto',sourceKind:'none',part:0,total:0,verse:0,progress:null,reason:'',queue:[]};
+ let state={version:'r1065',id:'',title:'',kind:'',phase:'idle',content:'arabic',source:'auto',sourceKind:'none',part:0,total:0,verse:0,progress:null,verseSync:'none',currentTime:null,duration:null,reason:'',queue:[]};
  let currentEntry=null,currentOptions=null,ownerPromise=null,activeCurrent=null,settingsEpoch=w.SukunVoiceSettings?.epoch?.()||0,lastAcceptedLeaseEpoch=-1;
  const active=()=>['preparing','playing','paused'].includes(state.phase);
  const snapshot=()=>Object.freeze({...state,queue:state.queue.map(x=>({verse:x.verse||0}))});
@@ -53,7 +53,7 @@
     if(!current())return finish('cancelled');
     u=new SpeechSynthesisUtterance(text);u.lang=plan.lang;u.voice=plan.voice;u.rate=plan.rate*(w.OKUMA_HIZ||1);u.pitch=plan.pitch;
     const voiceVolume=typeof ZVOL==='number'?ZVOL:1;u.volume=Math.min(1,Math.max(0,voiceVolume*(w.okumaSeviyesi?.()??1)));
-    utterance=u;u.onstart=()=>{if(!current()||attempt!==partAttempt){finish('cancelled');return;}change({phase:'playing'},'tts-start');};
+    utterance=u;u.onstart=()=>{if(!current()||attempt!==partAttempt){finish('cancelled');return;}change({phase:'playing',verseSync:'tts'},'tts-start');};
     u.onend=()=>finish(current()&&attempt===partAttempt?'ended':'cancelled');u.onerror=()=>finish(state.phase==='paused'?'paused':'tts-failed');
     timer=setTimeout(()=>{if(attempt===partAttempt){clearUtterance('tts-failed');}finish('tts-failed');},Math.max(12000,Math.min(120000,text.length*220+8000)));
     w.speechSynthesis.speak(u);
@@ -88,9 +88,16 @@
   if(recording){
    if(state.phase==='paused'&&!await waitForResume(token))return{ok:false,cancelled:true,reason:'stale-sequence'};
    if(!current())return{ok:false,cancelled:true,reason:'stale-sequence'};
-   change({phase:'playing',sourceKind:recording.bundled?'bundled':recording.generic?'generic':'personal',queue:[],part:1,total:1},'recording-start');publishSource(state.sourceKind);
+   change({phase:'playing',sourceKind:recording.bundled?'bundled':recording.generic?'generic':'personal',queue:[],part:1,total:1,verse:0,verseSync:'none'},'recording-start');publishSource(state.sourceKind);
+   const onProgress=entry.id==='reading:yasin'&&recording.bundled?clock=>{
+    if(!current()||!['playing','paused'].includes(state.phase)||clock.recordingKey!==recording.key)return;
+    const cue=w.SukunYasinTimingR1067?.at?.(recording.metadata,clock.currentTime,clock.duration);
+    const patch={currentTime:Number.isFinite(clock.currentTime)?clock.currentTime:null,duration:Number.isFinite(clock.duration)?clock.duration:null,
+      verse:cue?.verse||0,verseSync:cue?'timestamp':'none',progress:Number.isFinite(clock.currentTime)&&Number.isFinite(clock.duration)&&clock.duration>0?Math.min(100,Math.max(0,clock.currentTime/clock.duration*100)):null};
+    if(patch.verse!==state.verse||patch.verseSync!==state.verseSync)change(patch,'native-verse');else state={...state,...patch};
+   }:undefined;
    for(;;){
-    let r;try{r=await playRecording(recording.blob,'reading-r1064:'+entry.id,{detail:true,resume:false,recordingKey:recording.key,title:state.title,reason:sourceLabel(state.sourceKind),backgroundNative:true,generic:!!recording.generic,bundled:!!recording.bundled,isCurrent:current});}catch(_){r={ok:false,reason:'recording-failed'};}
+    let r;try{r=await playRecording(recording.blob,'reading-r1064:'+entry.id,{detail:true,resume:false,recordingKey:recording.key,title:state.title,reason:sourceLabel(state.sourceKind),backgroundNative:true,generic:!!recording.generic,bundled:!!recording.bundled,isCurrent:current,onProgress});}catch(_){r={ok:false,reason:'recording-failed'};}
     if(!current())return{ok:false,cancelled:true,reason:'stale-sequence'};
     const completed=r===true||r?.ok;
     if(state.phase==='paused'){
@@ -104,16 +111,16 @@
    }
   }
   // Arabic device speech is an explicit option, never a dependency of Auto.
-  // A full-chapter recording has no invented verse timestamps.
+  // Full-chapter verse tracking uses only its exact source's timing map.
   if(opt.source==='auto'&&opt.content==='arabic')return failure(opt.onlyVerse||Number(opt.startVerse)>1?'bundled-seek-unavailable':'arabic-audio-unavailable');
   const plan=w.SukunReadingPolicy.plan(entry,{entry,...opt,...(opt.source==='auto'&&opt.content==='legacy'?{disableArabicAuto:true}:{})});
   if(!plan.ok)return failure(plan.reason);
   const queue=makeQueue(entry,opt,plan);if(!queue?.length)return failure(state.content==='arabic'?'arabic-text-unavailable':'meaning-text-unavailable');
-  change({phase:state.phase==='paused'?'paused':'playing',sourceKind:'tts',queue,part:1,total:queue.length,verse:queue[0].verse||0},'tts-prepared');publishSource('tts');
+  change({phase:state.phase==='paused'?'paused':'playing',sourceKind:'tts',queue,part:1,total:queue.length,verse:queue[0].verse||0,verseSync:'none'},'tts-prepared');publishSource('tts');
   for(let i=0;i<queue.length;){
    if(!current())return{ok:false,cancelled:true,reason:'stale-sequence'};
    if(state.phase==='paused'){if(!await waitForResume(token))return{ok:false,cancelled:true,reason:'stale-sequence'};continue;}
-   const part=queue[i];change({part:i+1,verse:part.verse||0,sectionTitle:part.verse?state.title+' · '+(w.I18N?.lang==='en'?'Verse ':'Âyet ')+part.verse:state.title,progress:i/queue.length*100},'part-start');
+   const part=queue[i];change({part:i+1,verse:part.verse||0,sectionTitle:part.verse?state.title+' · '+(w.I18N?.lang==='en'?'Verse ':'Âyet ')+part.verse:state.title,progress:i/queue.length*100,verseSync:state.verse===(part.verse||0)&&state.verseSync==='tts'?'tts':'pending'},'part-start');
    // Text/verse order belongs to the immutable queue. Voice and rate edits
    // are read only when the next utterance is admitted (r976 contract).
    const nextVoice=w.SukunReadingPolicy.plan(entry,{entry,...opt,...(opt.source==='auto'&&opt.content==='legacy'?{disableArabicAuto:true}:{})});
@@ -153,7 +160,7 @@
   // may react to a later loss of ownership.
   activeCurrent=null;
   const token=++sequence;currentEntry=entry;currentOptions={...opt,...choice};
-  change({id:entry.id,title:entry.title||entry.id,sectionTitle:entry.title||entry.id,kind:entry.kind||String(entry.id).split(':')[1],content:choice.content,source:choice.source,phase:'preparing',reason:'',part:0,total:0,verse:0,progress:null,queue:[],sourceKind:'none'},'prepare');
+  change({id:entry.id,title:entry.title||entry.id,sectionTitle:entry.title||entry.id,kind:entry.kind||String(entry.id).split(':')[1],content:choice.content,source:choice.source,phase:'preparing',reason:'',part:0,total:0,verse:0,progress:null,verseSync:'none',currentTime:null,duration:null,queue:[],sourceKind:'none'},'prepare');
   // New explicit starts release only a prior aggregate pause gate. Existing
   // paused ambience/frequency sources are not resumed by this reader start.
   w.SukunAudioSessionRegistry?.releasePauseGate?.('reading-start');
@@ -190,7 +197,7 @@
  function stop(reason='stopped'){
   const wasActive=active();sequence++;clearUtterance('cancelled');wakeResume(false);activeCurrent=null;
   if(wasActive&&['personal','generic','bundled'].includes(state.sourceKind))try{sesDurdur('reading-'+reason)}catch(_){}
-  change({phase:'idle',reason,sourceKind:'none'},'stop');return wasActive;
+  change({phase:'idle',reason,sourceKind:'none',verse:0,verseSync:'none',currentTime:null,duration:null},'stop');return wasActive;
  }
  function navigate(delta,repeat=false){
   if(!currentEntry||!currentOptions)return false;

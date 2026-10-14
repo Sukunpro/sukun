@@ -1,0 +1,62 @@
+{
+  "version": "r1067",
+  "root": "/workspace/scratch/f778a2db1d4a/sukun",
+  "scope": "Actual production native recording/owner with controlled media clock and events. No physical Android, decoder or audibility claim.",
+  "passed": 13,
+  "total": 13,
+  "allPassed": true,
+  "tests": [
+    {
+      "name": "Actual playRecording forwards the exact progress callback and source key to native playback",
+      "ok": true
+    },
+    {
+      "name": "Accepted media clock reports playing, timeupdate, seeked, duration and rate unchanged",
+      "ok": true
+    },
+    {
+      "name": "Real pause and resumed playing report the same source without observer playback requests",
+      "ok": true
+    },
+    {
+      "name": "Hidden and visible observations read the actual media position; no wall-clock interpolation",
+      "ok": true
+    },
+    {
+      "name": "No accepted playing event means no progress, even with metadata, pause and visibility events",
+      "ok": true
+    },
+    {
+      "name": "Stale caller-token cannot deliver a native clock sample",
+      "ok": true
+    },
+    {
+      "name": "Stale prepare-sequence cannot deliver a native clock sample",
+      "ok": true
+    },
+    {
+      "name": "Stale session-membership cannot deliver a native clock sample",
+      "ok": true
+    },
+    {
+      "name": "Stale finish-handler cannot deliver a native clock sample",
+      "ok": true
+    },
+    {
+      "name": "Stale lease cannot deliver a native clock sample",
+      "ok": true
+    },
+    {
+      "name": "Completed attempt removes all progress listeners and a retained callback remains inert",
+      "ok": true
+    },
+    {
+      "name": "Reused audio element rejects old attempt callbacks while the new one alone reports",
+      "ok": true
+    },
+    {
+      "name": "Adding the observer introduces no extra timers, seeks, storage writes or play requests",
+      "ok": true
+    }
+  ]
+}

@@ -9,7 +9,7 @@ assert(start>=0&&end>start);
 const code=html.slice(start,end);
 function fixture(){let at=0,next=0,callbacks=0;const jobs=new Map();
  const hub=()=>({handlers:{},addEventListener(t,fn){(this.handlers[t]??=[]).push(fn)}}),window=hub(),document=hub();document.hidden=false;
- const context=vm.createContext({window,document,root:{},B:{},Set,Object,Math,performance:{now:()=>at},schedule:()=>callbacks++,setTimeout:(f,ms)=>{jobs.set(++next,{f,t:at+ms});return next},clearTimeout:n=>jobs.delete(n)});
+ const context=vm.createContext({window,document,root:{},B:{},drag:null,Set,Object,Math,performance:{now:()=>at},schedule:()=>callbacks++,setTimeout:(f,ms)=>{jobs.set(++next,{f,t:at+ms});return next},clearTimeout:n=>jobs.delete(n)});
  vm.runInContext(code,context);
  const fire=(target,type,data={})=>{for(const f of target.handlers[type]||[])f({type,pointerType:'touch',pointerId:1,changedTouches:[{identifier:1}],...data})};
  const tick=ms=>{const until=at+ms;let guard=0;for(;;){const job=[...jobs].filter(([,v])=>v.t<=until).sort((a,b)=>a[1].t-b[1].t)[0];if(!job)break;if(++guard>1000)throw Error('timer spin');at=job[1].t;jobs.delete(job[0]);job[1].f()}at=until;};

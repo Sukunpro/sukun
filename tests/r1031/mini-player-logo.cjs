@@ -18,8 +18,17 @@ test('Full uncropped square canvas preserves the logo aspect ratio',()=>{for(con
 test('Visible approved alpha bounds fit inside the 44px target',()=>{const scale=64/512,offset=(44-64)/2,bbox=[156,91,357,420],shown=bbox.map(v=>offset+v*scale);assert.deepEqual(shown,[9.5,1.375,34.625,42.5]);assert(shown.every(v=>v>=0&&v<=44));assert.equal((bbox[2]-bbox[0])*scale,25.125);assert.equal((bbox[3]-bbox[1])*scale,41.125);});
 test('Decoration cannot capture clicks and contributes no accessible text',()=>{assert.equal((block.match(/pointer-events:none!important/g)||[]).length,2);assert(block.includes('content:""!important'));assert.match(html,/grip\.innerHTML='<span aria-hidden="true"><\/span><small aria-hidden="true">↕<\/small>/);});
 test('Mini grip keeps the existing 44px button at its original position',()=>{const rule=html.match(/body\.r920-dock\.r588-mode-mini #r588DockShell>#r633DockGrip \{([^}]+)\}/)[1];assert(rule.includes('top:12px!important;left:6px!important'));assert(rule.includes('width:44px!important;min-width:44px!important;height:44px!important;margin:0!important'));assert(!block.includes('touch-action:'));});
-test('Focus, drag and grip owner remain unchanged outside the approved progress invalidation block',()=>{
- const owner=script('r633-flow-dock-placement-runtime');assert(owner);
+test('Focus, drag and grip owner remain unchanged outside approved progress invalidation and abandoned-contact cleanup',()=>{
+ let owner=script('r633-flow-dock-placement-runtime');assert(owner);
+ // r1067 closes only an abandoned grip contact. Pin the complete reviewed
+ // cleanup helper and three lifecycle call sites, then restore their r1066
+ // bytes. Actual cleanup behavior is executed by r1067/scroll-lifecycle.cjs.
+ const cleanupStart=owner.indexOf("function cancelDockDrag(reason='abandoned'){");
+ const cleanupEnd=owner.indexOf("window.addEventListener('pageshow',()=>{activeTouches.clear();",cleanupStart);
+ assert(cleanupStart>=0&&cleanupEnd>cleanupStart);
+ assert.equal(sha(owner.slice(cleanupStart,cleanupEnd)),'1d160c26d95281f7978317135fd73dafdfc2fa477896e4a1d44f90bb7ef588ae');
+ const originalLifecycle="// A contact abandoned when the window loses focus must not indefinitely\n// defer layout or leave whenIdle callbacks polling for a release that is gone.\nwindow.addEventListener('blur',()=>{activeTouches.clear();activePointers.clear();panQuietUntil=0;armPanEnd()},{passive:true});\nwindow.addEventListener('pagehide',()=>{activeTouches.clear();activePointers.clear();panPending=false;clearTimeout(panTimer);panTimer=0},{passive:true});\ndocument.addEventListener('visibilitychange',()=>{if(document.hidden){activeTouches.clear();activePointers.clear();panQuietUntil=0;clearTimeout(panTimer);panTimer=0}}, {passive:true});\n";
+ owner=owner.slice(0,cleanupStart)+originalLifecycle+owner.slice(cleanupEnd);
  const start=owner.indexOf("const events=['sukun:r616viewchange'",owner.indexOf('// r929: content ResizeObserver'));
  const end=owner.indexOf('// Release inert/backdrop immediately.',start);assert(start>=0&&end>start);
  // r1050 changes only the authority event filter. Pin that exact reviewed

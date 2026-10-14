@@ -1,0 +1,1045 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "startedAt": "2026-10-14T22:26:40.107Z",
+  "root": "/tmp/sukun-r1063-update-base",
+  "initialBuild": "r1063",
+  "updateBuild": "r1067",
+  "scope": "Fresh local Chromium; synthetic WAV fixtures; no actual-phone or private-recording claim",
+  "checks": [
+    {
+      "name": "initial-startup: application startup and coherent SW",
+      "pass": true,
+      "build": "r1063"
+    },
+    {
+      "name": "Existing synthetic fixture committed before import",
+      "pass": true,
+      "count": 1,
+      "blobBytes": 1644,
+      "rows": [
+        {
+          "key": "synthetic:existing",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "b377c056be7998b10c3b625547d527e7a19315ed09f1e8b1bfbc3a20816aa6a6"
+        }
+      ]
+    },
+    {
+      "name": "Import committed; missing keys added and same-key original preserved",
+      "pass": true,
+      "count": 3,
+      "blobBytes": 4932,
+      "rows": [
+        {
+          "key": "synthetic:existing",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "b377c056be7998b10c3b625547d527e7a19315ed09f1e8b1bfbc3a20816aa6a6"
+        },
+        {
+          "key": "synthetic:new-a",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "ab35068e6db0b406278251587cc321440e1742ecc8225383e91861387e0adeca"
+        },
+        {
+          "key": "synthetic:new-b",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "3696aec2f84ff1156e7fe359efe87db4e12d54b3771eb5bf7630e38b33852913"
+        }
+      ]
+    },
+    {
+      "name": "Repeated import adds nothing and keeps all exact hashes",
+      "pass": true,
+      "count": 3,
+      "blobBytes": 4932,
+      "rows": [
+        {
+          "key": "synthetic:existing",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "b377c056be7998b10c3b625547d527e7a19315ed09f1e8b1bfbc3a20816aa6a6"
+        },
+        {
+          "key": "synthetic:new-a",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "ab35068e6db0b406278251587cc321440e1742ecc8225383e91861387e0adeca"
+        },
+        {
+          "key": "synthetic:new-b",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "3696aec2f84ff1156e7fe359efe87db4e12d54b3771eb5bf7630e38b33852913"
+        }
+      ]
+    },
+    {
+      "name": "invalid JSON rejected",
+      "pass": true,
+      "error": {
+        "name": "SyntaxError",
+        "message": "recording-salvage-failed",
+        "code": "SyntaxError",
+        "added": 0
+      }
+    },
+    {
+      "name": "invalid JSON preserves existing count, bytes and hashes",
+      "pass": true,
+      "count": 3,
+      "blobBytes": 4932,
+      "rows": [
+        {
+          "key": "synthetic:existing",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "b377c056be7998b10c3b625547d527e7a19315ed09f1e8b1bfbc3a20816aa6a6"
+        },
+        {
+          "key": "synthetic:new-a",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "ab35068e6db0b406278251587cc321440e1742ecc8225383e91861387e0adeca"
+        },
+        {
+          "key": "synthetic:new-b",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "3696aec2f84ff1156e7fe359efe87db4e12d54b3771eb5bf7630e38b33852913"
+        }
+      ]
+    },
+    {
+      "name": "empty file rejected",
+      "pass": true,
+      "error": {
+        "name": "Error",
+        "message": "recording-salvage-failed",
+        "code": "file-limit",
+        "added": 0
+      }
+    },
+    {
+      "name": "empty file preserves existing count, bytes and hashes",
+      "pass": true,
+      "count": 3,
+      "blobBytes": 4932,
+      "rows": [
+        {
+          "key": "synthetic:existing",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "b377c056be7998b10c3b625547d527e7a19315ed09f1e8b1bfbc3a20816aa6a6"
+        },
+        {
+          "key": "synthetic:new-a",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "ab35068e6db0b406278251587cc321440e1742ecc8225383e91861387e0adeca"
+        },
+        {
+          "key": "synthetic:new-b",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "3696aec2f84ff1156e7fe359efe87db4e12d54b3771eb5bf7630e38b33852913"
+        }
+      ]
+    },
+    {
+      "name": "empty recordings rejected",
+      "pass": true,
+      "error": {
+        "name": "Error",
+        "message": "recording-salvage-failed",
+        "code": "Error",
+        "added": 0
+      }
+    },
+    {
+      "name": "empty recordings preserves existing count, bytes and hashes",
+      "pass": true,
+      "count": 3,
+      "blobBytes": 4932,
+      "rows": [
+        {
+          "key": "synthetic:existing",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "b377c056be7998b10c3b625547d527e7a19315ed09f1e8b1bfbc3a20816aa6a6"
+        },
+        {
+          "key": "synthetic:new-a",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "ab35068e6db0b406278251587cc321440e1742ecc8225383e91861387e0adeca"
+        },
+        {
+          "key": "synthetic:new-b",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "3696aec2f84ff1156e7fe359efe87db4e12d54b3771eb5bf7630e38b33852913"
+        }
+      ]
+    },
+    {
+      "name": "invalid audio rejected",
+      "pass": true,
+      "error": {
+        "name": "Error",
+        "message": "recording-salvage-failed",
+        "code": "Error",
+        "added": 0
+      }
+    },
+    {
+      "name": "invalid audio preserves existing count, bytes and hashes",
+      "pass": true,
+      "count": 3,
+      "blobBytes": 4932,
+      "rows": [
+        {
+          "key": "synthetic:existing",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "b377c056be7998b10c3b625547d527e7a19315ed09f1e8b1bfbc3a20816aa6a6"
+        },
+        {
+          "key": "synthetic:new-a",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "ab35068e6db0b406278251587cc321440e1742ecc8225383e91861387e0adeca"
+        },
+        {
+          "key": "synthetic:new-b",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "3696aec2f84ff1156e7fe359efe87db4e12d54b3771eb5bf7630e38b33852913"
+        }
+      ]
+    },
+    {
+      "name": "Second-tab safety guard blocks real import",
+      "pass": true,
+      "error": {
+        "name": "Error",
+        "message": "recording-salvage-failed",
+        "code": "OTHER_APP_TAB_OPEN",
+        "added": 0
+      }
+    },
+    {
+      "name": "Second-tab rejection is non-destructive",
+      "pass": true,
+      "count": 3,
+      "blobBytes": 4932,
+      "rows": [
+        {
+          "key": "synthetic:existing",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "b377c056be7998b10c3b625547d527e7a19315ed09f1e8b1bfbc3a20816aa6a6"
+        },
+        {
+          "key": "synthetic:new-a",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "ab35068e6db0b406278251587cc321440e1742ecc8225383e91861387e0adeca"
+        },
+        {
+          "key": "synthetic:new-b",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "3696aec2f84ff1156e7fe359efe87db4e12d54b3771eb5bf7630e38b33852913"
+        }
+      ]
+    },
+    {
+      "name": "finish: real Finish invoked",
+      "pass": true,
+      "finishPath": "SukunDirectZikirTransportR698.stop API",
+      "activeAudioScenario": false
+    },
+    {
+      "name": "Finish preserves count, native Blob bytes and hashes",
+      "pass": true,
+      "count": 3,
+      "blobBytes": 4932,
+      "rows": [
+        {
+          "key": "synthetic:existing",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "b377c056be7998b10c3b625547d527e7a19315ed09f1e8b1bfbc3a20816aa6a6"
+        },
+        {
+          "key": "synthetic:new-a",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "ab35068e6db0b406278251587cc321440e1742ecc8225383e91861387e0adeca"
+        },
+        {
+          "key": "synthetic:new-b",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "3696aec2f84ff1156e7fe359efe87db4e12d54b3771eb5bf7630e38b33852913"
+        }
+      ]
+    },
+    {
+      "name": "page-reload: application startup and coherent SW",
+      "pass": true,
+      "build": "r1063"
+    },
+    {
+      "name": "Page reload retains exact recordings",
+      "pass": true,
+      "count": 3,
+      "blobBytes": 4932,
+      "rows": [
+        {
+          "key": "synthetic:existing",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "b377c056be7998b10c3b625547d527e7a19315ed09f1e8b1bfbc3a20816aa6a6"
+        },
+        {
+          "key": "synthetic:new-a",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "ab35068e6db0b406278251587cc321440e1742ecc8225383e91861387e0adeca"
+        },
+        {
+          "key": "synthetic:new-b",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "3696aec2f84ff1156e7fe359efe87db4e12d54b3771eb5bf7630e38b33852913"
+        }
+      ]
+    },
+    {
+      "name": "browser-restart: application startup and coherent SW",
+      "pass": true,
+      "build": "r1063"
+    },
+    {
+      "name": "Closed and restarted Chromium retains exact recordings",
+      "pass": true,
+      "count": 3,
+      "blobBytes": 4932,
+      "rows": [
+        {
+          "key": "synthetic:existing",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "b377c056be7998b10c3b625547d527e7a19315ed09f1e8b1bfbc3a20816aa6a6"
+        },
+        {
+          "key": "synthetic:new-a",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "ab35068e6db0b406278251587cc321440e1742ecc8225383e91861387e0adeca"
+        },
+        {
+          "key": "synthetic:new-b",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "3696aec2f84ff1156e7fe359efe87db4e12d54b3771eb5bf7630e38b33852913"
+        }
+      ]
+    },
+    {
+      "name": "service-worker-update: application startup and coherent SW",
+      "pass": true,
+      "build": "r1067"
+    },
+    {
+      "name": "Coherent SW update retains exact recordings",
+      "pass": true,
+      "count": 3,
+      "blobBytes": 4932,
+      "rows": [
+        {
+          "key": "synthetic:existing",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "b377c056be7998b10c3b625547d527e7a19315ed09f1e8b1bfbc3a20816aa6a6"
+        },
+        {
+          "key": "synthetic:new-a",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "ab35068e6db0b406278251587cc321440e1742ecc8225383e91861387e0adeca"
+        },
+        {
+          "key": "synthetic:new-b",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "3696aec2f84ff1156e7fe359efe87db4e12d54b3771eb5bf7630e38b33852913"
+        }
+      ]
+    },
+    {
+      "name": "updated-browser-restart: application startup and coherent SW",
+      "pass": true,
+      "build": "r1067"
+    },
+    {
+      "name": "Updated release survives a second complete Chromium restart",
+      "pass": true,
+      "count": 3,
+      "blobBytes": 4932,
+      "rows": [
+        {
+          "key": "synthetic:existing",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "b377c056be7998b10c3b625547d527e7a19315ed09f1e8b1bfbc3a20816aa6a6"
+        },
+        {
+          "key": "synthetic:new-a",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "ab35068e6db0b406278251587cc321440e1742ecc8225383e91861387e0adeca"
+        },
+        {
+          "key": "synthetic:new-b",
+          "bytes": 1644,
+          "type": "audio/wav",
+          "sha256": "3696aec2f84ff1156e7fe359efe87db4e12d54b3771eb5bf7630e38b33852913"
+        }
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "stage": "initial-startup",
+      "state": {
+        "title": "SÜKÛN ۞ Birleşik — Frekans · Zikir · Tekke · NeuroSync",
+        "build": "r1063",
+        "recordingAPI": true,
+        "owner": {
+          "version": "r981",
+          "revision": "r1021",
+          "method": "web-locks",
+          "protection": "web-lock-strict",
+          "owned": false,
+          "maintenance": false,
+          "epoch": 0,
+          "intent": 0,
+          "pending": false,
+          "failureStage": "",
+          "errorName": "",
+          "lockFallbackError": "",
+          "requestFailures": 0,
+          "lastMaintenanceFailure": null,
+          "blocked": false,
+          "reason": "idle",
+          "retiring": false,
+          "writesBlocked": 21,
+          "recoveryRequired": false
+        },
+        "salvage": {
+          "busy": false,
+          "phase": "idle",
+          "sourceCount": 0,
+          "pending": false
+        },
+        "recovery": {
+          "version": "r1020",
+          "pending": false,
+          "busy": false,
+          "operation": null,
+          "reloadRequired": false,
+          "error": "",
+          "maxPoints": 5,
+          "automaticReplay": false,
+          "exactRestoreEnabled": false
+        },
+        "update": {
+          "version": "r1063",
+          "appVersion": "r1063",
+          "phase": "checking",
+          "workerVersion": "",
+          "controllerVersion": "",
+          "activeVersion": "",
+          "waitingVersion": "",
+          "cache": "",
+          "complete": null,
+          "controllerCache": "",
+          "controllerComplete": null,
+          "waitingCache": "",
+          "waitingComplete": null,
+          "lastError": "",
+          "lastChange": 1792016807623,
+          "hasWaiting": false,
+          "hasController": false,
+          "versionMatch": null,
+          "updateQueued": false,
+          "reloadPending": false,
+          "sessionBusy": false,
+          "progress": {
+            "done": 55,
+            "total": 71,
+            "stage": "download"
+          },
+          "canCancel": true
+        },
+        "hasFinish": true,
+        "controller": null
+      }
+    },
+    {
+      "stage": "page-reload",
+      "state": {
+        "title": "SÜKÛN ۞ Birleşik — Frekans · Zikir · Tekke · NeuroSync",
+        "build": "r1063",
+        "recordingAPI": true,
+        "owner": {
+          "version": "r981",
+          "revision": "r1021",
+          "method": "web-locks",
+          "protection": "web-lock-strict",
+          "owned": false,
+          "maintenance": false,
+          "epoch": 0,
+          "intent": 0,
+          "pending": false,
+          "failureStage": "",
+          "errorName": "",
+          "lockFallbackError": "",
+          "requestFailures": 0,
+          "lastMaintenanceFailure": null,
+          "blocked": false,
+          "reason": "idle",
+          "retiring": false,
+          "writesBlocked": 19,
+          "recoveryRequired": false
+        },
+        "salvage": {
+          "busy": false,
+          "phase": "idle",
+          "sourceCount": 0,
+          "pending": false
+        },
+        "recovery": {
+          "version": "r1020",
+          "pending": false,
+          "busy": false,
+          "operation": null,
+          "reloadRequired": false,
+          "error": "",
+          "maxPoints": 5,
+          "automaticReplay": false,
+          "exactRestoreEnabled": false
+        },
+        "update": {
+          "version": "r1063",
+          "appVersion": "r1063",
+          "phase": "ready",
+          "workerVersion": "r1063",
+          "controllerVersion": "r1063",
+          "activeVersion": "r1063",
+          "waitingVersion": "",
+          "cache": "sukun-r1063-easy-controls-focus-return-20261014-v1",
+          "complete": true,
+          "controllerCache": "sukun-r1063-easy-controls-focus-return-20261014-v1",
+          "controllerComplete": true,
+          "waitingCache": "",
+          "waitingComplete": null,
+          "lastError": "",
+          "lastChange": 1792016829319,
+          "hasWaiting": false,
+          "hasController": true,
+          "versionMatch": true,
+          "updateQueued": false,
+          "reloadPending": false,
+          "sessionBusy": false,
+          "progress": null,
+          "canCancel": false
+        },
+        "hasFinish": true,
+        "controller": "http://127.0.0.1:45041/sw.js"
+      }
+    },
+    {
+      "stage": "browser-restart",
+      "state": {
+        "title": "SÜKÛN ۞ Birleşik — Frekans · Zikir · Tekke · NeuroSync",
+        "build": "r1063",
+        "recordingAPI": true,
+        "owner": {
+          "version": "r981",
+          "revision": "r1021",
+          "method": "web-locks",
+          "protection": "web-lock-strict",
+          "owned": false,
+          "maintenance": false,
+          "epoch": 0,
+          "intent": 0,
+          "pending": false,
+          "failureStage": "",
+          "errorName": "",
+          "lockFallbackError": "",
+          "requestFailures": 0,
+          "lastMaintenanceFailure": null,
+          "blocked": false,
+          "reason": "idle",
+          "retiring": false,
+          "writesBlocked": 19,
+          "recoveryRequired": false
+        },
+        "salvage": {
+          "busy": false,
+          "phase": "idle",
+          "sourceCount": 0,
+          "pending": false
+        },
+        "recovery": {
+          "version": "r1020",
+          "pending": false,
+          "busy": false,
+          "operation": null,
+          "reloadRequired": false,
+          "error": "",
+          "maxPoints": 5,
+          "automaticReplay": false,
+          "exactRestoreEnabled": false
+        },
+        "update": {
+          "version": "r1063",
+          "appVersion": "r1063",
+          "phase": "ready",
+          "workerVersion": "r1063",
+          "controllerVersion": "r1063",
+          "activeVersion": "r1063",
+          "waitingVersion": "",
+          "cache": "sukun-r1063-easy-controls-focus-return-20261014-v1",
+          "complete": true,
+          "controllerCache": "sukun-r1063-easy-controls-focus-return-20261014-v1",
+          "controllerComplete": true,
+          "waitingCache": "",
+          "waitingComplete": null,
+          "lastError": "",
+          "lastChange": 1792016838981,
+          "hasWaiting": false,
+          "hasController": true,
+          "versionMatch": true,
+          "updateQueued": false,
+          "reloadPending": false,
+          "sessionBusy": false,
+          "progress": null,
+          "canCancel": false
+        },
+        "hasFinish": true,
+        "controller": "http://127.0.0.1:45041/sw.js"
+      }
+    },
+    {
+      "stage": "service-worker-update",
+      "state": {
+        "title": "SÜKÛN ۞ Birleşik — Frekans · Zikir · Tekke · NeuroSync",
+        "build": "r1067",
+        "recordingAPI": true,
+        "owner": {
+          "version": "r981",
+          "revision": "r1021",
+          "method": "web-locks",
+          "protection": "web-lock-strict",
+          "owned": false,
+          "maintenance": false,
+          "epoch": 0,
+          "intent": 0,
+          "pending": false,
+          "failureStage": "",
+          "errorName": "",
+          "lockFallbackError": "",
+          "requestFailures": 0,
+          "lastMaintenanceFailure": null,
+          "blocked": false,
+          "reason": "idle",
+          "retiring": false,
+          "releasing": false,
+          "writesBlocked": 14,
+          "recoveryRequired": false
+        },
+        "salvage": {
+          "busy": false,
+          "phase": "idle",
+          "sourceCount": 0,
+          "pending": true
+        },
+        "recovery": {
+          "version": "r1020",
+          "pending": true,
+          "busy": false,
+          "operation": null,
+          "reloadRequired": false,
+          "error": "",
+          "maxPoints": 5,
+          "automaticReplay": false,
+          "exactRestoreEnabled": false
+        },
+        "update": {
+          "version": "r1067",
+          "appVersion": "r1067",
+          "phase": "checking",
+          "workerVersion": "",
+          "controllerVersion": "",
+          "activeVersion": "",
+          "waitingVersion": "",
+          "cache": "",
+          "complete": null,
+          "controllerCache": "",
+          "controllerComplete": null,
+          "waitingCache": "",
+          "waitingComplete": null,
+          "lastError": "",
+          "lastChange": 1792016872284,
+          "hasWaiting": false,
+          "hasController": true,
+          "versionMatch": null,
+          "updateQueued": false,
+          "reloadPending": false,
+          "sessionBusy": false,
+          "progress": null,
+          "canCancel": true
+        },
+        "hasFinish": true,
+        "controller": "http://127.0.0.1:45041/sw.js"
+      }
+    },
+    {
+      "stage": "updated-browser-restart",
+      "state": {
+        "title": "SÜKÛN ۞ Birleşik — Frekans · Zikir · Tekke · NeuroSync",
+        "build": "r1067",
+        "recordingAPI": true,
+        "owner": {
+          "version": "r981",
+          "revision": "r1021",
+          "method": "web-locks",
+          "protection": "web-lock-strict",
+          "owned": false,
+          "maintenance": false,
+          "epoch": 0,
+          "intent": 0,
+          "pending": false,
+          "failureStage": "",
+          "errorName": "",
+          "lockFallbackError": "",
+          "requestFailures": 0,
+          "lastMaintenanceFailure": null,
+          "blocked": false,
+          "reason": "idle",
+          "retiring": false,
+          "releasing": false,
+          "writesBlocked": 21,
+          "recoveryRequired": false
+        },
+        "salvage": {
+          "busy": false,
+          "phase": "idle",
+          "sourceCount": 0,
+          "pending": false
+        },
+        "recovery": {
+          "version": "r1020",
+          "pending": false,
+          "busy": false,
+          "operation": null,
+          "reloadRequired": false,
+          "error": "",
+          "maxPoints": 5,
+          "automaticReplay": false,
+          "exactRestoreEnabled": false
+        },
+        "update": {
+          "version": "r1067",
+          "appVersion": "r1067",
+          "phase": "ready",
+          "workerVersion": "",
+          "controllerVersion": "",
+          "activeVersion": "",
+          "waitingVersion": "",
+          "cache": "",
+          "complete": null,
+          "controllerCache": "",
+          "controllerComplete": null,
+          "waitingCache": "",
+          "waitingComplete": null,
+          "lastError": "",
+          "lastChange": 1792016888730,
+          "hasWaiting": false,
+          "hasController": true,
+          "versionMatch": null,
+          "updateQueued": false,
+          "reloadPending": false,
+          "sessionBusy": false,
+          "progress": null,
+          "canCancel": false
+        },
+        "hasFinish": true,
+        "controller": "http://127.0.0.1:45041/sw.js"
+      }
+    }
+  ],
+  "pageErrors": [],
+  "console": [
+    {
+      "stage": "initial-startup",
+      "type": "warning",
+      "text": "The `integrity` attribute is currently ignored for preload destinations that do not support subresource integrity. See https://crbug.com/981419 for more information",
+      "location": {
+        "url": "http://127.0.0.1:45041/index.html",
+        "line": 6536,
+        "column": 0,
+        "lineNumber": 6536,
+        "columnNumber": 0
+      }
+    },
+    {
+      "stage": "initial-startup",
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "stage": "single-client-guard",
+      "type": "warning",
+      "text": "The `integrity` attribute is currently ignored for preload destinations that do not support subresource integrity. See https://crbug.com/981419 for more information",
+      "location": {
+        "url": "http://127.0.0.1:45041/index.html",
+        "line": 6536,
+        "column": 0,
+        "lineNumber": 6536,
+        "columnNumber": 0
+      }
+    },
+    {
+      "stage": "single-client-guard",
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "stage": "page-reload",
+      "type": "warning",
+      "text": "The `integrity` attribute is currently ignored for preload destinations that do not support subresource integrity. See https://crbug.com/981419 for more information",
+      "location": {
+        "url": "http://127.0.0.1:45041/index.html",
+        "line": 6536,
+        "column": 0,
+        "lineNumber": 6536,
+        "columnNumber": 0
+      }
+    },
+    {
+      "stage": "page-reload",
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "stage": "page-reload",
+      "type": "warning",
+      "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio",
+      "location": {
+        "url": "http://127.0.0.1:45041/assets/runtime/startup-intro-r1027.js?v=r1063",
+        "line": 298,
+        "column": 0,
+        "lineNumber": 298,
+        "columnNumber": 0
+      }
+    },
+    {
+      "stage": "browser-restart",
+      "type": "warning",
+      "text": "The `integrity` attribute is currently ignored for preload destinations that do not support subresource integrity. See https://crbug.com/981419 for more information",
+      "location": {
+        "url": "http://127.0.0.1:45041/index.html",
+        "line": 6536,
+        "column": 0,
+        "lineNumber": 6536,
+        "columnNumber": 0
+      }
+    },
+    {
+      "stage": "browser-restart",
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "stage": "browser-restart",
+      "type": "warning",
+      "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio",
+      "location": {
+        "url": "http://127.0.0.1:45041/assets/runtime/startup-intro-r1027.js?v=r1063",
+        "line": 298,
+        "column": 0,
+        "lineNumber": 298,
+        "columnNumber": 0
+      }
+    },
+    {
+      "stage": "service-worker-update",
+      "type": "warning",
+      "text": "The `integrity` attribute is currently ignored for preload destinations that do not support subresource integrity. See https://crbug.com/981419 for more information",
+      "location": {
+        "url": "http://127.0.0.1:45041/index.html",
+        "line": 6536,
+        "column": 0,
+        "lineNumber": 6536,
+        "columnNumber": 0
+      }
+    },
+    {
+      "stage": "service-worker-update",
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "stage": "updated-browser-restart",
+      "type": "warning",
+      "text": "The `integrity` attribute is currently ignored for preload destinations that do not support subresource integrity. See https://crbug.com/981419 for more information",
+      "location": {
+        "url": "http://127.0.0.1:45041/index.html",
+        "line": 6536,
+        "column": 0,
+        "lineNumber": 6536,
+        "columnNumber": 0
+      }
+    },
+    {
+      "stage": "updated-browser-restart",
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ],
+  "failedRequests": [
+    {
+      "stage": "initial-startup",
+      "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap",
+      "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+    },
+    {
+      "stage": "single-client-guard",
+      "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap",
+      "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+    },
+    {
+      "stage": "page-reload",
+      "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap",
+      "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+    },
+    {
+      "stage": "browser-restart",
+      "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap",
+      "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+    },
+    {
+      "stage": "service-worker-update",
+      "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap",
+      "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+    },
+    {
+      "stage": "updated-browser-restart",
+      "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap",
+      "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+    }
+  ],
+  "blockedExternalRequests": [
+    {
+      "stage": "initial-startup",
+      "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    },
+    {
+      "stage": "single-client-guard",
+      "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    },
+    {
+      "stage": "page-reload",
+      "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    },
+    {
+      "stage": "browser-restart",
+      "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    },
+    {
+      "stage": "service-worker-update",
+      "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    },
+    {
+      "stage": "updated-browser-restart",
+      "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    }
+  ],
+  "update": {
+    "status": "PASS",
+    "from": "r1063",
+    "to": "r1067"
+  },
+  "origin": "http://127.0.0.1:45041",
+  "fixtureImport": {
+    "result": {
+      "ok": true,
+      "added": 1,
+      "kept": 0,
+      "verified": true,
+      "quarantineKept": true
+    }
+  },
+  "import": {
+    "result": {
+      "ok": true,
+      "added": 2,
+      "kept": 1,
+      "verified": true,
+      "quarantineKept": true
+    }
+  },
+  "finishedAt": "2026-10-14T22:28:13.153Z"
+}

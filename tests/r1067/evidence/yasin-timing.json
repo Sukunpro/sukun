@@ -1,0 +1,73 @@
+{
+  "suite": "r1067 exact Arabic Yasin timing and source identity",
+  "build": "r1067",
+  "sourceRoot": "/workspace/scratch/f778a2db1d4a/sukun",
+  "passed": 13,
+  "total": 13,
+  "observations": {
+    "verses": 83,
+    "boundarySamples": 249,
+    "randomSamples": 4096,
+    "sourceSha256": "4096f23ddba18fb4b410e54459cac520d91de178c5b5d2a78232e57723fb6a3d",
+    "sourceBytes": 21195286,
+    "durationSeconds": 1260.3278125,
+    "canonicalSourceSha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+    "firstCueStart": 6.86,
+    "lastCueStart": 1246.88,
+    "humanListeningAudited": false
+  },
+  "checks": [
+    {
+      "name": "Actual original MP3 hash and byte length agree with acquisition metadata, documented cues and compiled runtime",
+      "passed": true
+    },
+    {
+      "name": "Canonical 83-verse source is unchanged and bound by its actual source hash",
+      "passed": true
+    },
+    {
+      "name": "Production map preserves all 83 measured start/end boundaries exactly",
+      "passed": true
+    },
+    {
+      "name": "Intro remains verse zero until measured Yasin onset; seven seconds is verse one",
+      "passed": true
+    },
+    {
+      "name": "Every measured onset switches by exact floor semantics immediately before, at and after its boundary",
+      "passed": true
+    },
+    {
+      "name": "Every full verse interval, including interverse silence, holds its preceding verse",
+      "passed": true
+    },
+    {
+      "name": "4096 reproducible random media timestamps agree with an independent linear oracle",
+      "passed": true
+    },
+    {
+      "name": "Missing, nonfinite, wrongly typed and negative media times fail closed",
+      "passed": true
+    },
+    {
+      "name": "Only the exact immutable source hash and byte count permit timing",
+      "passed": true
+    },
+    {
+      "name": "Duration identity permits bounded native rounding and rejects wrong or unknown recordings",
+      "passed": true
+    },
+    {
+      "name": "Runtime API, snapshot, intro, review and every returned cue are deeply protected against mutation",
+      "passed": true
+    },
+    {
+      "name": "Source position is independent of playback rate, elapsed wall time and external clock values",
+      "passed": true
+    },
+    {
+      "name": "Machine audit and 20 ms resolution are accurately described without human or probability claims",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "version": "r1067",
+  "root": "/workspace/scratch/f778a2db1d4a/sukun",
+  "scope": "Actual reading policy and runtime, controlled native callback and real speech-start callbacks. Synthetic timing map checks routing, not real reciter alignment.",
+  "passed": 21,
+  "total": 21,
+  "allPassed": true,
+  "tests": [
+    {
+      "name": "Yasin arabic frame becomes eligible only on actual TTS start and follows the selected verse",
+      "ok": true
+    },
+    {
+      "name": "Yasin meaning frame becomes eligible only on actual TTS start and follows the selected verse",
+      "ok": true
+    },
+    {
+      "name": "All 83 arabic verses follow real speech starts in source order without skipped or mixed text",
+      "ok": true
+    },
+    {
+      "name": "All 83 meaning verses follow real speech starts in source order without skipped or mixed text",
+      "ok": true
+    },
+    {
+      "name": "Several speech chunks retain one verse then await the next verse actual start",
+      "ok": true
+    },
+    {
+      "name": "TTS pause keeps its verse, replays only its held chunk and rejects the canceled start callback",
+      "ok": true
+    },
+    {
+      "name": "Stop clears verse synchronization and stale TTS start/end cannot restore it",
+      "ok": true
+    },
+    {
+      "name": "Bundled Yasin uses its exact metadata and media time; seeking updates the mapped verse",
+      "ok": true
+    },
+    {
+      "name": "Same mapped verse updates clock snapshot without redundant reading broadcasts",
+      "ok": true
+    },
+    {
+      "name": "Pause and resume preserve native mapped verse without restarting the file or writing recordings",
+      "ok": true
+    },
+    {
+      "name": "Bundled progress rejects wrong-source observations",
+      "ok": true
+    },
+    {
+      "name": "Bundled progress rejects superseded-token observations",
+      "ok": true
+    },
+    {
+      "name": "Bundled progress rejects caller-current observations",
+      "ok": true
+    },
+    {
+      "name": "Bundled progress rejects tab-epoch observations",
+      "ok": true
+    },
+    {
+      "name": "Bundled progress rejects voice-preference observations",
+      "ok": true
+    },
+    {
+      "name": "Bundled progress rejects audio-intent observations",
+      "ok": true
+    },
+    {
+      "name": "Unknown timing metadata and invalid durations never invent a Yasin verse",
+      "ok": true
+    },
+    {
+      "name": "Superseded bundled callback cannot change a new attempt of the identical recording key",
+      "ok": true
+    },
+    {
+      "name": "No timestamp tracking is attached to personal recordings",
+      "ok": true
+    },
+    {
+      "name": "No timestamp tracking is attached to generic recordings",
+      "ok": true
+    },
+    {
+      "name": "No timestamp tracking is attached to other-bundle recordings",
+      "ok": true
+    }
+  ]
+}
