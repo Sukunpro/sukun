@@ -38,10 +38,13 @@
   const isDhikr=kind==='zikir',background=['ambience','frequency','background'].includes(kind);
   const timed=!background&&kind!=='idle'&&number(p.remaining)!=null&&number(p.remaining)>=0;
   const listedFrequency=entries.some(x=>/^(frekans|frequency)$/.test(x.tur||x.type||''));
-  const layerCount=entries.length+(fr.playing&&!listedFrequency?1:0)+(fr.secondary?.playing?1:0)||((isDhikr||provider)?1:0);
-  return Object.freeze({version:'r1060',kind,title,current,item:current||'—',type,dhikr:isDhikr,background,
+  const layerNames=entries.map(x=>clean(x.ad||x.name||x.title)+(clean(x.ek)?' · '+clean(x.ek):''));
+  if(fr.playing&&!listedFrequency)layerNames.push(t('Frekans','Frequency')+' · '+hz(fr.carrier)+' Hz · '+hz(fr.beat)+' Hz');
+  if(fr.secondary?.playing)layerNames.push(t('İkinci binaural','Second binaural')+' · '+hz(fr.secondary.carrier??fr.secondary.c)+' Hz · '+hz(fr.secondary.beat??fr.secondary.b)+' Hz');
+  const layerCount=layerNames.length||((isDhikr||provider)?1:0);
+  return Object.freeze({version:'r1061',kind,title,current,item:current||'—',type,dhikr:isDhikr,background,
    progressPolicy,timed,volumeScope:isDhikr?'zikir':'master',navigation:kind!=='idle'&&!background,
-   layerCount,frequency:Object.freeze({...fr}),layers:Object.freeze(entries.map(x=>clean(x.ad||x.name||x.title)+(clean(x.ek)?' · '+clean(x.ek):'')))});
+   layerCount,frequency:Object.freeze({...fr}),layers:Object.freeze(layerNames)});
  }
  const safe=(fn,fallback)=>{try{return fn()??fallback}catch(_){return fallback}};
  function read(flow){
@@ -56,5 +59,5 @@
   const permitted=!value.dhikr||session.activeMode!=='berhet'||safe(()=>window.SukunSecretPolicy?.unlocked?.(),false);
   return permitted?Object.freeze({...value,permitted:true}):Object.freeze({...value,title:'SÜKÛN',current:'',item:'—',permitted:false});
  }
- window.SukunActiveSource=Object.freeze({version:'r1060',resolve,read});
+ window.SukunActiveSource=Object.freeze({version:'r1061',resolve,read});
 })();

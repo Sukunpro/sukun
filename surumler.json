@@ -1,5 +1,16 @@
 [
   {
+    "v": "r1061",
+    "t": "Çoklu ses listesi ve kilit sesinin gerçek durumu",
+    "b": [
+      "Mini, Midi ve Max akış barında ambiyans adları iki satıra yayılır. Sığmayan listede tüm ögeler için Detaylar yönlendirmesi görünür.",
+      "İsimlere dokununca, odaklanınca veya üzerine gelince bütün etkin sesleri gösteren kaydırılabilir bilgi kutusu açılır. İkinci frekans da liste ve Detaylar içinde yer alır.",
+      "Gerçek arka plan sesi durakladığında durum artık doğru bildirilir. Kilide geçişten sonraki kısa pencerede aynı doğrulanmış ses için yalnız bir devam denemesi yapılır.",
+      "Kilit ekranındaki Devam ve global Devam gerçek ses öğesine ulaşır. Hazır bilgisi gerçek medya durumunu doğrular; başarısızlıkta açık Yeniden dene kontrolü sunulur.",
+      "Global Duraklat ve Durdur geciken ses isteklerini iptal eder; zikirde Bitir ambiyansları korur. Fiziksel Android kilit testi henüz yapılmadı."
+    ]
+  },
+  {
     "v": "r1060",
     "t": "Akış barında gerçek çalan sesin kimliği",
     "b": [
