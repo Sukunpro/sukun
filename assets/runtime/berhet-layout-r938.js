@@ -29,11 +29,12 @@ function placeSummary(){
  quick.insertBefore(summary,transport);
 }
 function focusControls(tef=lastTef){
- if(!host)return;const visible=!tef||focusControlsVisible;
+ // r1063: the saved easy-control preference applies on both sides of the
+ // focus transition. The toggle must remain available to show them again.
+ if(!host)return;const visible=focusControlsVisible;
  if(!visible&&[transport,finishRow,$('r1056ReadingSummary')].some(node=>node?.contains(document.activeElement)))focusToggle?.focus({preventScroll:true});
- if(!tef&&focusToggle?.contains(document.activeElement))toggle?.focus({preventScroll:true});
  hidden(transport,!visible);hidden(finishRow,!visible);
- hidden($('r1056ReadingSummary'),!visible);hidden($('r968ManualHint'),!visible);hidden(focusToggle,!tef);
+ hidden($('r1056ReadingSummary'),!visible);hidden($('r968ManualHint'),!visible);hidden(focusToggle,false);
  const state=visible?'shown':'hidden';if(host.dataset.r1056FocusControls!==state)host.dataset.r1056FocusControls=state;labels();
 }
 function setFocusControls(value){
@@ -73,7 +74,7 @@ function build(root){
  if(transport){hiddenStates.set(transport,transport.hidden);move(transport,quick);transport.id='r1056PrimaryControls';quick.insertBefore(transport,quick.children[0]||null)}
  finishRow=document.createElement('div');finishRow.id='r1056FinishRow';quick.append(finishRow);move($('r932EasyStop'),finishRow);
  const hint=$('r968ManualHint');if(hint)hiddenStates.set(hint,hint.hidden);move(hint,quick);
- focusToggle=document.createElement('button');focusToggle.id='r1056FocusControlsToggle';focusToggle.type='button';focusToggle.setAttribute('aria-controls','r1056PrimaryControls r1056FinishRow');quick.append(focusToggle,toggle,body);
+ focusToggle=document.createElement('button');focusToggle.id='r1056FocusControlsToggle';focusToggle.type='button';focusToggle.setAttribute('aria-controls','r1056PrimaryControls r1056FinishRow r1056ReadingSummary r968ManualHint');quick.append(focusToggle,toggle,body);
  for(const node of [shortcuts,picker])move(node,body);
  primary=document.createElement('div');primary.id='r968PrimaryActions';body.append(primary);
  const nav=root.querySelector('.r920Transport');move(nav,body);body.insertBefore(nav,primary);
@@ -113,5 +114,5 @@ function sync(root,tef){
  const phase=$('r920Phase'),wheel=$('r924WheelFrame');if(phase&&wheel&&phase.parentElement!==wheel)wheel.append(phase);if(root.dataset.phase==='PLAYING'&&!phase.textContent)phase.textContent='Zikir sürüyor';
 }
 window.addEventListener?.('sukun:languagechange',labels,{passive:true});
-window.SukunBerhetLayout=Object.freeze({version:'r1056',sync,setFocusControls,snapshot:()=>({active:!!host,open,tef:lastTef,focusControlsVisible})});
+window.SukunBerhetLayout=Object.freeze({version:'r1056',revision:'r1063',sync,setFocusControls,snapshot:()=>({active:!!host,open,tef:lastTef,focusControlsVisible})});
 })();
