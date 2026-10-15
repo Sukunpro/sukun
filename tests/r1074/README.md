@@ -15,8 +15,8 @@ python3 tests/r1049/run-regressions.py --output-dir /tmp/sukun-r1074-regressions
 python3 tests/r1049/run-regressions.py --static-only --output-dir /tmp/sukun-r1074-static
 ```
 
-Final candidate verification: 20/20 source-level pause checks; 27/27 native
-Chromium selection/global-pause checks; 12/12 native Chromium local-pause and
+Final candidate verification: 20/20 source-level pause checks; 28/28 native
+Chromium selection/global-pause checks; 13/13 native Chromium local-pause and
 actual Serce ambience checks; 1,270/1,270 release-integrity assertions.
 The existing historical intro-cache test also passes after correcting the
 release marker's predecessor to r1072. The test was not weakened.
@@ -28,3 +28,8 @@ missing-file failures. Device speech is controlled and must not replace the
 personal input. Service workers are blocked in these browser fixtures; current
 and historical cache behavior is checked separately by source fixtures.
 Physical Android screen locking and audible output are outside these checks.
+
+Both browser suites use the supported public tempo setter (6 seconds) and
+verify successful journal writes, valid persisted progress and no visible
+progress warning. Directly assigning 35 seconds is unsupported and intentionally
+rejected by persistence validation; it is not a production setting.

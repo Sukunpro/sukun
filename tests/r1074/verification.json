@@ -2,10 +2,10 @@
   "selection-theme-browser": {
     "build": "r1074",
     "sourceSha256": "7e3cbb5558e79fd1bd2d7251136fd1ef8238318315471c3f1a7d95f474dd97c4",
-    "testSha256": "ccc6d95c22a2c6e1d1f7ce312b9c7f8c06d1782c45939fbde04496b693ec78e2",
+    "testSha256": "cdc22014873bc78ab92406d13b69c91ab8408950f82dfd5ae41d67a7737dabc7",
     "browser": "141.0.7390.37",
-    "passed": 27,
-    "total": 27,
+    "passed": 28,
+    "total": 28,
     "allPassed": true,
     "limitations": [
       "One isolated headless Linux Chromium at 390×844, Classic/Feyz, normal production visual CSS. Native trusted tab/Play/frequency clicks and genuine native media/Web Audio clocks are observed.",
@@ -119,6 +119,10 @@
         "passed": true
       },
       {
+        "name": "Progress journal persists a valid record with no warning",
+        "passed": true
+      },
+      {
         "name": "Every served production byte matches disk with no missing files or JS/SRI errors",
         "passed": true
       }
@@ -127,10 +131,10 @@
   "ambience-local-browser": {
     "build": "r1074",
     "sourceSha256": "7e3cbb5558e79fd1bd2d7251136fd1ef8238318315471c3f1a7d95f474dd97c4",
-    "testSha256": "4496181e19a675b5950b23e0f21691fc53b4aab05f84222eae65af19f45f1027",
+    "testSha256": "4a9280b53fa518a54438e67d7277d8e80f38833ccc962e69f10e79de961e895a",
     "browser": "141.0.7390.37",
-    "passed": 12,
-    "total": 12,
+    "passed": 13,
+    "total": 13,
     "allPassed": true,
     "limitations": [
       "Isolated headless Linux Chromium at 390×844 in Classic/Feyz; generated personal WAV input and controlled device TTS only. No user profile, microphone, recordings or private data.",
@@ -180,6 +184,10 @@
       },
       {
         "name": "Finish remains selection-sticky after local Resume",
+        "passed": true
+      },
+      {
+        "name": "Progress journal persists a valid record with no warning",
         "passed": true
       },
       {
