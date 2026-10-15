@@ -1,0 +1,750 @@
+{
+  "build": "r1072",
+  "shellSha256": "7d007fa3090f7de8199fc1a521712c0c268e0140b1832348bea1ddf5cab38d40",
+  "finalPassedGroups": 118,
+  "totalGroups": 118,
+  "initialAggregate": {
+    "passedGroups": 106,
+    "totalGroups": 118,
+    "failures": [
+      "tests/prayer_recording_faults.cjs",
+      "tests/r1016/update_receipt_integration.cjs",
+      "tests/r1021/import-maintenance.cjs",
+      "tests/r1021/persistence-model.cjs",
+      "tests/r1027/recording-inspection-history.cjs",
+      "tests/r1030/visible-volume-labels.cjs",
+      "tests/r1031/mini-player-logo.cjs",
+      "tests/r1034/intro-health-diagnostic.cjs",
+      "tests/r1037/intro-audio-lifecycle.cjs",
+      "tests/r1037/intro-visual-diagnostics.cjs",
+      "tests/r1038/silent-carrier-guard.cjs",
+      "tests/r1039/silent-anchor-init.cjs"
+    ]
+  },
+  "environmentCorrection": {
+    "cause": "A temporary release-output file named package.json was being rewritten in the ancestor QA folder. Node child fixtures interpreted it as package configuration and failed with ERR_INVALID_PACKAGE_CONFIG.",
+    "fix": "Renamed the temporary output to release-package.json; production files were unchanged.",
+    "rerun": [
+      {
+        "script": "tests/prayer_recording_faults.cjs",
+        "exitCode": 0,
+        "seconds": 8.649,
+        "outputFile": "tests_prayer_recording_faults.cjs.txt"
+      },
+      {
+        "script": "tests/r1016/update_receipt_integration.cjs",
+        "exitCode": 0,
+        "seconds": 0.176,
+        "outputFile": "tests_r1016_update_receipt_integration.cjs.txt"
+      },
+      {
+        "script": "tests/r1021/import-maintenance.cjs",
+        "exitCode": 0,
+        "seconds": 0.251,
+        "outputFile": "tests_r1021_import-maintenance.cjs.txt"
+      },
+      {
+        "script": "tests/r1021/persistence-model.cjs",
+        "exitCode": 0,
+        "seconds": 0.301,
+        "outputFile": "tests_r1021_persistence-model.cjs.txt"
+      },
+      {
+        "script": "tests/r1027/recording-inspection-history.cjs",
+        "exitCode": 0,
+        "seconds": 0.089,
+        "outputFile": "tests_r1027_recording-inspection-history.cjs.txt"
+      },
+      {
+        "script": "tests/r1030/visible-volume-labels.cjs",
+        "exitCode": 0,
+        "seconds": 0.206,
+        "outputFile": "tests_r1030_visible-volume-labels.cjs.txt"
+      },
+      {
+        "script": "tests/r1031/mini-player-logo.cjs",
+        "exitCode": 0,
+        "seconds": 0.203,
+        "outputFile": "tests_r1031_mini-player-logo.cjs.txt"
+      },
+      {
+        "script": "tests/r1034/intro-health-diagnostic.cjs",
+        "exitCode": 0,
+        "seconds": 0.263,
+        "outputFile": "tests_r1034_intro-health-diagnostic.cjs.txt"
+      },
+      {
+        "script": "tests/r1037/intro-audio-lifecycle.cjs",
+        "exitCode": 0,
+        "seconds": 0.694,
+        "outputFile": "tests_r1037_intro-audio-lifecycle.cjs.txt"
+      },
+      {
+        "script": "tests/r1037/intro-visual-diagnostics.cjs",
+        "exitCode": 0,
+        "seconds": 0.294,
+        "outputFile": "tests_r1037_intro-visual-diagnostics.cjs.txt"
+      },
+      {
+        "script": "tests/r1038/silent-carrier-guard.cjs",
+        "exitCode": 0,
+        "seconds": 0.492,
+        "outputFile": "tests_r1038_silent-carrier-guard.cjs.txt"
+      },
+      {
+        "script": "tests/r1039/silent-anchor-init.cjs",
+        "exitCode": 0,
+        "seconds": 1.284,
+        "outputFile": "tests_r1039_silent-anchor-init.cjs.txt"
+      }
+    ]
+  },
+  "finalResults": [
+    {
+      "script": "tests/interaction_gate_lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.164
+    },
+    {
+      "script": "tests/owner-stop-storage.cjs",
+      "exitCode": 0,
+      "seconds": 0.2
+    },
+    {
+      "script": "tests/prayer_recording_faults.cjs",
+      "exitCode": 0,
+      "seconds": 8.649,
+      "outputFile": "tests_prayer_recording_faults.cjs.txt"
+    },
+    {
+      "script": "tests/r1016/recording_continuity_contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.374
+    },
+    {
+      "script": "tests/r1016/recording_continuity_health.cjs",
+      "exitCode": 0,
+      "seconds": 0.438
+    },
+    {
+      "script": "tests/r1016/recovered/health_ui_audit.cjs",
+      "exitCode": 0,
+      "seconds": 0.743
+    },
+    {
+      "script": "tests/r1016/update_receipt_integration.cjs",
+      "exitCode": 0,
+      "seconds": 0.176,
+      "outputFile": "tests_r1016_update_receipt_integration.cjs.txt"
+    },
+    {
+      "script": "tests/r1017/ui_recording_inspection_contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.418
+    },
+    {
+      "script": "tests/r1021/import-maintenance.cjs",
+      "exitCode": 0,
+      "seconds": 0.251,
+      "outputFile": "tests_r1021_import-maintenance.cjs.txt"
+    },
+    {
+      "script": "tests/r1021/persistence-model.cjs",
+      "exitCode": 0,
+      "seconds": 0.301,
+      "outputFile": "tests_r1021_persistence-model.cjs.txt"
+    },
+    {
+      "script": "tests/r1027/full-release-export.cjs",
+      "exitCode": 0,
+      "seconds": 22.434
+    },
+    {
+      "script": "tests/r1027/locale.cjs",
+      "exitCode": 0,
+      "seconds": 0.186
+    },
+    {
+      "script": "tests/r1027/recording-inspection-active.cjs",
+      "exitCode": 0,
+      "seconds": 0.291
+    },
+    {
+      "script": "tests/r1027/recording-inspection-history.cjs",
+      "exitCode": 0,
+      "seconds": 0.089,
+      "outputFile": "tests_r1027_recording-inspection-history.cjs.txt"
+    },
+    {
+      "script": "tests/r1027/recovery-entry.cjs",
+      "exitCode": 0,
+      "seconds": 0.287
+    },
+    {
+      "script": "tests/r1027/recovery-regression.cjs",
+      "exitCode": 0,
+      "seconds": 0.211
+    },
+    {
+      "script": "tests/r1027/site-backup-regression.cjs",
+      "exitCode": 0,
+      "seconds": 0.611
+    },
+    {
+      "script": "tests/r1028/css-grammar-repairs.cjs",
+      "exitCode": 0,
+      "seconds": 0.404
+    },
+    {
+      "script": "tests/r1028/layout-stability-contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.19
+    },
+    {
+      "script": "tests/r1028/media-artwork.cjs",
+      "exitCode": 0,
+      "seconds": 0.184
+    },
+    {
+      "script": "tests/r1029/cinematic-containment-regression.cjs",
+      "exitCode": 0,
+      "seconds": 0.261
+    },
+    {
+      "script": "tests/r1029/recovery-deliberate.cjs",
+      "exitCode": 0,
+      "seconds": 0.438
+    },
+    {
+      "script": "tests/r1029/transparent-intro.cjs",
+      "exitCode": 0,
+      "seconds": 0.234
+    },
+    {
+      "script": "tests/r1029/ui-surface-contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.447
+    },
+    {
+      "script": "tests/r1030/shell-recovery-visibility.cjs",
+      "exitCode": 0,
+      "seconds": 0.519
+    },
+    {
+      "script": "tests/r1030/visible-volume-labels.cjs",
+      "exitCode": 0,
+      "seconds": 0.206,
+      "outputFile": "tests_r1030_visible-volume-labels.cjs.txt"
+    },
+    {
+      "script": "tests/r1031/cabir-background-cache.cjs",
+      "exitCode": 0,
+      "seconds": 0.176
+    },
+    {
+      "script": "tests/r1031/mini-player-logo.cjs",
+      "exitCode": 0,
+      "seconds": 0.203,
+      "outputFile": "tests_r1031_mini-player-logo.cjs.txt"
+    },
+    {
+      "script": "tests/r1031/personal-centre-glass.cjs",
+      "exitCode": 0,
+      "seconds": 0.292
+    },
+    {
+      "script": "tests/r1034/intro-health-diagnostic.cjs",
+      "exitCode": 0,
+      "seconds": 0.263,
+      "outputFile": "tests_r1034_intro-health-diagnostic.cjs.txt"
+    },
+    {
+      "script": "tests/r1037/intro-asset-cache.cjs",
+      "exitCode": 0,
+      "seconds": 0.145
+    },
+    {
+      "script": "tests/r1037/intro-audio-lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.694,
+      "outputFile": "tests_r1037_intro-audio-lifecycle.cjs.txt"
+    },
+    {
+      "script": "tests/r1037/intro-visual-diagnostics.cjs",
+      "exitCode": 0,
+      "seconds": 0.294,
+      "outputFile": "tests_r1037_intro-visual-diagnostics.cjs.txt"
+    },
+    {
+      "script": "tests/r1037/intro-waveform.cjs",
+      "exitCode": 0,
+      "seconds": 0.112
+    },
+    {
+      "script": "tests/r1038/silent-carrier-guard.cjs",
+      "exitCode": 0,
+      "seconds": 0.492,
+      "outputFile": "tests_r1038_silent-carrier-guard.cjs.txt"
+    },
+    {
+      "script": "tests/r1039/silent-anchor-init.cjs",
+      "exitCode": 0,
+      "seconds": 1.284,
+      "outputFile": "tests_r1039_silent-anchor-init.cjs.txt"
+    },
+    {
+      "script": "tests/r1040/esma-exit-placement.cjs",
+      "exitCode": 0,
+      "seconds": 0.101
+    },
+    {
+      "script": "tests/r1041/compact-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.108
+    },
+    {
+      "script": "tests/r1041/real-quick-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.148
+    },
+    {
+      "script": "tests/r1042/foreground-sync.cjs",
+      "exitCode": 0,
+      "seconds": 0.142
+    },
+    {
+      "script": "tests/r1042/frequency-mirror-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.657
+    },
+    {
+      "script": "tests/r1042/graphics-rest.cjs",
+      "exitCode": 0,
+      "seconds": 0.314
+    },
+    {
+      "script": "tests/r1042/hidden-render-audio-ui.cjs",
+      "exitCode": 0,
+      "seconds": 0.385
+    },
+    {
+      "script": "tests/r1042/hidden-render-legacy.cjs",
+      "exitCode": 0,
+      "seconds": 0.251
+    },
+    {
+      "script": "tests/r1042/hidden-render-queue.cjs",
+      "exitCode": 0,
+      "seconds": 0.257
+    },
+    {
+      "script": "tests/r1042/performance-descriptions.cjs",
+      "exitCode": 0,
+      "seconds": 0.454
+    },
+    {
+      "script": "tests/r1042/presentation-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.14
+    },
+    {
+      "script": "tests/r1043/background-interruption.cjs",
+      "exitCode": 0,
+      "seconds": 0.265
+    },
+    {
+      "script": "tests/r1043/recording-attack.cjs",
+      "exitCode": 0,
+      "seconds": 0.316
+    },
+    {
+      "script": "tests/r1044/intro-version-cache.cjs",
+      "exitCode": 0,
+      "seconds": 0.116
+    },
+    {
+      "script": "tests/r1044/native-recovery-authority.cjs",
+      "exitCode": 0,
+      "seconds": 0.451
+    },
+    {
+      "script": "tests/r1044/recording-volume-intent.cjs",
+      "exitCode": 0,
+      "seconds": 0.317
+    },
+    {
+      "script": "tests/r1045/ambient-info.cjs",
+      "exitCode": 0,
+      "seconds": 8.483
+    },
+    {
+      "script": "tests/r1045/intro-rejection-diagnostics.cjs",
+      "exitCode": 0,
+      "seconds": 5.262
+    },
+    {
+      "script": "tests/r1045/presentation-notice.cjs",
+      "exitCode": 0,
+      "seconds": 0.246
+    },
+    {
+      "script": "tests/r1045/quick-error-label.cjs",
+      "exitCode": 0,
+      "seconds": 0.202
+    },
+    {
+      "script": "tests/r1046/silent-anchor-selection.cjs",
+      "exitCode": 0,
+      "seconds": 9.382
+    },
+    {
+      "script": "tests/r1047/frequency-pause-contract.cjs",
+      "exitCode": 0,
+      "seconds": 2.703
+    },
+    {
+      "script": "tests/r1048/audio-single-volume.cjs",
+      "exitCode": 0,
+      "seconds": 0.421
+    },
+    {
+      "script": "tests/r1048/audio-volume-preview.cjs",
+      "exitCode": 0,
+      "seconds": 0.864
+    },
+    {
+      "script": "tests/r1048/backup-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 0.328
+    },
+    {
+      "script": "tests/r1048/offline-recovery.cjs",
+      "exitCode": 0,
+      "seconds": 6.056
+    },
+    {
+      "script": "tests/r1048/presentation-notice.cjs",
+      "exitCode": 0,
+      "seconds": 0.128
+    },
+    {
+      "script": "tests/r1049/audio-global-intent.cjs",
+      "exitCode": 0,
+      "seconds": 0.954
+    },
+    {
+      "script": "tests/r1049/audio-pause-resume.cjs",
+      "exitCode": 0,
+      "seconds": 1.243
+    },
+    {
+      "script": "tests/r1049/audio-registry-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.212
+    },
+    {
+      "script": "tests/r1049/backup-quarantine.cjs",
+      "exitCode": 0,
+      "seconds": 0.304
+    },
+    {
+      "script": "tests/r1049/layout-keyboard.cjs",
+      "exitCode": 0,
+      "seconds": 0.259
+    },
+    {
+      "script": "tests/r1049/offline-refresh-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 15.184
+    },
+    {
+      "script": "tests/r1049/ui-notice-focus.cjs",
+      "exitCode": 0,
+      "seconds": 0.107
+    },
+    {
+      "script": "tests/r1050/audio-cadence-evidence.cjs",
+      "exitCode": 0,
+      "seconds": 0.265
+    },
+    {
+      "script": "tests/r1050/dock-progress-invalidation.cjs",
+      "exitCode": 0,
+      "seconds": 0.229
+    },
+    {
+      "script": "tests/r1051/dashboard-error-state.cjs",
+      "exitCode": 0,
+      "seconds": 0.439
+    },
+    {
+      "script": "tests/r1052/health-media-evidence.cjs",
+      "exitCode": 0,
+      "seconds": 0.125
+    },
+    {
+      "script": "tests/r1052/media-clock-authority.cjs",
+      "exitCode": 0,
+      "seconds": 0.257
+    },
+    {
+      "script": "tests/r1052/native-repeat-block.cjs",
+      "exitCode": 0,
+      "seconds": 0.596
+    },
+    {
+      "script": "tests/r1053/manual-count-commit.cjs",
+      "exitCode": 0,
+      "seconds": 0.281
+    },
+    {
+      "script": "tests/r1053/wheel-mini-motion.cjs",
+      "exitCode": 0,
+      "seconds": 0.096
+    },
+    {
+      "script": "tests/r1054/automatic-touch-continuity.cjs",
+      "exitCode": 0,
+      "seconds": 0.986
+    },
+    {
+      "script": "tests/r1055/generic-bank.cjs",
+      "exitCode": 0,
+      "seconds": 0.218
+    },
+    {
+      "script": "tests/r1055/generic-priority.cjs",
+      "exitCode": 0,
+      "seconds": 5.288
+    },
+    {
+      "script": "tests/r1055/generic-ui.cjs",
+      "exitCode": 0,
+      "seconds": 0.298
+    },
+    {
+      "script": "tests/r1056/audio-source-model.cjs",
+      "exitCode": 0,
+      "seconds": 0.131
+    },
+    {
+      "script": "tests/r1056/ui-source-and-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.479
+    },
+    {
+      "script": "tests/r1058/stop-scope.cjs",
+      "exitCode": 0,
+      "seconds": 1.826
+    },
+    {
+      "script": "tests/r1059/background-mix.cjs",
+      "exitCode": 0,
+      "seconds": 0.348
+    },
+    {
+      "script": "tests/r1059/renderer.cjs",
+      "exitCode": 0,
+      "seconds": 39.297
+    },
+    {
+      "script": "tests/r1060/active-source.cjs",
+      "exitCode": 0,
+      "seconds": 0.306
+    },
+    {
+      "script": "tests/r1061/active-layers.cjs",
+      "exitCode": 0,
+      "seconds": 10.336
+    },
+    {
+      "script": "tests/r1061/background-lock.cjs",
+      "exitCode": 0,
+      "seconds": 0.323
+    },
+    {
+      "script": "tests/r1062/dhikr-pause-scope.cjs",
+      "exitCode": 0,
+      "seconds": 7.091
+    },
+    {
+      "script": "tests/r1062/direct-native-pause.cjs",
+      "exitCode": 0,
+      "seconds": 0.367
+    },
+    {
+      "script": "tests/r1063/easy-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.445
+    },
+    {
+      "script": "tests/r1064/arabic-chunks.cjs",
+      "exitCode": 0,
+      "seconds": 0.164
+    },
+    {
+      "script": "tests/r1064/browser-helper.cjs",
+      "exitCode": 0,
+      "seconds": 0.781
+    },
+    {
+      "script": "tests/r1064/catalog.cjs",
+      "exitCode": 0,
+      "seconds": 0.24
+    },
+    {
+      "script": "tests/r1064/reader-owner-lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.154
+    },
+    {
+      "script": "tests/r1064/reading-audio-policy.cjs",
+      "exitCode": 0,
+      "seconds": 0.223
+    },
+    {
+      "script": "tests/r1064/yasin-data.cjs",
+      "exitCode": 0,
+      "seconds": 0.086
+    },
+    {
+      "script": "tests/r1065/audio-priority.cjs",
+      "exitCode": 0,
+      "seconds": 0.138
+    },
+    {
+      "script": "tests/r1065/bundled-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 0.35
+    },
+    {
+      "script": "tests/r1065/bundled-native.cjs",
+      "exitCode": 0,
+      "seconds": 0.296
+    },
+    {
+      "script": "tests/r1065/health-media-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 0.597
+    },
+    {
+      "script": "tests/r1065/legacy-policy.cjs",
+      "exitCode": 0,
+      "seconds": 0.17
+    },
+    {
+      "script": "tests/r1066/diagnostics-tempo.cjs",
+      "exitCode": 0,
+      "seconds": 0.156
+    },
+    {
+      "script": "tests/r1066/navigation-policy.cjs",
+      "exitCode": 0,
+      "seconds": 0.1
+    },
+    {
+      "script": "tests/r1067/native-progress.cjs",
+      "exitCode": 0,
+      "seconds": 0.243
+    },
+    {
+      "script": "tests/r1067/reader-progress.cjs",
+      "exitCode": 0,
+      "seconds": 0.484
+    },
+    {
+      "script": "tests/r1067/scroll-lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.336
+    },
+    {
+      "script": "tests/r1067/yasin-timing.cjs",
+      "exitCode": 0,
+      "seconds": 0.25
+    },
+    {
+      "script": "tests/r1068/verse-selection-lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.107
+    },
+    {
+      "script": "tests/r1069/intention-transition.cjs",
+      "exitCode": 0,
+      "seconds": 0.993
+    },
+    {
+      "script": "tests/r1070/owner-release-start.cjs",
+      "exitCode": 0,
+      "seconds": 0.174
+    },
+    {
+      "script": "tests/r1070/update-owner-handoff.cjs",
+      "exitCode": 0,
+      "seconds": 0.25
+    },
+    {
+      "script": "tests/r1072/retired-single-pause.cjs",
+      "exitCode": 0,
+      "seconds": 3.257
+    },
+    {
+      "script": "tests/recording-storage.cjs",
+      "exitCode": 0,
+      "seconds": 1.946
+    },
+    {
+      "script": "tests/recording_unavailable_contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.206
+    },
+    {
+      "script": "tests/tekke_finish_lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.135
+    }
+  ],
+  "targeted": {
+    "retiredSinglePause": 42,
+    "existingPauseScope": 63,
+    "ownerRelease": 17,
+    "nativeBrowserGroups": 4,
+    "staticAssertions": 1268
+  },
+  "skips": [
+    {
+      "script": "tests/r1059/background-mix.cjs",
+      "scope": "Optional historical r1058 comparison only; all current controller cases execute."
+    }
+  ],
+  "fullPackage": {
+    "build": "r1072",
+    "files": 698,
+    "deploymentBytes": 304946463,
+    "writtenMetadataFiles": [],
+    "zip": "/workspace/scratch/2f3c05b2653a/SUKUN_r1072_TAM_PAKET.zip",
+    "zipFiles": 699,
+    "zipBytes": 291423993,
+    "zipSha256": "c4d8b1a25489487675ab921187076cbc33198b9bbd71b71104f4c9bacbc30f4a"
+  },
+  "updatePackage": {
+    "files": [
+      "assets/runtime/session-r919.js",
+      "assets/runtime/startup-intro-r1027.js",
+      "index.html",
+      "manifest.webmanifest",
+      "nero.html",
+      "sukun-build-r1072.json",
+      "sukun-latest.json",
+      "surumler.json",
+      "sw.js",
+      "version.txt",
+      "sukun-site-assets-r1072.json"
+    ],
+    "bytes": 4689521,
+    "sha256": "31ea089b34bd76c4ff4706abf512eb8bd5aa2d83e04df7b13b766e8e65cab627"
+  },
+  "limitations": [
+    "Isolated Linux Chromium; blocked service workers. No physical Android or speaker-audibility claim.",
+    "No private health report, recording or screenshot included."
+  ]
+}

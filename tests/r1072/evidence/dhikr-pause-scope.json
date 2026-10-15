@@ -1,0 +1,268 @@
+{
+  "ok": true,
+  "source": "/workspace/scratch/2f3c05b2653a/sukun/index.html",
+  "tests": 63,
+  "passed": 63,
+  "failed": 0,
+  "sourceHashes": {
+    "session": "96b36cafc2b61627a934a9c2a0c7867fe76e724011c75c4c0b862bb44a1f1fc5",
+    "interface": "529f0b85417355c89daec2034cf22dcc22369f44f9731c89450962055e841aac",
+    "wheels": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+    "native": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38"
+  },
+  "results": [
+    {
+      "name": "wheel: single/esma Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "wheel: single/berhet Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "wheel: 28/ Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "wheel: 99/ Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "easy: single/esma Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "easy: single/berhet Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "easy: 28/ Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "easy: 99/ Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "session: single/esma Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "session: single/berhet Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "session: 28/ Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "session: 99/ Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "legacy: single/esma Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "legacy: single/berhet Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "legacy: 28/ Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "legacy: 99/ Pause/Resume preserves independent sounds",
+      "status": "PASS"
+    },
+    {
+      "name": "single: hidden Pause/Resume preserves accepted native background source",
+      "status": "PASS"
+    },
+    {
+      "name": "28: hidden Pause/Resume preserves accepted native background source",
+      "status": "PASS"
+    },
+    {
+      "name": "99: hidden Pause/Resume preserves accepted native background source",
+      "status": "PASS"
+    },
+    {
+      "name": "single: repeated explicit Pause is idempotent and repeated Resume does not pause again",
+      "status": "PASS"
+    },
+    {
+      "name": "28: repeated explicit Pause is idempotent and repeated Resume does not pause again",
+      "status": "PASS"
+    },
+    {
+      "name": "99: repeated explicit Pause is idempotent and repeated Resume does not pause again",
+      "status": "PASS"
+    },
+    {
+      "name": "Local Pause/Resume preserves 10 ambiences and frequency=true",
+      "status": "PASS"
+    },
+    {
+      "name": "Local Pause/Resume preserves 3 ambiences and frequency=false",
+      "status": "PASS"
+    },
+    {
+      "name": "Local Pause/Resume preserves 0 ambiences and frequency=true",
+      "status": "PASS"
+    },
+    {
+      "name": "single: local Resume cannot consume a genuine earlier global Pause",
+      "status": "PASS"
+    },
+    {
+      "name": "28: local Resume cannot consume a genuine earlier global Pause",
+      "status": "PASS"
+    },
+    {
+      "name": "99: local Resume cannot consume a genuine earlier global Pause",
+      "status": "PASS"
+    },
+    {
+      "name": "single: local Resume remains blocked after local Pause followed by global Pause",
+      "status": "PASS"
+    },
+    {
+      "name": "28: local Resume remains blocked after local Pause followed by global Pause",
+      "status": "PASS"
+    },
+    {
+      "name": "99: local Resume remains blocked after local Pause followed by global Pause",
+      "status": "PASS"
+    },
+    {
+      "name": "single: missing scoped transport falls back only to the dhikr owner",
+      "status": "PASS"
+    },
+    {
+      "name": "28: missing scoped transport falls back only to the dhikr owner",
+      "status": "PASS"
+    },
+    {
+      "name": "99: missing scoped transport falls back only to the dhikr owner",
+      "status": "PASS"
+    },
+    {
+      "name": "A paused system-held journey receives user Pause without pausing background",
+      "status": "PASS"
+    },
+    {
+      "name": "single: dock global Pause/Resume still controls all audio",
+      "status": "PASS"
+    },
+    {
+      "name": "28: dock global Pause/Resume still controls all audio",
+      "status": "PASS"
+    },
+    {
+      "name": "99: dock global Pause/Resume still controls all audio",
+      "status": "PASS"
+    },
+    {
+      "name": "single: global dock Resume preserves an earlier local dhikr Pause",
+      "status": "PASS"
+    },
+    {
+      "name": "28: global dock Resume preserves an earlier local dhikr Pause",
+      "status": "PASS"
+    },
+    {
+      "name": "99: global dock Resume preserves an earlier local dhikr Pause",
+      "status": "PASS"
+    },
+    {
+      "name": "single: actual paused +1/-1 corrections retain the same local Pause authority",
+      "status": "PASS"
+    },
+    {
+      "name": "28: actual paused +1/-1 corrections retain the same local Pause authority",
+      "status": "PASS"
+    },
+    {
+      "name": "99: actual paused +1/-1 corrections retain the same local Pause authority",
+      "status": "PASS"
+    },
+    {
+      "name": "28: same-kind native Stop/restart retires old local Pause before a new global Pause",
+      "status": "PASS"
+    },
+    {
+      "name": "99: same-kind native Stop/restart retires old local Pause before a new global Pause",
+      "status": "PASS"
+    },
+    {
+      "name": "single: actual MediaSession Play restores background and respects prior local Pause, global=false",
+      "status": "PASS"
+    },
+    {
+      "name": "single: actual MediaSession Play restores background and respects prior local Pause, global=true",
+      "status": "PASS"
+    },
+    {
+      "name": "28: actual MediaSession Play restores background and respects prior local Pause, global=false",
+      "status": "PASS"
+    },
+    {
+      "name": "28: actual MediaSession Play restores background and respects prior local Pause, global=true",
+      "status": "PASS"
+    },
+    {
+      "name": "99: actual MediaSession Play restores background and respects prior local Pause, global=false",
+      "status": "PASS"
+    },
+    {
+      "name": "99: actual MediaSession Play restores background and respects prior local Pause, global=true",
+      "status": "PASS"
+    },
+    {
+      "name": "Registry main aggregate Pause/Resume controls all audio after local Pause",
+      "status": "PASS"
+    },
+    {
+      "name": "single: global Stop while locally paused terminates all background graphs",
+      "status": "PASS"
+    },
+    {
+      "name": "28: global Stop while locally paused terminates all background graphs",
+      "status": "PASS"
+    },
+    {
+      "name": "99: global Stop while locally paused terminates all background graphs",
+      "status": "PASS"
+    },
+    {
+      "name": "single: new explicit Start after a real terminal global Stop starts only dhikr",
+      "status": "PASS"
+    },
+    {
+      "name": "28: new explicit Start after a real terminal global Stop starts only dhikr",
+      "status": "PASS"
+    },
+    {
+      "name": "99: new explicit Start after a real terminal global Stop starts only dhikr",
+      "status": "PASS"
+    },
+    {
+      "name": "Local Pause cancels an unowned queued direct Start before claim resolves",
+      "status": "PASS"
+    },
+    {
+      "name": "single: global Stop supersedes a queued local Resume during Finish cleanup",
+      "status": "PASS"
+    },
+    {
+      "name": "28: global Stop supersedes a queued local Resume during Finish cleanup",
+      "status": "PASS"
+    },
+    {
+      "name": "99: global Stop supersedes a queued local Resume during Finish cleanup",
+      "status": "PASS"
+    }
+  ],
+  "scope": "Actual shipped session route, wheel/easy click handlers, r698 authority, registry/global dock, ambience and two frequency lifecycles, native background controller and binding; spoken-owner endpoints, PCM renderer, WebAudio and media clock controlled. No physical phone/audio claim."
+}

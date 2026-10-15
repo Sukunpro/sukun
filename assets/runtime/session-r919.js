@@ -291,6 +291,18 @@
       if (action === 'previous') return choice.api.previous();
       if (action === 'restart') return choice.api.jumpTo(Math.max(0, number(choice.state.i)));
     }
+    // A globally paused single lives in MINI's mix capture after autoStop.
+    // Its wheel still navigates names even if Now Playing now says "audio".
+    // Active smart sessions and journeys keep their own navigation authority.
+    const capturedSingle = !choice && before.journeyKind === 'single' &&
+      !read(() => window.currentZikirState?.snapshot?.()?.session?.active, false) &&
+      read(() => typeof MINI === 'object' && MINI?.wasAuto === true, false);
+    if (capturedSingle) {
+      const native = window.__SUKUN_FLOW_NAV_OPS__;
+      if (action === 'next') return native?.navigateDirect?.(1);
+      if (action === 'previous') return native?.navigateDirect?.(-1);
+      if (action === 'restart') return native?.restartDirect?.();
+    }
     const nav = window.SukunFlowNavigation;
     if (action === 'next') return nav?.nextContext?.({ surface: 'r919' });
     if (action === 'previous') return nav?.previousContext?.({ surface: 'r919' });
@@ -325,8 +337,9 @@
         if (token !== epoch || commandId !== requestId) return false;
       }
       if (retired === false) return false;
-      // Drop captured old foreground resume latches without fabricating Play.
-      read(() => window.SukunAudioSessionRegistry?.reconcilePauseGate?.('r919-selection'));
+      // Retire only the old single capture; independently paused layers
+      // keep their global Resume path. Selection never fabricates Play.
+      read(() => window.SukunAudioSessionRegistry?.retireSinglePauseGate?.('r919-selection'));
     }
     // Native handlers are selection authority. No independent Z/count writes.
     category.click();
