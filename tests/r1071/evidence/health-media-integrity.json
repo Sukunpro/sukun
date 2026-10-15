@@ -1,0 +1,29 @@
+{
+  "source": "/workspace/scratch/2f3c05b2653a/sukun/assets/runtime/health-r940.js",
+  "collectorSha256": "62292549287482e8894f0d16fe784ec08338528b12e56a618c7bc62febc1b3e7",
+  "passed": 5,
+  "total": 5,
+  "scope": "Exact production integrity functions with release files and controlled HTTP; no physical audio claim",
+  "results": [
+    {
+      "name": "complete actual release verifies core and all six bundled media hashes with separate byte totals",
+      "status": "PASS"
+    },
+    {
+      "name": "bundled media still requires exact SHA-256 and cannot count corruption as a pass",
+      "status": "PASS"
+    },
+    {
+      "name": "unapproved media siblings, external origins, nested paths and invalid hashes are rejected before download",
+      "status": "PASS"
+    },
+    {
+      "name": "media above24MiB remains unverified and contributes no downloaded byte credit",
+      "status": "PASS"
+    },
+    {
+      "name": "aggregate media budget stays bounded at32MiB without expanding the8MiB core limit",
+      "status": "PASS"
+    }
+  ]
+}
