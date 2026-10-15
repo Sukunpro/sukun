@@ -1,0 +1,176 @@
+{
+  "scope": "production source-function regression; controlled endpoints, not physical Android audio",
+  "total": 42,
+  "passed": 42,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Pure single global Pause \u2192 Next retires old capture; fresh Start is accepted once",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual wheel/session Next after pure single global Pause reaches the selected dhikr navigation",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual session previous retires captured single pause in the selected dhikr context",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual session restart retires captured single pause in the selected dhikr context",
+      "status": "PASS"
+    },
+    {
+      "name": "Active smart-session next retains its navigation authority despite an old single capture",
+      "status": "PASS"
+    },
+    {
+      "name": "Active smart-session previous retains its navigation authority despite an old single capture",
+      "status": "PASS"
+    },
+    {
+      "name": "Active smart-session restart retains its navigation authority despite an old single capture",
+      "status": "PASS"
+    },
+    {
+      "name": "Pure single global Pause \u2192 local Finish clears orphan without sound/count change",
+      "status": "PASS"
+    },
+    {
+      "name": "Pure single Restart clears old capture and waits for explicit fresh Start",
+      "status": "PASS"
+    },
+    {
+      "name": "Native name selection retires the old capture without starting a voice",
+      "status": "PASS"
+    },
+    {
+      "name": "Native category selection retires the old capture without starting a voice",
+      "status": "PASS"
+    },
+    {
+      "name": "Retirement is idempotent and cannot change a genuine same-selection global Pause",
+      "status": "PASS"
+    },
+    {
+      "name": "primary frequency: Next retires only old single capture; global hold and deferred background Resume survive",
+      "status": "PASS"
+    },
+    {
+      "name": "primary frequency: local Finish preserves independent global pause",
+      "status": "PASS"
+    },
+    {
+      "name": "primary frequency: native name selection preserves the real global background hold",
+      "status": "PASS"
+    },
+    {
+      "name": "primary frequency: native category selection preserves the real global background hold",
+      "status": "PASS"
+    },
+    {
+      "name": "secondary frequency: Next retires only old single capture; global hold and deferred background Resume survive",
+      "status": "PASS"
+    },
+    {
+      "name": "secondary frequency: local Finish preserves independent global pause",
+      "status": "PASS"
+    },
+    {
+      "name": "secondary frequency: native name selection preserves the real global background hold",
+      "status": "PASS"
+    },
+    {
+      "name": "secondary frequency: native category selection preserves the real global background hold",
+      "status": "PASS"
+    },
+    {
+      "name": "ambience: Next retires only old single capture; global hold and deferred background Resume survive",
+      "status": "PASS"
+    },
+    {
+      "name": "ambience: local Finish preserves independent global pause",
+      "status": "PASS"
+    },
+    {
+      "name": "ambience: native name selection preserves the real global background hold",
+      "status": "PASS"
+    },
+    {
+      "name": "ambience: native category selection preserves the real global background hold",
+      "status": "PASS"
+    },
+    {
+      "name": "native background: Next retires only old single capture; global hold and deferred background Resume survive",
+      "status": "PASS"
+    },
+    {
+      "name": "native background: local Finish preserves independent global pause",
+      "status": "PASS"
+    },
+    {
+      "name": "native background: native name selection preserves the real global background hold",
+      "status": "PASS"
+    },
+    {
+      "name": "native background: native category selection preserves the real global background hold",
+      "status": "PASS"
+    },
+    {
+      "name": "paused provider: Next retires only old single capture; global hold and deferred background Resume survive",
+      "status": "PASS"
+    },
+    {
+      "name": "paused provider: local Finish preserves independent global pause",
+      "status": "PASS"
+    },
+    {
+      "name": "paused provider: native name selection preserves the real global background hold",
+      "status": "PASS"
+    },
+    {
+      "name": "paused provider: native category selection preserves the real global background hold",
+      "status": "PASS"
+    },
+    {
+      "name": "Voice Halo: Next retires only old single capture; global hold and deferred background Resume survive",
+      "status": "PASS"
+    },
+    {
+      "name": "Voice Halo: local Finish preserves independent global pause",
+      "status": "PASS"
+    },
+    {
+      "name": "Voice Halo: native name selection preserves the real global background hold",
+      "status": "PASS"
+    },
+    {
+      "name": "Voice Halo: native category selection preserves the real global background hold",
+      "status": "PASS"
+    },
+    {
+      "name": "Unknown throwing-mix fails closed without keeping a retired single restart",
+      "status": "PASS"
+    },
+    {
+      "name": "Unknown malformed-mix fails closed without keeping a retired single restart",
+      "status": "PASS"
+    },
+    {
+      "name": "Unknown throwing-layers fails closed without keeping a retired single restart",
+      "status": "PASS"
+    },
+    {
+      "name": "Unknown unknown-layer fails closed without keeping a retired single restart",
+      "status": "PASS"
+    },
+    {
+      "name": "Unknown unknown-provider fails closed without keeping a retired single restart",
+      "status": "PASS"
+    },
+    {
+      "name": "Retirement with no old single capture preserves any existing hold unchanged",
+      "status": "PASS"
+    }
+  ]
+}

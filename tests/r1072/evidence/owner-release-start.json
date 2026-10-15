@@ -1,0 +1,79 @@
+{
+  "ok": true,
+  "source": "/workspace/scratch/2f3c05b2653a/sukun/assets/runtime/tab-owner-r981.js",
+  "sourceHash": "4305c9c1e1f1e9e239c62f0d19149bd05af97d2f0d34ddc38b7e7e5d41a63dc6",
+  "tests": 17,
+  "passed": 17,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Explicit Start waits for this tab physical release and primes inside the gesture",
+      "status": "PASS"
+    },
+    {
+      "name": "Wrapped session Start uses the same own-release barrier",
+      "status": "PASS"
+    },
+    {
+      "name": "Queued Start stays observably pending across physical-release emit and reacquisition",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual r919 pending Start deduplicates repeated explicit Starts after local release",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual r919 pause cancels queued Start across local release",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual r919 stop cancels queued Start across local release",
+      "status": "PASS"
+    },
+    {
+      "name": "pause supersedes queued Start before own release",
+      "status": "PASS"
+    },
+    {
+      "name": "stop supersedes queued Start before own release",
+      "status": "PASS"
+    },
+    {
+      "name": "select supersedes queued Start before own release",
+      "status": "PASS"
+    },
+    {
+      "name": "next supersedes queued Start before own release",
+      "status": "PASS"
+    },
+    {
+      "name": "previous supersedes queued Start before own release",
+      "status": "PASS"
+    },
+    {
+      "name": "restart supersedes queued Start before own release",
+      "status": "PASS"
+    },
+    {
+      "name": "Identity change without command rejects the queued old selection",
+      "status": "PASS"
+    },
+    {
+      "name": "Caller isCurrent cancellation rejects queued Start",
+      "status": "PASS"
+    },
+    {
+      "name": "A remote owner winning after local release remains excluded without waiting",
+      "status": "PASS"
+    },
+    {
+      "name": "Own-release wait expires at OWNER_WAIT_MS and never replays later",
+      "status": "PASS"
+    },
+    {
+      "name": "Revocation without this tab closingPromise rejects immediately",
+      "status": "PASS"
+    }
+  ],
+  "scope": "Production TabOwner own physical-release barrier, explicit gesture prime, cancellation, identity fencing, remote lock exclusion and bounded timeout. Web Locks/IndexedDB/clock are controlled seams; no physical Android claim."
+}
