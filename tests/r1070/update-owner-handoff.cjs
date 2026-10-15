@@ -1,0 +1,29 @@
+'use strict';
+// Actual update-manager and recording-continuity sources; worker messages,
+// owner state and timers are controlled. No physical SW scheduling is claimed.
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const {environment,ticks,root}=require('../r1016/recording_continuity_contract.cjs');
+const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const start=html.indexOf('/* r921: controller, registered active worker and waiting update have distinct identities. */');
+assert(start>=0);
+const source=html.slice(start,html.indexOf('</script>',start));
+function eventTarget(){const listeners={};return{addEventListener(type,fn){(listeners[type]??=[]).push(fn)},dispatchEvent(e){for(const fn of listeners[e.type]||[])fn(e)}}}
+async function setup(owner={}){
+ const e=environment(),events=eventTarget(),sw=eventTarget(),doc=eventTarget();let phase='IDLE',reloads=0,saves=0,skipWaiting=0,holdNextSave=false,releaseSave=null;
+ let state={maintenance:false,pending:false,releasing:false,...owner};
+ const worker=(version,status='activated')=>({state:status,scriptURL:'https://synthetic.test/sukun/sw.js',addEventListener(){},postMessage({type},ports){if(type==='SKIP_WAITING'){skipWaiting++;sw.controller=waiting;reg.waiting=null;waiting.state='activated';sw.dispatchEvent({type:'controllerchange'});ports[0].postMessage({ok:true,v:version,complete:true})}else ports[0].postMessage({v:version,complete:true})}});
+ const old=worker('r1016'),waiting=worker('r1017','installed'),reg={scope:'https://synthetic.test/sukun/',active:old,waiting,installing:null,addEventListener(){},update:async()=>{}};
+ sw.controller=old;sw.getRegistration=async()=>reg;sw.register=async()=>reg;
+ const globals={URL,MessageChannel:class{constructor(){const p1={close(){}},p2={close(){},postMessage(data){queueMicrotask(()=>p1.onmessage?.({data}))}};this.port1=p1;this.port2=p2}},navigator:{serviceWorker:sw},location:{protocol:'https:',href:'https://synthetic.test/sukun/nero.html?v=r1016',reload(){reloads++}},document:{...doc,hidden:false,querySelector:()=>({content:'r1016'}),querySelectorAll:()=>[]},CustomEvent:class{constructor(type,options){this.type=type;this.detail=options?.detail}},addEventListener:events.addEventListener,dispatchEvent:events.dispatchEvent,speechSynthesis:{speaking:false,pending:false},skToast(){}};
+ Object.assign(e.context,globals);Object.assign(e.window,globals,{SukunTabOwner:{snapshot:()=>({...state})},SukunSessionState:{snapshot:()=>({phase})},SukunSessionMemory:{save(){saves++;if(holdNextSave){holdNextSave=false;return new Promise(resolve=>releaseSave=resolve)}},diagnostics:()=>({error:''})},SukunDataMigration:{run:async()=>({status:'complete'})}});
+ vm.runInContext(source,e.context,{filename:'actual-update-manager.js'});events.dispatchEvent({type:'load'});await ticks();await ticks();
+ return{...e,manager:e.window.SukunUpdateManager,counts:()=>({reloads,saves,skipWaiting}),holdSave(){holdNextSave=true},releaseSave(){assert(releaseSave,'save must be pending');releaseSave();releaseSave=null},setOwner(value){state={...state,...value};events.dispatchEvent({type:'sukun:tabownerchange'})},setPhase(value){phase=value;events.dispatchEvent({type:'sukun:sessionstate'})},async flush(){await ticks();await e.advance(0);await ticks()}};
+}
+const results=[];async function test(name,fn){try{await fn();results.push({name,passed:true})}catch(error){results.push({name,passed:false,error:error.stack})}}
+(async()=>{
+ for(const key of ['pending','releasing'])await test(key+' ownership defers an approved update without activating or reloading',async()=>{const f=await setup({[key]:true});assert.equal(f.manager.snapshot().sessionBusy,true);await f.manager.activate();await f.flush();assert.equal(f.counts().skipWaiting,0);assert.equal(f.counts().reloads,0);assert.equal(f.manager.snapshot().updateQueued,true);f.setOwner({[key]:false});await f.flush();assert.equal(f.counts().skipWaiting,1);assert.equal(f.counts().reloads,1)});
+ await test('Own release → pending Start → playing keeps one approved update queued until idle',async()=>{const f=await setup({pending:true,releasing:true});await f.manager.activate();await f.flush();f.setOwner({releasing:false});await f.flush();assert.equal(f.counts().skipWaiting,0);f.setPhase('PLAYING');f.setOwner({pending:false});await f.flush();assert.equal(f.counts().reloads,0);assert.equal(f.manager.snapshot().updateQueued,true);f.setPhase('IDLE');await f.flush();assert.equal(f.counts().skipWaiting,1);assert.equal(f.counts().reloads,1)});
+ await test('Canceling an update while Start is pending cannot reload when the owner settles',async()=>{const f=await setup({pending:true});await f.manager.activate();await f.flush();assert.equal(f.manager.cancel(),true);f.setOwner({pending:false});await f.flush();assert.equal(f.counts().skipWaiting,0);assert.equal(f.counts().reloads,0)});
+ await test('Ownership preparation beginning during pre-activation session save blocks activation until it settles',async()=>{const f=await setup();f.holdSave();const task=f.manager.activate();for(let i=0;i<10&&f.counts().saves===0;i++)await ticks();assert.equal(f.manager.snapshot().phase,'saving');f.setOwner({pending:true});f.releaseSave();await task;await f.flush();assert.equal(f.counts().skipWaiting,0);assert.equal(f.counts().reloads,0);f.setOwner({pending:false});await f.flush();assert.equal(f.counts().skipWaiting,1);assert.equal(f.counts().reloads,1)});
+ console.log(JSON.stringify({suite:'r1070 update/owner handoff',passed:results.filter(x=>x.passed).length,total:results.length,results,limitations:['Controlled worker messaging and owner state around unchanged production update-manager code; real browser service-worker activation and Android are not tested.']},null,2));if(results.some(x=>!x.passed))process.exitCode=1;
+})().catch(error=>{console.error(error);process.exitCode=1});
