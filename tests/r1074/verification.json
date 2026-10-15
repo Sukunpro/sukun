@@ -1,0 +1,293 @@
+{
+  "selection-theme-browser": {
+    "build": "r1074",
+    "sourceSha256": "7e3cbb5558e79fd1bd2d7251136fd1ef8238318315471c3f1a7d95f474dd97c4",
+    "testSha256": "cdc22014873bc78ab92406d13b69c91ab8408950f82dfd5ae41d67a7737dabc7",
+    "browser": "141.0.7390.37",
+    "passed": 28,
+    "total": 28,
+    "allPassed": true,
+    "limitations": [
+      "One isolated headless Linux Chromium at 390×844, Classic/Feyz, normal production visual CSS. Native trusted tab/Play/frequency clicks and genuine native media/Web Audio clocks are observed.",
+      "Generated 30-second WAVs populate only two isolated personal recording slots; no user recordings or browser data are accessed. Device TTS is controlled by the shared fixture and must never be used in these personal-input cases.",
+      "The public production selection and global Pause/Resume APIs are used to measure identity and command scope. A real production frequency provider retains the aggregate Pause while the old dhikr is retired.",
+      "Service workers are blocked by the engineering fixture; Android screen locking, audible sound, OS focus and SW activation are not measured here."
+    ],
+    "checks": [
+      {
+        "name": "Exact candidate boots Classic/Feyz with private family unlocked only in fixture",
+        "passed": true
+      },
+      {
+        "name": "berhet idle: trusted amb tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "berhet idle: trusted frq tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "berhet idle: trusted rx tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "berhet idle: trusted zkr tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "Trusted Berhetiyye Play uses generated personal audio with a progressing native clock",
+        "passed": true
+      },
+      {
+        "name": "berhet playing: trusted amb tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "berhet playing: trusted frq tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "berhet playing: trusted rx tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "berhet playing: trusted zkr tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "Real production frequency joins Berhetiyye and global Pause suspends its Web Audio context",
+        "passed": true
+      },
+      {
+        "name": "berhet global-paused: trusted amb tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "berhet global-paused: trusted frq tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "berhet global-paused: trusted rx tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "berhet global-paused: trusted zkr tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "Esma selection under retained frequency hold restores Classic Mevlevi without waking media or context",
+        "passed": true
+      },
+      {
+        "name": "esma global-paused: trusted amb tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "esma global-paused: trusted frq tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "esma global-paused: trusted rx tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "esma global-paused: trusted zkr tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "Explicit global Resume releases frequency hold without reviving retired Berhetiyye",
+        "passed": true
+      },
+      {
+        "name": "Trusted Esma Play starts the selected personal source with a genuine native clock",
+        "passed": true
+      },
+      {
+        "name": "esma playing: trusted amb tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "esma playing: trusted frq tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "esma playing: trusted rx tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "esma playing: trusted zkr tab keeps one scene/menu/dock family",
+        "passed": true
+      },
+      {
+        "name": "Progress journal persists a valid record with no warning",
+        "passed": true
+      },
+      {
+        "name": "Every served production byte matches disk with no missing files or JS/SRI errors",
+        "passed": true
+      }
+    ]
+  },
+  "ambience-local-browser": {
+    "build": "r1074",
+    "sourceSha256": "7e3cbb5558e79fd1bd2d7251136fd1ef8238318315471c3f1a7d95f474dd97c4",
+    "testSha256": "4a9280b53fa518a54438e67d7277d8e80f38833ccc962e69f10e79de961e895a",
+    "browser": "141.0.7390.37",
+    "passed": 13,
+    "total": 13,
+    "allPassed": true,
+    "limitations": [
+      "Isolated headless Linux Chromium at 390×844 in Classic/Feyz; generated personal WAV input and controlled device TTS only. No user profile, microphone, recordings or private data.",
+      "Play and tab changes use trusted native clicks. Local commands and selection use the public session API; Serçe uses the real production chOn ambience engine. Media and Web Audio clocks are observed, not audible output.",
+      "Service workers are blocked by the engineering fixture. Android locking, OS focus and service-worker activation are outside this suite."
+    ],
+    "checks": [
+      {
+        "name": "Candidate boots isolated Classic/Feyz",
+        "passed": true
+      },
+      {
+        "name": "Trusted Berhetiyye Play advances real personal media",
+        "passed": true
+      },
+      {
+        "name": "Local Pause then trusted Ambience navigation retains selected Berhetiyye",
+        "passed": true
+      },
+      {
+        "name": "Actual Serçe ambience starts while selected Berhetiyye remains locally paused",
+        "passed": true
+      },
+      {
+        "name": "Local Finish keeps selected Berhetiyye theme and actual independent ambience",
+        "passed": true
+      },
+      {
+        "name": "Esma selection restores Mevlevi while real Serçe ambience continues",
+        "passed": true
+      },
+      {
+        "name": "Berhetiyye re-entry restores scene and dock together without starting dhikr",
+        "passed": true
+      },
+      {
+        "name": "Trusted Berhetiyye Play resumes alongside existing Serçe ambience",
+        "passed": true
+      },
+      {
+        "name": "Local Pause preserves independent ambience clock and selected-family decoration",
+        "passed": true
+      },
+      {
+        "name": "Local Resume advances same personal dhikr with Serçe still active",
+        "passed": true
+      },
+      {
+        "name": "Finish remains selection-sticky after local Resume",
+        "passed": true
+      },
+      {
+        "name": "Progress journal persists a valid record with no warning",
+        "passed": true
+      },
+      {
+        "name": "Production bytes have no missing files or JavaScript/SRI errors",
+        "passed": true
+      }
+    ]
+  },
+  "session-holds": {
+    "passed": 20,
+    "total": 20,
+    "checks": [
+      {
+        "name": "index.html: selection tick leaves shared audio asleep under registry hold",
+        "passed": true
+      },
+      {
+        "name": "index.html: selection tick leaves shared audio asleep under lifecycle hold",
+        "passed": true
+      },
+      {
+        "name": "index.html: selection tick leaves shared audio asleep under both global holds",
+        "passed": true
+      },
+      {
+        "name": "index.html: tick plays normally after the explicit global hold is released",
+        "passed": true
+      },
+      {
+        "name": "nero.html: selection tick leaves shared audio asleep under registry hold",
+        "passed": true
+      },
+      {
+        "name": "nero.html: selection tick leaves shared audio asleep under lifecycle hold",
+        "passed": true
+      },
+      {
+        "name": "nero.html: selection tick leaves shared audio asleep under both global holds",
+        "passed": true
+      },
+      {
+        "name": "nero.html: tick plays normally after the explicit global hold is released",
+        "passed": true
+      },
+      {
+        "name": "28: pending-Stop Start is rejected before gesture priming under registry hold",
+        "passed": true
+      },
+      {
+        "name": "28: pending-Stop Start is rejected before gesture priming under lifecycle hold",
+        "passed": true
+      },
+      {
+        "name": "28: pending-Stop Start is rejected before gesture priming under both global holds",
+        "passed": true
+      },
+      {
+        "name": "28: isolated released Start primes once, waits for Stop, then starts one owner",
+        "passed": true
+      },
+      {
+        "name": "28: a newly acquired global hold blocks a previously primed waiting Start",
+        "passed": true
+      },
+      {
+        "name": "28: cancelled pending native Stop cannot start a primed journey",
+        "passed": true
+      },
+      {
+        "name": "99: pending-Stop Start is rejected before gesture priming under registry hold",
+        "passed": true
+      },
+      {
+        "name": "99: pending-Stop Start is rejected before gesture priming under lifecycle hold",
+        "passed": true
+      },
+      {
+        "name": "99: pending-Stop Start is rejected before gesture priming under both global holds",
+        "passed": true
+      },
+      {
+        "name": "99: isolated released Start primes once, waits for Stop, then starts one owner",
+        "passed": true
+      },
+      {
+        "name": "99: a newly acquired global hold blocks a previously primed waiting Start",
+        "passed": true
+      },
+      {
+        "name": "99: cancelled pending native Stop cannot start a primed journey",
+        "passed": true
+      }
+    ]
+  },
+  "static": {
+    "groups": 1,
+    "passedGroups": 1
+  },
+  "regressions": {
+    "groups": 119,
+    "passedGroups": 119
+  }
+}
