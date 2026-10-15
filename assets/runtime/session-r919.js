@@ -80,6 +80,22 @@
   let pendingStart = null, refreshQueued = false, collecting = false, commandFailure = null;
   let completion = null, lastReason = 'boot', establishedEpoch = -1;
   let voiceCycle = Object.freeze({phase:'IDLE',revision:0}), voiceSignature = '';
+  // r1073: one cached control receipt, separate from playback state. A provider
+  // accepting a command does not verify counter progress or audible sound.
+  let commandDiagnosticSequence = 0, latestCommandDiagnostic = null;
+  function beginCommandDiagnostic(action, id, token) {
+    const context = { sequence: ++commandDiagnosticSequence, action, requestId: id, epoch: token, reason: null };
+    latestCommandDiagnostic = freeze({at:Date.now(),action,requestId:id,epoch:token,accepted:null,stale:false,outcome:'pending',reason:'pending'});
+    return context;
+  }
+  function settleCommandDiagnostic(context, accepted, stale, reason) {
+    const detail = freeze({at:Date.now(),action:context.action,requestId:context.requestId,epoch:context.epoch,
+      accepted:accepted === true,stale:stale === true,
+      outcome:stale ? 'cancelled' : accepted ? 'accepted' : 'not-accepted',
+      reason:stale ? reason === 'stale-session' ? reason : 'superseded-command' : accepted ? 'accepted' : reason || 'transport-not-accepted'});
+    if (context.sequence === commandDiagnosticSequence) latestCommandDiagnostic = detail;
+    window.dispatchEvent(new CustomEvent('sukun:sessioncommandresult',{detail}));
+  }
 
   function journeys() {
     const selected = clean(read(() => window.SukunJourneyController?.target(), 'single'));
@@ -239,7 +255,7 @@
     return () => listeners.delete(fn);
   }
 
-  function route(action, before) {
+  function route(action, before, reject = () => false) {
     const j = journeys(), active = j.active, choice = active || j.view;
     const pc = window.PlaybackController, registry = window.SukunAudioSessionRegistry;
     const direct = window.SukunR698Transport;
@@ -260,19 +276,19 @@
       return window.SukunDirectZikirTransportR698?.pause?.() ?? false;
     }
     if (action === 'play' || action === 'start' || action === 'resume') {
-      if (window.SukunVoiceSettings?.checkReady?.() === false) return false;
+      if (window.SukunVoiceSettings?.checkReady?.() === false) return reject('voice-not-ready');
       if (before.playing || before.preparing) return true;
-      if (before.recordingSource === 'USER_RECORDING_FAILED') return false;
-      if (choice && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return false;
+      if (before.recordingSource === 'USER_RECORDING_FAILED') return reject('recording-unavailable');
+      if (choice && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
       // This command is an explicit Start/Resume. Release its matching pause
       // intent before entering the provider; lifecycle recovery never uses it.
       // A global Pause remains authoritative. Local Resume never replays its
       // captured ambient/frequency providers or clears their global hold.
-      if (read(() => registry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent) return false;
+      if (read(() => registry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent) return reject('global-pause');
       if (direct?.resumeDhikr && !before.presentationOnly) return direct.resumeDhikr('r919-command');
       read(() => window.SukunJourneyAudioMachine?.intent?.('play', 'local:r919-command'));
       if (choice) {
-        if (!read(() => window.SukunSecretPolicy?.unlocked(), false)) return false;
+        if (!read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
         return choice.state.paused ? choice.api.resume({ system: false, reason: 'r919-command' }) : choice.api.play();
       }
       if (direct?.playPause && read(() => !!ZIKIR[before.activeMode]?.items, false)) return direct.playPause('r919-command');
@@ -280,13 +296,13 @@
     }
     if (action === 'retry') {
       const failed = read(() => window.SukunRecordingFailure?.get());
-      if (!failed || failed.cat !== before.activeMode || Number(failed.index) !== before.activeIndex) return false;
+      if (!failed || failed.cat !== before.activeMode || Number(failed.index) !== before.activeIndex) return reject('recording-unavailable');
       window.SukunRecordingFailure?.clearForRetry?.();
       // Clearing the held error is not playback. Exactly one existing owner resumes.
-      return route('resume', { ...before, recordingSource: null, phase: 'PAUSED', paused: true });
+      return route('resume', { ...before, recordingSource: null, phase: 'PAUSED', paused: true }, reject);
     }
     if (choice) {
-      if (!read(() => window.SukunSecretPolicy?.unlocked(), false)) return false;
+      if (!read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
       if (action === 'next') return choice.api.next();
       if (action === 'previous') return choice.api.previous();
       if (action === 'restart') return choice.api.jumpTo(Math.max(0, number(choice.state.i)));
@@ -310,15 +326,15 @@
     return false;
   }
 
-  async function select(options, token, commandId) {
+  async function select(options, token, commandId, reject = () => false) {
     const mode = clean(options.mode), kind = clean(options.journeyKind || 'single');
-    if (!read(() => !!ZIKIR[mode]?.items, false) || !['single', '99', '28'].includes(kind)) return false;
-    if ((mode === 'berhet' || kind !== 'single') && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return false;
-    if (kind === '28' && mode !== 'berhet' || kind === '99' && mode !== 'esma') return false;
+    if (!read(() => !!ZIKIR[mode]?.items, false) || !['single', '99', '28'].includes(kind)) return reject('selection-unavailable');
+    if ((mode === 'berhet' || kind !== 'single') && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
+    if (kind === '28' && mode !== 'berhet' || kind === '99' && mode !== 'esma') return reject('selection-unavailable');
     const index = options.index == null ? null : Number(options.index), max = read(() => ZIKIR[mode].items.length, 0);
-    if (index != null && (!Number.isInteger(index) || index < 0 || index >= max)) return false;
+    if (index != null && (!Number.isInteger(index) || index < 0 || index >= max)) return reject('selection-unavailable');
     const category = document.querySelector('#zCats [data-c="' + mode + '"]');
-    if (!category) return false;
+    if (!category) return reject('selection-unavailable');
     // Cancel the native owner's queued Start as well as this boundary's token.
     // A selected name must not inherit the preceding owner's delayed start.
     read(() => window.SukunOpening?.cancel?.());
@@ -334,9 +350,11 @@
       else retired = window.PlaybackController?.stop?.(current.provider || undefined);
       if (retired && typeof retired.then === 'function') {
         retired = await retired;
-        if (token !== epoch || commandId !== requestId) return false;
+        if (token !== epoch || commandId !== requestId) return reject('superseded-command');
       }
-      if (retired === false) return false;
+      if (retired === false) return reject('stop-not-complete');
+      if (token !== epoch || commandId !== requestId) return reject('superseded-command');
+      if (oldJourney) read(() => window.SukunAudioSessionRegistry?.retireJourneyPauseGate?.(oldJourney.kind,'r1073-selection'));
       // Retire only the old single capture; independently paused layers
       // keep their global Resume path. Selection never fabricates Play.
       read(() => window.SukunAudioSessionRegistry?.retireSinglePauseGate?.('r919-selection'));
@@ -347,12 +365,12 @@
     const displayIndex = index ?? (journeyApi ? number(read(() => journeyApi.display()?.index), 0) : null);
     if (displayIndex != null) {
       const item = document.querySelector('#zList [data-i="' + displayIndex + '"]');
-      if (!item) return false;
+      if (!item) return reject('selection-unavailable');
       item.click();
       // Merely opening a saved journey must not erase its stored repeat count.
-      if (index != null && journeyApi?.jumpTo?.(index) === false) return false;
+      if (index != null && journeyApi?.jumpTo?.(index) === false) return reject('selection-unavailable');
     }
-    if (window.SukunJourneyController?.select?.(kind) === false) return false;
+    if (window.SukunJourneyController?.select?.(kind) === false) return reject('selection-unavailable');
     read(() => window.currentZikirState?.refresh?.('r919-select', true));
     read(() => window.currentFlowState?.refresh?.('r919-select', true));
     schedule('selection'); return true;
@@ -363,11 +381,17 @@
     if (!['start', 'play', 'pause', 'resume', 'stop', 'next', 'previous', 'restart', 'retry', 'select', 'adjust'].includes(action))
       return Promise.resolve({ accepted: false, reason: 'unsupported-action', snapshot: snapshot() });
     const before = snapshot();
-    if (options.epoch != null && Number(options.epoch) !== epoch)
+    if (options.epoch != null && Number(options.epoch) !== epoch) {
+      settleCommandDiagnostic(beginCommandDiagnostic(action,requestId,epoch),false,true,'stale-session');
       return Promise.resolve({ accepted: false, stale: true, reason: 'stale-session', epoch, requestId, snapshot: before });
+    }
     if(action==='adjust'){
       // A correction cannot supersede a queued Start or manufacture a new audio epoch.
-      const value=window.SukunCountCorrection?.adjust?.(options.delta);
+      const diagnostic = beginCommandDiagnostic(action,requestId,epoch);
+      let value;
+      try { value=window.SukunCountCorrection?.adjust?.(options.delta); }
+      catch (error) { settleCommandDiagnostic(diagnostic,false,false,'command-error'); throw error; }
+      settleCommandDiagnostic(diagnostic,value===true,false);
       return Promise.resolve(freeze({accepted:value===true,epoch,requestId,snapshot:refresh('manual-correction')}));
     }
     const isStart = ['start', 'play', 'resume', 'retry'].includes(action);
@@ -382,6 +406,8 @@
       epoch++; pendingStart = null; completion = null;
     }
     const id = ++requestId, token = epoch;
+    const diagnostic = beginCommandDiagnostic(action,id,token);
+    const reject = reason => { diagnostic.reason = reason; return false; };
     commandFailure = null;
     commands.push({ at: Date.now(), action, requestId: id, epoch: token });
     if (commands.length > 40) commands.shift();
@@ -393,24 +419,33 @@
       if (waitingStop) {
         // The native Stop owns its asynchronous cleanup. Starting a new journey
         // before this barrier settles lets old cleanup terminate the new voice.
-        read(() => window.SukunDirectZikirTransportR698?.primeGesture?.());
-        if (!read(() => window.SukunAudioSessionRegistry?.aggregateSnapshot()?.paused, false) && !(window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent))
+        const globallyHeld = read(() => window.SukunAudioSessionRegistry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent;
+        if (!globallyHeld) {
+          read(() => window.SukunDirectZikirTransportR698?.primeGesture?.());
           read(() => window.AudioLife?.markUserPlay?.('local:r919-pending-start'));
+        }
         const barrier = window.SukunR698Transport?.whenStopped?.();
         const nativeEpoch = read(() => window.SukunR698Transport?.snapshot()?.intentEpoch, null);
         result = barrier ? Promise.resolve(barrier).then(ok => {
-          if (ok === false || token !== epoch || id !== requestId || nativeEpoch !== read(() => window.SukunR698Transport?.snapshot()?.intentEpoch, null) || read(() => window.SukunAudioSessionRegistry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused || window.AudioLife?._terminalIntent) return false;
-          return route(action, before);
-        }) : false;
-      } else result = action === 'select' ? select(options, token, id) : route(action, before);
+          if (token !== epoch || id !== requestId || nativeEpoch !== read(() => window.SukunR698Transport?.snapshot()?.intentEpoch, null)) return reject('superseded-command');
+          if (ok === false) return reject('stop-not-complete');
+          if (read(() => window.SukunAudioSessionRegistry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused) return reject('global-pause');
+          if (window.AudioLife?._terminalIntent) return reject('superseded-command');
+          return route(action, before, reject);
+        }) : reject('stop-wait-unavailable');
+      } else result = action === 'select' ? select(options, token, id, reject) : route(action, before, reject);
     }
     catch (error) { result = Promise.reject(error); }
     const promise = Promise.resolve(result).then(value => {
       const after = refresh('command:' + action);
+      // Successful selection/navigation may itself advance the selection epoch.
+      // Request ordering, rather than that expected change, defines staleness.
+      settleCommandDiagnostic(diagnostic,value !== false && value !== undefined,id !== requestId || diagnostic.reason === 'superseded-command',diagnostic.reason);
       return freeze({ accepted: value !== false && value !== undefined, stale: id !== requestId,
         requestId: id, epoch: token, snapshot: after });
     }, error => {
       logError('command:' + action, error);
+      settleCommandDiagnostic(diagnostic,false,id !== requestId || token !== epoch,'command-error');
       if (token === epoch) commandFailure = clean(error?.message || 'İşlem tamamlanamadı');
       return freeze({ accepted: false, stale: token !== epoch, requestId: id, epoch: token, snapshot: refresh('command-error') });
     }).finally(() => { if (pendingStart?.id === id) { pendingStart = null; schedule('command-settled'); } });
@@ -469,6 +504,7 @@
   }
   window.SukunVoiceCycle = freeze({version:'r949',snapshot:()=>voiceCycle});
   window.SukunSessionState = freeze({ version: 'r919', snapshot, peek: () => state, refresh, subscribe, command, health, exportHealth,
+    commandDiagnostics: () => latestCommandDiagnostic,
     token: () => freeze({ sessionId: snapshot().sessionId, epoch }), isCurrent: token => token?.epoch === snapshot().epoch });
   if (!window.SessionState) window.SessionState = window.SukunSessionState;
   const events = ['sukun:backgroundownerchange', 'sukun:currentzikirchange', 'sukun:currentflowchange', 'sukun:nowplayingchange', 'sukun:playbackchange',

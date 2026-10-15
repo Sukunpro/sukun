@@ -12,6 +12,8 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 EXCLUDED = {
+    'tests/r1074/ambience-local-browser.cjs': 'Separate native selected-theme local-pause and actual ambience browser suite; run directly after source freeze.',
+    'tests/r1074/selection-theme-browser.cjs': 'Separate native selected-theme and global-hold browser suite; run after source freeze.',
     'tests/r1072/retired-single-pause-browser.cjs': 'Separate actual Chromium captured-single Pause/Next/Start regression; run directly with an explicit evidence output.',
     'tests/r1071/atlas-ui.cjs': 'Separate actual Chromium Atlas frame/interaction suite; run directly with source baseline|candidate and explicit evidence output.',
     'tests/r1070/classic-feyz-smoke.cjs': 'Separate actual mobile Chromium/native touch smoke; run directly in both Classic/Feyz viewport profiles.',

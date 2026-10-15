@@ -16,6 +16,7 @@
   const DEVICE_FIELDS = ['foregroundSound','lockedSound','tempoStable','effectsPreserved','nameTransition','manualCount','manualFeedback','manualVoice','voiceRate','terkipOpen','virdOpen','navigationControls','privateGate'];
   const DEVICE_ANSWERS = new Set(['NOT_TRIED','AS_EXPECTED','ISSUE']);
   let previous = null, previousScope = 'none', lastSampleEpoch = 0, eventWindowAt = born, eventWindowCount = 0;
+  let sessionCommand = null;
   let visibleLagMs = 0, lastIncidentAt = 0, lastPresentationSave = 0, mounted = null, dialog = null, priorFocus = null, tts = null, taps = null, checkpointTrimmed = 0;
   const safe = (fn, fallback = null) => { try { return fn() ?? fallback; } catch (_) { return fallback; } };
   const finite = x => Number.isFinite(Number(x)) ? Number(x) : null;
@@ -41,6 +42,21 @@
   ['recordingPreparation','recording','audio','ageMs','stageAgeMs','originalReady','foregroundBudgetMs','decodeBlocked','budgetBytes','sourceBudgetBytes','residentBytes','activeEstimate','worker','decodeStarts','timedOut','maxConcurrent','purpose'].forEach(key=>historicKeys.add(key));
   ['tabOwner','revision','method','protection','owned','maintenance','blocked','recoveryRequired','failureStage','lockFallbackError','requestFailures'].forEach(key=>historicKeys.add(key));
   ['currentTime','duration','mediaSpanSeconds','unitSeconds','repeatCycles','playbackRate','volume','muted','loop','mediaProgressSeconds','appliedCycles','lastPauseReason','lastPauseAt'].forEach(key=>historicKeys.add(key));
+  ['sessionCommand','action','accepted','stale','outcome'].forEach(key=>historicKeys.add(key));
+  const COMMAND_ACTIONS = new Set(['start','play','pause','resume','stop','next','previous','restart','retry','select','adjust']);
+  const COMMAND_REASONS = new Set(['pending','accepted','global-pause','voice-not-ready','recording-unavailable','locked','stale-session','superseded-command','transport-not-accepted','command-error','stop-not-complete','stop-wait-unavailable','selection-unavailable']);
+  function compactSessionCommand(value) {
+    if (!value || typeof value !== 'object' || Array.isArray(value) || !COMMAND_ACTIONS.has(value.action) || !COMMAND_REASONS.has(value.reason)) return null;
+    const integer = x => Number.isSafeInteger(x) && x >= 0;
+    if (!integer(value.at) || value.at > 8640000000000000 || !integer(value.requestId) || !integer(value.epoch) || typeof value.stale !== 'boolean') return null;
+    const outcome = value.outcome, accepted = value.accepted;
+    if (!['pending','accepted','not-accepted','cancelled'].includes(outcome)) return null;
+    if (outcome === 'pending' ? accepted !== null || value.stale || value.reason !== 'pending' : typeof accepted !== 'boolean') return null;
+    if (outcome === 'accepted' && (!accepted || value.stale || value.reason !== 'accepted')) return null;
+    if (outcome === 'not-accepted' && (accepted || value.stale || ['pending','accepted','stale-session','superseded-command'].includes(value.reason))) return null;
+    if (outcome === 'cancelled' && (!value.stale || !['stale-session','superseded-command'].includes(value.reason))) return null;
+    return {at:value.at,action:value.action,requestId:value.requestId,epoch:value.epoch,accepted,stale:value.stale,outcome,reason:value.reason};
+  }
   function historic(value, depth = 0) {
     // Marker context contains one nested pair of cached preparation owners.
     // The field allowlist and checkpoint byte cap still bound retained data.
@@ -50,7 +66,10 @@
     if (typeof value === 'string') return token(value,200);
     if (Array.isArray(value)) return value.slice(-18).map(x => historic(x,depth+1));
     if (typeof value !== 'object') return null;
-    const out = {}; for (const key of Object.keys(value).slice(0,50)) if (historicKeys.has(key)) out[key] = historic(value[key],depth+1);
+    const out = {}; for (const key of Object.keys(value).slice(0,50)) if (historicKeys.has(key)) {
+      if (key === 'sessionCommand' || key === 'evidence' && ['session-command-pending','session-command-result'].includes(value.kind)) out[key] = compactSessionCommand(value[key]);
+      else out[key] = historic(value[key],depth+1);
+    }
     return out;
   }
   function numeric(obj, fields) { const out = {}; for (const key of fields) out[key] = finite(obj?.[key]); return out; }
@@ -231,7 +250,7 @@
       lockFallbackError:names.has(s.lockFallbackError)?s.lockFallbackError:'Error',
       requestFailures:typeof s.requestFailures==='number'&&Number.isFinite(s.requestFailures)&&s.requestFailures>=0?Math.min(1000000,Math.floor(s.requestFailures)):null,lastMaintenanceFailure};
   }
-  function evidenceContext(voiceExpectation=voiceExpectationSnapshot(),recordingPreparation=recordingPreparationSnapshot()) { return { hidden: document.hidden, session, tempo, truth, sw, lock, background, voiceExpectation, recordingPreparation, tabOwner:tabOwnerSnapshot(), browserLifecycle: compactLifecycle(), presentation:presentationSnapshot() }; }
+  function evidenceContext(voiceExpectation=voiceExpectationSnapshot(),recordingPreparation=recordingPreparationSnapshot()) { return { hidden: document.hidden, session, sessionCommand, tempo, truth, sw, lock, background, voiceExpectation, recordingPreparation, tabOwner:tabOwnerSnapshot(), browserLifecycle: compactLifecycle(), presentation:presentationSnapshot() }; }
   function record(kind, evidence = {}) {
     const row = { seq: ++seq, at: now(), kind: token(kind), evidence };
     events.push(row); if (events.length > MAX_EVENTS) { events.shift(); droppedEvents++; }
@@ -250,7 +269,7 @@
   }
   function checkpoint(reason) {
     return { schema: SCHEMA, at: now(), boot, build, reason, hidden: document.hidden,
-      closed: reason === 'pagehide', session, tempo, sw, background, browserLifecycle: compactLifecycle(), presentation:presentationSnapshot(), deviceCheck, modelCheck, incidents: incidents.slice(-8), events: events.slice(-18) };
+      closed: reason === 'pagehide', session, sessionCommand, tempo, sw, background, browserLifecycle: compactLifecycle(), presentation:presentationSnapshot(), deviceCheck, modelCheck, incidents: incidents.slice(-8), events: events.slice(-18) };
   }
   function persist(reason) {
     const saved = checkpoint(reason); let data = JSON.stringify(saved), trimmed = 0;
@@ -271,6 +290,7 @@
     if (old?.schema !== SCHEMA || !Number.isFinite(old.at) || now() - old.at > 172800000 || old.at > now() + 60000) return;
     previous = { at: old.at, build: token(old.build), reason: token(old.reason), closed: bool(old.closed), hidden: bool(old.hidden),
       session: old.session ? { phase: token(old.session.phase), count: finite(old.session.count), index: finite(old.session.index), mode: token(old.session.mode) } : null,
+      sessionCommand:compactSessionCommand(old.sessionCommand),
       incidentCodes: (Array.isArray(old.incidents) ? old.incidents : []).slice(-8).map(x => token(x.code)),
       incidents: historic((Array.isArray(old.incidents) ? old.incidents : []).slice(-8)),
       events: historic((Array.isArray(old.events) ? old.events : []).slice(-18)), background:historic(old.background), browserLifecycle:historic(old.browserLifecycle), presentation:compactPresentation(old.presentation), deviceCheck: compactDeviceCheck(old.deviceCheck) };
@@ -316,6 +336,16 @@
     if (next.dualJourney) issue('DUAL_JOURNEY', 'FAIL', 'İki seyir aynı anda etkin', { journey: next.journey, owner: next.owner }, 'Seyir sahipliği ve önceki oturumun Stop tamamlanma bariyerini inceleyin.');
     if (next.phase === 'ERROR') issue('SESSION_ERROR', 'FAIL', 'Oturum hata durumuna geçti', { source: next.source, epoch: next.epoch }, 'Önceki resource, promise ve ses olayı kayıtlarıyla hata anını eşleştirin.');
     if (['PLAYING','PREPARING','INTERRUPTED'].includes(next.phase)) arm(); else cancelTimer();
+  }
+  function commandEvent(e, settled) {
+    const observed = compactSessionCommand(e.detail);
+    // The session owns request ordering. An obsolete promise may settle after a
+    // newer Pause/selection; its event belongs to history, never latest state.
+    const api = window.SukunSessionState;
+    if (typeof api?.commandDiagnostics === 'function') sessionCommand = compactSessionCommand(safe(() => api.commandDiagnostics()));
+    else if (observed && (!sessionCommand || observed.requestId > sessionCommand.requestId || observed.requestId === sessionCommand.requestId && observed.epoch >= sessionCommand.epoch && observed.at >= sessionCommand.at)) sessionCommand = observed;
+    const row = settled ? observed : sessionCommand;
+    if (row) record(settled ? 'session-command-result' : 'session-command-pending',row);
   }
   function errorEvent(e) {
     if (e.target && e.target !== window && e.target.tagName) {
@@ -449,6 +479,8 @@
         'Sayfa / Service Worker eşleşmesi', sw || { controlled: !!navigator.serviceWorker?.controller }, 'Farklıysa aktif sesi durdurduktan sonra uygulamanın Güncelle düğmesini kullanın; kayıtları silmeyin.'),
       status('SW_CACHE_COMPLETE', sw?.complete === true ? 'PASS' : sw?.complete === false ? 'FAIL' : 'NOT_MEASURED', 'SW çekirdek dosyaları', { complete: sw?.complete ?? null }),
       status('SESSION_OBSERVATION', session ? 'PASS' : 'NOT_MEASURED', 'Pasif oturum durumu', session || { reason: 'Henüz oturum olayı alınmadı' }),
+      status('SESSION_COMMAND',sessionCommand && sessionCommand.outcome !== 'pending' ? 'OBSERVED' : 'NOT_MEASURED','Son zikir kontrol isteği',sessionCommand || {},
+        'Bu yalnız son kontrol isteğinin sonucudur; sayacın ilerlediğini veya sesin duyulduğunu doğrulamaz. Normal duraklatma ve genel bekletme hata sayılmaz.'),
       status('TEMPO_RANGE', tempo?.value == null ? 'NOT_MEASURED' : tempo.value >= .6 && tempo.value <= 6 ? 'PASS' : 'FAIL', 'Tempo yetkisi', tempo || {}),
       audioConsistency(voiceExpectation),
       status('DEVICE_AUDIO', 'NOT_MEASURED', 'Fiziksel hoparlör ve ekran kilidi doğrulaması', { reason: 'Tarayıcı olayları işitilebilir sesi veya işletim sistemi süreç sonlandırmasını ispatlamaz' }),
@@ -865,8 +897,11 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', discoverTools, {once:true}); else discoverTools();
   window.addEventListener('sukun:languagechange',refreshLabels,{passive:true});
   loadPrevious(); record('boot', { build, online: navigator.onLine !== false, previousCheckpoint: !!previous });
+  sessionCommand = compactSessionCommand(safe(() => window.SukunSessionState?.commandDiagnostics?.()));
   sampleTempo(); const initial = safe(() => window.SukunSessionState?.peek?.()); if(initial) sessionEvent({detail:initial}); persist('boot');
   window.addEventListener('sukun:sessionchange', sessionEvent, {passive:true});
+  window.addEventListener('sukun:sessioncommand', e => commandEvent(e,false), {passive:true});
+  window.addEventListener('sukun:sessioncommandresult', e => commandEvent(e,true), {passive:true});
   window.addEventListener('sukun:airesult', e => { const d=e.detail||{}; record('ai-request', {provider:token(d.provider),model:token(d.model),code:token(d.code),http:finite(d.http),durationMs:finite(d.durationMs)}); }, {passive:true});
   window.addEventListener('sukun:audiotruthchange', e => {
     const next = compactTruth(e.detail);

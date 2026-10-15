@@ -44,19 +44,18 @@ html body.sukun-zikir-tab:has(#r920Practice[data-mode="berhet"]:not([hidden])) #
 /* Berhetiyye scene clarity: hollow frames pass the scene through. Local text
    panels retain 76–78% dark scrims; gemstone controls keep their opaque faces.
    No element opacity or backdrop blur is added. */
-/* The main menu is coated only while the Zikir tab is selected. */
-html body.sukun-zikir-tab:has(#r920Practice[data-mode="berhet"]:not([hidden])):has(#tab-zkr.active) .tabs,
-html body.sukun-zikir-tab:has(#r920Practice[data-mode="berhet"]:not([hidden])):has(.tabs [data-t="zkr"].act) .tabs {
+/* r1074: navigation follows the selected family on every ordinary tab. */
+html[data-r1074-theme="berhet"] body .tabs {
  border:1px solid transparent!important;
  border-image:var(--r933-panel-frame) 250 / 7px / 0 stretch!important;
  background:linear-gradient(135deg,#11282599,#08182499)!important;
 }
-html body.sukun-zikir-tab:has(#r920Practice[data-mode="berhet"]:not([hidden])):has(.tabs [data-t="zkr"].act) .tabs :is(button,.tabTekke) {
+html[data-r1074-theme="berhet"] body .tabs :is(button,.tabTekke) {
  border:1px solid transparent!important;
  border-image:var(--r933-gem-diamond) 330 fill / 6px / 0 stretch!important;
  background:#10262beb!important;color:#f8e7c4!important;box-shadow:none!important;
 }
-html body.sukun-zikir-tab:has(#r920Practice[data-mode="berhet"]:not([hidden])):has(.tabs [data-t="zkr"].act) .tabs button.act {
+html[data-r1074-theme="berhet"] body .tabs button.act {
  border-image-source:var(--r933-gem-emerald)!important;background:#10382e!important;
 }
 html body.sukun-zikir-tab:has(#r920Practice[data-mode="berhet"]:not([hidden])) :is(#tab-zkr,#r616ToolsSheet) input:not([type="range"]):not([type="checkbox"]):not([type="radio"]) {
@@ -477,5 +476,33 @@ html body.r754-berhet-theme:has(#r920Practice[data-mode="berhet"]:not([hidden]))
 }
 html body.r754-berhet-theme:has(#r920Practice[data-mode="berhet"]:not([hidden])) .skToast{flex-wrap:wrap!important}
 html body.r754-berhet-theme:has(#r920Practice[data-mode="berhet"]:not([hidden])) .skToast .msg{flex:1 1 180px!important;min-width:0!important;overflow-wrap:anywhere!important}
+
+/* Shared non-Practice actions use the same materials. Paint only: native
+   control geometry, preview hitboxes, checkboxes and wheel leaves stay owned
+   by their existing components. */
+html[data-r1074-theme="berhet"] body :where(
+ #tab-amb,#tab-frq,#tab-rx,#tab-ntf,#prDashboard,#todayCard,#vakitBox,
+ #r616Home,#r616SoundHeader,#r616Journeys,#r616ToolsSheet,#r616Topbar,#r616BottomNav,.masterBar
+) :where(button:not(.sw):not(.dockTipHelp):not(.qb):not(.chInfo):not(.chPrev):not(:where(#r924WheelFrame *)),select,summary) {
+ border:1px solid transparent!important;
+ border-image:var(--r933-gem-sapphire) 330 fill / 7px / 0 stretch!important;
+ background:#0a2637!important;color:#fff1d5!important;
+ box-shadow:none!important;text-shadow:0 1px 3px #000!important;
+}
+/* Retain selected/playing semantics under the shared material coat. */
+html[data-r1074-theme="berhet"] body :where(
+ #tab-amb,#tab-frq,#tab-rx,#tab-ntf,#r616Home,#r616Journeys,#r616Topbar,#r616BottomNav
+) :is(button.act,button.active,button.on,button[aria-pressed="true"],button[aria-selected="true"]):not(.sw):not(.qb):not(.chInfo):not(.chPrev) {
+ border-image-source:var(--r933-gem-emerald)!important;
+ background:#0b392c!important;color:#fff6cd!important;
+}
+html[data-r1074-theme="berhet"] body :is(#frStop,#rxStop,#miniStop) {
+ border-image-source:var(--r933-gem-ruby)!important;background:#401023!important;
+}
+html[data-r1074-theme="berhet"] body :is(#prDGo,#prPerfBtn,#prSearchOpen,#r1042PerfSummary) {
+ border:1px solid transparent!important;
+ border-image:var(--r933-gem-emerald) 330 fill / 7px / 0 stretch!important;
+ background:#0b3028!important;color:#fff1d5!important;box-shadow:none!important;
+}
 
 }
