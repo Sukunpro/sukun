@@ -1,4 +1,5 @@
-/* r981 / r1021: one explicit dhikr writer/voice tab per origin. No audio or count clock.
+/* r981 / r1070: one explicit dhikr writer/voice tab per origin. No audio or count clock.
+ * A new explicit Start may wait, with cancellation, for this tab's own release.
  * A Web Lock has no heartbeat deadline: hidden/frozen audible tabs retain it.
  * The IndexedDB fallback atomically claims a non-expiring record; an unclean
  * exit requires the user's explicit closed-other-tabs recovery, never autoplay.
@@ -20,12 +21,13 @@
   let generation=0, epoch=0, claimGeneration=0, acquireGeneration=-1, retiring=false, revoking=false, terminal=false, drainTimer=0, binding={}, remote=null, reason='idle';
   let grantedBefore='',grantedAfter='';
   let dbPromise=null, dbConnection=null, dbAttempt=null, idbLease=false, maintenanceActive=false, channel=null, pendingAction=null, notice='', writesBlocked=0, wrappedSession=null;
+  const ownReleaseWaiters=new Set();
   let maintenanceAttempt=0,lastMaintenanceFailure=null;
   let failureStage='',lastErrorName='',lockFallbackError='',requestFailures=0,noticeEpoch=0,dismissedNoticeEpoch=-1,warningSignature='';
   const readMirror=()=>safe(()=>JSON.parse(localStorage.getItem(MIRROR)||'null'));
   const owns=()=>held&&!maintenanceActive;
   const key=()=>safe(()=>binding.identity?.(),'');
-  function snapshot(){return Object.freeze({version:'r981',revision:'r1021',method,protection:method==='web-locks'?'web-lock-strict':'idb-confirmed-recovery',owned:owns(),maintenance:maintenanceActive,epoch,intent:generation,pending:!!acquirePromise,
+  function snapshot(){return Object.freeze({version:'r981',revision:'r1070',method,protection:method==='web-locks'?'web-lock-strict':'idb-confirmed-recovery',owned:owns(),maintenance:maintenanceActive,epoch,intent:generation,pending:!!acquirePromise||ownReleaseWaiters.size>0,
     failureStage,errorName:lastErrorName,lockFallbackError,requestFailures,lastMaintenanceFailure:lastMaintenanceFailure?Object.freeze({...lastMaintenanceFailure}):null,
     blocked:!held&&!!remote,reason,retiring,releasing:revoking,writesBlocked,recoveryRequired:!held&&!!remote&&(remote.method==='indexeddb'||method==='indexeddb')});}
   function emit(){safe(()=>window.dispatchEvent(new CustomEvent('sukun:tabownerchange',{detail:snapshot()})));}
@@ -191,7 +193,29 @@
   async function run(kind,action,opt={}){
     if(typeof action!=='function'||typeof opt.isCurrent==='function'&&!safe(opt.isCurrent,false))return false;
     if(maintenanceActive)return warn('maintenance');
-    if(revoking)return warn('preparing');
+    let releaseWaiter=null;
+    try{
+    let primed=false;
+    if(revoking){
+      // A NEW explicit Start may arrive while this tab is relinquishing its
+      // old physical lock. Preserve that gesture only across our own closing
+      // promise; a revoked/remote owner without it remains fail-closed.
+      const closing=closingPromise;
+      if(!closing)return warn('preparing');
+      releaseWaiter={};ownReleaseWaiters.add(releaseWaiter);
+      prime();primed=true;
+      const waitingGeneration=generation,waitingSelection=key();
+      warn('preparing');
+      const released=await new Promise(resolve=>{
+        const timer=setTimeout(()=>resolve(false),OWNER_WAIT_MS);
+        Promise.resolve(closing).then(value=>{clearTimeout(timer);resolve(value!==false);},()=>{clearTimeout(timer);resolve(false);});
+      });
+      // Selection, Pause, Stop and caller cancellation supersede this queued
+      // gesture. The normal non-waiting claim below still excludes other tabs.
+      if(waitingGeneration!==generation||waitingSelection!==key()||typeof opt.isCurrent==='function'&&!safe(opt.isCurrent,false))return false;
+      if(!released||revoking)return warn('unavailable');
+      if(maintenanceActive)return warn('maintenance');
+    }
     retiring=false;terminal=false;clearTimeout(drainTimer);drainTimer=0;
     if(held){
       // Explicit one-shot callers also release a reused lease after their
@@ -202,13 +226,18 @@
         if(held&&!maintenanceActive&&epoch===lease)retire(kind+'-settled');
       }
     }
-    prime();const token=generation,selected=key();
+    if(!primed)prime();const token=generation,selected=key();
     if(!await acquire(kind)||token!==generation||selected!==grantedBefore||key()!==grantedAfter||opt.keepSelection&&selected!==key()||typeof opt.isCurrent==='function'&&!opt.isCurrent()){
       if(held&&claimGeneration===token)retire('cancelled-acquire');return false;
     }
     const lease=epoch;let value,failed=true;
     try{value=await action();failed=false;return value;}finally{
       if(held&&!maintenanceActive&&epoch===lease&&(opt.releaseAfter||failed||value===false||value===undefined||value?.accepted===false))retire(kind+'-settled');
+    }
+    }finally{
+      // Keep updates/data observers aware across the closing emit, the next
+      // physical claim and the command's own pending/active state handoff.
+      if(releaseWaiter){ownReleaseWaiters.delete(releaseWaiter);emit();}
     }
   }
   function defer(kind,action,opt={}){
@@ -220,7 +249,7 @@
       if(kind==='manual'&&!maintenanceActive&&claimGeneration===token)retire('manual-drained');
     });return false;
   }
-  function cancelPending(why='cancelled'){generation++;pendingAction=null;reason=why;notice='';warningSignature='';render();emit();return true;}
+  function cancelPending(why='cancelled'){generation++;pendingAction=null;ownReleaseWaiters.clear();reason=why;notice='';warningSignature='';render();emit();return true;}
   function canPersist(k){if(!protectedKeys.has(String(k)))return true;if(held&&!maintenanceActive)return true;writesBlocked++;return false;}
   function allowed(){if(owns())return true;warn(maintenanceActive?'maintenance':'blocked');return false;}
   async function release(why='released',opt={}){

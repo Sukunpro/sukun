@@ -1,0 +1,30 @@
+{
+  "suite": "r1070 update/owner handoff",
+  "passed": 5,
+  "total": 5,
+  "results": [
+    {
+      "name": "pending ownership defers an approved update without activating or reloading",
+      "passed": true
+    },
+    {
+      "name": "releasing ownership defers an approved update without activating or reloading",
+      "passed": true
+    },
+    {
+      "name": "Own release → pending Start → playing keeps one approved update queued until idle",
+      "passed": true
+    },
+    {
+      "name": "Canceling an update while Start is pending cannot reload when the owner settles",
+      "passed": true
+    },
+    {
+      "name": "Ownership preparation beginning during pre-activation session save blocks activation until it settles",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Controlled worker messaging and owner state around unchanged production update-manager code; real browser service-worker activation and Android are not tested."
+  ]
+}
