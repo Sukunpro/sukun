@@ -1,0 +1,2340 @@
+{
+  "suite": "Atlas native button frame and interaction",
+  "stage": "baseline",
+  "root": "/workspace/scratch/5732500eb8f8/r1070-release",
+  "build": "r1070",
+  "testHash": "2bdc5a901e6fe8cce60f0ba03a61e3497ce8b46f2b30519ac75d791df2ad194e",
+  "startedAt": "2026-10-15T18:02:26.396Z",
+  "checks": [
+    {
+      "profile": "320x640",
+      "name": "Build, classic layout and Feyz theme",
+      "passed": true,
+      "evidence": {
+        "build": "r1070",
+        "layout": "classic",
+        "skin": "feyz",
+        "unlocked": true
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Legacy backdrop suppression is scoped to shared practice",
+      "passed": true,
+      "evidence": {
+        "enabled": true,
+        "active": {
+          "display": "block",
+          "content": "\"\"",
+          "inset": "-8px -4px 0px"
+        },
+        "outside": {
+          "display": "block",
+          "content": "\"\"",
+          "inset": "-8px -4px 0px"
+        },
+        "restored": {
+          "display": "block",
+          "content": "\"\"",
+          "inset": "-8px -4px 0px"
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "esma frame and unchanged native geometry",
+      "passed": true,
+      "evidence": {
+        "borderTopWidth": "0px",
+        "borderTopStyle": "none",
+        "borderTopColor": "rgb(191, 208, 220)",
+        "borderImageSource": "none",
+        "borderImageWidth": "1",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(191, 208, 220)",
+        "borderRadius": "12px",
+        "fontSize": "12px",
+        "padding": "6px",
+        "display": "flex",
+        "visibility": "visible",
+        "rect": {
+          "x": 34,
+          "y": 274.4375,
+          "width": 120,
+          "height": 44
+        },
+        "mode": "esma",
+        "body": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r716-shell r474-name-cat sukun-jewel-r798 r588-dock-ready r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r697-neon-ui r698-ui r433-dock-enhanced r434-inline-details-ready r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r716-motion r920-practice-on"
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "esma native Atlas click/open/close/focus return preserves session",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "mode": "esma",
+          "index": 0,
+          "count": 0,
+          "phase": "IDLE",
+          "tef": false
+        },
+        "dialog": {
+          "open": true,
+          "title": "Esmâ Atlası",
+          "nodes": 99,
+          "modal": true
+        },
+        "after": {
+          "mode": "esma",
+          "index": 0,
+          "count": 0,
+          "phase": "IDLE",
+          "tef": false
+        },
+        "open": false,
+        "focus": "r920AtlasOpen",
+        "same": true,
+        "clicks": [
+          {
+            "id": "r920AtlasOpen",
+            "trusted": true
+          },
+          {
+            "id": "r920AtlasClose",
+            "trusted": true
+          }
+        ]
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "esma page and native control bounds stay inside viewport",
+      "passed": true,
+      "evidence": {
+        "viewport": 320,
+        "page": [
+          {
+            "id": "HTML",
+            "width": 320,
+            "total": 320,
+            "left": 0,
+            "right": 320
+          },
+          {
+            "id": "BODY",
+            "width": 320,
+            "total": 320,
+            "left": 0,
+            "right": 320
+          }
+        ],
+        "owners": [
+          {
+            "id": "tab-zkr",
+            "width": 298,
+            "total": 302,
+            "left": 11,
+            "right": 309
+          },
+          {
+            "id": "r920Practice",
+            "width": 296,
+            "total": 299,
+            "left": 11,
+            "right": 309
+          }
+        ],
+        "controls": [
+          {
+            "id": "r920ModeEsma",
+            "width": 130,
+            "total": 130,
+            "left": 26,
+            "right": 157.5
+          },
+          {
+            "id": "r920ModeBerhet",
+            "width": 130,
+            "total": 130,
+            "left": 162.5,
+            "right": 294
+          },
+          {
+            "id": "r920AtlasOpen",
+            "width": 120,
+            "total": 120,
+            "left": 34,
+            "right": 154
+          },
+          {
+            "id": "r920JourneyMode",
+            "width": 118,
+            "total": 118,
+            "left": 166,
+            "right": 286
+          },
+          {
+            "id": "r920NameInfo",
+            "width": 248,
+            "total": 248,
+            "left": 35.796875,
+            "right": 284.203125
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "width": 246,
+            "total": 246,
+            "left": 35.796875,
+            "right": 284.203125
+          },
+          {
+            "id": "r920Minus",
+            "width": 44,
+            "total": 44,
+            "left": 26.9921875,
+            "right": 71.0078125
+          },
+          {
+            "id": "r920Plus",
+            "width": 44,
+            "total": 44,
+            "left": 249.7734375,
+            "right": 293.7890625
+          },
+          {
+            "id": "r920Stop",
+            "width": 44,
+            "total": 44,
+            "left": 137.9921875,
+            "right": 182.0078125
+          },
+          {
+            "id": "r920Play",
+            "width": 44,
+            "total": 44,
+            "left": 137.9921875,
+            "right": 182.0078125
+          },
+          {
+            "id": "r959WheelPrevious",
+            "width": 66,
+            "total": 80,
+            "left": 49.921875,
+            "right": 115.953125
+          },
+          {
+            "id": "r959WheelNext",
+            "width": 66,
+            "total": 80,
+            "left": 204.03125,
+            "right": 270.0625
+          },
+          {
+            "id": "r920Counter",
+            "width": 105,
+            "total": 105,
+            "left": 107.703125,
+            "right": 212.265625
+          },
+          {
+            "id": "BUTTON",
+            "width": 81,
+            "total": 81,
+            "left": 30,
+            "right": 112.65625
+          },
+          {
+            "id": "BUTTON",
+            "width": 81,
+            "total": 81,
+            "left": 118.65625,
+            "right": 201.328125
+          },
+          {
+            "id": "BUTTON",
+            "width": 81,
+            "total": 81,
+            "left": 207.328125,
+            "right": 289.984375
+          },
+          {
+            "id": "r1056ReadingSource",
+            "width": 156,
+            "total": 156,
+            "left": 131,
+            "right": 287
+          },
+          {
+            "id": "r932EasyMinus",
+            "width": 46,
+            "total": 46,
+            "left": 22,
+            "right": 70
+          },
+          {
+            "id": "r932EasyPlay",
+            "width": 162,
+            "total": 162,
+            "left": 78,
+            "right": 242
+          },
+          {
+            "id": "r932EasyPlus",
+            "width": 46,
+            "total": 46,
+            "left": 250,
+            "right": 298
+          },
+          {
+            "id": "r932EasyStop",
+            "width": 178,
+            "total": 178,
+            "left": 70,
+            "right": 250
+          },
+          {
+            "id": "r1056FocusControlsToggle",
+            "width": 260,
+            "total": 260,
+            "left": 30,
+            "right": 290
+          },
+          {
+            "id": "r938PanelToggle",
+            "width": 258,
+            "total": 258,
+            "left": 30,
+            "right": 290
+          }
+        ]
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "esma internal decorative extent is reported and bounded",
+      "passed": true,
+      "evidence": {
+        "viewport": 320,
+        "tab": {
+          "id": "tab-zkr",
+          "width": 298,
+          "total": 302,
+          "excess": 4
+        },
+        "practice": {
+          "id": "r920Practice",
+          "width": 296,
+          "total": 299,
+          "excess": 3
+        },
+        "aura": {
+          "left": 8.65625,
+          "right": 311.34375,
+          "width": 302.6875,
+          "display": "block",
+          "pointerEvents": "none"
+        },
+        "knownAllowance": {
+          "maxPx": 4,
+          "reason": "Legacy unpainted backdrop has a four-pixel overhang."
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "esma Atlas hides in Tefekkür and returns with original native node",
+      "passed": true,
+      "evidence": {
+        "same": true,
+        "visibleAfterExit": true,
+        "paint": {
+          "borderTopWidth": "0px",
+          "borderTopStyle": "none",
+          "borderTopColor": "rgb(191, 208, 220)",
+          "borderImageSource": "none",
+          "borderImageWidth": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "color": "rgb(191, 208, 220)",
+          "borderRadius": "12px",
+          "fontSize": "12px",
+          "padding": "6px",
+          "display": "flex",
+          "visibility": "visible",
+          "rect": {
+            "x": 34,
+            "y": -865.5625,
+            "width": 120,
+            "height": 44
+          },
+          "mode": "esma",
+          "body": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r716-shell r474-name-cat sukun-jewel-r798 r588-dock-ready r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r697-neon-ui r698-ui r433-dock-enhanced r434-inline-details-ready r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-practice-on r716-motion"
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "berhet frame and unchanged native geometry",
+      "passed": true,
+      "evidence": {
+        "borderTopWidth": "1px",
+        "borderTopStyle": "solid",
+        "borderTopColor": "rgba(0, 0, 0, 0)",
+        "borderImageSource": "url(\"http://127.0.0.1:43583/assets/berhetiyye-premium/gem-emerald-r932.webp\")",
+        "borderImageWidth": "9px",
+        "backgroundColor": "rgb(8, 59, 44)",
+        "backgroundImage": "none",
+        "color": "rgb(255, 241, 213)",
+        "borderRadius": "13px",
+        "fontSize": "12px",
+        "padding": "6px 12px",
+        "display": "flex",
+        "visibility": "visible",
+        "rect": {
+          "x": 34,
+          "y": 274.4375,
+          "width": 120,
+          "height": 44
+        },
+        "mode": "berhet",
+        "body": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r716-shell r474-name-cat sukun-jewel-r798 r588-dock-ready r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r697-neon-ui r698-ui r433-dock-enhanced r434-inline-details-ready r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-practice-on r716-motion r754-berhet-theme"
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "berhet native Atlas click/open/close/focus return preserves session",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "mode": "berhet",
+          "index": 0,
+          "count": 0,
+          "phase": "IDLE",
+          "tef": false
+        },
+        "dialog": {
+          "open": true,
+          "title": "Berhetiyye Atlası",
+          "nodes": 28,
+          "modal": true
+        },
+        "after": {
+          "mode": "berhet",
+          "index": 0,
+          "count": 0,
+          "phase": "IDLE",
+          "tef": false
+        },
+        "open": false,
+        "focus": "r920AtlasOpen",
+        "same": true,
+        "clicks": [
+          {
+            "id": "r920AtlasOpen",
+            "trusted": true
+          },
+          {
+            "id": "r920AtlasClose",
+            "trusted": true
+          }
+        ]
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "berhet page and native control bounds stay inside viewport",
+      "passed": true,
+      "evidence": {
+        "viewport": 320,
+        "page": [
+          {
+            "id": "HTML",
+            "width": 320,
+            "total": 320,
+            "left": 0,
+            "right": 320
+          },
+          {
+            "id": "BODY",
+            "width": 320,
+            "total": 320,
+            "left": 0,
+            "right": 320
+          }
+        ],
+        "owners": [
+          {
+            "id": "tab-zkr",
+            "width": 298,
+            "total": 302,
+            "left": 11,
+            "right": 309
+          },
+          {
+            "id": "r920Practice",
+            "width": 296,
+            "total": 299,
+            "left": 11,
+            "right": 309
+          }
+        ],
+        "controls": [
+          {
+            "id": "r920ModeEsma",
+            "width": 130,
+            "total": 130,
+            "left": 26,
+            "right": 157.5
+          },
+          {
+            "id": "r920ModeBerhet",
+            "width": 130,
+            "total": 130,
+            "left": 162.5,
+            "right": 294
+          },
+          {
+            "id": "r920AtlasOpen",
+            "width": 118,
+            "total": 118,
+            "left": 34,
+            "right": 154
+          },
+          {
+            "id": "r920JourneyMode",
+            "width": 118,
+            "total": 118,
+            "left": 166,
+            "right": 286
+          },
+          {
+            "id": "r920NameInfo",
+            "width": 246,
+            "total": 246,
+            "left": 35.796875,
+            "right": 284.203125
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "width": 246,
+            "total": 246,
+            "left": 35.796875,
+            "right": 284.203125
+          },
+          {
+            "id": "r920Minus",
+            "width": 44,
+            "total": 44,
+            "left": 30.7578125,
+            "right": 74.7734375
+          },
+          {
+            "id": "r920Plus",
+            "width": 44,
+            "total": 44,
+            "left": 246.2890625,
+            "right": 290.3046875
+          },
+          {
+            "id": "r920Stop",
+            "width": 44,
+            "total": 44,
+            "left": 137.9921875,
+            "right": 182.0078125
+          },
+          {
+            "id": "r920Play",
+            "width": 44,
+            "total": 44,
+            "left": 137.9921875,
+            "right": 182.0078125
+          },
+          {
+            "id": "r959WheelPrevious",
+            "width": 66,
+            "total": 80,
+            "left": 49.921875,
+            "right": 115.953125
+          },
+          {
+            "id": "r959WheelNext",
+            "width": 66,
+            "total": 80,
+            "left": 204.03125,
+            "right": 270.0625
+          },
+          {
+            "id": "r920Counter",
+            "width": 105,
+            "total": 105,
+            "left": 107.703125,
+            "right": 212.265625
+          },
+          {
+            "id": "BUTTON",
+            "width": 81,
+            "total": 81,
+            "left": 30,
+            "right": 112.65625
+          },
+          {
+            "id": "BUTTON",
+            "width": 81,
+            "total": 81,
+            "left": 118.65625,
+            "right": 201.328125
+          },
+          {
+            "id": "BUTTON",
+            "width": 81,
+            "total": 81,
+            "left": 207.328125,
+            "right": 289.984375
+          },
+          {
+            "id": "r1056ReadingSource",
+            "width": 156,
+            "total": 156,
+            "left": 131,
+            "right": 287
+          },
+          {
+            "id": "r932EasyMinus",
+            "width": 46,
+            "total": 46,
+            "left": 22,
+            "right": 70
+          },
+          {
+            "id": "r932EasyPlay",
+            "width": 162,
+            "total": 162,
+            "left": 78,
+            "right": 242
+          },
+          {
+            "id": "r932EasyPlus",
+            "width": 46,
+            "total": 46,
+            "left": 250,
+            "right": 298
+          },
+          {
+            "id": "r932EasyStop",
+            "width": 180,
+            "total": 180,
+            "left": 70,
+            "right": 250
+          },
+          {
+            "id": "r1056FocusControlsToggle",
+            "width": 260,
+            "total": 260,
+            "left": 30,
+            "right": 290
+          },
+          {
+            "id": "r938PanelToggle",
+            "width": 260,
+            "total": 260,
+            "left": 30,
+            "right": 290
+          }
+        ]
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "berhet internal decorative extent is reported and bounded",
+      "passed": true,
+      "evidence": {
+        "viewport": 320,
+        "tab": {
+          "id": "tab-zkr",
+          "width": 298,
+          "total": 302,
+          "excess": 4
+        },
+        "practice": {
+          "id": "r920Practice",
+          "width": 296,
+          "total": 299,
+          "excess": 3
+        },
+        "aura": {
+          "left": 8.65625,
+          "right": 311.34375,
+          "width": 302.6875,
+          "display": "block",
+          "pointerEvents": "none"
+        },
+        "knownAllowance": {
+          "maxPx": 4,
+          "reason": "Legacy unpainted backdrop has a four-pixel overhang."
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "berhet Atlas hides in Tefekkür and returns with original native node",
+      "passed": true,
+      "evidence": {
+        "same": true,
+        "visibleAfterExit": true,
+        "paint": {
+          "borderTopWidth": "1px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderImageSource": "url(\"http://127.0.0.1:43583/assets/berhetiyye-premium/gem-emerald-r932.webp\")",
+          "borderImageWidth": "9px",
+          "backgroundColor": "rgb(8, 59, 44)",
+          "backgroundImage": "none",
+          "color": "rgb(255, 241, 213)",
+          "borderRadius": "13px",
+          "fontSize": "12px",
+          "padding": "6px 12px",
+          "display": "flex",
+          "visibility": "visible",
+          "rect": {
+            "x": 34,
+            "y": -868.5625,
+            "width": 120,
+            "height": 44
+          },
+          "mode": "berhet",
+          "body": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r716-shell r474-name-cat sukun-jewel-r798 r588-dock-ready r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r697-neon-ui r698-ui r433-dock-enhanced r434-inline-details-ready r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active sukun-zikir-tab r920-practice-on r754-berhet-theme r716-motion"
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Exact served source bytes with no JavaScript/SRI faults",
+      "passed": true,
+      "evidence": {
+        "served": 108,
+        "errors": [],
+        "failed": []
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Build, classic layout and Feyz theme",
+      "passed": true,
+      "evidence": {
+        "build": "r1070",
+        "layout": "classic",
+        "skin": "feyz",
+        "unlocked": true
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Legacy backdrop suppression is scoped to shared practice",
+      "passed": true,
+      "evidence": {
+        "enabled": true,
+        "active": {
+          "display": "block",
+          "content": "\"\"",
+          "inset": "-8px -4px 0px"
+        },
+        "outside": {
+          "display": "block",
+          "content": "\"\"",
+          "inset": "-8px -4px 0px"
+        },
+        "restored": {
+          "display": "block",
+          "content": "\"\"",
+          "inset": "-8px -4px 0px"
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "esma frame and unchanged native geometry",
+      "passed": true,
+      "evidence": {
+        "borderTopWidth": "0px",
+        "borderTopStyle": "none",
+        "borderTopColor": "rgb(191, 208, 220)",
+        "borderImageSource": "none",
+        "borderImageWidth": "1",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "color": "rgb(191, 208, 220)",
+        "borderRadius": "12px",
+        "fontSize": "12px",
+        "padding": "6px",
+        "display": "flex",
+        "visibility": "visible",
+        "rect": {
+          "x": 69,
+          "y": 376.15625,
+          "width": 120,
+          "height": 44
+        },
+        "mode": "esma",
+        "body": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread sukun-jewel-r798 r431-dock-ready r588-mode-mini r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r697-neon-ui r698-ui r433-dock-enhanced r434-inline-details-ready r474-zikir-active sukun-zikir-tab r716-motion r920-practice-on"
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "esma native Atlas click/open/close/focus return preserves session",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "mode": "esma",
+          "index": 0,
+          "count": 0,
+          "phase": "IDLE",
+          "tef": false
+        },
+        "dialog": {
+          "open": true,
+          "title": "Esmâ Atlası",
+          "nodes": 99,
+          "modal": true
+        },
+        "after": {
+          "mode": "esma",
+          "index": 0,
+          "count": 0,
+          "phase": "IDLE",
+          "tef": false
+        },
+        "open": false,
+        "focus": "r920AtlasOpen",
+        "same": true,
+        "clicks": [
+          {
+            "id": "r920AtlasOpen",
+            "trusted": true
+          },
+          {
+            "id": "r920AtlasClose",
+            "trusted": true
+          }
+        ]
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "esma page and native control bounds stay inside viewport",
+      "passed": true,
+      "evidence": {
+        "viewport": 390,
+        "page": [
+          {
+            "id": "HTML",
+            "width": 390,
+            "total": 390,
+            "left": 0,
+            "right": 390
+          },
+          {
+            "id": "BODY",
+            "width": 390,
+            "total": 390,
+            "left": 0,
+            "right": 390
+          }
+        ],
+        "owners": [
+          {
+            "id": "tab-zkr",
+            "width": 368,
+            "total": 372,
+            "left": 11,
+            "right": 379
+          },
+          {
+            "id": "r920Practice",
+            "width": 366,
+            "total": 367,
+            "left": 11,
+            "right": 379
+          }
+        ],
+        "controls": [
+          {
+            "id": "r920ModeEsma",
+            "width": 160,
+            "total": 160,
+            "left": 31,
+            "right": 192.5
+          },
+          {
+            "id": "r920ModeBerhet",
+            "width": 160,
+            "total": 160,
+            "left": 197.5,
+            "right": 359
+          },
+          {
+            "id": "r920AtlasOpen",
+            "width": 120,
+            "total": 120,
+            "left": 69,
+            "right": 189
+          },
+          {
+            "id": "r920JourneyMode",
+            "width": 118,
+            "total": 118,
+            "left": 201,
+            "right": 321
+          },
+          {
+            "id": "r920NameInfo",
+            "width": 248,
+            "total": 248,
+            "left": 70.796875,
+            "right": 319.203125
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "width": 246,
+            "total": 246,
+            "left": 70.796875,
+            "right": 319.203125
+          },
+          {
+            "id": "r920Minus",
+            "width": 54,
+            "total": 54,
+            "left": 32.890625,
+            "right": 86.546875
+          },
+          {
+            "id": "r920Plus",
+            "width": 54,
+            "total": 54,
+            "left": 304.40625,
+            "right": 358.0625
+          },
+          {
+            "id": "r920Stop",
+            "width": 54,
+            "total": 54,
+            "left": 168.15625,
+            "right": 221.8125
+          },
+          {
+            "id": "r920Play",
+            "width": 54,
+            "total": 54,
+            "left": 168.15625,
+            "right": 221.8125
+          },
+          {
+            "id": "r959WheelPrevious",
+            "width": 80,
+            "total": 97,
+            "left": 60.8359375,
+            "right": 141.3203125
+          },
+          {
+            "id": "r959WheelNext",
+            "width": 80,
+            "total": 97,
+            "left": 248.6484375,
+            "right": 329.1328125
+          },
+          {
+            "id": "r920Counter",
+            "width": 127,
+            "total": 127,
+            "left": 131.265625,
+            "right": 258.703125
+          },
+          {
+            "id": "BUTTON",
+            "width": 101,
+            "total": 101,
+            "left": 35,
+            "right": 137.65625
+          },
+          {
+            "id": "BUTTON",
+            "width": 101,
+            "total": 101,
+            "left": 143.65625,
+            "right": 246.328125
+          },
+          {
+            "id": "BUTTON",
+            "width": 101,
+            "total": 101,
+            "left": 252.328125,
+            "right": 354.984375
+          },
+          {
+            "id": "r1056ReadingSource",
+            "width": 205,
+            "total": 205,
+            "left": 147.125,
+            "right": 352
+          },
+          {
+            "id": "r932EasyMinus",
+            "width": 46,
+            "total": 46,
+            "left": 27,
+            "right": 75
+          },
+          {
+            "id": "r932EasyPlay",
+            "width": 222,
+            "total": 222,
+            "left": 83,
+            "right": 307
+          },
+          {
+            "id": "r932EasyPlus",
+            "width": 46,
+            "total": 46,
+            "left": 315,
+            "right": 363
+          },
+          {
+            "id": "r932EasyStop",
+            "width": 178,
+            "total": 178,
+            "left": 105,
+            "right": 285
+          },
+          {
+            "id": "r1056FocusControlsToggle",
+            "width": 260,
+            "total": 260,
+            "left": 65,
+            "right": 325
+          },
+          {
+            "id": "r938PanelToggle",
+            "width": 258,
+            "total": 258,
+            "left": 65,
+            "right": 325
+          }
+        ]
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "esma internal decorative extent is reported and bounded",
+      "passed": true,
+      "evidence": {
+        "viewport": 390,
+        "tab": {
+          "id": "tab-zkr",
+          "width": 368,
+          "total": 372,
+          "excess": 4
+        },
+        "practice": {
+          "id": "r920Practice",
+          "width": 366,
+          "total": 367,
+          "excess": 1
+        },
+        "aura": {
+          "left": 10.53125,
+          "right": 379.453125,
+          "width": 368.921875,
+          "display": "block",
+          "pointerEvents": "none"
+        },
+        "knownAllowance": {
+          "maxPx": 4,
+          "reason": "Legacy unpainted backdrop has a four-pixel overhang."
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "esma Atlas hides in Tefekkür and returns with original native node",
+      "passed": true,
+      "evidence": {
+        "same": true,
+        "visibleAfterExit": true,
+        "paint": {
+          "borderTopWidth": "0px",
+          "borderTopStyle": "none",
+          "borderTopColor": "rgb(191, 208, 220)",
+          "borderImageSource": "none",
+          "borderImageWidth": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "color": "rgb(191, 208, 220)",
+          "borderRadius": "12px",
+          "fontSize": "12px",
+          "padding": "6px",
+          "display": "flex",
+          "visibility": "visible",
+          "rect": {
+            "x": 69,
+            "y": -787.84375,
+            "width": 120,
+            "height": 44
+          },
+          "mode": "esma",
+          "body": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread sukun-jewel-r798 r431-dock-ready r588-mode-mini r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r697-neon-ui r698-ui r433-dock-enhanced r434-inline-details-ready r474-zikir-active sukun-zikir-tab r920-practice-on r716-motion"
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "berhet frame and unchanged native geometry",
+      "passed": true,
+      "evidence": {
+        "borderTopWidth": "1px",
+        "borderTopStyle": "solid",
+        "borderTopColor": "rgba(0, 0, 0, 0)",
+        "borderImageSource": "url(\"http://127.0.0.1:33993/assets/berhetiyye-premium/gem-emerald-r932.webp\")",
+        "borderImageWidth": "9px",
+        "backgroundColor": "rgb(8, 59, 44)",
+        "backgroundImage": "none",
+        "color": "rgb(255, 241, 213)",
+        "borderRadius": "13px",
+        "fontSize": "12px",
+        "padding": "6px 12px",
+        "display": "flex",
+        "visibility": "visible",
+        "rect": {
+          "x": 69,
+          "y": 376.15625,
+          "width": 120,
+          "height": 44
+        },
+        "mode": "berhet",
+        "body": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread sukun-jewel-r798 r431-dock-ready r588-mode-mini r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r697-neon-ui r698-ui r433-dock-enhanced r434-inline-details-ready r474-zikir-active sukun-zikir-tab r920-practice-on r716-motion r754-berhet-theme"
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "berhet native Atlas click/open/close/focus return preserves session",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "mode": "berhet",
+          "index": 0,
+          "count": 0,
+          "phase": "IDLE",
+          "tef": false
+        },
+        "dialog": {
+          "open": true,
+          "title": "Berhetiyye Atlası",
+          "nodes": 28,
+          "modal": true
+        },
+        "after": {
+          "mode": "berhet",
+          "index": 0,
+          "count": 0,
+          "phase": "IDLE",
+          "tef": false
+        },
+        "open": false,
+        "focus": "r920AtlasOpen",
+        "same": true,
+        "clicks": [
+          {
+            "id": "r920AtlasOpen",
+            "trusted": true
+          },
+          {
+            "id": "r920AtlasClose",
+            "trusted": true
+          }
+        ]
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "berhet page and native control bounds stay inside viewport",
+      "passed": true,
+      "evidence": {
+        "viewport": 390,
+        "page": [
+          {
+            "id": "HTML",
+            "width": 390,
+            "total": 390,
+            "left": 0,
+            "right": 390
+          },
+          {
+            "id": "BODY",
+            "width": 390,
+            "total": 390,
+            "left": 0,
+            "right": 390
+          }
+        ],
+        "owners": [
+          {
+            "id": "tab-zkr",
+            "width": 368,
+            "total": 372,
+            "left": 11,
+            "right": 379
+          },
+          {
+            "id": "r920Practice",
+            "width": 366,
+            "total": 367,
+            "left": 11,
+            "right": 379
+          }
+        ],
+        "controls": [
+          {
+            "id": "r920ModeEsma",
+            "width": 160,
+            "total": 160,
+            "left": 31,
+            "right": 192.5
+          },
+          {
+            "id": "r920ModeBerhet",
+            "width": 160,
+            "total": 160,
+            "left": 197.5,
+            "right": 359
+          },
+          {
+            "id": "r920AtlasOpen",
+            "width": 118,
+            "total": 118,
+            "left": 69,
+            "right": 189
+          },
+          {
+            "id": "r920JourneyMode",
+            "width": 118,
+            "total": 118,
+            "left": 201,
+            "right": 321
+          },
+          {
+            "id": "r920NameInfo",
+            "width": 246,
+            "total": 246,
+            "left": 70.796875,
+            "right": 319.203125
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "width": 246,
+            "total": 246,
+            "left": 70.796875,
+            "right": 319.203125
+          },
+          {
+            "id": "r920Minus",
+            "width": 54,
+            "total": 54,
+            "left": 37.46875,
+            "right": 91.125
+          },
+          {
+            "id": "r920Plus",
+            "width": 54,
+            "total": 54,
+            "left": 300.15625,
+            "right": 353.8125
+          },
+          {
+            "id": "r920Stop",
+            "width": 54,
+            "total": 54,
+            "left": 168.15625,
+            "right": 221.8125
+          },
+          {
+            "id": "r920Play",
+            "width": 54,
+            "total": 54,
+            "left": 168.15625,
+            "right": 221.8125
+          },
+          {
+            "id": "r959WheelPrevious",
+            "width": 80,
+            "total": 97,
+            "left": 60.8359375,
+            "right": 141.3203125
+          },
+          {
+            "id": "r959WheelNext",
+            "width": 80,
+            "total": 97,
+            "left": 248.6484375,
+            "right": 329.1328125
+          },
+          {
+            "id": "r920Counter",
+            "width": 127,
+            "total": 127,
+            "left": 131.265625,
+            "right": 258.703125
+          },
+          {
+            "id": "BUTTON",
+            "width": 101,
+            "total": 101,
+            "left": 35,
+            "right": 137.65625
+          },
+          {
+            "id": "BUTTON",
+            "width": 101,
+            "total": 101,
+            "left": 143.65625,
+            "right": 246.328125
+          },
+          {
+            "id": "BUTTON",
+            "width": 101,
+            "total": 101,
+            "left": 252.328125,
+            "right": 354.984375
+          },
+          {
+            "id": "r1056ReadingSource",
+            "width": 205,
+            "total": 205,
+            "left": 147.125,
+            "right": 352
+          },
+          {
+            "id": "r932EasyMinus",
+            "width": 46,
+            "total": 46,
+            "left": 27,
+            "right": 75
+          },
+          {
+            "id": "r932EasyPlay",
+            "width": 222,
+            "total": 222,
+            "left": 83,
+            "right": 307
+          },
+          {
+            "id": "r932EasyPlus",
+            "width": 46,
+            "total": 46,
+            "left": 315,
+            "right": 363
+          },
+          {
+            "id": "r932EasyStop",
+            "width": 180,
+            "total": 180,
+            "left": 105,
+            "right": 285
+          },
+          {
+            "id": "r1056FocusControlsToggle",
+            "width": 260,
+            "total": 260,
+            "left": 65,
+            "right": 325
+          },
+          {
+            "id": "r938PanelToggle",
+            "width": 260,
+            "total": 260,
+            "left": 65,
+            "right": 325
+          }
+        ]
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "berhet internal decorative extent is reported and bounded",
+      "passed": true,
+      "evidence": {
+        "viewport": 390,
+        "tab": {
+          "id": "tab-zkr",
+          "width": 368,
+          "total": 372,
+          "excess": 4
+        },
+        "practice": {
+          "id": "r920Practice",
+          "width": 366,
+          "total": 367,
+          "excess": 1
+        },
+        "aura": {
+          "left": 10.53125,
+          "right": 379.453125,
+          "width": 368.921875,
+          "display": "block",
+          "pointerEvents": "none"
+        },
+        "knownAllowance": {
+          "maxPx": 4,
+          "reason": "Legacy unpainted backdrop has a four-pixel overhang."
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "berhet Atlas hides in Tefekkür and returns with original native node",
+      "passed": true,
+      "evidence": {
+        "same": true,
+        "visibleAfterExit": true,
+        "paint": {
+          "borderTopWidth": "1px",
+          "borderTopStyle": "solid",
+          "borderTopColor": "rgba(0, 0, 0, 0)",
+          "borderImageSource": "url(\"http://127.0.0.1:33993/assets/berhetiyye-premium/gem-emerald-r932.webp\")",
+          "borderImageWidth": "9px",
+          "backgroundColor": "rgb(8, 59, 44)",
+          "backgroundImage": "none",
+          "color": "rgb(255, 241, 213)",
+          "borderRadius": "13px",
+          "fontSize": "12px",
+          "padding": "6px 12px",
+          "display": "flex",
+          "visibility": "visible",
+          "rect": {
+            "x": 69,
+            "y": -789.84375,
+            "width": 120,
+            "height": 44
+          },
+          "mode": "berhet",
+          "body": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread sukun-jewel-r798 r431-dock-ready r588-mode-mini r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r697-neon-ui r698-ui r433-dock-enhanced r434-inline-details-ready r474-zikir-active sukun-zikir-tab r920-practice-on r754-berhet-theme r716-motion"
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Exact served source bytes with no JavaScript/SRI faults",
+      "passed": true,
+      "evidence": {
+        "served": 108,
+        "errors": [],
+        "failed": []
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "label": "320x640",
+      "browser": "142.0.7444.175",
+      "root": "/workspace/scratch/5732500eb8f8/r1070-release",
+      "served": {
+        "nero.html": {
+          "sha256": "fc0ac36e66ac593a3016b30253553dc195bd914277cb20632b20c82169492689",
+          "bytes": 7217683
+        },
+        "assets/runtime/compact-ui-r1057.css": {
+          "sha256": "7f66c90b8b19c6fdb58a6d127109532ac6b82bd2e04755f7a9195601559a975c",
+          "bytes": 7472
+        },
+        "assets/runtime/audio-cpu-r981.js": {
+          "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+          "bytes": 7807
+        },
+        "assets/runtime/berhet-layout-r938.css": {
+          "sha256": "e990051b4c79739ccca15efc1e5c1d0f08adc03d3c0a04365f9350bc0297770d",
+          "bytes": 36758
+        },
+        "assets/runtime/berhet-materials-r933.css": {
+          "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+          "bytes": 622
+        },
+        "assets/runtime/berhet-controls-r933.css": {
+          "sha256": "14c546edeb397d91bd18a5b80ff8ca8935da7f0fa8e77695f92fb8f64df5f0fb",
+          "bytes": 31528
+        },
+        "assets/runtime/berhet-dock-r933.css": {
+          "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+          "bytes": 12309
+        },
+        "assets/runtime/studio-preparation-r982.js": {
+          "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e",
+          "bytes": 3689
+        },
+        "assets/runtime/progress-journal-r982.js": {
+          "sha256": "b7fbd70dbcf9d08abdd88ec2c2d29566d56d75c8c76aca7ce7347149f59b48bc",
+          "bytes": 18325
+        },
+        "assets/runtime/audio-preparation-r981.js": {
+          "sha256": "8345207bc48ffa582fde385d607a9fbb79f07dc75bcdc38afd3369d6b738a4f7",
+          "bytes": 17799
+        },
+        "assets/runtime/tab-owner-r981.js": {
+          "sha256": "4305c9c1e1f1e9e239c62f0d19149bd05af97d2f0d34ddc38b7e7e5d41a63dc6",
+          "bytes": 34517
+        },
+        "assets/runtime/recording-continuity-r1016.js": {
+          "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+          "bytes": 13251
+        },
+        "assets/runtime/wheels-r924.css": {
+          "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+          "bytes": 34043
+        },
+        "assets/runtime/health-view-r943.css": {
+          "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+          "bytes": 7440
+        },
+        "assets/runtime/scene-picker-r945.css": {
+          "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+          "bytes": 6657
+        },
+        "assets/runtime/recording-inspection-r1020.js": {
+          "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+          "bytes": 9674
+        },
+        "assets/runtime/background-owner-r949.js": {
+          "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+          "bytes": 11067
+        },
+        "assets/runtime/lifecycle-r949.js": {
+          "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+          "bytes": 4252
+        },
+        "assets/runtime/audio-palette-r945.js": {
+          "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+          "bytes": 6073
+        },
+        "assets/runtime/nefs-r948.css": {
+          "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+          "bytes": 18988
+        },
+        "assets/runtime/active-source-r1060.js": {
+          "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+          "bytes": 6128
+        },
+        "assets/runtime/esma-scenes-r923.js": {
+          "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+          "bytes": 4307
+        },
+        "assets/runtime/generic-recordings-r1055.js": {
+          "sha256": "e92a2f903152bbbb3d316047fb878944bdcf15c20743a6e142b0caebf7876af7",
+          "bytes": 25188
+        },
+        "assets/runtime/generic-recordings-ui-r1055.js": {
+          "sha256": "813a7cee85dff6d3ee3482f2be24f533a80b5b1e89b3e08c8ca4f0e704b6cffa",
+          "bytes": 7530
+        },
+        "assets/runtime/session-r919.js": {
+          "sha256": "f2e8d55082e21493784e0244d8b5d916a7d3fcbf0e1a5279ed9989c154e9105a",
+          "bytes": 36279
+        },
+        "assets/runtime/cadence-r981.css": {
+          "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+          "bytes": 1841
+        },
+        "assets/runtime/tekke-journey-r993.css": {
+          "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+          "bytes": 7044
+        },
+        "assets/runtime/tekke-ux-r992.css": {
+          "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+          "bytes": 37518
+        },
+        "assets/runtime/wheels-r924.js": {
+          "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+          "bytes": 41623
+        },
+        "assets/runtime/dock-r920.js": {
+          "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+          "bytes": 11007
+        },
+        "assets/runtime/active-layers-r1061.js": {
+          "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+          "bytes": 14049
+        },
+        "assets/runtime/berhet-layout-r938.js": {
+          "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+          "bytes": 8399
+        },
+        "assets/runtime/compact-ui-r1057.js": {
+          "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+          "bytes": 5342
+        },
+        "assets/runtime/berhet-theme-r933.js": {
+          "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434",
+          "bytes": 3453
+        },
+        "assets/runtime/interface-r920.js": {
+          "sha256": "529f0b85417355c89daec2034cf22dcc22369f44f9731c89450962055e841aac",
+          "bytes": 41182
+        },
+        "assets/runtime/scene-picker-r945.js": {
+          "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+          "bytes": 9860
+        },
+        "assets/runtime/health-view-r943.js": {
+          "sha256": "4add13827ef8f50e4ee5dac86db1141ab287433ac5a374b81f14c82c29b125e2",
+          "bytes": 120132
+        },
+        "assets/runtime/presentation-r979.js": {
+          "sha256": "c648ddce99e0191ae5cb11bbccd19222a4bf3bb8764453c54d95d8e15831e033",
+          "bytes": 14768
+        },
+        "assets/runtime/health-r940.js": {
+          "sha256": "62292549287482e8894f0d16fe784ec08338528b12e56a618c7bc62febc1b3e7",
+          "bytes": 89494
+        },
+        "assets/runtime/nefs-ui-r948.js": {
+          "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+          "bytes": 48398
+        },
+        "assets/runtime/nefs-model-r948.js": {
+          "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+          "bytes": 18197
+        },
+        "assets/runtime/offline-scenes-r962.js": {
+          "sha256": "4869b10fc6c231545a8e191aa42a617139b0c749ea65a90f97f71d26bdeed4c5",
+          "bytes": 9284
+        },
+        "assets/runtime/nefs-data-r948.js": {
+          "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+          "bytes": 283054
+        },
+        "assets/runtime/reading-ui-r1064.css": {
+          "sha256": "5d6a2109e0f394a642b38a4ae5545b3c6957a79dd117315603bf1d429fce249f",
+          "bytes": 4213
+        },
+        "assets/runtime/cadence-r981.js": {
+          "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+          "bytes": 23650
+        },
+        "assets/runtime/tekke-sequence-r988.js": {
+          "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+          "bytes": 10314
+        },
+        "assets/runtime/tekke-set-r990.js": {
+          "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+          "bytes": 27409
+        },
+        "assets/runtime/background-mix-render-r1059.js": {
+          "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e",
+          "bytes": 21067
+        },
+        "assets/runtime/background-mix-r1059.js": {
+          "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38",
+          "bytes": 18625
+        },
+        "assets/runtime/yasin-data-r1064.js": {
+          "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+          "bytes": 49799
+        },
+        "assets/runtime/reading-sources-r1064.js": {
+          "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+          "bytes": 67014
+        },
+        "assets/runtime/bundled-arabic-r1065.js": {
+          "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+          "bytes": 9208
+        },
+        "assets/runtime/yasin-timing-r1067.js": {
+          "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+          "bytes": 5926
+        },
+        "assets/runtime/reading-audio-r1064.js": {
+          "sha256": "6ec9d95e33682901fa492df1c017069c275739d40a2c38ce3dbfdb6c92ad40b3",
+          "bytes": 19108
+        },
+        "assets/runtime/navigation-r1066.js": {
+          "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+          "bytes": 2624
+        },
+        "assets/runtime/reading-ui-r1064.js": {
+          "sha256": "0a79d15b2387883c7e8c3d38d14c4386076bf83d700cc693a2b55621add4e83b",
+          "bytes": 40315
+        },
+        "assets/runtime/studio-batch-r1020.js": {
+          "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+          "bytes": 23944
+        },
+        "assets/runtime/recovery-versions-r1019.js": {
+          "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+          "bytes": 8407
+        },
+        "assets/runtime/recovery-ui-r1019.js": {
+          "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+          "bytes": 6054
+        },
+        "assets/runtime/recovery-data-r1020.js": {
+          "sha256": "dcd7e844ea0cab11f990c70e8e746384c81a24a000dfd8a4b6d54bfeba266bd4",
+          "bytes": 51467
+        },
+        "assets/runtime/site-backup-r1020.js": {
+          "sha256": "6cd889fb289fee35181d579b5c7da57bc773bcda9e8cebd04987c553196debce",
+          "bytes": 28583
+        },
+        "assets/runtime/recording-salvage-r1020.js": {
+          "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+          "bytes": 36787
+        },
+        "assets/audio/sukun-intro-signature-r1037.wav": {
+          "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+          "bytes": 288044
+        },
+        "assets/branding/sukun-intro-pattern-r1029.svg": {
+          "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4",
+          "bytes": 769
+        },
+        "assets/branding/sukun-frameless-logo-r1029.png": {
+          "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+          "bytes": 27201
+        },
+        "assets/runtime/recovery-entry-r1027.js": {
+          "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+          "bytes": 5702
+        },
+        "assets/runtime/tekke-journey-r993.js": {
+          "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+          "bytes": 38289
+        },
+        "assets/runtime/tekke-ux-r992.js": {
+          "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+          "bytes": 25320
+        },
+        "assets/runtime/startup-intro-r1027.js": {
+          "sha256": "ad9e825d51dcb41fc0d527ed8c4f5892f66d41804cc50d38d235b72dbcb5dbc1",
+          "bytes": 22478
+        },
+        "assets/sukun-nur-ring-r757.png": {
+          "sha256": "b9bf594010438b1c49ab693a94ba5022569462c334f606754306bb63f808f6fb",
+          "bytes": 1713434
+        },
+        "assets/sukun-tesbih-weave-r759.svg": {
+          "sha256": "f01e6993b482e6194f479416955b85e888b95c332187a1bc55aaa7b893502bba",
+          "bytes": 1296
+        },
+        "assets/sukun-nur-mist-r759.svg": {
+          "sha256": "4b099628bd538f0a6e2b73b4ffea399319347375444312e7946ada10e8214ccf",
+          "bytes": 20321
+        },
+        "assets/sukun-nur-orbit-r757.svg": {
+          "sha256": "b9e2f2d8d983b9b19cd4be7d16ab1fe82d47a89c82361c2a60f456f25e478854",
+          "bytes": 248
+        },
+        "assets/scenes/mobile-r918/mevlevi.webp": {
+          "sha256": "38809a4ac966552a60fee4efb9e303b9edd2f9c13cca2b9787ed9cf67bfce565",
+          "bytes": 411132
+        },
+        "assets/scenes/esma-r923/mevlevi-sema.webp": {
+          "sha256": "c7dbea4be096916817a0550c698a1607dbf195d951d134874f0244eef1ef6950",
+          "bytes": 274004
+        },
+        "assets/wheels-r924/esma/inci-sema.webp": {
+          "sha256": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+          "bytes": 238294
+        },
+        "sukun-build-r1070.json": {
+          "sha256": "19be34507113f78e8e315897caabe60f32c8d2ce87dd11c4b8668f551d9ed08f",
+          "bytes": 24858
+        },
+        "assets/wheel-navigation-r964/gold.png": {
+          "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2",
+          "bytes": 1345326
+        },
+        "assets/scenes/esma-r923/cami-avlusu.webp": {
+          "sha256": "17561714794972eb80240e57bcd07604e6db7d89c19af939e4df4280f339f93f",
+          "bytes": 362610
+        },
+        "assets/berhetiyye-premium/gem-amethyst-r933.webp": {
+          "sha256": "9f82669a2d5c97e0dd9a4642c2230da2a76a285ed63e262f86665c5def59400b",
+          "bytes": 1990192
+        },
+        "assets/wheels-r977/ceviz-naksi.webp": {
+          "sha256": "86e88d374e02bdfdf6e2d31e59e4ff2dec6ab2eb3a0b5381aa379cd99f56b795",
+          "bytes": 1082544
+        },
+        "assets/wheels-r977/zeytin-tesbihi.webp": {
+          "sha256": "ade875147d0afd253d173ed87558a6fe4128892e415b7b69ff2a5cc33ab34746",
+          "bytes": 875528
+        },
+        "assets/wheels-r977/abanoz-sukunu.webp": {
+          "sha256": "7fc6002cb200e8f7dd9c2e045a20d9529f8a94949429f3fd02d43783cf9bfbd4",
+          "bytes": 1024218
+        },
+        "assets/wheels-r977/sandal-halkasi.webp": {
+          "sha256": "9aa32bbb2bafa81ab026d16abad11cc8f3e96e0ac5696c594c744fddd99b6a54",
+          "bytes": 1024854
+        },
+        "assets/berhetiyye-premium/panel-emerald-r932.webp": {
+          "sha256": "ef9b20b66a0f0a04846ab8ec6dafe348ee334c30c78414f7af4142a65eaf1f4e",
+          "bytes": 718568
+        },
+        "assets/wheels-r977/altin-nakis.webp": {
+          "sha256": "00e57bb2ba9128ce46c2bf2e1f72048c4cee57cd1bc6cb908dd5b14825c840c0",
+          "bytes": 1503206
+        },
+        "assets/wheels-r977/elmas-taci.webp": {
+          "sha256": "37dc4d2ce5ea19f163a6e798f72c1c3ed982f15fcee74a7a20cda554f2411d93",
+          "bytes": 1641778
+        },
+        "assets/wheels-r977/gumus-telkari.webp": {
+          "sha256": "adc84abe1f6a8ed767c9116be868fb2830199a21958ce9925a8b376bafe352bb",
+          "bytes": 1446610
+        },
+        "assets/berhetiyye-premium/gem-sapphire-r933.webp": {
+          "sha256": "62c5ff06eae7fcf2cbba43f57228905e9460f8cfe26f205577d8473d179020be",
+          "bytes": 2184484
+        },
+        "assets/wheels/copper-amethyst-weave-r1057.webp": {
+          "sha256": "84e103a19bc8a1d3851c27852c272f733068cc939713680efd0c60f5d8e2b236",
+          "bytes": 600244
+        },
+        "assets/berhetiyye-premium/gem-diamond-r933.webp": {
+          "sha256": "64aa52732c5b778602e1977452253ebb0d8b96538767dc1df6060257a4f4f0a8",
+          "bytes": 2021638
+        },
+        "assets/wheels-r977/sultan-taslari.webp": {
+          "sha256": "4f62138580ee38b3cbed0b3e6541703837d3f86d7767e907c62ec0c11cc8043f",
+          "bytes": 1579428
+        },
+        "assets/wheels/platinum-turquoise-spiral-r1057.webp": {
+          "sha256": "7809e312fda0db9bbc34c0f3d181a12c4db273e61626d2286a47b65212fe1121",
+          "bytes": 460508
+        },
+        "assets/wheels/gold-amethyst-weave-r1057.webp": {
+          "sha256": "499b4eec9585cc5b7e057dc0ae52a31b8ffb95ce54e875e1af2339e696739462",
+          "bytes": 579802
+        },
+        "assets/wheels/copper-amber-spiral-r1057.webp": {
+          "sha256": "973a45d10b917c3d44de2c68c96528a90ddc6366959081f687261a88ec23f77a",
+          "bytes": 437590
+        },
+        "assets/wheels/gold-ruby-weave-r1057.webp": {
+          "sha256": "941f1171719eeac81e5d2642a780740f03e0d6d6bb74e87b7f4e9aeffe89c1d1",
+          "bytes": 603890
+        },
+        "assets/wheels/copper-ruby-weave-r1057.webp": {
+          "sha256": "d5faec2e398aedacaaebfbeb715a46332c30456014e762f248ad164bf7d8bc10",
+          "bytes": 612604
+        },
+        "assets/wheels/gold-emerald-weave-r1057.webp": {
+          "sha256": "3e7bdeb02100bf34a53c4295db70d9033de3b769fc356cc4cbb9d505dc0c4caf",
+          "bytes": 600304
+        },
+        "assets/wheels/gold-emerald-knot-r1057.webp": {
+          "sha256": "0505562349956fcf51ea6446b42cf3a6d2984a14b0a4dca1cbb25ff8c98dfd68",
+          "bytes": 569720
+        },
+        "assets/wheels/sapphire-torus-r1057.webp": {
+          "sha256": "b291f853c2a689bc0ded9775ecea4b28d411fa08bc0c08bd568003da4733d1a2",
+          "bytes": 571632
+        },
+        "assets/wheels-r924/berhetiyye/ham-kristal.webp": {
+          "sha256": "ac69b24ba2cc986a24b5602a4ade9ee62fec34631ba9aa392185a019a768fb38",
+          "bytes": 396014
+        },
+        "assets/scenes/mobile-r918/berhet-01.webp": {
+          "sha256": "1967cc5b4421bf65806e6d3ed1d03f44098d42573da897120c8e83792e7fa26d",
+          "bytes": 574308
+        },
+        "assets/berhetiyye-premium/gem-ruby-r933.webp": {
+          "sha256": "b27393700407c5eb2d66e675acbef3ea16829d6cd9adbcbe092aeab85d47f1bc",
+          "bytes": 1948734
+        },
+        "assets/berhetiyye-premium/wheel-alpha-r915.png": {
+          "sha256": "23094d0fdcce710b60514fb6cc6af57f1fe19a4cf7818a24c7dbe5672b0a14d5",
+          "bytes": 2454994
+        },
+        "assets/berhetiyye-premium/gem-emerald-r932.webp": {
+          "sha256": "19219874a4b5b1634630745b191b4a0bf9c17b4263450e8b9ca54ebfc025f721",
+          "bytes": 2085808
+        },
+        "assets/scenes/mobile-r918/berhet-02.webp": {
+          "sha256": "72515dc67c915cba3e1f7acd65766ca58542137fcc757bcb0951ca77586d064d",
+          "bytes": 455084
+        },
+        "assets/berhetiyye-premium/panel-ruby-r931.webp": {
+          "sha256": "6a42fff10cdb7aa7f9e77bb4fa77135d57f9bec3012b26475c247220640f9afb",
+          "bytes": 629814
+        },
+        "assets/berhetiyye-premium/gem-topaz-r935.webp": {
+          "sha256": "e127786625c7d8d2e99734ae7d5358f2cf75f63f12b0fe6cd1acba7d98f8107a",
+          "bytes": 2106370
+        }
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "failedRequests": [],
+      "externalBlocked": [
+        "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      ]
+    },
+    {
+      "label": "390x844",
+      "browser": "142.0.7444.175",
+      "root": "/workspace/scratch/5732500eb8f8/r1070-release",
+      "served": {
+        "nero.html": {
+          "sha256": "fc0ac36e66ac593a3016b30253553dc195bd914277cb20632b20c82169492689",
+          "bytes": 7217683
+        },
+        "assets/runtime/compact-ui-r1057.css": {
+          "sha256": "7f66c90b8b19c6fdb58a6d127109532ac6b82bd2e04755f7a9195601559a975c",
+          "bytes": 7472
+        },
+        "assets/runtime/berhet-layout-r938.css": {
+          "sha256": "e990051b4c79739ccca15efc1e5c1d0f08adc03d3c0a04365f9350bc0297770d",
+          "bytes": 36758
+        },
+        "assets/runtime/berhet-controls-r933.css": {
+          "sha256": "14c546edeb397d91bd18a5b80ff8ca8935da7f0fa8e77695f92fb8f64df5f0fb",
+          "bytes": 31528
+        },
+        "assets/runtime/audio-cpu-r981.js": {
+          "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+          "bytes": 7807
+        },
+        "assets/runtime/berhet-dock-r933.css": {
+          "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+          "bytes": 12309
+        },
+        "assets/runtime/berhet-materials-r933.css": {
+          "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+          "bytes": 622
+        },
+        "assets/runtime/audio-preparation-r981.js": {
+          "sha256": "8345207bc48ffa582fde385d607a9fbb79f07dc75bcdc38afd3369d6b738a4f7",
+          "bytes": 17799
+        },
+        "assets/runtime/studio-preparation-r982.js": {
+          "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e",
+          "bytes": 3689
+        },
+        "assets/runtime/progress-journal-r982.js": {
+          "sha256": "b7fbd70dbcf9d08abdd88ec2c2d29566d56d75c8c76aca7ce7347149f59b48bc",
+          "bytes": 18325
+        },
+        "assets/runtime/tab-owner-r981.js": {
+          "sha256": "4305c9c1e1f1e9e239c62f0d19149bd05af97d2f0d34ddc38b7e7e5d41a63dc6",
+          "bytes": 34517
+        },
+        "assets/runtime/recording-continuity-r1016.js": {
+          "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+          "bytes": 13251
+        },
+        "assets/runtime/recording-inspection-r1020.js": {
+          "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+          "bytes": 9674
+        },
+        "assets/runtime/lifecycle-r949.js": {
+          "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+          "bytes": 4252
+        },
+        "assets/runtime/background-owner-r949.js": {
+          "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+          "bytes": 11067
+        },
+        "assets/runtime/audio-palette-r945.js": {
+          "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+          "bytes": 6073
+        },
+        "assets/runtime/active-source-r1060.js": {
+          "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+          "bytes": 6128
+        },
+        "assets/runtime/esma-scenes-r923.js": {
+          "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+          "bytes": 4307
+        },
+        "assets/runtime/generic-recordings-r1055.js": {
+          "sha256": "e92a2f903152bbbb3d316047fb878944bdcf15c20743a6e142b0caebf7876af7",
+          "bytes": 25188
+        },
+        "assets/runtime/dock-r920.js": {
+          "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+          "bytes": 11007
+        },
+        "assets/runtime/session-r919.js": {
+          "sha256": "f2e8d55082e21493784e0244d8b5d916a7d3fcbf0e1a5279ed9989c154e9105a",
+          "bytes": 36279
+        },
+        "assets/runtime/generic-recordings-ui-r1055.js": {
+          "sha256": "813a7cee85dff6d3ee3482f2be24f533a80b5b1e89b3e08c8ca4f0e704b6cffa",
+          "bytes": 7530
+        },
+        "assets/runtime/wheels-r924.css": {
+          "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+          "bytes": 34043
+        },
+        "assets/runtime/health-view-r943.css": {
+          "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+          "bytes": 7440
+        },
+        "assets/runtime/scene-picker-r945.css": {
+          "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+          "bytes": 6657
+        },
+        "assets/runtime/cadence-r981.css": {
+          "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+          "bytes": 1841
+        },
+        "assets/runtime/tekke-ux-r992.css": {
+          "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+          "bytes": 37518
+        },
+        "assets/runtime/tekke-journey-r993.css": {
+          "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+          "bytes": 7044
+        },
+        "assets/runtime/nefs-r948.css": {
+          "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+          "bytes": 18988
+        },
+        "assets/runtime/berhet-layout-r938.js": {
+          "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+          "bytes": 8399
+        },
+        "assets/runtime/active-layers-r1061.js": {
+          "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+          "bytes": 14049
+        },
+        "assets/runtime/interface-r920.js": {
+          "sha256": "529f0b85417355c89daec2034cf22dcc22369f44f9731c89450962055e841aac",
+          "bytes": 41182
+        },
+        "assets/runtime/wheels-r924.js": {
+          "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+          "bytes": 41623
+        },
+        "assets/runtime/compact-ui-r1057.js": {
+          "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+          "bytes": 5342
+        },
+        "assets/runtime/berhet-theme-r933.js": {
+          "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434",
+          "bytes": 3453
+        },
+        "assets/runtime/reading-ui-r1064.css": {
+          "sha256": "5d6a2109e0f394a642b38a4ae5545b3c6957a79dd117315603bf1d429fce249f",
+          "bytes": 4213
+        },
+        "assets/runtime/health-view-r943.js": {
+          "sha256": "4add13827ef8f50e4ee5dac86db1141ab287433ac5a374b81f14c82c29b125e2",
+          "bytes": 120132
+        },
+        "assets/runtime/scene-picker-r945.js": {
+          "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+          "bytes": 9860
+        },
+        "assets/runtime/presentation-r979.js": {
+          "sha256": "c648ddce99e0191ae5cb11bbccd19222a4bf3bb8764453c54d95d8e15831e033",
+          "bytes": 14768
+        },
+        "assets/runtime/health-r940.js": {
+          "sha256": "62292549287482e8894f0d16fe784ec08338528b12e56a618c7bc62febc1b3e7",
+          "bytes": 89494
+        },
+        "assets/runtime/nefs-data-r948.js": {
+          "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+          "bytes": 283054
+        },
+        "assets/runtime/nefs-model-r948.js": {
+          "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+          "bytes": 18197
+        },
+        "assets/runtime/cadence-r981.js": {
+          "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+          "bytes": 23650
+        },
+        "assets/runtime/offline-scenes-r962.js": {
+          "sha256": "4869b10fc6c231545a8e191aa42a617139b0c749ea65a90f97f71d26bdeed4c5",
+          "bytes": 9284
+        },
+        "assets/runtime/nefs-ui-r948.js": {
+          "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+          "bytes": 48398
+        },
+        "assets/runtime/tekke-sequence-r988.js": {
+          "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+          "bytes": 10314
+        },
+        "assets/runtime/tekke-set-r990.js": {
+          "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+          "bytes": 27409
+        },
+        "assets/runtime/background-mix-render-r1059.js": {
+          "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e",
+          "bytes": 21067
+        },
+        "assets/runtime/background-mix-r1059.js": {
+          "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38",
+          "bytes": 18625
+        },
+        "assets/runtime/reading-sources-r1064.js": {
+          "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+          "bytes": 67014
+        },
+        "assets/runtime/bundled-arabic-r1065.js": {
+          "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+          "bytes": 9208
+        },
+        "assets/runtime/yasin-data-r1064.js": {
+          "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+          "bytes": 49799
+        },
+        "assets/runtime/yasin-timing-r1067.js": {
+          "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+          "bytes": 5926
+        },
+        "assets/runtime/reading-audio-r1064.js": {
+          "sha256": "6ec9d95e33682901fa492df1c017069c275739d40a2c38ce3dbfdb6c92ad40b3",
+          "bytes": 19108
+        },
+        "assets/runtime/navigation-r1066.js": {
+          "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+          "bytes": 2624
+        },
+        "assets/runtime/reading-ui-r1064.js": {
+          "sha256": "0a79d15b2387883c7e8c3d38d14c4386076bf83d700cc693a2b55621add4e83b",
+          "bytes": 40315
+        },
+        "assets/runtime/studio-batch-r1020.js": {
+          "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+          "bytes": 23944
+        },
+        "assets/runtime/recovery-versions-r1019.js": {
+          "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+          "bytes": 8407
+        },
+        "assets/runtime/recovery-data-r1020.js": {
+          "sha256": "dcd7e844ea0cab11f990c70e8e746384c81a24a000dfd8a4b6d54bfeba266bd4",
+          "bytes": 51467
+        },
+        "assets/runtime/site-backup-r1020.js": {
+          "sha256": "6cd889fb289fee35181d579b5c7da57bc773bcda9e8cebd04987c553196debce",
+          "bytes": 28583
+        },
+        "assets/runtime/recovery-ui-r1019.js": {
+          "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+          "bytes": 6054
+        },
+        "assets/runtime/recording-salvage-r1020.js": {
+          "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+          "bytes": 36787
+        },
+        "assets/audio/sukun-intro-signature-r1037.wav": {
+          "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+          "bytes": 288044
+        },
+        "assets/runtime/tekke-ux-r992.js": {
+          "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+          "bytes": 25320
+        },
+        "assets/runtime/tekke-journey-r993.js": {
+          "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+          "bytes": 38289
+        },
+        "assets/runtime/recovery-entry-r1027.js": {
+          "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+          "bytes": 5702
+        },
+        "assets/branding/sukun-frameless-logo-r1029.png": {
+          "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+          "bytes": 27201
+        },
+        "assets/runtime/startup-intro-r1027.js": {
+          "sha256": "ad9e825d51dcb41fc0d527ed8c4f5892f66d41804cc50d38d235b72dbcb5dbc1",
+          "bytes": 22478
+        },
+        "assets/branding/sukun-intro-pattern-r1029.svg": {
+          "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4",
+          "bytes": 769
+        },
+        "assets/sukun-nur-orbit-r757.svg": {
+          "sha256": "b9e2f2d8d983b9b19cd4be7d16ab1fe82d47a89c82361c2a60f456f25e478854",
+          "bytes": 248
+        },
+        "assets/sukun-tesbih-weave-r759.svg": {
+          "sha256": "f01e6993b482e6194f479416955b85e888b95c332187a1bc55aaa7b893502bba",
+          "bytes": 1296
+        },
+        "assets/sukun-nur-mist-r759.svg": {
+          "sha256": "4b099628bd538f0a6e2b73b4ffea399319347375444312e7946ada10e8214ccf",
+          "bytes": 20321
+        },
+        "assets/sukun-nur-ring-r757.png": {
+          "sha256": "b9bf594010438b1c49ab693a94ba5022569462c334f606754306bb63f808f6fb",
+          "bytes": 1713434
+        },
+        "assets/scenes/mobile-r918/mevlevi.webp": {
+          "sha256": "38809a4ac966552a60fee4efb9e303b9edd2f9c13cca2b9787ed9cf67bfce565",
+          "bytes": 411132
+        },
+        "assets/scenes/esma-r923/mevlevi-sema.webp": {
+          "sha256": "c7dbea4be096916817a0550c698a1607dbf195d951d134874f0244eef1ef6950",
+          "bytes": 274004
+        },
+        "assets/wheels-r924/esma/inci-sema.webp": {
+          "sha256": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+          "bytes": 238294
+        },
+        "sukun-build-r1070.json": {
+          "sha256": "19be34507113f78e8e315897caabe60f32c8d2ce87dd11c4b8668f551d9ed08f",
+          "bytes": 24858
+        },
+        "assets/wheel-navigation-r964/gold.png": {
+          "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2",
+          "bytes": 1345326
+        },
+        "assets/scenes/esma-r923/cami-avlusu.webp": {
+          "sha256": "17561714794972eb80240e57bcd07604e6db7d89c19af939e4df4280f339f93f",
+          "bytes": 362610
+        },
+        "assets/berhetiyye-premium/gem-amethyst-r933.webp": {
+          "sha256": "9f82669a2d5c97e0dd9a4642c2230da2a76a285ed63e262f86665c5def59400b",
+          "bytes": 1990192
+        },
+        "assets/wheels-r977/zeytin-tesbihi.webp": {
+          "sha256": "ade875147d0afd253d173ed87558a6fe4128892e415b7b69ff2a5cc33ab34746",
+          "bytes": 875528
+        },
+        "assets/wheels-r977/abanoz-sukunu.webp": {
+          "sha256": "7fc6002cb200e8f7dd9c2e045a20d9529f8a94949429f3fd02d43783cf9bfbd4",
+          "bytes": 1024218
+        },
+        "assets/wheels-r977/ceviz-naksi.webp": {
+          "sha256": "86e88d374e02bdfdf6e2d31e59e4ff2dec6ab2eb3a0b5381aa379cd99f56b795",
+          "bytes": 1082544
+        },
+        "assets/wheels-r977/sandal-halkasi.webp": {
+          "sha256": "9aa32bbb2bafa81ab026d16abad11cc8f3e96e0ac5696c594c744fddd99b6a54",
+          "bytes": 1024854
+        },
+        "assets/wheels-r977/altin-nakis.webp": {
+          "sha256": "00e57bb2ba9128ce46c2bf2e1f72048c4cee57cd1bc6cb908dd5b14825c840c0",
+          "bytes": 1503206
+        },
+        "assets/wheels-r977/elmas-taci.webp": {
+          "sha256": "37dc4d2ce5ea19f163a6e798f72c1c3ed982f15fcee74a7a20cda554f2411d93",
+          "bytes": 1641778
+        },
+        "assets/berhetiyye-premium/panel-emerald-r932.webp": {
+          "sha256": "ef9b20b66a0f0a04846ab8ec6dafe348ee334c30c78414f7af4142a65eaf1f4e",
+          "bytes": 718568
+        },
+        "assets/berhetiyye-premium/gem-sapphire-r933.webp": {
+          "sha256": "62c5ff06eae7fcf2cbba43f57228905e9460f8cfe26f205577d8473d179020be",
+          "bytes": 2184484
+        },
+        "assets/berhetiyye-premium/gem-emerald-r932.webp": {
+          "sha256": "19219874a4b5b1634630745b191b4a0bf9c17b4263450e8b9ca54ebfc025f721",
+          "bytes": 2085808
+        },
+        "assets/berhetiyye-premium/gem-diamond-r933.webp": {
+          "sha256": "64aa52732c5b778602e1977452253ebb0d8b96538767dc1df6060257a4f4f0a8",
+          "bytes": 2021638
+        },
+        "assets/wheels-r977/gumus-telkari.webp": {
+          "sha256": "adc84abe1f6a8ed767c9116be868fb2830199a21958ce9925a8b376bafe352bb",
+          "bytes": 1446610
+        },
+        "assets/wheels-r977/sultan-taslari.webp": {
+          "sha256": "4f62138580ee38b3cbed0b3e6541703837d3f86d7767e907c62ec0c11cc8043f",
+          "bytes": 1579428
+        },
+        "assets/wheels/copper-amethyst-weave-r1057.webp": {
+          "sha256": "84e103a19bc8a1d3851c27852c272f733068cc939713680efd0c60f5d8e2b236",
+          "bytes": 600244
+        },
+        "assets/wheels/gold-amethyst-weave-r1057.webp": {
+          "sha256": "499b4eec9585cc5b7e057dc0ae52a31b8ffb95ce54e875e1af2339e696739462",
+          "bytes": 579802
+        },
+        "assets/wheels/platinum-turquoise-spiral-r1057.webp": {
+          "sha256": "7809e312fda0db9bbc34c0f3d181a12c4db273e61626d2286a47b65212fe1121",
+          "bytes": 460508
+        },
+        "assets/wheels/copper-amber-spiral-r1057.webp": {
+          "sha256": "973a45d10b917c3d44de2c68c96528a90ddc6366959081f687261a88ec23f77a",
+          "bytes": 437590
+        },
+        "assets/wheels/copper-ruby-weave-r1057.webp": {
+          "sha256": "d5faec2e398aedacaaebfbeb715a46332c30456014e762f248ad164bf7d8bc10",
+          "bytes": 612604
+        },
+        "assets/wheels/gold-ruby-weave-r1057.webp": {
+          "sha256": "941f1171719eeac81e5d2642a780740f03e0d6d6bb74e87b7f4e9aeffe89c1d1",
+          "bytes": 603890
+        },
+        "assets/wheels/sapphire-torus-r1057.webp": {
+          "sha256": "b291f853c2a689bc0ded9775ecea4b28d411fa08bc0c08bd568003da4733d1a2",
+          "bytes": 571632
+        },
+        "assets/wheels/gold-emerald-knot-r1057.webp": {
+          "sha256": "0505562349956fcf51ea6446b42cf3a6d2984a14b0a4dca1cbb25ff8c98dfd68",
+          "bytes": 569720
+        },
+        "assets/wheels/gold-emerald-weave-r1057.webp": {
+          "sha256": "3e7bdeb02100bf34a53c4295db70d9033de3b769fc356cc4cbb9d505dc0c4caf",
+          "bytes": 600304
+        },
+        "assets/wheels-r924/berhetiyye/ham-kristal.webp": {
+          "sha256": "ac69b24ba2cc986a24b5602a4ade9ee62fec34631ba9aa392185a019a768fb38",
+          "bytes": 396014
+        },
+        "assets/scenes/mobile-r918/berhet-01.webp": {
+          "sha256": "1967cc5b4421bf65806e6d3ed1d03f44098d42573da897120c8e83792e7fa26d",
+          "bytes": 574308
+        },
+        "assets/berhetiyye-premium/gem-ruby-r933.webp": {
+          "sha256": "b27393700407c5eb2d66e675acbef3ea16829d6cd9adbcbe092aeab85d47f1bc",
+          "bytes": 1948734
+        },
+        "assets/berhetiyye-premium/wheel-alpha-r915.png": {
+          "sha256": "23094d0fdcce710b60514fb6cc6af57f1fe19a4cf7818a24c7dbe5672b0a14d5",
+          "bytes": 2454994
+        },
+        "assets/scenes/mobile-r918/berhet-02.webp": {
+          "sha256": "72515dc67c915cba3e1f7acd65766ca58542137fcc757bcb0951ca77586d064d",
+          "bytes": 455084
+        },
+        "assets/berhetiyye-premium/panel-ruby-r931.webp": {
+          "sha256": "6a42fff10cdb7aa7f9e77bb4fa77135d57f9bec3012b26475c247220640f9afb",
+          "bytes": 629814
+        },
+        "assets/berhetiyye-premium/gem-topaz-r935.webp": {
+          "sha256": "e127786625c7d8d2e99734ae7d5358f2cf75f63f12b0fe6cd1acba7d98f8107a",
+          "bytes": 2106370
+        }
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "failedRequests": [],
+      "externalBlocked": [
+        "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      ]
+    }
+  ],
+  "limitations": [
+    "Isolated headless Linux Chromium at 320x640 and 390x844 using the existing exact-byte engineering fixture. No physical Android OS or screen-lock claim.",
+    "Service workers are blocked; this test does not validate SW update activation.",
+    "The existing fixture controls speech; this suite never starts audio and never reads personal recordings.",
+    "Screenshots are taken with the normal shipped visual CSS; no reduced-motion or style override is installed.",
+    "The existing noninteractive Esma neon aura may add up to 3px to internal tab scroll extent while remaining within the viewport. Raw internal extents, native control bounds and page overflow are checked separately."
+  ],
+  "passed": 26,
+  "total": 26,
+  "finishedAt": "2026-10-15T18:04:00.052Z"
+}

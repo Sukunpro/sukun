@@ -1,0 +1,2511 @@
+{
+  "suite": "Classic/Feyz mobile follow-up smoke",
+  "build": "r1071",
+  "startedAt": "2026-10-15T18:11:27.323Z",
+  "testScriptSha256": "992183697a89c33dffa23f1771249ffbbf2ca501fc30de0c97d68e2349a62132",
+  "checks": [
+    {
+      "profile": "320x640",
+      "name": "Exact build starts in Classic/Feyz with no global scroll shield",
+      "passed": true,
+      "evidence": {
+        "build": "r1071",
+        "layout": "classic",
+        "skin": "feyz",
+        "htmlOverflow": "visible",
+        "bodyOverflow": "visible",
+        "touch": 1
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Easy controls hide/show keep native nodes and do not change the session",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "count": 0,
+          "phase": "IDLE"
+        },
+        "hidden": {
+          "primary": true,
+          "finish": true,
+          "toggle": false,
+          "summary": true
+        },
+        "after": {
+          "count": 0,
+          "phase": "IDLE",
+          "primary": false,
+          "same": true
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Tefekkür native entry/exit preserve one control tree and the saved hide/show preference",
+      "passed": true,
+      "evidence": {
+        "ports": [
+          {
+            "id": "tab-zkr",
+            "height": 640,
+            "total": 833,
+            "overflow": "auto",
+            "touch": "pan-y pinch-zoom"
+          },
+          {
+            "id": "r920Practice",
+            "height": 833,
+            "total": 833,
+            "overflow": "visible",
+            "touch": "auto"
+          }
+        ],
+        "exit": {
+          "x": 160,
+          "y": 482.875,
+          "width": 48,
+          "height": 48,
+          "hit": true,
+          "hitId": "r920TefExit"
+        },
+        "nodes": {
+          "same": true,
+          "playIds": 1,
+          "exitIds": 1,
+          "totalIds": 1,
+          "compact": {
+            "sharedStrip": true,
+            "nativeTotal": true,
+            "safetyTab": "tab-frq"
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Readings section native tap reveals its current target",
+      "passed": true,
+      "evidence": {
+        "pt": {
+          "x": 71.328125,
+          "y": 295.796875,
+          "width": 82.65625,
+          "height": 60.1875,
+          "hit": true,
+          "hitId": "SPAN"
+        },
+        "result": {
+          "open": true,
+          "top": 90.328125,
+          "bottom": 1687.828125,
+          "navigation": {
+            "version": "r1066",
+            "sequence": 2,
+            "pending": false,
+            "last": {
+              "reason": "practice-section",
+              "result": "revealed",
+              "ok": true,
+              "target": "zmgOkumalar",
+              "at": 1792087907537
+            }
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Bundled-Arabic Yasin native picker opens and delayed trusted choice reveals verse42",
+      "passed": true,
+      "evidence": {
+        "pt": {
+          "x": 160,
+          "y": 295.5625,
+          "width": 206,
+          "height": 44,
+          "hit": true,
+          "hitId": "r1064YasinVerse"
+        },
+        "result": {
+          "value": "42",
+          "disabled": false,
+          "top": 297.375,
+          "bottom": 521.5,
+          "navigation": {
+            "version": "r1066",
+            "sequence": 4,
+            "pending": false,
+            "last": {
+              "reason": "yasin-verse-selection",
+              "result": "revealed",
+              "ok": true,
+              "target": "r1064YasinVerse42",
+              "at": 1792087912368
+            }
+          },
+          "changes": [
+            {
+              "trusted": true,
+              "value": "42"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Yasin native pan leaves the counter unchanged and the next meal-checkbox tap works",
+      "passed": true,
+      "evidence": {
+        "gesture": {
+          "before": {
+            "build": "r1071",
+            "layout": "classic",
+            "skin": "feyz",
+            "session": {
+              "version": "r919",
+              "build": "r1071",
+              "revision": 9,
+              "reason": "snapshot",
+              "sessionId": "mv9uuyl0:0",
+              "epoch": 0,
+              "requestId": 0,
+              "activeMode": "esma",
+              "activeName": "Rahmân",
+              "activeIndex": 0,
+              "arabic": "",
+              "canonical": {
+                "mode": "esma",
+                "index": 0,
+                "name": "Rahmân",
+                "count": 0,
+                "target": 33
+              },
+              "count": 0,
+              "countRaw": 0,
+              "target": 33,
+              "remaining": 33,
+              "progress": 0,
+              "journeyIndex": null,
+              "journeyKind": "single",
+              "journeyRunning": false,
+              "journeyPaused": false,
+              "journeyComplete": false,
+              "presentationOnly": false,
+              "journey": {
+                "kind": null,
+                "active": false,
+                "selected": "single",
+                "total": 99,
+                "index": null,
+                "complete": false,
+                "paused": false
+              },
+              "owner": "",
+              "provider": "mix",
+              "phase": "IDLE",
+              "playbackState": "idle",
+              "playing": false,
+              "paused": false,
+              "preparing": false,
+              "audioSource": "SILENCE",
+              "sourceOrigin": "none",
+              "recordingOrigin": null,
+              "sourceMetadata": {
+                "kind": "SILENCE",
+                "origin": "none",
+                "recorded": false,
+                "provenance": "resolver"
+              },
+              "recordingSource": null,
+              "sourceLabel": "HAZIR",
+              "sceneId": "esma-cami-avlusu",
+              "resolvedSceneId": "esma-cami-avlusu",
+              "backgroundState": "ready",
+              "isForeground": true,
+              "isTefekkur": false,
+              "error": null,
+              "consistency": {
+                "dualJourney": false,
+                "audioIssues": []
+              }
+            },
+            "tef": false,
+            "dock": "mini",
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 3,
+              "events": 56,
+              "sequence": 20,
+              "lastReason": "native-scroll"
+            },
+            "navigation": {
+              "version": "r1066",
+              "sequence": 4,
+              "pending": false,
+              "last": {
+                "reason": "yasin-verse-selection",
+                "result": "revealed",
+                "ok": true,
+                "target": "r1064YasinVerse42",
+                "at": 1792087912368
+              }
+            },
+            "y": 28949,
+            "tabTop": 0,
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r697-neon-ui r698-ui r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "after": {
+            "build": "r1071",
+            "layout": "classic",
+            "skin": "feyz",
+            "session": {
+              "version": "r919",
+              "build": "r1071",
+              "revision": 9,
+              "reason": "snapshot",
+              "sessionId": "mv9uuyl0:0",
+              "epoch": 0,
+              "requestId": 0,
+              "activeMode": "esma",
+              "activeName": "Rahmân",
+              "activeIndex": 0,
+              "arabic": "",
+              "canonical": {
+                "mode": "esma",
+                "index": 0,
+                "name": "Rahmân",
+                "count": 0,
+                "target": 33
+              },
+              "count": 0,
+              "countRaw": 0,
+              "target": 33,
+              "remaining": 33,
+              "progress": 0,
+              "journeyIndex": null,
+              "journeyKind": "single",
+              "journeyRunning": false,
+              "journeyPaused": false,
+              "journeyComplete": false,
+              "presentationOnly": false,
+              "journey": {
+                "kind": null,
+                "active": false,
+                "selected": "single",
+                "total": 99,
+                "index": null,
+                "complete": false,
+                "paused": false
+              },
+              "owner": "",
+              "provider": "mix",
+              "phase": "IDLE",
+              "playbackState": "idle",
+              "playing": false,
+              "paused": false,
+              "preparing": false,
+              "audioSource": "SILENCE",
+              "sourceOrigin": "none",
+              "recordingOrigin": null,
+              "sourceMetadata": {
+                "kind": "SILENCE",
+                "origin": "none",
+                "recorded": false,
+                "provenance": "resolver"
+              },
+              "recordingSource": null,
+              "sourceLabel": "HAZIR",
+              "sceneId": "esma-cami-avlusu",
+              "resolvedSceneId": "esma-cami-avlusu",
+              "backgroundState": "ready",
+              "isForeground": true,
+              "isTefekkur": false,
+              "error": null,
+              "consistency": {
+                "dualJourney": false,
+                "audioIssues": []
+              }
+            },
+            "tef": false,
+            "dock": "mini",
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 3,
+              "events": 72,
+              "sequence": 22,
+              "lastReason": "touchend"
+            },
+            "navigation": {
+              "version": "r1066",
+              "sequence": 4,
+              "pending": false,
+              "last": {
+                "reason": "yasin-verse-selection",
+                "result": "revealed",
+                "ok": true,
+                "target": "r1064YasinVerse42",
+                "at": 1792087912368
+              }
+            },
+            "y": 29019,
+            "tabTop": 0,
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r697-neon-ui r698-ui r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "point": {
+            "x": 160,
+            "y": 306.4375,
+            "width": 206,
+            "height": 224.125,
+            "hit": true,
+            "hitId": "DIV"
+          }
+        },
+        "beforeCount": 0,
+        "meaningBefore": true
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Dock setup holds a generated personal WAV on the real native media clock without TTS fallback",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "time": 0.69753,
+          "duration": 60,
+          "paused": false,
+          "source": "personal",
+          "utterances": 0
+        },
+        "after": {
+          "time": 1.055392,
+          "phase": "PLAYING",
+          "utterances": 0
+        },
+        "generatedInputDurationSeconds": 12
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Dock mini has visible native-hit transport controls",
+      "passed": true,
+      "evidence": {
+        "mode": "mini",
+        "points": [
+          {
+            "selector": "#r588Play",
+            "x": 234,
+            "y": 598,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r588Play"
+          },
+          {
+            "selector": "#r920DockExpand",
+            "x": 282,
+            "y": 598,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r920DockExpand"
+          }
+        ],
+        "layout": {
+          "version": "r732",
+          "reason": "input-settled",
+          "active": true,
+          "bottomFit": true,
+          "hidden": false,
+          "mode": "mini",
+          "density": "compact",
+          "viewportTop": 0,
+          "viewportHeight": 640,
+          "viewportBottom": 640,
+          "appliedHeight": 68,
+          "intrinsicNeed": 68,
+          "naturalCap": 616,
+          "profileCap": 616,
+          "maxHeight": 616,
+          "minHeight": 0,
+          "rawGap": 548,
+          "rawAvailableHeight": 616,
+          "overlayPx": 0,
+          "unusedGapPx": 548,
+          "exactFillPx": 548,
+          "wrapReserve": 88,
+          "bodyOverflowPx": 0,
+          "bodyScrollTop": 0,
+          "drawerOpen": false,
+          "drawerClientHeight": 0,
+          "drawerScrollHeight": 0,
+          "drawerMaxScroll": 0,
+          "drawerScrollable": false,
+          "bottomReachable": true,
+          "lastY": 0,
+          "cardHeight": 0,
+          "boundaryTop": null,
+          "measureCount": 16,
+          "rehomeCount": 7,
+          "scrollResets": 0,
+          "rafCoalesced": 7,
+          "resizeEvents": 0,
+          "layoutSyncs": 16,
+          "convergence": 0,
+          "panActive": false,
+          "gestureDeferrals": 0,
+          "viewportScrollIgnored": 0,
+          "geometryDebounces": 0,
+          "viewportDebounces": 0,
+          "at": 1792087919541
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Dock midi has visible native-hit transport controls",
+      "passed": true,
+      "evidence": {
+        "mode": "midi",
+        "points": [
+          {
+            "selector": "#r588Play",
+            "x": 184,
+            "y": 600,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r588Play"
+          },
+          {
+            "selector": "#r588Stop",
+            "x": 232,
+            "y": 600,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r588Stop"
+          },
+          {
+            "selector": "#r588Hide",
+            "x": 280,
+            "y": 600,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r588Hide"
+          },
+          {
+            "selector": "#r920DockAmbience",
+            "x": 256,
+            "y": 477,
+            "width": 90,
+            "height": 44,
+            "hit": true,
+            "hitId": "r920DockAmbience"
+          }
+        ],
+        "layout": {
+          "version": "r732",
+          "reason": "geometry-resize",
+          "active": true,
+          "bottomFit": true,
+          "hidden": false,
+          "mode": "midi",
+          "density": "compact",
+          "viewportTop": 0,
+          "viewportHeight": 640,
+          "viewportBottom": 640,
+          "appliedHeight": 340,
+          "intrinsicNeed": 340,
+          "naturalCap": 616,
+          "profileCap": 616,
+          "maxHeight": 616,
+          "minHeight": 0,
+          "rawGap": 276,
+          "rawAvailableHeight": 616,
+          "overlayPx": 0,
+          "unusedGapPx": 276,
+          "exactFillPx": 276,
+          "wrapReserve": 360,
+          "bodyOverflowPx": 3,
+          "bodyScrollTop": 0,
+          "drawerOpen": false,
+          "drawerClientHeight": 0,
+          "drawerScrollHeight": 0,
+          "drawerMaxScroll": 0,
+          "drawerScrollable": false,
+          "bottomReachable": true,
+          "lastY": 0,
+          "cardHeight": 0,
+          "boundaryTop": null,
+          "measureCount": 18,
+          "rehomeCount": 7,
+          "scrollResets": 0,
+          "rafCoalesced": 8,
+          "resizeEvents": 0,
+          "layoutSyncs": 18,
+          "convergence": 0,
+          "panActive": false,
+          "gestureDeferrals": 0,
+          "viewportScrollIgnored": 0,
+          "geometryDebounces": 0,
+          "viewportDebounces": 0,
+          "at": 1792087923576
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Dock max has visible native-hit transport controls",
+      "passed": true,
+      "evidence": {
+        "mode": "max",
+        "points": [
+          {
+            "selector": "#r588Play",
+            "x": 184,
+            "y": 600,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r588Play"
+          },
+          {
+            "selector": "#r588Stop",
+            "x": 232,
+            "y": 600,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r588Stop"
+          },
+          {
+            "selector": "#r588Hide",
+            "x": 280,
+            "y": 600,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r588Hide"
+          },
+          {
+            "selector": "#r920DockAmbience",
+            "x": 256,
+            "y": 477,
+            "width": 90,
+            "height": 44,
+            "hit": true,
+            "hitId": "r920DockAmbience"
+          }
+        ],
+        "layout": {
+          "version": "r732",
+          "reason": "input-settled",
+          "active": true,
+          "bottomFit": true,
+          "hidden": false,
+          "mode": "max",
+          "density": "compact",
+          "viewportTop": 0,
+          "viewportHeight": 640,
+          "viewportBottom": 640,
+          "appliedHeight": 602,
+          "intrinsicNeed": 602,
+          "naturalCap": 616,
+          "profileCap": 616,
+          "maxHeight": 616,
+          "minHeight": 0,
+          "rawGap": 14,
+          "rawAvailableHeight": 616,
+          "overlayPx": 0,
+          "unusedGapPx": 14,
+          "exactFillPx": 14,
+          "wrapReserve": 622,
+          "bodyOverflowPx": 3,
+          "bodyScrollTop": 0,
+          "drawerOpen": false,
+          "drawerClientHeight": 0,
+          "drawerScrollHeight": 0,
+          "drawerMaxScroll": 0,
+          "drawerScrollable": false,
+          "bottomReachable": true,
+          "lastY": 0,
+          "cardHeight": 0,
+          "boundaryTop": null,
+          "measureCount": 20,
+          "rehomeCount": 7,
+          "scrollResets": 0,
+          "rafCoalesced": 9,
+          "resizeEvents": 0,
+          "layoutSyncs": 20,
+          "convergence": 0,
+          "panActive": false,
+          "gestureDeferrals": 0,
+          "viewportScrollIgnored": 0,
+          "geometryDebounces": 0,
+          "viewportDebounces": 0,
+          "at": 1792087926029
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Notification drawer owns scrolling and its first close tap releases background hit targets",
+      "passed": true,
+      "evidence": {
+        "port": {
+          "x": 212.79999999999998,
+          "y": 528,
+          "height": 249,
+          "total": 249,
+          "top": 0,
+          "touch": "pan-y pinch-zoom"
+        },
+        "top": 0,
+        "before": {
+          "build": "r1071",
+          "layout": "classic",
+          "skin": "feyz",
+          "session": {
+            "version": "r919",
+            "build": "r1071",
+            "revision": 16,
+            "reason": "sukun:currentzikirchange",
+            "sessionId": "mv9uuyl0:0",
+            "epoch": 0,
+            "requestId": 0,
+            "activeMode": "esma",
+            "activeName": "Rahmân",
+            "activeIndex": 0,
+            "arabic": "",
+            "canonical": {
+              "mode": "esma",
+              "index": 0,
+              "name": "Rahmân",
+              "count": 1,
+              "target": 9999
+            },
+            "count": 1,
+            "countRaw": 1,
+            "target": 9999,
+            "remaining": 9998,
+            "progress": 0.00010001000100010001,
+            "journeyIndex": null,
+            "journeyKind": "single",
+            "journeyRunning": false,
+            "journeyPaused": false,
+            "journeyComplete": false,
+            "presentationOnly": false,
+            "journey": {
+              "kind": null,
+              "active": false,
+              "selected": "single",
+              "total": 99,
+              "index": null,
+              "complete": false,
+              "paused": false
+            },
+            "owner": "auto-zikir",
+            "provider": "mix",
+            "phase": "PLAYING",
+            "playbackState": "playing",
+            "playing": true,
+            "paused": false,
+            "preparing": false,
+            "audioSource": "USER_RECORDING",
+            "sourceOrigin": "personal",
+            "recordingOrigin": "personal",
+            "sourceMetadata": {
+              "kind": "USER_RECORDING",
+              "origin": "personal",
+              "recorded": true,
+              "provenance": "native-single"
+            },
+            "recordingSource": "USER_RECORDING",
+            "sourceLabel": "Kendi kayıt · aynı ses dosyası",
+            "sceneId": "esma-cami-avlusu",
+            "resolvedSceneId": "esma-cami-avlusu",
+            "backgroundState": "ready",
+            "isForeground": true,
+            "isTefekkur": false,
+            "error": null,
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            }
+          },
+          "tef": false,
+          "dock": "max",
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 7,
+            "events": 88,
+            "sequence": 26,
+            "lastReason": "native-scroll"
+          },
+          "navigation": {
+            "version": "r1066",
+            "sequence": 4,
+            "pending": false,
+            "last": {
+              "reason": "yasin-verse-selection",
+              "result": "revealed",
+              "ok": true,
+              "target": "r1064YasinVerse42",
+              "at": 1792087912368
+            }
+          },
+          "y": 16082,
+          "tabTop": 0,
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r697-neon-ui r698-ui r474-zikir-active sukun-zikir-tab r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r588-mode-max r699-drawer-open"
+        },
+        "afterPan": {
+          "build": "r1071",
+          "layout": "classic",
+          "skin": "feyz",
+          "session": {
+            "version": "r919",
+            "build": "r1071",
+            "revision": 16,
+            "reason": "sukun:currentzikirchange",
+            "sessionId": "mv9uuyl0:0",
+            "epoch": 0,
+            "requestId": 0,
+            "activeMode": "esma",
+            "activeName": "Rahmân",
+            "activeIndex": 0,
+            "arabic": "",
+            "canonical": {
+              "mode": "esma",
+              "index": 0,
+              "name": "Rahmân",
+              "count": 1,
+              "target": 9999
+            },
+            "count": 1,
+            "countRaw": 1,
+            "target": 9999,
+            "remaining": 9998,
+            "progress": 0.00010001000100010001,
+            "journeyIndex": null,
+            "journeyKind": "single",
+            "journeyRunning": false,
+            "journeyPaused": false,
+            "journeyComplete": false,
+            "presentationOnly": false,
+            "journey": {
+              "kind": null,
+              "active": false,
+              "selected": "single",
+              "total": 99,
+              "index": null,
+              "complete": false,
+              "paused": false
+            },
+            "owner": "auto-zikir",
+            "provider": "mix",
+            "phase": "PLAYING",
+            "playbackState": "playing",
+            "playing": true,
+            "paused": false,
+            "preparing": false,
+            "audioSource": "USER_RECORDING",
+            "sourceOrigin": "personal",
+            "recordingOrigin": "personal",
+            "sourceMetadata": {
+              "kind": "USER_RECORDING",
+              "origin": "personal",
+              "recorded": true,
+              "provenance": "native-single"
+            },
+            "recordingSource": "USER_RECORDING",
+            "sourceLabel": "Kendi kayıt · aynı ses dosyası",
+            "sceneId": "esma-cami-avlusu",
+            "resolvedSceneId": "esma-cami-avlusu",
+            "backgroundState": "ready",
+            "isForeground": true,
+            "isTefekkur": false,
+            "error": null,
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            }
+          },
+          "tef": false,
+          "dock": "max",
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 7,
+            "events": 99,
+            "sequence": 28,
+            "lastReason": "touchend"
+          },
+          "navigation": {
+            "version": "r1066",
+            "sequence": 4,
+            "pending": false,
+            "last": {
+              "reason": "yasin-verse-selection",
+              "result": "revealed",
+              "ok": true,
+              "target": "r1064YasinVerse42",
+              "at": 1792087912368
+            }
+          },
+          "y": 16082,
+          "tabTop": 0,
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r474-name-cat r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r433-dock-enhanced r434-inline-details-ready r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r697-neon-ui r698-ui r474-zikir-active sukun-zikir-tab r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r588-mode-max r699-drawer-open"
+        },
+        "after": {
+          "backdrop": true,
+          "inert": false,
+          "overflow": "visible"
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Stopped invisible dock does not intercept the first lower-viewport footer tap",
+      "passed": true,
+      "evidence": {
+        "pt": {
+          "x": 160,
+          "y": 500.296875,
+          "width": 268,
+          "height": 44,
+          "hit": true,
+          "hitId": "SUMMARY"
+        },
+        "before": false,
+        "host": {
+          "display": "none",
+          "pointer": "none",
+          "visible": false
+        }
+      }
+    },
+    {
+      "profile": "320x640",
+      "name": "Served production bytes stay exact and loaded runtime has no JS/SRI faults",
+      "passed": true,
+      "evidence": {
+        "files": 80,
+        "failedRequests": []
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Exact build starts in Classic/Feyz with no global scroll shield",
+      "passed": true,
+      "evidence": {
+        "build": "r1071",
+        "layout": "classic",
+        "skin": "feyz",
+        "htmlOverflow": "visible",
+        "bodyOverflow": "visible",
+        "touch": 1
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Easy controls hide/show keep native nodes and do not change the session",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "count": 0,
+          "phase": "IDLE"
+        },
+        "hidden": {
+          "primary": true,
+          "finish": true,
+          "toggle": false,
+          "summary": true
+        },
+        "after": {
+          "count": 0,
+          "phase": "IDLE",
+          "primary": false,
+          "same": true
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Tefekkür native entry/exit preserve one control tree and the saved hide/show preference",
+      "passed": true,
+      "evidence": {
+        "ports": [
+          {
+            "id": "tab-zkr",
+            "height": 844,
+            "total": 892,
+            "overflow": "auto",
+            "touch": "pan-y pinch-zoom"
+          },
+          {
+            "id": "r920Practice",
+            "height": 892,
+            "total": 892,
+            "overflow": "visible",
+            "touch": "auto"
+          }
+        ],
+        "exit": {
+          "x": 195,
+          "y": 615.984375,
+          "width": 48,
+          "height": 48,
+          "hit": true,
+          "hitId": "r920TefExit"
+        },
+        "nodes": {
+          "same": true,
+          "playIds": 1,
+          "exitIds": 1,
+          "totalIds": 1,
+          "compact": {
+            "sharedStrip": true,
+            "nativeTotal": true,
+            "safetyTab": "tab-frq"
+          }
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Readings section native tap reveals its current target",
+      "passed": true,
+      "evidence": {
+        "pt": {
+          "x": 86.328125,
+          "y": 397.59375,
+          "width": 102.65625,
+          "height": 60.1875,
+          "hit": true,
+          "hitId": "SPAN"
+        },
+        "result": {
+          "open": true,
+          "top": 89.875,
+          "bottom": 1378.015625,
+          "navigation": {
+            "version": "r1066",
+            "sequence": 2,
+            "pending": false,
+            "last": {
+              "reason": "practice-section",
+              "result": "revealed",
+              "ok": true,
+              "target": "zmgOkumalar",
+              "at": 1792087974063
+            }
+          }
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Bundled-Arabic Yasin native picker opens and delayed trusted choice reveals verse42",
+      "passed": true,
+      "evidence": {
+        "pt": {
+          "x": 195,
+          "y": 398.15625,
+          "width": 276,
+          "height": 44,
+          "hit": true,
+          "hitId": "r1064YasinVerse"
+        },
+        "result": {
+          "value": "42",
+          "disabled": false,
+          "top": 524.71875,
+          "bottom": 725.75,
+          "navigation": {
+            "version": "r1066",
+            "sequence": 4,
+            "pending": false,
+            "last": {
+              "reason": "yasin-verse-selection",
+              "result": "revealed",
+              "ok": true,
+              "target": "r1064YasinVerse42",
+              "at": 1792087979904
+            }
+          },
+          "changes": [
+            {
+              "trusted": true,
+              "value": "42"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Yasin native pan leaves the counter unchanged and the next meal-checkbox tap works",
+      "passed": true,
+      "evidence": {
+        "gesture": {
+          "before": {
+            "build": "r1071",
+            "layout": "classic",
+            "skin": "feyz",
+            "session": {
+              "version": "r919",
+              "build": "r1071",
+              "revision": 9,
+              "reason": "snapshot",
+              "sessionId": "mv9uwax1:0",
+              "epoch": 0,
+              "requestId": 0,
+              "activeMode": "esma",
+              "activeName": "Rahmân",
+              "activeIndex": 0,
+              "arabic": "",
+              "canonical": {
+                "mode": "esma",
+                "index": 0,
+                "name": "Rahmân",
+                "count": 0,
+                "target": 33
+              },
+              "count": 0,
+              "countRaw": 0,
+              "target": 33,
+              "remaining": 33,
+              "progress": 0,
+              "journeyIndex": null,
+              "journeyKind": "single",
+              "journeyRunning": false,
+              "journeyPaused": false,
+              "journeyComplete": false,
+              "presentationOnly": false,
+              "journey": {
+                "kind": null,
+                "active": false,
+                "selected": "single",
+                "total": 99,
+                "index": null,
+                "complete": false,
+                "paused": false
+              },
+              "owner": "",
+              "provider": "mix",
+              "phase": "IDLE",
+              "playbackState": "idle",
+              "playing": false,
+              "paused": false,
+              "preparing": false,
+              "audioSource": "SILENCE",
+              "sourceOrigin": "none",
+              "recordingOrigin": null,
+              "sourceMetadata": {
+                "kind": "SILENCE",
+                "origin": "none",
+                "recorded": false,
+                "provenance": "resolver"
+              },
+              "recordingSource": null,
+              "sourceLabel": "HAZIR",
+              "sceneId": "esma-cami-avlusu",
+              "resolvedSceneId": "esma-cami-avlusu",
+              "backgroundState": "ready",
+              "isForeground": true,
+              "isTefekkur": false,
+              "error": null,
+              "consistency": {
+                "dualJourney": false,
+                "audioIssues": []
+              }
+            },
+            "tef": false,
+            "dock": "mini",
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 2,
+              "events": 57,
+              "sequence": 20,
+              "lastReason": "native-scroll"
+            },
+            "navigation": {
+              "version": "r1066",
+              "sequence": 4,
+              "pending": false,
+              "last": {
+                "reason": "yasin-verse-selection",
+                "result": "revealed",
+                "ok": true,
+                "target": "r1064YasinVerse42",
+                "at": 1792087979904
+              }
+            },
+            "y": 22897,
+            "tabTop": 0,
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread sukun-jewel-r798 r431-dock-ready r588-mode-mini r699-layout r707-scroll r708-boundary r660-dock-compact r433-dock-enhanced r434-inline-details-ready r920-dock r697-neon-ui r698-ui r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "after": {
+            "build": "r1071",
+            "layout": "classic",
+            "skin": "feyz",
+            "session": {
+              "version": "r919",
+              "build": "r1071",
+              "revision": 9,
+              "reason": "snapshot",
+              "sessionId": "mv9uwax1:0",
+              "epoch": 0,
+              "requestId": 0,
+              "activeMode": "esma",
+              "activeName": "Rahmân",
+              "activeIndex": 0,
+              "arabic": "",
+              "canonical": {
+                "mode": "esma",
+                "index": 0,
+                "name": "Rahmân",
+                "count": 0,
+                "target": 33
+              },
+              "count": 0,
+              "countRaw": 0,
+              "target": 33,
+              "remaining": 33,
+              "progress": 0,
+              "journeyIndex": null,
+              "journeyKind": "single",
+              "journeyRunning": false,
+              "journeyPaused": false,
+              "journeyComplete": false,
+              "presentationOnly": false,
+              "journey": {
+                "kind": null,
+                "active": false,
+                "selected": "single",
+                "total": 99,
+                "index": null,
+                "complete": false,
+                "paused": false
+              },
+              "owner": "",
+              "provider": "mix",
+              "phase": "IDLE",
+              "playbackState": "idle",
+              "playing": false,
+              "paused": false,
+              "preparing": false,
+              "audioSource": "SILENCE",
+              "sourceOrigin": "none",
+              "recordingOrigin": null,
+              "sourceMetadata": {
+                "kind": "SILENCE",
+                "origin": "none",
+                "recorded": false,
+                "provenance": "resolver"
+              },
+              "recordingSource": null,
+              "sourceLabel": "HAZIR",
+              "sceneId": "esma-cami-avlusu",
+              "resolvedSceneId": "esma-cami-avlusu",
+              "backgroundState": "ready",
+              "isForeground": true,
+              "isTefekkur": false,
+              "error": null,
+              "consistency": {
+                "dualJourney": false,
+                "audioIssues": []
+              }
+            },
+            "tef": false,
+            "dock": "mini",
+            "gate": {
+              "version": "r732",
+              "touches": 0,
+              "pointers": 0,
+              "active": false,
+              "quietMs": 0,
+              "pending": false,
+              "deferrals": 2,
+              "events": 74,
+              "sequence": 22,
+              "lastReason": "touchend"
+            },
+            "navigation": {
+              "version": "r1066",
+              "sequence": 4,
+              "pending": false,
+              "last": {
+                "reason": "yasin-verse-selection",
+                "result": "revealed",
+                "ok": true,
+                "target": "r1064YasinVerse42",
+                "at": 1792087979904
+              }
+            },
+            "y": 22967,
+            "tabTop": 0,
+            "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread sukun-jewel-r798 r431-dock-ready r588-mode-mini r699-layout r707-scroll r708-boundary r660-dock-compact r433-dock-enhanced r434-inline-details-ready r920-dock r697-neon-ui r698-ui r474-zikir-active sukun-zikir-tab r716-motion r920-details-open"
+          },
+          "point": {
+            "x": 195,
+            "y": 408.234375,
+            "width": 276,
+            "height": 201.03125,
+            "hit": true,
+            "hitId": "DIV"
+          }
+        },
+        "beforeCount": 0,
+        "meaningBefore": true
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Dock setup holds a generated personal WAV on the real native media clock without TTS fallback",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "time": 0.815173,
+          "duration": 60,
+          "paused": false,
+          "source": "personal",
+          "utterances": 0
+        },
+        "after": {
+          "time": 1.167733,
+          "phase": "PLAYING",
+          "utterances": 0
+        },
+        "generatedInputDurationSeconds": 12
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Dock mini has visible native-hit transport controls",
+      "passed": true,
+      "evidence": {
+        "mode": "mini",
+        "points": [
+          {
+            "selector": "#r588Play",
+            "x": 304,
+            "y": 802,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r588Play"
+          },
+          {
+            "selector": "#r920DockExpand",
+            "x": 352,
+            "y": 802,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r920DockExpand"
+          }
+        ],
+        "layout": {
+          "version": "r732",
+          "reason": "input-settled",
+          "active": true,
+          "bottomFit": true,
+          "hidden": false,
+          "mode": "mini",
+          "density": "compact",
+          "viewportTop": 0,
+          "viewportHeight": 844,
+          "viewportBottom": 844,
+          "appliedHeight": 68,
+          "intrinsicNeed": 68,
+          "naturalCap": 820,
+          "profileCap": 820,
+          "maxHeight": 820,
+          "minHeight": 0,
+          "rawGap": 752,
+          "rawAvailableHeight": 820,
+          "overlayPx": 0,
+          "unusedGapPx": 752,
+          "exactFillPx": 752,
+          "wrapReserve": 88,
+          "bodyOverflowPx": 0,
+          "bodyScrollTop": 0,
+          "drawerOpen": false,
+          "drawerClientHeight": 0,
+          "drawerScrollHeight": 0,
+          "drawerMaxScroll": 0,
+          "drawerScrollable": false,
+          "bottomReachable": true,
+          "lastY": 0,
+          "cardHeight": 0,
+          "boundaryTop": null,
+          "measureCount": 17,
+          "rehomeCount": 7,
+          "scrollResets": 0,
+          "rafCoalesced": 8,
+          "resizeEvents": 0,
+          "layoutSyncs": 17,
+          "convergence": 0,
+          "panActive": false,
+          "gestureDeferrals": 0,
+          "viewportScrollIgnored": 0,
+          "geometryDebounces": 0,
+          "viewportDebounces": 0,
+          "at": 1792087992292
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Dock midi has visible native-hit transport controls",
+      "passed": true,
+      "evidence": {
+        "mode": "midi",
+        "points": [
+          {
+            "selector": "#r588Play",
+            "x": 254,
+            "y": 804,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r588Play"
+          },
+          {
+            "selector": "#r588Stop",
+            "x": 302,
+            "y": 804,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r588Stop"
+          },
+          {
+            "selector": "#r588Hide",
+            "x": 350,
+            "y": 804,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r588Hide"
+          },
+          {
+            "selector": "#r920DockAmbience",
+            "x": 314.328125,
+            "y": 681,
+            "width": 113.34375,
+            "height": 44,
+            "hit": true,
+            "hitId": "r920DockAmbience"
+          }
+        ],
+        "layout": {
+          "version": "r732",
+          "reason": "geometry-resize",
+          "active": true,
+          "bottomFit": true,
+          "hidden": false,
+          "mode": "midi",
+          "density": "compact",
+          "viewportTop": 0,
+          "viewportHeight": 844,
+          "viewportBottom": 844,
+          "appliedHeight": 340,
+          "intrinsicNeed": 340,
+          "naturalCap": 820,
+          "profileCap": 820,
+          "maxHeight": 820,
+          "minHeight": 0,
+          "rawGap": 480,
+          "rawAvailableHeight": 820,
+          "overlayPx": 0,
+          "unusedGapPx": 480,
+          "exactFillPx": 480,
+          "wrapReserve": 360,
+          "bodyOverflowPx": 3,
+          "bodyScrollTop": 0,
+          "drawerOpen": false,
+          "drawerClientHeight": 0,
+          "drawerScrollHeight": 0,
+          "drawerMaxScroll": 0,
+          "drawerScrollable": false,
+          "bottomReachable": true,
+          "lastY": 0,
+          "cardHeight": 0,
+          "boundaryTop": null,
+          "measureCount": 19,
+          "rehomeCount": 7,
+          "scrollResets": 0,
+          "rafCoalesced": 9,
+          "resizeEvents": 0,
+          "layoutSyncs": 19,
+          "convergence": 0,
+          "panActive": false,
+          "gestureDeferrals": 0,
+          "viewportScrollIgnored": 0,
+          "geometryDebounces": 0,
+          "viewportDebounces": 0,
+          "at": 1792087995432
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Dock max has visible native-hit transport controls",
+      "passed": true,
+      "evidence": {
+        "mode": "max",
+        "points": [
+          {
+            "selector": "#r588Play",
+            "x": 254,
+            "y": 804,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r588Play"
+          },
+          {
+            "selector": "#r588Stop",
+            "x": 302,
+            "y": 804,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r588Stop"
+          },
+          {
+            "selector": "#r588Hide",
+            "x": 350,
+            "y": 804,
+            "width": 44,
+            "height": 44,
+            "hit": true,
+            "hitId": "r588Hide"
+          },
+          {
+            "selector": "#r920DockAmbience",
+            "x": 314.328125,
+            "y": 681,
+            "width": 113.34375,
+            "height": 44,
+            "hit": true,
+            "hitId": "r920DockAmbience"
+          }
+        ],
+        "layout": {
+          "version": "r732",
+          "reason": "input-settled",
+          "active": true,
+          "bottomFit": true,
+          "hidden": false,
+          "mode": "max",
+          "density": "compact",
+          "viewportTop": 0,
+          "viewportHeight": 844,
+          "viewportBottom": 844,
+          "appliedHeight": 602,
+          "intrinsicNeed": 602,
+          "naturalCap": 820,
+          "profileCap": 820,
+          "maxHeight": 820,
+          "minHeight": 0,
+          "rawGap": 218,
+          "rawAvailableHeight": 820,
+          "overlayPx": 0,
+          "unusedGapPx": 218,
+          "exactFillPx": 218,
+          "wrapReserve": 622,
+          "bodyOverflowPx": 3,
+          "bodyScrollTop": 0,
+          "drawerOpen": false,
+          "drawerClientHeight": 0,
+          "drawerScrollHeight": 0,
+          "drawerMaxScroll": 0,
+          "drawerScrollable": false,
+          "bottomReachable": true,
+          "lastY": 0,
+          "cardHeight": 0,
+          "boundaryTop": null,
+          "measureCount": 21,
+          "rehomeCount": 7,
+          "scrollResets": 0,
+          "rafCoalesced": 9,
+          "resizeEvents": 0,
+          "layoutSyncs": 21,
+          "convergence": 0,
+          "panActive": false,
+          "gestureDeferrals": 0,
+          "viewportScrollIgnored": 0,
+          "geometryDebounces": 0,
+          "viewportDebounces": 0,
+          "at": 1792087998416
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Notification drawer owns scrolling and its first close tap releases background hit targets",
+      "passed": true,
+      "evidence": {
+        "port": {
+          "x": 261.79999999999995,
+          "y": 732,
+          "height": 402,
+          "total": 402,
+          "top": 0,
+          "touch": "pan-y pinch-zoom"
+        },
+        "top": 0,
+        "before": {
+          "build": "r1071",
+          "layout": "classic",
+          "skin": "feyz",
+          "session": {
+            "version": "r919",
+            "build": "r1071",
+            "revision": 14,
+            "reason": "sukun:currentflowchange",
+            "sessionId": "mv9uwax1:0",
+            "epoch": 0,
+            "requestId": 0,
+            "activeMode": "esma",
+            "activeName": "Rahmân",
+            "activeIndex": 0,
+            "arabic": "",
+            "canonical": {
+              "mode": "esma",
+              "index": 0,
+              "name": "Rahmân",
+              "count": 0,
+              "target": 9999
+            },
+            "count": 0,
+            "countRaw": 0,
+            "target": 9999,
+            "remaining": 9999,
+            "progress": 0,
+            "journeyIndex": null,
+            "journeyKind": "single",
+            "journeyRunning": false,
+            "journeyPaused": false,
+            "journeyComplete": false,
+            "presentationOnly": false,
+            "journey": {
+              "kind": null,
+              "active": false,
+              "selected": "single",
+              "total": 99,
+              "index": null,
+              "complete": false,
+              "paused": false
+            },
+            "owner": "auto-zikir",
+            "provider": "mix",
+            "phase": "PLAYING",
+            "playbackState": "playing",
+            "playing": true,
+            "paused": false,
+            "preparing": false,
+            "audioSource": "USER_RECORDING",
+            "sourceOrigin": "personal",
+            "recordingOrigin": "personal",
+            "sourceMetadata": {
+              "kind": "USER_RECORDING",
+              "origin": "personal",
+              "recorded": true,
+              "provenance": "native-single"
+            },
+            "recordingSource": "USER_RECORDING",
+            "sourceLabel": "Kendi kayıt · aynı ses dosyası",
+            "sceneId": "esma-cami-avlusu",
+            "resolvedSceneId": "esma-cami-avlusu",
+            "backgroundState": "ready",
+            "isForeground": true,
+            "isTefekkur": false,
+            "error": null,
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            }
+          },
+          "tef": false,
+          "dock": "max",
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 10,
+            "events": 91,
+            "sequence": 26,
+            "lastReason": "native-scroll"
+          },
+          "navigation": {
+            "version": "r1066",
+            "sequence": 4,
+            "pending": false,
+            "last": {
+              "reason": "yasin-verse-selection",
+              "result": "revealed",
+              "ok": true,
+              "target": "r1064YasinVerse42",
+              "at": 1792087979904
+            }
+          },
+          "y": 12707,
+          "tabTop": 0,
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread sukun-jewel-r798 r431-dock-ready r699-layout r707-scroll r708-boundary r660-dock-compact r433-dock-enhanced r434-inline-details-ready r920-dock r697-neon-ui r698-ui r474-zikir-active sukun-zikir-tab r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r588-mode-max r699-drawer-open"
+        },
+        "afterPan": {
+          "build": "r1071",
+          "layout": "classic",
+          "skin": "feyz",
+          "session": {
+            "version": "r919",
+            "build": "r1071",
+            "revision": 14,
+            "reason": "sukun:currentflowchange",
+            "sessionId": "mv9uwax1:0",
+            "epoch": 0,
+            "requestId": 0,
+            "activeMode": "esma",
+            "activeName": "Rahmân",
+            "activeIndex": 0,
+            "arabic": "",
+            "canonical": {
+              "mode": "esma",
+              "index": 0,
+              "name": "Rahmân",
+              "count": 0,
+              "target": 9999
+            },
+            "count": 0,
+            "countRaw": 0,
+            "target": 9999,
+            "remaining": 9999,
+            "progress": 0,
+            "journeyIndex": null,
+            "journeyKind": "single",
+            "journeyRunning": false,
+            "journeyPaused": false,
+            "journeyComplete": false,
+            "presentationOnly": false,
+            "journey": {
+              "kind": null,
+              "active": false,
+              "selected": "single",
+              "total": 99,
+              "index": null,
+              "complete": false,
+              "paused": false
+            },
+            "owner": "auto-zikir",
+            "provider": "mix",
+            "phase": "PLAYING",
+            "playbackState": "playing",
+            "playing": true,
+            "paused": false,
+            "preparing": false,
+            "audioSource": "USER_RECORDING",
+            "sourceOrigin": "personal",
+            "recordingOrigin": "personal",
+            "sourceMetadata": {
+              "kind": "USER_RECORDING",
+              "origin": "personal",
+              "recorded": true,
+              "provenance": "native-single"
+            },
+            "recordingSource": "USER_RECORDING",
+            "sourceLabel": "Kendi kayıt · aynı ses dosyası",
+            "sceneId": "esma-cami-avlusu",
+            "resolvedSceneId": "esma-cami-avlusu",
+            "backgroundState": "ready",
+            "isForeground": true,
+            "isTefekkur": false,
+            "error": null,
+            "consistency": {
+              "dualJourney": false,
+              "audioIssues": []
+            }
+          },
+          "tef": false,
+          "dock": "max",
+          "gate": {
+            "version": "r732",
+            "touches": 0,
+            "pointers": 0,
+            "active": false,
+            "quietMs": 0,
+            "pending": false,
+            "deferrals": 10,
+            "events": 102,
+            "sequence": 28,
+            "lastReason": "touchend"
+          },
+          "navigation": {
+            "version": "r1066",
+            "sequence": 4,
+            "pending": false,
+            "last": {
+              "reason": "yasin-verse-selection",
+              "result": "revealed",
+              "ok": true,
+              "target": "r1064YasinVerse42",
+              "at": 1792087979904
+            }
+          },
+          "y": 12707,
+          "tabTop": 0,
+          "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread sukun-jewel-r798 r431-dock-ready r699-layout r707-scroll r708-boundary r660-dock-compact r433-dock-enhanced r434-inline-details-ready r920-dock r697-neon-ui r698-ui r474-zikir-active sukun-zikir-tab r920-details-open mini-on r591-flow-active r431-dock-visible r431-owner-global r415-smart-player-visible r699-dock-active r588-mode-max r699-drawer-open"
+        },
+        "after": {
+          "backdrop": true,
+          "inert": false,
+          "overflow": "visible"
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Stopped invisible dock does not intercept the first lower-viewport footer tap",
+      "passed": true,
+      "evidence": {
+        "pt": {
+          "x": 195,
+          "y": 704.453125,
+          "width": 338,
+          "height": 44,
+          "hit": true,
+          "hitId": "SUMMARY"
+        },
+        "before": false,
+        "host": {
+          "display": "none",
+          "pointer": "none",
+          "visible": false
+        }
+      }
+    },
+    {
+      "profile": "390x844",
+      "name": "Served production bytes stay exact and loaded runtime has no JS/SRI faults",
+      "passed": true,
+      "evidence": {
+        "files": 80,
+        "failedRequests": []
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "label": "320x640",
+      "browser": "142.0.7444.175",
+      "root": "/workspace/scratch/2f3c05b2653a/sukun",
+      "served": {
+        "nero.html": {
+          "sha256": "2c14d2bbc45e92524f843ec2055656a5135f7f632b22e6a5ded7ea70fa73cfa1",
+          "bytes": 7219096
+        },
+        "assets/runtime/berhet-layout-r938.css": {
+          "sha256": "e990051b4c79739ccca15efc1e5c1d0f08adc03d3c0a04365f9350bc0297770d",
+          "bytes": 36758
+        },
+        "assets/runtime/berhet-controls-r933.css": {
+          "sha256": "14c546edeb397d91bd18a5b80ff8ca8935da7f0fa8e77695f92fb8f64df5f0fb",
+          "bytes": 31528
+        },
+        "assets/runtime/berhet-materials-r933.css": {
+          "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+          "bytes": 622
+        },
+        "assets/runtime/berhet-dock-r933.css": {
+          "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+          "bytes": 12309
+        },
+        "assets/runtime/compact-ui-r1057.css": {
+          "sha256": "7f66c90b8b19c6fdb58a6d127109532ac6b82bd2e04755f7a9195601559a975c",
+          "bytes": 7472
+        },
+        "assets/runtime/audio-cpu-r981.js": {
+          "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+          "bytes": 7807
+        },
+        "assets/runtime/studio-preparation-r982.js": {
+          "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e",
+          "bytes": 3689
+        },
+        "assets/runtime/progress-journal-r982.js": {
+          "sha256": "b7fbd70dbcf9d08abdd88ec2c2d29566d56d75c8c76aca7ce7347149f59b48bc",
+          "bytes": 18325
+        },
+        "assets/runtime/audio-preparation-r981.js": {
+          "sha256": "8345207bc48ffa582fde385d607a9fbb79f07dc75bcdc38afd3369d6b738a4f7",
+          "bytes": 17799
+        },
+        "assets/runtime/tab-owner-r981.js": {
+          "sha256": "4305c9c1e1f1e9e239c62f0d19149bd05af97d2f0d34ddc38b7e7e5d41a63dc6",
+          "bytes": 34517
+        },
+        "assets/runtime/recording-continuity-r1016.js": {
+          "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+          "bytes": 13251
+        },
+        "assets/runtime/recording-inspection-r1020.js": {
+          "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+          "bytes": 9674
+        },
+        "assets/runtime/lifecycle-r949.js": {
+          "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+          "bytes": 4252
+        },
+        "assets/runtime/audio-palette-r945.js": {
+          "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+          "bytes": 6073
+        },
+        "assets/runtime/background-owner-r949.js": {
+          "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+          "bytes": 11067
+        },
+        "assets/runtime/active-source-r1060.js": {
+          "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+          "bytes": 6128
+        },
+        "assets/runtime/esma-scenes-r923.js": {
+          "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+          "bytes": 4307
+        },
+        "assets/runtime/generic-recordings-r1055.js": {
+          "sha256": "e92a2f903152bbbb3d316047fb878944bdcf15c20743a6e142b0caebf7876af7",
+          "bytes": 25188
+        },
+        "assets/runtime/generic-recordings-ui-r1055.js": {
+          "sha256": "813a7cee85dff6d3ee3482f2be24f533a80b5b1e89b3e08c8ca4f0e704b6cffa",
+          "bytes": 7530
+        },
+        "assets/runtime/session-r919.js": {
+          "sha256": "f2e8d55082e21493784e0244d8b5d916a7d3fcbf0e1a5279ed9989c154e9105a",
+          "bytes": 36279
+        },
+        "assets/runtime/active-layers-r1061.js": {
+          "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+          "bytes": 14049
+        },
+        "assets/runtime/dock-r920.js": {
+          "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+          "bytes": 11007
+        },
+        "assets/runtime/wheels-r924.css": {
+          "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+          "bytes": 34043
+        },
+        "assets/runtime/health-view-r943.css": {
+          "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+          "bytes": 7440
+        },
+        "assets/runtime/scene-picker-r945.css": {
+          "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+          "bytes": 6657
+        },
+        "assets/runtime/nefs-r948.css": {
+          "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+          "bytes": 18988
+        },
+        "assets/runtime/cadence-r981.css": {
+          "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+          "bytes": 1841
+        },
+        "assets/runtime/tekke-ux-r992.css": {
+          "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+          "bytes": 37518
+        },
+        "assets/runtime/tekke-journey-r993.css": {
+          "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+          "bytes": 7044
+        },
+        "assets/runtime/reading-ui-r1064.css": {
+          "sha256": "5d6a2109e0f394a642b38a4ae5545b3c6957a79dd117315603bf1d429fce249f",
+          "bytes": 4213
+        },
+        "assets/runtime/berhet-layout-r938.js": {
+          "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+          "bytes": 8399
+        },
+        "assets/runtime/wheels-r924.js": {
+          "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+          "bytes": 41623
+        },
+        "assets/runtime/compact-ui-r1057.js": {
+          "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+          "bytes": 5342
+        },
+        "assets/runtime/interface-r920.js": {
+          "sha256": "529f0b85417355c89daec2034cf22dcc22369f44f9731c89450962055e841aac",
+          "bytes": 41182
+        },
+        "assets/runtime/berhet-theme-r933.js": {
+          "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434",
+          "bytes": 3453
+        },
+        "assets/runtime/presentation-r979.js": {
+          "sha256": "c648ddce99e0191ae5cb11bbccd19222a4bf3bb8764453c54d95d8e15831e033",
+          "bytes": 14768
+        },
+        "assets/runtime/scene-picker-r945.js": {
+          "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+          "bytes": 9860
+        },
+        "assets/runtime/health-view-r943.js": {
+          "sha256": "4add13827ef8f50e4ee5dac86db1141ab287433ac5a374b81f14c82c29b125e2",
+          "bytes": 120132
+        },
+        "assets/runtime/health-r940.js": {
+          "sha256": "62292549287482e8894f0d16fe784ec08338528b12e56a618c7bc62febc1b3e7",
+          "bytes": 89494
+        },
+        "assets/runtime/nefs-data-r948.js": {
+          "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+          "bytes": 283054
+        },
+        "assets/runtime/nefs-ui-r948.js": {
+          "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+          "bytes": 48398
+        },
+        "assets/runtime/nefs-model-r948.js": {
+          "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+          "bytes": 18197
+        },
+        "assets/runtime/offline-scenes-r962.js": {
+          "sha256": "4869b10fc6c231545a8e191aa42a617139b0c749ea65a90f97f71d26bdeed4c5",
+          "bytes": 9284
+        },
+        "assets/runtime/cadence-r981.js": {
+          "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+          "bytes": 23650
+        },
+        "assets/runtime/tekke-sequence-r988.js": {
+          "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+          "bytes": 10314
+        },
+        "assets/runtime/tekke-set-r990.js": {
+          "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+          "bytes": 27409
+        },
+        "assets/runtime/bundled-arabic-r1065.js": {
+          "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+          "bytes": 9208
+        },
+        "assets/runtime/background-mix-r1059.js": {
+          "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38",
+          "bytes": 18625
+        },
+        "assets/runtime/background-mix-render-r1059.js": {
+          "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e",
+          "bytes": 21067
+        },
+        "assets/runtime/yasin-timing-r1067.js": {
+          "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+          "bytes": 5926
+        },
+        "assets/runtime/yasin-data-r1064.js": {
+          "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+          "bytes": 49799
+        },
+        "assets/runtime/reading-sources-r1064.js": {
+          "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+          "bytes": 67014
+        },
+        "assets/runtime/navigation-r1066.js": {
+          "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+          "bytes": 2624
+        },
+        "assets/runtime/reading-audio-r1064.js": {
+          "sha256": "6ec9d95e33682901fa492df1c017069c275739d40a2c38ce3dbfdb6c92ad40b3",
+          "bytes": 19108
+        },
+        "assets/runtime/studio-batch-r1020.js": {
+          "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+          "bytes": 23944
+        },
+        "assets/runtime/recovery-versions-r1019.js": {
+          "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+          "bytes": 8407
+        },
+        "assets/runtime/reading-ui-r1064.js": {
+          "sha256": "0a79d15b2387883c7e8c3d38d14c4386076bf83d700cc693a2b55621add4e83b",
+          "bytes": 40315
+        },
+        "assets/runtime/recovery-data-r1020.js": {
+          "sha256": "dcd7e844ea0cab11f990c70e8e746384c81a24a000dfd8a4b6d54bfeba266bd4",
+          "bytes": 51467
+        },
+        "assets/runtime/site-backup-r1020.js": {
+          "sha256": "6cd889fb289fee35181d579b5c7da57bc773bcda9e8cebd04987c553196debce",
+          "bytes": 28583
+        },
+        "assets/runtime/recovery-ui-r1019.js": {
+          "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+          "bytes": 6054
+        },
+        "assets/runtime/recording-salvage-r1020.js": {
+          "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+          "bytes": 36787
+        },
+        "assets/branding/sukun-frameless-logo-r1029.png": {
+          "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+          "bytes": 27201
+        },
+        "assets/audio/sukun-intro-signature-r1037.wav": {
+          "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+          "bytes": 288044
+        },
+        "assets/branding/sukun-intro-pattern-r1029.svg": {
+          "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4",
+          "bytes": 769
+        },
+        "assets/runtime/tekke-ux-r992.js": {
+          "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+          "bytes": 25320
+        },
+        "assets/runtime/tekke-journey-r993.js": {
+          "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+          "bytes": 38289
+        },
+        "assets/runtime/recovery-entry-r1027.js": {
+          "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+          "bytes": 5702
+        },
+        "assets/runtime/startup-intro-r1027.js": {
+          "sha256": "8c1e088458a22a8327ea94a34855563aa84bffdf13eceee10fcda1dab4be4edd",
+          "bytes": 22478
+        },
+        "assets/sukun-nur-orbit-r757.svg": {
+          "sha256": "b9e2f2d8d983b9b19cd4be7d16ab1fe82d47a89c82361c2a60f456f25e478854",
+          "bytes": 248
+        },
+        "assets/sukun-nur-mist-r759.svg": {
+          "sha256": "4b099628bd538f0a6e2b73b4ffea399319347375444312e7946ada10e8214ccf",
+          "bytes": 20321
+        },
+        "assets/sukun-tesbih-weave-r759.svg": {
+          "sha256": "f01e6993b482e6194f479416955b85e888b95c332187a1bc55aaa7b893502bba",
+          "bytes": 1296
+        },
+        "assets/scenes/mobile-r918/mevlevi.webp": {
+          "sha256": "38809a4ac966552a60fee4efb9e303b9edd2f9c13cca2b9787ed9cf67bfce565",
+          "bytes": 411132
+        },
+        "assets/sukun-nur-ring-r757.png": {
+          "sha256": "b9bf594010438b1c49ab693a94ba5022569462c334f606754306bb63f808f6fb",
+          "bytes": 1713434
+        },
+        "assets/scenes/esma-r923/mevlevi-sema.webp": {
+          "sha256": "c7dbea4be096916817a0550c698a1607dbf195d951d134874f0244eef1ef6950",
+          "bytes": 274004
+        },
+        "assets/wheels-r924/esma/inci-sema.webp": {
+          "sha256": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+          "bytes": 238294
+        },
+        "sukun-build-r1071.json": {
+          "sha256": "076ac9677649cc07e5200939aa8c07aa340786c640d1549de234f9916d499563",
+          "bytes": 24889
+        },
+        "assets/wheel-navigation-r964/gold.png": {
+          "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2",
+          "bytes": 1345326
+        },
+        "assets/scenes/esma-r923/cami-avlusu.webp": {
+          "sha256": "17561714794972eb80240e57bcd07604e6db7d89c19af939e4df4280f339f93f",
+          "bytes": 362610
+        },
+        "assets/berhetiyye-premium/gem-amethyst-r933.webp": {
+          "sha256": "9f82669a2d5c97e0dd9a4642c2230da2a76a285ed63e262f86665c5def59400b",
+          "bytes": 1990192
+        }
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "failedRequests": [],
+      "externalBlocked": [
+        "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      ]
+    },
+    {
+      "label": "390x844",
+      "browser": "142.0.7444.175",
+      "root": "/workspace/scratch/2f3c05b2653a/sukun",
+      "served": {
+        "nero.html": {
+          "sha256": "2c14d2bbc45e92524f843ec2055656a5135f7f632b22e6a5ded7ea70fa73cfa1",
+          "bytes": 7219096
+        },
+        "assets/runtime/compact-ui-r1057.css": {
+          "sha256": "7f66c90b8b19c6fdb58a6d127109532ac6b82bd2e04755f7a9195601559a975c",
+          "bytes": 7472
+        },
+        "assets/runtime/berhet-layout-r938.css": {
+          "sha256": "e990051b4c79739ccca15efc1e5c1d0f08adc03d3c0a04365f9350bc0297770d",
+          "bytes": 36758
+        },
+        "assets/runtime/berhet-materials-r933.css": {
+          "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+          "bytes": 622
+        },
+        "assets/runtime/berhet-controls-r933.css": {
+          "sha256": "14c546edeb397d91bd18a5b80ff8ca8935da7f0fa8e77695f92fb8f64df5f0fb",
+          "bytes": 31528
+        },
+        "assets/runtime/berhet-dock-r933.css": {
+          "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+          "bytes": 12309
+        },
+        "assets/runtime/audio-cpu-r981.js": {
+          "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+          "bytes": 7807
+        },
+        "assets/runtime/audio-preparation-r981.js": {
+          "sha256": "8345207bc48ffa582fde385d607a9fbb79f07dc75bcdc38afd3369d6b738a4f7",
+          "bytes": 17799
+        },
+        "assets/runtime/studio-preparation-r982.js": {
+          "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e",
+          "bytes": 3689
+        },
+        "assets/runtime/progress-journal-r982.js": {
+          "sha256": "b7fbd70dbcf9d08abdd88ec2c2d29566d56d75c8c76aca7ce7347149f59b48bc",
+          "bytes": 18325
+        },
+        "assets/runtime/tab-owner-r981.js": {
+          "sha256": "4305c9c1e1f1e9e239c62f0d19149bd05af97d2f0d34ddc38b7e7e5d41a63dc6",
+          "bytes": 34517
+        },
+        "assets/runtime/recording-continuity-r1016.js": {
+          "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+          "bytes": 13251
+        },
+        "assets/runtime/recording-inspection-r1020.js": {
+          "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+          "bytes": 9674
+        },
+        "assets/runtime/background-owner-r949.js": {
+          "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+          "bytes": 11067
+        },
+        "assets/runtime/lifecycle-r949.js": {
+          "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+          "bytes": 4252
+        },
+        "assets/runtime/audio-palette-r945.js": {
+          "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+          "bytes": 6073
+        },
+        "assets/runtime/recovery-entry-r1027.js": {
+          "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+          "bytes": 5702
+        },
+        "assets/runtime/reading-ui-r1064.css": {
+          "sha256": "5d6a2109e0f394a642b38a4ae5545b3c6957a79dd117315603bf1d429fce249f",
+          "bytes": 4213
+        },
+        "assets/audio/sukun-intro-signature-r1037.wav": {
+          "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+          "bytes": 288044
+        },
+        "assets/branding/sukun-frameless-logo-r1029.png": {
+          "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+          "bytes": 27201
+        },
+        "assets/runtime/active-source-r1060.js": {
+          "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+          "bytes": 6128
+        },
+        "assets/branding/sukun-intro-pattern-r1029.svg": {
+          "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4",
+          "bytes": 769
+        },
+        "assets/runtime/generic-recordings-r1055.js": {
+          "sha256": "e92a2f903152bbbb3d316047fb878944bdcf15c20743a6e142b0caebf7876af7",
+          "bytes": 25188
+        },
+        "assets/runtime/generic-recordings-ui-r1055.js": {
+          "sha256": "813a7cee85dff6d3ee3482f2be24f533a80b5b1e89b3e08c8ca4f0e704b6cffa",
+          "bytes": 7530
+        },
+        "assets/runtime/session-r919.js": {
+          "sha256": "f2e8d55082e21493784e0244d8b5d916a7d3fcbf0e1a5279ed9989c154e9105a",
+          "bytes": 36279
+        },
+        "assets/runtime/esma-scenes-r923.js": {
+          "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+          "bytes": 4307
+        },
+        "assets/runtime/dock-r920.js": {
+          "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+          "bytes": 11007
+        },
+        "assets/runtime/active-layers-r1061.js": {
+          "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+          "bytes": 14049
+        },
+        "assets/runtime/berhet-layout-r938.js": {
+          "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+          "bytes": 8399
+        },
+        "assets/runtime/interface-r920.js": {
+          "sha256": "529f0b85417355c89daec2034cf22dcc22369f44f9731c89450962055e841aac",
+          "bytes": 41182
+        },
+        "assets/runtime/compact-ui-r1057.js": {
+          "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+          "bytes": 5342
+        },
+        "assets/runtime/wheels-r924.css": {
+          "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+          "bytes": 34043
+        },
+        "assets/runtime/berhet-theme-r933.js": {
+          "sha256": "da83b8f7c8abf49c00c3a11291da0c01a8484e742c4a920be9db3b7a56f6b434",
+          "bytes": 3453
+        },
+        "assets/runtime/wheels-r924.js": {
+          "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+          "bytes": 41623
+        },
+        "assets/runtime/health-view-r943.css": {
+          "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+          "bytes": 7440
+        },
+        "assets/runtime/scene-picker-r945.css": {
+          "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+          "bytes": 6657
+        },
+        "assets/runtime/scene-picker-r945.js": {
+          "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+          "bytes": 9860
+        },
+        "assets/runtime/health-view-r943.js": {
+          "sha256": "4add13827ef8f50e4ee5dac86db1141ab287433ac5a374b81f14c82c29b125e2",
+          "bytes": 120132
+        },
+        "assets/runtime/presentation-r979.js": {
+          "sha256": "c648ddce99e0191ae5cb11bbccd19222a4bf3bb8764453c54d95d8e15831e033",
+          "bytes": 14768
+        },
+        "assets/runtime/health-r940.js": {
+          "sha256": "62292549287482e8894f0d16fe784ec08338528b12e56a618c7bc62febc1b3e7",
+          "bytes": 89494
+        },
+        "assets/runtime/nefs-r948.css": {
+          "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+          "bytes": 18988
+        },
+        "assets/runtime/nefs-model-r948.js": {
+          "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+          "bytes": 18197
+        },
+        "assets/runtime/nefs-data-r948.js": {
+          "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+          "bytes": 283054
+        },
+        "assets/runtime/nefs-ui-r948.js": {
+          "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+          "bytes": 48398
+        },
+        "assets/runtime/offline-scenes-r962.js": {
+          "sha256": "4869b10fc6c231545a8e191aa42a617139b0c749ea65a90f97f71d26bdeed4c5",
+          "bytes": 9284
+        },
+        "assets/runtime/cadence-r981.css": {
+          "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+          "bytes": 1841
+        },
+        "assets/runtime/cadence-r981.js": {
+          "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+          "bytes": 23650
+        },
+        "assets/runtime/tekke-set-r990.js": {
+          "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+          "bytes": 27409
+        },
+        "assets/runtime/tekke-journey-r993.css": {
+          "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+          "bytes": 7044
+        },
+        "assets/runtime/tekke-ux-r992.css": {
+          "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+          "bytes": 37518
+        },
+        "assets/runtime/background-mix-r1059.js": {
+          "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38",
+          "bytes": 18625
+        },
+        "assets/runtime/background-mix-render-r1059.js": {
+          "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e",
+          "bytes": 21067
+        },
+        "assets/runtime/tekke-sequence-r988.js": {
+          "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+          "bytes": 10314
+        },
+        "assets/runtime/reading-audio-r1064.js": {
+          "sha256": "6ec9d95e33682901fa492df1c017069c275739d40a2c38ce3dbfdb6c92ad40b3",
+          "bytes": 19108
+        },
+        "assets/runtime/navigation-r1066.js": {
+          "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+          "bytes": 2624
+        },
+        "assets/runtime/yasin-timing-r1067.js": {
+          "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+          "bytes": 5926
+        },
+        "assets/runtime/bundled-arabic-r1065.js": {
+          "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+          "bytes": 9208
+        },
+        "assets/runtime/yasin-data-r1064.js": {
+          "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+          "bytes": 49799
+        },
+        "assets/runtime/reading-sources-r1064.js": {
+          "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+          "bytes": 67014
+        },
+        "assets/runtime/reading-ui-r1064.js": {
+          "sha256": "0a79d15b2387883c7e8c3d38d14c4386076bf83d700cc693a2b55621add4e83b",
+          "bytes": 40315
+        },
+        "assets/runtime/site-backup-r1020.js": {
+          "sha256": "6cd889fb289fee35181d579b5c7da57bc773bcda9e8cebd04987c553196debce",
+          "bytes": 28583
+        },
+        "assets/runtime/recovery-ui-r1019.js": {
+          "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+          "bytes": 6054
+        },
+        "assets/runtime/studio-batch-r1020.js": {
+          "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+          "bytes": 23944
+        },
+        "assets/runtime/recovery-versions-r1019.js": {
+          "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+          "bytes": 8407
+        },
+        "assets/runtime/recovery-data-r1020.js": {
+          "sha256": "dcd7e844ea0cab11f990c70e8e746384c81a24a000dfd8a4b6d54bfeba266bd4",
+          "bytes": 51467
+        },
+        "assets/runtime/recording-salvage-r1020.js": {
+          "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+          "bytes": 36787
+        },
+        "assets/runtime/tekke-ux-r992.js": {
+          "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+          "bytes": 25320
+        },
+        "assets/runtime/tekke-journey-r993.js": {
+          "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+          "bytes": 38289
+        },
+        "assets/runtime/startup-intro-r1027.js": {
+          "sha256": "8c1e088458a22a8327ea94a34855563aa84bffdf13eceee10fcda1dab4be4edd",
+          "bytes": 22478
+        },
+        "assets/sukun-nur-orbit-r757.svg": {
+          "sha256": "b9e2f2d8d983b9b19cd4be7d16ab1fe82d47a89c82361c2a60f456f25e478854",
+          "bytes": 248
+        },
+        "assets/sukun-tesbih-weave-r759.svg": {
+          "sha256": "f01e6993b482e6194f479416955b85e888b95c332187a1bc55aaa7b893502bba",
+          "bytes": 1296
+        },
+        "assets/sukun-nur-ring-r757.png": {
+          "sha256": "b9bf594010438b1c49ab693a94ba5022569462c334f606754306bb63f808f6fb",
+          "bytes": 1713434
+        },
+        "assets/sukun-nur-mist-r759.svg": {
+          "sha256": "4b099628bd538f0a6e2b73b4ffea399319347375444312e7946ada10e8214ccf",
+          "bytes": 20321
+        },
+        "assets/scenes/mobile-r918/mevlevi.webp": {
+          "sha256": "38809a4ac966552a60fee4efb9e303b9edd2f9c13cca2b9787ed9cf67bfce565",
+          "bytes": 411132
+        },
+        "assets/scenes/esma-r923/mevlevi-sema.webp": {
+          "sha256": "c7dbea4be096916817a0550c698a1607dbf195d951d134874f0244eef1ef6950",
+          "bytes": 274004
+        },
+        "assets/wheels-r924/esma/inci-sema.webp": {
+          "sha256": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+          "bytes": 238294
+        },
+        "sukun-build-r1071.json": {
+          "sha256": "076ac9677649cc07e5200939aa8c07aa340786c640d1549de234f9916d499563",
+          "bytes": 24889
+        },
+        "assets/wheel-navigation-r964/gold.png": {
+          "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2",
+          "bytes": 1345326
+        },
+        "assets/scenes/esma-r923/cami-avlusu.webp": {
+          "sha256": "17561714794972eb80240e57bcd07604e6db7d89c19af939e4df4280f339f93f",
+          "bytes": 362610
+        },
+        "assets/berhetiyye-premium/gem-amethyst-r933.webp": {
+          "sha256": "9f82669a2d5c97e0dd9a4642c2230da2a76a285ed63e262f86665c5def59400b",
+          "bytes": 1990192
+        }
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "failedRequests": [],
+      "externalBlocked": [
+        "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      ]
+    }
+  ],
+  "limitations": [
+    "Isolated headless Linux Chromium; no physical Android display, OS picker, screen lock, or audible sound claim.",
+    "Service workers are blocked by the existing engineering fixture. This suite does not validate SW activation.",
+    "Picker work does not play audio. Dock setup installs one generated12-second personal WAV in the isolated profile and observes its real native media clock; no controlled TTS completion drives dock playback.",
+    "Every application request must succeed; exact served bytes and JavaScript/SRI errors are checked."
+  ],
+  "passed": 26,
+  "total": 26,
+  "finishedAt": "2026-10-15T18:13:30.557Z"
+}

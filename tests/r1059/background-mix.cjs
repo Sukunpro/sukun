@@ -89,9 +89,21 @@ function fixture(selection='combined') {
     resolveRender(index=renderJobs.length-1){const job=renderJobs[index];assert(job?.wait,'no pending render');job.wait.resolve(job.result);},
     async start(){controller.changed('fixture-start',{gesture:true});await settle();await controller.prepare();await settle();assert.equal(audible().length,1,'one native audible mix route');return audible()[0];}};
 }
-async function test(name,fn){try{await fn();results.push({name,status:'PASS'});}catch(error){results.push({name,status:'FAIL',error:error.stack});}}
+async function test(name,fn,skipReason){if(skipReason){results.push({name,status:'SKIP',reason:skipReason});return;}try{await fn();results.push({name,status:'PASS'});}catch(error){results.push({name,status:'FAIL',error:error.stack});}}
 async function nonzero(blob){const raw=Buffer.from(await blob.arrayBuffer());assert(raw.byteLength>44);assert.equal(raw.toString('ascii',0,4),'RIFF');assert(raw.subarray(44).some(v=>v!==0),'native output resource contains nonzero PCM');}
 (async()=>{
+  await test('Current release wires PCM renderer, native controller, and live-background adapter',()=>{
+    const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+    const renderer=html.indexOf('<script src="./assets/runtime/background-mix-render-r1059.js?');
+    const controller=html.indexOf('<script src="./assets/runtime/background-mix-r1059.js?');
+    const binding=html.indexOf('<script id="r1059-background-mix-binding">');
+    assert(renderer>=0&&controller>renderer&&binding>controller,'renderer, controller, and adapter load in order');
+    const adapter=html.slice(binding,html.indexOf('</script>',binding));
+    assert(adapter.includes('const api=window.SukunBackgroundMix'));
+    assert(adapter.includes('api.bind({snapshot:capture,held:blocked,volume:'));
+    assert(adapter.includes('muteLive(value)'));
+    assert(adapter.includes('resumeLive:async()=>'));
+  });
   await test('Baseline main graph uses a digital-zero native anchor and has no PCM background route',()=>{
     const html=fs.readFileSync(path.join(baseline,'index.html'),'utf8');
     const marker=html.indexOf('const SesCapa=window.SesCapa=');assert(marker>=0);
@@ -119,7 +131,7 @@ async function nonzero(blob){const raw=Buffer.from(await blob.arrayBuffer());ass
     win.testContext.currentTime=8;win.testContext.state='suspended';
     const audibleNative=native.some(a=>!a.paused&&Buffer.from(a.src.split(',')[1],'base64').subarray(44).some(v=>v!==128));
     assert.equal(win.testContext.state==='running'||audibleNative,false,'baseline has no audible route after the live context is suspended');
-  });
+  },fs.existsSync(path.join(baseline,'index.html'))?null:'Historical r1058 baseline was not supplied; current production controller cases still execute. Pass an archived baseline as argv[3] to run this historical comparison.');
   for(const kind of ['ambient','bin','iso','mono','mix','combined','secondary'])await test(kind+' native mix survives hidden +8s context suspension and 120s frozen JS',async()=>{
     const f=fixture(kind),a=await f.start();await nonzero(f.urls.get(a.src));assert(f.liveMuted,'only live background branches are muted');
     const plays=a.playCalls,renders=f.renderJobs.length,progress=a.totalPlayed;f.hide();f.advance(8000,{freezeJS:true});f.ctxState='suspended';f.advance(120000,{freezeJS:true});
@@ -218,5 +230,5 @@ async function nonzero(blob){const raw=Buffer.from(await blob.arrayBuffer());ass
     assert(primes.some(a=>f.controller.isSilentCarrier(a)));const alien=new f.window.Audio();alien.src=primes[0].src;alien.dataset={...primes[0].dataset};assert.equal(f.controller.isSilentCarrier(alien),false);
     f.resolveRender();await f.settle();const a=f.audible()[0];assert(a);assert.equal(f.controller.isSilentCarrier(a),false);assert.equal(f.controller.owns(a),true);
   });
-  const failed=results.filter(x=>x.status==='FAIL');console.log(JSON.stringify({source:path.join(root,'assets/runtime/background-mix-r1059.js'),total:results.length,passed:results.length-failed.length,failed:failed.length,scope:'Actual controller source with controlled native media, audible PCM fixture, context suspension and frozen JavaScript timers; not physical Android playback or speaker audibility.',results},null,2));if(failed.length)process.exitCode=1;
+  const failed=results.filter(x=>x.status==='FAIL');console.log(JSON.stringify({source:path.join(root,'assets/runtime/background-mix-r1059.js'),total:results.length,passed:results.filter(x=>x.status==='PASS').length,skipped:results.filter(x=>x.status==='SKIP').length,failed:failed.length,scope:'Actual controller source with controlled native media, audible PCM fixture, context suspension and frozen JavaScript timers; not physical Android playback or speaker audibility.',results},null,2));if(failed.length)process.exitCode=1;
 })();

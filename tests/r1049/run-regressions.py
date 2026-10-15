@@ -12,6 +12,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 EXCLUDED = {
+    'tests/r1071/atlas-ui.cjs': 'Separate actual Chromium Atlas frame/interaction suite; run directly with source baseline|candidate and explicit evidence output.',
     'tests/r1070/classic-feyz-smoke.cjs': 'Separate actual mobile Chromium/native touch smoke; run directly in both Classic/Feyz viewport profiles.',
     'tests/r1070/session-transition-matrix.cjs': 'Separate actual Chromium cross-mode/native media matrix; run directly with SUKUN_MATRIX_EXPECT_HANDOFF=1.',
     'tests/r1069/native-transition-browser.cjs': 'Separate actual native audio integration; run directly with Chromium and known generated WAVs.',
