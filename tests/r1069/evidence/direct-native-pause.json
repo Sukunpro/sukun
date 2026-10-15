@@ -1,0 +1,131 @@
+{
+  "ok": true,
+  "source": "/workspace/scratch/f778a2db1d4a/sukun/index.html",
+  "sourceHash": "3de9eba3ed020cb4f997745725b323615a6265a6ab5cec86e6c1a6cb894ad0d1",
+  "tests": 30,
+  "passed": 30,
+  "failed": 0,
+  "results": [
+    {
+      "name": "esma visible personal native Pause/Resume retains cursor and credit",
+      "status": "PASS"
+    },
+    {
+      "name": "esma visible generic native Pause/Resume retains cursor and credit",
+      "status": "PASS"
+    },
+    {
+      "name": "esma hidden personal native Pause/Resume retains cursor and credit",
+      "status": "PASS"
+    },
+    {
+      "name": "esma hidden generic native Pause/Resume retains cursor and credit",
+      "status": "PASS"
+    },
+    {
+      "name": "berhet visible personal native Pause/Resume retains cursor and credit",
+      "status": "PASS"
+    },
+    {
+      "name": "berhet visible generic native Pause/Resume retains cursor and credit",
+      "status": "PASS"
+    },
+    {
+      "name": "berhet hidden personal native Pause/Resume retains cursor and credit",
+      "status": "PASS"
+    },
+    {
+      "name": "berhet hidden generic native Pause/Resume retains cursor and credit",
+      "status": "PASS"
+    },
+    {
+      "name": "TTS visible Pause cancels unfinished voice and resumes existing scheduler without immediate credit",
+      "status": "PASS"
+    },
+    {
+      "name": "TTS hidden Pause cancels unfinished voice and resumes existing scheduler without immediate credit",
+      "status": "PASS"
+    },
+    {
+      "name": "Native Pause cancels pending preparation task and hidden admission tokens",
+      "status": "PASS"
+    },
+    {
+      "name": "Repeated local Pause/Resume preserves source and never replays a first rep",
+      "status": "PASS"
+    },
+    {
+      "name": "Real aggregate global hold blocks direct local Resume",
+      "status": "PASS"
+    },
+    {
+      "name": "Real user global hold blocks direct local Resume",
+      "status": "PASS"
+    },
+    {
+      "name": "Real terminal global hold blocks direct local Resume",
+      "status": "PASS"
+    },
+    {
+      "name": "Finish after local Pause is terminal and retires only retained dhikr owner",
+      "status": "PASS"
+    },
+    {
+      "name": "Paused selection change cannot resume the old native voice",
+      "status": "PASS"
+    },
+    {
+      "name": "Paused key change cannot resume the old native voice",
+      "status": "PASS"
+    },
+    {
+      "name": "A deferred unowned Resume cannot survive terminal Finish",
+      "status": "PASS"
+    },
+    {
+      "name": "A paused direct source cannot resume on top of a live journey owner",
+      "status": "PASS"
+    },
+    {
+      "name": "Generic bank preference change rejects retained generic native replay",
+      "status": "PASS"
+    },
+    {
+      "name": "Voice epoch changed before-pause cannot replay the old retained native recording",
+      "status": "PASS"
+    },
+    {
+      "name": "Voice epoch changed after-pause cannot replay the old retained native recording",
+      "status": "PASS"
+    },
+    {
+      "name": "Personal recording replacement after Pause cannot replay the retained older revision",
+      "status": "PASS"
+    },
+    {
+      "name": "Changed generic lookup after Pause enters fresh preparation instead of replaying the old voice",
+      "status": "PASS"
+    },
+    {
+      "name": "Changed fx-tempo cannot reuse an obsolete retained recording admission",
+      "status": "PASS"
+    },
+    {
+      "name": "Changed new-prepared-url cannot reuse an obsolete retained recording admission",
+      "status": "PASS"
+    },
+    {
+      "name": "Changed native-lease cannot reuse an obsolete retained recording admission",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual native count ledger visible gives no paused-time credit and one resumed media unit",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual native count ledger hidden gives no paused-time credit and one resumed media unit",
+      "status": "PASS"
+    }
+  ],
+  "scope": "Actual shipped direct Pause/Resume/Stop, retained native pause/resume, voice abort, pending preparation cancellation, foreground reservation. Media owner, PCM/scheduler and recording endpoint are controlled seams; no physical-phone audibility claim."
+}

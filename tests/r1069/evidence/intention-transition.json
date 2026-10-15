@@ -1,0 +1,125 @@
+{
+  "source": "index.html",
+  "sourceHash": "3de9eba3ed020cb4f997745725b323615a6265a6ab5cec86e6c1a6cb894ad0d1",
+  "passed": 29,
+  "total": 29,
+  "scope": "Actual production gate, automatic scheduler, prepared native source replacement, raw/native media and TTS integration. Leaf media events, clocks and storage are controlled. No physical phone, audio recording mutation or audible screen-lock claim.",
+  "results": [
+    {
+      "name": "Direct hidden admission accepts only its own synchronous intention park and resumes after full ended",
+      "passed": true
+    },
+    {
+      "name": "An older canceled BeginHidden gate cannot borrow a newer completed gate for the same name",
+      "passed": true
+    },
+    {
+      "name": "Direct hidden admission cannot accept later-stop-sequence after its own intention park",
+      "passed": true
+    },
+    {
+      "name": "Direct hidden admission cannot accept pause after its own intention park",
+      "passed": true
+    },
+    {
+      "name": "Direct hidden admission cannot accept stop after its own intention park",
+      "passed": true
+    },
+    {
+      "name": "Direct hidden admission cannot accept new-name-gate after its own intention park",
+      "passed": true
+    },
+    {
+      "name": "Direct hidden admission cannot accept owner-epoch after its own intention park",
+      "passed": true
+    },
+    {
+      "name": "Direct hidden admission cannot accept owner-intent after its own intention park",
+      "passed": true
+    },
+    {
+      "name": "Native automatic visible next-name scheduler enters its pending intention",
+      "passed": true
+    },
+    {
+      "name": "Native automatic hidden next-name scheduler enters its pending intention",
+      "passed": true
+    },
+    {
+      "name": "Same-name new cycle omits intention according to the saved preference",
+      "passed": true
+    },
+    {
+      "name": "Same-name new cycle requires intention according to the saved preference",
+      "passed": true
+    },
+    {
+      "name": "Prepared visible next-name apply waits while intention is due",
+      "passed": true
+    },
+    {
+      "name": "Prepared visible next-name apply waits while intention is playing",
+      "passed": true
+    },
+    {
+      "name": "Prepared hidden next-name apply waits while intention is due",
+      "passed": true
+    },
+    {
+      "name": "Prepared hidden next-name apply waits while intention is playing",
+      "passed": true
+    },
+    {
+      "name": "Actual visible media ledger cannot count the following name before intention ends",
+      "passed": true
+    },
+    {
+      "name": "Actual hidden media ledger cannot count the following name before intention ends",
+      "passed": true
+    },
+    {
+      "name": "Raw visible complete intention before each of three next names",
+      "passed": true
+    },
+    {
+      "name": "Native hidden complete intention before each of three next names",
+      "passed": true
+    },
+    {
+      "name": "Raw visible intention keeps the complete recorded phrase despite silence-analysis trim hints",
+      "passed": true
+    },
+    {
+      "name": "Native hidden intention keeps the complete recorded phrase despite silence-analysis trim hints",
+      "passed": true
+    },
+    {
+      "name": "Device speech delayed onset and long phrase wait for actual onend",
+      "passed": true
+    },
+    {
+      "name": "Raw visible canceled manual-next cannot settle a newer name via stale ended",
+      "passed": true
+    },
+    {
+      "name": "Raw visible canceled auto-pause cannot settle a newer name via stale ended",
+      "passed": true
+    },
+    {
+      "name": "Raw visible canceled auto-stop cannot settle a newer name via stale ended",
+      "passed": true
+    },
+    {
+      "name": "Native hidden canceled manual-next cannot settle a newer name via stale ended",
+      "passed": true
+    },
+    {
+      "name": "Native hidden canceled auto-pause cannot settle a newer name via stale ended",
+      "passed": true
+    },
+    {
+      "name": "Native hidden canceled auto-stop cannot settle a newer name via stale ended",
+      "passed": true
+    }
+  ]
+}

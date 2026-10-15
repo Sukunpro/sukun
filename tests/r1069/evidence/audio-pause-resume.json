@@ -1,0 +1,203 @@
+{
+  "method": "Actual production handlers; controlled media, storage and timer events. No physical Android lock screen or audible device validation.",
+  "passed": 49,
+  "total": 49,
+  "results": [
+    {
+      "name": "raw pause at 0 ms then resume restores intended 0",
+      "passed": true
+    },
+    {
+      "name": "raw pause at 0 ms then resume restores intended 0.5",
+      "passed": true
+    },
+    {
+      "name": "raw pause at 0 ms then resume restores intended 0.8",
+      "passed": true
+    },
+    {
+      "name": "raw pause at 6 ms then resume restores intended 0",
+      "passed": true
+    },
+    {
+      "name": "raw pause at 6 ms then resume restores intended 0.5",
+      "passed": true
+    },
+    {
+      "name": "raw pause at 6 ms then resume restores intended 0.8",
+      "passed": true
+    },
+    {
+      "name": "raw pause at 12 ms then resume restores intended 0",
+      "passed": true
+    },
+    {
+      "name": "raw pause at 12 ms then resume restores intended 0.5",
+      "passed": true
+    },
+    {
+      "name": "raw pause at 12 ms then resume restores intended 0.8",
+      "passed": true
+    },
+    {
+      "name": "raw visible long pause survives throttled timers",
+      "passed": true
+    },
+    {
+      "name": "raw visible long pause survives pause tick",
+      "passed": true
+    },
+    {
+      "name": "raw hidden long pause survives throttled timers",
+      "passed": true
+    },
+    {
+      "name": "raw hidden long pause survives pause tick",
+      "passed": true
+    },
+    {
+      "name": "native journey visible long pause survives throttled timers",
+      "passed": true
+    },
+    {
+      "name": "native journey visible long pause survives pause tick",
+      "passed": true
+    },
+    {
+      "name": "native journey hidden long pause survives throttled timers",
+      "passed": true
+    },
+    {
+      "name": "native journey hidden long pause survives pause tick",
+      "passed": true
+    },
+    {
+      "name": "raw visible true advancing-state stall still fails",
+      "passed": true
+    },
+    {
+      "name": "raw hidden true advancing-state stall still fails",
+      "passed": true
+    },
+    {
+      "name": "native journey visible true advancing-state stall still fails",
+      "passed": true
+    },
+    {
+      "name": "native journey hidden true advancing-state stall still fails",
+      "passed": true
+    },
+    {
+      "name": "raw Stop during long pause remains terminal",
+      "passed": true
+    },
+    {
+      "name": "native journey Stop during long pause remains terminal",
+      "passed": true
+    },
+    {
+      "name": "raw retired onset cannot be restored by a late playing event",
+      "passed": true
+    },
+    {
+      "name": "raw resumed source preserves mute",
+      "passed": true
+    },
+    {
+      "name": "manager Pause cancels pending analysis before media start",
+      "passed": true
+    },
+    {
+      "name": "manager Pause cancels pending handoff before media start",
+      "passed": true
+    },
+    {
+      "name": "backup Pause cancels pending analysis before media start",
+      "passed": true
+    },
+    {
+      "name": "backup Pause cancels pending handoff before media start",
+      "passed": true
+    },
+    {
+      "name": "library Pause cancels pending analysis before media start",
+      "passed": true
+    },
+    {
+      "name": "library Pause cancels pending handoff before media start",
+      "passed": true
+    },
+    {
+      "name": "raw accepted preview Pause retains its same media attempt",
+      "passed": true
+    },
+    {
+      "name": "native journey accepted preview Pause retains its same media attempt",
+      "passed": true
+    },
+    {
+      "name": "raw Pause retires a preview whose native start is still pending",
+      "passed": true
+    },
+    {
+      "name": "native journey Pause retires a preview whose native start is still pending",
+      "passed": true
+    },
+    {
+      "name": "Stop still cancels pending analysis",
+      "passed": true
+    },
+    {
+      "name": "raw paused selection change still retires old ownership",
+      "passed": true
+    },
+    {
+      "name": "raw paused voice change still retires old ownership",
+      "passed": true
+    },
+    {
+      "name": "raw paused intent change still retires old ownership",
+      "passed": true
+    },
+    {
+      "name": "native journey paused selection change still retires old ownership",
+      "passed": true
+    },
+    {
+      "name": "native journey paused voice change still retires old ownership",
+      "passed": true
+    },
+    {
+      "name": "native journey paused intent change still retires old ownership",
+      "passed": true
+    },
+    {
+      "name": "raw repeated pause/resume resets each real resumed playing deadline",
+      "passed": true
+    },
+    {
+      "name": "native journey repeated pause/resume resets each real resumed playing deadline",
+      "passed": true
+    },
+    {
+      "name": "raw direct reader Pause cancels nested dua pending analysis",
+      "passed": true
+    },
+    {
+      "name": "raw direct reader Pause cancels nested dua pending first-play",
+      "passed": true
+    },
+    {
+      "name": "native journey direct reader Pause cancels nested dua pending analysis",
+      "passed": true
+    },
+    {
+      "name": "native journey direct reader Pause cancels nested dua pending first-play",
+      "passed": true
+    },
+    {
+      "name": "direct reader Pause fences actual duaRecPlay pending storage read",
+      "passed": true
+    }
+  ]
+}

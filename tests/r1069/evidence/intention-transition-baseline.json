@@ -1,0 +1,138 @@
+{
+  "source": "index.html",
+  "sourceHash": "f0cf9309ee2c84d4d555206a1c7198ad6322c3a9d1453b064412efa1f4705a65",
+  "passed": 16,
+  "total": 29,
+  "scope": "Actual production gate, automatic scheduler, prepared native source replacement, raw/native media and TTS integration. Leaf media events, clocks and storage are controlled. No physical phone, audio recording mutation or audible screen-lock claim.",
+  "results": [
+    {
+      "name": "Direct hidden admission accepts only its own synchronous intention park and resumes after full ended",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:65:51\n    at async test (/workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:60:34)\n    at async /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:63:2"
+    },
+    {
+      "name": "An older canceled BeginHidden gate cannot borrow a newer completed gate for the same name",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: A false gate result must remain terminal even if a replacement has the same completed key\n\ntrue !== false\n\n    at /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:76:20\n    at async test (/workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:60:34)\n    at async /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:69:2"
+    },
+    {
+      "name": "Direct hidden admission cannot accept later-stop-sequence after its own intention park",
+      "passed": true
+    },
+    {
+      "name": "Direct hidden admission cannot accept pause after its own intention park",
+      "passed": true
+    },
+    {
+      "name": "Direct hidden admission cannot accept stop after its own intention park",
+      "passed": true
+    },
+    {
+      "name": "Direct hidden admission cannot accept new-name-gate after its own intention park",
+      "passed": true
+    },
+    {
+      "name": "Direct hidden admission cannot accept owner-epoch after its own intention park",
+      "passed": true
+    },
+    {
+      "name": "Direct hidden admission cannot accept owner-intent after its own intention park",
+      "passed": true
+    },
+    {
+      "name": "Native automatic visible next-name scheduler enters its pending intention",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: An existing native loop must not bypass the next-name intention gate\n    at /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:91:3\n    at async test (/workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:60:34)\n    at async /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:89:35"
+    },
+    {
+      "name": "Native automatic hidden next-name scheduler enters its pending intention",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: An existing native loop must not bypass the next-name intention gate\n    at /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:91:3\n    at async test (/workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:60:34)\n    at async /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:89:35"
+    },
+    {
+      "name": "Same-name new cycle omits intention according to the saved preference",
+      "passed": true
+    },
+    {
+      "name": "Same-name new cycle requires intention according to the saved preference",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: The saved per-cycle intention switch controls this boundary\n\nfalse !== true\n\n    at /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:98:46\n    at async test (/workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:60:34)\n    at async /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:95:40"
+    },
+    {
+      "name": "Prepared visible next-name apply waits while intention is due",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Prepared name replacement must be denied before introduction completion\n\ntrue !== false\n\n    at /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:104:10\n    at async test (/workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:60:34)\n    at async /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:101:69"
+    },
+    {
+      "name": "Prepared visible next-name apply waits while intention is playing",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Prepared name replacement must be denied before introduction completion\n\ntrue !== false\n\n    at /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:104:10\n    at async test (/workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:60:34)\n    at async /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:101:69"
+    },
+    {
+      "name": "Prepared hidden next-name apply waits while intention is due",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Prepared name replacement must be denied before introduction completion\n\ntrue !== false\n\n    at /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:104:10\n    at async test (/workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:60:34)\n    at async /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:101:69"
+    },
+    {
+      "name": "Prepared hidden next-name apply waits while intention is playing",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Prepared name replacement must be denied before introduction completion\n\ntrue !== false\n\n    at /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:104:10\n    at async test (/workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:60:34)\n    at async /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:101:69"
+    },
+    {
+      "name": "Actual visible media ledger cannot count the following name before intention ends",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: A following-name media sample must not count before the intention completes\n\n1 !== 0\n\n    at /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:117:10\n    at async test (/workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:60:34)\n    at async /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:109:35"
+    },
+    {
+      "name": "Actual hidden media ledger cannot count the following name before intention ends",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: A following-name media sample must not count before the intention completes\n\n1 !== 0\n\n    at /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:117:10\n    at async test (/workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:60:34)\n    at async /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:109:35"
+    },
+    {
+      "name": "Raw visible complete intention before each of three next names",
+      "passed": true
+    },
+    {
+      "name": "Native hidden complete intention before each of three next names",
+      "passed": true
+    },
+    {
+      "name": "Raw visible intention keeps the complete recorded phrase despite silence-analysis trim hints",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: A complete intention must start at the beginning of its recording\n\n1 !== 0\n\n    at /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:131:39\n    at async test (/workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:60:34)\n    at async /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:129:35"
+    },
+    {
+      "name": "Native hidden intention keeps the complete recorded phrase despite silence-analysis trim hints",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: A complete intention must start at the beginning of its recording\n\n1 !== 0\n\n    at /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:131:39\n    at async test (/workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:60:34)\n    at async /workspace/scratch/f778a2db1d4a/sukun/tests/r1069/intention-transition.cjs:129:35"
+    },
+    {
+      "name": "Device speech delayed onset and long phrase wait for actual onend",
+      "passed": true
+    },
+    {
+      "name": "Raw visible canceled manual-next cannot settle a newer name via stale ended",
+      "passed": true
+    },
+    {
+      "name": "Raw visible canceled auto-pause cannot settle a newer name via stale ended",
+      "passed": true
+    },
+    {
+      "name": "Raw visible canceled auto-stop cannot settle a newer name via stale ended",
+      "passed": true
+    },
+    {
+      "name": "Native hidden canceled manual-next cannot settle a newer name via stale ended",
+      "passed": true
+    },
+    {
+      "name": "Native hidden canceled auto-pause cannot settle a newer name via stale ended",
+      "passed": true
+    },
+    {
+      "name": "Native hidden canceled auto-stop cannot settle a newer name via stale ended",
+      "passed": true
+    }
+  ]
+}

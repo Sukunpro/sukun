@@ -1,0 +1,75 @@
+{
+  "method": "Actual production media-clock accumulator and target settlement with independent wall/media samples and native events. Android lock, browser scheduling and speaker output are not simulated.",
+  "passed": 17,
+  "total": 17,
+  "results": [
+    {
+      "name": "hidden delayed observer credits only completed media units at rate 0.5",
+      "passed": true
+    },
+    {
+      "name": "hidden delayed observer credits only completed media units at rate 1",
+      "passed": true
+    },
+    {
+      "name": "hidden delayed observer credits only completed media units at rate 2",
+      "passed": true
+    },
+    {
+      "name": "wall-clock suspension with an unchanged media position gives zero credit",
+      "passed": true
+    },
+    {
+      "name": "one observed native block wrap credits its observed tail and head exactly once",
+      "passed": true
+    },
+    {
+      "name": "a skipped whole block cannot be guessed from elapsed wall time",
+      "passed": true
+    },
+    {
+      "name": "duplicate samples after waiting keep the last observed completion exactly once",
+      "passed": true
+    },
+    {
+      "name": "long pause and resume cannot count paused media position changes",
+      "passed": true
+    },
+    {
+      "name": "source replacement settles no progress from its new cursor",
+      "passed": true
+    },
+    {
+      "name": "an explicit seek discards a partial reading and drains to the next full reading boundary",
+      "passed": true
+    },
+    {
+      "name": "an impossible forward jump without a seeking event cannot create 40 readings",
+      "passed": true
+    },
+    {
+      "name": "an impossible backward jump without a seeking event is not a native wrap",
+      "passed": true
+    },
+    {
+      "name": "expected FX seek keeps prior earned fraction without counting its cursor jump",
+      "passed": true
+    },
+    {
+      "name": "actual authority settles a delayed media sample and remains unchanged on timer-only callbacks",
+      "passed": true
+    },
+    {
+      "name": "actual target authority caps an observed old-name surplus at its remaining target",
+      "passed": true
+    },
+    {
+      "name": "terminal Stop retires delayed progress callbacks and later native events",
+      "passed": true
+    },
+    {
+      "name": "actual native snapshot reports zero volume/mute and classifies explicit versus browser pause",
+      "passed": true
+    }
+  ]
+}

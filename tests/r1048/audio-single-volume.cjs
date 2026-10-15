@@ -9,7 +9,7 @@ function fixture({pending=false}={}){
  c.Z.auto=true;c.zikirKey=()=>c.Z.cat+':'+c.Z.idx+':nida';c.__SUKUN_STEP_VOL=.4;c.okumaSeviyesi=()=>.3;
  c.SukunBackgroundAudioOwner={claim(owner){bgState={owner,lease:++bgLease};return bgLease},allowed:()=>true,async play(){a.paused=false;a.plays=(a.plays||0)+1;if(pending)await c.pendingSinglePlay;return true},release(){bgState={}},snapshot:()=>({...bgState}),holdRecovery:noop};
  h.run(between('async function r476BeginHidden(allowVisible=false){','function r838CaptureAudible(s,playing){'));
- h.run(between('function r476Stop(all=true){','window.SukunLockScreenZikir='));
+ h.run(between('function r476Stop(all=true','window.SukunLockScreenZikir='));
  return {...h,a,begin:()=>c.r476BeginHidden(true),state:()=>({...bgState}),replaceOwner(){bgState={owner:'journey',lease:++bgLease}}};
 }
 const results=[];async function test(name,fn){try{await fn();results.push({name,passed:true})}catch(e){results.push({name,passed:false,error:String(e.message||e)})}}

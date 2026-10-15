@@ -1,0 +1,77 @@
+{
+  "version": "r1065",
+  "scope": "Production policy/legacy buttons and intention source admission; no physical Android claim",
+  "passed": 17,
+  "total": 17,
+  "allPassed": true,
+  "tests": [
+    {
+      "name": "Persisted Arabic reader choice retains main dhikr personal and generic admission",
+      "ok": true
+    },
+    {
+      "name": "Persisted meaning reader choice retains Berhetiyye unknown recording admission",
+      "ok": true
+    },
+    {
+      "name": "Explicit Arabic content still rejects an unclassified record",
+      "ok": true
+    },
+    {
+      "name": "Automatic legacy TTS uses transliteration even with a present Arabic device voice",
+      "ok": true
+    },
+    {
+      "name": "Explicit Arabic device selection reports its actual missing voice",
+      "ok": true
+    },
+    {
+      "name": "Saved personal/generic-only sources retain their exact source constraints",
+      "ok": true
+    },
+    {
+      "name": "Explicit meaning with Arabic device source remains blocked and silent",
+      "ok": true
+    },
+    {
+      "name": "Old AK/Fatiha buttons retain old path without bundled audio despite persisted Arabic",
+      "ok": true
+    },
+    {
+      "name": "Old AK/Fatiha buttons use bundled-ready route without device voices",
+      "ok": true
+    },
+    {
+      "name": "Old generic-only button dispatch preserves source and ignores explorer content",
+      "ok": true
+    },
+    {
+      "name": "Seyyid old Arabic auto button permits fallback but meaning button stays explicit",
+      "ok": true
+    },
+    {
+      "name": "Intention automatic selection reaches bundled without device Arabic and preserves blobs",
+      "ok": true
+    },
+    {
+      "name": "Intention automatic selection reaches generic without device Arabic and preserves blobs",
+      "ok": true
+    },
+    {
+      "name": "Intention automatic selection reaches personal without device Arabic and preserves blobs",
+      "ok": true
+    },
+    {
+      "name": "Intention automatic selection reaches speech without device Arabic and preserves blobs",
+      "ok": true
+    },
+    {
+      "name": "Stop during pending intention bundle lookup prevents fallback and playback",
+      "ok": true
+    },
+    {
+      "name": "Bundled provenance is distinct from own/general recordings in TR and EN",
+      "ok": true
+    }
+  ]
+}
