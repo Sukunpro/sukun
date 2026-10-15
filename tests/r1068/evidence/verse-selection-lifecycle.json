@@ -1,0 +1,102 @@
+{
+  "version": "r1068",
+  "root": "/workspace/scratch/f778a2db1d4a/sukun",
+  "scope": "Exact production queueVerseSelection with controlled event/RAF seams. Native selector popup and shared Navigation behavior are verified separately.",
+  "total": 23,
+  "passed": 23,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Committed native choice accepts its trusted same-select trailing click before first paint",
+      "passed": true
+    },
+    {
+      "name": "A commit without a trailing click still navigates once at first paint",
+      "passed": true
+    },
+    {
+      "name": "Repeated trusted trailing clicks on the same selector remain one committed navigation",
+      "passed": true
+    },
+    {
+      "name": "New pointerdown cancels the pending choice and immediately removes temporary listeners",
+      "passed": true
+    },
+    {
+      "name": "New touchstart cancels the pending choice and immediately removes temporary listeners",
+      "passed": true
+    },
+    {
+      "name": "New touchmove cancels the pending choice and immediately removes temporary listeners",
+      "passed": true
+    },
+    {
+      "name": "New wheel cancels the pending choice and immediately removes temporary listeners",
+      "passed": true
+    },
+    {
+      "name": "New keydown cancels the pending choice and immediately removes temporary listeners",
+      "passed": true
+    },
+    {
+      "name": "An outside trusted click cancels pending choice",
+      "passed": true
+    },
+    {
+      "name": "A programmatic click on the same selector is not adopted as the native completion",
+      "passed": true
+    },
+    {
+      "name": "blur retires the pending request even when focus/visibility returns before paint",
+      "passed": true
+    },
+    {
+      "name": "pagehide retires the pending request even when focus/visibility returns before paint",
+      "passed": true
+    },
+    {
+      "name": "A hidden interval retires the request even if visible again before paint",
+      "passed": true
+    },
+    {
+      "name": "A visible visibilitychange alone does not cancel a native choice",
+      "passed": true
+    },
+    {
+      "name": "Hidden state at paint blocks navigation even if no lifecycle event was delivered",
+      "passed": true
+    },
+    {
+      "name": "A changed selector value cannot reveal the old verse",
+      "passed": true
+    },
+    {
+      "name": "A disconnected selector cannot reveal its old verse",
+      "passed": true
+    },
+    {
+      "name": "A replaced selector with the same value does not inherit the old request",
+      "passed": true
+    },
+    {
+      "name": "A stale generation cannot navigate or remove the latest request listeners",
+      "passed": true
+    },
+    {
+      "name": "Two commits of the same value still admit only the newest generation",
+      "passed": true
+    },
+    {
+      "name": "Cancelled old paint cannot remove a fresh request armed after the cancel event",
+      "passed": true
+    },
+    {
+      "name": "A disconnected selector rejects scheduling and installs no temporary listeners",
+      "passed": true
+    },
+    {
+      "name": "All temporary listeners are absent after navigation and later events preserve foreign listeners",
+      "passed": true
+    }
+  ]
+}

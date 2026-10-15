@@ -8,7 +8,7 @@
  const text=(node,value)=>{if(node&&node.textContent!==String(value??''))node.textContent=String(value??'')};
  const attr=(node,key,value)=>{if(node&&node.getAttribute(key)!==String(value))node.setAttribute(key,String(value))};
  const val=(node,value)=>{if(node&&document.activeElement!==node&&node.value!==String(value))node.value=String(value)};
- let host=null,yasin=null,selected='reading:ayetelkursi',catalogSignature='',verseSignature='',scheduled=0,subscribed=null,notice='',lastLanguage='',requestSequence=0;
+ let host=null,yasin=null,selected='reading:ayetelkursi',catalogSignature='',verseSignature='',scheduled=0,subscribed=null,notice='',lastLanguage='',requestSequence=0,verseSelectionSequence=0;
  const L={
   title:['Özgün metin, okunuş ve anlam','Original text, transliteration and meaning'],
   choose:['İçerik','Reading'],content:['Dinlenecek içerik','Content to listen to'],source:['Ses kaynağı','Audio source'],
@@ -22,10 +22,10 @@
   tts:['Gömülü kıraat kendi özgün sesiyle, kayıt efektleri uygulanmadan çalar. Cihaz sesi tecvidli kıraat kaydı değildir. Erkek Arapça sesin bulunması cihazın sunduğu seslere bağlıdır; cinsiyeti bilinmeyen sesler erkek diye etiketlenmez. Sesleri Zikir ses ayarlarında seçebilirsin.','Bundled recitations play their original audio without recording effects. Device speech is not a tajwid recitation recording. A male Arabic voice is available only if the device provides one; voices of unknown gender are not labelled male. Choose voices in the dhikr voice settings.'],
   meaningRecord:['Bu bölümdeki mevcut kişisel Delâil kayıtları Türkçe anlam kaydıdır; Arapça özgün seçiminde kullanılmaz.','Existing personal Delail recordings in this section contain the Turkish meaning; they are not used for the Arabic original.'],
   unknownRecord:['Dili veya içeriği belirlenmemiş eski kayıt yeniden sınıflandırılmaz; yalnız kaynak ve içerikle eşleşen kayıt kullanılır.','An old recording with unknown language or content is not reclassified; only a recording matching the source and content is used.'],
-  yasinTitle:['Yâsîn sûresi · 83 âyet','Surah Ya Sin · 83 verses'],verse:['Başlangıç âyeti','Starting verse'],allMeaning:['Türkçe meali göster','Show Turkish translation'],
+  yasinTitle:['Yâsîn sûresi · 83 âyet','Surah Ya Sin · 83 verses'],verse:['Âyet seçimi','Verse selection'],allMeaning:['Türkçe meali göster','Show Turkish translation'],
   currentVerse:['Âyet','Verse'],goCurrentVerse:['Okunan âyete git','Go to the current verse'],trackingReady:['Dinlenen âyet burada işaretlenir.','The verse being played is highlighted here.'],trackingUnavailable:['Dinlenen bölüm için âyet eşleşmesi yok.','No verse match is available for the part being played.'],trackingBasmala:['Besmele okunuyor','Reading the basmala'],
   previous:['Önceki âyet','Previous verse'],next:['Sonraki âyet','Next verse'],repeat:['Bu âyeti tekrar dinle','Repeat this verse'],yasinOpen:['Yâsîn metnini aç','Open the Ya Sin text'],
-  complete:['83 âyet metni tamdır. Gömülü ses tam sûre kaydıdır; âyet seçimi ve âyet tekrarı için isteğe bağlı Arapça cihaz sesi kullanılır.','The text contains all 83 verses. Bundled audio is a complete surah recording; verse selection and verse repetition use the optional Arabic device voice.'],
+  complete:['Âyet seçimi metindeki ilgili âyeti açar. Gömülü Arapça kayıt tam sûre olarak baştan çalar. Arapça cihaz sesi veya Türkçe anlam okuması seçili âyetten başlayabilir.','Verse selection opens that verse in the text. Bundled Arabic audio plays the complete surah from the beginning. Arabic device speech or Turkish meaning can start at the selected verse.'],
   unavailable:['Okuyucu hazırlanamadı. Yeniden dene.','The reader could not be prepared. Please retry.'],ready:['Hazır','Ready'],preparing:['Ses hazırlanıyor','Preparing audio'],playing:['Okunuyor','Playing'],paused:['Duraklatıldı','Paused'],finished:['Okuma bitti','Reading finished'],
   originalGroup:['Dua ve sûreler','Prayers and surahs'],delailGroup:['Delâilü’l-Hayrât','Dalail al-Khayrat'],salavatGroup:['Salavât-ı Şerifeler','Salawat'],istigfarGroup:['İstiğfar ve arınma','Istighfar and purification'],esmaGroup:['Esmâü’l-Hüsnâ','Beautiful names'],tevhidGroup:['Tevhid','Tawhid'],otherGroup:['Diğer zikirler','Other dhikr'],
   open:['Özgün metni ve anlamı incele','View the original text and meaning'],current:['Aktif zikrin özgün metni ve anlamı','Original text and meaning of the active dhikr'],basmala:['Besmele','Basmala'],listeningChoices:['Dinleme seçimleri','Listening choices'],meaningSource:['Türkçe anlam kaynağı','Turkish meaning source'],meaningPending:['Mevcut anlam metni korunuyor. Çevirmen veya baskı bilgisi henüz doğrulanmadı; bu okuyucuda anlam dinleme kapalı.','The existing meaning text is preserved. Its translator or edition has not yet been verified; meaning playback is unavailable in this reader.']
@@ -90,7 +90,8 @@
   for(const prefix of ['r1064Reading','r1064Yasin']){if($(prefix+'Pause'))$(prefix+'Pause').disabled=!playing||paused;if($(prefix+'Resume'))$(prefix+'Resume').disabled=!paused;if($(prefix+'Stop'))$(prefix+'Stop').disabled=!playing&&!paused;}
   const error=notice||(phase==='error'?state.reason:'');let status=error?message(error):paused?label('paused'):phase==='preparing'?label('preparing'):playing?label('playing'):['finished','completed','ended'].includes(phase)?label('finished'):label('ready');if((playing||paused)&&state.title)status+=' · '+state.title;if(state.sourceKind==='bundled')status+=' · '+copy('Gömülü Arapça kıraat','Bundled Arabic recitation');
   text($('r1064ReadingStatus'),status);text($('r1064YasinStatus'),status);
-  if(state.id==='reading:yasin'&&Number.isInteger(state.verse)&&state.verse>=1&&state.verse<=83)val($('r1064YasinVerse'),state.verse);
+  // r1068: the manual text/start selection belongs to the user. Playback paints
+  // its own current-verse frame without rewriting a native picker's value.
   renderYasinFollow(state);
  }
  function yasinFollow(state){
@@ -146,11 +147,34 @@
   const move=delta=>{const state=safe(()=>audio()?.snapshot?.(),{})||{};if(state.id==='reading:yasin'&&(state.playing||state.paused||['PLAYING','PAUSED','PREPARING','playing','paused','preparing'].includes(state.phase||state.status)))transport(delta<0?'previous':'next');else{select.value=String(Math.max(1,Math.min(83,(Number(select.value)||1)+delta)));scrollVerse(Number(select.value));}};
   $('r1064YasinPrevious').onclick=()=>move(-1);$('r1064YasinNext').onclick=()=>move(1);
   $('r1064YasinRepeat').onclick=()=>{const state=safe(()=>audio()?.snapshot?.(),{})||{};if(state.id==='reading:yasin'&&(state.playing||state.paused||['playing','paused','preparing'].includes(String(state.phase||state.status).toLowerCase())))transport('repeat');else void play('reading:yasin',settings()?.getContent?.()==='meaning'?'meaning':'arabic',{startVerse:Number(select.value)||1,onlyVerse:true})};
-  select.onchange=()=>scrollVerse(Number(select.value));$('r1064YasinShowMeaning').onchange=renderYasin;
+  select.onchange=()=>queueVerseSelection(Number(select.value));$('r1064YasinShowMeaning').onchange=renderYasin;
   $('r1067YasinCurrentVerse').onclick=goCurrentVerse;
   $('r1064YasinSourceOpen').onclick=()=>{open('reading:yasin');$('r1064ReadingSources').open=true;};$('r1064YasinChoices').onclick=()=>open('reading:yasin');
  }
- function scrollVerse(number){const node=$('r1064YasinVerse'+number);node?.scrollIntoView?.({behavior:'auto',block:'nearest'})}
+ function scrollVerse(number){
+  const select=$('r1064YasinVerse'),node=$('r1064YasinVerse'+number);if(!node||!yasin?.open)return false;
+  const options={reason:'yasin-verse-selection',block:'nearest',isCurrent:()=>yasin?.open&&Number(select?.value)===number};
+  // A native picker can stay open beyond the original tap's intent window.
+  // Its committed selection is explicit navigation; a later gesture cancels it.
+  if(w.SukunNavigationR1066)return w.SukunNavigationR1066.reveal(node,options);
+  return safe(()=>{if(w.SukunViewportPolicy?.scrollTo)return w.SukunViewportPolicy.scrollTo(node,{behavior:'instant',block:'nearest'},options.reason);node.scrollIntoView?.({behavior:'instant',block:'nearest'});return true},false);
+ }
+ function queueVerseSelection(number){
+  const select=$('r1064YasinVerse'),token=++verseSelectionSequence;if(!select?.isConnected)return false;
+  // Native select commits can emit change, then a click on the same control.
+  // Finish that gesture before capturing the shared navigation ticket. A new
+  // input beginning in the meantime cancels this request instead of being adopted.
+  let cancelled=false;
+  const starts=['pointerdown','touchstart','touchmove','wheel','keydown'];
+  const cleanup=()=>{for(const type of starts)document.removeEventListener(type,cancel,true);document.removeEventListener('click',click);document.removeEventListener('visibilitychange',visibility);w.removeEventListener('blur',cancel);w.removeEventListener('pagehide',cancel);};
+  const cancel=()=>{cancelled=true;cleanup();};
+  const click=e=>{if(!e.isTrusted||e.target!==select)cancel();};
+  const visibility=()=>{if(document.hidden)cancel();};
+  for(const type of starts)document.addEventListener(type,cancel,{capture:true,passive:true});
+  document.addEventListener('click',click,{passive:true});document.addEventListener('visibilitychange',visibility,{passive:true});w.addEventListener('blur',cancel,{passive:true});w.addEventListener('pagehide',cancel,{passive:true});
+  requestAnimationFrame(()=>{cleanup();if(!cancelled&&token===verseSelectionSequence&&select.isConnected&&select===$('r1064YasinVerse')&&Number(select.value)===number&&!document.hidden)scrollVerse(number);});
+  return true;
+ }
  function renderYasin(){
   if(!yasin?.isConnected)return;const {record,verses,basmala}=yasinData();const mode=settings()?.getMode?.()||'auto';text($('r1064YasinSourceSummary'),label('source')+': '+label(mode==='arabic'?'arabicTTS':mode==='turkish'?'turkishTTS':mode));
   const valid=verses.length===83&&verses.every((verse,index)=>Number(verse.number??verse.verse??verse.ayah??index+1)===index+1&&String(verse.arabic||verse.ar||verse.text||'').trim());
@@ -159,7 +183,9 @@
   if(signature!==verseSignature){verseSignature=signature;const list=$('r1064YasinVerses');list.replaceChildren();if(valid)verses.forEach((verse,index)=>{const row=document.createElement('article');row.id='r1064YasinVerse'+(index+1);row.className='r1064-verse';row.dataset.verse=String(index+1);const number=document.createElement('span');number.className='r1064-verse-number';number.textContent=String(index+1);number.setAttribute('aria-hidden','true');const ar=document.createElement('div');ar.className='r1064-arabic';ar.lang='ar';ar.dir='rtl';ar.textContent=verse.arabic||verse.ar||verse.text;const meaning=document.createElement('p');meaning.className='r1064-verse-meaning';meaning.lang='tr';meaning.dir='ltr';meaning.textContent=verse.meaning||verse.translation||verse.tr||'';meaning.hidden=true;row.append(number,ar,meaning);list.append(row)});}
   const show=!!$('r1064YasinShowMeaning')?.checked;for(const node of yasin.querySelectorAll('.r1064-verse-meaning'))node.hidden=!show;
   const hasMean=valid&&verses.every(verse=>String(verse.meaning||verse.translation||verse.tr||'').trim());
-  const bundledMode=mode==='auto'&&settings()?.getContent?.()!=='meaning';const bundledActive=audio()?.snapshot?.().id==='reading:yasin'&&audio()?.snapshot?.().sourceKind==='bundled'&&['playing','paused','preparing'].includes(audio()?.snapshot?.().phase);$('r1064YasinVerse').disabled=bundledMode;for(const id of ['r1064YasinPrevious','r1064YasinNext','r1064YasinRepeat'])if($(id))$(id).disabled=bundledActive||(id==='r1064YasinRepeat'&&bundledMode);
+  const bundledMode=mode==='auto'&&settings()?.getContent?.()!=='meaning';const bundledActive=audio()?.snapshot?.().id==='reading:yasin'&&audio()?.snapshot?.().sourceKind==='bundled'&&['playing','paused','preparing'].includes(audio()?.snapshot?.().phase);
+  const select=$('r1064YasinVerse');if(select.disabled!==!valid)select.disabled=!valid;
+  for(const id of ['r1064YasinPrevious','r1064YasinNext','r1064YasinRepeat'])if($(id))$(id).disabled=bundledActive||(id==='r1064YasinRepeat'&&bundledMode);
   $('r1064YasinArabicListen').disabled=!valid||!canArabic(record);$('r1064YasinMeaningListen').disabled=!hasMean||!canMeaning(record);$('r1064YasinShowMeaning').disabled=!hasMean;
   renderYasinFollow();
  }

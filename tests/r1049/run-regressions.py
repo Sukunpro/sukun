@@ -12,6 +12,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 EXCLUDED = {
+    'tests/r1068/yasin-picker-browser.cjs': 'Separate native picker integration; run directly with native CDP gestures.',
     'tests/r1067/yasin-follow-browser.cjs': 'Separate actual mobile browser integration; run directly with native CDP gestures.',
     'tests/r1067/scroll-audit.cjs': 'Separate actual mobile browser integration; run directly with native CDP gestures.',
     'tests/r1067/scroll-races.cjs': 'Separate actual mobile browser integration; run directly with native CDP gestures.',
