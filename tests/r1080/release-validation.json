@@ -1,0 +1,59 @@
+{
+  "build": "r1080",
+  "shellSha256": "d8de219f350a186d1df1975d2c2d79ab8f1794b2e1d71257e1edece6794f2b32",
+  "regressionGroups": {
+    "passed": 123,
+    "total": 123
+  },
+  "releaseIntegrity": {
+    "passed": 1338,
+    "total": 1338
+  },
+  "productionExporter": {
+    "ok": true,
+    "files": 724
+  },
+  "focusedUnits": {
+    "access": 23,
+    "provider": 23,
+    "health": 6,
+    "queuePrivacy": 14,
+    "portalLifecycle": 8,
+    "allPassed": true
+  },
+  "browser": {
+    "ux": {
+      "passed": 30,
+      "total": 30,
+      "htmlSha256": "06a6d8dd724d980e1b459d09dbce2a19ad026c47e8a78bcee4a0831fdbf5b341"
+    },
+    "realDeviceAdapter": {
+      "passed": 7,
+      "total": 7,
+      "htmlSha256": "ed338d9deed61835319b0c2efb4e9f6d22af0025994e3c0f3fcc41d4b1968900"
+    },
+    "finalNativeAyatulAndInvitation": {
+      "passed": 9,
+      "total": 9,
+      "htmlSha256": "d8de219f350a186d1df1975d2c2d79ab8f1794b2e1d71257e1edece6794f2b32"
+    }
+  },
+  "unchangedPortalSources": {
+    "assets/berhetiyye-gate/access-r1080.js": "99b7f88fac920cfddb409d27789e2063fa66cd038047b4e136ab198b526c2f96",
+    "assets/berhetiyye-gate/audio-r1080.js": "641e897b88f313d73eab53053ac19060cb75999a559d7671ef1895f863274717",
+    "assets/berhetiyye-gate/entry-r1080.css": "b776121eb247621f122ca5d9007d630836df3dd847c3232e1728b66f978c3889",
+    "assets/berhetiyye-gate/entry-r1080.js": "0e76742ea4403a14056bb928a0ba23825e5cb67f8a66e705dd639b7399beee8d",
+    "assets/berhetiyye-gate/portal-r1080.css": "47e0c924130579c45b126de01fdeeb1339f645253682d4720837ad77585f13cf",
+    "assets/berhetiyye-gate/portal-r1080.js": "7e90024a478406d9e444360dae1a3d22e2f1603513477a18c6ad9715090400da"
+  },
+  "voice": {
+    "sha256": "18a114ec927508e4f5684a7e76d39abe28058c81f5632c797a707c6109bd5303",
+    "seconds": 6.84,
+    "type": "Higgsfield Seed Audio, latest user-selected preset"
+  },
+  "limitations": [
+    "Linux Chromium profiles, Classic/Feyz at 320 and 390 px; no physical Samsung/Android screen-lock or audible-quality claim.",
+    "The 30 UX cases precede the health-budget/SRI change. The seven actual device-adapter cases precede only the latest voice/SRI replacement; portal/access/CSS sources remain identical. Final native audio cases use final release bytes.",
+    "No paid membership backend is deployed/configured; the default entry is the existing configured device privacy PIN."
+  ]
+}

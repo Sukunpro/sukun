@@ -651,8 +651,8 @@
   async function integrityCheck() {
     const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10000);
     const result=[];let total=0,reserved=0,mediaTotal=0,mediaReserved=0,expected=0;
-    // Keep the original bounded core check. The six shipped Arabic recordings
-    // use a separate bounded media allowance and expose their actual byte count.
+    // Keep the original bounded core check. Shipped Arabic recordings and the
+    // exact short portal invitation share the separate bounded media allowance.
     const byteBudget=8388608,mediaByteBudget=33554432,waiters=new Set();
     function wakeBudget(){for(const wake of [...waiters])wake();}
     function waitForBudget(){return new Promise((resolve,reject)=>{
@@ -700,24 +700,35 @@
           const introAudio=url.pathname===new URL('./assets/audio/sukun-intro-signature-r1037.wav',location.href).pathname;
           const bundledArabicAudio=['yasin','fatiha','ayatul-kursi','ikhlas','falaq','nas']
             .some(name=>url.pathname===new URL('./assets/audio/arabic-r1065/'+name+'.mp3',location.href).pathname);
-          if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||introAudio||bundledArabicAudio)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
+          // The portal lives outside assets/runtime. Admit only its exact shipped
+          // entry points, never arbitrary siblings, remote providers or audio.
+          const portalRuntime=['./assets/berhetiyye-gate/portal-r1080.css','./assets/berhetiyye-gate/entry-r1080.css',
+            './assets/berhetiyye-gate/audio-r1080.js','./assets/berhetiyye-gate/access-r1080.js',
+            './assets/berhetiyye-gate/portal-r1080.js','./assets/berhetiyye-gate/entry-r1080.js',
+            './integration/berhet-access/example-http-provider.js']
+            .some(p=>url.pathname===new URL(p,location.href).pathname);
+          const portalVoice=url.pathname===new URL('./assets/berhetiyye-gate/invitation-tr.mp3',location.href).pathname;
+          if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;
           }
-          const maxFileBytes=bundledArabicAudio?25165824:navigationArt||cabirArt||introArt?2097152:524288;let allowance=0;
+          // The invitation is media too. Keep both aggregate budgets unchanged
+          // and apply its own smaller per-file cap within the media allowance.
+          const isMedia=bundledArabicAudio||portalVoice;
+          const maxFileBytes=bundledArabicAudio?25165824:portalVoice?500000:navigationArt||cabirArt||introArt?2097152:524288;let allowance=0;
           try {
-            allowance=await reserveBytes(maxFileBytes,bundledArabicAudio);
+            allowance=await reserveBytes(maxFileBytes,isMedia);
             let data;
             try{data=await fetchBytes(url.href,allowance,controller);}
             catch(error){if(allowance<maxFileBytes&&error?.message==='SIZE_LIMIT')throw new Error('TOTAL_SIZE_LIMIT');throw error;}
             // Release the pessimistic reservation immediately. Retaining it
             // through SHA digest would count accepted data twice and incorrectly
             // reject later files even when the whole manifest fits the budget.
-            settleBytes(allowance,data.length,bundledArabicAudio);allowance=0;
+            settleBytes(allowance,data.length,isMedia);allowance=0;
             const digest=await crypto.subtle.digest('SHA-256',data);
             const actual=[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('');
             result.push({path:path(url.href),status:actual===entry.sha256?'MATCH':'HASH_MISMATCH',expected:entry.sha256,actual});
           } catch(error) {result.push({path:path(url.href),status:token(error?.name==='AbortError'?'TIMEOUT':error?.message||error?.name||'FETCH_ERROR')});}
-          finally {if(allowance)settleBytes(allowance,0,bundledArabicAudio);}
+          finally {if(allowance)settleBytes(allowance,0,isMedia);}
 
         }
       }

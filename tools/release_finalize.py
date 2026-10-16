@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Finalize Sukun release metadata and package the explicit deployment graph.
 
-Application/runtime logic stays untouched. Shell release identifiers, release
-notes, locale entries and SRI bookkeeping require explicit --update-shell.
+Application/runtime logic stays untouched. Release identifiers, the opening
+audio URL, notes, locale entries and SRI bookkeeping require --update-shell.
 All bytes are planned and validated before any production file is written.
 """
 import argparse
@@ -87,6 +87,18 @@ def main():
 
         html = read("index.html").decode()
         if a.update_shell:
+            # The opening player fetches its WAV through a release-pinned URL.
+            # Keep that metadata in step with the shell and worker before SRI
+            # is calculated; an old query cannot identify the new runtime.
+            old_audio_url = build.get("startupAudioFile")
+            if old_audio_url:
+                for entry in build["runtime"]:
+                    name = local(entry["url"])
+                    if name.startswith("assets/runtime/startup-intro-") and name.endswith(".js"):
+                        source = read(name).decode()
+                        updated = source.replace(old_audio_url, version_url(old_audio_url))
+                        if updated != source:
+                            plan(name, updated)
             html = version_url(html)
             html = re.sub(r'(<meta\s+name=["\']sukun-build["\']\s+content=["\'])' + re.escape(old), lambda m: m[1] + new, html)
             html = html.replace("window.SUKUN_BUILD='" + old + "'", "window.SUKUN_BUILD='" + new + "'")
