@@ -1,0 +1,76 @@
+{
+  "build": "r1081",
+  "date": "2026-10-16",
+  "productionShellSha256": "75afddc000be5698ef60c96cbc9e644023acc0b1ceb9f75a0859686e360972ce",
+  "baseline": {
+    "commit": "a353b802fe87a5e859f2833d817c65534a371c36",
+    "allStepRepeats": [
+      7,
+      7,
+      7,
+      7,
+      7
+    ],
+    "specialProtectionMarker": false,
+    "expected": {
+      "count": 0,
+      "target": 7,
+      "remaining": 7
+    },
+    "observed": {
+      "count": 11,
+      "target": 622,
+      "remaining": 611
+    },
+    "reproduced": true,
+    "evidence": "baseline-exact-seven.json"
+  },
+  "browser": {
+    "suite": "tests/r1081/smart-target-browser.js",
+    "passed": 11,
+    "total": 11,
+    "browser": "141.0.7390.37",
+    "profile": {
+      "layout": "classic",
+      "skin": "feyz",
+      "width": 390,
+      "height": 844
+    },
+    "nativeRepetitionEdits": 30,
+    "nativeFelakEndedBeforeAdvance": 7,
+    "syntheticTransportToneSeconds": 2,
+    "wheelFinishControl": "Production r920Stop DOM handler invoked programmatically; no trusted stop gesture claimed.",
+    "pageErrors": 0,
+    "failedRequests": 0,
+    "evidence": "final-smart-target.json",
+    "testSha256": "4c6d14b926bbbf765db3d916d5141c3a6b51077099089403a9c8bb6f980f4cda"
+  },
+  "additionalValidation": {
+    "stateProjectionAndOwnershipUnits": {
+      "passed": 27,
+      "total": 27
+    },
+    "historicalRegressionGroups": {
+      "passed": 124,
+      "total": 124
+    },
+    "releaseIntegrityAssertions": {
+      "passed": 1339,
+      "total": 1339
+    },
+    "fullExportGraph": {
+      "passed": true,
+      "files": 724
+    },
+    "taggedProtectiveNativeProgress": {
+      "passed": 5,
+      "total": 5
+    },
+    "source": "Final results reported by the release coordinator."
+  },
+  "limitations": [
+    "Isolated Linux Chromium, Classic/Feyz, 390 by 844 CSS pixels. Physical Samsung Internet, Android lock and audible recitation are not measured.",
+    "Generated two-second PCM tones use disposable personal-recording keys. Real native play, currentTime and ended events run unchanged. Queue configuration uses ordinary untagged smart steps; repetition edits use real native clicks.",
+    "A physical Samsung Internet or Android screen-lock test was not performed. The earlier user report is addressed by the shared smart-step projection and transport authority."
+  ]
+}
