@@ -82,9 +82,19 @@ async function preparation(options={}){
   const h=fixture({duration:10,actualDuration:12,rate});assert.equal(await h.begin(),true);
   assert.equal(h.a.playbackRate,rate);assert.equal(h.a.dataset.sukRepeatUnitSec,'12');assert.equal(h.c._r476Hidden.cycleMs,12000/rate);
  });
- for(const options of [{cat:'esma'},{cat:'berhet'},{duration:0},{duration:NaN},{duration:Infinity},{duration:.8,tempo:1},{duration:1.5,rate:2,tempo:1}])await test('ineligible raw source stays blocked before play: '+describe(options),async()=>{
+ for(const options of [{cat:'esma'},{cat:'berhet'},{duration:NaN},{duration:Infinity},{duration:.8,tempo:1},{duration:1.5,rate:2,tempo:1}])await test('ineligible raw source stays blocked before play: '+describe(options),async()=>{
   const h=fixture({...options,hidden:true});assert.equal(await h.begin(),false);assert.equal(h.a.plays||0,0);assert.equal(h.claims.length,0);
   assert.equal(h.holds[0]?.code,'native-format-unavailable');assert.equal(h.c._r476Hidden,null);
+ });
+ for(const actualDuration of [4,12])await test(`unknown preliminary duration defers to native ${actualDuration}s without inventing time`,async()=>{
+  const h=fixture({duration:0,actualDuration,hidden:true});assert.equal(await h.begin(),true);
+  assert.equal(h.c._r476Hidden.cycleMs,actualDuration*1000);assert.equal(h.a.dataset.sukRepeatUnitSec,String(actualDuration));assert.deepEqual([h.c.Z.count,h.c.Z.total],[11,47]);
+ });
+ for(const actualDuration of [0,NaN,Infinity,.5])await test(`unknown probe cannot lend native ${String(actualDuration)}s a valid duration`,async()=>{
+  const h=fixture({duration:0,actualDuration,hidden:true});assert.equal(await h.begin(),false);assert.equal(h.a.plays,1);assert.equal(h.a.paused,true);assert.equal(h.c._r476Hidden,null);assert.equal(h.failures[0]?.code,'native-format-unavailable');assert.deepEqual([h.c.Z.count,h.c.Z.total],[11,47]);
+ });
+ for(const mutation of ['key','url'])await test('unknown protective candidate requires matching '+mutation,async()=>{
+  const h=fixture({duration:0,actualDuration:4,hidden:true});if(mutation==='key')h.c._r476Prepared.key='koruma:4';else h.c._r476Prepared.url='https://foreign.example/audio';assert.equal(h.c.r1076ProtectiveOriginal(h.c._r476Prepared),false);
  });
  for(const property of ['blob','url'])await test('missing original '+property+' is never eligible',async()=>{
   const h=fixture();h.c._r476Prepared[property]=null;assert.equal(h.c.r1076ProtectiveOriginal(h.c._r476Prepared),false);
@@ -120,7 +130,10 @@ async function preparation(options={}){
   assert.equal(h.c._r476Prepared.key,'koruma:3');assert.equal(h.c._r476Prepared.durationMs,4000);assert.equal(h.c._r476Prepared.fxReady,false);
   assert.equal(h.holds.length,0);h.fx.resolve(null);await h.promise;
  });
- for(const options of [{cat:'esma'},{cat:'berhet'},{duration:0},{duration:.5,tempo:1}])await test('hidden original deadline keeps the old rejection guard for '+JSON.stringify(options),async()=>{
+ await test('hidden preparation with unknown probe can commit an original candidate for native verification',async()=>{
+  const h=await preparation({duration:0,hidden:true});await h.advance(3001);assert.equal(h.task.fallbackUsed,true);assert.deepEqual(h.settled,[true]);assert.equal(h.c._r476Prepared.durationMs,0);assert.equal(h.holds.length,0);h.fx.resolve(null);await h.promise;
+ });
+ for(const options of [{cat:'esma'},{cat:'berhet'},{duration:.5,tempo:1}])await test('hidden original deadline keeps the old rejection guard for '+JSON.stringify(options),async()=>{
   const h=await preparation({...options,hidden:true});await h.advance(3001);
   assert.equal(h.task.cancelled,true);assert.equal(h.holds[0]?.code,'native-format-unavailable');assert.deepEqual(h.settled,[false]);h.fx.resolve(null);await h.promise;
  });

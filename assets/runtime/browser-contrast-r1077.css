@@ -1,0 +1,59 @@
+/* First important layer: readable paint independent of gradient-text support,
+   scene brightness and backdrop-filter. Geometry and theme selection stay with
+   their existing owners. Browser force-dark is not a detectable media query. */
+:root{color-scheme:dark;background-color:#041017;color:#eff5ed}
+@layer sukun-r1077-contrast {
+html body .wrap>header{
+ background:linear-gradient(150deg,#082b35c7,#06121dd9)!important;
+}
+html body .wrap>header :is(h1.shimmer-text,.sub){
+ /* Solid glyph paint avoids independent inversion of text-clipped gradients.
+    The seal and surrounding ornament retain their existing animation. */
+ background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;
+ -webkit-text-fill-color:currentColor!important;opacity:1!important;animation:none!important;
+ text-shadow:0 2px 4px #000000b3!important;
+}
+html body .wrap>header h1.shimmer-text{color:#f5ebca!important}
+html body .wrap>header .sub{color:#d8e9e2!important}
+html body.r716-shell #prDashboard{
+ background:linear-gradient(160deg,#071c26d1,#04121cc7)!important;
+}
+html body.r716-shell #prDashboard :is(.prPerfHint,.prPerfHelp){
+ color:#d8e9e2!important;opacity:1!important;
+ background:#04121cb8!important;text-shadow:none!important;
+}
+html body.r716-shell #prDashboard :is(.prPerfHelp p,.prPerfHelp summary){
+ color:inherit!important;-webkit-text-fill-color:currentColor!important;opacity:1!important;
+}
+html body.r716-shell #prDashboard :is(.prMetric small,.prNowText small,.prEyebrow,.prState:not(.on)),
+html body.r716-shell .tabs .tab .tbL{
+ -webkit-text-fill-color:currentColor!important;opacity:1!important;
+}
+html body.r716-shell .tabs .tab:not(.act):not(.tabTekke) .tbL{color:#c6ddd5!important}
+/* Keep the selected label distinct without relying on colour alone: the
+   existing active bezel, icon and aria-selected remain visible. */
+html body.r716-shell .tabs .tab.act .tbL{color:#fff0c9!important}
+html body.r716-shell #prDashboard :is(button,input,select,textarea):focus-visible,
+html body .wrap>header a:focus-visible{
+ outline:2px solid #fff0c9!important;outline-offset:3px!important;
+}
+@media(prefers-reduced-transparency:reduce){
+ html body .wrap>header,html body.r716-shell #prDashboard{background:#071c26!important}
+}
+/* Honour the operating system's high-contrast palette. Do not disable
+   forced-colour adjustment as a workaround for browser night mode. */
+@media(forced-colors:active){
+ html body .wrap>header,html body.r716-shell #prDashboard,
+ html body.r716-shell #prDashboard :is(.prPerfHint,.prPerfHelp){
+  background:Canvas!important;color:CanvasText!important;border-color:CanvasText!important;
+ }
+ html body .wrap>header :is(h1.shimmer-text,.sub),
+ html body.r716-shell #prDashboard :is(.prPerfHelp p,.prPerfHelp summary){
+  color:CanvasText!important;-webkit-text-fill-color:currentColor!important;text-shadow:none!important;
+ }
+ html body.r716-shell .tabs .tab .tbL{color:ButtonText!important}
+ html body.r716-shell .tabs .tab.act{outline:2px solid Highlight!important;outline-offset:-3px!important}
+ html body.r716-shell #prDashboard :is(button,input,select,textarea):focus-visible,
+ html body .wrap>header a:focus-visible{outline-color:Highlight!important}
+}
+}

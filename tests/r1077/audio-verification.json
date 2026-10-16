@@ -1,0 +1,73 @@
+{
+  "feature": "r1077 protective native follow-up",
+  "baseline": {
+    "build": "r1076",
+    "passed": 0,
+    "total": 5,
+    "reproduced": [
+      "Clean automatic protective Ayatul did not query its shipped Arabic bank.",
+      "A zero preliminary duration probe followed by hide produced native-format-unavailable with the same reported Turkish failure message."
+    ]
+  },
+  "candidateValidation": {
+    "scope": "Candidate source prior to release finalization; build assets and SRI are finalized separately.",
+    "nativeBrowser": {
+      "passed": 7,
+      "total": 7,
+      "checks": [
+        {
+          "name": "Automatic protective Ayatul selects the actual bundled bank without a personal alias",
+          "passed": true
+        },
+        {
+          "name": "Bundled Ayatul retains its native source and cursor through hide/return",
+          "passed": true
+        },
+        {
+          "name": "English source label identifies the actual bundled recording",
+          "passed": true
+        },
+        {
+          "name": "A zero preliminary probe defers protective admission to the actual native player metadata",
+          "passed": true
+        },
+        {
+          "name": "Unknown preliminary duration does not reject playable personal Ayatul when locked",
+          "passed": true
+        },
+        {
+          "name": "Explicit Pause/Resume retains the accepted original and Stop prevents revival",
+          "passed": true
+        },
+        {
+          "name": "Kalem without a bundle retains personal-source policy while locking during pending metadata",
+          "passed": true
+        }
+      ]
+    },
+    "canonicalPriority": {
+      "passed": 11,
+      "total": 11
+    },
+    "protectiveSourceContracts": {
+      "passed": 49,
+      "total": 49
+    },
+    "existingNativeBrowser": {
+      "passed": 16,
+      "total": 16
+    },
+    "recordingStorage": {
+      "passed": 23,
+      "total": 23
+    },
+    "genericPriority": {
+      "passed": 28,
+      "total": 28
+    }
+  },
+  "limitations": [
+    "Isolated Linux Chromium, Classic/Feyz. No user recording/profile is read. Autoplay is enabled by the fixture; real Android gesture restrictions are unmeasured. Visibility is simulated; physical Android screen locking and audible output are unmeasured.",
+    "The first case uses the shipped Arabic bank without copying audio to personal storage. Kalem has no bundle; its pending-probe test uses a generated tone solely as a transport fixture, with no recitation-content claim. The second deliberately controls the preliminary duration probe and optional processing; actual persistent HTMLMediaElement metadata, playback and clocks are unmodified."
+  ]
+}

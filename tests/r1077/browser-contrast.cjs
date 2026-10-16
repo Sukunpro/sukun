@@ -1,0 +1,66 @@
+'use strict';
+// Byte-for-byte production UI, native trusted controls, and actual raster text.
+// Media preferences and Chromium auto-dark are simulations, not Samsung testing.
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const {PNG}=require('pngjs');
+const {fixture,hash}=require('../r1064/browser-fixture.cjs');
+const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
+const output=path.resolve(process.argv[3]||'/tmp/r1077-contrast-browser.json');
+const report={suite:'r1077 solid branding and scene-independent readable home helpers',build:fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),startedAt:new Date().toISOString(),checks:[],profiles:[],limitations:[
+ 'Isolated Linux Chromium, Classic/Feyz, 320×640 and 390×844. Light/dark refer to emulated media preferences; neither represents an actual Samsung Internet, Firefox or Safari run.',
+ 'CDP auto-dark uses Chromium Emulation.setAutoDarkModeOverride. It checks an additional rendering path but cannot reproduce all Samsung forced-dark settings or algorithms.',
+ 'Local helper contrast is calculated from computed foreground and local background over a completely white underlay, deliberately ignoring the additional dark dashboard. Raster checks independently require visible solid glyph pixels in actual screenshots.',
+ 'Production bytes are served unchanged; service workers and external requests are blocked by the shared engineering fixture. No personal recording/profile, microphone, playback or OS locking is used.'
+]};
+const selectors={title:'.wrap>header h1.shimmer-text',subtitle:'.wrap>header .sub',hint:'#prDashboard .prPerfHint',help:'#prDashboard .prPerfHelp',summary:'#prDashboard .prPerfHelp>summary',dashboard:'#prDashboard'};
+function save(){report.total=report.checks.length;report.passed=report.checks.filter(x=>x.passed).length;report.allPassed=report.total>0&&report.total===report.passed;fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,JSON.stringify(report,null,2));}
+function rgb(value){const m=value.match(/^rgba?\(([^)]+)\)$/);assert(m,'Expected resolved sRGB: '+value);return m[1].split(',').map(Number);}
+function composite(f,b){const a=f[3]??1;return f.slice(0,3).map((v,i)=>v*a+b[i]*(1-a));}
+function luminance(c){const x=c.slice(0,3).map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4});return .2126*x[0]+.7152*x[1]+.0722*x[2];}
+function contrast(a,b){const x=luminance(a),y=luminance(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05);}
+async function run(width,height){
+ const f=await fixture(root,{width,height,seed:{'sukun.onboardSeen':'1','sukun.obSeenBuild':'"2026-08-06-r3"','sukun.esma.background.r923':'classic'}}),p=f.page,label=width+'x'+height;
+ let mode='dark';
+ async function idle(){await p.waitForFunction(()=>!SukunInteractionGateR732.active());await p.waitForTimeout(100);}
+ async function tap(selector){await idle();await p.locator(selector).click();await idle();}
+ async function state(){return p.evaluate(selectors=>{
+  const nodes=Object.fromEntries(Object.entries(selectors).map(([key,selector])=>{const e=document.querySelector(selector),s=getComputedStyle(e),r=e.getBoundingClientRect();return[key,{text:e.textContent,display:s.display,color:s.color,fill:s.webkitTextFillColor,background:s.background,backgroundImage:s.backgroundImage,backgroundColor:s.backgroundColor,opacity:s.opacity,filter:s.filter,animation:s.animationName,forcedAdjust:s.forcedColorAdjust,rect:r.toJSON(),client:e.clientWidth,scroll:e.scrollWidth}]}));
+  return{media:{dark:matchMedia('(prefers-color-scheme:dark)').matches,forced:matchMedia('(forced-colors:active)').matches},scheme:getComputedStyle(document.documentElement).colorScheme,build:SUKUN_BUILD,layout:SukunLayoutModes.current(),skin:SukunShellSkin.getAppearance(),perf:SukunPerformance.mode,helpOpen:document.querySelector('#prDashboard .prPerfHelp').open,selected:{mode:zKat(),index:zIdx()},transport:{phase:SukunSessionState.snapshot().phase,auto:Z.auto,count:Z.count,total:Z.total},page:{width:innerWidth,client:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth},clicks:window.__r1077ContrastClicks.slice(),nodes};
+ },selectors);}
+ async function check(name,fn){try{report.checks.push({profile:label,media:mode,name,passed:true,evidence:await fn()});}catch(error){report.checks.push({profile:label,media:mode,name,passed:false,error:error.stack||String(error),state:await state().catch(()=>null)});}save();console.log(JSON.stringify({profile:label,media:mode,name,passed:report.checks.at(-1).passed}));}
+ async function raster(selector,name){
+  const color=rgb(await p.locator(selector).evaluate(e=>getComputedStyle(e).webkitTextFillColor)),file=path.join(path.dirname(output),name+'-'+width+'-'+mode+'.png');
+  const image=PNG.sync.read(await p.locator(selector).screenshot({path:file,animations:'disabled'}));let solidPixels=0;
+  for(let i=0;i<image.data.length;i+=4)if(color.slice(0,3).every((v,j)=>Math.abs(image.data[i+j]-v)<=4)&&image.data[i+3]===255)solidPixels++;
+  assert(solidPixels>=10,'Actual glyph raster has too few solid foreground pixels: '+solidPixels);
+  return{file,width:image.width,height:image.height,foreground:color,solidPixels};
+ }
+ function bounds(s){assert(s.page.scroll<=s.page.client+1,JSON.stringify(s.page));for(const[name,n]of Object.entries(s.nodes)){assert(n.rect.left>=-1&&n.rect.right<=s.page.width+1,name+' leaves viewport');assert(n.scroll<=n.client+1,name+' horizontal content overflow');}}
+ function readable(s){
+  for(const name of ['title','subtitle']){const n=s.nodes[name];assert.equal(n.backgroundImage,'none');assert.equal(n.fill,n.color);assert.equal(rgb(n.color)[3]??1,1);assert.equal(n.opacity,'1');assert.equal(n.animation,'none');assert.equal(n.filter,'none');}
+  const rows=[];for(const name of ['hint','help']){const n=s.nodes[name],fg=rgb(n.color),bg=rgb(n.backgroundColor);assert((bg[3]??1)>0,'Local dark surface must exist');assert.equal(n.opacity,'1');assert.equal(n.backgroundImage,'none');const whiteUnderlay=composite(bg,[255,255,255]),paint=composite(fg,whiteUnderlay),ratio=contrast(paint,whiteUnderlay);assert(ratio>=4.5,name+' falls below 4.5:1 over white: '+ratio);rows.push({name,foreground:fg,localBackground:bg,whiteUnderlay,ratio});}
+  assert.equal(s.nodes.summary.color,s.nodes.help.color);assert.equal(s.nodes.summary.fill,s.nodes.summary.color);return rows;
+ }
+ try{
+  await p.waitForTimeout(900);
+  await p.evaluate(()=>{window.__r1077ContrastClicks=[];document.addEventListener('click',e=>{const b=e.target.closest?.('button,summary');if(b)__r1077ContrastClicks.push({id:b.id,tag:b.tagName,trusted:e.isTrusted})},true)});
+  for(mode of ['light','dark']){
+   await p.emulateMedia({colorScheme:mode,forcedColors:'none',reducedMotion:'reduce'});await idle();
+   await check('Classic/Feyz keeps a declared dark surface under either media preference',async()=>{const s=await state();assert.equal(s.build,report.build);assert.equal(s.layout,'classic');assert.equal(s.skin,'feyz');assert.equal(s.scheme,'dark');assert.equal(s.media.dark,mode==='dark');assert.equal(s.media.forced,false);bounds(s);return s;});
+   await check('Header has opaque visible glyph paint and helpers exceed 4.5:1 even over white',async()=>{const s=await state(),contrasts=readable(s);return{contrasts,title:await raster(selectors.title,'title'),subtitle:await raster(selectors.subtitle,'subtitle')};});
+   await check('Native helper disclosure opens and closes without changing selection or transport',async()=>{const before=await state();await tap(selectors.summary);const opened=await state();assert.equal(opened.helpOpen,!before.helpOpen);bounds(opened);readable(opened);assert.deepEqual(opened.transport,before.transport);assert.deepEqual(opened.selected,before.selected);assert(opened.clicks.some(x=>x.tag==='SUMMARY'&&x.trusted));await tap(selectors.summary);const closed=await state();assert.equal(closed.helpOpen,before.helpOpen);return{beforeOpen:before.helpOpen,opened:opened.helpOpen,closed:closed.helpOpen,transport:closed.transport};});
+   await check('Native visual-profile button cycles all profiles without starting media',async()=>{const before=await state(),seen=[];for(let i=0;i<3;i++){await tap('#prPerfBtn');const s=await state();seen.push(s.perf);readable(s);bounds(s);assert.deepEqual(s.transport,before.transport)}assert.equal(new Set(seen).size,3);assert.equal(seen.at(-1),before.perf);assert((await state()).clicks.filter(x=>x.id==='prPerfBtn'&&x.trusted).length>=3);return{profiles:seen,transport:before.transport};});
+   await check('Existing home search still opens with a native click and closes with Escape',async()=>{const before=await state();await tap('#prSearchOpen');assert.equal(await p.locator('#prSearchOverlay').isVisible(),true);await p.keyboard.press('Escape');await p.waitForFunction(()=>document.getElementById('prSearchOverlay').hidden);const after=await state();assert.deepEqual(after.transport,before.transport);assert(after.clicks.some(x=>x.id==='prSearchOpen'&&x.trusted));return{closed:true,transport:after.transport};});
+   await p.locator('.wrap>header').scrollIntoViewIfNeeded();await idle();
+   const screenshot=path.join(path.dirname(output),'home-'+width+'-'+mode+'.png');await p.screenshot({path:screenshot,animations:'disabled'});report.profiles.push({label,media:mode,screenshot,browser:f.browser.version()});
+  }
+  mode='chromium-auto-dark';
+  await check('Chromium auto-dark simulation retains readable raster branding and native helper',async()=>{const cdp=await f.context.newCDPSession(p);await cdp.send('Emulation.setAutoDarkModeOverride',{enabled:true});try{await idle();const s=await state();readable(s);bounds(s);const title=await raster(selectors.title,'title'),subtitle=await raster(selectors.subtitle,'subtitle');await tap(selectors.summary);assert.equal((await state()).helpOpen,true);await tap(selectors.summary);return{method:'Emulation.setAutoDarkModeOverride',title,subtitle};}finally{await cdp.send('Emulation.setAutoDarkModeOverride',{enabled:false});await cdp.detach();}});
+  mode='forced-colors';await p.emulateMedia({colorScheme:'dark',forcedColors:'active',reducedMotion:'reduce'});await idle();
+  await check('OS forced-colors keeps automatic adjustment and system text contrast',async()=>{const s=await state();assert.equal(s.media.forced,true);const ratios=[];for(const name of ['title','subtitle','dashboard','hint','help']){const n=s.nodes[name];assert.equal(n.forcedAdjust,'auto',name+' must honour user palette');const surface=name==='title'||name==='subtitle'?await p.locator('.wrap>header').evaluate(e=>getComputedStyle(e).backgroundColor):n.backgroundColor;const a=rgb(n.fill),b=rgb(surface);if((b[3]??1)>0){const ratio=contrast(a,b);assert(ratio>=4.5,name+' forced-colors contrast '+ratio);ratios.push({name,foreground:a,background:b,ratio});}assert.equal(n.fill,n.color);}bounds(s);return{ratios,title:await raster(selectors.title,'title'),subtitle:await raster(selectors.subtitle,'subtitle')};});
+  await check('Forced-colors retains keyboard focus and native helper/button interaction',async()=>{await p.locator('#prPerfBtn').focus();await p.keyboard.press('Tab');const focus=await p.evaluate(()=>({tag:document.activeElement.tagName,id:document.activeElement.id,outline:getComputedStyle(document.activeElement).outlineStyle,adjust:getComputedStyle(document.activeElement).forcedColorAdjust}));assert.notEqual(focus.outline,'none');assert.equal(focus.adjust,'auto');const before=await state();await tap(selectors.summary);assert.equal((await state()).helpOpen,!before.helpOpen);await tap(selectors.summary);await tap('#prPerfBtn');const after=await state();assert.notEqual(after.perf,before.perf);assert.deepEqual(after.transport,before.transport);return{focus,profile:after.perf};});
+  await p.emulateMedia({forcedColors:'none',colorScheme:'dark'});
+  await check('Served compatibility CSS matches disk and no JS/SRI/asset errors occurred',async()=>{const e=f.evidence(),name='assets/runtime/browser-contrast-r1077.css';assert(e.served[name],'New stylesheet must actually be fetched');assert.equal(e.served[name].sha256,hash(fs.readFileSync(path.join(root,name))));assert.deepEqual(e.pageErrors,[]);assert.deepEqual(e.failedRequests,[]);assert(!e.consoleErrors.some(x=>/integrity|digest|syntaxerror|referenceerror|typeerror/i.test(x)),e.consoleErrors.join('\n'));return{css:e.served[name],servedFiles:Object.keys(e.served).length,pageErrors:e.pageErrors,failedRequests:e.failedRequests};});
+ }finally{await f.close();}
+}
+(async()=>{try{for(const[width,height]of[[320,640],[390,844]])await run(width,height);}catch(error){report.fatal=error.stack||String(error);}report.sourceSha256=hash(fs.readFileSync(path.join(root,'nero.html')));report.cssSha256=hash(fs.readFileSync(path.join(root,'assets/runtime/browser-contrast-r1077.css')));report.testSha256=hash(fs.readFileSync(__filename));report.finishedAt=new Date().toISOString();save();console.log(JSON.stringify({passed:report.passed,total:report.total,output,failed:report.checks.filter(x=>!x.passed).map(x=>({profile:x.profile,media:x.media,name:x.name,error:x.error})),fatal:report.fatal},null,2));if(!report.allPassed||report.fatal)process.exitCode=1;})();

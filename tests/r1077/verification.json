@@ -1,0 +1,35 @@
+{
+  "build": "r1077",
+  "sourceSha256": "726c239080dc891193b437899defb48a4da85c03c4771e3f1f62542ce167be75",
+  "cssSha256": "6b28df2d6ef61e7d4892533949836150de7914f83b393e7ecdd44efd28720228",
+  "sourceRegressionGroups": 121,
+  "passedRegressionGroups": 121,
+  "releaseIntegrityAssertions": 1277,
+  "browserSuites": {
+    "protectiveNative": {
+      "passed": 7,
+      "total": 7,
+      "testSha256": "397108ed7269d50dc4a5bb10b8a3ecbe148d3f472084656eb33a90c782f19bf4"
+    },
+    "browserContrast": {
+      "passed": 28,
+      "total": 28,
+      "testSha256": "de545f9d7a60118a600b2ad825e325705d2ad97342af006a396aa0606b12fd78"
+    },
+    "selectionTheme": {
+      "passed": 28,
+      "total": 28,
+      "testSha256": "cdc22014873bc78ab92406d13b69c91ab8408950f82dfd5ae41d67a7737dabc7"
+    },
+    "readingFrames": {
+      "passed": 44,
+      "total": 44,
+      "testSha256": "ae4baf7a1d7911dd66125f2fc586b91bc40cc66d9590acce739ad7d7480aec52"
+    }
+  },
+  "limitations": [
+    "Native Chromium 141 on Linux with isolated Classic/Feyz profiles; no physical Android screen locking or audible-output validation.",
+    "Light/dark preference, Chromium auto-dark emulation and OS forced-colors are exercised. Samsung Internet, Firefox and Safari engines are not installed and are not claimed as tested.",
+    "The shared audio engineering fixture permits autoplay; browser/device user-gesture restrictions are not validated."
+  ]
+}
