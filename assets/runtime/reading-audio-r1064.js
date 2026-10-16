@@ -4,7 +4,7 @@
  const w=window,ID='reading-r1064',listeners=new Set();
  let sequence=0,partAttempt=0,utterance=null,settleUtterance=null,resumeWaiter=null;
  let state={version:'r1065',id:'',title:'',kind:'',phase:'idle',content:'arabic',source:'auto',sourceKind:'none',part:0,total:0,verse:0,progress:null,verseSync:'none',currentTime:null,duration:null,reason:'',queue:[]};
- let currentEntry=null,currentOptions=null,ownerPromise=null,activeCurrent=null,settingsEpoch=w.SukunVoiceSettings?.epoch?.()||0,lastAcceptedLeaseEpoch=-1;
+ let currentEntry=null,currentOptions=null,dhikrIdentity=null,ownerPromise=null,activeCurrent=null,settingsEpoch=w.SukunVoiceSettings?.epoch?.()||0,lastAcceptedLeaseEpoch=-1;
  const active=()=>['preparing','playing','paused'].includes(state.phase);
  const snapshot=()=>Object.freeze({...state,queue:state.queue.map(x=>({verse:x.verse||0}))});
  function emit(reason){
@@ -25,6 +25,12 @@
  }
  function hasSelection(){return w.SukunVoiceSettings?.getContent?.()!=='legacy'||w.SukunVoiceSettings?.getMode?.()!=='auto';}
  function handles(kind){return active()&&state.kind===kind;}
+ function selectedDhikr(){try{return{cat:typeof zKat==='function'?zKat():Z.cat,idx:typeof zIdx==='function'?zIdx():Z.idx}}catch(_){return null}}
+ function captureDhikr(entry){
+  const identity=selectedDhikr(),selected=identity&&w.SukunReadingSourcesR1064?.forZikir?.(identity.cat,identity.idx);
+  return selected&&(selected.id===entry.id||identity.cat==='koruma'&&identity.idx===4&&entry.id==='reading:ayetelkursi')?identity:null;
+ }
+ function ownsCurrentDhikr(){const selected=selectedDhikr();return !!(active()&&dhikrIdentity&&selected&&dhikrIdentity.cat===selected.cat&&dhikrIdentity.idx===selected.idx);}
  function entryFor(kind,section){return w.SukunReadingSourcesR1064?.forReading?.(kind,section)||null;}
  function makeQueue(entry,opt,plan){
   const yasin=entry.id==='reading:yasin'?w.SukunYasinDataR1064:entry;
@@ -139,6 +145,9 @@
   // Only a just-released lease previously accepted by this reader can be
   // awaited. Foreign tabs, maintenance and unknown ownership stay blocked.
   if(!before?.releasing)return Promise.resolve(true);
+  // The current tab owner awaits its own physical lease closure with the
+  // captured intent/selection guards. A first reader need not have held it.
+  if(before.revision==='r1070')return Promise.resolve(true);
   if(lastAcceptedLeaseEpoch<0||before.epoch!==lastAcceptedLeaseEpoch+1||before.blocked||before.maintenance)return Promise.resolve(false);
   return new Promise(resolve=>{
    let done=false,timer=0;
@@ -159,7 +168,7 @@
   // Acquire emits owned=false while checking; only the new accepted attempt
   // may react to a later loss of ownership.
   activeCurrent=null;
-  const token=++sequence;currentEntry=entry;currentOptions={...opt,...choice};
+  const token=++sequence;currentEntry=entry;currentOptions={...opt,...choice};dhikrIdentity=captureDhikr(entry);
   change({id:entry.id,title:entry.title||entry.id,sectionTitle:entry.title||entry.id,kind:entry.kind||String(entry.id).split(':')[1],content:choice.content,source:choice.source,phase:'preparing',reason:'',part:0,total:0,verse:0,progress:null,verseSync:'none',currentTime:null,duration:null,queue:[],sourceKind:'none'},'prepare');
   // New explicit starts release only a prior aggregate pause gate. Existing
   // paused ambience/frequency sources are not resumed by this reader start.
@@ -191,12 +200,12 @@
   const aggregateHeld=!!w.SukunAudioSessionRegistry?.aggregateSnapshot?.()?.paused;
   if(w.AudioLife?._terminalIntent||aggregateHeld&&!(opt.registry&&!w.AudioLife?.userPaused))return false;
   activeCurrent?.refreshIntent?.();change({phase:'playing'},'resume');
-  if(['personal','generic','bundled'].includes(state.sourceKind))try{sesSurdur()}catch(_){}
+  if(['personal','generic','bundled'].includes(state.sourceKind))try{const source='reading-r1064:'+state.id;if(SES.ad===source)for(const a of SES.ler)a._sukunIntentAuthority?.renewReaderPause?.(source);sesSurdur()}catch(_){}
   wakeResume(true);return true;
  }
  function stop(reason='stopped'){
   const wasActive=active();sequence++;clearUtterance('cancelled');wakeResume(false);activeCurrent=null;
-  if(wasActive&&['personal','generic','bundled'].includes(state.sourceKind))try{sesDurdur('reading-'+reason)}catch(_){}
+  if(wasActive&&['personal','generic','bundled'].includes(state.sourceKind))try{const source='reading-r1064:'+state.id;if(SES.ad===source)sesDurdur('reading-'+reason,{retireNativeOwner:source})}catch(_){}
   change({phase:'idle',reason,sourceKind:'none',verse:0,verseSync:'none',currentTime:null,duration:null},'stop');return wasActive;
  }
  function navigate(delta,repeat=false){
@@ -212,8 +221,9 @@
   if(handles(kind)&&!opt.content)return Promise.resolve(state.phase==='paused'?resume():pause());
   return play({...opt,id:entry.id});
  }
- const api=w.SukunReadingAudioR1064=Object.freeze({version:'r1065',play,pause,resume,stop,previous:()=>navigate(-1),next:()=>navigate(1),repeat:()=>navigate(0,true),route,hasSelection,handles,snapshot,subscribe(fn){if(typeof fn!=='function')return()=>{};listeners.add(fn);fn(snapshot());return()=>listeners.delete(fn)}});
+ const api=w.SukunReadingAudioR1064=Object.freeze({version:'r1065',play,pause,resume,stop,previous:()=>navigate(-1),next:()=>navigate(1),repeat:()=>navigate(0,true),route,hasSelection,handles,ownsCurrentDhikr,snapshot,subscribe(fn){if(typeof fn!=='function')return()=>{};listeners.add(fn);fn(snapshot());return()=>listeners.delete(fn)}});
  w.SukunAudioSessionRegistry?.register?.(ID,{priority:105,title:()=>state.title,getState:()=>state.phase==='paused'?'paused':['preparing','playing'].includes(state.phase)?'playing':state.phase==='ended'?'ended':'idle',play:()=>state.phase==='paused'?resume({registry:true}):currentOptions?play(currentOptions):false,resume:()=>resume({registry:true}),pause,stop,previous:api.previous,next:api.next});
+ w.addEventListener('sukun:currentzikirchange',()=>{if(active()&&dhikrIdentity&&!ownsCurrentDhikr())stop('dhikr-selection-change');});
  w.addEventListener('sukun:voicesettingschange',()=>{const next=w.SukunVoiceSettings?.epoch?.()||0,changed=next!==settingsEpoch;settingsEpoch=next;if(changed&&active())stop('preference-change');});
  w.addEventListener('sukun:tabownerchange',()=>{if(active()&&activeCurrent&&w.SukunTabOwner&&!w.SukunTabOwner.owns())stop('tab-owner-change');});
 })();

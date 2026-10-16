@@ -36,6 +36,7 @@
       Object.assign(o,{cat:v.cat,idx:v.idx,reps:v.reps,gap:v.gap});
       if(v._r472SourceMode!=null){if(!['auto','recording','tts-default','tts-m','tts-f'].includes(v._r472SourceMode))return null;o._r472SourceMode=v._r472SourceMode;}
       o.repeatMode=v.repeatMode||'fixed';if(!['fixed','duration','manual'].includes(o.repeatMode))return null;
+      if(v.cat==='koruma'&&v.protectionPlan==='r1078'&&o.repeatMode==='fixed')o.protectionPlan='r1078';
       o.repeatForMs=v.repeatForMs??60000;if(!num(o.repeatForMs,5000,6*3600000))return null;
       // Labels are plain text; source annotations, URLs, TTS and audio are not saved.
       if(v.label!=null){if(!text(v.label,200))return null;o.label=v.label;}
@@ -104,7 +105,7 @@
     if(key==='sukun.berhet.seyir.state'||key==='sukun.esma99.seyir.state'){const v=p[key.includes('berhet')?'journey28':'journey99'];return v?{...clone(v),t:r.body.at}:fallback;}
     return undefined;
   }
-  function stepIdentity(v){const x=step(v);return x?JSON.stringify({type:x.type,cat:x.cat||'',idx:x.idx??null,reps:x.reps??null,repeatMode:x.repeatMode||'',source:x._r472SourceMode||'auto',ms:x.ms??null,c:x.c??null,b:x.b??null,mode:x.mode||''}):'';}
+  function stepIdentity(v){const x=step(v);return x?JSON.stringify({type:x.type,cat:x.cat||'',idx:x.idx??null,reps:x.reps??null,repeatMode:x.repeatMode||'',source:x._r472SourceMode||'auto',ms:x.ms??null,c:x.c??null,b:x.b??null,mode:x.mode||'',...(x.protectionPlan?{protectionPlan:x.protectionPlan}:{})}):'';}
   function smartSig(v){const s=smart(v);return s?JSON.stringify({queue:s.queue,name:s.name}):'';}
   function baseline(v){smartBaseline=smartSig(v);smartDraft=false;}
   function noteSmart(v){if(applying||window.SukunTabOwner?.owns?.())return;const sig=smartSig(v);if(smartBaseline&&sig!==smartBaseline)smartDraft=true;}
