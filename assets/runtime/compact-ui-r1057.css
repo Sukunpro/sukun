@@ -57,7 +57,25 @@ html body #r920Practice #r1056ReadingSummary[data-r1057-compact="1"]>#r1056Readi
 }
 html body #r920Practice #r1056ReadingSummary[data-r1057-compact="1"]>#r1056ReadingExplanation[hidden]{display:none!important}
 html body #r920Practice[data-mode="berhet"] #r1056ReadingSummary[data-r1057-compact="1"]{
- border-color:#d7bf8055!important;background:linear-gradient(135deg,#09242dbc,#161a2bb5)!important;
+ /* r1075: this first important layer owns the shared strip's paint too.
+    Use the same hollow Berhetiyye bezel as other text panels, preserving
+    the compact grid and its native count/source nodes in normal and focus. */
+ border-color:transparent!important;
+ border-image:var(--r933-panel-frame,none) 250 / 7px / 0 stretch!important;
+ background:linear-gradient(135deg,#0b2b2bc7,#0a1d2cc7)!important;
+ box-shadow:none!important;
+}
+html body #r920Practice[data-mode="berhet"] #r1056ReadingSummary[data-r1057-compact="1"]>#r986Total{
+ border-right-color:#d7bf8066!important;
+}
+html body #r920Practice[data-mode="berhet"] #r1056ReadingSummary[data-r1057-compact="1"]>#r1056ReadingSource{
+ border:1px solid transparent!important;
+ border-image:var(--r933-gem-sapphire,none) 330 fill / 5px / 0 stretch!important;
+ background:#0a2637!important;color:#fff1d5!important;
+ text-shadow:0 1px 3px #001019!important;
+}
+html body #r920Practice[data-mode="berhet"] #r1056ReadingSummary[data-r1057-compact="1"]>#r1056ReadingExplanation{
+ border-top-color:#d7bf8066!important;
 }
 /* Keep the actual input/select and its native ? in one row. Anonymous label
    text is the first grid item; its two controls explicitly occupy row two. */
