@@ -3,6 +3,8 @@
 if(window.SukunProtectivePlanR1078)return;
 const safe=(fn,fallback=null)=>{try{return fn()}catch(_){return fallback}};
 const key='sukun.protective-plan.r1078';
+const uiKey='sukun.protective-plan-ui.r1079';
+const inFocus=()=>!!document.body?.matches('.sukun-tefekkur-mode,.sukun-focus-mode');
 const spec=[
  {idx:4,tr:'Âyetü’l-Kürsî',en:'Ayat al-Kursi',included:true},
  {idx:0,tr:'Felâk Sûresi',en:'Al-Falaq',included:true},
@@ -16,6 +18,7 @@ const rows=spec.map(x=>{const old=saved?.find?.(r=>r.idx===x.idx);return{...x,
  included:typeof old?.included==='boolean'?old.included:x.included,
  reps:Number.isInteger(old?.reps)&&old.reps>=1&&old.reps<=9999?old.reps:7}});
 let host=null,offered=false,prepared='',busy=false,status='',statusError=false;
+let normalOpen=safe(()=>localStorage.getItem(uiKey))!=='0',focusMode=inFocus(),focusOpen=false;
 const en=()=>window.I18N?.lang==='en'||document.documentElement.lang==='en';
 const t=(tr,eng)=>en()?eng:tr;
 const cat=()=>safe(()=>Z.cat,'');
@@ -37,8 +40,7 @@ function paintStatus(){const node=byId('r1078PlanStatus');if(!node)return;
  node.textContent=messages[status]||'';node.classList.toggle('r1078PlanError',statusError);
 }
 function labels(){if(!host)return;
- const texts={r1078PlanTitle:t('Koruma tertibi','Protective reading sequence'),
- r1078PlanOpen:t('Hazır tertip oluştur','Create a reading sequence'),
+ const texts={r1078PlanTitle:t('Koruma tertibi','Protective sequence'),
  r1078PlanQuestion:t('Seçtiğin ayetleri sırayla kaç kez okuyayım?','How many times should I play each selected reading in order?'),
  r1078PlanNote:t('Tekrar sayılarını isteğine göre değiştirebilirsin. Hazırla, oynatıcı kuyruğunu bu tertiple değiştirir ve mevcut okumayı bitirir.','You can choose the repeat count for each reading. Prepare replaces the player queue with this sequence and stops the current reading.'),
  r1078PlanPrepare:t('Tertibi hazırla','Prepare sequence'),r1078PlanStart:t('Başlat','Start'),
@@ -51,10 +53,23 @@ function labels(){if(!host)return;
   number?.setAttribute('aria-label',t(row.tr+' tekrar sayısı',row.en+' repeat count'));
  }
  byId('r1078PlanAll')?.setAttribute('aria-label',t('Seçili okumalara ortak tekrar sayısı','Apply a repeat count to the selected readings'));
- paintStatus();
+ paintStatus();paintOpen();
 }
-function setOpen(open,focus=false){if(!host)return;const body=byId('r1078PlanBody'),button=byId('r1078PlanOpen');
- body.hidden=!open;button.setAttribute('aria-expanded',String(open));
+function paintOpen(){if(!host)return;const body=byId('r1078PlanBody'),button=byId('r1078PlanOpen'),open=focusMode?focusOpen:normalOpen;
+ // Retain the form nodes and draft when folded. Never leave keyboard focus in
+ // the hidden body when contemplation closes an actively edited field.
+ if(!open&&body.contains(document.activeElement))button.focus({preventScroll:true});
+ if(body.hidden===open)body.hidden=!open;
+ const expanded=String(open);if(button.getAttribute('aria-expanded')!==expanded)button.setAttribute('aria-expanded',expanded);
+ if(host.dataset.open!==expanded)host.dataset.open=expanded;
+ const mode=focusMode?'focus':'normal';if(host.dataset.r1079Mode!==mode)host.dataset.r1079Mode=mode;
+ const action=byId('r1079PlanAction'),label=t(open?'Kapat':'Aç',open?'Close':'Open');if(action.textContent!==label)action.textContent=label;
+ button.setAttribute('aria-label',t(open?'Koruma tertibini kapat':'Koruma tertibini aç',open?'Close protective sequence':'Open protective sequence'));
+}
+function syncMode(){const next=inFocus();if(next===focusMode)return;focusMode=next;if(next)focusOpen=false;paintOpen()}
+function setOpen(open,focus=false){if(!host)return;syncMode();
+ if(focusMode)focusOpen=!!open;else{normalOpen=!!open;safe(()=>localStorage.setItem(uiKey,normalOpen?'1':'0'))}
+ paintOpen();const body=byId('r1078PlanBody');
  if(open&&focus){const heading=byId('r1078PlanQuestion');heading?.focus({preventScroll:true});
   if(window.SukunNavigationR1066?.reveal)window.SukunNavigationR1066.reveal(host,{reason:'protective-plan',focus:heading,isCurrent:()=>cat()==='koruma'&&!body.hidden});
   else host.scrollIntoView({behavior:'auto',block:'nearest'});
@@ -98,11 +113,11 @@ function place(){const practice=byId('r920Practice'),identity=practice?.querySel
 }
 function mount(){if(host?.isConnected){place();return true}const list=byId('zList');if(!list)return false;
  host=document.createElement('section');host.id='r1078ProtectivePlan';host.hidden=true;host.setAttribute('aria-labelledby','r1078PlanTitle');host.setAttribute('data-noi18n','');
- host.innerHTML=`<div class="r1078PlanHead"><h3 id="r1078PlanTitle"></h3><button id="r1078PlanOpen" type="button" aria-expanded="false" aria-controls="r1078PlanBody"></button></div>
+ host.innerHTML=`<h3 class="r1078PlanHead"><button id="r1078PlanOpen" type="button" aria-expanded="false" aria-controls="r1078PlanBody"><span id="r1078PlanTitle"></span><span id="r1079PlanAction"></span><svg class="r1079PlanChevron" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></h3>
  <div id="r1078PlanBody" hidden><h4 id="r1078PlanQuestion" tabindex="-1"></h4><p id="r1078PlanNote"></p><div id="r1078PlanAll" role="group">${[1,3,7].map(n=>`<button type="button" data-plan-all="${n}"></button>`).join('')}</div>
  <div id="r1078PlanRows">${rows.map(row=>`<div class="r1078PlanRow"><label><input id="r1078PlanInclude${row.idx}" type="checkbox" data-plan-include="${row.idx}"${row.included?' checked':''}><span data-plan-name="${row.idx}"></span></label><input id="r1078PlanCount${row.idx}" type="number" inputmode="numeric" min="1" max="9999" step="1" data-plan-count="${row.idx}" value="${row.reps}"${row.included?'':' disabled'}></div>`).join('')}</div>
  <p id="r1078PlanOrder"></p><div class="r1078PlanActions"><button id="r1078PlanPrepare" type="button"></button><button id="r1078PlanStart" type="button" disabled></button><button id="r1078PlanDismiss" type="button"></button></div><p id="r1078PlanStatus" role="status" aria-live="polite" aria-atomic="true"></p></div>`;
- list.before(host);place();byId('r1078PlanOpen').onclick=()=>{offered=true;setOpen(byId('r1078PlanBody').hidden)};
+ list.before(host);place();byId('r1078PlanOpen').onclick=()=>{offered=true;syncMode();setOpen(byId('r1078PlanBody').hidden)};
  byId('r1078PlanDismiss').onclick=()=>{setOpen(false);byId('r1078PlanOpen').focus({preventScroll:true})};
  byId('r1078PlanPrepare').onclick=prepare;byId('r1078PlanStart').onclick=start;
  host.addEventListener('input',event=>{if(event.target.matches('[data-plan-count]'))invalidate()});
@@ -110,12 +125,17 @@ function mount(){if(host?.isConnected){place();return true}const list=byId('zLis
  host.addEventListener('click',event=>{const all=event.target.closest('[data-plan-all]');if(!all)return;invalidate();for(const row of rows)if(host.querySelector(`[data-plan-include="${row.idx}"]`).checked){row.reps=Number(all.dataset.planAll);host.querySelector(`[data-plan-count="${row.idx}"]`).value=String(row.reps)}});
  labels();return true;
 }
-function sync({entry=false}={}){if(!mount())return false;const selected=cat()==='koruma';host.hidden=!selected;
- if(selected&&!offered){offered=true;setOpen(true,entry)}return selected;
+function sync({entry=false}={}){syncMode();if(!mount())return false;const selected=cat()==='koruma';host.hidden=!selected;paintOpen();
+ if(selected&&!offered){offered=true;if(entry&&!focusMode&&normalOpen)setOpen(true,true)}return selected;
 }
 document.addEventListener('click',event=>{if(event.target.closest?.('#zCats [data-c]'))queueMicrotask(()=>sync({entry:true}))},{passive:true});
 for(const event of['sukun:currentzikirchange','sukun:zikirselectionchange','sukun:domhydrate','pageshow'])window.addEventListener(event,()=>sync(),{passive:true});
 window.addEventListener('sukun:languagechange',labels,{passive:true});
+window.addEventListener('sukun:tefekkurchange',syncMode,{passive:true});
+// Canonical contemplation changes body classes without emitting an event.
+// Use the shared observer; only actual mode edges reset the focus accordion.
+if(window.SukunLifecycleHub?.onBodyClass)window.SukunLifecycleHub.onBodyClass(syncMode,{immediate:true});
+else if(document.body)new MutationObserver(syncMode).observe(document.body,{attributes:true,attributeFilter:['class']});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>sync(),{once:true});else sync();
-window.SukunProtectivePlanR1078=Object.freeze({version:'r1078',sync,prepare,start,open(){sync();offered=true;setOpen(true)},snapshot:()=>({offered,open:!!byId('r1078PlanBody')&&!byId('r1078PlanBody').hidden,prepared:!!prepared,queue:plan()})});
+window.SukunProtectivePlanR1078=Object.freeze({version:'r1079',sync,prepare,start,open(){sync();offered=true;setOpen(true)},snapshot:()=>({offered,open:!!byId('r1078PlanBody')&&!byId('r1078PlanBody').hidden,normalOpen,focusMode,prepared:!!prepared,queue:plan()})});
 })();
