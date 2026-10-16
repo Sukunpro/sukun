@@ -1,0 +1,266 @@
+{
+  "browser": {
+    "build": "r1076",
+    "sourceSha256": "0838f93250d90574f6f6f11d35fc3939e8457f3a2e75dae9e8554f8baf1702f7",
+    "testSha256": "c3feaac351d903ea5571e2838890343702860696dd77f9fc37ecb2807094bde2",
+    "passed": 16,
+    "total": 16,
+    "allPassed": true,
+    "limitations": [
+      "One isolated headless Linux Chromium profile at390×844, Classic/Feyz. No user profile, recordings or microphone is accessed. Service workers and external fonts are blocked by the common engineering fixture.",
+      "The shipped128-second Ayatul MP3 is copied into isolated koruma:3 and koruma:4 personal slots solely as a transport-test alias. It does not represent Kalem recitation content. A generated3-second PCM WAV is a separate isolated short-source input.",
+      "Selection and transport use public production session APIs with actual native HTMLMediaElement playback and measured media clocks. Visibility changes are simulated with document.hidden/visibilityState getters and visibilitychange events; physical Android locking, OS focus and audible output are not measured.",
+      "Only the short-source case deliberately replaces the two optional FX/cadence preparation functions with null-returning test boundaries, then restores them. Native playback, metadata, media time, loop observations and counters remain real production behavior.",
+      "The failure-card cases explicitly inject a controlled recording-failure object after playback is stopped to verify matching selected-session presentation and actual message text."
+    ],
+    "checks": [
+      {
+        "name": "Exact candidate boots Classic/Feyz with isolated source bytes",
+        "passed": true
+      },
+      {
+        "name": "koruma:3 starts valid long original directly in persistent single native media",
+        "passed": true
+      },
+      {
+        "name": "koruma:3 hidden and visible retain one source/cursor without incomplete credit",
+        "passed": true
+      },
+      {
+        "name": "koruma:3 local Pause/Resume preserves original native cursor",
+        "passed": true
+      },
+      {
+        "name": "koruma:3 Finish remains stopped after hidden/visible lifecycle",
+        "passed": true
+      },
+      {
+        "name": "koruma:3 explicit name change retires prior native source",
+        "passed": true
+      },
+      {
+        "name": "koruma:4 starts valid long original directly in persistent single native media",
+        "passed": true
+      },
+      {
+        "name": "koruma:4 hidden and visible retain one source/cursor without incomplete credit",
+        "passed": true
+      },
+      {
+        "name": "koruma:4 local Pause/Resume preserves original native cursor",
+        "passed": true
+      },
+      {
+        "name": "koruma:4 Finish remains stopped after hidden/visible lifecycle",
+        "passed": true
+      },
+      {
+        "name": "koruma:4 explicit name change retires prior native source",
+        "passed": true
+      },
+      {
+        "name": "Optional FX/cadence unavailability still starts a real short original loop",
+        "passed": true
+      },
+      {
+        "name": "A real complete short native loop earns exactly one repetition",
+        "passed": true
+      },
+      {
+        "name": "Unrelated recording failure cannot appear on the selected protective practice card",
+        "passed": true
+      },
+      {
+        "name": "Matching recording failure shows its actual explanation and clears after selection change",
+        "passed": true
+      },
+      {
+        "name": "Every served production byte matches disk without missing files or JS/SRI errors",
+        "passed": true
+      }
+    ]
+  },
+  "contract": {
+    "passed": 42,
+    "total": 42,
+    "scope": "Production functions with controlled metadata, storage/FX readiness, timers and native-media leaves. No physical Android lock or audibility claim.",
+    "checks": [
+      {
+        "name": "koruma:3 complete original admits visible without inventing FX or a 40ms gap",
+        "passed": true
+      },
+      {
+        "name": "koruma:3 complete original admits hidden without inventing FX or a 40ms gap",
+        "passed": true
+      },
+      {
+        "name": "koruma:4 complete original admits visible without inventing FX or a 40ms gap",
+        "passed": true
+      },
+      {
+        "name": "koruma:4 complete original admits hidden without inventing FX or a 40ms gap",
+        "passed": true
+      },
+      {
+        "name": "accepted native metadata controls the exact wall unit at read rate 0.5",
+        "passed": true
+      },
+      {
+        "name": "accepted native metadata controls the exact wall unit at read rate 1",
+        "passed": true
+      },
+      {
+        "name": "accepted native metadata controls the exact wall unit at read rate 2",
+        "passed": true
+      },
+      {
+        "name": "ineligible raw source stays blocked before play: {\"cat\":\"esma\"}",
+        "passed": true
+      },
+      {
+        "name": "ineligible raw source stays blocked before play: {\"cat\":\"berhet\"}",
+        "passed": true
+      },
+      {
+        "name": "ineligible raw source stays blocked before play: {\"duration\":0}",
+        "passed": true
+      },
+      {
+        "name": "ineligible raw source stays blocked before play: {\"duration\":\"NaN\"}",
+        "passed": true
+      },
+      {
+        "name": "ineligible raw source stays blocked before play: {\"duration\":\"Infinity\"}",
+        "passed": true
+      },
+      {
+        "name": "ineligible raw source stays blocked before play: {\"duration\":0.8,\"tempo\":1}",
+        "passed": true
+      },
+      {
+        "name": "ineligible raw source stays blocked before play: {\"duration\":1.5,\"rate\":2,\"tempo\":1}",
+        "passed": true
+      },
+      {
+        "name": "missing original blob is never eligible",
+        "passed": true
+      },
+      {
+        "name": "missing original url is never eligible",
+        "passed": true
+      },
+      {
+        "name": "wall duration equal to selected tempo is admitted without adding a synthetic gap",
+        "passed": true
+      },
+      {
+        "name": "native duration 0 cannot borrow the preparation descriptor",
+        "passed": true
+      },
+      {
+        "name": "native duration NaN cannot borrow the preparation descriptor",
+        "passed": true
+      },
+      {
+        "name": "native duration Infinity cannot borrow the preparation descriptor",
+        "passed": true
+      },
+      {
+        "name": "native duration 0.5 cannot borrow the preparation descriptor",
+        "passed": true
+      },
+      {
+        "name": "retired stop during source preparation cannot claim or start native original",
+        "passed": true
+      },
+      {
+        "name": "retired selection during source preparation cannot claim or start native original",
+        "passed": true
+      },
+      {
+        "name": "retired owner-epoch during source preparation cannot claim or start native original",
+        "passed": true
+      },
+      {
+        "name": "retired owner-intent during source preparation cannot claim or start native original",
+        "passed": true
+      },
+      {
+        "name": "retired voice during source preparation cannot claim or start native original",
+        "passed": true
+      },
+      {
+        "name": "pending accepted original retired by stop is silenced without count or new play",
+        "passed": true
+      },
+      {
+        "name": "pending accepted original retired by selection is silenced without count or new play",
+        "passed": true
+      },
+      {
+        "name": "pending accepted original retired by voice is silenced without count or new play",
+        "passed": true
+      },
+      {
+        "name": "hidden protective preparation deadline preserves the complete original while FX remains unavailable",
+        "passed": true
+      },
+      {
+        "name": "hidden original deadline keeps the old rejection guard for {\"cat\":\"esma\"}",
+        "passed": true
+      },
+      {
+        "name": "hidden original deadline keeps the old rejection guard for {\"cat\":\"berhet\"}",
+        "passed": true
+      },
+      {
+        "name": "hidden original deadline keeps the old rejection guard for {\"duration\":0}",
+        "passed": true
+      },
+      {
+        "name": "hidden original deadline keeps the old rejection guard for {\"duration\":0.5,\"tempo\":1}",
+        "passed": true
+      },
+      {
+        "name": "hidden journey cannot acquire the protective single-original deadline",
+        "passed": true
+      },
+      {
+        "name": "retired stop cannot commit original preparation at its delayed deadline",
+        "passed": true
+      },
+      {
+        "name": "retired owner-epoch cannot commit original preparation at its delayed deadline",
+        "passed": true
+      },
+      {
+        "name": "retired owner-intent cannot commit original preparation at its delayed deadline",
+        "passed": true
+      },
+      {
+        "name": "retired selection cannot commit original preparation at its delayed deadline",
+        "passed": true
+      },
+      {
+        "name": "original media ledger credits the genuine wrap at rate 1 with no phantom 40ms",
+        "passed": true
+      },
+      {
+        "name": "original media ledger credits the genuine wrap at rate 2 with no phantom 40ms",
+        "passed": true
+      },
+      {
+        "name": "wall-clock suspension alone never invents completed original readings",
+        "passed": true
+      }
+    ]
+  },
+  "regressions": {
+    "groups": 120,
+    "passedGroups": 120
+  },
+  "static": {
+    "passed": 1272,
+    "total": 1272
+  }
+}
