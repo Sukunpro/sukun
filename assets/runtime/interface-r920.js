@@ -237,7 +237,10 @@ function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view
  }
  prop($('r920BerhetOptions'),'hidden',mode!=='berhet');value($('r920SceneSelect'),visual.scene||'auto');
  const perf=window.SukunSceneEngine?.snapshot?.().profile||'balanced';value($('r920Performance'),perf);
- prop($('r920SceneError'),'hidden',visual.sceneLoad!=='error');const failure=window.SukunRecordingFailure?.get?.();prop($('r920RecordingError'),'hidden',!failure?.active);
+ prop($('r920SceneError'),'hidden',visual.sceneLoad!=='error');const failure=window.SukunRecordingFailure?.get?.();
+ const recordingError=!!failure?.active&&s.recordingSource==='USER_RECORDING_FAILED';
+ prop($('r920RecordingError'),'hidden',!recordingError);
+ if(recordingError)text($('r920RecordingError')?.querySelector('p'),failure.message||'Kendi kaydın açılamadı. Oturum duraklatıldı.');
  if(sourceMode!==mode){const sel=$('r920NameSelect');sel.replaceChildren();items(mode).forEach((it,j)=>{const option=document.createElement('option');option.value=j;option.textContent=`${j+1}. ${itemName(mode,j)}`;sel.append(option)});sourceMode=mode} value($('r920NameSelect'),i);
  if(target&&count>=target)markComplete(mode,i);
  if(lastSnapshot?.phase!==s.phase)wake();lastSnapshot=s;
