@@ -1,0 +1,31 @@
+{
+  "build": "r1078",
+  "date": "2026-10-16",
+  "sourceSha256": {
+    "index.html": "d59318178e39d38802fc5e9f217b87138948516e42f048694cc32b19764fb24f",
+    "nero.html": "d59318178e39d38802fc5e9f217b87138948516e42f048694cc32b19764fb24f",
+    "assets/runtime/reading-audio-r1064.js": "dbeccc27c91c5a87b494437ff835364350e23d00e61687378875c867891d9b44",
+    "assets/runtime/session-r919.js": "891107ef058840a53942a2ec6cac1d1e80a523f185674aff4126e3d657a3890a",
+    "assets/runtime/progress-journal-r982.js": "aa26cffb1254c9d0a9e73fb24f16e0f42556616f3b8a62d5e1cbd3c60924b27c",
+    "assets/runtime/protective-plan-r1078.js": "199793aacf88308e8dd912f830d75b817a01920080ab4bce4aef36e98b6e49e1",
+    "assets/runtime/protective-plan-r1078.css": "e7d9f55de492760c806fea5616270ace805c65def7569f78bd93184abf86da65"
+  },
+  "results": {
+    "productionSourceRegressionGroups": "123/123",
+    "releaseIntegrityAssertions": "1287/1287",
+    "protectivePlanBrowserCases": "34/34",
+    "protectiveSmartProgressBrowserCases": "5/5",
+    "manualReadingLoopBrowserCases": "12/12",
+    "readerAuthorityCases": "21/21",
+    "priorProtectiveNativeBrowserCases": "7/7",
+    "journalPersistenceCases": "6/6 (included in regression groups)"
+  },
+  "browser": "141.0.7390.37",
+  "scope": [
+    "Isolated Linux Chromium and disposable Classic/Feyz profiles; exact shipped production bytes.",
+    "Trusted control clicks, real native media clocks and ended events; source-only guards are separate.",
+    "Plan UI: 320 and 390 CSS pixels, Turkish and English, no temporary runtime injection.",
+    "Physical Android locking, audible output, native device gesture restrictions and Samsung/Firefox/Safari execution were not measured."
+  ],
+  "fixtureCalibration": "The smart progress suite uses a 3-second generated transport tone so Pause has an observable incomplete reading window; it asserts the media is incomplete and waits beyond its full duration to reject false credit or revival."
+}

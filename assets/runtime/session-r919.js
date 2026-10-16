@@ -133,7 +133,7 @@
     const failure = read(() => window.SukunRecordingFailure?.get());
     const matchingFailure = failure && failure.active !== false && (!failure.cat || failure.cat === mode) &&
       (failure.index == null || Number(failure.index) === index) ? failure : null;
-    const hasZikirOwner = !!(js || z.auto || z.paused || z.session?.active || transportState.direct?.auto || transportState.direct?.paused ||
+    const hasZikirOwner = !!(js || z.auto || z.paused || z.session?.active || transport.running || transport.paused || transportState.direct?.auto || transportState.direct?.paused ||
       transportState.direct?.starting || transportState.pendingStart ||
       /^(auto-zikir|journey28|journey99|smart-session)$/.test(clean(arb.owner?.type || truth.owner?.type)) ||
       read(() => typeof MINI !== 'undefined' && MINI.wasAuto, false));
@@ -142,7 +142,7 @@
     const preparing = !!(pendingStart?.waitingStop && pendingStart.epoch === epoch || transportState.pendingStart || transportState.direct?.starting ||
       hasZikirOwner && (transport.preparing || truth.pendingPhysical));
     // Ambient music is not proof that the selected zikr counter is playing.
-    const playing = !paused && !!(js?.run || transportState.direct?.auto || z.auto || z.session?.playing);
+    const playing = !paused && !!(js?.run || transportState.direct?.auto || z.auto || z.session?.playing || transport.running);
     const route = j.active ? 'journey' + j.active.kind : owner || flow.playback?.id || 'zikir';
     const nextIdentity = [mode, index, j.view?.kind || 'single'].join(':');
     if (identity && identity !== nextIdentity) { epoch++; completion = null; commandFailure = null; }
