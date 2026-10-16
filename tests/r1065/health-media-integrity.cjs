@@ -23,10 +23,11 @@ async function run(entries,bodies){
 }
 async function test(name,fn){await fn();results.push({name,status:'PASS'});}
 (async()=>{
- await test('complete actual release verifies core and all six bundled media hashes with separate byte totals',async()=>{
+ await test('complete actual release verifies core, six Arabic recordings and exact portal invitation with separate byte totals',async()=>{
   const marker=JSON.parse(fs.readFileSync(path.join(root,'sukun-build-'+build+'.json'),'utf8')),bodies=new Map();
   assert.equal(marker.build,build);const entries=marker.runtime.map(e=>{const p=new URL(e.url,'https://test.invalid/').pathname.slice(1),b=fs.readFileSync(path.join(root,p));bodies.set(p,b);return{...e};});
-  const {result:r,maxActive}=await run(entries,bodies);const mediaBytes=mediaNames.reduce((n,name)=>n+bodies.get(mediaPath(name)).length,0),allBytes=[...bodies.values()].reduce((n,b)=>n+b.length,0);
+  const {result:r,maxActive}=await run(entries,bodies);const invitationBytes=bodies.get('assets/berhetiyye-gate/invitation-tr.mp3')?.length||0;
+  const mediaBytes=mediaNames.reduce((n,name)=>n+bodies.get(mediaPath(name)).length,0)+invitationBytes,allBytes=[...bodies.values()].reduce((n,b)=>n+b.length,0);
   assert.equal(r.status,'PASS');assert.equal(r.evidence.files.length,entries.length);assert(r.evidence.files.every(e=>e.status==='MATCH'));
   assert.equal(r.evidence.mediaBytes,mediaBytes);assert.equal(r.evidence.verifiedBytes,allBytes);assert.equal(r.evidence.bytes,allBytes-mediaBytes);assert(r.evidence.bytes<8388608);assert(mediaBytes<33554432);assert(maxActive<=2);
  });

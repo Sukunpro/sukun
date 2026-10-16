@@ -1,0 +1,15 @@
+{
+  "name": "sukun-berhet-access",
+  "main": "server-entry.mjs",
+  "compatibility_date": "2026-10-16",
+  "workers_dev": false,
+  "observability": { "enabled": false },
+  "vars": {
+    "ALLOWED_ORIGIN": "https://sukunpro.github.io",
+    "BERHET_LICENSE_ID": "REPLACE_WITH_ADMINISTRATOR_ISSUED_LICENSE_ID"
+  },
+  "kv_namespaces": [{ "binding": "BERHET_SESSIONS", "id": "REPLACE_WITH_KV_NAMESPACE_ID" }],
+  "ratelimits": [{ "name": "BERHET_RATE_LIMITER", "namespace_id": "REPLACE_WITH_UNIQUE_POSITIVE_INTEGER", "simple": { "limit": 6, "period": 60 } }]
+  // Add an explicit HTTPS route/custom domain before deployment.
+  // Add BERHET_ACCESS_CODE_HASH and BERHET_RATE_KEY_SECRET as Worker secrets, never vars.
+}
