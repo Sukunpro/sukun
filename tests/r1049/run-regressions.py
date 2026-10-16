@@ -12,6 +12,8 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 EXCLUDED = {
+    'tests/r1077/browser-contrast.cjs': 'Separate production CSS/native Chromium contrast and accessibility suite; run directly after source freeze.',
+    'tests/r1077/protective-native-metadata-browser.cjs': 'Separate shipped protective audio and delayed metadata native browser suite; run directly after source freeze.',
     'tests/r1076/protective-original-browser.cjs': 'Separate native protective original-recording lifecycle and complete-loop browser suite; run directly after source freeze.',
     'tests/r1075/reading-summary-browser.cjs': 'Separate native compact reading-strip materials, contemplation and control-visibility browser suite; run directly after source freeze.',
     'tests/r1074/ambience-local-browser.cjs': 'Separate native selected-theme local-pause and actual ambience browser suite; run directly after source freeze.',
