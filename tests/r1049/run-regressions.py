@@ -12,6 +12,8 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 EXCLUDED = {
+    'tests/r1079/protective-plan-playing-browser.cjs': 'Separate native ongoing protective audio and accordion presentation suite; run directly after source freeze.',
+    'tests/r1079/protective-plan-accordion-browser.cjs': 'Separate native protective-plan accordion and contemplation presentation suite; run directly after source freeze.',
     'tests/r1078/manual-reading-loop-browser.cjs': 'Separate native manual reader/wheel stop and finite/unlimited loop suite; run directly after source freeze.',
     'tests/r1078/protective-plan-browser.cjs': 'Separate native protective-plan entry, validation, language and interaction suite; run directly after source freeze.',
     'tests/r1078/protective-smart-progress-browser.cjs': 'Separate native protective-plan progress and wheel transport suite; run directly after source freeze.',

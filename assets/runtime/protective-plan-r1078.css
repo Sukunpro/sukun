@@ -1,11 +1,18 @@
 /* Scoped form: no theme or counter ownership. */
-#r1078ProtectivePlan{margin:12px 0;padding:14px;border:1px solid var(--line,#807354);border-radius:18px;background:rgba(3,22,30,.94);color:#f5efd9;min-width:0;scroll-margin-top:130px}
+#r1078ProtectivePlan{box-sizing:border-box;width:100%;max-width:100%;flex:none;margin:8px 0;padding:0;border:1px solid var(--line,#807354);border-radius:14px;background:rgba(3,22,30,.94);color:#f5efd9;min-width:0;scroll-margin-top:130px}
+#r1078ProtectivePlan[data-open="false"]{margin:4px 0}
 #r1078ProtectivePlan[hidden],#r1078PlanBody[hidden]{display:none!important}
-#r1078ProtectivePlan .r1078PlanHead{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+#r1078ProtectivePlan .r1078PlanHead{margin:0;min-width:0}
 #r1078ProtectivePlan h3,#r1078ProtectivePlan h4{margin:0;font:700 16px/1.45 system-ui;color:#fff2c8}
-#r1078ProtectivePlan h4{margin-top:14px;outline-offset:5px}
+#r1078PlanBody{padding:12px;border-top:1px solid #61716a}
+#r1078ProtectivePlan h4{margin-top:0;outline-offset:5px}
 #r1078ProtectivePlan p{margin:9px 0;font:400 13px/1.55 system-ui;color:#d6e3df;overflow-wrap:anywhere}
 #r1078ProtectivePlan button{min-height:44px;border:1px solid #738e89;border-radius:12px;padding:9px 12px;background:#102c35;color:#fff1ce;font:600 13px/1.35 system-ui;white-space:normal;touch-action:manipulation;cursor:pointer}
+#r1078ProtectivePlan #r1078PlanOpen{box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr) auto 18px;align-items:center;gap:8px;width:100%;margin:0;padding:9px 12px;border:0;border-radius:13px;text-align:left;background:transparent;min-height:44px}
+#r1078PlanTitle{min-width:0;font-weight:700;overflow-wrap:anywhere}
+#r1079PlanAction{font-size:12px;color:#d4e4dc}
+#r1078PlanOpen .r1079PlanChevron{display:block;transition:transform .15s ease}
+#r1078PlanOpen[aria-expanded="true"] .r1079PlanChevron{transform:rotate(180deg)}
 #r1078ProtectivePlan button:disabled{opacity:.55;cursor:default}
 #r1078ProtectivePlan :is(button,input):focus-visible{outline:2px solid #f8dc82;outline-offset:3px}
 #r1078PlanAll,.r1078PlanActions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
@@ -21,5 +28,6 @@
 #r1078ProtectivePlan #r1078PlanDismiss{background:transparent}
 #r1078ProtectivePlan #r1078PlanStatus{font-weight:600;min-height:1.5em;color:#c9f2dc}
 #r1078ProtectivePlan #r1078PlanStatus.r1078PlanError{color:#ffc6ba}
-@media(max-width:360px){#r1078ProtectivePlan{padding:11px}.r1078PlanActions>button{flex:1 1 100px}}
+@media(max-width:360px){#r1078PlanBody{padding:10px}.r1078PlanActions>button{flex:1 1 100px}}
+@media(prefers-reduced-motion:reduce){#r1078PlanOpen .r1079PlanChevron{transition:none}}
 @media(forced-colors:active){#r1078ProtectivePlan,#r1078ProtectivePlan button,#r1078ProtectivePlan input{forced-color-adjust:auto;background:Canvas;color:CanvasText;border-color:ButtonText}#r1078ProtectivePlan :is(h3,h4,p,label),#r1078ProtectivePlan #r1078PlanStatus{color:CanvasText}}
