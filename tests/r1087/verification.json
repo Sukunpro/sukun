@@ -1,0 +1,33 @@
+{
+  "build": "r1087",
+  "sourceSha256": "ea84487f8255932ea246d47bef67db7baaa6221cf9739f6428a8f93f1974be08",
+  "testSha256": "70aafdd7634b8737e73bc1838c86e0569091caca99f9e5fc10e31aca53d28822",
+  "controlledRegressionGroups": {
+    "passed": 140,
+    "total": 140
+  },
+  "integrity": {
+    "passed": 1354,
+    "total": 1354
+  },
+  "native": {
+    "passed": 39,
+    "total": 39,
+    "profiles": [
+      "360x800",
+      "390x844",
+      "430x900"
+    ],
+    "accessibilityAndShortTitle": {
+      "passed": 4,
+      "total": 4,
+      "testSha256": "4d3a92b802b4cc9bfe1b5cc46ea5798df5be962670cdc57fac516c49d3894175"
+    }
+  },
+  "scope": "Single-frame Berhetiyye focus strip with one disclosure chevron; actual production mobile rendering and pointer/keyboard/edit actions.",
+  "limitations": [
+    "Disposable Linux Chromium, Classic/Feyz, 360/390/430 CSS pixels, Turkish and English. Physical Samsung browser is not measured.",
+    "Only a valid paused smart-session fixture is assigned to exercise presentation. No audio scheduling, real recordings, physical lock or recitation quality is tested.",
+    "Production HTML/CSS/JS are served byte-for-byte; no CSS overrides, material substitutions or DOM replacements. Service workers are blocked in this engineering fixture."
+  ]
+}

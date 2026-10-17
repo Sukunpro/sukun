@@ -514,13 +514,25 @@ html[data-r1074-theme="berhet"] body :is(#prDGo,#prPerfBtn,#prSearchOpen,#r1042P
    Paint only: no display, size, placement, hidden-state or motion overrides. */
 @layer sukun-r933-controls {
 html[data-r1074-theme="berhet"] body :where(
- #r170SessionHub,#r1082SessionSummary,#r1082FocusStrip,#r1078ProtectivePlan,
+ #r170SessionHub,#r1082SessionSummary,#r1078ProtectivePlan,
  #r170SessionHub .r252Step,#r170SessionHub #r261TimelineWrap,
  #r170SessionHub #r252SessionMeta,#r170SessionHub #r170Resume) {
  border-color:#d4b57499!important;
  border-image:var(--r933-panel-frame) 250 / 7px / 0 stretch!important;
  background:linear-gradient(145deg,#0b302cde,#071b2be8)!important;
  color:#fff2d5!important;
+}
+/* r1087: the amethyst summary owns the journey strip's single jewel frame.
+   The accordion host must not add a second emerald/gold material behind it. */
+html[data-r1074-theme="berhet"] body #r1082FocusStrip {
+ border:0!important;border-image:none!important;padding:0!important;
+ background:none!important;box-shadow:none!important;
+}
+html[data-r1074-theme="berhet"] body #r1082FocusStrip[open] {
+ background:linear-gradient(145deg,#0b302cf2,#071b2bf5)!important;
+}
+html[data-r1074-theme="berhet"] body #r1082FocusStrip :is(p,button) {
+ margin-inline:12px;
 }
 html[data-r1074-theme="berhet"] body #r170SessionHub .r252Step.active {
  border-image-width:9px!important;
