@@ -506,3 +506,119 @@ html[data-r1074-theme="berhet"] body :is(#prDGo,#prPerfBtn,#prSearchOpen,#r1042P
 }
 
 }
+
+/* r1083: the shared session editor lives beside the tabs, rather than inside
+   #tab-zkr. New session surfaces need the same material family as the selected
+   dhikr. SceneEngine's canonical family gates this paint on every tab; queued
+   steps, ambient audio and an unopened premium gate cannot select a skin.
+   Paint only: no display, size, placement, hidden-state or motion overrides. */
+@layer sukun-r933-controls {
+html[data-r1074-theme="berhet"] body :where(
+ #r170SessionHub,#r1082SessionSummary,#r1082FocusStrip,#r1078ProtectivePlan,
+ #r170SessionHub .r252Step,#r170SessionHub #r261TimelineWrap,
+ #r170SessionHub #r252SessionMeta,#r170SessionHub #r170Resume) {
+ border-color:#d4b57499!important;
+ border-image:var(--r933-panel-frame) 250 / 7px / 0 stretch!important;
+ background:linear-gradient(145deg,#0b302cde,#071b2be8)!important;
+ color:#fff2d5!important;
+}
+html[data-r1074-theme="berhet"] body #r170SessionHub .r252Step.active {
+ border-image-width:9px!important;
+ background:linear-gradient(145deg,#174839eb,#082538ed)!important;
+ box-shadow:inset 3px 0 0 #edcf83,0 0 18px #6cdab52b!important;
+}
+html[data-r1074-theme="berhet"] body :where(
+ #r170SessionHub>summary,#r170SessionHub button,#r1082SessionEntry,
+ #r1082FocusStrip>summary,#r1082FocusStrip button,
+ #r1078ProtectivePlan button) {
+ --r1083-session-art:var(--r933-gem-sapphire);
+ --r1083-session-face:#0b263a;
+ border:1px solid transparent!important;
+ border-image:var(--r1083-session-art) 330 fill / 7px / 0 stretch!important;
+ background:var(--r1083-session-face)!important;
+ color:#fff1d5!important;
+ text-shadow:0 1px 3px #001019!important;
+}
+html[data-r1074-theme="berhet"] body :is(
+ #r170SessionHub>summary,#r1082SessionEntry,#r170StartSession,
+ #r170SessionHub button[aria-pressed="true"],
+ #r170SessionHub button[aria-current="step"],#r170SessionHub .r261Seg.active,
+ #r1078PlanOpen,#r1078PlanPrepare,#r1078PlanAll button) {
+ --r1083-session-art:var(--r933-gem-emerald);
+ --r1083-session-face:#0b3c2c;
+}
+html[data-r1074-theme="berhet"] body :is(
+ #r1082FocusStrip>summary,#r1082FocusEdit,#r1082PauseEdit) {
+ --r1083-session-art:var(--r933-gem-amethyst);
+ --r1083-session-face:#281337;
+}
+html[data-r1074-theme="berhet"] body :is(
+ #r170ClearQ,#r170SessionHub [data-a="del"],#r1078PlanDismiss) {
+ --r1083-session-art:var(--r933-gem-ruby);
+ --r1083-session-face:#401023;
+}
+html[data-r1074-theme="berhet"] body #r1082Retry {
+ --r1083-session-art:var(--r935-gem-topaz);
+ --r1083-session-face:#7c3d11;
+}
+/* The practice's existing generic button coat is more specific than the
+   shared editor's low-specificity defaults. Keep these newly mounted entry
+   points on their assigned stone when they are children of that host. */
+html[data-r1074-theme="berhet"] body #r920Practice :is(
+ #r1082SessionEntry,#r1082FocusStrip>summary,#r1082FocusStrip button,
+ #r1078ProtectivePlan button) {
+ border-image:var(--r1083-session-art) 330 fill / 7px / 0 stretch!important;
+ background:var(--r1083-session-face)!important;
+ color:#fff1d5!important;text-shadow:0 1px 3px #001019!important;
+}
+html[data-r1074-theme="berhet"] body #r170SessionHub :where(
+ .r1082-fields input,.r1082-source select,#r170SessionName,
+ .r261Advanced select,.r261Advanced input:not([type="range"]):not([type="checkbox"]):not([type="radio"])) {
+ border-color:#d7bb7c99!important;
+ background:#071f2bf2!important;color:#fff1d5!important;
+ box-shadow:inset 0 0 0 1px #d7bb7c22!important;
+}
+html[data-r1074-theme="berhet"] body #r170SessionHub input[aria-invalid="true"] {
+ border-color:#ffb8a6!important;
+}
+html[data-r1074-theme="berhet"] body :where(
+ #r1082SessionSummary p,#r1082FocusDetail,#r1078ProtectivePlan p,
+ #r170SessionHub .r1082-fields label,#r170SessionHub .r1082-source,
+ #r170SessionHub .r1082-source small,#r170SessionHub .r252Badge,
+ #r170SessionHub #r261TimelineHead) {
+ color:#dde9df!important;text-shadow:0 1px 2px #001019!important;
+}
+html[data-r1074-theme="berhet"] body #r1082Failure {
+ border-color:#daa27f!important;
+ border-image:var(--r933-panel-frame) 250 / 6px / 0 stretch!important;
+ background:#38262ef2!important;color:#ffe4d4!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r1082SessionPhase,#r1082ActualSource,#r1078PlanStatus) {
+ color:#d4ffe8!important;text-shadow:0 1px 2px #001019!important;
+}
+/* Preserve the native browser/system high-contrast palette. This is a paint
+   override in the same layer, not an opt-out from forced colour adjustment. */
+@media(forced-colors:active) {
+ html[data-r1074-theme="berhet"] body :is(
+  #r170SessionHub,#r1082SessionSummary,#r1082FocusStrip,#r1078ProtectivePlan,
+  #r170SessionHub .r252Step,#r170SessionHub #r261TimelineWrap,
+  #r170SessionHub #r252SessionMeta,#r170SessionHub #r170Resume,
+  #r170SessionHub>summary,#r170SessionHub button,#r1082SessionEntry,
+  #r1082FocusStrip>summary,#r1082FocusStrip button,#r1078ProtectivePlan button,
+  #r170SessionHub input,#r170SessionHub select,#r1082Failure),
+ html[data-r1074-theme="berhet"] body #r920Practice :is(
+  #r1082SessionEntry,#r1082FocusStrip>summary,#r1082FocusStrip button,
+  #r1078ProtectivePlan button) {
+  border-color:ButtonText!important;border-image:none!important;
+  background:Canvas!important;color:CanvasText!important;
+  box-shadow:none!important;text-shadow:none!important;
+ }
+ html[data-r1074-theme="berhet"] body :is(
+  #r1082SessionSummary p,#r1082FocusDetail,#r1078ProtectivePlan p,
+  #r170SessionHub .r1082-fields label,#r170SessionHub .r1082-source,
+  #r170SessionHub .r1082-source small,#r170SessionHub .r252Badge,
+  #r170SessionHub #r261TimelineHead,#r1082SessionPhase,#r1082ActualSource,#r1078PlanStatus) {
+  color:CanvasText!important;text-shadow:none!important;
+ }
+}
+}

@@ -14,17 +14,22 @@
 }
 #r920Practice[data-r938-layout="1"] #r932WheelControls .r932EasyTransport{
  grid-template-columns:48px minmax(0,1fr) 48px!important;gap:8px!important;
- width:min(100%,340px)!important;align-self:center!important;
+ width:min(100%,340px)!important;max-width:100%!important;box-sizing:border-box!important;
+ margin-inline:auto!important;align-self:center!important;justify-self:center!important;
 }
 #r920Practice[data-r938-layout="1"] #r932WheelControls .r932EasyTransport>button{
  min-width:44px!important;min-height:48px!important;height:auto!important;padding:8px!important;
+ width:100%!important;max-width:100%!important;box-sizing:border-box!important;margin:0!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;
 }
 #r920Practice[data-r938-layout="1"] #r1056FinishRow{
- display:flex!important;justify-content:center!important;width:100%!important;min-width:0!important;
+ display:flex!important;justify-content:center!important;width:min(100%,340px)!important;min-width:0!important;
+ max-width:100%!important;box-sizing:border-box!important;margin-inline:auto!important;align-self:center!important;justify-self:center!important;
 }
 #r920Practice[data-r938-layout="1"] #r1056FinishRow #r932EasyStop{
  grid-column:auto!important;grid-row:auto!important;width:min(100%,180px)!important;max-width:180px!important;
- min-height:44px!important;font-size:12px!important;
+ min-height:44px!important;font-size:12px!important;box-sizing:border-box!important;margin-inline:auto!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;
 }
 #r920Practice[data-r938-layout="1"] #r932WheelControls #r1056FocusControlsToggle:not([hidden]){
  display:flex!important;justify-content:center!important;align-items:center!important;min-height:44px!important;

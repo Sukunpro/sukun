@@ -37,18 +37,73 @@ html body.r716-shell #prDashboard :is(button,input,select,textarea):focus-visibl
 html body .wrap>header a:focus-visible{
  outline:2px solid #fff0c9!important;outline-offset:3px!important;
 }
+/* r1083: the greeting and quotation need their own glass, rather than relying
+   on the brightness of a scene or a barely tinted ancestor. The solid alpha
+   paint remains readable over white even without backdrop-filter support.
+   Existing geometry, hollow gemstone frames and menu animations stay intact. */
+html body :is(#todayCard,#r616HomeHead){
+ background:rgba(5,24,30,.88)!important;
+ border-color:rgba(150,218,204,.42)!important;
+ border-radius:14px!important;
+ box-shadow:inset 0 1px 0 rgba(242,255,249,.17),inset 0 -1px 0 rgba(150,218,204,.08),0 10px 24px rgba(0,8,15,.16)!important;
+ backdrop-filter:blur(6px) saturate(1.08)!important;
+ -webkit-backdrop-filter:blur(6px) saturate(1.08)!important;
+}
+html body :is(#sozKutu,#anaVakit){
+ background:rgba(4,27,32,.88)!important;
+ border-color:rgba(150,218,204,.42)!important;
+ box-shadow:inset 0 1px 0 rgba(242,255,249,.12),inset 0 -1px 0 rgba(150,218,204,.06)!important;
+}
+html[data-r1074-theme="berhet"] body :is(#todayCard,#r616HomeHead){
+ background:rgba(7,22,39,.88)!important;
+ border-color:rgba(218,185,117,.56)!important;
+}
+html[data-r1074-theme="berhet"] body :is(#sozKutu,#anaVakit){
+ background:rgba(7,28,44,.88)!important;
+ border-color:rgba(218,185,117,.56)!important;
+}
+html body :is(#tcHi,#r616Greeting,#sozKutu .sozMetin,#anaVakit .avSoz){
+ color:#fbf3df!important;-webkit-text-fill-color:currentColor!important;
+ opacity:1!important;text-shadow:0 1px 2px rgba(0,8,15,.6)!important;
+}
+html body :is(#tcSub,#r616GreetingSub,#r616HomeHead .r616Eyebrow,
+ #sozKutu .sozTur,#sozKutu .sozGuncel,#sozKutu .sozKim i,#anaVakit .avAd){
+ color:#d5e4df!important;-webkit-text-fill-color:currentColor!important;
+ opacity:1!important;text-shadow:0 1px 2px rgba(0,8,15,.5)!important;
+}
+html body #sozKutu .sozKim{
+ color:#bce9df!important;-webkit-text-fill-color:currentColor!important;
+ opacity:1!important;
+}
+/* Battery mode keeps the same legible paint while avoiding another live blur.
+   The full and balanced modes retain their existing animated ornament. */
+html body[data-perf="pil"] :is(#todayCard,#r616HomeHead){
+ backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
 @media(prefers-reduced-transparency:reduce){
  html body .wrap>header,html body.r716-shell #prDashboard{background:#071c26!important}
+ html body :is(#todayCard,#r616HomeHead,#sozKutu,#anaVakit),
+ html[data-r1074-theme] body :is(#todayCard,#r616HomeHead,#sozKutu,#anaVakit){
+  background:#071c26!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+ }
 }
 /* Honour the operating system's high-contrast palette. Do not disable
    forced-colour adjustment as a workaround for browser night mode. */
 @media(forced-colors:active){
  html body .wrap>header,html body.r716-shell #prDashboard,
- html body.r716-shell #prDashboard :is(.prPerfHint,.prPerfHelp){
+ html body.r716-shell #prDashboard :is(.prPerfHint,.prPerfHelp),
+ html body :is(#todayCard,#r616HomeHead,#sozKutu,#anaVakit),
+ html[data-r1074-theme] body :is(#todayCard,#r616HomeHead,#sozKutu,#anaVakit){
   background:Canvas!important;color:CanvasText!important;border-color:CanvasText!important;
+  border-image:none!important;box-shadow:none!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
  }
  html body .wrap>header :is(h1.shimmer-text,.sub),
- html body.r716-shell #prDashboard :is(.prPerfHelp p,.prPerfHelp summary){
+ html body.r716-shell #prDashboard :is(.prPerfHelp p,.prPerfHelp summary),
+ html body :is(#tcHi,#tcSub,#r616Greeting,#r616GreetingSub,#r616HomeHead .r616Eyebrow,
+  #sozKutu .sozMetin,#sozKutu .sozTur,#sozKutu .sozGuncel,#sozKutu .sozKim,
+  #sozKutu .sozKim i,#anaVakit .avAd,#anaVakit .avSoz){
   color:CanvasText!important;-webkit-text-fill-color:currentColor!important;text-shadow:none!important;
  }
  html body.r716-shell .tabs .tab .tbL{color:ButtonText!important}
