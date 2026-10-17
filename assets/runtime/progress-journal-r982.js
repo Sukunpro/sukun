@@ -58,6 +58,7 @@
     const queue=v.queue.map(step);if(queue.some(x=>!x))return null;
     const at=queue[v.i];if(v.completedReps&&(!at||at.type!=='zikir'||at.repeatMode!=='fixed'||v.completedReps>at.reps))return null;
     const out={queue,i:v.i,name:v.name,active:v.active,unfinished:v.unfinished,completedReps:v.completedReps};
+    if(v.pauseReason!=null){if(!['','user','step-wait','audio-interrupted','audio-failed','intention-failed','frequency-failed','silence-announcement-failed','missing-source','empty-source','unsupported-step','unconfirmed-completion'].includes(v.pauseReason))return null;out.pauseReason=v.pauseReason;}
     if(v.runtimeProgress!=null){
       const p=v.runtimeProgress;
       // Conditional progress belongs to one stable queue entry and one playback

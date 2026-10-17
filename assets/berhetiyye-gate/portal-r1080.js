@@ -47,7 +47,7 @@
       password:'Geçiş şifresi', passwordPlaceholder:'Geçiş şifreni gir', show:'Göster', hide:'Gizle', showLabel:'Şifreyi göster', hideLabel:'Şifreyi gizle', missing:'Geçiş şifreni yaz.', verify:'Geçişi aç', checking:'Doğrulanıyor…', time:'Davetin açık kalma süresi', seconds:'sn', extend:'Süreyi uzat · +45 sn', extended:'Davetin süresi 45 saniye uzatıldı.',
       knock:'Kapıyı çal', knockingButton:'Kapı çalınıyor…', reknock:'Kapıyı yeniden çal', wait:'Avlu sessiz…', verified:'GEÇİŞ DOĞRULANDI', enter:'Saraya gir', entering:'Saray hazırlanıyor…', lockExit:'Kapıyı kilitle ve çık', replay:'Davet sahnesini yeniden göster', skip:'Animasyonu geç', voice:'Türkçe daveti dinle', speech:'Gel, gel. Hoş geldin. Sarayın kapısı sana açık.', voiceUnavailable:'Sesli davet bu tarayıcıda kullanılamıyor.', voiceBusy:'Sesli okuma şu anda meşgul.',
       advice:'Her kapının bir vakti vardır. Acele etme; dilersen yeniden dene.', adviceLabel:'Muhafızın sözü', mismatch:'Şifre eşleşmedi.', network:'Geçiş doğrulanamadı. Bağlantını kontrol edip yeniden dene; bu bir şifre hatası değil.', unavailable:'Geçiş doğrulama hizmeti şu anda kullanılamıyor. Daha sonra yeniden dene.', enterError:'Saray bölümü açılamadı. Geçişin korunuyor; yeniden deneyebilirsin.', sessionError:'Bu ekrandaki geçiş kilitlendi. Oturumu kapatma işlemi doğrulanamadı; bağlantını kontrol et.',
-      fxOn:'Efektleri aç', fxOff:'Efektleri kapat', fxPending:'Ses açılıyor…', volume:'Ses düzeyi', fxUnavailable:'Ses efektleri bu tarayıcıda kullanılamıyor.', fxBlocked:'Sesi başlatmak için yeniden dokun.', fxActive:'Ney tınısı · ahşap · mekanizma · yankı', fxInactive:'Kapı sesleri · dokunarak aç.',
+      fxOn:'Efektleri aç', fxOff:'Efektleri kapat', fxPending:'Ses açılıyor…', volume:'Ses düzeyi', fxUnavailable:'Ses efektleri bu tarayıcıda kullanılamıyor.', fxBlocked:'Sesi başlatmak için yeniden dokun.', fxActive:'Ney tınısı · ahşap · mekanizma · yankı', fxInactive:'Kapı sesleri · dokunarak aç.', fxDucked:'Zikrin sürüyor · kapı efektleri kısık, sesli davet metin olarak gösterilir.',
       doorAlt:'Altın işlemeli yeşil İstanbul kapısı; bekçiler, asa ayrıntıları ve büyük taşlı kilit çarkı', oldAlt:'Unutulmuş eski ahşap kapı; sönük taşlar, boş bekçi nişleri', guardianAlt:'Yüzü nurla örtülü sembolik melek muhafız', welcomeAlt:'Avucunu açarak içeri davet eden sembolik melek muhafız'
     },
     en: {
@@ -57,7 +57,7 @@
       password:'Access password', passwordPlaceholder:'Enter your access password', show:'Show', hide:'Hide', showLabel:'Show password', hideLabel:'Hide password', missing:'Enter your access password.', verify:'Unlock entry', checking:'Verifying…', time:'Invitation time remaining', seconds:'sec', extend:'Extend time · +45 sec', extended:'The invitation was extended by 45 seconds.',
       knock:'Knock on the door', knockingButton:'Knocking…', reknock:'Knock again', wait:'The courtyard is quiet…', verified:'ACCESS VERIFIED', enter:'Enter the palace', entering:'Preparing the palace…', lockExit:'Lock the door and leave', replay:'Replay the invitation', skip:'Skip animation', voice:'Hear the Turkish invitation', speech:'Come, come. Welcome. The palace door is open to you.', voiceUnavailable:'The spoken invitation is unavailable in this browser.', voiceBusy:'Another spoken reading is currently playing.',
       advice:'Every door has its time. Take your time; you can try again when you wish.', adviceLabel:'The guardian’s words', mismatch:'The password did not match.', network:'Access could not be verified. Check your connection and try again; this is not a password error.', unavailable:'The access verification service is currently unavailable. Please try again later.', enterError:'The palace section could not be opened. Your access is preserved; you can try again.', sessionError:'Entry is locked on this screen. Session closure could not be confirmed; check your connection.',
-      fxOn:'Enable effects', fxOff:'Mute effects', fxPending:'Starting audio…', volume:'Volume', fxUnavailable:'Audio effects are unavailable in this browser.', fxBlocked:'Tap again to start audio.', fxActive:'Ney-like tones · wood · mechanism · echo', fxInactive:'Door sounds · tap to enable.',
+      fxOn:'Enable effects', fxOff:'Mute effects', fxPending:'Starting audio…', volume:'Volume', fxUnavailable:'Audio effects are unavailable in this browser.', fxBlocked:'Tap again to start audio.', fxActive:'Ney-like tones · wood · mechanism · echo', fxInactive:'Door sounds · tap to enable.', fxDucked:'Your dhikr continues · quiet door effects; the invitation is shown as text.',
       doorAlt:'An ornate green Istanbul gate with guards, staff details and a large jewelled locking wheel', oldAlt:'A forgotten wooden gate with dull stones and empty guardian niches', guardianAlt:'A symbolic angel guardian with a face veiled in light', welcomeAlt:'A symbolic angel guardian welcoming you with an open palm'
     }
   };
@@ -73,16 +73,41 @@
   function q(selector) { return host && host.querySelector(selector); }
   function reduced() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
   function readSettings() {
-    var value = {volume:.35, seen:false};
+    var value = {volume:.35, seen:false, effects:true};
     try {
       var saved = JSON.parse(localStorage.getItem('sukun.berhetGate.presentation.v1') || '{}');
       if (Number.isFinite(saved.volume)) value.volume = Math.max(0, Math.min(1, saved.volume));
       value.seen = saved.seen === true;
+      if (typeof saved.effects === 'boolean') value.effects = saved.effects;
     } catch (_) {}
     return value;
   }
   function saveSettings() {
-    try { localStorage.setItem('sukun.berhetGate.presentation.v1', JSON.stringify({volume:settings.volume, seen:settings.seen})); } catch (_) {}
+    try { localStorage.setItem('sukun.berhetGate.presentation.v1', JSON.stringify({volume:settings.volume, seen:settings.seen, effects:settings.effects})); } catch (_) {}
+  }
+  function readingBusy() {
+    // Pure observations: a visit never starts/stops or takes ownership of the
+    // foreground. Keep the whole automatic session quiet between its repeats.
+    try { var player = window.R170 && window.R170.Player; if (player && player.playing && !player.paused) return true; } catch (_) {}
+    try { var current = window.SukunSessionState && window.SukunSessionState.peek && window.SukunSessionState.peek(); if (current && !current.presentationOnly && (current.playing || current.preparing)) return true; } catch (_) {}
+    try { if (window.SukunPhysicalRecordingBusyR696 && window.SukunPhysicalRecordingBusyR696()) return true; } catch (_) {}
+    try { if (window.speechSynthesis && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) return true; } catch (_) {}
+    try { var formula = window.SukunTerkipVoice && window.SukunTerkipVoice.snapshot(); if (formula && formula.active && !formula.paused) return true; } catch (_) {}
+    if (window.__tvPlaying || window.__dhPlaying || window.__seyPlaying || window.__akPlaying || window.__fsPlaying || window.__hzvPlaying || window.__niyetPlaying) return true;
+    return false;
+  }
+  function stopInvitation() {
+    var source = invitationAudio; invitationAudio = null;
+    if (source) { try { source.pause(); source.currentTime = 0; } catch (_) {} }
+  }
+  function syncReadingMix() {
+    if (!state.open) return;
+    var busy = readingBusy();
+    if (audio && audio.setMix) audio.setMix(busy ? .32 : 1);
+    if (busy) stopInvitation();
+    var button = q('[data-act="voice"]');
+    if (button) { button.disabled = busy || !settings.effects || !settings.volume; button.textContent = t(busy ? 'voiceBusy' : 'voice'); }
+    updateAudioControls();
   }
   function usableGrant() {
     if (locallyLocked) return false;
@@ -94,7 +119,7 @@
   function snapshot() {
     return {open:state.open, phase:state.phase, authenticated:state.authenticated, dormant:state.dormant,
       reason:state.reason, remaining:state.remaining, sealedUntil:state.sealedUntil, entering:state.entering, revoking:state.revoking,
-      audio:audio && audio.snapshot ? audio.snapshot() : {available:false, enabled:false},
+      audio:audio && audio.snapshot ? Object.assign({preferredEnabled:settings.effects}, audio.snapshot()) : {available:false, enabled:false, preferredEnabled:settings.effects},
       invitation:{available:!!invitationAudioURL, playing:!!(invitationAudio && !invitationAudio.paused), volume:invitationAudio ? invitationAudio.volume : settings.volume}};
   }
   function clearTimers() {
@@ -102,10 +127,10 @@
     stageTimer = verifyTimer = countdownTimer = null;
   }
   function cancelPending() {
-    epoch++; audioEpoch++; clearTimers();
+    epoch++; audioEpoch++; soundPending = false; clearTimers();
     if (aborter) { aborter.abort(); aborter = null; }
     if (audio) audio.stop({immediate:true});
-    if (invitationAudio) { invitationAudio.pause(); invitationAudio.currentTime = 0; invitationAudio = null; }
+    stopInvitation();
   }
   function later(milliseconds, callback) {
     var intent = epoch;
@@ -135,7 +160,7 @@
     } catch (_) { audio = null; }
   }
   function soundText() {
-    return !audioStatus.available ? t('fxUnavailable') : audioStatus.blocked ? t('fxBlocked') : audioStatus.enabled ? t('fxActive') : t('fxInactive');
+    return !audioStatus.available ? t('fxUnavailable') : audioStatus.blocked ? t('fxBlocked') : audioStatus.enabled ? t(readingBusy() ? 'fxDucked' : 'fxActive') : t('fxInactive');
   }
   function soundMarkup() {
     return '<div class="sbg-sound-strip"><button id="sbgAudioToggle" type="button" class="sbg-sound-toggle" data-act="audio" aria-pressed="' + !!audioStatus.enabled + '" ' + (!audioStatus.available || soundPending ? 'disabled' : '') + '>' + escapeHTML(soundPending ? t('fxPending') : audioStatus.enabled ? t('fxOff') : t('fxOn')) + '</button><div class="sbg-volume"><label for="sbgAudioLevel"><span>' + t('volume') + '</span><span id="sbgAudioValue">' + Math.round(audioStatus.volume * 100) + '%</span></label><input id="sbgAudioLevel" type="range" min="0" max="100" step="5" value="' + Math.round(audioStatus.volume * 100) + '" ' + (!audioStatus.available ? 'disabled' : '') + '></div><p class="sbg-sound-status" id="sbgAudioStatus" role="status" aria-live="polite">' + soundText() + '</p></div>';
@@ -162,24 +187,31 @@
     if (key === lastSoundKey) return;
     lastSoundKey = key;
     if (!audio) return;
+    if (audio.setMix) audio.setMix(readingBusy() ? .32 : 1);
     audio.stop();
     if (!document.hidden && cue()) audio.play(cue());
   }
-  async function toggleAudio() {
-    if (!audio || soundPending) return;
-    if (audioStatus.enabled) {
-      audio.setEnabled(false);
-      if (invitationAudio) { invitationAudio.pause(); invitationAudio.currentTime = 0; invitationAudio = null; }
-      return;
-    }
+  async function prepareAudio(preview) {
+    if (!audio || soundPending || !settings.effects || !state.open || document.hidden) return;
+    if (audioStatus.enabled) { syncReadingMix(); return; }
     var intent = ++audioEpoch;
     soundPending = true; updateAudioControls();
     try {
       var enabled = await audio.enableFromGesture();
-      if (intent !== audioEpoch || !state.open || document.hidden) { audio.stop({immediate:true}); return; }
-      if (enabled) audio.play(cue() || 'preview');
-    } catch (_) { audio.setEnabled(false); }
-    finally { soundPending = false; updateAudioControls(); }
+      // A stale opener must never stop a newer door sound after close/reopen.
+      if (intent !== audioEpoch || !state.open || document.hidden || !settings.effects) return;
+      syncReadingMix();
+      if (enabled && (cue() || preview)) audio.play(cue() || 'preview');
+    } catch (_) { if (intent === audioEpoch) audio.setEnabled(false); }
+    finally { if (intent === audioEpoch) { soundPending = false; updateAudioControls(); } }
+  }
+  function toggleAudio() {
+    if (!audio) return;
+    if (audioStatus.enabled || soundPending) {
+      settings.effects = false; saveSettings(); audioEpoch++; soundPending = false;
+      audio.setEnabled(false); stopInvitation(); syncReadingMix(); return;
+    }
+    settings.effects = true; saveSettings(); void prepareAudio(true);
   }
   function mechanism() {
     return '<div class="sbg-xray" aria-hidden="true"><i class="sbg-gear sbg-gear-a"></i><i class="sbg-gear sbg-gear-b"></i><i class="sbg-gear sbg-gear-c"></i><i class="sbg-gear sbg-gear-d"></i><i class="sbg-gear sbg-gear-e"></i><i class="sbg-gear sbg-gear-f"></i><i class="sbg-rail sbg-rail-top"></i><i class="sbg-rail sbg-rail-bottom"></i><i class="sbg-bolt sbg-bolt-l"></i><i class="sbg-bolt sbg-bolt-r"></i><i class="sbg-bolt sbg-bolt-l2"></i><i class="sbg-bolt sbg-bolt-r2"></i></div><div class="sbg-lock-mount" aria-hidden="true"></div><div class="sbg-lock-wheel" aria-hidden="true"><img src="' + assets.lockwheel + '" alt=""><span class="sbg-lock-core"></span></div>';
@@ -220,7 +252,7 @@
   function render(focusSelector) {
     if (!host || !state.open) return;
     host.lang = language(); host.innerHTML = markup();
-    updateAudioControls(); syncAudio(); emitState();
+    syncReadingMix(); syncAudio(); emitState();
     if (focusSelector) {
       var intent = epoch;
       requestAnimationFrame(function () {
@@ -263,6 +295,7 @@
     render(); showDialog(); pushHistory();
     if (state.authenticated) startUnlock(state.fullAnimation);
     else { render(state.phase === 'sealed' && Date.now() < state.sealedUntil ? '[data-act="close"]' : '#sbgKnock'); if (state.phase === 'sealed') cooldown(); }
+    syncReadingMix(); void prepareAudio(false);
   }
   function close(options) {
     options = options || {};
@@ -407,16 +440,20 @@
     }
   }
   function invite(button) {
-    if (!invitationAudioURL) return;
-    if (invitationAudio) { invitationAudio.pause(); invitationAudio.currentTime = 0; }
+    if (!invitationAudioURL || !settings.effects || !settings.volume || !state.open || !state.authenticated || document.hidden) return;
+    if (readingBusy()) { stopInvitation(); button.textContent = t('voiceBusy'); return; }
+    stopInvitation();
     try {
       invitationAudio = new Audio(invitationAudioURL);
       invitationAudio.volume = settings.volume;
       var source = invitationAudio, intent = epoch;
       var playback = source.play();
-      if (playback && playback.catch) playback.catch(function () {
-        if (state.open && intent === epoch && button.isConnected) button.textContent = t('voiceUnavailable');
-      });
+      Promise.resolve(playback).then(function () {
+        if (invitationAudio !== source || intent !== epoch || !state.open || document.hidden || !settings.effects || readingBusy()) {
+          try { source.pause(); source.currentTime = 0; } catch (_) {}
+          if (invitationAudio === source) invitationAudio = null;
+        }
+      }, function () { if (state.open && intent === epoch && button.isConnected) button.textContent = t('voiceUnavailable'); });
     } catch (_) { button.textContent = t('voiceUnavailable'); }
   }
   function abortable(promise, signal) {
@@ -439,6 +476,7 @@
     else if (action === 'replay' && state.authenticated) startUnlock(true);
     else if (action === 'knock' && (state.phase === 'closed' || state.phase === 'sealed' && Date.now() >= state.sealedUntil)) {
       cancelPending(); state.dormant = false; state.reason = ''; state.phase = 'knocking'; render('[data-act="close"]'); later(820, function () { challenge(); });
+      void prepareAudio(false);
     } else if (action === 'extend' && state.phase === 'challenge') {
       state.deadline += 45000; checkDeadline(); var note = q('#sbgExtended'); if (note) note.textContent = t('extended');
     } else if (action === 'show') {
@@ -449,7 +487,7 @@
   }
   function input(event) {
     if (event.target.id === 'sbgAudioLevel') {
-      settings.volume = Number(event.target.value) / 100; if (audio) audio.setVolume(settings.volume); if (invitationAudio) invitationAudio.volume = settings.volume; saveSettings();
+      settings.volume = Number(event.target.value) / 100; if (audio) audio.setVolume(settings.volume); if (invitationAudio) invitationAudio.volume = settings.volume; if (!settings.volume) stopInvitation(); saveSettings(); syncReadingMix();
     } else if (event.target.id === 'sbgPassword') {
       state.error = ''; event.target.removeAttribute('aria-invalid'); var error = q('#sbgPasswordError'); if (error) error.textContent = '';
     }
@@ -473,9 +511,10 @@
     if (state.open) close({fromHistory:true});
   });
   document.addEventListener('visibilitychange', function () {
-    if (document.hidden) { audioEpoch++; if (audio) audio.stop({immediate:true}); if (invitationAudio) { invitationAudio.pause(); invitationAudio.currentTime = 0; } }
-    else checkDeadline();
+    if (document.hidden) { audioEpoch++; soundPending = false; if (audio) audio.setEnabled(false); stopInvitation(); }
+    else { checkDeadline(); syncReadingMix(); }
   });
+  ['sukun:sessionchange','sukun:playbackchange','sukun:foregroundqueuechange','sukun:voicesource','sukun:zikirtransportgate','sukun:mediaactivitychange'].forEach(function (name) { window.addEventListener(name, syncReadingMix, {passive:true}); });
   window.addEventListener('pagehide', function () { if (state.open) close({fromHistory:true}); else if (audio) audio.stop({immediate:true}); });
   window.SukunBerhetGate = {
     configure:function (options) { if (options && options.adapter) adapter = options.adapter; if (options && typeof options.invitationAudioURL === 'string') invitationAudioURL = options.invitationAudioURL; return this; },
