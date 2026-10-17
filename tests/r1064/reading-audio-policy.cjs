@@ -4,6 +4,7 @@ const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('ass
 const root=path.resolve(__dirname,'../..'),core=fs.readFileSync(path.join(root,'index.html'),'utf8');
 function block(start,end){const i=core.indexOf(start);assert(i>=0,start);const j=core.indexOf(end,i+start.length);assert(j>i,end);return core.slice(i,j);}
 const policy=block('window.SukunReadingPolicy=(()=>{','/* r922: persisted reading preference;');
+const nameTts=block('function sukunNameTtsText(','\nfunction r476CanonicalItem()');
 const splitters=block('function ttsTemizle(t){','/* Bir bölümün tüm okunabilir parçalarını');
 const runtime=fs.readFileSync(path.join(root,'assets/runtime/reading-audio-r1064.js'),'utf8');
 const results=[];async function test(name,fn){try{await fn();results.push({name,ok:true})}catch(e){results.push({name,ok:false,error:e.stack});}}
@@ -22,7 +23,7 @@ function fixture(){
  c.playRecording=async (blob,id,opt)=>{recordCalls.push({blob,id,opt});return{ok:true}};c.sesDuraklat=()=>{};c.sesSurdur=()=>{};c.sesDurdur=()=>{};c.sukunSourceSet=()=>{};c.SukunVoiceSource={set(){}};
  const entries=new Map([['reading:short',{id:'reading:short',title:'Short',arabic:'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ',meaning:'Allah noksan sıfatlardan uzaktır.',status:'verified',meaningStatus:'provided',recordingKeys:['dua:short'],recordingContent:'unknown'}],['reading:delail:h1',{id:'reading:delail:h1',title:'Delail',arabic:'',meaning:'Türkçe anlam kaydı.',status:'pending',meaningStatus:'partial',recordingKeys:['dua:delail:h1'],recordingContent:'meaning'}]]);
  c.SukunReadingSourcesR1064={get:id=>entries.get(id),forReading:k=>entries.get('reading:'+k)};
- vm.createContext(c);vm.runInContext(policy,c);vm.runInContext(splitters,c);vm.runInContext(fs.readFileSync(path.join(root,'assets/runtime/yasin-data-r1064.js'),'utf8'),c);
+ vm.createContext(c);vm.runInContext(nameTts,c);vm.runInContext(policy,c);vm.runInContext(splitters,c);vm.runInContext(fs.readFileSync(path.join(root,'assets/runtime/yasin-data-r1064.js'),'utf8'),c);
  const y=c.SukunYasinDataR1064;entries.set('reading:yasin',{...y,status:'verified',meaningStatus:'verified-source',arabic:y.verses.map(v=>v.arabicTts).join(' '),meaning:y.verses.map(v=>v.meaning).join('\n'),recordingKeys:['dua:yasin'],recordingContent:'unknown'});
  vm.runInContext(runtime,c);
  return{c,entries,spoken,warnings,recordCalls,personal,generic,adapters,end(){const u=spoken.at(-1);u.onend?.();},async flush(){for(let i=0;i<6;i++)await Promise.resolve()},setMode:v=>c.SukunVoiceSettings.mode(v),setContent:v=>c.SukunVoiceSettings.content(v)};

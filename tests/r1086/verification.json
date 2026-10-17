@@ -1,0 +1,31 @@
+{
+  "build": "r1086",
+  "base": "r1085",
+  "sourceSha256": "1037feca48952f80705fbb4588e97b709be92cbde8472f7c2b27b1382ed03b47",
+  "controlledRegressionGroups": {
+    "passed": 140,
+    "total": 140
+  },
+  "newNameVocativeAssertions": 750,
+  "integrity": {
+    "passed": 1353,
+    "total": 1353
+  },
+  "nativeAppIntegration": {
+    "passed": 18,
+    "total": 18,
+    "testSha256": "9d1f9434ac837ce88c6f9753cc45c3caa46063dae091faee5b4ec530d968a2c0",
+    "sourceSha256": "1037feca48952f80705fbb4588e97b709be92cbde8472f7c2b27b1382ed03b47",
+    "scope": "Full-app utterance text and native personal recording priority; speech callbacks are a controlled fixture."
+  },
+  "preservedBaseAudioEvidence": "r1085 verified 28 actual Names plus 28 full intentions, 28 rhythm onsets and 28 ticks; source evidence is recorded separately for that release.",
+  "packages": {
+    "updateBase": "r1084",
+    "fullMembers": 724,
+    "allBytesMatch": true
+  },
+  "limitations": [
+    "Physical Samsung/Android, lock-screen policy and actual voice pronunciation were not tested.",
+    "Generated native recording and controlled speech fixtures use disposable data; personal user recording bytes are unchanged."
+  ]
+}
