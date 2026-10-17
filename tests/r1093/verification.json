@@ -1,0 +1,175 @@
+{
+  "build": "r1093",
+  "verifiedAt": "2026-10-17T16:30:30.934705+00:00",
+  "sourceSha256": "eaa8e7f38a1e11bdad4a606c1f24a2f95f76791e22a72e073095056f2ee6f660",
+  "sourceHashes": {
+    "assets/runtime/generic-recordings-r1055.js": "6acbc69dbc24921c9afc8af656f841a7122759ac8a84b9ca981114d695a731d0",
+    "assets/runtime/generic-recordings-ui-r1055.js": "4c60e36eff387b882d2b8d874799da2a3a469bb0ecca20b888fa511cf147dbcc",
+    "assets/runtime/startup-intro-r1027.js": "64118e3057d8248c3e6a9ceff76075ad90634b3ac89856efc3cecbf4569b10f0",
+    "index.html": "eaa8e7f38a1e11bdad4a606c1f24a2f95f76791e22a72e073095056f2ee6f660",
+    "manifest.webmanifest": "deef47cb6da65f42a9f656d3d2e70414d2f867fbfc656b7c2f981d02852556a1",
+    "nero.html": "eaa8e7f38a1e11bdad4a606c1f24a2f95f76791e22a72e073095056f2ee6f660",
+    "sukun-latest.json": "1c70593b71f16f3df5bf86cdfc417a4d2dae9c9cc1b9e37fc15f763d48bf3a96",
+    "surumler.json": "885142c219016a196d6ec35b7800836d8018b63b3daed1b18d0b1baececb9199",
+    "sw.js": "49e21fe97ecfefdfb3c79c619c574d42ba454fab3660e27f1789ae104aeebbdc",
+    "version.txt": "dcc145ad4795d5fea0ad70c836654be1da3d4ec93b2a96d845572f2cccb71be9",
+    "assets/runtime/archive-download-r1093.js": "5a796fbbe29c0f5183434e655e792102fb831bb39895e1f5685d3c5aaf9fd3ad",
+    "assets/runtime/archive-download-r1093.css": "1e64b2d06b24547bb932d4148de660201ec62a5610d95c6148d8ba879cfbbebc",
+    "sukun-build-r1093.json": "ee9ea390e4accdc4708573b3df5a5a931f51e4c487820cf6bca318fbfdb84d6e",
+    "sukun-site-assets-r1093.json": "eec7f38c81f8baef7c917bcebad8f1cb5559a7ba260b048631761d2fe4d70716",
+    "assets/runtime/tab-owner-r981.js": "4305c9c1e1f1e9e239c62f0d19149bd05af97d2f0d34ddc38b7e7e5d41a63dc6",
+    "assets/runtime/session-r919.js": "5ef9efcb784542a53a9f3ebe8ec57f4694ebbeeb0b7af00428a6b4de9e2b8869"
+  },
+  "controlledRegressionGroups": {
+    "passed": 162,
+    "total": 162
+  },
+  "releaseIntegrity": {
+    "passed": 1388,
+    "total": 1388
+  },
+  "fullReleaseExport": {
+    "ok": true,
+    "files": 732,
+    "deploymentBytes": 306498114
+  },
+  "focusedControlledCases": {
+    "tests/r1093/archive-download.cjs": {
+      "passed": 22,
+      "total": 22,
+      "exitCode": 0
+    },
+    "tests/r1093/archive-races.cjs": {
+      "passed": 6,
+      "total": 6,
+      "exitCode": 0
+    },
+    "tests/r1093/archive-worker.cjs": {
+      "passed": 14,
+      "total": 14,
+      "exitCode": 0
+    }
+  },
+  "browserIntegration": {
+    "preflight": {
+      "completionReceiptSha256": "78fb66752ad48a738ca038f20126a3acfdcb9655e6c6d7368df250bc7581e7d9",
+      "passed": 12,
+      "total": 12,
+      "test": "tests/r1092/preflight-browser.js",
+      "testSha256": "267cd542b5277e0336d88fe9bbfb941e24cfd7fa8176273b166ad8c549f8bd58",
+      "reportSha256": "df557b625735038796d1c39427a13e14dc0965ba73e674731b16f04a4f77eb20"
+    },
+    "sourcePolicy": {
+      "completionReceiptSha256": "f1ab62de24568ac6a4e5f89197b93d167afb576151f8515d684e869445bd80f5",
+      "passed": 9,
+      "total": 9,
+      "test": "tests/r1092/smart-source-policy-browser.js",
+      "testSha256": "ef1889dbbf6bd03816265feff45ccc94fa5c94c76be9fa0775e46ec8c9635a48",
+      "reportSha256": "9019b147af8aa12af324dc3ee272188cb03d4abfad83c3fcb81fb265abfac35a"
+    },
+    "offline": {
+      "completionReceiptSha256": "f44a329d653e0112f454ab511c46be337021470e7d50ee4649080c5ca0328132",
+      "passed": 16,
+      "total": 16,
+      "test": "tests/r1092/offline-preflight-browser.js",
+      "testSha256": "2ddefdef043e0e84ce50698cd9b0013b1ecc85b6d3d20593768917fa43f88391",
+      "reportSha256": "7213d494d4a79ed11152d4e02d5f07346825c8a3a9398aa3dec1c57b730c0fba"
+    },
+    "classicFeyz": {
+      "completionReceiptSha256": "34a78e3b3b187a02918ecc5ad3378df33ae5b1b0a4dac9c343b1c4909c4c5c97",
+      "passed": 26,
+      "total": 26,
+      "test": "tests/r1070/classic-feyz-smoke.cjs",
+      "testSha256": "992183697a89c33dffa23f1771249ffbbf2ca501fc30de0c97d68e2349a62132",
+      "reportSha256": "3865f50b7bf3be838cd79aaf14fc5f58b9f61d5ec91d33cbd6a05f50ece2737c"
+    },
+    "archiveLifecycle": {
+      "completionReceiptSha256": "444871c4e1ec62e8f1df44e5166e67f8bf1b66745a2d2a108d048b50f7104680",
+      "passed": 13,
+      "total": 13,
+      "test": "tests/r1093/archive-browser.js",
+      "testSha256": "bf93dece4573224d66232d02d3448b06124437a5f943f4b0598f8c84829b004d",
+      "reportSha256": "318fedd34a1781e496e14db818dfc0023db0cc688be274461ca65dfe1ea69585"
+    },
+    "archiveFullBank": {
+      "completionReceiptSha256": "505d1864d1ca5e3f41467a0711da96570b520bd93e9decafc52b503182199997",
+      "passed": 3,
+      "total": 3,
+      "test": "tests/r1093/archive-full-bank-browser.js",
+      "testSha256": "1240cc7d4c1f64e726de23912beed5eb3de2b9ca687cae38fab217067834c6ad",
+      "reportSha256": "94e4e294e389b1d2af49fb34e8dbd234b5c7d51adbe0ad69b7f30709ed9f2b3f"
+    },
+    "archiveInstalledWorker": {
+      "completionReceiptSha256": "00c905f473569984fef3ce77de7c409f6afee1e24b06bb9a191fbffb20dbd388",
+      "passed": 6,
+      "total": 6,
+      "test": "tests/r1093/archive-worker-browser.js",
+      "testSha256": "f8cc0793ae78480f94de452743d2605085d4a3d789287b9b6621d86e21f998a2",
+      "reportSha256": "6706abaeeb151a7f76b8392b0b33ad4b885813c812aa3de857895de43c80e7d6"
+    }
+  },
+  "browserIntegrationTotal": 85,
+  "controlledBrowserIntegration": {
+    "archiveUIControlled": {
+      "completionReceiptSha256": "a9dc1631754bdda9562c7ce52df0ddc0cc6cf269024f2942c5eadfa5b550b4ad",
+      "passed": 15,
+      "total": 15,
+      "test": "tests/r1093/archive-ui-browser.js",
+      "testSha256": "ad5bbd1fb9afaa332a4e148128e4b92389476ee6a006f3033f065d91339a27eb",
+      "reportSha256": "df62b65329e33ee651d4931b8dce76003476284a8bb2ec0115a5ada105c3e006",
+      "method": "A custom minimal HTML shell serves the shipped archive UI JavaScript and CSS byte-for-byte. The downloader, bank and commit boundaries are controlled fixtures. The full production application HTML is not loaded by this suite.",
+      "modules": {
+        "assets/runtime/generic-recordings-ui-r1055.js": {
+          "sha256": "4c60e36eff387b882d2b8d874799da2a3a469bb0ecca20b888fa511cf147dbcc",
+          "bytes": 32023,
+          "servedReceipts": 1
+        },
+        "assets/runtime/archive-download-r1093.css": {
+          "sha256": "1e64b2d06b24547bb932d4148de660201ec62a5610d95c6148d8ba879cfbbebc",
+          "bytes": 3150,
+          "servedReceipts": 1
+        }
+      },
+      "limitations": [
+        "Downloader, metadata and commit results are explicitly controlled; no network, storage durability, audio or physical Android claim. Production archive-browser.js owns full-source integration."
+      ],
+      "scope": "Controlled native DOM and mocked backend in a minimal HTML fixture; the full production application HTML was not loaded."
+    }
+  },
+  "controlledBrowserIntegrationTotal": 15,
+  "controlledBrowserLimitations": [
+    "Downloader, metadata and commit results are explicitly controlled; no network, storage durability, audio or physical Android claim. Production archive-browser.js owns full-source integration."
+  ],
+  "browserFixtureSha256": "b58ac3f8caafbbf6cea57e705930bc1f891bf6b410f95dc3dbaf17d9e6d007da",
+  "scope": "Frozen r1093 Classic/Feyz. Generic archive transfer and resumable staging; only completed listed suites count. No real user profile, microphone, physical Android, OS quota or audible-quality claim.",
+  "limitations": [
+    "Headless Linux Chromium with real production modules, native DOM, IndexedDB and CacheStorage; no physical Android, microphone, screen-lock, audible quality or codec claim.",
+    "The existing fixture supplies labelled device-voice metadata; no speech or media playback is started. Its metadata cannot establish real offline speech readiness.",
+    "Disposable synthetic WAV blobs and a validated one-record generic archive are explicitly seeded as test inputs through production storage APIs; user data is never accessed.",
+    "Service workers are blocked by this fixture. The positive cache case uses exact original MP3 bytes in native CacheStorage plus an explicitly labelled controlled STATUS receipt; it validates hashing/presentation only. Parent real-worker testing owns actual SW installation/offline readiness.",
+    "Isolated Chromium Classic/Feyz; synthetic device voices/completion and generated personal .9-second WAV. Real native media playback/currentTime/ended are not replaced. No physical Android lock test or speaker audibility claim.",
+    "Disposable Linux headless Chromium with an actual installed service worker; Classic/Feyz. No physical Android, lock-screen or audible-quality claim.",
+    "Network becomes explicitly offline only after worker installation; the isolated HTTP fixture also closes new sockets so service-worker fetches cannot bypass browser context offline emulation. No online bundled find/play is called; the worker mandatory runtime cache alone must contain all six original MP3 files.",
+    "Each original MP3 is verified by SHA-256 and a small native currentTime advance, then explicitly stopped. No full recitation completion or successful repeat credit is claimed.",
+    "Saved templates and favorites use the unmodified canonical store while offline, including a fresh page. User recordings, microphone and unrelated personal data are not used.",
+    "One labelled storage failure is injected only into the canonical template database transaction method; two actual pointer clicks verify the error message and successful retry. The original method is restored before retry.",
+    "This suite verifies the current installed release and an old launcher URL. Historical release switching and installation under real mobile bandwidth/quota are covered only by controlled tests or remain device work.",
+    "Isolated headless Linux Chromium; no physical Android display, OS picker, screen lock, or audible sound claim.",
+    "Service workers are blocked by the existing engineering fixture. This suite does not validate SW activation.",
+    "Picker work does not play audio. Dock setup installs one generated12-second personal WAV in the isolated profile and observes its real native media clock; no controlled TTS completion drives dock playback.",
+    "Every application request must succeed; exact served bytes and JavaScript/SRI errors are checked.",
+    "Disposable headless Linux Chromium with the complete Classic/Feyz app, actual native IndexedDB transactions and exact original WebM archive bytes. Service workers are blocked by the existing shared browser fixture. Physical Android locking, audible output and all291-file downloading are not measured.",
+    "The public temel category (4 original clips,187655 bytes) bounds repeat download cost. A synthetic WAV old generic-bank fixture and a separate personal-recording sentinel are labelled test inputs; no user recordings or browser profile are accessed.",
+    "Fault injections are explicit: one interrupted audio request, one deferred request cancelled by the production API, one native stage-store put throwing QuotaExceededError and one same-length corrupted network body. Native stage corruption is performed only in this disposable IndexedDB database.",
+    "The shared browser fixture deliberately blocks external requests; those observations remain in externalBlocked. Unexpected-request assertions and exact served-file proofs cover the application origin.",
+    "Disposable Linux Chromium and local HTTP transport. All291 original archive payloads are downloaded and rehashed; this is bounded scale acceptance, not a mobile-bandwidth, speed, memory, quota or performance claim.",
+    "Chromium may report a completed WebM fetch as ERR_ABORTED. Such observations are accepted only with a unique original same-origin URL, HTTP200, native response-end timing, native staged-Blob SHA/size and matching disk/served receipts. Unknown, incomplete or corrupt request failures remain failures.",
+    "The only policy substitution reports unlocked:true so berhet/mzbz records join the full archive. It is not PIN verification, membership authorization or a privacy-security test. Production download, preview, commit, native storage and application source bytes are unchanged.",
+    "An old generic-bank WAV and a separate personal WAV are labelled fixture sentinels; no real user recording/profile is read. Service workers are blocked; the separate installed-worker suite owns worker/cache acceptance. Physical Android, microphone, Bluetooth, screen lock and audible quality are not measured.",
+    "Disposable native Chromium context with an actual installed service worker and complete verified release graph. Classic/Feyz; no physical Android, screen lock or audible-quality claim.",
+    "Only the four original temel WebM files187655 bytes are staged. The suite does not claim that all291 optional recordings were downloaded.",
+    "One worker-owned original audio network request is deliberately aborted to create a durable partial stage. Browser context routes observe real worker requests; the source service worker and downloader remain unchanged.",
+    "CacheStorage is enumerated across every cache before/after each archive lifecycle. The offline socket gate plus context offline emulation explicitly prevent the worker from obtaining live optional bytes through a fallback.",
+    "Worker-owned ERR_ABORTED observations are retained separately when their exact required-runtime or optional-art URL has independently verified current cached bytes matching pinned local and served digests. This proves artifact readiness, not successful completion of those aborted requests; their cause is not established. Separate deliberate offline-denial observations require exact worker IDs, the cold-reload gate phase, known shell/marker/art URLs and fresh cached bytes; EMPTY_RESPONSE also requires an actual socket-denial receipt. Unknown URLs, page-owned aborts, other unexpected codes and all unplanned archive-stage failures remain blocking."
+  ]
+}

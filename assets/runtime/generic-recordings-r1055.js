@@ -6,7 +6,7 @@
  const VERSION='r1055',DB='sukunGenericRec',PREF='sukun.generic.recordings.enabled.v1',RECEIPT='sukun.generic.recordings.bank.v1';
  const LIMIT={files:96*1048576,bytes:64*1048576,clip:8*1048576,count:2000},TIMEOUT=20000;
  const PREFIX='assets/generic-recordings/',MANIFEST=PREFIX+'manifest.json';
- let enabled=false,bank=null,epoch=0,operation=null,status='ready',errorCode='',readyError=null,bootPromise=null,hydrated=false;
+ let enabled=false,bank=null,epoch=0,operation=null,status='ready',errorCode='',readyError=null,bootPromise=null,hydrated=false,accessEpoch=0;
  const en=()=>w.I18N?.lang==='en';
  const messages={
   'archive-empty':['Pakette henüz genel ses arşivi yok. Ses JSON yedeğini seçerek ayrı arşive yükleyebilirsin.','This package has no general voice archive yet. Select a voice JSON backup to load the separate archive.'],
@@ -18,10 +18,13 @@
   'archive-cancelled':['Genel ses arşivi işlemi iptal edildi.','The general voice archive operation was cancelled.'],
   'archive-busy':['Başka bir genel ses arşivi işlemi sürüyor.','Another general voice archive operation is running.'],
   'archive-lock':['Arşiv yüklemek için etkin sesi ve mikrofon kaydını bitir; uygulamanın hazırlanmasını bekleyip yeniden dene.','Finish active audio and microphone recording before loading an archive; wait for the app to finish preparing and retry.'],
-  'archive-preference':['Genel ses arşivi tercihi saklanamadı. Kullanım kapalı tutuldu.','The general voice archive preference could not be saved. Playback was kept disabled.']
+  'archive-preference':['Genel ses arşivi tercihi saklanamadı. Kullanım kapalı tutuldu.','The general voice archive preference could not be saved. Playback was kept disabled.'],
+  'archive-stale':['Genel ses arşivi önizlemeden sonra değişti. Yeniden önizle; mevcut arşiv korundu.','The general voice archive changed after the preview. Preview again; the current archive was kept.'],
+  'archive-private-bank-locked':['Arşivin tamamını değiştirmeden önce kilitli bölüm erişimini aç veya Birleştir seç.','Unlock access before replacing the entire archive, or choose Merge.']
  };
  const fail=code=>Object.assign(new Error((messages[code]||messages['archive-invalid'])[en()?1:0]),{name:code==='archive-cancelled'?'AbortError':'GenericArchiveError',code});
- const safeError=err=>Object.prototype.hasOwnProperty.call(messages,err?.code)?err.code:err?.name==='AbortError'?'archive-cancelled':'archive-storage';
+ const ownError=err=>typeof err?.code==='string'&&Object.prototype.hasOwnProperty.call(messages,err.code);
+ const safeError=err=>ownError(err)?err.code:err?.name==='AbortError'?'archive-cancelled':'archive-storage';
  function message(){return errorCode?(messages[errorCode]||messages['archive-storage'])[en()?1:0]:status==='loaded'?(en()?'General voice archive loaded. Enable it to use recordings where your own voice is missing.':'Genel ses arşivi yüklendi. Kendi kaydın bulunmayan okumalar için kullanımı açabilirsin.'):status==='exported'?(en()?'General voice archive export is ready.':'Genel ses arşivi dışa aktarımı hazır.'):(en()?'In automatic mode, your own recordings have priority. The archive is optional.':'Otomatik seçimde kendi kayıtların önceliklidir. Arşiv kullanımı isteğe bağlıdır.');}
  const snapshot=()=>Object.freeze({version:VERSION,enabled,ready:!!bank,count:bank?.records.length||0,bytes:bank?.bytes||0,bankId:bank?.bankId||'',epoch,busy:!!operation,status,errorCode,message:message()});
  function emit(reason='status'){try{w.dispatchEvent(new CustomEvent(reason==='status'?'sukun:genericrecordingsstatus':'sukun:genericrecordingschange',{detail:reason==='status'?snapshot():{reason,epoch,snapshot:snapshot()}}))}catch(_){};}
@@ -30,6 +33,7 @@
  function keyOk(key){return typeof key==='string'&&/^[A-Za-z0-9_.:-]{1,200}$/.test(key)&&!['__proto__','prototype','constructor'].includes(key)&&!key.startsWith('archive:');}
  function typeOk(type){return typeof type==='string'&&type.length<=100&&/^audio\/[A-Za-z0-9.+-]+(?:;\s*[A-Za-z0-9.+_-]+=(?:"[A-Za-z0-9., +_/-]+"|[A-Za-z0-9., +_/-]+))*$/i.test(type);}
  function allowed(key){try{return !w.SukunSecretPolicy?.secretRecKey?.(key)||w.SukunSecretPolicy?.unlocked?.()===true}catch(_){return false}}
+ function managementAllowed(key){try{if(/^berhet:|^mzbz:|berhetiy/i.test(key)&&w.SukunSecretPolicy?.unlocked?.()!==true)return false;return allowed(key)}catch(_){return false}}
  function row(value){
   if(!value||!keyOk(value.key)||!typeOk(value.type)||!Number.isSafeInteger(value.bytes)||value.bytes<1||value.bytes>LIMIT.clip||!/^[a-f0-9]{64}$/.test(value.sha256||''))throw fail('archive-invalid');
   return{key:value.key,type:value.type.toLowerCase(),bytes:value.bytes,sha256:value.sha256};
@@ -89,7 +93,7 @@
    const timer=setTimeout(()=>{try{transaction?.abort()}catch(_){};finish(fail('archive-timeout'))},TIMEOUT);
    try{
     transaction=db.transaction(['clips','meta'],mode);
-    transaction.oncomplete=()=>finish();transaction.onerror=transaction.onabort=()=>finish(fail(opt.signal?.aborted?'archive-cancelled':'archive-storage'));
+    transaction.oncomplete=()=>finish();transaction.onerror=transaction.onabort=()=>finish(ownError(transaction.__sukunArchiveFailure)?transaction.__sukunArchiveFailure:fail(opt.signal?.aborted?'archive-cancelled':'archive-storage'));
     opt.signal?.addEventListener?.('abort',abort,{once:true});w.addEventListener?.('sukun:tabownerchange',changed);check(opt);
     value=work(transaction.objectStore('clips'),transaction.objectStore('meta'),transaction);
    }catch(error){try{transaction?.abort()}catch(_){};finish(error)}
@@ -209,15 +213,21 @@
   return{records,bytes,bankId:await hash(JSON.stringify(metaRows(records)),opt),legacyFiles};
  }
  async function replace(plan,opt={}){
-  check(opt);await tx('readwrite',(clips,meta)=>{
-   check(opt);clips.clear();for(const record of plan.records)clips.put(record);
-   meta.put({schema:1,bankId:plan.bankId,records:metaRows(plan.records)},'bank');
+  check(opt);let committedRevision=0;await tx('readwrite',(clips,meta,transaction)=>{
+   check(opt);const request=meta.get('bank');
+   request.onsuccess=()=>{try{
+    check(opt);const before=request.result,revision=before?.revision===undefined?0:before.revision;
+    if(!Number.isSafeInteger(revision)||revision<0||revision===Number.MAX_SAFE_INTEGER)throw fail('archive-integrity');
+    if(opt.expectedRevision!==undefined&&(revision!==opt.expectedRevision||(before?.bankId||'')!==opt.expectedBankId))throw fail('archive-stale');
+    committedRevision=revision+1;clips.clear();for(const record of plan.records)clips.put(record);
+    meta.put({schema:1,revision:committedRevision,bankId:plan.bankId,records:metaRows(plan.records)},'bank');
+   }catch(error){transaction.__sukunArchiveFailure=ownError(error)?error:fail(safeError(error));try{transaction.abort()}catch(_){}}};
   },opt,true);
   // Transaction completion is authoritative; publish the committed bank even
   // if the UI request is cancelled just after it commits.
   const previous=bank;bank=metadata({schema:1,bankId:plan.bankId,records:metaRows(plan.records)});readyError=null;hydrated=true;epoch++;invalidate(previous);
-  try{w.localStorage.setItem(RECEIPT,JSON.stringify({bankId:bank.bankId,count:bank.records.length,at:Date.now()}))}catch(_){}
-  state('loaded');emit('import');return{ok:true,count:bank.records.length,bytes:bank.bytes,bankId:bank.bankId,legacyFiles:plan.legacyFiles||0};
+  try{w.localStorage.setItem(RECEIPT,JSON.stringify({bankId:bank.bankId,revision:committedRevision,count:bank.records.length,at:Date.now()}))}catch(_){}
+  state('loaded');emit('import');return{ok:true,count:bank.records.length,bytes:bank.bytes,bankId:bank.bankId,revision:committedRevision,legacyFiles:plan.legacyFiles||0};
  }
  async function managed(work,opt={}){
   if(operation)throw fail('archive-busy');
@@ -229,10 +239,60 @@
    if(typeof w.SukunTabOwner?.maintenance!=='function')throw fail('archive-lock');
    const result=await w.SukunTabOwner.maintenance('generic-archive-import',lease=>work({...guard,isCurrent:()=>current()&&lease.current()}),{throwOnBlocked:true});
    if(result===false)throw fail('archive-lock');return result;
-  }catch(error){state('failed',safeError(error));throw error?.code?error:fail(safeError(error));}
+  }catch(error){state('failed',safeError(error));throw ownError(error)?error:fail(safeError(error));}
   finally{opt.signal?.removeEventListener?.('abort',externalAbort);if(operation===task)operation=null;emit();}
  }
  const importFiles=(files,opt={})=>managed(async guard=>replace(await validateFiles(files,guard),guard),opt);
+ /* r1093: authoritative detached descriptors and validated CAS acceptance for
+    a separately staged archive. Cached tab state is never a commit authority. */
+ async function freshBank(opt={},withClips=false){
+  const read=await tx('readonly',(clips,meta)=>{const m=meta.get('bank'),c=withClips?clips.getAll():null;return()=>({metadata:m.result||null,clips:c?.result||[]})},opt);check(opt);
+  const value=read?.metadata;if(!value)return{bankId:'',revision:0,records:[],clips:[],bytes:0};
+  const parsed=metadata(value),revision=value.revision===undefined?0:value.revision;
+  if(!Number.isSafeInteger(revision)||revision<0||await hash(JSON.stringify(metaRows(parsed.records)),opt)!==parsed.bankId)throw fail('archive-integrity');
+  return{bankId:parsed.bankId,revision,records:parsed.records,clips:read.clips,bytes:parsed.bytes};
+ }
+ async function describeBank(opt={}){
+  const captured=accessEpoch,original=await freshBank(opt);check(opt);
+  if(captured!==accessEpoch)throw fail('archive-cancelled');
+  if(opt.forReplace&&original.records.some(item=>!managementAllowed(item.key)))throw fail('archive-private-bank-locked');
+  const records=original.records.filter(item=>managementAllowed(item.key)).map(item=>({...item}));
+  return{bankId:original.bankId,revision:original.revision,records,count:records.length,bytes:records.reduce((sum,item)=>sum+item.bytes,0),countScope:'visible'};
+ }
+ async function commitRecords(input,opt={}){
+  if(!['merge','replace'].includes(opt.mode)||opt.mode==='merge'&&!['keep','replace'].includes(opt.conflicts)||!Number.isSafeInteger(opt.expectedRevision)||opt.expectedRevision<0||typeof opt.expectedBankId!=='string'||opt.expectedBankId&&!/^[a-f0-9]{64}$/.test(opt.expectedBankId))throw fail('archive-invalid');
+  const capturedAccess=accessEpoch,records=Array.from(input||[]);
+  if(!records.length||records.length>LIMIT.count)throw fail('archive-limit');
+  return managed(async guard=>{
+   const current=()=>guard.isCurrent()&&accessEpoch===capturedAccess;
+   const admission={...guard,isCurrent:current};check(admission);
+   const selected=new Map();let inputBytes=0;
+   for(const value of records){
+    check(admission);const item=row(value),blob=value.blob;
+    if(!managementAllowed(item.key)||selected.has(item.key))throw fail('archive-invalid');
+    if(!(blob instanceof Blob)||blob.size!==item.bytes||blob.type!==item.type||await hash(blob,admission)!==item.sha256)throw fail('archive-integrity');
+    inputBytes+=item.bytes;if(inputBytes>LIMIT.bytes)throw fail('archive-limit');selected.set(item.key,{...item,blob});
+   }
+   const original=await freshBank(admission,opt.mode==='merge');check(admission);
+   if(original.revision!==opt.expectedRevision||original.bankId!==opt.expectedBankId)throw fail('archive-stale');
+   if(opt.mode==='replace'&&original.records.some(item=>!managementAllowed(item.key)))throw fail('archive-private-bank-locked');
+   const merged=new Map();
+   if(opt.mode==='merge'){
+    const stored=new Map(original.clips.map(item=>[item?.key,item]));
+    for(const item of original.records){
+     if(opt.conflicts==='replace'&&selected.has(item.key))continue;
+     const value=stored.get(item.key),blob=value?.blob;
+     if(!(blob instanceof Blob)||blob.size!==item.bytes||blob.type!==item.type||value.sha256!==item.sha256||await hash(blob,admission)!==item.sha256)throw fail('archive-integrity');
+     merged.set(item.key,{...item,blob});
+    }
+   }
+   for(const [key,value]of selected)if(opt.conflicts!=='keep'||!merged.has(key))merged.set(key,value);
+   const final=Array.from(merged.values()).sort((a,b)=>a.key.localeCompare(b.key)),bytes=final.reduce((sum,item)=>sum+item.bytes,0);
+   if(final.length>LIMIT.count||bytes>LIMIT.bytes)throw fail('archive-limit');
+   const bankId=await hash(JSON.stringify(metaRows(final)),admission);check(admission);
+   return replace({records:final,bytes,bankId},{...admission,expectedRevision:opt.expectedRevision,expectedBankId:opt.expectedBankId});
+  },opt);
+ }
  function pathFor(file){
   if(typeof file!=='string'||!/^[A-Za-z0-9._/-]{1,240}$/.test(file)||file.startsWith('/')||file.split('/').some(x=>!x||x==='.'||x==='..'))throw fail('archive-invalid');
   const url=new URL(PREFIX+file,new URL('./',w.location.href));if(url.origin!==w.location.origin)throw fail('archive-invalid');return url;
@@ -304,6 +364,7 @@
   if(event.key===PREF){enabled=event.newValue==='true';epoch++;emit(enabled?'enabled':'disabled');}
   if(event.key===RECEIPT){epoch++;bank=null;bootPromise=null;hydrated=false;emit('refresh');void ready();}
  });
- w.SukunGenericRecordings=Object.freeze({version:VERSION,snapshot,ready,epoch:()=>epoch,signature,hasKnown,find,probe,validateFiles,importFiles,loadBundled,setEnabled,exportBank,cancel(){operation?.controller.abort();},limits:Object.freeze({...LIMIT})});
+ w.addEventListener?.('sukun:secretaccesschange',()=>{accessEpoch++});
+ w.SukunGenericRecordings=Object.freeze({version:VERSION,snapshot,ready,epoch:()=>epoch,signature,hasKnown,find,probe,describeBank,commitRecords,validateFiles,importFiles,loadBundled,setEnabled,exportBank,cancel(){operation?.controller.abort();},limits:Object.freeze({...LIMIT})});
  void ready();
 })(window);
