@@ -89,6 +89,7 @@
     // Pure observations: a visit never starts/stops or takes ownership of the
     // foreground. Keep the whole automatic session quiet between its repeats.
     try { var player = window.R170 && window.R170.Player; if (player && player.playing && !player.paused) return true; } catch (_) {}
+    try { var reader = window.SukunReadingAudioR1064 && window.SukunReadingAudioR1064.snapshot(); if (reader && ['preparing','playing'].indexOf(reader.phase) >= 0) return true; } catch (_) {}
     try { var current = window.SukunSessionState && window.SukunSessionState.peek && window.SukunSessionState.peek(); if (current && !current.presentationOnly && (current.playing || current.preparing)) return true; } catch (_) {}
     try { if (window.SukunPhysicalRecordingBusyR696 && window.SukunPhysicalRecordingBusyR696()) return true; } catch (_) {}
     try { if (window.speechSynthesis && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) return true; } catch (_) {}
@@ -112,6 +113,17 @@
   function usableGrant() {
     if (locallyLocked) return false;
     try { return !!(adapter && typeof adapter.isUnlocked === 'function' && adapter.isUnlocked()); } catch (_) { return false; }
+  }
+  function invalidateAccess() {
+    if (!state.open || state.revoking || !state.authenticated && state.phase !== 'verifying') return;
+    // Revocation only retires this presentation's pending work and narration.
+    // The access adapter remains the authority for private queues and dhikr.
+    state.entering = false;
+    finishSeal('revoked', false);
+  }
+  function syncAccess(event) {
+    if (!state.open || state.revoking) return;
+    if (event && event.detail && event.detail.unlocked === false || state.authenticated && !usableGrant()) invalidateAccess();
   }
   function emitState() {
     try { document.dispatchEvent(new CustomEvent('sukun:berhet-gate-state', {detail:snapshot()})); } catch (_) {}
@@ -384,6 +396,7 @@
   }
   function ready() {
     if (!state.open || !state.authenticated || locallyLocked) return;
+    if (!usableGrant()) { invalidateAccess(); return; }
     clearTimeout(stageTimer); stageTimer = null;
     state.phase = 'ready'; state.dormant = false; state.error = ''; settings.seen = true; saveSettings(); render('#sbgEnter');
   }
@@ -427,6 +440,7 @@
   }
   async function enter() {
     if (!state.open || state.phase !== 'ready' || !state.authenticated || state.entering) return;
+    if (!usableGrant()) { invalidateAccess(); return; }
     cancelPending(); aborter = new AbortController();
     var controller = aborter, intent = epoch;
     state.entering = true; state.error = ''; render('[data-act="close"]');
@@ -441,6 +455,7 @@
   }
   function invite(button) {
     if (!invitationAudioURL || !settings.effects || !settings.volume || !state.open || !state.authenticated || document.hidden) return;
+    if (!usableGrant()) { invalidateAccess(); return; }
     if (readingBusy()) { stopInvitation(); button.textContent = t('voiceBusy'); return; }
     stopInvitation();
     try {
@@ -453,7 +468,7 @@
           try { source.pause(); source.currentTime = 0; } catch (_) {}
           if (invitationAudio === source) invitationAudio = null;
         }
-      }, function () { if (state.open && intent === epoch && button.isConnected) button.textContent = t('voiceUnavailable'); });
+      }, function () { if (invitationAudio === source && state.open && intent === epoch && button.isConnected) button.textContent = t('voiceUnavailable'); });
     } catch (_) { button.textContent = t('voiceUnavailable'); }
   }
   function abortable(promise, signal) {
@@ -514,7 +529,8 @@
     if (document.hidden) { audioEpoch++; soundPending = false; if (audio) audio.setEnabled(false); stopInvitation(); }
     else { checkDeadline(); syncReadingMix(); }
   });
-  ['sukun:sessionchange','sukun:playbackchange','sukun:foregroundqueuechange','sukun:voicesource','sukun:zikirtransportgate','sukun:mediaactivitychange'].forEach(function (name) { window.addEventListener(name, syncReadingMix, {passive:true}); });
+  ['sukun:sessionchange','sukun:playbackchange','sukun:foregroundqueuechange','sukun:voicesource','sukun:zikirtransportgate','sukun:mediaactivitychange','sukun:readingchange'].forEach(function (name) { window.addEventListener(name, syncReadingMix, {passive:true}); });
+  window.addEventListener('sukun:secretaccesschange', syncAccess, {passive:true});
   window.addEventListener('pagehide', function () { if (state.open) close({fromHistory:true}); else if (audio) audio.stop({immediate:true}); });
   window.SukunBerhetGate = {
     configure:function (options) { if (options && options.adapter) adapter = options.adapter; if (options && typeof options.invitationAudioURL === 'string') invitationAudioURL = options.invitationAudioURL; return this; },

@@ -80,6 +80,38 @@
   let pendingStart = null, refreshQueued = false, collecting = false, commandFailure = null;
   let completion = null, lastReason = 'boot', establishedEpoch = -1;
   let voiceCycle = Object.freeze({phase:'IDLE',revision:0}), voiceSignature = '';
+  /* r1089 smart-source presentation receipt. This observes the existing
+   * caller-scoped onset callback; it never admits audio or credits a read.
+   * A new attempt epoch retires late callbacks even within the same step. */
+  function createSmartSourcePresentation(getPlayer, notify) {
+    let receipt=null, epoch=0;
+    function current(r) {
+      const p=getPlayer();
+      if(!r||r!==receipt||p!==r.player||!p.playing||p.paused||p.token!==r.token||p.queue!==r.queue||p.i!==r.index||p.queue?.[p.i]!==r.step||r.step._r1082Id!==r.stepId)return false;
+      try{return typeof r.isCurrent!=='function'||r.isCurrent();}catch(_){return false;}
+    }
+    function stage(r,value){if(!current(r)||r.stage===value)return;r.stage=value;try{notify();}catch(_){}}
+    function snapshot(){const r=receipt;if(!current(r)){receipt=null;return null;}return Object.freeze({stage:r.stage,epoch:r.epoch,token:r.token,index:r.index,stepId:r.stepId,cat:r.step.cat,idx:+r.step.idx});}
+    function observe(resolver) {
+      const original=resolver?.play;if(typeof original!=='function'||original.__r1089Presentation)return false;
+      const wrapped=function(cat,idx,item,opt={}) {
+        const p=getPlayer(),step=p?.queue?.[p.i];
+        if(!opt.session||opt.journey||!p?.playing||p.paused||step?.type!=='zikir'||step.cat!==cat||+step.idx!==+idx)return original.apply(this,arguments);
+        const r=receipt={player:p,queue:p.queue,step,stepId:step._r1082Id,token:p.token,index:p.i,epoch:++epoch,stage:'preparing',isCurrent:opt.isCurrent};
+        try{notify();}catch(_){}
+        const previous=opt.onPreviewStarted;
+        const onPreviewStarted=function(...args){stage(r,'playing');return typeof previous==='function'?previous.apply(this,args):undefined;};
+        const settle=()=>stage(r,'gap');
+        try{return Promise.resolve(original.call(this,cat,idx,item,{...opt,onPreviewStarted})).then(value=>{settle();return value;},error=>{settle();throw error;});}
+        catch(error){settle();throw error;}
+      };
+      Object.assign(wrapped,original);wrapped.__r1089Presentation=true;resolver.play=wrapped;return true;
+    }
+    return Object.freeze({snapshot,observe});
+  }
+  /* r1089 smart-source presentation receipt end. */
+  const smartSourcePresentation=createSmartSourcePresentation(()=>window.R170?.Player,()=>schedule('smart-source-presentation'));
+  smartSourcePresentation.observe(window.AudioResolver);
   // r1073: one cached control receipt, separate from playback state. A provider
   // accepting a command does not verify counter progress or audible sound.
   let commandDiagnosticSequence = 0, latestCommandDiagnostic = null;
@@ -143,7 +175,9 @@
       read(() => typeof MINI !== 'undefined' && MINI.wasAuto, false));
     const paused = !!(js?.paused || js?.systemHold || z.paused || z.session?.paused || transportState.direct?.paused ||
       hasZikirOwner && (registry.paused || transport.paused || truth.paused));
-    const preparing = !!(pendingStart?.waitingStop && pendingStart.epoch === epoch || transportState.pendingStart || transportState.direct?.starting ||
+    const smartSource=smart?.active&&smart.reading?smartSourcePresentation.snapshot():null;
+    const smartSourcePreparing=!!(smartSource?.stage==='preparing'&&smartSource.cat===mode&&smartSource.idx===index);
+    const preparing = !!(smartSourcePreparing || pendingStart?.waitingStop && pendingStart.epoch === epoch || transportState.pendingStart || transportState.direct?.starting ||
       hasZikirOwner && (transport.preparing || truth.pendingPhysical));
     // Ambient music is not proof that the selected zikr counter is playing.
     const playing = !paused && !!(js?.run || transportState.direct?.auto || z.auto || z.session?.playing || transport.running);
@@ -172,11 +206,11 @@
     const cyclePhase = failed ? 'ERROR' : paused ? 'PAUSED' : interrupted ? 'INTERRUPTED' : preparing ? 'PREPARING' : playing ? 'PLAYING' : 'ENDED';
     const cycleSig = [epoch,cyclePhase,observedSource.kind || 'idle'].join('|');
     if(cycleSig !== voiceSignature){voiceSignature=cycleSig;voiceCycle=freeze({phase:cyclePhase,revision:voiceCycle.revision+1,epoch,at:Date.now()});const detail=voiceCycle;queueMicrotask(()=>window.dispatchEvent(new CustomEvent('sukun:voicecyclechange',{detail})));}
-    let phase = failed ? 'ERROR' : paused ? 'PAUSED' : interrupted ? 'INTERRUPTED' : playing && establishedEpoch === epoch ? 'PLAYING' : preparing ? 'PREPARING' :
+    let phase = failed ? 'ERROR' : paused ? 'PAUSED' : interrupted ? 'INTERRUPTED' : smartSourcePreparing ? 'PREPARING' : playing && establishedEpoch === epoch ? 'PLAYING' : preparing ? 'PREPARING' :
       playing ? 'PLAYING' : hasZikirOwner && ['interrupted', 'recovering'].includes(life.state) ? 'INTERRUPTED' :
       (smart?.terminal || jd?.complete || completion?.identity === identity) ? 'COMPLETED' : 'IDLE';
     const rawKind = clean(observedSource.kind && observedSource.kind !== 'idle' ? observedSource.kind : flow.source?.kind || np.sourceKind || 'none').toLowerCase().replace(/_/g, '-');
-    let audioSource = smart && !smart.reading ? 'SILENCE' : /error|fail/.test(rawKind) ? 'ERROR' :
+    let audioSource = smartSourcePreparing ? 'PREPARING' : smart && !smart.reading ? 'SILENCE' : /error|fail/.test(rawKind) ? 'ERROR' :
       /local|file|sample/.test(rawKind) ? 'LOCAL_RECORDING' :
       /tts|speech/.test(rawKind) || rawKind === 'ses' ? 'TTS' :
       /^reader/.test(rawKind) ? 'READER_RECORDING' :
@@ -192,7 +226,7 @@
     const sourceOrigin = window.SukunAudioSourceText.origin(originInput);
     const recordingOrigin = ['personal','generic','bundled'].includes(sourceOrigin) ? sourceOrigin : null;
     const sourceMetadata = freeze({kind:audioSource,origin:sourceOrigin,recorded:recordingOrigin !== null,
-      provenance:retainedSource ? 'retained' : matchingSingleRecording ? 'native-single' : 'resolver'});
+      provenance:smartSourcePreparing ? 'smart-preparation' : retainedSource ? 'retained' : matchingSingleRecording ? 'native-single' : 'resolver'});
     const activeName = name;
     const total = j.view ? Number(j.view.kind) : Math.max(0, number(z.length));
     return {
@@ -217,7 +251,7 @@
       phase, playbackState: phase.toLowerCase(), playing: phase === 'PLAYING', paused: phase === 'PAUSED',
       preparing: phase === 'PREPARING', audioSource, sourceOrigin, recordingOrigin, sourceMetadata,
       recordingSource: matchingFailure ? 'USER_RECORDING_FAILED' : audioSource === 'USER_RECORDING' ? 'USER_RECORDING' : null,
-      sourceLabel: clean(observedSource.label || flow.source?.label || (phase === 'PLAYING' && state?.epoch === epoch ? state?.sourceLabel : '') || ''),
+      sourceLabel: smartSourcePreparing ? '' : clean(observedSource.label || flow.source?.label || (phase === 'PLAYING' && state?.epoch === epoch ? state?.sourceLabel : '') || ''),
       sceneId: scene.activeSceneId || scene.sceneId || null,
       resolvedSceneId: scene.resolvedSceneId || null,
       backgroundState: scene.sceneLoad || scene.backgroundState || 'unknown',

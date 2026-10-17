@@ -1,0 +1,97 @@
+{
+  "build": "r1089",
+  "verifiedAt": "2026-10-17T12:53:51.453952+00:00",
+  "sourceSha256": "6c1882bed10c11561c9503a2d1f5b5d09844478b27f1771b0cb2f3a3e8b28b8b",
+  "sourceHashes": {
+    "index.html": "6c1882bed10c11561c9503a2d1f5b5d09844478b27f1771b0cb2f3a3e8b28b8b",
+    "nero.html": "6c1882bed10c11561c9503a2d1f5b5d09844478b27f1771b0cb2f3a3e8b28b8b",
+    "assets/runtime/session-r919.js": "208e695cba7f0e2740c23c56f8e68824aa9c577b6e2cb47308168ce4f630ba25",
+    "assets/runtime/smart-session-ui-r1082.js": "5dac4626b57602a9d04b3bc7b58ff8dbaacc951c9bcd75a61f1835702d230713",
+    "assets/berhetiyye-gate/portal-r1080.js": "57583331c6c1c1d078b47002abcb3878d42635bfa03b4720261bf8f9feda65f5"
+  },
+  "controlledRegressionGroups": {
+    "passed": 148,
+    "total": 148
+  },
+  "releaseIntegrity": {
+    "passed": 1356,
+    "total": 1356
+  },
+  "fullReleaseExport": {
+    "ok": true,
+    "files": 726,
+    "deploymentBytes": 306330114
+  },
+  "focusedControlledCases": {
+    "navigation": 27,
+    "savedTemplates": 18,
+    "retainedSavedSessionMigration": 19,
+    "preparingPresentation": 18,
+    "gateState": 7,
+    "controlledGateBrowser": 15
+  },
+  "browserIntegration": {
+    "navigation": {
+      "passed": 12,
+      "total": 12,
+      "test": "tests/r1089/navigation-races-browser.js",
+      "testSha256": "9ec309a0ed84637b99c84d9376f3f6171b13ee338b1a87d1d3ce0c5fc737f133",
+      "reportSha256": "4417f4d56eb21d495f1aaee1990585a0d0d0b0b6b96db6125ebcc47dba0b747b"
+    },
+    "savedTemplates": {
+      "passed": 11,
+      "total": 11,
+      "test": "tests/r1089/saved-session-browser.js",
+      "testSha256": "f33f1de50ab54c34d4aa1210836ab3f531b2c74089caae98766a90749ce31796",
+      "reportSha256": "7025d6b8fc3466764b3828bf04b82ebee6ee42e5881dd0ef5b8235e26f8c2044"
+    },
+    "preparing": {
+      "passed": 11,
+      "total": 11,
+      "test": "tests/r1089/preparing-ui-browser.js",
+      "testSha256": "b0e8b648163501af3749c34b3f6c4bbd13007107448706a5c1b6daff7ab263bd",
+      "reportSha256": "79af15b62a942b4ddb5e2b9803fab6e7dde8bcc29a99a9df27284e7f03fcf134"
+    },
+    "gate": {
+      "passed": 8,
+      "total": 8,
+      "test": "tests/r1089/gate-state-browser.js",
+      "testSha256": "376357ec9eea261705655cec763be89e8e8034cb8a5781f03a24b8b174893548",
+      "reportSha256": "2e6fd40bc8618bdd9b7b274fbaef1421b3fa2284d8124fcd5de4faa9158caa53"
+    },
+    "originalBundledTransition": {
+      "passed": 5,
+      "total": 5,
+      "test": "tests/r1088/session-continuity-browser.js",
+      "testSha256": "30b7f76dbcfe8e3b526125a4c9251c9b780c7a2fa408afc1fe767f0947657b02",
+      "reportSha256": "0c64b000835609ce2442b64faacd795fcda7d5d3bbc249de329c8bce9f22677d"
+    }
+  },
+  "browserIntegrationTotal": 47,
+  "storageDurability": "Each of 3 rounds retained all 60 successful concurrent writes in the authoritative database, a reloaded page and a replacement fresh page. Three favorite races also retained all expected favorite IDs.",
+  "scope": "Frozen Classic/Feyz source. Native media clocks and original bundled audio, generated PCM recordings, actual pointer and keyboard controls, canonical IDB transactions, cross-tab durability and latest-intent/source/policy fences. Controlled fault injections are separately labelled.",
+  "limitations": [
+    "Disposable Linux Chromium, Classic/Feyz at 390×844 CSS pixels. No physical Samsung, Android screen-lock, real-device autoplay or audible recitation quality claim.",
+    "Generated two-second PCM tones occupy disposable personal-recording keys. Native HTMLMediaElement clocks, currentTime, play, pause and ended are not replaced; application progress is observed after native completion.",
+    "The four sub-60ms command races and rapid-navigation cases call actual production Player methods within one page.evaluate task. They establish the API/command boundary, not physical fast taps or interaction-gate behavior.",
+    "The separately labelled dock case uses trusted Playwright click events through actual visible production controls. Programmatic queue preparation is not counted as UI input.",
+    "Production source files are served byte-for-byte with service workers blocked. Audio observation wrappers only log native calls/events and return the original results.",
+    "Disposable Chromium at390×844 Classic/Feyz, two pages sharing one actual origin/storage. Production files are served byte-for-byte; service workers blocked. No personal user data, physical Samsung behavior, audible playback or screen-lock behavior is measured.",
+    "Normal writes use the actual unchanged asynchronous store APIs or public Save/favorite buttons. Fixture seed writes/reset the real canonical IDB record explicitly; direct mirror changes are never treated as normal backend writes. No localStorage, production timer, Date, WebLock or IDB API is patched.",
+    "One explicitly labelled async-Save test holds an actual separate native IDB guard transaction to expose a pending-write interval. It releases that transaction before awaiting the production save; audio is never started.",
+    "Disposable Linux Chromium, Classic/Feyz. Native original bundled MP3 loading/play/currentTime are used, but no full recitation or real Samsung/Android lock-screen behavior is claimed.",
+    "Fault injection is limited to delaying actual same-origin MP3 delivery or returning labelled HTTP503 for one selected source. MP3 bytes, browser clocks, ended events, production player and source resolver remain unchanged.",
+    "Selected seams from the prior audit plus accepted-onset TR/EN regression checks: actual pending network preparation, rapid commands during that preparation, retryable failure through reload, and source/target/controls at360,390,412 and1440 CSS pixels. Previous18-case continuity matrix is not repeated.",
+    "The error/reload case additionally calls the existing device-speech fixture error() to explicitly reject fallback speech after real HTTP503. This is a labelled failure injection, not a native TTS or audible-quality claim; positive reading completion is never synthesized.",
+    "The final multipart-terkip profile explicitly uses the existing controlled device-speech start seam to verify accepted-onset presentation. It never simulates successful reading completion or claims native/audible TTS quality.",
+    "Service workers are blocked here; offline/SW is owned by the parent audit. Bundled-source/error profiles have no device voices so a missing bundled reading cannot silently pass through controlled fixture TTS; only the separately labelled multipart-terkip profile has controlled voices.",
+    "Exact production shell, portal and reader with native bundled Ya-Sin and invitation MP3, Classic/Feyz at390×844 in disposable Linux Chromium.",
+    "A real same-origin Ya-Sin request is deliberately held to expose the existing preparation state. Native media methods, clocks, completions and AudioContext are not replaced or fabricated.",
+    "Only a labelled entitlement adapter and standard fixture device-speech adapter are synthetic. Physical Samsung/Android locking, remote entitlement, audible recitation quality and full Ya-Sin completion are not measured.",
+    "Disposable Linux Chromium at390×844 CSS pixels, Classic/Feyz. No personal user data, real Android screen locking, physical Samsung behavior or audible speech quality is measured.",
+    "Save/migration cases use actual visible production UI and localStorage in disposable profiles. Migration seeds only explicitly labelled historical session records.",
+    "Transport continuity case uses generated.7-second PCM tones only in disposable personal-recording keys. Native play/currentTime/ended events and wall clocks remain unmodified. Progress is credited by the application after actual native ended.",
+    "The separate bundled case uses original shipped Felâk38.739575-second and Nâs43.807325-second MP3 bytes with no device voices or personal recordings. It waits for the full first file and samples pause/resume of the second; full Nâs completion and full protective sequence are not claimed.",
+    "Service workers are blocked in this engineering fixture. Production HTML/CSS/JS/audio are served byte-for-byte and checked against final disk hashes; no production clock, playbackRate, source loader or player is replaced."
+  ]
+}
