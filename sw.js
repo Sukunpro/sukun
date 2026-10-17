@@ -4,85 +4,85 @@
    kesmez; sayfa reload kararı istemci tarafında verilir. */
 'use strict';
 
-const SURUM = 'r1094';
+const SURUM = 'r1095';
 const ART_CACHE = 'sukun-art-persistent-v1';
-const CACHE = 'sukun-r1094-source-matrix-20261017-v1';
-const CACHE_META = './sukun-cache-meta-r1094.json';
-const BUILD_MARKER = './sukun-build-r1094.json';
+const CACHE = 'sukun-r1095-offline-image-packs-20261017-v1';
+const CACHE_META = './sukun-cache-meta-r1095.json';
+const BUILD_MARKER = './sukun-build-r1095.json';
 const LATEST_MARKER = './sukun-latest.json';
-const REQUIRED_RUNTIME = [{"url": "./assets/runtime/berhet-layout-r938.css?v=r1094", "sha256": "e22130607a9dc18f298262d67a58393b4a51d09f3e7601a0f543df2ab0646491"}, {"url": "./assets/runtime/berhet-materials-r933.css?v=r1094", "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"}, {"url": "./assets/runtime/berhet-controls-r933.css?v=r1094", "sha256": "3ad2239995fcc02fcbcf970d738a4b548716b9de360954af50839097c7c7c067"}, {"url": "./assets/runtime/berhet-dock-r933.css?v=r1094", "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596"}, {"url": "./assets/runtime/background-owner-r949.js?v=r1094", "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3"}, {"url": "./assets/runtime/lifecycle-r949.js?v=r1094", "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40"}, {"url": "./assets/runtime/audio-palette-r945.js?v=r1094", "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1"}, {"url": "./assets/runtime/esma-scenes-r923.js?v=r1094", "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"}, {"url": "./assets/runtime/session-r919.js?v=r1094", "sha256": "5ef9efcb784542a53a9f3ebe8ec57f4694ebbeeb0b7af00428a6b4de9e2b8869"}, {"url": "./assets/runtime/dock-r920.js?v=r1094", "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590"}, {"url": "./assets/runtime/wheels-r924.js?v=r1094", "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f"}, {"url": "./assets/runtime/berhet-layout-r938.js?v=r1094", "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6"}, {"url": "./assets/runtime/interface-r920.js?v=r1094", "sha256": "517d7dc842e2dbebdea2373335c527e1dd08624584a31eac6f79f19f8c057ff0"}, {"url": "./assets/runtime/wheels-r924.css?v=r1094", "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f"}, {"url": "./assets/runtime/berhet-theme-r933.js?v=r1094", "sha256": "e3f4ba9b695d25d34c7e098a7d51b51e778089ddd897ac9b10b9851e511d2069"}, {"url": "./assets/runtime/health-view-r943.css?v=r1094", "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3"}, {"url": "./assets/runtime/health-view-r943.js?v=r1094", "sha256": "d04c05dfc3c0624226bec562acd5e8169c8ce5334836bcc8562e5fa37cfc4d84"}, {"url": "./assets/runtime/scene-picker-r945.css?v=r1094", "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2"}, {"url": "./assets/runtime/scene-picker-r945.js?v=r1094", "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75"}, {"url": "./assets/runtime/health-r940.js?v=r1094", "sha256": "3484d47a7a55ff29348d62965bee516a71530c9dfe351ab9c4c3ad9579be6620"}, {"url": "./assets/runtime/nefs-r948.css?v=r1094", "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf"}, {"url": "./assets/runtime/nefs-data-r948.js?v=r1094", "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c"}, {"url": "./assets/runtime/nefs-model-r948.js?v=r1094", "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b"}, {"url": "./assets/runtime/nefs-ui-r948.js?v=r1094", "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721"}, {"url": "./assets/runtime/offline-scenes-r962.js?v=r1094", "sha256": "4869b10fc6c231545a8e191aa42a617139b0c749ea65a90f97f71d26bdeed4c5"}, {"url": "./assets/wheel-navigation-r964/gold.png?v=r1094", "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2"}, {"url": "./assets/wheel-navigation-r964/copper.png?v=r1094", "sha256": "b731ba244c0f04a972276580a70e3b203a8a9e839abe35841cfd08c372283012"}, {"url": "./assets/wheel-navigation-r964/silver.png?v=r1094", "sha256": "d7095d1597bdeb288035bd3aa87c4168c63a4dd6b98c7f6ab860f0f7c24a516f"}, {"url": "./assets/wheel-navigation-r964/dark.png?v=r1094", "sha256": "c6407489d8c52d1b65985dbbdb8d5c3df625b184739c413c40c6d423d70c55bb"}, {"url": "./assets/wheel-navigation-r964/crystal.png?v=r1094", "sha256": "dd751abc6483a3c5f3585e170d0c9888fdef5ccb69e276bd61d765b33bdb6b85"}, {"url": "./assets/runtime/presentation-r979.js?v=r1094", "sha256": "c648ddce99e0191ae5cb11bbccd19222a4bf3bb8764453c54d95d8e15831e033"}, {"url": "./assets/runtime/audio-cpu-r981.js?v=r1094", "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f"}, {"url": "./assets/runtime/audio-preparation-r981.js?v=r1094", "sha256": "8345207bc48ffa582fde385d607a9fbb79f07dc75bcdc38afd3369d6b738a4f7"}, {"url": "./assets/runtime/tab-owner-r981.js?v=r1094", "sha256": "21220e69af86bb3e7d1a031eb13d5e3f3a9524bceab9873a08dcd30d0870d785"}, {"url": "./assets/runtime/cadence-r981.css?v=r1094", "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992"}, {"url": "./assets/runtime/cadence-r981.js?v=r1094", "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda"}, {"url": "./assets/runtime/studio-preparation-r982.js?v=r1094", "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e"}, {"url": "./assets/runtime/progress-journal-r982.js?v=r1094", "sha256": "1555800182b606e6abea73dd53bf8fa9392a7f42b4a3a628a208bf4ad8587cde"}, {"url": "./assets/runtime/tekke-sequence-r988.js?v=r1094", "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772"}, {"url": "./assets/runtime/tekke-set-r990.js?v=r1094", "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a"}, {"url": "./assets/runtime/tekke-ux-r992.css?v=r1094", "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3"}, {"url": "./assets/runtime/tekke-ux-r992.js?v=r1094", "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d"}, {"url": "./assets/runtime/tekke-journey-r993.css?v=r1094", "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863"}, {"url": "./assets/runtime/tekke-journey-r993.js?v=r1094", "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a"}, {"url": "./assets/scenes/tekke-r1014/berhet-billur.webp?v=r1094", "sha256": "17cbb4b7cc419bcc7e4fd0618c012ede1104523ed956aeed380280d169af6a50"}, {"url": "./assets/runtime/recording-continuity-r1016.js?v=r1094", "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e"}, {"url": "./assets/runtime/recording-inspection-r1020.js?v=r1094", "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04"}, {"url": "./assets/runtime/studio-batch-r1020.js?v=r1094", "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda"}, {"url": "./assets/runtime/recovery-versions-r1019.js?v=r1094", "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c"}, {"url": "./assets/runtime/recovery-data-r1020.js?v=r1094", "sha256": "73dc56f2eb83405ee0801fd94703b85497963d02aad728216336e66e6e5da355"}, {"url": "./assets/runtime/site-backup-r1020.js?v=r1094", "sha256": "5d8380543c1893a80c80c5b8a425cc28638615a724144243549469b9672cddf9"}, {"url": "./assets/runtime/recovery-ui-r1019.js?v=r1094", "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541"}, {"url": "./assets/runtime/recording-salvage-r1020.js?v=r1094", "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58"}, {"url": "./assets/runtime/recovery-entry-r1027.js?v=r1094", "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff"}, {"url": "./assets/runtime/startup-intro-r1027.js?v=r1094", "sha256": "ea9dba121fbd1e33386be1df94d9a647a53d8d319d0b9703297d2b1f6d37db87"}, {"url": "./rescue.html?v=r1094", "sha256": "747a6f3c2b8664a4f287f18eb96f54270096ddaf28c57a4ba3dd6d2940b0acfd"}, {"url": "./assets/branding/sukun-frameless-logo-r1029.png?v=r1094", "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd"}, {"url": "./assets/branding/sukun-intro-pattern-r1029.svg?v=r1094", "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4"}, {"url": "./assets/audio/sukun-intro-signature-r1037.wav?v=r1094", "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457"}, {"url": "./assets/runtime/generic-recordings-r1055.js?v=r1094", "sha256": "c6823c9eeeae0525dcf09f8e2775e95ca964b902f76966e4ec9a3e893b88c1f3"}, {"url": "./assets/runtime/generic-recordings-ui-r1055.js?v=r1094", "sha256": "4c60e36eff387b882d2b8d874799da2a3a469bb0ecca20b888fa511cf147dbcc"}, {"url": "./assets/runtime/compact-ui-r1057.css?v=r1094", "sha256": "ea43a802d7059df167b1acf3504b96ba77dd73bd98b95b1e488d3ec4d57bfaea"}, {"url": "./assets/runtime/compact-ui-r1057.js?v=r1094", "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d"}, {"url": "./assets/runtime/background-mix-render-r1059.js?v=r1094", "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e"}, {"url": "./assets/runtime/background-mix-r1059.js?v=r1094", "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38"}, {"url": "./assets/runtime/active-source-r1060.js?v=r1094", "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3"}, {"url": "./assets/runtime/active-layers-r1061.js?v=r1094", "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae"}, {"url": "./assets/runtime/reading-ui-r1064.css?v=r1094", "sha256": "5d6a2109e0f394a642b38a4ae5545b3c6957a79dd117315603bf1d429fce249f"}, {"url": "./assets/runtime/yasin-data-r1064.js?v=r1094", "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94"}, {"url": "./assets/runtime/reading-sources-r1064.js?v=r1094", "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126"}, {"url": "./assets/runtime/reading-audio-r1064.js?v=r1094", "sha256": "dbeccc27c91c5a87b494437ff835364350e23d00e61687378875c867891d9b44"}, {"url": "./assets/runtime/reading-ui-r1064.js?v=r1094", "sha256": "0a79d15b2387883c7e8c3d38d14c4386076bf83d700cc693a2b55621add4e83b"}, {"url": "./assets/audio/arabic-r1065/yasin.mp3?v=r1094", "sha256": "4096f23ddba18fb4b410e54459cac520d91de178c5b5d2a78232e57723fb6a3d"}, {"url": "./assets/audio/arabic-r1065/fatiha.mp3?v=r1094", "sha256": "46fe21a5118957d52ac76f5a6a7fdd7e75d52e4a569619ae3e174a23ce5c82bc"}, {"url": "./assets/audio/arabic-r1065/ayatul-kursi.mp3?v=r1094", "sha256": "cb32b4b36012fdc2c4a93460a7106b9e337f1244d5198a549cea76a7edeaeb38"}, {"url": "./assets/audio/arabic-r1065/ikhlas.mp3?v=r1094", "sha256": "9ad15357702fd585cfc9a4cb082c65a7d3930ff34ed1c720f14447a0fc60d361"}, {"url": "./assets/audio/arabic-r1065/falaq.mp3?v=r1094", "sha256": "2e01e8048cca4ff3a7419331e119241d15565e1e5a531fab85bd53d7283afcc9"}, {"url": "./assets/audio/arabic-r1065/nas.mp3?v=r1094", "sha256": "176441a835915036e7b517f723d49d2954a86cfd8bfd12d6172c77edcc85405e"}, {"url": "./assets/runtime/bundled-arabic-r1065.js?v=r1094", "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f"}, {"url": "./assets/runtime/navigation-r1066.js?v=r1094", "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6"}, {"url": "./assets/runtime/yasin-timing-r1067.js?v=r1094", "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e"}, {"url": "./assets/runtime/browser-contrast-r1077.css?v=r1094", "sha256": "35eb72c7d208df77eaa80833bd33535db2e71359bef78cb0713574cdb52e6689"}, {"url": "./assets/runtime/protective-plan-r1078.css?v=r1094", "sha256": "435d3597d787a42f4e4cb8014dad0d6cc1d944575cb82d6375a25376a8e73243"}, {"url": "./assets/runtime/protective-plan-r1078.js?v=r1094", "sha256": "eae538c9a50770b86751c48d1b4ab4515a443a541fb358c5e3d157bb2d6b6a22"}, {"url": "./assets/berhetiyye-gate/portal-r1080.css?v=r1094", "sha256": "5c115fb5f548e6d15bb938c5270d5431bcaabe03ea6abd164370ad05885bb757"}, {"url": "./assets/berhetiyye-gate/entry-r1080.css?v=r1094", "sha256": "652561e9c60b412bbb6e03096c5576787aad2966b3bcfae8205d40b28d3e0374"}, {"url": "./assets/berhetiyye-gate/invitation-tr.mp3?v=r1094", "sha256": "18a114ec927508e4f5684a7e76d39abe28058c81f5632c797a707c6109bd5303"}, {"url": "./assets/berhetiyye-gate/audio-r1080.js?v=r1094", "sha256": "d77a0ecff6f7a7b11cee3116817c51c6a1cf568d0c7e8d7026383842936d015c"}, {"url": "./integration/berhet-access/example-http-provider.js?v=r1094", "sha256": "ec2e1f22e7bf0ae938a7163019eec4556150bf858dc387e13b3596cce30f16ae"}, {"url": "./assets/berhetiyye-gate/access-r1080.js?v=r1094", "sha256": "99270f5efc93e38ab95d1c6da32005232a63e181d94765e44f4c894d424a64c6"}, {"url": "./assets/berhetiyye-gate/portal-r1080.js?v=r1094", "sha256": "0048e2a9cac8416faa0102b1cc10ff8d262693f09be89e4ad663c170e9c077c9"}, {"url": "./assets/berhetiyye-gate/entry-r1080.js?v=r1094", "sha256": "8ef27093ff8da3fc8dc9a8f67563df4f49c0176ecbf18772c416c28d1194cde3"}, {"url": "./assets/runtime/smart-session-ui-r1082.css?v=r1094", "sha256": "75a9a3565910449a6dd3b2a0b3d46487ed4d2c63ee7fd062b547a9f9a86db2a0"}, {"url": "./assets/runtime/smart-session-ui-r1082.js?v=r1094", "sha256": "5dac4626b57602a9d04b3bc7b58ff8dbaacc951c9bcd75a61f1835702d230713"}, {"url": "./assets/runtime/session-preflight-ui-r1092.css?v=r1094", "sha256": "e0b99033e8d528dffa1da89c778b8567c201db5dda32516a1105610a74cfd150"}, {"url": "./assets/runtime/preflight-cache-r1092.js?v=r1094", "sha256": "840a9e120dc10f93842eada39e17ac316671c45405e8109694bfd20d8966d0ed"}, {"url": "./assets/runtime/session-preflight-r1092.js?v=r1094", "sha256": "0c33412ea2ef96825ec6ac7bb9b8e30307b3b486aa14803e2becc0cb758ba986"}, {"url": "./assets/runtime/session-preflight-ui-r1092.js?v=r1094", "sha256": "c8239465b43a7cc392c7d87ca6fd2361d59e4fbcb08ad7852657ee58204ef844"}, {"url": "./assets/runtime/archive-download-r1093.css?v=r1094", "sha256": "1e64b2d06b24547bb932d4148de660201ec62a5610d95c6148d8ba879cfbbebc"}, {"url": "./assets/runtime/archive-download-r1093.js?v=r1094", "sha256": "5a796fbbe29c0f5183434e655e792102fb831bb39895e1f5685d3c5aaf9fd3ad"}, {"url": "./assets/runtime/source-matrix-ui-r1094.css?v=r1094", "sha256": "ad4a4fa2d522d2a418403fc07b8f1a0979faf6e6d4db240e40e699eadcbe135a"}, {"url": "./assets/runtime/source-matrix-r1094.js?v=r1094", "sha256": "07a56c03210a52669d9d0c5578339eac60423654bdf8ef13dc0d18a8f4607e1e"}, {"url": "./assets/runtime/source-matrix-ui-r1094.js?v=r1094", "sha256": "1cdc67d4769bc8707acdc7e175ed927faf3dc820f8834de984e144887540345c"}];
+const REQUIRED_RUNTIME = [{"url": "./assets/runtime/berhet-layout-r938.css?v=r1095", "sha256": "e22130607a9dc18f298262d67a58393b4a51d09f3e7601a0f543df2ab0646491"}, {"url": "./assets/runtime/berhet-materials-r933.css?v=r1095", "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"}, {"url": "./assets/runtime/berhet-controls-r933.css?v=r1095", "sha256": "3ad2239995fcc02fcbcf970d738a4b548716b9de360954af50839097c7c7c067"}, {"url": "./assets/runtime/berhet-dock-r933.css?v=r1095", "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596"}, {"url": "./assets/runtime/background-owner-r949.js?v=r1095", "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3"}, {"url": "./assets/runtime/lifecycle-r949.js?v=r1095", "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40"}, {"url": "./assets/runtime/audio-palette-r945.js?v=r1095", "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1"}, {"url": "./assets/runtime/esma-scenes-r923.js?v=r1095", "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"}, {"url": "./assets/runtime/session-r919.js?v=r1095", "sha256": "5ef9efcb784542a53a9f3ebe8ec57f4694ebbeeb0b7af00428a6b4de9e2b8869"}, {"url": "./assets/runtime/dock-r920.js?v=r1095", "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590"}, {"url": "./assets/runtime/wheels-r924.js?v=r1095", "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f"}, {"url": "./assets/runtime/berhet-layout-r938.js?v=r1095", "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6"}, {"url": "./assets/runtime/interface-r920.js?v=r1095", "sha256": "517d7dc842e2dbebdea2373335c527e1dd08624584a31eac6f79f19f8c057ff0"}, {"url": "./assets/runtime/wheels-r924.css?v=r1095", "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f"}, {"url": "./assets/runtime/berhet-theme-r933.js?v=r1095", "sha256": "e3f4ba9b695d25d34c7e098a7d51b51e778089ddd897ac9b10b9851e511d2069"}, {"url": "./assets/runtime/health-view-r943.css?v=r1095", "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3"}, {"url": "./assets/runtime/health-view-r943.js?v=r1095", "sha256": "d04c05dfc3c0624226bec562acd5e8169c8ce5334836bcc8562e5fa37cfc4d84"}, {"url": "./assets/runtime/scene-picker-r945.css?v=r1095", "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2"}, {"url": "./assets/runtime/scene-picker-r945.js?v=r1095", "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75"}, {"url": "./assets/runtime/health-r940.js?v=r1095", "sha256": "3484d47a7a55ff29348d62965bee516a71530c9dfe351ab9c4c3ad9579be6620"}, {"url": "./assets/runtime/nefs-r948.css?v=r1095", "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf"}, {"url": "./assets/runtime/nefs-data-r948.js?v=r1095", "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c"}, {"url": "./assets/runtime/nefs-model-r948.js?v=r1095", "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b"}, {"url": "./assets/runtime/nefs-ui-r948.js?v=r1095", "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721"}, {"url": "./assets/runtime/offline-scenes-r962.js?v=r1095", "sha256": "3d2bf56119336acd4a8dab2422b96914a7bc3d8b386c1e3a43ab47e82a328c62"}, {"url": "./assets/wheel-navigation-r964/gold.png?v=r1095", "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2"}, {"url": "./assets/wheel-navigation-r964/copper.png?v=r1095", "sha256": "b731ba244c0f04a972276580a70e3b203a8a9e839abe35841cfd08c372283012"}, {"url": "./assets/wheel-navigation-r964/silver.png?v=r1095", "sha256": "d7095d1597bdeb288035bd3aa87c4168c63a4dd6b98c7f6ab860f0f7c24a516f"}, {"url": "./assets/wheel-navigation-r964/dark.png?v=r1095", "sha256": "c6407489d8c52d1b65985dbbdb8d5c3df625b184739c413c40c6d423d70c55bb"}, {"url": "./assets/wheel-navigation-r964/crystal.png?v=r1095", "sha256": "dd751abc6483a3c5f3585e170d0c9888fdef5ccb69e276bd61d765b33bdb6b85"}, {"url": "./assets/runtime/presentation-r979.js?v=r1095", "sha256": "c648ddce99e0191ae5cb11bbccd19222a4bf3bb8764453c54d95d8e15831e033"}, {"url": "./assets/runtime/audio-cpu-r981.js?v=r1095", "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f"}, {"url": "./assets/runtime/audio-preparation-r981.js?v=r1095", "sha256": "8345207bc48ffa582fde385d607a9fbb79f07dc75bcdc38afd3369d6b738a4f7"}, {"url": "./assets/runtime/tab-owner-r981.js?v=r1095", "sha256": "21220e69af86bb3e7d1a031eb13d5e3f3a9524bceab9873a08dcd30d0870d785"}, {"url": "./assets/runtime/cadence-r981.css?v=r1095", "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992"}, {"url": "./assets/runtime/cadence-r981.js?v=r1095", "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda"}, {"url": "./assets/runtime/studio-preparation-r982.js?v=r1095", "sha256": "b59af5742f1f4cf86e60277f2a941034d13fdac98c47e64fb737883ae551c24e"}, {"url": "./assets/runtime/progress-journal-r982.js?v=r1095", "sha256": "1555800182b606e6abea73dd53bf8fa9392a7f42b4a3a628a208bf4ad8587cde"}, {"url": "./assets/runtime/tekke-sequence-r988.js?v=r1095", "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772"}, {"url": "./assets/runtime/tekke-set-r990.js?v=r1095", "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a"}, {"url": "./assets/runtime/tekke-ux-r992.css?v=r1095", "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3"}, {"url": "./assets/runtime/tekke-ux-r992.js?v=r1095", "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d"}, {"url": "./assets/runtime/tekke-journey-r993.css?v=r1095", "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863"}, {"url": "./assets/runtime/tekke-journey-r993.js?v=r1095", "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a"}, {"url": "./assets/scenes/tekke-r1014/berhet-billur.webp?v=r1095", "sha256": "17cbb4b7cc419bcc7e4fd0618c012ede1104523ed956aeed380280d169af6a50"}, {"url": "./assets/runtime/recording-continuity-r1016.js?v=r1095", "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e"}, {"url": "./assets/runtime/recording-inspection-r1020.js?v=r1095", "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04"}, {"url": "./assets/runtime/studio-batch-r1020.js?v=r1095", "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda"}, {"url": "./assets/runtime/recovery-versions-r1019.js?v=r1095", "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c"}, {"url": "./assets/runtime/recovery-data-r1020.js?v=r1095", "sha256": "73dc56f2eb83405ee0801fd94703b85497963d02aad728216336e66e6e5da355"}, {"url": "./assets/runtime/site-backup-r1020.js?v=r1095", "sha256": "5d8380543c1893a80c80c5b8a425cc28638615a724144243549469b9672cddf9"}, {"url": "./assets/runtime/recovery-ui-r1019.js?v=r1095", "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541"}, {"url": "./assets/runtime/recording-salvage-r1020.js?v=r1095", "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58"}, {"url": "./assets/runtime/recovery-entry-r1027.js?v=r1095", "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff"}, {"url": "./assets/runtime/startup-intro-r1027.js?v=r1095", "sha256": "265a961d536b1e022c1ae492b45d797fc62e87aa23ffe8f72761c8903f65c427"}, {"url": "./rescue.html?v=r1095", "sha256": "747a6f3c2b8664a4f287f18eb96f54270096ddaf28c57a4ba3dd6d2940b0acfd"}, {"url": "./assets/branding/sukun-frameless-logo-r1029.png?v=r1095", "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd"}, {"url": "./assets/branding/sukun-intro-pattern-r1029.svg?v=r1095", "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4"}, {"url": "./assets/audio/sukun-intro-signature-r1037.wav?v=r1095", "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457"}, {"url": "./assets/runtime/generic-recordings-r1055.js?v=r1095", "sha256": "c6823c9eeeae0525dcf09f8e2775e95ca964b902f76966e4ec9a3e893b88c1f3"}, {"url": "./assets/runtime/generic-recordings-ui-r1055.js?v=r1095", "sha256": "4c60e36eff387b882d2b8d874799da2a3a469bb0ecca20b888fa511cf147dbcc"}, {"url": "./assets/runtime/compact-ui-r1057.css?v=r1095", "sha256": "ea43a802d7059df167b1acf3504b96ba77dd73bd98b95b1e488d3ec4d57bfaea"}, {"url": "./assets/runtime/compact-ui-r1057.js?v=r1095", "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d"}, {"url": "./assets/runtime/background-mix-render-r1059.js?v=r1095", "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e"}, {"url": "./assets/runtime/background-mix-r1059.js?v=r1095", "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38"}, {"url": "./assets/runtime/active-source-r1060.js?v=r1095", "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3"}, {"url": "./assets/runtime/active-layers-r1061.js?v=r1095", "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae"}, {"url": "./assets/runtime/reading-ui-r1064.css?v=r1095", "sha256": "5d6a2109e0f394a642b38a4ae5545b3c6957a79dd117315603bf1d429fce249f"}, {"url": "./assets/runtime/yasin-data-r1064.js?v=r1095", "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94"}, {"url": "./assets/runtime/reading-sources-r1064.js?v=r1095", "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126"}, {"url": "./assets/runtime/reading-audio-r1064.js?v=r1095", "sha256": "dbeccc27c91c5a87b494437ff835364350e23d00e61687378875c867891d9b44"}, {"url": "./assets/runtime/reading-ui-r1064.js?v=r1095", "sha256": "0a79d15b2387883c7e8c3d38d14c4386076bf83d700cc693a2b55621add4e83b"}, {"url": "./assets/audio/arabic-r1065/yasin.mp3?v=r1095", "sha256": "4096f23ddba18fb4b410e54459cac520d91de178c5b5d2a78232e57723fb6a3d"}, {"url": "./assets/audio/arabic-r1065/fatiha.mp3?v=r1095", "sha256": "46fe21a5118957d52ac76f5a6a7fdd7e75d52e4a569619ae3e174a23ce5c82bc"}, {"url": "./assets/audio/arabic-r1065/ayatul-kursi.mp3?v=r1095", "sha256": "cb32b4b36012fdc2c4a93460a7106b9e337f1244d5198a549cea76a7edeaeb38"}, {"url": "./assets/audio/arabic-r1065/ikhlas.mp3?v=r1095", "sha256": "9ad15357702fd585cfc9a4cb082c65a7d3930ff34ed1c720f14447a0fc60d361"}, {"url": "./assets/audio/arabic-r1065/falaq.mp3?v=r1095", "sha256": "2e01e8048cca4ff3a7419331e119241d15565e1e5a531fab85bd53d7283afcc9"}, {"url": "./assets/audio/arabic-r1065/nas.mp3?v=r1095", "sha256": "176441a835915036e7b517f723d49d2954a86cfd8bfd12d6172c77edcc85405e"}, {"url": "./assets/runtime/bundled-arabic-r1065.js?v=r1095", "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f"}, {"url": "./assets/runtime/navigation-r1066.js?v=r1095", "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6"}, {"url": "./assets/runtime/yasin-timing-r1067.js?v=r1095", "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e"}, {"url": "./assets/runtime/browser-contrast-r1077.css?v=r1095", "sha256": "35eb72c7d208df77eaa80833bd33535db2e71359bef78cb0713574cdb52e6689"}, {"url": "./assets/runtime/protective-plan-r1078.css?v=r1095", "sha256": "435d3597d787a42f4e4cb8014dad0d6cc1d944575cb82d6375a25376a8e73243"}, {"url": "./assets/runtime/protective-plan-r1078.js?v=r1095", "sha256": "eae538c9a50770b86751c48d1b4ab4515a443a541fb358c5e3d157bb2d6b6a22"}, {"url": "./assets/berhetiyye-gate/portal-r1080.css?v=r1095", "sha256": "5c115fb5f548e6d15bb938c5270d5431bcaabe03ea6abd164370ad05885bb757"}, {"url": "./assets/berhetiyye-gate/entry-r1080.css?v=r1095", "sha256": "652561e9c60b412bbb6e03096c5576787aad2966b3bcfae8205d40b28d3e0374"}, {"url": "./assets/berhetiyye-gate/invitation-tr.mp3?v=r1095", "sha256": "18a114ec927508e4f5684a7e76d39abe28058c81f5632c797a707c6109bd5303"}, {"url": "./assets/berhetiyye-gate/audio-r1080.js?v=r1095", "sha256": "d77a0ecff6f7a7b11cee3116817c51c6a1cf568d0c7e8d7026383842936d015c"}, {"url": "./integration/berhet-access/example-http-provider.js?v=r1095", "sha256": "ec2e1f22e7bf0ae938a7163019eec4556150bf858dc387e13b3596cce30f16ae"}, {"url": "./assets/berhetiyye-gate/access-r1080.js?v=r1095", "sha256": "99270f5efc93e38ab95d1c6da32005232a63e181d94765e44f4c894d424a64c6"}, {"url": "./assets/berhetiyye-gate/portal-r1080.js?v=r1095", "sha256": "0048e2a9cac8416faa0102b1cc10ff8d262693f09be89e4ad663c170e9c077c9"}, {"url": "./assets/berhetiyye-gate/entry-r1080.js?v=r1095", "sha256": "8ef27093ff8da3fc8dc9a8f67563df4f49c0176ecbf18772c416c28d1194cde3"}, {"url": "./assets/runtime/smart-session-ui-r1082.css?v=r1095", "sha256": "75a9a3565910449a6dd3b2a0b3d46487ed4d2c63ee7fd062b547a9f9a86db2a0"}, {"url": "./assets/runtime/smart-session-ui-r1082.js?v=r1095", "sha256": "5dac4626b57602a9d04b3bc7b58ff8dbaacc951c9bcd75a61f1835702d230713"}, {"url": "./assets/runtime/session-preflight-ui-r1092.css?v=r1095", "sha256": "e0b99033e8d528dffa1da89c778b8567c201db5dda32516a1105610a74cfd150"}, {"url": "./assets/runtime/preflight-cache-r1092.js?v=r1095", "sha256": "840a9e120dc10f93842eada39e17ac316671c45405e8109694bfd20d8966d0ed"}, {"url": "./assets/runtime/session-preflight-r1092.js?v=r1095", "sha256": "0c33412ea2ef96825ec6ac7bb9b8e30307b3b486aa14803e2becc0cb758ba986"}, {"url": "./assets/runtime/session-preflight-ui-r1092.js?v=r1095", "sha256": "c8239465b43a7cc392c7d87ca6fd2361d59e4fbcb08ad7852657ee58204ef844"}, {"url": "./assets/runtime/archive-download-r1093.css?v=r1095", "sha256": "1e64b2d06b24547bb932d4148de660201ec62a5610d95c6148d8ba879cfbbebc"}, {"url": "./assets/runtime/archive-download-r1093.js?v=r1095", "sha256": "5a796fbbe29c0f5183434e655e792102fb831bb39895e1f5685d3c5aaf9fd3ad"}, {"url": "./assets/runtime/source-matrix-ui-r1094.css?v=r1095", "sha256": "ad4a4fa2d522d2a418403fc07b8f1a0979faf6e6d4db240e40e699eadcbe135a"}, {"url": "./assets/runtime/source-matrix-r1094.js?v=r1095", "sha256": "07a56c03210a52669d9d0c5578339eac60423654bdf8ef13dc0d18a8f4607e1e"}, {"url": "./assets/runtime/source-matrix-ui-r1094.js?v=r1095", "sha256": "1cdc67d4769bc8707acdc7e175ed927faf3dc820f8834de984e144887540345c"}, {"url": "./assets/runtime/image-pack-manifest-r1095.json?v=r1095", "sha256": "00c62b2f7736479a0ee6f8ee1a02e054acb78fa34ee885f5cd618afcd5bb91a8"}, {"url": "./assets/runtime/offline-images-ui-r1095.css?v=r1095", "sha256": "8d8790d515e1e752f4e80598e450eca83c96ae0c7397df3eb1156a16573ea70b"}, {"url": "./assets/runtime/offline-images-ui-r1095.js?v=r1095", "sha256": "a73415347147aea22dc249f435aba425713e8bc4f7cf33c72ea1c372168f32ef"}];
 
 /* Kurulumu kırabilecek büyük/görsel dosyaları zorunlu listeye koymuyoruz.
    Shell doğrulaması bağımsız; geri kalan assetler yalnız görünüm istediğinde
    normal fetch sırasında ortak görsel cache'ine yazılır. Toplu görsel indirme
    install/activate yaşam döngüsünü veya aktif ses oturumunu meşgul etmez. */
 const CORE = [
-  "./assets/branding/sukun-intro-pattern-r1029.svg?v=r1094",
-  "./assets/runtime/recovery-entry-r1027.js?v=r1094",
-  "./assets/runtime/startup-intro-r1027.js?v=r1094",
-  "./assets/branding/sukun-frameless-logo-r1029.png?v=r1094",
-  "./rescue.html?v=r1094",
-  "./assets/runtime/recording-salvage-r1020.js?v=r1094",
-  "./sukun-site-assets-r1094.json?v=r1094",
-  "./assets/runtime/recovery-ui-r1019.js?v=r1094",
-  "./assets/runtime/site-backup-r1020.js?v=r1094",
-  "./assets/runtime/recovery-data-r1020.js?v=r1094",
-  "./assets/runtime/recovery-versions-r1019.js?v=r1094",
-  "./assets/runtime/studio-batch-r1020.js?v=r1094",
-  './assets/runtime/recording-inspection-r1020.js?v=r1094',
-  './assets/runtime/recording-continuity-r1016.js?v=r1094',
-  "./assets/runtime/offline-scenes-r962.js?v=r1094",
-  "./assets/wheel-navigation-r964/gold.png?v=r1094",
-  "./assets/wheel-navigation-r964/copper.png?v=r1094",
-  "./assets/wheel-navigation-r964/silver.png?v=r1094",
-  "./assets/wheel-navigation-r964/dark.png?v=r1094",
-  "./assets/wheel-navigation-r964/crystal.png?v=r1094",
+  "./assets/branding/sukun-intro-pattern-r1029.svg?v=r1095",
+  "./assets/runtime/recovery-entry-r1027.js?v=r1095",
+  "./assets/runtime/startup-intro-r1027.js?v=r1095",
+  "./assets/branding/sukun-frameless-logo-r1029.png?v=r1095",
+  "./rescue.html?v=r1095",
+  "./assets/runtime/recording-salvage-r1020.js?v=r1095",
+  "./sukun-site-assets-r1095.json?v=r1095",
+  "./assets/runtime/recovery-ui-r1019.js?v=r1095",
+  "./assets/runtime/site-backup-r1020.js?v=r1095",
+  "./assets/runtime/recovery-data-r1020.js?v=r1095",
+  "./assets/runtime/recovery-versions-r1019.js?v=r1095",
+  "./assets/runtime/studio-batch-r1020.js?v=r1095",
+  './assets/runtime/recording-inspection-r1020.js?v=r1095',
+  './assets/runtime/recording-continuity-r1016.js?v=r1095',
+  "./assets/runtime/offline-scenes-r962.js?v=r1095",
+  "./assets/wheel-navigation-r964/gold.png?v=r1095",
+  "./assets/wheel-navigation-r964/copper.png?v=r1095",
+  "./assets/wheel-navigation-r964/silver.png?v=r1095",
+  "./assets/wheel-navigation-r964/dark.png?v=r1095",
+  "./assets/wheel-navigation-r964/crystal.png?v=r1095",
 
-  "./assets/runtime/tekke-journey-r993.css?v=r1094",
-  "./assets/runtime/tekke-journey-r993.js?v=r1094",
+  "./assets/runtime/tekke-journey-r993.css?v=r1095",
+  "./assets/runtime/tekke-journey-r993.js?v=r1095",
 
-  "./assets/runtime/tekke-ux-r992.css?v=r1094",
-  "./assets/runtime/tekke-ux-r992.js?v=r1094",
+  "./assets/runtime/tekke-ux-r992.css?v=r1095",
+  "./assets/runtime/tekke-ux-r992.js?v=r1095",
 
-  "./assets/runtime/tekke-set-r990.js?v=r1094",
+  "./assets/runtime/tekke-set-r990.js?v=r1095",
 
 
-  "./assets/runtime/tekke-sequence-r988.js?v=r1094",
+  "./assets/runtime/tekke-sequence-r988.js?v=r1095",
 
-  "./assets/runtime/studio-preparation-r982.js?v=r1094",
-  "./assets/runtime/progress-journal-r982.js?v=r1094",
+  "./assets/runtime/studio-preparation-r982.js?v=r1095",
+  "./assets/runtime/progress-journal-r982.js?v=r1095",
 
-  "./assets/runtime/audio-cpu-r981.js?v=r1094",
-  "./assets/runtime/audio-preparation-r981.js?v=r1094",
-  "./assets/runtime/tab-owner-r981.js?v=r1094",
-  "./assets/runtime/cadence-r981.css?v=r1094",
-  "./assets/runtime/cadence-r981.js?v=r1094",
+  "./assets/runtime/audio-cpu-r981.js?v=r1095",
+  "./assets/runtime/audio-preparation-r981.js?v=r1095",
+  "./assets/runtime/tab-owner-r981.js?v=r1095",
+  "./assets/runtime/cadence-r981.css?v=r1095",
+  "./assets/runtime/cadence-r981.js?v=r1095",
 
-  "./assets/runtime/presentation-r979.js?v=r1094",
-  "./assets/runtime/lifecycle-r949.js?v=r1094",
-  "./assets/runtime/background-owner-r949.js?v=r1094",
-  "./assets/runtime/berhet-layout-r938.css?v=r1094",
-  "./assets/runtime/berhet-materials-r933.css?v=r1094",
-  "./assets/runtime/berhet-controls-r933.css?v=r1094",
-  "./assets/runtime/berhet-dock-r933.css?v=r1094",
-  "./assets/runtime/audio-palette-r945.js?v=r1094",
-  "./assets/runtime/esma-scenes-r923.js?v=r1094",
-  "./assets/runtime/session-r919.js?v=r1094",
-  "./assets/runtime/dock-r920.js?v=r1094",
-  "./assets/runtime/wheels-r924.js?v=r1094",
-  "./assets/runtime/berhet-layout-r938.js?v=r1094",
-  "./assets/runtime/interface-r920.js?v=r1094",
-  "./assets/runtime/wheels-r924.css?v=r1094",
-  "./assets/runtime/berhet-theme-r933.js?v=r1094",
-  "./assets/runtime/health-view-r943.css?v=r1094",
-  "./assets/runtime/health-view-r943.js?v=r1094",
-  "./assets/runtime/scene-picker-r945.css?v=r1094",
-  "./assets/runtime/scene-picker-r945.js?v=r1094",
-  "./assets/runtime/health-r940.js?v=r1094",
-  "./assets/runtime/nefs-r948.css?v=r1094",
-  "./assets/runtime/nefs-data-r948.js?v=r1094",
-  "./assets/runtime/nefs-model-r948.js?v=r1094",
-  "./assets/runtime/nefs-ui-r948.js?v=r1094",
+  "./assets/runtime/presentation-r979.js?v=r1095",
+  "./assets/runtime/lifecycle-r949.js?v=r1095",
+  "./assets/runtime/background-owner-r949.js?v=r1095",
+  "./assets/runtime/berhet-layout-r938.css?v=r1095",
+  "./assets/runtime/berhet-materials-r933.css?v=r1095",
+  "./assets/runtime/berhet-controls-r933.css?v=r1095",
+  "./assets/runtime/berhet-dock-r933.css?v=r1095",
+  "./assets/runtime/audio-palette-r945.js?v=r1095",
+  "./assets/runtime/esma-scenes-r923.js?v=r1095",
+  "./assets/runtime/session-r919.js?v=r1095",
+  "./assets/runtime/dock-r920.js?v=r1095",
+  "./assets/runtime/wheels-r924.js?v=r1095",
+  "./assets/runtime/berhet-layout-r938.js?v=r1095",
+  "./assets/runtime/interface-r920.js?v=r1095",
+  "./assets/runtime/wheels-r924.css?v=r1095",
+  "./assets/runtime/berhet-theme-r933.js?v=r1095",
+  "./assets/runtime/health-view-r943.css?v=r1095",
+  "./assets/runtime/health-view-r943.js?v=r1095",
+  "./assets/runtime/scene-picker-r945.css?v=r1095",
+  "./assets/runtime/scene-picker-r945.js?v=r1095",
+  "./assets/runtime/health-r940.js?v=r1095",
+  "./assets/runtime/nefs-r948.css?v=r1095",
+  "./assets/runtime/nefs-data-r948.js?v=r1095",
+  "./assets/runtime/nefs-model-r948.js?v=r1095",
+  "./assets/runtime/nefs-ui-r948.js?v=r1095",
 
 
 
@@ -682,18 +682,29 @@ function artKey(request){const url=new URL(request.url||request,self.location.hr
 // an estimate is available. No personal data store is accessed here.
 const ART_MAX_BYTES=256*1024*1024,ART_MAX_ENTRIES=400,ART_QUOTA_RESERVE=64*1024*1024;
 let artBudgetPromise=null,artWriteQueue=Promise.resolve();
-async function artByteLength(response){
- const reader=response.clone().body?.getReader();if(!reader)return 0;
- let bytes=0;
- try{for(;;){const chunk=await reader.read();if(chunk.done)break;bytes+=chunk.value.byteLength;if(bytes>ART_MAX_BYTES){try{await reader.cancel()}catch(_){}return bytes}}return bytes}
- finally{try{reader.releaseLock()}catch(_){}}
+function artOperation(promise,options={}){
+ if(!options.strict)return promise;
+ return new Promise((resolve,reject)=>{
+  let done=false,timer;const abort=()=>finish(null,imagePackError('image-cancelled'));
+  const finish=(value,error)=>{if(done)return;done=true;clearTimeout(timer);options.signal?.removeEventListener('abort',abort);error?reject(error):resolve(value)};
+  timer=setTimeout(()=>finish(null,imagePackError('image-cache-unreadable')),12000);
+  if(options.signal?.aborted){abort();return}options.signal?.addEventListener('abort',abort,{once:true});
+  Promise.resolve(promise).then(value=>finish(value),error=>finish(null,error));
+ });
 }
-async function artBudget(cache){
+async function artByteLength(response,options={}){
+ const reader=response.clone().body?.getReader();if(!reader)return 0;
+ let bytes=0,completed=false;
+ try{for(;;){const chunk=await artOperation(reader.read(),options);if(chunk.done){completed=true;break}bytes+=chunk.value.byteLength;if(bytes>ART_MAX_BYTES)return bytes}return bytes}
+ finally{if(!completed)try{reader.cancel().catch(()=>{})}catch(_){}try{reader.releaseLock()}catch(_){}}
+}
+async function artBudget(cache,options={}){
  if(!artBudgetPromise)artBudgetPromise=(async()=>{
   const sizes=new Map();let bytes=0;
-  for(const request of await cache.keys()){
-   const response=await cache.match(request);if(!response)continue;
-   const size=await artByteLength(response);sizes.set(request.url,size);bytes+=size;
+  const requests=await artOperation(cache.keys(),options);if(options.strict&&requests.length>ART_MAX_ENTRIES)throw imagePackError('image-quota');
+  for(const request of requests){
+   const response=await artOperation(cache.match(request),options);if(!response)continue;
+   const size=await artByteLength(response,options);sizes.set(request.url,size);bytes+=size;
   }
   return {sizes,bytes};
  })().catch(error=>{artBudgetPromise=null;throw error});
@@ -707,16 +718,47 @@ async function artHasHeadroom(bytes){
  }catch(_){}
  return true;
 }
-function storeOptionalArt(request,response){
+function storeOptionalArt(request,response,options={}){
+ let started=false,abandoned=false,onStart=null;
  const work=async()=>{
-  if(!validArt(response))return false;
-  const cache=await caches.open(ART_CACHE),key=artKey(request),budget=await artBudget(cache),size=await artByteLength(response);
+  const refuse=code=>{if(options.strict)throw imagePackError(code);return false};
+  started=true;onStart?.();if(abandoned)return refuse('image-cancelled');
+  if(!validArt(response))return refuse('image-integrity');
+  if(options.guard&&!await options.guard())return refuse('image-cancelled');
+  const cache=await artOperation(caches.open(ART_CACHE),options),key=artKey(request),budget=await artBudget(cache,options),size=await artByteLength(response,options);
   const previous=budget.sizes.get(key.url)||0,newBytes=budget.bytes-previous+size;
-  if(size>ART_MAX_BYTES||newBytes>ART_MAX_BYTES||(!budget.sizes.has(key.url)&&budget.sizes.size>=ART_MAX_ENTRIES)||!await artHasHeadroom(Math.max(0,size-previous)))return false;
-  if(!await put(cache,key,response))return false;
+  if(size>ART_MAX_BYTES||newBytes>ART_MAX_BYTES||(!budget.sizes.has(key.url)&&budget.sizes.size>=ART_MAX_ENTRIES)||!await artOperation(artHasHeadroom(Math.max(0,size-previous)),options))return refuse('image-quota');
+  // Explicit package jobs recheck their client/cancellation fence after every
+  // asynchronous admission check, immediately before the only cache write.
+  if(options.guard&&!await options.guard())return refuse('image-cancelled');
+  const before=options.guard?await artOperation(cache.match(key),options):null;
+  if(options.guard&&!await options.guard())return refuse('image-cancelled');
+  try{await cache.put(key,response.clone())}catch(error){return refuse(error?.name==='QuotaExceededError'?'image-quota':'image-cache-write')}
+  let verified=true;try{if(options.verify)verified=await options.verify(await artOperation(cache.match(key),options))}catch(_){verified=false}
+  const stillCurrent=!options.guard||await options.guard();
+  if(!stillCurrent||!verified){
+   // Cache.put cannot be aborted. A cancelled admission restores its previous
+   // bytes before cancellation is acknowledged; serialized writers cannot race
+   // this rollback. The original optional-art callers retain their old API.
+   try{if(before)await cache.put(key,before);else await cache.delete(key)}catch(_){throw Object.assign(imagePackError('image-cache-write'),{cleanupFailed:true})}finally{artBudgetPromise=null}
+   return refuse(!stillCurrent?'image-cancelled':'image-cache-write');
+  }
   budget.bytes=newBytes;budget.sizes.set(key.url,size);return true;
  };
- const result=artWriteQueue.then(work,work).catch(()=>false);artWriteQueue=result.then(()=>{});return result;
+ const result=artWriteQueue.then(work,work).catch(error=>{if(options.strict)throw error;return false});artWriteQueue=result.then(()=>{},()=>{});
+ if(!options.strict)return result;
+ // A prior ordinary artwork request may own the queue. Cancellation can
+ // abandon a package ticket before it starts without waiting for that unrelated
+ // writer; the ticket's permanent fence prevents any later cache admission.
+ return new Promise((resolve,reject)=>{
+  let done=false,timer;const abort=()=>abandon('image-cancelled');
+  const cleanup=()=>{clearTimeout(timer);options.signal?.removeEventListener('abort',abort)};
+  const finish=(value,error)=>{if(done)return;done=true;cleanup();error?reject(error):resolve(value)};
+  const abandon=code=>{if(started)return;abandoned=true;finish(null,imagePackError(code))};
+  onStart=cleanup;timer=setTimeout(()=>abandon('image-cache-unreadable'),12000);
+  if(options.signal?.aborted)abandon('image-cancelled');else options.signal?.addEventListener('abort',abort,{once:true});
+  result.then(value=>finish(value),error=>finish(null,error));
+ });
 }
 async function compactOptionalArt(){
  const shared=await caches.open(ART_CACHE);
@@ -743,7 +785,179 @@ async function artResponse(request){
  const exact=await current.match(request,{ignoreSearch:false});if(validArt(exact)){await storeOptionalArt(key,exact);return exact}
  try{const fresh=await timedFetch(request,6000);if(!validArt(fresh))throw Error('art unavailable');await storeOptionalArt(key,fresh);return fresh}catch(_){const saved=await art.match(key);if(validArt(saved))return saved;return Response.error()}
 }
-/* r1094: verified archive downloads own their bounded IndexedDB staging.
+/* r1095: image packages share the existing artwork owner. The catalog is a
+   required, SHA-pinned data file; no client-supplied URL, digest or byte count
+   can grant cache admission. Optional images stay in ART_CACHE, while the five
+   mandatory navigation images are inspected only in the current core cache. */
+const IMAGE_PACK_MANIFEST='./assets/runtime/image-pack-manifest-r1095.json';
+const IMAGE_PACK_SHA256='00c62b2f7736479a0ee6f8ee1a02e054acb78fa34ee885f5cd618afcd5bb91a8';
+const IMAGE_PACK_PROTOCOL=1,IMAGE_PACK_READ_MS=12000,IMAGE_PACK_JOB_MS=600000;
+const imagePackJobs=new Map(),imagePackPlans=new Map();
+let imagePackManifestValue=null;
+function imagePackError(code){return Object.assign(new Error(code),{code})}
+function imagePackLive(job){return !!job&&!job.cancelled&&Date.now()<job.expiresAt}
+async function imagePackSource(event){
+ const client=await recoverySource(event),url=new URL(client.url);
+ if(![sameOriginPath('./'),sameOriginPath('./index.html'),sameOriginPath('./nero.html')].includes(url.pathname))throw imagePackError('image-source');
+ const controlled=await updateDeadline(()=>self.clients.matchAll({type:'window',includeUncontrolled:false}),IMAGE_PACK_READ_MS,'image client');
+ if(!controlled.some(item=>item.id===client.id&&item.url===client.url))throw imagePackError('image-source');
+ return client;
+}
+async function imagePackGuard(job){
+ if(!imagePackLive(job))return false;
+ try{
+  const client=await self.clients.get(job.clientId);if(!imagePackLive(job)||client?.type!=='window'||client.url!==job.sourceUrl)return false;
+  const names=await updateDeadline(()=>caches.keys(),IMAGE_PACK_READ_MS,'image controls');
+  if(!names.includes(RECOVERY_CONTROL_CACHE)||!!(await updateDeadline(recoveryReadState,IMAGE_PACK_READ_MS,'image recovery')).pin){job.fenceError='image-update-required';return false}
+  // Navigation/controller loss can occur while recovery storage is awaited.
+  // Take the final controlled-client snapshot after those asynchronous checks.
+  const controlled=await updateDeadline(()=>self.clients.matchAll({type:'window',includeUncontrolled:false}),IMAGE_PACK_READ_MS,'image client');
+  return imagePackLive(job)&&controlled.some(item=>item.id===job.clientId&&item.url===job.sourceUrl);
+ }catch(_){job.fenceError='image-update-required';return false}
+}
+function imagePackCheck(job){if(!imagePackLive(job))throw imagePackError('image-cancelled')}
+async function imagePackRead(response,max,job){
+ imagePackCheck(job);
+ if(!response?.body?.getReader)throw imagePackError('image-cache-unreadable');
+ const reader=response.body.getReader(),parts=[];let length=0,timer,abort,completed=false;
+ const stop=()=>{try{reader.cancel().catch(()=>{})}catch(_){}};
+ const cancelled=new Promise((_,reject)=>{abort=()=>{stop();reject(imagePackError('image-cancelled'))};job.controller.signal.addEventListener('abort',abort,{once:true});timer=setTimeout(()=>{stop();reject(imagePackError('image-cache-unreadable'))},IMAGE_PACK_READ_MS)});
+ const work=(async()=>{for(;;){imagePackCheck(job);const part=await reader.read();imagePackCheck(job);if(part.done){completed=true;break}length+=part.value.byteLength;if(length>max)throw imagePackError('image-integrity');parts.push(part.value)}const bytes=new Uint8Array(length);let offset=0;for(const part of parts){bytes.set(part,offset);offset+=part.byteLength}return bytes})();
+ try{return await Promise.race([work,cancelled])}finally{clearTimeout(timer);job.controller.signal.removeEventListener('abort',abort);if(!completed)stop();try{reader.releaseLock()}catch(_){}}
+}
+async function imagePackDigest(bytes,job){imagePackCheck(job);const digest=await updateDeadline(()=>crypto.subtle.digest('SHA-256',bytes),IMAGE_PACK_READ_MS,'image hash');imagePackCheck(job);return Array.from(new Uint8Array(digest),x=>x.toString(16).padStart(2,'0')).join('')}
+async function imagePackManifest(job){
+ if(imagePackManifestValue)return imagePackManifestValue;
+ const value=await (async()=>{
+  const descriptor=REQUIRED_RUNTIME.find(row=>sameOriginPath(row.url)===sameOriginPath(IMAGE_PACK_MANIFEST));
+  if(!descriptor||descriptor.sha256!==IMAGE_PACK_SHA256)throw imagePackError('image-update-required');
+  const names=await updateDeadline(()=>caches.keys(),IMAGE_PACK_READ_MS,'image caches');if(!names.includes(CACHE))throw imagePackError('image-update-required');
+  const cache=await caches.open(CACHE),response=await updateDeadline(()=>cache.match(descriptor.url,{ignoreSearch:false}),IMAGE_PACK_READ_MS,'image manifest');
+  if(!response?.ok||response.type==='opaque')throw imagePackError('image-manifest');
+  const bytes=await imagePackRead(response,131072,job);if(await imagePackDigest(bytes,job)!==IMAGE_PACK_SHA256)throw imagePackError('image-manifest');
+  let manifest;try{manifest=JSON.parse(new TextDecoder().decode(bytes))}catch(_){throw imagePackError('image-manifest')}
+  if(manifest?.app!=='SUKUN_IMAGE_PACK'||manifest.schema!==1||manifest.version!=='r1095'||JSON.stringify(manifest.packages)!=='["phone","all"]'||!Array.isArray(manifest.assets)||!manifest.assets.length||manifest.assets.length>ART_MAX_ENTRIES)throw imagePackError('image-manifest');
+  const seen=new Set();let total=0;
+  const assets=manifest.assets.map(row=>{
+   let url;try{url=new URL(row.url,self.location.href)}catch(_){throw imagePackError('image-manifest')}
+   if(typeof row.url!=='string'||!/^\.\/assets\/[a-zA-Z0-9_./-]+\.(?:png|jpe?g|webp|svg)$/.test(row.url)||row.url.includes('..')||url.origin!==self.location.origin||url.search||url.hash||seen.has(url.href)||!Number.isSafeInteger(row.bytes)||row.bytes<1||row.bytes>32*1048576||!/^[a-f0-9]{64}$/.test(row.sha256||'')||typeof row.private!=='boolean'||typeof row.phone!=='boolean'||!['scene','thumbnail','original','wheel','navigation'].includes(row.kind))throw imagePackError('image-manifest');
+   seen.add(url.href);total+=row.bytes;
+   const required=REQUIRED_RUNTIME.find(item=>sameOriginPath(item.url)===url.pathname);
+   if(required&&required.sha256!==row.sha256)throw imagePackError('image-manifest');
+   return Object.freeze({...row,requiredUrl:required?.url||null});
+  });
+  if(total>ART_MAX_BYTES)throw imagePackError('image-manifest');return Object.freeze(assets);
+ })();
+ imagePackCheck(job);imagePackManifestValue=value;return value;
+}
+function imagePackRows(assets,packageId,includePrivate){
+ if(!['phone','all'].includes(packageId)||typeof includePrivate!=='boolean')throw imagePackError('image-selection');
+ return assets.filter(row=>(includePrivate||!row.private)&&(packageId==='all'||row.phone));
+}
+async function imagePackVerify(response,row,job){
+ if(!response)return 'missing';
+ if(response.type==='opaque'||response.type==='error')return 'unknown';
+ if(!validArt(response))return 'corrupt';
+ try{const bytes=await imagePackRead(response.clone(),row.bytes,job);return bytes.byteLength===row.bytes&&await imagePackDigest(bytes,job)===row.sha256?'verified':'corrupt'}catch(error){if(!imagePackLive(job))throw imagePackError('image-cancelled');return error?.code==='image-integrity'?'corrupt':'unknown'}
+}
+function imagePackProgress(job,phase,done,total,downloadedBytes=0,receipt=null){replyUpdate(job.port,{kind:'progress',protocol:IMAGE_PACK_PROTOCOL,requestId:job.requestId,build:SURUM,packageId:job.packageId,phase,done,total,downloadedBytes,...(receipt?{receipt}:{})})}
+async function imagePackCoreReady(names){
+ // A package inspection is read-only: never create a cache or enroll a proof.
+ if(!names.includes(CACHE)||!names.includes(RECOVERY_CONTROL_CACHE))return false;
+ try{if((await updateDeadline(recoveryReadState,IMAGE_PACK_READ_MS,'image recovery')).pin)return false;return !!await updateDeadline(()=>recoveryVerifyCache(CACHE,false),30000,'image core')}catch(_){return false}
+}
+async function imagePackInspect(rows,job){
+ imagePackCheck(job);let names=[],cacheError=false;
+ try{names=await updateDeadline(()=>caches.keys(),IMAGE_PACK_READ_MS,'image caches')}catch(_){cacheError=true}
+ imagePackCheck(job);
+ const report={packageId:job.packageId,includePrivate:job.includePrivate,totalCount:rows.length,totalBytes:rows.reduce((sum,row)=>sum+row.bytes,0),verifiedCount:0,verifiedBytes:0,missingCount:0,missingBytes:0,corruptCount:0,unknownCount:0,unknownBytes:0,ready:false,errorCode:''};
+ const states=new Map(),coreReady=!cacheError&&await imagePackCoreReady(names);
+ const opened=new Map();let cursor=0,done=0;
+ const checks=await Promise.allSettled([0,1].map(async()=>{while(cursor<rows.length){
+  imagePackCheck(job);const row=rows[cursor++],cacheName=row.requiredUrl?CACHE:ART_CACHE;let state;
+  try{
+   if(cacheError)state='unknown';else if(!names.includes(cacheName))state='missing';else{
+    if(!opened.has(cacheName))opened.set(cacheName,caches.open(cacheName));const cache=await opened.get(cacheName);
+    const response=await updateDeadline(()=>cache.match(row.requiredUrl||artKey(row.url),{ignoreSearch:false}),IMAGE_PACK_READ_MS,'image read');
+    state=await imagePackVerify(response,row,job);
+   }
+  }catch(error){if(!imagePackLive(job))throw imagePackError('image-cancelled');state='unknown'}
+  states.set(row.url,state);
+  if(state==='verified'){report.verifiedCount++;report.verifiedBytes+=row.bytes}else if(state==='unknown'){report.unknownCount++;report.unknownBytes+=row.bytes}else{report.missingCount++;report.missingBytes+=row.bytes;if(state==='corrupt')report.corruptCount++}
+  imagePackProgress(job,'checking',++done,rows.length,job.downloadedBytes||0);
+ }}));
+ imagePackCheck(job);for(const outcome of checks)if(outcome.status==='rejected')throw outcome.reason;
+ const requiredInvalid=rows.some(row=>row.requiredUrl&&states.get(row.url)!=='verified');
+ report.errorCode=!coreReady||requiredInvalid?'image-update-required':report.unknownCount?'image-cache-unreadable':'';
+ report.ready=!report.errorCode&&report.verifiedCount===report.totalCount&&report.verifiedBytes===report.totalBytes&&report.missingCount===0&&report.unknownCount===0;
+ return {report,states};
+}
+async function imagePackFetch(row,job){
+ imagePackCheck(job);const controller=new AbortController(),abort=()=>controller.abort();job.controller.signal.addEventListener('abort',abort,{once:true});let timer,completed=false;
+ const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(imagePackError('image-download-timeout'))},20000)});
+ const work=(async()=>{
+  const response=await fetch(new Request(new URL(row.url,self.location.href).href,{cache:'no-store',redirect:'error',signal:controller.signal}));imagePackCheck(job);
+  if(response?.redirected||response?.url&&new URL(response.url).origin!==self.location.origin)throw imagePackError('image-integrity');
+  if(!validArt(response))throw imagePackError(response?.ok?'image-integrity':'image-download-failed');
+  const bytes=await imagePackRead(response,row.bytes,job);completed=true;if(bytes.byteLength!==row.bytes||await imagePackDigest(bytes,job)!==row.sha256)throw imagePackError('image-integrity');
+  imagePackCheck(job);return new Response(bytes,{status:200,headers:response.headers});
+ })();
+ try{return await Promise.race([work,deadline])}catch(error){if(!imagePackLive(job))throw imagePackError('image-cancelled');throw error?.code?error:imagePackError('image-download-failed')}finally{clearTimeout(timer);job.controller.signal.removeEventListener('abort',abort);if(!completed)try{controller.abort()}catch(_){}}
+}
+async function imagePackDownload(rows,job){
+ const before=await imagePackInspect(rows,job);if(before.report.errorCode)return before.report;
+ const missing=rows.filter(row=>before.states.get(row.url)!=='verified');let cursor=0,done=0,errorCode='';
+ // Required images are never admitted to ART_CACHE or repaired by this owner.
+ if(missing.some(row=>row.requiredUrl))return {...before.report,ready:false,errorCode:'image-update-required'};
+ // Refresh the memoized admission budget once for this explicit job. Receipts
+ // above always inspected actual entries, including eviction since last use.
+ artBudgetPromise=null;imagePackProgress(job,'downloading',0,missing.length,0,before.report);
+ const workers=await Promise.allSettled([0,1].map(async()=>{while(cursor<missing.length&&!errorCode){
+  imagePackCheck(job);const row=missing[cursor++];
+  try{
+   const response=await imagePackFetch(row,job);if(!await imagePackGuard(job))throw imagePackError(job.fenceError||'image-cancelled');
+   await storeOptionalArt(row.url,response,{strict:true,signal:job.controller.signal,guard:()=>imagePackGuard(job),verify:async saved=>{try{return await imagePackVerify(saved,row,job)==='verified'}catch(_){return false}}});
+   imagePackCheck(job);job.downloadedBytes+=row.bytes;before.report.verifiedCount++;before.report.verifiedBytes+=row.bytes;before.report.missingCount--;before.report.missingBytes-=row.bytes;if(before.states.get(row.url)==='corrupt')before.report.corruptCount--;
+   imagePackProgress(job,'downloading',++done,missing.length,job.downloadedBytes,{...before.report,ready:false});
+  }catch(error){if(error?.cleanupFailed)job.cleanupError='image-cache-write';if(!imagePackLive(job))throw imagePackError('image-cancelled');errorCode=error?.code||'image-download-failed'}
+ }}));
+ imagePackCheck(job);for(const outcome of workers)if(outcome.status==='rejected')throw outcome.reason;const after=await imagePackInspect(rows,job);
+ return {...after.report,ready:after.report.ready&&!errorCode,downloadedBytes:job.downloadedBytes,errorCode:after.report.errorCode||errorCode};
+}
+async function imagePackHandle(event){
+ const data=event.data||{},port=event.ports?.[0];let job;
+ const finish=value=>replyUpdate(port,{kind:'result',protocol:IMAGE_PACK_PROTOCOL,requestId:data.requestId,build:SURUM,...value});
+ try{
+  // Cancellation may arrive after controllerchange. The owning same-origin
+  // WindowClient can always stop its own old job; new work requires control.
+  const client=data.type==='IMAGE_PACK_CANCEL'?await recoverySource(event):await imagePackSource(event);
+  if(typeof data.requestId!=='string'||!/^[A-Za-z0-9_-]{8,100}$/.test(data.requestId))throw imagePackError('image-request');
+  const key=client.id+':'+data.requestId;
+  if(data.type==='IMAGE_PACK_CANCEL'){
+   imagePackPlans.delete(client.id);const current=imagePackJobs.get(key);
+   if(current){current.cancelled=true;current.controller.abort();await current.done;if(current.cleanupError)throw imagePackError(current.cleanupError)}
+   finish({ok:true,cancelled:true});return;
+  }
+  if(imagePackJobs.has(key)||imagePackJobs.size>=16||[...imagePackJobs.values()].some(item=>item.clientId===client.id))throw imagePackError('image-busy');
+  if(data.type==='IMAGE_PACK_DOWNLOAD'&&[...imagePackJobs.values()].some(item=>item.mode==='IMAGE_PACK_DOWNLOAD'))throw imagePackError('image-busy');
+  if(!['phone','all'].includes(data.packageId)||typeof data.includePrivate!=='boolean')throw imagePackError('image-selection');
+  if(data.type==='IMAGE_PACK_DOWNLOAD'){
+   const plan=imagePackPlans.get(client.id);imagePackPlans.delete(client.id);
+   if(!plan||plan.token!==data.planToken||plan.expiresAt<Date.now()||plan.packageId!==data.packageId||plan.includePrivate!==data.includePrivate||plan.sourceUrl!==client.url)throw imagePackError('image-plan-stale');
+  }else imagePackPlans.delete(client.id);
+  let resolveDone;job={mode:data.type,clientId:client.id,sourceUrl:client.url,requestId:data.requestId,packageId:data.packageId,includePrivate:data.includePrivate,port,cancelled:false,controller:new AbortController(),expiresAt:Date.now()+IMAGE_PACK_JOB_MS,downloadedBytes:0,done:new Promise(resolve=>{resolveDone=resolve}),resolveDone:()=>resolveDone()};imagePackJobs.set(key,job);
+  const assets=await imagePackManifest(job),rows=imagePackRows(assets,job.packageId,job.includePrivate);
+  const report=data.type==='IMAGE_PACK_DOWNLOAD'?await imagePackDownload(rows,job):(await imagePackInspect(rows,job)).report;
+  if(!await imagePackGuard(job))throw imagePackError(job.fenceError||'image-cancelled');
+  if(!report.errorCode){
+   const token=Array.from(crypto.getRandomValues(new Uint8Array(24)),x=>x.toString(16).padStart(2,'0')).join('');
+   imagePackPlans.set(client.id,{token,expiresAt:Date.now()+300000,packageId:job.packageId,includePrivate:job.includePrivate,sourceUrl:client.url});report.planToken=token;
+  }
+  finish({ok:true,...report});
+ }catch(error){finish({ok:false,errorCode:error?.code||'image-cache-unreadable'})}
+ finally{if(job){imagePackJobs.delete(job.clientId+':'+job.requestId);job.resolveDone()}}
+}
+/* r1095: verified archive downloads own their bounded IndexedDB staging.
    These exact non-executable requests must not create a second optional copy
    in CacheStorage or reuse an unverified historical cache on network failure. */
 function isArchiveStageRequest(request,url){
@@ -819,6 +1033,7 @@ self.addEventListener('fetch',event=>{
 
 self.addEventListener('message',event=>{
   const d=event.data||{},port=event.ports?.[0];
+  if(/^IMAGE_PACK_(?:STATUS|DOWNLOAD|CANCEL)$/.test(d.type||'')){event.waitUntil(imagePackHandle(event));return;}
   if(d.type==='ARCHIVE_STAGE_STATUS'){
    event.waitUntil((async()=>{try{
     const state=await recoveryReadState();
