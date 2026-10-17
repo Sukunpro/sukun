@@ -1,0 +1,25 @@
+/* Scoped archive controls retain the emerald/gold Classic/Feyz surface. */
+#r1055GenericSection{box-sizing:border-box;max-width:100%;overflow-wrap:anywhere}
+#r1055GenericSection .zBtns .btn,#r1093ArchivePanel .btn{box-sizing:border-box;min-height:44px;max-width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere;line-height:1.5}
+#r1093ArchivePanel{box-sizing:border-box;max-width:100%;min-width:0;margin-top:12px;padding:0 11px 11px;border:1px solid #94b5a980;border-radius:13px;background:#0a2734e8;color:#fff4d9;font:400 13px/1.55 system-ui}
+#r1093ArchivePanel>summary{box-sizing:border-box;min-height:44px;padding:11px 0;color:#f8df9f;font-weight:600;cursor:pointer;white-space:normal;overflow-wrap:anywhere}
+#r1093ArchivePanel :is(fieldset,section,div,p,dl){min-width:0;max-width:100%;box-sizing:border-box}
+#r1093ArchivePanel p{margin:9px 0;color:#d4e6df;font:400 13px/1.55 system-ui}
+#r1093ArchivePanel fieldset{margin:10px 0;padding:9px;border:1px solid #83999180;border-radius:10px}
+#r1093ArchivePanel legend{padding:0 5px;color:#f8df9f;white-space:normal;font-weight:600;max-width:100%;box-sizing:border-box}
+#r1093ArchivePanel fieldset>label,#r1093ArchiveCategories>label{display:grid;grid-template-columns:22px minmax(0,1fr);align-items:start;gap:9px;min-width:0;min-height:44px;padding:8px 1px;cursor:pointer}
+#r1093ArchivePanel input[type="checkbox"],#r1093ArchivePanel input[type="radio"]{width:20px;height:20px;margin:1px 0;accent-color:#86dab6}
+#r1093ArchiveCategories :is(b,small){display:block;white-space:normal;overflow-wrap:anywhere}#r1093ArchiveCategories small{color:#c7ded4;font:400 12px/1.5 system-ui}
+#r1093ArchivePanel .r1093-actions{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+#r1093ArchivePanel .btn{border:1px solid #a6c5a2;background:#153f3b;color:#fff4d9;border-radius:10px;padding:9px 12px;font:600 13px/1.5 system-ui}
+#r1093ArchivePanel .btn:disabled{filter:saturate(.5);opacity:.65;cursor:default}
+#r1093ArchivePanel progress{display:block;width:100%;height:14px;accent-color:#86dab6}
+#r1093ArchivePanel #r1093ArchiveStatus{color:#ffe0a6;min-height:1.55em}
+#r1093ArchiveReview{margin-top:12px;padding:11px;border:1px solid #ccb979;border-radius:11px;background:#153d3a}
+#r1093ArchiveReview h4{margin:0 0 9px;font:600 15px/1.5 system-ui;color:#fff0c6}
+#r1093ArchiveReview dl{margin:9px 0}#r1093ArchiveReview dl>div{display:grid;grid-template-columns:minmax(0,1fr) max-content;gap:10px;padding:6px 0;border-top:1px solid #83999160}
+#r1093ArchiveReview dt{min-width:0;overflow-wrap:anywhere}#r1093ArchiveReview dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
+#r1055GenericSection :focus-visible{outline:3px solid #f4d484;outline-offset:3px}
+#r1055GenericSection [hidden]{display:none!important}
+@media(max-width:350px){#r1093ArchivePanel{padding-inline:8px}#r1093ArchivePanel fieldset{padding-inline:7px}#r1093ArchivePanel .r1093-actions .btn{flex:1 1 140px}}
+@media(forced-colors:active){#r1093ArchivePanel,#r1093ArchivePanel :is(fieldset,legend,p,b,small,.btn,section){forced-color-adjust:auto;background:Canvas!important;color:CanvasText!important;border-color:ButtonText!important}}
