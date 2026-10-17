@@ -13,6 +13,11 @@
  const en=()=>w.I18N?.lang==='en'||document.documentElement?.lang==='en';
  const tr=(a,b)=>en()?b:a;
  const fail=(code,file='')=>Object.assign(new Error(code),{code,file});
+ function accessFence(){
+  const unlocked=()=>w.SukunSecretPolicy?.unlocked?.()===true,initial=unlocked();let changed=false;
+  const observe=()=>{if(unlocked()!==initial)changed=true;};w.addEventListener?.('sukun:secretaccesschange',observe);
+  return {assert(){observe();if(changed)throw fail('SITE_PRIVATE_ACCESS_CHANGED');},close(){w.removeEventListener?.('sukun:secretaccesschange',observe);}};
+ }
  function build(){
   const script=String(w.SUKUN_BUILD||''),meta=String(document.querySelector('meta[name="sukun-build"]')?.content||'');
   if(script&&meta&&script!==meta)return '';
@@ -205,6 +210,7 @@
    SITE_STREAM_UNAVAILABLE:['Bu tarayıcı güvenli tam site dışa aktarımını desteklemiyor. Güncel Chrome kullan.','This browser does not support safe full site export. Use an up-to-date Chrome browser.'],
    SITE_ZIP_LIMIT:['Yedek ZIP boyut sınırını aşıyor. İşlem durduruldu.','The backup exceeds the ZIP size limit. The operation stopped.'],
    SITE_PERSONAL_UNAVAILABLE:['Kişisel veri yedeği okunamadı. Eksik site yedeği indirilmedi.','The personal data backup could not be read. No incomplete site backup was downloaded.'],
+   SITE_PRIVATE_ACCESS_CHANGED:['Yedek hazırlanırken gizli bölüm erişimi değişti. Dosya indirilmedi; yeniden dene.','Private access changed while preparing the backup. No file was downloaded; please retry.'],
    SITE_HASH_UNAVAILABLE:['Dosya bütünlüğü bu tarayıcıda doğrulanamıyor. HTTPS ile güncel Chrome kullan.','This browser cannot verify file integrity. Use an up-to-date Chrome over HTTPS.'],
    SITE_BUSY:['Önce etkin zikri, kaydı veya veri işlemini tamamla; ardından yeniden dene.','Finish active dhikr, recording or data operations, then retry.'],
    SITE_DOWNLOAD_PENDING:['Önce başlatılan ZIP indirmesini tamamla. Yeni tam site yedeği kısa süre sonra açılır.','Finish the ZIP download already started. A new full site backup will be available shortly.'],
@@ -228,6 +234,7 @@
   if(!w.crypto?.subtle){setStatus('SITE_HASH_UNAVAILABLE');return {ok:false,error:'SITE_HASH_UNAVAILABLE'};}
   const t={release:releasePaths(build()),controller:new AbortController(),phase:'preparing',done:0,total:0,lease:null};task=t;render();
   const work=async lease=>{
+   const access=accessFence();try{
    t.lease=lease;check(t);
    const release=t.release,markerBytes=await readFile(t,release.marker);
    const marker=parseJson(markerBytes);validateMarker(marker,release);
@@ -240,7 +247,7 @@
    if(typeof w.SukunRecoveryData?.capturePortable!=='function')throw fail('SITE_PERSONAL_UNAVAILABLE');
    t.phase='personal';render();
    let personal=await w.SukunRecoveryData.capturePortable({lease,signal:t.controller.signal,download:false});check(t);
-   if(!personal||personal.ok===false)throw fail('SITE_PERSONAL_UNAVAILABLE');
+   access.assert();if(!personal||personal.ok===false)throw fail('SITE_PERSONAL_UNAVAILABLE');
    const personalBlob=personal.file instanceof Blob?personal.file:personal instanceof Blob?personal:new Blob([JSON.stringify(personal.data||personal)],{type:'application/json'});personal=null;
    // Blob-part STORE output references native Blob backing. Allow for personal
    // JSON strings/parse objects, a hash/copy of the largest file, and headers.
@@ -249,7 +256,7 @@
    const created=new Date(),entries=[];t.total=manifest.files.length;t.phase='assets';render();
    entries.push(await unverifiedEntry(t,release.personal,personalBlob));
    for(const file of manifest.files){
-    check(t);
+    check(t);access.assert();
     if(file.path===release.marker)entries.push(markerEntry);
     else{const bytes=await readFile(t,file.path,file.bytes);const entry=await hashedEntry(t,file.path,bytes,file.sha256);validateReleaseFile(file.path,bytes,release);entries.push(entry);}
     t.done++;render();
@@ -257,10 +264,11 @@
    check(t);t.phase='packaging';render();
    entries.push(await unverifiedEntry(t,release.manifest,new Blob([manifestBytes],{type:'application/json'})));
    entries.push(await unverifiedEntry(t,'recovery/OKU_README.txt',new Blob([readme(created,release)],{type:'text/plain;charset=utf-8'})));
-   const blob=zipStore(t,entries,created);check(t);
+   const blob=zipStore(t,entries,created);check(t);access.assert();
    const filename='SUKUN_'+release.build+'_TAM_SITE_YEDEGI_'+created.toISOString().slice(0,19).replace(/[-:]/g,'').replace('T','_')+'.zip';
    if(options.download!==false){check(t);download(blob,filename);setStatus('SITE_DONE');}
    return {ok:true,blob,filename,files:entries.length,bytes:blob.size};
+   }finally{access.close();}
   };
   try{
    if(!w.SukunTabOwner?.maintenance)throw fail('SITE_BUSY');

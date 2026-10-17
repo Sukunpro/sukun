@@ -132,8 +132,31 @@
   }
   function needsSetup() { return !provider() && !configured(); }
   function openSetup() { return read(function () { return window.SukunBerhetGateEntry.openSetup(); }, false); }
+  function canManageDevicePassword() { return !provider(); }
+  function setDevicePassword(password, options) {
+    options = options || {}; check(options.signal);
+    generation++; clearPending();
+    if (provider() || configured() || typeof password !== 'string' || !password.trim() || password.trim().length > 256) throw unavailable();
+    if (!read(function () { return window.KLT_AYARLA(password.trim()) === true; }, false) || !configured() || rawOpen()) throw unavailable();
+    check(options.signal);
+    return {ok:true};
+  }
+  async function resetDevicePassword(options) {
+    options = options || {}; check(options.signal);
+    if (provider()) throw unavailable();
+    // Park concealed queue steps through the same bridge as explicit lock.
+    // Reset only the credential after that lock has completed successfully.
+    await endSession(options); check(options.signal);
+    if (provider() || rawOpen() || !read(function () { return window.KLT_SIFIRLA_KILITLI() === true; }, false)) throw unavailable();
+    return {ok:true};
+  }
+  function getCalendarText() {
+    var value = read(function () { return isUnlocked() && window.SukunBerhetGateCalendar(); }, null);
+    if (!value) return '';
+    return (en() ? 'Today’s traditional calendar match: ' : 'Bugünün geleneksel takvim eşlemesi: ') + value.mansion + ' · ' + value.name + (en() ? '. This does not calculate the Moon’s current position.' : '. Ay’ın anlık konumu hesaplanmaz.');
+  }
   function getAccessLabel() { return provider() ? (en() ? 'Server-verified access' : 'Sunucuda doğrulanan geçiş') : (en() ? 'This device’s privacy password' : 'Bu cihazın gizlilik şifresi'); }
-  function getHelpText() { return provider() ? (en() ? 'Access is verified by the configured service. Locking the door ends this session without deleting your access right.' : 'Geçiş, yapılandırılmış sunucuda doğrulanır. Kapıyı kilitlemek erişim hakkını silmeden bu oturumu kapatır.') : (en() ? 'Uses the password set in Locked Section on this device. This is a local privacy lock, not paid membership verification.' : 'Bu cihazın Kilitli Bölüm ayarlarında belirlediğin şifre kullanılır. Bu, ücretli üyelik doğrulaması değil, cihaz içi gizlilik kilididir.'); }
+  function getHelpText() { return provider() ? (en() ? 'Access is verified by the configured service. Locking the door ends this session without deleting your access right.' : 'Geçiş, yapılandırılmış sunucuda doğrulanır. Kapıyı kilitlemek erişim hakkını silmeden bu oturumu kapatır.') : (en() ? 'This door uses this device’s privacy password. It is a local privacy curtain, not paid membership verification or an encrypted vault. Resetting the password preserves recordings and counters.' : 'Bu kapı, cihazının gizlilik şifresini kullanır. Bu bir yerel gizlilik perdesidir; ücretli üyelik doğrulaması veya şifreli kasa değildir. Şifreyi sıfırlamak kayıtlarını ve sayaçlarını silmez.'); }
   function getContextText() {
     var snapshot = read(function () { return window.SukunSessionState.snapshot(); }, null);
     if (!snapshot || !snapshot.playing && !snapshot.paused) return en() ? 'Your dhikr selection is preserved.' : 'Zikir seçimin korunur.';
@@ -161,7 +184,7 @@
     if (!result || result.ok !== true || result.active !== true || !activeProvider(p)) { statusSuspended = true; await lockExpiredProvider(); }
   }
   window.SukunBerhetGateAccess = Object.freeze({version:'r1080',verify:verify,sessionOpened:sessionOpened,isUnlocked:isUnlocked,enter:enter,endSession:endSession,
-    needsSetup:needsSetup,openSetup:openSetup,getLanguage:language,getContextText:getContextText,getAccessLabel:getAccessLabel,getHelpText:getHelpText,refresh:refreshProvider,
+    needsSetup:needsSetup,openSetup:openSetup,canManageDevicePassword:canManageDevicePassword,setDevicePassword:setDevicePassword,resetDevicePassword:resetDevicePassword,getCalendarText:getCalendarText,getLanguage:language,getContextText:getContextText,getAccessLabel:getAccessLabel,getHelpText:getHelpText,refresh:refreshProvider,
     snapshot:function () { return {version:'r1080',mode:provider()?'provider':'device',unlocked:isUnlocked(),configured:!needsSetup(),pending:!!pending}; }});
   if (window.addEventListener) window.addEventListener('pageshow', refreshProvider);
   if (document.addEventListener) document.addEventListener('visibilitychange', function () { if (!document.hidden) void refreshProvider(); });

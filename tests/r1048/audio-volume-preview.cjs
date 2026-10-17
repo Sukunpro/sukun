@@ -24,7 +24,9 @@ function harness(){
  run(between('var ZVOL=(function(){','/* — Elle hedef:'));
  run(between('function setZVol(','function setLayerVol('));
  run(between('function mediaRender(){',"window.addEventListener('sukun:recordingcatalog',()=>mediaRender());"));
- run(between('/* r147: Kayıtlarım bağlayıcısı */','/* r146: kilit paneli bağlayıcısı */'));
+ // Extract the recording binder through its own closing IIFE, independently
+ // of whichever unrelated settings panel follows it in the production shell.
+ run(between('/* r147: Kayıtlarım bağlayıcısı */','\n})();')+'\n})();');
  async function flush(){for(let i=0;i<15;i++)await Promise.resolve()}
  async function advance(ms){const end=now+ms;while(true){await flush();const due=[...timers].filter(([,t])=>t.at<=end).sort((a,b)=>a[1].at-b[1].at);if(!due.length)break;const[id,t]=due[0];timers.delete(id);now=t.at;t.f()}now=end;await flush()}
  function previewClick(kind){const play={dataset:{play:'esma:0:nida'}};if(kind==='manager'){node('recList').dispatchEvent({type:'click',target:{closest:s=>s==='[data-play]'?play:null}})}else if(kind==='backup'){const row={dataset:{k:'esma:0:nida'}};node('ydkListe').dispatchEvent({type:'click',target:{closest:s=>s==='[data-k]'?row:s==='.ydkOynat'?{}:null}})}else{c.mediaRender();node('r168MediaList').children.at(-1).buttons[0].onclick()}}

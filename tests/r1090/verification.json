@@ -1,0 +1,141 @@
+{
+  "build": "r1090",
+  "verifiedAt": "2026-10-17T14:20:06.033922+00:00",
+  "sourceSha256": "6bc993af3f795fd6779fd389c827f2fc65732ee0c425198a27fdfb8827674abe",
+  "sourceHashes": {
+    "index.html": "6bc993af3f795fd6779fd389c827f2fc65732ee0c425198a27fdfb8827674abe",
+    "nero.html": "6bc993af3f795fd6779fd389c827f2fc65732ee0c425198a27fdfb8827674abe",
+    "assets/runtime/session-r919.js": "5ef9efcb784542a53a9f3ebe8ec57f4694ebbeeb0b7af00428a6b4de9e2b8869",
+    "assets/runtime/recovery-data-r1020.js": "73dc56f2eb83405ee0801fd94703b85497963d02aad728216336e66e6e5da355",
+    "assets/runtime/site-backup-r1020.js": "5d8380543c1893a80c80c5b8a425cc28638615a724144243549469b9672cddf9",
+    "assets/berhetiyye-gate/access-r1080.js": "a4d0e31095d15d09f1fe43e8a1e20245fa80281da8da71f350d6a91586fbe96a",
+    "assets/berhetiyye-gate/entry-r1080.js": "8ef27093ff8da3fc8dc9a8f67563df4f49c0176ecbf18772c416c28d1194cde3",
+    "assets/berhetiyye-gate/entry-r1080.css": "652561e9c60b412bbb6e03096c5576787aad2966b3bcfae8205d40b28d3e0374",
+    "assets/berhetiyye-gate/portal-r1080.js": "5562a21d00db680e8475820c88d86c738afc5162814d91d6e3c5b356bac138d7",
+    "assets/berhetiyye-gate/portal-r1080.css": "5c115fb5f548e6d15bb938c5270d5431bcaabe03ea6abd164370ad05885bb757"
+  },
+  "controlledRegressionGroups": {
+    "passed": 154,
+    "total": 154
+  },
+  "releaseIntegrity": {
+    "passed": 1357,
+    "total": 1357
+  },
+  "fullReleaseExport": {
+    "ok": true,
+    "files": 726,
+    "deploymentBytes": 306357529
+  },
+  "focusedControlledCases": {
+    "tests/r1090/canonical-export.cjs": {
+      "passed": 12,
+      "total": 12,
+      "exitCode": 0
+    },
+    "tests/r1090/deferred-continuation.cjs": {
+      "passed": 50,
+      "total": 50,
+      "exitCode": 0
+    },
+    "tests/r1090/direct-restart.cjs": {
+      "passed": 40,
+      "total": 40,
+      "exitCode": 0
+    },
+    "tests/r1090/saved-activation.cjs": {
+      "passed": 24,
+      "total": 24,
+      "exitCode": 0
+    },
+    "tests/r1090/site-export-privacy.cjs": {
+      "passed": 4,
+      "total": 4,
+      "exitCode": 0
+    },
+    "tests/r1090/unified-gate.cjs": {
+      "passed": 14,
+      "total": 14,
+      "exitCode": 0
+    }
+  },
+  "browserIntegration": {
+    "unifiedGate": {
+      "completionReceiptSha256": "cf4edecd0aaa0db37330e0edc4c9d271065c070eb62abf967227c89e87d0ba1d",
+      "passed": 12,
+      "total": 12,
+      "test": "tests/r1090/unified-gate-browser.js",
+      "testSha256": "99fd633943961cb158d9f5bef9e08b2fefe764f4193d3a5d67c12df7c545fd87",
+      "reportSha256": "a893c6a49f4311cba2c1ac45c6989ab4b62c7da08c9ae9b80e80eb7247465d88"
+    },
+    "smartContinuation": {
+      "completionReceiptSha256": "10f7c98b94c0602461badc49576cc50486f775c8b399fd5106fc755e5dbdb030",
+      "passed": 26,
+      "total": 26,
+      "test": "tests/r1090/deferred-continuation-browser.js",
+      "testSha256": "33ddc353528e4515fb28bc155604257d758f52a94a35797d6a8e55aee4ce7766",
+      "reportSha256": "d4d8191cd1094512d88bf9b9a9a97d5cb035d0127ac7d5180b70f22f3fbcc76b"
+    },
+    "directRestart": {
+      "completionReceiptSha256": "f6daed9d1b2d96f5e5e7e05c06b69c456d1ea6c76d2be031c76129e9481e1a7d",
+      "passed": 7,
+      "total": 7,
+      "test": "tests/r1090/direct-restart-browser.js",
+      "testSha256": "42005cf3e74fdf613180d456400c08ec96d6a3495dd8049c6fb4d41b09bc144f",
+      "reportSha256": "d892a051ef8a1e18666f249dbab918774bbac43b8e3f442524918a570d0ccdfc"
+    },
+    "coldOffline": {
+      "completionReceiptSha256": "0e9baa77e742c58fe56852d54132136948e2775cd9174b058d92f11c635a71c5",
+      "passed": 15,
+      "total": 15,
+      "test": "tests/r1090/offline-browser.js",
+      "testSha256": "7ff60ea85ea83126853c407e9230cf94b68d625955b76de2f025d316333f022d",
+      "reportSha256": "7a2b5304c71c88a8513e369da6f39b94b7f91b64a7d3b8fdb604baa7b2f49565"
+    },
+    "savedTemplates": {
+      "completionReceiptSha256": "76e35ab2253da3005598aa99614604b10b3534341321a4cc65324ebec81bb4c7",
+      "passed": 11,
+      "total": 11,
+      "test": "tests/r1089/saved-session-browser.js",
+      "testSha256": "f33f1de50ab54c34d4aa1210836ab3f531b2c74089caae98766a90749ce31796",
+      "reportSha256": "73ccf4bcf1b5fef3726fe6a5fa5236830fb35685f68def26d10a8ec394871859"
+    },
+    "canonicalExport": {
+      "completionReceiptSha256": "1a0c067b2791833a8ae0e8043ad248a496d242cb4719b71ee2c666a859df32bd",
+      "passed": 9,
+      "total": 9,
+      "test": "tests/r1090/canonical-export-browser.js",
+      "testSha256": "e05245d8a6d24d4866668db7b6d599aeb908be2760ef3116588017548a6c0dd8",
+      "reportSha256": "857338a03dd0334863551d0c83369c4a60ead93c985a3ad6c86bb3c37a72d0ab"
+    }
+  },
+  "browserIntegrationTotal": 80,
+  "browserFixtureSha256": "b58ac3f8caafbbf6cea57e705930bc1f891bf6b410f95dc3dbaf17d9e6d007da",
+  "scope": "Frozen r1090 Classic/Feyz. Native original bundled MP3 clocks, explicitly labelled generated PCM, genuine canonical IDB and cross-tab durability, full deployment ZIP construction, real installed service worker and cold offline reload with server sockets disabled. Superseded runs are not release evidence.",
+  "limitations": [
+    "Disposable Linux Chromium, Classic/Feyz at390×844 and320×640, exact served production shell/modules. Physical Samsung/Android, perceptual audio quality and remote paid membership are not measured.",
+    "Device PINs are labelled test inputs. Enrollment/verification/commit/reset run through the actual production adapter and PIN helpers; a labelled provider stub is used solely to prove that provider mode hides and rejects device management.",
+    "One synthetic WAV is an IndexedDB preservation sentinel, never presented as a recitation. Native clocks, transports and gate animation timers remain unchanged; reduced motion is enabled only for explicitly marked fixture groups.",
+    "Disposable Linux Chromium, Classic/Feyz at 390×844 CSS pixels. No physical Samsung, Android screen-lock, real-device autoplay or audible recitation quality claim.",
+    "Generated two-second PCM tones occupy disposable personal-recording keys. Native HTMLMediaElement clocks, currentTime, play, pause and ended are not replaced; application progress is observed after native completion.",
+    "Race cases call actual production timeline onclick/exported restart and terminal APIs within one page.evaluate task. Separate canonical cases call SukunSessionState.command and assert accepted:true. These measure command boundaries, not physical fast tap timing.",
+    "Preparation cases hold an actual reads-only readwrite transaction in disposable sukunRec/clips and observe real pending readonly requests after source admission; exact r422 pre-admission receipt timing is covered separately by controlled source tests. Mixed cases run shipped rain and both WebAudio frequencies with unchanged context clocks.",
+    "Production source files are served byte-for-byte with service workers blocked. Audio observation wrappers only log native calls/events and return the original results.",
+    "Exact Classic/Feyz application scripts, normal visual CSS, and genuine Chromium native media clocks at 384×691. Generated six-second tones occupy three isolated personal recording slots; no user recordings, images, browser profile or health report is read.",
+    "Race matrix calls actual production exported navigation and SukunSessionState command APIs within one browser task. This establishes command ownership, not physical fast tap timing. A genuine native personal recording is observed through unchanged media clocks.",
+    "The engineering fixture controls device TTS, which is forbidden for these personal recording scenarios. Service workers are blocked; physical Android screen locking, speaker audibility, OS audio focus and SW activation are not measured.",
+    "The separate Node command-scope suite verifies independently paused background providers. This browser run focuses on the sole single-name captured mix that previously stranded the wheel controls.",
+    "Disposable Linux headless Chromium with an actual installed service worker; Classic/Feyz. No physical Android, lock-screen or audible-quality claim.",
+    "Network becomes explicitly offline only after worker installation; the isolated HTTP fixture also closes new sockets so service-worker fetches cannot bypass browser context offline emulation. No online bundled find/play is called; the worker mandatory runtime cache alone must contain all six original MP3 files.",
+    "Each original MP3 is verified by SHA-256 and a small native currentTime advance, then explicitly stopped. No full recitation completion or successful repeat credit is claimed.",
+    "Saved templates and favorites use the unmodified canonical store while offline, including a fresh page. User recordings, microphone and unrelated personal data are not used.",
+    "One labelled storage failure is injected only into the canonical template database transaction method; two actual pointer clicks verify the error message and successful retry. The original method is restored before retry.",
+    "This suite verifies the current installed release and an old launcher URL. Historical release switching and installation under real mobile bandwidth/quota are covered only by controlled tests or remain device work.",
+    "Disposable Chromium at390×844 Classic/Feyz, two pages sharing one actual origin/storage. Production files are served byte-for-byte; service workers blocked. No personal user data, physical Samsung behavior, audible playback or screen-lock behavior is measured.",
+    "Normal writes use the actual unchanged asynchronous store APIs or public Save/favorite buttons. Fixture seed writes/reset the real canonical IDB record explicitly; direct mirror changes are never treated as normal backend writes. No localStorage, production timer, Date, WebLock or IDB API is patched.",
+    "One explicitly labelled async-Save test holds an actual separate native IDB guard transaction to expose a pending-write interval. It releases that transaction before awaiting the production save; audio is never started.",
+    "Disposable native Chromium390×844 Classic/Feyz, byte-identical production files and genuine IndexedDB transactions, JSON serialization, maintenance leases, SHA-256 asset verification and ZIP Blob construction. Service workers blocked; no user data or physical Android is used.",
+    "Only compatibility-mirror writes throw a labelled controlled QuotaExceededError. An IDB transaction observer delegates unchanged; one native write transaction is held to expose a pending read interval. One same-origin asset response is held to expose ZIP privacy timing. Production timers and Date are not replaced. The shared device-speech fixture is installed but no speech/audio completion is driven by this suite. A final labelled malformed canonical record verifies fail-closed behavior; normal saves use the unchanged store API.",
+    "Full-site export executes the actual production exporter over every inventory file and actual canonical personal JSON. The first ZIP member is decoded to verify its saved templates/favorites; per-file deployment hashes are enforced by the production exporter. Audio playback and physical lock-screen behavior are not measured."
+  ]
+}

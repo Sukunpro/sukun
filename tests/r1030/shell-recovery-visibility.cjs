@@ -2,6 +2,7 @@
 // Controlled DOM/class/CSS-scope fixture. Executes shipped r616 makeShell/init/go,
 // shipped recovery entry and original ring handlers. It is not pixel/browser QA.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const {assertRecoverySafety}=require('../r1090/recovery-safety-fixture.cjs');
 const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
 const html=fs.readFileSync(path.join(root,'index.html'),'utf8'),entry=fs.readFileSync(path.join(root,'assets/runtime/recovery-entry-r1027.js'),'utf8');
 const data=fs.readFileSync(path.join(root,'assets/runtime/recovery-data-r1020.js'),'utf8');
@@ -75,6 +76,6 @@ const results=[];async function test(name,fn){try{await fn();results.push({name,
  await test('No main shell/bootstrap leaves the original visible static footer fallback intact',()=>{const f=fixture({main:false});assert.equal(f.row.parentNode,f.footer);assert(f.visible(f.icon));assert.equal(f.get('sukun-shell-intention'),null);assert(!f.dispatch(f.icon,'click').prevented);assert.equal(f.calls.open,0);});
  await test('Lower slot uses normal flow, cannot expose legacy footer or create a recovery panel',()=>{assert.match(css,/#sukun-shell-intention\{display:none\}/);const rule=css.match(/body\.r616-ui #sukun-shell-intention\{([^}]+)\}/)[1];assert(!/position|z-index|bottom:|background|box-shadow/.test(rule));assert(!/footer/.test(css));assert(!/cloneNode|innerHTML|outerHTML|SukunRecoveryData|openData|localStorage|sessionStorage|indexedDB/.test(relocation));assert.match(relocation,/if\(row\.parentNode!==host\)host\.appendChild\(row\)/);});
  await test('Relocation/boot adds no storage writes and both emitted HTML files match',()=>{for(const mode of ['simple','focus','classic']){const f=fixture({mode});f.start();f.switchClass('classic');f.switchClass('simple');assert.equal(f.writes.length,0);}assert.equal(html,fs.readFileSync(path.join(root,'nero.html'),'utf8'));});
- await test('Published r1029 ring and data runtime remain byte-identical',()=>{assert.equal(hash(ring),'7bff7d29d55e11cd247b517cb242e072ff44b0ba9ec8d4b00468a17c02817ea2');assert.equal(hash(data),'dcd7e844ea0cab11f990c70e8e746384c81a24a000dfd8a4b6d54bfeba266bd4');});
+ await test('Published ring and unchanged recovery safety regions retain their exact baseline bytes',()=>{assert.equal(hash(ring),'7bff7d29d55e11cd247b517cb242e072ff44b0ba9ec8d4b00468a17c02817ea2');assertRecoverySafety(data);});
  const report={method:'Shipped shell creation/init/navigation and recovery/ring scripts executed with controlled DOM/classes; visibility evaluates only relevant source CSS selectors. No browser pixels, physical-device or real-storage claim.',passed:results.filter(x=>x.passed).length,total:results.length,sourceHashes:{entry:hash(entry),data:hash(data),ring:hash(ring),shell:hash(shell)},results};console.log(JSON.stringify(report,null,2));if(report.passed!==report.total)process.exitCode=1;
 })().catch(e=>{console.error(e);process.exitCode=1;});
