@@ -1,0 +1,53 @@
+{
+  "build": "r1085",
+  "base": "r1084",
+  "sourceSha256": "e8d2b9de8da528f3b060699c6db4c137ceac25a7be23faa7113b222512914369",
+  "controlledRegressionGroups": {
+    "passed": 139,
+    "total": 139
+  },
+  "integrity": {
+    "passed": 1352,
+    "total": 1352
+  },
+  "newControlledAssertionsAndCases": 82,
+  "nativeChromium": [
+    {
+      "report": "berhet-session-native-authoritative.json",
+      "passed": 10,
+      "total": 10,
+      "testSha256": "39141f4ff9dba53f1be9c6ded297de8cb6185b9b62df8b251be1a37166224715"
+    },
+    {
+      "report": "berhet-onset-delay-authoritative.json",
+      "passed": 1,
+      "total": 1,
+      "testSha256": "39141f4ff9dba53f1be9c6ded297de8cb6185b9b62df8b251be1a37166224715"
+    },
+    {
+      "report": "previous-session-browser-authoritative.json",
+      "passed": 14,
+      "total": 14,
+      "testSha256": "07e3913bc9ffeba2d5ecfbed36fc34a7654b7d2e376972c87b43e655d2c7ad8a"
+    }
+  ],
+  "baselineFinding": {
+    "intactIntentionDurationSeconds": 3,
+    "gainBeforeDelayedPlaying": 0,
+    "delayedPlayingMediaSecondsRange": [
+      0.528,
+      1.472
+    ],
+    "blockedMainThreadMs": 800,
+    "candidatePrearmedDryGain": 1.42
+  },
+  "packages": {
+    "fullMembers": 724,
+    "allBytesMatch": true
+  },
+  "limitations": [
+    "Generated PCM fixtures in disposable Linux Chromium profiles; no private user recording is copied or replaced.",
+    "Speech callback failure and timing seams are controlled source tests, not real device voice quality measurements.",
+    "Physical Samsung/Android lock, speaker output and audible recitation quality were not tested."
+  ]
+}
