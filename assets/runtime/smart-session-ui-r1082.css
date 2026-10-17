@@ -27,6 +27,17 @@
 #r1082SessionEntry{box-sizing:border-box;width:100%;max-width:100%;min-height:46px;padding:10px 14px;margin:7px 0;border:1px solid #a6c5a2;border-radius:14px;background:linear-gradient(110deg,#153f3beb,#12313ce8);color:#f9e4aa;font:600 13px/1.5 system-ui;text-align:left;white-space:normal;animation:r1082JewelBreath 7s ease-in-out infinite}
 #r1082FocusStrip{width:100%;margin:5px 0;padding:0 11px;grid-column:1/-1;font:400 13px/1.5 system-ui}
 #r1082FocusStrip>summary{min-height:38px;padding:8px 0}#r1082FocusStrip p{color:#d4e6df;margin:8px 0}#r1082FocusStrip button{margin-bottom:10px;min-height:44px}
+/* Own this accordion's one chevron. Global summary ornament rules must not
+   paint another line/arrow or position it over a wrapped journey title. */
+@layer sukun-r933-controls{
+ #r1082FocusStrip>summary{box-sizing:border-box;display:grid!important;grid-template-columns:minmax(0,1fr) 9px;align-items:center;gap:12px;min-width:0;min-height:46px;padding:12px 16px!important;list-style:none!important;overflow-wrap:anywhere}
+ #r1082FocusStrip>summary::marker{content:""}
+ #r1082FocusStrip>summary::-webkit-details-marker{display:none}
+ #r1082FocusStrip>summary::before{content:none!important;display:none!important}
+ #r1082FocusStrip>summary::after{content:""!important;display:block!important;position:static!important;inset:auto!important;grid-column:2;grid-row:1;align-self:center;justify-self:center;width:9px!important;height:9px!important;box-sizing:border-box;border:0;border-right:2px solid currentColor;border-bottom:2px solid currentColor;background:none!important;box-shadow:none;opacity:.85;transform:rotate(45deg)!important;pointer-events:none;transition:transform .2s ease}
+ #r1082FocusStrip[open]>summary::after{transform:rotate(225deg)!important}
+ @media(prefers-reduced-motion:reduce){#r1082FocusStrip>summary::after{transition:none}}
+}
 body:not(.sukun-tefekkur-mode) #r1082FocusStrip{display:none}
 /* The canonical practice button contract lives in a cascade layer. Important
    declarations in that layer outrank unlayered rules, regardless of selector

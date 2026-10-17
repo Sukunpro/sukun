@@ -128,7 +128,7 @@ function summary(){
  $('r170SessionHub')?.classList.toggle('r1082-has-failure',!!s.failed);
  text($('r1082OrderTitle'),t('Sırayı önizle','Preview the sequence'));const list=$('r1082OrderList'),html=(player?.queue||[]).map(x=>'<li>'+esc(itemName(x))+' <span>'+esc(x.type==='zikir'?modeText(x):clock(x.ms))+'</span></li>').join('');if(list.innerHTML!==html)list.innerHTML=html;
  const start=$('r170StartSession');if(start){start.disabled=!count||!!invalid.length||!!s.failed||!!$('r170Queue')?.querySelector('[aria-invalid="true"]');if(invalid.length)attr(start,'aria-describedby','r1084Validation');else start.removeAttribute('aria-describedby')}
- text($('r1082FocusSummary'),(player?.name||t('Seans','Session'))+' · '+t('Adım ','Step ')+(player?.i+1)+'/'+count+' ⌄');
+ text($('r1082FocusSummary'),(player?.name||t('Seans','Session'))+' · '+t('Adım ','Step ')+(player?.i+1)+'/'+count);
  text($('r1082FocusDetail'),step?itemName(step)+' · '+modeText(step)+(player.queue[player.i+1]?' · '+t('Sıradaki: ','Next: ')+itemName(player.queue[player.i+1]):''):'');
  text($('r1082FocusEdit'),t('Seans ayrıntılarını aç','Open session details'));if($('r1082FocusStrip'))$('r1082FocusStrip').hidden=!active;
  const locked=!!player?.playing;
