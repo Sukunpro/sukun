@@ -1,0 +1,43 @@
+{
+  "build": "r1088",
+  "sourceSha256": "f0f1875011e004df10b42333d7083b9c1c45d25830c5f52b1db987389eb7533f",
+  "controlledRegressionGroups": {
+    "passed": 144,
+    "total": 144
+  },
+  "releaseIntegrity": {
+    "passed": 1355,
+    "total": 1355
+  },
+  "newControlledCases": {
+    "savedSessions": 19,
+    "interruptions": 22,
+    "dockResume": 13,
+    "gateAudio": 7
+  },
+  "native": {
+    "sessions": {
+      "passed": 18,
+      "total": 18,
+      "testSha256": "30b7f76dbcfe8e3b526125a4c9251c9b780c7a2fa408afc1fe767f0947657b02"
+    },
+    "gateAudio": {
+      "passed": 13,
+      "total": 13,
+      "files": 99,
+      "testSha256": "3da469f09e56515f6816e81798620cc0968774e1c6e494598a66aae7b1a6c12e"
+    }
+  },
+  "scope": "Real Classic/Feyz mobile Chromium UI, native media clocks and completions, saved session migration/upsert/current-step continuity, single-tap dock resume, actual bundled Falaq-to-Nas transition, default-on isolated gate effects during actual Ayatul-Kursi playback.",
+  "limitations": [
+    "Disposable Linux Chromium at390×844 CSS pixels, Classic/Feyz. No personal user data, real Android screen locking, physical Samsung behavior or audible speech quality is measured.",
+    "Save/migration cases use actual visible production UI and localStorage in disposable profiles. Migration seeds only explicitly labelled historical session records.",
+    "Transport continuity case uses generated.7-second PCM tones only in disposable personal-recording keys. Native play/currentTime/ended events and wall clocks remain unmodified. Progress is credited by the application after actual native ended.",
+    "The separate bundled case uses original shipped Felâk38.739575-second and Nâs43.807325-second MP3 bytes with no device voices or personal recordings. It waits for the full first file and samples pause/resume of the second; full Nâs completion and full protective sequence are not claimed.",
+    "Service workers are blocked in this engineering fixture. Production HTML/CSS/JS/audio are served byte-for-byte and checked against final disk hashes; no production clock, playbackRate, source loader or player is replaced.",
+    "Disposable Linux Chromium 390×844, Classic/Feyz. The actual shipped 128-second Ayatul MP3 is observed during an incomplete first repeat. No playback clock, completion, native media transport or AudioContext method is replaced with a fake.",
+    "A labelled synthetic entitlement adapter provides successful/wrong credentials and door-session grant/revocation only. Real remote entitlement is not measured.",
+    "The existing speech fixture controls device TTS; the tested recitation and invitation are real shipped MP3 files. Physical Samsung/Android locking, perceptual loudness and audible recitation quality are not measured.",
+    "No service worker, microphone, user profile or personal recording is involved. The invitation observer calls through to the existing original native play observer."
+  ]
+}

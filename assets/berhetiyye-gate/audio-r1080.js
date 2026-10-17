@@ -5,9 +5,9 @@ function createPortalAudio({onStatus = () => {}} = {}) {
   const retiring = new Set();
   let context = null, bank = null, noise = null, impulse = null;
   let enabled = false, authorized = false, destroyed = false, blocked = false;
-  let available = !!Context, volume = .42, cue = '', epoch = 0;
+  let available = !!Context, volume = .42, mix = 1, cue = '', epoch = 0;
   const status = () => ({enabled, ready: !!context && context.state === 'running', contextState: context ? context.state : 'uncreated', volume, available,
-    blocked, cue, voices: bank ? bank.voices.size : 0, retiring: retiring.size, destroyed});
+    blocked, cue, mix, voices: bank ? bank.voices.size : 0, retiring: retiring.size, destroyed});
   const notify = () => { try { onStatus(status()); } catch (_) {} };
   const disconnect = node => { try { node.disconnect(); } catch (_) {} };
   function removeVoice(voice) {
@@ -93,8 +93,18 @@ function createPortalAudio({onStatus = () => {}} = {}) {
     const number = Number(value);
     if (!Number.isFinite(number) || destroyed) return;
     volume = Math.max(0, Math.min(1, number));
-    if (bank) bank.output.gain.setTargetAtTime(volume * .3, context.currentTime, .015);
+    if (bank) bank.output.gain.setTargetAtTime(volume * mix * .3, context.currentTime, .015);
     if (!volume) stop({immediate: true});
+    notify();
+  }
+  // Only this private effects bus is attenuated. Never touch the dhikr graph,
+  // native media volume, foreground lease or the application's audio context.
+  function setMix(value) {
+    const number = Number(value);
+    if (!Number.isFinite(number) || destroyed) return;
+    mix = Math.max(0, Math.min(1, number));
+    if (bank) bank.output.gain.setTargetAtTime(volume * mix * .3, context.currentTime, .04);
+    if (!mix) stop({immediate: true});
     notify();
   }
   function makeBank() {
@@ -103,7 +113,7 @@ function createPortalAudio({onStatus = () => {}} = {}) {
     dry.gain.value = .82; wet.gain.value = .23; convolver.buffer = impulse;
     compressor.threshold.value = -19; compressor.knee.value = 16; compressor.ratio.value = 5;
     compressor.attack.value = .004; compressor.release.value = .23;
-    output.gain.value = volume * .3;
+    output.gain.value = volume * mix * .3;
     input.connect(dry); dry.connect(compressor); input.connect(convolver); convolver.connect(wet);
     wet.connect(compressor); compressor.connect(output); output.connect(context.destination);
     return {input, output, convolver, wet, voices: new Set(), ending: false, removed: false,
@@ -202,7 +212,7 @@ function createPortalAudio({onStatus = () => {}} = {}) {
     }
   }
   function play(name) {
-    if (!cues.has(name) || destroyed || !enabled || !volume || !context || context.state !== 'running') return false;
+    if (!cues.has(name) || destroyed || !enabled || !volume || !mix || !context || context.state !== 'running') return false;
     stop(); bank = makeBank(); cue = name;
     try { schedule(name,context.currentTime + .018); notify(); return true; }
     catch (_) { stop({immediate: true}); blocked = true; notify(); return false; }
@@ -213,7 +223,7 @@ function createPortalAudio({onStatus = () => {}} = {}) {
     if (context) { try { Promise.resolve(context.close()).catch(() => {}); } catch (_) {} }
     context = null; noise = null; impulse = null; notify();
   }
-  return {enableFromGesture, setEnabled, setVolume, play, stop, snapshot: status, destroy};
+  return {enableFromGesture, setEnabled, setVolume, setMix, play, stop, snapshot: status, destroy};
 }
 
 window.createSukunPortalAudio=createPortalAudio;
