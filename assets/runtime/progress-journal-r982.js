@@ -31,6 +31,7 @@
   function step(v){
     if(!obj(v)||!['zikir','silence','frequency'].includes(v.type))return null;
     const o={type:v.type};
+    if(v._r1082Id!=null){if(typeof v._r1082Id!=='string'||!/^[A-Za-z0-9_-]{1,80}$/.test(v._r1082Id))return null;o._r1082Id=v._r1082Id;}
     if(v.type==='zikir'){
       if(!text(v.cat,40)||!/^[a-zA-Z][a-zA-Z0-9_-]*$/.test(v.cat)||!integer(v.idx,1999)||!integer(v.reps,99999)||v.reps<1||!num(v.gap,0,30000))return null;
       Object.assign(o,{cat:v.cat,idx:v.idx,reps:v.reps,gap:v.gap});
@@ -56,7 +57,22 @@
     if(v.unfinished&&(!v.queue.length||v.i>=v.queue.length))return null;
     const queue=v.queue.map(step);if(queue.some(x=>!x))return null;
     const at=queue[v.i];if(v.completedReps&&(!at||at.type!=='zikir'||at.repeatMode!=='fixed'||v.completedReps>at.reps))return null;
-    return {queue,i:v.i,name:v.name,active:v.active,unfinished:v.unfinished,completedReps:v.completedReps};
+    const out={queue,i:v.i,name:v.name,active:v.active,unfinished:v.unfinished,completedReps:v.completedReps};
+    if(v.runtimeProgress!=null){
+      const p=v.runtimeProgress;
+      // Conditional progress belongs to one stable queue entry and one playback
+      // plan. It never changes the fixed-count ledger or becomes an audio clock.
+      if(!obj(p)||!at||at.type!=='zikir'||!['duration','manual'].includes(at.repeatMode)||!at._r1082Id||p.stepId!==at._r1082Id||p.signature!==stepIdentity(at)||!num(p.elapsedMs,0,6*3600000)||!integer(p.completed,99999))return null;
+      out.runtimeProgress={stepId:p.stepId,signature:p.signature,elapsedMs:p.elapsedMs,completed:p.completed};
+    }
+    if(v.outcomeProgress!=null){
+      const p=v.outcomeProgress,ids=new Set(queue.map(s=>s._r1082Id).filter(Boolean));
+      const valid=list=>Array.isArray(list)&&list.length<=128&&new Set(list).size===list.length&&list.every(id=>typeof id==='string'&&/^[A-Za-z0-9_-]{1,80}$/.test(id)&&ids.has(id));
+      // Skipping is an explicit outcome, never evidence of a completed reading.
+      if(!obj(p)||!valid(p.completedIds)||!valid(p.skippedIds)||p.completedIds.some(id=>p.skippedIds.includes(id)))return null;
+      out.outcomeProgress={completedIds:p.completedIds.slice(),skippedIds:p.skippedIds.slice()};
+    }
+    return out;
   }
   function resume(v){
     if(!obj(v)||Object.keys(v).length>16)return null;
@@ -105,7 +121,7 @@
     if(key==='sukun.berhet.seyir.state'||key==='sukun.esma99.seyir.state'){const v=p[key.includes('berhet')?'journey28':'journey99'];return v?{...clone(v),t:r.body.at}:fallback;}
     return undefined;
   }
-  function stepIdentity(v){const x=step(v);return x?JSON.stringify({type:x.type,cat:x.cat||'',idx:x.idx??null,reps:x.reps??null,repeatMode:x.repeatMode||'',source:x._r472SourceMode||'auto',ms:x.ms??null,c:x.c??null,b:x.b??null,mode:x.mode||'',...(x.protectionPlan?{protectionPlan:x.protectionPlan}:{})}):'';}
+  function stepIdentity(v){const x=step(v);return x?JSON.stringify({type:x.type,cat:x.cat||'',idx:x.idx??null,reps:x.reps??null,repeatMode:x.repeatMode||'',source:x._r472SourceMode||'auto',ms:x.ms??null,c:x.c??null,b:x.b??null,mode:x.mode||'',...(x.protectionPlan?{protectionPlan:x.protectionPlan}:{}),...(x.repeatMode==='duration'?{repeatForMs:x.repeatForMs}:{})}):'';}
   function smartSig(v){const s=smart(v);return s?JSON.stringify({queue:s.queue,name:s.name}):'';}
   function baseline(v){smartBaseline=smartSig(v);smartDraft=false;}
   function noteSmart(v){if(applying||window.SukunTabOwner?.owns?.())return;const sig=smartSig(v);if(smartBaseline&&sig!==smartBaseline)smartDraft=true;}

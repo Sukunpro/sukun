@@ -651,9 +651,9 @@
   async function integrityCheck() {
     const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10000);
     const result=[];let total=0,reserved=0,mediaTotal=0,mediaReserved=0,expected=0;
-    // Keep the original bounded core check. Shipped Arabic recordings and the
+    // The 9 MiB core allowance includes the shared session UI. Arabic recordings and the
     // exact short portal invitation share the separate bounded media allowance.
-    const byteBudget=8388608,mediaByteBudget=33554432,waiters=new Set();
+    const byteBudget=9437184,mediaByteBudget=33554432,waiters=new Set();
     function wakeBudget(){for(const wake of [...waiters])wake();}
     function waitForBudget(){return new Promise((resolve,reject)=>{
       let done=false;

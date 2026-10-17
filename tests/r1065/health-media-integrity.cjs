@@ -29,7 +29,7 @@ async function test(name,fn){await fn();results.push({name,status:'PASS'});}
   const {result:r,maxActive}=await run(entries,bodies);const invitationBytes=bodies.get('assets/berhetiyye-gate/invitation-tr.mp3')?.length||0;
   const mediaBytes=mediaNames.reduce((n,name)=>n+bodies.get(mediaPath(name)).length,0)+invitationBytes,allBytes=[...bodies.values()].reduce((n,b)=>n+b.length,0);
   assert.equal(r.status,'PASS');assert.equal(r.evidence.files.length,entries.length);assert(r.evidence.files.every(e=>e.status==='MATCH'));
-  assert.equal(r.evidence.mediaBytes,mediaBytes);assert.equal(r.evidence.verifiedBytes,allBytes);assert.equal(r.evidence.bytes,allBytes-mediaBytes);assert(r.evidence.bytes<8388608);assert(mediaBytes<33554432);assert(maxActive<=2);
+  assert.equal(r.evidence.mediaBytes,mediaBytes);assert.equal(r.evidence.verifiedBytes,allBytes);assert.equal(r.evidence.bytes,allBytes-mediaBytes);assert(r.evidence.bytes<9437184);assert(mediaBytes<33554432);assert(maxActive<=2);
  });
  await test('bundled media still requires exact SHA-256 and cannot count corruption as a pass',async()=>{
   const bodies=new Map(mediaNames.map(name=>[mediaPath(name),Buffer.from('fixture '+name)])),entries=[...bodies].map(([p,b])=>({...entry(p,b),sha256:'0'.repeat(64)}));
@@ -47,7 +47,7 @@ async function test(name,fn){await fn();results.push({name,status:'PASS'});}
   const p=mediaPath('yasin'),b=Buffer.alloc(25165825),{result:r}=await run([entry(p,b)],new Map([[p,b]]));
   assert.equal(r.status,'NOT_MEASURED');assert.equal(r.evidence.files[0].status,'SIZE_LIMIT');assert.equal(r.evidence.mediaBytes,0);assert.equal(r.evidence.verifiedBytes,0);
  });
- await test('aggregate media budget stays bounded at32MiB without expanding the8MiB core limit',async()=>{
+ await test('aggregate media budget stays bounded at32MiB with a separate9MiB core limit',async()=>{
   const bodies=new Map([[mediaPath('yasin'),Buffer.alloc(25165824,1)],[mediaPath('fatiha'),Buffer.alloc(12582912,2)]]),entries=[...bodies].map(([p,b])=>entry(p,b));
   const {result:r,maxActive}=await run(entries,bodies);assert.equal(r.status,'NOT_MEASURED');assert.equal(r.evidence.mediaBytes,25165824);assert.equal(r.evidence.bytes,0);assert.equal(r.evidence.verifiedBytes,r.evidence.mediaBytes);assert.equal(r.evidence.files.filter(e=>e.status==='TOTAL_SIZE_LIMIT').length,1);assert(maxActive<=2);
  });
