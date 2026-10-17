@@ -301,11 +301,25 @@
     read(()=>window.R170?.Player?.save?.());
   }
 
+  function pendingSmartContinuation() {
+    const player=window.R170?.Player;
+    return read(()=>player?.hasPendingContinuation?.(),false)?player:null;
+  }
+
   function route(action, before, reject = () => false) {
     const j = journeys(), active = j.active, choice = active || (!before.smartSession?.terminal ? j.view : null);
     const pc = window.PlaybackController, registry = window.SukunAudioSessionRegistry;
-    const direct = window.SukunR698Transport;
+    const direct = window.SukunR698Transport, pendingSmart=pendingSmartContinuation();
+    // A current navigation receipt retains only its existing smart owner while
+    // cleanup/source preparation temporarily makes the scheduler look idle.
+    if (pendingSmart&&['next','previous','restart'].includes(action)) {
+      if(action==='next')pendingSmart.next();
+      else if(action==='previous')pendingSmart.prev();
+      else pendingSmart.restartStep();
+      return true;
+    }
     if (action === 'stop') {
+      if(pendingSmart)pendingSmart.stop(false);
       clearSmartResult();
       // Wheel and local Finish end only dhikr. Global dock Stop owns stopAll.
       if (direct?.stopDhikr) return direct.stopDhikr('r919-command');
@@ -314,6 +328,7 @@
       return typeof local?.stop === 'function' ? local.stop() !== false : false;
     }
     if (action === 'pause') {
+      if(pendingSmart){pendingSmart.pause({localDhikr:true});return true;}
       if (before.phase === 'IDLE' || before.phase === 'COMPLETED') return true;
       // Wheel/easy/local controls hold only their dhikr owner. Ambient and
       // frequency media keep their own scheduler and aggregate state.
@@ -334,7 +349,7 @@
       if (read(() => registry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent) return reject('global-pause');
       // The completed wheel still represents the queue. Its Start replays
       // that owner; it must not start the last item with an old direct target.
-      if(before.smartSession?.terminal)return pc?.play?.('smart-session') ?? false;
+      if(pendingSmart||before.smartSession?.terminal)return pc?.play?.('smart-session') ?? false;
       clearSmartResult();
       if (direct?.resumeDhikr && !before.presentationOnly) return direct.resumeDhikr('r919-command');
       read(() => window.SukunJourneyAudioMachine?.intent?.('play', 'local:r919-command'));
@@ -392,6 +407,7 @@
     // A selected name must not inherit the preceding owner's delayed start.
     read(() => window.SukunOpening?.cancel?.());
     read(() => window.SukunR698Transport?.cancelPending?.('r919-selection'));
+    const pendingSmart=pendingSmartContinuation();if(pendingSmart)pendingSmart.stop(false);
     const current = snapshot(), oldJourney = journeys().active;
     if (current.playing || current.preparing || current.paused || oldJourney) {
       // A paused old journey remains an active owner in the legacy engines.

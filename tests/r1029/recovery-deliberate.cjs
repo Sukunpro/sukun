@@ -2,6 +2,7 @@
 // Exact shipped entry/data/ring code, controlled DOM, timers and readonly IDB.
 // No real browser profile, personal data, network or storage writes are used.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const {assertRecoverySafety}=require('../r1090/recovery-safety-fixture.cjs');
 const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
 const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const entry=fs.readFileSync(path.join(root,'assets/runtime/recovery-entry-r1027.js'),'utf8');
@@ -68,8 +69,9 @@ const results=[];async function test(name,fn){try{await fn();results.push({name,
  await test('Unrelated URL/hash and ordinary Back/Forward never opens recovery',async()=>{const f=fixture({url:'https://example.test/app/index.html#other'});await f.flush();f.window.dispatchEvent({type:'pageshow'});assert(f.get('r1019RecoveryEmergency').hidden);assert.equal(f.location.hash,'#other');});
  await test('Language change localizes icon, intention and explicit independent escape link',async()=>{const f=fixture();await f.flush();f.document.documentElement.lang='en';f.window.I18N.lang='en';f.window.dispatchEvent({type:'sukun:languagechange'});assert.equal(f.icon.getAttribute('aria-label'),'Open recovery options');assert.equal(f.get('intention').textContent,'With the intention of a heart at peace');f.dispatch(f.icon,'click');const standalone=f.get('r1019RecoveryEmergency').querySelector('[data-independent-rescue]');assert.equal(standalone.href,'./rescue.html?lang=en');assert.equal(standalone.textContent,'Open independent recovery page');});
  await test('Static rescue has explicit data choices in both languages and no automatic data action',()=>{assert.equal((rescue.match(/href="\.\/index\.html#sukun-data-recovery"/g)||[]).length,2);assert.match(rescue,/Kişisel veri kurtarma seçeneklerini aç/);assert.match(rescue,/Open personal data recovery options/);assert(!/\.first recovery link/.test(rescue));});
- // These hashes cover exact original r1028 storage/restore implementation and ring handlers.
- await test('Existing storage/restore/maintenance implementations are byte-for-byte unchanged',()=>{assert.equal(hash(data.slice(data.indexOf('  function allowedKey('),data.indexOf('\n  function render()'))),'4a8377a0613b5932bb065c2b1a30c339291c2a840ebd09d84c5b67c7859b5c08');});
+ // r1090 evolves canonical capture/export privacy; retain exact pins for the
+ // separate unchanged storage admission, fingerprint, restore and rescue code.
+ await test('Existing guarded storage, fingerprint and suspended restore/rescue safety regions remain unchanged',()=>{assertRecoverySafety(data);});
  await test('Existing seven-click and diagnostics ring handlers are byte-for-byte unchanged',()=>{assert.equal(hash(ring),'7bff7d29d55e11cd247b517cb242e072ff44b0ba9ec8d4b00468a17c02817ea2');});
  const report={method:'Production code in controlled DOM/timer/readonly-IDB fixtures. No real browser, phone, audio or user data tested.',passed:results.filter(x=>x.passed).length,total:results.length,results};console.log(JSON.stringify(report,null,2));if(report.passed!==report.total)process.exitCode=1;
 })().catch(error=>{console.error(error);process.exitCode=1;});

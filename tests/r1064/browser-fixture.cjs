@@ -7,8 +7,11 @@ const {chromium}=require('playwright');
 const mime={'.html':'text/html; charset=utf-8','.js':'application/javascript','.json':'application/json','.css':'text/css','.webmanifest':'application/manifest+json','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.mp3':'audio/mpeg','.wav':'audio/wav','.woff2':'font/woff2'};
 const hash=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
 async function fixture(root,{width=390,height=844,voices='both',seed={}}={}){
- root=path.resolve(root);const served=new Map(),errors=[],consoleErrors=[],failed=[],external=[];
+ root=path.resolve(root);const served=new Map(),errors=[],consoleErrors=[],failed=[],external=[],serverRejectedRequests=[];let networkAvailable=true;
  const server=http.createServer((req,res)=>{
+  // Context offline emulation may leave service-worker target fetches online.
+  // An opt-in server gate makes offline tests deny real network responses too.
+  if(!networkAvailable){serverRejectedRequests.push(req.url);req.socket.destroy();return}
   let name;try{name=decodeURIComponent(new URL(req.url,'http://127.0.0.1').pathname)}catch(_){res.writeHead(400).end();return}
   const file=path.resolve(root,'.'+(name==='/'?'/index.html':name));
   if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return}
@@ -46,7 +49,8 @@ async function fixture(root,{width=390,height=844,voices='both',seed={}}={}){
  await page.waitForTimeout(2200);
  if(await page.locator('#obSkip').isVisible())await page.locator('#obSkip').click();
  return{root,origin,browser,context,page,served,errors,consoleErrors,failed,external,
-  evidence(){return{root,served:Object.fromEntries(served),pageErrors:errors.slice(),consoleErrors:consoleErrors.slice(),failedRequests:failed.slice(),externalBlocked:external.slice()}},
+  setNetworkAvailable(value){networkAvailable=!!value},
+  evidence(){return{root,served:Object.fromEntries(served),pageErrors:errors.slice(),consoleErrors:consoleErrors.slice(),failedRequests:failed.slice(),externalBlocked:external.slice(),serverRejectedRequests:serverRejectedRequests.slice()}},
   async close(){await context.close();await browser.close();await new Promise(resolve=>server.close(resolve))}};
 }
 function wav(seconds=0.6,frequency=330){const rate=8000,count=Math.round(seconds*rate),out=Buffer.alloc(44+count*2);out.write('RIFF');out.writeUInt32LE(out.length-8,4);out.write('WAVEfmt ',8);out.writeUInt32LE(16,16);out.writeUInt16LE(1,20);out.writeUInt16LE(1,22);out.writeUInt32LE(rate,24);out.writeUInt32LE(rate*2,28);out.writeUInt16LE(2,32);out.writeUInt16LE(16,34);out.write('data',36);out.writeUInt32LE(count*2,40);for(let i=0;i<count;i++)out.writeInt16LE(Math.round(Math.sin(i*2*Math.PI*frequency/rate)*500),44+i*2);return out}

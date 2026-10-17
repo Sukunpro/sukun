@@ -172,3 +172,15 @@
 }
 @keyframes sbgPalmInvite{0%,100%{transform:perspective(600px) rotateX(0) rotateZ(0)}45%{transform:perspective(600px) rotateX(-14deg) rotateZ(-2deg)}65%{transform:perspective(600px) rotateX(-7deg) rotateZ(-1deg)}}
 @media(prefers-reduced-motion:reduce){#sukunBerhetGate .sbg-welcome-figure,#sukunBerhetGate .sbg-welcome-figure>.sbg-welcome-hand{animation:none!important}}
+
+/* r1090 — one door owns entry and device privacy settings. */
+#sukunBerhetGate .sbg-settings{margin-top:16px;text-align:left;border:1px solid #b9ac6c66;border-radius:12px;background:linear-gradient(130deg,#12332be6,#0a211feb);overflow:hidden}
+#sukunBerhetGate .sbg-settings>summary{min-height:48px;display:list-item;cursor:pointer;padding:13px 14px;color:#e6d8ab;font-size:12px;line-height:1.5;touch-action:manipulation}
+#sukunBerhetGate .sbg-settings>p,#sukunBerhetGate .sbg-reset-confirm{padding:0 14px 8px}
+#sukunBerhetGate .sbg-settings .sbg-actions{margin:8px 0 4px}
+#sukunBerhetGate .sbg-settings .sbg-skip{margin-top:0}
+#sukunBerhetGate .sbg-settings .sbg-calendar{border-top:1px solid #b9ac6c33;padding-top:10px;color:#bad9c7}
+#sukunBerhetGate .sbg-confirm-label{margin-top:13px}
+#sukunBerhetGate .sbg-gate[data-phase="setup"] .sbg-scene,#sukunBerhetGate .sbg-gate[data-phase="resetting"] .sbg-scene{aspect-ratio:auto;height:220px}
+#sukunBerhetGate .sbg-gate[data-phase="setup"] .sbg-door-art{object-position:center 65%;opacity:.75}
+#sukunBerhetGate .sbg-gate[data-phase="setup"] .sbg-lock-wheel,#sukunBerhetGate .sbg-gate[data-phase="setup"] .sbg-lock-mount{display:none}

@@ -35,12 +35,16 @@
     }
     return size;
   }
-  function captureLS() {
+  async function captureLS() {
     const out = Object.create(null);
     for (let i = 0; i < localStorage.length; i++) {
       const k = localStorage.key(i);
-      if (allowedKey(k)) out[k] = localStorage.getItem(k);
+      if (allowedKey(k) && k !== 'sukun.sessions.v2' && k !== 'sukun.session.favorites.v1') out[k] = localStorage.getItem(k);
     }
+    let saved;
+    try { const api = window.SukunSavedSessionsR1088; if (typeof api?.exportSnapshot !== 'function') throw new Error('unavailable'); saved = await api.exportSnapshot(); }
+    catch (_) { throw err('saved-templates-unavailable', 'Seans kayıtları doğrulanamadı; eksik yedek oluşturulmadı. Yeniden dene.', 'Saved templates could not be verified; no incomplete backup was created. Please retry.'); }
+    out['sukun.sessions.v2'] = JSON.stringify(saved.rows); out['sukun.session.favorites.v1'] = JSON.stringify(saved.favs);
     validateLS(out); return out;
   }
   function assertion(lease, abortable = true) {
@@ -174,12 +178,12 @@
   }
   async function capture(lease, label = '', abortable = true) {
     assertion(lease, abortable);
-    const ls = captureLS(), stores = Object.create(null);
+    const ls = await captureLS(), stores = Object.create(null); assertion(lease, abortable);
     for (const [name, store] of STORES) stores[name] = await readSource(name, store, lease, abortable);
-    if (JSON.stringify(captureLS()) !== JSON.stringify(ls)) throw err('data-changed', 'Okuma sırasında ayarlar değişti; yeniden dene.', 'Settings changed during the read; retry.');
+    if (JSON.stringify(await captureLS()) !== JSON.stringify(ls)) throw err('data-changed', 'Okuma sırasında ayarlar değişti; yeniden dene.', 'Settings changed during the read; retry.');
     const point = { schema: SCHEMA, app: 'SUKUN-Recovery', id: crypto.randomUUID(), at: Date.now(), build: document.querySelector('meta[name="sukun-build"]')?.content || 'r1020', label: String(label).slice(0, 80), ls, stores };
     Object.assign(point, await fingerprint(point, lease, abortable));
-    if (JSON.stringify(captureLS()) !== JSON.stringify(ls)) throw err('data-changed', 'Doğrulama sırasında ayarlar değişti; yeniden dene.', 'Settings changed during verification; retry.');
+    if (JSON.stringify(await captureLS()) !== JSON.stringify(ls)) throw err('data-changed', 'Doğrulama sırasında ayarlar değişti; yeniden dene.', 'Settings changed during verification; retry.');
     return point;
   }
   async function quota(required) {
@@ -218,7 +222,10 @@
   function checkPrivate(point) {
     const policy = window.SukunSecretPolicy;
     if (!policy || policy.unlocked?.()) return;
-    if (Object.keys(point.ls).some(k => policy.privateLocalKey?.(k)) || point.stores.sukunRec.entries.some(([k]) => policy.secretRecKey?.(k))) throw err('unlock-required', 'Bu tam nokta gizli bölüm verilerini de içeriyor. Önce Berhetiyye bölümünü aç.', 'This complete point also contains private section data. Unlock the Berhetiyye section first.');
+    const sessions = JSON.parse(point.ls['sukun.sessions.v2'] || '[]');
+    const logs = JSON.parse(point.ls['sukun.log'] || '[]'), player = JSON.parse(point.ls['sukun.session.player.v2'] || 'null'), direct = JSON.parse(point.ls['sukun.session.r470'] || 'null');
+    const privateContent = sessions.some(row => policy.secretSession?.(row)) || Array.isArray(logs) && logs.some(row => policy.secretLog?.(row)) || policy.secretSession?.(player) || policy.secretStep?.(direct?.z);
+    if (Object.keys(point.ls).some(k => policy.privateLocalKey?.(k)) || privateContent || point.stores.sukunRec.entries.some(([k]) => policy.secretRecKey?.(k))) throw err('unlock-required', 'Bu tam nokta gizli bölüm verilerini de içeriyor. Önce Berhetiyye bölümünü aç.', 'This complete point also contains private section data. Unlock the Berhetiyye section first.');
   }
   function recordings() {
     const api = typeof REC_DB !== 'undefined' ? REC_DB : window.REC_DB;
@@ -345,9 +352,10 @@
   }
   async function capturePortable({ lease, signal, ...options } = {}) {
       if (!lease?.assertCurrent || !lease?.current || pending || needsReload) throw err('lease-unavailable', 'Önce güvenli veri işlemi kilidi alınmalı.', 'Acquire the safe data maintenance lock first.');
+      const access = skBackupAccessFenceR1090(); try {
       const inherited = lease;
       lease = { assertCurrent() { inherited.assertCurrent(); if (signal?.aborted) throw err('cancelled', 'İşlem iptal edildi.', 'Operation cancelled.'); }, current: () => inherited.current() && !signal?.aborted };
-      const point = await capture(lease); checkPrivate(point);
+      const point = await capture(lease); access.assert(); checkPrivate(point);
       // Reject the portable representation before creating base64 strings or
       // one large JSON string. Native local restore points use a separate 1 GiB
       // audio cap because normalized WAV can be larger than the source clip.
@@ -363,11 +371,13 @@
         if (name === 'sukunRec') data.idb[name][key] = { __blob: uri, type: blob.type };
         else { const metadata = Object.fromEntries(Object.entries(value).filter(([k]) => k !== 'blob')); data.idb[name][key] = { [key.startsWith('h:') ? '__hybridRecord' : '__audioRecord']: { ...metadata, blob: uri, type: blob.type } }; }
       }
+      access.assert(); checkPrivate(point);
       const file = new Blob([JSON.stringify(data)], { type: 'application/json' });
       if (file.size > LIMIT.file) throw err('file-limit', 'Tam yedek dosyası 300 MB sınırını aşıyor. Mevcut parçalı ses yedeğini kullan.', 'Full backup file exceeds 300 MB. Use the existing multipart audio backup.');
       if (options.download !== false) { const a = document.createElement('a'), url = URL.createObjectURL(file); a.href = url; a.download = 'SUKUN_KISISEL_TAM_YEDEK_' + point.build + '_' + new Date().toISOString().slice(0, 10) + '.json'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 3000); }
       lastMessage = text('Kişisel tam yedek hazır. Uygulama dosyaları ve sürüm arşivi ayrı bölümde yönetilir.', 'Full personal backup ready. Application files and version archive are managed separately.');
       return { ok: true, file, data: options.download === false ? data : undefined, ...summary(point) };
+      } finally { access.close(); }
   }
   async function exportPersonal(options = {}) {
     return maintenance('export', lease => capturePortable({ ...options, lease }));

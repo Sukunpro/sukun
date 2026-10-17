@@ -29,7 +29,7 @@
   var adapter = null, host = null, returnFocus = null, fallbackInert = [];
   var epoch = 0, stageTimer = null, countdownTimer = null, verifyTimer = null;
   var aborter = null, historyToken = null, pendingHistoryBack = false, queuedOpenOptions = null;
-  var locallyLocked = false;
+  var locallyLocked = false, enrollmentTicket = 0;
   var soundPending = false, audioEpoch = 0, lastSoundKey = '', audio = null;
   var invitationAudioURL = '', invitationAudio = null;
   var settings = readSettings();
@@ -37,11 +37,11 @@
   var state = {
     open:false, phase:'closed', authenticated:false, dormant:false, reason:'',
     deadline:0, remaining:45, sealedUntil:0, exitAfterSeal:false,
-    error:'', entering:false, revoking:false, fullAnimation:true
+    error:'', entering:false, revoking:false, fullAnimation:true, settingsOpen:false, resetConfirm:false, resetting:false, enrolling:false
   };
   var TEXT = {
     tr: {
-      back:'‹ Zikre dön', private:'BERHETİYYE · ÖZEL GİRİŞ', courtyard:'TAŞ AVLU', threshold:'SARAYIN EŞİĞİ', quiet:'SESSİZ BİR EŞİK',
+      lineResetting:'Kayıtların ve sayaçların korunuyor.', setup:'Geçiş şifreni belirle', lineSetup:'Bu cihazda ilk kez kullanacağın geçiş şifresini belirle.', setupLabel:'Yeni geçiş şifresi', confirmLabel:'Şifreyi yeniden yaz', setupAction:'Şifreyi belirle ve kapıyı aç', setupMismatch:'İki şifre aynı olmalı.', setupLength:'Şifre en fazla 256 karakter olabilir.', settings:'Geçiş ve gizlilik ayarları', reset:'Şifreyi unuttum / sıfırla', resetQuestion:'Bu cihazın geçiş şifresi sıfırlansın mı? Kapı kilitlenir; kayıtların, sayaçların ve kayıtlı seansların korunur.', resetConfirm:'Evet, şifreyi sıfırla', resetCancel:'Vazgeç', resetting:'Kapı kilitleniyor, şifre sıfırlanıyor…', resetError:'Şifre sıfırlanamadı. Kayıtların korunuyor; yeniden dene.', back:'‹ Zikre dön', private:'BERHETİYYE · ÖZEL GİRİŞ', courtyard:'TAŞ AVLU', threshold:'SARAYIN EŞİĞİ', quiet:'SESSİZ BİR EŞİK',
       closed:'Yeşil Kapı', knocking:'Bir davet uyanıyor', challenge:'Nurdan muhafız', verifying:'Geçiş doğrulanıyor', unlocking:'Mühür çözülüyor', opening:'Kapı aralanıyor', ready:'Saray seni bekliyor', closing:'Kapı kapanıyor', locking:'Kapı mühürleniyor', sealing:'Davet sessizliğe çekiliyor', sealed:'Eski Kapı',
       lineClosed:'Bazı kapılar yalnızca çalınmayı bekler.', lineKnocking:'Taş avluda iki tokmak sesi…', lineChallenge:'“Hoş geldin. Geçiş şifreni yazar mısın?”', lineVerifying:'Şifren doğrulanırken davetin süresi korunuyor.', lineUnlocking:'Çarklar dönüyor, sürgüler geri çekiliyor.', lineOpening:'Eşikten bir ışık süzülüyor.', lineReady:'“Gel, gel… Sarayın kapısı sana açık.”', lineClosing:'Sarayın kapısı kapanıyor, geçişin kilitleniyor.', lineLocking:'Sürgüler yerine oturuyor.', lineTimeout:'Davetin süresi doldu. Mühür kapanıyor.', lineWrong:'Şifre eşleşmedi. Mühür kapanıyor.', lineSealing:'Işıklar sönüyor, izler kayboluyor.', lineSealed:'Avluda yalnızca eski bir kapı var.',
       password:'Geçiş şifresi', passwordPlaceholder:'Geçiş şifreni gir', show:'Göster', hide:'Gizle', showLabel:'Şifreyi göster', hideLabel:'Şifreyi gizle', missing:'Geçiş şifreni yaz.', verify:'Geçişi aç', checking:'Doğrulanıyor…', time:'Davetin açık kalma süresi', seconds:'sn', extend:'Süreyi uzat · +45 sn', extended:'Davetin süresi 45 saniye uzatıldı.',
@@ -51,7 +51,7 @@
       doorAlt:'Altın işlemeli yeşil İstanbul kapısı; bekçiler, asa ayrıntıları ve büyük taşlı kilit çarkı', oldAlt:'Unutulmuş eski ahşap kapı; sönük taşlar, boş bekçi nişleri', guardianAlt:'Yüzü nurla örtülü sembolik melek muhafız', welcomeAlt:'Avucunu açarak içeri davet eden sembolik melek muhafız'
     },
     en: {
-      back:'‹ Back to dhikr', private:'BERHETIYYE · PRIVATE ENTRY', courtyard:'STONE COURTYARD', threshold:'THE PALACE THRESHOLD', quiet:'A QUIET THRESHOLD',
+      lineResetting:'Your recordings and counters are preserved.', setup:'Set your entry password', lineSetup:'Choose the entry password for this device’s first visit.', setupLabel:'New entry password', confirmLabel:'Repeat the password', setupAction:'Set password and open the door', setupMismatch:'Both passwords must match.', setupLength:'Use at most 256 characters.', settings:'Entry and privacy settings', reset:'Forgot password / reset', resetQuestion:'Reset this device’s entry password? The door will lock; recordings, counters and saved sessions are preserved.', resetConfirm:'Yes, reset password', resetCancel:'Cancel', resetting:'Locking the door and resetting the password…', resetError:'The password could not be reset. Your recordings are preserved; try again.', back:'‹ Back to dhikr', private:'BERHETIYYE · PRIVATE ENTRY', courtyard:'STONE COURTYARD', threshold:'THE PALACE THRESHOLD', quiet:'A QUIET THRESHOLD',
       closed:'The Green Door', knocking:'An invitation awakens', challenge:'Guardian of light', verifying:'Verifying access', unlocking:'The seal releases', opening:'The door opens', ready:'The palace awaits', closing:'The door closes', locking:'The door is sealed', sealing:'The invitation fades into silence', sealed:'The Old Door',
       lineClosed:'Some doors await a gentle knock.', lineKnocking:'Two knocks in the stone courtyard…', lineChallenge:'“Welcome. Will you enter your access password?”', lineVerifying:'Your invitation time is paused while access is verified.', lineUnlocking:'The wheels turn and the bolts withdraw.', lineOpening:'A beam of light crosses the threshold.', lineReady:'“Come, come… The palace door is open to you.”', lineClosing:'The palace door closes and your entry is locked.', lineLocking:'The bolts settle into place.', lineTimeout:'The invitation has expired. The seal closes.', lineWrong:'The password did not match. The seal closes.', lineSealing:'The lights dim and the traces fade.', lineSealed:'Only an old door remains in the courtyard.',
       password:'Access password', passwordPlaceholder:'Enter your access password', show:'Show', hide:'Hide', showLabel:'Show password', hideLabel:'Hide password', missing:'Enter your access password.', verify:'Unlock entry', checking:'Verifying…', time:'Invitation time remaining', seconds:'sec', extend:'Extend time · +45 sec', extended:'The invitation was extended by 45 seconds.',
@@ -159,8 +159,9 @@
     ['portal','dormant','palace'].forEach(function (name) { host.style.setProperty('--sbg-' + name, 'url("' + assets[name] + '")'); });
     document.body.appendChild(host);
     host.addEventListener('click', click);
-    host.addEventListener('submit', function (event) { if (event.target.id === 'sbgPasswordForm') { event.preventDefault(); verify(); } });
+    host.addEventListener('submit', function (event) { if (event.target.id === 'sbgPasswordForm') { event.preventDefault(); verify(); } else if (event.target.id === 'sbgSetupForm') { event.preventDefault(); setupPassword(); } });
     host.addEventListener('input', input);
+    host.addEventListener('toggle', function (event) { if (event.target.id === 'sbgGateSettings') state.settingsOpen = event.target.open; }, true);
     host.addEventListener('keydown', keydown);
     host.addEventListener('cancel', function (event) { event.preventDefault(); close(); });
     host.addEventListener('close', function () { if (state.open && !host.open) close(); });
@@ -236,16 +237,73 @@
     if (state.phase === 'locking') key = state.reason === 'timeout' ? 'lineTimeout' : state.reason === 'wrong' ? 'lineWrong' : 'lineLocking';
     return t(key);
   }
+  function needsSetup() {
+    try { return !!(adapter && adapter.needsSetup && adapter.needsSetup()); } catch (_) { return false; }
+  }
+  function setupMarkup() {
+    return '<form id="sbgSetupForm" class="sbg-form" novalidate><label for="sbgSetupPassword">' + t('setupLabel') + '</label><input id="sbgSetupPassword" type="password" autocomplete="new-password" maxlength="256" autocapitalize="none" spellcheck="false" aria-describedby="sbgSetupError"><label for="sbgSetupConfirm" class="sbg-confirm-label">' + t('confirmLabel') + '</label><input id="sbgSetupConfirm" type="password" autocomplete="new-password" maxlength="256" autocapitalize="none" spellcheck="false" aria-describedby="sbgSetupError"><div class="sbg-error" id="sbgSetupError" role="alert">' + escapeHTML(state.error) + '</div><button type="submit" class="sbg-button sbg-primary">' + t('setupAction') + '</button></form>';
+  }
+  function settingsMarkup() {
+    if (['closed','setup','challenge','ready','sealed'].indexOf(state.phase) < 0) return '';
+    var help = '', calendar = '', manageable = false;
+    try {
+      help = adapter && adapter.getHelpText ? adapter.getHelpText() : '';
+      calendar = adapter && adapter.getCalendarText ? adapter.getCalendarText() : '';
+      manageable = !!(adapter && adapter.canManageDevicePassword && adapter.canManageDevicePassword() && adapter.resetDevicePassword && !needsSetup());
+    } catch (_) {}
+    if (!help && !manageable) return '';
+    return '<details id="sbgGateSettings" class="sbg-settings"' + (state.settingsOpen ? ' open' : '') + '><summary>' + t('settings') + '</summary>' + (help ? '<p>' + escapeHTML(help) + '</p>' : '') + (calendar ? '<p class="sbg-calendar">' + escapeHTML(calendar) + '</p>' : '') + (manageable ? state.resetting ? '<p role="status">' + t('resetting') + '</p>' : state.resetConfirm ? '<div class="sbg-reset-confirm"><p>' + t('resetQuestion') + '</p><div class="sbg-actions"><button type="button" class="sbg-button" data-act="reset-confirm">' + t('resetConfirm') + '</button><button type="button" class="sbg-button" data-act="reset-cancel">' + t('resetCancel') + '</button></div></div>' : '<button type="button" class="sbg-skip" data-act="reset-request">' + t('reset') + '</button>' : '') + '</details>';
+  }
+  async function setupPassword() {
+    if (!state.open || state.phase !== 'setup' || !needsSetup() || state.enrolling) return;
+    var first = q('#sbgSetupPassword'), confirm = q('#sbgSetupConfirm');
+    var password = first ? first.value.trim() : '', repeated = confirm ? confirm.value.trim() : '';
+    var issue = !password ? t('missing') : password.length > 256 ? t('setupLength') : password !== repeated ? t('setupMismatch') : '';
+    if (issue) { state.error = issue; var label = q('#sbgSetupError'); if (label) label.textContent = issue; if (first) first.setAttribute('aria-invalid','true'); var focus = password && confirm ? confirm : first; if (focus) { focus.setAttribute('aria-invalid','true'); focus.focus(); } return; }
+    var enrollment = ++enrollmentTicket; state.enrolling = true; var submit = q('#sbgSetupForm button[type="submit"]'); if (submit) submit.disabled = true;
+    cancelPending(); var intent = epoch, controller = new AbortController(); aborter = controller;
+    try {
+      if (!adapter || typeof adapter.setDevicePassword !== 'function') throw new Error('No device enrollment adapter');
+      await abortable(adapter.setDevicePassword(password, {signal:controller.signal}), controller.signal);
+      if (!state.open || intent !== epoch || controller.signal.aborted) return;
+      // Enrollment stores only a credential. The normal verify/commit path
+      // alone grants access and starts the existing mechanism animation.
+      aborter = null; state.fullAnimation = true; challenge();
+      var field = q('#sbgPassword'); if (field) field.value = password;
+      password = ''; repeated = ''; void verify();
+    } catch (_) {
+      if (state.open && intent === epoch && !controller.signal.aborted) {
+        state.error = t('unavailable'); state.phase = needsSetup() ? 'setup' : 'closed'; render(needsSetup() ? '#sbgSetupPassword' : '#sbgKnock');
+      }
+    } finally { password = ''; repeated = ''; if (enrollment === enrollmentTicket) state.enrolling = false; if (aborter === controller) aborter = null; }
+  }
+  async function resetPassword() {
+    if (!state.open || !state.resetConfirm || state.resetting || state.revoking) return;
+    cancelPending(); var intent = epoch, controller = new AbortController(); aborter = controller;
+    state.resetting = true; state.revoking = true; state.phase = 'resetting'; state.settingsOpen = true; state.error = ''; render('[data-act="close"]');
+    try {
+      if (!adapter || typeof adapter.resetDevicePassword !== 'function') throw new Error('No device reset adapter');
+      await abortable(adapter.resetDevicePassword({signal:controller.signal}), controller.signal);
+      if (!state.open || intent !== epoch || controller.signal.aborted) return;
+      locallyLocked = true; state.authenticated = false; state.dormant = false; state.resetConfirm = false; state.resetting = false; state.revoking = false; state.phase = 'setup'; state.error = ''; aborter = null; render('#sbgSetupPassword');
+    } catch (_) {
+      if (state.open && intent === epoch && !controller.signal.aborted) {
+        state.resetting = false; state.revoking = false; state.authenticated = usableGrant(); state.phase = state.authenticated ? 'ready' : needsSetup() ? 'setup' : 'closed'; state.error = t('resetError'); render('[data-act="close"]');
+      }
+    } finally { if (aborter === controller) aborter = null; }
+  }
   function formMarkup() {
-    var label = t('password'), help = '';
-    try { if (adapter && adapter.getAccessLabel) label = adapter.getAccessLabel() || label; if (adapter && adapter.getHelpText) help = adapter.getHelpText() || ''; } catch (_) {}
-    return '<form id="sbgPasswordForm" class="sbg-form" novalidate><div class="sbg-time"><span>' + t('time') + '</span><time id="sbgCountdown" role="timer" aria-live="off">' + state.remaining + ' ' + t('seconds') + '</time></div><button type="button" data-act="extend" class="sbg-extend">' + t('extend') + '</button><label for="sbgPassword" style="margin-top:14px">' + escapeHTML(label) + '</label><div class="sbg-pw-wrap"><input id="sbgPassword" name="berhet-password" type="password" placeholder="' + t('passwordPlaceholder') + '" autocomplete="current-password" autocapitalize="none" spellcheck="false" aria-describedby="sbgPasswordError"><button type="button" class="sbg-show" data-act="show" aria-pressed="false" aria-label="' + t('showLabel') + '">' + t('show') + '</button></div><div class="sbg-error" id="sbgPasswordError" role="alert">' + escapeHTML(state.error) + '</div><button type="submit" class="sbg-button sbg-primary">' + t('verify') + '</button>' + (help ? '<p class="sbg-form-note">' + escapeHTML(help) + '</p>' : '') + '<p id="sbgExtended" class="sbg-form-note" role="status"></p></form>';
+    var label = t('password');
+    try { if (adapter && adapter.getAccessLabel) label = adapter.getAccessLabel() || label; } catch (_) {}
+    return '<form id="sbgPasswordForm" class="sbg-form" novalidate><div class="sbg-time"><span>' + t('time') + '</span><time id="sbgCountdown" role="timer" aria-live="off">' + state.remaining + ' ' + t('seconds') + '</time></div><button type="button" data-act="extend" class="sbg-extend">' + t('extend') + '</button><label for="sbgPassword" style="margin-top:14px">' + escapeHTML(label) + '</label><div class="sbg-pw-wrap"><input id="sbgPassword" name="berhet-password" type="password" placeholder="' + t('passwordPlaceholder') + '" autocomplete="current-password" autocapitalize="none" spellcheck="false" aria-describedby="sbgPasswordError"><button type="button" class="sbg-show" data-act="show" aria-pressed="false" aria-label="' + t('showLabel') + '">' + t('show') + '</button></div><div class="sbg-error" id="sbgPasswordError" role="alert">' + escapeHTML(state.error) + '</div><button type="submit" class="sbg-button sbg-primary">' + t('verify') + '</button>' + '<p id="sbgExtended" class="sbg-form-note" role="status"></p></form>';
   }
   function markup() {
     var phase = state.phase, challenge = phase === 'challenge', ready = phase === 'ready', sealed = phase === 'sealed';
     var running = ['unlocking','opening','closing','locking','sealing'].indexOf(phase) >= 0;
     var panel = '';
-    if (challenge) panel = formMarkup();
+    if (phase === 'setup') panel = setupMarkup();
+    else if (challenge) panel = formMarkup();
+    else if (phase === 'resetting') panel = '<div class="sbg-stage-status" role="status">' + t('resetting') + '</div>';
     else if (phase === 'verifying') panel = '<div class="sbg-stage-status" role="status" aria-live="polite">' + t('checking') + '</div>';
     else if (ready) {
       panel = (state.error ? '<p class="sbg-network" role="alert">' + escapeHTML(state.error) + '</p>' : '') + '<span class="sbg-lock-label">' + t('verified') + '</span><div class="sbg-actions"><button id="sbgEnter" type="button" class="sbg-button sbg-primary" data-act="enter" ' + (state.entering ? 'disabled' : '') + '>' + t(state.entering ? 'entering' : 'enter') + '</button><button type="button" class="sbg-button sbg-lock-exit" data-act="lock-exit">' + t('lockExit') + '</button></div><button type="button" class="sbg-skip" data-act="replay">' + t('replay') + '</button>' + (invitationAudioURL ? '<button type="button" class="sbg-voice" data-act="voice">' + t('voice') + '</button>' : '');
@@ -257,9 +315,10 @@
     } else {
       panel = '<button id="sbgKnock" type="button" class="sbg-button sbg-primary" data-act="knock" ' + (phase === 'knocking' ? 'disabled' : '') + ' aria-busy="' + (phase === 'knocking') + '">' + t(phase === 'knocking' ? 'knockingButton' : 'knock') + '</button>';
     }
+    if (state.error && (phase === 'closed' || phase === 'setup')) panel = '<p class="sbg-network" role="alert">' + escapeHTML(state.error) + '</p>' + panel;
     var context = '';
     try { context = adapter && adapter.getContextText ? adapter.getContextText() : ''; } catch (_) {}
-    return '<section class="sbg-gate" data-phase="' + phase + '" data-reason="' + state.reason + '"><div class="sbg-gate-top"><button type="button" class="sbg-back" data-act="close">' + t('back') + '</button><span>' + t(sealed ? 'courtyard' : 'private') + '</span></div>' + soundMarkup() + '<div class="sbg-title"><small>' + t(sealed ? 'quiet' : 'threshold') + '</small><h2 id="sbgGateTitle">' + t(phase) + '</h2><p>' + phaseLine() + '</p></div><div class="sbg-scene"><img class="sbg-door-art" src="' + assets.portal + '" alt="' + t(sealed ? 'oldAlt' : 'doorAlt') + '"><div class="sbg-door-window" aria-hidden="true"><div class="sbg-door-leaf sbg-door-left"></div><div class="sbg-door-leaf sbg-door-right"></div></div><div class="sbg-light" aria-hidden="true"></div>' + mechanism() + (ready ? welcomeMarkup() : challenge || phase === 'verifying' ? '<img class="sbg-guardian" src="' + assets.guardian + '" alt="' + t('guardianAlt') + '">' : '') + (phase === 'sealing' || sealed ? '<img class="sbg-dormant-art" src="' + assets.dormant + '" alt="" aria-hidden="true">' : '') + (phase === 'knocking' ? '<span class="sbg-knock-ripple" aria-hidden="true"></span><span class="sbg-knock-ripple" aria-hidden="true"></span>' : '') + '</div><div class="sbg-gate-panel">' + panel + (context ? '<small class="sbg-context">' + escapeHTML(context) + '</small>' : '') + '</div></section>';
+    return '<section class="sbg-gate" data-phase="' + phase + '" data-reason="' + state.reason + '"><div class="sbg-gate-top"><button type="button" class="sbg-back" data-act="close">' + t('back') + '</button><span>' + t(sealed ? 'courtyard' : 'private') + '</span></div>' + soundMarkup() + '<div class="sbg-title"><small>' + t(sealed ? 'quiet' : 'threshold') + '</small><h2 id="sbgGateTitle">' + t(phase) + '</h2><p>' + phaseLine() + '</p></div><div class="sbg-scene"><img class="sbg-door-art" src="' + assets.portal + '" alt="' + t(sealed ? 'oldAlt' : 'doorAlt') + '"><div class="sbg-door-window" aria-hidden="true"><div class="sbg-door-leaf sbg-door-left"></div><div class="sbg-door-leaf sbg-door-right"></div></div><div class="sbg-light" aria-hidden="true"></div>' + mechanism() + (ready ? welcomeMarkup() : challenge || phase === 'verifying' ? '<img class="sbg-guardian" src="' + assets.guardian + '" alt="' + t('guardianAlt') + '">' : '') + (phase === 'sealing' || sealed ? '<img class="sbg-dormant-art" src="' + assets.dormant + '" alt="" aria-hidden="true">' : '') + (phase === 'knocking' ? '<span class="sbg-knock-ripple" aria-hidden="true"></span><span class="sbg-knock-ripple" aria-hidden="true"></span>' : '') + '</div><div class="sbg-gate-panel">' + panel + (context ? '<small class="sbg-context">' + escapeHTML(context) + '</small>' : '') + settingsMarkup() + '</div></section>';
   }
   function render(focusSelector) {
     if (!host || !state.open) return;
@@ -297,16 +356,16 @@
   function open(options) {
     options = options || {};
     if (pendingHistoryBack) { queuedOpenOptions = options; return; }
-    if (state.open) { q('[data-act="close"]').focus(); return; }
+    if (state.open) { if (options.setup) { var settingsPanel = q('#sbgGateSettings'); if (settingsPanel) { settingsPanel.open = true; var summary = settingsPanel.querySelector('summary'); if (summary) summary.focus(); } else if (needsSetup()) { state.phase = 'setup'; render('#sbgSetupPassword'); } } else { var closeButton = q('[data-act="close"]'); if (closeButton) closeButton.focus(); } return; }
     ensureHost(); cancelPending();
     returnFocus = options.trigger && options.trigger.isConnected ? options.trigger : document.activeElement;
     state.open = true; state.error = ''; state.entering = false; state.revoking = false; state.reason = ''; state.exitAfterSeal = false;
-    state.authenticated = usableGrant(); state.deadline = 0;
+    state.authenticated = usableGrant(); state.deadline = 0; state.settingsOpen = !!options.setup; state.resetConfirm = false; state.resetting = false; state.enrolling = false; enrollmentTicket++;
     state.fullAnimation = options.fullAnimation === true || !settings.seen;
-    state.phase = state.authenticated ? 'opening' : state.dormant ? 'sealed' : 'closed';
+    state.phase = state.authenticated ? 'opening' : needsSetup() ? 'setup' : state.dormant ? 'sealed' : 'closed';
     render(); showDialog(); pushHistory();
     if (state.authenticated) startUnlock(state.fullAnimation);
-    else { render(state.phase === 'sealed' && Date.now() < state.sealedUntil ? '[data-act="close"]' : '#sbgKnock'); if (state.phase === 'sealed') cooldown(); }
+    else { render(state.phase === 'setup' ? '#sbgSetupPassword' : state.phase === 'sealed' && Date.now() < state.sealedUntil ? '[data-act="close"]' : '#sbgKnock'); if (state.phase === 'sealed') cooldown(); }
     syncReadingMix(); void prepareAudio(false);
   }
   function close(options) {
@@ -484,6 +543,9 @@
     var action = button.dataset.act;
     if (action === 'close') close();
     else if (action === 'audio') toggleAudio();
+    else if (action === 'reset-request') { cancelPending(); state.resetConfirm = true; state.settingsOpen = true; state.authenticated = usableGrant(); state.phase = state.authenticated ? 'ready' : 'closed'; render('[data-act="reset-confirm"]'); }
+    else if (action === 'reset-cancel') { state.resetConfirm = false; render('[data-act="reset-request"]'); }
+    else if (action === 'reset-confirm') void resetPassword();
     else if (action === 'lock-exit') lockAndExit();
     else if (action === 'enter') enter();
     else if (action === 'voice' && state.authenticated) invite(button);
@@ -503,6 +565,8 @@
   function input(event) {
     if (event.target.id === 'sbgAudioLevel') {
       settings.volume = Number(event.target.value) / 100; if (audio) audio.setVolume(settings.volume); if (invitationAudio) invitationAudio.volume = settings.volume; if (!settings.volume) stopInvitation(); saveSettings(); syncReadingMix();
+    } else if (event.target.id === 'sbgSetupPassword' || event.target.id === 'sbgSetupConfirm') {
+      state.error = ''; ['#sbgSetupPassword','#sbgSetupConfirm'].forEach(function (selector) { var field = q(selector); if (field) field.removeAttribute('aria-invalid'); }); var setupError = q('#sbgSetupError'); if (setupError) setupError.textContent = '';
     } else if (event.target.id === 'sbgPassword') {
       state.error = ''; event.target.removeAttribute('aria-invalid'); var error = q('#sbgPasswordError'); if (error) error.textContent = '';
     }
@@ -511,7 +575,7 @@
     if (!state.open) return;
     if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); close(); return; }
     if (event.key !== 'Tab') return;
-    var nodes = Array.prototype.filter.call(host.querySelectorAll('button:not(:disabled),input:not(:disabled),a[href]'), function (node) { return node.getClientRects().length; });
+    var nodes = Array.prototype.filter.call(host.querySelectorAll('button:not(:disabled),input:not(:disabled),a[href],summary'), function (node) { return node.getClientRects().length; });
     var first = nodes[0], last = nodes[nodes.length - 1];
     if (event.shiftKey && document.activeElement === first) { event.preventDefault(); if (last) last.focus(); }
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); if (first) first.focus(); }
