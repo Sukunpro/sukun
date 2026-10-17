@@ -8,6 +8,7 @@ const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
 const html=fs.readFileSync(path.join(root,'nero.html'),'utf8');
 const cut=(a,b)=>{const i=html.indexOf(a),j=html.indexOf(b,i+a.length);assert(i>=0&&j>i,a);return html.slice(i,j)};
 const policy=cut('window.SukunReadingPolicy=(()=>{','/* r922: persisted reading preference;');
+const nameTts=cut('function sukunNameTtsText(','\nfunction r476CanonicalItem()');
 const intent=cut('async function niyetPlayAudio(opt={}){',"[['niyetTgl'");
 const wrappers=[cut('function akPlay(){','function akPause(){'),cut('function fsPlay(){','function fsPause(){'),cut('function seyPlay(mode){','function seyInit(){')].join('\n');
 const checks=[];async function test(name,fn){try{await fn();checks.push({name,ok:true})}catch(e){checks.push({name,ok:false,error:e.stack})}}
@@ -25,7 +26,7 @@ function fixture({mode='auto',content='arabic',arabicVoice=false,bundle=false,ge
  c.NIYET_BLOB=null;c.NIYET_HAS_REC=false;c.NIYET_REC_KEY='niyet:core';c._r998NiyetEpoch=1;c._r998NiyetAbort=null;c.niyetAudioClear=async()=>true;c.niyetSpeakOnce=async(current,ar)=>{calls.push({op:'speech',arabic:ar});return current()};
  c.playRecording=async(blob,id,opt)=>{calls.push({op:'recording',blob,id,opt});return{ok:true}};c.zikirTtsAwait=async(text,_interrupt,lang)=>{calls.push({op:'speech-plan',text,lang});return true};
  c.okuyucuAcKapa=kind=>{calls.push({op:'legacy-button',kind});return true};
- vm.createContext(c);vm.runInContext(policy,c);vm.runInContext(wrappers,c);vm.runInContext(intent,c);
+ vm.createContext(c);vm.runInContext(nameTts,c);vm.runInContext(policy,c);vm.runInContext(wrappers,c);vm.runInContext(intent,c);
  return{c,calls,e,personal,general,bundled,setMode:v=>mode=v,setContent:v=>content=v};
 }
 const sha=async blob=>crypto.createHash('sha256').update(Buffer.from(await blob.arrayBuffer())).digest('hex');
