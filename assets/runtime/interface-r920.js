@@ -206,27 +206,29 @@ function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view
  value($('r920JourneyMode'),journey?'journey':'single');prop($('r920TefExit'),'hidden',!tef);prop($('r920TefEnter'),'hidden',tef);
  syncJourneySettings(s);
  const i=Number(s.activeIndex)||0,it=items(mode)[i]||{},name=s.activeName||itemName(mode,i),scene=mode==='berhet'?scenes()[i]:null;
+ const smart=window.currentZikirState?.snapshot?.(),smartSession=s.smartSession||(smart?.session?.presentation&&smart.cat===mode&&smart.idx===i?smart.session:null);
+ const smartActive=!!smartSession,nonReading=smartActive&&!smartSession.reading;
+ attr(root,'data-smart-step',smartSession?.stepType||'');
  text($('r920Eyebrow'),mode==='berhet'?(journey?'BERHETİYYE SEYRİ':'BERHETİYYE ZİKRİ'):(mode==='esma'?(journey?'99 ESMÂ SEYRİ':'ESMÂÜ’L-HÜSNÂ'):safe(()=>ZIKIR[mode].n||ZIKIR[mode].t,mode==='terkip'?'ESMÂ TERKİBİ':'ZİKİR')));
- text($('r920ActiveName'),mode!=='esma'||/^y[aâ]/i.test(name)?name:'Yâ '+name);text($('r920Arabic'),it.a||it.ar||'');text($('r920SceneTitle'),scene?.title||it.m||'');prop($('r920SceneTitle'),'hidden',!safe(()=>Z.mean,true));
+ text($('r920ActiveName'),nonReading||mode!=='esma'||/^y[aâ]/i.test(name)?name:'Yâ '+name);text($('r920Arabic'),nonReading?'':it.a||it.ar||'');text($('r920SceneTitle'),nonReading?'':scene?.title||it.m||'');prop($('r920SceneTitle'),'hidden',nonReading||!safe(()=>Z.mean,true));
  const source=window.SukunAudioSourceText;
  text($('r920VoiceSource'),source?.label?.(s)||s.sourceLabel||'Ses kaynağı hazır olduğunda gösterilir');
  attr($('r920VoiceSource'),'title',source?.explanation?.(s)||'');readingSummary(s);
- const smart=window.currentZikirState?.snapshot?.(),smartActive=smart?.session?.active&&smart.cat===mode&&smart.idx===i;
  const english=window.I18N?.lang==='en',timed=smartActive&&smart.targetMode==='duration';
  const clock=ms=>{const n=Math.max(0,Math.ceil((Number(ms)||0)/1000));return Math.floor(n/60)+':'+String(n%60).padStart(2,'0')};
- const count=Math.max(0,Number(s.count)||0),target=Math.max(0,Number(s.target)||0),pct=timed?Math.max(0,Math.min(100,100*(smart.session.elapsedMs||0)/Math.max(1,(smart.session.elapsedMs||0)+(smart.session.remainingMs||0)))):target?Math.min(100,count/target*100):0;
- text($('r1082CountLabel'),smartActive?(english?'COMPLETED':'TAMAMLANAN'):(english?'REPEAT':'TEKRAR'));
+ const count=Math.max(0,Number(s.count)||0),target=Math.max(0,Number(s.target)||0),pct=timed?Math.max(0,Math.min(100,100*(smartSession.elapsedMs||0)/Math.max(1,(smartSession.elapsedMs||0)+(smartSession.remainingMs||0)))):target?Math.min(100,count/target*100):0;
+ text($('r1082CountLabel'),nonReading?(english?'SESSION':'SEANS'):smartActive?(english?'COMPLETED':'TAMAMLANAN'):(english?'REPEAT':'TEKRAR'));
  text($('r1082TargetLabel'),timed?(english?'Duration':'Süre'):(english?'Target':'Hedef'));
- attr($('r924WheelFrame'),'data-count-digits',String(count).length);attr(root.querySelector('.r920Stats'),'data-digits',String(Math.max(count,target)).length>5?'large':'normal');text($('r920Count'),count);text($('r920Target'),timed?clock((smart.session.elapsedMs||0)+(smart.session.remainingMs||0)):target||'∞');text($('r920Remaining'),timed?clock(smart.session.remainingMs):target?Math.max(0,target-count):'∞');text($('r920Percent'),timed?(english?'Remaining ':'Kalan ')+clock(smart.session.remainingMs):target?'%'+Math.floor(pct):smartActive?(english?'Until next step':'Sen geçene kadar'):(english?'Free':'Serbest'));
- if($('r924WheelFrame').style.getPropertyValue('--r920-progress')!==String(pct))$('r924WheelFrame').style.setProperty('--r920-progress',pct);attr($('r924WheelFrame'),'data-near',pct>=90?'1':'0');attr($('r920Counter'),'aria-label',`${name}, ${count} / ${target||'serbest'}. ${journey?'Seyir sayacı':'Bir zikir say'}`);
+ attr($('r924WheelFrame'),'data-count-digits',String(count).length);attr(root.querySelector('.r920Stats'),'data-digits',String(Math.max(count,target)).length>5?'large':'normal');text($('r920Count'),nonReading?'—':count);text($('r920Target'),nonReading?'—':timed?clock((smartSession.elapsedMs||0)+(smartSession.remainingMs||0)):target||'∞');text($('r920Remaining'),nonReading?'—':timed?clock(smartSession.remainingMs):target?Math.max(0,target-count):'∞');text($('r920Percent'),nonReading?(smartSession.stepType==='silence'?(english?'Silence':'Sükût'):(english?'Frequency':'Frekans')):timed?(english?'Remaining ':'Kalan ')+clock(smartSession.remainingMs):target?'%'+Math.floor(pct):smartActive?(english?'Until next step':'Sen geçene kadar'):(english?'Free':'Serbest'));
+ if($('r924WheelFrame').style.getPropertyValue('--r920-progress')!==String(pct))$('r924WheelFrame').style.setProperty('--r920-progress',pct);attr($('r924WheelFrame'),'data-near',pct>=90?'1':'0');attr($('r920Counter'),'aria-label',nonReading?name:`${name}, ${count} / ${target||'serbest'}. ${journey?'Seyir sayacı':'Bir zikir say'}`);
  const visual=window.SukunR918Visual?.snapshot?.()||{};
  window.SukunWheels?.render?.(mode);
  window.SukunWheelMotion?.render?.(s);
- const busy=s.phase==='PLAYING'||s.phase==='PREPARING';text($('r927PlayIcon'),busy?'Ⅱ':'▶');text($('r927PlayCaption'),busy?'Duraklat':s.phase==='PAUSED'?'Devam':s.phase==='ERROR'?'Yeniden dene':'Başlat');
- const actionNames={r920Play:busy?'Zikri duraklat':s.phase==='PAUSED'?'Zikre devam et':s.phase==='ERROR'?'Sesi yeniden dene':'Zikri başlat',r920Stop:'Zikri bitir',r920Minus:'Bir azalt',r920Plus:'Bir artır'};
+ const busy=s.phase==='PLAYING'||s.phase==='PREPARING';text($('r927PlayIcon'),busy?'Ⅱ':'▶');text($('r927PlayCaption'),busy?'Duraklat':s.phase==='PAUSED'?'Devam':s.phase==='ERROR'?'Yeniden dene':smartSession?.terminal?'Yeniden başlat':'Başlat');
+ const actionNames={r920Play:busy?'Zikri duraklat':s.phase==='PAUSED'?'Zikre devam et':s.phase==='ERROR'?'Sesi yeniden dene':smartSession?.terminal?'Seansı yeniden başlat':'Zikri başlat',r920Stop:'Zikri bitir',r920Minus:'Bir azalt',r920Plus:'Bir artır'};
  for(const [id,label]of Object.entries(actionNames)){attr($(id),'aria-label',label);attr($(id),'title',label)}
  for(const [button,source] of [['r959WheelPrevious','r920Previous'],['r959WheelNext','r920Next']])prop($(button),'disabled',!!$(source)?.disabled);
- const labels={PREPARING:'Ses hazırlanıyor',PAUSED:'Duraklatıldı',COMPLETING:'Tamamlanıyor',COMPLETED:'Seyir tamamlandı',INTERRUPTED:'Ses kesintisi',RECOVERING:'Ses yeniden hazırlanıyor',ERROR:'Ses açılamadı'};text($('r920Phase'),labels[s.phase]||(s.phase==='PLAYING'?'Zikir sürüyor':''));
+ const labels={PREPARING:'Ses hazırlanıyor',PAUSED:'Duraklatıldı',COMPLETING:'Tamamlanıyor',COMPLETED:smartSession?(smartSession.result?.status==='ended'?'Seans sona erdi':'Seans tamamlandı'):'Seyir tamamlandı',INTERRUPTED:'Ses kesintisi',RECOVERING:'Ses yeniden hazırlanıyor',ERROR:'Ses açılamadı'};text($('r920Phase'),labels[s.phase]||(s.phase==='PLAYING'?(nonReading?(smartSession.stepType==='silence'?'Sükût sürüyor':'Frekans sürüyor'):'Zikir sürüyor'):''));
  window.SukunWheels?.fitPhase?.();
  for(const [id,delta]of [['r920Plus',1],['r920Minus',-1],['r920Counter',1]]){const gate=window.SukunCountCorrection?.status?.(delta);prop($(id),'disabled',!gate?.allowed);attr($(id),'title',gate?.reason||actionNames[id]||'Bir zikir say');attr($(id),'aria-describedby','r968ManualHint')}
  text($('r968ManualHint'),window.SukunCountCorrection?.status?.(1)?.reason||'');

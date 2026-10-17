@@ -1,0 +1,49 @@
+{
+  "build": "r1084",
+  "htmlSha256": "0ebae7dda9dd5cb2d3e3516c71d6c168bf38c54f3e1fd7238c909d0ab3dfb1a8",
+  "releaseIntegrity": {
+    "passed": 1351,
+    "total": 1351
+  },
+  "regressionGroups": {
+    "passed": 135,
+    "total": 135
+  },
+  "newControlledAssertions": {
+    "presetEngine": 150,
+    "smartSourceCancellation": 28,
+    "projection": 83,
+    "terminalPersistence": 37,
+    "ttsCompletion": 41,
+    "readingNames": 9,
+    "total": 348
+  },
+  "native": {
+    "passed": 14,
+    "total": 14,
+    "browser": "141.0.7390.37",
+    "profiles": 5,
+    "testSha256": "07e3913bc9ffeba2d5ecfbed36fc34a7654b7d2e376972c87b43e655d2c7ad8a",
+    "checks": [
+      "The actual Sabah Sükûnu button resolves İstiğfar and Nûr by semantic identity, with no first-item fallback or unnamed preview",
+      "Trusted actual-preset Start projects three confirmed readings instead of stale direct target 622",
+      "Five-second Sükût starts only after three native ended events and shows its own timed state without stale 622",
+      "Nûr receives an eleven-read target after the complete Sükût budget",
+      "Actual preset completes exactly 3 + 11 native readings; the finished wheel and summary cannot silently revert to 622",
+      "Reload preserves the completed 11/11 presentation without replaying audio or exposing the unrelated direct target",
+      "Starting again from the completed wheel replays the same smart plan from its three-read first step",
+      "A direct Allah ×3 smart step also projects three reads, separate from the saved direct-zikir target",
+      "A statically invalid saved reading is rejected before playback with a visible warning, disabled Start and no success credit",
+      "A controlled failure of a valid reader pauses without success and explicit Retry uses the real native recording",
+      "Pausing during explicitly delayed second-read preparation prevents late native playback and Resume completes only the two remaining reads",
+      "Pausing an Allah ×3 session holds confirmed native progress through a real idle interval",
+      "Reload restores the paused three-read session and confirmed count without autoplay or a misleading 622 target",
+      "All isolated profiles load the exact frozen production HTML and runtime bytes with no JavaScript exception or missing local file"
+    ],
+    "allLoadedBytesMatch": true
+  },
+  "limitations": [
+    "Isolated disposable Linux Chromium profile at 390 × 844 CSS pixels, Classic/Feyz. Physical Samsung/Android locking, audible recitation quality and real-device autoplay restrictions are not measured.",
+    "Generated PCM tones (.5, 1 and 1.3 seconds) occupy disposable personal-recording keys only, including the Sükût intro. Native HTMLMediaElement play/currentTime/ended and real wall clocks remain unmodified. Device speech is controlled by the existing fixture and must not be used in these native-media cases."
+  ]
+}
