@@ -130,6 +130,21 @@
     if (!isUnlocked()) throw unavailable();
     return {ok:true};
   }
+  function revealEntry() {
+    // A completed entry reveals the existing wheel. Selection/transport remain
+    // owned by enter() and SessionState; reopening never restarts a Berhetiyye.
+    var current = function () { return isUnlocked() && !read(function () { return window.SukunBerhetGate.snapshot().open; }, false) && read(function () { return window.SukunSessionState.snapshot().activeMode === 'berhet'; }, false); };
+    if (!current()) return false;
+    var tab = document.querySelector('.tab[data-t="zkr"]');
+    if (tab && !tab.classList.contains('act')) tab.click();
+    read(function () { return window.SukunPracticeUI.restorePresentation(); }, false);
+    var target = document.getElementById('r924WheelFrame') || document.getElementById('zCountVisual');
+    var counter = document.getElementById('r920Counter');
+    // During a live recorded repetition the counter may intentionally reject
+    // manual corrections. Keep keyboard focus on an enabled destination.
+    var focus = counter && !counter.disabled ? counter : document.getElementById('r920NameInfo') || target;
+    return !!read(function () { return window.SukunNavigationR1066.reveal(target, {reason:'berhet-gate-entry', block:'center', focus:focus, isCurrent:function () { return current() && (!tab || tab.classList.contains('act')); }}); }, false);
+  }
   function needsSetup() { return !provider() && !configured(); }
   function openSetup() { return read(function () { return window.SukunBerhetGateEntry.openSetup(); }, false); }
   function canManageDevicePassword() { return !provider(); }
@@ -183,7 +198,7 @@
     statusJob = null;
     if (!result || result.ok !== true || result.active !== true || !activeProvider(p)) { statusSuspended = true; await lockExpiredProvider(); }
   }
-  window.SukunBerhetGateAccess = Object.freeze({version:'r1080',verify:verify,sessionOpened:sessionOpened,isUnlocked:isUnlocked,enter:enter,endSession:endSession,
+  window.SukunBerhetGateAccess = Object.freeze({version:'r1080',verify:verify,sessionOpened:sessionOpened,isUnlocked:isUnlocked,enter:enter,revealEntry:revealEntry,endSession:endSession,
     needsSetup:needsSetup,openSetup:openSetup,canManageDevicePassword:canManageDevicePassword,setDevicePassword:setDevicePassword,resetDevicePassword:resetDevicePassword,getCalendarText:getCalendarText,getLanguage:language,getContextText:getContextText,getAccessLabel:getAccessLabel,getHelpText:getHelpText,refresh:refreshProvider,
     snapshot:function () { return {version:'r1080',mode:provider()?'provider':'device',unlocked:isUnlocked(),configured:!needsSetup(),pending:!!pending}; }});
   if (window.addEventListener) window.addEventListener('pageshow', refreshProvider);

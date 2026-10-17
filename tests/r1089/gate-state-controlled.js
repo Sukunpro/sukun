@@ -7,13 +7,14 @@ fs.mkdirSync(path.dirname(output),{recursive:true});
 const portal=path.join(repo,'assets/berhetiyye-gate/portal-r1080.js');
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),'sukun-gate-seams-'));
 const bootstrap=`
-window.audit={grant:true,busy:false,modern:'idle',manual:false,mic:false,verifyCalls:0,commits:0,enters:0,enterPending:false,lockCalls:0,voices:[],effects:[],enable:[]};
+window.audit={grant:true,busy:false,modern:'idle',manual:false,mic:false,silenceRecording:false,silencePhase:'idle',verifyCalls:0,commits:0,enters:0,enterPending:false,lockCalls:0,voices:[],effects:[],enable:[]};
 window.R170={Player:{playing:false,paused:false}};
 window.SukunSessionState={peek:()=>({playing:false,preparing:false,presentationOnly:false})};
 window.SukunPhysicalRecordingBusyR696=()=>audit.busy;
 window.SukunReadingAudioR1064={snapshot:()=>({phase:audit.modern})};
 window.SukunManualVoice={busy:()=>audit.manual};
 window.SukunTickSound={isRecording:()=>audit.mic};
+window.SukunSilenceSession={snapshot:()=>({recording:audit.silenceRecording,phase:audit.silencePhase})};
 window.speechSynthesis={speaking:false,pending:false};
 window.Audio=function(src){this.src=src;this.volume=1;this.currentTime=0;this.paused=true;this.play=()=>{this.paused=false;this.promise=new Promise((resolve,reject)=>{this.resolve=resolve;this.reject=reject});return this.promise};this.pause=()=>{this.paused=true;this.pauses=(this.pauses||0)+1};audit.voices.push(this)};
 window.createSukunPortalAudio=({onStatus})=>{let enabled=false,volume=.35,mix=1,generation=0;const status=()=>({enabled,volume,mix,available:true,ready:enabled,blocked:false});const notify=()=>onStatus(status());return{enableFromGesture:()=>{const mine=++generation;return new Promise(resolve=>{audit.enable.push(()=>{if(mine===generation)enabled=true;notify();resolve(mine===generation&&enabled)})})},setEnabled:v=>{generation++;enabled=!!v;notify()},setVolume:v=>{volume=v;notify()},setMix:v=>{mix=v;notify()},stop:()=>audit.effects.push('stop'),play:v=>{audit.effects.push(v);return enabled},snapshot:status}};
@@ -79,6 +80,23 @@ await check('Paused independent reader permits a new invitation and restores own
  await ready(p);await p.evaluate(()=>{audit.modern='preparing';dispatchEvent(new CustomEvent('sukun:readingchange'));audit.modern='paused';dispatchEvent(new CustomEvent('sukun:readingchange'));});
  assert.equal(await p.locator('[data-act="voice"]').isEnabled(),true);await pressVoice(p);await p.evaluate(()=>audit.voices[0].resolve());await p.clock.runFor(2);
  const e=await p.evaluate(()=>({reader:audit.modern,gate:SukunBerhetGate.snapshot()}));assert.equal(e.reader,'paused');assert.equal(e.gate.audio.mix,1);assert.equal(e.gate.invitation.playing,true);return e;
+});
+await check('Silence microphone lifecycle immediately stops owned narration and silences only gate effects',async p=>{
+ await ready(p);await pressVoice(p);await p.evaluate(()=>audit.voices[0].resolve());await p.clock.runFor(2);const evidence=[];
+ for(const phase of ['claiming','permission','recording','stopping','saving']){
+  await p.evaluate(phase=>{audit.silenceRecording=true;audit.silencePhase=phase;dispatchEvent(new CustomEvent('sukun:itemrecordingchange'));},phase);
+  const e=await p.evaluate(()=>({phase:audit.silencePhase,gate:SukunBerhetGate.snapshot(),voiceDisabled:document.querySelector('[data-act="voice"]').disabled,voice:audit.voices[0]&&{paused:audit.voices[0].paused,time:audit.voices[0].currentTime},hint:document.getElementById('sbgAudioStatus').textContent,reader:audit.modern,smart:{...R170.Player},commits:audit.commits,enters:audit.enters,locks:audit.lockCalls}));
+  assert.equal(e.gate.audio.mix,0);assert.equal(e.gate.audio.preferredEnabled,true);assert.equal(e.gate.audio.enabled,true);assert.equal(e.gate.audio.volume,.35);assert.equal(e.gate.invitation.playing,false);assert.equal(e.voiceDisabled,true);assert.equal(e.voice.paused,true);assert.equal(e.voice.time,0);assert.match(e.hint,/Mikrofon/);assert(!e.hint.includes('Zikrin sürüyor'));assert.equal(e.reader,'idle');assert.deepEqual(e.smart,{playing:false,paused:false});assert.equal(e.commits,0);assert.equal(e.enters,0);assert.equal(e.locks,0);evidence.push(e);
+ }
+ await p.evaluate(()=>{audit.silenceRecording=false;audit.silencePhase='idle';dispatchEvent(new CustomEvent('sukun:itemrecordingchange'));});
+ const released=await p.evaluate(()=>({gate:SukunBerhetGate.snapshot(),voiceEnabled:!document.querySelector('[data-act="voice"]').disabled,voices:audit.voices.length}));assert.equal(released.gate.audio.mix,1);assert.equal(released.voiceEnabled,true);assert.equal(released.gate.invitation.playing,false);assert.equal(released.voices,1);return{evidence,released};
+});
+await check('Microphone release recomputes the existing reader mix and English recording hint',async p=>{
+ await p.evaluate(()=>document.documentElement.lang='en');await ready(p);
+ await p.evaluate(()=>{audit.modern='playing';audit.silenceRecording=true;dispatchEvent(new CustomEvent('sukun:itemrecordingchange'));});
+ const during=await p.evaluate(()=>({mix:SukunBerhetGate.snapshot().audio.mix,hint:document.getElementById('sbgAudioStatus').textContent}));assert.equal(during.mix,0);assert.match(during.hint,/microphone recording/);assert(!during.hint.includes('Your dhikr continues'));
+ await p.evaluate(()=>{audit.silenceRecording=false;dispatchEvent(new CustomEvent('sukun:itemrecordingchange'));});
+ const after=await p.evaluate(()=>({mix:SukunBerhetGate.snapshot().audio.mix,reader:audit.modern,disabled:document.querySelector('[data-act="voice"]').disabled,voices:audit.voices.length}));assert.equal(after.mix,.32);assert.equal(after.reader,'playing');assert.equal(after.disabled,true);assert.equal(after.voices,0);return{during,after};
 });
 await check('External revocation removes ready entry and stops owned narration without adapter commands',async p=>{
  await ready(p);await pressVoice(p);await p.evaluate(()=>audit.voices[0].resolve());await p.clock.runFor(2);

@@ -15,7 +15,7 @@ function section(name,next) {
 }
 function reading() {
  const state={phase:'idle'},window={SukunReadingAudioR1064:{snapshot:()=>state},R170:{Player:{playing:false,paused:false}},SukunSessionState:{peek:()=>({playing:false,preparing:false})},SukunPhysicalRecordingBusyR696:()=>false,speechSynthesis:{speaking:false,pending:false}};
- const context=vm.createContext({window});vm.runInContext(section('readingBusy','stopInvitation'),context);
+ const context=vm.createContext({window});vm.runInContext(section('microphoneBusy','readingBusy')+section('readingBusy','stopInvitation'),context);
  return {context,window,state,busy:()=>context.readingBusy()};
 }
 function access() {
