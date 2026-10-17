@@ -7,6 +7,7 @@
  *   sessionOpened({signal})       Optional. Commit an authenticated door session;
  *                                 must honour signal before committing.
  *   enter({signal})               Open the real Berhetiyye application section.
+ *   revealEntry()                 Optional presentation reveal after modal close.
  *   endSession()                 Revoke only the door session; keep membership.
  *   getLanguage() => 'tr'|'en'    Optional locale override.
  *   getContextText() => string   Optional current playback description.
@@ -28,7 +29,7 @@
   });
   var adapter = null, host = null, returnFocus = null, fallbackInert = [];
   var epoch = 0, stageTimer = null, countdownTimer = null, verifyTimer = null;
-  var aborter = null, historyToken = null, pendingHistoryBack = false, queuedOpenOptions = null;
+  var aborter = null, historyToken = null, pendingHistoryBack = false, queuedOpenOptions = null, pendingHistoryReveal = null;
   var locallyLocked = false, enrollmentTicket = 0;
   var soundPending = false, audioEpoch = 0, lastSoundKey = '', audio = null;
   var invitationAudioURL = '', invitationAudio = null;
@@ -47,7 +48,7 @@
       password:'Geçiş şifresi', passwordPlaceholder:'Geçiş şifreni gir', show:'Göster', hide:'Gizle', showLabel:'Şifreyi göster', hideLabel:'Şifreyi gizle', missing:'Geçiş şifreni yaz.', verify:'Geçişi aç', checking:'Doğrulanıyor…', time:'Davetin açık kalma süresi', seconds:'sn', extend:'Süreyi uzat · +45 sn', extended:'Davetin süresi 45 saniye uzatıldı.',
       knock:'Kapıyı çal', knockingButton:'Kapı çalınıyor…', reknock:'Kapıyı yeniden çal', wait:'Avlu sessiz…', verified:'GEÇİŞ DOĞRULANDI', enter:'Saraya gir', entering:'Saray hazırlanıyor…', lockExit:'Kapıyı kilitle ve çık', replay:'Davet sahnesini yeniden göster', skip:'Animasyonu geç', voice:'Türkçe daveti dinle', speech:'Gel, gel. Hoş geldin. Sarayın kapısı sana açık.', voiceUnavailable:'Sesli davet bu tarayıcıda kullanılamıyor.', voiceBusy:'Sesli okuma şu anda meşgul.',
       advice:'Her kapının bir vakti vardır. Acele etme; dilersen yeniden dene.', adviceLabel:'Muhafızın sözü', mismatch:'Şifre eşleşmedi.', network:'Geçiş doğrulanamadı. Bağlantını kontrol edip yeniden dene; bu bir şifre hatası değil.', unavailable:'Geçiş doğrulama hizmeti şu anda kullanılamıyor. Daha sonra yeniden dene.', enterError:'Saray bölümü açılamadı. Geçişin korunuyor; yeniden deneyebilirsin.', sessionError:'Bu ekrandaki geçiş kilitlendi. Oturumu kapatma işlemi doğrulanamadı; bağlantını kontrol et.',
-      fxOn:'Efektleri aç', fxOff:'Efektleri kapat', fxPending:'Ses açılıyor…', volume:'Ses düzeyi', fxUnavailable:'Ses efektleri bu tarayıcıda kullanılamıyor.', fxBlocked:'Sesi başlatmak için yeniden dokun.', fxActive:'Ney tınısı · ahşap · mekanizma · yankı', fxInactive:'Kapı sesleri · dokunarak aç.', fxDucked:'Zikrin sürüyor · kapı efektleri kısık, sesli davet metin olarak gösterilir.',
+      fxOn:'Efektleri aç', fxOff:'Efektleri kapat', fxPending:'Ses açılıyor…', volume:'Ses düzeyi', fxUnavailable:'Ses efektleri bu tarayıcıda kullanılamıyor.', fxBlocked:'Sesi başlatmak için yeniden dokun.', fxActive:'Ney tınısı · ahşap · mekanizma · yankı', fxInactive:'Kapı sesleri · dokunarak aç.', fxDucked:'Zikrin sürüyor · kapı efektleri kısık, sesli davet metin olarak gösterilir.', fxRecording:'Mikrofon kaydı hazırlanırken ve kaydedilirken kapı efektleri ve sesli davet sessiz kalır.',
       doorAlt:'Altın işlemeli yeşil İstanbul kapısı; bekçiler, asa ayrıntıları ve büyük taşlı kilit çarkı', oldAlt:'Unutulmuş eski ahşap kapı; sönük taşlar, boş bekçi nişleri', guardianAlt:'Yüzü nurla örtülü sembolik melek muhafız', welcomeAlt:'Avucunu açarak içeri davet eden sembolik melek muhafız'
     },
     en: {
@@ -57,7 +58,7 @@
       password:'Access password', passwordPlaceholder:'Enter your access password', show:'Show', hide:'Hide', showLabel:'Show password', hideLabel:'Hide password', missing:'Enter your access password.', verify:'Unlock entry', checking:'Verifying…', time:'Invitation time remaining', seconds:'sec', extend:'Extend time · +45 sec', extended:'The invitation was extended by 45 seconds.',
       knock:'Knock on the door', knockingButton:'Knocking…', reknock:'Knock again', wait:'The courtyard is quiet…', verified:'ACCESS VERIFIED', enter:'Enter the palace', entering:'Preparing the palace…', lockExit:'Lock the door and leave', replay:'Replay the invitation', skip:'Skip animation', voice:'Hear the Turkish invitation', speech:'Come, come. Welcome. The palace door is open to you.', voiceUnavailable:'The spoken invitation is unavailable in this browser.', voiceBusy:'Another spoken reading is currently playing.',
       advice:'Every door has its time. Take your time; you can try again when you wish.', adviceLabel:'The guardian’s words', mismatch:'The password did not match.', network:'Access could not be verified. Check your connection and try again; this is not a password error.', unavailable:'The access verification service is currently unavailable. Please try again later.', enterError:'The palace section could not be opened. Your access is preserved; you can try again.', sessionError:'Entry is locked on this screen. Session closure could not be confirmed; check your connection.',
-      fxOn:'Enable effects', fxOff:'Mute effects', fxPending:'Starting audio…', volume:'Volume', fxUnavailable:'Audio effects are unavailable in this browser.', fxBlocked:'Tap again to start audio.', fxActive:'Ney-like tones · wood · mechanism · echo', fxInactive:'Door sounds · tap to enable.', fxDucked:'Your dhikr continues · quiet door effects; the invitation is shown as text.',
+      fxOn:'Enable effects', fxOff:'Mute effects', fxPending:'Starting audio…', volume:'Volume', fxUnavailable:'Audio effects are unavailable in this browser.', fxBlocked:'Tap again to start audio.', fxActive:'Ney-like tones · wood · mechanism · echo', fxInactive:'Door sounds · tap to enable.', fxDucked:'Your dhikr continues · quiet door effects; the invitation is shown as text.', fxRecording:'Door effects and the spoken invitation stay silent while the microphone recording is prepared and saved.',
       doorAlt:'An ornate green Istanbul gate with guards, staff details and a large jewelled locking wheel', oldAlt:'A forgotten wooden gate with dull stones and empty guardian niches', guardianAlt:'A symbolic angel guardian with a face veiled in light', welcomeAlt:'A symbolic angel guardian welcoming you with an open palm'
     }
   };
@@ -85,9 +86,13 @@
   function saveSettings() {
     try { localStorage.setItem('sukun.berhetGate.presentation.v1', JSON.stringify({volume:settings.volume, seen:settings.seen, effects:settings.effects})); } catch (_) {}
   }
+  function microphoneBusy() {
+    try { return window.SukunSilenceSession && window.SukunSilenceSession.snapshot().recording === true; } catch (_) { return false; }
+  }
   function readingBusy() {
     // Pure observations: a visit never starts/stops or takes ownership of the
     // foreground. Keep the whole automatic session quiet between its repeats.
+    if (microphoneBusy()) return true;
     try { var player = window.R170 && window.R170.Player; if (player && player.playing && !player.paused) return true; } catch (_) {}
     try { var reader = window.SukunReadingAudioR1064 && window.SukunReadingAudioR1064.snapshot(); if (reader && ['preparing','playing'].indexOf(reader.phase) >= 0) return true; } catch (_) {}
     try { var current = window.SukunSessionState && window.SukunSessionState.peek && window.SukunSessionState.peek(); if (current && !current.presentationOnly && (current.playing || current.preparing)) return true; } catch (_) {}
@@ -104,7 +109,7 @@
   function syncReadingMix() {
     if (!state.open) return;
     var busy = readingBusy();
-    if (audio && audio.setMix) audio.setMix(busy ? .32 : 1);
+    if (audio && audio.setMix) audio.setMix(microphoneBusy() ? 0 : busy ? .32 : 1);
     if (busy) stopInvitation();
     var button = q('[data-act="voice"]');
     if (button) { button.disabled = busy || !settings.effects || !settings.volume; button.textContent = t(busy ? 'voiceBusy' : 'voice'); }
@@ -173,6 +178,7 @@
     } catch (_) { audio = null; }
   }
   function soundText() {
+    if (microphoneBusy()) return t('fxRecording');
     return !audioStatus.available ? t('fxUnavailable') : audioStatus.blocked ? t('fxBlocked') : audioStatus.enabled ? t(readingBusy() ? 'fxDucked' : 'fxActive') : t('fxInactive');
   }
   function soundMarkup() {
@@ -200,7 +206,7 @@
     if (key === lastSoundKey) return;
     lastSoundKey = key;
     if (!audio) return;
-    if (audio.setMix) audio.setMix(readingBusy() ? .32 : 1);
+    if (audio.setMix) audio.setMix(microphoneBusy() ? 0 : readingBusy() ? .32 : 1);
     audio.stop();
     if (!document.hidden && cue()) audio.play(cue());
   }
@@ -355,7 +361,7 @@
   }
   function open(options) {
     options = options || {};
-    if (pendingHistoryBack) { queuedOpenOptions = options; return; }
+    if (pendingHistoryBack) { pendingHistoryReveal = null; queuedOpenOptions = options; return; }
     if (state.open) { if (options.setup) { var settingsPanel = q('#sbgGateSettings'); if (settingsPanel) { settingsPanel.open = true; var summary = settingsPanel.querySelector('summary'); if (summary) summary.focus(); } else if (needsSetup()) { state.phase = 'setup'; render('#sbgSetupPassword'); } } else { var closeButton = q('[data-act="close"]'); if (closeButton) closeButton.focus(); } return; }
     ensureHost(); cancelPending();
     returnFocus = options.trigger && options.trigger.isConnected ? options.trigger : document.activeElement;
@@ -367,6 +373,13 @@
     if (state.authenticated) startUnlock(state.fullAnimation);
     else { render(state.phase === 'setup' ? '#sbgSetupPassword' : state.phase === 'sealed' && Date.now() < state.sealedUntil ? '[data-act="close"]' : '#sbgKnock'); if (state.phase === 'sealed') cooldown(); }
     syncReadingMix(); void prepareAudio(false);
+  }
+  function revealAfterClose(job) {
+    requestAnimationFrame(function () {
+      if (job.epoch !== epoch || state.open || pendingHistoryBack || document.hidden) return;
+      if (job.navigation && window.SukunViewportPolicy && window.SukunViewportPolicy.navigationCurrent(job.navigation, {includeScroll:false}) === false) return;
+      job.reveal();
+    });
   }
   function close(options) {
     options = options || {};
@@ -380,11 +393,13 @@
       if (item.aria === null) item.element.removeAttribute('aria-hidden'); else item.element.setAttribute('aria-hidden', item.aria);
     });
     fallbackInert = [];
+    var reveal = typeof options.afterClose === 'function' ? {epoch:epoch, reveal:options.afterClose, navigation:null} : null;
+    if (reveal) try { reveal.navigation = window.SukunViewportPolicy && window.SukunViewportPolicy.captureNavigation(); } catch (_) {}
     if (!options.fromHistory && historyToken && history.state && history.state.sukunBerhetGate === historyToken) {
-      pendingHistoryBack = true; history.back();
-    }
+      pendingHistoryBack = true; pendingHistoryReveal = reveal; history.back();
+    } else if (reveal) revealAfterClose(reveal);
     historyToken = null;
-    var focus = returnFocus; returnFocus = null;
+    var focus = options.restoreFocus === false ? null : returnFocus; returnFocus = null;
     requestAnimationFrame(function () { if (!state.open && focus && focus.isConnected && typeof focus.focus === 'function') focus.focus({preventScroll:true}); });
     emitState();
   }
@@ -507,7 +522,10 @@
       if (!adapter || typeof adapter.enter !== 'function') throw new Error('No enter adapter');
       await abortable(adapter.enter({signal:controller.signal}), controller.signal);
       if (!state.open || controller.signal.aborted || intent !== epoch) return;
-      state.entering = false; aborter = null; close();
+      // The successful destination owns focus after the modal releases inertness.
+      // Ordinary Escape/Back still returns to the entry that opened the door.
+      var destination = adapter, reveal = typeof destination.revealEntry === 'function';
+      state.entering = false; aborter = null; close({restoreFocus:!reveal, afterClose:reveal ? function () { destination.revealEntry(); } : null});
     } catch (_) {
       if (state.open && !controller.signal.aborted && intent === epoch) { state.entering = false; state.error = t('enterError'); aborter = null; render('#sbgEnter'); }
     }
@@ -584,7 +602,9 @@
     if (pendingHistoryBack) {
       pendingHistoryBack = false;
       var queued = queuedOpenOptions; queuedOpenOptions = null;
+      var reveal = pendingHistoryReveal; pendingHistoryReveal = null;
       if (queued) setTimeout(function () { open(queued); }, 0);
+      else if (reveal) revealAfterClose(reveal);
       return;
     }
     if (state.open) close({fromHistory:true});
@@ -593,7 +613,7 @@
     if (document.hidden) { audioEpoch++; soundPending = false; if (audio) audio.setEnabled(false); stopInvitation(); }
     else { checkDeadline(); syncReadingMix(); }
   });
-  ['sukun:sessionchange','sukun:playbackchange','sukun:foregroundqueuechange','sukun:voicesource','sukun:zikirtransportgate','sukun:mediaactivitychange','sukun:readingchange'].forEach(function (name) { window.addEventListener(name, syncReadingMix, {passive:true}); });
+  ['sukun:sessionchange','sukun:playbackchange','sukun:foregroundqueuechange','sukun:voicesource','sukun:zikirtransportgate','sukun:mediaactivitychange','sukun:readingchange','sukun:itemrecordingchange'].forEach(function (name) { window.addEventListener(name, syncReadingMix, {passive:true}); });
   window.addEventListener('sukun:secretaccesschange', syncAccess, {passive:true});
   window.addEventListener('pagehide', function () { if (state.open) close({fromHistory:true}); else if (audio) audio.stop({immediate:true}); });
   window.SukunBerhetGate = {

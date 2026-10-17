@@ -1,0 +1,133 @@
+{
+  "build": "r1091",
+  "verifiedAt": "2026-10-17T14:48:37.206639+00:00",
+  "sourceSha256": "6ef16a87fa4bbc194a3a31e94c1aa065a4357769d15f8cfffa89361db42bd353",
+  "sourceHashes": {
+    "assets/berhetiyye-gate/access-r1080.js": "99270f5efc93e38ab95d1c6da32005232a63e181d94765e44f4c894d424a64c6",
+    "assets/berhetiyye-gate/portal-r1080.js": "0048e2a9cac8416faa0102b1cc10ff8d262693f09be89e4ad663c170e9c077c9",
+    "assets/runtime/startup-intro-r1027.js": "7d33f412572952a5cbd74023277d3eb73c16cd62484b94272e95f89b5088948f",
+    "index.html": "6ef16a87fa4bbc194a3a31e94c1aa065a4357769d15f8cfffa89361db42bd353",
+    "manifest.webmanifest": "125906dbcc20c0732603d4016bef5d5020af7e4eb52ef31b7a2ff32f928e2f32",
+    "nero.html": "6ef16a87fa4bbc194a3a31e94c1aa065a4357769d15f8cfffa89361db42bd353",
+    "sukun-latest.json": "e7be816a6567fc311808af84dbf24cce1f3f981f80624bbc70f16e11f913a179",
+    "surumler.json": "34d37b5015f4501fb455e0596ede3eab5e60a5425ce4902b8ec5ec6f6380807e",
+    "sw.js": "479c6c50792e71973d4f0e0af0770973165a211c1486707f3e623afb5d58de67",
+    "version.txt": "00feaad59490a96e2749dcb9183f855be49d894e88d1a81671afd2fdc45e8f1b",
+    "sukun-build-r1091.json": "1044cf3beb0def61e6e9e28361ee18d84972f07a346345e572e521194bc393d9",
+    "sukun-site-assets-r1091.json": "53bb7bbc96f8592f76a2b225e9d676a840266cecb78fc30b4c243760f37b083c",
+    "assets/runtime/tab-owner-r981.js": "4305c9c1e1f1e9e239c62f0d19149bd05af97d2f0d34ddc38b7e7e5d41a63dc6",
+    "assets/runtime/session-r919.js": "5ef9efcb784542a53a9f3ebe8ec57f4694ebbeeb0b7af00428a6b4de9e2b8869",
+    "assets/berhetiyye-gate/audio-r1080.js": "d77a0ecff6f7a7b11cee3116817c51c6a1cf568d0c7e8d7026383842936d015c"
+  },
+  "controlledRegressionGroups": {
+    "passed": 156,
+    "total": 156
+  },
+  "releaseIntegrity": {
+    "passed": 1358,
+    "total": 1358
+  },
+  "fullReleaseExport": {
+    "ok": true,
+    "files": 726,
+    "deploymentBytes": 306379990
+  },
+  "focusedControlledCases": {
+    "tests/r1091/gate-entry.cjs": {
+      "passed": 5,
+      "total": 5,
+      "exitCode": 0
+    },
+    "tests/r1091/silence-recording.cjs": {
+      "passed": 8,
+      "total": 8,
+      "exitCode": 0
+    }
+  },
+  "browserIntegration": {
+    "gateEntry": {
+      "completionReceiptSha256": "732b0d1a429df0ecf40f9ba07c1875966340df3e4aacb2a63998a517e8f132d8",
+      "passed": 4,
+      "total": 4,
+      "test": "tests/r1091/gate-entry-browser.js",
+      "testSha256": "cad2e8273ed28ccd1150970303495c6550b86ecdf401e701ce28692258ab11f1",
+      "reportSha256": "a9d4038211a56e4bb45d2bfff4fe4ef91d633d72b33c61e69b95d32504c5969a"
+    },
+    "silenceRecording": {
+      "completionReceiptSha256": "17d9fcf89c85631e2f594f05f5ce72d67174ba970498ce8eee048abd7658e6bc",
+      "passed": 5,
+      "total": 5,
+      "test": "tests/r1091/silence-recording-browser.js",
+      "testSha256": "ff4513a4212434683ea0efaf571adf99f1c06194ba2d05ce2b0ed03b381c86d7",
+      "reportSha256": "93f97c39989b67257d1d11459abba5b9189d08b86d234f587fe24f88837a4516"
+    },
+    "unifiedGate": {
+      "completionReceiptSha256": "257e33611008578b0f64afdf672c99e8af3bb53afa4ef8e4d26f544e194b131c",
+      "passed": 12,
+      "total": 12,
+      "test": "tests/r1090/unified-gate-browser.js",
+      "testSha256": "99fd633943961cb158d9f5bef9e08b2fefe764f4193d3a5d67c12df7c545fd87",
+      "reportSha256": "5fb19f6b7a82fb77b7bd749b1d2e683f146e26706fa8cf16d77a85fd53438d2d"
+    },
+    "selectedTheme": {
+      "completionReceiptSha256": "46371e5f24ce0dd73aa8ce0f2268be71b655e28387570e957728fa71616018cf",
+      "passed": 28,
+      "total": 28,
+      "test": "tests/r1074/selection-theme-browser.cjs",
+      "testSha256": "cdc22014873bc78ab92406d13b69c91ab8408950f82dfd5ae41d67a7737dabc7",
+      "reportSha256": "1f43e1a76128eed8376c29dc8fd48a9fc6d3ea535e1372faed6fd46918a30769"
+    },
+    "mobileSmoke": {
+      "completionReceiptSha256": "c72ab3e6d37139faf2cf9e091ec87d844263fd83506fdf4626090fd3723b0d51",
+      "passed": 26,
+      "total": 26,
+      "test": "tests/r1070/classic-feyz-smoke.cjs",
+      "testSha256": "992183697a89c33dffa23f1771249ffbbf2ca501fc30de0c97d68e2349a62132",
+      "reportSha256": "8dd40b3ebf8a7be69b2b9ef2412ff6252a2da6dd6b5e5fbcb4c57ffc92cd582f"
+    },
+    "coldOffline": {
+      "completionReceiptSha256": "757fd5707d288eab9274285065b625b247a914022a4676b2df010ddeb2b210a4",
+      "passed": 15,
+      "total": 15,
+      "test": "tests/r1090/offline-browser.js",
+      "testSha256": "7ff60ea85ea83126853c407e9230cf94b68d625955b76de2f025d316333f022d",
+      "reportSha256": "7ff7029df04d59c2b4ad4175e011fd0d9176f948a292d72a5660aee97ee37edc"
+    },
+    "nativeGateIsolation": {
+      "completionReceiptSha256": "00f5153b84cb7d2a545657cd82eb30ca3fbf7846f3198e2aa272a014456bce8c",
+      "passed": 8,
+      "total": 8,
+      "test": "tests/r1089/gate-state-browser.js",
+      "testSha256": "376357ec9eea261705655cec763be89e8e8034cb8a5781f03a24b8b174893548",
+      "reportSha256": "7804ff0be1c4ab014eda6ee9034f2fa78d9fb20679a223fa34f4d5f50c850d8d"
+    }
+  },
+  "browserIntegrationTotal": 98,
+  "browserFixtureSha256": "b58ac3f8caafbbf6cea57e705930bc1f891bf6b410f95dc3dbaf17d9e6d007da",
+  "scope": "Frozen r1091 Classic/Feyz: the listed complete-app Chromium suites, production-source regression groups and deployment checks. Controlled microphone/recorder input is labelled; original media clocks, real ownership storage and installed service worker are used where stated. Superseded candidates are excluded. Physical Android locking, microphone sound quality and Bluetooth are not measured.",
+  "limitations": [
+    "Disposable headless Chromium at390×844, Classic/Feyz, exact production files. Generated30-second PCM populates a disposable recording slot. No real user audio, microphone capture, physical Android locking or perceptual sound is measured.",
+    "The retained gate controlled suite separately tests pending microphone states and its own effect bus. This suite observes the real selected wheel, trusted clicks, focus and native media clock.",
+    "Frozen exact Classic/Feyz application scripts and actual native origin, IndexedDB and WebLock ownership. Microphone permission and MediaRecorder are explicitly controlled doubles; no user profile or physical microphone is used. Generated text bytes verify commit lifecycle and are never played as real audio. Physical screen locking, audibility and Samsung behavior are not measured.",
+    "Disposable Linux Chromium, Classic/Feyz at390×844 and320×640, exact served production shell/modules. Physical Samsung/Android, perceptual audio quality and remote paid membership are not measured.",
+    "Device PINs are labelled test inputs. Enrollment/verification/commit/reset run through the actual production adapter and PIN helpers; a labelled provider stub is used solely to prove that provider mode hides and rejects device management.",
+    "One synthetic WAV is an IndexedDB preservation sentinel, never presented as a recitation. Native clocks, transports and gate animation timers remain unchanged; reduced motion is enabled only for explicitly marked fixture groups.",
+    "One isolated headless Linux Chromium at 390×844, Classic/Feyz, normal production visual CSS. Native trusted tab/Play/frequency clicks and genuine native media/Web Audio clocks are observed.",
+    "Generated 30-second WAVs populate only two isolated personal recording slots; no user recordings or browser data are accessed. Device TTS is controlled by the shared fixture and must never be used in these personal-input cases.",
+    "The public production selection and global Pause/Resume APIs are used to measure identity and command scope. A real production frequency provider retains the aggregate Pause while the old dhikr is retired.",
+    "Service workers are blocked by the engineering fixture; Android screen locking, audible sound, OS focus and SW activation are not measured here.",
+    "Isolated headless Linux Chromium; no physical Android display, OS picker, screen lock, or audible sound claim.",
+    "Service workers are blocked by the existing engineering fixture. This suite does not validate SW activation.",
+    "Picker work does not play audio. Dock setup installs one generated12-second personal WAV in the isolated profile and observes its real native media clock; no controlled TTS completion drives dock playback.",
+    "Every application request must succeed; exact served bytes and JavaScript/SRI errors are checked.",
+    "Disposable Linux headless Chromium with an actual installed service worker; Classic/Feyz. No physical Android, lock-screen or audible-quality claim.",
+    "Network becomes explicitly offline only after worker installation; the isolated HTTP fixture also closes new sockets so service-worker fetches cannot bypass browser context offline emulation. No online bundled find/play is called; the worker mandatory runtime cache alone must contain all six original MP3 files.",
+    "Each original MP3 is verified by SHA-256 and a small native currentTime advance, then explicitly stopped. No full recitation completion or successful repeat credit is claimed.",
+    "Saved templates and favorites use the unmodified canonical store while offline, including a fresh page. User recordings, microphone and unrelated personal data are not used.",
+    "One labelled storage failure is injected only into the canonical template database transaction method; two actual pointer clicks verify the error message and successful retry. The original method is restored before retry.",
+    "This suite verifies the current installed release and an old launcher URL. Historical release switching and installation under real mobile bandwidth/quota are covered only by controlled tests or remain device work.",
+    "Exact production shell, portal and reader with native bundled Ya-Sin and invitation MP3, Classic/Feyz at390×844 in disposable Linux Chromium.",
+    "A real same-origin Ya-Sin request is deliberately held to expose the existing preparation state. Native media methods, clocks, completions and AudioContext are not replaced or fabricated.",
+    "Only a labelled entitlement adapter and standard fixture device-speech adapter are synthetic. Physical Samsung/Android locking, remote entitlement, audible recitation quality and full Ya-Sin completion are not measured."
+  ]
+}
