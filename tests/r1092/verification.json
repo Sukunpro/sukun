@@ -1,0 +1,120 @@
+{
+  "build": "r1092",
+  "verifiedAt": "2026-10-17T15:22:33.001924+00:00",
+  "sourceSha256": "0dd5b4e4957513960cb38a16c8d22e7ba9418e80bae3f72b40a0964163960e54",
+  "sourceHashes": {
+    "assets/runtime/generic-recordings-r1055.js": "71701db80c12ea45f02d9a25a161eca96ffe29940913f753c6a768385e8aba78",
+    "assets/runtime/health-r940.js": "3484d47a7a55ff29348d62965bee516a71530c9dfe351ab9c4c3ad9579be6620",
+    "assets/runtime/startup-intro-r1027.js": "23861c9869a9076c76b40d1c34816e681ad43ff2bf8f4912b10540fe852f5867",
+    "index.html": "0dd5b4e4957513960cb38a16c8d22e7ba9418e80bae3f72b40a0964163960e54",
+    "manifest.webmanifest": "238bc217baf7b0ef259f78f7def57b080b7e1d357a2f772afe8098cc37e230fc",
+    "nero.html": "0dd5b4e4957513960cb38a16c8d22e7ba9418e80bae3f72b40a0964163960e54",
+    "sukun-latest.json": "ae5caca9aa64378932ec5c8f91cc2ea64db265ff5d7a94f23b4100c5b38e02aa",
+    "surumler.json": "3406017fab55ea2626b62356b0dba363c297097d7f2bcb178852ed49842860e5",
+    "sw.js": "4194662f6c271b103bb96fa4cc44c49ca9f57f9c229b45a85b1af729e6282764",
+    "version.txt": "06bb76d01a151a5bc3a6285ee1617a9d5e0c8afcc0daaefb570778348e04352a",
+    "sukun-build-r1092.json": "26582dc473fdea4e00cfd5bc4d79ed12985c645366ab8414bd516ebad68c32d2",
+    "sukun-site-assets-r1092.json": "1fde01db635340d010c2c82b21d5ddaca4ddfc917ca5c47935193491b998d0d9",
+    "assets/runtime/preflight-cache-r1092.js": "840a9e120dc10f93842eada39e17ac316671c45405e8109694bfd20d8966d0ed",
+    "assets/runtime/session-preflight-r1092.js": "9f7d5937a93be09fe1a0d6ee1793922b28846e907a62bef8442d67ed2ba13cf5",
+    "assets/runtime/session-preflight-ui-r1092.js": "c8239465b43a7cc392c7d87ca6fd2361d59e4fbcb08ad7852657ee58204ef844",
+    "assets/runtime/session-preflight-ui-r1092.css": "e0b99033e8d528dffa1da89c778b8567c201db5dda32516a1105610a74cfd150",
+    "assets/runtime/tab-owner-r981.js": "4305c9c1e1f1e9e239c62f0d19149bd05af97d2f0d34ddc38b7e7e5d41a63dc6",
+    "assets/runtime/session-r919.js": "5ef9efcb784542a53a9f3ebe8ec57f4694ebbeeb0b7af00428a6b4de9e2b8869"
+  },
+  "controlledRegressionGroups": {
+    "passed": 159,
+    "total": 159
+  },
+  "releaseIntegrity": {
+    "passed": 1378,
+    "total": 1378
+  },
+  "fullReleaseExport": {
+    "ok": true,
+    "files": 730,
+    "deploymentBytes": 306431700
+  },
+  "focusedControlledCases": {
+    "tests/r1092/preflight-cache.cjs": {
+      "passed": 7,
+      "total": 7,
+      "exitCode": 0
+    },
+    "tests/r1092/preflight-source.cjs": {
+      "passed": 35,
+      "total": 35,
+      "exitCode": 0
+    },
+    "tests/r1092/preflight-ui.cjs": {
+      "passed": 15,
+      "total": 15,
+      "exitCode": 0
+    }
+  },
+  "browserIntegration": {
+    "sessionPreflight": {
+      "completionReceiptSha256": "576a737738134a27c65a6eca5bd568ea916140e201fe7d271f604c4ac80aa856",
+      "passed": 12,
+      "total": 12,
+      "test": "tests/r1092/preflight-browser.js",
+      "testSha256": "267cd542b5277e0336d88fe9bbfb941e24cfd7fa8176273b166ad8c549f8bd58",
+      "reportSha256": "b0f74f2c18dc375f49acfd84c9df78099dad7e5898819f55e1770c8caf31e824"
+    },
+    "smartSourcePolicy": {
+      "completionReceiptSha256": "32a3099d7e251f67333f7fb26e8a92e452228a821d672590918252f0ab62cca8",
+      "passed": 9,
+      "total": 9,
+      "test": "tests/r1092/smart-source-policy-browser.js",
+      "testSha256": "ef1889dbbf6bd03816265feff45ccc94fa5c94c76be9fa0775e46ec8c9635a48",
+      "reportSha256": "4e120a25df897ee468aee5bd3a644cb5a0db951808f384c5fcf8ff1109880afa"
+    },
+    "coldOffline": {
+      "completionReceiptSha256": "ed8a641a54124f134de675fc0e7c436405637ff1da64f081d8efe441de514e84",
+      "passed": 16,
+      "total": 16,
+      "test": "tests/r1092/offline-preflight-browser.js",
+      "testSha256": "2ddefdef043e0e84ce50698cd9b0013b1ecc85b6d3d20593768917fa43f88391",
+      "reportSha256": "96da0ca13b4d3986dfac2a8a3297b228d93185007ded556f5d90026ad87ae21f"
+    },
+    "classicFeyzMobile": {
+      "completionReceiptSha256": "320bc8de9a3277972ed5037facca6e72ca101895be7ec03c207f41818d6e84d5",
+      "passed": 26,
+      "total": 26,
+      "test": "tests/r1070/classic-feyz-smoke.cjs",
+      "testSha256": "992183697a89c33dffa23f1771249ffbbf2ca501fc30de0c97d68e2349a62132",
+      "reportSha256": "3d6f6bcb049bab107519f0606906336a291083bbe82f4e6c154ad01d9f5aaecf"
+    },
+    "healthRuntime": {
+      "completionReceiptSha256": "da6c85dcccb9a892d7db3992d2dee94e4c66ef080530b37755702beb9cc95d99",
+      "passed": 4,
+      "total": 4,
+      "test": "tests/r1092/health-runtime-browser.js",
+      "testSha256": "9fa0a20fed9b7beec47bbb481f6de873bb07d23fc4c1bc42aa5e810961c1a3d8",
+      "reportSha256": "fe275dae05d0464f4e99d6422cc543ca51848af8a2f7bb785774020f755dda0c"
+    }
+  },
+  "browserIntegrationTotal": 67,
+  "browserFixtureSha256": "b58ac3f8caafbbf6cea57e705930bc1f891bf6b410f95dc3dbaf17d9e6d007da",
+  "scope": "Frozen r1092 FINAL2 Classic/Feyz: explicit source preview, actual source policy, real installed-worker cold offline, mobile touch and native health inventory. Only completed final reports count; superseded attempts are excluded.",
+  "limitations": [
+    "Headless Linux Chromium with real production modules, native DOM, IndexedDB and CacheStorage; no physical Android, microphone, screen-lock, audible quality or codec claim.",
+    "The existing fixture supplies labelled device-voice metadata; no speech or media playback is started. Its metadata cannot establish real offline speech readiness.",
+    "Disposable synthetic WAV blobs and a validated one-record generic archive are explicitly seeded as test inputs through production storage APIs; user data is never accessed.",
+    "Service workers are blocked by this fixture. The positive cache case uses exact original MP3 bytes in native CacheStorage plus an explicitly labelled controlled STATUS receipt; it validates hashing/presentation only. Parent real-worker testing owns actual SW installation/offline readiness.",
+    "Isolated Chromium Classic/Feyz; synthetic device voices/completion and generated personal .9-second WAV. Real native media playback/currentTime/ended are not replaced. No physical Android lock test or speaker audibility claim.",
+    "Disposable Linux headless Chromium with an actual installed service worker; Classic/Feyz. No physical Android, lock-screen or audible-quality claim.",
+    "Network becomes explicitly offline only after worker installation; the isolated HTTP fixture also closes new sockets so service-worker fetches cannot bypass browser context offline emulation. No online bundled find/play is called; the worker mandatory runtime cache alone must contain all six original MP3 files.",
+    "Each original MP3 is verified by SHA-256 and a small native currentTime advance, then explicitly stopped. No full recitation completion or successful repeat credit is claimed.",
+    "Saved templates and favorites use the unmodified canonical store while offline, including a fresh page. User recordings, microphone and unrelated personal data are not used.",
+    "One labelled storage failure is injected only into the canonical template database transaction method; two actual pointer clicks verify the error message and successful retry. The original method is restored before retry.",
+    "This suite verifies the current installed release and an old launcher URL. Historical release switching and installation under real mobile bandwidth/quota are covered only by controlled tests or remain device work.",
+    "Isolated headless Linux Chromium; no physical Android display, OS picker, screen lock, or audible sound claim.",
+    "Service workers are blocked by the existing engineering fixture. This suite does not validate SW activation.",
+    "Picker work does not play audio. Dock setup installs one generated12-second personal WAV in the isolated profile and observes its real native media clock; no controlled TTS completion drives dock playback.",
+    "Every application request must succeed; exact served bytes and JavaScript/SRI errors are checked.",
+    "Disposable native Chromium at390×844, Classic/Feyz, exact production application and runtime marker. The real production health collector hashes every declared runtime file using native fetch, response streams and SHA-256.",
+    "Chromium can report ERR_ABORTED for a collector fetch after every byte has passed the production SHA-256 check. Such observations are accepted only with a unique exact runtime URL, HTTP200, native response completion timing and matching production/local/served byte receipts; unrelated or incomplete request failures remain failures.",
+    "Service workers are blocked. No user profile, microphone, audio recording, perceptual sound, screen lock, Bluetooth or physical Android behavior is tested. Playback stays idle; this test measures preservation of that state, not audible playback."
+  ]
+}
