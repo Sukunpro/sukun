@@ -1,0 +1,56 @@
+{
+  "build": "r1082",
+  "date": "2026-10-17",
+  "productionShellSha256": "c5405d409711204988403ba61c73cce9695f83d11697fec8ec76ea12cd3019e7",
+  "browser": {
+    "name": "Official Playwright Chromium headless shell",
+    "version": "141.0.7390.37",
+    "engine": {
+      "passed": 11,
+      "total": 11,
+      "evidence": "engine-final.json",
+      "loadedHtmlSha256": "2ec1a4b8b8ffa6bfcd3151d200ea87f1f9612b73122b3f10f0a70e652abd9311"
+    },
+    "ui": {
+      "passed": 31,
+      "total": 31,
+      "evidence": "ui-final.json",
+      "profiles": [
+        {
+          "viewport": "320x740",
+          "loadedHtmlSha256": "2ec1a4b8b8ffa6bfcd3151d200ea87f1f9612b73122b3f10f0a70e652abd9311"
+        },
+        {
+          "viewport": "390x844",
+          "loadedHtmlSha256": "991a1e3a9982bdc3431b5e89643ae755f294a2994f44e7bf72a4009cbae6d5d5"
+        },
+        {
+          "viewport": "430x900",
+          "loadedHtmlSha256": "991a1e3a9982bdc3431b5e89643ae755f294a2994f44e7bf72a4009cbae6d5d5"
+        }
+      ]
+    },
+    "finalPolish": {
+      "passed": 6,
+      "total": 6,
+      "evidence": "polish-native-final.json",
+      "loadedHtmlSha256": "c5405d409711204988403ba61c73cce9695f83d11697fec8ec76ea12cd3019e7"
+    }
+  },
+  "sourceChangesBetweenSuites": "English release-note locale entries were added during the first full suites; production engine/audio runtime unchanged. After full suites passed, authorized UI-only polish changed stage captions/layout and hid a redundant protection-template strip during active smart contemplation. The final six-case native suite loaded the exact final shell/module hashes with zero missing resources or JavaScript exceptions.",
+  "fixtures": {
+    "generatedToneSeconds": {
+      "fullSuites": 2,
+      "finalPolish": 15
+    },
+    "repetitionTransport": "Real native play, currentTime and ended events; generated disposable PCM tones are not recitation content.",
+    "failures": "Two explicit controlled AudioResolver failure results before exercising production retry/skip with real native playback.",
+    "textScale": "At 390 CSS pixels, explicit editor-only doubled computed font sizes; verified document overflow and usable control bounds/heights. This does not prove all legacy text is unclipped or measure physical Android text settings."
+  },
+  "limitations": [
+    "No physical Samsung Internet, Android lock or audible quality test.",
+    "Zero stored gap and native completion verified; source preparation and browser scheduling still contribute end-to-next-play latency. Exact zero synthetic wait is covered by controlled production-engine tests.",
+    "Browser test result source hashes are the bytes actually served; separate disk hashes record the release shell after coordinator metadata changes.",
+    "After execution, source-hash report keys were clarified in the reusable full-suite harnesses without changing tested flow logic."
+  ]
+}

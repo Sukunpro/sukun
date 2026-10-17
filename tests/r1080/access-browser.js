@@ -52,7 +52,7 @@ async function state(){return p.evaluate(()=>({access:SukunBerhetGateAccess.snap
   });
   await check('Wrong password uses real production verification, seals the gate and shows its counsel',async()=>{
     await openDoor();await tap('#sukunBerhetGate [data-act="knock"]');await p.waitForSelector('#sbgPassword');await p.locator('#sbgPassword').fill('r1080-labelled-wrong-fixture');await p.locator('#sbgPassword').press('Enter');await p.waitForFunction(()=>SukunBerhetGate.snapshot().phase==='sealed');
-    const s=await state();assert.equal(s.gate.reason,'wrong');assert.equal(s.access.unlocked,false);assert.equal(s.configured,true);assert.match(await p.locator('#sukunBerhetGate').innerText(),/niyetini tazele/);return s;
+    const s=await state();assert.equal(s.gate.reason,'wrong');assert.equal(s.access.unlocked,false);assert.equal(s.configured,true);assert.match(await p.locator('#sukunBerhetGate').innerText(),/Her kapının bir vakti vardır/);return s;
   });
   await check('No JavaScript faults and exact served production module bytes',async()=>{
     const evidence=f.evidence();assert.deepEqual(evidence.pageErrors,[]);assert(!evidence.consoleErrors.some(x=>/integrity|digest|syntaxerror|referenceerror|typeerror/i.test(x)),evidence.consoleErrors.join('\n'));assert.deepEqual(evidence.failedRequests,[]);

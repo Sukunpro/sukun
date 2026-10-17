@@ -31,3 +31,9 @@
 @media(max-width:360px){#r1078PlanBody{padding:10px}.r1078PlanActions>button{flex:1 1 100px}}
 @media(prefers-reduced-motion:reduce){#r1078PlanOpen .r1079PlanChevron{transition:none}}
 @media(forced-colors:active){#r1078ProtectivePlan,#r1078ProtectivePlan button,#r1078ProtectivePlan input{forced-color-adjust:auto;background:Canvas;color:CanvasText;border-color:ButtonText}#r1078ProtectivePlan :is(h3,h4,p,label),#r1078ProtectivePlan #r1078PlanStatus{color:CanvasText}}
+/* r1082: a luminous template entrance, shared editor owns every count field. */
+#r1078ProtectivePlan{background:radial-gradient(ellipse at 10% 0,#17584188,transparent 70%),rgba(3,22,30,.94);box-shadow:inset 0 1px 0 #f4d38f2b,0 0 16px #67dcb417}
+#r1078PlanAll button{flex:1 1 90px;border-color:#bcb986;background:linear-gradient(150deg,#205d4d,#102e38);box-shadow:inset 0 1px 0 #ffe6b02b;transition:box-shadow .25s,transform .25s}
+#r1078PlanAll button:hover,#r1078PlanAll button:focus-visible{box-shadow:0 0 18px #71edbf44,inset 0 1px 0 #ffe6b050;transform:translateY(-1px)}
+#r1078ProtectivePlan[data-open="true"] #r1078PlanBody{animation:r1082MenuReveal .24s ease-out}
+@media(prefers-reduced-motion:reduce){#r1078ProtectivePlan[data-open="true"] #r1078PlanBody{animation:none}#r1078PlanAll button{transition:none}#r1078PlanAll button:hover,#r1078PlanAll button:focus-visible{transform:none}}
