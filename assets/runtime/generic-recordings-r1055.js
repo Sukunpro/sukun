@@ -6,7 +6,7 @@
  const VERSION='r1055',DB='sukunGenericRec',PREF='sukun.generic.recordings.enabled.v1',RECEIPT='sukun.generic.recordings.bank.v1';
  const LIMIT={files:96*1048576,bytes:64*1048576,clip:8*1048576,count:2000},TIMEOUT=20000;
  const PREFIX='assets/generic-recordings/',MANIFEST=PREFIX+'manifest.json';
- let enabled=false,bank=null,epoch=0,operation=null,status='ready',errorCode='',readyError=null,bootPromise=null;
+ let enabled=false,bank=null,epoch=0,operation=null,status='ready',errorCode='',readyError=null,bootPromise=null,hydrated=false;
  const en=()=>w.I18N?.lang==='en';
  const messages={
   'archive-empty':['Pakette henüz genel ses arşivi yok. Ses JSON yedeğini seçerek ayrı arşive yükleyebilirsin.','This package has no general voice archive yet. Select a voice JSON backup to load the separate archive.'],
@@ -103,8 +103,8 @@
    const candidate=value?metadata(value):null;
    if(candidate&&await hash(JSON.stringify(metaRows(candidate.records)))!==candidate.bankId)throw fail('archive-integrity');
    if(currentEpoch!==epoch)return snapshot();
-   bank=candidate;readyError=null;epoch++;emit('ready');return snapshot();
-  }catch(error){if(currentEpoch===epoch){readyError=error;bank=null;epoch++;state('failed',safeError(error));emit('ready')}return snapshot()}
+   bank=candidate;readyError=null;hydrated=true;epoch++;emit('ready');return snapshot();
+  }catch(error){if(currentEpoch===epoch){readyError=error;bank=null;hydrated=true;epoch++;state('failed',safeError(error));emit('ready')}return snapshot()}
  }
  const ready=()=>bootPromise||(bootPromise=hydrate());
  function hasKnown(keys){return !!(enabled&&bank&&Array.from(keys||[]).some(key=>bank.keys.has(key)&&allowed(key)));}
@@ -127,6 +127,30 @@
   const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(fail('archive-timeout'))},budget);});
   try{return await Promise.race([readGeneric(keys,guard),deadline]);}
   catch(error){if(error?.name!=='AbortError')state('failed',safeError(error));throw error;}
+  finally{clearTimeout(timer);opt.signal?.removeEventListener?.('abort',abort);}
+ }
+ /* r1092: inspect only the already hydrated optional bank. This never starts
+    hydration, imports a bundled bank, changes archive status, or publishes a
+    source. Missing and inaccessible storage are separate observations. */
+ async function probe(keys,opt={}){
+  if(!enabled)return{state:'missing',reason:'archive-disabled'};
+  if(!hydrated)return{state:'unknown',reason:'archive-preparing'};
+  if(readyError)return{state:'unavailable',reason:'archive-storage-unavailable'};
+  const selected=Array.from(keys||[]).find(key=>bank?.keys.has(key)&&allowed(key));
+  if(!selected)return{state:'missing',reason:'archive-recording-missing'};
+  const captured=epoch,record=bank.records.find(item=>item.key===selected);
+  const controller=new AbortController(),abort=()=>controller.abort();opt.signal?.addEventListener?.('abort',abort,{once:true});
+  const current=()=>enabled&&epoch===captured&&!controller.signal.aborted&&(!opt.isCurrent||opt.isCurrent()===true);
+  const guard={...opt,signal:controller.signal,isCurrent:current};let timer;
+  try{
+   check(guard);
+   const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(fail('archive-timeout'))},Math.max(1,Math.min(TIMEOUT,Number(opt.timeoutMs)||TIMEOUT)))});
+   return await Promise.race([(async()=>{
+    const value=await tx('readonly',clips=>{const request=clips.get(selected);return()=>request.result},guard);check(guard);
+    if(!value||!(value.blob instanceof Blob)||value.blob.size!==record.bytes||value.blob.type!==record.type||value.sha256!==record.sha256||await hash(value.blob,guard)!==record.sha256)return{state:'unavailable',reason:'archive-integrity'};
+    check(guard);return{state:'present',reason:'archive-recording-read'};
+   })(),deadline]);
+  }catch(error){return{state:!enabled||epoch!==captured||opt.signal?.aborted||opt.isCurrent&&opt.isCurrent()!==true?'unknown':'unavailable',reason:error?.code==='archive-timeout'?'archive-read-timeout':error?.code==='archive-cancelled'?'archive-probe-cancelled':'archive-storage-unavailable'}}
   finally{clearTimeout(timer);opt.signal?.removeEventListener?.('abort',abort);}
  }
  async function readText(file,opt={}){
@@ -191,7 +215,7 @@
   },opt,true);
   // Transaction completion is authoritative; publish the committed bank even
   // if the UI request is cancelled just after it commits.
-  const previous=bank;bank=metadata({schema:1,bankId:plan.bankId,records:metaRows(plan.records)});readyError=null;epoch++;invalidate(previous);
+  const previous=bank;bank=metadata({schema:1,bankId:plan.bankId,records:metaRows(plan.records)});readyError=null;hydrated=true;epoch++;invalidate(previous);
   try{w.localStorage.setItem(RECEIPT,JSON.stringify({bankId:bank.bankId,count:bank.records.length,at:Date.now()}))}catch(_){}
   state('loaded');emit('import');return{ok:true,count:bank.records.length,bytes:bank.bytes,bankId:bank.bankId,legacyFiles:plan.legacyFiles||0};
  }
@@ -278,8 +302,8 @@
  try{enabled=w.localStorage.getItem(PREF)==='true'}catch(_){enabled=false}
  w.addEventListener?.('storage',event=>{
   if(event.key===PREF){enabled=event.newValue==='true';epoch++;emit(enabled?'enabled':'disabled');}
-  if(event.key===RECEIPT){epoch++;bank=null;bootPromise=null;emit('refresh');void ready();}
+  if(event.key===RECEIPT){epoch++;bank=null;bootPromise=null;hydrated=false;emit('refresh');void ready();}
  });
- w.SukunGenericRecordings=Object.freeze({version:VERSION,snapshot,ready,epoch:()=>epoch,signature,hasKnown,find,validateFiles,importFiles,loadBundled,setEnabled,exportBank,cancel(){operation?.controller.abort();},limits:Object.freeze({...LIMIT})});
+ w.SukunGenericRecordings=Object.freeze({version:VERSION,snapshot,ready,epoch:()=>epoch,signature,hasKnown,find,probe,validateFiles,importFiles,loadBundled,setEnabled,exportBank,cancel(){operation?.controller.abort();},limits:Object.freeze({...LIMIT})});
  void ready();
 })(window);

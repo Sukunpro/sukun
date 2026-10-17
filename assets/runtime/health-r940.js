@@ -653,7 +653,7 @@
     const result=[];let total=0,reserved=0,mediaTotal=0,mediaReserved=0,expected=0;
     // The 9 MiB core allowance includes the shared session UI. Arabic recordings and the
     // exact short portal invitation share the separate bounded media allowance.
-    const byteBudget=9437184,mediaByteBudget=33554432,waiters=new Set();
+    const maxRuntimeEntries=128,byteBudget=9437184,mediaByteBudget=33554432,waiters=new Set();
     function wakeBudget(){for(const wake of [...waiters])wake();}
     function waitForBudget(){return new Promise((resolve,reject)=>{
       let done=false;
@@ -680,7 +680,7 @@
       let marker;try {marker=JSON.parse(new TextDecoder().decode(bytes));} catch(_) {
         return status('RUNTIME_INTEGRITY','FAIL','Sürüm dosya listesi geçersiz',{reason:'MARKER_INVALID_JSON',checkedAt:now(),scope:'served-through-current-service-worker',configurationErrors:1},'İndirilen sürüm listesi okunamadı. Tam sürüm paketini birlikte yükleyin.');
       }
-      if (marker.build!==build||!Array.isArray(marker.runtime)||marker.runtime.length>96)
+      if (marker.build!==build||!Array.isArray(marker.runtime)||marker.runtime.length>maxRuntimeEntries)
         return status('RUNTIME_INTEGRITY','FAIL','Sürüm dosya listesi geçersiz',{reason:'MARKER_INVALID',checkedAt:now(),scope:'served-through-current-service-worker',configurationErrors:1},'İndirilen dosya listesi bu sürümün yapısına uymuyor. Raporu saklayın.');
       expected=marker.runtime.length;
       if (!crypto?.subtle) return integrityResult([],expected,0,{reason:'CRYPTO_UNAVAILABLE'});

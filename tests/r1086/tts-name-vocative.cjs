@@ -1,29 +1,32 @@
 'use strict';
 // Run the shipping formatter, final speech policy and real smart/late-proxy
-// wrappers. Only native audio/voice callbacks are controlled in this suite.
+// wrappers, including the shared smart fallback planner. Only native audio/voice
+// availability/callbacks are controlled in this suite.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
 const root=path.resolve(process.argv[2]||path.join(__dirname,'../..')),source=fs.readFileSync(path.join(root,'index.html'),'utf8');
 function part(start,end,from=0,include=true){const a=source.indexOf(start,from),b=source.indexOf(end,a);assert(a>=0&&b>a,start);return source.slice(a,b+(include?end.length:0));}
 const helper=part('function sukunNameTtsText(','\nfunction r476CanonicalItem',0,false);
 const policy=part('window.SukunReadingPolicy=(()=>{','\n})();');
 const catalog=part('const ZIKIR={','\n};');
+const smartPlan=part('function fallbackPlan(','\nfunction describeFallback(',source.indexOf('<script id="r472-smart-session-source-runtime">'),false);
 const smart=part('const A=window.AudioResolver;','\n/* Kartlarda',source.indexOf('<script id="r472-smart-session-source-runtime">'),false);
 const late=part("(()=>{\n'use strict';\nif(window.__SUKUN_R678_BERHET_NIDA__)",'\n})();');
 let passed=0;const check=fn=>{fn();passed++};
 function fixture(){
  let globalSource='auto',globalContent='legacy';
- const ctx={window:{SukunVoiceSettings:{getMode:()=>globalSource,getContent:()=>globalContent},SukunVoiceCatalog:{resolve:lang=>({name:lang,lang:lang==='ar'?'ar-SA':'tr-TR'})}},Z:{cat:'berhet',form:'nida'},SPK:{rate:.85,arRate:.7,arPitch:.76},spkPitch:x=>x};
+ const ctx={window:{SukunVoiceSettings:{getMode:()=>globalSource,getContent:()=>globalContent},SukunVoiceCatalog:{resolve:lang=>({name:lang,lang:lang==='ar'?'ar-SA':'tr-TR'}),peek:lang=>({name:lang,lang:lang==='ar'?'ar-SA':'tr-TR'})}},Z:{cat:'berhet',form:'nida'},SPK:{rate:.85,arRate:.7,arPitch:.76},spkPitch:x=>x};
  vm.createContext(ctx);vm.runInContext(helper+'\n'+policy+'\n'+catalog+'\nglobalThis.catalog=ZIKIR;',ctx);
  return {ctx,format:(text,opt)=>ctx.sukunNameTtsText(text,opt),plan:(item,opt)=>ctx.window.SukunReadingPolicy.plan(item,opt),preferences(source,content){globalSource=source;globalContent=content;}};
 }
 function wrapperFixture(){
  const f=fixture(),spoken=[],records=[],fallback=[];let recording=null;
  const ctx=f.ctx;
- Object.assign(ctx,{P:{queue:[{type:'zikir',cat:'berhet',idx:0}],i:0},sourceMode:()=> 'auto',sourceGender:()=> 'm',textFor:item=>String(item?.oku||item?.translit||item?.tr||item?.t||'').trim(),canonicalKey:(cat,idx)=>cat+':'+idx,
+ ctx.window.speechSynthesis={};
+ Object.assign(ctx,{SpeechSynthesisUtterance:class {},pickVoice:(_gender,lang)=>({voice:{name:lang,lang}}),P:{queue:[{type:'zikir',cat:'berhet',idx:0}],i:0},sourceMode:()=> 'auto',sourceGender:()=> 'm',textFor:item=>String(item?.oku||item?.translit||item?.tr||item?.t||'').trim(),canonicalKey:(cat,idx)=>cat+':'+idx,
   recordingFor:async()=>recording,playRecording:async(blob,key,opt)=>{records.push({blob,key,opt});return {ok:true}},
   tts:async(text,opt)=>{spoken.push({text,opt});return {ok:true,source:'tts',text}}});
  ctx.window.AudioResolver={async play(...args){fallback.push(args);return {ok:true}}};
- vm.runInContext('(()=>{'+smart+'\n})();\n'+late,ctx);
+ vm.runInContext('(()=>{'+smartPlan+'\n'+smart+'\n})();\n'+late,ctx);
  return {...f,spoken,records,fallback,setRecording:r=>{recording=r},play:async(cat,item,opt={})=>{ctx.P.queue[0]={type:'zikir',cat,idx:0};return ctx.window.AudioResolver.play(cat,0,item,{session:true,isCurrent:()=>true,...opt});}};
 }
 (async()=>{
@@ -80,7 +83,9 @@ function wrapperFixture(){
  }
  await w.play('berhet',{tr:'Berhetîhin',ar:'بَرْهَتِيهِ'},{lang:'ar-SA'});check(()=>assert.equal(w.spoken.at(-1).text,'يَا بَرْهَتِيهِ'));
  await w.play('esma',{t:'Rahmân',a:'رَحْمٰنُ'},{lang:'ar-SA'});check(()=>assert.equal(w.spoken.at(-1).text,'يَا رَحْمٰنُ'));
- await w.play('berhet',{tr:'Türkçe açıklama'},{content:'meaning'});check(()=>assert.equal(w.spoken.at(-1).text,'Türkçe açıklama'));
+ // Explicit meaning uses an actual provided meaning; a Latin label alone is
+ // not a meaning source under the shared production reading policy.
+ await w.play('berhet',{tr:'Türkçe açıklama',meaning:'Türkçe açıklama',meaningStatus:'provided'},{content:'meaning'});check(()=>assert.equal(w.spoken.at(-1).text,'Türkçe açıklama'));
  for(const cat of ['temel','koruma','arinma','salavat','terkip']){await w.play(cat,{tr:'Allah',ar:'اللّٰهُ'});check(()=>assert.equal(w.spoken.at(-1).text,'Allah'));}
  const record={key:'esma:0:tev',blob:{immutable:'personal bytes'}},spoken=w.spoken.length;
  w.setRecording(record);const played=await w.play('esma',{t:'Rahmân'});
