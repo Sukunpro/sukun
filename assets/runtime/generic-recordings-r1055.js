@@ -259,6 +259,39 @@
   const records=original.records.filter(item=>managementAllowed(item.key)).map(item=>({...item}));
   return{bankId:original.bankId,revision:original.revision,records,count:records.length,bytes:records.reduce((sum,item)=>sum+item.bytes,0),countScope:'visible'};
  }
+ /* r1094: inspect requested stored clips even while the optional bank is
+    disabled. Presence requires actual bytes/type/SHA, never metadata alone.
+    Reads are sequential and detached; no global status or preference changes. */
+ async function inspectStored(input,opt={}){
+  const requested=Array.from(input||[]);if(requested.length>LIMIT.count*2||requested.some(key=>!keyOk(key)))throw fail('archive-invalid');
+  const keys=[...new Set(requested)].filter(managementAllowed),capturedAccess=accessEpoch,capturedEpoch=epoch,capturedEnabled=enabled;
+  const current=()=>accessEpoch===capturedAccess&&epoch===capturedEpoch&&enabled===capturedEnabled&&(!opt.isCurrent||opt.isCurrent()===true);
+  const guard={...opt,isCurrent:current},unavailable=reason=>({status:current()?'unavailable':'stale',rows:keys.filter(managementAllowed).map(key=>({key,state:'unavailable',reason})),bankId:'',revision:null,enabled:capturedEnabled});
+  try{
+   check(guard);const descriptor=await freshBank(guard),known=new Map(descriptor.records.map(item=>[item.key,item]));
+   if(!descriptor.records.length){
+    let prior=!!bank?.records?.length;
+    try{const raw=w.localStorage.getItem(RECEIPT);if(raw!==null){if(typeof raw!=='string'||raw.length>2048)prior=true;else{const receipt=JSON.parse(raw);if(!receipt||!Number.isSafeInteger(receipt.count)||receipt.count<0||receipt.count>0)prior=true}}}catch(_){prior=true}
+    if(prior)return unavailable('archive-catalog-unconfirmed');
+   }
+   const rows=[];
+   for(let index=0;index<keys.length;index++){
+    check(guard);const key=keys[index],item=known.get(key);if(!managementAllowed(key))throw fail('archive-cancelled');
+    if(!item)rows.push({key,state:'missing',reason:'archive-recording-missing'});
+    else{
+     try{
+      const value=await tx('readonly',clips=>{const request=clips.get(key);return()=>request.result},guard);check(guard);const blob=value?.blob;
+      if(!(blob instanceof Blob)||blob.size!==item.bytes||blob.type!==item.type||value.sha256!==item.sha256||await hash(blob,guard)!==item.sha256)rows.push({key,state:'unavailable',reason:'archive-integrity'});
+      else rows.push({key,state:'present',reason:'archive-storage-verified',bytes:item.bytes});
+     }catch(error){check(guard);rows.push({key,state:'unavailable',reason:safeError(error)})}
+    }
+    try{opt.onProgress?.({current:index+1,total:keys.length,phase:'generic'})}catch(_){};check(guard);
+   }
+   const after=await freshBank(guard);check(guard);
+   if(after.bankId!==descriptor.bankId||after.revision!==descriptor.revision)return{status:'stale',rows:[],bankId:after.bankId,revision:after.revision,enabled:capturedEnabled};
+   return{status:rows.some(item=>item.state==='unavailable')?'unavailable':'ok',rows,bankId:descriptor.bankId,revision:descriptor.revision,enabled:capturedEnabled};
+  }catch(error){if(!current()||opt.signal?.aborted)return{status:'stale',rows:[],bankId:'',revision:null,enabled:capturedEnabled};return unavailable(safeError(error))}
+ }
  async function commitRecords(input,opt={}){
   if(!['merge','replace'].includes(opt.mode)||opt.mode==='merge'&&!['keep','replace'].includes(opt.conflicts)||!Number.isSafeInteger(opt.expectedRevision)||opt.expectedRevision<0||typeof opt.expectedBankId!=='string'||opt.expectedBankId&&!/^[a-f0-9]{64}$/.test(opt.expectedBankId))throw fail('archive-invalid');
   const capturedAccess=accessEpoch,records=Array.from(input||[]);
@@ -365,6 +398,6 @@
   if(event.key===RECEIPT){epoch++;bank=null;bootPromise=null;hydrated=false;emit('refresh');void ready();}
  });
  w.addEventListener?.('sukun:secretaccesschange',()=>{accessEpoch++});
- w.SukunGenericRecordings=Object.freeze({version:VERSION,snapshot,ready,epoch:()=>epoch,signature,hasKnown,find,probe,describeBank,commitRecords,validateFiles,importFiles,loadBundled,setEnabled,exportBank,cancel(){operation?.controller.abort();},limits:Object.freeze({...LIMIT})});
+ w.SukunGenericRecordings=Object.freeze({version:VERSION,snapshot,ready,epoch:()=>epoch,signature,hasKnown,find,probe,describeBank,inspectStored,commitRecords,validateFiles,importFiles,loadBundled,setEnabled,exportBank,cancel(){operation?.controller.abort();},limits:Object.freeze({...LIMIT})});
  void ready();
 })(window);

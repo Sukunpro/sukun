@@ -22,6 +22,9 @@
    // Favorites carry only a category/index alias. Check that canonical
    // metadata before a protected title or source key can reach this surface.
    for(let depth=0;depth<8;depth++){
+    // User compositions can contain protected names without carrying them
+    // on the category/index step. Consult the canonical gate before labels.
+    if(current.type==='zikir'&&current.cat==='terkip'&&(typeof w.SukunTerkipAllowed!=='function'||w.SukunTerkipAllowed(current)!==true))return false;
     if(policy.secretStep(current)===true)return false;
     if(current.type!=='zikir')return true;
     const identity=String(current.cat)+':'+String(current.idx);if(seen.has(identity))return false;seen.add(identity);

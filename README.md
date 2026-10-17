@@ -4,6 +4,16 @@ Zikir, Esmâü’l-Hüsnâ, Berhetiyye ve sûre takibi için web uygulaması.
 
 [Uygulamayı aç](https://sukunpro.github.io/sukun/) · [Sürüm kimliği](version.txt) · [Sürüm notları](surumler.json)
 
+## r1094 — ses kaynakları ve eksik kayıtlar
+
+Kayıt Stüdyosu içindeki kaynak matrisi, zikir kataloğundaki her okuma ve desteklenen biçim için kişisel kayıt, jenerik arşiv ve cihaz sesi durumunu ayrı gösterir. Standart katalog 284 kanonik okuma ve 381 geçerli biçim içerir; bunların içinde 127 isim ve 224 geçerli isim biçimi vardır. Kullanıcının eklediği terkipler kapsamı değiştirebilir. Favoriler aynı kaynağı ikinci kez saymaz; bağımsız dua okuyucuları bu matrisin kapsamına dahil değildir.
+
+Kişisel kayıt dosyası adedi, kapsanan okuma/isim ve kapsanan biçim adedi farklı ölçülerdir. Başka biçimdeki kayıt, eksik olan tam biçimi kapatmaz. Jenerik kullanım kapalıyken saklanan dosyanın varlığı ayrıca denetlenir. Okunamayan, çelişkili veya bozuk kayıt eksik sayılmaz. Denetim dosya varlığını ve jenerik bütünlüğünü inceler; kişisel sesin çözülebilirliğini, duyulan kaliteyi veya cihaz TTS’inin çevrimdışı çalışmasını garanti etmez.
+
+Denetim açık düğmeyle çalışır. Eksik kişisel kayıt için stüdyoda ilgili hedef hazırlanabilir; mikrofon ayrıca kullanıcı komutuyla açılır. Arşiv kullanımı, çalan zikir, sayaçlar ve ses tercihleri denetim sırasında değiştirilmez. Kilitli kaynaklar başlık, anahtar ve sayılardan önce mevcut erişim kurallarıyla süzülür.
+
+G4 kapsamı sabit r1094 kaynaklarında 166 kaynak test grubu, 1.403 bütünlük kontrolü ve 99 tam uygulama kontrolüyle doğrulandı. Küçük HTML fikstüründeki 19 kontrollü arayüz testi ayrıca sayılır. [r1094 doğrulama kaydı](tests/r1094/verification.json) ve [kapsam belgesi](tests/r1094/README.md), tamamlanan koşuları ve kabul sınırlarını içerir. Fiziksel Android ve gerçek mikrofon/ses kalitesi bu yerel testlerle doğrulanmış sayılmaz.
+
 ## r1093 — jenerik arşiv indirmesine devam
 
 Jenerik ses arşivinden kategori seçilebilir. İndirme sırasında kayıt ve bayt ilerlemesi gösterilir; doğrulanmış parçalar ayrı bir geçici alanda tutulur. Yarım kalan hazırlıkta Sürdür seçildiğinde kayıtlar tekrar SHA-256 ile denetlenir, eksik veya bozulmuş parçalar yeniden indirilir.

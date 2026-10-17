@@ -40,6 +40,7 @@ async function original(row){const bytes=await p.evaluate(async id=>{const r=awa
    const inspection=await SukunSessionPreflightR1092.inspect([{type:'zikir',cat:'koruma',idx:0,reps:1},{type:'zikir',cat:'koruma',idx:1,reps:1}],{isCurrent:()=>true});
    return{before,inspection,after:{session:SukunSessionState.snapshot(),owner:SukunTabOwner.snapshot(),queue:JSON.stringify(R170.Player.queue),reader:SukunReadingAudioR1064.snapshot()}};
   });
+  report.coldOfflinePreflight=result;
   assert.equal(result.inspection.rows.length,2);for(const row of result.inspection.rows){assert.equal(row.source,'bundled');assert.equal(row.availability,'cached');}
   assert.equal(result.after.queue,result.before.queue);assert.equal(result.after.owner.owned,false);assert.equal(result.after.session.phase,result.before.session.phase);assert.equal(result.after.session.count,result.before.session.count);assert.equal(result.after.reader.phase,result.before.reader.phase);return result;
  });
