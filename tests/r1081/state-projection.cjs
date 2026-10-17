@@ -38,7 +38,9 @@ for(const [reps,target] of [[-1,1],[7.9,7],[99999,99999],[1000000,99999]]){
  check('bounded smart repeat '+reps,()=>{assert.equal(select({type:'zikir',cat:'koruma',idx:0,reps}).target,target);});
 }
 check('smart queue position is independent of category order',()=>{const a={type:'zikir',cat:'koruma',idx:4,reps:7},b={type:'zikir',cat:'koruma',idx:0,reps:7};select(a);P.queue=[a,b];const s=current();assert.equal(s.session.stepIndex,0);assert.equal(s.session.stepTotal,2);assert.equal(s.position,5);});
-check('non-dhikr smart step does not replace direct counter',()=>{select({type:'frequency',ms:1000});const s=current();assert.equal(s.source,'direct');assert.equal(s.target,622);assert.equal(s.count,11);});
+// r1084: silence/frequency retain smart presentation without borrowing an
+// unrelated dhikr goal. The direct counter remains unchanged underneath.
+for(const type of ['frequency','silence'])check('smart '+type+' does not display the direct target',()=>{select({type,ms:1000});const s=current();assert.equal(s.source,'smart');assert.equal(s.target,0);assert.equal(s.count,0);assert.equal(s.session.reading,false);assert.equal(s.session.presentation,true);assert.equal(JSON.stringify(Z),directBefore);});
 check('Stop returns to untouched direct counter',()=>{P.playing=false;P.paused=false;const s=current();assert.equal(s.target,622);assert.equal(s.count,11);assert.equal(s.devir,2);assert.equal(JSON.stringify(Z),directBefore);});
 const cardOwner=html.match(/function cardSmart\(\)\{[^\n]+\}/)?.[0];
 assert(cardOwner,'production wheel owner selector found');vm.runInNewContext(cardOwner,ctx);

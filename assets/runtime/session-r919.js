@@ -122,7 +122,11 @@
     const source = read(() => window.SukunVoiceSource?.snapshot(), flow.voice || {});
     const scene = read(() => window.SukunSceneEngine?.snapshot(), read(() => window.SukunR918Visual?.snapshot(), {}));
     const life = read(() => window.AudioLife?.snapshot(), {});
-    const j = journeys(), jd = j.view?.display, js = j.active?.state;
+    const smart = z.session?.presentation ? z.session : null;
+    // A live smart step (including silence) and its retained result outrank
+    // an idle journey preview. Its values already carry their own count fence.
+    const journey = journeys(), j = smart ? { ...journey, active:null, view:null } : journey;
+    const jd = j.view?.display, js = j.active?.state;
     const selectedMode = jd ? (j.view.kind === '28' ? 'berhet' : 'esma') : clean(z.cat || 'esma');
     const mode = j.active ? (j.active.kind === '28' ? 'berhet' : 'esma') : selectedMode;
     const index = jd ? number(jd.index, -1) : number(z.idx, -1);
@@ -170,16 +174,16 @@
     if(cycleSig !== voiceSignature){voiceSignature=cycleSig;voiceCycle=freeze({phase:cyclePhase,revision:voiceCycle.revision+1,epoch,at:Date.now()});const detail=voiceCycle;queueMicrotask(()=>window.dispatchEvent(new CustomEvent('sukun:voicecyclechange',{detail})));}
     let phase = failed ? 'ERROR' : paused ? 'PAUSED' : interrupted ? 'INTERRUPTED' : playing && establishedEpoch === epoch ? 'PLAYING' : preparing ? 'PREPARING' :
       playing ? 'PLAYING' : hasZikirOwner && ['interrupted', 'recovering'].includes(life.state) ? 'INTERRUPTED' :
-      (jd?.complete || completion?.identity === identity) ? 'COMPLETED' : 'IDLE';
+      (smart?.terminal || jd?.complete || completion?.identity === identity) ? 'COMPLETED' : 'IDLE';
     const rawKind = clean(observedSource.kind && observedSource.kind !== 'idle' ? observedSource.kind : flow.source?.kind || np.sourceKind || 'none').toLowerCase().replace(/_/g, '-');
-    let audioSource = /error|fail/.test(rawKind) ? 'ERROR' :
+    let audioSource = smart && !smart.reading ? 'SILENCE' : /error|fail/.test(rawKind) ? 'ERROR' :
       /local|file|sample/.test(rawKind) ? 'LOCAL_RECORDING' :
       /tts|speech/.test(rawKind) || rawKind === 'ses' ? 'TTS' :
       /^reader/.test(rawKind) ? 'READER_RECORDING' :
       /^(recording|user-recording|own-recording|user-record)$/.test(rawKind) ? 'USER_RECORDING' :
       /^(silent|silence|none|idle)$/.test(rawKind) ? 'SILENCE' : rawKind.toUpperCase();
     // An idle per-word source during a running session is not a new source selection.
-    const retainedSource = phase === 'PLAYING' && establishedEpoch === epoch && state?.epoch === epoch && ['SILENCE','PREPARING'].includes(audioSource) && state.audioSource !== 'SILENCE';
+    const retainedSource = !(smart && !smart.reading) && phase === 'PLAYING' && establishedEpoch === epoch && state?.epoch === epoch && ['SILENCE','PREPARING'].includes(audioSource) && state.audioSource !== 'SILENCE';
     if(retainedSource) audioSource=state.audioSource;
     const originInput = retainedSource ? state : {audioSource,
       recordingOrigin: observedSource.recordingOrigin,
@@ -199,6 +203,7 @@
       // to use the existing canonical selection, never that preview.
       canonical: freeze({ mode: clean(z.cat || ''), index: number(z.idx, -1), name: clean(z.name || ''),
         count: Math.max(0, number(z.count)), target: Math.max(0, number(z.target)) }),
+      smartSession: smart ? freeze({ ...smart }) : null,
       count, countRaw: Math.max(0, number(jd?.count ?? z.countRaw ?? z.count)), target,
       remaining: target > 0 ? Math.max(0, target - count) : null,
       progress: target > 0 ? Math.max(0, Math.min(1, count / target)) : null,
@@ -255,11 +260,19 @@
     return () => listeners.delete(fn);
   }
 
+  function clearSmartResult() {
+    const api=window.SukunSmartSessionR1082;
+    if(!read(()=>api?.terminal?.()))return;
+    read(()=>api.clearTerminal());
+    read(()=>window.R170?.Player?.save?.());
+  }
+
   function route(action, before, reject = () => false) {
-    const j = journeys(), active = j.active, choice = active || j.view;
+    const j = journeys(), active = j.active, choice = active || (!before.smartSession?.terminal ? j.view : null);
     const pc = window.PlaybackController, registry = window.SukunAudioSessionRegistry;
     const direct = window.SukunR698Transport;
     if (action === 'stop') {
+      clearSmartResult();
       // Wheel and local Finish end only dhikr. Global dock Stop owns stopAll.
       if (direct?.stopDhikr) return direct.stopDhikr('r919-command');
       if (active?.api?.stop) return active.api.stop();
@@ -279,12 +292,16 @@
       if (window.SukunVoiceSettings?.checkReady?.() === false) return reject('voice-not-ready');
       if (before.playing || before.preparing) return true;
       if (before.recordingSource === 'USER_RECORDING_FAILED') return reject('recording-unavailable');
-      if (choice && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
+      if (choice && !before.smartSession?.terminal && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
       // This command is an explicit Start/Resume. Release its matching pause
       // intent before entering the provider; lifecycle recovery never uses it.
       // A global Pause remains authoritative. Local Resume never replays its
       // captured ambient/frequency providers or clears their global hold.
       if (read(() => registry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent) return reject('global-pause');
+      // The completed wheel still represents the queue. Its Start replays
+      // that owner; it must not start the last item with an old direct target.
+      if(before.smartSession?.terminal)return pc?.play?.('smart-session') ?? false;
+      clearSmartResult();
       if (direct?.resumeDhikr && !before.presentationOnly) return direct.resumeDhikr('r919-command');
       read(() => window.SukunJourneyAudioMachine?.intent?.('play', 'local:r919-command'));
       if (choice) {
@@ -301,6 +318,7 @@
       // Clearing the held error is not playback. Exactly one existing owner resumes.
       return route('resume', { ...before, recordingSource: null, phase: 'PAUSED', paused: true }, reject);
     }
+    if(action==='restart'&&before.smartSession?.terminal)return route('play',before,reject);
     if (choice) {
       if (!read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
       if (action === 'next') return choice.api.next();
@@ -320,6 +338,7 @@
       if (action === 'restart') return native?.restartDirect?.();
     }
     const nav = window.SukunFlowNavigation;
+    if(['next','previous','restart'].includes(action))clearSmartResult();
     if (action === 'next') return nav?.nextContext?.({ surface: 'r919' });
     if (action === 'previous') return nav?.previousContext?.({ surface: 'r919' });
     if (action === 'restart') return nav?.restartContext?.({ surface: 'r919' });
@@ -360,6 +379,7 @@
       read(() => window.SukunAudioSessionRegistry?.retireSinglePauseGate?.('r919-selection'));
     }
     // Native handlers are selection authority. No independent Z/count writes.
+    clearSmartResult();
     category.click();
     const journeyApi = kind === '28' ? window.SukunBerhetiyyeSeyir : kind === '99' ? window.SukunEsma99Seyir : null;
     const displayIndex = index ?? (journeyApi ? number(read(() => journeyApi.display()?.index), 0) : null);
@@ -509,9 +529,26 @@
   if (!window.SessionState) window.SessionState = window.SukunSessionState;
   const events = ['sukun:backgroundownerchange', 'sukun:currentzikirchange', 'sukun:currentflowchange', 'sukun:nowplayingchange', 'sukun:playbackchange',
     'sukun:audioaggregatechange', 'sukun:audiotruthchange', 'sukun:voicesource', 'sukun:voicesettingschange', 'sukun:foregroundqueuechange',
-    'sukun:journey-advance', 'sukun:tefekkurchange', 'sukun:recordingerror', 'sukun:recordingretry',
+    'sukun:journey-advance', 'sukun:sessiondraftchange', 'sukun:tefekkurchange', 'sukun:recordingerror', 'sukun:recordingretry',
     'sukun:scenechange', 'sukun:scenestate', 'sukun:recordingrecovered', 'sukun:tabchange', 'sukun:zikirtransportgate', 'sukun:languagechange'];
   events.forEach(event => window.addEventListener(event, () => schedule(event), { passive: true }));
+  // renderZikir also emits selection changes during startup/hydration. Only
+  // a commit nested in an actively dispatching trusted input is a new native
+  // user intent. eventPhase returns to zero after that dispatch; no elapsed
+  // time window can accidentally classify a later hydration as a user choice.
+  let nativeSelectionIntent=null;
+  for(const type of ['click','change'])document.addEventListener(type,event=>{
+    if(event.isTrusted)nativeSelectionIntent=event;
+  },{capture:true,passive:true});
+  window.addEventListener('sukun:zikirselectionchange',()=>{
+    const userCommit=nativeSelectionIntent?.isTrusted&&nativeSelectionIntent.eventPhase>0;
+    if(userCommit&&!read(()=>window.R170?.Player?.playing||window.R170?.Player?.paused,false))clearSmartResult();
+    schedule('selection-intent');
+  },{passive:true});
+  window.addEventListener('sukun:zikirtransportgate',()=>{
+    if(read(()=>Z.auto||window.SukunDirectZikirTransportR698?.state?.()?.auto,false))clearSmartResult();
+  },{passive:true});
+
   window.addEventListener('sukun:journey-complete', () => { completion = { identity }; schedule('complete'); }, { passive: true });
   document.addEventListener('visibilitychange', () => schedule('visibility'), { passive: true });
   window.addEventListener('pageshow', () => schedule('pageshow'), { passive: true });

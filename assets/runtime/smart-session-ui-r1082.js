@@ -11,7 +11,12 @@ const number=(value,fallback=0)=>Number.isFinite(Number(value))?Number(value):fa
 const clock=ms=>{const n=Math.max(0,Math.ceil(number(ms)/1000));return Math.floor(n/60)+':'+String(n%60).padStart(2,'0')};
 const focus=()=>document.body.classList.contains('sukun-tefekkur-mode');
 const state=()=>engine()?.snapshot?.()||{playing:!!P()?.playing,paused:!!P()?.paused,completed:number(P()?._r982CompletedReps),stepIndex:P()?.i||0,locked:!!P()?.playing};
-function itemName(step){if(!step)return'—';if(!window.SukunSecretPolicy?.unlocked?.()&&safe(()=>window.SukunSecretPolicy?.secretStep?.(step),false))return t('Kilitli bölüm','Locked section');if(step.type==='zikir')return safe(()=>ZIKIR?.[step.cat]?.items?.[step.idx]?.tr,step.label)||step.label||t('Okuma','Reading');return step.type==='silence'?t('Sükût','Silence'):step.type==='frequency'?t('Frekans','Frequency'):String(step.label||step.type||'—')}
+function stepInfo(step){
+ const described=safe(()=>engine()?.describeStep?.(step));if(described)return described;
+ if(step?.type==='zikir'){const item=safe(()=>ZIKIR?.[step.cat]?.items?.[step.idx]),title=String(item?.tr||item?.t||item?.nm||item?.oku||item?.translit||item?.ar||item?.a||'').trim();return {valid:!!title,title,reason:title?'':'missing-source'}}
+ return {valid:!!step&&['silence','frequency'].includes(step.type),title:'',reason:'unsupported-step'};
+}
+function itemName(step){if(!step)return'—';if(!window.SukunSecretPolicy?.unlocked?.()&&safe(()=>window.SukunSecretPolicy?.secretStep?.(step),false))return t('Kilitli bölüm','Locked section');if(step.type==='zikir')return stepInfo(step).title||t('Okuma bulunamadı','Reading not found');return step.type==='silence'?t('Sükût','Silence'):step.type==='frequency'?t('Frekans','Frequency'):t('Desteklenmeyen adım','Unsupported step')}
 function modeText(step){if(step?.type!=='zikir')return clock(step?.ms);return mode(step)==='duration'?t('Süre','Duration')+' · '+clock(step.repeatForMs||60000):mode(step)==='manual'?t('Ben geçene kadar','Until I move on'):t('Adet','Count')+' · '+Math.max(1,number(step.reps,1))}
 let queued=0,started=false,lastFocus=focus(),hubObserver=null,queueNode=null;
 function schedule(){if(queued||document.hidden)return;queued=requestAnimationFrame(()=>{queued=0;refresh()})}
@@ -46,7 +51,7 @@ function ensure(){
  if(!$('r1082SessionSummary')){
   const card=document.createElement('section');card.id='r1082SessionSummary';card.setAttribute('data-noi18n','');card.setAttribute('aria-label',t('Seans özeti','Session overview'));
   card.innerHTML='<nav id="r1082StageNav"><button type="button" data-r1082-stage="prepare"></button><button type="button" data-r1082-stage="listen"></button><button type="button" data-r1082-stage="focus"></button></nav><div class="r1082-summary-head"><span class="r1082-spark" aria-hidden="true">✦</span><b id="r1082SessionHeading"></b><span id="r1082SessionPhase"></span></div><p id="r1082SessionCounts"></p><p id="r1082SessionNext"></p><p id="r1082ActualSource"></p><button id="r1082PauseEdit" type="button" class="r170Btn"></button><section id="r1082Failure" hidden role="status"><b id="r1082FailureText"></b><div><button id="r1082Retry" type="button" class="r170Btn"></button><button id="r1082Skip" type="button" class="r170Btn"></button></div></section><p id="r1082Outcome" hidden role="status"></p><details id="r1082Order"><summary id="r1082OrderTitle"></summary><ol id="r1082OrderList"></ol></details>';
-  body.prepend(card);
+  const validation=document.createElement('p');validation.id='r1084Validation';validation.hidden=true;validation.setAttribute('role','status');card.querySelector('#r1082SessionNext').after(validation);body.prepend(card);
   $('r1082PauseEdit').onclick=()=>{engine()?.pauseToEdit?.();schedule()};
   $('r1082Retry').onclick=()=>{engine()?.retryFailed?.();schedule()};$('r1082Skip').onclick=()=>{engine()?.skipFailed?.();schedule()};
   $('r1082StageNav').onclick=event=>{const b=event.target.closest('[data-r1082-stage]');if(!b)return;const stage=b.dataset.r1082Stage;if(stage==='prepare')open();else if(stage==='focus')window.SUKUN_TEFEKKUR?.enter?.();else if(P()?.playing||P()?.paused){window.SukunDockCollapse?.set?.(false);window.SukunDockVisibility?.setHidden?.(false);window.SukunDockSize?.set?.('midi',false)}else $('r170StartSession')?.focus({preventScroll:false})};
@@ -107,12 +112,14 @@ function summary(){
  text($('r1082SessionEntry'),t('✦ Seans hazırla · hazır tertipler ve kendi sıralaman','✦ Prepare a session · templates and your sequence'));
  text($('r1082SessionHeading'),player?.name||t('Seansını hazırla','Prepare your session'));
  text($('r1082SessionPhase'),s.failed?t('Ses bekleniyor','Audio needs attention'):s.editing?t('Düzenleniyor · duraklatıldı','Editing · paused'):player?.playing?t('Dinleniyor','Playing'):player?.paused?t('Duraklatıldı','Paused'):t('Hazırla','Prepare'));
- const readings=(player?.queue||[]).filter(x=>x.type==='zikir'),fixed=readings.every(x=>mode(x)==='fixed'),planned=readings.reduce((a,x)=>a+Math.max(1,number(x.reps,1)),0);
+ const invalid=(player?.queue||[]).map((x,i)=>({step:x,index:i,info:stepInfo(x)})).filter(x=>!x.info.valid);
+ const readings=(player?.queue||[]).filter(x=>x.type==='zikir'&&stepInfo(x).valid),fixed=readings.every(x=>mode(x)==='fixed'),planned=readings.reduce((a,x)=>a+Math.max(1,number(x.reps,1)),0);
  const planText=count?t(count+' adım'+(readings.length?(fixed?' · '+planned+' planlanan okuma':' · adet ve koşullu adımlar'):''),count+' steps'+(readings.length?(fixed?' · '+planned+' planned readings':' · count and conditional steps'):'')):t('Bir hazır tertip seç veya mevcut zikri ekle.','Choose a template or add the selected dhikr.');
  const position=t('Adım '+(player.i+1)+'/'+count,'Step '+(player.i+1)+'/'+count),progress=step?.type==='zikir'?t(number(s.completed)+' tamamlanan okuyuş',number(s.completed)+' completed readings'):itemName(step);
  const timing=step?.type==='zikir'&&mode(step)==='duration'&&Number.isFinite(s.remainingMs)?t('Kalan ','Remaining ')+clock(s.remainingMs):step?.type==='zikir'?modeText(step):Number.isFinite(s.remainingMs)?t('Kalan ','Remaining ')+clock(s.remainingMs):clock(step?.ms);
  text($('r1082SessionCounts'),active?position+' · '+progress+' · '+timing:planText);
  text($('r1082SessionNext'),active?(player.queue[player.i+1]?t('Sıradaki: ','Next: ')+itemName(player.queue[player.i+1]):t('Bu adımdan sonra seans sona erer.','The session ends after this step.')):t('Sıra yukarıdan aşağıya. Hazır tertipler bu ortak düzenleyicide açılır.','The sequence runs from top to bottom. Templates open in this shared editor.'));
+ const validation=$('r1084Validation');if(validation){validation.hidden=!invalid.length;if(invalid.length)text(validation,t('Başlatmadan önce düzelt: ','Fix before starting: ')+invalid.map(x=>t('Adım ','Step ')+(x.index+1)+' · '+itemName(x.step)).join('; ')+'. '+t('Eksik okumayı kaldırıp listeden yeniden ekleyebilirsin.','Remove the missing reading and add it again from the list.'))}
  const source=$('r1082ActualSource');source.hidden=!active||step?.type!=='zikir';if(!source.hidden){const reading=window.SukunSessionState?.peek?.()||safe(()=>window.SukunSessionState?.snapshot?.(),{});text(source,t('Şu anki kaynak: ','Current source: ')+(window.SukunAudioSourceText?.label?.(reading,en()?'en':'tr')||t('Başlangıçta doğrulanır','Verified when playback starts')))}
  const pause=$('r1082PauseEdit');pause.hidden=!player?.playing;text(pause,t('Duraklat ve düzenle','Pause and edit'));
  const failed=$('r1082Failure');failed.hidden=!s.failed;if(s.failed)text($('r1082FailureText'),t('Okuma tamamlanamadı: ','Reading could not complete: ')+(s.failed.title||itemName(step))+'. '+t('Tamamlanan okuyuşlar korunuyor.','Completed readings are kept.'));
@@ -120,7 +127,7 @@ function summary(){
  const result=s.result;const outcome=$('r1082Outcome');outcome.hidden=!result||!['completed','ended'].includes(result.status);if(!outcome.hidden)text(outcome,t('Seans sonucu: ','Session result: ')+number(result.completed)+' '+t('tamamlanan adım','completed steps')+' · '+number(result.skipped)+' '+t('atlanan','skipped')+' · '+number(result.failed)+' '+t('başarısız','failed'));
  $('r170SessionHub')?.classList.toggle('r1082-has-failure',!!s.failed);
  text($('r1082OrderTitle'),t('Sırayı önizle','Preview the sequence'));const list=$('r1082OrderList'),html=(player?.queue||[]).map(x=>'<li>'+esc(itemName(x))+' <span>'+esc(x.type==='zikir'?modeText(x):clock(x.ms))+'</span></li>').join('');if(list.innerHTML!==html)list.innerHTML=html;
- const start=$('r170StartSession');if(start)start.disabled=!count||!!s.failed||!!$('r170Queue')?.querySelector('[aria-invalid="true"]');
+ const start=$('r170StartSession');if(start){start.disabled=!count||!!invalid.length||!!s.failed||!!$('r170Queue')?.querySelector('[aria-invalid="true"]');if(invalid.length)attr(start,'aria-describedby','r1084Validation');else start.removeAttribute('aria-describedby')}
  text($('r1082FocusSummary'),(player?.name||t('Seans','Session'))+' · '+t('Adım ','Step ')+(player?.i+1)+'/'+count+' ⌄');
  text($('r1082FocusDetail'),step?itemName(step)+' · '+modeText(step)+(player.queue[player.i+1]?' · '+t('Sıradaki: ','Next: ')+itemName(player.queue[player.i+1]):''):'');
  text($('r1082FocusEdit'),t('Seans ayrıntılarını aç','Open session details'));if($('r1082FocusStrip'))$('r1082FocusStrip').hidden=!active;

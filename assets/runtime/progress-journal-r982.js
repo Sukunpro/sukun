@@ -72,6 +72,16 @@
       if(!obj(p)||!valid(p.completedIds)||!valid(p.skippedIds)||p.completedIds.some(id=>p.skippedIds.includes(id)))return null;
       out.outcomeProgress={completedIds:p.completedIds.slice(),skippedIds:p.skippedIds.slice()};
     }
+    if(v.terminalResult!=null){
+      const p=v.terminalResult,s=queue.find(s=>s._r1082Id===p?.stepId),done=out.outcomeProgress;
+      // A finished reading is a read-only result, never a resumable audio job.
+      // Bind it to the exact completed queue entry rather than the direct target.
+      if(!obj(p)||v.active||v.unfinished||!s||s.type!=='zikir'||!done?.completedIds.includes(p.stepId)||p.signature!==stepIdentity(s)||!integer(p.completed,99999)||p.completed<1||!['completed','ended'].includes(p.status))return null;
+      if(s.repeatMode==='fixed'&&p.completed!==s.reps)return null;
+      if(p.status==='completed'&&(done.skippedIds.length||done.completedIds.length!==queue.length))return null;
+      if(p.status==='ended'&&!done.skippedIds.length)return null;
+      out.terminalResult={stepId:p.stepId,signature:p.signature,completed:p.completed,status:p.status};
+    }
     return out;
   }
   function resume(v){
