@@ -383,6 +383,9 @@
   }
   async function maintenance(kind,action,opt={}){
     const attempt=++maintenanceAttempt;lastMaintenanceFailure=null;
+    // A caller's exact unstarted Studio claim may be discounted by the bound
+    // busy check. The binding still validates identity and every other source.
+    const admission=Object.freeze({maintenanceKind:kind,recordClaim:kind==='studio-record'?opt.recordClaim:null});
     const remember=error=>{if(attempt===maintenanceAttempt){lastMaintenanceFailure=Object.freeze({code:error.code,stage:error.ownerStage,errorName:error.errorName});emit();}};
     const denied=(code,warning='',stage='',error=null)=>{
       const failure=maintenanceFailure(code,stage,error);remember(failure);
@@ -391,9 +394,9 @@
       return false;
     };
     const check=(name,fallback)=>{
-      if(!opt.throwOnBlocked)return safe(()=>binding[name]?.(),fallback);
+      if(!opt.throwOnBlocked)return safe(()=>name==='busy'?binding[name]?.(false,admission):binding[name]?.(),fallback);
       if(typeof binding[name]!=='function')return denied('maintenance-check-unavailable','state-unavailable','maintenance-'+name+'-check');
-      let value;try{value=binding[name](true);}
+      let value;try{value=name==='busy'?binding[name](true,admission):binding[name](true);}
       catch(e){return denied('maintenance-check-failed','state-unavailable','maintenance-'+name+'-check',e);}
       if(typeof value!=='boolean')return denied('maintenance-check-unavailable','state-unavailable','maintenance-'+name+'-check');
       return value;

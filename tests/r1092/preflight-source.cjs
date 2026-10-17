@@ -21,6 +21,9 @@ function fixture({mode='auto',archive='disabled',localService=true}={}){
  const c={window:null,Blob,Object,Array,Map,Set,String,Number,Math,Date,JSON,RegExp,Promise,AbortController,setTimeout,clearTimeout,
   ZIKIR:items,Z:{cat:'esma',idx:0,form:'nida'},RECKEYS:new Set(),SK_RECORDING_CATALOG:{error:''},SPK:{voice:tr,arVoice:ar,rate:.85,arRate:.7,arPitch:.76},I18N:{lang:'tr'},spkPitch:x=>x,
   SukunSecretPolicy:{unlocked:()=>access,secretStep:step=>!access&&step?.cat==='berhet',secretRecKey:key=>!access&&/^berhet:/.test(key)},
+  // The fixture's sole composition is public. Missing/denied canonical
+  // composition gates are exercised with actual production policy in r1094.
+  SukunTerkipAllowed:step=>step?.cat==='terkip'&&Number(step.idx)===0,
   SukunVoiceSettings:{getMode:()=>mode,getContent:()=> 'arabic',epoch:()=>pref},
   SukunVoiceCatalog:{peek:lang=>lang==='ar'?c.SPK.arVoice:c.SPK.voice,resolve:forbid('voice refresh')},
   AudioResolver:{keyFor:(cat,index)=>cat==='esma'?`esma:${index}:nida`:`${cat}:${index}`,play:forbid('play'),has:forbid('has')},
