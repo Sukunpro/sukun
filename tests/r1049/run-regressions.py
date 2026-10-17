@@ -12,6 +12,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 EXCLUDED = {
+    'tests/r1085/berhet-session-browser.cjs': 'Separate native Berhetiyye 28-step intention, audible-onset, rhythm and cadence suite; run directly after source freeze.',
     'tests/r1079/protective-plan-playing-browser.cjs': 'Separate native ongoing protective audio and accordion presentation suite; run directly after source freeze.',
     'tests/r1079/protective-plan-accordion-browser.cjs': 'Separate native protective-plan accordion and contemplation presentation suite; run directly after source freeze.',
     'tests/r1078/manual-reading-loop-browser.cjs': 'Separate native manual reader/wheel stop and finite/unlimited loop suite; run directly after source freeze.',
