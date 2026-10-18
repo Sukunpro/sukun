@@ -1,0 +1,76 @@
+/* r1104: readable local text surfaces over either selected scene.
+ * Paint stays inside ambience; native hidden/disclosure state and audio retain
+ * their owners. The dark alpha is readable even over a white scene pixel. */
+@layer sukun-r1104-ambience-readable {
+html body #tab-amb #hybridLaunch {
+ background:rgba(5,22,32,.94)!important;
+ border-color:rgba(191,164,109,.55)!important;
+ color:#fff1d5!important;
+ box-shadow:inset 0 1px rgba(255,241,213,.12)!important;
+}
+html body #tab-amb #hybridLaunch .hybridLaunchText>b {
+ color:#fff1d5!important;
+ -webkit-text-fill-color:currentColor!important;opacity:1!important;
+ text-shadow:none!important;
+}
+html body #tab-amb #hybridLaunch .hybridLaunchText>small {
+ color:#dce9e5!important;
+ -webkit-text-fill-color:currentColor!important;opacity:1!important;
+ text-shadow:none!important;
+}
+html body #tab-amb :is(.r916EmptySounds,.hint,.pD,[role="status"]) {
+ background:rgba(5,22,32,.94)!important;
+ color:#dce9e5!important;
+ -webkit-text-fill-color:currentColor!important;opacity:1!important;
+ text-shadow:none!important;border-radius:10px!important;
+}
+html body #tab-amb :is(.hint,.pD) {
+ padding:8px 10px!important;
+}
+html body #tab-amb :is(.bozet,.preAccN) {
+ background:#071c2b!important;
+ color:#fff1d5!important;
+ -webkit-text-fill-color:currentColor!important;opacity:1!important;
+ text-shadow:none!important;
+}
+/* Channel descriptions already have their own dark card. Brighten the text
+ * without adding another frame or changing the compact control geometry. */
+html body #tab-amb #mixer :is(.chName small,.r409AmbDiff),
+html body #tab-amb #sessRow>.sess small {
+ color:#dce9e5!important;
+ -webkit-text-fill-color:currentColor!important;opacity:1!important;
+ text-shadow:none!important;
+}
+html body #tab-amb #mixer .hybridBadge {
+ background:#092b25!important;color:#c0f3dc!important;
+ -webkit-text-fill-color:currentColor!important;opacity:1!important;
+}
+/* The hybrid editor is portalled outside the tab. Its labels and status use
+ * the same readable palette when opened from the ambience launcher. */
+html body #hybridSheet .hybridPanel {
+ background:#071725!important;color:#fff1d5!important;
+}
+html body #hybridSheet :is(.hybridBox label,.hybridStatus,.hybridHint,.hybridMeter span) {
+ color:#dce9e5!important;
+ -webkit-text-fill-color:currentColor!important;opacity:1!important;
+}
+@media(prefers-reduced-transparency:reduce) {
+ html body #tab-amb :is(#hybridLaunch,.r916EmptySounds,.hint,.pD,[role="status"]) {
+  background:#071725!important;
+ }
+}
+@media(forced-colors:active) {
+ html body #tab-amb :is(#hybridLaunch,.r916EmptySounds,.hint,.pD,[role="status"],.bozet,.preAccN),
+ html body #tab-amb #mixer .hybridBadge,
+ html body #hybridSheet .hybridPanel {
+  background:Canvas!important;color:CanvasText!important;
+  border-color:CanvasText!important;box-shadow:none!important;
+ }
+ html body #tab-amb #hybridLaunch .hybridLaunchText>:is(b,small),
+ html body #tab-amb #mixer :is(.chName small,.r409AmbDiff),
+ html body #tab-amb #sessRow>.sess small,
+ html body #hybridSheet :is(.hybridBox label,.hybridStatus,.hybridHint,.hybridMeter span) {
+  color:CanvasText!important;-webkit-text-fill-color:currentColor!important;
+ }
+}
+}
