@@ -1,0 +1,445 @@
+{
+  "suite": "r1101 unified frequency hub final acceptance",
+  "build": "r1101",
+  "finishedAt": "2026-10-18T12:13:38.879712+00:00",
+  "total": 51,
+  "passed": 51,
+  "allPassed": true,
+  "acceptedRuns": [
+    {
+      "report": "tests/r1101/evidence/frequency-hub-320-tr-final.json",
+      "profile": "320x740-tr",
+      "passed": 11,
+      "total": 11,
+      "testSha256": "d69ce3f9b0eb88466c8ed56bbbe24f21581b84c9344915b277fb4576ce095b5c",
+      "productionFilesVerified": 131
+    },
+    {
+      "report": "tests/r1101/evidence/frequency-hub-320-en-final.json",
+      "profile": "320x740-en",
+      "passed": 11,
+      "total": 11,
+      "testSha256": "75993f2fc8ac26d7ac44ff2a44866b237befab8387cbfeb8a7b7e091fe5b1d80",
+      "productionFilesVerified": 135
+    },
+    {
+      "report": "tests/r1101/evidence/frequency-hub-390-en-final.json",
+      "profile": "390x844-en",
+      "passed": 11,
+      "total": 11,
+      "testSha256": "d69ce3f9b0eb88466c8ed56bbbe24f21581b84c9344915b277fb4576ce095b5c",
+      "productionFilesVerified": 135
+    },
+    {
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json",
+      "profile": "390x844-tr",
+      "passed": 18,
+      "total": 18,
+      "testSha256": "5f0ad044bac179089c77f7feedb9e7ebc99fae6a8f6dcf6dc4c973bb358a2d8d",
+      "productionFilesVerified": 132
+    }
+  ],
+  "focusedNativeIdentity": {
+    "report": "tests/r1101/evidence/frequency-hub-native-identity-final.json",
+    "passed": 3,
+    "total": 3,
+    "testSha256": "0d4912de2094fa1acd460a0bb2754d3838f03abf2503aa7472d9fa1fc2bbf1dc",
+    "recordingKey": "esma:0:nida",
+    "clocks": {
+      "before": [
+        {
+          "key": "esma:0:nida",
+          "paused": false,
+          "time": 0.181712,
+          "ended": false
+        }
+      ],
+      "after": [
+        {
+          "key": "esma:0:nida",
+          "paused": false,
+          "time": 2.890546,
+          "ended": false
+        }
+      ],
+      "guided": [
+        {
+          "key": "esma:0:nida",
+          "paused": false,
+          "time": 6.30567,
+          "ended": false
+        }
+      ]
+    }
+  },
+  "checks": [
+    {
+      "profile": "320x740-tr",
+      "name": "First legacy Neuro.open preserves stored FR settings and a globally held context during cold tool initialization",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-tr-final.json"
+    },
+    {
+      "profile": "320x740-tr",
+      "name": "Exactly one common carrier, beat, volume, mode and play surface is visible",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-tr-final.json"
+    },
+    {
+      "profile": "320x740-tr",
+      "name": "Trusted common Play starts the MAIN FR graph only and native edits retune that graph",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-tr-final.json"
+    },
+    {
+      "profile": "320x740-tr",
+      "name": "Original advanced tool nodes are singletons and repeated entry retains node identities and handlers",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-tr-final.json"
+    },
+    {
+      "profile": "320x740-tr",
+      "name": "Native library selection preserves playback intent and retunes the same common FR graph",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-tr-final.json"
+    },
+    {
+      "profile": "320x740-tr",
+      "name": "Native offline suggestion cards apply the common FR settings without starting a second session",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-tr-final.json"
+    },
+    {
+      "profile": "320x740-tr",
+      "name": "Native cymatics controls use the common frequency graph and retain original Next/Stop handlers",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-tr-final.json"
+    },
+    {
+      "profile": "320x740-tr",
+      "name": "Trusted sweep ramps the common FR carrier with a constant native beat and Stop cancels future changes",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-tr-final.json"
+    },
+    {
+      "profile": "320x740-tr",
+      "name": "Trusted breathing controls and legacy recipe bridge share the same native coach in the frequency hub",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-tr-final.json"
+    },
+    {
+      "profile": "320x740-tr",
+      "name": "Narrow translated tool views remain within viewport and inherit selected Esmâ/Berhetiyye family",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-tr-final.json"
+    },
+    {
+      "profile": "320x740-tr",
+      "name": "Trusted input and byte-exact production assets have no missing-file, integrity or JavaScript failures",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-tr-final.json"
+    },
+    {
+      "profile": "320x740-en",
+      "name": "First legacy Neuro.open preserves stored FR settings and a globally held context during cold tool initialization",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-en-final.json"
+    },
+    {
+      "profile": "320x740-en",
+      "name": "Exactly one common carrier, beat, volume, mode and play surface is visible",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-en-final.json"
+    },
+    {
+      "profile": "320x740-en",
+      "name": "Trusted common Play starts the MAIN FR graph only and native edits retune that graph",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-en-final.json"
+    },
+    {
+      "profile": "320x740-en",
+      "name": "Original advanced tool nodes are singletons and repeated entry retains node identities and handlers",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-en-final.json"
+    },
+    {
+      "profile": "320x740-en",
+      "name": "Native library selection preserves playback intent and retunes the same common FR graph",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-en-final.json"
+    },
+    {
+      "profile": "320x740-en",
+      "name": "Native offline suggestion cards apply the common FR settings without starting a second session",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-en-final.json"
+    },
+    {
+      "profile": "320x740-en",
+      "name": "Native cymatics controls use the common frequency graph and retain original Next/Stop handlers",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-en-final.json"
+    },
+    {
+      "profile": "320x740-en",
+      "name": "Trusted sweep ramps the common FR carrier with a constant native beat and Stop cancels future changes",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-en-final.json"
+    },
+    {
+      "profile": "320x740-en",
+      "name": "Trusted breathing controls and legacy recipe bridge share the same native coach in the frequency hub",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-en-final.json"
+    },
+    {
+      "profile": "320x740-en",
+      "name": "Narrow translated tool views remain within viewport and inherit selected Esmâ/Berhetiyye family",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-en-final.json"
+    },
+    {
+      "profile": "320x740-en",
+      "name": "Trusted input and byte-exact production assets have no missing-file, integrity or JavaScript failures",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-320-en-final.json"
+    },
+    {
+      "profile": "390x844-en",
+      "name": "First legacy Neuro.open preserves stored FR settings and a globally held context during cold tool initialization",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-en-final.json"
+    },
+    {
+      "profile": "390x844-en",
+      "name": "Exactly one common carrier, beat, volume, mode and play surface is visible",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-en-final.json"
+    },
+    {
+      "profile": "390x844-en",
+      "name": "Trusted common Play starts the MAIN FR graph only and native edits retune that graph",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-en-final.json"
+    },
+    {
+      "profile": "390x844-en",
+      "name": "Original advanced tool nodes are singletons and repeated entry retains node identities and handlers",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-en-final.json"
+    },
+    {
+      "profile": "390x844-en",
+      "name": "Native library selection preserves playback intent and retunes the same common FR graph",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-en-final.json"
+    },
+    {
+      "profile": "390x844-en",
+      "name": "Native offline suggestion cards apply the common FR settings without starting a second session",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-en-final.json"
+    },
+    {
+      "profile": "390x844-en",
+      "name": "Native cymatics controls use the common frequency graph and retain original Next/Stop handlers",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-en-final.json"
+    },
+    {
+      "profile": "390x844-en",
+      "name": "Trusted sweep ramps the common FR carrier with a constant native beat and Stop cancels future changes",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-en-final.json"
+    },
+    {
+      "profile": "390x844-en",
+      "name": "Trusted breathing controls and legacy recipe bridge share the same native coach in the frequency hub",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-en-final.json"
+    },
+    {
+      "profile": "390x844-en",
+      "name": "Narrow translated tool views remain within viewport and inherit selected Esmâ/Berhetiyye family",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-en-final.json"
+    },
+    {
+      "profile": "390x844-en",
+      "name": "Trusted input and byte-exact production assets have no missing-file, integrity or JavaScript failures",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-en-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "First legacy Neuro.open preserves stored FR settings and a globally held context during cold tool initialization",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Exactly one common carrier, beat, volume, mode and play surface is visible",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Trusted common Play starts the MAIN FR graph only and native edits retune that graph",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Original advanced tool nodes are singletons and repeated entry retains node identities and handlers",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Native library selection preserves playback intent and retunes the same common FR graph",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Native offline suggestion cards apply the common FR settings without starting a second session",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Native cymatics controls use the common frequency graph and retain original Next/Stop handlers",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Trusted sweep ramps the common FR carrier with a constant native beat and Stop cancels future changes",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Trusted breathing controls and legacy recipe bridge share the same native coach in the frequency hub",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Narrow translated tool views remain within viewport and inherit selected Esmâ/Berhetiyye family",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Closing advanced tools and changing main tabs preserve unrelated frequency and ambience playback",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Native frequency timer arms once and cancelling it preserves both frequency and ambience",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Global Pause remains held through direct Neuro.open, tool navigation and recipe bridge",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Hard Stop cancels a looped sweep and late callbacks cannot restart the frequency graph",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "An active native dhikr recording survives integrated hub entry and nonspoken breathing without session or counter reset",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Breathing and guided speech cannot cancel or replace a currently owned dhikr utterance",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Inline Neuro panel does not block trusted Space counting after returning to Zikir",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    },
+    {
+      "profile": "390x844-tr",
+      "name": "Trusted input and byte-exact production assets have no missing-file, integrity or JavaScript failures",
+      "passed": true,
+      "report": "tests/r1101/evidence/frequency-hub-390-tr-final.json"
+    }
+  ],
+  "sweepNativeEvidence": [
+    {
+      "profile": "320x740-tr",
+      "delay": 1520.2000000029802,
+      "c": 118.92450515219817,
+      "b": 40,
+      "left": 104.56558227539062,
+      "right": 144.56558227539062,
+      "active": true
+    },
+    {
+      "profile": "320x740-en",
+      "delay": 1537.7999999970198,
+      "c": 151.34032021048156,
+      "b": 40,
+      "left": 196.02841186523438,
+      "right": 236.02841186523438,
+      "active": true
+    },
+    {
+      "profile": "390x844-en",
+      "delay": 1494.5,
+      "c": 124.17690073657836,
+      "b": 40,
+      "left": 104.34342956542969,
+      "right": 144.3434295654297,
+      "active": true
+    },
+    {
+      "profile": "390x844-tr",
+      "delay": 1158.2000000029802,
+      "c": 118.23766863923694,
+      "b": 40,
+      "left": 98.02789306640625,
+      "right": 138.02789306640625,
+      "active": true
+    }
+  ],
+  "sourceHashes": {
+    "index.html": "a4e62d755946630a8015c129f56948a7f426e95fa2ec73b41ad7dc32af1e0271",
+    "nero.html": "a4e62d755946630a8015c129f56948a7f426e95fa2ec73b41ad7dc32af1e0271",
+    "js/frequency-hub-r1101.js": "037c2b1295f0ffe23a35818ab71193167b3440fd8fef6ff02987b6318d1a2353",
+    "css/frequency-hub-r1101.css": "23587c627d8683d16ca6d576ec3751af99595425e476d0dd0c695faf184c4c6e",
+    "js/section-switch-r1101.js": "29d8a99e6061997c0d392dc6e6493189eab9f2c10d67b87dcdb7dfa80b5d4a8f",
+    "css/berhet-controls-r1101.css": "00d1b69e1dd5a8a79eddeba920702e3cd28b56694cd1fa4576466d0ce0979dc0",
+    "version.txt": "b1a81e680b977fcf44e5db8f0202250241f944891e5a60338053ada0ec3dadd7"
+  },
+  "limitations": [
+    "Disposable headless Linux Chromium at 320×740 and 390×844, Turkish and English, Classic/Feyz. No physical Android, audible-output, screen-lock or service-worker-update acceptance claim.",
+    "Common frequency controls, tool tabs, library, cymatics, sweep, breathing and pause use trusted native browser input. Existing public APIs are used for labelled setup and legacy entry-point checks.",
+    "Oscillator creation/start/stop/ended events are observed through wrappers which delegate unchanged to native methods. No audio engine, timer, oscillator or user recording is mocked.",
+    "One foreground case uses a generated PCM tone in a disposable personal-recording slot; the existing fixture controls only device speech. External traffic and service workers are blocked. No screenshots are produced."
+  ],
+  "visualQA": [
+    "tests/r1101/evidence/frequency-hub-qa-320x740-en.png",
+    "tests/r1101/evidence/frequency-hub-qa-390x844-tr.png"
+  ],
+  "notes": [
+    "All five accepted browser runs served exact final production bytes. Early diagnostic failures and interrupted resource-contended attempts are not counted.",
+    "The optional focused pass strengthens personal-recording identity to exclude the separate silent lock carrier.",
+    "Test setup revisions correct the onboarding seed and use a15-second manual-stop window; the interaural40Hz beat tolerance remains0.1Hz."
+  ]
+}

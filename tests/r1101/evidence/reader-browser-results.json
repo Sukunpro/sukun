@@ -1,0 +1,4209 @@
+{
+  "suite": "r1100 native Klasik/Feyz reader in tefekkür",
+  "startedAt": "2026-10-18T11:59:11.990Z",
+  "testSha256AtStart": "f0e97d8c4718818e8e84d22bb652b29784c2111ba17fdd617bd1613f9f6de0ac",
+  "sourceSha256": {
+    "index.html": "a4e62d755946630a8015c129f56948a7f426e95fa2ec73b41ad7dc32af1e0271",
+    "nero.html": "a4e62d755946630a8015c129f56948a7f426e95fa2ec73b41ad7dc32af1e0271",
+    "assets/runtime/reading-ui-r1064.js": "e64203292bbb461b87526679593bf28b5cc43bc53e4ffc56acadea719572c09c",
+    "assets/runtime/reading-ui-r1064.css": "c7e5ad5f763e51c806602b77bdc202ff2c9d491e461aa6ea1260a99e0a49d8b9",
+    "sw.js": "4ea8808cb723cb33cc6dba49199abc53cd8a3dd4289edacd4cb25144026aecc3"
+  },
+  "checks": [
+    {
+      "profile": "320x740",
+      "name": "Klasik/Feyz and inline reader remain native outside tefekkür",
+      "passed": true,
+      "evidence": {
+        "skin": {
+          "layout": "classic",
+          "appearance": "feyz",
+          "classic": true,
+          "feyz": {
+            "version": "r759",
+            "enabled": true,
+            "applied": true,
+            "motion": true,
+            "flames": true,
+            "updates": 6,
+            "lastReason": "lifecycle",
+            "lastPulse": 0,
+            "pending": false,
+            "asset": "assets/sukun-nur-ring-r757.png",
+            "scene": "assets/sukun-nur-sanctuary-r757.png"
+          }
+        },
+        "inline": {
+          "open": true,
+          "parent": "zmgOkumalar",
+          "modal": false
+        }
+      }
+    },
+    {
+      "profile": "320x740",
+      "name": "Trusted current-reader click opens the one native dialog with matching active text and usable scrolling",
+      "passed": true,
+      "evidence": {
+        "shape": {
+          "sameHost": true,
+          "parent": "r1100ReadingDialog",
+          "bodyDialog": true,
+          "modal": true,
+          "open": true,
+          "rect": {
+            "x": 12,
+            "y": 55.5,
+            "width": 296,
+            "height": 629,
+            "top": 55.5,
+            "right": 308,
+            "bottom": 684.5,
+            "left": 12
+          },
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 294,
+          "clientWidth": 294,
+          "documentWidth": 320,
+          "duplicates": [],
+          "dialogs": 1,
+          "explorers": 1,
+          "handlersSame": true
+        },
+        "text": {
+          "selected": "zikir:esma:0:nida",
+          "current": "zikir:esma:0:nida",
+          "title": "Rahmân",
+          "expectedTitle": "Rahmân",
+          "arabic": "يَا رَحْمٰنُ",
+          "expectedArabic": "يَا رَحْمٰنُ",
+          "latin": "Yâ Rahmân",
+          "expectedLatin": "Yâ Rahmân",
+          "meaning": "Rahmeti bütün varlığı kuşatan",
+          "expectedMeaning": "Rahmeti bütün varlığı kuşatan",
+          "meaningOpen": true
+        },
+        "controls": [
+          {
+            "target": "r1100ReadingClose",
+            "rect": {
+              "x": 218.75,
+              "y": 69,
+              "width": 72.25,
+              "height": 44,
+              "top": 69,
+              "right": 291,
+              "bottom": 113,
+              "left": 218.75
+            },
+            "hit": "r1100ReadingClose",
+            "inside": true,
+            "display": "block"
+          },
+          {
+            "target": "r1064ReadingSelect",
+            "rect": {
+              "x": 42,
+              "y": 171.890625,
+              "width": 236,
+              "height": 37,
+              "top": 171.890625,
+              "right": 278,
+              "bottom": 208.890625,
+              "left": 42
+            },
+            "hit": "r1064ReadingSelect",
+            "inside": true,
+            "display": "block"
+          },
+          {
+            "target": "r1064ReadingContent",
+            "rect": {
+              "x": 42,
+              "y": 242.28125,
+              "width": 236,
+              "height": 37,
+              "top": 242.28125,
+              "right": 278,
+              "bottom": 279.28125,
+              "left": 42
+            },
+            "hit": "r1064ReadingContent",
+            "inside": true,
+            "display": "block"
+          },
+          {
+            "target": "r1064ReadingSource",
+            "rect": {
+              "x": 42,
+              "y": 312.671875,
+              "width": 236,
+              "height": 37,
+              "top": 312.671875,
+              "right": 278,
+              "bottom": 349.671875,
+              "left": 42
+            },
+            "hit": "r1064ReadingSource",
+            "inside": true,
+            "display": "block"
+          },
+          {
+            "target": "SUMMARY",
+            "rect": {
+              "x": 42,
+              "y": 281.046875,
+              "width": 236,
+              "height": 76.375,
+              "top": 281.046875,
+              "right": 278,
+              "bottom": 357.421875,
+              "left": 42
+            },
+            "hit": "SUMMARY",
+            "inside": true,
+            "display": "flex"
+          },
+          {
+            "target": "SUMMARY",
+            "rect": {
+              "x": 42,
+              "y": 576.90625,
+              "width": 236,
+              "height": 76.375,
+              "top": 576.90625,
+              "right": 278,
+              "bottom": 653.28125,
+              "left": 42
+            },
+            "hit": "SUMMARY",
+            "inside": true,
+            "display": "flex"
+          }
+        ],
+        "scroll": {
+          "top": 460,
+          "height": 1349,
+          "client": 627
+        },
+        "home": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "zikir:esma:0:nida",
+            "language": "tr",
+            "modalOpen": false
+          }
+        },
+        "screenshot": "/workspace/scratch/b6dfd13094bb/sukun/tests/r1100/reader-open-320x740.png",
+        "keyboardFocusContained": {
+          "reverse": true,
+          "forward": true
+        },
+        "readOnlySessionPreserved": true
+      }
+    },
+    {
+      "profile": "320x740",
+      "name": "Reading selection and repeated language/voice/reading refreshes retain the modal node and handlers; Escape returns focus",
+      "passed": true,
+      "evidence": {
+        "selected": {
+          "selected": "reading:ayetelkursi",
+          "current": "zikir:esma:0:nida",
+          "title": "Âyetü’l-Kürsî",
+          "expectedTitle": "Âyetü’l-Kürsî",
+          "arabic": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+          "expectedArabic": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+          "latin": "Allâhü lâ ilâhe illâ hüve'l-hayyü'l-kayyûm. Lâ te'huzühû sinetün velâ nevm. Lehû mâ fis-semâvâti ve mâ fil-ard. Men zellezî yeşfeu indehû illâ bi-iznih. Ya'lemü mâ beyne eydîhim ve mâ halfehüm. Velâ yuhîtûne bi-şey'in min ilmihî illâ bimâ şâ'. Vesia kürsiyyühüs-semâvâti vel-ard. Velâ yeûdühû hıfzuhümâ ve hüve'l-aliyyü'l-azîm.",
+          "expectedLatin": "Allâhü lâ ilâhe illâ hüve'l-hayyü'l-kayyûm. Lâ te'huzühû sinetün velâ nevm. Lehû mâ fis-semâvâti ve mâ fil-ard. Men zellezî yeşfeu indehû illâ bi-iznih. Ya'lemü mâ beyne eydîhim ve mâ halfehüm. Velâ yuhîtûne bi-şey'in min ilmihî illâ bimâ şâ'. Vesia kürsiyyühüs-semâvâti vel-ard. Velâ yeûdühû hıfzuhümâ ve hüve'l-aliyyü'l-azîm.",
+          "meaning": "Allah, kendisinden başka hiçbir ilâh bulunmayandır. Diridir, kayyûmdur. O'nu ne bir uyuklama tutabilir, ne de bir uyku.\nGöklerdeki her şey, yerdeki her şey O'nundur.\nİzni olmaksızın O'nun katında şefaatte bulunacak kimdir? O, kullarının önlerindekini ve arkalarındakini (yaptıklarını ve yapacaklarını) bilir.\nOnlar, O'nun ilminden ancak kendisinin dilediği kadarını kavrayabilirler. O'nun kürsüsü bütün gökleri ve yeri kaplayıp kuşatmıştır.\nOnları koruyup gözetmek O'na güç gelmez. O, yücedir, büyüktür.",
+          "expectedMeaning": "Allah, kendisinden başka hiçbir ilâh bulunmayandır. Diridir, kayyûmdur. O'nu ne bir uyuklama tutabilir, ne de bir uyku.\nGöklerdeki her şey, yerdeki her şey O'nundur.\nİzni olmaksızın O'nun katında şefaatte bulunacak kimdir? O, kullarının önlerindekini ve arkalarındakini (yaptıklarını ve yapacaklarını) bilir.\nOnlar, O'nun ilminden ancak kendisinin dilediği kadarını kavrayabilirler. O'nun kürsüsü bütün gökleri ve yeri kaplayıp kuşatmıştır.\nOnları koruyup gözetmek O'na güç gelmez. O, yücedir, büyüktür.",
+          "meaningOpen": true
+        },
+        "shape": {
+          "sameHost": true,
+          "parent": "r1100ReadingDialog",
+          "bodyDialog": true,
+          "modal": true,
+          "open": true,
+          "rect": {
+            "x": 12,
+            "y": 55.5,
+            "width": 296,
+            "height": 629,
+            "top": 55.5,
+            "right": 308,
+            "bottom": 684.5,
+            "left": 12
+          },
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 294,
+          "clientWidth": 294,
+          "documentWidth": 320,
+          "duplicates": [],
+          "dialogs": 1,
+          "explorers": 1,
+          "handlersSame": true
+        },
+        "text": {
+          "selected": "reading:ayetelkursi",
+          "current": "zikir:esma:0:nida",
+          "title": "Ayat al-Kursi",
+          "expectedTitle": "Ayat al-Kursi",
+          "arabic": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+          "expectedArabic": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+          "latin": "Allâhü lâ ilâhe illâ hüve'l-hayyü'l-kayyûm. Lâ te'huzühû sinetün velâ nevm. Lehû mâ fis-semâvâti ve mâ fil-ard. Men zellezî yeşfeu indehû illâ bi-iznih. Ya'lemü mâ beyne eydîhim ve mâ halfehüm. Velâ yuhîtûne bi-şey'in min ilmihî illâ bimâ şâ'. Vesia kürsiyyühüs-semâvâti vel-ard. Velâ yeûdühû hıfzuhümâ ve hüve'l-aliyyü'l-azîm.",
+          "expectedLatin": "Allâhü lâ ilâhe illâ hüve'l-hayyü'l-kayyûm. Lâ te'huzühû sinetün velâ nevm. Lehû mâ fis-semâvâti ve mâ fil-ard. Men zellezî yeşfeu indehû illâ bi-iznih. Ya'lemü mâ beyne eydîhim ve mâ halfehüm. Velâ yuhîtûne bi-şey'in min ilmihî illâ bimâ şâ'. Vesia kürsiyyühüs-semâvâti vel-ard. Velâ yeûdühû hıfzuhümâ ve hüve'l-aliyyü'l-azîm.",
+          "meaning": "Allah, kendisinden başka hiçbir ilâh bulunmayandır. Diridir, kayyûmdur. O'nu ne bir uyuklama tutabilir, ne de bir uyku.\nGöklerdeki her şey, yerdeki her şey O'nundur.\nİzni olmaksızın O'nun katında şefaatte bulunacak kimdir? O, kullarının önlerindekini ve arkalarındakini (yaptıklarını ve yapacaklarını) bilir.\nOnlar, O'nun ilminden ancak kendisinin dilediği kadarını kavrayabilirler. O'nun kürsüsü bütün gökleri ve yeri kaplayıp kuşatmıştır.\nOnları koruyup gözetmek O'na güç gelmez. O, yücedir, büyüktür.",
+          "expectedMeaning": "Allah, kendisinden başka hiçbir ilâh bulunmayandır. Diridir, kayyûmdur. O'nu ne bir uyuklama tutabilir, ne de bir uyku.\nGöklerdeki her şey, yerdeki her şey O'nundur.\nİzni olmaksızın O'nun katında şefaatte bulunacak kimdir? O, kullarının önlerindekini ve arkalarındakini (yaptıklarını ve yapacaklarını) bilir.\nOnlar, O'nun ilminden ancak kendisinin dilediği kadarını kavrayabilirler. O'nun kürsüsü bütün gökleri ve yeri kaplayıp kuşatmıştır.\nOnları koruyup gözetmek O'na güç gelmez. O, yücedir, büyüktür.",
+          "meaningOpen": true
+        },
+        "home": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "reading:ayetelkursi",
+            "language": "en",
+            "modalOpen": false
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x740",
+      "name": "Rapid production close/reopen ignores queued old close event",
+      "passed": true,
+      "evidence": {
+        "result": {
+          "opened": true,
+          "modal": true
+        },
+        "shape": {
+          "sameHost": true,
+          "parent": "r1100ReadingDialog",
+          "bodyDialog": true,
+          "modal": true,
+          "open": true,
+          "rect": {
+            "x": 12,
+            "y": 55.5,
+            "width": 296,
+            "height": 629,
+            "top": 55.5,
+            "right": 308,
+            "bottom": 684.5,
+            "left": 12
+          },
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 294,
+          "clientWidth": 294,
+          "documentWidth": 320,
+          "duplicates": [],
+          "dialogs": 1,
+          "explorers": 1,
+          "handlersSame": true
+        },
+        "nativeReopen": {
+          "opened": true,
+          "modal": true
+        },
+        "nativeShape": {
+          "sameHost": true,
+          "parent": "r1100ReadingDialog",
+          "bodyDialog": true,
+          "modal": true,
+          "open": true,
+          "rect": {
+            "x": 12,
+            "y": 55.5,
+            "width": 296,
+            "height": 629,
+            "top": 55.5,
+            "right": 308,
+            "bottom": 684.5,
+            "left": 12
+          },
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 294,
+          "clientWidth": 294,
+          "documentWidth": 320,
+          "duplicates": [],
+          "dialogs": 1,
+          "explorers": 1,
+          "handlersSame": true
+        },
+        "home": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "zikir:esma:0:nida",
+            "language": "tr",
+            "modalOpen": false
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x740",
+      "name": "Production tefekkür exit and existing tab handler close and restore the modal",
+      "passed": true,
+      "evidence": {
+        "route": "programmatic production SUKUN_TEFEKKUR.exit() and existing tab.click() handler",
+        "exited": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": false,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "zikir:esma:0:nida",
+            "language": "tr",
+            "modalOpen": false
+          }
+        },
+        "tabbed": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "zikir:esma:0:nida",
+            "language": "tr",
+            "modalOpen": false
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x740",
+      "name": "Private Berhetiyye reader revocation closes the modal and removes private reading text/options",
+      "passed": true,
+      "evidence": {
+        "grant": {
+          "granted": true,
+          "unlocked": true
+        },
+        "privateId": "zikir:berhet:0",
+        "privateLatinRemoved": true,
+        "selectedAfter": "reading:ayetelkursi",
+        "privateOptions": 0,
+        "home": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "reading:ayetelkursi",
+            "language": "tr",
+            "modalOpen": false
+          }
+        }
+      }
+    },
+    {
+      "profile": "320x740",
+      "name": "Read-only open/close preserves active native audio identity, playback owner and counter",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "player": {
+            "token": 3,
+            "index": 0,
+            "playing": true,
+            "paused": false,
+            "completed": 0,
+            "ids": [
+              "smvdry3c1_1"
+            ]
+          },
+          "session": {
+            "activeMode": "koruma",
+            "activeIndex": 0,
+            "count": 0,
+            "target": 7,
+            "playing": true,
+            "paused": false
+          },
+          "current": {
+            "cat": "koruma",
+            "idx": 0,
+            "count": 0,
+            "target": 7,
+            "session": {
+              "active": true,
+              "presentation": true,
+              "reading": true,
+              "terminal": false,
+              "stepType": "zikir",
+              "result": {
+                "completed": 0,
+                "skipped": 0,
+                "failed": 0,
+                "status": "playing"
+              },
+              "playing": true,
+              "paused": false,
+              "name": "LABELLED r1100 read-only audio",
+              "stepIndex": 0,
+              "stepTotal": 1,
+              "elapsedMs": 0,
+              "remainingMs": null
+            }
+          },
+          "owner": {},
+          "media": [
+            {
+              "id": 3,
+              "key": "koruma:0",
+              "paused": false,
+              "ended": false,
+              "currentTime": 7.477592,
+              "duration": 30
+            }
+          ],
+          "events": [
+            {
+              "type": "pause",
+              "id": 1,
+              "key": "",
+              "at": 31111.5
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 113679.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 114870.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 116707.89999999851
+            },
+            {
+              "type": "pause",
+              "id": 1,
+              "key": "",
+              "at": 117327
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 118781.10000000149
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 120835.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 121158.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 122078.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 123107.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 123107.89999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 124688.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 3,
+              "key": "koruma:0",
+              "at": 124692.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 125123.10000000149
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 125123.5
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 125289.60000000149
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 125896.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 126068.10000000149
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 126269.5
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 128289.5
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 128436.89999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 128437
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 128741.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 128852.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 129611.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 129611.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 130496.5
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 131171.6000000015
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 131254.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 131254.5
+            }
+          ],
+          "auxiliaryMedia": [
+            {
+              "id": 1,
+              "domId": "",
+              "muted": false,
+              "volume": 0.01,
+              "loop": true,
+              "paused": false
+            },
+            {
+              "id": 2,
+              "domId": "r476LockZikirAudio",
+              "muted": false,
+              "volume": 1,
+              "loop": true,
+              "paused": false
+            }
+          ]
+        },
+        "after": {
+          "player": {
+            "token": 3,
+            "index": 0,
+            "playing": true,
+            "paused": false,
+            "completed": 0,
+            "ids": [
+              "smvdry3c1_1"
+            ]
+          },
+          "session": {
+            "activeMode": "koruma",
+            "activeIndex": 0,
+            "count": 0,
+            "target": 7,
+            "playing": true,
+            "paused": false
+          },
+          "current": {
+            "cat": "koruma",
+            "idx": 0,
+            "count": 0,
+            "target": 7,
+            "session": {
+              "active": true,
+              "presentation": true,
+              "reading": true,
+              "terminal": false,
+              "stepType": "zikir",
+              "result": {
+                "completed": 0,
+                "skipped": 0,
+                "failed": 0,
+                "status": "playing"
+              },
+              "playing": true,
+              "paused": false,
+              "name": "LABELLED r1100 read-only audio",
+              "stepIndex": 0,
+              "stepTotal": 1,
+              "elapsedMs": 0,
+              "remainingMs": null
+            }
+          },
+          "owner": {},
+          "media": [
+            {
+              "id": 3,
+              "key": "koruma:0",
+              "paused": false,
+              "ended": false,
+              "currentTime": 9.259372,
+              "duration": 30
+            }
+          ],
+          "events": [
+            {
+              "type": "pause",
+              "id": 1,
+              "key": "",
+              "at": 31111.5
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 113679.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 114870.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 116707.89999999851
+            },
+            {
+              "type": "pause",
+              "id": 1,
+              "key": "",
+              "at": 117327
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 118781.10000000149
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 120835.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 121158.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 122078.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 123107.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 123107.89999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 124688.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 3,
+              "key": "koruma:0",
+              "at": 124692.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 125123.10000000149
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 125123.5
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 125289.60000000149
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 125896.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 126068.10000000149
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 126269.5
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 128289.5
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 128436.89999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 128437
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 128741.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 128852.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 129611.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 129611.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 130496.5
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 131171.6000000015
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 131254.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 131254.5
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 131629.8999999985
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 132011.1000000015
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 132354.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 132632.5
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 132704.6000000015
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 133067.79999999702
+            }
+          ],
+          "auxiliaryMedia": [
+            {
+              "id": 1,
+              "domId": "",
+              "muted": false,
+              "volume": 0.01,
+              "loop": true,
+              "paused": false
+            },
+            {
+              "id": 2,
+              "domId": "r476LockZikirAudio",
+              "muted": false,
+              "volume": 1,
+              "loop": true,
+              "paused": false
+            }
+          ]
+        },
+        "text": {
+          "selected": "zikir:koruma:0",
+          "current": "zikir:koruma:0",
+          "title": "Felâk Sûresi",
+          "expectedTitle": "Felâk Sûresi",
+          "arabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِنْ شَرِّ مَا خَلَقَ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+          "expectedArabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِنْ شَرِّ مَا خَلَقَ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+          "latin": "Kul eûzü bi-Rabbil-felak. Min şerri mâ halak. Ve min şerri ğâsikın izâ vekab. Ve min şerrin-neffâsâti fil-ukad. Ve min şerri hâsidin izâ hased.",
+          "expectedLatin": "Kul eûzü bi-Rabbil-felak. Min şerri mâ halak. Ve min şerri ğâsikın izâ vekab. Ve min şerrin-neffâsâti fil-ukad. Ve min şerri hâsidin izâ hased.",
+          "meaning": "Nazar, haset ve kötülüklerden Allah’a sığınma (113. sûre)",
+          "expectedMeaning": "Nazar, haset ve kötülüklerden Allah’a sığınma (113. sûre)",
+          "meaningOpen": true
+        },
+        "incidentalEvents": [
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 131629.8999999985
+          },
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 132011.1000000015
+          },
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 132354.29999999702
+          },
+          {
+            "type": "playing",
+            "id": 2,
+            "key": "",
+            "at": 132632.5
+          },
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 132704.6000000015
+          },
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 133067.79999999702
+          }
+        ],
+        "nativeClockAdvanced": true,
+        "recording": "labelled generated 30s PCM tone in isolated REC_DB"
+      }
+    },
+    {
+      "profile": "320x740",
+      "name": "Exercised input is trusted and production page has no JavaScript or local-request failure",
+      "passed": true,
+      "evidence": {
+        "clicks": [
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 32826.19999999553
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 46789.10000000149
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 61008.79999999702
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 62523
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 72113.39999999851
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 77187
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 78815.5
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 88245.29999999702
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 100873.19999999553
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 131858.19999999553
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 132796
+          }
+        ],
+        "errors": [],
+        "failedRequests": []
+      }
+    },
+    {
+      "profile": "393x873",
+      "name": "Klasik/Feyz and inline reader remain native outside tefekkür",
+      "passed": true,
+      "evidence": {
+        "skin": {
+          "layout": "classic",
+          "appearance": "feyz",
+          "classic": true,
+          "feyz": {
+            "version": "r759",
+            "enabled": true,
+            "applied": true,
+            "motion": true,
+            "flames": true,
+            "updates": 6,
+            "lastReason": "lifecycle",
+            "lastPulse": 0,
+            "pending": false,
+            "asset": "assets/sukun-nur-ring-r757.png",
+            "scene": "assets/sukun-nur-sanctuary-r757.png"
+          }
+        },
+        "inline": {
+          "open": true,
+          "parent": "zmgOkumalar",
+          "modal": false
+        }
+      }
+    },
+    {
+      "profile": "393x873",
+      "name": "Trusted current-reader click opens the one native dialog with matching active text and usable scrolling",
+      "passed": true,
+      "evidence": {
+        "shape": {
+          "sameHost": true,
+          "parent": "r1100ReadingDialog",
+          "bodyDialog": true,
+          "modal": true,
+          "open": true,
+          "rect": {
+            "x": 12,
+            "y": 65.46875,
+            "width": 369,
+            "height": 742.046875,
+            "top": 65.46875,
+            "right": 381,
+            "bottom": 807.515625,
+            "left": 12
+          },
+          "width": 393,
+          "height": 873,
+          "scrollWidth": 367,
+          "clientWidth": 367,
+          "documentWidth": 393,
+          "duplicates": [],
+          "dialogs": 1,
+          "explorers": 1,
+          "handlersSame": true
+        },
+        "text": {
+          "selected": "zikir:esma:0:nida",
+          "current": "zikir:esma:0:nida",
+          "title": "Rahmân",
+          "expectedTitle": "Rahmân",
+          "arabic": "يَا رَحْمٰنُ",
+          "expectedArabic": "يَا رَحْمٰنُ",
+          "latin": "Yâ Rahmân",
+          "expectedLatin": "Yâ Rahmân",
+          "meaning": "Rahmeti bütün varlığı kuşatan",
+          "expectedMeaning": "Rahmeti bütün varlığı kuşatan",
+          "meaningOpen": true
+        },
+        "controls": [
+          {
+            "target": "r1100ReadingClose",
+            "rect": {
+              "x": 291.75,
+              "y": 78.96875,
+              "width": 72.25,
+              "height": 44,
+              "top": 78.96875,
+              "right": 364,
+              "bottom": 122.96875,
+              "left": 291.75
+            },
+            "hit": "r1100ReadingClose",
+            "inside": true,
+            "display": "block"
+          },
+          {
+            "target": "r1064ReadingSelect",
+            "rect": {
+              "x": 42,
+              "y": 181.859375,
+              "width": 309,
+              "height": 37,
+              "top": 181.859375,
+              "right": 351,
+              "bottom": 218.859375,
+              "left": 42
+            },
+            "hit": "r1064ReadingSelect",
+            "inside": true,
+            "display": "block"
+          },
+          {
+            "target": "r1064ReadingContent",
+            "rect": {
+              "x": 42,
+              "y": 252.25,
+              "width": 309,
+              "height": 37,
+              "top": 252.25,
+              "right": 351,
+              "bottom": 289.25,
+              "left": 42
+            },
+            "hit": "r1064ReadingContent",
+            "inside": true,
+            "display": "block"
+          },
+          {
+            "target": "r1064ReadingSource",
+            "rect": {
+              "x": 42,
+              "y": 322.640625,
+              "width": 309,
+              "height": 37,
+              "top": 322.640625,
+              "right": 351,
+              "bottom": 359.640625,
+              "left": 42
+            },
+            "hit": "r1064ReadingSource",
+            "inside": true,
+            "display": "block"
+          },
+          {
+            "target": "SUMMARY",
+            "rect": {
+              "x": 42,
+              "y": 250.234375,
+              "width": 309,
+              "height": 49.1875,
+              "top": 250.234375,
+              "right": 351,
+              "bottom": 299.421875,
+              "left": 42
+            },
+            "hit": "SUMMARY",
+            "inside": true,
+            "display": "flex"
+          },
+          {
+            "target": "SUMMARY",
+            "rect": {
+              "x": 42,
+              "y": 727.34375,
+              "width": 309,
+              "height": 76.375,
+              "top": 727.34375,
+              "right": 351,
+              "bottom": 803.71875,
+              "left": 42
+            },
+            "hit": "SUMMARY",
+            "inside": true,
+            "display": "flex"
+          }
+        ],
+        "scroll": {
+          "top": 460,
+          "height": 1227,
+          "client": 740
+        },
+        "home": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "zikir:esma:0:nida",
+            "language": "tr",
+            "modalOpen": false
+          }
+        },
+        "screenshot": "/workspace/scratch/b6dfd13094bb/sukun/tests/r1100/reader-open-393x873.png",
+        "keyboardFocusContained": {
+          "reverse": true,
+          "forward": true
+        },
+        "readOnlySessionPreserved": true
+      }
+    },
+    {
+      "profile": "393x873",
+      "name": "Reading selection and repeated language/voice/reading refreshes retain the modal node and handlers; Escape returns focus",
+      "passed": true,
+      "evidence": {
+        "selected": {
+          "selected": "reading:ayetelkursi",
+          "current": "zikir:esma:0:nida",
+          "title": "Âyetü’l-Kürsî",
+          "expectedTitle": "Âyetü’l-Kürsî",
+          "arabic": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+          "expectedArabic": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+          "latin": "Allâhü lâ ilâhe illâ hüve'l-hayyü'l-kayyûm. Lâ te'huzühû sinetün velâ nevm. Lehû mâ fis-semâvâti ve mâ fil-ard. Men zellezî yeşfeu indehû illâ bi-iznih. Ya'lemü mâ beyne eydîhim ve mâ halfehüm. Velâ yuhîtûne bi-şey'in min ilmihî illâ bimâ şâ'. Vesia kürsiyyühüs-semâvâti vel-ard. Velâ yeûdühû hıfzuhümâ ve hüve'l-aliyyü'l-azîm.",
+          "expectedLatin": "Allâhü lâ ilâhe illâ hüve'l-hayyü'l-kayyûm. Lâ te'huzühû sinetün velâ nevm. Lehû mâ fis-semâvâti ve mâ fil-ard. Men zellezî yeşfeu indehû illâ bi-iznih. Ya'lemü mâ beyne eydîhim ve mâ halfehüm. Velâ yuhîtûne bi-şey'in min ilmihî illâ bimâ şâ'. Vesia kürsiyyühüs-semâvâti vel-ard. Velâ yeûdühû hıfzuhümâ ve hüve'l-aliyyü'l-azîm.",
+          "meaning": "Allah, kendisinden başka hiçbir ilâh bulunmayandır. Diridir, kayyûmdur. O'nu ne bir uyuklama tutabilir, ne de bir uyku.\nGöklerdeki her şey, yerdeki her şey O'nundur.\nİzni olmaksızın O'nun katında şefaatte bulunacak kimdir? O, kullarının önlerindekini ve arkalarındakini (yaptıklarını ve yapacaklarını) bilir.\nOnlar, O'nun ilminden ancak kendisinin dilediği kadarını kavrayabilirler. O'nun kürsüsü bütün gökleri ve yeri kaplayıp kuşatmıştır.\nOnları koruyup gözetmek O'na güç gelmez. O, yücedir, büyüktür.",
+          "expectedMeaning": "Allah, kendisinden başka hiçbir ilâh bulunmayandır. Diridir, kayyûmdur. O'nu ne bir uyuklama tutabilir, ne de bir uyku.\nGöklerdeki her şey, yerdeki her şey O'nundur.\nİzni olmaksızın O'nun katında şefaatte bulunacak kimdir? O, kullarının önlerindekini ve arkalarındakini (yaptıklarını ve yapacaklarını) bilir.\nOnlar, O'nun ilminden ancak kendisinin dilediği kadarını kavrayabilirler. O'nun kürsüsü bütün gökleri ve yeri kaplayıp kuşatmıştır.\nOnları koruyup gözetmek O'na güç gelmez. O, yücedir, büyüktür.",
+          "meaningOpen": true
+        },
+        "shape": {
+          "sameHost": true,
+          "parent": "r1100ReadingDialog",
+          "bodyDialog": true,
+          "modal": true,
+          "open": true,
+          "rect": {
+            "x": 12,
+            "y": 65.46875,
+            "width": 369,
+            "height": 742.046875,
+            "top": 65.46875,
+            "right": 381,
+            "bottom": 807.515625,
+            "left": 12
+          },
+          "width": 393,
+          "height": 873,
+          "scrollWidth": 367,
+          "clientWidth": 367,
+          "documentWidth": 393,
+          "duplicates": [],
+          "dialogs": 1,
+          "explorers": 1,
+          "handlersSame": true
+        },
+        "text": {
+          "selected": "reading:ayetelkursi",
+          "current": "zikir:esma:0:nida",
+          "title": "Ayat al-Kursi",
+          "expectedTitle": "Ayat al-Kursi",
+          "arabic": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+          "expectedArabic": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+          "latin": "Allâhü lâ ilâhe illâ hüve'l-hayyü'l-kayyûm. Lâ te'huzühû sinetün velâ nevm. Lehû mâ fis-semâvâti ve mâ fil-ard. Men zellezî yeşfeu indehû illâ bi-iznih. Ya'lemü mâ beyne eydîhim ve mâ halfehüm. Velâ yuhîtûne bi-şey'in min ilmihî illâ bimâ şâ'. Vesia kürsiyyühüs-semâvâti vel-ard. Velâ yeûdühû hıfzuhümâ ve hüve'l-aliyyü'l-azîm.",
+          "expectedLatin": "Allâhü lâ ilâhe illâ hüve'l-hayyü'l-kayyûm. Lâ te'huzühû sinetün velâ nevm. Lehû mâ fis-semâvâti ve mâ fil-ard. Men zellezî yeşfeu indehû illâ bi-iznih. Ya'lemü mâ beyne eydîhim ve mâ halfehüm. Velâ yuhîtûne bi-şey'in min ilmihî illâ bimâ şâ'. Vesia kürsiyyühüs-semâvâti vel-ard. Velâ yeûdühû hıfzuhümâ ve hüve'l-aliyyü'l-azîm.",
+          "meaning": "Allah, kendisinden başka hiçbir ilâh bulunmayandır. Diridir, kayyûmdur. O'nu ne bir uyuklama tutabilir, ne de bir uyku.\nGöklerdeki her şey, yerdeki her şey O'nundur.\nİzni olmaksızın O'nun katında şefaatte bulunacak kimdir? O, kullarının önlerindekini ve arkalarındakini (yaptıklarını ve yapacaklarını) bilir.\nOnlar, O'nun ilminden ancak kendisinin dilediği kadarını kavrayabilirler. O'nun kürsüsü bütün gökleri ve yeri kaplayıp kuşatmıştır.\nOnları koruyup gözetmek O'na güç gelmez. O, yücedir, büyüktür.",
+          "expectedMeaning": "Allah, kendisinden başka hiçbir ilâh bulunmayandır. Diridir, kayyûmdur. O'nu ne bir uyuklama tutabilir, ne de bir uyku.\nGöklerdeki her şey, yerdeki her şey O'nundur.\nİzni olmaksızın O'nun katında şefaatte bulunacak kimdir? O, kullarının önlerindekini ve arkalarındakini (yaptıklarını ve yapacaklarını) bilir.\nOnlar, O'nun ilminden ancak kendisinin dilediği kadarını kavrayabilirler. O'nun kürsüsü bütün gökleri ve yeri kaplayıp kuşatmıştır.\nOnları koruyup gözetmek O'na güç gelmez. O, yücedir, büyüktür.",
+          "meaningOpen": true
+        },
+        "home": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "reading:ayetelkursi",
+            "language": "en",
+            "modalOpen": false
+          }
+        }
+      }
+    },
+    {
+      "profile": "393x873",
+      "name": "Rapid production close/reopen ignores queued old close event",
+      "passed": true,
+      "evidence": {
+        "result": {
+          "opened": true,
+          "modal": true
+        },
+        "shape": {
+          "sameHost": true,
+          "parent": "r1100ReadingDialog",
+          "bodyDialog": true,
+          "modal": true,
+          "open": true,
+          "rect": {
+            "x": 12,
+            "y": 65.46875,
+            "width": 369,
+            "height": 742.046875,
+            "top": 65.46875,
+            "right": 381,
+            "bottom": 807.515625,
+            "left": 12
+          },
+          "width": 393,
+          "height": 873,
+          "scrollWidth": 367,
+          "clientWidth": 367,
+          "documentWidth": 393,
+          "duplicates": [],
+          "dialogs": 1,
+          "explorers": 1,
+          "handlersSame": true
+        },
+        "nativeReopen": {
+          "opened": true,
+          "modal": true
+        },
+        "nativeShape": {
+          "sameHost": true,
+          "parent": "r1100ReadingDialog",
+          "bodyDialog": true,
+          "modal": true,
+          "open": true,
+          "rect": {
+            "x": 12,
+            "y": 65.46875,
+            "width": 369,
+            "height": 742.046875,
+            "top": 65.46875,
+            "right": 381,
+            "bottom": 807.515625,
+            "left": 12
+          },
+          "width": 393,
+          "height": 873,
+          "scrollWidth": 367,
+          "clientWidth": 367,
+          "documentWidth": 393,
+          "duplicates": [],
+          "dialogs": 1,
+          "explorers": 1,
+          "handlersSame": true
+        },
+        "home": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "zikir:esma:0:nida",
+            "language": "tr",
+            "modalOpen": false
+          }
+        }
+      }
+    },
+    {
+      "profile": "393x873",
+      "name": "Production tefekkür exit and existing tab handler close and restore the modal",
+      "passed": true,
+      "evidence": {
+        "route": "programmatic production SUKUN_TEFEKKUR.exit() and existing tab.click() handler",
+        "exited": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": false,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "zikir:esma:0:nida",
+            "language": "tr",
+            "modalOpen": false
+          }
+        },
+        "tabbed": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "zikir:esma:0:nida",
+            "language": "tr",
+            "modalOpen": false
+          }
+        }
+      }
+    },
+    {
+      "profile": "393x873",
+      "name": "Private Berhetiyye reader revocation closes the modal and removes private reading text/options",
+      "passed": true,
+      "evidence": {
+        "grant": {
+          "granted": true,
+          "unlocked": true
+        },
+        "privateId": "zikir:berhet:0",
+        "privateLatinRemoved": true,
+        "selectedAfter": "reading:ayetelkursi",
+        "privateOptions": 0,
+        "home": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "reading:ayetelkursi",
+            "language": "tr",
+            "modalOpen": false
+          }
+        }
+      }
+    },
+    {
+      "profile": "393x873",
+      "name": "Read-only open/close preserves active native audio identity, playback owner and counter",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "player": {
+            "token": 3,
+            "index": 0,
+            "playing": true,
+            "paused": false,
+            "completed": 0,
+            "ids": [
+              "smvdrzpds_1"
+            ]
+          },
+          "session": {
+            "activeMode": "koruma",
+            "activeIndex": 0,
+            "count": 0,
+            "target": 7,
+            "playing": true,
+            "paused": false
+          },
+          "current": {
+            "cat": "koruma",
+            "idx": 0,
+            "count": 0,
+            "target": 7,
+            "session": {
+              "active": true,
+              "presentation": true,
+              "reading": true,
+              "terminal": false,
+              "stepType": "zikir",
+              "result": {
+                "completed": 0,
+                "skipped": 0,
+                "failed": 0,
+                "status": "playing"
+              },
+              "playing": true,
+              "paused": false,
+              "name": "LABELLED r1100 read-only audio",
+              "stepIndex": 0,
+              "stepTotal": 1,
+              "elapsedMs": 0,
+              "remainingMs": null
+            }
+          },
+          "owner": {},
+          "media": [
+            {
+              "id": 3,
+              "key": "koruma:0",
+              "paused": false,
+              "ended": false,
+              "currentTime": 5.659116,
+              "duration": 30
+            }
+          ],
+          "events": [
+            {
+              "type": "pause",
+              "id": 1,
+              "key": "",
+              "at": 13902.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 51512.89999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 53333.79999999702
+            },
+            {
+              "type": "pause",
+              "id": 1,
+              "key": "",
+              "at": 53778.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 55004.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 56462.10000000149
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 56623.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 57368.5
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 58267.60000000149
+            },
+            {
+              "type": "playing",
+              "id": 3,
+              "key": "koruma:0",
+              "at": 59093.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 59116.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 59547.10000000149
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 59594.19999999553
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 59703.5
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 59754.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 59951.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 61264.19999999553
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 61668.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 61676.10000000149
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 61800.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 62032
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 62928.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 63131.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 63272.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 64052.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 64308.60000000149
+            }
+          ],
+          "auxiliaryMedia": [
+            {
+              "id": 1,
+              "domId": "",
+              "muted": false,
+              "volume": 0.01,
+              "loop": true,
+              "paused": false
+            },
+            {
+              "id": 2,
+              "domId": "r476LockZikirAudio",
+              "muted": false,
+              "volume": 1,
+              "loop": true,
+              "paused": false
+            }
+          ]
+        },
+        "after": {
+          "player": {
+            "token": 3,
+            "index": 0,
+            "playing": true,
+            "paused": false,
+            "completed": 0,
+            "ids": [
+              "smvdrzpds_1"
+            ]
+          },
+          "session": {
+            "activeMode": "koruma",
+            "activeIndex": 0,
+            "count": 0,
+            "target": 7,
+            "playing": true,
+            "paused": false
+          },
+          "current": {
+            "cat": "koruma",
+            "idx": 0,
+            "count": 0,
+            "target": 7,
+            "session": {
+              "active": true,
+              "presentation": true,
+              "reading": true,
+              "terminal": false,
+              "stepType": "zikir",
+              "result": {
+                "completed": 0,
+                "skipped": 0,
+                "failed": 0,
+                "status": "playing"
+              },
+              "playing": true,
+              "paused": false,
+              "name": "LABELLED r1100 read-only audio",
+              "stepIndex": 0,
+              "stepTotal": 1,
+              "elapsedMs": 0,
+              "remainingMs": null
+            }
+          },
+          "owner": {},
+          "media": [
+            {
+              "id": 3,
+              "key": "koruma:0",
+              "paused": false,
+              "ended": false,
+              "currentTime": 8.166496,
+              "duration": 30
+            }
+          ],
+          "events": [
+            {
+              "type": "pause",
+              "id": 1,
+              "key": "",
+              "at": 13902.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 51512.89999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 53333.79999999702
+            },
+            {
+              "type": "pause",
+              "id": 1,
+              "key": "",
+              "at": 53778.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 55004.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 56462.10000000149
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 56623.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 57368.5
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 58267.60000000149
+            },
+            {
+              "type": "playing",
+              "id": 3,
+              "key": "koruma:0",
+              "at": 59093.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 59116.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 59547.10000000149
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 59594.19999999553
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 59703.5
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 59754.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 59951.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 61264.19999999553
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 61668.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 61676.10000000149
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 61800.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 62032
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 62928.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 63131.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 63272.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 64052.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 64308.60000000149
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 64470.10000000149
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 64658.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 65011.60000000149
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 65542.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 65545.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 65759.60000000149
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 66575.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 66755.89999999851
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 66846.5
+            }
+          ],
+          "auxiliaryMedia": [
+            {
+              "id": 1,
+              "domId": "",
+              "muted": false,
+              "volume": 0.01,
+              "loop": true,
+              "paused": false
+            },
+            {
+              "id": 2,
+              "domId": "r476LockZikirAudio",
+              "muted": false,
+              "volume": 1,
+              "loop": true,
+              "paused": false
+            }
+          ]
+        },
+        "text": {
+          "selected": "zikir:koruma:0",
+          "current": "zikir:koruma:0",
+          "title": "Felâk Sûresi",
+          "expectedTitle": "Felâk Sûresi",
+          "arabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِنْ شَرِّ مَا خَلَقَ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+          "expectedArabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِنْ شَرِّ مَا خَلَقَ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+          "latin": "Kul eûzü bi-Rabbil-felak. Min şerri mâ halak. Ve min şerri ğâsikın izâ vekab. Ve min şerrin-neffâsâti fil-ukad. Ve min şerri hâsidin izâ hased.",
+          "expectedLatin": "Kul eûzü bi-Rabbil-felak. Min şerri mâ halak. Ve min şerri ğâsikın izâ vekab. Ve min şerrin-neffâsâti fil-ukad. Ve min şerri hâsidin izâ hased.",
+          "meaning": "Nazar, haset ve kötülüklerden Allah’a sığınma (113. sûre)",
+          "expectedMeaning": "Nazar, haset ve kötülüklerden Allah’a sığınma (113. sûre)",
+          "meaningOpen": true
+        },
+        "incidentalEvents": [
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 64470.10000000149
+          },
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 64658.69999999553
+          },
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 65011.60000000149
+          },
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 65542.69999999553
+          },
+          {
+            "type": "playing",
+            "id": 2,
+            "key": "",
+            "at": 65545.39999999851
+          },
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 65759.60000000149
+          },
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 66575.69999999553
+          },
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 66755.89999999851
+          },
+          {
+            "type": "playing",
+            "id": 2,
+            "key": "",
+            "at": 66846.5
+          }
+        ],
+        "nativeClockAdvanced": true,
+        "recording": "labelled generated 30s PCM tone in isolated REC_DB"
+      }
+    },
+    {
+      "profile": "393x873",
+      "name": "Exercised input is trusted and production page has no JavaScript or local-request failure",
+      "passed": true,
+      "evidence": {
+        "clicks": [
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 14903.5
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 19697.39999999851
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 25402.29999999702
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 26059.5
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 31404.29999999702
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 33683.79999999702
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 34380.79999999702
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 39363.29999999702
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 46095
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 64693.10000000149
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 65814
+          }
+        ],
+        "errors": [],
+        "failedRequests": []
+      }
+    },
+    {
+      "profile": "1280x900",
+      "name": "Klasik/Feyz and inline reader remain native outside tefekkür",
+      "passed": true,
+      "evidence": {
+        "skin": {
+          "layout": "classic",
+          "appearance": "feyz",
+          "classic": true,
+          "feyz": {
+            "version": "r759",
+            "enabled": true,
+            "applied": true,
+            "motion": true,
+            "flames": true,
+            "updates": 6,
+            "lastReason": "lifecycle",
+            "lastPulse": 0,
+            "pending": false,
+            "asset": "assets/sukun-nur-ring-r757.png",
+            "scene": "assets/sukun-nur-sanctuary-r757.png"
+          }
+        },
+        "inline": {
+          "open": true,
+          "parent": "zmgOkumalar",
+          "modal": false
+        }
+      }
+    },
+    {
+      "profile": "1280x900",
+      "name": "Trusted current-reader click opens the one native dialog with matching active text and usable scrolling",
+      "passed": true,
+      "evidence": {
+        "shape": {
+          "sameHost": true,
+          "parent": "r1100ReadingDialog",
+          "bodyDialog": true,
+          "modal": true,
+          "open": true,
+          "rect": {
+            "x": 300,
+            "y": 67.5,
+            "width": 680,
+            "height": 765,
+            "top": 67.5,
+            "right": 980,
+            "bottom": 832.5,
+            "left": 300
+          },
+          "width": 1280,
+          "height": 900,
+          "scrollWidth": 678,
+          "clientWidth": 678,
+          "documentWidth": 1280,
+          "duplicates": [],
+          "dialogs": 1,
+          "explorers": 1,
+          "handlersSame": true
+        },
+        "text": {
+          "selected": "zikir:esma:0:nida",
+          "current": "zikir:esma:0:nida",
+          "title": "Rahmân",
+          "expectedTitle": "Rahmân",
+          "arabic": "يَا رَحْمٰنُ",
+          "expectedArabic": "يَا رَحْمٰنُ",
+          "latin": "Yâ Rahmân",
+          "expectedLatin": "Yâ Rahmân",
+          "meaning": "Rahmeti bütün varlığı kuşatan",
+          "expectedMeaning": "Rahmeti bütün varlığı kuşatan",
+          "meaningOpen": true
+        },
+        "controls": [
+          {
+            "target": "r1100ReadingClose",
+            "rect": {
+              "x": 890.75,
+              "y": 80.5,
+              "width": 72.25,
+              "height": 44,
+              "top": 80.5,
+              "right": 963,
+              "bottom": 124.5,
+              "left": 890.75
+            },
+            "hit": "r1100ReadingClose",
+            "inside": true,
+            "display": "block"
+          },
+          {
+            "target": "r1064ReadingSelect",
+            "rect": {
+              "x": 330,
+              "y": 182.890625,
+              "width": 620,
+              "height": 37,
+              "top": 182.890625,
+              "right": 950,
+              "bottom": 219.890625,
+              "left": 330
+            },
+            "hit": "r1064ReadingSelect",
+            "inside": true,
+            "display": "block"
+          },
+          {
+            "target": "r1064ReadingContent",
+            "rect": {
+              "x": 330,
+              "y": 255.28125,
+              "width": 305,
+              "height": 37,
+              "top": 255.28125,
+              "right": 635,
+              "bottom": 292.28125,
+              "left": 330
+            },
+            "hit": "r1064ReadingContent",
+            "inside": true,
+            "display": "block"
+          },
+          {
+            "target": "r1064ReadingSource",
+            "rect": {
+              "x": 645,
+              "y": 255.28125,
+              "width": 305,
+              "height": 37,
+              "top": 255.28125,
+              "right": 950,
+              "bottom": 292.28125,
+              "left": 645
+            },
+            "hit": "r1064ReadingSource",
+            "inside": true,
+            "display": "block"
+          },
+          {
+            "target": "SUMMARY",
+            "rect": {
+              "x": 330,
+              "y": 426.796875,
+              "width": 620,
+              "height": 49.1875,
+              "top": 426.796875,
+              "right": 950,
+              "bottom": 475.984375,
+              "left": 330
+            },
+            "hit": "SUMMARY",
+            "inside": true,
+            "display": "flex"
+          },
+          {
+            "target": "SUMMARY",
+            "rect": {
+              "x": 330,
+              "y": 752.734375,
+              "width": 620,
+              "height": 49.1875,
+              "top": 752.734375,
+              "right": 950,
+              "bottom": 801.921875,
+              "left": 330
+            },
+            "hit": "SUMMARY",
+            "inside": true,
+            "display": "flex"
+          }
+        ],
+        "scroll": {
+          "top": 199,
+          "height": 962,
+          "client": 763
+        },
+        "home": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "zikir:esma:0:nida",
+            "language": "tr",
+            "modalOpen": false
+          }
+        },
+        "screenshot": "/workspace/scratch/b6dfd13094bb/sukun/tests/r1100/reader-open-1280x900.png",
+        "keyboardFocusContained": {
+          "reverse": true,
+          "forward": true
+        },
+        "readOnlySessionPreserved": true
+      }
+    },
+    {
+      "profile": "1280x900",
+      "name": "Reading selection and repeated language/voice/reading refreshes retain the modal node and handlers; Escape returns focus",
+      "passed": true,
+      "evidence": {
+        "selected": {
+          "selected": "reading:ayetelkursi",
+          "current": "zikir:esma:0:nida",
+          "title": "Âyetü’l-Kürsî",
+          "expectedTitle": "Âyetü’l-Kürsî",
+          "arabic": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+          "expectedArabic": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+          "latin": "Allâhü lâ ilâhe illâ hüve'l-hayyü'l-kayyûm. Lâ te'huzühû sinetün velâ nevm. Lehû mâ fis-semâvâti ve mâ fil-ard. Men zellezî yeşfeu indehû illâ bi-iznih. Ya'lemü mâ beyne eydîhim ve mâ halfehüm. Velâ yuhîtûne bi-şey'in min ilmihî illâ bimâ şâ'. Vesia kürsiyyühüs-semâvâti vel-ard. Velâ yeûdühû hıfzuhümâ ve hüve'l-aliyyü'l-azîm.",
+          "expectedLatin": "Allâhü lâ ilâhe illâ hüve'l-hayyü'l-kayyûm. Lâ te'huzühû sinetün velâ nevm. Lehû mâ fis-semâvâti ve mâ fil-ard. Men zellezî yeşfeu indehû illâ bi-iznih. Ya'lemü mâ beyne eydîhim ve mâ halfehüm. Velâ yuhîtûne bi-şey'in min ilmihî illâ bimâ şâ'. Vesia kürsiyyühüs-semâvâti vel-ard. Velâ yeûdühû hıfzuhümâ ve hüve'l-aliyyü'l-azîm.",
+          "meaning": "Allah, kendisinden başka hiçbir ilâh bulunmayandır. Diridir, kayyûmdur. O'nu ne bir uyuklama tutabilir, ne de bir uyku.\nGöklerdeki her şey, yerdeki her şey O'nundur.\nİzni olmaksızın O'nun katında şefaatte bulunacak kimdir? O, kullarının önlerindekini ve arkalarındakini (yaptıklarını ve yapacaklarını) bilir.\nOnlar, O'nun ilminden ancak kendisinin dilediği kadarını kavrayabilirler. O'nun kürsüsü bütün gökleri ve yeri kaplayıp kuşatmıştır.\nOnları koruyup gözetmek O'na güç gelmez. O, yücedir, büyüktür.",
+          "expectedMeaning": "Allah, kendisinden başka hiçbir ilâh bulunmayandır. Diridir, kayyûmdur. O'nu ne bir uyuklama tutabilir, ne de bir uyku.\nGöklerdeki her şey, yerdeki her şey O'nundur.\nİzni olmaksızın O'nun katında şefaatte bulunacak kimdir? O, kullarının önlerindekini ve arkalarındakini (yaptıklarını ve yapacaklarını) bilir.\nOnlar, O'nun ilminden ancak kendisinin dilediği kadarını kavrayabilirler. O'nun kürsüsü bütün gökleri ve yeri kaplayıp kuşatmıştır.\nOnları koruyup gözetmek O'na güç gelmez. O, yücedir, büyüktür.",
+          "meaningOpen": true
+        },
+        "shape": {
+          "sameHost": true,
+          "parent": "r1100ReadingDialog",
+          "bodyDialog": true,
+          "modal": true,
+          "open": true,
+          "rect": {
+            "x": 300,
+            "y": 67.5,
+            "width": 680,
+            "height": 765,
+            "top": 67.5,
+            "right": 980,
+            "bottom": 832.5,
+            "left": 300
+          },
+          "width": 1280,
+          "height": 900,
+          "scrollWidth": 678,
+          "clientWidth": 678,
+          "documentWidth": 1280,
+          "duplicates": [],
+          "dialogs": 1,
+          "explorers": 1,
+          "handlersSame": true
+        },
+        "text": {
+          "selected": "reading:ayetelkursi",
+          "current": "zikir:esma:0:nida",
+          "title": "Ayat al-Kursi",
+          "expectedTitle": "Ayat al-Kursi",
+          "arabic": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+          "expectedArabic": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+          "latin": "Allâhü lâ ilâhe illâ hüve'l-hayyü'l-kayyûm. Lâ te'huzühû sinetün velâ nevm. Lehû mâ fis-semâvâti ve mâ fil-ard. Men zellezî yeşfeu indehû illâ bi-iznih. Ya'lemü mâ beyne eydîhim ve mâ halfehüm. Velâ yuhîtûne bi-şey'in min ilmihî illâ bimâ şâ'. Vesia kürsiyyühüs-semâvâti vel-ard. Velâ yeûdühû hıfzuhümâ ve hüve'l-aliyyü'l-azîm.",
+          "expectedLatin": "Allâhü lâ ilâhe illâ hüve'l-hayyü'l-kayyûm. Lâ te'huzühû sinetün velâ nevm. Lehû mâ fis-semâvâti ve mâ fil-ard. Men zellezî yeşfeu indehû illâ bi-iznih. Ya'lemü mâ beyne eydîhim ve mâ halfehüm. Velâ yuhîtûne bi-şey'in min ilmihî illâ bimâ şâ'. Vesia kürsiyyühüs-semâvâti vel-ard. Velâ yeûdühû hıfzuhümâ ve hüve'l-aliyyü'l-azîm.",
+          "meaning": "Allah, kendisinden başka hiçbir ilâh bulunmayandır. Diridir, kayyûmdur. O'nu ne bir uyuklama tutabilir, ne de bir uyku.\nGöklerdeki her şey, yerdeki her şey O'nundur.\nİzni olmaksızın O'nun katında şefaatte bulunacak kimdir? O, kullarının önlerindekini ve arkalarındakini (yaptıklarını ve yapacaklarını) bilir.\nOnlar, O'nun ilminden ancak kendisinin dilediği kadarını kavrayabilirler. O'nun kürsüsü bütün gökleri ve yeri kaplayıp kuşatmıştır.\nOnları koruyup gözetmek O'na güç gelmez. O, yücedir, büyüktür.",
+          "expectedMeaning": "Allah, kendisinden başka hiçbir ilâh bulunmayandır. Diridir, kayyûmdur. O'nu ne bir uyuklama tutabilir, ne de bir uyku.\nGöklerdeki her şey, yerdeki her şey O'nundur.\nİzni olmaksızın O'nun katında şefaatte bulunacak kimdir? O, kullarının önlerindekini ve arkalarındakini (yaptıklarını ve yapacaklarını) bilir.\nOnlar, O'nun ilminden ancak kendisinin dilediği kadarını kavrayabilirler. O'nun kürsüsü bütün gökleri ve yeri kaplayıp kuşatmıştır.\nOnları koruyup gözetmek O'na güç gelmez. O, yücedir, büyüktür.",
+          "meaningOpen": true
+        },
+        "home": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "reading:ayetelkursi",
+            "language": "en",
+            "modalOpen": false
+          }
+        }
+      }
+    },
+    {
+      "profile": "1280x900",
+      "name": "Rapid production close/reopen ignores queued old close event",
+      "passed": true,
+      "evidence": {
+        "result": {
+          "opened": true,
+          "modal": true
+        },
+        "shape": {
+          "sameHost": true,
+          "parent": "r1100ReadingDialog",
+          "bodyDialog": true,
+          "modal": true,
+          "open": true,
+          "rect": {
+            "x": 300,
+            "y": 67.5,
+            "width": 680,
+            "height": 765,
+            "top": 67.5,
+            "right": 980,
+            "bottom": 832.5,
+            "left": 300
+          },
+          "width": 1280,
+          "height": 900,
+          "scrollWidth": 678,
+          "clientWidth": 678,
+          "documentWidth": 1280,
+          "duplicates": [],
+          "dialogs": 1,
+          "explorers": 1,
+          "handlersSame": true
+        },
+        "nativeReopen": {
+          "opened": true,
+          "modal": true
+        },
+        "nativeShape": {
+          "sameHost": true,
+          "parent": "r1100ReadingDialog",
+          "bodyDialog": true,
+          "modal": true,
+          "open": true,
+          "rect": {
+            "x": 300,
+            "y": 67.5,
+            "width": 680,
+            "height": 765,
+            "top": 67.5,
+            "right": 980,
+            "bottom": 832.5,
+            "left": 300
+          },
+          "width": 1280,
+          "height": 900,
+          "scrollWidth": 678,
+          "clientWidth": 678,
+          "documentWidth": 1280,
+          "duplicates": [],
+          "dialogs": 1,
+          "explorers": 1,
+          "handlersSame": true
+        },
+        "home": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "zikir:esma:0:nida",
+            "language": "tr",
+            "modalOpen": false
+          }
+        }
+      }
+    },
+    {
+      "profile": "1280x900",
+      "name": "Production tefekkür exit and existing tab handler close and restore the modal",
+      "passed": true,
+      "evidence": {
+        "route": "programmatic production SUKUN_TEFEKKUR.exit() and existing tab.click() handler",
+        "exited": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": false,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "zikir:esma:0:nida",
+            "language": "tr",
+            "modalOpen": false
+          }
+        },
+        "tabbed": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "zikir:esma:0:nida",
+            "language": "tr",
+            "modalOpen": false
+          }
+        }
+      }
+    },
+    {
+      "profile": "1280x900",
+      "name": "Private Berhetiyye reader revocation closes the modal and removes private reading text/options",
+      "passed": true,
+      "evidence": {
+        "grant": {
+          "granted": true,
+          "unlocked": true
+        },
+        "privateId": "zikir:berhet:0",
+        "privateLatinRemoved": true,
+        "selectedAfter": "reading:ayetelkursi",
+        "privateOptions": 0,
+        "home": {
+          "sameHost": true,
+          "sameParent": true,
+          "sameNext": true,
+          "open": true,
+          "wasOpen": true,
+          "meaning": false,
+          "wasMeaning": false,
+          "modal": false,
+          "active": "r1064CurrentReadingOpen",
+          "tef": true,
+          "ui": {
+            "mounted": true,
+            "yasinMounted": true,
+            "selected": "reading:ayetelkursi",
+            "language": "tr",
+            "modalOpen": false
+          }
+        }
+      }
+    },
+    {
+      "profile": "1280x900",
+      "name": "Read-only open/close preserves active native audio identity, playback owner and counter",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "player": {
+            "token": 3,
+            "index": 0,
+            "playing": true,
+            "paused": false,
+            "completed": 0,
+            "ids": [
+              "smvds0yyt_1"
+            ]
+          },
+          "session": {
+            "activeMode": "koruma",
+            "activeIndex": 0,
+            "count": 0,
+            "target": 7,
+            "playing": true,
+            "paused": false
+          },
+          "current": {
+            "cat": "koruma",
+            "idx": 0,
+            "count": 0,
+            "target": 7,
+            "session": {
+              "active": true,
+              "presentation": true,
+              "reading": true,
+              "terminal": false,
+              "stepType": "zikir",
+              "result": {
+                "completed": 0,
+                "skipped": 0,
+                "failed": 0,
+                "status": "playing"
+              },
+              "playing": true,
+              "paused": false,
+              "name": "LABELLED r1100 read-only audio",
+              "stepIndex": 0,
+              "stepTotal": 1,
+              "elapsedMs": 0,
+              "remainingMs": null
+            }
+          },
+          "owner": {},
+          "media": [
+            {
+              "id": 3,
+              "key": "koruma:0",
+              "paused": false,
+              "ended": false,
+              "currentTime": 3.805023,
+              "duration": 30
+            }
+          ],
+          "events": [
+            {
+              "type": "pause",
+              "id": 1,
+              "key": "",
+              "at": 11374.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 43734
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 44657.79999999702
+            },
+            {
+              "type": "pause",
+              "id": 1,
+              "key": "",
+              "at": 44673.5
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 46403.89999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 47734.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 48593.89999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 48825.59999999404
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 48986.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 3,
+              "key": "koruma:0",
+              "at": 48991
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 49203.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 49314
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 49764.19999999553
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 50143.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 51145.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 51145.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 51999
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 52117.09999999404
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 52665.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 52665.5
+            }
+          ],
+          "auxiliaryMedia": [
+            {
+              "id": 1,
+              "domId": "",
+              "muted": false,
+              "volume": 0.01,
+              "loop": true,
+              "paused": false
+            },
+            {
+              "id": 2,
+              "domId": "r476LockZikirAudio",
+              "muted": false,
+              "volume": 1,
+              "loop": true,
+              "paused": false
+            }
+          ]
+        },
+        "after": {
+          "player": {
+            "token": 3,
+            "index": 0,
+            "playing": true,
+            "paused": false,
+            "completed": 0,
+            "ids": [
+              "smvds0yyt_1"
+            ]
+          },
+          "session": {
+            "activeMode": "koruma",
+            "activeIndex": 0,
+            "count": 0,
+            "target": 7,
+            "playing": true,
+            "paused": false
+          },
+          "current": {
+            "cat": "koruma",
+            "idx": 0,
+            "count": 0,
+            "target": 7,
+            "session": {
+              "active": true,
+              "presentation": true,
+              "reading": true,
+              "terminal": false,
+              "stepType": "zikir",
+              "result": {
+                "completed": 0,
+                "skipped": 0,
+                "failed": 0,
+                "status": "playing"
+              },
+              "playing": true,
+              "paused": false,
+              "name": "LABELLED r1100 read-only audio",
+              "stepIndex": 0,
+              "stepTotal": 1,
+              "elapsedMs": 0,
+              "remainingMs": null
+            }
+          },
+          "owner": {},
+          "media": [
+            {
+              "id": 3,
+              "key": "koruma:0",
+              "paused": false,
+              "ended": false,
+              "currentTime": 5.978183,
+              "duration": 30
+            }
+          ],
+          "events": [
+            {
+              "type": "pause",
+              "id": 1,
+              "key": "",
+              "at": 11374.69999999553
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 43734
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 44657.79999999702
+            },
+            {
+              "type": "pause",
+              "id": 1,
+              "key": "",
+              "at": 44673.5
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 46403.89999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 47734.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 48593.89999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 48825.59999999404
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 48986.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 3,
+              "key": "koruma:0",
+              "at": 48991
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 49203.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 49314
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 49764.19999999553
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 50143.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 51145.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 51145.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 51999
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 52117.09999999404
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 52665.39999999851
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 52665.5
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 52800.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 53762.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 2,
+              "key": "",
+              "at": 53765.79999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 54000.09999999404
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 54592.29999999702
+            },
+            {
+              "type": "playing",
+              "id": 1,
+              "key": "",
+              "at": 54838.59999999404
+            }
+          ],
+          "auxiliaryMedia": [
+            {
+              "id": 1,
+              "domId": "",
+              "muted": false,
+              "volume": 0.01,
+              "loop": true,
+              "paused": false
+            },
+            {
+              "id": 2,
+              "domId": "r476LockZikirAudio",
+              "muted": false,
+              "volume": 1,
+              "loop": true,
+              "paused": false
+            }
+          ]
+        },
+        "text": {
+          "selected": "zikir:koruma:0",
+          "current": "zikir:koruma:0",
+          "title": "Felâk Sûresi",
+          "expectedTitle": "Felâk Sûresi",
+          "arabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِنْ شَرِّ مَا خَلَقَ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+          "expectedArabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِنْ شَرِّ مَا خَلَقَ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+          "latin": "Kul eûzü bi-Rabbil-felak. Min şerri mâ halak. Ve min şerri ğâsikın izâ vekab. Ve min şerrin-neffâsâti fil-ukad. Ve min şerri hâsidin izâ hased.",
+          "expectedLatin": "Kul eûzü bi-Rabbil-felak. Min şerri mâ halak. Ve min şerri ğâsikın izâ vekab. Ve min şerrin-neffâsâti fil-ukad. Ve min şerri hâsidin izâ hased.",
+          "meaning": "Nazar, haset ve kötülüklerden Allah’a sığınma (113. sûre)",
+          "expectedMeaning": "Nazar, haset ve kötülüklerden Allah’a sığınma (113. sûre)",
+          "meaningOpen": true
+        },
+        "incidentalEvents": [
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 52800.29999999702
+          },
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 53762.29999999702
+          },
+          {
+            "type": "playing",
+            "id": 2,
+            "key": "",
+            "at": 53765.79999999702
+          },
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 54000.09999999404
+          },
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 54592.29999999702
+          },
+          {
+            "type": "playing",
+            "id": 1,
+            "key": "",
+            "at": 54838.59999999404
+          }
+        ],
+        "nativeClockAdvanced": true,
+        "recording": "labelled generated 30s PCM tone in isolated REC_DB"
+      }
+    },
+    {
+      "profile": "1280x900",
+      "name": "Simulated legacy reading-group reconstruction keeps the same modal host and recovers its new inline home",
+      "passed": true,
+      "evidence": {
+        "simulation": {
+          "route": "labelled test simulation: reading group clone replaces former home and its comment anchor",
+          "clone": true
+        },
+        "shape": {
+          "sameHost": true,
+          "parent": "r1100ReadingDialog",
+          "bodyDialog": true,
+          "modal": true,
+          "open": true,
+          "rect": {
+            "x": 300,
+            "y": 67.5,
+            "width": 680,
+            "height": 765,
+            "top": 67.5,
+            "right": 980,
+            "bottom": 832.5,
+            "left": 300
+          },
+          "width": 1280,
+          "height": 900,
+          "scrollWidth": 678,
+          "clientWidth": 678,
+          "documentWidth": 1280,
+          "duplicates": [],
+          "dialogs": 1,
+          "explorers": 1,
+          "handlersSame": true
+        },
+        "after": {
+          "sameHost": true,
+          "newHome": true,
+          "count": 1,
+          "modal": false
+        }
+      }
+    },
+    {
+      "profile": "1280x900",
+      "name": "Exercised input is trusted and production page has no JavaScript or local-request failure",
+      "passed": true,
+      "evidence": {
+        "clicks": [
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 12792.69999999553
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 16049.39999999851
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 20350.09999999404
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 20996.69999999553
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 24505.89999999851
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 26826.69999999553
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 27361.29999999702
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 31629.69999999553
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 37748.69999999553
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 53211.29999999702
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 54282.69999999553
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 57254.29999999702
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 58268.89999999851
+          }
+        ],
+        "errors": [],
+        "failedRequests": []
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "label": "320x740",
+      "pageErrors": [],
+      "failedRequests": [],
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "externalBlocked": [
+        "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      ],
+      "final": {
+        "body": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r716-shell r920-practice-on sukun-jewel-r798 r588-dock-ready r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock r474-zikir-active r920-details-open sukun-zikir-tab r431-dock-visible r591-flow-active r699-dock-active sukun-focus-mode sukun-tefekkur-mode r431-owner-global",
+        "ui": {
+          "mounted": true,
+          "yasinMounted": true,
+          "selected": "zikir:koruma:0",
+          "language": "tr",
+          "modalOpen": false
+        },
+        "tef": true,
+        "hostParent": "",
+        "dialog": {
+          "open": false,
+          "modal": false,
+          "scrollTop": 0,
+          "scrollHeight": 0,
+          "clientHeight": 0,
+          "scrollWidth": 0,
+          "clientWidth": 0,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        },
+        "name": "Felâk Sûresi",
+        "active": "r1064CurrentReadingOpen",
+        "session": {
+          "version": "r919",
+          "build": "r1101",
+          "revision": 28,
+          "reason": "sukun:audiotruthchange",
+          "sessionId": "mvdrvvs5:4",
+          "epoch": 4,
+          "requestId": 1,
+          "activeMode": "koruma",
+          "activeName": "Felâk Sûresi",
+          "activeIndex": 0,
+          "arabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِنْ شَرِّ مَا خَلَقَ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+          "canonical": {
+            "mode": "koruma",
+            "index": 0,
+            "name": "Felâk Sûresi",
+            "count": 0,
+            "target": 33
+          },
+          "smartSession": null,
+          "count": 0,
+          "countRaw": 0,
+          "target": 33,
+          "remaining": 33,
+          "progress": 0,
+          "journeyIndex": null,
+          "journeyKind": "single",
+          "journeyRunning": false,
+          "journeyPaused": false,
+          "journeyComplete": false,
+          "presentationOnly": false,
+          "journey": {
+            "kind": null,
+            "active": false,
+            "selected": "single",
+            "total": 5,
+            "index": null,
+            "complete": false,
+            "paused": false
+          },
+          "owner": "",
+          "provider": "mix",
+          "phase": "IDLE",
+          "playbackState": "idle",
+          "playing": false,
+          "paused": false,
+          "preparing": false,
+          "audioSource": "USER_RECORDING",
+          "sourceOrigin": "personal",
+          "recordingOrigin": "personal",
+          "sourceMetadata": {
+            "kind": "USER_RECORDING",
+            "origin": "personal",
+            "recorded": true,
+            "provenance": "resolver"
+          },
+          "recordingSource": "USER_RECORDING",
+          "sourceLabel": "KENDİ KAYIT",
+          "sceneId": null,
+          "resolvedSceneId": "mevlevi",
+          "backgroundState": "ready",
+          "isForeground": true,
+          "isTefekkur": true,
+          "error": null,
+          "consistency": {
+            "dualJourney": false,
+            "audioIssues": [
+              "registry-playing-without-tangible"
+            ]
+          }
+        },
+        "player": {
+          "playing": false,
+          "paused": false,
+          "token": 4,
+          "index": 0
+        },
+        "clicks": [
+          {
+            "id": "obSkip",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 26692.79999999702
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 29513.5
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 32826.19999999553
+          },
+          {
+            "id": "r938PanelToggle",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 39535.5
+          },
+          {
+            "id": "r920TefEnter",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 40947.5
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 46789.10000000149
+          },
+          {
+            "id": "",
+            "tag": "SUMMARY",
+            "trusted": true,
+            "at": 53768.10000000149
+          },
+          {
+            "id": "",
+            "tag": "SUMMARY",
+            "trusted": true,
+            "at": 55939.19999999553
+          },
+          {
+            "id": "",
+            "tag": "SUMMARY",
+            "trusted": true,
+            "at": 57440.89999999851
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 61008.79999999702
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 62523
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 72113.39999999851
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 77187
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 78815.5
+          },
+          {
+            "id": "r938PanelToggle",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 84188.19999999553
+          },
+          {
+            "id": "r920TefEnter",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 85574.39999999851
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 88245.29999999702
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": false,
+            "at": 88897.10000000149
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": false,
+            "at": 93152.19999999553
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": false,
+            "at": 96543.19999999553
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": false,
+            "at": 96791.79999999702
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 100873.19999999553
+          },
+          {
+            "id": "r938PanelToggle",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 126088.69999999553
+          },
+          {
+            "id": "r920TefEnter",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 129043.10000000149
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 131858.19999999553
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 132796
+          }
+        ]
+      }
+    },
+    {
+      "label": "393x873",
+      "pageErrors": [],
+      "failedRequests": [],
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "externalBlocked": [
+        "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      ],
+      "final": {
+        "body": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r716-shell r920-practice-on sukun-jewel-r798 r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r699-layout r707-scroll r708-boundary r660-dock-compact r433-dock-enhanced r434-inline-details-ready r920-dock r697-neon-ui r698-ui r474-zikir-active r920-details-open sukun-zikir-tab r431-dock-visible r591-flow-active r699-dock-active sukun-focus-mode sukun-tefekkur-mode r431-owner-global",
+        "ui": {
+          "mounted": true,
+          "yasinMounted": true,
+          "selected": "zikir:koruma:0",
+          "language": "tr",
+          "modalOpen": false
+        },
+        "tef": true,
+        "hostParent": "",
+        "dialog": {
+          "open": false,
+          "modal": false,
+          "scrollTop": 0,
+          "scrollHeight": 0,
+          "clientHeight": 0,
+          "scrollWidth": 0,
+          "clientWidth": 0,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        },
+        "name": "Felâk Sûresi",
+        "active": "r1064CurrentReadingOpen",
+        "session": {
+          "version": "r919",
+          "build": "r1101",
+          "revision": 28,
+          "reason": "snapshot",
+          "sessionId": "mvdryp0s:4",
+          "epoch": 4,
+          "requestId": 1,
+          "activeMode": "koruma",
+          "activeName": "Felâk Sûresi",
+          "activeIndex": 0,
+          "arabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِنْ شَرِّ مَا خَلَقَ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+          "canonical": {
+            "mode": "koruma",
+            "index": 0,
+            "name": "Felâk Sûresi",
+            "count": 0,
+            "target": 33
+          },
+          "smartSession": null,
+          "count": 0,
+          "countRaw": 0,
+          "target": 33,
+          "remaining": 33,
+          "progress": 0,
+          "journeyIndex": null,
+          "journeyKind": "single",
+          "journeyRunning": false,
+          "journeyPaused": false,
+          "journeyComplete": false,
+          "presentationOnly": false,
+          "journey": {
+            "kind": null,
+            "active": false,
+            "selected": "single",
+            "total": 5,
+            "index": null,
+            "complete": false,
+            "paused": false
+          },
+          "owner": "",
+          "provider": "mix",
+          "phase": "IDLE",
+          "playbackState": "idle",
+          "playing": false,
+          "paused": false,
+          "preparing": false,
+          "audioSource": "USER_RECORDING",
+          "sourceOrigin": "personal",
+          "recordingOrigin": "personal",
+          "sourceMetadata": {
+            "kind": "USER_RECORDING",
+            "origin": "personal",
+            "recorded": true,
+            "provenance": "resolver"
+          },
+          "recordingSource": "USER_RECORDING",
+          "sourceLabel": "KENDİ KAYIT",
+          "sceneId": null,
+          "resolvedSceneId": "mevlevi",
+          "backgroundState": "ready",
+          "isForeground": true,
+          "isTefekkur": true,
+          "error": null,
+          "consistency": {
+            "dualJourney": false,
+            "audioIssues": []
+          }
+        },
+        "player": {
+          "playing": false,
+          "paused": false,
+          "token": 4,
+          "index": 0
+        },
+        "clicks": [
+          {
+            "id": "obSkip",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 11305.60000000149
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 11920
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 14903.5
+          },
+          {
+            "id": "r938PanelToggle",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 17014.5
+          },
+          {
+            "id": "r920TefEnter",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 17758.10000000149
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 19697.39999999851
+          },
+          {
+            "id": "",
+            "tag": "SUMMARY",
+            "trusted": true,
+            "at": 22819.79999999702
+          },
+          {
+            "id": "",
+            "tag": "SUMMARY",
+            "trusted": true,
+            "at": 23484.5
+          },
+          {
+            "id": "",
+            "tag": "SUMMARY",
+            "trusted": true,
+            "at": 24091.89999999851
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 25402.29999999702
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 26059.5
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 31404.29999999702
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 33683.79999999702
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 34380.79999999702
+          },
+          {
+            "id": "r938PanelToggle",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 37487.5
+          },
+          {
+            "id": "r920TefEnter",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 38038.89999999851
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 39363.29999999702
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": false,
+            "at": 40211.79999999702
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": false,
+            "at": 41668.29999999702
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": false,
+            "at": 43163.79999999702
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": false,
+            "at": 43253.60000000149
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 46095
+          },
+          {
+            "id": "r938PanelToggle",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 60050
+          },
+          {
+            "id": "r920TefEnter",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 62101.39999999851
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 64693.10000000149
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 65814
+          }
+        ]
+      }
+    },
+    {
+      "label": "1280x900",
+      "pageErrors": [],
+      "failedRequests": [],
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "externalBlocked": [
+        "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      ],
+      "final": {
+        "body": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r588-dock-ready r716-shell r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread sukun-jewel-r798 r920-practice-on r431-dock-ready r588-mode-mini r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r433-dock-enhanced r434-inline-details-ready r920-dock r474-zikir-active r920-details-open sukun-zikir-tab r591-flow-active sukun-focus-mode sukun-tefekkur-mode",
+        "ui": {
+          "mounted": true,
+          "yasinMounted": true,
+          "selected": "zikir:koruma:0",
+          "language": "tr",
+          "modalOpen": false
+        },
+        "tef": true,
+        "hostParent": "",
+        "dialog": {
+          "open": false,
+          "modal": false,
+          "scrollTop": 0,
+          "scrollHeight": 0,
+          "clientHeight": 0,
+          "scrollWidth": 0,
+          "clientWidth": 0,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        },
+        "name": "Felâk Sûresi",
+        "active": "r1064CurrentReadingOpen",
+        "session": {
+          "version": "r919",
+          "build": "r1101",
+          "revision": 28,
+          "reason": "snapshot",
+          "sessionId": "mvds05bw:4",
+          "epoch": 4,
+          "requestId": 1,
+          "activeMode": "koruma",
+          "activeName": "Felâk Sûresi",
+          "activeIndex": 0,
+          "arabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِنْ شَرِّ مَا خَلَقَ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+          "canonical": {
+            "mode": "koruma",
+            "index": 0,
+            "name": "Felâk Sûresi",
+            "count": 0,
+            "target": 33
+          },
+          "smartSession": null,
+          "count": 0,
+          "countRaw": 0,
+          "target": 33,
+          "remaining": 33,
+          "progress": 0,
+          "journeyIndex": null,
+          "journeyKind": "single",
+          "journeyRunning": false,
+          "journeyPaused": false,
+          "journeyComplete": false,
+          "presentationOnly": false,
+          "journey": {
+            "kind": null,
+            "active": false,
+            "selected": "single",
+            "total": 5,
+            "index": null,
+            "complete": false,
+            "paused": false
+          },
+          "owner": "",
+          "provider": "mix",
+          "phase": "IDLE",
+          "playbackState": "idle",
+          "playing": false,
+          "paused": false,
+          "preparing": false,
+          "audioSource": "USER_RECORDING",
+          "sourceOrigin": "personal",
+          "recordingOrigin": "personal",
+          "sourceMetadata": {
+            "kind": "USER_RECORDING",
+            "origin": "personal",
+            "recorded": true,
+            "provenance": "resolver"
+          },
+          "recordingSource": "USER_RECORDING",
+          "sourceLabel": "KENDİ KAYIT",
+          "sceneId": null,
+          "resolvedSceneId": "mevlevi",
+          "backgroundState": "ready",
+          "isForeground": true,
+          "isTefekkur": true,
+          "error": null,
+          "consistency": {
+            "dualJourney": false,
+            "audioIssues": []
+          }
+        },
+        "player": {
+          "playing": false,
+          "paused": false,
+          "token": 4,
+          "index": 0
+        },
+        "clicks": [
+          {
+            "id": "obSkip",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 10715
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 11141.29999999702
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 12792.69999999553
+          },
+          {
+            "id": "r938PanelToggle",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 13634.5
+          },
+          {
+            "id": "r920TefEnter",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 14277.09999999404
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 16049.39999999851
+          },
+          {
+            "id": "",
+            "tag": "SUMMARY",
+            "trusted": true,
+            "at": 18394.89999999851
+          },
+          {
+            "id": "",
+            "tag": "SUMMARY",
+            "trusted": true,
+            "at": 18757.89999999851
+          },
+          {
+            "id": "",
+            "tag": "SUMMARY",
+            "trusted": true,
+            "at": 19224.79999999702
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 20350.09999999404
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 20996.69999999553
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 24505.89999999851
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 26826.69999999553
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 27361.29999999702
+          },
+          {
+            "id": "r938PanelToggle",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 30283.29999999702
+          },
+          {
+            "id": "r920TefEnter",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 30807.29999999702
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 31629.69999999553
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": false,
+            "at": 31961.59999999404
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": false,
+            "at": 34087.09999999404
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": false,
+            "at": 34908.39999999851
+          },
+          {
+            "id": "",
+            "tag": "BUTTON",
+            "trusted": false,
+            "at": 34990.19999999553
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 37748.69999999553
+          },
+          {
+            "id": "r938PanelToggle",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 50040.69999999553
+          },
+          {
+            "id": "r920TefEnter",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 51692.5
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 53211.29999999702
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 54282.69999999553
+          },
+          {
+            "id": "r1064CurrentReadingOpen",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 57254.29999999702
+          },
+          {
+            "id": "r1100ReadingClose",
+            "tag": "BUTTON",
+            "trusted": true,
+            "at": 58268.89999999851
+          }
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "Isolated headless Linux Chromium at 320×740, 393×873 and 1280×900. This does not establish physical Samsung/Android touch, audible recitation or screen-lock behavior.",
+    "Open, close, disclosure, source/content/select, Escape and wheel scrolling use trusted Playwright browser input. Setup, programmatic tefekkür exit, tab selection, event bursts, access grant/revocation and simulated legacy group reconstruction use explicitly labelled production APIs or DOM simulation.",
+    "The active-audio case stores a labelled generated 30-second PCM tone only in disposable personal-recording storage and starts the actual smart-session controller. Native HTMLMediaElement play/pause/currentTime/ended are observed, never replaced.",
+    "Byte-for-byte local production sources are served with service workers blocked; there is no live user profile, microphone or private recording."
+  ],
+  "browser": "138.0.7204.0",
+  "total": 25,
+  "passed": 25,
+  "allPassed": true,
+  "sourceSha256After": {
+    "index.html": "a4e62d755946630a8015c129f56948a7f426e95fa2ec73b41ad7dc32af1e0271",
+    "nero.html": "a4e62d755946630a8015c129f56948a7f426e95fa2ec73b41ad7dc32af1e0271",
+    "assets/runtime/reading-ui-r1064.js": "e64203292bbb461b87526679593bf28b5cc43bc53e4ffc56acadea719572c09c",
+    "assets/runtime/reading-ui-r1064.css": "c7e5ad5f763e51c806602b77bdc202ff2c9d491e461aa6ea1260a99e0a49d8b9",
+    "sw.js": "4ea8808cb723cb33cc6dba49199abc53cd8a3dd4289edacd4cb25144026aecc3"
+  },
+  "servedFiles": 139,
+  "completedAt": "2026-10-18T12:03:34.919Z",
+  "testSha256": "f0e97d8c4718818e8e84d22bb652b29784c2111ba17fdd617bd1613f9f6de0ac"
+}

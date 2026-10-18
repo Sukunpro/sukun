@@ -1,0 +1,25 @@
+'use strict';
+// Separately reproduce repeat-setting persistence using trusted keyboard input.
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const {fixture,wav,hash}=require('../r1064/browser-fixture.cjs');
+const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
+const output=path.resolve(process.argv[3]||'/tmp/r1101-native-repeat-esma-settings.json');
+const report={scope:'Isolated Classic/Feyz; trusted keyboard repeat selection, custom number edit and trusted UI Play. Generated disposable tones only; no live profile.',sourceSha256:hash(fs.readFileSync(path.join(root,'nero.html'))),testSha256:hash(fs.readFileSync(__filename)),startedAt:new Date().toISOString()};
+let f,p;
+async function state(){return p.evaluate(()=>({native:{mode:document.getElementById('es99Mode').value,custom:document.getElementById('es99Custom').value},compact:{mode:document.getElementById('r920RepeatMode').value,custom:document.getElementById('r920RepeatCustom').value},journey:SukunEsma99Seyir.state(),session:SukunSessionState.snapshot(),owner:SukunTabOwner.snapshot(),legacy:localStorage.getItem('sukun.esma99.seyir.state'),journal:SukunProgressJournal.snapshot(),journalRaw:localStorage.getItem(SukunProgressJournal.key),events:window.__nativeRepeatEvents||[]}))}
+async function idle(){await p.waitForFunction(()=>!SukunInteractionGateR732.active());await p.waitForTimeout(100)}
+(async()=>{try{
+ f=await fixture(root,{width:390,height:844,seed:{'sukun.onboardSeen':'1','sukun.obDone':'1','sukun.obSeenBuild':'"2026-08-06-r3"','sukun.esma.background.r923':'classic'}});p=f.page;if(await p.locator('#obSkip').isVisible())await p.locator('#obSkip').click();if(await p.locator('#dcClose').isVisible())await p.locator('#dcClose').click();
+ await p.evaluate(async tone=>{KLT_AC('LABELLED-r1101-native-repeat');const blob=new Blob([Uint8Array.from(atob(tone),c=>c.charCodeAt(0))],{type:'audio/wav'});for(const key of ['esma:0:nida','esma:1:nida']){await REC_DB.set(key,blob);RECKEYS.add(key)}NIYET.on=false;NIYET.spk=false;NIYET.devir=false;ZA.kapali=true;await SukunVoiceSettings.setContent('legacy');await SukunVoiceSettings.setMode('personal');SPK.on=true;SukunR698VoiceIntent.explicit(true);window.__nativeRepeatEvents=[];for(const type of ['input','change','click'])document.addEventListener(type,e=>{if(['r920RepeatMode','r920RepeatCustom','es99Mode','es99Custom','r932EasyPlay'].includes(e.target.id))__nativeRepeatEvents.push({type,id:e.target.id,trusted:e.isTrusted,value:e.target.value,at:performance.now()})},true)},wav(1.3,330).toString('base64'));
+ await p.locator('.tab[data-t="zkr"]').click();await idle();const selected=await p.evaluate(()=>SukunSessionState.command('select',{mode:'esma',index:0,journeyKind:'99'}));assert(selected.accepted);await idle();
+ // Persist a prior default-repeat journey so this reproduces a returning user.
+ await p.locator('#r932EasyPlay').click();await p.waitForFunction(()=>SukunEsma99Seyir.state().run);await p.waitForTimeout(250);await p.evaluate(()=>SukunSessionState.command('stop'));await p.waitForFunction(()=>!SukunTabOwner.snapshot().releasing&&!SukunTabOwner.snapshot().pending);report.priorSaved=await state();await p.evaluate(()=>SukunSessionState.command('select',{mode:'esma',index:0,journeyKind:'99'}));await idle();
+ if(await p.locator('#r938Panel').getAttribute('data-open')!=='true')await p.locator('#r938PanelToggle').click();await p.locator('#r920JourneySettings').evaluate(n=>n.open=true);await idle();
+ await p.locator('#r920RepeatMode').focus();await p.keyboard.press('End');await p.keyboard.press('Tab');await idle();assert.equal(await p.locator('#r920RepeatMode').inputValue(),'custom');
+ await p.locator('#r920RepeatCustom').focus();await p.keyboard.press('Control+A');await p.keyboard.type('99');await p.keyboard.press('Tab');await idle();
+ report.beforePlay=await state();assert.equal(report.beforePlay.native.mode,'custom');assert.equal(report.beforePlay.native.custom,'99');
+ await p.locator('#r932EasyPlay').click();await idle();await p.waitForTimeout(450);report.afterPlay=await state();
+ assert(report.beforePlay.events.some(e=>e.id==='r920RepeatMode'&&e.type==='change'&&e.trusted));assert(report.beforePlay.events.some(e=>e.id==='r920RepeatCustom'&&e.type==='input'&&e.trusted));assert(report.afterPlay.events.some(e=>e.id==='r932EasyPlay'&&e.type==='click'&&e.trusted));
+ report.repeatSettingRetained=report.afterPlay.native.mode==='custom'&&report.afterPlay.native.custom==='99'&&report.afterPlay.session.target===99;
+ report.ok=report.repeatSettingRetained;
+}catch(error){report.error=error.stack||String(error);report.state=await state().catch(()=>null);report.ok=false;}finally{if(f){report.evidence=f.evidence();await p.evaluate(()=>SukunAudioSessionRegistry.stopAll()).catch(()=>{});await f.close()}report.finishedAt=new Date().toISOString();fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({ok:report.ok,repeatSettingRetained:report.repeatSettingRetained,error:report.error,output}));if(!report.ok)process.exitCode=1}})();

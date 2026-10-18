@@ -1,0 +1,412 @@
+/* r1101: complete the existing Berhetiyye material family.
+ * Load before compact-ui-r1057.css: the first important layer wins. The
+ * canonical selected family is the only skin authority; changing to Esmâ
+ * removes this paint on every tab and on body-level dialogs immediately.
+ * Native controls, hit targets, disclosure state and wheel geometry remain
+ * with their current owners. No decorative overlay intercepts a pointer. */
+@layer sukun-r1101-controls {
+/* The section switch is available after a successful private entry in both
+ * families. Its 44px target is deliberately separate from the summary hit
+ * target; native hidden/disabled states remain authoritative. */
+html body #r920ViewOptions>summary[data-r1101-switch="1"]:has(>#r1101ModeSwitch:not([hidden])) {
+ display:grid!important;grid-template-columns:minmax(0,1fr) max-content 7px!important;
+ align-items:center!important;gap:8px!important;list-style:none!important;
+ min-height:60px!important;padding:8px 12px!important;
+ white-space:normal!important;overflow-wrap:break-word!important;
+}
+html body #r920ViewOptions>summary[data-r1101-switch="1"]:has(>#r1101ModeSwitch:not([hidden]))::-webkit-details-marker {display:none!important}
+html body #r920ViewOptions>summary[data-r1101-switch="1"]:has(>#r1101ModeSwitch:not([hidden]))::before {content:none!important;display:none!important}
+html body #r920ViewOptions>summary[data-r1101-switch="1"]:has(>#r1101ModeSwitch:not([hidden]))::after {
+ content:""!important;display:block!important;position:static!important;
+ width:7px!important;height:7px!important;margin:0!important;box-sizing:border-box!important;
+ border:0!important;border-right:2px solid currentColor!important;border-bottom:2px solid currentColor!important;
+ background:none!important;box-shadow:none!important;opacity:.85!important;
+ grid-column:3!important;grid-row:1!important;transform:rotate(45deg)!important;pointer-events:none!important;
+}
+html body #r920ViewOptions[open]>summary[data-r1101-switch="1"]:has(>#r1101ModeSwitch:not([hidden]))::after {transform:rotate(225deg)!important}
+html body #r920ViewOptions>summary #r1101ModeSwitch {
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ grid-column:2!important;grid-row:1!important;gap:5px!important;flex:0 0 auto!important;
+ position:relative!important;inset:auto!important;box-sizing:border-box!important;
+ width:auto!important;min-width:96px!important;max-width:112px!important;
+ height:44px!important;min-height:44px!important;max-height:44px!important;
+ padding:5px 8px!important;margin:0!important;border:1px solid #c6b77970!important;
+ border-image:none!important;border-radius:10px!important;
+ background:#102e34!important;color:#f4e8c9!important;
+ box-shadow:inset 0 1px 0 #e3d79c24!important;text-shadow:0 1px 2px #001019!important;
+ font:600 11px/1.3 system-ui,sans-serif!important;letter-spacing:0!important;
+ white-space:nowrap!important;overflow:visible!important;touch-action:manipulation!important;
+}
+html body #r920ViewOptions>summary #r1101ModeSwitch[hidden] {display:none!important}
+html body #r1101ModeLabel {color:inherit!important;font:inherit!important}
+html body #r1101ModeSwitch .r1101ModeTrack {
+ display:block!important;position:relative!important;box-sizing:border-box!important;
+ width:30px!important;min-width:30px!important;height:18px!important;flex:0 0 30px!important;
+ border:1px solid #a7b9a98c!important;border-radius:10px!important;
+ background:#0b1c2c!important;box-shadow:inset 0 1px 3px #0007!important;
+}
+html body #r1101ModeSwitch .r1101ModeThumb {
+ display:block!important;position:absolute!important;left:2px!important;top:2px!important;
+ width:12px!important;height:12px!important;border-radius:50%!important;
+ background:#d7ddcf!important;box-shadow:0 1px 3px #001019aa!important;
+}
+html body #r1101ModeSwitch[aria-checked="true"] .r1101ModeTrack {background:#276348!important;border-color:#c7d4a0!important}
+html body #r1101ModeSwitch[aria-checked="true"] .r1101ModeThumb {left:14px!important;background:#f1e7bd!important}
+html body #r1101ModeSwitch:disabled {opacity:.6!important;cursor:default!important}
+html body #r1101ModeSwitch:focus-visible {outline:2px solid #fff0ba!important;outline-offset:3px!important}
+html[data-r1074-theme="berhet"] {
+ /* Local aliases share the original artwork while resolving relative to this
+  * /css/ file, rather than the older /assets/runtime/ consumer. */
+ --r1101-gem-emerald:url('../assets/berhetiyye-premium/gem-emerald-r932.webp');
+ --r1101-gem-sapphire:url('../assets/berhetiyye-premium/gem-sapphire-r933.webp');
+ --r1101-gem-diamond:url('../assets/berhetiyye-premium/gem-diamond-r933.webp');
+ --r1101-gem-ruby:url('../assets/berhetiyye-premium/gem-ruby-r933.webp');
+ --r1101-panel-frame:url('../assets/berhetiyye-premium/panel-emerald-r932.webp');
+ --r1101-ink:#fff0d4;
+ --r1101-muted:#d2e1da;
+ --r1101-line:#d1b77b99;
+ --r1101-glass:linear-gradient(145deg,#0b302cdb,#071b2be8);
+}
+html[data-r1074-theme="berhet"] body #r920ViewOptions>summary #r1101ModeSwitch {
+ border:1px solid transparent!important;
+ border-image:var(--r1101-gem-diamond) 330 fill / 5px / 0 stretch!important;
+ background:#142733!important;box-shadow:none!important;
+}
+html[data-r1074-theme="berhet"] body #r1101ModeSwitch .r1101ModeThumb {
+ background:var(--r1101-gem-diamond) center/100% 100% no-repeat,#d7ddcf!important;
+}
+
+/* Questions were excluded from the older material coat and painted as flat
+ * circles by the compact layer. Keep each existing 32/44px native hit box;
+ * use the same sapphire bezel as the neighbouring field. */
+html[data-r1074-theme="berhet"] body :where(
+ .wrap,#r616ToolsSheet,#r642ZikirInfoLayer,#r920Atlas,
+ #r1100ReadingDialog,#r170SessionHub
+) :is(.dockTipHelp,.qb,.chInfo,.chPrev) {
+ border:1px solid transparent!important;
+ border-image:var(--r1101-gem-sapphire) 330 fill / 5px / 0 stretch!important;
+ background:#0a2637!important;color:var(--r1101-ink)!important;
+ box-shadow:none!important;text-shadow:0 1px 3px #001019!important;
+ -webkit-text-fill-color:currentColor!important;
+}
+html[data-r1074-theme="berhet"] body :where(
+ .wrap,#r616ToolsSheet,#r642ZikirInfoLayer,#r920Atlas,#r1100ReadingDialog
+) :is(.dockTipHelp,.qb,.chInfo,.chPrev):is(
+ [aria-expanded="true"],.on,.active
+) {
+ border-image-source:var(--r1101-gem-emerald)!important;background:#0b392c!important;
+}
+
+/* Inputs need a real hollow frame too. A filled button stone on an editable
+ * field would reduce the useful writing area, especially at 320px. */
+html[data-r1074-theme="berhet"] body :where(
+ .wrap,#r616ToolsSheet,#r642ZikirInfoLayer,#r920Atlas,
+ #r1100ReadingDialog,#r170SessionHub
+) :is(
+ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="color"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+ textarea
+) {
+ box-sizing:border-box!important;
+ border:1px solid var(--r1101-line)!important;
+ border-image:var(--r1101-panel-frame) 250 / 6px / 0 stretch!important;
+ background:#071f2bf2!important;color:var(--r1101-ink)!important;
+ caret-color:#ffe2a5!important;
+ box-shadow:inset 0 1px 0 #e7d39324!important;
+ color-scheme:dark!important;
+}
+html[data-r1074-theme="berhet"] body :where(
+ .wrap,#r616ToolsSheet,#r642ZikirInfoLayer,#r920Atlas,#r1100ReadingDialog,#r170SessionHub
+) :is(input,textarea)::placeholder {color:#bfcfc8!important;opacity:1!important}
+html[data-r1074-theme="berhet"] body :where(
+ .wrap,#r616ToolsSheet,#r642ZikirInfoLayer,#r920Atlas,#r1100ReadingDialog,#r170SessionHub
+) :is(select) {
+ border:1px solid transparent!important;
+ border-image:var(--r1101-gem-sapphire) 330 fill / 6px / 0 stretch!important;
+ background:#0a2637!important;color:var(--r1101-ink)!important;
+ box-shadow:none!important;text-shadow:0 1px 2px #001019!important;
+ color-scheme:dark!important;appearance:auto!important;
+}
+html[data-r1074-theme="berhet"] body :where(
+ .wrap,#r616ToolsSheet,#r642ZikirInfoLayer,#r920Atlas,#r1100ReadingDialog,#r170SessionHub
+) :is(select option,select optgroup) {
+ background:#10272b!important;color:#fff0d4!important;text-shadow:none!important;
+}
+html[data-r1074-theme="berhet"] body :where(
+ .wrap,#r616ToolsSheet,#r642ZikirInfoLayer,#r920Atlas,#r1100ReadingDialog,#r170SessionHub
+) :is(input,textarea,select)[aria-invalid="true"] {
+ border-color:#ffb7a5!important;outline:2px solid #ffb7a5!important;outline-offset:1px!important;
+}
+
+/* Settings cards, row boundaries, source notes and catalogue containers were
+ * still using the base theme's thin green lines. Text stays on dark glass;
+ * only the boundary receives the hollow emerald/gold artwork. */
+html[data-r1074-theme="berhet"] body :where(#tab-zkr,#r616ToolsSheet) :is(
+ .jEd,.r616SheetCard,.r616AccCard,.r616Card,.zMegaGroup,.zMegaBody,
+ #r852VoiceCard,#targetPremium,.targetDetailCard,#niyetBox .niyetCard,
+ #r971ManualFeedbackSettings,#r972TickSoundSettings,.r948-card,
+ #r1064ReadingExplorer,#r1064YasinBox,#r1064ReadingSources,
+ #r1095ImagePack,#r170Studio,#r1094SourceMatrix,.r1094-matrix-card,
+ #r1019StudioBatch,#r1092Preflight,
+ #r923SceneNotes,#r924WheelGalleryDetails,#r920JourneySettings,
+ #r920ViewOptions,#r679ZikirAyarBox,#r932QuickPicker
+) {
+ border:1px solid var(--r1101-line)!important;
+ border-image:var(--r1101-panel-frame) 250 / 7px / 0 stretch!important;
+ background:var(--r1101-glass)!important;color:var(--r1101-ink)!important;
+ box-shadow:none!important;
+}
+html[data-r1074-theme="berhet"] body #r852VoiceCard {
+ padding:10px!important;
+}
+/* New offline/source/studio features deliberately declared local flat paint
+ * after the older coat. Include them explicitly, with semantic action stones
+ * and no overrides to their wrapping, font size or minimum touch height. */
+html[data-r1074-theme="berhet"] body :is(
+ #r1095ImagePack,#r170Studio,#r1092Preflight
+) :where(button:not(.sw):not(.dockTipHelp),summary) {
+ border:1px solid transparent!important;
+ border-image:var(--r1101-gem-sapphire) 330 fill / 6px / 0 stretch!important;
+ background:#0a2637!important;color:var(--r1101-ink)!important;
+ box-shadow:none!important;text-shadow:0 1px 3px #001019!important;
+}
+html[data-r1074-theme="berhet"] body :is(
+ #r962OfflineScenes,#r1095ImageCheck,#r1094MatrixCheck,#r1092PreflightCheck,
+ #r170Norm,#r170Trim,[data-batch-apply]
+) {
+ border-image-source:var(--r1101-gem-emerald)!important;background:#0b392c!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r170ReRec,#r170Studio .recording) {
+ border-image-source:var(--r1101-gem-ruby)!important;background:#401023!important;
+}
+html[data-r1074-theme="berhet"] body :is(
+ #r1095ImageCancel,#r1094MatrixCancel,[data-batch-cancel],[data-batch-undo]
+) {
+ border-image-source:var(--r1101-gem-diamond)!important;background:#142733!important;
+}
+html[data-r1074-theme="berhet"] body #r170Studio :is(.r170StudioMeta>div,#r170Wave) {
+ border:1px solid var(--r1101-line)!important;
+ border-image:var(--r1101-panel-frame) 250 / 5px / 0 stretch!important;
+ background:#071f2b!important;color:var(--r1101-ink)!important;
+}
+html[data-r1074-theme="berhet"] body :is(
+ #r1095ImagePack,#r1094SourceMatrix,#r1092Preflight,#r1019StudioBatch
+) :is(p,small,label) {color:var(--r1101-muted)!important;text-shadow:0 1px 2px #001019!important}
+html[data-r1074-theme="berhet"] body :is(
+ #r1095ImagePack,#r1094SourceMatrix,#r1092Preflight,#r1019StudioBatch
+) :is(legend,h4) {color:#f4d996!important;text-shadow:0 1px 2px #001019!important}
+html[data-r1074-theme="berhet"] body :is(#r1095ImagePack,#r1094SourceMatrix,#r1019StudioBatch) progress {
+ accent-color:#b8c28a!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r1056FocusControlsToggle,#r1064CurrentReadingOpen) {
+ border:1px solid transparent!important;
+ border-image:var(--r1101-gem-diamond) 330 fill / 5px / 0 stretch!important;
+ background:#142733!important;color:var(--r1101-ink)!important;
+ box-shadow:none!important;text-shadow:0 1px 2px #001019!important;
+}
+/* The visual scene picker intentionally resets both families to flat paint.
+ * Restore Berhetiyye's jewels here without changing preview dimensions or
+ * painting a filled gemstone over any thumbnail or its caption. */
+html[data-r1074-theme="berhet"] body :is(#r945OpenScenes,#r945SceneClose,#r945SceneAuto,#r945ScenePrev,#r945SceneNext) {
+ border:1px solid transparent!important;
+ border-image:var(--r1101-gem-sapphire) 330 fill / 6px / 0 stretch!important;
+ background:#0a2637!important;color:var(--r1101-ink)!important;
+ box-shadow:none!important;text-shadow:0 1px 2px #001019!important;
+}
+html[data-r1074-theme="berhet"] body #r945SceneClose {
+ border-image-source:var(--r1101-gem-diamond)!important;background:#142733!important;
+}
+html[data-r1074-theme="berhet"] body #r945SceneAuto[aria-pressed="true"] {
+ border-image-source:var(--r1101-gem-emerald)!important;background:#0b392c!important;
+}
+html[data-r1074-theme="berhet"] body #r945SceneGrid .r945SceneCard {
+ border:1px solid var(--r1101-line)!important;
+ border-image:var(--r1101-panel-frame) 250 / 5px / 0 stretch!important;
+ background:var(--r1101-glass)!important;box-shadow:none!important;
+}
+html[data-r1074-theme="berhet"] body #r945SceneGrid .r945SceneCard[aria-pressed="true"] {
+ border-color:#fff0bb!important;border-image-width:7px!important;
+ background:linear-gradient(145deg,#19553ff0,#082a32f0)!important;
+ box-shadow:inset 0 -3px 0 #b3deb9!important;
+}
+html[data-r1074-theme="berhet"] body :where(#r679ZikirAyarBox,#r616ToolsSheet) :is(.opt,.targetModeRow) {
+ border-color:#cbb47b55!important;
+ background:linear-gradient(135deg,#0b2b2c87,#081b2b87)!important;
+ color:var(--r1101-ink)!important;
+}
+html[data-r1074-theme="berhet"] body :where(#tab-zkr,#r616ToolsSheet) :is(
+ .r1056SettingsGroupTitle,.zGrupBas,.r852VoiceHead b,legend,.r616AccTitle
+) {color:#f4d996!important;text-shadow:0 1px 2px #001019!important}
+html[data-r1074-theme="berhet"] body :where(#tab-zkr,#r616ToolsSheet) :is(
+ .hint,.r852VoiceNote,.r852VoiceHead small,.r679SettingsTitle small,
+ .r920FocusLabel,.r920AtlasLegend,.r1064-note,.r1064-field,
+ .r1064-verse-meaning,#r924WheelStatus,#r962OfflineStatus,.valB
+) {color:var(--r1101-muted)!important;text-shadow:0 1px 2px #001019!important}
+
+/* Native range rails and switch thumbs keep their original measurements and
+ * positions. Both Chromium and Firefox receive the same material treatment. */
+html[data-r1074-theme="berhet"] body :where(
+ .wrap,#r616ToolsSheet,#r1100ReadingDialog,#r642ZikirInfoLayer,#r170SessionHub
+) :is(input[type="range"],input[type="checkbox"],input[type="radio"]) {
+ accent-color:#a3d8ad!important;
+}
+html[data-r1074-theme="berhet"] body :where(
+ .wrap,#r616ToolsSheet,#r1100ReadingDialog,#r642ZikirInfoLayer,#r170SessionHub
+) input[type="range"]::-webkit-slider-runnable-track {
+ border-color:#c5ad74!important;background:linear-gradient(90deg,#bfa66c,#3c7259)!important;
+}
+html[data-r1074-theme="berhet"] body :where(
+ .wrap,#r616ToolsSheet,#r1100ReadingDialog,#r642ZikirInfoLayer,#r170SessionHub
+) input[type="range"]::-moz-range-track {
+ border-color:#c5ad74!important;background:linear-gradient(90deg,#bfa66c,#3c7259)!important;
+}
+html[data-r1074-theme="berhet"] body :where(
+ .wrap,#r616ToolsSheet,#r1100ReadingDialog,#r642ZikirInfoLayer,#r170SessionHub
+) input[type="range"]::-webkit-slider-thumb {
+ border-color:#d7bd7f!important;background:var(--r1101-gem-diamond) center/100% 100% no-repeat,#d8dac7!important;
+ box-shadow:0 1px 3px #001019aa!important;
+}
+html[data-r1074-theme="berhet"] body :where(
+ .wrap,#r616ToolsSheet,#r1100ReadingDialog,#r642ZikirInfoLayer,#r170SessionHub
+) input[type="range"]::-moz-range-thumb {
+ border-color:#d7bd7f!important;background:var(--r1101-gem-diamond) center/100% 100% no-repeat,#d8dac7!important;
+ box-shadow:0 1px 3px #001019aa!important;
+}
+html[data-r1074-theme="berhet"] body :where(.wrap,#r616ToolsSheet) button.sw:not(#arTgl):not(#optSpeak)::before {
+ border-color:#c5ad748c!important;background:linear-gradient(145deg,#253747,#0c1b29)!important;
+}
+html[data-r1074-theme="berhet"] body :where(.wrap,#r616ToolsSheet) button.sw:not(#arTgl):not(#optSpeak)::after {
+ background:var(--r1101-gem-diamond) center/100% 100% no-repeat,#d8dac7!important;
+ box-shadow:0 1px 3px #001019aa!important;
+}
+html[data-r1074-theme="berhet"] body :where(.wrap,#r616ToolsSheet) button.sw.on:not(#arTgl):not(#optSpeak)::before {
+ border-color:#d4c38c!important;background:linear-gradient(145deg,#246c4f,#0b392c)!important;
+}
+html[data-r1074-theme="berhet"] body :where(.wrap,#r616ToolsSheet) button.sw.on:not(#arTgl):not(#optSpeak)::after {
+ background:var(--r1101-gem-emerald) center/100% 100% no-repeat,#acdcb6!important;
+}
+
+/* Shared help bubbles and the r1100 reader live directly under body, outside
+ * the practice subtree. Their existing scroll/focus/position owners stay
+ * untouched; the complete window now follows the selected material family. */
+html[data-r1074-theme="berhet"] body :is(
+ #dockTip,#r443TefHelp,#r1100ReadingDialog,#r642ZikirInfoCard,#r920Atlas,#r920AtlasDetail
+) {
+ border:1px solid var(--r1101-line)!important;
+ border-image:var(--r1101-panel-frame) 250 / 8px / 0 stretch!important;
+ background:linear-gradient(145deg,#0b302cf7,#071b2bf9)!important;
+ color:var(--r1101-ink)!important;
+ box-shadow:0 14px 40px #0008!important;text-shadow:0 1px 2px #001019!important;
+}
+html[data-r1074-theme="berhet"] body #r1100ReadingDialog::backdrop,
+html[data-r1074-theme="berhet"] body #r920Atlas::backdrop {background:#020b17bf!important}
+html[data-r1074-theme="berhet"] body #r1100ReadingDialog .r1100-reading-head {
+ background:#0a2330!important;border-bottom-color:#d1b77b66!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r1100ReadingTitle,#dockTip b,#r920AtlasTitle) {
+ color:#f4d996!important;-webkit-text-fill-color:currentColor!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r1100ReadingDialog,#r920Atlas,#r642ZikirInfoCard) :where(
+ button:not(.sw):not(.dockTipHelp):not(.r746EsmaCardBtn),summary
+) {
+ border:1px solid transparent!important;
+ border-image:var(--r1101-gem-sapphire) 330 fill / 6px / 0 stretch!important;
+ background:#0a2637!important;color:var(--r1101-ink)!important;
+ box-shadow:none!important;text-shadow:0 1px 3px #001019!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r1100ReadingDialog,#r920Atlas) :is(
+ button[aria-pressed="true"],#r920AtlasChoose,#r1065AutoListen
+) {
+ border-image-source:var(--r1101-gem-emerald)!important;background:#0b392c!important;
+}
+html[data-r1074-theme="berhet"] body :is(#dockTip,#r443TefHelp) .r998TipClose,
+html[data-r1074-theme="berhet"] body :is(#r1100ReadingClose,#r920AtlasClose) {
+ border:1px solid transparent!important;
+ border-image:var(--r1101-gem-diamond) 330 fill / 5px / 0 stretch!important;
+ background:#142733!important;color:var(--r1101-ink)!important;
+ box-shadow:none!important;text-shadow:0 1px 2px #001019!important;
+}
+html[data-r1074-theme="berhet"] body #r1100ReadingDialog :is(
+ #r1064ReadingExplorer,#r1064ReadingExplorer>.r1064-content
+) {border:0!important;border-image:none!important;background:none!important;box-shadow:none!important}
+html[data-r1074-theme="berhet"] body #r1100ReadingDialog :is(
+ .r1064-note,.r1064-field,.r1064-verse-meaning,#r1064ReadingMeaningStatus
+) {color:var(--r1101-muted)!important}
+html[data-r1074-theme="berhet"] body #r1100ReadingDialog :is(
+ .r1064-arabic,.r1064-latin,.r1064-meaning
+) {color:var(--r1101-ink)!important}
+html[data-r1074-theme="berhet"] body #r1100ReadingDialog a {color:#f5d792!important}
+
+/* Keyboard focus remains explicit over every stone; pointer/touch geometry
+ * is unchanged, including compact questions, previews and premium wheels. */
+html[data-r1074-theme="berhet"] body :where(
+ .wrap,#r616ToolsSheet,#r642ZikirInfoLayer,#r920Atlas,
+ #r1100ReadingDialog,#dockTip,#r443TefHelp,#r170SessionHub
+) :is(button,summary,input,textarea,select,a):not(:where(#r924WheelFrame *)):focus-visible {
+ outline:2px solid #fff0ba!important;outline-offset:3px!important;
+}
+@media(forced-colors:active) {
+ html[data-r1074-theme="berhet"] {
+  --r1101-gem-emerald:none;--r1101-gem-sapphire:none;
+  --r1101-gem-diamond:none;--r1101-gem-ruby:none;--r1101-panel-frame:none;
+ }
+ html body #r920ViewOptions>summary #r1101ModeSwitch,
+ html[data-r1074-theme="berhet"] body #r920ViewOptions>summary #r1101ModeSwitch,
+ html body #r1101ModeSwitch .r1101ModeTrack,
+ html body #r1101ModeSwitch .r1101ModeThumb,
+ html[data-r1074-theme="berhet"] body #r1101ModeSwitch .r1101ModeThumb {
+  border-image:none!important;border-color:ButtonText!important;background:Canvas!important;
+  color:CanvasText!important;text-shadow:none!important;box-shadow:none!important;
+ }
+ html body #r1101ModeSwitch .r1101ModeThumb {border:1px solid ButtonText!important}
+ html body #r1101ModeSwitch[aria-checked="true"] .r1101ModeTrack {background:Highlight!important}
+ html body #r1101ModeSwitch:focus-visible {outline-color:Highlight!important}
+ html[data-r1074-theme="berhet"] body :where(
+  .wrap,#r616ToolsSheet,#r642ZikirInfoLayer,#r920Atlas,#r1100ReadingDialog,
+  #dockTip,#r443TefHelp,#r170SessionHub
+ ) :is(button,summary,input,textarea,select,.jEd,.zMegaGroup,.zMegaBody,
+  .r616SheetCard,.r616AccCard,.r616Card,#r852VoiceCard,#targetPremium,.targetDetailCard,
+  #r971ManualFeedbackSettings,#r972TickSoundSettings,.opt,.targetModeRow,
+  #r1095ImagePack,#r170Studio,#r1094SourceMatrix,.r1094-matrix-card,
+  #r1019StudioBatch,#r1092Preflight,.r170StudioMeta>div,#r170Wave,
+  #r945SceneGrid .r945SceneCard,#r945SceneGrid .r945SceneCard[aria-pressed="true"],
+  .r1064-field,.r1064-note,.r1064-arabic,.r1064-latin,.r1064-meaning),
+ html[data-r1074-theme="berhet"] body :is(
+  #dockTip,#r443TefHelp,#r1100ReadingDialog,#r642ZikirInfoCard,#r920Atlas,#r920AtlasDetail
+ ),
+ html[data-r1074-theme="berhet"] body #r1100ReadingDialog .r1100-reading-head {
+  border-image:none!important;border-color:CanvasText!important;
+  background:Canvas!important;color:CanvasText!important;
+  -webkit-text-fill-color:currentColor!important;text-shadow:none!important;box-shadow:none!important;
+ }
+ html[data-r1074-theme="berhet"] body :where(.wrap,#r616ToolsSheet) button.sw::before,
+ html[data-r1074-theme="berhet"] body :where(.wrap,#r616ToolsSheet) button.sw::after {
+  background:Canvas!important;border-color:ButtonText!important;box-shadow:none!important;
+ }
+ html[data-r1074-theme="berhet"] body :where(.wrap,#r616ToolsSheet) button.sw.on::after {
+  background:Highlight!important;
+ }
+ html[data-r1074-theme="berhet"] body :where(
+  .wrap,#r616ToolsSheet,#r642ZikirInfoLayer,#r920Atlas,#r1100ReadingDialog,#r170SessionHub
+ ) :is(input[type="range"])::-webkit-slider-runnable-track {
+  border-color:ButtonText!important;background:Canvas!important;
+ }
+ html[data-r1074-theme="berhet"] body :where(
+  .wrap,#r616ToolsSheet,#r642ZikirInfoLayer,#r920Atlas,#r1100ReadingDialog,#r170SessionHub
+ ) :is(input[type="range"])::-webkit-slider-thumb {
+  border-color:ButtonText!important;background:ButtonText!important;box-shadow:none!important;
+ }
+ html[data-r1074-theme="berhet"] body :where(
+  .wrap,#r616ToolsSheet,#r642ZikirInfoLayer,#r920Atlas,#r1100ReadingDialog,#r170SessionHub
+ ) :is(input[type="range"])::-moz-range-track {
+  border-color:ButtonText!important;background:Canvas!important;
+ }
+ html[data-r1074-theme="berhet"] body :where(
+  .wrap,#r616ToolsSheet,#r642ZikirInfoLayer,#r920Atlas,#r1100ReadingDialog,#r170SessionHub
+ ) :is(input[type="range"])::-moz-range-thumb {
+  border-color:ButtonText!important;background:ButtonText!important;box-shadow:none!important;
+ }
+ html[data-r1074-theme="berhet"] body :where(
+  .wrap,#r616ToolsSheet,#r642ZikirInfoLayer,#r920Atlas,#r1100ReadingDialog,#r170SessionHub
+ ) :is(button,summary,input,textarea,select,a):focus-visible {outline-color:Highlight!important}
+}
+}

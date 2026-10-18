@@ -12,6 +12,10 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 EXCLUDED = {
+    'tests/r1101/frequency-hub-browser.cjs': 'Separate native unified frequency tools, actual synthesis, shared pause and speech ownership browser suite.',
+    'tests/r1101/section-controls-browser.cjs': 'Separate native Berhetiyye materials, family switch and foreground-owner browser suite.',
+    'tests/r1101/native-repeat-settings-browser.cjs': 'Separate trusted returning-user journey28 repeat preference browser regression.',
+    'tests/r1101/native-repeat-esma-settings-browser.cjs': 'Separate trusted returning-user journey99 repeat preference browser regression.',
     'tests/r1098/recording-onset-browser.cjs': 'Separate full-application native Chromium recording onset, pooled repeat and quiet-phoneme retention suite.',
     'tests/r1097/studio-webm-browser.cjs': 'Executed separately against frozen r1097 with shipped WebM originals in native Chromium.',
     'tests/r1096/studio-browser.cjs': 'Executed separately against frozen r1096 full application in native Chromium.',

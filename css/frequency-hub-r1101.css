@@ -1,0 +1,59 @@
+/* The existing Frekanslar synth is the only frequency control surface. */
+@layer sukun-r1101-controls {
+html body #r1101FrequencyHub :is(.r1101FrequencyIntro,.r1101FrequencyNote,#r1101FrequencyState),
+html body #r1101FrequencyHub #ns :is(.control-label,.module-subtitle,.libNote,.spectrum-label,.breath-mode-desc,.session-stat-lbl,.libChip,.mood-chip,.toggle-btn,.timer-btn){
+ color:#d3e3df!important;-webkit-text-fill-color:currentColor!important;opacity:1!important;
+}
+html body #r1101FrequencyToolsToggle{color:#f4e8c9!important;-webkit-text-fill-color:currentColor!important;text-shadow:0 1px 2px #001019!important}
+html body #r1101FrequencyHub .r1101FrequencyTools{background:rgba(5,24,32,.92)!important}
+html[data-r1074-theme="berhet"] body #r1101FrequencyHub .r1101FrequencyTools{background:rgba(10,22,44,.94)!important}
+@media(forced-colors:active){
+ html body #r1101FrequencyHub :is(.r1101FrequencyIntro,.r1101FrequencyNote,#r1101FrequencyState),
+ html body #r1101FrequencyHub #ns :is(.control-label,.module-subtitle,.libNote,.spectrum-label,.breath-mode-desc,.session-stat-lbl,.libChip,.mood-chip,.toggle-btn,.timer-btn),
+ html body #r1101FrequencyToolsToggle{color:CanvasText!important;text-shadow:none!important}
+ html body #r1101FrequencyHub .r1101FrequencyTools,
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub .r1101FrequencyTools{background:Canvas!important}
+}
+}
+#neuroBtn{display:none!important}
+#r1101FrequencyHub{margin:0 0 14px;min-width:0;color:var(--text);font-family:inherit}
+.r1101FrequencyTop{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#r1101FrequencyToolsToggle{min-height:44px;font-family:inherit;font-size:12px;line-height:1.4;font-weight:600;letter-spacing:.02em}
+#r1101FrequencyState{font-size:10px;color:var(--dim);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.r1101FrequencyTools{margin-top:10px;border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--glass,rgba(8,18,28,.45));min-width:0}
+.r1101FrequencyIntro,.r1101FrequencyNote{font-family:inherit;font-size:11px;line-height:1.65;font-weight:400;color:var(--dim);margin:0 0 12px;overflow-wrap:anywhere}
+.r1101FrequencyNav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 12px}
+.r1101FrequencyNav button{min-height:44px;padding:8px 6px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.035);color:var(--text);font-family:inherit;font-size:11px;line-height:1.3;font-weight:600;cursor:pointer;overflow-wrap:anywhere}
+.r1101FrequencyNav button.active{color:var(--gold);border-color:var(--gold);background:color-mix(in srgb,var(--gold) 12%,transparent)}
+.r1101FrequencyNav button:focus-visible,#r1101FrequencyToolsToggle:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+#r1101FrequencyHub #ns{position:relative!important;inset:auto!important;z-index:auto!important;overflow:visible!important;min-height:0!important;background:transparent!important;font-family:inherit;color:var(--text);width:100%;max-width:100%;--ghost:var(--text);--ghost-dim:var(--dim);--ghost-faint:var(--line);--purple:var(--gold);--cyan:var(--goldh,var(--gold));--pink:var(--gold);--glass:rgba(12,20,28,.5);--border:var(--line);--border-bright:var(--gold);--glass-light:rgba(255,255,255,.025)}
+#r1101FrequencyHub #ns>.ambient,#r1101FrequencyHub #ns>#nsBack,#r1101FrequencyHub #ns .app>.header,#r1101FrequencyHub #ns .app>#tabNav,#r1101FrequencyHub #ns #panel-main{display:none!important}
+#r1101FrequencyHub #ns>.app{padding:0!important;max-width:none;margin:0;z-index:auto}
+#r1101FrequencyHub #ns [hidden],#r1101FrequencyHub [hidden]{display:none!important}
+#r1101FrequencyHub #ns .card{padding:14px 12px;background:rgba(12,20,28,.4);border-color:var(--line);color:var(--text);box-shadow:none;min-width:0;max-width:100%}
+#r1101FrequencyHub #ns .card-title{color:var(--text);font-size:11px;letter-spacing:.04em}
+#r1101FrequencyHub #ns .module-subtitle,#r1101FrequencyHub #ns .libNote{color:var(--dim);font-size:11px;line-height:1.65}
+#r1101FrequencyHub #ns .control-label{min-width:0}
+#r1101FrequencyHub #ns .control-row{flex-wrap:wrap;gap:8px}
+#r1101FrequencyHub #ns .numIn{min-height:44px;max-width:100%;color:var(--text);border-color:var(--line);background:rgba(0,0,0,.2)}
+#r1101FrequencyHub #ns button,#r1101FrequencyHub #ns [role=button]{touch-action:manipulation}
+#r1101FrequencyHub #ns :is(.libChip,.mood-chip,.toggle-btn,.timer-btn,.ai-send,.cym-btn,.cymSide,.cymPlay,.med-ctrl-btn,.balReset){min-width:44px;min-height:44px;white-space:normal}
+#r1101FrequencyHub #ns :is(.ai-input,.libSearch){font-size:14px;min-height:44px;background:rgba(0,0,0,.2);border-color:var(--line);color:var(--text)}
+#r1101FrequencyHub #ns .libRow{padding:12px;min-height:44px}
+#r1101FrequencyHub #ns .libAZ{gap:5px}
+#r1101FrequencyHub #ns .breath-mode-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#r1101FrequencyHub #ns .breath-mode-card{padding:12px;min-width:0}
+#r1101FrequencyHub #ns .breath-mode-desc{line-height:1.5}
+#r1101FrequencyHub #ns .med-script-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#r1101FrequencyHub #ns .ai-send{right:3px;border-radius:9px}
+#r1101FrequencyHub #ns .ai-input{padding-right:50px}
+#r1101FrequencyHub #ns .toast{position:absolute;bottom:12px;z-index:10;max-width:calc(100% - 12px);white-space:normal}
+#r1101FrequencyHub #ns .toast:not(.show){display:none}
+html[data-r1074-theme="berhet"] #r1101FrequencyHub{--line:rgba(181,190,246,.4)}
+html[data-r1074-theme="berhet"] .r1101FrequencyTools{background:linear-gradient(155deg,rgba(17,27,61,.85),rgba(29,12,52,.8));border-color:rgba(189,187,245,.55);box-shadow:inset 0 1px 0 rgba(255,244,206,.18),0 4px 16px rgba(0,0,0,.22)}
+html[data-r1074-theme="berhet"] .r1101FrequencyNav button{background-image:linear-gradient(160deg,rgba(87,91,157,.25),rgba(9,23,54,.76)),var(--r1101-gem-sapphire);background-size:cover;border:1px solid rgba(182,198,255,.58);box-shadow:inset 0 1px rgba(255,255,255,.25),inset 0 -2px rgba(0,0,0,.4)}
+html[data-r1074-theme="berhet"] .r1101FrequencyNav button.active{border-color:#e7d49b;color:#ffedb8;box-shadow:inset 0 0 12px rgba(112,169,255,.32),0 0 9px rgba(139,117,230,.25)}
+html[data-r1074-theme="berhet"] #r1101FrequencyHub #ns .card{background:linear-gradient(145deg,rgba(23,35,69,.74),rgba(35,13,58,.68));border-color:rgba(173,183,237,.4);box-shadow:inset 0 1px rgba(249,235,188,.12)}
+@media(max-width:380px){.r1101FrequencyTools{padding:8px}.r1101FrequencyNav{gap:5px}.r1101FrequencyNav button{font-size:10px}#r1101FrequencyHub #ns .card{padding:12px 9px}#r1101FrequencyHub #ns .breath-mode-grid,#r1101FrequencyHub #ns .med-script-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){#r1101FrequencyHub #ns *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(forced-colors:active){#r1101FrequencyHub button,#r1101FrequencyHub #ns .card,.r1101FrequencyTools{background:Canvas!important;background-image:none!important;color:CanvasText!important;border:1px solid ButtonText!important;box-shadow:none!important}.r1101FrequencyNav button.active{outline:2px solid Highlight}}
