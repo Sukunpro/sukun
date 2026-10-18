@@ -54,12 +54,28 @@ html body #hybridSheet :is(.hybridBox label,.hybridStatus,.hybridHint,.hybridMet
  color:#dce9e5!important;
  -webkit-text-fill-color:currentColor!important;opacity:1!important;
 }
+/* r1106: put the microphone immediately under the recorded ambience list. */
+html body #tab-amb #mixer>#r1029MicCard {
+ margin:0 0 12px!important;
+}
+/* The frequency presets heading is a standalone label over the scene. */
+html body #tab-frq>#r1106PresetsTitle {
+ background:rgba(5,22,32,.94)!important;
+ color:#fff1d5!important;-webkit-text-fill-color:currentColor!important;
+ opacity:1!important;text-shadow:none!important;
+ padding:8px 10px!important;border-radius:10px!important;
+}
 @media(prefers-reduced-transparency:reduce) {
+ html body #tab-frq>#r1106PresetsTitle {background:#071725!important;}
  html body #tab-amb :is(#hybridLaunch,.r916EmptySounds,.hint,.pD,[role="status"]) {
   background:#071725!important;
  }
 }
 @media(forced-colors:active) {
+ html body #tab-frq>#r1106PresetsTitle {
+  background:Canvas!important;color:CanvasText!important;
+  -webkit-text-fill-color:currentColor!important;
+ }
  html body #tab-amb :is(#hybridLaunch,.r916EmptySounds,.hint,.pD,[role="status"],.bozet,.preAccN),
  html body #tab-amb #mixer .hybridBadge,
  html body #hybridSheet .hybridPanel {
