@@ -1,0 +1,203 @@
+{
+  "suite": "r1111 real finalizer CSS preflight",
+  "sourceBuild": "r1111",
+  "method": "Real Python finalizer and adjacent Node CSS validator against complete miniature r9000/r9001 deployment graphs, recursive before/after path/byte/mode/mtime snapshots on failures, valid SRI/build/SW/inventory/ZIP verification and package-only rerun.",
+  "browserExecuted": false,
+  "limitations": [
+    "This suite checks release preflight behavior and static dependency scope; it does not execute CSS layout, network requests, offline startup or audio.",
+    "Image fixture bytes are a signature-only sentinel because dependency validation checks existence and inventory membership, not image decoding."
+  ],
+  "sourceFiles": {
+    "tools/release_finalize.py": {
+      "bytes": 16174,
+      "sha256": "f94caf3289779a56736a6551399fe9d677f1a8b1ce8a453446616f1d43583937"
+    },
+    "tools/css-assets.cjs": {
+      "bytes": 16432,
+      "sha256": "9d18b0dc5dbd9734541ac94affdd08ba3d9ae57b5025eb4d4333f90cb1eb9391"
+    }
+  },
+  "scriptSha256": "f7cd5617477fdfa1611e03259e873f571ea89ee8817565580e114aee901c9f76",
+  "finishedAt": "2026-10-18T19:39:13.864Z",
+  "passed": 22,
+  "total": 22,
+  "results": [
+    {
+      "name": "Missing image on planned r9001: the initial inventory and canonical shells are internally consistent",
+      "passed": true,
+      "evidence": {
+        "inventoryFiles": 12,
+        "inventoryBytes": 3084
+      }
+    },
+    {
+      "name": "Missing image on planned r9001: real finalizer rejects the concrete CSS dependency",
+      "passed": true,
+      "evidence": {
+        "exitStatus": 1,
+        "expectedErrorCode": "CSS_ASSET_MISSING"
+      }
+    },
+    {
+      "name": "Missing image on planned r9001: every file, directory, byte, mode and modification time is unchanged",
+      "passed": true,
+      "evidence": {
+        "pathsCompared": 17,
+        "oldMetadataByteHashesRetained": true,
+        "mutations": 0
+      }
+    },
+    {
+      "name": "Missing image on planned r9001: no new release metadata, staging files, output directory, ZIP or checksum exists",
+      "passed": true
+    },
+    {
+      "name": "Existing image outside proposed inventory: the initial inventory and canonical shells are internally consistent",
+      "passed": true,
+      "evidence": {
+        "inventoryFiles": 12,
+        "inventoryBytes": 3084
+      }
+    },
+    {
+      "name": "Existing image outside proposed inventory: real finalizer rejects the concrete CSS dependency",
+      "passed": true,
+      "evidence": {
+        "exitStatus": 1,
+        "expectedErrorCode": "CSS_ASSET_NOT_IN_INVENTORY"
+      }
+    },
+    {
+      "name": "Existing image outside proposed inventory: every file, directory, byte, mode and modification time is unchanged",
+      "passed": true,
+      "evidence": {
+        "pathsCompared": 18,
+        "oldMetadataByteHashesRetained": true,
+        "mutations": 0
+      }
+    },
+    {
+      "name": "Existing image outside proposed inventory: no new release metadata, staging files, output directory, ZIP or checksum exists",
+      "passed": true
+    },
+    {
+      "name": "Conditional sheet and imported alias upgraded by later unconditional link: the initial inventory and canonical shells are internally consistent",
+      "passed": true,
+      "evidence": {
+        "inventoryFiles": 12,
+        "inventoryBytes": 3317
+      }
+    },
+    {
+      "name": "Conditional sheet and imported alias upgraded by later unconditional link: real finalizer rejects the concrete CSS dependency",
+      "passed": true,
+      "evidence": {
+        "exitStatus": 1,
+        "expectedErrorCode": "CSS_ASSET_MISSING"
+      }
+    },
+    {
+      "name": "Conditional sheet and imported alias upgraded by later unconditional link: every file, directory, byte, mode and modification time is unchanged",
+      "passed": true,
+      "evidence": {
+        "pathsCompared": 17,
+        "oldMetadataByteHashesRetained": true,
+        "mutations": 0
+      }
+    },
+    {
+      "name": "Conditional sheet and imported alias upgraded by later unconditional link: no new release metadata, staging files, output directory, ZIP or checksum exists",
+      "passed": true
+    },
+    {
+      "name": "Package-only current build with missing image: the initial inventory and canonical shells are internally consistent",
+      "passed": true,
+      "evidence": {
+        "inventoryFiles": 12,
+        "inventoryBytes": 3084
+      }
+    },
+    {
+      "name": "Package-only current build with missing image: real finalizer rejects the concrete CSS dependency",
+      "passed": true,
+      "evidence": {
+        "exitStatus": 1,
+        "expectedErrorCode": "CSS_ASSET_MISSING"
+      }
+    },
+    {
+      "name": "Package-only current build with missing image: every file, directory, byte, mode and modification time is unchanged",
+      "passed": true,
+      "evidence": {
+        "pathsCompared": 17,
+        "oldMetadataByteHashesRetained": true,
+        "mutations": 0
+      }
+    },
+    {
+      "name": "Package-only current build with missing image: no new release metadata, staging files, output directory, ZIP or checksum exists",
+      "passed": true
+    },
+    {
+      "name": "Valid deployment: real Python finalizer writes the release and returns scoped CSS counts",
+      "passed": true,
+      "evidence": {
+        "cssAssets": {
+          "files": 2,
+          "references": 2,
+          "unresolved": 0,
+          "ignored": 3,
+          "scope": "Active external CSS and recursive local imports; no inline/generated CSS, computed cascade, remote retrieval or rendering."
+        },
+        "exitStatus": 0
+      }
+    },
+    {
+      "name": "Valid deployment: planned shell identity and exact CSS/runtime SRI agree",
+      "passed": true,
+      "evidence": {
+        "canonicalShellsEqual": true,
+        "currentReleaseSRI": true,
+        "runtimeOwnerChanged": false
+      }
+    },
+    {
+      "name": "Valid deployment: required worker runtime, build hashes and inventory retain one graph",
+      "passed": true,
+      "evidence": {
+        "runtimeMembers": 3,
+        "inventoryFiles": 13,
+        "inventoryBytes": 3935
+      }
+    },
+    {
+      "name": "Valid deployment: unlinked, disabled and template CSS stays outside the active scope",
+      "passed": true,
+      "evidence": {
+        "activeFiles": [
+          "css/main.css",
+          "css/palette.css"
+        ],
+        "inventoriedInactiveCSS": "css/dormant.css",
+        "unusedMissingAssetAccepted": true
+      }
+    },
+    {
+      "name": "Valid deployment: ZIP and checksum cover the finalized inventory, with no staging files",
+      "passed": true,
+      "evidence": {
+        "zipFiles": 14,
+        "zipBytes": 4600,
+        "zipSha256": "250682074a371eb8c981e0297e77f13faad01038908b5fe34261d7efe2b1d922"
+      }
+    },
+    {
+      "name": "Finalized valid release can be packaged again without any production mutations",
+      "passed": true,
+      "evidence": {
+        "productionMutations": 0,
+        "cssPreflightRepeated": true
+      }
+    }
+  ]
+}

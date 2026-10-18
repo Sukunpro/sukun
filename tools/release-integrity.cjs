@@ -1,5 +1,6 @@
 'use strict';
 const fs=require('fs'),path=require('path'),crypto=require('crypto'),vm=require('vm'),assert=require('assert/strict');
+const {validateCssResources}=require('./css-assets.cjs');
 const root=path.resolve(process.argv[2]||path.join(__dirname,'..')),read=p=>fs.readFileSync(path.join(root,p)),json=p=>JSON.parse(read(p));
 const html=read('index.html').toString(),sw=read('sw.js').toString(),version=read('version.txt').toString().trim(),build=json('sukun-build-'+version+'.json'),site=json('sukun-site-assets-'+version+'.json'),checks=[];
 function check(name,fn){try{assert.notEqual(fn(),false);checks.push({name,passed:true});}catch(e){checks.push({name,passed:false,error:e.message});}}
@@ -27,7 +28,12 @@ check('Site paths are safe and unique',()=>new Set(site.files.map(x=>x.path)).si
 check('Site-manifest bytes sum matches totalBytes',()=>site.files.reduce((n,x)=>n+x.bytes,0)===site.totalBytes);
 for(const x of site.files)check('Site file hash and size '+x.path,()=>read(x.path).length===x.bytes&&sha(read(x.path))===x.sha256);
 for(const x of runtime)check('Runtime is in site inventory '+local(x.url),()=>site.files.some(f=>f.path===local(x.url)&&f.sha256===x.sha256));
+let cssAssets;
+check('Active external CSS resources exist inside the deployment inventory',()=>{
+ cssAssets=validateCssResources({root,entryHtml:html,entryPath:'index.html',inventoryPaths:site.files.map(x=>x.path),read:p=>read(p).toString()});
+ assert.equal(cssAssets.errors.length,0,JSON.stringify(cssAssets.errors.slice(0,8)));
+});
 check('External release notes match embedded notes',()=>JSON.stringify(json('surumler.json'))===JSON.stringify(JSON.parse(html.match(/<script id="surumNotlari" type="application\/json">([\s\S]*?)<\/script>/)[1])));
 check('Newest release note identifies current build',()=>json('surumler.json')[0].v===version);
-const report={build:version,method:'Complete local release bytes: identity, exact SHA-256 and sizes, HTML SRI, shipped JavaScript syntax. These are static assertions, not device/audio checks.',passed:checks.filter(x=>x.passed).length,total:checks.length,inlineScriptsParsed:inline,externalScriptsParsed:external,runtimeEntries:runtime.length,siteFiles:site.files.length,siteBytes:site.totalBytes,sriEntries:sri,checks};
+const report={build:version,method:'Complete local release bytes: identity, exact SHA-256 and sizes, HTML SRI, shipped JavaScript syntax, and scoped active external CSS resource validation. Unresolved CSS variables remain explicit; these are static assertions, not device/audio checks.',passed:checks.filter(x=>x.passed).length,total:checks.length,inlineScriptsParsed:inline,externalScriptsParsed:external,runtimeEntries:runtime.length,siteFiles:site.files.length,siteBytes:site.totalBytes,sriEntries:sri,cssAssets,checks};
 fs.writeFileSync(path.join(__dirname,'release-integrity-results.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({...report,checks:checks.filter(x=>!x.passed)},null,2));process.exitCode=report.passed===report.total?0:1;

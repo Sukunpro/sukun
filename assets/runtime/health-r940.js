@@ -717,7 +717,7 @@
             './css/ambience-compact-r1102.css','./css/ambience-info-round-r1103.css',
             './css/ambience-readable-r1104.css','./css/shared-readable-r1105.css','./css/kandil-preferences-r1108.css',
             './css/player-branding-r1109.css','./css/category-flow-r1109.css',
-            './css/tooltip-help-r1110.css']
+            './css/tooltip-help-r1110.css','./css/notification-layout-r1111.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
           if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;
