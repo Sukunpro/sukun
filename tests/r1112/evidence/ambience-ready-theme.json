@@ -1,0 +1,167 @@
+{
+  "suite": "r1112 ready ambience Berhetiyye material parity",
+  "build": "r1112",
+  "method": "Scoped CSS paint/source checks, frozen r1111 renderer and handler hashes, execution of the shipped delegated click handler, and the real local CSS resource validator. The source-order check applies the CSS important-layer precedence rule; no computed browser cascade is claimed.",
+  "browserExecuted": false,
+  "protectedThemeNative": "NOT_RUN: no authenticated user unlock context/password was available; no access bypass was attempted.",
+  "limitations": [
+    "No protected-theme browser render, responsive geometry, screenshots, actual gemstone pixel contrast, keyboard/focus behavior or audio output was exercised.",
+    "No persistent selected state is added because the existing ready-session renderer and handler do not own one."
+  ],
+  "sourceFiles": {
+    "css/berhet-controls-r1101.css": {
+      "bytes": 25169,
+      "sha256": "3a5628a1796a0bf2dde3b7eafc68037bb8b4a0a549af9b53dfd1122e9dee7e47"
+    },
+    "index.html": {
+      "bytes": 7416058,
+      "sha256": "8b019509e80f026f67e6af5a0d3f090a856624e16c371748fd6f9d5e12b97ea4"
+    },
+    "nero.html": {
+      "bytes": 7416058,
+      "sha256": "8b019509e80f026f67e6af5a0d3f090a856624e16c371748fd6f9d5e12b97ea4"
+    }
+  },
+  "scriptSha256": "842a489b3aabce9d3d4bd88979e765fcfb4a2a6e663b3d02767844ff3243290f",
+  "finishedAt": "2026-10-18T20:09:14.224Z",
+  "passed": 16,
+  "total": 16,
+  "results": [
+    {
+      "name": "Ready ambience patch changes only the bounded new paint blocks",
+      "passed": true,
+      "evidence": {
+        "baseline": "r1111",
+        "baseRules": 3,
+        "forcedColorsRules": 2
+      }
+    },
+    {
+      "name": "Every new selector is guarded by the selected Berhet family and exact ready-session parent",
+      "passed": true,
+      "evidence": {
+        "themeAuthority": "html[data-r1074-theme=\"berhet\"]",
+        "scope": "#tab-amb #sessRow > button.sess",
+        "excludedFamilies": [
+          "esma",
+          "mevlevi",
+          "missing theme attribute"
+        ],
+        "densityRestriction": false,
+        "shellRestriction": false
+      }
+    },
+    {
+      "name": "New declarations contain paint only and preserve layout, visibility, focus targets and transport",
+      "passed": true
+    },
+    {
+      "name": "Ready cards use an explicit sapphire/gold asset at the consumer stylesheet base",
+      "passed": true,
+      "evidence": {
+        "asset": "assets/berhetiyye-premium/gem-sapphire-r933.webp",
+        "bytes": 2184484
+      }
+    },
+    {
+      "name": "Title, icon and detail text have explicit readable local paint without shrinking",
+      "passed": true
+    },
+    {
+      "name": "title declared foreground clears 4.5:1 over the solid fallback surface",
+      "passed": true,
+      "evidence": {
+        "foreground": "#fff0d4",
+        "background": "#0a2637",
+        "ratio": 13.875324169231186,
+        "scope": "Declared fallback pair only; does not measure gemstone pixels."
+      }
+    },
+    {
+      "name": "detail declared foreground clears 4.5:1 over the solid fallback surface",
+      "passed": true,
+      "evidence": {
+        "foreground": "#d8e4df",
+        "background": "#0a2637",
+        "ratio": 11.954560300084797,
+        "scope": "Declared fallback pair only; does not measure gemstone pixels."
+      }
+    },
+    {
+      "name": "Forced colors overrides the exact direct-image rule and both text selectors",
+      "passed": true,
+      "evidence": {
+        "sameLayer": true,
+        "sameSelectors": true,
+        "laterSourceOrder": true
+      }
+    },
+    {
+      "name": "Existing keyboard focus and native selected-state ownership remain intact",
+      "passed": true,
+      "evidence": {
+        "selection": "No persistent selected state exists on ready session buttons; none was invented."
+      }
+    },
+    {
+      "name": "Real CSS dependency validator resolves the explicit ready-card URL into existing inventory",
+      "passed": true,
+      "evidence": {
+        "target": "assets/berhetiyye-premium/gem-sapphire-r933.webp",
+        "source": "css/berhet-controls-r1101.css",
+        "property": "border-image",
+        "variableChain": []
+      }
+    },
+    {
+      "name": "index.html: earlier important layer beats the later two-ID clarity paint",
+      "passed": true,
+      "evidence": {
+        "newLayer": "sukun-r1101-controls",
+        "oldLayer": "sukun-r933-controls",
+        "reason": "Important declarations in an earlier declared layer outrank later important layers independently of selector specificity."
+      }
+    },
+    {
+      "name": "index.html: original renderer and applySession owner are byte-identical to r1111",
+      "passed": true,
+      "evidence": {
+        "rendererSha256": "845b4b54be8af96027c6da2701142c93c6bcf057897d2a5a41bf01056e11ec14",
+        "applySessionSha256": "2062b0a97bf8b7716e6af513ae3e84efcf6fe04d5052ed1492d0762dc1e5bc34"
+      }
+    },
+    {
+      "name": "index.html: original delegated click still chooses the same session for nested content",
+      "passed": true,
+      "evidence": {
+        "nestedContentCalls": 3,
+        "unrelatedClickIgnored": true
+      }
+    },
+    {
+      "name": "nero.html: earlier important layer beats the later two-ID clarity paint",
+      "passed": true,
+      "evidence": {
+        "newLayer": "sukun-r1101-controls",
+        "oldLayer": "sukun-r933-controls",
+        "reason": "Important declarations in an earlier declared layer outrank later important layers independently of selector specificity."
+      }
+    },
+    {
+      "name": "nero.html: original renderer and applySession owner are byte-identical to r1111",
+      "passed": true,
+      "evidence": {
+        "rendererSha256": "845b4b54be8af96027c6da2701142c93c6bcf057897d2a5a41bf01056e11ec14",
+        "applySessionSha256": "2062b0a97bf8b7716e6af513ae3e84efcf6fe04d5052ed1492d0762dc1e5bc34"
+      }
+    },
+    {
+      "name": "nero.html: original delegated click still chooses the same session for nested content",
+      "passed": true,
+      "evidence": {
+        "nestedContentCalls": 3,
+        "unrelatedClickIgnored": true
+      }
+    }
+  ]
+}
