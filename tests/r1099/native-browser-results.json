@@ -1,0 +1,59 @@
+{
+  "suite": "r1099 native Chromium AudioContext + Worker",
+  "started": "2026-10-18T10:59:11.685Z",
+  "status": "passed",
+  "passed": [
+    "Native AudioContext decode + worker analysis returns measured PCM statistics",
+    "Native short normalization returns WAV",
+    "140 s WAV read-only inspection invokes no additional native decoder",
+    "Packaged dua:ak uses read-only metadata without native decode",
+    "Same cached long WebM remains ineligible for normalization"
+  ],
+  "failed": [],
+  "sourceSha256": {
+    "assets/runtime/audio-cpu-r981.js": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+    "assets/runtime/audio-preparation-r981.js": "03b21ec8e0308489662825502b2abaa1e64d7475c8c221fe04c52f4d0601e08d",
+    "assets/runtime/studio-preparation-r982.js": "e341b06e7bfa66584d09941ce6ceffa681e513385c6e8db04e932543c5fefbb4",
+    "assets/generic-recordings/manifest.json": "565a668263eb3c3872a9c0f1639fcaa81e7e73a5c31c8c901c054d533ba4be14"
+  },
+  "limitations": [
+    "Real headless Chromium AudioContext and Worker smoke; no physical Android/Samsung audible-output, microphone or screen-lock acceptance."
+  ],
+  "observations": {
+    "executable": "/tmp/chromium",
+    "browserVersion": "138.0.7204.0",
+    "decodeCalls": 2,
+    "snapshot": {
+      "version": "r981",
+      "budgetBytes": 33554432,
+      "sourceBudgetBytes": 8388608,
+      "maxDurationSeconds": 60,
+      "studioInspectionMaxDurationSeconds": 180,
+      "pending": 0,
+      "active": 0,
+      "stage": "idle",
+      "stageAgeMs": 0,
+      "decodeBlocked": false,
+      "residentBytes": 0,
+      "activeEstimate": 0,
+      "worker": "ready",
+      "decodeStarts": 2,
+      "workerJobs": 2,
+      "fallbackJobs": 0,
+      "metadataOnlyJobs": 2,
+      "rejected": 1,
+      "timedOut": 0,
+      "cancelled": 0,
+      "peakEstimate": 6785668,
+      "maxConcurrent": 1,
+      "last": {
+        "code": "PREP_DURATION_LIMIT",
+        "key": "",
+        "purpose": "studio",
+        "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+        "at": 1792321152628
+      }
+    }
+  },
+  "completed": "2026-10-18T10:59:12.680Z"
+}

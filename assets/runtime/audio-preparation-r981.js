@@ -3,11 +3,16 @@
 (function(w){
  'use strict';if(w.SukunAudioPreparation)return;
  const MiB=1024*1024,BUDGET=32*MiB,SOURCE=8*MiB,MAX_SECONDS=60,MAX_QUEUE=4;
+ // r1099: longer Studio inspection reads verified container metadata only.
+ // Decode, edits and FX retain their original 60-second/32-MiB admission.
+ const INSPECTION_SECONDS=180;
+ const inspectLimit=opt=>opt?.purpose==='studio'&&opt.readOnlyLongStudio===true?INSPECTION_SECONDS:MAX_SECONDS;
+ const canInspectLong=task=>task.purpose==='studio'&&task.operation==='analyze'&&task.allowLongInspection===true;
  const runtimeUrl=new URL(document.currentScript?.src||'./assets/runtime/audio-preparation-r981.js',document.baseURI),workerScript=new URL('./audio-cpu-r981.js',runtimeUrl);
  workerScript.searchParams.set('v',runtimeUrl.searchParams.get('v')||w.SUKUN_BUILD||'r981');const workerUrl=workerScript.href;
  let tail=Promise.resolve(),pending=0,active=0,seq=0,worker=null,workerDisabled=false,last=null;
  const urls=new Map(),trimmers=new Set(),residents=new Map(),metadata=new WeakMap();
- const metrics={decodeStarts:0,workerJobs:0,fallbackJobs:0,rejected:0,timedOut:0,cancelled:0,peakEstimate:0,maxConcurrent:0};
+ const metrics={decodeStarts:0,workerJobs:0,fallbackJobs:0,metadataOnlyJobs:0,rejected:0,timedOut:0,cancelled:0,peakEstimate:0,maxConcurrent:0};
  const error=(code,message)=>Object.assign(Error(message||code),{code});
  function resident(){let bytes=0;for(const [url,x]of urls)if(!activeCreated?.has(url))bytes+=x;for(const get of residents.values())try{bytes+=Math.max(0,+get()||0)}catch(_){}return bytes;}
  let activeCreated=null,activeEstimate=0,activeTask=null;
@@ -39,7 +44,7 @@
   if(pos!==b.length||!channels||!rate||!align||!data||channels>2||rate>192000||data%align)throw error('PREP_INVALID_HEADER');
   return{duration:data/align/rate,channels,sampleRate:rate,verified:'wav'};
  }
- function webm(bytes){
+ function webm(bytes,limit=MAX_SECONDS){
   const b=new Uint8Array(bytes),v=new DataView(bytes);if(b.length<4||v.getUint32(0)!==0x1a45dfa3)return null;
   function vint(pos,id=false){let first=b[pos],len=1,mask=128;while(len<=8&&!(first&mask)){mask>>=1;len++;}if(len>8||pos+len>b.length)throw error('PREP_INVALID_HEADER');let value=id?first:first&(mask-1);for(let i=1;i<len;i++)value=value*256+b[pos+i];return{len,value,unknown:!id&&value===Math.pow(2,7*len)-1};}
   const uint=(p,n)=>{if(n<1||n>8)throw error('PREP_INVALID_HEADER');let x=0;for(let i=0;i<n;i++)x=x*256+b[p+i];if(!Number.isSafeInteger(x))throw error('PREP_INVALID_HEADER');return x};
@@ -74,8 +79,8 @@
     else if(id.value===0x63a2){if(size.value!==19||String.fromCharCode(...b.subarray(pos,pos+8))!=='OpusHead'||b[pos+8]!==1||b[pos+9]<1||b[pos+9]>2||b[pos+18]!==0)throw error('PREP_UNKNOWN_LAYOUT');state.opus={channels:b[pos+9]};}
     else if(id.value===0x9f)state.channels=uint(pos,size.value);
     else if(id.value===0xb5&&(size.value===4||size.value===8))state.rate=size.value===4?v.getFloat32(pos):v.getFloat64(pos);
-    else if(id.value===0xe7){state.cluster=uint(pos,size.value);if(state.cluster*scale/1e9>MAX_SECONDS)throw error('PREP_DURATION_LIMIT');}
-    else if(id.value===0xa3||id.value===0xa1){if(!audioTrack)throw error('PREP_UNKNOWN_LAYOUT');const track=vint(pos);if(track.value===audioTrack){const off=pos+track.len;if(off+3>stop)throw error('PREP_INVALID_HEADER');if(b[off+2]&6)throw error('PREP_UNKNOWN_DURATION');packetSamples+=opusSamples(off+3,stop);last=Math.max(last,(state.cluster||0)+v.getInt16(off));if(last*scale/1e9>MAX_SECONDS||packetSamples/48000>MAX_SECONDS)throw error('PREP_DURATION_LIMIT');}}
+    else if(id.value===0xe7){state.cluster=uint(pos,size.value);if(state.cluster*scale/1e9>limit)throw error('PREP_DURATION_LIMIT');}
+    else if(id.value===0xa3||id.value===0xa1){if(!audioTrack)throw error('PREP_UNKNOWN_LAYOUT');const track=vint(pos);if(track.value===audioTrack){const off=pos+track.len;if(off+3>stop)throw error('PREP_INVALID_HEADER');if(b[off+2]&6)throw error('PREP_UNKNOWN_DURATION');packetSamples+=opusSamples(off+3,stop);last=Math.max(last,(state.cluster||0)+v.getInt16(off));if(last*scale/1e9>limit||packetSamples/48000>limit)throw error('PREP_DURATION_LIMIT');}}
     pos=stop;
    }
    return pos;
@@ -93,15 +98,21 @@
    try{url=URL.createObjectURL(blob);a.src=url;a.load()}catch(_){finish(null,error('PREP_UNKNOWN_DURATION'))}
   });
  }
- async function inspect(blob){
-  if(!blob||!blob.size||blob.size>SOURCE)throw error('PREP_SOURCE_LIMIT');
-  if(metadata.has(blob))return metadata.get(blob);
-  const bytes=await blob.arrayBuffer(),value=riff(bytes)||webm(bytes)||await probe(blob);
+ function verifyMeta(value,limit){
   if(!Number.isFinite(value.duration)||value.duration<=0)throw error('PREP_UNKNOWN_DURATION');
-  if(value.duration>MAX_SECONDS)throw error('PREP_DURATION_LIMIT');
-  if(value.channels>2)throw error('PREP_UNKNOWN_LAYOUT');
-  if(!value.channels)throw error('PREP_UNKNOWN_LAYOUT');
-  const result={...value,compressedBytes:blob.size};metadata.set(blob,result);return result;
+  if(value.duration>limit)throw error('PREP_DURATION_LIMIT');
+  if(value.channels>2||!value.channels)throw error('PREP_UNKNOWN_LAYOUT');
+  return value;
+ }
+ async function inspect(blob,opt={}){
+  if(!blob||!blob.size||blob.size>SOURCE)throw error('PREP_SOURCE_LIMIT');
+  const limit=inspectLimit(opt),scope=limit===INSPECTION_SECONDS?'studio-read-only':opt.purpose==='studio'?'studio':'bounded';
+  const cached=metadata.get(blob)?.get(scope);if(cached)return verifyMeta(cached,limit);
+  const bytes=await blob.arrayBuffer(),value=riff(bytes)||webm(bytes,limit)||await probe(blob);
+  verifyMeta(value,limit);
+  // Metadata is immutable and purpose scoped; a long inspection cannot make
+  // the same Blob eligible for a later short decode or effects preparation.
+  const result=Object.freeze({...value,compressedBytes:blob.size}),cache=metadata.get(blob)||new Map();cache.set(scope,result);metadata.set(blob,cache);return result;
  }
  function estimate(meta,opt={},decoded){
   const declared=opt.decodeRate==null?48000:+opt.decodeRate;if(!Number.isFinite(declared)||declared<=0)throw error('PREP_MEMORY_LIMIT');
@@ -147,7 +158,11 @@
   stage(task,'queued');let timer=0,abort=null;
   const work=(async()=>{await before;try{
    check(task);active++;activeTask=task;metrics.maxConcurrent=Math.max(metrics.maxConcurrent,active);activeCreated=new Set();activeEstimate=0;
-   stage(task,'inspect');reserve(blob.size*3+65536);task.meta=await inspect(blob);check(task);reserve(estimate(task.meta,task));metrics.decodeStarts++;
+   stage(task,'inspect');reserve(blob.size*3+65536);task.meta=await inspect(blob,{purpose:task.purpose,readOnlyLongStudio:canInspectLong(task)});check(task);
+   const metadataResult=reason=>{check(task);metrics.metadataOnlyJobs++;return{metadataOnly:true,meta:task.meta,reason};};
+   if(canInspectLong(task)&&task.meta.duration>MAX_SECONDS)return metadataResult('duration');
+   try{reserve(estimate(task.meta,task));}catch(e){if(canInspectLong(task)&&e.code==='PREP_MEMORY_LIMIT')return metadataResult('memory');throw e;}
+   metrics.decodeStarts++;
    const bytes=await blob.arrayBuffer();check(task);stage(task,'decode');const decoded=await decode(bytes,{check:()=>check(task)});check(task);
    if(!decoded||!Number.isFinite(decoded.duration)||decoded.duration<=0)throw error('PREP_UNKNOWN_DURATION');
    if(decoded.duration>MAX_SECONDS)throw error('PREP_DURATION_LIMIT');
@@ -174,8 +189,8 @@
  const api=Object.freeze({version:'r981',inspect,run,
   createUrl,
   forgetUrl(url){urls.delete(url)},addTrimmer(fn){trimmers.add(fn)},addResident(name,get){residents.set(String(name),get)},
-  notify,snapshot:()=>({version:'r981',budgetBytes:BUDGET,sourceBudgetBytes:SOURCE,maxDurationSeconds:MAX_SECONDS,pending,active,stage:activeTask?(activeTask.expired?'cancelled-':'')+activeTask.stage:'idle',stageAgeMs:activeTask?Math.max(0,Date.now()-activeTask.stageAt):0,decodeBlocked:!!(activeTask?.stage==='decode'&&!current(activeTask)),residentBytes:resident(),activeEstimate,worker:workerDisabled?'fallback':worker?'ready':'idle',...metrics,last}),
+  notify,snapshot:()=>({version:'r981',budgetBytes:BUDGET,sourceBudgetBytes:SOURCE,maxDurationSeconds:MAX_SECONDS,studioInspectionMaxDurationSeconds:INSPECTION_SECONDS,pending,active,stage:activeTask?(activeTask.expired?'cancelled-':'')+activeTask.stage:'idle',stageAgeMs:activeTask?Math.max(0,Date.now()-activeTask.stageAt):0,decodeBlocked:!!(activeTask?.stage==='decode'&&!current(activeTask)),residentBytes:resident(),activeEstimate,worker:workerDisabled?'fallback':worker?'ready':'idle',...metrics,last}),
   // Pure parsers are exposed for the offline health/audit layer; they do not decode or play.
-  inspectBytes:bytes=>riff(bytes)||webm(bytes)
+  inspectBytes:(bytes,opt={})=>riff(bytes)||webm(bytes,inspectLimit(opt))
  });w.SukunAudioPreparation=api;
 })(window);

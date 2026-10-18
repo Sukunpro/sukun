@@ -1,0 +1,119 @@
+{
+  "suite": "r1100 independent Studio regression audit",
+  "completed": "2026-10-18T11:00:10.421663+00:00",
+  "productionEdits": false,
+  "status": "passed",
+  "commands": [
+    {
+      "command": "node tests/r1099/studio-regression.mjs",
+      "exitCode": 0,
+      "passed": 37,
+      "failed": 0,
+      "report": "tests/r1099/node-results.json"
+    },
+    {
+      "command": "node tests/r1099/native-browser.mjs",
+      "exitCode": 0,
+      "passed": 5,
+      "failed": 0,
+      "report": "tests/r1099/native-browser-results.json"
+    },
+    {
+      "command": "node tests/r1099/ui-browser.mjs",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "report": "tests/r1099/ui-browser-results.json"
+    },
+    {
+      "command": "node tests/r1096/preparation-limits.cjs .",
+      "exitCode": 0,
+      "passed": 21,
+      "failed": 0
+    },
+    {
+      "command": "node tests/r1096/studio-explanations.cjs",
+      "exitCode": 0,
+      "reasonSpecificCases": 24,
+      "savedContextCases": 34,
+      "fallbackAndSourceChange": "passed"
+    },
+    {
+      "command": "node tests/r1096/studio-edit-admission.cjs .",
+      "exitCode": 0,
+      "passed": 119,
+      "failed": 0
+    }
+  ],
+  "count": {
+    "numberedRegressionCases": 188,
+    "explanationCases": 58,
+    "additionalFallbackSourceChangeChecks": "passed",
+    "failed": 0
+  },
+  "sourceSha256": {
+    "index.html": "f6b35e13defd9f4f833b8ea3191509f219d2c346335949f1d1513101f99efa02",
+    "nero.html": "f6b35e13defd9f4f833b8ea3191509f219d2c346335949f1d1513101f99efa02",
+    "assets/runtime/audio-preparation-r981.js": "03b21ec8e0308489662825502b2abaa1e64d7475c8c221fe04c52f4d0601e08d",
+    "assets/runtime/studio-preparation-r982.js": "e341b06e7bfa66584d09941ce6ceffa681e513385c6e8db04e932543c5fefbb4",
+    "assets/runtime/audio-cpu-r981.js": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f"
+  },
+  "auditFindings": [
+    "180-second allowance requires purpose=studio, operation=analyze, allowLongInspection=true; it returns verified container metadata only above 60 seconds.",
+    "Decode, normalization, silence trimming, FX and PCM worker remain limited to 60 verified seconds; 8 MiB source and 32 MiB shared preparation budgets remain unchanged.",
+    "Purpose-scoped immutable metadata cache cannot admit a prior long inspection into normalization or FX.",
+    "WAV 180 seconds is accepted read-only and 180.001 seconds rejected. Real Opus/WebM 178.8 seconds fits; generated 179/180/181 second sources reject with the conservative one-second margin.",
+    "Cancelled native decoder retains its serial memory lease until settlement; stale selection/source revision/tab ownership/recording session cannot commit or publish measurements.",
+    "Completed same-key analysis invalidates on source revision changes. Unchanged and unrelated catalog events keep valid results without implicit decoding.",
+    "Packaged dua:ak and koruma:4 bytes remained unchanged; long native Klasik/Feyz dua:ak inspection called no decoder or CPU worker. Short replacement uses native decoding and worker measurements.",
+    "Studio screenshot visually inspected: controls and long bilingual-limit content fit the mobile-width card with no clipping."
+  ],
+  "nonBlockingObservations": [
+    "Google Fonts external request returned net::ERR_EMPTY_RESPONSE in isolated UI suite; no page errors or local asset failure occurred."
+  ],
+  "limitations": [
+    "Headless desktop Chromium 138 at mobile viewport does not prove physical Android microphone behavior, audible output, screen-lock/resume, device memory pressure, or actual user recording formats."
+  ],
+  "releaseRecommendation": "No Studio regression blocker found. Root release validation must still bind final generated package and metadata to source hashes.",
+  "scrollRaceBaseline": {
+    "build": "r1098",
+    "passed": 3,
+    "total": 4,
+    "report": "/workspace/scratch/0ed53697150f/scroll-r1098-baseline.json",
+    "finding": "Pre-existing fixed-delay test race reproduced on clean r1098. The 250 ms snapshot occurs before scheduled input/scroll-quiet layout. Later failure evidence is max with drag cleared and gate inactive. No max-to-midi clamp exists; small-screen code caps height while preserving selected mode.",
+    "unchangedScripts": {
+      "r588-single-owner-dock-runtime": {
+        "identical": true,
+        "currentSha256": "53fba609b35b518d85accbfa0a3e6a61c1871da389633f55d8a85df6428ba04b",
+        "baselineSha256": "53fba609b35b518d85accbfa0a3e6a61c1871da389633f55d8a85df6428ba04b"
+      },
+      "r633-flow-dock-placement-runtime": {
+        "identical": true,
+        "currentSha256": "b77910fc55acafe77a0b8badefa639c9bb77e76128d86768d1f8a96346bd8675",
+        "baselineSha256": "b77910fc55acafe77a0b8badefa639c9bb77e76128d86768d1f8a96346bd8675"
+      }
+    },
+    "testOnlyCorrection": "Replaced fixed 250 ms delay with a bounded 10-second wait for actual adaptive mode max and cleared drag, before original blur-clear/class/mode assertions and native touchCancel. Captures modeSettledInMs. Production unchanged.",
+    "currentReport": "tests/r1100/evidence/regressions/scroll-races.json",
+    "currentStatus": "passed",
+    "currentCount": {
+      "passed": 8,
+      "total": 8
+    },
+    "currentModeTiming": [
+      {
+        "profile": "320x640",
+        "modeSettledInMs": 600,
+        "mode": "max",
+        "dragging": false
+      },
+      {
+        "profile": "390x844",
+        "modeSettledInMs": 985,
+        "mode": "max",
+        "dragging": false
+      }
+    ],
+    "productionEdits": false
+  }
+}

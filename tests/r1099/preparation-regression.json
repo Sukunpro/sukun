@@ -1,0 +1,92 @@
+{
+  "suite": "r1096 preparation duration, source, memory and queue regression",
+  "method": "Shipped audio-preparation-r981.js in Node VM; own WAV and WebM/Opus fixtures exercise production container parsing; metadata/audio element, URL handling and decoded AudioBuffer results are controlled seams. No native browser decode, microphone capture or physical-device claim.",
+  "passed": 21,
+  "total": 21,
+  "results": [
+    {
+      "name": "Published budgets remain 60 seconds, 8 MiB source, 32 MiB preparation",
+      "passed": true
+    },
+    {
+      "name": "Valid two-second WAV reaches the controlled decode seam and releases its lease",
+      "passed": true
+    },
+    {
+      "name": "WAV duration boundary is inclusive at 60 and typed duration rejection begins above 60",
+      "passed": true
+    },
+    {
+      "name": "Valid WebM Opus fixture reaches production inspection and the controlled decode seam",
+      "passed": true
+    },
+    {
+      "name": "WebM cluster timestamp accepts exactly 60 seconds and rejects an over-limit cluster before decode",
+      "passed": true
+    },
+    {
+      "name": "WebM block timestamp raw boundary stays inclusive at 60 and rejects above 60 with the duration code",
+      "passed": true
+    },
+    {
+      "name": "WebM block timestamps retain the conservative second: 59 seconds fits and 59.001 does not",
+      "passed": true
+    },
+    {
+      "name": "WebM cumulative Opus samples accept exactly 60 seconds raw and reject the next packet before decode",
+      "passed": true
+    },
+    {
+      "name": "WebM packet duration retains the conservative second: 59 seconds fits and one more packet does not",
+      "passed": true
+    },
+    {
+      "name": "Over-8-MiB input is rejected without reading the source or calling decode",
+      "passed": true
+    },
+    {
+      "name": "Thirty-second 48-kHz stereo source fits source limit but exceeds processing memory before decode",
+      "passed": true
+    },
+    {
+      "name": "Malformed RIFF is a header error, independent of duration errors",
+      "passed": true
+    },
+    {
+      "name": "Metadata-only format with unverifiable channel layout is a layout error before decode",
+      "passed": true
+    },
+    {
+      "name": "Decoded duration and layout are independently checked after the controlled decode seam",
+      "passed": true
+    },
+    {
+      "name": "Decoded-rate growth is re-budgeted and fails before use or output creation",
+      "passed": true
+    },
+    {
+      "name": "Resident PCM counts toward the same budget and approved trimmers can reclaim it",
+      "passed": true
+    },
+    {
+      "name": "Packed output headroom retains the active preparation estimate and resident URLs",
+      "passed": true
+    },
+    {
+      "name": "Preparation queue serializes four admissions and rejects the fifth",
+      "passed": true
+    },
+    {
+      "name": "Aborted decode rejects promptly but retains its lease until decode settles and blocks a new decode",
+      "passed": true
+    },
+    {
+      "name": "Stale queued job is cancelled before decoding and does not disturb its predecessor",
+      "passed": true
+    },
+    {
+      "name": "Controlled decoder failure releases the queue so a later preparation succeeds",
+      "passed": true
+    }
+  ]
+}

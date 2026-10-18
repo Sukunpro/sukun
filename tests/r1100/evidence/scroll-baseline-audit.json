@@ -1,0 +1,63 @@
+{
+  "suite": "r1100 scroll-race independent clean-r1098 comparison",
+  "completed": "2026-10-18T11:02:43.320616+00:00",
+  "productionEdits": false,
+  "baselineRoot": "/workspace/scratch/1cb6a70dcae8/sukun-publish",
+  "baselineReport": "/workspace/scratch/0ed53697150f/scroll-r1098-baseline.json",
+  "baselineBuild": "r1098",
+  "command": "node tests/r1067/scroll-races.cjs /workspace/scratch/1cb6a70dcae8/sukun-publish /workspace/scratch/0ed53697150f/scroll-r1098-baseline.json 320",
+  "exitCode": 1,
+  "baselineCount": {
+    "passed": 3,
+    "total": 4
+  },
+  "baselineFailure": "dock drag abandoned by focus loss is cleared and subsequent mode geometry continues",
+  "capturedAfter": {
+    "mode": "midi",
+    "reason": "drag-blur",
+    "dragging": false,
+    "at": 1792321327978
+  },
+  "subsequentFailureState": {
+    "mode": "max",
+    "reason": "geometry-resize",
+    "dragging": false,
+    "gate": {
+      "version": "r732",
+      "touches": 0,
+      "pointers": 0,
+      "active": false,
+      "quietMs": 0,
+      "pending": false,
+      "deferrals": 7,
+      "events": 51,
+      "sequence": 8,
+      "lastReason": "native-scroll"
+    },
+    "at": 1792321329823,
+    "rect": {
+      "x": 8,
+      "y": 8,
+      "width": 304,
+      "height": 602,
+      "top": 8,
+      "bottom": 610,
+      "left": 8,
+      "right": 312
+    }
+  },
+  "unchangedProductionScriptComparison": {
+    "r588-single-owner-dock-runtime": {
+      "identical": true,
+      "currentSha256": "53fba609b35b518d85accbfa0a3e6a61c1871da389633f55d8a85df6428ba04b",
+      "baselineSha256": "53fba609b35b518d85accbfa0a3e6a61c1871da389633f55d8a85df6428ba04b"
+    },
+    "r633-flow-dock-placement-runtime": {
+      "identical": true,
+      "currentSha256": "b77910fc55acafe77a0b8badefa639c9bb77e76128d86768d1f8a96346bd8675",
+      "baselineSha256": "b77910fc55acafe77a0b8badefa639c9bb77e76128d86768d1f8a96346bd8675"
+    }
+  },
+  "finding": "Pre-existing fixed-delay test race reproduced on clean r1098. The 250 ms snapshot occurs before scheduled input/scroll-quiet layout. Later failure evidence is max with drag cleared and gate inactive. No max-to-midi clamp exists; small-screen code caps height while preserving selected mode.",
+  "recommendation": "Keep abandonment assertions; assert canonical SukunDockSize.get()/body mode immediately, then wait for gate idle and the adaptive snapshot to report max before checking final geometry. Do not change production for this baseline timing race."
+}

@@ -1,5 +1,27 @@
 [
   {
+    "v": "r1100",
+    "t": "Tefekkürde özgün metin ve anlam paneli",
+    "b": [
+      "Aktif zikrin özgün metni ve anlamı, tefekkür ekranında görünür bir pencerede açılır. Anlam bölümü doğrudan gösterilir.",
+      "Kapat veya Escape ile aynı tefekkür ekranına dönülür. Sayaç, ses ve seans sahipliği korunur.",
+      "Kaynak veya dil değişiminde panel kaybolmaz. Kapandığında özgün konumuna döner; Berhetiyye kilitlendiğinde özel panel kapanır.",
+      "r1099 uzun kayıt süre incelemesi ve r1098 ses başlangıcı düzeltmeleri bu sürüme dahildir."
+    ]
+  },
+  {
+    "v": "r1099",
+    "t": "Uzun kayıtlarda güvenli süre ve boyut incelemesi",
+    "b": [
+      "Stüdyo, 8 MiB içindeki kayıtlarda doğrulanmış 180 saniyeye kadar süre ve boyut inceleyebilir. Uzun kayıt için ses çözümleyicisi veya dalga işleyicisi başlatılmaz.",
+      "Ses örnekleri işlenmeyen kayıtta tepe, RMS ve dalga ölçülmüş gibi gösterilmez. WebM süresindeki 1 saniyelik güvenlik payı ve üst sınır açıkça belirtilir.",
+      "Normalize, sessizlik kırpma, eko ve ses ölçümlerinin 60 saniyelik ve 32 MiB bellek sınırı korunur. Uzun incelemenin önbelleği bu sınırları aşamaz.",
+      "Kayıt seçimi, kaynak revizyonu veya oturum sahipliği değişirse eski inceleme sonucu yeni kayda taşınmaz. İnceleme kayıt dosyasını değiştirmez.",
+      "Analiz tamamlandıktan sonra aynı kayıt değişirse eski süre ve ses ölçümleri temizlenir; yeni kayıt eski sonuçlarla gösterilmez.",
+      "r1098 ilk ve son heceleri koruyan oynatma davranışı korunur. Bu sürüm uzun kaydı düzenleme veya fiziksel Android ekran kilidi kabulü anlamına gelmez."
+    ]
+  },
+  {
     "v": "r1098",
     "t": "Zikir kayıtlarında ilk heceleri koruyan başlangıç",
     "b": [
