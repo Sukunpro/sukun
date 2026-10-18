@@ -12,6 +12,7 @@ import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import re
+import subprocess
 import zipfile
 
 
@@ -25,6 +26,32 @@ def encoded_json(value):
 
 def inline_json(value):
     return json.dumps(value, ensure_ascii=False).replace("<", "\\u003c")
+
+
+def validate_css_resources(root, entry_html, inventory_paths):
+    """Read-only validation against the proposed graph, before any writes."""
+    payload = {"entryHtml": entry_html, "entryPath": "index.html",
+               "inventoryPaths": list(inventory_paths)}
+    command = ["node", str(Path(__file__).resolve().with_name("css-assets.cjs")),
+               "--root", str(root), "--stdin"]
+    try:
+        completed = subprocess.run(command, input=json.dumps(payload), text=True,
+                                   capture_output=True, timeout=30, check=False)
+        report = json.loads(completed.stdout)
+        assert isinstance(report, dict), "Missing CSS result object"
+        assert isinstance(report.get("errors"), list), "Missing CSS error result"
+        for key in ("files", "references", "unresolved"):
+            assert isinstance(report.get(key), list), "Missing CSS result: " + key
+        assert isinstance(report.get("ignored"), dict), "Missing CSS skip counts"
+        assert all(type(count) is int and count >= 0 for count in report["ignored"].values()), "Invalid CSS skip counts"
+    except (OSError, subprocess.TimeoutExpired, ValueError, AssertionError) as error:
+        raise ValueError("CSS resource validation failed: validator unavailable or invalid result") from error
+    if completed.returncode or report["errors"]:
+        detail = json.dumps(report["errors"][:8], ensure_ascii=False)
+        raise ValueError("CSS resource validation failed: " + detail)
+    return {"files": len(report["files"]), "references": len(report["references"]),
+            "unresolved": len(report["unresolved"]), "ignored": sum(report["ignored"].values()),
+            "scope": report.get("scope")}
 
 
 def local(url):
@@ -231,12 +258,14 @@ def main():
         assert len(data) == entry["bytes"] and sha(data) == entry["sha256"], entry["path"]
     assert sum(x["bytes"] for x in entries) == inventory["totalBytes"]
     assert read("index.html") == read("nero.html")
+    css_assets = validate_css_resources(root, read("index.html").decode(),
+                                       (entry["path"] for entry in entries))
     # Fail before mutations if any planned metadata graph check above failed.
     for name, data in planned.items():
         temporary = root / (name + ".release-tmp")
         temporary.write_bytes(data)
         temporary.replace(root / name)
-    result = {"build": new, "files": len(entries), "deploymentBytes": inventory["totalBytes"], "writtenMetadataFiles": list(planned)}
+    result = {"build": new, "files": len(entries), "deploymentBytes": inventory["totalBytes"], "writtenMetadataFiles": list(planned), "cssAssets": css_assets}
     if a.zip:
         a.zip.parent.mkdir(parents=True, exist_ok=True)
         names = sorted([x["path"] for x in entries] + [inventory_name])

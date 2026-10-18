@@ -1,0 +1,167 @@
+
+/* ═══════════════════════════════════════════════════════════════
+   r589 — BİLDİRİM MERKEZİ / DRAWER TEK LAYOUT OTORİTESİ
+   Dock stilleri bildirim merkezinin grid/flex geometrisini ezemez.
+   ═══════════════════════════════════════════════════════════════ */
+#tab-ntf,
+#tab-ntf > .r554NotifyCenter,
+#tab-ntf > .r554CenterStatus,
+#tab-ntf > .r554CenterList{
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+#tab-ntf > .r554NotifyCenter{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-auto-flow:row!important;
+  align-items:stretch!important;
+  gap:12px!important;
+  width:100%!important;
+  overflow:hidden!important;
+}
+#tab-ntf .r554NotifyHero{
+  display:grid!important;
+  grid-template-columns:auto minmax(0,1fr) auto!important;
+  align-items:center!important;
+  width:100%!important;
+  min-width:0!important;
+}
+#tab-ntf .r554NotifyFilters{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  grid-auto-flow:row!important;
+  gap:6px!important;
+  width:100%!important;
+  min-width:0!important;
+  overflow:visible!important;
+}
+#tab-ntf .r554NotifyFilters > .r554Filter{
+  position:relative!important;
+  inset:auto!important;
+  transform:none!important;
+  translate:none!important;
+  width:auto!important;
+  max-width:none!important;
+  min-width:0!important;
+  min-height:42px!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+}
+#tab-ntf .r554NotifyTools{
+  display:flex!important;
+  flex-direction:row!important;
+  flex-wrap:wrap!important;
+  align-items:stretch!important;
+  gap:7px!important;
+  width:100%!important;
+  min-width:0!important;
+}
+#tab-ntf .r554NotifyTools > button{
+  position:static!important;
+  transform:none!important;
+  translate:none!important;
+  min-width:0!important;
+  max-width:100%!important;
+}
+#tab-ntf > .r554CenterStatus{
+  display:block!important;
+  width:100%!important;
+}
+#tab-ntf > .r554CenterList{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-auto-flow:row!important;
+  align-items:start!important;
+  gap:9px!important;
+  width:100%!important;
+  overflow:visible!important;
+}
+#tab-ntf > .r554CenterList > .r554AlertItem{
+  position:relative!important;
+  inset:auto!important;
+  transform:none!important;
+  translate:none!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+}
+
+/* Player içindeki compact drawer da kendi canonical 3 satır gridini korur. */
+#r170Now > #r554AlertDrawer:not([hidden]){
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto auto minmax(0,1fr)!important;
+  grid-auto-flow:row!important;
+  align-items:stretch!important;
+  min-width:0!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+#r554AlertDrawer > .r554DrawerHead,
+#r554AlertDrawer > .r554DrawerFilters,
+#r554AlertDrawer > .r554AlertList{
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+#r554AlertDrawer > .r554DrawerFilters{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  grid-auto-flow:row!important;
+  gap:4px!important;
+}
+#r554AlertDrawer > .r554AlertList{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-auto-flow:row!important;
+  align-content:start!important;
+  overflow:auto!important;
+  overscroll-behavior:contain!important;
+}
+#r554AlertDrawer .r554AlertItem{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  transform:none!important;
+  translate:none!important;
+  box-sizing:border-box!important;
+}
+
+@media(max-width:390px){
+  /* Ana merkezde 2x2 filtre daha okunaklı ve taşma açısından güvenlidir. */
+  #tab-ntf .r554NotifyFilters{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:5px!important;
+  }
+  #tab-ntf .r554NotifyFilters > .r554Filter{
+    grid-template-columns:auto minmax(0,1fr) auto!important;
+    min-height:39px!important;
+    font-size:9px!important;
+  }
+  #tab-ntf .r554Filter > b{
+    grid-column:auto!important;
+    grid-row:auto!important;
+    justify-self:end!important;
+  }
+  #tab-ntf .r554NotifyTools{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  #tab-ntf .r554NotifyTools > button{
+    width:100%!important;
+    min-height:36px!important;
+  }
+  #r554AlertDrawer > .r554DrawerFilters{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:4px!important;
+  }
+  #r554AlertDrawer .r554DrawerFilters .r554Filter{
+    min-width:0!important;
+    width:auto!important;
+  }
+}
