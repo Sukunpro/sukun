@@ -1,0 +1,142 @@
+{
+  "suite": "r1098 complete recording onset and source preservation",
+  "passed": 33,
+  "total": 33,
+  "limitations": [
+    "Production functions with controlled media elements, callback delivery and quality results; no physical Android, screen lock, speaker output or personal recordings are tested."
+  ],
+  "results": [
+    {
+      "name": "raw personal Name: level 0 is armed before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "raw personal Name: level 0.8 is armed before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "raw generic Name: level 0 is armed before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "raw generic Name: level 0.8 is armed before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "raw preview: level 0 is armed before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "raw preview: level 0.8 is armed before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "raw repeat unit: level 0 is armed before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "raw repeat unit: level 0.8 is armed before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "raw automatic personal unit: level 0 is armed before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "raw automatic personal unit: level 0.8 is armed before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "graph personal Name: level 0 output is pre-scheduled before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "graph personal Name: level 0.8 output is pre-scheduled before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "graph generic Name: level 0 output is pre-scheduled before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "graph generic Name: level 0.8 output is pre-scheduled before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "graph preview: level 0 output is pre-scheduled before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "graph preview: level 0.8 output is pre-scheduled before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "graph repeat unit: level 0 output is pre-scheduled before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "graph repeat unit: level 0.8 output is pre-scheduled before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "graph automatic personal unit: level 0 output is pre-scheduled before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "graph automatic personal unit: level 0.8 output is pre-scheduled before delayed start acceptance",
+      "passed": true
+    },
+    {
+      "name": "raw fresh playback ignores inferred prefix trim and retains the original quality metadata",
+      "passed": true
+    },
+    {
+      "name": "graph fresh playback ignores inferred prefix trim and retains the original quality metadata",
+      "passed": true
+    },
+    {
+      "name": "raw inferred silence cannot fade and finish a quiet suffix",
+      "passed": true
+    },
+    {
+      "name": "graph inferred silence cannot fade and finish a quiet suffix",
+      "passed": true
+    },
+    {
+      "name": "explicit chapter resume retains valid saved position 0 independently of automatic trim",
+      "passed": true
+    },
+    {
+      "name": "explicit chapter resume retains valid saved position 2 independently of automatic trim",
+      "passed": true
+    },
+    {
+      "name": "explicit chapter resume retains valid saved position 7.5 independently of automatic trim",
+      "passed": true
+    },
+    {
+      "name": "raw pooled repeat resets to the beginning and prearms every new lease",
+      "passed": true
+    },
+    {
+      "name": "graph pooled repeat resets to the beginning and pre-schedules every new lease",
+      "passed": true
+    },
+    {
+      "name": "raw Stop retires pending callbacks without late gain, seek or restart",
+      "passed": true
+    },
+    {
+      "name": "graph Stop retires pending callbacks without late gain, seek or restart",
+      "passed": true
+    },
+    {
+      "name": "native journey visible fresh recording retains the complete source",
+      "passed": true
+    },
+    {
+      "name": "native journey hidden fresh recording retains the complete source",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "suite": "r1099 native Klasik/Feyz UI long dua:ak smoke",
+  "started": "2026-10-18T10:59:12.123Z",
+  "status": "passed",
+  "sourceSha256": {
+    "index.html": "f6b35e13defd9f4f833b8ea3191509f219d2c346335949f1d1513101f99efa02",
+    "nero.html": "f6b35e13defd9f4f833b8ea3191509f219d2c346335949f1d1513101f99efa02",
+    "assets/runtime/audio-preparation-r981.js": "03b21ec8e0308489662825502b2abaa1e64d7475c8c221fe04c52f4d0601e08d",
+    "assets/runtime/studio-preparation-r982.js": "e341b06e7bfa66584d09941ce6ceffa681e513385c6e8db04e932543c5fefbb4",
+    "assets/runtime/audio-cpu-r981.js": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+    "sw.js": "9f77dafc45f84063f5716225d9744f3bb3a7296e9935f39ed787ed3594150315"
+  },
+  "passed": [
+    "Klasik mode and Feyz enabled/applied confirmed via stored preferences, body classes and shell snapshot",
+    "Packaged dua:ak selected through real Studio select; visible duration/size inspection and blank peak confirmed; no native decode/worker measurement",
+    "Visible Analyze button repeats long inspection and settles enabled",
+    "Visible Normalize button rejects long clip at edit limit without decoding and preserves exact test-recording SHA-256",
+    "Committed replacement of selected dua:ak under same key clears old duration/peak/size without decoding and keeps selection",
+    "Explicit Analyze after same-key replacement shows fresh 0.2 s, 25% peak and RMS via one native decode plus one worker job"
+  ],
+  "failed": [],
+  "limitations": [
+    "Headless desktop Chromium at mobile viewport; no physical Samsung/Android microphone, audible-output or screen-lock test."
+  ],
+  "browserVersion": "138.0.7204.0",
+  "initial": {
+    "classicStored": "classic",
+    "classic": true,
+    "friendly": false,
+    "feyzStored": "1",
+    "feyz": {
+      "version": "r759",
+      "enabled": true,
+      "applied": true,
+      "motion": false,
+      "flames": true,
+      "updates": 4,
+      "lastReason": "pageshow",
+      "lastPulse": 0,
+      "pending": false,
+      "asset": "assets/sukun-nur-ring-r757.png",
+      "scene": "assets/sukun-nur-sanctuary-r757.png"
+    },
+    "classes": "mode-midi r700-tef-entry r447-dock-ready r441-peek-pill r447-dock-mini r474-name-cat r588-dock-ready r716-shell sukun-jewel-r798 r920-practice-on r485-controls r617-mode-classic r672-solid-dock r706-neon r709-sanctuary r710-sanctuary r745-visual-polish r747-premium-spread r431-dock-ready r588-mode-mini r433-dock-enhanced r434-inline-details-ready r697-neon-ui r698-ui r699-layout r707-scroll r708-boundary r660-dock-compact r920-dock",
+    "rec": "object",
+    "navigation": "function",
+    "studio": "<details id=\"r170Studio\" class=\"r170Hub\"><summary><span>🎙</span><span><b>KAYIT STÜDYOSU</b><small>analiz · normalize · sessizlik kırp · yeniden kayıt</small></span></summary><div class=\"r170Body\"><de"
+  },
+  "testRecording": {
+    "file": "audio/e3ee39dfa2e3971fe3f1d4092e04e30009a2f43ac1b44de4826407673caf3202.webm",
+    "size": 1054104,
+    "type": "audio/webm",
+    "sha256": "e3ee39dfa2e3971fe3f1d4092e04e30009a2f43ac1b44de4826407673caf3202"
+  },
+  "analysis": {
+    "duration": "≤ 71.2 sn",
+    "peak": "—",
+    "size": "1029 KB",
+    "status": "Süre ve boyut incelendi. Tepe, RMS ve dalga ölçülmedi. Normalize ve kırpma 60 sn ve bellek sınırına tabidir. Gösterilen süre 1 sn WebM güvenlik payı içerir.",
+    "selected": "dua:ak",
+    "snapshot": {
+      "version": "r981",
+      "budgetBytes": 33554432,
+      "sourceBudgetBytes": 8388608,
+      "maxDurationSeconds": 60,
+      "studioInspectionMaxDurationSeconds": 180,
+      "pending": 0,
+      "active": 0,
+      "stage": "idle",
+      "stageAgeMs": 0,
+      "decodeBlocked": false,
+      "residentBytes": 0,
+      "activeEstimate": 0,
+      "worker": "idle",
+      "decodeStarts": 0,
+      "workerJobs": 0,
+      "fallbackJobs": 0,
+      "metadataOnlyJobs": 1,
+      "rejected": 0,
+      "timedOut": 0,
+      "cancelled": 0,
+      "peakEstimate": 3227848,
+      "maxConcurrent": 1,
+      "last": null
+    },
+    "controls": {
+      "analyze": false,
+      "normalize": false,
+      "trim": false
+    },
+    "hostVisible": true
+  },
+  "normalization": {
+    "status": "Salt okunur süre incelemesi en çok 180 saniye; normalize ve kırpma 60 saniyelik sınırla çalışır. WebM güvenlik payı da sınıra dahildir. Asıl kayıt korundu.",
+    "snapshot": {
+      "version": "r981",
+      "budgetBytes": 33554432,
+      "sourceBudgetBytes": 8388608,
+      "maxDurationSeconds": 60,
+      "studioInspectionMaxDurationSeconds": 180,
+      "pending": 0,
+      "active": 0,
+      "stage": "idle",
+      "stageAgeMs": 0,
+      "decodeBlocked": false,
+      "residentBytes": 0,
+      "activeEstimate": 0,
+      "worker": "idle",
+      "decodeStarts": 0,
+      "workerJobs": 0,
+      "fallbackJobs": 0,
+      "metadataOnlyJobs": 2,
+      "rejected": 1,
+      "timedOut": 0,
+      "cancelled": 0,
+      "peakEstimate": 3227848,
+      "maxConcurrent": 1,
+      "last": {
+        "code": "PREP_DURATION_LIMIT",
+        "key": "dua:ak",
+        "purpose": "studio",
+        "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+        "at": 1792321163610
+      }
+    },
+    "sha256": "e3ee39dfa2e3971fe3f1d4092e04e30009a2f43ac1b44de4826407673caf3202"
+  },
+  "screenshot": "/workspace/scratch/b6dfd13094bb/native-ui-studio-r1099.png",
+  "sameKeyReplacement": {
+    "revisionBefore": 1,
+    "revisionAfter": 2,
+    "duration": "—",
+    "peak": "—",
+    "size": "—",
+    "status": "Kayıt değişti. Güncel kaydı incelemek için Analiz et düğmesine dokun.",
+    "selected": "dua:ak",
+    "decodeStarts": 0
+  },
+  "replacementAnalysis": {
+    "duration": "0.2 sn",
+    "peak": "25%",
+    "size": "3 KB",
+    "status": "Hazır · RMS 18%",
+    "snapshot": {
+      "version": "r981",
+      "budgetBytes": 33554432,
+      "sourceBudgetBytes": 8388608,
+      "maxDurationSeconds": 60,
+      "studioInspectionMaxDurationSeconds": 180,
+      "pending": 0,
+      "active": 0,
+      "stage": "idle",
+      "stageAgeMs": 0,
+      "decodeBlocked": false,
+      "residentBytes": 0,
+      "activeEstimate": 0,
+      "worker": "ready",
+      "decodeStarts": 1,
+      "workerJobs": 1,
+      "fallbackJobs": 0,
+      "metadataOnlyJobs": 2,
+      "rejected": 1,
+      "timedOut": 0,
+      "cancelled": 0,
+      "peakEstimate": 3227848,
+      "maxConcurrent": 1,
+      "last": {
+        "code": "PREP_DURATION_LIMIT",
+        "key": "dua:ak",
+        "purpose": "studio",
+        "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+        "at": 1792321163610
+      }
+    }
+  },
+  "pageErrors": [],
+  "failedRequests": [
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap",
+      "error": {
+        "errorText": "net::ERR_EMPTY_RESPONSE"
+      }
+    }
+  ],
+  "sourceSha256After": {
+    "index.html": "f6b35e13defd9f4f833b8ea3191509f219d2c346335949f1d1513101f99efa02",
+    "nero.html": "f6b35e13defd9f4f833b8ea3191509f219d2c346335949f1d1513101f99efa02",
+    "assets/runtime/audio-preparation-r981.js": "03b21ec8e0308489662825502b2abaa1e64d7475c8c221fe04c52f4d0601e08d",
+    "assets/runtime/studio-preparation-r982.js": "e341b06e7bfa66584d09941ce6ceffa681e513385c6e8db04e932543c5fefbb4",
+    "assets/runtime/audio-cpu-r981.js": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+    "sw.js": "9f77dafc45f84063f5716225d9744f3bb3a7296e9935f39ed787ed3594150315"
+  },
+  "completed": "2026-10-18T10:59:25.969Z"
+}

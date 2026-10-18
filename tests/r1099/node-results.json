@@ -1,0 +1,77 @@
+{
+  "suite": "r1099 Studio read-only long inspection",
+  "started": "2026-10-18T10:59:03.335Z",
+  "passed": [
+    "r1098 reproduces 90-second Studio rejection before decode",
+    "decode, FX, source and CPU limits remain 60 s / 32 MiB / 8 MiB",
+    "WAV 61 s read-only inspection uses no decoder or CPU",
+    "WAV 90 s read-only inspection uses no decoder or CPU",
+    "WAV 140 s read-only inspection uses no decoder or CPU",
+    "WAV 180 s read-only inspection uses no decoder or CPU",
+    "WAV 180.001 s is rejected before decoder",
+    "metadata cache cannot admit long input into FX or normalization",
+    "long analyze requires its explicit read-only admission flag",
+    "8 MiB + 1 input rejects without reading its ArrayBuffer",
+    "malformed long WAV never becomes metadata success",
+    "short Studio still decodes once and performs real exact analysis",
+    "short Studio normalize produces WAV while preserving the input",
+    "long Studio wrapper exposes only metadata and never commits changes",
+    "predecode memory failure can return metadata for analyze only",
+    "decoded PCM duration over 60 s never reaches CPU or use",
+    "decoded stereo PCM over memory budget is rejected before use",
+    "cancelled native decode retains the serial lease until it settles",
+    "selection ownership invalidation prevents an edit commit",
+    "inspect enforces read-only policy while inspectBytes preserves raw WAV parsing",
+    "actual Studio UI clears old sample statistics and presents read-only result",
+    "completed analysis is invalidated when the selected source revision changes",
+    "unchanged catalog notifications and other source edits retain the analyzed measurements",
+    "source replacement during edit clears old measurements without starting analysis or replacing its status",
+    "source replacement during session clears old measurements without starting analysis or replacing its status",
+    "late metadata from a different key cannot replace the selected UI",
+    "source revision changed during inspection cannot publish old metadata",
+    "tab ownership change during inspection prevents stale UI publication",
+    "recording session change during inspection prevents stale UI publication",
+    "packaged dua:ak is read-only metadata with unchanged bytes",
+    "packaged koruma:4 is read-only metadata with unchanged bytes",
+    "real WebM Opus 90 s observes conservative +1 s admission",
+    "real WebM Opus 140 s observes conservative +1 s admission",
+    "real WebM Opus 178.8 s observes conservative +1 s admission",
+    "real WebM Opus 179 s observes conservative +1 s admission",
+    "real WebM Opus 180 s observes conservative +1 s admission",
+    "real WebM Opus 181 s observes conservative +1 s admission"
+  ],
+  "failed": [],
+  "observations": {
+    "dua:ak": {
+      "sourceBytes": 1054104,
+      "verifiedSeconds": 71.2,
+      "packetSeconds": 70.2,
+      "channels": 1,
+      "sha256": "e3ee39dfa2e3971fe3f1d4092e04e30009a2f43ac1b44de4826407673caf3202"
+    },
+    "koruma:4": {
+      "sourceBytes": 998407,
+      "verifiedSeconds": 63.1,
+      "packetSeconds": 62.1,
+      "channels": 1,
+      "sha256": "4a8a70ed8b18393ae17290c37a38e5bb4c68545a1a955c47fb6f820874da507f"
+    },
+    "webm-90": {
+      "verifiedSeconds": 91.02,
+      "packetSeconds": 90.02
+    },
+    "webm-140": {
+      "verifiedSeconds": 141.02,
+      "packetSeconds": 140.02
+    },
+    "webm-178.8": {
+      "verifiedSeconds": 179.82,
+      "packetSeconds": 178.82
+    }
+  },
+  "completed": "2026-10-18T10:59:11.489Z",
+  "count": {
+    "passed": 37,
+    "failed": 0
+  }
+}

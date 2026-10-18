@@ -1,0 +1,75 @@
+{
+  "build": "r1099",
+  "base": "r1098",
+  "allExecutedPassed": true,
+  "suites": [
+    {
+      "file": "node-results.json",
+      "passed": 37,
+      "total": 37
+    },
+    {
+      "file": "preparation-regression.json",
+      "passed": 21,
+      "total": 21
+    },
+    {
+      "file": "onset-regression.json",
+      "passed": 33,
+      "total": 33
+    },
+    {
+      "file": "edit-admission-regression.json",
+      "passed": 119,
+      "total": 119
+    },
+    {
+      "file": "webm-regression.json",
+      "passed": 18,
+      "total": 18
+    },
+    {
+      "file": "integrity-results.json",
+      "passed": 1424,
+      "total": 1424
+    },
+    {
+      "file": "native-browser-results.json",
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "file": "ui-browser-results.json",
+      "passed": 6,
+      "total": 6
+    },
+    {
+      "file": "full-export-results.json",
+      "passed": 1,
+      "total": 1
+    }
+  ],
+  "sourceSha256": {
+    "index.html": "bf561941d7d8ba90079e76535f375cecdda6f90b95a7937eca5e1c0276c62404",
+    "nero.html": "bf561941d7d8ba90079e76535f375cecdda6f90b95a7937eca5e1c0276c62404",
+    "assets/runtime/audio-preparation-r981.js": "03b21ec8e0308489662825502b2abaa1e64d7475c8c221fe04c52f4d0601e08d",
+    "assets/runtime/studio-preparation-r982.js": "e341b06e7bfa66584d09941ce6ceffa681e513385c6e8db04e932543c5fefbb4",
+    "assets/runtime/audio-cpu-r981.js": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+    "sw.js": "4ec7775bf791fc9c095712e9cfda4c5932197457fadedb8371fcbe98ca12e80d",
+    "sukun-build-r1099.json": "7b1609d08ac6ae04e961a54ef8fe9e6c4bd5a63aa5d30d2490d6193f20742087",
+    "sukun-site-assets-r1099.json": "d8e484ddbe8e3d028bce50c8003f870cbb852d86502f1c2830df0d194220aba1"
+  },
+  "limits": {
+    "readOnlyInspectionSeconds": 180,
+    "decodeAndEditSeconds": 60,
+    "sourceBytes": 8388608,
+    "preparationBudgetBytes": 33554432,
+    "webmSafetyMarginSeconds": 1
+  },
+  "limitations": [
+    "No physical Samsung/Android microphone, audible output or screen-lock test was performed.",
+    "Only duration/size are produced for long inspection; peak/RMS/waveform are absent. Long editing remains unsupported."
+  ],
+  "previousBuildGitSha": "e73d12bf61f44981bb402c5e54e382cabec9fdf4",
+  "completedAnalysisSourceInvalidation": true
+}

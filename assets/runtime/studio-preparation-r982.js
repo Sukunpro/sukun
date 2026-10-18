@@ -15,7 +15,7 @@
   const code=String(error?.code||''),english=en();let reason;
   if(code==='PREP_CANCELLED'||code==='STUDIO_STALE')reason=english?'The selection or session changed.':'Seçim veya oturum değişti.';
   else if(code==='STUDIO_SOURCE_CHANGED')reason=english?'The recording changed again during analysis.':'Kayıt analiz sırasında yeniden değişti.';
-  else if(code==='PREP_DURATION_LIMIT')reason=english?'The verified duration including any safety margin exceeds the 60-second Studio processing limit.':'Güvenlik payı dahil doğrulanan süre, stüdyonun 60 saniyelik işleme sınırını aşıyor.';
+  else if(code==='PREP_DURATION_LIMIT')reason=english?'The recording exceeds the verified 180-second inspection or 60-second editing limit, including any safety margin.':'Güvenlik payı dahil doğrulanan süre, 180 saniyelik inceleme veya 60 saniyelik düzenleme sınırını aşıyor.';
   else if(code==='PREP_SOURCE_LIMIT')reason=english?'The recording exceeds the 8 MiB Studio file limit.':'Kayıt, stüdyonun 8 MiB dosya sınırını aşıyor.';
   else if(code==='PREP_MEMORY_LIMIT')reason=english?'Analysis would exceed the safe memory budget.':'Analiz, güvenli bellek bütçesini aşıyor.';
   else if(code==='PREP_QUEUE_FULL')reason=english?'The audio preparation queue is full.':'Ses hazırlama sırası dolu.';
@@ -33,7 +33,7 @@
   const code=String(error?.code||'');
   if(code==='PREP_CANCELLED'||code==='STUDIO_STALE')return en()?'The selection or session changed. The edit was cancelled and your original recording was kept.':'Seçim veya oturum değişti. Düzenleme iptal edildi; asıl kayıt korundu.';
   if(code==='STUDIO_SOURCE_CHANGED')return en()?'This recording changed while it was being edited. Your newer recording was kept.':'Düzenleme sırasında bu kayıt değişti. Daha yeni kayıt korundu.';
-  if(code==='PREP_DURATION_LIMIT')return en()?'Studio processing supports a verified duration up to 60 seconds, including any safety margin. Your original recording was kept.':'Stüdyo işlemleri, güvenlik payıyla doğrulanmış en çok 60 saniyelik kayıtları destekliyor. Asıl kayıt korundu.';
+  if(code==='PREP_DURATION_LIMIT')return en()?'Read-only duration inspection supports up to 180 verified seconds; normalization and trimming support up to 60 seconds, including any safety margin. Your original recording was kept.':'Salt okunur süre incelemesi en çok 180 saniye; normalize ve kırpma 60 saniyelik sınırla çalışır. WebM güvenlik payı da sınıra dahildir. Asıl kayıt korundu.';
   if(code==='PREP_SOURCE_LIMIT')return en()?'This recording exceeds the 8 MiB file limit for Studio processing. Your original recording was kept.':'Bu kayıt, stüdyo işlemleri için 8 MiB dosya sınırını aşıyor. Asıl kayıt korundu.';
   if(code==='PREP_MEMORY_LIMIT')return en()?'Processing this recording would exceed the safe memory budget. Your original recording was kept.':'Bu kaydın işlenmesi güvenli bellek bütçesini aşıyor. Asıl kayıt korundu.';
   if(code==='PREP_QUEUE_FULL')return en()?'The audio preparation queue is full. Wait for the other operations to finish, then try again. Your original recording was kept.':'Ses hazırlama sırası dolu. Diğer işlemler bitince yeniden dene. Asıl kayıt korundu.';
@@ -55,7 +55,7 @@
   const signal=controller?.signal||opt.signal;
   const current=()=>!signal?.aborted&&!opt.signal?.aborted&&(!opt.isCurrent||opt.isCurrent());
   const check=()=>{if(!current())throw failure('PREP_CANCELLED');};
-  try{check();const result=await authority.decode(blob,{purpose:'studio',key:opt.key||'',signal,onExpire:abort,isCurrent:current,use:async(decoded,job)=>{
+  try{check();const result=await authority.decode(blob,{purpose:'studio',operation,allowLongInspection:operation==='analyze',key:opt.key||'',signal,onExpire:abort,isCurrent:current,use:async(decoded,job)=>{
    job.check();
    const value=await job.cpu({kind:'studio',operation,waveBins:Math.max(1,Math.min(1024,Math.floor(+opt.waveBins||512)))});
    job.check();
@@ -66,7 +66,7 @@
    if(opt.commit&&output.changed){job.check();await opt.commit(output,job.check,signal);job.check();}
    return output;
   }});
-  check();return result;}finally{opt.signal?.removeEventListener?.('abort',abort);}
+  check();if(result?.metadataOnly)return {metadataOnly:true,changed:false,dur:result.meta.duration,size:blob.size,durationUpperBound:result.meta.verified==='webm-opus',verified:result.meta.verified,reason:result.reason||'duration'};return result;}finally{opt.signal?.removeEventListener?.('abort',abort);}
  }
  w.SukunStudioPreparation=Object.freeze({version:'r982',process,explain,createCancellation});
 })(window);

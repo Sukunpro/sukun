@@ -32,7 +32,11 @@ const save=()=>{fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFile
     const before=await p.evaluate(()=>({drag:SukunFlowDockPlacement.snapshot(),layout:SukunAdaptiveDockLayout.snapshot()}));assert(before.drag.dragging,'native grip did not start a drag');
     await p.evaluate(()=>window.dispatchEvent(new Event('blur')));await p.waitForTimeout(80);
     const abandoned=await p.evaluate(()=>({drag:SukunFlowDockPlacement.snapshot(),gate:SukunInteractionGateR732.snapshot(),classes:document.body.className}));
-    await p.evaluate(()=>SukunDockSize.set('max',true));await p.waitForTimeout(250);const after=await p.evaluate(()=>({drag:SukunFlowDockPlacement.snapshot(),layout:SukunAdaptiveDockLayout.snapshot()}));
+    const modeRequestedAt=Date.now();await p.evaluate(()=>SukunDockSize.set('max',true));
+    // Geometry yields to native scrolling and its quiet period. The old 250 ms
+    // delay could read the prior Midi snapshot even on the clean r1098 build.
+    await p.waitForFunction(()=>SukunAdaptiveDockLayout.snapshot()?.mode==='max'&&!SukunFlowDockPlacement.snapshot().dragging,null,{timeout:10000});
+    const after=await p.evaluate(()=>({drag:SukunFlowDockPlacement.snapshot(),layout:SukunAdaptiveDockLayout.snapshot()}));after.modeSettledInMs=Date.now()-modeRequestedAt;
     await p.evaluate(value=>window.__raceTrace.push({type:'dock-abandoned',evidence:value}),{before,abandoned,after});await event('touchCancel');await idle();assert.equal(abandoned.drag.dragging,false,'blur cleared the gate but left the canonical drag permanently active');assert(!abandoned.classes.includes('r633-dock-dragging'));assert.equal(after.layout.mode,'max');return{before,abandoned,after};
    });
    await p.evaluate(()=>SukunAudioSessionRegistry.stopAll());
