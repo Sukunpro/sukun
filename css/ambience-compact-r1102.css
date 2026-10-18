@@ -1,0 +1,57 @@
+/* r1102: compact ambience controls, with existing native nodes and materials.
+ * This first important layer owns mixer geometry only. Text wrapping, channel
+ * state, help content and audio remain with their existing owners. */
+@layer sukun-r1102-ambience {
+html body #tab-amb #mixer .chn {
+ padding:8px 8px 6px!important;
+}
+html body #tab-amb #mixer .chn>.chTop {
+ display:grid!important;
+ grid-template-columns:auto minmax(0,1fr) 28px 36px!important;
+ grid-template-areas:"ic name name name" "eq . info sw"!important;
+ align-items:center!important;
+ gap:3px 5px!important;
+ margin-bottom:0!important;
+}
+html body #tab-amb #mixer .chn>.chTop:has(>.chPrev) {
+ grid-template-columns:auto 28px 28px minmax(0,1fr) 36px!important;
+ grid-template-areas:"ic name name name name" "eq prev info . sw"!important;
+}
+html body #tab-amb #mixer .chn>.chTop>.chIc {grid-area:ic!important}
+html body #tab-amb #mixer .chn>.chTop>.chName {grid-area:name!important;min-width:0!important}
+html body #tab-amb #mixer .chn>.chTop>.chEq {grid-area:eq!important}
+html body #tab-amb #mixer .chn>.chTop>.chPrev {grid-area:prev!important}
+html body #tab-amb #mixer .chn>.chTop>.chInfo {grid-area:info!important}
+html body #tab-amb #mixer .chn>.chTop>.sw {grid-area:sw!important;justify-self:end!important}
+html body #tab-amb #mixer .chn :is(.chInfo,.chPrev) {
+ box-sizing:border-box!important;
+ width:28px!important;min-width:28px!important;max-width:28px!important;
+ height:28px!important;min-height:28px!important;max-height:28px!important;
+ flex:0 0 28px!important;
+ padding:0!important;margin:0!important;
+ border-image-width:4px!important;
+ font-size:11px!important;line-height:1!important;
+}
+html body #tab-amb #mixer .chn button.sw {
+ box-sizing:border-box!important;
+ width:36px!important;min-width:36px!important;max-width:36px!important;
+ height:32px!important;min-height:32px!important;max-height:32px!important;
+ flex:0 0 36px!important;
+ padding:0!important;margin:0!important;
+}
+html body #tab-amb #mixer .chn button.sw::before {
+ left:0!important;top:6px!important;
+ width:36px!important;height:20px!important;
+}
+html body #tab-amb #mixer .chn button.sw::after {
+ left:2px!important;top:8px!important;
+ width:16px!important;min-width:16px!important;max-width:16px!important;
+ height:16px!important;min-height:16px!important;max-height:16px!important;
+}
+html body #tab-amb #mixer .chn>.r1030ChannelVolumeLabel {
+ margin:2px 0 0!important;
+}
+html body #tab-amb #mixer .chn>input[type="range"] {
+ margin-top:3px!important;
+}
+}
