@@ -1,0 +1,548 @@
+{
+  "build": "r1097",
+  "baseline": false,
+  "method": "Full original app bytes in disposable Linux Chromium; native IndexedDB, AudioContext decode and CPU worker. Generated WAV fixtures; controlled device-voice metadata and blocked service workers from the shared fixture. No microphone, physical Android, audible output or screen-lock claim.",
+  "checks": [
+    {
+      "name": "Two-second recording uses the native decoder and CPU worker",
+      "passed": true,
+      "evidence": {
+        "key": "temel:0",
+        "duration": "2.0 sn",
+        "peak": "62%",
+        "size": "31 KB",
+        "status": "Hazır · RMS 44%",
+        "preparation": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "ready",
+          "decodeStarts": 1,
+          "workerJobs": 1,
+          "fallbackJobs": 0,
+          "rejected": 0,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 1396468,
+          "maxConcurrent": 1,
+          "last": null
+        },
+        "count": 0,
+        "phase": "IDLE"
+      }
+    },
+    {
+      "name": "Over-duration selection clears previous measurements and reports the distinct duration limit",
+      "passed": true,
+      "evidence": {
+        "key": "temel:1",
+        "duration": "—",
+        "peak": "—",
+        "size": "—",
+        "status": "Stüdyo işlemleri, güvenlik payıyla doğrulanmış en çok 60 saniyelik kayıtları destekliyor. Asıl kayıt korundu.",
+        "preparation": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "ready",
+          "decodeStarts": 1,
+          "workerJobs": 1,
+          "fallbackJobs": 0,
+          "rejected": 1,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 2993668,
+          "maxConcurrent": 1,
+          "last": {
+            "code": "PREP_DURATION_LIMIT",
+            "key": "temel:1",
+            "purpose": "studio",
+            "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+            "at": 1792295509910
+          }
+        },
+        "count": 0,
+        "phase": "IDLE"
+      }
+    },
+    {
+      "name": "Oversized source reports the file limit without stale measurements or native decode",
+      "passed": true,
+      "evidence": {
+        "key": "temel:2",
+        "duration": "—",
+        "peak": "—",
+        "size": "—",
+        "status": "Bu kayıt, stüdyo işlemleri için 8 MiB dosya sınırını aşıyor. Asıl kayıt korundu.",
+        "preparation": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "ready",
+          "decodeStarts": 1,
+          "workerJobs": 1,
+          "fallbackJobs": 0,
+          "rejected": 2,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 2993668,
+          "maxConcurrent": 1,
+          "last": {
+            "code": "PREP_SOURCE_LIMIT",
+            "key": "temel:2",
+            "purpose": "studio",
+            "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+            "at": 1792295510272
+          }
+        },
+        "count": 0,
+        "phase": "IDLE"
+      }
+    },
+    {
+      "name": "Thirty-second stereo recording is classified as memory pressure before decoding",
+      "passed": true,
+      "evidence": {
+        "key": "temel:3",
+        "duration": "—",
+        "peak": "—",
+        "size": "—",
+        "status": "Bu kaydın işlenmesi güvenli bellek bütçesini aşıyor. Asıl kayıt korundu.",
+        "preparation": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "ready",
+          "decodeStarts": 1,
+          "workerJobs": 1,
+          "fallbackJobs": 0,
+          "rejected": 3,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 2993668,
+          "maxConcurrent": 1,
+          "last": {
+            "code": "PREP_MEMORY_LIMIT",
+            "key": "temel:3",
+            "purpose": "studio",
+            "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+            "at": 1792295510784
+          }
+        },
+        "count": 0,
+        "phase": "IDLE"
+      }
+    },
+    {
+      "name": "Returning to a valid recording restores current measurements",
+      "passed": true,
+      "evidence": {
+        "key": "temel:0",
+        "duration": "2.0 sn",
+        "peak": "62%",
+        "size": "31 KB",
+        "status": "Hazır · RMS 44%",
+        "preparation": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "ready",
+          "decodeStarts": 2,
+          "workerJobs": 2,
+          "fallbackJobs": 0,
+          "rejected": 3,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 2993668,
+          "maxConcurrent": 1,
+          "last": {
+            "code": "PREP_MEMORY_LIMIT",
+            "key": "temel:3",
+            "purpose": "studio",
+            "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+            "at": 1792295510784
+          }
+        },
+        "count": 0,
+        "phase": "IDLE"
+      }
+    },
+    {
+      "name": "Normalize commits real WAV bytes and displays the current peak",
+      "passed": true,
+      "evidence": {
+        "key": "temel:0",
+        "duration": "2.0 sn",
+        "peak": "92%",
+        "size": "172 KB",
+        "status": "Normalize edildi · tepe ≈ %92",
+        "preparation": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "ready",
+          "decodeStarts": 4,
+          "workerJobs": 4,
+          "fallbackJobs": 0,
+          "rejected": 3,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 2993668,
+          "maxConcurrent": 1,
+          "last": {
+            "code": "PREP_MEMORY_LIMIT",
+            "key": "temel:3",
+            "purpose": "studio",
+            "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+            "at": 1792295510784
+          }
+        },
+        "count": 0,
+        "phase": "IDLE"
+      }
+    },
+    {
+      "name": "Silence trim uses the native decoder and CPU worker, saves a shorter WAV and leaves other recordings unchanged",
+      "passed": true,
+      "evidence": {
+        "beforeDuration": "3.0 sn",
+        "view": {
+          "key": "temel:5",
+          "duration": "2.2 sn",
+          "peak": "62%",
+          "size": "186 KB",
+          "status": "Baş/son sessizlik kırpıldı.",
+          "preparation": {
+            "version": "r981",
+            "budgetBytes": 33554432,
+            "sourceBudgetBytes": 8388608,
+            "maxDurationSeconds": 60,
+            "pending": 0,
+            "active": 0,
+            "stage": "idle",
+            "stageAgeMs": 0,
+            "decodeBlocked": false,
+            "residentBytes": 0,
+            "activeEstimate": 0,
+            "worker": "ready",
+            "decodeStarts": 7,
+            "workerJobs": 7,
+            "fallbackJobs": 0,
+            "rejected": 3,
+            "timedOut": 0,
+            "cancelled": 0,
+            "peakEstimate": 2993668,
+            "maxConcurrent": 1,
+            "last": {
+              "code": "PREP_MEMORY_LIMIT",
+              "key": "temel:3",
+              "purpose": "studio",
+              "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+              "at": 1792295510784
+            }
+          },
+          "count": 0,
+          "phase": "IDLE"
+        },
+        "stored": {
+          "before": "abdc91a0c057a67bd8095a9b55eab83fecdb17ccb45150165b6059aa3d61d220",
+          "after": "0db795fe68816a9ec966ab94523bfb1a38071c1459393e5015018e2406752ada",
+          "beforeBytes": 288044,
+          "bytes": 190554,
+          "duration": 2.1599773242630387,
+          "others": {
+            "temel:0": "1c75878a235ef6ddf7e11861b6457d41f48f92f7a966722f68d9168366befd33",
+            "temel:1": "e24c00fa6d3e54dab859afd1682a0390f8005d201d2207a5c66f0d37a261aa69",
+            "temel:2": "4459f957d031a8b782dfee09d2c7070a4b5e6c33130a8f20ac35393fd97fc57a",
+            "temel:3": "b68badc53d5ba541cef80003578960aab2135e6e1ef90c806ef21596e9ebe7f4",
+            "temel:4": "7af913695561f220449226120a1c7e16e42230d7243f6e911fc7263d89e7594b",
+            "temel:6": "4a07ac577238fa030615d8b6850965843f1e2fdb3d2471cf3a4adb65cb5d24a0"
+          }
+        }
+      }
+    },
+    {
+      "name": "A committed edit remains explicitly saved when expanded WAV exceeds the subsequent analysis budget",
+      "passed": true,
+      "evidence": {
+        "view": {
+          "key": "temel:4",
+          "duration": "—",
+          "peak": "—",
+          "size": "—",
+          "status": "Normalize edildi · tepe ≈ %92 Kayıt kaydedildi; güncel kaydın analizi tamamlanamadı. Analiz, güvenli bellek bütçesini aşıyor. Güncel kayıt saklandı.",
+          "preparation": {
+            "version": "r981",
+            "budgetBytes": 33554432,
+            "sourceBudgetBytes": 8388608,
+            "maxDurationSeconds": 60,
+            "pending": 0,
+            "active": 0,
+            "stage": "idle",
+            "stageAgeMs": 0,
+            "decodeBlocked": false,
+            "residentBytes": 0,
+            "activeEstimate": 0,
+            "worker": "ready",
+            "decodeStarts": 9,
+            "workerJobs": 9,
+            "fallbackJobs": 0,
+            "rejected": 4,
+            "timedOut": 0,
+            "cancelled": 0,
+            "peakEstimate": 32670268,
+            "maxConcurrent": 1,
+            "last": {
+              "code": "PREP_MEMORY_LIMIT",
+              "key": "temel:4",
+              "purpose": "studio",
+              "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+              "at": 1792295517120
+            }
+          },
+          "count": 0,
+          "phase": "IDLE"
+        },
+        "stored": {
+          "before": "7af913695561f220449226120a1c7e16e42230d7243f6e911fc7263d89e7594b",
+          "after": "d51d61830f8427d09ac4a7c46565678a5d9b5643158f863924e9802125d33302",
+          "bytes": 4321844
+        }
+      }
+    },
+    {
+      "name": "Native IndexedDB commit remains saved after immediate cancellation without analysing or overwriting a newer selection",
+      "passed": true,
+      "evidence": [
+        {
+          "race": {
+            "mode": "abort",
+            "hit": 1,
+            "result": {
+              "value": true
+            },
+            "decodeStarts": 11,
+            "before": "4a07ac577238fa030615d8b6850965843f1e2fdb3d2471cf3a4adb65cb5d24a0",
+            "after": "1c75878a235ef6ddf7e11861b6457d41f48f92f7a966722f68d9168366befd33"
+          },
+          "view": {
+            "key": "temel:6",
+            "duration": "—",
+            "peak": "—",
+            "size": "—",
+            "status": "Normalize edildi · tepe ≈ %92 Kayıt kaydedildi; güncel kaydın analizi tamamlanamadı. Seçim veya oturum değişti. Güncel kayıt saklandı.",
+            "preparation": {
+              "version": "r981",
+              "budgetBytes": 33554432,
+              "sourceBudgetBytes": 8388608,
+              "maxDurationSeconds": 60,
+              "pending": 0,
+              "active": 0,
+              "stage": "idle",
+              "stageAgeMs": 0,
+              "decodeBlocked": false,
+              "residentBytes": 0,
+              "activeEstimate": 0,
+              "worker": "ready",
+              "decodeStarts": 11,
+              "workerJobs": 11,
+              "fallbackJobs": 0,
+              "rejected": 5,
+              "timedOut": 0,
+              "cancelled": 1,
+              "peakEstimate": 32670268,
+              "maxConcurrent": 1,
+              "last": {
+                "code": "PREP_CANCELLED",
+                "key": "temel:6",
+                "purpose": "studio",
+                "text": "Eski kayıt analizi veya düzenlemesi iptal edildi. Asıl kayıt korundu.",
+                "at": 1792295519304
+              }
+            },
+            "count": 0,
+            "phase": "IDLE"
+          }
+        },
+        {
+          "race": {
+            "mode": "selection",
+            "hit": 1,
+            "result": {
+              "value": true
+            },
+            "decodeStarts": 13,
+            "selectedStatus": "New selection owns this status",
+            "before": "4a07ac577238fa030615d8b6850965843f1e2fdb3d2471cf3a4adb65cb5d24a0",
+            "after": "1c75878a235ef6ddf7e11861b6457d41f48f92f7a966722f68d9168366befd33"
+          },
+          "view": {
+            "key": "temel:0",
+            "duration": "—",
+            "peak": "—",
+            "size": "—",
+            "status": "New selection owns this status",
+            "preparation": {
+              "version": "r981",
+              "budgetBytes": 33554432,
+              "sourceBudgetBytes": 8388608,
+              "maxDurationSeconds": 60,
+              "pending": 0,
+              "active": 0,
+              "stage": "idle",
+              "stageAgeMs": 0,
+              "decodeBlocked": false,
+              "residentBytes": 0,
+              "activeEstimate": 0,
+              "worker": "ready",
+              "decodeStarts": 13,
+              "workerJobs": 13,
+              "fallbackJobs": 0,
+              "rejected": 6,
+              "timedOut": 0,
+              "cancelled": 2,
+              "peakEstimate": 32670268,
+              "maxConcurrent": 1,
+              "last": {
+                "code": "PREP_CANCELLED",
+                "key": "temel:6",
+                "purpose": "studio",
+                "text": "Eski kayıt analizi veya düzenlemesi iptal edildi. Asıl kayıt korundu.",
+                "at": 1792295521705
+              }
+            },
+            "count": 0,
+            "phase": "IDLE"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Empty selection clears all measurements",
+      "passed": true,
+      "evidence": {
+        "key": null,
+        "duration": "—",
+        "peak": "—",
+        "size": "—",
+        "status": "Bir kayıt seç.",
+        "preparation": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "ready",
+          "decodeStarts": 13,
+          "workerJobs": 13,
+          "fallbackJobs": 0,
+          "rejected": 6,
+          "timedOut": 0,
+          "cancelled": 2,
+          "peakEstimate": 32670268,
+          "maxConcurrent": 1,
+          "last": {
+            "code": "PREP_CANCELLED",
+            "key": "temel:6",
+            "purpose": "studio",
+            "text": "Eski kayıt analizi veya düzenlemesi iptal edildi. Asıl kayıt korundu.",
+            "at": 1792295521705
+          }
+        },
+        "count": 0,
+        "phase": "IDLE"
+      }
+    },
+    {
+      "name": "Rejected originals retain their exact native IndexedDB bytes",
+      "passed": true,
+      "evidence": {
+        "temel:1": {
+          "before": "e24c00fa6d3e54dab859afd1682a0390f8005d201d2207a5c66f0d37a261aa69",
+          "after": "e24c00fa6d3e54dab859afd1682a0390f8005d201d2207a5c66f0d37a261aa69"
+        },
+        "temel:2": {
+          "before": "4459f957d031a8b782dfee09d2c7070a4b5e6c33130a8f20ac35393fd97fc57a",
+          "after": "4459f957d031a8b782dfee09d2c7070a4b5e6c33130a8f20ac35393fd97fc57a"
+        },
+        "temel:3": {
+          "before": "b68badc53d5ba541cef80003578960aab2135e6e1ef90c806ef21596e9ebe7f4",
+          "after": "b68badc53d5ba541cef80003578960aab2135e6e1ef90c806ef21596e9ebe7f4"
+        }
+      }
+    },
+    {
+      "name": "Limits are visible in Turkish and English and remain separate from capture",
+      "passed": true,
+      "evidence": {
+        "tr": "Stüdyo işleme üst sınırı: doğrulanmış 60 sn ve 8 MiB. Bellek bütçesi ve WebM güvenlik payı daha kısa kayıtlarda da işlemi sınırlayabilir. Bu sınırlar mikrofon kaydını otomatik kesmez.",
+        "en": "Studio processing ceiling: verified 60 seconds and 8 MiB. The memory budget and WebM safety margin can also limit shorter recordings. These limits do not automatically stop microphone recording."
+      }
+    },
+    {
+      "name": "Complete app has no JavaScript/SRI faults and all served bytes match disk",
+      "passed": true,
+      "evidence": {
+        "files": 125,
+        "failedRequests": []
+      }
+    }
+  ],
+  "passed": 13,
+  "total": 13,
+  "browser": "138.0.7204.0"
+}

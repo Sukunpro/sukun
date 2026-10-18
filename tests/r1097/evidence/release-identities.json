@@ -1,0 +1,63 @@
+{
+  "suite": "release identity preserves immutable dependencies",
+  "passed": 14,
+  "total": 14,
+  "results": [
+    {
+      "name": "const SURUM = 'r1096';",
+      "passed": true
+    },
+    {
+      "name": "const CACHE_META = './sukun-cache-meta-r1096.json';",
+      "passed": true
+    },
+    {
+      "name": "const BUILD_MARKER = './sukun-build-r1096.json';",
+      "passed": true
+    },
+    {
+      "name": "./assets/runtime/offline-images-ui-r1095.js?v=r1096",
+      "passed": true
+    },
+    {
+      "name": "./sukun-site-assets-r1096.json?v=r1096",
+      "passed": true
+    },
+    {
+      "name": "const IMAGE_PACK_MANIFEST='./assets/runtime/image-pack-manifest-r1095.json';",
+      "passed": true
+    },
+    {
+      "name": "manifest.version!=='r1095'",
+      "passed": true
+    },
+    {
+      "name": "/* r1095 catalog implementation */",
+      "passed": true
+    },
+    {
+      "name": "Repeated finalization is idempotent",
+      "passed": true
+    },
+    {
+      "name": "Unexpected source release is rejected",
+      "passed": true
+    },
+    {
+      "name": "Production immutable catalog field ^const IMAGE_PACK_MANIFEST=.*$",
+      "passed": true
+    },
+    {
+      "name": "Production immutable catalog field ^.*manifest\\.version!==.*$",
+      "passed": true
+    },
+    {
+      "name": "Production immutable catalog field ^const IMAGE_PACK_SHA256.*$",
+      "passed": true
+    },
+    {
+      "name": "Production runtime asset filenames stay unchanged",
+      "passed": true
+    }
+  ]
+}

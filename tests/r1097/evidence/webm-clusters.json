@@ -1,0 +1,2380 @@
+{
+  "suite": "r1097 bounded WebM unknown-size Cluster regression",
+  "method": "Shipped parser in Node VM; all 291 packaged recordings hash-verified against manifest plus synthetic EBML hierarchy, duration and malformed-input cases. Native browser decode and physical Android capture are separate checks.",
+  "passed": 18,
+  "total": 18,
+  "results": [
+    {
+      "name": "Packaged Ayet-el-Kursi koruma:0 verifies actual bank bytes and passes production inspection",
+      "passed": true
+    },
+    {
+      "name": "Entire packaged bank classifies 291 hash-verified clips with no header failures",
+      "passed": true
+    },
+    {
+      "name": "Twenty unknown-sized sibling Clusters remain siblings in unknown and known-sized Segments",
+      "passed": true
+    },
+    {
+      "name": "Cluster local timestamps reset for every unknown-sized sibling",
+      "passed": true
+    },
+    {
+      "name": "Known-sized and unknown-sized sibling Clusters may be mixed without nesting",
+      "passed": true
+    },
+    {
+      "name": "Segment-level Cues, Tags and SeekHead terminate an unknown Cluster at parsed element boundaries",
+      "passed": true
+    },
+    {
+      "name": "Void and CRC global elements stay inside the current Cluster",
+      "passed": true
+    },
+    {
+      "name": "Cluster and Segment magic bytes inside a sized Opus packet never create container boundaries",
+      "passed": true
+    },
+    {
+      "name": "Known-sized Cluster cannot contain another Cluster, whether child length is known or unknown",
+      "passed": true
+    },
+    {
+      "name": "Recognized masters in invalid parents fail closed instead of becoming nested tracks",
+      "passed": true
+    },
+    {
+      "name": "Segment or EBML roots inside a Cluster are rejected and never swallowed",
+      "passed": true
+    },
+    {
+      "name": "Unknown-size scalar, Void and unsupported master are rejected before decode",
+      "passed": true
+    },
+    {
+      "name": "Truncated sized payload, element ID and size cannot be accepted as an unknown Cluster boundary",
+      "passed": true
+    },
+    {
+      "name": "Unknown Cluster siblings retain cluster and block timestamp duration checks",
+      "passed": true
+    },
+    {
+      "name": "Cumulative Opus packet budget still rejects over sixty seconds across sibling Clusters",
+      "passed": true
+    },
+    {
+      "name": "Twenty-thousand-node bound still rejects a deliberately oversized element list",
+      "passed": true
+    },
+    {
+      "name": "Source and memory budgets retain published values and reject input without decode",
+      "passed": true
+    },
+    {
+      "name": "Cancellation during controlled decode settles caller promptly and retains native memory lease",
+      "passed": true
+    }
+  ],
+  "packagedBank": {
+    "total": 291,
+    "accepted": 279,
+    "durationLimited": 12,
+    "headerFailures": 0,
+    "clips": [
+      {
+        "key": "arinma:0",
+        "bytes": 46967,
+        "outcome": "accepted",
+        "duration": 4.18,
+        "packetSeconds": 3.18,
+        "channels": 1
+      },
+      {
+        "key": "arinma:1",
+        "bytes": 80809,
+        "outcome": "accepted",
+        "duration": 6.28,
+        "packetSeconds": 5.28,
+        "channels": 1
+      },
+      {
+        "key": "arinma:2",
+        "bytes": 72745,
+        "outcome": "accepted",
+        "duration": 5.8,
+        "packetSeconds": 4.8,
+        "channels": 1
+      },
+      {
+        "key": "arinma:3",
+        "bytes": 533329,
+        "outcome": "accepted",
+        "duration": 34.36,
+        "packetSeconds": 33.36,
+        "channels": 1
+      },
+      {
+        "key": "arinma:4",
+        "bytes": 99193,
+        "outcome": "accepted",
+        "duration": 7.48,
+        "packetSeconds": 6.48,
+        "channels": 1
+      },
+      {
+        "key": "arinma:5",
+        "bytes": 107553,
+        "outcome": "accepted",
+        "duration": 7.96,
+        "packetSeconds": 6.96,
+        "channels": 1
+      },
+      {
+        "key": "arinma:6",
+        "bytes": 78213,
+        "outcome": "accepted",
+        "duration": 6.1,
+        "packetSeconds": 5.1,
+        "channels": 1
+      },
+      {
+        "key": "arinma:7",
+        "bytes": 75329,
+        "outcome": "accepted",
+        "duration": 5.98,
+        "packetSeconds": 4.98,
+        "channels": 1
+      },
+      {
+        "key": "arinma:8",
+        "bytes": 53339,
+        "outcome": "accepted",
+        "duration": 4.3,
+        "packetSeconds": 3.3,
+        "channels": 1
+      },
+      {
+        "key": "berhet:0",
+        "bytes": 44629,
+        "outcome": "accepted",
+        "duration": 3.76,
+        "packetSeconds": 2.76,
+        "channels": 1
+      },
+      {
+        "key": "berhet:1",
+        "bytes": 34969,
+        "outcome": "accepted",
+        "duration": 3.16,
+        "packetSeconds": 2.16,
+        "channels": 1
+      },
+      {
+        "key": "berhet:10",
+        "bytes": 37867,
+        "outcome": "accepted",
+        "duration": 3.34,
+        "packetSeconds": 2.34,
+        "channels": 1
+      },
+      {
+        "key": "berhet:11",
+        "bytes": 35935,
+        "outcome": "accepted",
+        "duration": 3.22,
+        "packetSeconds": 2.22,
+        "channels": 1
+      },
+      {
+        "key": "berhet:12",
+        "bytes": 34003,
+        "outcome": "accepted",
+        "duration": 3.1,
+        "packetSeconds": 2.1,
+        "channels": 1
+      },
+      {
+        "key": "berhet:13",
+        "bytes": 46261,
+        "outcome": "accepted",
+        "duration": 3.94,
+        "packetSeconds": 2.94,
+        "channels": 1
+      },
+      {
+        "key": "berhet:14",
+        "bytes": 45595,
+        "outcome": "accepted",
+        "duration": 3.82,
+        "packetSeconds": 2.82,
+        "channels": 1
+      },
+      {
+        "key": "berhet:15",
+        "bytes": 51760,
+        "outcome": "accepted",
+        "duration": 4.3,
+        "packetSeconds": 3.3,
+        "channels": 1
+      },
+      {
+        "key": "berhet:16",
+        "bytes": 53991,
+        "outcome": "accepted",
+        "duration": 4.359999999999999,
+        "packetSeconds": 3.36,
+        "channels": 1
+      },
+      {
+        "key": "berhet:17",
+        "bytes": 53339,
+        "outcome": "accepted",
+        "duration": 4.3,
+        "packetSeconds": 3.3,
+        "channels": 1
+      },
+      {
+        "key": "berhet:18",
+        "bytes": 42697,
+        "outcome": "accepted",
+        "duration": 3.64,
+        "packetSeconds": 2.64,
+        "channels": 1
+      },
+      {
+        "key": "berhet:19",
+        "bytes": 42697,
+        "outcome": "accepted",
+        "duration": 3.64,
+        "packetSeconds": 2.64,
+        "channels": 1
+      },
+      {
+        "key": "berhet:2",
+        "bytes": 35935,
+        "outcome": "accepted",
+        "duration": 3.22,
+        "packetSeconds": 2.22,
+        "channels": 1
+      },
+      {
+        "key": "berhet:20",
+        "bytes": 39799,
+        "outcome": "accepted",
+        "duration": 3.46,
+        "packetSeconds": 2.46,
+        "channels": 1
+      },
+      {
+        "key": "berhet:21",
+        "bytes": 56889,
+        "outcome": "accepted",
+        "duration": 4.54,
+        "packetSeconds": 3.54,
+        "channels": 1
+      },
+      {
+        "key": "berhet:22",
+        "bytes": 58169,
+        "outcome": "accepted",
+        "duration": 4.6,
+        "packetSeconds": 3.6,
+        "channels": 1
+      },
+      {
+        "key": "berhet:23",
+        "bytes": 41731,
+        "outcome": "accepted",
+        "duration": 3.58,
+        "packetSeconds": 2.58,
+        "channels": 1
+      },
+      {
+        "key": "berhet:24",
+        "bytes": 67845,
+        "outcome": "accepted",
+        "duration": 5.2,
+        "packetSeconds": 4.2,
+        "channels": 1
+      },
+      {
+        "key": "berhet:25",
+        "bytes": 38833,
+        "outcome": "accepted",
+        "duration": 3.4,
+        "packetSeconds": 2.4,
+        "channels": 1
+      },
+      {
+        "key": "berhet:26",
+        "bytes": 33021,
+        "outcome": "accepted",
+        "duration": 3.04,
+        "packetSeconds": 2.04,
+        "channels": 1
+      },
+      {
+        "key": "berhet:27",
+        "bytes": 68811,
+        "outcome": "accepted",
+        "duration": 5.26,
+        "packetSeconds": 4.26,
+        "channels": 1
+      },
+      {
+        "key": "berhet:3",
+        "bytes": 75573,
+        "outcome": "accepted",
+        "duration": 5.68,
+        "packetSeconds": 4.68,
+        "channels": 1
+      },
+      {
+        "key": "berhet:4",
+        "bytes": 42697,
+        "outcome": "accepted",
+        "duration": 3.64,
+        "packetSeconds": 2.64,
+        "channels": 1
+      },
+      {
+        "key": "berhet:5",
+        "bytes": 35935,
+        "outcome": "accepted",
+        "duration": 3.22,
+        "packetSeconds": 2.22,
+        "channels": 1
+      },
+      {
+        "key": "berhet:6",
+        "bytes": 26259,
+        "outcome": "accepted",
+        "duration": 2.62,
+        "packetSeconds": 1.62,
+        "channels": 1
+      },
+      {
+        "key": "berhet:7",
+        "bytes": 37867,
+        "outcome": "accepted",
+        "duration": 3.34,
+        "packetSeconds": 2.34,
+        "channels": 1
+      },
+      {
+        "key": "berhet:8",
+        "bytes": 32055,
+        "outcome": "accepted",
+        "duration": 2.98,
+        "packetSeconds": 1.98,
+        "channels": 1
+      },
+      {
+        "key": "berhet:9",
+        "bytes": 41731,
+        "outcome": "accepted",
+        "duration": 3.58,
+        "packetSeconds": 2.58,
+        "channels": 1
+      },
+      {
+        "key": "dua:ak",
+        "bytes": 1054104,
+        "outcome": "PREP_DURATION_LIMIT"
+      },
+      {
+        "key": "dua:hizb:0",
+        "bytes": 23156,
+        "outcome": "accepted",
+        "duration": 2.8600000000000003,
+        "packetSeconds": 1.86,
+        "channels": 1
+      },
+      {
+        "key": "dua:hizb:1",
+        "bytes": 374522,
+        "outcome": "accepted",
+        "duration": 24.76,
+        "packetSeconds": 23.76,
+        "channels": 1
+      },
+      {
+        "key": "dua:salavat:1",
+        "bytes": 551799,
+        "outcome": "accepted",
+        "duration": 36.675,
+        "packetSeconds": 34.8,
+        "channels": 1
+      },
+      {
+        "key": "dua:salavat:2",
+        "bytes": 707211,
+        "outcome": "accepted",
+        "duration": 45.7,
+        "packetSeconds": 44.7,
+        "channels": 1
+      },
+      {
+        "key": "dua:salavat:3",
+        "bytes": 383264,
+        "outcome": "accepted",
+        "duration": 26.74,
+        "packetSeconds": 25.74,
+        "channels": 1
+      },
+      {
+        "key": "dua:salavat:4",
+        "bytes": 722403,
+        "outcome": "accepted",
+        "duration": 46.84,
+        "packetSeconds": 45.84,
+        "channels": 1
+      },
+      {
+        "key": "dua:salavat:5",
+        "bytes": 454858,
+        "outcome": "accepted",
+        "duration": 30.04,
+        "packetSeconds": 29.04,
+        "channels": 1
+      },
+      {
+        "key": "dua:seyyid",
+        "bytes": 490473,
+        "outcome": "accepted",
+        "duration": 31.72,
+        "packetSeconds": 30.72,
+        "channels": 1
+      },
+      {
+        "key": "dua:tovbe:0",
+        "bytes": 480525,
+        "outcome": "accepted",
+        "duration": 31.3,
+        "packetSeconds": 30.3,
+        "channels": 1
+      },
+      {
+        "key": "dua:tovbe:1",
+        "bytes": 1241618,
+        "outcome": "PREP_DURATION_LIMIT"
+      },
+      {
+        "key": "dua:tovbe:10",
+        "bytes": 3983396,
+        "outcome": "PREP_DURATION_LIMIT"
+      },
+      {
+        "key": "dua:tovbe:2",
+        "bytes": 630301,
+        "outcome": "accepted",
+        "duration": 40.18,
+        "packetSeconds": 39.18,
+        "channels": 1
+      },
+      {
+        "key": "dua:tovbe:3",
+        "bytes": 1354913,
+        "outcome": "PREP_DURATION_LIMIT"
+      },
+      {
+        "key": "dua:tovbe:4",
+        "bytes": 2752578,
+        "outcome": "PREP_DURATION_LIMIT"
+      },
+      {
+        "key": "dua:tovbe:5",
+        "bytes": 2058097,
+        "outcome": "PREP_DURATION_LIMIT"
+      },
+      {
+        "key": "dua:tovbe:6",
+        "bytes": 1107328,
+        "outcome": "PREP_DURATION_LIMIT"
+      },
+      {
+        "key": "dua:tovbe:7",
+        "bytes": 1379983,
+        "outcome": "PREP_DURATION_LIMIT"
+      },
+      {
+        "key": "dua:tovbe:8",
+        "bytes": 1253362,
+        "outcome": "PREP_DURATION_LIMIT"
+      },
+      {
+        "key": "dua:tovbe:9",
+        "bytes": 1306647,
+        "outcome": "PREP_DURATION_LIMIT"
+      },
+      {
+        "key": "esma:0:nida",
+        "bytes": 51407,
+        "outcome": "accepted",
+        "duration": 4.18,
+        "packetSeconds": 3.18,
+        "channels": 1
+      },
+      {
+        "key": "esma:10:nida",
+        "bytes": 46561,
+        "outcome": "accepted",
+        "duration": 3.88,
+        "packetSeconds": 2.88,
+        "channels": 1
+      },
+      {
+        "key": "esma:11:nida",
+        "bytes": 44629,
+        "outcome": "accepted",
+        "duration": 3.76,
+        "packetSeconds": 2.76,
+        "channels": 1
+      },
+      {
+        "key": "esma:12:nida",
+        "bytes": 34969,
+        "outcome": "accepted",
+        "duration": 3.16,
+        "packetSeconds": 2.16,
+        "channels": 1
+      },
+      {
+        "key": "esma:13:nida",
+        "bytes": 33021,
+        "outcome": "accepted",
+        "duration": 3.04,
+        "packetSeconds": 2.04,
+        "channels": 1
+      },
+      {
+        "key": "esma:14:nida",
+        "bytes": 36901,
+        "outcome": "accepted",
+        "duration": 3.28,
+        "packetSeconds": 2.28,
+        "channels": 1
+      },
+      {
+        "key": "esma:15:nida",
+        "bytes": 35935,
+        "outcome": "accepted",
+        "duration": 3.22,
+        "packetSeconds": 2.22,
+        "channels": 1
+      },
+      {
+        "key": "esma:16:nida",
+        "bytes": 33021,
+        "outcome": "accepted",
+        "duration": 3.04,
+        "packetSeconds": 2.04,
+        "channels": 1
+      },
+      {
+        "key": "esma:17:nida",
+        "bytes": 34969,
+        "outcome": "accepted",
+        "duration": 3.16,
+        "packetSeconds": 2.16,
+        "channels": 1
+      },
+      {
+        "key": "esma:18:nida",
+        "bytes": 40765,
+        "outcome": "accepted",
+        "duration": 3.52,
+        "packetSeconds": 2.52,
+        "channels": 1
+      },
+      {
+        "key": "esma:19:nida",
+        "bytes": 35935,
+        "outcome": "accepted",
+        "duration": 3.22,
+        "packetSeconds": 2.22,
+        "channels": 1
+      },
+      {
+        "key": "esma:1:nida",
+        "bytes": 51407,
+        "outcome": "accepted",
+        "duration": 4.18,
+        "packetSeconds": 3.18,
+        "channels": 1
+      },
+      {
+        "key": "esma:20:nida",
+        "bytes": 40765,
+        "outcome": "accepted",
+        "duration": 3.52,
+        "packetSeconds": 2.52,
+        "channels": 1
+      },
+      {
+        "key": "esma:21:nida",
+        "bytes": 49459,
+        "outcome": "accepted",
+        "duration": 4.0600000000000005,
+        "packetSeconds": 3.06,
+        "channels": 1
+      },
+      {
+        "key": "esma:22:nida",
+        "bytes": 38833,
+        "outcome": "accepted",
+        "duration": 3.4,
+        "packetSeconds": 2.4,
+        "channels": 1
+      },
+      {
+        "key": "esma:23:nida",
+        "bytes": 49459,
+        "outcome": "accepted",
+        "duration": 4.0600000000000005,
+        "packetSeconds": 3.06,
+        "channels": 1
+      },
+      {
+        "key": "esma:24:nida",
+        "bytes": 50441,
+        "outcome": "accepted",
+        "duration": 4.12,
+        "packetSeconds": 3.12,
+        "channels": 1
+      },
+      {
+        "key": "esma:25:nida",
+        "bytes": 37867,
+        "outcome": "accepted",
+        "duration": 3.34,
+        "packetSeconds": 2.34,
+        "channels": 1
+      },
+      {
+        "key": "esma:26:nida",
+        "bytes": 41731,
+        "outcome": "accepted",
+        "duration": 3.58,
+        "packetSeconds": 2.58,
+        "channels": 1
+      },
+      {
+        "key": "esma:27:nida",
+        "bytes": 26259,
+        "outcome": "accepted",
+        "duration": 2.62,
+        "packetSeconds": 1.62,
+        "channels": 1
+      },
+      {
+        "key": "esma:28:nida",
+        "bytes": 29157,
+        "outcome": "accepted",
+        "duration": 2.8,
+        "packetSeconds": 1.8,
+        "channels": 1
+      },
+      {
+        "key": "esma:29:nida",
+        "bytes": 32055,
+        "outcome": "accepted",
+        "duration": 2.98,
+        "packetSeconds": 1.98,
+        "channels": 1
+      },
+      {
+        "key": "esma:2:nida",
+        "bytes": 41731,
+        "outcome": "accepted",
+        "duration": 3.58,
+        "packetSeconds": 2.58,
+        "channels": 1
+      },
+      {
+        "key": "esma:30:nida",
+        "bytes": 30123,
+        "outcome": "accepted",
+        "duration": 2.8600000000000003,
+        "packetSeconds": 1.86,
+        "channels": 1
+      },
+      {
+        "key": "esma:31:nida",
+        "bytes": 36901,
+        "outcome": "accepted",
+        "duration": 3.28,
+        "packetSeconds": 2.28,
+        "channels": 1
+      },
+      {
+        "key": "esma:32:nida",
+        "bytes": 27225,
+        "outcome": "accepted",
+        "duration": 2.6799999999999997,
+        "packetSeconds": 1.68,
+        "channels": 1
+      },
+      {
+        "key": "esma:33:nida",
+        "bytes": 38833,
+        "outcome": "accepted",
+        "duration": 3.4,
+        "packetSeconds": 2.4,
+        "channels": 1
+      },
+      {
+        "key": "esma:34:nida",
+        "bytes": 46561,
+        "outcome": "accepted",
+        "duration": 3.88,
+        "packetSeconds": 2.88,
+        "channels": 1
+      },
+      {
+        "key": "esma:35:nida",
+        "bytes": 40765,
+        "outcome": "accepted",
+        "duration": 3.52,
+        "packetSeconds": 2.52,
+        "channels": 1
+      },
+      {
+        "key": "esma:36:nida",
+        "bytes": 34969,
+        "outcome": "accepted",
+        "duration": 3.16,
+        "packetSeconds": 2.16,
+        "channels": 1
+      },
+      {
+        "key": "esma:37:nida",
+        "bytes": 46561,
+        "outcome": "accepted",
+        "duration": 3.88,
+        "packetSeconds": 2.88,
+        "channels": 1
+      },
+      {
+        "key": "esma:38:nida",
+        "bytes": 38833,
+        "outcome": "accepted",
+        "duration": 3.4,
+        "packetSeconds": 2.4,
+        "channels": 1
+      },
+      {
+        "key": "esma:39:nida",
+        "bytes": 46561,
+        "outcome": "accepted",
+        "duration": 3.88,
+        "packetSeconds": 2.88,
+        "channels": 1
+      },
+      {
+        "key": "esma:3:nida",
+        "bytes": 43663,
+        "outcome": "accepted",
+        "duration": 3.7,
+        "packetSeconds": 2.7,
+        "channels": 1
+      },
+      {
+        "key": "esma:40:nida",
+        "bytes": 40765,
+        "outcome": "accepted",
+        "duration": 3.52,
+        "packetSeconds": 2.52,
+        "channels": 1
+      },
+      {
+        "key": "esma:41:nida",
+        "bytes": 40765,
+        "outcome": "accepted",
+        "duration": 3.52,
+        "packetSeconds": 2.52,
+        "channels": 1
+      },
+      {
+        "key": "esma:42:nida",
+        "bytes": 34003,
+        "outcome": "accepted",
+        "duration": 3.1,
+        "packetSeconds": 2.1,
+        "channels": 1
+      },
+      {
+        "key": "esma:43:nida",
+        "bytes": 50441,
+        "outcome": "accepted",
+        "duration": 4.12,
+        "packetSeconds": 3.12,
+        "channels": 1
+      },
+      {
+        "key": "esma:44:nida",
+        "bytes": 32055,
+        "outcome": "accepted",
+        "duration": 2.98,
+        "packetSeconds": 1.98,
+        "channels": 1
+      },
+      {
+        "key": "esma:45:nida",
+        "bytes": 44629,
+        "outcome": "accepted",
+        "duration": 3.76,
+        "packetSeconds": 2.76,
+        "channels": 1
+      },
+      {
+        "key": "esma:46:nida",
+        "bytes": 37867,
+        "outcome": "accepted",
+        "duration": 3.34,
+        "packetSeconds": 2.34,
+        "channels": 1
+      },
+      {
+        "key": "esma:47:nida",
+        "bytes": 30123,
+        "outcome": "accepted",
+        "duration": 2.8600000000000003,
+        "packetSeconds": 1.86,
+        "channels": 1
+      },
+      {
+        "key": "esma:48:nida",
+        "bytes": 42697,
+        "outcome": "accepted",
+        "duration": 3.64,
+        "packetSeconds": 2.64,
+        "channels": 1
+      },
+      {
+        "key": "esma:49:nida",
+        "bytes": 42697,
+        "outcome": "accepted",
+        "duration": 3.64,
+        "packetSeconds": 2.64,
+        "channels": 1
+      },
+      {
+        "key": "esma:4:nida",
+        "bytes": 39799,
+        "outcome": "accepted",
+        "duration": 3.46,
+        "packetSeconds": 2.46,
+        "channels": 1
+      },
+      {
+        "key": "esma:50:nida",
+        "bytes": 36901,
+        "outcome": "accepted",
+        "duration": 3.28,
+        "packetSeconds": 2.28,
+        "channels": 1
+      },
+      {
+        "key": "esma:51:nida",
+        "bytes": 44629,
+        "outcome": "accepted",
+        "duration": 3.76,
+        "packetSeconds": 2.76,
+        "channels": 1
+      },
+      {
+        "key": "esma:52:nida",
+        "bytes": 48493,
+        "outcome": "accepted",
+        "duration": 4,
+        "packetSeconds": 3,
+        "channels": 1
+      },
+      {
+        "key": "esma:53:nida",
+        "bytes": 34003,
+        "outcome": "accepted",
+        "duration": 3.1,
+        "packetSeconds": 2.1,
+        "channels": 1
+      },
+      {
+        "key": "esma:54:nida",
+        "bytes": 34969,
+        "outcome": "accepted",
+        "duration": 3.16,
+        "packetSeconds": 2.16,
+        "channels": 1
+      },
+      {
+        "key": "esma:55:nida",
+        "bytes": 37867,
+        "outcome": "accepted",
+        "duration": 3.34,
+        "packetSeconds": 2.34,
+        "channels": 1
+      },
+      {
+        "key": "esma:56:nida",
+        "bytes": 30123,
+        "outcome": "accepted",
+        "duration": 2.8600000000000003,
+        "packetSeconds": 1.86,
+        "channels": 1
+      },
+      {
+        "key": "esma:57:nida",
+        "bytes": 28191,
+        "outcome": "accepted",
+        "duration": 2.74,
+        "packetSeconds": 1.74,
+        "channels": 1
+      },
+      {
+        "key": "esma:58:nida",
+        "bytes": 30123,
+        "outcome": "accepted",
+        "duration": 2.8600000000000003,
+        "packetSeconds": 1.86,
+        "channels": 1
+      },
+      {
+        "key": "esma:59:nida",
+        "bytes": 34969,
+        "outcome": "accepted",
+        "duration": 3.16,
+        "packetSeconds": 2.16,
+        "channels": 1
+      },
+      {
+        "key": "esma:5:nida",
+        "bytes": 27225,
+        "outcome": "accepted",
+        "duration": 2.6799999999999997,
+        "packetSeconds": 1.68,
+        "channels": 1
+      },
+      {
+        "key": "esma:60:nida",
+        "bytes": 45595,
+        "outcome": "accepted",
+        "duration": 3.82,
+        "packetSeconds": 2.82,
+        "channels": 1
+      },
+      {
+        "key": "esma:61:nida",
+        "bytes": 32055,
+        "outcome": "accepted",
+        "duration": 2.98,
+        "packetSeconds": 1.98,
+        "channels": 1
+      },
+      {
+        "key": "esma:62:nida",
+        "bytes": 34969,
+        "outcome": "accepted",
+        "duration": 3.16,
+        "packetSeconds": 2.16,
+        "channels": 1
+      },
+      {
+        "key": "esma:63:nida",
+        "bytes": 28191,
+        "outcome": "accepted",
+        "duration": 2.74,
+        "packetSeconds": 1.74,
+        "channels": 1
+      },
+      {
+        "key": "esma:64:nida",
+        "bytes": 34969,
+        "outcome": "accepted",
+        "duration": 3.16,
+        "packetSeconds": 2.16,
+        "channels": 1
+      },
+      {
+        "key": "esma:65:nida",
+        "bytes": 34003,
+        "outcome": "accepted",
+        "duration": 3.1,
+        "packetSeconds": 2.1,
+        "channels": 1
+      },
+      {
+        "key": "esma:66:nida",
+        "bytes": 41731,
+        "outcome": "accepted",
+        "duration": 3.58,
+        "packetSeconds": 2.58,
+        "channels": 1
+      },
+      {
+        "key": "esma:67:nida",
+        "bytes": 34969,
+        "outcome": "accepted",
+        "duration": 3.16,
+        "packetSeconds": 2.16,
+        "channels": 1
+      },
+      {
+        "key": "esma:68:nida",
+        "bytes": 38833,
+        "outcome": "accepted",
+        "duration": 3.4,
+        "packetSeconds": 2.4,
+        "channels": 1
+      },
+      {
+        "key": "esma:69:nida",
+        "bytes": 33021,
+        "outcome": "accepted",
+        "duration": 3.04,
+        "packetSeconds": 2.04,
+        "channels": 1
+      },
+      {
+        "key": "esma:6:nida",
+        "bytes": 40765,
+        "outcome": "accepted",
+        "duration": 3.52,
+        "packetSeconds": 2.52,
+        "channels": 1
+      },
+      {
+        "key": "esma:6:tev",
+        "bytes": 56324,
+        "outcome": "accepted",
+        "duration": 4.48,
+        "packetSeconds": 3.48,
+        "channels": 1
+      },
+      {
+        "key": "esma:70:nida",
+        "bytes": 30123,
+        "outcome": "accepted",
+        "duration": 2.8600000000000003,
+        "packetSeconds": 1.86,
+        "channels": 1
+      },
+      {
+        "key": "esma:71:nida",
+        "bytes": 31089,
+        "outcome": "accepted",
+        "duration": 2.92,
+        "packetSeconds": 1.92,
+        "channels": 1
+      },
+      {
+        "key": "esma:72:nida",
+        "bytes": 33021,
+        "outcome": "accepted",
+        "duration": 3.04,
+        "packetSeconds": 2.04,
+        "channels": 1
+      },
+      {
+        "key": "esma:73:nida",
+        "bytes": 40765,
+        "outcome": "accepted",
+        "duration": 3.52,
+        "packetSeconds": 2.52,
+        "channels": 1
+      },
+      {
+        "key": "esma:74:nida",
+        "bytes": 46561,
+        "outcome": "accepted",
+        "duration": 3.88,
+        "packetSeconds": 2.88,
+        "channels": 1
+      },
+      {
+        "key": "esma:75:nida",
+        "bytes": 37867,
+        "outcome": "accepted",
+        "duration": 3.34,
+        "packetSeconds": 2.34,
+        "channels": 1
+      },
+      {
+        "key": "esma:76:nida",
+        "bytes": 42697,
+        "outcome": "accepted",
+        "duration": 3.64,
+        "packetSeconds": 2.64,
+        "channels": 1
+      },
+      {
+        "key": "esma:77:nida",
+        "bytes": 41731,
+        "outcome": "accepted",
+        "duration": 3.58,
+        "packetSeconds": 2.58,
+        "channels": 1
+      },
+      {
+        "key": "esma:78:nida",
+        "bytes": 32055,
+        "outcome": "accepted",
+        "duration": 2.98,
+        "packetSeconds": 1.98,
+        "channels": 1
+      },
+      {
+        "key": "esma:79:nida",
+        "bytes": 35935,
+        "outcome": "accepted",
+        "duration": 3.22,
+        "packetSeconds": 2.22,
+        "channels": 1
+      },
+      {
+        "key": "esma:7:nida",
+        "bytes": 37867,
+        "outcome": "accepted",
+        "duration": 3.34,
+        "packetSeconds": 2.34,
+        "channels": 1
+      },
+      {
+        "key": "esma:80:nida",
+        "bytes": 34969,
+        "outcome": "accepted",
+        "duration": 3.16,
+        "packetSeconds": 2.16,
+        "channels": 1
+      },
+      {
+        "key": "esma:81:nida",
+        "bytes": 33021,
+        "outcome": "accepted",
+        "duration": 3.04,
+        "packetSeconds": 2.04,
+        "channels": 1
+      },
+      {
+        "key": "esma:82:nida",
+        "bytes": 35935,
+        "outcome": "accepted",
+        "duration": 3.22,
+        "packetSeconds": 2.22,
+        "channels": 1
+      },
+      {
+        "key": "esma:83:nida",
+        "bytes": 42697,
+        "outcome": "accepted",
+        "duration": 3.64,
+        "packetSeconds": 2.64,
+        "channels": 1
+      },
+      {
+        "key": "esma:84:nida",
+        "bytes": 71709,
+        "outcome": "accepted",
+        "duration": 5.44,
+        "packetSeconds": 4.44,
+        "channels": 1
+      },
+      {
+        "key": "esma:85:nida",
+        "bytes": 32055,
+        "outcome": "accepted",
+        "duration": 2.98,
+        "packetSeconds": 1.98,
+        "channels": 1
+      },
+      {
+        "key": "esma:86:nida",
+        "bytes": 28191,
+        "outcome": "accepted",
+        "duration": 2.74,
+        "packetSeconds": 1.74,
+        "channels": 1
+      },
+      {
+        "key": "esma:87:nida",
+        "bytes": 29157,
+        "outcome": "accepted",
+        "duration": 2.8,
+        "packetSeconds": 1.8,
+        "channels": 1
+      },
+      {
+        "key": "esma:88:nida",
+        "bytes": 29157,
+        "outcome": "accepted",
+        "duration": 2.8,
+        "packetSeconds": 1.8,
+        "channels": 1
+      },
+      {
+        "key": "esma:89:nida",
+        "bytes": 31089,
+        "outcome": "accepted",
+        "duration": 2.92,
+        "packetSeconds": 1.92,
+        "channels": 1
+      },
+      {
+        "key": "esma:8:nida",
+        "bytes": 36901,
+        "outcome": "accepted",
+        "duration": 3.28,
+        "packetSeconds": 2.28,
+        "channels": 1
+      },
+      {
+        "key": "esma:90:nida",
+        "bytes": 40765,
+        "outcome": "accepted",
+        "duration": 3.52,
+        "packetSeconds": 2.52,
+        "channels": 1
+      },
+      {
+        "key": "esma:91:nida",
+        "bytes": 34003,
+        "outcome": "accepted",
+        "duration": 3.1,
+        "packetSeconds": 2.1,
+        "channels": 1
+      },
+      {
+        "key": "esma:92:nida",
+        "bytes": 30123,
+        "outcome": "accepted",
+        "duration": 2.8600000000000003,
+        "packetSeconds": 1.86,
+        "channels": 1
+      },
+      {
+        "key": "esma:93:nida",
+        "bytes": 36901,
+        "outcome": "accepted",
+        "duration": 3.28,
+        "packetSeconds": 2.28,
+        "channels": 1
+      },
+      {
+        "key": "esma:94:nida",
+        "bytes": 41731,
+        "outcome": "accepted",
+        "duration": 3.58,
+        "packetSeconds": 2.58,
+        "channels": 1
+      },
+      {
+        "key": "esma:95:nida",
+        "bytes": 41731,
+        "outcome": "accepted",
+        "duration": 3.58,
+        "packetSeconds": 2.58,
+        "channels": 1
+      },
+      {
+        "key": "esma:96:nida",
+        "bytes": 39799,
+        "outcome": "accepted",
+        "duration": 3.46,
+        "packetSeconds": 2.46,
+        "channels": 1
+      },
+      {
+        "key": "esma:97:nida",
+        "bytes": 37867,
+        "outcome": "accepted",
+        "duration": 3.34,
+        "packetSeconds": 2.34,
+        "channels": 1
+      },
+      {
+        "key": "esma:98:nida",
+        "bytes": 46561,
+        "outcome": "accepted",
+        "duration": 3.88,
+        "packetSeconds": 2.88,
+        "channels": 1
+      },
+      {
+        "key": "esma:9:nida",
+        "bytes": 46561,
+        "outcome": "accepted",
+        "duration": 3.88,
+        "packetSeconds": 2.88,
+        "channels": 1
+      },
+      {
+        "key": "hizb:0",
+        "bytes": 386054,
+        "outcome": "accepted",
+        "duration": 25.3,
+        "packetSeconds": 24.3,
+        "channels": 1
+      },
+      {
+        "key": "hizb:1",
+        "bytes": 424423,
+        "outcome": "accepted",
+        "duration": 27.7,
+        "packetSeconds": 26.7,
+        "channels": 1
+      },
+      {
+        "key": "hizb:2",
+        "bytes": 4683,
+        "outcome": "accepted",
+        "duration": 2.62,
+        "packetSeconds": 1.62,
+        "channels": 1
+      },
+      {
+        "key": "hu:sonu",
+        "bytes": 70167,
+        "outcome": "accepted",
+        "duration": 5.62,
+        "packetSeconds": 4.62,
+        "channels": 1
+      },
+      {
+        "key": "koruma:0",
+        "bytes": 294503,
+        "outcome": "accepted",
+        "duration": 19.54,
+        "packetSeconds": 18.54,
+        "channels": 1
+      },
+      {
+        "key": "koruma:1",
+        "bytes": 291589,
+        "outcome": "accepted",
+        "duration": 19.36,
+        "packetSeconds": 18.36,
+        "channels": 1
+      },
+      {
+        "key": "koruma:2",
+        "bytes": 238729,
+        "outcome": "accepted",
+        "duration": 16.060000000000002,
+        "packetSeconds": 15.06,
+        "channels": 1
+      },
+      {
+        "key": "koruma:3",
+        "bytes": 415697,
+        "outcome": "accepted",
+        "duration": 27.1,
+        "packetSeconds": 26.1,
+        "channels": 1
+      },
+      {
+        "key": "koruma:4",
+        "bytes": 998407,
+        "outcome": "PREP_DURATION_LIMIT"
+      },
+      {
+        "key": "mzbz:berhetiyye",
+        "bytes": 57756,
+        "outcome": "accepted",
+        "duration": 5.44,
+        "packetSeconds": 4.44,
+        "channels": 1
+      },
+      {
+        "key": "niyet:core",
+        "bytes": 81369,
+        "outcome": "accepted",
+        "duration": 6.04,
+        "packetSeconds": 5.04,
+        "channels": 1
+      },
+      {
+        "key": "salavat:0",
+        "bytes": 727053,
+        "outcome": "accepted",
+        "duration": 46.42,
+        "packetSeconds": 45.42,
+        "channels": 1
+      },
+      {
+        "key": "salavat:1",
+        "bytes": 695143,
+        "outcome": "accepted",
+        "duration": 44.44,
+        "packetSeconds": 43.44,
+        "channels": 1
+      },
+      {
+        "key": "salavat:2",
+        "bytes": 248419,
+        "outcome": "accepted",
+        "duration": 16.72,
+        "packetSeconds": 15.72,
+        "channels": 1
+      },
+      {
+        "key": "salavat:3",
+        "bytes": 754767,
+        "outcome": "accepted",
+        "duration": 48.1,
+        "packetSeconds": 47.1,
+        "channels": 1
+      },
+      {
+        "key": "salavat:4",
+        "bytes": 495955,
+        "outcome": "accepted",
+        "duration": 32.08,
+        "packetSeconds": 31.08,
+        "channels": 1
+      },
+      {
+        "key": "session:silence-intro:8",
+        "bytes": 79996,
+        "outcome": "accepted",
+        "duration": 6.82,
+        "packetSeconds": 5.82,
+        "channels": 1
+      },
+      {
+        "key": "tekke:imge:kabe:0",
+        "bytes": 169761,
+        "outcome": "accepted",
+        "duration": 11.8,
+        "packetSeconds": 10.8,
+        "channels": 1
+      },
+      {
+        "key": "tekke:imge:kabe:1",
+        "bytes": 250985,
+        "outcome": "accepted",
+        "duration": 16.84,
+        "packetSeconds": 15.84,
+        "channels": 1
+      },
+      {
+        "key": "tekke:imge:kabe:2",
+        "bytes": 157187,
+        "outcome": "accepted",
+        "duration": 11.02,
+        "packetSeconds": 10.02,
+        "channels": 1
+      },
+      {
+        "key": "tekke:imge:kabe:3",
+        "bytes": 185233,
+        "outcome": "accepted",
+        "duration": 12.76,
+        "packetSeconds": 11.76,
+        "channels": 1
+      },
+      {
+        "key": "tekke:imge:kabe:4",
+        "bytes": 195227,
+        "outcome": "accepted",
+        "duration": 13.36,
+        "packetSeconds": 12.36,
+        "channels": 1
+      },
+      {
+        "key": "tekke:imge:kabe:5",
+        "bytes": 204569,
+        "outcome": "accepted",
+        "duration": 13.96,
+        "packetSeconds": 12.96,
+        "channels": 1
+      },
+      {
+        "key": "tekke:imge:kabe:6",
+        "bytes": 129157,
+        "outcome": "accepted",
+        "duration": 9.28,
+        "packetSeconds": 8.28,
+        "channels": 1
+      },
+      {
+        "key": "tekke:imge:kabe:7",
+        "bytes": 160085,
+        "outcome": "accepted",
+        "duration": 11.2,
+        "packetSeconds": 10.2,
+        "channels": 1
+      },
+      {
+        "key": "tekke:imge:kabe:8",
+        "bytes": 277099,
+        "outcome": "accepted",
+        "duration": 18.46,
+        "packetSeconds": 17.46,
+        "channels": 1
+      },
+      {
+        "key": "temel:0",
+        "bytes": 29895,
+        "outcome": "accepted",
+        "duration": 3.16,
+        "packetSeconds": 2.16,
+        "channels": 1
+      },
+      {
+        "key": "temel:1",
+        "bytes": 23494,
+        "outcome": "accepted",
+        "duration": 2.5,
+        "packetSeconds": 1.5,
+        "channels": 1
+      },
+      {
+        "key": "temel:2",
+        "bytes": 82106,
+        "outcome": "accepted",
+        "duration": 6.16,
+        "packetSeconds": 5.16,
+        "channels": 1
+      },
+      {
+        "key": "temel:3",
+        "bytes": 52160,
+        "outcome": "accepted",
+        "duration": 4.3,
+        "packetSeconds": 3.3,
+        "channels": 1
+      },
+      {
+        "key": "tesbih:0",
+        "bytes": 51477,
+        "outcome": "accepted",
+        "duration": 4.48,
+        "packetSeconds": 3.48,
+        "channels": 1
+      },
+      {
+        "key": "tesbih:1",
+        "bytes": 34073,
+        "outcome": "accepted",
+        "duration": 3.4,
+        "packetSeconds": 2.4,
+        "channels": 1
+      },
+      {
+        "key": "tesbih:2",
+        "bytes": 37937,
+        "outcome": "accepted",
+        "duration": 3.64,
+        "packetSeconds": 2.64,
+        "channels": 1
+      },
+      {
+        "key": "tesbih:3",
+        "bytes": 91115,
+        "outcome": "accepted",
+        "duration": 6.94,
+        "packetSeconds": 5.94,
+        "channels": 1
+      },
+      {
+        "key": "tesbih:4",
+        "bytes": 987797,
+        "outcome": "PREP_DURATION_LIMIT"
+      },
+      {
+        "key": "tevhid:0",
+        "bytes": 85318,
+        "outcome": "accepted",
+        "duration": 6.34,
+        "packetSeconds": 5.34,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:1",
+        "bytes": 49220,
+        "outcome": "accepted",
+        "duration": 4.3,
+        "packetSeconds": 3.3,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:10",
+        "bytes": 47658,
+        "outcome": "accepted",
+        "duration": 4.362,
+        "packetSeconds": 3.06,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:100",
+        "bytes": 57607,
+        "outcome": "accepted",
+        "duration": 4.9,
+        "packetSeconds": 3.9,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:101",
+        "bytes": 56321,
+        "outcome": "accepted",
+        "duration": 4.84,
+        "packetSeconds": 3.84,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:102",
+        "bytes": 57925,
+        "outcome": "accepted",
+        "duration": 4.9,
+        "packetSeconds": 3.9,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:103",
+        "bytes": 48899,
+        "outcome": "accepted",
+        "duration": 4.3,
+        "packetSeconds": 3.3,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:11",
+        "bytes": 51494,
+        "outcome": "accepted",
+        "duration": 4.18,
+        "packetSeconds": 3.18,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:12",
+        "bytes": 48265,
+        "outcome": "accepted",
+        "duration": 4.3,
+        "packetSeconds": 3.3,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:13",
+        "bytes": 35359,
+        "outcome": "accepted",
+        "duration": 3.46,
+        "packetSeconds": 2.46,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:14",
+        "bytes": 45367,
+        "outcome": "accepted",
+        "duration": 4.12,
+        "packetSeconds": 3.12,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:15",
+        "bytes": 46333,
+        "outcome": "accepted",
+        "duration": 4.18,
+        "packetSeconds": 3.18,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:16",
+        "bytes": 37609,
+        "outcome": "accepted",
+        "duration": 3.58,
+        "packetSeconds": 2.58,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:18",
+        "bytes": 46967,
+        "outcome": "accepted",
+        "duration": 4.18,
+        "packetSeconds": 3.18,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:19",
+        "bytes": 43087,
+        "outcome": "accepted",
+        "duration": 3.94,
+        "packetSeconds": 2.94,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:2",
+        "bytes": 54092,
+        "outcome": "accepted",
+        "duration": 4.42,
+        "packetSeconds": 3.42,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:21",
+        "bytes": 47933,
+        "outcome": "accepted",
+        "duration": 4.24,
+        "packetSeconds": 3.24,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:22",
+        "bytes": 46333,
+        "outcome": "accepted",
+        "duration": 4.18,
+        "packetSeconds": 3.18,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:24",
+        "bytes": 40835,
+        "outcome": "accepted",
+        "duration": 3.82,
+        "packetSeconds": 2.82,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:25",
+        "bytes": 54695,
+        "outcome": "accepted",
+        "duration": 4.66,
+        "packetSeconds": 3.66,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:26",
+        "bytes": 41155,
+        "outcome": "accepted",
+        "duration": 3.82,
+        "packetSeconds": 2.82,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:27",
+        "bytes": 44385,
+        "outcome": "accepted",
+        "duration": 4.0600000000000005,
+        "packetSeconds": 3.06,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:28",
+        "bytes": 46333,
+        "outcome": "accepted",
+        "duration": 4.18,
+        "packetSeconds": 3.18,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:29",
+        "bytes": 42439,
+        "outcome": "accepted",
+        "duration": 3.88,
+        "packetSeconds": 2.88,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:3",
+        "bytes": 50876,
+        "outcome": "accepted",
+        "duration": 4.7379999999999995,
+        "packetSeconds": 3.24,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:30",
+        "bytes": 42121,
+        "outcome": "accepted",
+        "duration": 3.88,
+        "packetSeconds": 2.88,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:31",
+        "bytes": 48265,
+        "outcome": "accepted",
+        "duration": 4.3,
+        "packetSeconds": 3.3,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:32",
+        "bytes": 40189,
+        "outcome": "accepted",
+        "duration": 3.76,
+        "packetSeconds": 2.76,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:33",
+        "bytes": 54061,
+        "outcome": "accepted",
+        "duration": 4.66,
+        "packetSeconds": 3.66,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:34",
+        "bytes": 47613,
+        "outcome": "accepted",
+        "duration": 4.24,
+        "packetSeconds": 3.24,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:35",
+        "bytes": 40189,
+        "outcome": "accepted",
+        "duration": 3.76,
+        "packetSeconds": 2.76,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:36",
+        "bytes": 35359,
+        "outcome": "accepted",
+        "duration": 3.46,
+        "packetSeconds": 2.46,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:37",
+        "bytes": 43419,
+        "outcome": "accepted",
+        "duration": 4,
+        "packetSeconds": 3,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:38",
+        "bytes": 48265,
+        "outcome": "accepted",
+        "duration": 4.3,
+        "packetSeconds": 3.3,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:39",
+        "bytes": 50197,
+        "outcome": "accepted",
+        "duration": 4.42,
+        "packetSeconds": 3.42,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:4",
+        "bytes": 43466,
+        "outcome": "accepted",
+        "duration": 3.76,
+        "packetSeconds": 2.76,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:40",
+        "bytes": 51163,
+        "outcome": "accepted",
+        "duration": 4.48,
+        "packetSeconds": 3.48,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:41",
+        "bytes": 38575,
+        "outcome": "accepted",
+        "duration": 3.64,
+        "packetSeconds": 2.64,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:42",
+        "bytes": 42453,
+        "outcome": "accepted",
+        "duration": 3.94,
+        "packetSeconds": 2.94,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:43",
+        "bytes": 43419,
+        "outcome": "accepted",
+        "duration": 4,
+        "packetSeconds": 3,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:44",
+        "bytes": 46333,
+        "outcome": "accepted",
+        "duration": 4.18,
+        "packetSeconds": 3.18,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:45",
+        "bytes": 42453,
+        "outcome": "accepted",
+        "duration": 3.94,
+        "packetSeconds": 2.94,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:46",
+        "bytes": 42453,
+        "outcome": "accepted",
+        "duration": 3.94,
+        "packetSeconds": 2.94,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:47",
+        "bytes": 39251,
+        "outcome": "accepted",
+        "duration": 3.82,
+        "packetSeconds": 2.82,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:48",
+        "bytes": 39555,
+        "outcome": "accepted",
+        "duration": 3.76,
+        "packetSeconds": 2.76,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:49",
+        "bytes": 51477,
+        "outcome": "accepted",
+        "duration": 4.48,
+        "packetSeconds": 3.48,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:5",
+        "bytes": 47978,
+        "outcome": "accepted",
+        "duration": 4.404999999999999,
+        "packetSeconds": 3.06,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:51",
+        "bytes": 53095,
+        "outcome": "accepted",
+        "duration": 4.6,
+        "packetSeconds": 3.6,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:52",
+        "bytes": 56641,
+        "outcome": "accepted",
+        "duration": 4.84,
+        "packetSeconds": 3.84,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:53",
+        "bytes": 55675,
+        "outcome": "accepted",
+        "duration": 4.779999999999999,
+        "packetSeconds": 3.78,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:54",
+        "bytes": 53437,
+        "outcome": "accepted",
+        "duration": 4.720000000000001,
+        "packetSeconds": 3.72,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:55",
+        "bytes": 55341,
+        "outcome": "accepted",
+        "duration": 4.720000000000001,
+        "packetSeconds": 3.72,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:56",
+        "bytes": 51491,
+        "outcome": "accepted",
+        "duration": 4.54,
+        "packetSeconds": 3.54,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:57",
+        "bytes": 60505,
+        "outcome": "accepted",
+        "duration": 5.08,
+        "packetSeconds": 4.08,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:58",
+        "bytes": 55675,
+        "outcome": "accepted",
+        "duration": 4.779999999999999,
+        "packetSeconds": 3.78,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:59",
+        "bytes": 58891,
+        "outcome": "accepted",
+        "duration": 4.96,
+        "packetSeconds": 3.96,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:6",
+        "bytes": 48624,
+        "outcome": "accepted",
+        "duration": 4.436999999999999,
+        "packetSeconds": 3.12,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:60",
+        "bytes": 56007,
+        "outcome": "accepted",
+        "duration": 4.84,
+        "packetSeconds": 3.84,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:61",
+        "bytes": 57273,
+        "outcome": "accepted",
+        "duration": 4.84,
+        "packetSeconds": 3.84,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:62",
+        "bytes": 63085,
+        "outcome": "accepted",
+        "duration": 5.2,
+        "packetSeconds": 4.2,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:63",
+        "bytes": 51163,
+        "outcome": "accepted",
+        "duration": 4.48,
+        "packetSeconds": 3.48,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:64",
+        "bytes": 61805,
+        "outcome": "accepted",
+        "duration": 5.14,
+        "packetSeconds": 4.14,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:65",
+        "bytes": 55675,
+        "outcome": "accepted",
+        "duration": 4.779999999999999,
+        "packetSeconds": 3.78,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:66",
+        "bytes": 52115,
+        "outcome": "accepted",
+        "duration": 4.48,
+        "packetSeconds": 3.48,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:67",
+        "bytes": 61805,
+        "outcome": "accepted",
+        "duration": 5.14,
+        "packetSeconds": 4.14,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:68",
+        "bytes": 57273,
+        "outcome": "accepted",
+        "duration": 4.84,
+        "packetSeconds": 3.84,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:69",
+        "bytes": 46967,
+        "outcome": "accepted",
+        "duration": 4.18,
+        "packetSeconds": 3.18,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:7",
+        "bytes": 50528,
+        "outcome": "accepted",
+        "duration": 4.12,
+        "packetSeconds": 3.12,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:70",
+        "bytes": 56627,
+        "outcome": "accepted",
+        "duration": 4.779999999999999,
+        "packetSeconds": 3.78,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:71",
+        "bytes": 55027,
+        "outcome": "accepted",
+        "duration": 4.720000000000001,
+        "packetSeconds": 3.72,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:72",
+        "bytes": 55027,
+        "outcome": "accepted",
+        "duration": 4.720000000000001,
+        "packetSeconds": 3.72,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:73",
+        "bytes": 55979,
+        "outcome": "accepted",
+        "duration": 4.720000000000001,
+        "packetSeconds": 3.72,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:74",
+        "bytes": 59205,
+        "outcome": "accepted",
+        "duration": 4.96,
+        "packetSeconds": 3.96,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:75",
+        "bytes": 54389,
+        "outcome": "accepted",
+        "duration": 4.720000000000001,
+        "packetSeconds": 3.72,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:76",
+        "bytes": 68567,
+        "outcome": "accepted",
+        "duration": 5.56,
+        "packetSeconds": 4.56,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:77",
+        "bytes": 60823,
+        "outcome": "accepted",
+        "duration": 5.08,
+        "packetSeconds": 4.08,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:78",
+        "bytes": 54047,
+        "outcome": "accepted",
+        "duration": 4.6,
+        "packetSeconds": 3.6,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:79",
+        "bytes": 72113,
+        "outcome": "accepted",
+        "duration": 5.8,
+        "packetSeconds": 4.8,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:8",
+        "bytes": 50228,
+        "outcome": "accepted",
+        "duration": 4.664,
+        "packetSeconds": 3.18,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:80",
+        "bytes": 53743,
+        "outcome": "accepted",
+        "duration": 4.66,
+        "packetSeconds": 3.66,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:81",
+        "bytes": 54061,
+        "outcome": "accepted",
+        "duration": 4.66,
+        "packetSeconds": 3.66,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:82",
+        "bytes": 50845,
+        "outcome": "accepted",
+        "duration": 4.48,
+        "packetSeconds": 3.48,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:83",
+        "bytes": 46661,
+        "outcome": "accepted",
+        "duration": 4.24,
+        "packetSeconds": 3.24,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:84",
+        "bytes": 43405,
+        "outcome": "accepted",
+        "duration": 3.94,
+        "packetSeconds": 2.94,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:85",
+        "bytes": 47641,
+        "outcome": "accepted",
+        "duration": 4.359999999999999,
+        "packetSeconds": 3.36,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:86",
+        "bytes": 46647,
+        "outcome": "accepted",
+        "duration": 4.18,
+        "packetSeconds": 3.18,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:87",
+        "bytes": 47947,
+        "outcome": "accepted",
+        "duration": 4.3,
+        "packetSeconds": 3.3,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:88",
+        "bytes": 52129,
+        "outcome": "accepted",
+        "duration": 4.54,
+        "packetSeconds": 3.54,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:89",
+        "bytes": 49893,
+        "outcome": "accepted",
+        "duration": 4.48,
+        "packetSeconds": 3.48,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:9",
+        "bytes": 51842,
+        "outcome": "accepted",
+        "duration": 4.684,
+        "packetSeconds": 3.3,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:90",
+        "bytes": 50197,
+        "outcome": "accepted",
+        "duration": 4.42,
+        "packetSeconds": 3.42,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:91",
+        "bytes": 54375,
+        "outcome": "accepted",
+        "duration": 4.66,
+        "packetSeconds": 3.66,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:92",
+        "bytes": 57925,
+        "outcome": "accepted",
+        "duration": 4.9,
+        "packetSeconds": 3.9,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:93",
+        "bytes": 52777,
+        "outcome": "accepted",
+        "duration": 4.6,
+        "packetSeconds": 3.6,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:95",
+        "bytes": 53409,
+        "outcome": "accepted",
+        "duration": 4.6,
+        "packetSeconds": 3.6,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:96",
+        "bytes": 57607,
+        "outcome": "accepted",
+        "duration": 4.9,
+        "packetSeconds": 3.9,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:97",
+        "bytes": 63419,
+        "outcome": "accepted",
+        "duration": 5.26,
+        "packetSeconds": 4.26,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:98",
+        "bytes": 56959,
+        "outcome": "accepted",
+        "duration": 4.84,
+        "packetSeconds": 3.84,
+        "channels": 1
+      },
+      {
+        "key": "tevhid:99",
+        "bytes": 66635,
+        "outcome": "accepted",
+        "duration": 5.44,
+        "packetSeconds": 4.44,
+        "channels": 1
+      }
+    ]
+  }
+}
