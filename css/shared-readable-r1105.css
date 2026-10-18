@@ -1,0 +1,120 @@
+/* r1105: local reading surfaces for copy that otherwise crosses the scene.
+ * Paint only: visibility, disclosure, selection, warnings and audio controls
+ * remain owned by their existing components. Important layer is loaded first. */
+@layer sukun-r1105-readable {
+html body {
+ --r1105-surface:rgba(5,22,32,.94);
+ --r1105-title:#fff1d5;
+ --r1105-copy:#dce9e5;
+ --r1105-label:#f1dfa3;
+}
+
+/* Frequencies: one calm surface behind the controls and their small labels. */
+html body #tab-frq>:is(.qRow,.card,.jEd),
+html body #tab-frq #r1101FrequencyHub,
+html body #tab-frq :is(.hpNote,.genNot:not(.uyari)) {
+ background:var(--r1105-surface)!important;
+}
+html body #tab-frq :is(.qRow>div>b,.knobDeger>b,.genBas) {
+ color:var(--r1105-title)!important;
+ -webkit-text-fill-color:currentColor!important;
+ opacity:1!important;text-shadow:none!important;
+}
+html body #tab-frq :is(.qRow>div>small,.bandInfo>p,.knobBaslik,.knobYardim,.knobDeger>small,.sldRow>label,.valB,.lrLine,.hpNote,.genNot:not(.uyari),.pitSub,#jInfo) {
+ color:var(--r1105-copy)!important;
+ -webkit-text-fill-color:currentColor!important;
+ opacity:1!important;text-shadow:none!important;
+}
+html body #tab-frq :is(.chipLbl,.chipLbl>small,.fmTag) {
+ color:var(--r1105-label)!important;
+ -webkit-text-fill-color:currentColor!important;
+ opacity:1!important;text-shadow:none!important;
+}
+/* Keep the active band, stereo channel visibility and warning emphasis. */
+html body #tab-frq #bandChips span:not(.act):not(.on) {
+ color:var(--r1105-copy)!important;
+ -webkit-text-fill-color:currentColor!important;
+}
+
+/* Shared routine chips sit outside the tab cards. */
+html body #rutRow>.rut {
+ background:var(--r1105-surface)!important;
+ color:var(--r1105-title)!important;
+ -webkit-text-fill-color:currentColor!important;
+}
+html body #rutRow>.rut>:is(b,.rx) {
+ color:var(--r1105-title)!important;
+ -webkit-text-fill-color:currentColor!important;
+ opacity:1!important;text-shadow:none!important;
+}
+html body #vakitBox {
+ background:var(--r1105-surface)!important;
+}
+html body #vakitBox :is(.vkFoot,.vkSug,#vkSugTxt) {
+ color:var(--r1105-copy)!important;
+ -webkit-text-fill-color:currentColor!important;
+}
+
+/* Düzen descriptions and session context. Never reveal hidden summaries. */
+html body #tab-rx>:is(.rxIntro,.hint) {
+ background:var(--r1105-surface)!important;
+}
+html body #tab-rx :is(.rxIntro>p,.hint,#r361SessionInfo:not([data-state="active"]),#r361SessionCenter>summary small) {
+ color:var(--r1105-copy)!important;
+ -webkit-text-fill-color:currentColor!important;
+ opacity:1!important;text-shadow:none!important;
+}
+html body #tab-rx>.hint {
+ padding:8px 10px!important;border-radius:10px!important;
+}
+
+/* Notifications retain their type border and intentional read-state opacity. */
+html body #tab-ntf>#r554CenterStatus,
+html body #tab-ntf #r554CenterList,
+html body #tab-ntf #r554CenterList>:is(.r554AlertEmpty,.r554AlertItem) {
+ background:var(--r1105-surface)!important;
+}
+html body #tab-ntf :is(#r554CenterStatus,.r554AlertEmpty,.r554AlertItem p,.r554AlertItem time,.r554AlertSource) {
+ color:var(--r1105-copy)!important;
+ -webkit-text-fill-color:currentColor!important;
+ text-shadow:none!important;
+}
+html body #tab-ntf :is(#r554CenterStatus,.r554AlertEmpty) {
+ padding:8px 10px!important;border-radius:10px!important;
+}
+
+/* Zikir helper copy can appear outside the main card. */
+html body #tab-zkr :is(#r976TickHint,#r976ManualVoiceHint,#r976ManualVoiceStatus,#r976ManualFeedbackNote,#r945RhythmHint,.statLine) {
+ background:var(--r1105-surface)!important;
+ color:var(--r1105-copy)!important;
+ -webkit-text-fill-color:currentColor!important;
+ opacity:1!important;text-shadow:none!important;
+ padding:6px 8px!important;border-radius:9px!important;
+}
+
+/* Studio analysis: distinguish the actual waveform from its readable notes. */
+html body #r170Studio :is(#r170StudioStat,#r170StudioLimits,.r170StudioMeta>div) {
+ background:var(--r1105-surface)!important;
+}
+html body #r170Studio>summary small,
+html body #r170Studio :is(.r170StudioMeta small,#r170StudioStat,#r170StudioLimits) {
+ color:var(--r1105-copy)!important;
+ -webkit-text-fill-color:currentColor!important;
+ opacity:1!important;text-shadow:none!important;
+}
+html body #r170Studio #r170StudioLimits {
+ padding:8px 10px!important;border-radius:10px!important;
+}
+
+@media(prefers-reduced-transparency:reduce) {
+ html body {--r1105-surface:#071725;}
+}
+@media(forced-colors:active) {
+ html body {
+  --r1105-surface:Canvas;
+  --r1105-title:CanvasText;
+  --r1105-copy:CanvasText;
+  --r1105-label:CanvasText;
+ }
+}
+}

@@ -1,0 +1,274 @@
+{
+  "suite": "r1105 bounded read-only Studio waveform contracts",
+  "startedAt": "2026-10-18T15:51:23.960Z",
+  "baseline": false,
+  "sourceSha256": {
+    "index.html": "4314d05648f0f0ccbc5a1cdc8e0323eacfc854ef49509d92667a455b6e110cc4",
+    "nero.html": "4314d05648f0f0ccbc5a1cdc8e0323eacfc854ef49509d92667a455b6e110cc4",
+    "assets/runtime/audio-cpu-r981.js": "188aae6305898a25f846fa66b4565938344f5bdb82d6cc3ad132f049262ddcef",
+    "assets/runtime/audio-preparation-r981.js": "412ce19623c4807e4f7347ecb0b15eff1357c400463b14d9894617ea077cfa9a",
+    "assets/runtime/studio-preparation-r982.js": "25cde9f6c6416efeafcc22f957d21a6b3506eaaa7fd5c75c6a04aee2b4f10873"
+  },
+  "testSha256": "59f773786202c3fe8daae30d52c72296f2e3d3610fa3e844f3059cd0154bfa82",
+  "checks": [
+    {
+      "name": "63.1-second 1-channel analysis measures both ends without modifying any PCM or source bytes",
+      "passed": true,
+      "evidence": {
+        "duration": 63.1,
+        "peak": 0.75,
+        "rms": 0.00045426022362295815,
+        "bins": 512,
+        "snapshot": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "studioInspectionMaxDurationSeconds": 180,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "idle",
+          "decodeStarts": 1,
+          "workerJobs": 0,
+          "fallbackJobs": 1,
+          "metadataOnlyJobs": 0,
+          "rejected": 0,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 15209668,
+          "maxConcurrent": 1,
+          "last": null
+        }
+      }
+    },
+    {
+      "name": "63.1-second 2-channel analysis measures both ends without modifying any PCM or source bytes",
+      "passed": true,
+      "evidence": {
+        "duration": 63.1,
+        "peak": 0.75,
+        "rms": 0.0003212104845471112,
+        "bins": 512,
+        "snapshot": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "studioInspectionMaxDurationSeconds": 180,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "idle",
+          "decodeStarts": 1,
+          "workerJobs": 0,
+          "fallbackJobs": 1,
+          "metadataOnlyJobs": 0,
+          "rejected": 0,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 30353668,
+          "maxConcurrent": 1,
+          "last": null
+        }
+      }
+    },
+    {
+      "name": "180-second CPU analysis requires the explicit read-only flag; edit operations retain 60-second bounds",
+      "passed": true,
+      "evidence": {
+        "duration": 180,
+        "peak": 0.75
+      }
+    },
+    {
+      "name": "Long-wave permission and metadata cache cannot admit normalize or FX",
+      "passed": true,
+      "evidence": {
+        "decodeCalls": 1
+      }
+    },
+    {
+      "name": "Long-wave permission and metadata cache cannot admit trim or FX",
+      "passed": true,
+      "evidence": {
+        "decodeCalls": 1
+      }
+    },
+    {
+      "name": "Read-only memory fallback remains honest and does not start a native decode or fabricate a graph",
+      "passed": true,
+      "evidence": {
+        "duration": 63.1,
+        "reason": "memory",
+        "snapshot": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "studioInspectionMaxDurationSeconds": 180,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 26214400,
+          "activeEstimate": 0,
+          "worker": "idle",
+          "decodeStarts": 0,
+          "workerJobs": 0,
+          "fallbackJobs": 0,
+          "metadataOnlyJobs": 1,
+          "rejected": 0,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 29308868,
+          "maxConcurrent": 1,
+          "last": null
+        }
+      }
+    },
+    {
+      "name": "180.001-second or 8 MiB+1 sources are rejected before decoder entry",
+      "passed": true,
+      "evidence": {
+        "decodeCalls": 0,
+        "oversizedReads": 0
+      }
+    },
+    {
+      "name": "Cancellation during a long sample scan publishes no result or edit and releases the queue",
+      "passed": true,
+      "evidence": {
+        "version": "r981",
+        "budgetBytes": 33554432,
+        "sourceBudgetBytes": 8388608,
+        "maxDurationSeconds": 60,
+        "studioInspectionMaxDurationSeconds": 180,
+        "pending": 0,
+        "active": 0,
+        "stage": "idle",
+        "stageAgeMs": 0,
+        "decodeBlocked": false,
+        "residentBytes": 0,
+        "activeEstimate": 0,
+        "worker": "idle",
+        "decodeStarts": 1,
+        "workerJobs": 0,
+        "fallbackJobs": 1,
+        "metadataOnlyJobs": 0,
+        "rejected": 1,
+        "timedOut": 0,
+        "cancelled": 1,
+        "peakEstimate": 15209668,
+        "maxConcurrent": 1,
+        "last": {
+          "code": "PREP_CANCELLED",
+          "key": "",
+          "purpose": "studio",
+          "text": "Eski kayıt analizi veya düzenlemesi iptal edildi. Asıl kayıt korundu.",
+          "at": 1792338712250
+        }
+      }
+    },
+    {
+      "name": "Cancelled native decode retains the serial lease until it settles and cannot publish a stale waveform",
+      "passed": true,
+      "evidence": {
+        "version": "r981",
+        "budgetBytes": 33554432,
+        "sourceBudgetBytes": 8388608,
+        "maxDurationSeconds": 60,
+        "studioInspectionMaxDurationSeconds": 180,
+        "pending": 0,
+        "active": 0,
+        "stage": "idle",
+        "stageAgeMs": 0,
+        "decodeBlocked": false,
+        "residentBytes": 0,
+        "activeEstimate": 0,
+        "worker": "idle",
+        "decodeStarts": 1,
+        "workerJobs": 0,
+        "fallbackJobs": 0,
+        "metadataOnlyJobs": 0,
+        "rejected": 2,
+        "timedOut": 0,
+        "cancelled": 1,
+        "peakEstimate": 15209668,
+        "maxConcurrent": 1,
+        "last": {
+          "code": "PREP_DECODE_BUSY",
+          "key": "",
+          "purpose": "studio",
+          "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+          "at": 1792338712252
+        }
+      }
+    },
+    {
+      "name": "Selection ownership change after decode starts rejects an obsolete analysis result",
+      "passed": true,
+      "evidence": {
+        "commits": 0,
+        "snapshot": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "studioInspectionMaxDurationSeconds": 180,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "idle",
+          "decodeStarts": 1,
+          "workerJobs": 0,
+          "fallbackJobs": 0,
+          "metadataOnlyJobs": 0,
+          "rejected": 1,
+          "timedOut": 0,
+          "cancelled": 1,
+          "peakEstimate": 15209668,
+          "maxConcurrent": 1,
+          "last": {
+            "code": "PREP_CANCELLED",
+            "key": "",
+            "purpose": "studio",
+            "text": "Eski kayıt analizi veya düzenlemesi iptal edildi. Asıl kayıt korundu.",
+            "at": 1792338712256
+          }
+        }
+      }
+    },
+    {
+      "name": "Short normalization still produces a changed WAV while its original remains byte-identical",
+      "passed": true,
+      "evidence": {
+        "changed": true,
+        "commits": 1,
+        "type": "audio/wav"
+      }
+    }
+  ],
+  "limitations": [
+    "Node VM with controlled decode callbacks and real typed PCM; no native decoding, microphone, physical Android or audible-output proof."
+  ],
+  "finishedAt": "2026-10-18T15:51:52.262Z",
+  "total": 11,
+  "passed": 11,
+  "sourceUnchanged": true,
+  "testUnchanged": true,
+  "allPassed": true
+}

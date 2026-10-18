@@ -1,0 +1,1612 @@
+{
+  "sourceRoot": "/workspace/scratch/0ed53697150f/sukun",
+  "mode": "regressions",
+  "groups": 172,
+  "passedGroups": 172,
+  "excluded": {
+    "tests/r1105/studio-waveform-browser.cjs": "Separate native long Studio waveform, memory fallback and unchanged recording source suite; requires Chromium.",
+    "tests/r1092/preflight-ui.cjs": "Separate native browser preflight presentation and selection suite; requires Chromium.",
+    "tests/r1061/active-layers.cjs": "Separate native active audio layers browser suite; requires Chromium.",
+    "tests/r1059/renderer.cjs": "Separate native PCM background mix renderer browser suite; requires Chromium.",
+    "tests/r1102/ambience-compact-browser.cjs": "Separate native compact ambience geometry, info dialogs and channel controls browser suite.",
+    "tests/r1101/frequency-hub-browser.cjs": "Separate native unified frequency tools, actual synthesis, shared pause and speech ownership browser suite.",
+    "tests/r1101/section-controls-browser.cjs": "Separate native Berhetiyye materials, family switch and foreground-owner browser suite.",
+    "tests/r1101/native-repeat-settings-browser.cjs": "Separate trusted returning-user journey28 repeat preference browser regression.",
+    "tests/r1101/native-repeat-esma-settings-browser.cjs": "Separate trusted returning-user journey99 repeat preference browser regression.",
+    "tests/r1098/recording-onset-browser.cjs": "Separate full-application native Chromium recording onset, pooled repeat and quiet-phoneme retention suite.",
+    "tests/r1097/studio-webm-browser.cjs": "Executed separately against frozen r1097 with shipped WebM originals in native Chromium.",
+    "tests/r1096/studio-browser.cjs": "Executed separately against frozen r1096 full application in native Chromium.",
+    "tests/r1086/tts-name-browser.cjs": "Separate full-app TTS name-vocative and native recording-priority suite; run directly after source freeze.",
+    "tests/r1085/berhet-session-browser.cjs": "Separate native Berhetiyye 28-step intention, audible-onset, rhythm and cadence suite; run directly after source freeze.",
+    "tests/r1079/protective-plan-playing-browser.cjs": "Separate native ongoing protective audio and accordion presentation suite; run directly after source freeze.",
+    "tests/r1079/protective-plan-accordion-browser.cjs": "Separate native protective-plan accordion and contemplation presentation suite; run directly after source freeze.",
+    "tests/r1078/manual-reading-loop-browser.cjs": "Separate native manual reader/wheel stop and finite/unlimited loop suite; run directly after source freeze.",
+    "tests/r1078/protective-plan-browser.cjs": "Separate native protective-plan entry, validation, language and interaction suite; run directly after source freeze.",
+    "tests/r1078/protective-smart-progress-browser.cjs": "Separate native protective-plan progress and wheel transport suite; run directly after source freeze.",
+    "tests/r1077/browser-contrast.cjs": "Separate production CSS/native Chromium contrast and accessibility suite; run directly after source freeze.",
+    "tests/r1077/protective-native-metadata-browser.cjs": "Separate shipped protective audio and delayed metadata native browser suite; run directly after source freeze.",
+    "tests/r1076/protective-original-browser.cjs": "Separate native protective original-recording lifecycle and complete-loop browser suite; run directly after source freeze.",
+    "tests/r1075/reading-summary-browser.cjs": "Separate native compact reading-strip materials, contemplation and control-visibility browser suite; run directly after source freeze.",
+    "tests/r1074/ambience-local-browser.cjs": "Separate native selected-theme local-pause and actual ambience browser suite; run directly after source freeze.",
+    "tests/r1074/selection-theme-browser.cjs": "Separate native selected-theme and global-hold browser suite; run after source freeze.",
+    "tests/r1072/retired-single-pause-browser.cjs": "Separate actual Chromium captured-single Pause/Next/Start regression; run directly with an explicit evidence output.",
+    "tests/r1071/atlas-ui.cjs": "Separate actual Chromium Atlas frame/interaction suite; run directly with source baseline|candidate and explicit evidence output.",
+    "tests/r1070/classic-feyz-smoke.cjs": "Separate actual mobile Chromium/native touch smoke; run directly in both Classic/Feyz viewport profiles.",
+    "tests/r1070/session-transition-matrix.cjs": "Separate actual Chromium cross-mode/native media matrix; run directly with SUKUN_MATRIX_EXPECT_HANDOFF=1.",
+    "tests/r1069/native-transition-browser.cjs": "Separate actual native audio integration; run directly with Chromium and known generated WAVs.",
+    "tests/r1068/yasin-picker-browser.cjs": "Separate native picker integration; run directly with native CDP gestures.",
+    "tests/r1067/yasin-follow-browser.cjs": "Separate actual mobile browser integration; run directly with native CDP gestures.",
+    "tests/r1067/scroll-audit.cjs": "Separate actual mobile browser integration; run directly with native CDP gestures.",
+    "tests/r1067/scroll-races.cjs": "Separate actual mobile browser integration; run directly with native CDP gestures.",
+    "tests/r1017/recording_inspection_contract.cjs": "Archived r1017 reader; r1027 active/history reader contracts cover the shipped r1020 API.",
+    "tests/r1017/health_inspection_contract.cjs": "Archived reader path and whole-object schema; current health UI/continuity and intro diagnostic contracts remain.",
+    "tests/r1021/release-integrity.cjs": "Historical hardcoded r1021 manifest; current r1027 release-integrity is selected separately.",
+    "tests/r1027/startup-intro.cjs": "Superseded oscillator intro graph; shipped WAV contracts begin in r1037.",
+    "tests/r1031/startup-intro-async.cjs": "Superseded oscillator intro graph.",
+    "tests/r1032/startup-intro-readiness.cjs": "Superseded oscillator intro graph.",
+    "tests/r1033/startup-intro-diagnostics.cjs": "Superseded oscillator intro graph.",
+    "tests/r1035/startup-intro-fresh-clock.cjs": "Superseded oscillator intro graph.",
+    "tests/r1036/startup-intro-timbre.cjs": "Superseded oscillator intro graph.",
+    "tests/r1036/measure-waveform.cjs": "Historical oscillator measurement, not a current WAV regression.",
+    "tests/r1021/persistence-browser.cjs": "Separate real-browser test; not a Node source fixture.",
+    "tests/r1066/mobile-navigation.cjs": "Separate native mobile gesture browser test; executed directly with CDP touch delivery.",
+    "tests/r1066/diagnostics-tempo-browser.cjs": "Separate actual-browser diagnostics overflow and native tempo gesture test; executed directly.",
+    "tests/r1065/full-app-bundled.cjs": "Separate real complete-app browser test; executed directly with native MP3 playback and exact source hashes.",
+    "tests/r1065/offline-bundled.cjs": "Separate real service-worker offline browser test; executed directly.",
+    "tests/r1065/offline-playback.cjs": "Separate real service-worker offline playback test; executed directly with a new JS world.",
+    "tests/r1027/recovery-browser.cjs": "Separate real-browser test; not a Node source fixture."
+  },
+  "fullExportGroup": "tests/r1027/full-release-export.cjs",
+  "scope": "Controlled production-source fixtures. No physical Android lock, audible-output or real-user storage claim.",
+  "results": [
+    {
+      "script": "tests/interaction_gate_lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.13,
+      "outputFile": "tests_interaction_gate_lifecycle.cjs.txt",
+      "passed": true,
+      "checksPassed": 10,
+      "checksTotal": 10
+    },
+    {
+      "script": "tests/owner-stop-storage.cjs",
+      "exitCode": 0,
+      "seconds": 0.138,
+      "outputFile": "tests_owner-stop-storage.cjs.txt",
+      "passed": true,
+      "checksPassed": 17,
+      "checksTotal": 17
+    },
+    {
+      "script": "tests/prayer_recording_faults.cjs",
+      "exitCode": 0,
+      "seconds": 6.76,
+      "outputFile": "tests_prayer_recording_faults.cjs.txt",
+      "passed": true,
+      "checksPassed": 88,
+      "checksTotal": 88
+    },
+    {
+      "script": "tests/r1016/recording_continuity_contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.225,
+      "outputFile": "tests_r1016_recording_continuity_contract.cjs.txt",
+      "passed": true,
+      "checksPassed": 61,
+      "checksTotal": 61
+    },
+    {
+      "script": "tests/r1016/recording_continuity_health.cjs",
+      "exitCode": 0,
+      "seconds": 0.499,
+      "outputFile": "tests_r1016_recording_continuity_health.cjs.txt",
+      "passed": true,
+      "checksPassed": 56,
+      "checksTotal": 56
+    },
+    {
+      "script": "tests/r1016/recovered/health_ui_audit.cjs",
+      "exitCode": 0,
+      "seconds": 0.827,
+      "outputFile": "tests_r1016_recovered_health_ui_audit.cjs.txt",
+      "passed": true,
+      "checksPassed": 44,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1016/update_receipt_integration.cjs",
+      "exitCode": 0,
+      "seconds": 0.143,
+      "outputFile": "tests_r1016_update_receipt_integration.cjs.txt",
+      "passed": true,
+      "checksPassed": 13,
+      "checksTotal": 13
+    },
+    {
+      "script": "tests/r1017/ui_recording_inspection_contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.204,
+      "outputFile": "tests_r1017_ui_recording_inspection_contract.cjs.txt",
+      "passed": true,
+      "checksPassed": 40,
+      "checksTotal": 40
+    },
+    {
+      "script": "tests/r1021/import-maintenance.cjs",
+      "exitCode": 0,
+      "seconds": 0.273,
+      "outputFile": "tests_r1021_import-maintenance.cjs.txt",
+      "passed": true,
+      "checksPassed": 42,
+      "checksTotal": 42
+    },
+    {
+      "script": "tests/r1021/persistence-model.cjs",
+      "exitCode": 0,
+      "seconds": 0.343,
+      "outputFile": "tests_r1021_persistence-model.cjs.txt",
+      "passed": true,
+      "checksPassed": 14,
+      "checksTotal": 14
+    },
+    {
+      "script": "tests/r1027/full-release-export.cjs",
+      "exitCode": 0,
+      "seconds": 15.056,
+      "outputFile": "tests_r1027_full-release-export.cjs.txt",
+      "passed": true,
+      "checksPassed": null,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1027/locale.cjs",
+      "exitCode": 0,
+      "seconds": 0.136,
+      "outputFile": "tests_r1027_locale.cjs.txt",
+      "passed": true,
+      "checksPassed": 328,
+      "checksTotal": 328
+    },
+    {
+      "script": "tests/r1027/recording-inspection-active.cjs",
+      "exitCode": 0,
+      "seconds": 0.205,
+      "outputFile": "tests_r1027_recording-inspection-active.cjs.txt",
+      "passed": true,
+      "checksPassed": 73,
+      "checksTotal": 73
+    },
+    {
+      "script": "tests/r1027/recording-inspection-history.cjs",
+      "exitCode": 0,
+      "seconds": 0.102,
+      "outputFile": "tests_r1027_recording-inspection-history.cjs.txt",
+      "passed": true,
+      "checksPassed": 5,
+      "checksTotal": 5
+    },
+    {
+      "script": "tests/r1027/recovery-entry.cjs",
+      "exitCode": 0,
+      "seconds": 0.135,
+      "outputFile": "tests_r1027_recovery-entry.cjs.txt",
+      "passed": true,
+      "checksPassed": 28,
+      "checksTotal": 28
+    },
+    {
+      "script": "tests/r1027/recovery-regression.cjs",
+      "exitCode": 0,
+      "seconds": 0.161,
+      "outputFile": "tests_r1027_recovery-regression.cjs.txt",
+      "passed": true,
+      "checksPassed": 31,
+      "checksTotal": 31
+    },
+    {
+      "script": "tests/r1027/site-backup-regression.cjs",
+      "exitCode": 0,
+      "seconds": 0.637,
+      "outputFile": "tests_r1027_site-backup-regression.cjs.txt",
+      "passed": true,
+      "checksPassed": 50,
+      "checksTotal": 50
+    },
+    {
+      "script": "tests/r1028/css-grammar-repairs.cjs",
+      "exitCode": 0,
+      "seconds": 0.331,
+      "outputFile": "tests_r1028_css-grammar-repairs.cjs.txt",
+      "passed": true,
+      "checksPassed": 37,
+      "checksTotal": 37
+    },
+    {
+      "script": "tests/r1028/layout-stability-contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.116,
+      "outputFile": "tests_r1028_layout-stability-contract.cjs.txt",
+      "passed": true,
+      "checksPassed": 25,
+      "checksTotal": 25
+    },
+    {
+      "script": "tests/r1028/media-artwork.cjs",
+      "exitCode": 0,
+      "seconds": 0.157,
+      "outputFile": "tests_r1028_media-artwork.cjs.txt",
+      "passed": true,
+      "checksPassed": 14,
+      "checksTotal": 14
+    },
+    {
+      "script": "tests/r1029/cinematic-containment-regression.cjs",
+      "exitCode": 0,
+      "seconds": 0.208,
+      "outputFile": "tests_r1029_cinematic-containment-regression.cjs.txt",
+      "passed": true,
+      "checksPassed": 113,
+      "checksTotal": 113
+    },
+    {
+      "script": "tests/r1029/recovery-deliberate.cjs",
+      "exitCode": 0,
+      "seconds": 0.323,
+      "outputFile": "tests_r1029_recovery-deliberate.cjs.txt",
+      "passed": true,
+      "checksPassed": 27,
+      "checksTotal": 27
+    },
+    {
+      "script": "tests/r1029/transparent-intro.cjs",
+      "exitCode": 0,
+      "seconds": 0.15,
+      "outputFile": "tests_r1029_transparent-intro.cjs.txt",
+      "passed": true,
+      "checksPassed": 16,
+      "checksTotal": 16
+    },
+    {
+      "script": "tests/r1029/ui-surface-contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.2,
+      "outputFile": "tests_r1029_ui-surface-contract.cjs.txt",
+      "passed": true,
+      "checksPassed": 50,
+      "checksTotal": 50
+    },
+    {
+      "script": "tests/r1030/shell-recovery-visibility.cjs",
+      "exitCode": 0,
+      "seconds": 0.293,
+      "outputFile": "tests_r1030_shell-recovery-visibility.cjs.txt",
+      "passed": true,
+      "checksPassed": 18,
+      "checksTotal": 18
+    },
+    {
+      "script": "tests/r1030/visible-volume-labels.cjs",
+      "exitCode": 0,
+      "seconds": 0.221,
+      "outputFile": "tests_r1030_visible-volume-labels.cjs.txt",
+      "passed": true,
+      "checksPassed": 25,
+      "checksTotal": 25
+    },
+    {
+      "script": "tests/r1031/cabir-background-cache.cjs",
+      "exitCode": 0,
+      "seconds": 0.097,
+      "outputFile": "tests_r1031_cabir-background-cache.cjs.txt",
+      "passed": true,
+      "checksPassed": 30,
+      "checksTotal": 30
+    },
+    {
+      "script": "tests/r1031/mini-player-logo.cjs",
+      "exitCode": 0,
+      "seconds": 0.184,
+      "outputFile": "tests_r1031_mini-player-logo.cjs.txt",
+      "passed": true,
+      "checksPassed": 14,
+      "checksTotal": 14
+    },
+    {
+      "script": "tests/r1031/personal-centre-glass.cjs",
+      "exitCode": 0,
+      "seconds": 0.161,
+      "outputFile": "tests_r1031_personal-centre-glass.cjs.txt",
+      "passed": true,
+      "checksPassed": 21,
+      "checksTotal": 21
+    },
+    {
+      "script": "tests/r1034/intro-health-diagnostic.cjs",
+      "exitCode": 0,
+      "seconds": 0.188,
+      "outputFile": "tests_r1034_intro-health-diagnostic.cjs.txt",
+      "passed": true,
+      "checksPassed": 23,
+      "checksTotal": 23
+    },
+    {
+      "script": "tests/r1037/intro-asset-cache.cjs",
+      "exitCode": 0,
+      "seconds": 0.122,
+      "outputFile": "tests_r1037_intro-asset-cache.cjs.txt",
+      "passed": true,
+      "checksPassed": 32,
+      "checksTotal": 32
+    },
+    {
+      "script": "tests/r1037/intro-audio-lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.489,
+      "outputFile": "tests_r1037_intro-audio-lifecycle.cjs.txt",
+      "passed": true,
+      "checksPassed": 143,
+      "checksTotal": 143
+    },
+    {
+      "script": "tests/r1037/intro-visual-diagnostics.cjs",
+      "exitCode": 0,
+      "seconds": 0.14,
+      "outputFile": "tests_r1037_intro-visual-diagnostics.cjs.txt",
+      "passed": true,
+      "checksPassed": 27,
+      "checksTotal": 27
+    },
+    {
+      "script": "tests/r1037/intro-waveform.cjs",
+      "exitCode": 0,
+      "seconds": 0.101,
+      "outputFile": "tests_r1037_intro-waveform.cjs.txt",
+      "passed": true,
+      "checksPassed": 12,
+      "checksTotal": 12
+    },
+    {
+      "script": "tests/r1038/silent-carrier-guard.cjs",
+      "exitCode": 0,
+      "seconds": 0.505,
+      "outputFile": "tests_r1038_silent-carrier-guard.cjs.txt",
+      "passed": true,
+      "checksPassed": 100,
+      "checksTotal": 100
+    },
+    {
+      "script": "tests/r1039/silent-anchor-init.cjs",
+      "exitCode": 0,
+      "seconds": 1.206,
+      "outputFile": "tests_r1039_silent-anchor-init.cjs.txt",
+      "passed": true,
+      "checksPassed": 34,
+      "checksTotal": 34
+    },
+    {
+      "script": "tests/r1040/esma-exit-placement.cjs",
+      "exitCode": 0,
+      "seconds": 0.121,
+      "outputFile": "tests_r1040_esma-exit-placement.cjs.txt",
+      "passed": true,
+      "checksPassed": 24,
+      "checksTotal": 24
+    },
+    {
+      "script": "tests/r1041/compact-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.066,
+      "outputFile": "tests_r1041_compact-controls.cjs.txt",
+      "passed": true,
+      "checksPassed": 37,
+      "checksTotal": 37
+    },
+    {
+      "script": "tests/r1041/real-quick-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.139,
+      "outputFile": "tests_r1041_real-quick-controls.cjs.txt",
+      "passed": true,
+      "checksPassed": 96,
+      "checksTotal": 96
+    },
+    {
+      "script": "tests/r1042/foreground-sync.cjs",
+      "exitCode": 0,
+      "seconds": 0.134,
+      "outputFile": "tests_r1042_foreground-sync.cjs.txt",
+      "passed": true,
+      "checksPassed": 15,
+      "checksTotal": 15
+    },
+    {
+      "script": "tests/r1042/frequency-mirror-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.474,
+      "outputFile": "tests_r1042_frequency-mirror-resume.cjs.txt",
+      "passed": true,
+      "checksPassed": 25,
+      "checksTotal": 25
+    },
+    {
+      "script": "tests/r1042/graphics-rest.cjs",
+      "exitCode": 0,
+      "seconds": 0.201,
+      "outputFile": "tests_r1042_graphics-rest.cjs.txt",
+      "passed": true,
+      "checksPassed": null,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1042/hidden-render-audio-ui.cjs",
+      "exitCode": 0,
+      "seconds": 0.335,
+      "outputFile": "tests_r1042_hidden-render-audio-ui.cjs.txt",
+      "passed": true,
+      "checksPassed": 4,
+      "checksTotal": 4
+    },
+    {
+      "script": "tests/r1042/hidden-render-legacy.cjs",
+      "exitCode": 0,
+      "seconds": 0.233,
+      "outputFile": "tests_r1042_hidden-render-legacy.cjs.txt",
+      "passed": true,
+      "checksPassed": 5,
+      "checksTotal": 5
+    },
+    {
+      "script": "tests/r1042/hidden-render-queue.cjs",
+      "exitCode": 0,
+      "seconds": 0.19,
+      "outputFile": "tests_r1042_hidden-render-queue.cjs.txt",
+      "passed": true,
+      "checksPassed": null,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1042/performance-descriptions.cjs",
+      "exitCode": 0,
+      "seconds": 0.212,
+      "outputFile": "tests_r1042_performance-descriptions.cjs.txt",
+      "passed": true,
+      "checksPassed": 17,
+      "checksTotal": 17
+    },
+    {
+      "script": "tests/r1042/presentation-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.108,
+      "outputFile": "tests_r1042_presentation-resume.cjs.txt",
+      "passed": true,
+      "checksPassed": 27,
+      "checksTotal": 27
+    },
+    {
+      "script": "tests/r1043/background-interruption.cjs",
+      "exitCode": 0,
+      "seconds": 0.095,
+      "outputFile": "tests_r1043_background-interruption.cjs.txt",
+      "passed": true,
+      "checksPassed": 29,
+      "checksTotal": 29
+    },
+    {
+      "script": "tests/r1043/recording-attack.cjs",
+      "exitCode": 0,
+      "seconds": 0.141,
+      "outputFile": "tests_r1043_recording-attack.cjs.txt",
+      "passed": true,
+      "checksPassed": null,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1044/intro-version-cache.cjs",
+      "exitCode": 0,
+      "seconds": 0.109,
+      "outputFile": "tests_r1044_intro-version-cache.cjs.txt",
+      "passed": true,
+      "checksPassed": 4,
+      "checksTotal": 4
+    },
+    {
+      "script": "tests/r1044/native-recovery-authority.cjs",
+      "exitCode": 0,
+      "seconds": 0.237,
+      "outputFile": "tests_r1044_native-recovery-authority.cjs.txt",
+      "passed": true,
+      "checksPassed": 35,
+      "checksTotal": 35
+    },
+    {
+      "script": "tests/r1044/recording-volume-intent.cjs",
+      "exitCode": 0,
+      "seconds": 0.205,
+      "outputFile": "tests_r1044_recording-volume-intent.cjs.txt",
+      "passed": true,
+      "checksPassed": 18,
+      "checksTotal": 18
+    },
+    {
+      "script": "tests/r1045/ambient-info.cjs",
+      "exitCode": 0,
+      "seconds": 3.928,
+      "outputFile": "tests_r1045_ambient-info.cjs.txt",
+      "passed": true,
+      "checksPassed": 98,
+      "checksTotal": 98
+    },
+    {
+      "script": "tests/r1045/intro-rejection-diagnostics.cjs",
+      "exitCode": 0,
+      "seconds": 3.667,
+      "outputFile": "tests_r1045_intro-rejection-diagnostics.cjs.txt",
+      "passed": true,
+      "checksPassed": 43,
+      "checksTotal": 43
+    },
+    {
+      "script": "tests/r1045/presentation-notice.cjs",
+      "exitCode": 0,
+      "seconds": 0.201,
+      "outputFile": "tests_r1045_presentation-notice.cjs.txt",
+      "passed": true,
+      "checksPassed": 36,
+      "checksTotal": 36
+    },
+    {
+      "script": "tests/r1045/quick-error-label.cjs",
+      "exitCode": 0,
+      "seconds": 0.18,
+      "outputFile": "tests_r1045_quick-error-label.cjs.txt",
+      "passed": true,
+      "checksPassed": 105,
+      "checksTotal": 105
+    },
+    {
+      "script": "tests/r1046/silent-anchor-selection.cjs",
+      "exitCode": 0,
+      "seconds": 5.81,
+      "outputFile": "tests_r1046_silent-anchor-selection.cjs.txt",
+      "passed": true,
+      "checksPassed": 87,
+      "checksTotal": 87
+    },
+    {
+      "script": "tests/r1047/frequency-pause-contract.cjs",
+      "exitCode": 0,
+      "seconds": 1.962,
+      "outputFile": "tests_r1047_frequency-pause-contract.cjs.txt",
+      "passed": true,
+      "checksPassed": null,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1048/audio-single-volume.cjs",
+      "exitCode": 0,
+      "seconds": 0.268,
+      "outputFile": "tests_r1048_audio-single-volume.cjs.txt",
+      "passed": true,
+      "checksPassed": 18,
+      "checksTotal": 18
+    },
+    {
+      "script": "tests/r1048/audio-volume-preview.cjs",
+      "exitCode": 0,
+      "seconds": 0.629,
+      "outputFile": "tests_r1048_audio-volume-preview.cjs.txt",
+      "passed": true,
+      "checksPassed": 57,
+      "checksTotal": 57
+    },
+    {
+      "script": "tests/r1048/backup-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 0.219,
+      "outputFile": "tests_r1048_backup-integrity.cjs.txt",
+      "passed": true,
+      "checksPassed": 33,
+      "checksTotal": 33
+    },
+    {
+      "script": "tests/r1048/offline-recovery.cjs",
+      "exitCode": 0,
+      "seconds": 4.564,
+      "outputFile": "tests_r1048_offline-recovery.cjs.txt",
+      "passed": true,
+      "checksPassed": 18,
+      "checksTotal": 18
+    },
+    {
+      "script": "tests/r1048/presentation-notice.cjs",
+      "exitCode": 0,
+      "seconds": 0.088,
+      "outputFile": "tests_r1048_presentation-notice.cjs.txt",
+      "passed": true,
+      "checksPassed": 13,
+      "checksTotal": 13
+    },
+    {
+      "script": "tests/r1049/audio-global-intent.cjs",
+      "exitCode": 0,
+      "seconds": 0.65,
+      "outputFile": "tests_r1049_audio-global-intent.cjs.txt",
+      "passed": true,
+      "checksPassed": 30,
+      "checksTotal": 30
+    },
+    {
+      "script": "tests/r1049/audio-pause-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.653,
+      "outputFile": "tests_r1049_audio-pause-resume.cjs.txt",
+      "passed": true,
+      "checksPassed": 49,
+      "checksTotal": 49
+    },
+    {
+      "script": "tests/r1049/audio-registry-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.163,
+      "outputFile": "tests_r1049_audio-registry-resume.cjs.txt",
+      "passed": true,
+      "checksPassed": 2,
+      "checksTotal": 2
+    },
+    {
+      "script": "tests/r1049/backup-quarantine.cjs",
+      "exitCode": 0,
+      "seconds": 0.233,
+      "outputFile": "tests_r1049_backup-quarantine.cjs.txt",
+      "passed": true,
+      "checksPassed": 6,
+      "checksTotal": 6
+    },
+    {
+      "script": "tests/r1049/layout-keyboard.cjs",
+      "exitCode": 0,
+      "seconds": 0.219,
+      "outputFile": "tests_r1049_layout-keyboard.cjs.txt",
+      "passed": true,
+      "checksPassed": 38,
+      "checksTotal": 38
+    },
+    {
+      "script": "tests/r1049/offline-refresh-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 10.827,
+      "outputFile": "tests_r1049_offline-refresh-integrity.cjs.txt",
+      "passed": true,
+      "checksPassed": 24,
+      "checksTotal": 24
+    },
+    {
+      "script": "tests/r1049/ui-notice-focus.cjs",
+      "exitCode": 0,
+      "seconds": 0.078,
+      "outputFile": "tests_r1049_ui-notice-focus.cjs.txt",
+      "passed": true,
+      "checksPassed": 8,
+      "checksTotal": 8
+    },
+    {
+      "script": "tests/r1050/audio-cadence-evidence.cjs",
+      "exitCode": 0,
+      "seconds": 0.161,
+      "outputFile": "tests_r1050_audio-cadence-evidence.cjs.txt",
+      "passed": true,
+      "checksPassed": 25,
+      "checksTotal": 25
+    },
+    {
+      "script": "tests/r1050/dock-progress-invalidation.cjs",
+      "exitCode": 0,
+      "seconds": 0.16,
+      "outputFile": "tests_r1050_dock-progress-invalidation.cjs.txt",
+      "passed": true,
+      "checksPassed": 14,
+      "checksTotal": 14
+    },
+    {
+      "script": "tests/r1051/dashboard-error-state.cjs",
+      "exitCode": 0,
+      "seconds": 0.322,
+      "outputFile": "tests_r1051_dashboard-error-state.cjs.txt",
+      "passed": true,
+      "checksPassed": 13,
+      "checksTotal": 13
+    },
+    {
+      "script": "tests/r1052/health-media-evidence.cjs",
+      "exitCode": 0,
+      "seconds": 0.131,
+      "outputFile": "tests_r1052_health-media-evidence.cjs.txt",
+      "passed": true,
+      "checksPassed": 10,
+      "checksTotal": 10
+    },
+    {
+      "script": "tests/r1052/media-clock-authority.cjs",
+      "exitCode": 0,
+      "seconds": 0.19,
+      "outputFile": "tests_r1052_media-clock-authority.cjs.txt",
+      "passed": true,
+      "checksPassed": 17,
+      "checksTotal": 17
+    },
+    {
+      "script": "tests/r1052/native-repeat-block.cjs",
+      "exitCode": 0,
+      "seconds": 0.264,
+      "outputFile": "tests_r1052_native-repeat-block.cjs.txt",
+      "passed": true,
+      "checksPassed": 22,
+      "checksTotal": 22
+    },
+    {
+      "script": "tests/r1053/manual-count-commit.cjs",
+      "exitCode": 0,
+      "seconds": 0.199,
+      "outputFile": "tests_r1053_manual-count-commit.cjs.txt",
+      "passed": true,
+      "checksPassed": 17,
+      "checksTotal": 17
+    },
+    {
+      "script": "tests/r1053/wheel-mini-motion.cjs",
+      "exitCode": 0,
+      "seconds": 0.099,
+      "outputFile": "tests_r1053_wheel-mini-motion.cjs.txt",
+      "passed": true,
+      "checksPassed": 14,
+      "checksTotal": 14
+    },
+    {
+      "script": "tests/r1054/automatic-touch-continuity.cjs",
+      "exitCode": 0,
+      "seconds": 0.702,
+      "outputFile": "tests_r1054_automatic-touch-continuity.cjs.txt",
+      "passed": true,
+      "checksPassed": 18,
+      "checksTotal": 18
+    },
+    {
+      "script": "tests/r1055/generic-bank.cjs",
+      "exitCode": 0,
+      "seconds": 0.206,
+      "outputFile": "tests_r1055_generic-bank.cjs.txt",
+      "passed": true,
+      "checksPassed": 31,
+      "checksTotal": 31
+    },
+    {
+      "script": "tests/r1055/generic-priority.cjs",
+      "exitCode": 0,
+      "seconds": 4.059,
+      "outputFile": "tests_r1055_generic-priority.cjs.txt",
+      "passed": true,
+      "checksPassed": 28,
+      "checksTotal": 28
+    },
+    {
+      "script": "tests/r1055/generic-ui.cjs",
+      "exitCode": 0,
+      "seconds": 0.166,
+      "outputFile": "tests_r1055_generic-ui.cjs.txt",
+      "passed": true,
+      "checksPassed": 26,
+      "checksTotal": 26
+    },
+    {
+      "script": "tests/r1056/audio-source-model.cjs",
+      "exitCode": 0,
+      "seconds": 0.119,
+      "outputFile": "tests_r1056_audio-source-model.cjs.txt",
+      "passed": true,
+      "checksPassed": 29,
+      "checksTotal": 29
+    },
+    {
+      "script": "tests/r1056/ui-source-and-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.429,
+      "outputFile": "tests_r1056_ui-source-and-controls.cjs.txt",
+      "passed": true,
+      "checksPassed": 51,
+      "checksTotal": 51
+    },
+    {
+      "script": "tests/r1058/stop-scope.cjs",
+      "exitCode": 0,
+      "seconds": 1.486,
+      "outputFile": "tests_r1058_stop-scope.cjs.txt",
+      "passed": true,
+      "checksPassed": null,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1059/background-mix.cjs",
+      "exitCode": 0,
+      "seconds": 0.292,
+      "outputFile": "tests_r1059_background-mix.cjs.txt",
+      "passed": true,
+      "checksPassed": 26,
+      "checksTotal": 27
+    },
+    {
+      "script": "tests/r1060/active-source.cjs",
+      "exitCode": 0,
+      "seconds": 0.221,
+      "outputFile": "tests_r1060_active-source.cjs.txt",
+      "passed": true,
+      "checksPassed": 57,
+      "checksTotal": 57
+    },
+    {
+      "script": "tests/r1061/background-lock.cjs",
+      "exitCode": 0,
+      "seconds": 0.256,
+      "outputFile": "tests_r1061_background-lock.cjs.txt",
+      "passed": true,
+      "checksPassed": 54,
+      "checksTotal": 54
+    },
+    {
+      "script": "tests/r1062/dhikr-pause-scope.cjs",
+      "exitCode": 0,
+      "seconds": 4.686,
+      "outputFile": "tests_r1062_dhikr-pause-scope.cjs.txt",
+      "passed": true,
+      "checksPassed": 63,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1062/direct-native-pause.cjs",
+      "exitCode": 0,
+      "seconds": 0.325,
+      "outputFile": "tests_r1062_direct-native-pause.cjs.txt",
+      "passed": true,
+      "checksPassed": 30,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1063/easy-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.241,
+      "outputFile": "tests_r1063_easy-controls.cjs.txt",
+      "passed": true,
+      "checksPassed": 30,
+      "checksTotal": 30
+    },
+    {
+      "script": "tests/r1064/arabic-chunks.cjs",
+      "exitCode": 0,
+      "seconds": 0.104,
+      "outputFile": "tests_r1064_arabic-chunks.cjs.txt",
+      "passed": true,
+      "checksPassed": 7,
+      "checksTotal": 7
+    },
+    {
+      "script": "tests/r1064/browser-helper.cjs",
+      "exitCode": 0,
+      "seconds": 0.4,
+      "outputFile": "tests_r1064_browser-helper.cjs.txt",
+      "passed": true,
+      "checksPassed": null,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1064/catalog.cjs",
+      "exitCode": 0,
+      "seconds": 0.126,
+      "outputFile": "tests_r1064_catalog.cjs.txt",
+      "passed": true,
+      "checksPassed": 30,
+      "checksTotal": 30
+    },
+    {
+      "script": "tests/r1064/reader-owner-lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.085,
+      "outputFile": "tests_r1064_reader-owner-lifecycle.cjs.txt",
+      "passed": true,
+      "checksPassed": 8,
+      "checksTotal": 8
+    },
+    {
+      "script": "tests/r1064/reading-audio-policy.cjs",
+      "exitCode": 0,
+      "seconds": 0.189,
+      "outputFile": "tests_r1064_reading-audio-policy.cjs.txt",
+      "passed": true,
+      "checksPassed": 24,
+      "checksTotal": 24
+    },
+    {
+      "script": "tests/r1064/yasin-data.cjs",
+      "exitCode": 0,
+      "seconds": 0.082,
+      "outputFile": "tests_r1064_yasin-data.cjs.txt",
+      "passed": true,
+      "checksPassed": 10,
+      "checksTotal": 10
+    },
+    {
+      "script": "tests/r1065/audio-priority.cjs",
+      "exitCode": 0,
+      "seconds": 0.14,
+      "outputFile": "tests_r1065_audio-priority.cjs.txt",
+      "passed": true,
+      "checksPassed": 10,
+      "checksTotal": 10
+    },
+    {
+      "script": "tests/r1065/bundled-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 0.265,
+      "outputFile": "tests_r1065_bundled-integrity.cjs.txt",
+      "passed": true,
+      "checksPassed": 13,
+      "checksTotal": 13
+    },
+    {
+      "script": "tests/r1065/bundled-native.cjs",
+      "exitCode": 0,
+      "seconds": 0.17,
+      "outputFile": "tests_r1065_bundled-native.cjs.txt",
+      "passed": true,
+      "checksPassed": 5,
+      "checksTotal": 5
+    },
+    {
+      "script": "tests/r1065/health-media-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 0.384,
+      "outputFile": "tests_r1065_health-media-integrity.cjs.txt",
+      "passed": true,
+      "checksPassed": 5,
+      "checksTotal": 5
+    },
+    {
+      "script": "tests/r1065/legacy-policy.cjs",
+      "exitCode": 0,
+      "seconds": 0.132,
+      "outputFile": "tests_r1065_legacy-policy.cjs.txt",
+      "passed": true,
+      "checksPassed": 17,
+      "checksTotal": 17
+    },
+    {
+      "script": "tests/r1066/diagnostics-tempo.cjs",
+      "exitCode": 0,
+      "seconds": 0.138,
+      "outputFile": "tests_r1066_diagnostics-tempo.cjs.txt",
+      "passed": true,
+      "checksPassed": 20,
+      "checksTotal": 20
+    },
+    {
+      "script": "tests/r1066/navigation-policy.cjs",
+      "exitCode": 0,
+      "seconds": 0.088,
+      "outputFile": "tests_r1066_navigation-policy.cjs.txt",
+      "passed": true,
+      "checksPassed": 10,
+      "checksTotal": 10
+    },
+    {
+      "script": "tests/r1067/native-progress.cjs",
+      "exitCode": 0,
+      "seconds": 0.211,
+      "outputFile": "tests_r1067_native-progress.cjs.txt",
+      "passed": true,
+      "checksPassed": 13,
+      "checksTotal": 13
+    },
+    {
+      "script": "tests/r1067/reader-progress.cjs",
+      "exitCode": 0,
+      "seconds": 0.163,
+      "outputFile": "tests_r1067_reader-progress.cjs.txt",
+      "passed": true,
+      "checksPassed": 21,
+      "checksTotal": 21
+    },
+    {
+      "script": "tests/r1067/scroll-lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.182,
+      "outputFile": "tests_r1067_scroll-lifecycle.cjs.txt",
+      "passed": true,
+      "checksPassed": 41,
+      "checksTotal": 41
+    },
+    {
+      "script": "tests/r1067/yasin-timing.cjs",
+      "exitCode": 0,
+      "seconds": 0.184,
+      "outputFile": "tests_r1067_yasin-timing.cjs.txt",
+      "passed": true,
+      "checksPassed": 13,
+      "checksTotal": 13
+    },
+    {
+      "script": "tests/r1068/verse-selection-lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.1,
+      "outputFile": "tests_r1068_verse-selection-lifecycle.cjs.txt",
+      "passed": true,
+      "checksPassed": 23,
+      "checksTotal": 23
+    },
+    {
+      "script": "tests/r1069/intention-transition.cjs",
+      "exitCode": 0,
+      "seconds": 0.641,
+      "outputFile": "tests_r1069_intention-transition.cjs.txt",
+      "passed": true,
+      "checksPassed": 29,
+      "checksTotal": 29
+    },
+    {
+      "script": "tests/r1070/owner-release-start.cjs",
+      "exitCode": 0,
+      "seconds": 0.104,
+      "outputFile": "tests_r1070_owner-release-start.cjs.txt",
+      "passed": true,
+      "checksPassed": 17,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1070/update-owner-handoff.cjs",
+      "exitCode": 0,
+      "seconds": 0.15,
+      "outputFile": "tests_r1070_update-owner-handoff.cjs.txt",
+      "passed": true,
+      "checksPassed": 5,
+      "checksTotal": 5
+    },
+    {
+      "script": "tests/r1072/retired-single-pause.cjs",
+      "exitCode": 0,
+      "seconds": 2.33,
+      "outputFile": "tests_r1072_retired-single-pause.cjs.txt",
+      "passed": true,
+      "checksPassed": 42,
+      "checksTotal": 42
+    },
+    {
+      "script": "tests/r1074/session-holds.cjs",
+      "exitCode": 0,
+      "seconds": 0.469,
+      "outputFile": "tests_r1074_session-holds.cjs.txt",
+      "passed": true,
+      "checksPassed": 20,
+      "checksTotal": 20
+    },
+    {
+      "script": "tests/r1076/protective-original-contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.774,
+      "outputFile": "tests_r1076_protective-original-contract.cjs.txt",
+      "passed": true,
+      "checksPassed": 49,
+      "checksTotal": 49
+    },
+    {
+      "script": "tests/r1077/protective-bundle-priority.cjs",
+      "exitCode": 0,
+      "seconds": 2.408,
+      "outputFile": "tests_r1077_protective-bundle-priority.cjs.txt",
+      "passed": true,
+      "checksPassed": 11,
+      "checksTotal": 11
+    },
+    {
+      "script": "tests/r1078/protective-plan-persistence.cjs",
+      "exitCode": 0,
+      "seconds": 0.088,
+      "outputFile": "tests_r1078_protective-plan-persistence.cjs.txt",
+      "passed": true,
+      "checksPassed": 6,
+      "checksTotal": 6
+    },
+    {
+      "script": "tests/r1078/reader-resume-permit.cjs",
+      "exitCode": 0,
+      "seconds": 0.108,
+      "outputFile": "tests_r1078_reader-resume-permit.cjs.txt",
+      "passed": true,
+      "checksPassed": 21,
+      "checksTotal": 21
+    },
+    {
+      "script": "tests/r1081/state-projection.cjs",
+      "exitCode": 0,
+      "seconds": 0.11,
+      "outputFile": "tests_r1081_state-projection.cjs.txt",
+      "passed": true,
+      "checksPassed": 28,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1082/engine-journal.cjs",
+      "exitCode": 0,
+      "seconds": 0.176,
+      "outputFile": "tests_r1082_engine-journal.cjs.txt",
+      "passed": true,
+      "checksPassed": 44,
+      "checksTotal": 44
+    },
+    {
+      "script": "tests/r1082/engine-logic.cjs",
+      "exitCode": 0,
+      "seconds": 0.137,
+      "outputFile": "tests_r1082_engine-logic.cjs.txt",
+      "passed": true,
+      "checksPassed": 65,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1082/engine-projection.cjs",
+      "exitCode": 0,
+      "seconds": 0.127,
+      "outputFile": "tests_r1082_engine-projection.cjs.txt",
+      "passed": true,
+      "checksPassed": 39,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1082/ui-template-contracts.cjs",
+      "exitCode": 0,
+      "seconds": 0.079,
+      "outputFile": "tests_r1082_ui-template-contracts.cjs.txt",
+      "passed": true,
+      "checksPassed": 9,
+      "checksTotal": 9
+    },
+    {
+      "script": "tests/r1083/style-order.cjs",
+      "exitCode": 0,
+      "seconds": 0.106,
+      "outputFile": "tests_r1083_style-order.cjs.txt",
+      "passed": true,
+      "checksPassed": 11,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1084/preset-engine.cjs",
+      "exitCode": 0,
+      "seconds": 0.196,
+      "outputFile": "tests_r1084_preset-engine.cjs.txt",
+      "passed": true,
+      "checksPassed": 150,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1084/session-projection.cjs",
+      "exitCode": 0,
+      "seconds": 0.096,
+      "outputFile": "tests_r1084_session-projection.cjs.txt",
+      "passed": true,
+      "checksPassed": 83,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1084/smart-source-cancel.cjs",
+      "exitCode": 0,
+      "seconds": 0.113,
+      "outputFile": "tests_r1084_smart-source-cancel.cjs.txt",
+      "passed": true,
+      "checksPassed": 28,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1084/terminal-journal.cjs",
+      "exitCode": 0,
+      "seconds": 0.108,
+      "outputFile": "tests_r1084_terminal-journal.cjs.txt",
+      "passed": true,
+      "checksPassed": 37,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1084/tts-completion.cjs",
+      "exitCode": 0,
+      "seconds": 0.143,
+      "outputFile": "tests_r1084_tts-completion.cjs.txt",
+      "passed": true,
+      "checksPassed": 41,
+      "checksTotal": 41
+    },
+    {
+      "script": "tests/r1084/ui-reading-names.cjs",
+      "exitCode": 0,
+      "seconds": 0.085,
+      "outputFile": "tests_r1084_ui-reading-names.cjs.txt",
+      "passed": true,
+      "checksPassed": 9,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1085/intention-completion.cjs",
+      "exitCode": 0,
+      "seconds": 0.114,
+      "outputFile": "tests_r1085_intention-completion.cjs.txt",
+      "passed": true,
+      "checksPassed": 7,
+      "checksTotal": 7
+    },
+    {
+      "script": "tests/r1085/intention-onset.cjs",
+      "exitCode": 0,
+      "seconds": 0.228,
+      "outputFile": "tests_r1085_intention-onset.cjs.txt",
+      "passed": true,
+      "checksPassed": 13,
+      "checksTotal": 13
+    },
+    {
+      "script": "tests/r1085/smart-cadence.cjs",
+      "exitCode": 0,
+      "seconds": 0.132,
+      "outputFile": "tests_r1085_smart-cadence.cjs.txt",
+      "passed": true,
+      "checksPassed": 53,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1085/smart-intention-gate.cjs",
+      "exitCode": 0,
+      "seconds": 0.1,
+      "outputFile": "tests_r1085_smart-intention-gate.cjs.txt",
+      "passed": true,
+      "checksPassed": 9,
+      "checksTotal": 9
+    },
+    {
+      "script": "tests/r1086/tts-name-vocative.cjs",
+      "exitCode": 0,
+      "seconds": 0.097,
+      "outputFile": "tests_r1086_tts-name-vocative.cjs.txt",
+      "passed": true,
+      "checksPassed": 750,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1088/dock-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.163,
+      "outputFile": "tests_r1088_dock-resume.cjs.txt",
+      "passed": true,
+      "checksPassed": 13,
+      "checksTotal": 13
+    },
+    {
+      "script": "tests/r1088/gate-audio.cjs",
+      "exitCode": 0,
+      "seconds": 0.104,
+      "outputFile": "tests_r1088_gate-audio.cjs.txt",
+      "passed": true,
+      "checksPassed": null,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1088/interruptions.cjs",
+      "exitCode": 0,
+      "seconds": 0.131,
+      "outputFile": "tests_r1088_interruptions.cjs.txt",
+      "passed": true,
+      "checksPassed": 22,
+      "checksTotal": 22
+    },
+    {
+      "script": "tests/r1088/saved-session-store.cjs",
+      "exitCode": 0,
+      "seconds": 0.159,
+      "outputFile": "tests_r1088_saved-session-store.cjs.txt",
+      "passed": true,
+      "checksPassed": 19,
+      "checksTotal": 19
+    },
+    {
+      "script": "tests/r1089/gate-state.cjs",
+      "exitCode": 0,
+      "seconds": 0.091,
+      "outputFile": "tests_r1089_gate-state.cjs.txt",
+      "passed": true,
+      "checksPassed": null,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1089/navigation-races.cjs",
+      "exitCode": 0,
+      "seconds": 0.316,
+      "outputFile": "tests_r1089_navigation-races.cjs.txt",
+      "passed": true,
+      "checksPassed": 27,
+      "checksTotal": 27
+    },
+    {
+      "script": "tests/r1089/preparing-state.cjs",
+      "exitCode": 0,
+      "seconds": 0.121,
+      "outputFile": "tests_r1089_preparing-state.cjs.txt",
+      "passed": true,
+      "checksPassed": 18,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1089/saved-session-store.cjs",
+      "exitCode": 0,
+      "seconds": 1.2,
+      "outputFile": "tests_r1089_saved-session-store.cjs.txt",
+      "passed": true,
+      "checksPassed": 18,
+      "checksTotal": 18
+    },
+    {
+      "script": "tests/r1090/canonical-export.cjs",
+      "exitCode": 0,
+      "seconds": 0.113,
+      "outputFile": "tests_r1090_canonical-export.cjs.txt",
+      "passed": true,
+      "checksPassed": 12,
+      "checksTotal": 12
+    },
+    {
+      "script": "tests/r1090/deferred-continuation.cjs",
+      "exitCode": 0,
+      "seconds": 0.495,
+      "outputFile": "tests_r1090_deferred-continuation.cjs.txt",
+      "passed": true,
+      "checksPassed": 50,
+      "checksTotal": 50
+    },
+    {
+      "script": "tests/r1090/direct-restart.cjs",
+      "exitCode": 0,
+      "seconds": 0.138,
+      "outputFile": "tests_r1090_direct-restart.cjs.txt",
+      "passed": true,
+      "checksPassed": 40,
+      "checksTotal": 40
+    },
+    {
+      "script": "tests/r1090/saved-activation.cjs",
+      "exitCode": 0,
+      "seconds": 0.114,
+      "outputFile": "tests_r1090_saved-activation.cjs.txt",
+      "passed": true,
+      "checksPassed": 24,
+      "checksTotal": 24
+    },
+    {
+      "script": "tests/r1090/site-export-privacy.cjs",
+      "exitCode": 0,
+      "seconds": 0.23,
+      "outputFile": "tests_r1090_site-export-privacy.cjs.txt",
+      "passed": true,
+      "checksPassed": 4,
+      "checksTotal": 4
+    },
+    {
+      "script": "tests/r1090/unified-gate.cjs",
+      "exitCode": 0,
+      "seconds": 0.161,
+      "outputFile": "tests_r1090_unified-gate.cjs.txt",
+      "passed": true,
+      "checksPassed": null,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1091/gate-entry.cjs",
+      "exitCode": 0,
+      "seconds": 0.135,
+      "outputFile": "tests_r1091_gate-entry.cjs.txt",
+      "passed": true,
+      "checksPassed": null,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1091/silence-recording.cjs",
+      "exitCode": 0,
+      "seconds": 0.115,
+      "outputFile": "tests_r1091_silence-recording.cjs.txt",
+      "passed": true,
+      "checksPassed": 8,
+      "checksTotal": 8
+    },
+    {
+      "script": "tests/r1092/preflight-cache.cjs",
+      "exitCode": 0,
+      "seconds": 0.107,
+      "outputFile": "tests_r1092_preflight-cache.cjs.txt",
+      "passed": true,
+      "checksPassed": 7,
+      "checksTotal": 7
+    },
+    {
+      "script": "tests/r1092/preflight-source.cjs",
+      "exitCode": 0,
+      "seconds": 0.167,
+      "outputFile": "tests_r1092_preflight-source.cjs.txt",
+      "passed": true,
+      "checksPassed": 35,
+      "checksTotal": 35
+    },
+    {
+      "script": "tests/r1093/archive-download.cjs",
+      "exitCode": 0,
+      "seconds": 0.719,
+      "outputFile": "tests_r1093_archive-download.cjs.txt",
+      "passed": true,
+      "checksPassed": 22,
+      "checksTotal": 22
+    },
+    {
+      "script": "tests/r1093/archive-races.cjs",
+      "exitCode": 0,
+      "seconds": 0.346,
+      "outputFile": "tests_r1093_archive-races.cjs.txt",
+      "passed": true,
+      "checksPassed": 6,
+      "checksTotal": 6
+    },
+    {
+      "script": "tests/r1093/archive-worker.cjs",
+      "exitCode": 0,
+      "seconds": 0.134,
+      "outputFile": "tests_r1093_archive-worker.cjs.txt",
+      "passed": true,
+      "checksPassed": 14,
+      "checksTotal": 14
+    },
+    {
+      "script": "tests/r1094/matrix-races.cjs",
+      "exitCode": 0,
+      "seconds": 14.386,
+      "outputFile": "tests_r1094_matrix-races.cjs.txt",
+      "passed": true,
+      "checksPassed": 18,
+      "checksTotal": 18
+    },
+    {
+      "script": "tests/r1094/source-matrix.cjs",
+      "exitCode": 0,
+      "seconds": 16.981,
+      "outputFile": "tests_r1094_source-matrix.cjs.txt",
+      "passed": true,
+      "checksPassed": 26,
+      "checksTotal": 26
+    },
+    {
+      "script": "tests/r1094/studio-owner-admission.cjs",
+      "exitCode": 0,
+      "seconds": 0.237,
+      "outputFile": "tests_r1094_studio-owner-admission.cjs.txt",
+      "passed": true,
+      "checksPassed": 37,
+      "checksTotal": 37
+    },
+    {
+      "script": "tests/r1094/studio-target.cjs",
+      "exitCode": 0,
+      "seconds": 0.151,
+      "outputFile": "tests_r1094_studio-target.cjs.txt",
+      "passed": true,
+      "checksPassed": 14,
+      "checksTotal": 14
+    },
+    {
+      "script": "tests/r1095/image-pack-facade.cjs",
+      "exitCode": 0,
+      "seconds": 0.1,
+      "outputFile": "tests_r1095_image-pack-facade.cjs.txt",
+      "passed": true,
+      "checksPassed": 15,
+      "checksTotal": 15
+    },
+    {
+      "script": "tests/r1095/image-pack-worker.cjs",
+      "exitCode": 0,
+      "seconds": 0.965,
+      "outputFile": "tests_r1095_image-pack-worker.cjs.txt",
+      "passed": true,
+      "checksPassed": 29,
+      "checksTotal": 29
+    },
+    {
+      "script": "tests/r1096/preparation-limits.cjs",
+      "exitCode": 0,
+      "seconds": 0.231,
+      "outputFile": "tests_r1096_preparation-limits.cjs.txt",
+      "passed": true,
+      "checksPassed": 21,
+      "checksTotal": 21
+    },
+    {
+      "script": "tests/r1096/studio-edit-admission.cjs",
+      "exitCode": 0,
+      "seconds": 0.287,
+      "outputFile": "tests_r1096_studio-edit-admission.cjs.txt",
+      "passed": true,
+      "checksPassed": 119,
+      "checksTotal": 119
+    },
+    {
+      "script": "tests/r1096/studio-explanations.cjs",
+      "exitCode": 0,
+      "seconds": 0.088,
+      "outputFile": "tests_r1096_studio-explanations.cjs.txt",
+      "passed": true,
+      "checksPassed": null,
+      "checksTotal": null
+    },
+    {
+      "script": "tests/r1097/webm-clusters.cjs",
+      "exitCode": 0,
+      "seconds": 0.437,
+      "outputFile": "tests_r1097_webm-clusters.cjs.txt",
+      "passed": true,
+      "checksPassed": 18,
+      "checksTotal": 18
+    },
+    {
+      "script": "tests/r1098/recording-onset.cjs",
+      "exitCode": 0,
+      "seconds": 0.511,
+      "outputFile": "tests_r1098_recording-onset.cjs.txt",
+      "passed": true,
+      "checksPassed": 33,
+      "checksTotal": 33
+    },
+    {
+      "script": "tests/r1105/health-entry-allowlist.cjs",
+      "exitCode": 0,
+      "seconds": 0.145,
+      "outputFile": "tests_r1105_health-entry-allowlist.cjs.txt",
+      "passed": true,
+      "checksPassed": 5,
+      "checksTotal": 5
+    },
+    {
+      "script": "tests/r1105/readability-static.cjs",
+      "exitCode": 0,
+      "seconds": 0.176,
+      "outputFile": "tests_r1105_readability-static.cjs.txt",
+      "passed": true,
+      "checksPassed": 12,
+      "checksTotal": 12
+    },
+    {
+      "script": "tests/recording-storage.cjs",
+      "exitCode": 0,
+      "seconds": 1.906,
+      "outputFile": "tests_recording-storage.cjs.txt",
+      "passed": true,
+      "checksPassed": 23,
+      "checksTotal": 23
+    },
+    {
+      "script": "tests/recording_unavailable_contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.19,
+      "outputFile": "tests_recording_unavailable_contract.cjs.txt",
+      "passed": true,
+      "checksPassed": 26,
+      "checksTotal": 26
+    },
+    {
+      "script": "tests/tekke_finish_lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.118,
+      "outputFile": "tests_tekke_finish_lifecycle.cjs.txt",
+      "passed": true,
+      "checksPassed": 8,
+      "checksTotal": 8
+    }
+  ],
+  "method": "Isolated production-source Node fixtures against the frozen r1105 release. Native browser suites are separate and not run."
+}

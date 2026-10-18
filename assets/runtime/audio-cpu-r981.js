@@ -59,9 +59,10 @@
     No AudioBuffer or long PCM result is returned to the UI. */
  function* studio(p){
   const {input,length,sampleRate:sr}=p,opt=p.options||{},operation=opt.operation||'analyze',ch=input?.length||0;
-  if(!['analyze','normalize','trim'].includes(operation)||ch<1||ch>2||!Number.isSafeInteger(length)||length<1||!Number.isFinite(sr)||sr<=0||length/sr>60||input.some(d=>!(d instanceof Float32Array)||d.length!==length))throw Error('Studio PCM layout');
+  const readOnly=operation==='analyze'&&opt.allowLongInspection===true;
+  if(!['analyze','normalize','trim'].includes(operation)||ch<1||ch>2||!Number.isSafeInteger(length)||length<1||!Number.isFinite(sr)||sr<=0||length/sr>(readOnly?180:60)||input.some(d=>!(d instanceof Float32Array)||d.length!==length))throw Error('Studio PCM layout');
   const bins=Math.max(1,Math.min(1024,Math.floor(+opt.waveBins||512))),wave={min:new Float32Array(bins),max:new Float32Array(bins),bins};
-  if(length*ch*6+bins*8>32*1024*1024)throw Error('Studio PCM budget');
+  if(length*ch*(readOnly?4:6)+bins*8>32*1024*1024)throw Error('Studio PCM budget');
   let peak=0,sum=0,n=0,first=length,last=-1;
   for(const d of input)for(let base=0;base<length;base+=CHUNK){
    for(let i=base;i<Math.min(length,base+CHUNK);i++){

@@ -3,8 +3,8 @@
 (function(w){
  'use strict';if(w.SukunAudioPreparation)return;
  const MiB=1024*1024,BUDGET=32*MiB,SOURCE=8*MiB,MAX_SECONDS=60,MAX_QUEUE=4;
- // r1099: longer Studio inspection reads verified container metadata only.
- // Decode, edits and FX retain their original 60-second/32-MiB admission.
+ // r1105: explicitly read-only Studio analysis may inspect verified audio up
+ // to 180 seconds within the same 32-MiB budget. Edits and FX stay at 60 seconds.
  const INSPECTION_SECONDS=180;
  const inspectLimit=opt=>opt?.purpose==='studio'&&opt.readOnlyLongStudio===true?INSPECTION_SECONDS:MAX_SECONDS;
  const canInspectLong=task=>task.purpose==='studio'&&task.operation==='analyze'&&task.allowLongInspection===true;
@@ -119,7 +119,9 @@
   const sr=Math.max(44100,declared,+decoded?.sampleRate||0),duration=Math.max(meta.duration,+decoded?.duration||0);
   const inputFrames=Math.ceil(duration*sr),inputChannels=decoded?.numberOfChannels||meta.channels,outChannels=opt.spatial?2:Math.min(2,inputChannels),extra=Math.max(0,+opt.extraSeconds||0);
   const frames=Math.ceil((duration+extra)*sr);
-  // Original browser PCM, transfer copy, stereo effects output, packed WAV and source copies.
+  // Read-only Studio scans borrow the browser PCM without a transfer copy,
+  // transformed output or WAV. Other jobs retain their conservative allocations.
+  if(canInspectLong(opt))return meta.compressedBytes*3+inputFrames*inputChannels*4+65536;
   return meta.compressedBytes*3+inputFrames*inputChannels*8+(opt.purpose==='decode'?0:frames*outChannels*6)+65536;
  }
  function current(task){return !task.expired&&!task.signal?.aborted&&(!task.isCurrent||task.isCurrent());}
@@ -128,9 +130,13 @@
  function createUrl(blob){const url=URL.createObjectURL(blob);urls.set(url,blob.size);activeCreated?.add(url);return url;}
  function stopWorker(){try{worker?.terminate()}catch(_){}worker=null;}
  async function cpu(decoded,options={},task){
-  check(task);stage(task,'cpu');reserve(estimate(task.meta,{...task,purpose:options.kind==='quality'?'quality':'fx',spatial:options.spatial,extraSeconds:Math.max(0,(+options.frames||decoded.length)/decoded.sampleRate-decoded.duration)},decoded));
-  const make=()=>({kind:options.kind||'render',input:Array.from({length:Math.min(2,decoded.numberOfChannels)},(_,c)=>new Float32Array(decoded.getChannelData(c))),sampleRate:decoded.sampleRate,length:options.kind==='pack'?Math.max(decoded.length,Math.ceil(options.frames||0)):decoded.length,options});
-  if(!workerDisabled&&typeof w.Worker==='function'){
+  const readOnly=canInspectLong(task)&&options.kind==='studio'&&options.operation==='analyze';
+  check(task);stage(task,'cpu');reserve(estimate(task.meta,{...task,purpose:readOnly?'studio':options.kind==='quality'?'quality':'fx',spatial:options.spatial,extraSeconds:Math.max(0,(+options.frames||decoded.length)/decoded.sampleRate-decoded.duration)},decoded));
+  // The analyze branch only reads samples and returns bounded min/max bins.
+  // Keep these views in the serialized lease and yield through the existing
+  // cancellable generator; never transfer or detach the native PCM buffers.
+  const make=()=>({kind:options.kind||'render',input:Array.from({length:Math.min(2,decoded.numberOfChannels)},(_,c)=>readOnly?decoded.getChannelData(c):new Float32Array(decoded.getChannelData(c))),sampleRate:decoded.sampleRate,length:options.kind==='pack'?Math.max(decoded.length,Math.ceil(options.frames||0)):decoded.length,options});
+  if(!readOnly&&!workerDisabled&&typeof w.Worker==='function'){
    try{
     if(!worker)worker=new w.Worker(workerUrl);const payload=make(),id=++seq;metrics.workerJobs++;
     return await new Promise((resolve,reject)=>{
@@ -160,12 +166,11 @@
    check(task);active++;activeTask=task;metrics.maxConcurrent=Math.max(metrics.maxConcurrent,active);activeCreated=new Set();activeEstimate=0;
    stage(task,'inspect');reserve(blob.size*3+65536);task.meta=await inspect(blob,{purpose:task.purpose,readOnlyLongStudio:canInspectLong(task)});check(task);
    const metadataResult=reason=>{check(task);metrics.metadataOnlyJobs++;return{metadataOnly:true,meta:task.meta,reason};};
-   if(canInspectLong(task)&&task.meta.duration>MAX_SECONDS)return metadataResult('duration');
    try{reserve(estimate(task.meta,task));}catch(e){if(canInspectLong(task)&&e.code==='PREP_MEMORY_LIMIT')return metadataResult('memory');throw e;}
    metrics.decodeStarts++;
    const bytes=await blob.arrayBuffer();check(task);stage(task,'decode');const decoded=await decode(bytes,{check:()=>check(task)});check(task);
    if(!decoded||!Number.isFinite(decoded.duration)||decoded.duration<=0)throw error('PREP_UNKNOWN_DURATION');
-   if(decoded.duration>MAX_SECONDS)throw error('PREP_DURATION_LIMIT');
+   if(decoded.duration>(canInspectLong(task)?INSPECTION_SECONDS:MAX_SECONDS))throw error('PREP_DURATION_LIMIT');
    if(decoded.numberOfChannels>2)throw error('PREP_UNKNOWN_LAYOUT');
    reserve(estimate(task.meta,task,decoded));
    const result=task.use?await task.use(decoded,{cpu:(options)=>cpu(decoded,options,task),meta:task.meta,check:()=>check(task),

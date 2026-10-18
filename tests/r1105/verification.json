@@ -1,0 +1,68 @@
+{
+  "build": "r1105",
+  "parentCommit": "cec0a6b1d2ad81adfdc189d63a2e380ce135fa48",
+  "scope": "Shared readability, bounded real long Studio waveform analysis, exact health runtime allowlist and missing release translations.",
+  "sourceSha256": {
+    "index.html": "4314d05648f0f0ccbc5a1cdc8e0323eacfc854ef49509d92667a455b6e110cc4",
+    "nero.html": "4314d05648f0f0ccbc5a1cdc8e0323eacfc854ef49509d92667a455b6e110cc4",
+    "assets/runtime/audio-cpu-r981.js": "188aae6305898a25f846fa66b4565938344f5bdb82d6cc3ad132f049262ddcef",
+    "assets/runtime/audio-preparation-r981.js": "412ce19623c4807e4f7347ecb0b15eff1357c400463b14d9894617ea077cfa9a",
+    "assets/runtime/studio-preparation-r982.js": "25cde9f6c6416efeafcc22f957d21a6b3506eaaa7fd5c75c6a04aee2b4f10873",
+    "assets/runtime/health-r940.js": "1e3b0a6b04110417b8314991064d9696201f83b413e5c5a81cadaab8d9713c80",
+    "css/shared-readable-r1105.css": "6f515d25354673aa17ea59ba9a0c884beffb7b8bbed1e2cc2700f2291008c57e",
+    "sw.js": "b32b5446e4d71d69605020c4d10c2bf7f64b2fcbc921eb15f40961744029982c",
+    "sukun-build-r1105.json": "22146173bccd2593178aa9a4bb78aa8e03b3e71d7fd444715472d7a68ede222b",
+    "sukun-site-assets-r1105.json": "c80c0fe1f5ff66ee12fb0a8cb88626254b56d36cdf873bf273de64fdc3b0fa5f"
+  },
+  "reportSha256": {
+    "health-entry-allowlist.json": "3d0eb115015328afc93dac412a743ccf20e8fdbd3258e19bf488c331764d88a7",
+    "native-browser-status.json": "0acf84e6e285b1630e050e3e9bca108f7d915afcd652b39d66856b9e5c6a1ad3",
+    "readability-static.json": "122e35fa8af3b33073e87b7403ba7af14aab867b51256e88707f3be51a6c13e6",
+    "regressions.json": "abb2e597a0c76bcb860307c6f92906f5926d186c0f6d60d64361d00a643989af",
+    "release-integrity.json": "cbff966be798b4c6d498f69d8a944872d493f20a1d0cd13b484a2eb29229e629",
+    "studio-waveform-baseline-r1104.json": "4b16bcc27e4e533171702bf5e26ebc8b0f6886df3e3ee352b8f17956fa4504ce",
+    "studio-waveform-real-audio.json": "bf0f7c07f182354f82468b92b54cdf9a58883face83abb2055a8e69c6ea5bb83",
+    "studio-waveform-regression.json": "765722c5f9baafa5583396ec85fb8f8a0ee221243ddfa929cd08344da379e8ad"
+  },
+  "tests": {
+    "genericNodeGroups": {
+      "passed": 172,
+      "total": 172
+    },
+    "releaseIntegrity": {
+      "passed": 1464,
+      "total": 1464
+    },
+    "studioWaveformVM": {
+      "passed": 11,
+      "total": 11
+    },
+    "studioRealWebMFFmpeg": {
+      "passed": 8,
+      "total": 8
+    },
+    "readabilityStatic": {
+      "passed": 12,
+      "total": 12
+    },
+    "healthExactPaths": {
+      "passed": 5,
+      "total": 5
+    },
+    "r1104BaselineBlankWaveReproduced": {
+      "passed": 1,
+      "total": 1
+    }
+  },
+  "package": {
+    "zipFiles": 753,
+    "zipBytes": 292670180,
+    "zipSha256": "bc8bd9699361d631df1bf95eeabd61bd128f8f8e8d0d635f6cd15e14ba81d55b"
+  },
+  "limitations": [
+    "Native Chromium visual/canvas/AudioContext suite NOT_RUN: browser unavailable and official CDN blocked by execution network policy.",
+    "No physical Android, microphone, screen-lock or audible-output validation.",
+    "Read-only waveform analysis remains bounded by source size, actual PCM/resident memory and the existing timeout."
+  ],
+  "verifiedAt": "2026-10-18T15:53:07.771912+00:00"
+}

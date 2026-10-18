@@ -57,7 +57,7 @@
   const check=()=>{if(!current())throw failure('PREP_CANCELLED');};
   try{check();const result=await authority.decode(blob,{purpose:'studio',operation,allowLongInspection:operation==='analyze',key:opt.key||'',signal,onExpire:abort,isCurrent:current,use:async(decoded,job)=>{
    job.check();
-   const value=await job.cpu({kind:'studio',operation,waveBins:Math.max(1,Math.min(1024,Math.floor(+opt.waveBins||512)))});
+   const value=await job.cpu({kind:'studio',operation,allowLongInspection:operation==='analyze',waveBins:Math.max(1,Math.min(1024,Math.floor(+opt.waveBins||512)))});
    job.check();
    const output={...value,dur:value.duration,size:blob.size};
    if(value.wav){output.blob=new Blob([value.wav],{type:'audio/wav'});delete output.wav;}
