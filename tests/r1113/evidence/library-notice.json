@@ -1,0 +1,65 @@
+{
+  "suite": "r1113 library notice ownership",
+  "sourceBuild": "r1113",
+  "method": "Entire production frequency hub evaluated in fresh Node VMs with controlled minimal DOM/FR seams; real public controller operations and mirrors exercise library-message ownership and generic-message retention.",
+  "browserExecuted": false,
+  "audiblePlaybackExecuted": false,
+  "limitations": [
+    "No browser rendering, native event timing, user activation, physical audio or live dhikr execution is claimed.",
+    "External native Stop/tuning and global hold changes are explicit controlled dependency changes followed by the actual hub mirror."
+  ],
+  "sourceFiles": {
+    "js/frequency-hub-r1101.js": {
+      "bytes": 22899,
+      "sha256": "4777ad50a45989beacc205ac5d7f37028bb85e9bc3a38114264b3042c7bd4f75"
+    }
+  },
+  "scriptSha256": "14662b39139be8c142f9e8079faf12f4b1c739116c04a0204cf3aa852210db05",
+  "finishedAt": "2026-10-18T20:21:27.465Z",
+  "passed": 8,
+  "total": 8,
+  "results": [
+    {
+      "name": "Owned playing notice survives unchanged mirrors and volume edits, then clears on common Stop",
+      "passed": true,
+      "evidence": {
+        "initialMessage": "Dönüşüm çalıyor.",
+        "afterStop": "Hazır · 528.0 Hz / 8.00 Hz"
+      }
+    },
+    {
+      "name": "An external native frequency Stop clears the library notice on the next actual mirror",
+      "passed": true
+    },
+    {
+      "name": "A global hold change removes the owned playing claim while retaining the frequency graph",
+      "passed": true
+    },
+    {
+      "name": "A library selection made under hold clears its paused instruction after Resume without a new start",
+      "passed": true
+    },
+    {
+      "name": "Manual native carrier tuning retires only the owned library message and keeps playing",
+      "passed": true
+    },
+    {
+      "name": "Manual native beat tuning retires the owned library message independently of the carrier",
+      "passed": true
+    },
+    {
+      "name": "A later generic preset instruction relinquishes library ownership and survives Stop or manual tuning",
+      "passed": true,
+      "evidence": {
+        "retainedGenericMessage": "Ayarlar hazır: Aynı ayar önerisi. Sesi ana Frekansı Başlat düğmesinden açabilirsiniz."
+      }
+    },
+    {
+      "name": "A later generic sweep validation warning survives external Stop and global hold changes",
+      "passed": true,
+      "evidence": {
+        "retainedGenericWarning": "Tarama için 20–18000 Hz ve 0,5–600 saniye girin."
+      }
+    }
+  ]
+}
