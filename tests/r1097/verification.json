@@ -1,0 +1,70 @@
+{
+  "build": "r1097",
+  "baseCommit": "521646465c9b49ac0ae699a7c42a1130a0abc751",
+  "verifiedAt": "2026-10-18T03:53:44.419504+00:00",
+  "result": "passed",
+  "productionSourcesSha256": {
+    "assets/runtime/audio-preparation-r981.js": "929a258fbf4f9bf9cc79f7f336e3e3b190bb9d94deab0509bbae3bf63c9baac7",
+    "assets/runtime/startup-intro-r1027.js": "781f151f8a23df71c88a64763b4ff3c51563614ea262fa374404b058bbae8e2f",
+    "index.html": "aef35f73a1bdf4fa0a5dea6e3885daa9a3100882e63d9a0d40c0f702b16f05ed",
+    "manifest.webmanifest": "2233f248adac28c1aee7484a52345c8cae2117eb7602076a628c8f115d50ce3e",
+    "nero.html": "aef35f73a1bdf4fa0a5dea6e3885daa9a3100882e63d9a0d40c0f702b16f05ed",
+    "sukun-latest.json": "d9040aa03683137db9adc3da17f9e858d94b2d8e6ba4c8c667acf47df83c6d4c",
+    "surumler.json": "3a559c0e3c22de9fc401071e41f17ae4093a88d744582ececf2369f8f4ca734c",
+    "sw.js": "70f3046b439c09a4e063a5ce80ac60010c3def4dcc9a2013d9c514fd2baba9e8",
+    "tests/r1049/run-regressions.py": "0147b2d880e4015dbde278afd441e22ac678c99518068619bc21b41d6a1fe444",
+    "version.txt": "7e84c3980aa2431d260f87980fe2fe97ace9058c7e3ad71da6e246eee2918de4",
+    "README-r1097.md": "25ac165114848df14212bacb66f0833e664c1e065d446eefa1ad9609336a71da",
+    "sukun-build-r1097.json": "bad90beeb4b1345abf77e69848d7ae38ca7685e475b61efbc5e1f01fd046c5f1",
+    "sukun-site-assets-r1097.json": "12445da85e694ca50ff272502bc388d770b2a6297dc60c565bc1727df70d2f4a",
+    "tests/r1097/webm-clusters.cjs": "ec7b2143fe6591db9431f789ea4ed4ffd3c5ae81fb39d8d53a0c3e4a72118600",
+    "tests/r1097/studio-webm-browser.cjs": "05e2858397db9fb0be1c2dc6245b35a7db1d8805a7d1fc59e0fa47f66a2637c7"
+  },
+  "evidenceSha256": {
+    "tests/r1097/evidence/classic-feyz.json": "559df0737972fd610323b2da994ea2563b72fe8fc4a06598d877edf3b232c870",
+    "tests/r1097/evidence/regressions.json": "4793f6928eae69cbaaf9aaab51527de321875ef370c712d1802080814d3497bf",
+    "tests/r1097/evidence/release-identities.json": "fe1683a166dd1e4eaac17af5ceffbe7acfe26b4b9c1480864bd5ef8d72fcae57",
+    "tests/r1097/evidence/release-integrity.json": "55b76829335c340969958d86d23b0dff1d928671c1529d0fadcc6a982e943d7f",
+    "tests/r1097/evidence/studio-regression.json": "446de5f44dc79cd4fe880a387097effacd915ea26a0d0bf46a5926dc902fbffd",
+    "tests/r1097/evidence/studio-webm-browser.json": "ce16cc4fab08d3349378a3f7d06d4bd75b7edeaad8147a0048c8e1037ffad9b3",
+    "tests/r1097/evidence/webm-clusters.json": "cb15dea899c7f5a4a488c08f3bec5c4db14736a2a71f1c8a6bc61e4d71a0e5ff"
+  },
+  "checks": {
+    "studioWebmBrowser": {
+      "passed": 16,
+      "total": 16
+    },
+    "studioRegression": {
+      "passed": 13,
+      "total": 13
+    },
+    "classicFeyz": {
+      "passed": 26,
+      "total": 26
+    },
+    "webmClusters": {
+      "passed": 18,
+      "total": 18
+    },
+    "releaseIntegrity": {
+      "passed": 1420,
+      "total": 1420
+    },
+    "releaseIdentities": {
+      "passed": 14,
+      "total": 14
+    },
+    "regressionGroups": {
+      "passed": 172,
+      "total": 172
+    }
+  },
+  "scope": "Controlled production parser fixtures plus fresh Linux Chromium using actual packaged WebM recordings. No private user recordings, physical microphone, screen lock or audible-output acceptance.",
+  "remaining": "The private recording shown in the screenshot was not available. Same error reproduced with the packaged Ayat al-Kursi original and fixed without changing that source.",
+  "limits": {
+    "studioSeconds": 60,
+    "sourceBytes": 8388608,
+    "preparationBytes": 33554432,
+    "webmSafetySeconds": 1
+  }
+}

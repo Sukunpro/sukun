@@ -44,6 +44,8 @@
   function vint(pos,id=false){let first=b[pos],len=1,mask=128;while(len<=8&&!(first&mask)){mask>>=1;len++;}if(len>8||pos+len>b.length)throw error('PREP_INVALID_HEADER');let value=id?first:first&(mask-1);for(let i=1;i<len;i++)value=value*256+b[pos+i];return{len,value,unknown:!id&&value===Math.pow(2,7*len)-1};}
   const uint=(p,n)=>{if(n<1||n>8)throw error('PREP_INVALID_HEADER');let x=0;for(let i=0;i<n;i++)x=x*256+b[p+i];if(!Number.isSafeInteger(x))throw error('PREP_INVALID_HEADER');return x};
   const masters=new Set([0x1a45dfa3,0x18538067,0x1549a966,0x1654ae6b,0xae,0xe1,0x1f43b675,0xa0]);
+  const segmentChildren=new Set([0x114d9b74,0x1549a966,0x1654ae6b,0x1f43b675,0x1c53bb6b,0x1941a469,0x1043a770,0x1254c367]);
+  const masterParent=new Map([[0x1a45dfa3,0],[0x18538067,0],[0x1549a966,0x18538067],[0x1654ae6b,0x18538067],[0xae,0x1654ae6b],[0xe1,0xae],[0x1f43b675,0x18538067],[0xa0,0x1f43b675]]);
   let scale=1000000,duration=0,channels=1,sampleRate=48000,codec='',audioTrack=0,last=-Infinity,nodes=0,packetSamples=0;
   // RFC 6716 sections 3.1/3.2: count decoded samples as well as timestamps.
   function opusSamples(pos,end){
@@ -52,13 +54,20 @@
    if(code===3&&pos+1>=end)throw error('PREP_INVALID_HEADER');const count=code===0?1:code===3?b[pos+1]&63:2,total=frame*count;
    if(!count||total>5760)throw error('PREP_INVALID_HEADER');return total;
   }
-  function scan(start,end,state={},depth=0){if(depth>12)throw error('PREP_INVALID_HEADER');let pos=start;
-   while(pos<end&&pos<b.length){if(++nodes>20000)throw error('PREP_INVALID_HEADER');const id=vint(pos,true);pos+=id.len;const size=vint(pos);pos+=size.len;const stop=size.unknown?end:pos+size.value;if(stop>end||stop>b.length||stop<pos)throw error('PREP_INVALID_HEADER');
+  function scan(start,end,state={},depth=0,parent=0,unknownParent=false){if(depth>12)throw error('PREP_INVALID_HEADER');let pos=start;
+   while(pos<end&&pos<b.length){if(++nodes>20000)throw error('PREP_INVALID_HEADER');const elementStart=pos,id=vint(pos,true);pos+=id.len;
+    // MediaRecorder writes unknown-sized sibling Clusters. Their boundary is
+    // the next Segment child element, parsed at an element boundary (never a
+    // byte-pattern search through Opus packets). A sized Cluster cannot end early.
+    if(parent===0x1f43b675&&segmentChildren.has(id.value)){if(unknownParent)return elementStart;throw error('PREP_INVALID_HEADER');}
+    if(masters.has(id.value)&&masterParent.get(id.value)!==parent)throw error('PREP_INVALID_HEADER');
+    const size=vint(pos);pos+=size.len;if(size.unknown&&id.value!==0x18538067&&id.value!==0x1f43b675)throw error('PREP_INVALID_HEADER');
+    let stop=size.unknown?end:pos+size.value;if(stop>end||stop>b.length||stop<pos)throw error('PREP_INVALID_HEADER');
     if(id.value===0x2ad7b1)scale=uint(pos,size.value);
     if(id.value===0x4489&&(size.value===4||size.value===8))duration=(size.value===4?v.getFloat32(pos):v.getFloat64(pos));
-    if(id.value===0xae){const track={};scan(pos,stop,track,depth+1);if(track.type===2){if(audioTrack)throw error('PREP_INVALID_HEADER');audioTrack=track.number;codec=track.codec||'';channels=track.channels||1;sampleRate=track.rate||48000;if(codec==='A_OPUS'&&(!track.opus||track.opus.channels!==channels))throw error('PREP_UNKNOWN_LAYOUT');}}
-    else if(id.value===0x1f43b675){const cluster={cluster:0};scan(pos,stop,cluster,depth+1);}
-    else if(masters.has(id.value))scan(pos,stop,state,depth+1);
+    if(id.value===0xae){const track={};scan(pos,stop,track,depth+1,id.value,size.unknown);if(track.type===2){if(audioTrack)throw error('PREP_INVALID_HEADER');audioTrack=track.number;codec=track.codec||'';channels=track.channels||1;sampleRate=track.rate||48000;if(codec==='A_OPUS'&&(!track.opus||track.opus.channels!==channels))throw error('PREP_UNKNOWN_LAYOUT');}}
+    else if(id.value===0x1f43b675){const cluster={cluster:0};stop=scan(pos,stop,cluster,depth+1,id.value,size.unknown);}
+    else if(masters.has(id.value))scan(pos,stop,state,depth+1,id.value,size.unknown);
     else if(id.value===0xd7)state.number=uint(pos,size.value);
     else if(id.value===0x83)state.type=uint(pos,size.value);
     else if(id.value===0x86){if(size.value>64)throw error('PREP_INVALID_HEADER');state.codec=String.fromCharCode(...b.subarray(pos,stop));}
@@ -69,6 +78,7 @@
     else if(id.value===0xa3||id.value===0xa1){if(!audioTrack)throw error('PREP_UNKNOWN_LAYOUT');const track=vint(pos);if(track.value===audioTrack){const off=pos+track.len;if(off+3>stop)throw error('PREP_INVALID_HEADER');if(b[off+2]&6)throw error('PREP_UNKNOWN_DURATION');packetSamples+=opusSamples(off+3,stop);last=Math.max(last,(state.cluster||0)+v.getInt16(off));if(last*scale/1e9>MAX_SECONDS||packetSamples/48000>MAX_SECONDS)throw error('PREP_DURATION_LIMIT');}}
     pos=stop;
    }
+   return pos;
   }
   scan(0,b.length);if(codec!=='A_OPUS'||!audioTrack||channels>2||!Number.isFinite(last)||!scale||sampleRate>192000)throw error('PREP_UNKNOWN_DURATION');
   // Opus packets are at most 120 ms. One second conservatively includes codec delay.
