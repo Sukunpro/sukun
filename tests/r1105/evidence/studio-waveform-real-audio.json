@@ -1,0 +1,201 @@
+{
+  "suite": "r1105 real shipped WebM native FFmpeg decode and actual Studio generator",
+  "startedAt": "2026-10-18T15:51:23.938Z",
+  "sourceSha256": {
+    "index.html": "4314d05648f0f0ccbc5a1cdc8e0323eacfc854ef49509d92667a455b6e110cc4",
+    "nero.html": "4314d05648f0f0ccbc5a1cdc8e0323eacfc854ef49509d92667a455b6e110cc4",
+    "assets/runtime/audio-cpu-r981.js": "188aae6305898a25f846fa66b4565938344f5bdb82d6cc3ad132f049262ddcef",
+    "assets/runtime/audio-preparation-r981.js": "412ce19623c4807e4f7347ecb0b15eff1357c400463b14d9894617ea077cfa9a",
+    "assets/runtime/studio-preparation-r982.js": "25cde9f6c6416efeafcc22f957d21a6b3506eaaa7fd5c75c6a04aee2b4f10873",
+    "assets/generic-recordings/manifest.json": "565a668263eb3c3872a9c0f1639fcaa81e7e73a5c31c8c901c054d533ba4be14"
+  },
+  "testSha256": "2fd79d36151fafd665d1ae24b6454cf83bf1e57581ad54bdf759c1c8ef8c8db0",
+  "checks": [
+    {
+      "name": "koruma:4: shipped WebM hash matches its manifest and native FFmpeg decodes every sample",
+      "passed": true,
+      "evidence": {
+        "key": "koruma:4",
+        "sourceBytes": 998407,
+        "sourceSha256": "4a8a70ed8b18393ae17290c37a38e5bb4c68545a1a955c47fb6f820874da507f",
+        "native": {
+          "sampleRate": 48000,
+          "channels": 1,
+          "frames": 2980800,
+          "peak": 0.94503381800172,
+          "rms": 0.21592399157565142,
+          "duration": 62.1,
+          "decodedPcmSha256": "1e22cf6688b674906792f71d4a8b57d8012435784fc44eec5c5638c9f14dd07b"
+        }
+      }
+    },
+    {
+      "name": "koruma:4: actual Studio service measures full-duration peak, RMS and all 512 waveform bins",
+      "passed": true,
+      "evidence": {
+        "dur": 62.1,
+        "peak": 0.9450337886810303,
+        "rms": 0.21592400266480513,
+        "bins": 512,
+        "firstBin": {
+          "min": -0.21209584176540375,
+          "max": 0.20983357727527618
+        },
+        "lastBin": {
+          "min": 1.401298464324817e-45,
+          "max": 1.31521787238853e-7
+        },
+        "maxBinError": 0,
+        "commits": 0,
+        "decodeCalls": 1,
+        "snapshot": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "studioInspectionMaxDurationSeconds": 180,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "idle",
+          "decodeStarts": 1,
+          "workerJobs": 0,
+          "fallbackJobs": 1,
+          "metadataOnlyJobs": 0,
+          "rejected": 0,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 15175957,
+          "maxConcurrent": 1,
+          "last": null
+        }
+      }
+    },
+    {
+      "name": "koruma:4: raw WebM and native PCM remain byte-identical after read-only analysis",
+      "passed": true,
+      "evidence": {
+        "sourceSha256": "4a8a70ed8b18393ae17290c37a38e5bb4c68545a1a955c47fb6f820874da507f",
+        "pcmSha256": "1e22cf6688b674906792f71d4a8b57d8012435784fc44eec5c5638c9f14dd07b",
+        "sourceFileUnchanged": true,
+        "pcmUnchanged": true,
+        "commits": 0
+      }
+    },
+    {
+      "name": "koruma:4: successful waveform measurement grants no permission to normalize or trim the long original",
+      "passed": true,
+      "evidence": {
+        "codes": {
+          "normalize": "PREP_DURATION_LIMIT",
+          "trim": "PREP_DURATION_LIMIT"
+        },
+        "decodeCalls": 1,
+        "commits": 0
+      }
+    },
+    {
+      "name": "dua:ak: shipped WebM hash matches its manifest and native FFmpeg decodes every sample",
+      "passed": true,
+      "evidence": {
+        "key": "dua:ak",
+        "sourceBytes": 1054104,
+        "sourceSha256": "e3ee39dfa2e3971fe3f1d4092e04e30009a2f43ac1b44de4826407673caf3202",
+        "native": {
+          "sampleRate": 48000,
+          "channels": 1,
+          "frames": 3369600,
+          "peak": 1.0116652906818577,
+          "rms": 0.2031570509799121,
+          "duration": 70.2,
+          "decodedPcmSha256": "e39b5b46d5cbca6e237bdc5dc57b0e3cb2c3cb2129626c49ce52cb46f405cf79"
+        }
+      }
+    },
+    {
+      "name": "dua:ak: actual Studio service measures full-duration peak, RMS and all 512 waveform bins",
+      "passed": true,
+      "evidence": {
+        "dur": 70.2,
+        "peak": 1.0116653442382812,
+        "rms": 0.20315704895879227,
+        "bins": 512,
+        "firstBin": {
+          "min": 0,
+          "max": 0
+        },
+        "lastBin": {
+          "min": -0.017307177186012268,
+          "max": 0.010613375343382359
+        },
+        "maxBinError": 0,
+        "commits": 0,
+        "decodeCalls": 1,
+        "snapshot": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "studioInspectionMaxDurationSeconds": 180,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "idle",
+          "decodeStarts": 1,
+          "workerJobs": 0,
+          "fallbackJobs": 1,
+          "metadataOnlyJobs": 0,
+          "rejected": 0,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 16898248,
+          "maxConcurrent": 1,
+          "last": null
+        }
+      }
+    },
+    {
+      "name": "dua:ak: raw WebM and native PCM remain byte-identical after read-only analysis",
+      "passed": true,
+      "evidence": {
+        "sourceSha256": "e3ee39dfa2e3971fe3f1d4092e04e30009a2f43ac1b44de4826407673caf3202",
+        "pcmSha256": "e39b5b46d5cbca6e237bdc5dc57b0e3cb2c3cb2129626c49ce52cb46f405cf79",
+        "sourceFileUnchanged": true,
+        "pcmUnchanged": true,
+        "commits": 0
+      }
+    },
+    {
+      "name": "dua:ak: successful waveform measurement grants no permission to normalize or trim the long original",
+      "passed": true,
+      "evidence": {
+        "codes": {
+          "normalize": "PREP_DURATION_LIMIT",
+          "trim": "PREP_DURATION_LIMIT"
+        },
+        "decodeCalls": 1,
+        "commits": 0
+      }
+    }
+  ],
+  "limitations": [
+    "FFmpeg native Opus decoder produces actual Float32 PCM from verified shipped public WebM. A controlled AudioBuffer-compatible callback supplies those samples to the actual shipped SukunAudioPreparation and SukunStudioPreparation modules in Node VM.",
+    "Peak and RMS are independently checked against FFmpeg astats from a separate decode; waveform bins are checked against independently reduced Float64 reference extrema of the native PCM.",
+    "No browser, browser AudioContext, canvas-pixel, IndexedDB, live playback, microphone, private user recording, physical Android or screen-lock claim. Budget assertions concern production accounting, not total Node/FFmpeg process memory."
+  ],
+  "decoder": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "finishedAt": "2026-10-18T15:51:39.405Z",
+  "total": 8,
+  "passed": 8,
+  "sourceUnchanged": true,
+  "testUnchanged": true,
+  "allPassed": true
+}

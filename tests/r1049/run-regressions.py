@@ -12,6 +12,10 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 EXCLUDED = {
+    'tests/r1105/studio-waveform-browser.cjs': 'Separate native long Studio waveform, memory fallback and unchanged recording source suite; requires Chromium.',
+    'tests/r1092/preflight-ui.cjs': 'Separate native browser preflight presentation and selection suite; requires Chromium.',
+    'tests/r1061/active-layers.cjs': 'Separate native active audio layers browser suite; requires Chromium.',
+    'tests/r1059/renderer.cjs': 'Separate native PCM background mix renderer browser suite; requires Chromium.',
     'tests/r1102/ambience-compact-browser.cjs': 'Separate native compact ambience geometry, info dialogs and channel controls browser suite.',
     'tests/r1101/frequency-hub-browser.cjs': 'Separate native unified frequency tools, actual synthesis, shared pause and speech ownership browser suite.',
     'tests/r1101/section-controls-browser.cjs': 'Separate native Berhetiyye materials, family switch and foreground-owner browser suite.',

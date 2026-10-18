@@ -1,0 +1,608 @@
+{
+  "suite": "r1105 shared readability static contracts and conservative contrast bounds",
+  "build": "r1105",
+  "sourceBuild": "r1105",
+  "startedAt": "2026-10-18T15:51:41.840Z",
+  "scriptSha256": "4e822be3c46369a3ef8f898ad75026ad3d3e8a18c972a360150b402e4246f7a6",
+  "browser": {
+    "available": false,
+    "executed": false,
+    "reason": "No browser binary remains locally; official Playwright CDN download was denied by execution-network policy. No further download attempt was made."
+  },
+  "method": [
+    "Inspect shipped selectors, declarations, first-link named-layer order and native source state rules without executing a browser.",
+    "Calculate text/background luminance in sRGB for both black and white scene pixels. New .94 dark surfaces and any intentional read-card group opacity are composited explicitly.",
+    "Bound existing decorative card highlights by their maximum white contribution:11.68% for generic card sheen and12.14% for notification sheen. Preserve .is-read opacity.72 with the new local dark notification-list surface behind it."
+  ],
+  "limitations": [
+    "No 320/390 TR/EN browser, screenshots, computed styles, layout, native help interaction or visual acceptance were run in this environment.",
+    "Color results are conservative bounds for the declared neutral palette and audited local surfaces, not a claim about every pixel or every existing material. Session-center and Studio summary text only receive brighter copy and retain their existing parent material.",
+    "Active selections, alert type colors, disabled controls and intentionally faded decorative arrows retain their existing component styles; no minimum-contrast claim is made for those semantic/decorative exceptions."
+  ],
+  "checks": [
+    {
+      "name": "The first stylesheet declares the earliest important layer and its paint overrides are important",
+      "evidence": {
+        "firstLink": "<link rel=\"stylesheet\" href=\"./css/shared-readable-r1105.css?v=r1105\" integrity=\"sha256-b1FdJTVGc6oX6lm6mgyIS+/7e4u+0eLMJwDyKRAIxX4=\">",
+        "layer": "sukun-r1105-readable",
+        "importantLayerPrecedesOlderLayers": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Frequency copy and actual qRow/MOD markup are covered by the new local surface and palette",
+      "evidence": {
+        "coverage": [
+          {
+            "selector": ".qRow",
+            "property": "background",
+            "rule": "html body #tab-frq>:is(.qRow,.card,.jEd),\nhtml body #tab-frq #r1101FrequencyHub,\nhtml body #tab-frq :is(.hpNote,.genNot:not(.uyari))"
+          },
+          {
+            "selector": ".card",
+            "property": "background",
+            "rule": "html body #tab-frq>:is(.qRow,.card,.jEd),\nhtml body #tab-frq #r1101FrequencyHub,\nhtml body #tab-frq :is(.hpNote,.genNot:not(.uyari))"
+          },
+          {
+            "selector": "#r1101FrequencyHub",
+            "property": "background",
+            "rule": "html body #tab-frq>:is(.qRow,.card,.jEd),\nhtml body #tab-frq #r1101FrequencyHub,\nhtml body #tab-frq :is(.hpNote,.genNot:not(.uyari))"
+          },
+          {
+            "selector": ".qRow>div>b",
+            "property": "color",
+            "rule": "html body #tab-frq :is(.qRow>div>b,.knobDeger>b,.genBas)"
+          },
+          {
+            "selector": ".qRow>div>small",
+            "property": "color",
+            "rule": "html body #tab-frq :is(.qRow>div>small,.bandInfo>p,.knobBaslik,.knobYardim,.knobDeger>small,.sldRow>label,.valB,.lrLine,.hpNote,.genNot:not(.uyari),.pitSub,#jInfo)"
+          },
+          {
+            "selector": ".bandInfo>p",
+            "property": "color",
+            "rule": "html body #tab-frq :is(.qRow>div>small,.bandInfo>p,.knobBaslik,.knobYardim,.knobDeger>small,.sldRow>label,.valB,.lrLine,.hpNote,.genNot:not(.uyari),.pitSub,#jInfo)"
+          },
+          {
+            "selector": ".chipLbl",
+            "property": "color",
+            "rule": "html body #tab-frq :is(.chipLbl,.chipLbl>small,.fmTag)"
+          },
+          {
+            "selector": ".knobBaslik",
+            "property": "color",
+            "rule": "html body #tab-frq :is(.qRow>div>small,.bandInfo>p,.knobBaslik,.knobYardim,.knobDeger>small,.sldRow>label,.valB,.lrLine,.hpNote,.genNot:not(.uyari),.pitSub,#jInfo)"
+          },
+          {
+            "selector": ".knobDeger>small",
+            "property": "color",
+            "rule": "html body #tab-frq :is(.qRow>div>small,.bandInfo>p,.knobBaslik,.knobYardim,.knobDeger>small,.sldRow>label,.valB,.lrLine,.hpNote,.genNot:not(.uyari),.pitSub,#jInfo)"
+          },
+          {
+            "selector": ".knobYardim",
+            "property": "color",
+            "rule": "html body #tab-frq :is(.qRow>div>small,.bandInfo>p,.knobBaslik,.knobYardim,.knobDeger>small,.sldRow>label,.valB,.lrLine,.hpNote,.genNot:not(.uyari),.pitSub,#jInfo)"
+          },
+          {
+            "selector": ".fmTag",
+            "property": "color",
+            "rule": "html body #tab-frq :is(.chipLbl,.chipLbl>small,.fmTag)"
+          }
+        ],
+        "fontsAndControlGeometryUnchanged": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Shared routine chips match their generated div markup while ancestor focus hiding is preserved",
+      "evidence": {
+        "nativeNodes": "div.rut > b + span.rx, div#rutAdd.rut.add",
+        "newOpacityAppliesToLabelChildrenOnly": true,
+        "ancestorFocusModeUnaffected": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Düzen, Zikir and Studio notes have explicit scoped copy coverage",
+      "evidence": {
+        "targets": [
+          ".rxIntro>p",
+          ".hint",
+          "#r361SessionInfo:not([data-state=\"active\"])",
+          "#r361SessionCenter>summary small",
+          "#r976TickHint",
+          "#r976ManualVoiceHint",
+          "#r976ManualVoiceStatus",
+          "#r976ManualFeedbackNote",
+          "#r945RhythmHint",
+          ".statLine",
+          ".r170StudioMeta small",
+          "#r170StudioStat",
+          "#r170StudioLimits"
+        ],
+        "colorOnlyExistingParentMaterial": [
+          "#r361SessionInfo",
+          "#r361SessionCenter>summary small",
+          "#r170Studio>summary small"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "name": "Notification title/body/time/source markup is covered and faded read cards have a local dark list underneath",
+      "evidence": {
+        "nativeTitle": "b (existing #f5fbff important)",
+        "nativeBody": "p",
+        "nativeTimestamp": "time[datetime]",
+        "nativeSource": "small.r554AlertSource",
+        "readOpacity": 0.72,
+        "readGroupBackdrop": "New #r554CenterList .94 surface"
+      },
+      "passed": true
+    },
+    {
+      "name": "No visibility, native input geometry, help/stereo hiding or decorative hint opacity is overridden",
+      "evidence": {
+        "behavioralPropertiesIntroduced": [],
+        "nativeControlDimensionsUntouched": true,
+        "hiddenHelpStereoAndDecorativeHintsRetained": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Active, warning and notification type/read signals remain component owned",
+      "evidence": {
+        "bandActOnExcluded": true,
+        "activeSessionInfoGoldRetained": true,
+        "warningAndTypeColorsRetained": true,
+        "readOpacityRetained": true
+      },
+      "passed": true
+    },
+    {
+      "name": "Declared normal neutral palette exceeds4.5:1 over both black and white scene pixels",
+      "evidence": {
+        "surface": "rgba(5,22,32,.94)",
+        "bounds": [
+          {
+            "name": "title",
+            "minimum": 14.234994256781201,
+            "scenarios": [
+              {
+                "scene": [
+                  0,
+                  0,
+                  0
+                ],
+                "background": [
+                  4.699999999999999,
+                  20.68,
+                  30.08
+                ],
+                "foreground": [
+                  255,
+                  241,
+                  213
+                ],
+                "contrast": 16.63527507127098
+              },
+              {
+                "scene": [
+                  255,
+                  255,
+                  255
+                ],
+                "background": [
+                  20.000000000000014,
+                  35.98000000000001,
+                  45.38000000000001
+                ],
+                "foreground": [
+                  255,
+                  241,
+                  213
+                ],
+                "contrast": 14.234994256781201
+              }
+            ]
+          },
+          {
+            "name": "copy",
+            "minimum": 12.746873638546763,
+            "scenarios": [
+              {
+                "scene": [
+                  0,
+                  0,
+                  0
+                ],
+                "background": [
+                  4.699999999999999,
+                  20.68,
+                  30.08
+                ],
+                "foreground": [
+                  220,
+                  233,
+                  229
+                ],
+                "contrast": 14.89623005467275
+              },
+              {
+                "scene": [
+                  255,
+                  255,
+                  255
+                ],
+                "background": [
+                  20.000000000000014,
+                  35.98000000000001,
+                  45.38000000000001
+                ],
+                "foreground": [
+                  220,
+                  233,
+                  229
+                ],
+                "contrast": 12.746873638546763
+              }
+            ]
+          },
+          {
+            "name": "label",
+            "minimum": 11.984922864811773,
+            "scenarios": [
+              {
+                "scene": [
+                  0,
+                  0,
+                  0
+                ],
+                "background": [
+                  4.699999999999999,
+                  20.68,
+                  30.08
+                ],
+                "foreground": [
+                  241,
+                  223,
+                  163
+                ],
+                "contrast": 14.005800421670891
+              },
+              {
+                "scene": [
+                  255,
+                  255,
+                  255
+                ],
+                "background": [
+                  20.000000000000014,
+                  35.98000000000001,
+                  45.38000000000001
+                ],
+                "foreground": [
+                  241,
+                  223,
+                  163
+                ],
+                "contrast": 11.984922864811773
+              }
+            ]
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "name": "Generic card sheen still leaves every new neutral palette color above4.5:1",
+      "evidence": {
+        "maximumWhiteSheen": 0.1168,
+        "bounds": [
+          {
+            "name": "title",
+            "minimum": 9.940972498671155,
+            "scenarios": [
+              {
+                "scene": [
+                  0,
+                  0,
+                  0
+                ],
+                "background": [
+                  33.93504,
+                  48.048576,
+                  56.350656
+                ],
+                "foreground": [
+                  255,
+                  241,
+                  213
+                ],
+                "contrast": 12.132300923168177
+              },
+              {
+                "scene": [
+                  255,
+                  255,
+                  255
+                ],
+                "background": [
+                  47.44800000000001,
+                  61.561536000000004,
+                  69.86361600000001
+                ],
+                "foreground": [
+                  255,
+                  241,
+                  213
+                ],
+                "contrast": 9.940972498671155
+              }
+            ]
+          },
+          {
+            "name": "copy",
+            "minimum": 8.901747201230176,
+            "scenarios": [
+              {
+                "scene": [
+                  0,
+                  0,
+                  0
+                ],
+                "background": [
+                  33.93504,
+                  48.048576,
+                  56.350656
+                ],
+                "foreground": [
+                  220,
+                  233,
+                  229
+                ],
+                "contrast": 10.863995026817664
+              },
+              {
+                "scene": [
+                  255,
+                  255,
+                  255
+                ],
+                "background": [
+                  47.44800000000001,
+                  61.561536000000004,
+                  69.86361600000001
+                ],
+                "foreground": [
+                  220,
+                  233,
+                  229
+                ],
+                "contrast": 8.901747201230176
+              }
+            ]
+          },
+          {
+            "name": "label",
+            "minimum": 8.369640791462402,
+            "scenarios": [
+              {
+                "scene": [
+                  0,
+                  0,
+                  0
+                ],
+                "background": [
+                  33.93504,
+                  48.048576,
+                  56.350656
+                ],
+                "foreground": [
+                  241,
+                  223,
+                  163
+                ],
+                "contrast": 10.21459426775589
+              },
+              {
+                "scene": [
+                  255,
+                  255,
+                  255
+                ],
+                "background": [
+                  47.44800000000001,
+                  61.561536000000004,
+                  69.86361600000001
+                ],
+                "foreground": [
+                  241,
+                  223,
+                  163
+                ],
+                "contrast": 8.369640791462402
+              }
+            ]
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "name": "Notification sheen plus preserved read opacity remains above4.5:1 with the new local list surface",
+      "evidence": {
+        "maximumWhiteSheen": 0.1214,
+        "readOpacity": 0.72,
+        "parentSurface": "rgba(5,22,32,.94)",
+        "bounds": [
+          {
+            "name": "title",
+            "minimum": 6.934012886361955,
+            "scenarios": [
+              {
+                "scene": [
+                  0,
+                  0,
+                  0
+                ],
+                "background": [
+                  26.756613343999994,
+                  41.946362713599996,
+                  50.8815094016
+                ],
+                "foreground": [
+                  184.916,
+                  179.3104,
+                  161.7824
+                ],
+                "contrast": 7.060516585925237
+              },
+              {
+                "scene": [
+                  255,
+                  255,
+                  255
+                ],
+                "background": [
+                  31.621332800000005,
+                  46.811082169600006,
+                  55.7462288576
+                ],
+                "foreground": [
+                  189.2,
+                  183.59439999999998,
+                  166.0664
+                ],
+                "contrast": 6.934012886361955
+              }
+            ]
+          },
+          {
+            "name": "copy",
+            "minimum": 6.296352601657378,
+            "scenarios": [
+              {
+                "scene": [
+                  0,
+                  0,
+                  0
+                ],
+                "background": [
+                  26.756613343999994,
+                  41.946362713599996,
+                  50.8815094016
+                ],
+                "foreground": [
+                  159.716,
+                  173.5504,
+                  173.3024
+                ],
+                "contrast": 6.400716741549098
+              },
+              {
+                "scene": [
+                  255,
+                  255,
+                  255
+                ],
+                "background": [
+                  31.621332800000005,
+                  46.811082169600006,
+                  55.7462288576
+                ],
+                "foreground": [
+                  164,
+                  177.8344,
+                  177.5864
+                ],
+                "contrast": 6.296352601657378
+              }
+            ]
+          },
+          {
+            "name": "label",
+            "minimum": 5.945682439001971,
+            "scenarios": [
+              {
+                "scene": [
+                  0,
+                  0,
+                  0
+                ],
+                "background": [
+                  26.756613343999994,
+                  41.946362713599996,
+                  50.8815094016
+                ],
+                "foreground": [
+                  174.83599999999998,
+                  166.3504,
+                  125.7824
+                ],
+                "contrast": 6.038892872247227
+              },
+              {
+                "scene": [
+                  255,
+                  255,
+                  255
+                ],
+                "background": [
+                  31.621332800000005,
+                  46.811082169600006,
+                  55.7462288576
+                ],
+                "foreground": [
+                  179.11999999999998,
+                  170.6344,
+                  130.06640000000002
+                ],
+                "contrast": 5.945682439001971
+              }
+            ]
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "name": "Reduced transparency and forced colors keep foreground/background pairs coherent",
+      "evidence": {
+        "reducedTransparencySurface": "#071725",
+        "forcedColors": {
+          "background": "Canvas",
+          "text": "CanvasText"
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "Readability changes stay in a standalone stylesheet and existing native implementation remains external to this check",
+      "evidence": {
+        "cssFile": "css/shared-readable-r1105.css",
+        "noScriptOrImageDependencies": true,
+        "priorAmbiencePaintPreserved": true
+      },
+      "passed": true
+    }
+  ],
+  "sourceFiles": {
+    "index.html": {
+      "sha256": "4314d05648f0f0ccbc5a1cdc8e0323eacfc854ef49509d92667a455b6e110cc4",
+      "bytes": 7410840
+    },
+    "nero.html": {
+      "sha256": "4314d05648f0f0ccbc5a1cdc8e0323eacfc854ef49509d92667a455b6e110cc4",
+      "bytes": 7410840
+    },
+    "css/shared-readable-r1105.css": {
+      "sha256": "6f515d25354673aa17ea59ba9a0c884beffb7b8bbed1e2cc2700f2291008c57e",
+      "bytes": 4529
+    }
+  },
+  "finishedAt": "2026-10-18T15:51:41.869Z",
+  "total": 12,
+  "passed": 12,
+  "allPassed": true
+}

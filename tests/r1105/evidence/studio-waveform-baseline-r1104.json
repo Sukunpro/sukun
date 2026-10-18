@@ -1,0 +1,33 @@
+{
+  "suite": "r1105 bounded read-only Studio waveform contracts",
+  "startedAt": "2026-10-18T15:39:00.432Z",
+  "baseline": true,
+  "sourceSha256": {
+    "index.html": "80041de8b62c7c6aa329a295ccdcb279862f2dbc538fe1b31e97b2a4885350c0",
+    "nero.html": "80041de8b62c7c6aa329a295ccdcb279862f2dbc538fe1b31e97b2a4885350c0",
+    "assets/runtime/audio-cpu-r981.js": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+    "assets/runtime/audio-preparation-r981.js": "03b21ec8e0308489662825502b2abaa1e64d7475c8c221fe04c52f4d0601e08d",
+    "assets/runtime/studio-preparation-r982.js": "e341b06e7bfa66584d09941ce6ceffa681e513385c6e8db04e932543c5fefbb4"
+  },
+  "testSha256": "59f773786202c3fe8daae30d52c72296f2e3d3610fa3e844f3059cd0154bfa82",
+  "checks": [
+    {
+      "name": "Previous release reproduces the 63.1-second blank-wave metadata path",
+      "passed": true,
+      "evidence": {
+        "dur": 63.1,
+        "reason": "duration",
+        "decodeCalls": 0
+      }
+    }
+  ],
+  "limitations": [
+    "Node VM with controlled decode callbacks and real typed PCM; no native decoding, microphone, physical Android or audible-output proof."
+  ],
+  "finishedAt": "2026-10-18T15:39:00.455Z",
+  "total": 1,
+  "passed": 1,
+  "sourceUnchanged": true,
+  "testUnchanged": true,
+  "allPassed": true
+}
