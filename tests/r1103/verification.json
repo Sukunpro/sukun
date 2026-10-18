@@ -1,0 +1,47 @@
+{
+  "build": "r1103",
+  "verifiedAt": "2026-10-18T13:18:22.497492+00:00",
+  "parent": "c73aad3bdb8b7a91ca252524bd5e0a22577744ce",
+  "allAccepted": true,
+  "productionSha256": {
+    "README-r1103.md": "313c20c86f68d6aa6d4479415ca6995dcc095ee6cf90f2e66e9cd53a1e208cdc",
+    "assets/runtime/startup-intro-r1027.js": "516685993fcf3c123e023a825ff49a222939e27a4a483147a87d082aab22e5d8",
+    "css/ambience-info-round-r1103.css": "26f50a886eaedc343bd4bcae22be40b58f8329afa38484c2ee752965aec0394b",
+    "index.html": "a821965c9d15afdaf9e6fe5d31332be5f42a6df91ea00fa1ef4ee0b571412915",
+    "manifest.webmanifest": "5f5a2df8bd381fcbbadf6b67f095d314a6fe362eb861fe51ec96129c9fb68caf",
+    "nero.html": "a821965c9d15afdaf9e6fe5d31332be5f42a6df91ea00fa1ef4ee0b571412915",
+    "sukun-build-r1103.json": "6ecadc828116f89ce876dec57c6752e5fa1b0ca96829fe090c09c01b39e60ea7",
+    "sukun-latest.json": "046f2459b9a7f5cc0ed31fa3508b93fab14704d76c29a0e858aecda84f521c26",
+    "sukun-site-assets-r1103.json": "14c6fbdc13fdadb7bacc10c0fe776641dc9258a93a0fac9efd2ea6790b710974",
+    "surumler.json": "fdcb15201f53457c8dbac53212853815a9f010fc30da3f3d0cfb221561ff1da3",
+    "sw.js": "b3128dfe764d35a47065517219550b9129abdd011516db29c0e613f3d84d881b",
+    "version.txt": "ff2d7fcab7e77b0db4e7626fbea6284e1cdf75c0951464bcb401ddd109e264cf"
+  },
+  "servedSourceFilesVerified": 137,
+  "reports": [
+    {
+      "path": "tests/r1103/evidence/ambience-round-info.json",
+      "sha256": "ebb6a289cfc22d39b67b19e298233098a75d64b24248d7c3c05a334f0732a438",
+      "passed": 13,
+      "total": 13
+    },
+    {
+      "path": "tools/release-integrity-results.json",
+      "sha256": "8f66d3339cd7cf46f5561e37df7c81a68ed8e176aa52b8a562c7393c6fbcaaf6",
+      "passed": 1453,
+      "total": 1453
+    }
+  ],
+  "visualReview": "320px Berhetiyye screenshot inspected locally: round20px info face matches20px switch track height and center.",
+  "package": {
+    "name": "SUKUN_r1103_TAM_SURUM.zip",
+    "bytes": 292658112,
+    "sha256": "af5242e6784ded980a1c76a850ecf5b8723a5762f27fae4e19d8f8aa85864933",
+    "entries": 749,
+    "deploymentFiles": 748
+  },
+  "limitations": [
+    "Two disposable headless Chromium profiles (320TR/390EN), both selected families; physical Android touch and audible output are not claimed.",
+    "Only ambience info appearance changes; no application/audio logic changed. One-shot verification script remains an intermediate scratch file."
+  ]
+}
