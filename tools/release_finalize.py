@@ -36,6 +36,27 @@ def local(url):
     return str(PurePosixPath(path))
 
 
+def release_version_url(url, old, new):
+    return re.sub(r"([?&]v=)" + re.escape(old) + r"\b", lambda m: m[1] + new, url)
+
+
+def worker_release_identity(source, old, new):
+    # Asset filenames and schema revisions are immutable dependencies, not
+    # release identities. Only these worker constants and release URL aliases
+    # may change; REQUIRED_RUNTIME is replaced from the verified graph below.
+    for name, before, after in (
+        ("SURUM", old, new),
+        ("CACHE_META", f"./sukun-cache-meta-{old}.json", f"./sukun-cache-meta-{new}.json"),
+        ("BUILD_MARKER", f"./sukun-build-{old}.json", f"./sukun-build-{new}.json"),
+    ):
+        pattern = r"^(const " + name + r"\s*=\s*)(['\"])([^'\"]+)\2;"
+        matches = list(re.finditer(pattern, source, flags=re.M))
+        assert len(matches) == 1 and matches[0][3] in (before, after), "Unexpected worker release constant: " + name
+        source = re.sub(pattern, lambda m: m[1] + m[2] + after + m[2] + ";", source, flags=re.M)
+    source = release_version_url(source, old, new)
+    return source.replace(f"./sukun-site-assets-{old}.json", f"./sukun-site-assets-{new}.json")
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--root", type=Path, required=True)
@@ -70,7 +91,7 @@ def main():
         planned[local(name)] = value.encode() if isinstance(value, str) else value
 
     def version_url(url):
-        return re.sub(r"([?&]v=)" + re.escape(old) + r"\b", lambda m: m[1] + new, url)
+        return release_version_url(url, old, new)
 
     if not a.package_only:
         previous = readjson(f"sukun-site-assets-{old}.json")
@@ -138,7 +159,10 @@ def main():
         assert markers and all(x == new for x in markers) and f"window.SUKUN_BUILD='{new}'" in html, "Shell identity needs release bump"
         plan("surumler.json", encoded_json(notes))
         plan("version.txt", new + "\n")
-        plan("manifest.webmanifest", read("manifest.webmanifest").decode().replace(old, new))
+        manifest = json.loads(version_url(read("manifest.webmanifest").decode()))
+        assert manifest.get("version") in (old, new), "Unexpected webmanifest release version"
+        manifest["version"] = new
+        plan("manifest.webmanifest", encoded_json(manifest))
         latest = readjson("sukun-latest.json")
         latest.update(latest=new, build=new, v=new, date=a.date)
         plan("sukun-latest.json", encoded_json(latest))
@@ -171,7 +195,7 @@ def main():
         assert build["automaticDataRecovery"] is False and build["exactDataRestoreEnabled"] is False
         assert "r1019" in build["blockedRollbackBuilds"]
         plan(f"sukun-build-{new}.json", encoded_json(build))
-        sw = read("sw.js").decode().replace(old, new)
+        sw = worker_release_identity(read("sw.js").decode(), old, new)
         sw, n = re.subn(r"const CACHE = '[^']+';", f"const CACHE = 'sukun-{new}-{a.feature}-{a.date.replace('-', '')}-v1';", sw)
         assert n == 1
         sw, n = re.subn(r"const REQUIRED_RUNTIME = \[[\s\S]*?\];", "const REQUIRED_RUNTIME = " + inline_json(build["runtime"]) + ";", sw)

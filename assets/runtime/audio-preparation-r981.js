@@ -65,8 +65,8 @@
     else if(id.value===0x63a2){if(size.value!==19||String.fromCharCode(...b.subarray(pos,pos+8))!=='OpusHead'||b[pos+8]!==1||b[pos+9]<1||b[pos+9]>2||b[pos+18]!==0)throw error('PREP_UNKNOWN_LAYOUT');state.opus={channels:b[pos+9]};}
     else if(id.value===0x9f)state.channels=uint(pos,size.value);
     else if(id.value===0xb5&&(size.value===4||size.value===8))state.rate=size.value===4?v.getFloat32(pos):v.getFloat64(pos);
-    else if(id.value===0xe7){state.cluster=uint(pos,size.value);if(state.cluster*scale/1e9>MAX_SECONDS)throw error('PREP_MEMORY_LIMIT');}
-    else if(id.value===0xa3||id.value===0xa1){if(!audioTrack)throw error('PREP_UNKNOWN_LAYOUT');const track=vint(pos);if(track.value===audioTrack){const off=pos+track.len;if(off+3>stop)throw error('PREP_INVALID_HEADER');if(b[off+2]&6)throw error('PREP_UNKNOWN_DURATION');packetSamples+=opusSamples(off+3,stop);last=Math.max(last,(state.cluster||0)+v.getInt16(off));if(last*scale/1e9>MAX_SECONDS||packetSamples/48000>MAX_SECONDS)throw error('PREP_MEMORY_LIMIT');}}
+    else if(id.value===0xe7){state.cluster=uint(pos,size.value);if(state.cluster*scale/1e9>MAX_SECONDS)throw error('PREP_DURATION_LIMIT');}
+    else if(id.value===0xa3||id.value===0xa1){if(!audioTrack)throw error('PREP_UNKNOWN_LAYOUT');const track=vint(pos);if(track.value===audioTrack){const off=pos+track.len;if(off+3>stop)throw error('PREP_INVALID_HEADER');if(b[off+2]&6)throw error('PREP_UNKNOWN_DURATION');packetSamples+=opusSamples(off+3,stop);last=Math.max(last,(state.cluster||0)+v.getInt16(off));if(last*scale/1e9>MAX_SECONDS||packetSamples/48000>MAX_SECONDS)throw error('PREP_DURATION_LIMIT');}}
     pos=stop;
    }
   }
@@ -87,7 +87,9 @@
   if(!blob||!blob.size||blob.size>SOURCE)throw error('PREP_SOURCE_LIMIT');
   if(metadata.has(blob))return metadata.get(blob);
   const bytes=await blob.arrayBuffer(),value=riff(bytes)||webm(bytes)||await probe(blob);
-  if(!Number.isFinite(value.duration)||value.duration<=0||value.duration>MAX_SECONDS||value.channels>2)throw error('PREP_MEMORY_LIMIT');
+  if(!Number.isFinite(value.duration)||value.duration<=0)throw error('PREP_UNKNOWN_DURATION');
+  if(value.duration>MAX_SECONDS)throw error('PREP_DURATION_LIMIT');
+  if(value.channels>2)throw error('PREP_UNKNOWN_LAYOUT');
   if(!value.channels)throw error('PREP_UNKNOWN_LAYOUT');
   const result={...value,compressedBytes:blob.size};metadata.set(blob,result);return result;
  }
@@ -137,7 +139,9 @@
    check(task);active++;activeTask=task;metrics.maxConcurrent=Math.max(metrics.maxConcurrent,active);activeCreated=new Set();activeEstimate=0;
    stage(task,'inspect');reserve(blob.size*3+65536);task.meta=await inspect(blob);check(task);reserve(estimate(task.meta,task));metrics.decodeStarts++;
    const bytes=await blob.arrayBuffer();check(task);stage(task,'decode');const decoded=await decode(bytes,{check:()=>check(task)});check(task);
-   if(!decoded||!Number.isFinite(decoded.duration)||decoded.duration>MAX_SECONDS||decoded.numberOfChannels>2)throw error('PREP_MEMORY_LIMIT');
+   if(!decoded||!Number.isFinite(decoded.duration)||decoded.duration<=0)throw error('PREP_UNKNOWN_DURATION');
+   if(decoded.duration>MAX_SECONDS)throw error('PREP_DURATION_LIMIT');
+   if(decoded.numberOfChannels>2)throw error('PREP_UNKNOWN_LAYOUT');
    reserve(estimate(task.meta,task,decoded));
    const result=task.use?await task.use(decoded,{cpu:(options)=>cpu(decoded,options,task),meta:task.meta,check:()=>check(task),
     // Shared PCM Blob slices still belong to the native media lease. Bound
@@ -160,7 +164,7 @@
  const api=Object.freeze({version:'r981',inspect,run,
   createUrl,
   forgetUrl(url){urls.delete(url)},addTrimmer(fn){trimmers.add(fn)},addResident(name,get){residents.set(String(name),get)},
-  notify,snapshot:()=>({version:'r981',budgetBytes:BUDGET,sourceBudgetBytes:SOURCE,pending,active,stage:activeTask?(activeTask.expired?'cancelled-':'')+activeTask.stage:'idle',stageAgeMs:activeTask?Math.max(0,Date.now()-activeTask.stageAt):0,decodeBlocked:!!(activeTask?.stage==='decode'&&!current(activeTask)),residentBytes:resident(),activeEstimate,worker:workerDisabled?'fallback':worker?'ready':'idle',...metrics,last}),
+  notify,snapshot:()=>({version:'r981',budgetBytes:BUDGET,sourceBudgetBytes:SOURCE,maxDurationSeconds:MAX_SECONDS,pending,active,stage:activeTask?(activeTask.expired?'cancelled-':'')+activeTask.stage:'idle',stageAgeMs:activeTask?Math.max(0,Date.now()-activeTask.stageAt):0,decodeBlocked:!!(activeTask?.stage==='decode'&&!current(activeTask)),residentBytes:resident(),activeEstimate,worker:workerDisabled?'fallback':worker?'ready':'idle',...metrics,last}),
   // Pure parsers are exposed for the offline health/audit layer; they do not decode or play.
   inspectBytes:bytes=>riff(bytes)||webm(bytes)
  });w.SukunAudioPreparation=api;

@@ -1,0 +1,87 @@
+{
+  "build": "r1096",
+  "baseCommit": "4dd1e3e91fe7ba69567074efb00b4cf64243beef",
+  "verifiedAt": "2026-10-18T03:37:17.358579+00:00",
+  "result": "passed",
+  "productionSourcesSha256": {
+    "assets/runtime/audio-preparation-r981.js": "c163c5f0cd92bf5ddad01cb6c9375958c91044c0865d383fe28f796ec1ed0637",
+    "assets/runtime/startup-intro-r1027.js": "605951f7835db526431969f3ad4ef7deaa7269148e11874d3e6e2b0d9dccd137",
+    "assets/runtime/studio-preparation-r982.js": "3f269b75f18bc3cd5eb8f38829bfd803b2dcd68a0496bcba742a6995366168d0",
+    "assets/runtime/tab-owner-r981.js": "d306eafe445953ac97537b3fbe68cc672c98cd124348340f53e9cb70d87e9f5e",
+    "index.html": "5218c9dcb540cbc17954e56e21e2c7435fb5ee1f88a097d0eebc079a34b12d3e",
+    "manifest.webmanifest": "e2038c1eaf08b5f11aabc017ecee3ed32e8f0c80df0b4eb538db22952d1206af",
+    "nero.html": "5218c9dcb540cbc17954e56e21e2c7435fb5ee1f88a097d0eebc079a34b12d3e",
+    "sukun-build-r1096.json": "d276eb52ee4a1f381d0e4dec7f1341d34c5f37154ff98c20227c965efdee87c9",
+    "sukun-latest.json": "0f1651361de56b712538c436131f90e8f10c98b5c2f41d3a1d81c7e7e5b06e47",
+    "sukun-site-assets-r1096.json": "2b1783b4cf9e82dccf168625caf9fe309b17999cdd730a2c9b3fafcc9cccc821",
+    "surumler.json": "413737798597c9cdc205965cb7c8ecacddcdae0e4e0f7f0d671096a21a6fb671",
+    "sw.js": "a0f7e2289bdcadf1ddbbe099f68bb3d90ec3555f357ba45ccf4efbe67f4d9e0f",
+    "tests/r1049/run-regressions.py": "6ce5e97357c329d841ae1a1742bd6e8102897895063f1a825c214817f1f47fa4",
+    "tests/r1095/image-pack-worker.cjs": "5ab23d12b7792e3303ec23a91793e3e1d775540039ec1486051a659cbc56bd83",
+    "tests/r1095/release-identities.py": "000a715c938cd7c504a4265710f729fedb9d3ab158f5e9a3c18e06774473d67a",
+    "tests/r1096/preparation-limits.cjs": "ce446d5270ae95720038a417ba34d875b573de38df3eec290721a79ca92d840e",
+    "tests/r1096/studio-browser.cjs": "c677434179dfeef0d428d46345a938308347073fe3f115f37c340c1a47ce6bf4",
+    "tests/r1096/studio-edit-admission.cjs": "8fda35687fa17c5397e53488d8f154874f3efa6b6ae8c3aff447756fccf8eda2",
+    "tests/r1096/studio-explanations.cjs": "40214078dd9c7c416f30044933fef37d2eb04454c77f1997e69467577fa63159",
+    "tools/release_finalize.py": "3e627da99e90ff84077663af674f12df360d8e04e957fc373892f85a43db1498",
+    "version.txt": "de691248e8b1749ef19f7ceda5fb5005762480ced56223213e57b960d931e5a9"
+  },
+  "evidenceSha256": {
+    "tests/r1096/evidence/classic-feyz.json": "05ee2462b81272a3291704820c4ed0b9d4dfb4319ef7a8551e7857e80fd5e99e",
+    "tests/r1096/evidence/regressions.json": "f852d82ff066a5b77ddddc299cbd1a80ffc59ca13d5ec2d5008bad679faf00e9",
+    "tests/r1096/evidence/release-identities.json": "fe1683a166dd1e4eaac17af5ceffbe7acfe26b4b9c1480864bd5ef8d72fcae57",
+    "tests/r1096/evidence/release-integrity.json": "a2f0b30df5eb041440e5bf9ede08017e4b2ff6ae8696f45ab64f5909991228c9",
+    "tests/r1096/evidence/studio-browser.json": "fec33d03a2655198bf817a364db1d3b0024cc4b81fc4d97f04aec6f6e6378469"
+  },
+  "checks": {
+    "regressionGroups": {
+      "passed": 171,
+      "total": 171
+    },
+    "studioNativeBrowser": {
+      "passed": 13,
+      "total": 13
+    },
+    "classicFeyzMobile": {
+      "passed": 26,
+      "total": 26
+    },
+    "releaseIntegrity": {
+      "passed": 1418,
+      "total": 1418
+    },
+    "immutableReleaseIdentities": {
+      "passed": 14,
+      "total": 14
+    },
+    "preparationLimits": {
+      "passed": 21,
+      "total": 21
+    },
+    "studioEditAdmission": {
+      "passed": 119,
+      "total": 119
+    },
+    "imagePackagesWorker": {
+      "passed": 29,
+      "total": 29
+    }
+  },
+  "limits": {
+    "studioVerifiedDurationSeconds": 60,
+    "studioSourceBytes": 8388608,
+    "sharedPreparationBytes": 33554432,
+    "webmSafetyMarginSeconds": 1,
+    "dhikrCaptureMinutes": 10,
+    "prayerCaptureMinutes": 45,
+    "threeMinuteStudioExtension": false
+  },
+  "review": "Current frozen sources pass production regressions, native Studio and Classic/Feyz suites. Post-commit cancellation preserves saved results and suppresses stale updates.",
+  "deviceAcceptanceRemaining": [
+    "Physical Android microphone near and above processing ceiling",
+    "Physical screen lock and resume",
+    "Audible output and long raw recordings",
+    "Real same-origin multi-tab and storage/memory pressure"
+  ],
+  "scope": "Controlled production-source regression fixtures and disposable Linux Chromium with generated audio; no personal recordings were read or edited. Browser fixtures block service workers; worker protocol tests use controlled environments."
+}
