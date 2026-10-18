@@ -1,0 +1,59 @@
+{
+  "build": "r1102",
+  "verifiedAt": "2026-10-18T12:47:13.553594+00:00",
+  "parent": "9d9d1a2ddd5001ef050270e395b53f1276429038",
+  "allAccepted": true,
+  "productionSha256": {
+    "README-r1102.md": "7c2283af90df6a9440e2cbebc3cad54fa4790452c6f7051bc941fae00d9f06a1",
+    "assets/runtime/startup-intro-r1027.js": "a9b41af2192c6822f46f81f52d7cff04c1da52c36928d1a06d96b12cff875543",
+    "css/ambience-compact-r1102.css": "b0c1b7ea6439a01b2d7893f080340b31d4e4f512a68c87f29283d35537c896cc",
+    "index.html": "cc9f30ecc90cf1104df2ced20f115da33b85fb040c0581328c3be5eb604e96df",
+    "manifest.webmanifest": "7cd914d5901a4701bfdaf58b7f627480c0d071d036edbd0f47fa3553fbf0f0e8",
+    "nero.html": "cc9f30ecc90cf1104df2ced20f115da33b85fb040c0581328c3be5eb604e96df",
+    "sukun-build-r1102.json": "274025936909a46fa50bec17bf15e844fbd0535d7e817459048950dddd5c0b81",
+    "sukun-latest.json": "d0bb2a9cc215850a5cc23d95951d52475474f079771fb0870164d8df532d6312",
+    "sukun-site-assets-r1102.json": "08482b11208f79789cb3b89ecdccbe379c78a06eecf8740f2ee10ea1e7bd94e6",
+    "surumler.json": "ec92ca7d77328d6cd3116b9cbeeda4b71d4ce29c38b350e3374a13b98578039c",
+    "sw.js": "c4dbc66f986f1f0d6a8867d6de08f4c01087d2ea236f98233a5a169cb987af9b",
+    "version.txt": "cf5b7c8079099f24a131c218a9a8984a16b197ffc355908a3f563ebfc7a3f88b"
+  },
+  "reports": [
+    {
+      "path": "tests/r1102/evidence/ambience-compact-browser.json",
+      "sha256": "95aa3dfe3bc69e7829b9bef08643c322418e942b6fcbd5e2aa6e5b91496a00ac",
+      "passed": 32,
+      "total": 32
+    },
+    {
+      "path": "tools/release-integrity-results.json",
+      "sha256": "ca800b5db71fb2c1041019b9574d3b8377eeb60d450682372a252cd13948be35",
+      "passed": 1448,
+      "total": 1448
+    }
+  ],
+  "testFiles": {
+    "tests/r1102/ambience-compact-browser.cjs": "ca8a89bdff3da981c6e25731759c861d1344902909cd8f90b26e87634dc8bfa9"
+  },
+  "visualReview": {
+    "width": 390,
+    "family": "berhet",
+    "example": "Tanbur Esintili Dem",
+    "baselineCardHeight": 182.015625,
+    "compactCardHeight": 155.015625,
+    "heightSaved": 27,
+    "method": "Local Chromium comparison with compact stylesheet enabled then disabled; text unchanged. Screenshot inspected locally."
+  },
+  "package": {
+    "build": "r1102",
+    "bytes": 292656207,
+    "sha256": "ac6d978fd50b7d5be4e0b36e47a9fa36b6775d28830515976a6aaf862e63048e",
+    "entries": 747,
+    "deploymentFiles": 746
+  },
+  "limitations": [
+    "Disposable headless Linux Chromium, Classic/Feyz, 320×740 and390×844, TR/EN and both selected themes.",
+    "Existing Makam horizontal scroll strip is retained; its strip and every card control remain bounded.",
+    "Physical Android touch and audible output were not tested; application/audio JavaScript was not modified."
+  ],
+  "servedSourceFilesVerified": 136
+}
