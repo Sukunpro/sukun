@@ -1,0 +1,29 @@
+{
+  "source": "/workspace/scratch/0ed53697150f/sukun/assets/runtime/health-r940.js",
+  "collectorSha256": "cbc1175673971086356a20c355f0fbd1dc3542654f0a05401839749d238b9f8b",
+  "passed": 5,
+  "total": 5,
+  "scope": "Production integrity functions, real shipped shared controls and controlled HTTP; no physical playback claim",
+  "results": [
+    {
+      "name": "all nine mandatory shared controls verify exact shipped bytes under existing core budget",
+      "status": "PASS"
+    },
+    {
+      "name": "unapproved CSS and JS siblings, versions and nested copies reject before any download",
+      "status": "PASS"
+    },
+    {
+      "name": "remote mandatory-looking controls and malformed hashes reject before any download",
+      "status": "PASS"
+    },
+    {
+      "name": "approved shared controls still reject corrupt content by SHA-256",
+      "status": "PASS"
+    },
+    {
+      "name": "approved shared controls retain 512 KiB per-file limit and no byte credit for oversized response",
+      "status": "PASS"
+    }
+  ]
+}

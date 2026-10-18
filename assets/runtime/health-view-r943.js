@@ -32,8 +32,8 @@
     'Çevrimdışı motorun son işlemi':'Latest offline engine operation',
     'Çevrimdışı motorun son işlem sonucu gözlendi.':'The result of the latest offline engine operation was observed.',
     'Bağlantı uygun olduğunda güncelleme denetimini yeniden dene. Çalışan sürümün doğru ve temel dosyaların tam olması, bu işlem uyarısından ayrı değerlendirilir. Kayıtlarını silme.':'Retry the update check when connected. A matching running version and complete core files are assessed separately from this operation warning. Keep your recordings.',
-    'Ekrana dönüş gözlemi':'Return to screen observation',
-    'Ekrana dönüşte arayüzün görünürlük bilgisi gözlendi. Gerçek ekran pikselleri ölçülmedi.':'Interface visibility was observed when returning to the page. Actual display pixels were not measured.',
+    'Arayüz görünürlük gözlemi':'Interface visibility observation',
+    'Arayüzün görünürlük bilgisi gözlendi. Gerçek ekran pikselleri ölçülmedi.':'Interface visibility information was observed. Actual display pixels were not measured.',
     'Siyah ekran devam ederse Sorun şimdi oldu ile işaretle ve raporu sakla. Bu kontrol sesi veya sayacı değiştirmez.':'If the screen remains blank, mark Problem just happened and save the report. This check does not change playback or the counter.'
   });
   const language=()=>window.I18N?.lang==='en'?'en':'tr';
@@ -51,7 +51,7 @@
     RUNTIME_INTEGRITY:['Dosya bütünlüğü','Yüklenen temel dosyalar sürümde beklenen dosyalarla karşılaştırıldı.','Bağlantınızı kontrol edip testi yeniden çalıştırın. İndirilemeyen dosya, tek başına bozuk dosya demek değildir.'],
     SW_RESPONSE:['Çevrimdışı motorun yanıtı','Çevrimdışı motor beklenen sürede yanıt vermedi.','Uygulama yoğun olabilir. Biraz bekleyip testi yeniden çalıştırın.'],
     SW_OPERATION:['Çevrimdışı motorun son işlemi','Çevrimdışı motorun son işlem sonucu gözlendi.','Bağlantı uygun olduğunda güncelleme denetimini yeniden dene. Çalışan sürümün doğru ve temel dosyaların tam olması, bu işlem uyarısından ayrı değerlendirilir. Kayıtlarını silme.'],
-    PRESENTATION:['Ekrana dönüş gözlemi','Ekrana dönüşte arayüzün görünürlük bilgisi gözlendi. Gerçek ekran pikselleri ölçülmedi.','Siyah ekran devam ederse Sorun şimdi oldu ile işaretle ve raporu sakla. Bu kontrol sesi veya sayacı değiştirmez.'],
+    PRESENTATION:['Arayüz görünürlük gözlemi','Arayüzün görünürlük bilgisi gözlendi. Gerçek ekran pikselleri ölçülmedi.','Siyah ekran devam ederse Sorun şimdi oldu ile işaretle ve raporu sakla. Bu kontrol sesi veya sayacı değiştirmez.'],
     SESSION_OBSERVATION:['Zikir oturumu','Uygulamanın oturum bilgisi gözlendi. Bu, sesin duyulduğunu doğrulamaz.','Zikir akışını normal kullanım sırasında gözlemleyin; takılma olursa Sorun şimdi oldu düğmesine dokunun.'],
     TEMPO_RANGE:['Tempo ayarı','Tempo değeri desteklenen aralık açısından kontrol edildi.','Tempo ayarı beklenen aralık dışında. Raporu indirip destek için saklayın.'],
     AUDIO_CONSISTENCY:['Ses akışının uyumu','Ses kaynaklarının uygulama içindeki uyumu incelendi.','Birden fazla ses veya sessizlik fark ederseniz Sorun şimdi oldu düğmesine dokunun.'],
@@ -263,7 +263,12 @@
     if(code==='RECORDING_CONTINUITY')return continuityView(e).detail;
     if(code==='RECORDING_INSPECTION')return inspectionView(e).detail;
     if(code==='SW_OPERATION')return e.error || e.phase==='error'?T('Çevrimdışı motorun bir işlemi tamamlanamadı. Bu, çalışan önbelleğin bozuk olduğu anlamına gelmez. Ayrıntısı teknik raporda bulunur.','An offline engine operation did not complete. This does not mean the running cache is corrupted. The technical report contains details.'):T('Çevrimdışı motorun son işlemi gözlendi. Bu gözlem yeni bir ağ testi değildir.','The latest offline engine operation was observed. This observation is not a new network test.');
-    if(code==='PRESENTATION')return e.state==='attention'?T('Ekrana dönüşte görünür arayüz veya çizim yanıtı beklenen şekilde gözlenemedi. Ekranın gerçek pikselleri ölçülmedi.','A visible interface or drawing response was not observed as expected on return. Actual display pixels were not measured.'):e.state==='recovered'?T('Ekrana dönüşte görünüm toparlandı. Bu, gerçek ekrandaki görüntüyü veya uzun süreli kilit davranışını doğrulamaz.','The view was restored on return. This does not verify the physical display or long screen-lock behavior.'):T('Ekrana dönüş bilgisi kaydediliyor. Görünür öğeler ve çizim yanıtı, gerçek ekranın sorunsuz olduğunu tek başına kanıtlamaz.','Return-to-page information is being recorded. Visible elements and a drawing response alone do not prove the physical screen is working correctly.');
+    if(code==='PRESENTATION') {
+      const contexts={startup:['İlk açılış gözlemi.','Startup observation.'],foreground:['Ön plandaki görünüm gözlemi.','Foreground view observation.'],return:['Ekrana dönüş gözlemi.','Return to screen observation.'],manual:['İstenen görünüm denetimi.','Requested view check.']};
+      const context=typeof e.lastContext==='string'&&Object.hasOwn(contexts,e.lastContext)?contexts[e.lastContext]:['Görünüm gözlemi.','View observation.'];
+      const state=e.state==='attention'?['Arayüz görünürlüğü veya çizim yanıtı doğrulanamadı.','Interface visibility or the drawing response could not be verified.']:e.state==='unverified'?['Görünümün çizim yanıtı doğrulanamadı.','The view’s drawing response could not be verified.']:e.state==='recovered'?['Görünüm düzeltmesi kaydedildi.','A view repair was recorded.']:e.state==='hidden'?['Sekme arka planda; ekrandaki görünüm doğrulanmadı.','The tab is in the background; its on-screen view was not verified.']:e.state==='checking'?['Görünüm gözlemi sürüyor.','View observation is in progress.']:e.lastProbe&&typeof e.lastProbe==='object'?['Arayüzün görünürlük ve çizim bilgisi gözlendi.','Interface visibility and drawing information was observed.']:['Henüz tamamlanmış bir görünüm gözlemi yok.','No completed view observation yet.'];
+      return T(...context)+' '+T(...state)+' '+T('Gerçek ekran pikselleri ölçülmedi.','Actual display pixels were not measured.');
+    }
     if(code==='SESSION_MEMORY') return row?.status==='WARN'?T('Son ilerleme kaydı saklanırken bir sorun bildirildi. Bu, kayıtların silindiğini kanıtlamaz.','The latest progress save reported a problem. This does not prove that saved data was lost.'):row?.status==='PASS'?T('Son ilerleme kaydının saklanması doğrulandı.','The latest progress save was confirmed.'):'';
     if(code==='SERVER_VERSION') {
       if(e.fresh===false)return T('Erişilen sürüm bilgisi önbellekten gelmiş olabilir. Sunucunun şu anki sürümü doğrulanmadı.','The version information may have come from cache. The current server version was not verified.');

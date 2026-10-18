@@ -43,6 +43,7 @@
   ['tabOwner','revision','method','protection','owned','maintenance','blocked','recoveryRequired','failureStage','lockFallbackError','requestFailures'].forEach(key=>historicKeys.add(key));
   ['currentTime','duration','mediaSpanSeconds','unitSeconds','repeatCycles','playbackRate','volume','muted','loop','mediaProgressSeconds','appliedCycles','lastPauseReason','lastPauseAt'].forEach(key=>historicKeys.add(key));
   ['sessionCommand','action','accepted','stale','outcome'].forEach(key=>historicKeys.add(key));
+  historicKeys.add('lastContext');
   const COMMAND_ACTIONS = new Set(['start','play','pause','resume','stop','next','previous','restart','retry','select','adjust']);
   const COMMAND_REASONS = new Set(['pending','accepted','global-pause','voice-not-ready','recording-unavailable','locked','stale-session','superseded-command','transport-not-accepted','command-error','stop-not-complete','stop-wait-unavailable','selection-unavailable']);
   function compactSessionCommand(value) {
@@ -137,7 +138,7 @@
       const r=p.roots[key];if(!r||typeof r!=='object')continue;
       roots[key]={connected:bool(r.connected),display:string(r.display),visibility:string(r.visibility),opacity:number(r.opacity),width:number(r.width),height:number(r.height),inViewport:bool(r.inViewport),blocker:r.blocker==null?null:string(r.blocker)};
     }
-    return {version:string(input.version),state:['ready','hidden','checking','recovered','attention'].includes(input.state)?input.state:'unknown',checks:number(input.checks),recoveries:number(input.recoveries),lastReason:string(input.lastReason),lastAt:number(input.lastAt),
+    return {version:string(input.version),state:['ready','hidden','checking','recovered','attention','unverified'].includes(input.state)?input.state:'unknown',checks:number(input.checks),recoveries:number(input.recoveries),lastReason:string(input.lastReason),lastContext:['startup','foreground','return','manual'].includes(input.lastContext)?input.lastContext:'unknown',lastAt:number(input.lastAt),
       lastProbe:p&&typeof p==='object'?{at:number(p.at),reason:string(p.reason),hidden:bool(p.hidden),tef:bool(p.tef),selectedTab:string(p.selectedTab),readyState:string(p.readyState),viewportWidth:number(p.viewportWidth),viewportHeight:number(p.viewportHeight),scrollX:number(p.scrollX),scrollY:number(p.scrollY),frameObserved:bool(p.frameObserved),frameDelayMs:number(p.frameDelayMs),domSurfaceVisible:bool(p.domSurfaceVisible),openingActive:bool(p.openingActive),openingPresent:bool(p.openingPresent),lifecycleHidden:bool(p.lifecycleHidden),bodyFlags:flags(p.bodyFlags),roots}:null,
       lastRepair:input.lastRepair&&typeof input.lastRepair==='object'?{at:number(input.lastRepair.at),actions:flags(input.lastRepair.actions)}:null,
       scope:'DOM visibility and observed animation frame; not raster or physical display test'};
@@ -494,7 +495,7 @@
     if(recordingInspection)out.push(status('RECORDING_INSPECTION',recordingInspection.phase==='idle'&&recordingInspection.current?.status==='ok'?'OBSERVED':'NOT_MEASURED',
       'Son kayıt incelemesi',recordingInspection,'Yalnız istekle alınmış son yerel gözlem. Zaman ve sürüm gözlemin kapsamını belirtir; silinme, kurtarma veya ses içeriği doğrulanmaz. AI’ye gönderilmez.'));
     const presentation=presentationSnapshot();
-    if(presentation)out.push(status('PRESENTATION',presentation.state==='attention'?'WARN':'OBSERVED','Ekrana dönüş gözlemi',presentation,
+    if(presentation)out.push(status('PRESENTATION',presentation.state==='attention'?'WARN':'OBSERVED','Arayüz görünürlük gözlemi',presentation,
       'Bu gözlem DOM görünürlüğü ve çizim çağrısı içindir; ekrandaki gerçek pikselleri ölçmez. Siyah ekran sürerse raporu saklayın.'));
     const memory = safe(() => window.SukunSessionMemory?.diagnostics?.());
     if (memory) out.push(status('SESSION_MEMORY', memory.error ? 'WARN' : memory.bootPending ? 'OBSERVED' : memory.writes > 0 ? 'PASS' : 'NOT_MEASURED',
@@ -714,7 +715,7 @@
           const sharedRuntime=['./css/berhet-controls-r1101.css','./js/section-switch-r1101.js',
             './css/frequency-hub-r1101.css','./js/frequency-hub-r1101.js',
             './css/ambience-compact-r1102.css','./css/ambience-info-round-r1103.css',
-            './css/ambience-readable-r1104.css','./css/shared-readable-r1105.css']
+            './css/ambience-readable-r1104.css','./css/shared-readable-r1105.css','./css/kandil-preferences-r1108.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
           if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;

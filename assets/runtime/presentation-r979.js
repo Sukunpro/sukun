@@ -6,8 +6,8 @@
  const $=id=>document.getElementById(id),safe=(fn,fallback=null)=>{try{return fn()}catch(_){return fallback}};
  const flags=['r608-opening-active','r610-opening-active','sukun-tefekkur-mode','sukun-focus-mode','r920-practice-on','r920-focus-rest','r920-details-open','r433-dock-hidden','sukun-resume-settling'];
  const tabs=['tab-amb','tab-frq','tab-zkr','tab-rx','tab-ntf'];
- const state={version:'r1042',state:'ready',checks:0,recoveries:0,lastReason:'boot',lastAt:0,lastProbe:null,lastRepair:null,scope:'DOM visibility and observed animation frame; not raster or physical display test'};
- let timer=0,frame=0,fallback=0,generation=0,gestures=0,lastWake=0,notice=null,wasHidden=!!document.hidden,pendingReturn=false,returnGesture=0;
+ const state={version:'r1108',state:'ready',checks:0,recoveries:0,lastReason:'boot',lastContext:'startup',lastAt:0,lastProbe:null,lastRepair:null,scope:'DOM visibility and observed animation frame; not raster or physical display test'};
+ let timer=0,frame=0,fallback=0,generation=0,gestures=0,lastWake=0,notice=null,wasHidden=false,pendingReturn=false,pendingManual=false,returnGesture=0,seenForeground=!document.hidden,noticeContext='startup';
  let noticeTimer=0,noticeResize=null,noticeMutations=null,noticeFocus=null;
  const at=()=>Date.now(),round=n=>Math.round((Number(n)||0)*10)/10;
  function cancel(){clearTimeout(timer);clearTimeout(fallback);if(frame)cancelAnimationFrame(frame);timer=frame=fallback=0;generation++}
@@ -86,13 +86,15 @@
  function dismissNotice(){showNotice(false)}
  function localizeNotice(){
   if(!notice)return;
-  notice.firstElementChild.textContent=isEnglish()?'The interface could not be verified after returning. Redisplay it without resetting your count.':'Ekrana dönüşte görünüm doğrulanamadı. Sayacı sıfırlamadan yeniden göster.';
+  const lead=noticeContext==='return'?(isEnglish()?'The interface could not be verified after returning.':'Ekrana dönüşte görünüm doğrulanamadı.'):noticeContext==='startup'?(isEnglish()?'The interface could not be verified during startup.':'İlk açılışta görünüm doğrulanamadı.'):(isEnglish()?'The interface could not be verified.':'Görünüm doğrulanamadı.');
+  notice.firstElementChild.textContent=lead+(isEnglish()?' Redisplay it without resetting your count.':' Sayacı sıfırlamadan yeniden göster.');
   notice.lastElementChild.textContent=isEnglish()?'Redisplay interface':'Görünümü yeniden göster';
   const close=notice.children[1],label=isEnglish()?'Dismiss interface notice':'Görünüm uyarısını kapat';close.setAttribute('aria-label',label);close.title=label;
   safe(placeNotice);
  }
  function showNotice(show){
   if(!show){restoreNoticeFocus();if(notice)notice.hidden=true;stopNoticeWatch();return}
+  noticeContext=state.lastContext;
   if(!notice||notice.hidden)noticeFocus=document.activeElement;
   if(!notice){notice=document.createElement('aside');notice.id='r979PresentationNotice';notice.dataset.i18nOwned='r979';notice.setAttribute('role','status');
    const text=document.createElement('p'),close=document.createElement('button'),button=document.createElement('button');button.type=close.type='button';close.id='r979PresentationNoticeDismiss';close.textContent='×';notice.append(text,close,button);document.body.append(notice);
@@ -112,11 +114,11 @@
    if(document.hidden){hide();return}callback(observed,observed?Math.max(0,performance.now()-start):null)};
   frame=requestAnimationFrame(()=>done(true));fallback=setTimeout(()=>done(false),800);
  }
- function run(reason,returned,gesture){
+ function run(reason,returned,gesture,context,manual){
   timer=0;if(document.hidden){hide();return}const seq=generation;
-  state.state='checking';state.lastReason=reason;state.lastAt=at();
+  state.state='checking';state.lastReason=reason;state.lastContext=context;state.lastAt=at();
   observeFrame(seq,(observed,delay)=>{
-   const before=safe(()=>probe(reason,observed,delay));if(!before){pendingReturn=false;state.state='attention';showNotice(true);notify();return}
+   const before=safe(()=>probe(reason,observed,delay));if(!before){pendingReturn=returned;pendingManual=manual;state.state='attention';showNotice(true);notify();return}
    const actions=[],body=document.body,curtain=$('acilisPerde');
    // Only expired opening flags are removed. A live opening is left intact.
    if(!before.openingActive)for(const name of ['r608-opening-active','r610-opening-active'])if(body?.classList.contains(name)){body.classList.remove(name);actions.push('clear-'+name)}
@@ -125,20 +127,27 @@
    // here delays the first foreground frame and duplicates its queued render.
    // Recheck small repairs first; hidden practice on another tab is intentional.
    const surface=actions.length?safe(()=>probe(reason,observed,delay),before):before;
-   if(!surface.openingActive&&(!observed||!surface.domSurfaceVisible)){
+   // Startup may be busy without delivering a RAF in 800 ms. A visible DOM
+   // alone is not proof of paint, but a missed startup frame is not evidence
+   // of a failed lock/foreground return and must not rebuild a healthy view.
+   const frameRequired=returned||manual;
+   if(!surface.openingActive&&((frameRequired&&!observed)||!surface.domSurfaceVisible)){
     const restored=safe(()=>window.SukunPracticeUI?.restorePresentation?.(),false);
     if(restored)actions.push('refresh-practice');
    }
    // Preserve legitimate positions within the reading/settings surface. Only
    // rescue an entirely off-screen focus surface after return, before input.
    const after=safe(()=>probe(reason,observed,delay),before);
-   if(returned&&gesture===gestures&&after.tef&&!after.openingActive&&after.roots.practice.connected&&!after.roots.practice.blocker&&!after.roots.practice.inViewport&&!document.querySelector('dialog[open]')){
+   if((returned||manual)&&gesture===gestures&&after.tef&&!after.openingActive&&after.roots.practice.connected&&!after.roots.practice.blocker&&!after.roots.practice.inViewport&&!document.querySelector('dialog[open]')){
     const target=$('r920Counter')||$('r920Practice');safe(()=>target.scrollIntoView({block:'center',behavior:'instant'}));actions.push('restore-focus-position');
    }
    observeFrame(seq,(settled,settledDelay)=>{
-    pendingReturn=false;state.checks++;state.lastAt=at();state.lastProbe=safe(()=>probe(reason,settled,settledDelay),after);
+    state.checks++;state.lastAt=at();state.lastProbe=safe(()=>probe(reason,settled,settledDelay),after);
     const visible=state.lastProbe.domSurfaceVisible||state.lastProbe.openingActive;
-    state.state=visible&&settled?(actions.length?'recovered':'ready'):'attention';
+    state.state=visible?(settled?(actions.length?'recovered':'ready'):frameRequired?'attention':'unverified'):'attention';
+    // A later ordinary focus event must not dilute an unresolved return or
+    // explicit redisplay request into startup's frame-only exemption.
+    pendingReturn=returned&&state.state==='attention';pendingManual=manual&&state.state==='attention';
     if(actions.length){state.recoveries++;state.lastRepair={at:at(),actions}}
     showNotice(state.state==='attention');notify();
    });
@@ -147,11 +156,12 @@
  function schedule(reason,manual=false){
   if(document.hidden){hide();return}
   const time=at();if(!manual&&reason==='focus'&&time-lastWake<1200)return;
-  lastWake=time;const returned=pendingReturn||wasHidden||reason==='resume'||reason==='pageshow-persisted'||manual;
-  if(returned&&!pendingReturn||manual)returnGesture=gestures;pendingReturn=returned;wasHidden=false;
-  cancel();const gesture=returned?returnGesture:gestures;timer=setTimeout(()=>run(reason,returned,gesture),manual?0:120);
+  lastWake=time;const returned=pendingReturn||seenForeground&&(wasHidden||reason==='resume'||reason==='pageshow-persisted'),requestedManual=manual||pendingManual;
+  const context=manual?'manual':returned?'return':requestedManual?'manual':state.checks===0?'startup':'foreground';seenForeground=true;
+  if(returned&&!pendingReturn||manual)returnGesture=gestures;pendingReturn=returned;pendingManual=requestedManual;wasHidden=false;
+  cancel();const gesture=returned||requestedManual?returnGesture:gestures;timer=setTimeout(()=>run(reason,returned,gesture,context,requestedManual),manual?0:120);
  }
- function hide(){wasHidden=true;cancel();state.state='hidden';state.lastReason='hidden';state.lastAt=at();showNotice(false)}
+ function hide(){wasHidden=seenForeground;cancel();state.state='hidden';state.lastReason='hidden';state.lastAt=at();showNotice(false)}
  document.addEventListener('visibilitychange',()=>document.hidden?hide():schedule('visible'),{passive:true});
  document.addEventListener('freeze',hide,{passive:true});document.addEventListener('resume',()=>schedule('resume'),{passive:true});
  addEventListener('pagehide',hide,{passive:true});addEventListener('pageshow',e=>schedule(e.persisted?'pageshow-persisted':'pageshow'),{passive:true});
@@ -162,6 +172,6 @@
  for(const event of ['resize','sukun:r698modechange','sukun:miniflowglasschange','sukun:r616viewchange'])addEventListener(event,queueNoticePlacement,{passive:true});
  window.visualViewport?.addEventListener?.('resize',queueNoticePlacement,{passive:true});window.visualViewport?.addEventListener?.('scroll',queueNoticePlacement,{passive:true});
  for(const event of ['pointerdown','wheel','keydown'])document.addEventListener(event,()=>{gestures++},{capture:true,passive:true});
- window.SukunPresentationRecovery=Object.freeze({version:'r1042',snapshot,recover:()=>schedule('manual',true)});
+ window.SukunPresentationRecovery=Object.freeze({version:'r1108',snapshot,recover:()=>schedule('manual',true)});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>schedule('boot'),{once:true});else schedule('boot');
 })();

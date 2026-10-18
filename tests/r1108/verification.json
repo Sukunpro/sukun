@@ -1,0 +1,71 @@
+{
+  "build": "r1108",
+  "planPhase": "G7",
+  "validation": {
+    "genericNodeGroups": {
+      "passed": 179,
+      "total": 179
+    },
+    "kandil": {
+      "passed": 46,
+      "total": 46
+    },
+    "presentation": {
+      "passed": 33,
+      "total": 33
+    },
+    "healthContext": {
+      "passed": 30,
+      "total": 30
+    },
+    "releaseIntegrity": {
+      "passed": 1488,
+      "total": 1488
+    }
+  },
+  "sourceFiles": {
+    "index.html": {
+      "sha256": "3f0564b8fc3d69fdc2a70eb3cfd16af01eb00814d6c73a4cc571ed31476ed95f",
+      "bytes": 7424510
+    },
+    "nero.html": {
+      "sha256": "3f0564b8fc3d69fdc2a70eb3cfd16af01eb00814d6c73a4cc571ed31476ed95f",
+      "bytes": 7424510
+    },
+    "assets/runtime/presentation-r979.js": {
+      "sha256": "2b33c219afa5fb73d701bceeb0acb43840662a72271dc02bc724c508197dd48f",
+      "bytes": 16080
+    },
+    "assets/runtime/health-r940.js": {
+      "sha256": "cbc1175673971086356a20c355f0fbd1dc3542654f0a05401839749d238b9f8b",
+      "bytes": 94924
+    },
+    "assets/runtime/health-view-r943.js": {
+      "sha256": "72fce7d75ad4fc40ee0fcae176cca4adc5c1989c33e99829454343acfa4d9683",
+      "bytes": 125481
+    },
+    "css/kandil-preferences-r1108.css": {
+      "sha256": "8ffd305fef20dcc04277f2a61c7349e029b400506707974df68f13872c08ec08",
+      "bytes": 2543
+    }
+  },
+  "nativeBrowserSuites": "NOT_RUN_LOCAL_CHROMIUM_UNAVAILABLE",
+  "cloudBrowserUI": "PENDING_POST_DEPLOYMENT",
+  "physicalAndroid": "NOT_RUN",
+  "audibleOutput": "NOT_RUN",
+  "sourceReview": "Two independent owner reviews found no blocker within source-review scope.",
+  "package": {
+    "build": "r1108",
+    "files": 758,
+    "deploymentBytes": 306913236,
+    "writtenMetadataFiles": [],
+    "zip": "/workspace/scratch/0ed53697150f/SUKUN_r1108_TAM_SURUM.zip",
+    "zipFiles": 759,
+    "zipBytes": 292693991,
+    "zipSha256": "978db1cccd4c343dafaa46ba50e4989cc837a516a1747f482d7abe3dbbba6aee"
+  },
+  "limitations": [
+    "Controlled Node DOM/clock fixtures do not establish browser pixels, native events, physical screen-lock continuity or audible output.",
+    "Cloud Chrome UI acceptance is performed after deployment and reported separately."
+  ]
+}
