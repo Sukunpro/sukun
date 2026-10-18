@@ -7,15 +7,20 @@
  const T=(tr,en)=>window.I18N?.lang==='en'?en:tr;
  const TOOLS={overview:['Öneriler','Suggestions','panel-main'],library:['Kütüphane','Library','panel-lib'],sweep:['Tarama','Sweep','panel-main'],breath:['Nefes','Breathing','panel-breath'],cymatics:['Kimatik','Cymatics','panel-cym'],guided:['Rehberli oturum','Guided session','panel-med']};
  let host=null,native=null,initializing=false,initialized=false,selectedTool='overview',expanded=false,poll=0,renderKey='';
+ let libraryNoticeKey='';
  let sweep=null,sweepTick=0,frequencyTimer=null,timerTick=0;
  const nativeCards={};
  function frequency(){return safe(()=>({playing:!!FR.playing,c:+FR.c,b:+FR.b,mode:FR.mode,vol:+FR.vol,pink:!!FR.pink}),{playing:false,c:180,b:7.83,mode:'bin',vol:.5,pink:false})}
  function held(){return !!(safe(()=>window.SukunAudioSessionRegistry?.aggregateSnapshot?.()?.paused,false)||safe(()=>MINI?.paused,false)||safe(()=>window.AudioLife?.userPaused&&!window.AudioLife?._terminalIntent,false))}
- function notify(text){const el=$('r1101FrequencyNotice');if(el){el.textContent=text;el.hidden=!text}}
+ function notify(text){libraryNoticeKey='';const el=$('r1101FrequencyNotice');if(el){el.textContent=text;el.hidden=!text}}
+ function libraryStateKey(f=frequency(),paused=held()){return[f.playing,paused,f.c,f.b].join('|')}
  function publish(reason){safe(()=>window.SukunAudioSessionRegistry?.schedule?.('frequency-hub:'+reason));safe(()=>window.currentFlowState?.refresh?.('frequency-hub:'+reason,true));safe(()=>window.SukunNowPlayingStore?.refresh?.());}
  function persist(){safe(()=>saveSettings())}
  function mirror(){
   const f=frequency(),paused=held();
+  // A library message describes this exact playback state. Native Stop,
+  // global Pause/Resume and manual tuning must not leave a stale claim.
+  if(libraryNoticeKey&&libraryNoticeKey!==libraryStateKey(f,paused))notify('');
   if(initialized){safe(()=>native?.frequencyHubSync?.(f));const tag=$('cymHzTag');if(tag)tag.textContent=f.c.toFixed(1)+' Hz';}
   const key=[f.playing,paused,f.c.toFixed(1),f.b.toFixed(2),f.mode,window.I18N?.lang,sweep?.active,frequencyTimer?.end].join('|');
   if(key!==renderKey){renderKey=key;const state=$('r1101FrequencyState');if(state)state.textContent=(paused?T('Duraklatıldı','Paused'):f.playing?T('Çalıyor','Playing'):T('Hazır','Ready'))+' · '+f.c.toFixed(1)+' Hz / '+f.b.toFixed(2)+' Hz';}
@@ -64,6 +69,7 @@
   // start guard: a playing graph is retuned, and global pause stays held.
   const playing=start(),name=safe(()=>window.I18N?.t?.(item.name),item.name)||item.name;
   notify(name+(playing?T(' çalıyor.',' is playing.'):held()?T(' uygulandı. Genel duraklatma açık; ana kontrollerden Devam et seçin.',' applied. Global pause is active; choose Resume in the main controls.'):T(' uygulandı. Çalma başlatılamadı; Frekansı Başlat düğmesini kullanın.',' applied. Playback could not start; use Start frequency.')));
+  libraryNoticeKey=libraryStateKey();
   mirror();return playing;
  }
  function sweepValue(s=sweep){
