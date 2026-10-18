@@ -1,0 +1,223 @@
+{
+  "suite": "r1110 canonical sapphire player paint regression",
+  "sourceBuild": "r1110",
+  "method": "Exact r1109 CSS restoration hash after two approved paint changes; direct and legacy URL resolution from stylesheet base; strict canonical selector/property guards; immutable asset/native-owner SHA256; current SRI/build/SW/inventory graph.",
+  "limitations": [
+    "No browser engine, computed cascade, actual sapphire pixels, geometry, clipping, font measurement, native input or audible output was exercised.",
+    "The selector and layer checks establish source scope/order; browser style acceptance remains separate.",
+    "URL-base checks use standard URL resolution to reproduce the custom-property consuming-stylesheet rule; no network fetch was performed."
+  ],
+  "browserExecuted": false,
+  "sourceFiles": {
+    "css/player-branding-r1109.css": {
+      "sha256": "0e1c4904c3290562081cf29326fb7fd70d17480db91205db966b5192d565f25a",
+      "bytes": 5118
+    },
+    "assets/runtime/berhet-materials-r933.css": {
+      "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+      "bytes": 622
+    },
+    "assets/berhetiyye-premium/gem-sapphire-r933.webp": {
+      "sha256": "62c5ff06eae7fcf2cbba43f57228905e9460f8cfe26f205577d8473d179020be",
+      "bytes": 2184484
+    },
+    "assets/branding/sukun-frameless-logo-r1029.png": {
+      "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+      "bytes": 27201
+    },
+    "assets/runtime/berhet-theme-r933.js": {
+      "sha256": "e3f4ba9b695d25d34c7e098a7d51b51e778089ddd897ac9b10b9851e511d2069",
+      "bytes": 2335
+    },
+    "assets/runtime/berhet-dock-r933.css": {
+      "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+      "bytes": 12309
+    },
+    "assets/runtime/dock-r920.js": {
+      "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+      "bytes": 11007
+    },
+    "index.html": {
+      "sha256": "f9829c6adfa07facb52475728bc0a168b476a7f76b18a12008a5b6f7aaa72d87",
+      "bytes": 7423494
+    },
+    "nero.html": {
+      "sha256": "f9829c6adfa07facb52475728bc0a168b476a7f76b18a12008a5b6f7aaa72d87",
+      "bytes": 7423494
+    },
+    "assets/runtime/health-r940.js": {
+      "sha256": "21a37d44a55e759d4ffdb7de172cd3a1a98f53c93235cf09795f4ed926cc5c73",
+      "bytes": 95047
+    },
+    "sukun-build-r1110.json": {
+      "sha256": "95d25e5640d5b487407b434be0151f0bc3371679a809674833aa8aab95214ad2",
+      "bytes": 38509
+    },
+    "sw.js": {
+      "sha256": "1c099604b75c7da95666ee5c7c5c2d4b32d606dfd80575ce26f029f5f46b93e1",
+      "bytes": 98645
+    },
+    "sukun-site-assets-r1110.json": {
+      "sha256": "87cc5be5f5423f7bc076216e01afcc2d2a0e4a05536a17571b53cf3b4191b40b",
+      "bytes": 151406
+    }
+  },
+  "scriptSha256": "030f8411c254e34f29faceb1783177923be1452060990c3166113cb74fb73007",
+  "finishedAt": "2026-10-18T19:08:52.634Z",
+  "passed": 14,
+  "total": 14,
+  "results": [
+    {
+      "name": "Only the approved base image reset and single appended skin differ from reviewed r1109 CSS",
+      "passed": true,
+      "evidence": {
+        "baselineBuild": "r1109",
+        "normalizedBaselineSha256": "488223c600fc224b1aa726f8a08f7216eff92118ac57e68a30e7900667a719f8",
+        "approvedChanges": [
+          "Remove broken inherited image from base face",
+          "Append one canonical-theme paint block"
+        ],
+        "geometryChanges": 0
+      }
+    },
+    {
+      "name": "The canonical theme selector covers all sizes and cannot match inactive Esma decoration",
+      "passed": true,
+      "evidence": {
+        "selector": "html[data-r933-berhet-dock=\"1\"] body.r920-dock #r588DockShell>#r633DockGrip>span:first-child",
+        "sizes": [
+          "mini",
+          "midi",
+          "max"
+        ],
+        "inactiveAttributeValuesIgnored": [
+          "0",
+          "missing",
+          "empty"
+        ],
+        "claim": "Exact selector predicate only; no computed browser style"
+      }
+    },
+    {
+      "name": "The new rule changes paint only and keeps the same one-pixel layout border",
+      "passed": true,
+      "evidence": {
+        "layoutBorderPixels": 1,
+        "borderImageDrawPixels": 7,
+        "borderImageOutset": 0,
+        "filledCenter": true,
+        "paintProperties": [
+          "border",
+          "border-image",
+          "background",
+          "box-shadow"
+        ]
+      }
+    },
+    {
+      "name": "Original palette URL reproduces the incorrect consuming-stylesheet path",
+      "passed": true,
+      "evidence": {
+        "legacyToken": "../berhetiyye-premium/gem-sapphire-r933.webp",
+        "resolvedFromConsumer": "/sukun/berhetiyye-premium/gem-sapphire-r933.webp",
+        "shippedTargetExists": false,
+        "baseNoLongerRequestsWrongImage": true,
+        "reference": "CSS Custom Properties1 section2.1: relative image URLs resolve in the consuming stylesheet",
+        "claim": "URL-resolution/source guard; browser network not exercised"
+      }
+    },
+    {
+      "name": "Explicit URL resolves to the shipped sapphire under root and nested deployment prefixes",
+      "passed": true,
+      "evidence": {
+        "resolvedPaths": [
+          "/sukun/assets/berhetiyye-premium/gem-sapphire-r933.webp",
+          "/nested/demo/assets/berhetiyye-premium/gem-sapphire-r933.webp"
+        ],
+        "sourceAssetBytes": 2184484
+      }
+    },
+    {
+      "name": "Sapphire art, approved logo and material/selection owners remain byte-identical",
+      "passed": true,
+      "evidence": {
+        "unchangedPaths": [
+          "assets/berhetiyye-premium/gem-sapphire-r933.webp",
+          "assets/branding/sukun-frameless-logo-r1029.png",
+          "assets/runtime/berhet-theme-r933.js",
+          "assets/runtime/berhet-materials-r933.css",
+          "assets/runtime/berhet-dock-r933.css",
+          "assets/runtime/dock-r920.js"
+        ],
+        "artworkMutations": 0,
+        "selectionOrAudioRuntimeChanges": 0
+      }
+    },
+    {
+      "name": "The override stays in the original branding layer after its base paint declaration",
+      "passed": true,
+      "evidence": {
+        "sameImportantLayer": "sukun-r1109-player",
+        "laterSourceOrder": true,
+        "extraCanonicalAttributeSpecificity": true,
+        "claim": "Source cascade-order guard; browser computed cascade remains separate"
+      }
+    },
+    {
+      "name": "index.html: drag, transport and integration owners remain exact reviewed r1109 bytes",
+      "passed": true,
+      "evidence": {
+        "changedNativeOwners": 0
+      }
+    },
+    {
+      "name": "index.html: existing branding stylesheet link keeps early layer order and exact SRI",
+      "passed": true,
+      "evidence": {
+        "build": "r1110",
+        "oneExistingCSSLink": true,
+        "sriMatchesActualBytes": true,
+        "noNewStylesheetOwner": true
+      }
+    },
+    {
+      "name": "nero.html: drag, transport and integration owners remain exact reviewed r1109 bytes",
+      "passed": true,
+      "evidence": {
+        "changedNativeOwners": 0
+      }
+    },
+    {
+      "name": "nero.html: existing branding stylesheet link keeps early layer order and exact SRI",
+      "passed": true,
+      "evidence": {
+        "build": "r1110",
+        "oneExistingCSSLink": true,
+        "sriMatchesActualBytes": true,
+        "noNewStylesheetOwner": true
+      }
+    },
+    {
+      "name": "Health allowlist retains the exact existing branding CSS entry",
+      "passed": true,
+      "evidence": {
+        "sameExactAllowlistEntry": "./css/player-branding-r1109.css",
+        "newAllowlistExceptions": 0
+      }
+    },
+    {
+      "name": "Required runtime graph and file inventory contain the actual updated CSS and original art",
+      "passed": true,
+      "evidence": {
+        "build": "r1110",
+        "updatedCSSSha256": "0e1c4904c3290562081cf29326fb7fd70d17480db91205db966b5192d565f25a",
+        "mandatoryCSS": true,
+        "existingArtInventoryHashMatches": true
+      }
+    },
+    {
+      "name": "Entry shells remain identical",
+      "passed": true
+    }
+  ]
+}
