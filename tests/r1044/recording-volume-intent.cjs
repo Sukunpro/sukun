@@ -15,7 +15,7 @@ async function finish(h,a,p){a._sukunFinish(false,'user-stop');await p;assert.eq
   await scenario(`${phase} latest ${value}`,async()=>{
    const h=prepare({volume:.8,deferPlay:true});const p=h.context.playRecording({size:12,type:'audio/webm'},'test',{resume:false});const a=h.instances[0];
    if(phase.startsWith('attack')){a.start();await drain();h.advance(6)}
-   h.context.setZVol(value);const onsetPreserved=html.includes('function sukunRecordingLevelRefresh(');assert.equal(a.volume,onsetPreserved?(phase.startsWith('attack')?value/3:0):value);
+   h.context.setZVol(value);assert.equal(a.volume,value,'pending and started complete recordings immediately use current level');
    if(phase.endsWith('hide'))h.hide();else if(phase==='pending-start'){a.start();await drain();h.advance(30)}else h.advance(30);
    assert(Math.abs(a.volume-value)<1e-12,`${phase}: expected current level ${value}, received ${a.volume}`);
    if(phase==='pending-hide'){a.start();await drain();assert.equal(a.volume,value)}

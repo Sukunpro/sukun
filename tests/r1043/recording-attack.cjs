@@ -119,7 +119,7 @@ const drain=()=>new Promise(resolve=>setImmediate(resolve));
   {
     const h=harness({volume:.8,deferPlay:true});
     const completed=h.context.playRecording({size:12,type:'audio/webm'},'test',{resume:false});
-    const a=h.instances[0];assert.equal(a.volumeAtPlay,0);h.hide();
+    const a=h.instances[0];assert.equal(a.volumeAtPlay,.8,'visible request is audible before delayed playing');h.hide();
     assert.equal(a.volume,.8,'hide while native start is pending restores intended volume');assert.equal(a.plays,1);
     a.start();await drain();assert.equal(a.volume,.8);
     a._sukunFinish(false,'user-stop');await completed;
@@ -138,7 +138,7 @@ const drain=()=>new Promise(resolve=>setImmediate(resolve));
     const h=harness({volume:.8,deferPlay:true});
     const completed=h.context.playRecording({size:12,type:'audio/webm'},'test',{resume:false});
     const a=h.instances[0];a.start();await drain();h.advance(6);
-    assert(Math.abs(a.volume-.8/3)<1e-10);const writes=a.writes.length;
+    assert.equal(a.volume,.8,'delayed playing does not remute the complete source');const writes=a.writes.length;
     a._sukunPlayEpoch++;h.hide();
     assert.equal(a.writes.length,writes,'an older pooled attempt cannot raise its newer owner volume');
     assert.equal(h.document.count('visibilitychange'),0);assert.equal(a.plays,1);
