@@ -715,7 +715,8 @@
           const sharedRuntime=['./css/berhet-controls-r1101.css','./js/section-switch-r1101.js',
             './css/frequency-hub-r1101.css','./js/frequency-hub-r1101.js',
             './css/ambience-compact-r1102.css','./css/ambience-info-round-r1103.css',
-            './css/ambience-readable-r1104.css','./css/shared-readable-r1105.css','./css/kandil-preferences-r1108.css']
+            './css/ambience-readable-r1104.css','./css/shared-readable-r1105.css','./css/kandil-preferences-r1108.css',
+            './css/player-branding-r1109.css','./css/category-flow-r1109.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
           if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;

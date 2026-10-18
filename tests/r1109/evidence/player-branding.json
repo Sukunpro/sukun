@@ -1,0 +1,354 @@
+{
+  "suite": "r1109 flow player branding source and alpha regression",
+  "sourceBuild": "r1109",
+  "method": "Static source-owner SHA-256 comparisons to reviewed r1108; actual PNG decode and alpha bounds mapped through declared crop transforms; box-budget arithmetic; exact health allowlist and mandatory build/SW/SRI graph checks.",
+  "limitations": [
+    "No browser engine, computed cascade, font measurement, viewport geometry, clipping screenshots, native drag/focus, touch delivery or audible output was exercised.",
+    "Crop checks verify source alpha and declared background geometry only; they do not claim rendered pixels or absence of overflow at 320/360/412 px.",
+    "CSS declaration counts establish the intended wordmark owner, not actual screen-reader or computed visibility behavior."
+  ],
+  "browserExecuted": false,
+  "sourceFiles": {
+    "css/player-branding-r1109.css": {
+      "sha256": "488223c600fc224b1aa726f8a08f7216eff92118ac57e68a30e7900667a719f8",
+      "bytes": 4604
+    },
+    "assets/branding/sukun-frameless-logo-r1029.png": {
+      "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+      "bytes": 27201
+    },
+    "index.html": {
+      "sha256": "4ae36def15f0022c101d8b5474c9673db172343f7a50554bb39195bbf0695a3b",
+      "bytes": 7423914
+    },
+    "nero.html": {
+      "sha256": "4ae36def15f0022c101d8b5474c9673db172343f7a50554bb39195bbf0695a3b",
+      "bytes": 7423914
+    },
+    "assets/runtime/dock-r920.js": {
+      "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+      "bytes": 11007
+    },
+    "assets/runtime/health-r940.js": {
+      "sha256": "b49c943fb008dc6b17912fab973330fbe1c46fe99e55c5b32d0625329d9e8081",
+      "bytes": 95003
+    },
+    "sukun-build-r1109.json": {
+      "sha256": "a716f3ab7020923d933c6866f7ac4957db168d5a5aa1ef78cddd83da375b02ff",
+      "bytes": 37928
+    },
+    "sw.js": {
+      "sha256": "f21e45fa393f5fd7705a56af01dc7319f034b7ddb6044803681d448ff4419f41",
+      "bytes": 98518
+    }
+  },
+  "scriptSha256": "d325600923710abf2d7dadf500f5b21ff89212096b9dc4a6f96c39641234d9c9",
+  "finishedAt": "2026-10-18T18:45:24.576Z",
+  "passed": 24,
+  "total": 24,
+  "results": [
+    {
+      "name": "Approved PNG remains byte-identical, with independently decoded flame and wordmark bounds",
+      "passed": true,
+      "evidence": {
+        "canvas": [
+          512,
+          512
+        ],
+        "flame": {
+          "bounds": [
+            157,
+            91,
+            349,
+            351
+          ],
+          "pixels": 10952
+        },
+        "embeddedWord": {
+          "bounds": [
+            156,
+            377,
+            357,
+            420
+          ],
+          "pixels": 2112
+        },
+        "assetMutation": false
+      }
+    },
+    {
+      "name": "mini: declared crop contains every flame alpha pixel and excludes the embedded word",
+      "passed": true,
+      "evidence": {
+        "width": 24,
+        "height": 27,
+        "scale": 0.1015625,
+        "backgroundPixels": 52,
+        "offsetY": -9,
+        "flame": [
+          1.9453125,
+          0.2421875,
+          21.4453125,
+          26.6484375
+        ],
+        "embeddedWord": [
+          1.84375,
+          29.2890625,
+          22.2578125,
+          33.65625
+        ],
+        "claim": "Mapped source alpha bounds under declared CSS transform; not rendered pixels"
+      }
+    },
+    {
+      "name": "mini: declared frame has sufficient vertical content budget",
+      "passed": true,
+      "evidence": {
+        "frameHeight": 52,
+        "verticalPadding": 10,
+        "borderPixels": 2,
+        "available": 40,
+        "needed": 39,
+        "spare": 1,
+        "claim": "Declared box arithmetic only"
+      }
+    },
+    {
+      "name": "midi: declared crop contains every flame alpha pixel and excludes the embedded word",
+      "passed": true,
+      "evidence": {
+        "width": 24,
+        "height": 28,
+        "scale": 0.1015625,
+        "backgroundPixels": 52,
+        "offsetY": -9,
+        "flame": [
+          1.9453125,
+          0.2421875,
+          21.4453125,
+          26.6484375
+        ],
+        "embeddedWord": [
+          1.84375,
+          29.2890625,
+          22.2578125,
+          33.65625
+        ],
+        "claim": "Mapped source alpha bounds under declared CSS transform; not rendered pixels"
+      }
+    },
+    {
+      "name": "midi: declared frame has sufficient vertical content budget",
+      "passed": true,
+      "evidence": {
+        "frameHeight": 44,
+        "verticalPadding": 14,
+        "borderPixels": 2,
+        "available": 28,
+        "needed": 28,
+        "spare": 0,
+        "claim": "Declared box arithmetic only"
+      }
+    },
+    {
+      "name": "max: declared crop contains every flame alpha pixel and excludes the embedded word",
+      "passed": true,
+      "evidence": {
+        "width": 38,
+        "height": 49,
+        "scale": 0.18359375,
+        "backgroundPixels": 94,
+        "offsetY": -16,
+        "flame": [
+          0.82421875,
+          0.70703125,
+          36.07421875,
+          48.44140625
+        ],
+        "embeddedWord": [
+          0.640625,
+          53.21484375,
+          37.54296875,
+          61.109375
+        ],
+        "claim": "Mapped source alpha bounds under declared CSS transform; not rendered pixels"
+      }
+    },
+    {
+      "name": "max: declared frame has sufficient vertical content budget",
+      "passed": true,
+      "evidence": {
+        "frameHeight": 84,
+        "verticalPadding": 14,
+        "borderPixels": 2,
+        "available": 68,
+        "needed": 68,
+        "spare": 0,
+        "claim": "Declared box arithmetic only"
+      }
+    },
+    {
+      "name": "Mini reserves one enlarged grip lane without changing the 68px intrinsic owner",
+      "passed": true,
+      "evidence": {
+        "miniIntrinsicHeight": 68,
+        "grip": [
+          6,
+          8,
+          64,
+          52
+        ],
+        "textStartsAt": 74,
+        "separation": 4
+      }
+    },
+    {
+      "name": "Midi remains horizontal and Max uses a matched vertical 84px grip/grid track",
+      "passed": true,
+      "evidence": {
+        "midiDeclaredFrame": [
+          140,
+          44
+        ],
+        "maxDeclaredFrame": [
+          154,
+          84
+        ],
+        "maxGridTrack": 84
+      }
+    },
+    {
+      "name": "Keyboard-compact visibility and its58px host remain owned by the original layout controller",
+      "passed": true,
+      "evidence": {
+        "brandingOwnsOuterDisplay": false,
+        "maxTrackExcludesKeyboardCompact": true,
+        "existingCompactHostHeight": 58,
+        "claim": "Source cascade-ownership guard; native keyboard viewport remains separate"
+      }
+    },
+    {
+      "name": "One visible wordmark owner is defined without restoring the crowded Midi header",
+      "passed": true,
+      "evidence": {
+        "oneWordmarkDeclaration": true,
+        "maxLegacyTextSuppressed": true,
+        "midiHeaderNotReactivated": true
+      }
+    },
+    {
+      "name": "Decoration cannot capture pointer input or replace the accessible drag control",
+      "passed": true,
+      "evidence": {
+        "originalAriaHiddenDecoration": true,
+        "originalGripLabel": true,
+        "inputOwnerUnchanged": true
+      }
+    },
+    {
+      "name": "Branding CSS is scoped to the existing dock and adds no behavioral or global visibility owner",
+      "passed": true,
+      "evidence": {
+        "scope": "Existing r920 dock only",
+        "assetReferences": [
+          "../assets/branding/sukun-frameless-logo-r1029.png"
+        ],
+        "newBehavioralOwners": 0
+      }
+    },
+    {
+      "name": "index.html: r588-single-owner-dock-runtime stays byte-identical to reviewed r1108",
+      "passed": true,
+      "evidence": {
+        "baselineBuild": "r1108",
+        "sha256": "53fba609b35b518d85accbfa0a3e6a61c1871da389633f55d8a85df6428ba04b"
+      }
+    },
+    {
+      "name": "index.html: r633-flow-dock-placement-runtime stays byte-identical to reviewed r1108",
+      "passed": true,
+      "evidence": {
+        "baselineBuild": "r1108",
+        "sha256": "b77910fc55acafe77a0b8badefa639c9bb77e76128d86768d1f8a96346bd8675"
+      }
+    },
+    {
+      "name": "index.html: r698-ui-integration-runtime stays byte-identical to reviewed r1108",
+      "passed": true,
+      "evidence": {
+        "baselineBuild": "r1108",
+        "sha256": "c6ca01aa6b2038c82726cc8f473e1b87f4dd7cdc86b800c18ce23ed3d7df2d41"
+      }
+    },
+    {
+      "name": "index.html: one mandatory stylesheet loads before the prior dock/material layer owners",
+      "passed": true,
+      "evidence": {
+        "oneLink": true,
+        "build": "r1109",
+        "sriMatchesActualBytes": true,
+        "importantLayerOrderPreserved": true
+      }
+    },
+    {
+      "name": "nero.html: r588-single-owner-dock-runtime stays byte-identical to reviewed r1108",
+      "passed": true,
+      "evidence": {
+        "baselineBuild": "r1108",
+        "sha256": "53fba609b35b518d85accbfa0a3e6a61c1871da389633f55d8a85df6428ba04b"
+      }
+    },
+    {
+      "name": "nero.html: r633-flow-dock-placement-runtime stays byte-identical to reviewed r1108",
+      "passed": true,
+      "evidence": {
+        "baselineBuild": "r1108",
+        "sha256": "b77910fc55acafe77a0b8badefa639c9bb77e76128d86768d1f8a96346bd8675"
+      }
+    },
+    {
+      "name": "nero.html: r698-ui-integration-runtime stays byte-identical to reviewed r1108",
+      "passed": true,
+      "evidence": {
+        "baselineBuild": "r1108",
+        "sha256": "c6ca01aa6b2038c82726cc8f473e1b87f4dd7cdc86b800c18ce23ed3d7df2d41"
+      }
+    },
+    {
+      "name": "nero.html: one mandatory stylesheet loads before the prior dock/material layer owners",
+      "passed": true,
+      "evidence": {
+        "oneLink": true,
+        "build": "r1109",
+        "sriMatchesActualBytes": true,
+        "importantLayerOrderPreserved": true
+      }
+    },
+    {
+      "name": "Mirrored shells and external transport/volume presentation runtime remain unchanged",
+      "passed": true,
+      "evidence": {
+        "mirrored": true,
+        "dockRuntimeBaseline": "r1108"
+      }
+    },
+    {
+      "name": "Health checker admits only the exact new CSS path, not neighboring or nested names",
+      "passed": true,
+      "evidence": {
+        "exactApprovedPath": "./css/player-branding-r1109.css",
+        "neighborPathsAdmitted": 0,
+        "claim": "Exact allowlist/source guards; full health fetch/hash suite remains separate"
+      }
+    },
+    {
+      "name": "Build marker and service worker require the same exact stylesheet hash",
+      "passed": true,
+      "evidence": {
+        "build": "r1109",
+        "stylesheetSha256": "488223c600fc224b1aa726f8a08f7216eff92118ac57e68a30e7900667a719f8",
+        "markerAndWorkerRequired": true
+      }
+    }
+  ]
+}
