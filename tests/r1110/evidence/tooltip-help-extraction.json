@@ -1,0 +1,74 @@
+{
+  "suite": "r1110 tooltip-help extraction",
+  "build": "r1110",
+  "phase": "finalized",
+  "method": "Frozen r1109 inline-body SHA-256 baseline versus extracted bytes, exact stylesheet ID/cascade anchors, public URL alias equality, and finalized SRI/runtime/inventory metadata. No browser rendering or audio playback claim.",
+  "browserExecuted": false,
+  "limitations": [
+    "Static byte and dependency checks do not establish native CSS loading timing, visible layout, focus interaction or offline startup behavior."
+  ],
+  "sourceFiles": {
+    "index.html": {
+      "bytes": 7423494,
+      "sha256": "f9829c6adfa07facb52475728bc0a168b476a7f76b18a12008a5b6f7aaa72d87"
+    },
+    "nero.html": {
+      "bytes": 7423494,
+      "sha256": "f9829c6adfa07facb52475728bc0a168b476a7f76b18a12008a5b6f7aaa72d87"
+    },
+    "css/tooltip-help-r1110.css": {
+      "bytes": 1721,
+      "sha256": "b5f598abc3d9660977742bb285802a691b21587e4c4eaf371af1bd31ece5b4da"
+    }
+  },
+  "finishedAt": "2026-10-18T19:08:52.696Z",
+  "passed": 8,
+  "total": 8,
+  "skipped": 0,
+  "results": [
+    {
+      "name": "Shared help CSS matches the exact frozen r1109 inline body",
+      "passed": true,
+      "evidence": {
+        "bytes": 1721,
+        "sha256": "b5f598abc3d9660977742bb285802a691b21587e4c4eaf371af1bd31ece5b4da"
+      }
+    },
+    {
+      "name": "Existing CSS layer and fixed rules have no asset, import, font or executable dependency",
+      "passed": true
+    },
+    {
+      "name": "Index and nero public aliases remain byte-identical",
+      "passed": true,
+      "evidence": {
+        "bytesEach": 7423494,
+        "sha256": "f9829c6adfa07facb52475728bc0a168b476a7f76b18a12008a5b6f7aaa72d87"
+      }
+    },
+    {
+      "name": "Help stylesheet retains one exact ID and an unchanged CSS source",
+      "passed": true,
+      "evidence": {
+        "phase": "finalized",
+        "external": true
+      }
+    },
+    {
+      "name": "Help CSS keeps direct cascade adjacency between category flow and progress adapter",
+      "passed": true
+    },
+    {
+      "name": "Shared help CSS has a current version URL and exact SRI",
+      "passed": true
+    },
+    {
+      "name": "Build marker and service worker share one exact required help CSS dependency",
+      "passed": true
+    },
+    {
+      "name": "Deployment inventory retains the exact shared help CSS bytes",
+      "passed": true
+    }
+  ]
+}

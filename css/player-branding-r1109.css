@@ -15,7 +15,7 @@ html body.r920-dock #r588DockShell>#r633DockGrip>span:first-child {
  width:140px!important;min-width:0!important;height:44px!important;max-height:none!important;
  gap:8px!important;padding:7px 9px!important;overflow:hidden!important;
  border:1px solid #cdb577!important;border-radius:12px!important;
- border-image:var(--r933-gem-sapphire,none) 310 fill / 7px / 0 stretch!important;
+ border-image:none!important;
  background:#08222f!important;box-shadow:inset 0 0 0 1px #e5c98233!important;
  pointer-events:none!important;
 }
@@ -76,4 +76,13 @@ html body.r920-dock.r588-mode-max #r588DockShell>#r633DockGrip>span:first-child:
  font-size:16px!important;line-height:19px!important;letter-spacing:.12em!important;
 }
 html body.r920-dock.r588-mode-max #r588DockShell .r588Brand {display:none!important}
+/* r1110: paint only in the canonical Berhetiyye/Süleyman foreground.
+ * Use the local asset path explicitly: image URLs in inherited variables
+ * resolve at this consuming stylesheet, not at the palette's directory. */
+html[data-r933-berhet-dock="1"] body.r920-dock #r588DockShell>#r633DockGrip>span:first-child {
+ border:1px solid transparent!important;
+ border-image:url('../assets/berhetiyye-premium/gem-sapphire-r933.webp') 310 fill / 7px / 0 stretch!important;
+ background:#061d60!important;
+ box-shadow:inset 0 0 0 1px #f8d88899,0 1px 5px #0008!important;
+}
 }

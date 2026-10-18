@@ -1,0 +1,24 @@
+
+/* Help controls stay small and passive; native controls retain their layout. */
+@layer sukun-r920-contract {
+html body button.dockTipHelp[data-i18n-owned],
+html body #r920Practice button.dockTipHelp[data-i18n-owned],
+html body #r920Practice #r852VoiceCard button.dockTipHelp[data-i18n-owned]{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ vertical-align:middle!important;flex:0 0 32px!important;width:32px!important;height:32px!important;
+ min-width:32px!important;min-height:32px!important;max-width:32px!important;max-height:32px!important;
+ margin:0 0 0 5px!important;padding:0!important;box-sizing:border-box!important;
+ border:1px solid rgba(210,191,144,.52)!important;border-radius:50%!important;
+ background:rgba(7,25,31,.66)!important;background-image:none!important;
+ color:var(--goldh,#ead49b)!important;font:700 15px/1 system-ui!important;
+ box-shadow:none!important;transform:none!important;cursor:help!important;touch-action:manipulation!important;
+}
+html body button.dockTipHelp[data-i18n-owned]::before,
+html body button.dockTipHelp[data-i18n-owned]::after,
+html body #r920Practice button.dockTipHelp[data-i18n-owned]::before,
+html body #r920Practice button.dockTipHelp[data-i18n-owned]::after{content:none!important;display:none!important;pointer-events:none!important}
+html body button.dockTipHelp[data-i18n-owned]:focus-visible,
+html body #r920Practice button.dockTipHelp[data-i18n-owned]:focus-visible,
+html body #r920Practice #r852VoiceCard button.dockTipHelp[data-i18n-owned]:focus-visible{outline:2px solid var(--goldh,#ead49b)!important;outline-offset:2px!important}
+html body #dockTip{pointer-events:none!important;touch-action:auto!important}
+}
