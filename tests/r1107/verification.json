@@ -1,0 +1,63 @@
+{
+  "build": "r1107",
+  "parentCommit": "392c77bf2bb4da6601a6fed4ec3b4a8bc41d05be",
+  "sourceSha256": {
+    "index.html": "6d89f80b09b83c3e8df7e4974c632757bd93578b2f235c9ac03cb99b2436f139",
+    "nero.html": "6d89f80b09b83c3e8df7e4974c632757bd93578b2f235c9ac03cb99b2436f139",
+    "css/ambience-readable-r1104.css": "200f0cdb827dbfb48e7a22e2ae01bbbbe954482faff85d8d288f4f71a0a306e2",
+    "assets/runtime/generic-recordings-r1055.js": "f3b3f3a90ab5451d9b50a227b6a619b4cd9592f4a8e45cd4648b8a6aaed45c89",
+    "assets/runtime/health-view-r943.js": "bc756fa70ff9d9173d36b8c590da79da9141fa9ea35a8bfc9fc8f3e062ea4f9f",
+    "assets/runtime/storage-snapshot-r1107.js": "125fb6075cbf9de7c617e7cde6e204dc9d519e82f755c0367994df56183c9fdf",
+    "assets/runtime/storage-snapshot-ui-r1107.js": "bfc5c97505fde90dbec9d101fd7ac7e768d9f442e6e414f233305a2bb28185d4",
+    "assets/runtime/storage-snapshot-r1107.css": "e1222f0524734b2e07abf35700fb26e048926498ac11cb54dcdc4b7be43f6029",
+    "sw.js": "1f67950d4695023badf520bfc348aa687230419b5bc7e1300e91986d4d8ac165",
+    "sukun-build-r1107.json": "4f2d6745fb4e727066f506d74e2593840d4dc4fb6c00829f07bc9b4516de8594",
+    "sukun-site-assets-r1107.json": "60817cbd2cd518bc4b1fe208946a070eb950432aee1151be5dee0f594498a9d4"
+  },
+  "reportSha256": {
+    "ambience-layout-regression.json": "44ecb54f9410b79c1bb966575e0ab4e5496007a10638c615994ed830968a31db",
+    "presets-disclosure.json": "ba66d8119d2c95f18f80f202c6d44fb4de6b5dda50751f8661d5b2af1af37c03",
+    "regressions.json": "2ee8f153c750811121c71ae1d382adee5a83ced7e5461a4e0ebc2c834a407e51",
+    "release-integrity.json": "f44259823e4c24bfa890e0bdfcdb1051536b52911b091dd10859274a303eeb79",
+    "storage-snapshot-ui.json": "a00b748805ee468842cece29cb24b76263143e60ecbef12807eceed598a5b1d3",
+    "storage-snapshot.json": "376dfd79da8e976ad1e26e6e8924ec4db03734516b70beeb81e29ae55b1de1ff"
+  },
+  "tests": {
+    "genericNodeGroups": {
+      "passed": 176,
+      "total": 176
+    },
+    "presetsDisclosure": {
+      "passed": 30,
+      "total": 30
+    },
+    "storageMetadata": {
+      "passed": 30,
+      "total": 30
+    },
+    "storageUI": {
+      "passed": 27,
+      "total": 27
+    },
+    "previousMicLifecycle": {
+      "passed": 20,
+      "total": 20
+    },
+    "releaseIntegrity": {
+      "passed": 1483,
+      "total": 1483
+    }
+  },
+  "package": {
+    "zipFiles": 758,
+    "zipBytes": 292686405,
+    "zipSha256": "1f1326adae55ecbc2e1fca0ab706086cbb77a72b2e2118ad7fae7f7f5ab7e433"
+  },
+  "validationScope": "Pre-publication controlled Node/DOM/IDB fixtures and exact deployment bytes.",
+  "cloudBrowserAcceptance": "PENDING_POST_DEPLOYMENT",
+  "limitations": [
+    "No pre-publication native browser or physical Android/microphone/audible-output suite.",
+    "Controlled DOM and IndexedDB fixtures verify production control flow, metadata observation and declared contrast; native UI is checked separately after Pages publication."
+  ],
+  "verifiedAt": "2026-10-18T17:39:09.323579+00:00"
+}

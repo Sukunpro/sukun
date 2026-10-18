@@ -58,21 +58,40 @@ html body #hybridSheet :is(.hybridBox label,.hybridStatus,.hybridHint,.hybridMet
 html body #tab-amb #mixer>#r1029MicCard {
  margin:0 0 12px!important;
 }
-/* The frequency presets heading is a standalone label over the scene. */
-html body #tab-frq>#r1106PresetsTitle {
+/* r1107: native outer disclosure contains every preset filter and category. */
+html body #tab-frq>#r1107PresetsBox {
+ margin:12px 0!important;padding:0!important;
+ background:transparent!important;border:0!important;box-shadow:none!important;
+}
+html body #tab-frq>#r1107PresetsBox>summary {
  background:rgba(5,22,32,.94)!important;
+ color:#fff1d5!important;min-height:44px!important;box-sizing:border-box;
+ padding:8px 36px 8px 10px!important;border-radius:10px!important;
+ cursor:pointer;list-style:none!important;
+}
+html body #tab-frq #r1106PresetsTitle {
  color:#fff1d5!important;-webkit-text-fill-color:currentColor!important;
- opacity:1!important;text-shadow:none!important;
- padding:8px 10px!important;border-radius:10px!important;
+ opacity:1!important;text-shadow:none!important;margin:0!important;
+}
+html body #tab-frq #r1106PresetsTitle::after {content:none!important;}
+html body #tab-frq>#r1107PresetsBox>summary:focus-visible {
+ outline:2px solid #fff1d5!important;outline-offset:3px!important;
+}
+html body #r1107PresetsBox>#presets {margin-top:10px!important;}
+/* Hidden parents must not leave an expanded category clipped to a 2px measure.
+ * Closing a category still uses its owner's existing zero-height rule. */
+html body #r1107PresetsBox #presets .preAcc.open>.preAccBody {
+ max-height:none!important;height:auto!important;
 }
 @media(prefers-reduced-transparency:reduce) {
- html body #tab-frq>#r1106PresetsTitle {background:#071725!important;}
+ html body #tab-frq>#r1107PresetsBox>summary {background:#071725!important;}
  html body #tab-amb :is(#hybridLaunch,.r916EmptySounds,.hint,.pD,[role="status"]) {
   background:#071725!important;
  }
 }
 @media(forced-colors:active) {
- html body #tab-frq>#r1106PresetsTitle {
+ html body #tab-frq>#r1107PresetsBox>summary,
+ html body #tab-frq #r1106PresetsTitle {
   background:Canvas!important;color:CanvasText!important;
   -webkit-text-fill-color:currentColor!important;
  }

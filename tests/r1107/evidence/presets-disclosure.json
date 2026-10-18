@@ -1,0 +1,341 @@
+{
+  "suite": "r1107 native presets disclosure source regression",
+  "sourceBuild": "r1107",
+  "method": "Node VM executes the shipped disclosure controller, original r544 startup closer, preset renderer and category/filter delegates, own-set renderer wrapper and help delegate. Controlled DOM models queued/coalesced toggle delivery, storage exceptions, nesting, destructive innerHTML and zero scrollHeight below closed details.",
+  "limitations": [
+    "No browser engine, computed CSS, geometry, screenshots, real native keyboard/default summary activation, pointer events, screen-reader behavior or audible output was exercised.",
+    "The fixture reproduces a zero-height hidden parent and verifies the source CSS remedy; it does not claim a rendered cascade result.",
+    "Toggle interaction is applied as DOM state changes, not a test of the browser native details implementation."
+  ],
+  "browserExecuted": false,
+  "scriptSha256": "d0542693e744645cf2f48a2b057c4017fa06aee765a50c680a90606085cc7df5",
+  "sourceFiles": {
+    "index.html": {
+      "sha256": "6d89f80b09b83c3e8df7e4974c632757bd93578b2f235c9ac03cb99b2436f139",
+      "bytes": 7415839
+    },
+    "nero.html": {
+      "sha256": "6d89f80b09b83c3e8df7e4974c632757bd93578b2f235c9ac03cb99b2436f139",
+      "bytes": 7415839
+    },
+    "css/ambience-readable-r1104.css": {
+      "sha256": "200f0cdb827dbfb48e7a22e2ae01bbbbe954482faff85d8d288f4f71a0a306e2",
+      "bytes": 4855
+    }
+  },
+  "finishedAt": "2026-10-18T17:37:08.808Z",
+  "passed": 30,
+  "total": 30,
+  "results": [
+    {
+      "name": "index.html: native outer disclosure owns the original presets host and heading",
+      "passed": true,
+      "evidence": {
+        "outerId": "r1107PresetsBox",
+        "presetHostRetained": "presets",
+        "summaryOutsidePresetAudioCapture": true
+      }
+    },
+    {
+      "name": "index.html: preference null restores without initialization writes",
+      "passed": true,
+      "evidence": {
+        "stored": null,
+        "open": true,
+        "initialWrites": 0
+      }
+    },
+    {
+      "name": "index.html: preference open restores without initialization writes",
+      "passed": true,
+      "evidence": {
+        "stored": "open",
+        "open": true,
+        "initialWrites": 0
+      }
+    },
+    {
+      "name": "index.html: preference closed restores without initialization writes",
+      "passed": true,
+      "evidence": {
+        "stored": "closed",
+        "open": false,
+        "initialWrites": 0
+      }
+    },
+    {
+      "name": "index.html: preference invalid restores without initialization writes",
+      "passed": true,
+      "evidence": {
+        "stored": "invalid",
+        "open": true,
+        "initialWrites": 0
+      }
+    },
+    {
+      "name": "index.html: immediate and delayed startup closer preserve this independently remembered disclosure",
+      "passed": true,
+      "evidence": {
+        "startupPhases": [
+          "DOMContentLoaded-or-ready",
+          "1200ms"
+        ],
+        "ordinaryDetailsClosed": true,
+        "presetsPreferenceUnaffected": true
+      }
+    },
+    {
+      "name": "index.html: actual toggle persists once, repeated and coalesced events do not duplicate writes",
+      "passed": true,
+      "evidence": {
+        "writes": [
+          [
+            "sukun.ui.frequencyPresetsOpen.r1107",
+            "closed"
+          ],
+          [
+            "sukun.ui.frequencyPresetsOpen.r1107",
+            "open"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "index.html: denied storage reads or writes cannot prevent disclosure state changes",
+      "passed": true,
+      "evidence": {
+        "readFailure": true,
+        "writeFailure": true,
+        "exceptionEscaped": false
+      }
+    },
+    {
+      "name": "index.html: nested category/filter preferences and renderer ownership survive outer toggles",
+      "passed": true,
+      "evidence": {
+        "outerToggleCount": 10,
+        "filterRerenderWhileClosed": true,
+        "hostIdentityRetained": true,
+        "filterPreference": "odak",
+        "onlyExpectedFilterWrite": [
+          [
+            "sukun.prefilter",
+            "odak"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "index.html: changed nested category choices survive filtering and a closed-parent rebuild",
+      "passed": true,
+      "evidence": {
+        "categoryPreference": [
+          "odak"
+        ],
+        "restoredAfterFilterRoundTrip": true,
+        "ownSetRestored": true,
+        "onlyExpectedCategoryFilterWrites": 4
+      }
+    },
+    {
+      "name": "index.html: summary/help/toggle/startup never invokes a frequency or audio action",
+      "passed": true,
+      "evidence": {
+        "audioCalls": 0,
+        "frequencyStateUnchanged": true
+      }
+    },
+    {
+      "name": "index.html: shipped help delegation consumes the real button click without altering disclosure",
+      "passed": true,
+      "evidence": {
+        "nativeButtonMarkup": true,
+        "preventDefault": true,
+        "helpCalledOnce": true,
+        "outerStateUnchanged": true
+      }
+    },
+    {
+      "name": "index.html: hidden-parent measurement is reproduced without claiming rendered layout",
+      "passed": true,
+      "evidence": {
+        "controlledHiddenScrollHeight": 0,
+        "oldInlineMaxHeight": "2px",
+        "cssOverrideCheckedSeparately": true
+      }
+    },
+    {
+      "name": "index.html: help accessibility label has an English dictionary entry",
+      "passed": true,
+      "evidence": {
+        "englishLabel": "Preset help",
+        "claim": "Declared locale mapping only"
+      }
+    },
+    {
+      "name": "nero.html: native outer disclosure owns the original presets host and heading",
+      "passed": true,
+      "evidence": {
+        "outerId": "r1107PresetsBox",
+        "presetHostRetained": "presets",
+        "summaryOutsidePresetAudioCapture": true
+      }
+    },
+    {
+      "name": "nero.html: preference null restores without initialization writes",
+      "passed": true,
+      "evidence": {
+        "stored": null,
+        "open": true,
+        "initialWrites": 0
+      }
+    },
+    {
+      "name": "nero.html: preference open restores without initialization writes",
+      "passed": true,
+      "evidence": {
+        "stored": "open",
+        "open": true,
+        "initialWrites": 0
+      }
+    },
+    {
+      "name": "nero.html: preference closed restores without initialization writes",
+      "passed": true,
+      "evidence": {
+        "stored": "closed",
+        "open": false,
+        "initialWrites": 0
+      }
+    },
+    {
+      "name": "nero.html: preference invalid restores without initialization writes",
+      "passed": true,
+      "evidence": {
+        "stored": "invalid",
+        "open": true,
+        "initialWrites": 0
+      }
+    },
+    {
+      "name": "nero.html: immediate and delayed startup closer preserve this independently remembered disclosure",
+      "passed": true,
+      "evidence": {
+        "startupPhases": [
+          "DOMContentLoaded-or-ready",
+          "1200ms"
+        ],
+        "ordinaryDetailsClosed": true,
+        "presetsPreferenceUnaffected": true
+      }
+    },
+    {
+      "name": "nero.html: actual toggle persists once, repeated and coalesced events do not duplicate writes",
+      "passed": true,
+      "evidence": {
+        "writes": [
+          [
+            "sukun.ui.frequencyPresetsOpen.r1107",
+            "closed"
+          ],
+          [
+            "sukun.ui.frequencyPresetsOpen.r1107",
+            "open"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "nero.html: denied storage reads or writes cannot prevent disclosure state changes",
+      "passed": true,
+      "evidence": {
+        "readFailure": true,
+        "writeFailure": true,
+        "exceptionEscaped": false
+      }
+    },
+    {
+      "name": "nero.html: nested category/filter preferences and renderer ownership survive outer toggles",
+      "passed": true,
+      "evidence": {
+        "outerToggleCount": 10,
+        "filterRerenderWhileClosed": true,
+        "hostIdentityRetained": true,
+        "filterPreference": "odak",
+        "onlyExpectedFilterWrite": [
+          [
+            "sukun.prefilter",
+            "odak"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "nero.html: changed nested category choices survive filtering and a closed-parent rebuild",
+      "passed": true,
+      "evidence": {
+        "categoryPreference": [
+          "odak"
+        ],
+        "restoredAfterFilterRoundTrip": true,
+        "ownSetRestored": true,
+        "onlyExpectedCategoryFilterWrites": 4
+      }
+    },
+    {
+      "name": "nero.html: summary/help/toggle/startup never invokes a frequency or audio action",
+      "passed": true,
+      "evidence": {
+        "audioCalls": 0,
+        "frequencyStateUnchanged": true
+      }
+    },
+    {
+      "name": "nero.html: shipped help delegation consumes the real button click without altering disclosure",
+      "passed": true,
+      "evidence": {
+        "nativeButtonMarkup": true,
+        "preventDefault": true,
+        "helpCalledOnce": true,
+        "outerStateUnchanged": true
+      }
+    },
+    {
+      "name": "nero.html: hidden-parent measurement is reproduced without claiming rendered layout",
+      "passed": true,
+      "evidence": {
+        "controlledHiddenScrollHeight": 0,
+        "oldInlineMaxHeight": "2px",
+        "cssOverrideCheckedSeparately": true
+      }
+    },
+    {
+      "name": "nero.html: help accessibility label has an English dictionary entry",
+      "passed": true,
+      "evidence": {
+        "englishLabel": "Preset help",
+        "claim": "Declared locale mapping only"
+      }
+    },
+    {
+      "name": "Opened nested categories override stale inline height without revealing closed outer details",
+      "passed": true,
+      "evidence": {
+        "openCategoryMaxHeight": "none !important",
+        "openCategoryHeight": "auto !important",
+        "outerHiddenStateNotOverridden": true
+      }
+    },
+    {
+      "name": "Disclosure has visible focus, readable title, existing arrow and color fallbacks",
+      "passed": true,
+      "evidence": {
+        "focusDeclaration": true,
+        "oneExistingSummaryArrow": true,
+        "forcedColors": true,
+        "reducedTransparency": true,
+        "claim": "Source declarations only"
+      }
+    }
+  ]
+}
