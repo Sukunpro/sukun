@@ -1,0 +1,1096 @@
+{
+  "sourceRoot": "/workspace/scratch/0ed53697150f/sukun",
+  "mode": "regressions",
+  "groups": 172,
+  "passedGroups": 172,
+  "excluded": {
+    "tests/r1105/studio-waveform-browser.cjs": "Separate native long Studio waveform, memory fallback and unchanged recording source suite; requires Chromium.",
+    "tests/r1092/preflight-ui.cjs": "Separate native browser preflight presentation and selection suite; requires Chromium.",
+    "tests/r1061/active-layers.cjs": "Separate native active audio layers browser suite; requires Chromium.",
+    "tests/r1059/renderer.cjs": "Separate native PCM background mix renderer browser suite; requires Chromium.",
+    "tests/r1102/ambience-compact-browser.cjs": "Separate native compact ambience geometry, info dialogs and channel controls browser suite.",
+    "tests/r1101/frequency-hub-browser.cjs": "Separate native unified frequency tools, actual synthesis, shared pause and speech ownership browser suite.",
+    "tests/r1101/section-controls-browser.cjs": "Separate native Berhetiyye materials, family switch and foreground-owner browser suite.",
+    "tests/r1101/native-repeat-settings-browser.cjs": "Separate trusted returning-user journey28 repeat preference browser regression.",
+    "tests/r1101/native-repeat-esma-settings-browser.cjs": "Separate trusted returning-user journey99 repeat preference browser regression.",
+    "tests/r1098/recording-onset-browser.cjs": "Separate full-application native Chromium recording onset, pooled repeat and quiet-phoneme retention suite.",
+    "tests/r1097/studio-webm-browser.cjs": "Executed separately against frozen r1097 with shipped WebM originals in native Chromium.",
+    "tests/r1096/studio-browser.cjs": "Executed separately against frozen r1096 full application in native Chromium.",
+    "tests/r1086/tts-name-browser.cjs": "Separate full-app TTS name-vocative and native recording-priority suite; run directly after source freeze.",
+    "tests/r1085/berhet-session-browser.cjs": "Separate native Berhetiyye 28-step intention, audible-onset, rhythm and cadence suite; run directly after source freeze.",
+    "tests/r1079/protective-plan-playing-browser.cjs": "Separate native ongoing protective audio and accordion presentation suite; run directly after source freeze.",
+    "tests/r1079/protective-plan-accordion-browser.cjs": "Separate native protective-plan accordion and contemplation presentation suite; run directly after source freeze.",
+    "tests/r1078/manual-reading-loop-browser.cjs": "Separate native manual reader/wheel stop and finite/unlimited loop suite; run directly after source freeze.",
+    "tests/r1078/protective-plan-browser.cjs": "Separate native protective-plan entry, validation, language and interaction suite; run directly after source freeze.",
+    "tests/r1078/protective-smart-progress-browser.cjs": "Separate native protective-plan progress and wheel transport suite; run directly after source freeze.",
+    "tests/r1077/browser-contrast.cjs": "Separate production CSS/native Chromium contrast and accessibility suite; run directly after source freeze.",
+    "tests/r1077/protective-native-metadata-browser.cjs": "Separate shipped protective audio and delayed metadata native browser suite; run directly after source freeze.",
+    "tests/r1076/protective-original-browser.cjs": "Separate native protective original-recording lifecycle and complete-loop browser suite; run directly after source freeze.",
+    "tests/r1075/reading-summary-browser.cjs": "Separate native compact reading-strip materials, contemplation and control-visibility browser suite; run directly after source freeze.",
+    "tests/r1074/ambience-local-browser.cjs": "Separate native selected-theme local-pause and actual ambience browser suite; run directly after source freeze.",
+    "tests/r1074/selection-theme-browser.cjs": "Separate native selected-theme and global-hold browser suite; run after source freeze.",
+    "tests/r1072/retired-single-pause-browser.cjs": "Separate actual Chromium captured-single Pause/Next/Start regression; run directly with an explicit evidence output.",
+    "tests/r1071/atlas-ui.cjs": "Separate actual Chromium Atlas frame/interaction suite; run directly with source baseline|candidate and explicit evidence output.",
+    "tests/r1070/classic-feyz-smoke.cjs": "Separate actual mobile Chromium/native touch smoke; run directly in both Classic/Feyz viewport profiles.",
+    "tests/r1070/session-transition-matrix.cjs": "Separate actual Chromium cross-mode/native media matrix; run directly with SUKUN_MATRIX_EXPECT_HANDOFF=1.",
+    "tests/r1069/native-transition-browser.cjs": "Separate actual native audio integration; run directly with Chromium and known generated WAVs.",
+    "tests/r1068/yasin-picker-browser.cjs": "Separate native picker integration; run directly with native CDP gestures.",
+    "tests/r1067/yasin-follow-browser.cjs": "Separate actual mobile browser integration; run directly with native CDP gestures.",
+    "tests/r1067/scroll-audit.cjs": "Separate actual mobile browser integration; run directly with native CDP gestures.",
+    "tests/r1067/scroll-races.cjs": "Separate actual mobile browser integration; run directly with native CDP gestures.",
+    "tests/r1017/recording_inspection_contract.cjs": "Archived r1017 reader; r1027 active/history reader contracts cover the shipped r1020 API.",
+    "tests/r1017/health_inspection_contract.cjs": "Archived reader path and whole-object schema; current health UI/continuity and intro diagnostic contracts remain.",
+    "tests/r1021/release-integrity.cjs": "Historical hardcoded r1021 manifest; current r1027 release-integrity is selected separately.",
+    "tests/r1027/startup-intro.cjs": "Superseded oscillator intro graph; shipped WAV contracts begin in r1037.",
+    "tests/r1031/startup-intro-async.cjs": "Superseded oscillator intro graph.",
+    "tests/r1032/startup-intro-readiness.cjs": "Superseded oscillator intro graph.",
+    "tests/r1033/startup-intro-diagnostics.cjs": "Superseded oscillator intro graph.",
+    "tests/r1035/startup-intro-fresh-clock.cjs": "Superseded oscillator intro graph.",
+    "tests/r1036/startup-intro-timbre.cjs": "Superseded oscillator intro graph.",
+    "tests/r1036/measure-waveform.cjs": "Historical oscillator measurement, not a current WAV regression.",
+    "tests/r1021/persistence-browser.cjs": "Separate real-browser test; not a Node source fixture.",
+    "tests/r1066/mobile-navigation.cjs": "Separate native mobile gesture browser test; executed directly with CDP touch delivery.",
+    "tests/r1066/diagnostics-tempo-browser.cjs": "Separate actual-browser diagnostics overflow and native tempo gesture test; executed directly.",
+    "tests/r1065/full-app-bundled.cjs": "Separate real complete-app browser test; executed directly with native MP3 playback and exact source hashes.",
+    "tests/r1065/offline-bundled.cjs": "Separate real service-worker offline browser test; executed directly.",
+    "tests/r1065/offline-playback.cjs": "Separate real service-worker offline playback test; executed directly with a new JS world.",
+    "tests/r1027/recovery-browser.cjs": "Separate real-browser test; not a Node source fixture."
+  },
+  "fullExportGroup": "tests/r1027/full-release-export.cjs",
+  "scope": "Controlled production-source fixtures. No physical Android lock, audible-output or real-user storage claim.",
+  "results": [
+    {
+      "script": "tests/interaction_gate_lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.152,
+      "outputFile": "tests_interaction_gate_lifecycle.cjs.txt"
+    },
+    {
+      "script": "tests/owner-stop-storage.cjs",
+      "exitCode": 0,
+      "seconds": 0.144,
+      "outputFile": "tests_owner-stop-storage.cjs.txt"
+    },
+    {
+      "script": "tests/prayer_recording_faults.cjs",
+      "exitCode": 0,
+      "seconds": 6.3,
+      "outputFile": "tests_prayer_recording_faults.cjs.txt"
+    },
+    {
+      "script": "tests/r1016/recording_continuity_contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.417,
+      "outputFile": "tests_r1016_recording_continuity_contract.cjs.txt"
+    },
+    {
+      "script": "tests/r1016/recording_continuity_health.cjs",
+      "exitCode": 0,
+      "seconds": 0.481,
+      "outputFile": "tests_r1016_recording_continuity_health.cjs.txt"
+    },
+    {
+      "script": "tests/r1016/recovered/health_ui_audit.cjs",
+      "exitCode": 0,
+      "seconds": 1.294,
+      "outputFile": "tests_r1016_recovered_health_ui_audit.cjs.txt"
+    },
+    {
+      "script": "tests/r1016/update_receipt_integration.cjs",
+      "exitCode": 0,
+      "seconds": 0.256,
+      "outputFile": "tests_r1016_update_receipt_integration.cjs.txt"
+    },
+    {
+      "script": "tests/r1017/ui_recording_inspection_contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.398,
+      "outputFile": "tests_r1017_ui_recording_inspection_contract.cjs.txt"
+    },
+    {
+      "script": "tests/r1021/import-maintenance.cjs",
+      "exitCode": 0,
+      "seconds": 0.377,
+      "outputFile": "tests_r1021_import-maintenance.cjs.txt"
+    },
+    {
+      "script": "tests/r1021/persistence-model.cjs",
+      "exitCode": 0,
+      "seconds": 0.297,
+      "outputFile": "tests_r1021_persistence-model.cjs.txt"
+    },
+    {
+      "script": "tests/r1027/full-release-export.cjs",
+      "exitCode": 0,
+      "seconds": 14.646,
+      "outputFile": "tests_r1027_full-release-export.cjs.txt"
+    },
+    {
+      "script": "tests/r1027/locale.cjs",
+      "exitCode": 0,
+      "seconds": 0.157,
+      "outputFile": "tests_r1027_locale.cjs.txt"
+    },
+    {
+      "script": "tests/r1027/recording-inspection-active.cjs",
+      "exitCode": 0,
+      "seconds": 0.165,
+      "outputFile": "tests_r1027_recording-inspection-active.cjs.txt"
+    },
+    {
+      "script": "tests/r1027/recording-inspection-history.cjs",
+      "exitCode": 0,
+      "seconds": 0.129,
+      "outputFile": "tests_r1027_recording-inspection-history.cjs.txt"
+    },
+    {
+      "script": "tests/r1027/recovery-entry.cjs",
+      "exitCode": 0,
+      "seconds": 0.129,
+      "outputFile": "tests_r1027_recovery-entry.cjs.txt"
+    },
+    {
+      "script": "tests/r1027/recovery-regression.cjs",
+      "exitCode": 0,
+      "seconds": 0.256,
+      "outputFile": "tests_r1027_recovery-regression.cjs.txt"
+    },
+    {
+      "script": "tests/r1027/site-backup-regression.cjs",
+      "exitCode": 0,
+      "seconds": 0.511,
+      "outputFile": "tests_r1027_site-backup-regression.cjs.txt"
+    },
+    {
+      "script": "tests/r1028/css-grammar-repairs.cjs",
+      "exitCode": 0,
+      "seconds": 0.444,
+      "outputFile": "tests_r1028_css-grammar-repairs.cjs.txt"
+    },
+    {
+      "script": "tests/r1028/layout-stability-contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.159,
+      "outputFile": "tests_r1028_layout-stability-contract.cjs.txt"
+    },
+    {
+      "script": "tests/r1028/media-artwork.cjs",
+      "exitCode": 0,
+      "seconds": 0.108,
+      "outputFile": "tests_r1028_media-artwork.cjs.txt"
+    },
+    {
+      "script": "tests/r1029/cinematic-containment-regression.cjs",
+      "exitCode": 0,
+      "seconds": 0.17,
+      "outputFile": "tests_r1029_cinematic-containment-regression.cjs.txt"
+    },
+    {
+      "script": "tests/r1029/recovery-deliberate.cjs",
+      "exitCode": 0,
+      "seconds": 0.247,
+      "outputFile": "tests_r1029_recovery-deliberate.cjs.txt"
+    },
+    {
+      "script": "tests/r1029/transparent-intro.cjs",
+      "exitCode": 0,
+      "seconds": 0.157,
+      "outputFile": "tests_r1029_transparent-intro.cjs.txt"
+    },
+    {
+      "script": "tests/r1029/ui-surface-contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.198,
+      "outputFile": "tests_r1029_ui-surface-contract.cjs.txt"
+    },
+    {
+      "script": "tests/r1030/shell-recovery-visibility.cjs",
+      "exitCode": 0,
+      "seconds": 0.253,
+      "outputFile": "tests_r1030_shell-recovery-visibility.cjs.txt"
+    },
+    {
+      "script": "tests/r1030/visible-volume-labels.cjs",
+      "exitCode": 0,
+      "seconds": 0.222,
+      "outputFile": "tests_r1030_visible-volume-labels.cjs.txt"
+    },
+    {
+      "script": "tests/r1031/cabir-background-cache.cjs",
+      "exitCode": 0,
+      "seconds": 0.114,
+      "outputFile": "tests_r1031_cabir-background-cache.cjs.txt"
+    },
+    {
+      "script": "tests/r1031/mini-player-logo.cjs",
+      "exitCode": 0,
+      "seconds": 0.155,
+      "outputFile": "tests_r1031_mini-player-logo.cjs.txt"
+    },
+    {
+      "script": "tests/r1031/personal-centre-glass.cjs",
+      "exitCode": 0,
+      "seconds": 0.138,
+      "outputFile": "tests_r1031_personal-centre-glass.cjs.txt"
+    },
+    {
+      "script": "tests/r1034/intro-health-diagnostic.cjs",
+      "exitCode": 0,
+      "seconds": 0.167,
+      "outputFile": "tests_r1034_intro-health-diagnostic.cjs.txt"
+    },
+    {
+      "script": "tests/r1037/intro-asset-cache.cjs",
+      "exitCode": 0,
+      "seconds": 0.123,
+      "outputFile": "tests_r1037_intro-asset-cache.cjs.txt"
+    },
+    {
+      "script": "tests/r1037/intro-audio-lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.452,
+      "outputFile": "tests_r1037_intro-audio-lifecycle.cjs.txt"
+    },
+    {
+      "script": "tests/r1037/intro-visual-diagnostics.cjs",
+      "exitCode": 0,
+      "seconds": 0.178,
+      "outputFile": "tests_r1037_intro-visual-diagnostics.cjs.txt"
+    },
+    {
+      "script": "tests/r1037/intro-waveform.cjs",
+      "exitCode": 0,
+      "seconds": 0.098,
+      "outputFile": "tests_r1037_intro-waveform.cjs.txt"
+    },
+    {
+      "script": "tests/r1038/silent-carrier-guard.cjs",
+      "exitCode": 0,
+      "seconds": 0.413,
+      "outputFile": "tests_r1038_silent-carrier-guard.cjs.txt"
+    },
+    {
+      "script": "tests/r1039/silent-anchor-init.cjs",
+      "exitCode": 0,
+      "seconds": 1.063,
+      "outputFile": "tests_r1039_silent-anchor-init.cjs.txt"
+    },
+    {
+      "script": "tests/r1040/esma-exit-placement.cjs",
+      "exitCode": 0,
+      "seconds": 0.077,
+      "outputFile": "tests_r1040_esma-exit-placement.cjs.txt"
+    },
+    {
+      "script": "tests/r1041/compact-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.074,
+      "outputFile": "tests_r1041_compact-controls.cjs.txt"
+    },
+    {
+      "script": "tests/r1041/real-quick-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.137,
+      "outputFile": "tests_r1041_real-quick-controls.cjs.txt"
+    },
+    {
+      "script": "tests/r1042/foreground-sync.cjs",
+      "exitCode": 0,
+      "seconds": 0.114,
+      "outputFile": "tests_r1042_foreground-sync.cjs.txt"
+    },
+    {
+      "script": "tests/r1042/frequency-mirror-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.511,
+      "outputFile": "tests_r1042_frequency-mirror-resume.cjs.txt"
+    },
+    {
+      "script": "tests/r1042/graphics-rest.cjs",
+      "exitCode": 0,
+      "seconds": 0.294,
+      "outputFile": "tests_r1042_graphics-rest.cjs.txt"
+    },
+    {
+      "script": "tests/r1042/hidden-render-audio-ui.cjs",
+      "exitCode": 0,
+      "seconds": 0.3,
+      "outputFile": "tests_r1042_hidden-render-audio-ui.cjs.txt"
+    },
+    {
+      "script": "tests/r1042/hidden-render-legacy.cjs",
+      "exitCode": 0,
+      "seconds": 0.218,
+      "outputFile": "tests_r1042_hidden-render-legacy.cjs.txt"
+    },
+    {
+      "script": "tests/r1042/hidden-render-queue.cjs",
+      "exitCode": 0,
+      "seconds": 0.225,
+      "outputFile": "tests_r1042_hidden-render-queue.cjs.txt"
+    },
+    {
+      "script": "tests/r1042/performance-descriptions.cjs",
+      "exitCode": 0,
+      "seconds": 0.23,
+      "outputFile": "tests_r1042_performance-descriptions.cjs.txt"
+    },
+    {
+      "script": "tests/r1042/presentation-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.109,
+      "outputFile": "tests_r1042_presentation-resume.cjs.txt"
+    },
+    {
+      "script": "tests/r1043/background-interruption.cjs",
+      "exitCode": 0,
+      "seconds": 0.094,
+      "outputFile": "tests_r1043_background-interruption.cjs.txt"
+    },
+    {
+      "script": "tests/r1043/recording-attack.cjs",
+      "exitCode": 0,
+      "seconds": 0.112,
+      "outputFile": "tests_r1043_recording-attack.cjs.txt"
+    },
+    {
+      "script": "tests/r1044/intro-version-cache.cjs",
+      "exitCode": 0,
+      "seconds": 0.084,
+      "outputFile": "tests_r1044_intro-version-cache.cjs.txt"
+    },
+    {
+      "script": "tests/r1044/native-recovery-authority.cjs",
+      "exitCode": 0,
+      "seconds": 0.2,
+      "outputFile": "tests_r1044_native-recovery-authority.cjs.txt"
+    },
+    {
+      "script": "tests/r1044/recording-volume-intent.cjs",
+      "exitCode": 0,
+      "seconds": 0.168,
+      "outputFile": "tests_r1044_recording-volume-intent.cjs.txt"
+    },
+    {
+      "script": "tests/r1045/ambient-info.cjs",
+      "exitCode": 0,
+      "seconds": 4.319,
+      "outputFile": "tests_r1045_ambient-info.cjs.txt"
+    },
+    {
+      "script": "tests/r1045/intro-rejection-diagnostics.cjs",
+      "exitCode": 0,
+      "seconds": 4.051,
+      "outputFile": "tests_r1045_intro-rejection-diagnostics.cjs.txt"
+    },
+    {
+      "script": "tests/r1045/presentation-notice.cjs",
+      "exitCode": 0,
+      "seconds": 0.142,
+      "outputFile": "tests_r1045_presentation-notice.cjs.txt"
+    },
+    {
+      "script": "tests/r1045/quick-error-label.cjs",
+      "exitCode": 0,
+      "seconds": 0.178,
+      "outputFile": "tests_r1045_quick-error-label.cjs.txt"
+    },
+    {
+      "script": "tests/r1046/silent-anchor-selection.cjs",
+      "exitCode": 0,
+      "seconds": 7.119,
+      "outputFile": "tests_r1046_silent-anchor-selection.cjs.txt"
+    },
+    {
+      "script": "tests/r1047/frequency-pause-contract.cjs",
+      "exitCode": 0,
+      "seconds": 1.929,
+      "outputFile": "tests_r1047_frequency-pause-contract.cjs.txt"
+    },
+    {
+      "script": "tests/r1048/audio-single-volume.cjs",
+      "exitCode": 0,
+      "seconds": 0.263,
+      "outputFile": "tests_r1048_audio-single-volume.cjs.txt"
+    },
+    {
+      "script": "tests/r1048/audio-volume-preview.cjs",
+      "exitCode": 0,
+      "seconds": 0.714,
+      "outputFile": "tests_r1048_audio-volume-preview.cjs.txt"
+    },
+    {
+      "script": "tests/r1048/backup-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 0.319,
+      "outputFile": "tests_r1048_backup-integrity.cjs.txt"
+    },
+    {
+      "script": "tests/r1048/offline-recovery.cjs",
+      "exitCode": 0,
+      "seconds": 4.552,
+      "outputFile": "tests_r1048_offline-recovery.cjs.txt"
+    },
+    {
+      "script": "tests/r1048/presentation-notice.cjs",
+      "exitCode": 0,
+      "seconds": 0.117,
+      "outputFile": "tests_r1048_presentation-notice.cjs.txt"
+    },
+    {
+      "script": "tests/r1049/audio-global-intent.cjs",
+      "exitCode": 0,
+      "seconds": 0.621,
+      "outputFile": "tests_r1049_audio-global-intent.cjs.txt"
+    },
+    {
+      "script": "tests/r1049/audio-pause-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.545,
+      "outputFile": "tests_r1049_audio-pause-resume.cjs.txt"
+    },
+    {
+      "script": "tests/r1049/audio-registry-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.158,
+      "outputFile": "tests_r1049_audio-registry-resume.cjs.txt"
+    },
+    {
+      "script": "tests/r1049/backup-quarantine.cjs",
+      "exitCode": 0,
+      "seconds": 0.254,
+      "outputFile": "tests_r1049_backup-quarantine.cjs.txt"
+    },
+    {
+      "script": "tests/r1049/layout-keyboard.cjs",
+      "exitCode": 0,
+      "seconds": 0.238,
+      "outputFile": "tests_r1049_layout-keyboard.cjs.txt"
+    },
+    {
+      "script": "tests/r1049/offline-refresh-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 10.631,
+      "outputFile": "tests_r1049_offline-refresh-integrity.cjs.txt"
+    },
+    {
+      "script": "tests/r1049/ui-notice-focus.cjs",
+      "exitCode": 0,
+      "seconds": 0.084,
+      "outputFile": "tests_r1049_ui-notice-focus.cjs.txt"
+    },
+    {
+      "script": "tests/r1050/audio-cadence-evidence.cjs",
+      "exitCode": 0,
+      "seconds": 0.233,
+      "outputFile": "tests_r1050_audio-cadence-evidence.cjs.txt"
+    },
+    {
+      "script": "tests/r1050/dock-progress-invalidation.cjs",
+      "exitCode": 0,
+      "seconds": 0.151,
+      "outputFile": "tests_r1050_dock-progress-invalidation.cjs.txt"
+    },
+    {
+      "script": "tests/r1051/dashboard-error-state.cjs",
+      "exitCode": 0,
+      "seconds": 0.426,
+      "outputFile": "tests_r1051_dashboard-error-state.cjs.txt"
+    },
+    {
+      "script": "tests/r1052/health-media-evidence.cjs",
+      "exitCode": 0,
+      "seconds": 0.138,
+      "outputFile": "tests_r1052_health-media-evidence.cjs.txt"
+    },
+    {
+      "script": "tests/r1052/media-clock-authority.cjs",
+      "exitCode": 0,
+      "seconds": 0.162,
+      "outputFile": "tests_r1052_media-clock-authority.cjs.txt"
+    },
+    {
+      "script": "tests/r1052/native-repeat-block.cjs",
+      "exitCode": 0,
+      "seconds": 0.243,
+      "outputFile": "tests_r1052_native-repeat-block.cjs.txt"
+    },
+    {
+      "script": "tests/r1053/manual-count-commit.cjs",
+      "exitCode": 0,
+      "seconds": 0.161,
+      "outputFile": "tests_r1053_manual-count-commit.cjs.txt"
+    },
+    {
+      "script": "tests/r1053/wheel-mini-motion.cjs",
+      "exitCode": 0,
+      "seconds": 0.12,
+      "outputFile": "tests_r1053_wheel-mini-motion.cjs.txt"
+    },
+    {
+      "script": "tests/r1054/automatic-touch-continuity.cjs",
+      "exitCode": 0,
+      "seconds": 0.708,
+      "outputFile": "tests_r1054_automatic-touch-continuity.cjs.txt"
+    },
+    {
+      "script": "tests/r1055/generic-bank.cjs",
+      "exitCode": 0,
+      "seconds": 0.249,
+      "outputFile": "tests_r1055_generic-bank.cjs.txt"
+    },
+    {
+      "script": "tests/r1055/generic-priority.cjs",
+      "exitCode": 0,
+      "seconds": 4.132,
+      "outputFile": "tests_r1055_generic-priority.cjs.txt"
+    },
+    {
+      "script": "tests/r1055/generic-ui.cjs",
+      "exitCode": 0,
+      "seconds": 0.245,
+      "outputFile": "tests_r1055_generic-ui.cjs.txt"
+    },
+    {
+      "script": "tests/r1056/audio-source-model.cjs",
+      "exitCode": 0,
+      "seconds": 0.156,
+      "outputFile": "tests_r1056_audio-source-model.cjs.txt"
+    },
+    {
+      "script": "tests/r1056/ui-source-and-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.562,
+      "outputFile": "tests_r1056_ui-source-and-controls.cjs.txt"
+    },
+    {
+      "script": "tests/r1058/stop-scope.cjs",
+      "exitCode": 0,
+      "seconds": 1.594,
+      "outputFile": "tests_r1058_stop-scope.cjs.txt"
+    },
+    {
+      "script": "tests/r1059/background-mix.cjs",
+      "exitCode": 0,
+      "seconds": 0.317,
+      "outputFile": "tests_r1059_background-mix.cjs.txt"
+    },
+    {
+      "script": "tests/r1060/active-source.cjs",
+      "exitCode": 0,
+      "seconds": 0.28,
+      "outputFile": "tests_r1060_active-source.cjs.txt"
+    },
+    {
+      "script": "tests/r1061/background-lock.cjs",
+      "exitCode": 0,
+      "seconds": 0.268,
+      "outputFile": "tests_r1061_background-lock.cjs.txt"
+    },
+    {
+      "script": "tests/r1062/dhikr-pause-scope.cjs",
+      "exitCode": 0,
+      "seconds": 5.159,
+      "outputFile": "tests_r1062_dhikr-pause-scope.cjs.txt"
+    },
+    {
+      "script": "tests/r1062/direct-native-pause.cjs",
+      "exitCode": 0,
+      "seconds": 0.299,
+      "outputFile": "tests_r1062_direct-native-pause.cjs.txt"
+    },
+    {
+      "script": "tests/r1063/easy-controls.cjs",
+      "exitCode": 0,
+      "seconds": 0.278,
+      "outputFile": "tests_r1063_easy-controls.cjs.txt"
+    },
+    {
+      "script": "tests/r1064/arabic-chunks.cjs",
+      "exitCode": 0,
+      "seconds": 0.106,
+      "outputFile": "tests_r1064_arabic-chunks.cjs.txt"
+    },
+    {
+      "script": "tests/r1064/browser-helper.cjs",
+      "exitCode": 0,
+      "seconds": 0.422,
+      "outputFile": "tests_r1064_browser-helper.cjs.txt"
+    },
+    {
+      "script": "tests/r1064/catalog.cjs",
+      "exitCode": 0,
+      "seconds": 0.144,
+      "outputFile": "tests_r1064_catalog.cjs.txt"
+    },
+    {
+      "script": "tests/r1064/reader-owner-lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.094,
+      "outputFile": "tests_r1064_reader-owner-lifecycle.cjs.txt"
+    },
+    {
+      "script": "tests/r1064/reading-audio-policy.cjs",
+      "exitCode": 0,
+      "seconds": 0.168,
+      "outputFile": "tests_r1064_reading-audio-policy.cjs.txt"
+    },
+    {
+      "script": "tests/r1064/yasin-data.cjs",
+      "exitCode": 0,
+      "seconds": 0.072,
+      "outputFile": "tests_r1064_yasin-data.cjs.txt"
+    },
+    {
+      "script": "tests/r1065/audio-priority.cjs",
+      "exitCode": 0,
+      "seconds": 0.125,
+      "outputFile": "tests_r1065_audio-priority.cjs.txt"
+    },
+    {
+      "script": "tests/r1065/bundled-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 0.257,
+      "outputFile": "tests_r1065_bundled-integrity.cjs.txt"
+    },
+    {
+      "script": "tests/r1065/bundled-native.cjs",
+      "exitCode": 0,
+      "seconds": 0.168,
+      "outputFile": "tests_r1065_bundled-native.cjs.txt"
+    },
+    {
+      "script": "tests/r1065/health-media-integrity.cjs",
+      "exitCode": 0,
+      "seconds": 0.389,
+      "outputFile": "tests_r1065_health-media-integrity.cjs.txt"
+    },
+    {
+      "script": "tests/r1065/legacy-policy.cjs",
+      "exitCode": 0,
+      "seconds": 0.143,
+      "outputFile": "tests_r1065_legacy-policy.cjs.txt"
+    },
+    {
+      "script": "tests/r1066/diagnostics-tempo.cjs",
+      "exitCode": 0,
+      "seconds": 0.104,
+      "outputFile": "tests_r1066_diagnostics-tempo.cjs.txt"
+    },
+    {
+      "script": "tests/r1066/navigation-policy.cjs",
+      "exitCode": 0,
+      "seconds": 0.078,
+      "outputFile": "tests_r1066_navigation-policy.cjs.txt"
+    },
+    {
+      "script": "tests/r1067/native-progress.cjs",
+      "exitCode": 0,
+      "seconds": 0.186,
+      "outputFile": "tests_r1067_native-progress.cjs.txt"
+    },
+    {
+      "script": "tests/r1067/reader-progress.cjs",
+      "exitCode": 0,
+      "seconds": 0.163,
+      "outputFile": "tests_r1067_reader-progress.cjs.txt"
+    },
+    {
+      "script": "tests/r1067/scroll-lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.18,
+      "outputFile": "tests_r1067_scroll-lifecycle.cjs.txt"
+    },
+    {
+      "script": "tests/r1067/yasin-timing.cjs",
+      "exitCode": 0,
+      "seconds": 0.2,
+      "outputFile": "tests_r1067_yasin-timing.cjs.txt"
+    },
+    {
+      "script": "tests/r1068/verse-selection-lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.086,
+      "outputFile": "tests_r1068_verse-selection-lifecycle.cjs.txt"
+    },
+    {
+      "script": "tests/r1069/intention-transition.cjs",
+      "exitCode": 0,
+      "seconds": 0.579,
+      "outputFile": "tests_r1069_intention-transition.cjs.txt"
+    },
+    {
+      "script": "tests/r1070/owner-release-start.cjs",
+      "exitCode": 0,
+      "seconds": 0.097,
+      "outputFile": "tests_r1070_owner-release-start.cjs.txt"
+    },
+    {
+      "script": "tests/r1070/update-owner-handoff.cjs",
+      "exitCode": 0,
+      "seconds": 0.134,
+      "outputFile": "tests_r1070_update-owner-handoff.cjs.txt"
+    },
+    {
+      "script": "tests/r1072/retired-single-pause.cjs",
+      "exitCode": 0,
+      "seconds": 2.083,
+      "outputFile": "tests_r1072_retired-single-pause.cjs.txt"
+    },
+    {
+      "script": "tests/r1074/session-holds.cjs",
+      "exitCode": 0,
+      "seconds": 0.551,
+      "outputFile": "tests_r1074_session-holds.cjs.txt"
+    },
+    {
+      "script": "tests/r1076/protective-original-contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.754,
+      "outputFile": "tests_r1076_protective-original-contract.cjs.txt"
+    },
+    {
+      "script": "tests/r1077/protective-bundle-priority.cjs",
+      "exitCode": 0,
+      "seconds": 2.69,
+      "outputFile": "tests_r1077_protective-bundle-priority.cjs.txt"
+    },
+    {
+      "script": "tests/r1078/protective-plan-persistence.cjs",
+      "exitCode": 0,
+      "seconds": 0.076,
+      "outputFile": "tests_r1078_protective-plan-persistence.cjs.txt"
+    },
+    {
+      "script": "tests/r1078/reader-resume-permit.cjs",
+      "exitCode": 0,
+      "seconds": 0.105,
+      "outputFile": "tests_r1078_reader-resume-permit.cjs.txt"
+    },
+    {
+      "script": "tests/r1081/state-projection.cjs",
+      "exitCode": 0,
+      "seconds": 0.098,
+      "outputFile": "tests_r1081_state-projection.cjs.txt"
+    },
+    {
+      "script": "tests/r1082/engine-journal.cjs",
+      "exitCode": 0,
+      "seconds": 0.17,
+      "outputFile": "tests_r1082_engine-journal.cjs.txt"
+    },
+    {
+      "script": "tests/r1082/engine-logic.cjs",
+      "exitCode": 0,
+      "seconds": 0.131,
+      "outputFile": "tests_r1082_engine-logic.cjs.txt"
+    },
+    {
+      "script": "tests/r1082/engine-projection.cjs",
+      "exitCode": 0,
+      "seconds": 0.105,
+      "outputFile": "tests_r1082_engine-projection.cjs.txt"
+    },
+    {
+      "script": "tests/r1082/ui-template-contracts.cjs",
+      "exitCode": 0,
+      "seconds": 0.076,
+      "outputFile": "tests_r1082_ui-template-contracts.cjs.txt"
+    },
+    {
+      "script": "tests/r1083/style-order.cjs",
+      "exitCode": 0,
+      "seconds": 0.093,
+      "outputFile": "tests_r1083_style-order.cjs.txt"
+    },
+    {
+      "script": "tests/r1084/preset-engine.cjs",
+      "exitCode": 0,
+      "seconds": 0.173,
+      "outputFile": "tests_r1084_preset-engine.cjs.txt"
+    },
+    {
+      "script": "tests/r1084/session-projection.cjs",
+      "exitCode": 0,
+      "seconds": 0.118,
+      "outputFile": "tests_r1084_session-projection.cjs.txt"
+    },
+    {
+      "script": "tests/r1084/smart-source-cancel.cjs",
+      "exitCode": 0,
+      "seconds": 0.14,
+      "outputFile": "tests_r1084_smart-source-cancel.cjs.txt"
+    },
+    {
+      "script": "tests/r1084/terminal-journal.cjs",
+      "exitCode": 0,
+      "seconds": 0.111,
+      "outputFile": "tests_r1084_terminal-journal.cjs.txt"
+    },
+    {
+      "script": "tests/r1084/tts-completion.cjs",
+      "exitCode": 0,
+      "seconds": 0.147,
+      "outputFile": "tests_r1084_tts-completion.cjs.txt"
+    },
+    {
+      "script": "tests/r1084/ui-reading-names.cjs",
+      "exitCode": 0,
+      "seconds": 0.08,
+      "outputFile": "tests_r1084_ui-reading-names.cjs.txt"
+    },
+    {
+      "script": "tests/r1085/intention-completion.cjs",
+      "exitCode": 0,
+      "seconds": 0.116,
+      "outputFile": "tests_r1085_intention-completion.cjs.txt"
+    },
+    {
+      "script": "tests/r1085/intention-onset.cjs",
+      "exitCode": 0,
+      "seconds": 0.291,
+      "outputFile": "tests_r1085_intention-onset.cjs.txt"
+    },
+    {
+      "script": "tests/r1085/smart-cadence.cjs",
+      "exitCode": 0,
+      "seconds": 0.169,
+      "outputFile": "tests_r1085_smart-cadence.cjs.txt"
+    },
+    {
+      "script": "tests/r1085/smart-intention-gate.cjs",
+      "exitCode": 0,
+      "seconds": 0.14,
+      "outputFile": "tests_r1085_smart-intention-gate.cjs.txt"
+    },
+    {
+      "script": "tests/r1086/tts-name-vocative.cjs",
+      "exitCode": 0,
+      "seconds": 0.127,
+      "outputFile": "tests_r1086_tts-name-vocative.cjs.txt"
+    },
+    {
+      "script": "tests/r1088/dock-resume.cjs",
+      "exitCode": 0,
+      "seconds": 0.157,
+      "outputFile": "tests_r1088_dock-resume.cjs.txt"
+    },
+    {
+      "script": "tests/r1088/gate-audio.cjs",
+      "exitCode": 0,
+      "seconds": 0.127,
+      "outputFile": "tests_r1088_gate-audio.cjs.txt"
+    },
+    {
+      "script": "tests/r1088/interruptions.cjs",
+      "exitCode": 0,
+      "seconds": 0.139,
+      "outputFile": "tests_r1088_interruptions.cjs.txt"
+    },
+    {
+      "script": "tests/r1088/saved-session-store.cjs",
+      "exitCode": 0,
+      "seconds": 0.173,
+      "outputFile": "tests_r1088_saved-session-store.cjs.txt"
+    },
+    {
+      "script": "tests/r1089/gate-state.cjs",
+      "exitCode": 0,
+      "seconds": 0.102,
+      "outputFile": "tests_r1089_gate-state.cjs.txt"
+    },
+    {
+      "script": "tests/r1089/navigation-races.cjs",
+      "exitCode": 0,
+      "seconds": 0.336,
+      "outputFile": "tests_r1089_navigation-races.cjs.txt"
+    },
+    {
+      "script": "tests/r1089/preparing-state.cjs",
+      "exitCode": 0,
+      "seconds": 0.112,
+      "outputFile": "tests_r1089_preparing-state.cjs.txt"
+    },
+    {
+      "script": "tests/r1089/saved-session-store.cjs",
+      "exitCode": 0,
+      "seconds": 1.19,
+      "outputFile": "tests_r1089_saved-session-store.cjs.txt"
+    },
+    {
+      "script": "tests/r1090/canonical-export.cjs",
+      "exitCode": 0,
+      "seconds": 0.156,
+      "outputFile": "tests_r1090_canonical-export.cjs.txt"
+    },
+    {
+      "script": "tests/r1090/deferred-continuation.cjs",
+      "exitCode": 0,
+      "seconds": 0.487,
+      "outputFile": "tests_r1090_deferred-continuation.cjs.txt"
+    },
+    {
+      "script": "tests/r1090/direct-restart.cjs",
+      "exitCode": 0,
+      "seconds": 0.152,
+      "outputFile": "tests_r1090_direct-restart.cjs.txt"
+    },
+    {
+      "script": "tests/r1090/saved-activation.cjs",
+      "exitCode": 0,
+      "seconds": 0.18,
+      "outputFile": "tests_r1090_saved-activation.cjs.txt"
+    },
+    {
+      "script": "tests/r1090/site-export-privacy.cjs",
+      "exitCode": 0,
+      "seconds": 0.243,
+      "outputFile": "tests_r1090_site-export-privacy.cjs.txt"
+    },
+    {
+      "script": "tests/r1090/unified-gate.cjs",
+      "exitCode": 0,
+      "seconds": 0.175,
+      "outputFile": "tests_r1090_unified-gate.cjs.txt"
+    },
+    {
+      "script": "tests/r1091/gate-entry.cjs",
+      "exitCode": 0,
+      "seconds": 0.117,
+      "outputFile": "tests_r1091_gate-entry.cjs.txt"
+    },
+    {
+      "script": "tests/r1091/silence-recording.cjs",
+      "exitCode": 0,
+      "seconds": 0.125,
+      "outputFile": "tests_r1091_silence-recording.cjs.txt"
+    },
+    {
+      "script": "tests/r1092/preflight-cache.cjs",
+      "exitCode": 0,
+      "seconds": 0.114,
+      "outputFile": "tests_r1092_preflight-cache.cjs.txt"
+    },
+    {
+      "script": "tests/r1092/preflight-source.cjs",
+      "exitCode": 0,
+      "seconds": 0.18,
+      "outputFile": "tests_r1092_preflight-source.cjs.txt"
+    },
+    {
+      "script": "tests/r1093/archive-download.cjs",
+      "exitCode": 0,
+      "seconds": 0.77,
+      "outputFile": "tests_r1093_archive-download.cjs.txt"
+    },
+    {
+      "script": "tests/r1093/archive-races.cjs",
+      "exitCode": 0,
+      "seconds": 0.354,
+      "outputFile": "tests_r1093_archive-races.cjs.txt"
+    },
+    {
+      "script": "tests/r1093/archive-worker.cjs",
+      "exitCode": 0,
+      "seconds": 0.108,
+      "outputFile": "tests_r1093_archive-worker.cjs.txt"
+    },
+    {
+      "script": "tests/r1094/matrix-races.cjs",
+      "exitCode": 0,
+      "seconds": 13.076,
+      "outputFile": "tests_r1094_matrix-races.cjs.txt"
+    },
+    {
+      "script": "tests/r1094/source-matrix.cjs",
+      "exitCode": 0,
+      "seconds": 16.17,
+      "outputFile": "tests_r1094_source-matrix.cjs.txt"
+    },
+    {
+      "script": "tests/r1094/studio-owner-admission.cjs",
+      "exitCode": 0,
+      "seconds": 0.181,
+      "outputFile": "tests_r1094_studio-owner-admission.cjs.txt"
+    },
+    {
+      "script": "tests/r1094/studio-target.cjs",
+      "exitCode": 0,
+      "seconds": 0.164,
+      "outputFile": "tests_r1094_studio-target.cjs.txt"
+    },
+    {
+      "script": "tests/r1095/image-pack-facade.cjs",
+      "exitCode": 0,
+      "seconds": 0.082,
+      "outputFile": "tests_r1095_image-pack-facade.cjs.txt"
+    },
+    {
+      "script": "tests/r1095/image-pack-worker.cjs",
+      "exitCode": 0,
+      "seconds": 1.057,
+      "outputFile": "tests_r1095_image-pack-worker.cjs.txt"
+    },
+    {
+      "script": "tests/r1096/preparation-limits.cjs",
+      "exitCode": 0,
+      "seconds": 0.169,
+      "outputFile": "tests_r1096_preparation-limits.cjs.txt"
+    },
+    {
+      "script": "tests/r1096/studio-edit-admission.cjs",
+      "exitCode": 0,
+      "seconds": 0.322,
+      "outputFile": "tests_r1096_studio-edit-admission.cjs.txt"
+    },
+    {
+      "script": "tests/r1096/studio-explanations.cjs",
+      "exitCode": 0,
+      "seconds": 0.066,
+      "outputFile": "tests_r1096_studio-explanations.cjs.txt"
+    },
+    {
+      "script": "tests/r1097/webm-clusters.cjs",
+      "exitCode": 0,
+      "seconds": 0.344,
+      "outputFile": "tests_r1097_webm-clusters.cjs.txt"
+    },
+    {
+      "script": "tests/r1098/recording-onset.cjs",
+      "exitCode": 0,
+      "seconds": 0.483,
+      "outputFile": "tests_r1098_recording-onset.cjs.txt"
+    },
+    {
+      "script": "tests/r1105/health-entry-allowlist.cjs",
+      "exitCode": 0,
+      "seconds": 0.088,
+      "outputFile": "tests_r1105_health-entry-allowlist.cjs.txt"
+    },
+    {
+      "script": "tests/r1105/readability-static.cjs",
+      "exitCode": 0,
+      "seconds": 0.134,
+      "outputFile": "tests_r1105_readability-static.cjs.txt"
+    },
+    {
+      "script": "tests/recording-storage.cjs",
+      "exitCode": 0,
+      "seconds": 1.894,
+      "outputFile": "tests_recording-storage.cjs.txt"
+    },
+    {
+      "script": "tests/recording_unavailable_contract.cjs",
+      "exitCode": 0,
+      "seconds": 0.156,
+      "outputFile": "tests_recording_unavailable_contract.cjs.txt"
+    },
+    {
+      "script": "tests/tekke_finish_lifecycle.cjs",
+      "exitCode": 0,
+      "seconds": 0.107,
+      "outputFile": "tests_tekke_finish_lifecycle.cjs.txt"
+    }
+  ],
+  "method": "Isolated production-source Node fixtures against frozen r1106 bytes. The new 20-check ambience-layout fixture ran separately after this snapshot. Browser suites remain separate and were not run."
+}

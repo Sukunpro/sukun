@@ -1,0 +1,41 @@
+{
+  "build": "r1106",
+  "parentCommit": "4a4924e44acdf4fc082a346b40f3a7a80242f129",
+  "sourceSha256": {
+    "index.html": "74c990abc9ae6c39b74a808155c3757321e686940a9a30f5cfcd14ba7ccb2dfa",
+    "nero.html": "74c990abc9ae6c39b74a808155c3757321e686940a9a30f5cfcd14ba7ccb2dfa",
+    "css/ambience-readable-r1104.css": "2cf6ebf02888365b1ceeccc18b7f26214ee00c7206283eb89b5ccb6c5edbe0b4",
+    "sw.js": "03f8fb7d305d44e116b6e5851e7e70080798de4bfb545268298ae114e1f11f2e",
+    "sukun-build-r1106.json": "240d00a9887d6fd8158ec9ce7d18862dfbf2d4464854dbaa26f3a1705d0d7277",
+    "sukun-site-assets-r1106.json": "ca0a168a7054d1482f1d0b8e0b705f0f162b4e2c5289ec8b9bed63c5e31e96a3"
+  },
+  "reportSha256": {
+    "ambience-layout.json": "c869b7f8d342d3a14237dfb54ef77318b0768467a2dab2b3e5a50b97a0acf225",
+    "regressions.json": "dbbeca5d355081a7ad0848c59dcfebb15f8e032a2571407fc0d6506352999a6b",
+    "release-integrity.json": "c2015786a989f1a93ae228d933d1229043cfd8693c0f6c2bf2a5b5cdf774f2d2"
+  },
+  "tests": {
+    "genericNodeGroups": {
+      "passed": 172,
+      "total": 172
+    },
+    "ambienceLayoutControlledDOM": {
+      "passed": 20,
+      "total": 20
+    },
+    "releaseIntegrity": {
+      "passed": 1466,
+      "total": 1466
+    }
+  },
+  "package": {
+    "zipFiles": 754,
+    "zipBytes": 292672176,
+    "zipSha256": "08f94ecd83610d9d71af56f0c01d33c5c857ec0ff7e95d4bf3e23a14ea8f18a0"
+  },
+  "limitations": [
+    "No native browser, computed geometry, screenshot, physical Android, microphone hardware or audible-output validation. Chromium was unavailable.",
+    "DOM/event lifecycle and declared contrast were tested in a labelled controlled fixture."
+  ],
+  "verifiedAt": "2026-10-18T16:30:38.583330+00:00"
+}
