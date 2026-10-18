@@ -12,6 +12,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 EXCLUDED = {
+    'tests/r1098/recording-onset-browser.cjs': 'Separate full-application native Chromium recording onset, pooled repeat and quiet-phoneme retention suite.',
     'tests/r1097/studio-webm-browser.cjs': 'Executed separately against frozen r1097 with shipped WebM originals in native Chromium.',
     'tests/r1096/studio-browser.cjs': 'Executed separately against frozen r1096 full application in native Chromium.',
     'tests/r1086/tts-name-browser.cjs': 'Separate full-app TTS name-vocative and native recording-priority suite; run directly after source freeze.',

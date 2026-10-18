@@ -1,0 +1,170 @@
+{
+  "suite": "r1098 onset native regression sensitivity against unchanged git HEAD r1097 application",
+  "sourceSha256": "aef35f73a1bdf4fa0a5dea6e3885daa9a3100882e63d9a0d40c0f702b16f05ed",
+  "testSha256": "cbcf70dd03213b6a44c1a76515f191a7b7c7d721c1600eb7b5e98aeccfe1dc7e",
+  "startedAt": "2026-10-18T08:17:55.965Z",
+  "finishedAt": "2026-10-18T08:18:17.959Z",
+  "browser": "138.0.7204.0",
+  "expectedOutcome": "Ordinary onset/whole-source checks must fail before r1098; quality/source-preservation/infrastructure checks must pass.",
+  "total": 7,
+  "passed": 3,
+  "checks": [
+    {
+      "name": "Real quality analysis detects the deliberately quiet nonzero prefix and tail without editing the PCM",
+      "passed": true
+    },
+    {
+      "name": "Ordinary foreground recording prearms the graph and plays every source sample through genuine ended",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: native play, playing and ended must all occur\n    at verifyRun (/workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:27:2)\n    at /workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:61:125\n    at async check (/workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:18:81)\n    at async main (/workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:61:2)"
+    },
+    {
+      "name": "Pooled ordinary repeat survives 300ms blocked playing handlers with native clocks and no late remute or trim",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: ordinary dry gain must be armed before native play\n    at verifyRun (/workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:30:12)\n    at /workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:62:145\n    at async check (/workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:18:81)\n    at async main (/workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:62:2)"
+    },
+    {
+      "name": "Explicit zero user volume remains zero before play and after delayed native callbacks",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: native play, playing and ended must all occur\n    at verifyRun (/workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:27:2)\n    at /workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:63:155\n    at async check (/workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:18:81)\n    at async main (/workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:63:2)"
+    },
+    {
+      "name": "Labelled WebAudio graph refusal falls back to an armed real native element without prefix or tail loss",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: native play, playing and ended must all occur\n    at verifyRun (/workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:27:2)\n    at /workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:64:139\n    at async check (/workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:18:81)\n    at async main (/workspace/scratch/2d9ca9e2042e/sukun/tests/r1098/recording-onset-browser.cjs:64:2)"
+    },
+    {
+      "name": "Analysis and all ordinary repetitions preserve exact REC_DB bytes, revisions and personal-source priority",
+      "passed": true
+    },
+    {
+      "name": "Production files are served unchanged and the fresh native profile has no application errors",
+      "passed": true
+    }
+  ],
+  "observations": [
+    {
+      "run": "ordinary-graph",
+      "type": "play",
+      "key": "temel:0",
+      "mediaTime": 0,
+      "volume": 0.5599999999999999,
+      "dry": 0,
+      "wet": 0
+    },
+    {
+      "run": "ordinary-graph",
+      "type": "seeking",
+      "key": "temel:0",
+      "mediaTime": 0.334931,
+      "volume": 0.5599999999999999,
+      "dry": 1.4199999570846558,
+      "wet": 0.35499998927116394
+    },
+    {
+      "run": "pooled-repeat",
+      "type": "play",
+      "key": "temel:0",
+      "mediaTime": 0,
+      "volume": 0.5599999999999999,
+      "dry": 0,
+      "wet": 0
+    },
+    {
+      "run": "pooled-repeat",
+      "type": "labelled-main-thread-workload",
+      "key": "temel:0",
+      "mediaTime": 0,
+      "volume": 0.5599999999999999,
+      "dry": 0,
+      "wet": 0,
+      "blockedMs": 300.19999999552965,
+      "before": {
+        "id": 1,
+        "key": "temel:0",
+        "time": 0,
+        "duration": 1.6,
+        "volume": 0.5599999999999999,
+        "muted": false,
+        "dry": 0,
+        "wet": 0,
+        "graph": true,
+        "audioTime": 4.292789115646259,
+        "context": "running",
+        "master": 0.699999988079071
+      },
+      "after": {
+        "id": 1,
+        "key": "temel:0",
+        "time": 0,
+        "duration": 1.6,
+        "volume": 0.5599999999999999,
+        "muted": false,
+        "dry": 0,
+        "wet": 0,
+        "graph": true,
+        "audioTime": 4.591746031746032,
+        "context": "running",
+        "master": 0.699999988079071
+      }
+    },
+    {
+      "run": "pooled-repeat",
+      "type": "seeking",
+      "key": "temel:0",
+      "mediaTime": 0,
+      "volume": 0.5599999999999999,
+      "dry": 0,
+      "wet": 0
+    },
+    {
+      "run": "muted-graph",
+      "type": "play",
+      "key": "temel:0",
+      "mediaTime": 0,
+      "volume": 0,
+      "dry": 0,
+      "wet": 0
+    },
+    {
+      "run": "muted-graph",
+      "type": "seeking",
+      "key": "temel:0",
+      "mediaTime": 0,
+      "volume": 0,
+      "dry": 0,
+      "wet": 0
+    },
+    {
+      "run": "raw-native",
+      "type": "play",
+      "key": "temel:1",
+      "mediaTime": 0,
+      "volume": 0,
+      "dry": null,
+      "wet": null
+    },
+    {
+      "run": "raw-native",
+      "type": "seeking",
+      "key": "temel:1",
+      "mediaTime": 0.334931,
+      "volume": 0,
+      "dry": null,
+      "wet": null
+    }
+  ],
+  "infrastructure": {
+    "pageErrors": [],
+    "failedRequests": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_FAILED"
+    ]
+  },
+  "limitations": [
+    "Fresh disposable Linux Chromium profile at 390×844 with Classic/Feyz. Generated PCM contains quiet but nonzero edges; it is not a human or user recording.",
+    "Native HTMLMediaElement playback, clocks, decoding, ended events and returned play promise are unchanged. One labelled 300ms synchronous workload delays main-thread callbacks on a pooled repeat. HTML media currentTime is stable within a JavaScript task, so the running AudioContext clock is sampled inside the stall and media currentTime after event-loop resumption.",
+    "Raw foreground fallback is exercised by a labelled createMediaElementSource refusal for one separate recording key. Playback remains a real native media element; no synthetic media events, seeks, end events, time acceleration or replacement audio engine is used.",
+    "These checks measure routing, media timing, levels and source preservation. They do not measure audible output, phonetic correctness, Samsung/Android hardware or screen-lock behavior."
+  ]
+}

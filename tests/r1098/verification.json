@@ -1,0 +1,74 @@
+{
+  "build": "r1098",
+  "baseCommit": "13c207eeb41e13c0e238a6d3594a95be20abb116",
+  "verifiedAt": "2026-10-18T09:04:39.237689+00:00",
+  "result": "passed",
+  "productionSourcesSha256": {
+    "README-r1098.md": "6408fe8e31da5c7f98d523b5f97a5253369d755787761bfcbb69770513ab461a",
+    "assets/runtime/startup-intro-r1027.js": "f46e4a08585a0f0d81d0b6cec0a3ed0c431386ee73b7d2826b0362029b2d399e",
+    "index.html": "2ac5f6d54c4563e81e411a270fda2f15e6458211b3c1285875d3589906a05f68",
+    "manifest.webmanifest": "3ab7ed98009b3096089a61e4f547d26aaa47b53f786afc83c87f803f8d11f56b",
+    "nero.html": "2ac5f6d54c4563e81e411a270fda2f15e6458211b3c1285875d3589906a05f68",
+    "sukun-build-r1098.json": "8e75442fb51d63cbd527cc3063ac367f53685dc2dae27faca08dba94de91a062",
+    "sukun-latest.json": "8d97015f5a693cb009f1992ca582ddde32b71b3fdef82103641fdb461404feef",
+    "sukun-site-assets-r1098.json": "1f61db1b76c2ea786a9e70074b8766d9edaec6d993e55f1f8ce70e0c9edddee2",
+    "surumler.json": "fc5c816e3d543128f96aae62c7b998e7ccfdd99f1199f574f1c7dfd55dc5be93",
+    "sw.js": "52a266f02b240b0459ed6a1e11f9ddbe23d77e9c4ac96decb7f3f1a649ad8595",
+    "tests/r1043/recording-attack.cjs": "6d4009903ae43d363c8c1e719c6f4511ee58bb3eb1efad3583ab0c413e4d50ed",
+    "tests/r1044/recording-volume-intent.cjs": "a59f005c6608d49023ad068cad7e66e8fae5583db672716d52ff8b9732a1a3eb",
+    "tests/r1048/audio-volume-preview.cjs": "36f2adcd9fd96d8234de63c7ad43250fe82b659fa737eb2e66cfef902f9f9f6f",
+    "tests/r1049/run-regressions.py": "ce7390a948e50645bd827b5f745b933e6e93e83462f51a2e288b637a9c4b403d",
+    "tests/r1085/intention-onset.cjs": "195fbc9c70181a48af76af054e418bc037ff63bfc5fd38cac56727d37b628221",
+    "tests/r1098/recording-onset-browser.cjs": "cbcf70dd03213b6a44c1a76515f191a7b7c7d721c1600eb7b5e98aeccfe1dc7e",
+    "tests/r1098/recording-onset.cjs": "49a87e1175f3317e497a150dce4509ab32a771a6a3bb8a3eb35eb343a9680afb",
+    "version.txt": "8d975633632173790372040ddf7c2840ca0110ac6228f47700bd9094d94f0b4f",
+    "tests/r1098/FOLLOW_UP.md": "b73bb24cb0ed0f717e24c0ef091c0a00342ca2dbc62fbd9229ebb1ea553c5b36"
+  },
+  "evidenceSha256": {
+    "tests/r1098/evidence/classic-feyz.json": "7b54325381328b01b4f3c13c302f3a61f53fb5095ee81ef8abd699c9ce849399",
+    "tests/r1098/evidence/recording-onset-before-fix.json": "6308d4376bae763e2fe2b2a92d47ce3c20eab3586540ef32cb850fcfdefa13d2",
+    "tests/r1098/evidence/recording-onset-browser.json": "6b48bba206d630578b203503bb3609dc786ca1cb676b5ffb224d136044af08bf",
+    "tests/r1098/evidence/recording-onset.json": "0bbc57260c6b68547d5021c0b3b1e5acb605e3f56fb9278e5cbfcb5315e78238",
+    "tests/r1098/evidence/regressions.json": "ba81b747d66c055c3e318a26dfb50eb594faedd46e13c349fc79e884e88d5548",
+    "tests/r1098/evidence/release-integrity.json": "bce0ec9a494eaec06a7bb9df991dec561d4064a7a5d809f72beabdbbbbc65226",
+    "tests/r1098/evidence/studio-webm-browser.json": "e34d75e5a72571af51a99a9decfa8043a4926c2154669e59cab6e2303b6531d7"
+  },
+  "checks": {
+    "regressionGroups": {
+      "passed": 173,
+      "total": 173
+    },
+    "releaseIntegrity": {
+      "passed": 1422,
+      "total": 1422
+    },
+    "recordingOnset": {
+      "passed": 33,
+      "total": 33
+    },
+    "recordingOnsetBrowser": {
+      "passed": 7,
+      "total": 7
+    },
+    "classicFeyz": {
+      "passed": 26,
+      "total": 26
+    },
+    "studioWebmBrowser": {
+      "passed": 16,
+      "total": 16
+    }
+  },
+  "deploymentArchiveSha256": "5f7ea7c9de7fcb50f615673ef1fd6b89ab958d2aab17a3f2cd593a7c2d81bb98",
+  "scope": "Production deployment files are restored byte-for-byte from the retained verified full ZIP. Current publication checks revalidated 1422 static assertions, 33 onset scenarios, 7 native Chromium onset scenarios and 26 Classic/Feyz checks with all served resource hashes matching. The 173-group aggregate and 16 native WebM checks are retained source-matching evidence. No private user recordings or physical Samsung/Android audio, microphone or screen-lock acceptance.",
+  "remaining": [
+    "Physical Samsung/Android playback and screen-lock acceptance.",
+    "Long-recording Studio support: see tests/r1098/FOLLOW_UP.md."
+  ],
+  "limits": {
+    "studioSeconds": 60,
+    "sourceBytes": 8388608,
+    "preparationBytes": 33554432,
+    "webmSafetySeconds": 1
+  }
+}

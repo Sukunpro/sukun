@@ -1,0 +1,1241 @@
+{
+  "suite": "r1097 native shipped-WebM Studio regression",
+  "build": "r1098",
+  "baseline": false,
+  "startedAt": "2026-10-18T08:16:48.518Z",
+  "sourceHashes": {
+    "nero.html": "2ac5f6d54c4563e81e411a270fda2f15e6458211b3c1285875d3589906a05f68",
+    "index.html": "2ac5f6d54c4563e81e411a270fda2f15e6458211b3c1285875d3589906a05f68",
+    "assets/runtime/audio-preparation-r981.js": "929a258fbf4f9bf9cc79f7f336e3e3b190bb9d94deab0509bbae3bf63c9baac7",
+    "assets/runtime/studio-preparation-r982.js": "3f269b75f18bc3cd5eb8f38829bfd803b2dcd68a0496bcba742a6995366168d0",
+    "assets/runtime/audio-cpu-r981.js": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f"
+  },
+  "testSha256": "05e2858397db9fb0be1c2dc6245b35a7db1d8805a7d1fc59e0fa47f66a2637c7",
+  "checks": [
+    {
+      "name": "Fresh Classic/Feyz profile contains only verified shipped/public and labelled disposable fixtures",
+      "passed": true,
+      "evidence": {
+        "layout": "classic",
+        "skin": "feyz",
+        "publicRows": [
+          {
+            "key": "koruma:0",
+            "type": "audio/webm;codecs=opus",
+            "bytes": 294503,
+            "sha256": "673d88dbc2aaf55c9ade7db52e2c19d03c2a6f78911e79ed773185a3e94ddd34",
+            "file": "audio/673d88dbc2aaf55c9ade7db52e2c19d03c2a6f78911e79ed773185a3e94ddd34.webm"
+          },
+          {
+            "key": "koruma:1",
+            "type": "audio/webm;codecs=opus",
+            "bytes": 291589,
+            "sha256": "65b588226911ba26fe5a19c6036c50ef5e28125a055c1f08e26dc4530b29f07a",
+            "file": "audio/65b588226911ba26fe5a19c6036c50ef5e28125a055c1f08e26dc4530b29f07a.webm"
+          },
+          {
+            "key": "koruma:2",
+            "type": "audio/webm;codecs=opus",
+            "bytes": 238729,
+            "sha256": "ef52b487ca40c4a083cf5ab3d3fe7cc3f5bbb1f8ccd292fa824bc6577be3df7b",
+            "file": "audio/ef52b487ca40c4a083cf5ab3d3fe7cc3f5bbb1f8ccd292fa824bc6577be3df7b.webm"
+          },
+          {
+            "key": "koruma:3",
+            "type": "audio/webm;codecs=opus",
+            "bytes": 415697,
+            "sha256": "a817505bb436d83ae3f2486e0e57761c59c758948f94fc7d4dd072ef59ca7755",
+            "file": "audio/a817505bb436d83ae3f2486e0e57761c59c758948f94fc7d4dd072ef59ca7755.webm"
+          },
+          {
+            "key": "koruma:4",
+            "type": "audio/webm;codecs=opus",
+            "bytes": 998407,
+            "sha256": "4a8a70ed8b18393ae17290c37a38e5bb4c68545a1a955c47fb6f820874da507f",
+            "file": "audio/4a8a70ed8b18393ae17290c37a38e5bb4c68545a1a955c47fb6f820874da507f.webm"
+          },
+          {
+            "key": "dua:ak",
+            "type": "audio/webm;codecs=opus",
+            "bytes": 1054104,
+            "sha256": "e3ee39dfa2e3971fe3f1d4092e04e30009a2f43ac1b44de4826407673caf3202",
+            "file": "audio/e3ee39dfa2e3971fe3f1d4092e04e30009a2f43ac1b44de4826407673caf3202.webm"
+          }
+        ],
+        "keys": [
+          "koruma:0",
+          "koruma:1",
+          "koruma:2",
+          "koruma:3",
+          "koruma:4",
+          "dua:ak",
+          "temel:0",
+          "temel:1",
+          "temel:2"
+        ]
+      }
+    },
+    {
+      "name": "Independent native decoding establishes expected duration and peak for four public WebM fixtures",
+      "passed": true,
+      "evidence": {
+        "koruma:0": {
+          "duration": 18.539977324263038,
+          "peak": 1.002329707145691,
+          "channels": 1,
+          "sampleRate": 44100,
+          "size": 294503
+        },
+        "koruma:1": {
+          "duration": 18.35997732426304,
+          "peak": 1.0013883113861084,
+          "channels": 1,
+          "sampleRate": 44100,
+          "size": 291589
+        },
+        "koruma:2": {
+          "duration": 15.059977324263038,
+          "peak": 1.0020532608032227,
+          "channels": 1,
+          "sampleRate": 44100,
+          "size": 238729
+        },
+        "koruma:3": {
+          "duration": 26.1,
+          "peak": 1.004218578338623,
+          "channels": 1,
+          "sampleRate": 44100,
+          "size": 415697
+        }
+      }
+    },
+    {
+      "name": "Studio analyses actual shipped koruma:0 through native decode and the CPU worker without changing source or dhikr state",
+      "passed": true,
+      "evidence": {
+        "view": {
+          "key": "koruma:0",
+          "duration": "18.5 sn",
+          "peak": "100%",
+          "size": "288 KB",
+          "status": "Hazır · RMS 15%",
+          "preparation": {
+            "version": "r981",
+            "budgetBytes": 33554432,
+            "sourceBudgetBytes": 8388608,
+            "maxDurationSeconds": 60,
+            "pending": 0,
+            "active": 0,
+            "stage": "idle",
+            "stageAgeMs": 0,
+            "decodeBlocked": false,
+            "residentBytes": 0,
+            "activeEstimate": 0,
+            "worker": "ready",
+            "decodeStarts": 1,
+            "workerJobs": 1,
+            "fallbackJobs": 0,
+            "rejected": 0,
+            "timedOut": 0,
+            "cancelled": 0,
+            "peakEstimate": 13013041,
+            "maxConcurrent": 1,
+            "last": null
+          }
+        },
+        "native": {
+          "duration": 18.539977324263038,
+          "peak": 1.002329707145691,
+          "channels": 1,
+          "sampleRate": 44100,
+          "size": 294503
+        }
+      }
+    },
+    {
+      "name": "Studio analyses actual shipped koruma:1 through native decode and the CPU worker without changing source or dhikr state",
+      "passed": true,
+      "evidence": {
+        "view": {
+          "key": "koruma:1",
+          "duration": "18.4 sn",
+          "peak": "100%",
+          "size": "285 KB",
+          "status": "Hazır · RMS 16%",
+          "preparation": {
+            "version": "r981",
+            "budgetBytes": 33554432,
+            "sourceBudgetBytes": 8388608,
+            "maxDurationSeconds": 60,
+            "pending": 0,
+            "active": 0,
+            "stage": "idle",
+            "stageAgeMs": 0,
+            "decodeBlocked": false,
+            "residentBytes": 0,
+            "activeEstimate": 0,
+            "worker": "ready",
+            "decodeStarts": 2,
+            "workerJobs": 2,
+            "fallbackJobs": 0,
+            "rejected": 0,
+            "timedOut": 0,
+            "cancelled": 0,
+            "peakEstimate": 13013041,
+            "maxConcurrent": 1,
+            "last": null
+          }
+        },
+        "native": {
+          "duration": 18.35997732426304,
+          "peak": 1.0013883113861084,
+          "channels": 1,
+          "sampleRate": 44100,
+          "size": 291589
+        }
+      }
+    },
+    {
+      "name": "Studio analyses actual shipped koruma:2 through native decode and the CPU worker without changing source or dhikr state",
+      "passed": true,
+      "evidence": {
+        "view": {
+          "key": "koruma:2",
+          "duration": "15.1 sn",
+          "peak": "100%",
+          "size": "233 KB",
+          "status": "Hazır · RMS 18%",
+          "preparation": {
+            "version": "r981",
+            "budgetBytes": 33554432,
+            "sourceBudgetBytes": 8388608,
+            "maxDurationSeconds": 60,
+            "pending": 0,
+            "active": 0,
+            "stage": "idle",
+            "stageAgeMs": 0,
+            "decodeBlocked": false,
+            "residentBytes": 0,
+            "activeEstimate": 0,
+            "worker": "ready",
+            "decodeStarts": 3,
+            "workerJobs": 3,
+            "fallbackJobs": 0,
+            "rejected": 0,
+            "timedOut": 0,
+            "cancelled": 0,
+            "peakEstimate": 13013041,
+            "maxConcurrent": 1,
+            "last": null
+          }
+        },
+        "native": {
+          "duration": 15.059977324263038,
+          "peak": 1.0020532608032227,
+          "channels": 1,
+          "sampleRate": 44100,
+          "size": 238729
+        }
+      }
+    },
+    {
+      "name": "Studio analyses actual shipped koruma:3 through native decode and the CPU worker without changing source or dhikr state",
+      "passed": true,
+      "evidence": {
+        "view": {
+          "key": "koruma:3",
+          "duration": "26.1 sn",
+          "peak": "100%",
+          "size": "406 KB",
+          "status": "Hazır · RMS 17%",
+          "preparation": {
+            "version": "r981",
+            "budgetBytes": 33554432,
+            "sourceBudgetBytes": 8388608,
+            "maxDurationSeconds": 60,
+            "pending": 0,
+            "active": 0,
+            "stage": "idle",
+            "stageAgeMs": 0,
+            "decodeBlocked": false,
+            "residentBytes": 0,
+            "activeEstimate": 0,
+            "worker": "ready",
+            "decodeStarts": 4,
+            "workerJobs": 4,
+            "fallbackJobs": 0,
+            "rejected": 0,
+            "timedOut": 0,
+            "cancelled": 0,
+            "peakEstimate": 18044167,
+            "maxConcurrent": 1,
+            "last": null
+          }
+        },
+        "native": {
+          "duration": 26.1,
+          "peak": 1.004218578338623,
+          "channels": 1,
+          "sampleRate": 44100,
+          "size": 415697
+        }
+      }
+    },
+    {
+      "name": "Explicit Analyze repeat keeps the selected Ayetel Kursi key, source bytes, counter and playback owner unchanged",
+      "passed": true,
+      "evidence": {
+        "key": "koruma:0",
+        "duration": "18.5 sn",
+        "peak": "100%",
+        "size": "288 KB",
+        "status": "Hazır · RMS 15%",
+        "preparation": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "ready",
+          "decodeStarts": 6,
+          "workerJobs": 6,
+          "fallbackJobs": 0,
+          "rejected": 0,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 18044167,
+          "maxConcurrent": 1,
+          "last": null
+        }
+      }
+    },
+    {
+      "name": "Actual shipped koruma:4 still reports the 60-second duration ceiling before native decoding",
+      "passed": true,
+      "evidence": {
+        "key": "koruma:4",
+        "duration": "—",
+        "peak": "—",
+        "size": "—",
+        "status": "Stüdyo işlemleri, güvenlik payıyla doğrulanmış en çok 60 saniyelik kayıtları destekliyor. Asıl kayıt korundu.",
+        "preparation": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "ready",
+          "decodeStarts": 6,
+          "workerJobs": 6,
+          "fallbackJobs": 0,
+          "rejected": 1,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 18044167,
+          "maxConcurrent": 1,
+          "last": {
+            "code": "PREP_DURATION_LIMIT",
+            "key": "koruma:4",
+            "purpose": "studio",
+            "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+            "at": 1792311447037
+          }
+        }
+      }
+    },
+    {
+      "name": "Actual shipped dua:ak still reports the 60-second duration ceiling before native decoding",
+      "passed": true,
+      "evidence": {
+        "key": "dua:ak",
+        "duration": "—",
+        "peak": "—",
+        "size": "—",
+        "status": "Stüdyo işlemleri, güvenlik payıyla doğrulanmış en çok 60 saniyelik kayıtları destekliyor. Asıl kayıt korundu.",
+        "preparation": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "ready",
+          "decodeStarts": 6,
+          "workerJobs": 6,
+          "fallbackJobs": 0,
+          "rejected": 2,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 18044167,
+          "maxConcurrent": 1,
+          "last": {
+            "code": "PREP_DURATION_LIMIT",
+            "key": "dua:ak",
+            "purpose": "studio",
+            "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+            "at": 1792311447873
+          }
+        }
+      }
+    },
+    {
+      "name": "Labelled truncated WebM is rejected before decoding and preserves its exact source bytes",
+      "passed": true,
+      "evidence": {
+        "key": "temel:0",
+        "duration": "—",
+        "peak": "—",
+        "size": "—",
+        "status": "Ses dosyasının başlık bilgileri doğrulanamadı. Asıl kayıt korundu.",
+        "preparation": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "ready",
+          "decodeStarts": 6,
+          "workerJobs": 6,
+          "fallbackJobs": 0,
+          "rejected": 3,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 18044167,
+          "maxConcurrent": 1,
+          "last": {
+            "code": "PREP_INVALID_HEADER",
+            "key": "temel:0",
+            "purpose": "studio",
+            "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+            "at": 1792311449041
+          }
+        }
+      }
+    },
+    {
+      "name": "Labelled malformed WebM is rejected before decoding and preserves its exact source bytes",
+      "passed": true,
+      "evidence": {
+        "key": "temel:1",
+        "duration": "—",
+        "peak": "—",
+        "size": "—",
+        "status": "Ses dosyasının başlık bilgileri doğrulanamadı. Asıl kayıt korundu.",
+        "preparation": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "ready",
+          "decodeStarts": 6,
+          "workerJobs": 6,
+          "fallbackJobs": 0,
+          "rejected": 4,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 18044167,
+          "maxConcurrent": 1,
+          "last": {
+            "code": "PREP_INVALID_HEADER",
+            "key": "temel:1",
+            "purpose": "studio",
+            "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+            "at": 1792311449749
+          }
+        }
+      }
+    },
+    {
+      "name": "The 8 MiB source ceiling still rejects oversized bytes before decoding",
+      "passed": true,
+      "evidence": {
+        "key": "temel:2",
+        "duration": "—",
+        "peak": "—",
+        "size": "—",
+        "status": "Bu kayıt, stüdyo işlemleri için 8 MiB dosya sınırını aşıyor. Asıl kayıt korundu.",
+        "preparation": {
+          "version": "r981",
+          "budgetBytes": 33554432,
+          "sourceBudgetBytes": 8388608,
+          "maxDurationSeconds": 60,
+          "pending": 0,
+          "active": 0,
+          "stage": "idle",
+          "stageAgeMs": 0,
+          "decodeBlocked": false,
+          "residentBytes": 0,
+          "activeEstimate": 0,
+          "worker": "ready",
+          "decodeStarts": 6,
+          "workerJobs": 6,
+          "fallbackJobs": 0,
+          "rejected": 5,
+          "timedOut": 0,
+          "cancelled": 0,
+          "peakEstimate": 18044167,
+          "maxConcurrent": 1,
+          "last": {
+            "code": "PREP_SOURCE_LIMIT",
+            "key": "temel:2",
+            "purpose": "studio",
+            "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+            "at": 1792311450278
+          }
+        }
+      }
+    },
+    {
+      "name": "Labelled resident-memory pressure still rejects a valid shipped WebM before decoding, and recovery restores analysis",
+      "passed": true,
+      "evidence": {
+        "rejected": {
+          "key": "koruma:3",
+          "duration": "—",
+          "peak": "—",
+          "size": "—",
+          "status": "Bu kaydın işlenmesi güvenli bellek bütçesini aşıyor. Asıl kayıt korundu.",
+          "preparation": {
+            "version": "r981",
+            "budgetBytes": 33554432,
+            "sourceBudgetBytes": 8388608,
+            "maxDurationSeconds": 60,
+            "pending": 0,
+            "active": 0,
+            "stage": "idle",
+            "stageAgeMs": 0,
+            "decodeBlocked": false,
+            "residentBytes": 32505856,
+            "activeEstimate": 0,
+            "worker": "ready",
+            "decodeStarts": 6,
+            "workerJobs": 6,
+            "fallbackJobs": 0,
+            "rejected": 6,
+            "timedOut": 0,
+            "cancelled": 0,
+            "peakEstimate": 18044167,
+            "maxConcurrent": 1,
+            "last": {
+              "code": "PREP_MEMORY_LIMIT",
+              "key": "koruma:3",
+              "purpose": "studio",
+              "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+              "at": 1792311450779
+            }
+          }
+        },
+        "recovery": {
+          "key": "koruma:3",
+          "duration": "26.1 sn",
+          "peak": "100%",
+          "size": "406 KB",
+          "status": "Hazır · RMS 17%",
+          "preparation": {
+            "version": "r981",
+            "budgetBytes": 33554432,
+            "sourceBudgetBytes": 8388608,
+            "maxDurationSeconds": 60,
+            "pending": 0,
+            "active": 0,
+            "stage": "idle",
+            "stageAgeMs": 0,
+            "decodeBlocked": false,
+            "residentBytes": 0,
+            "activeEstimate": 0,
+            "worker": "ready",
+            "decodeStarts": 7,
+            "workerJobs": 7,
+            "fallbackJobs": 0,
+            "rejected": 6,
+            "timedOut": 0,
+            "cancelled": 0,
+            "peakEstimate": 18044167,
+            "maxConcurrent": 1,
+            "last": {
+              "code": "PREP_MEMORY_LIMIT",
+              "key": "koruma:3",
+              "purpose": "studio",
+              "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+              "at": 1792311450779
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Native microphone-free MediaRecorder WebM also passes the production parser and worker",
+      "passed": true,
+      "evidence": {
+        "type": "audio/webm;codecs=opus",
+        "bytes": 21413,
+        "before": "2d2fb13e596929d9d275a156d7cabe786bc6069c227eda0e2d0ad442b6bbb7c6",
+        "after": "2d2fb13e596929d9d275a156d7cabe786bc6069c227eda0e2d0ad442b6bbb7c6",
+        "duration": 1.3199773242630386,
+        "peak": 0.12132862955331802,
+        "meta": {
+          "duration": 2.3200000000000003,
+          "channels": 2,
+          "sampleRate": 48000,
+          "packetSeconds": 1.32,
+          "verified": "webm-opus"
+        }
+      }
+    },
+    {
+      "name": "All original IndexedDB fixture bytes and revisions remain unchanged by every analysis/rejection",
+      "passed": true,
+      "evidence": {
+        "koruma:0": {
+          "sha256": "673d88dbc2aaf55c9ade7db52e2c19d03c2a6f78911e79ed773185a3e94ddd34",
+          "bytes": 294503,
+          "type": "audio/webm;codecs=opus",
+          "revision": 1
+        },
+        "koruma:1": {
+          "sha256": "65b588226911ba26fe5a19c6036c50ef5e28125a055c1f08e26dc4530b29f07a",
+          "bytes": 291589,
+          "type": "audio/webm;codecs=opus",
+          "revision": 1
+        },
+        "koruma:2": {
+          "sha256": "ef52b487ca40c4a083cf5ab3d3fe7cc3f5bbb1f8ccd292fa824bc6577be3df7b",
+          "bytes": 238729,
+          "type": "audio/webm;codecs=opus",
+          "revision": 1
+        },
+        "koruma:3": {
+          "sha256": "a817505bb436d83ae3f2486e0e57761c59c758948f94fc7d4dd072ef59ca7755",
+          "bytes": 415697,
+          "type": "audio/webm;codecs=opus",
+          "revision": 1
+        },
+        "koruma:4": {
+          "sha256": "4a8a70ed8b18393ae17290c37a38e5bb4c68545a1a955c47fb6f820874da507f",
+          "bytes": 998407,
+          "type": "audio/webm;codecs=opus",
+          "revision": 1
+        },
+        "dua:ak": {
+          "sha256": "e3ee39dfa2e3971fe3f1d4092e04e30009a2f43ac1b44de4826407673caf3202",
+          "bytes": 1054104,
+          "type": "audio/webm;codecs=opus",
+          "revision": 1
+        },
+        "temel:0": {
+          "sha256": "bea5dc819e0d71a599122d5633b2ac22ea6c4a29e920b6455768c8ce21e39232",
+          "bytes": 1024,
+          "type": "audio/webm;codecs=opus",
+          "revision": 1
+        },
+        "temel:1": {
+          "sha256": "ee5bc5173dc2e24ac7f945b2df1c8a4dcee6cce4bb578dd8686bb860a21168ba",
+          "bytes": 128,
+          "type": "audio/webm;codecs=opus",
+          "revision": 1
+        },
+        "temel:2": {
+          "sha256": "4459f957d031a8b782dfee09d2c7070a4b5e6c33130a8f20ac35393fd97fc57a",
+          "bytes": 8388609,
+          "type": "audio/webm;codecs=opus",
+          "revision": 1
+        }
+      }
+    },
+    {
+      "name": "Full application and worker were served as exact disk bytes without JavaScript, SRI or request failures",
+      "passed": true,
+      "evidence": {
+        "files": 111,
+        "failedRequests": [],
+        "pageErrors": [],
+        "consoleErrors": [
+          "Failed to load resource: net::ERR_FAILED"
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "Disposable Linux Chromium, complete shipped Classic/Feyz app with byte-for-byte local static serving; native AudioContext decoding, IndexedDB and CPU worker. Shared browser fixture blocks service workers and controls device speech voices.",
+    "Personal-recording fixtures are copies of the public shipped generic bank, plus labelled truncated/corrupted versions and a generated oscillator MediaRecorder stream. No user profile, private recording, microphone, physical Android or screen-lock test.",
+    "Memory-ceiling coverage includes a labelled simulated resident allocation through the existing preparation accounting API; it does not allocate or exhaust real device memory."
+  ],
+  "originalRecordingDigests": {
+    "koruma:0": {
+      "sha256": "673d88dbc2aaf55c9ade7db52e2c19d03c2a6f78911e79ed773185a3e94ddd34",
+      "bytes": 294503,
+      "type": "audio/webm;codecs=opus",
+      "revision": 1
+    },
+    "koruma:1": {
+      "sha256": "65b588226911ba26fe5a19c6036c50ef5e28125a055c1f08e26dc4530b29f07a",
+      "bytes": 291589,
+      "type": "audio/webm;codecs=opus",
+      "revision": 1
+    },
+    "koruma:2": {
+      "sha256": "ef52b487ca40c4a083cf5ab3d3fe7cc3f5bbb1f8ccd292fa824bc6577be3df7b",
+      "bytes": 238729,
+      "type": "audio/webm;codecs=opus",
+      "revision": 1
+    },
+    "koruma:3": {
+      "sha256": "a817505bb436d83ae3f2486e0e57761c59c758948f94fc7d4dd072ef59ca7755",
+      "bytes": 415697,
+      "type": "audio/webm;codecs=opus",
+      "revision": 1
+    },
+    "koruma:4": {
+      "sha256": "4a8a70ed8b18393ae17290c37a38e5bb4c68545a1a955c47fb6f820874da507f",
+      "bytes": 998407,
+      "type": "audio/webm;codecs=opus",
+      "revision": 1
+    },
+    "dua:ak": {
+      "sha256": "e3ee39dfa2e3971fe3f1d4092e04e30009a2f43ac1b44de4826407673caf3202",
+      "bytes": 1054104,
+      "type": "audio/webm;codecs=opus",
+      "revision": 1
+    },
+    "temel:0": {
+      "sha256": "bea5dc819e0d71a599122d5633b2ac22ea6c4a29e920b6455768c8ce21e39232",
+      "bytes": 1024,
+      "type": "audio/webm;codecs=opus",
+      "revision": 1
+    },
+    "temel:1": {
+      "sha256": "ee5bc5173dc2e24ac7f945b2df1c8a4dcee6cce4bb578dd8686bb860a21168ba",
+      "bytes": 128,
+      "type": "audio/webm;codecs=opus",
+      "revision": 1
+    },
+    "temel:2": {
+      "sha256": "4459f957d031a8b782dfee09d2c7070a4b5e6c33130a8f20ac35393fd97fc57a",
+      "bytes": 8388609,
+      "type": "audio/webm;codecs=opus",
+      "revision": 1
+    }
+  },
+  "total": 16,
+  "passed": 16,
+  "allPassed": true,
+  "browser": "138.0.7204.0",
+  "finalView": {
+    "key": "koruma:3",
+    "duration": "26.1 sn",
+    "peak": "100%",
+    "size": "406 KB",
+    "status": "Hazır · RMS 17%",
+    "preparation": {
+      "version": "r981",
+      "budgetBytes": 33554432,
+      "sourceBudgetBytes": 8388608,
+      "maxDurationSeconds": 60,
+      "pending": 0,
+      "active": 0,
+      "stage": "idle",
+      "stageAgeMs": 0,
+      "decodeBlocked": false,
+      "residentBytes": 0,
+      "activeEstimate": 0,
+      "worker": "ready",
+      "decodeStarts": 8,
+      "workerJobs": 8,
+      "fallbackJobs": 0,
+      "rejected": 6,
+      "timedOut": 0,
+      "cancelled": 0,
+      "peakEstimate": 18044167,
+      "maxConcurrent": 1,
+      "last": {
+        "code": "PREP_MEMORY_LIMIT",
+        "key": "koruma:3",
+        "purpose": "studio",
+        "text": "Kayıt doğrulanmış biçim, bellek veya süre sınırlarında işlenemedi. Asıl kayıt korundu.",
+        "at": 1792311450779
+      }
+    }
+  },
+  "servedFiles": {
+    "nero.html": {
+      "sha256": "2ac5f6d54c4563e81e411a270fda2f15e6458211b3c1285875d3589906a05f68",
+      "bytes": 7385879
+    },
+    "assets/runtime/browser-contrast-r1077.css": {
+      "sha256": "35eb72c7d208df77eaa80833bd33535db2e71359bef78cb0713574cdb52e6689",
+      "bytes": 6127
+    },
+    "assets/runtime/protective-plan-r1078.css": {
+      "sha256": "435d3597d787a42f4e4cb8014dad0d6cc1d944575cb82d6375a25376a8e73243",
+      "bytes": 4325
+    },
+    "assets/runtime/compact-ui-r1057.css": {
+      "sha256": "ea43a802d7059df167b1acf3504b96ba77dd73bd98b95b1e488d3ec4d57bfaea",
+      "bytes": 8438
+    },
+    "assets/runtime/berhet-layout-r938.css": {
+      "sha256": "e22130607a9dc18f298262d67a58393b4a51d09f3e7601a0f543df2ab0646491",
+      "bytes": 37423
+    },
+    "assets/runtime/berhet-materials-r933.css": {
+      "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+      "bytes": 622
+    },
+    "assets/runtime/berhet-controls-r933.css": {
+      "sha256": "3ad2239995fcc02fcbcf970d738a4b548716b9de360954af50839097c7c7c067",
+      "bytes": 39109
+    },
+    "assets/runtime/berhet-dock-r933.css": {
+      "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+      "bytes": 12309
+    },
+    "assets/runtime/smart-session-ui-r1082.css": {
+      "sha256": "75a9a3565910449a6dd3b2a0b3d46487ed4d2c63ee7fd062b547a9f9a86db2a0",
+      "bytes": 9229
+    },
+    "assets/runtime/audio-preparation-r981.js": {
+      "sha256": "929a258fbf4f9bf9cc79f7f336e3e3b190bb9d94deab0509bbae3bf63c9baac7",
+      "bytes": 19044
+    },
+    "assets/runtime/audio-cpu-r981.js": {
+      "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+      "bytes": 7807
+    },
+    "assets/runtime/studio-preparation-r982.js": {
+      "sha256": "3f269b75f18bc3cd5eb8f38829bfd803b2dcd68a0496bcba742a6995366168d0",
+      "bytes": 8257
+    },
+    "assets/runtime/progress-journal-r982.js": {
+      "sha256": "1555800182b606e6abea73dd53bf8fa9392a7f42b4a3a628a208bf4ad8587cde",
+      "bytes": 21081
+    },
+    "assets/runtime/tab-owner-r981.js": {
+      "sha256": "d306eafe445953ac97537b3fbe68cc672c98cd124348340f53e9cb70d87e9f5e",
+      "bytes": 34931
+    },
+    "assets/runtime/recording-continuity-r1016.js": {
+      "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+      "bytes": 13251
+    },
+    "assets/runtime/recording-inspection-r1020.js": {
+      "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+      "bytes": 9674
+    },
+    "assets/runtime/background-owner-r949.js": {
+      "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+      "bytes": 11067
+    },
+    "assets/runtime/audio-palette-r945.js": {
+      "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+      "bytes": 6073
+    },
+    "assets/runtime/active-source-r1060.js": {
+      "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+      "bytes": 6128
+    },
+    "assets/runtime/lifecycle-r949.js": {
+      "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+      "bytes": 4252
+    },
+    "assets/runtime/generic-recordings-r1055.js": {
+      "sha256": "c6823c9eeeae0525dcf09f8e2775e95ca964b902f76966e4ec9a3e893b88c1f3",
+      "bytes": 35912
+    },
+    "assets/runtime/esma-scenes-r923.js": {
+      "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+      "bytes": 4307
+    },
+    "assets/runtime/archive-download-r1093.css": {
+      "sha256": "1e64b2d06b24547bb932d4148de660201ec62a5610d95c6148d8ba879cfbbebc",
+      "bytes": 3150
+    },
+    "assets/runtime/health-view-r943.css": {
+      "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+      "bytes": 7440
+    },
+    "assets/runtime/source-matrix-ui-r1094.css": {
+      "sha256": "ad4a4fa2d522d2a418403fc07b8f1a0979faf6e6d4db240e40e699eadcbe135a",
+      "bytes": 3903
+    },
+    "assets/runtime/scene-picker-r945.css": {
+      "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+      "bytes": 6657
+    },
+    "assets/runtime/nefs-r948.css": {
+      "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+      "bytes": 18988
+    },
+    "assets/runtime/wheels-r924.css": {
+      "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+      "bytes": 34043
+    },
+    "assets/runtime/offline-images-ui-r1095.css": {
+      "sha256": "8d8790d515e1e752f4e80598e450eca83c96ae0c7397df3eb1156a16573ea70b",
+      "bytes": 3214
+    },
+    "assets/runtime/cadence-r981.css": {
+      "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+      "bytes": 1841
+    },
+    "assets/runtime/tekke-ux-r992.css": {
+      "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+      "bytes": 37518
+    },
+    "assets/berhetiyye-gate/entry-r1080.css": {
+      "sha256": "652561e9c60b412bbb6e03096c5576787aad2966b3bcfae8205d40b28d3e0374",
+      "bytes": 1562
+    },
+    "assets/runtime/session-preflight-ui-r1092.css": {
+      "sha256": "e0b99033e8d528dffa1da89c778b8567c201db5dda32516a1105610a74cfd150",
+      "bytes": 2014
+    },
+    "assets/berhetiyye-gate/portal-r1080.css": {
+      "sha256": "5c115fb5f548e6d15bb938c5270d5431bcaabe03ea6abd164370ad05885bb757",
+      "bytes": 23097
+    },
+    "assets/runtime/tekke-journey-r993.css": {
+      "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+      "bytes": 7044
+    },
+    "assets/runtime/archive-download-r1093.js": {
+      "sha256": "5a796fbbe29c0f5183434e655e792102fb831bb39895e1f5685d3c5aaf9fd3ad",
+      "bytes": 24139
+    },
+    "assets/runtime/generic-recordings-ui-r1055.js": {
+      "sha256": "4c60e36eff387b882d2b8d874799da2a3a469bb0ecca20b888fa511cf147dbcc",
+      "bytes": 32023
+    },
+    "assets/runtime/session-r919.js": {
+      "sha256": "5ef9efcb784542a53a9f3ebe8ec57f4694ebbeeb0b7af00428a6b4de9e2b8869",
+      "bytes": 46114
+    },
+    "assets/runtime/dock-r920.js": {
+      "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+      "bytes": 11007
+    },
+    "assets/runtime/active-layers-r1061.js": {
+      "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+      "bytes": 14049
+    },
+    "assets/runtime/wheels-r924.js": {
+      "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+      "bytes": 41623
+    },
+    "assets/runtime/berhet-layout-r938.js": {
+      "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+      "bytes": 8399
+    },
+    "assets/runtime/compact-ui-r1057.js": {
+      "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+      "bytes": 5342
+    },
+    "assets/runtime/berhet-theme-r933.js": {
+      "sha256": "e3f4ba9b695d25d34c7e098a7d51b51e778089ddd897ac9b10b9851e511d2069",
+      "bytes": 2335
+    },
+    "assets/runtime/interface-r920.js": {
+      "sha256": "517d7dc842e2dbebdea2373335c527e1dd08624584a31eac6f79f19f8c057ff0",
+      "bytes": 43131
+    },
+    "assets/runtime/health-view-r943.js": {
+      "sha256": "d04c05dfc3c0624226bec562acd5e8169c8ce5334836bcc8562e5fa37cfc4d84",
+      "bytes": 124592
+    },
+    "assets/runtime/scene-picker-r945.js": {
+      "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+      "bytes": 9860
+    },
+    "assets/runtime/presentation-r979.js": {
+      "sha256": "c648ddce99e0191ae5cb11bbccd19222a4bf3bb8764453c54d95d8e15831e033",
+      "bytes": 14768
+    },
+    "assets/runtime/health-r940.js": {
+      "sha256": "3484d47a7a55ff29348d62965bee516a71530c9dfe351ab9c4c3ad9579be6620",
+      "bytes": 94056
+    },
+    "assets/runtime/nefs-data-r948.js": {
+      "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+      "bytes": 283054
+    },
+    "assets/runtime/reading-ui-r1064.css": {
+      "sha256": "5d6a2109e0f394a642b38a4ae5545b3c6957a79dd117315603bf1d429fce249f",
+      "bytes": 4213
+    },
+    "assets/runtime/nefs-ui-r948.js": {
+      "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+      "bytes": 48398
+    },
+    "assets/runtime/nefs-model-r948.js": {
+      "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+      "bytes": 18197
+    },
+    "assets/runtime/offline-scenes-r962.js": {
+      "sha256": "3d2bf56119336acd4a8dab2422b96914a7bc3d8b386c1e3a43ab47e82a328c62",
+      "bytes": 11161
+    },
+    "assets/runtime/offline-images-ui-r1095.js": {
+      "sha256": "a73415347147aea22dc249f435aba425713e8bc4f7cf33c72ea1c372168f32ef",
+      "bytes": 13974
+    },
+    "assets/runtime/tekke-sequence-r988.js": {
+      "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+      "bytes": 10314
+    },
+    "assets/runtime/cadence-r981.js": {
+      "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+      "bytes": 23650
+    },
+    "assets/runtime/tekke-set-r990.js": {
+      "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+      "bytes": 27409
+    },
+    "assets/runtime/background-mix-r1059.js": {
+      "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38",
+      "bytes": 18625
+    },
+    "assets/runtime/background-mix-render-r1059.js": {
+      "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e",
+      "bytes": 21067
+    },
+    "assets/runtime/yasin-data-r1064.js": {
+      "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+      "bytes": 49799
+    },
+    "assets/runtime/reading-sources-r1064.js": {
+      "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+      "bytes": 67014
+    },
+    "assets/runtime/bundled-arabic-r1065.js": {
+      "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+      "bytes": 9208
+    },
+    "assets/runtime/yasin-timing-r1067.js": {
+      "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+      "bytes": 5926
+    },
+    "assets/runtime/navigation-r1066.js": {
+      "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+      "bytes": 2624
+    },
+    "assets/runtime/reading-audio-r1064.js": {
+      "sha256": "dbeccc27c91c5a87b494437ff835364350e23d00e61687378875c867891d9b44",
+      "bytes": 20352
+    },
+    "assets/runtime/protective-plan-r1078.js": {
+      "sha256": "eae538c9a50770b86751c48d1b4ab4515a443a541fb358c5e3d157bb2d6b6a22",
+      "bytes": 8374
+    },
+    "assets/runtime/reading-ui-r1064.js": {
+      "sha256": "0a79d15b2387883c7e8c3d38d14c4386076bf83d700cc693a2b55621add4e83b",
+      "bytes": 40315
+    },
+    "assets/runtime/smart-session-ui-r1082.js": {
+      "sha256": "5dac4626b57602a9d04b3bc7b58ff8dbaacc951c9bcd75a61f1835702d230713",
+      "bytes": 22631
+    },
+    "assets/berhetiyye-gate/audio-r1080.js": {
+      "sha256": "d77a0ecff6f7a7b11cee3116817c51c6a1cf568d0c7e8d7026383842936d015c",
+      "bytes": 12551
+    },
+    "integration/berhet-access/example-http-provider.js": {
+      "sha256": "ec2e1f22e7bf0ae938a7163019eec4556150bf858dc387e13b3596cce30f16ae",
+      "bytes": 7192
+    },
+    "assets/berhetiyye-gate/invitation-tr.mp3": {
+      "sha256": "18a114ec927508e4f5684a7e76d39abe28058c81f5632c797a707c6109bd5303",
+      "bytes": 54957
+    },
+    "assets/berhetiyye-gate/access-r1080.js": {
+      "sha256": "99270f5efc93e38ab95d1c6da32005232a63e181d94765e44f4c894d424a64c6",
+      "bytes": 14484
+    },
+    "assets/berhetiyye-gate/entry-r1080.js": {
+      "sha256": "8ef27093ff8da3fc8dc9a8f67563df4f49c0176ecbf18772c416c28d1194cde3",
+      "bytes": 3033
+    },
+    "assets/berhetiyye-gate/portal-r1080.js": {
+      "sha256": "0048e2a9cac8416faa0102b1cc10ff8d262693f09be89e4ad663c170e9c077c9",
+      "bytes": 53727
+    },
+    "assets/runtime/session-preflight-r1092.js": {
+      "sha256": "0c33412ea2ef96825ec6ac7bb9b8e30307b3b486aa14803e2becc0cb758ba986",
+      "bytes": 14381
+    },
+    "assets/runtime/session-preflight-ui-r1092.js": {
+      "sha256": "c8239465b43a7cc392c7d87ca6fd2361d59e4fbcb08ad7852657ee58204ef844",
+      "bytes": 12494
+    },
+    "assets/runtime/source-matrix-r1094.js": {
+      "sha256": "07a56c03210a52669d9d0c5578339eac60423654bdf8ef13dc0d18a8f4607e1e",
+      "bytes": 14815
+    },
+    "assets/runtime/preflight-cache-r1092.js": {
+      "sha256": "840a9e120dc10f93842eada39e17ac316671c45405e8109694bfd20d8966d0ed",
+      "bytes": 4551
+    },
+    "assets/runtime/source-matrix-ui-r1094.js": {
+      "sha256": "1cdc67d4769bc8707acdc7e175ed927faf3dc820f8834de984e144887540345c",
+      "bytes": 16449
+    },
+    "assets/runtime/studio-batch-r1020.js": {
+      "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+      "bytes": 23944
+    },
+    "assets/runtime/recovery-versions-r1019.js": {
+      "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+      "bytes": 8407
+    },
+    "assets/runtime/recovery-ui-r1019.js": {
+      "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+      "bytes": 6054
+    },
+    "assets/runtime/recovery-data-r1020.js": {
+      "sha256": "73dc56f2eb83405ee0801fd94703b85497963d02aad728216336e66e6e5da355",
+      "bytes": 52774
+    },
+    "assets/runtime/site-backup-r1020.js": {
+      "sha256": "5d8380543c1893a80c80c5b8a425cc28638615a724144243549469b9672cddf9",
+      "bytes": 29313
+    },
+    "assets/runtime/recording-salvage-r1020.js": {
+      "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+      "bytes": 36787
+    },
+    "assets/audio/sukun-intro-signature-r1037.wav": {
+      "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+      "bytes": 288044
+    },
+    "assets/branding/sukun-intro-pattern-r1029.svg": {
+      "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4",
+      "bytes": 769
+    },
+    "assets/branding/sukun-frameless-logo-r1029.png": {
+      "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+      "bytes": 27201
+    },
+    "assets/runtime/tekke-ux-r992.js": {
+      "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+      "bytes": 25320
+    },
+    "assets/runtime/recovery-entry-r1027.js": {
+      "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+      "bytes": 5702
+    },
+    "assets/runtime/tekke-journey-r993.js": {
+      "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+      "bytes": 38289
+    },
+    "assets/runtime/startup-intro-r1027.js": {
+      "sha256": "f46e4a08585a0f0d81d0b6cec0a3ed0c431386ee73b7d2826b0362029b2d399e",
+      "bytes": 22478
+    },
+    "assets/sukun-nur-orbit-r757.svg": {
+      "sha256": "b9e2f2d8d983b9b19cd4be7d16ab1fe82d47a89c82361c2a60f456f25e478854",
+      "bytes": 248
+    },
+    "assets/sukun-tesbih-weave-r759.svg": {
+      "sha256": "f01e6993b482e6194f479416955b85e888b95c332187a1bc55aaa7b893502bba",
+      "bytes": 1296
+    },
+    "assets/sukun-nur-mist-r759.svg": {
+      "sha256": "4b099628bd538f0a6e2b73b4ffea399319347375444312e7946ada10e8214ccf",
+      "bytes": 20321
+    },
+    "assets/sukun-nur-ring-r757.png": {
+      "sha256": "b9bf594010438b1c49ab693a94ba5022569462c334f606754306bb63f808f6fb",
+      "bytes": 1713434
+    },
+    "assets/scenes/mobile-r918/mevlevi.webp": {
+      "sha256": "38809a4ac966552a60fee4efb9e303b9edd2f9c13cca2b9787ed9cf67bfce565",
+      "bytes": 411132
+    },
+    "assets/scenes/esma-r923/mevlevi-sema.webp": {
+      "sha256": "c7dbea4be096916817a0550c698a1607dbf195d951d134874f0244eef1ef6950",
+      "bytes": 274004
+    },
+    "assets/scenes/esma-r923/cami-avlusu.webp": {
+      "sha256": "17561714794972eb80240e57bcd07604e6db7d89c19af939e4df4280f339f93f",
+      "bytes": 362610
+    },
+    "assets/wheels-r924/esma/inci-sema.webp": {
+      "sha256": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+      "bytes": 238294
+    },
+    "sukun-build-r1098.json": {
+      "sha256": "cf1f49ad51ae02ccccdc39398a8e1ffcfba1f735d4bc6ee6cf4809e39530612b",
+      "bytes": 32466
+    },
+    "assets/wheel-navigation-r964/gold.png": {
+      "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2",
+      "bytes": 1345326
+    },
+    "assets/berhetiyye-gate/portal.webp": {
+      "sha256": "ff952d8df0e9d9f544fe24a8441cc1e57e27cc45685e5fc2475b41320b868cf5",
+      "bytes": 189544
+    },
+    "assets/generic-recordings/manifest.json": {
+      "sha256": "565a668263eb3c3872a9c0f1639fcaa81e7e73a5c31c8c901c054d533ba4be14",
+      "bytes": 66617
+    },
+    "assets/generic-recordings/audio/673d88dbc2aaf55c9ade7db52e2c19d03c2a6f78911e79ed773185a3e94ddd34.webm": {
+      "sha256": "673d88dbc2aaf55c9ade7db52e2c19d03c2a6f78911e79ed773185a3e94ddd34",
+      "bytes": 294503
+    },
+    "assets/generic-recordings/audio/65b588226911ba26fe5a19c6036c50ef5e28125a055c1f08e26dc4530b29f07a.webm": {
+      "sha256": "65b588226911ba26fe5a19c6036c50ef5e28125a055c1f08e26dc4530b29f07a",
+      "bytes": 291589
+    },
+    "assets/generic-recordings/audio/ef52b487ca40c4a083cf5ab3d3fe7cc3f5bbb1f8ccd292fa824bc6577be3df7b.webm": {
+      "sha256": "ef52b487ca40c4a083cf5ab3d3fe7cc3f5bbb1f8ccd292fa824bc6577be3df7b",
+      "bytes": 238729
+    },
+    "assets/generic-recordings/audio/a817505bb436d83ae3f2486e0e57761c59c758948f94fc7d4dd072ef59ca7755.webm": {
+      "sha256": "a817505bb436d83ae3f2486e0e57761c59c758948f94fc7d4dd072ef59ca7755",
+      "bytes": 415697
+    },
+    "assets/generic-recordings/audio/4a8a70ed8b18393ae17290c37a38e5bb4c68545a1a955c47fb6f820874da507f.webm": {
+      "sha256": "4a8a70ed8b18393ae17290c37a38e5bb4c68545a1a955c47fb6f820874da507f",
+      "bytes": 998407
+    },
+    "assets/generic-recordings/audio/e3ee39dfa2e3971fe3f1d4092e04e30009a2f43ac1b44de4826407673caf3202.webm": {
+      "sha256": "e3ee39dfa2e3971fe3f1d4092e04e30009a2f43ac1b44de4826407673caf3202",
+      "bytes": 1054104
+    }
+  },
+  "cleanup": {
+    "disposableContextAndServerClosed": true
+  },
+  "sourceUnchanged": true,
+  "testUnchanged": true,
+  "finishedAt": "2026-10-18T08:17:34.051Z"
+}
