@@ -1,0 +1,167 @@
+{
+  "suite": "r1106 original microphone lifecycle and presets readability",
+  "build": "r1106",
+  "sourceBuild": "r1107",
+  "method": "Non-browser Node VM executes shipped renderMixer/chnCardHTML/ambAccItem/syncAmbAccHeights, the original button-binding statement and notes preference script. A controlled DOM parses their markup and models destructive innerHTML, node movement, EventTarget listeners and active-element detach/refocus. It does not preserve nodes automatically.",
+  "limitations": [
+    "No browser engine, computed styles, geometry, screenshots, native keyboard/focus, microphone permissions, recording hardware or audible output was exercised.",
+    "Contrast guard applies to the declared heading color/surface pair over black and white scene pixels; visual acceptance remains separate."
+  ],
+  "browserExecuted": false,
+  "scriptSha256": "20d47e84dab14733a1f2951a87949488ea5787e118a078915afdebbdfc9fe14e",
+  "sourceFiles": {
+    "index.html": {
+      "sha256": "6d89f80b09b83c3e8df7e4974c632757bd93578b2f235c9ac03cb99b2436f139",
+      "bytes": 7415839
+    },
+    "nero.html": {
+      "sha256": "6d89f80b09b83c3e8df7e4974c632757bd93578b2f235c9ac03cb99b2436f139",
+      "bytes": 7415839
+    },
+    "css/ambience-readable-r1104.css": {
+      "sha256": "200f0cdb827dbfb48e7a22e2ae01bbbbe954482faff85d8d288f4f71a0a306e2",
+      "bytes": 4855
+    }
+  },
+  "finishedAt": "2026-10-18T17:36:39.487Z",
+  "passed": 20,
+  "total": 20,
+  "results": [
+    {
+      "name": "index.html: initial render moves the original mic under closed personal ambience and preserves one callback",
+      "passed": true,
+      "evidence": {
+        "micMovedFrom": "tab-amb",
+        "micMovedTo": "mixer > custom-accordion + mic",
+        "notesOpen": false,
+        "callbackCalls": 1
+      }
+    },
+    {
+      "name": "index.html: add, rename, second add, delete and repeated rebuilds keep nodes, handlers and open notes",
+      "passed": true,
+      "evidence": {
+        "rebuilds": 11,
+        "callbackCalls": 11,
+        "listenerRetained": true,
+        "notesPreferenceRetained": true
+      }
+    },
+    {
+      "name": "index.html: button focus survives a destructive rebuild with preventScroll",
+      "passed": true,
+      "evidence": {
+        "focusedOriginal": "addCustomSoundBtn",
+        "preventScroll": true
+      }
+    },
+    {
+      "name": "index.html: summary focus survives a destructive rebuild with preventScroll",
+      "passed": true,
+      "evidence": {
+        "focusedOriginal": "r1029MicNotesSummary",
+        "preventScroll": true
+      }
+    },
+    {
+      "name": "index.html: initial placement also restores focus and later rebuilds never steal unrelated focus",
+      "passed": true
+    },
+    {
+      "name": "index.html: closed notes and newly open personal accordion remain independent",
+      "passed": true
+    },
+    {
+      "name": "index.html: native notes preference still persists once per actual toggle after twelve rebuilds",
+      "passed": true
+    },
+    {
+      "name": "index.html: absent microphone does not prevent custom/built-in mixer rendering",
+      "passed": true
+    },
+    {
+      "name": "index.html: presets heading keeps its visible title and existing help control",
+      "passed": true,
+      "evidence": {
+        "titleId": "r1106PresetsTitle",
+        "helpKind": "presets"
+      }
+    },
+    {
+      "name": "nero.html: initial render moves the original mic under closed personal ambience and preserves one callback",
+      "passed": true,
+      "evidence": {
+        "micMovedFrom": "tab-amb",
+        "micMovedTo": "mixer > custom-accordion + mic",
+        "notesOpen": false,
+        "callbackCalls": 1
+      }
+    },
+    {
+      "name": "nero.html: add, rename, second add, delete and repeated rebuilds keep nodes, handlers and open notes",
+      "passed": true,
+      "evidence": {
+        "rebuilds": 11,
+        "callbackCalls": 11,
+        "listenerRetained": true,
+        "notesPreferenceRetained": true
+      }
+    },
+    {
+      "name": "nero.html: button focus survives a destructive rebuild with preventScroll",
+      "passed": true,
+      "evidence": {
+        "focusedOriginal": "addCustomSoundBtn",
+        "preventScroll": true
+      }
+    },
+    {
+      "name": "nero.html: summary focus survives a destructive rebuild with preventScroll",
+      "passed": true,
+      "evidence": {
+        "focusedOriginal": "r1029MicNotesSummary",
+        "preventScroll": true
+      }
+    },
+    {
+      "name": "nero.html: initial placement also restores focus and later rebuilds never steal unrelated focus",
+      "passed": true
+    },
+    {
+      "name": "nero.html: closed notes and newly open personal accordion remain independent",
+      "passed": true
+    },
+    {
+      "name": "nero.html: native notes preference still persists once per actual toggle after twelve rebuilds",
+      "passed": true
+    },
+    {
+      "name": "nero.html: absent microphone does not prevent custom/built-in mixer rendering",
+      "passed": true
+    },
+    {
+      "name": "nero.html: presets heading keeps its visible title and existing help control",
+      "passed": true,
+      "evidence": {
+        "titleId": "r1106PresetsTitle",
+        "helpKind": "presets"
+      }
+    },
+    {
+      "name": "Both shipped shells have identical renderer and markup",
+      "passed": true
+    },
+    {
+      "name": "Presets declared neutral foreground clears 4.5:1 over black and white scene pixels",
+      "passed": true,
+      "evidence": {
+        "foreground": "#fff1d5",
+        "alpha": 0.94,
+        "surfaceSelector": "html body #tab-frq>#r1107PresetsBox>summary",
+        "blackSceneContrast": 16.63527507127098,
+        "whiteSceneContrast": 14.234994256781201,
+        "scope": "Declared base pair; no computed-cascade or rendered-pixel claim"
+      }
+    }
+  ]
+}

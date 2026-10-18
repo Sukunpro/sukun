@@ -259,6 +259,46 @@
   const records=original.records.filter(item=>managementAllowed(item.key)).map(item=>({...item}));
   return{bankId:original.bankId,revision:original.revision,records,count:records.length,bytes:records.reduce((sum,item)=>sum+item.bytes,0),countScope:'visible'};
  }
+ /* r1107: count actual accessible stored Blob sizes in one readonly snapshot.
+    Unlike a source probe this does not read/hash audio bytes, hydrate the bank,
+    enable it, or alter archive status. Hidden names are never returned. */
+ async function inspectTotals(opt={}){
+  const scope='accessible-generic',capturedAccess=accessEpoch,capturedEpoch=epoch,capturedEnabled=enabled;
+  const current=()=>accessEpoch===capturedAccess&&epoch===capturedEpoch&&enabled===capturedEnabled&&(!opt.isCurrent||opt.isCurrent()===true);
+  const guard={...opt,isCurrent:current};
+  const result=(status,errorCode=null)=>({status,count:null,blobBytes:null,errorCode,scope,enabled:capturedEnabled});
+  try{
+   check(guard);
+   const stored=await tx('readonly',(clips,meta,transaction)=>{
+    const request=meta.get('bank'),cursor=clips.openCursor(),found=new Map();let rows=0,ended=false;
+    const abort=error=>{transaction.__sukunArchiveFailure=error;try{transaction.abort()}catch(_){}};
+    cursor.onerror=()=>abort(fail('archive-storage'));
+    cursor.onsuccess=()=>{
+     try{
+      check(guard);const item=cursor.result;if(!item){ended=true;return}
+      if(++rows>LIMIT.count)throw fail('archive-limit');
+      const key=item.key,value=item.value;
+      if(!keyOk(key))throw fail('archive-invalid');
+      if(managementAllowed(key)){
+       const blob=value?.blob;
+       if(!(blob instanceof Blob)||!Number.isSafeInteger(blob.size)||blob.size<1||blob.size>LIMIT.clip||value.key!==key||typeof value.sha256!=='string')throw fail('archive-invalid');
+       found.set(key,{bytes:blob.size,type:blob.type,sha256:value.sha256});
+      }
+      item.continue();
+     }catch(error){abort(error)}
+    };
+    return()=>({metadata:request.result,found,ended});
+   },guard);
+   check(guard);if(!stored)return result('missing','archive-db-missing');
+   if(!stored.ended)throw fail('archive-storage');
+   const descriptor=stored.metadata?metadata(stored.metadata):null,records=descriptor?.records.filter(item=>managementAllowed(item.key))||[];
+   if(records.length!==stored.found.size)throw fail('archive-integrity');
+   let bytes=0;
+   for(const item of records){const actual=stored.found.get(item.key);if(!actual||actual.bytes!==item.bytes||actual.type!==item.type||actual.sha256!==item.sha256)throw fail('archive-integrity');bytes+=actual.bytes}
+   if(!Number.isSafeInteger(bytes)||bytes>LIMIT.bytes)throw fail('archive-limit');
+   return {status:'ok',count:stored.found.size,blobBytes:bytes,errorCode:null,scope,enabled:capturedEnabled};
+  }catch(error){return result(opt.signal?.aborted||!current()?'cancelled':'unavailable',safeError(error))}
+ }
  /* r1094: inspect requested stored clips even while the optional bank is
     disabled. Presence requires actual bytes/type/SHA, never metadata alone.
     Reads are sequential and detached; no global status or preference changes. */
@@ -398,6 +438,6 @@
   if(event.key===RECEIPT){epoch++;bank=null;bootPromise=null;hydrated=false;emit('refresh');void ready();}
  });
  w.addEventListener?.('sukun:secretaccesschange',()=>{accessEpoch++});
- w.SukunGenericRecordings=Object.freeze({version:VERSION,snapshot,ready,epoch:()=>epoch,signature,hasKnown,find,probe,describeBank,inspectStored,commitRecords,validateFiles,importFiles,loadBundled,setEnabled,exportBank,cancel(){operation?.controller.abort();},limits:Object.freeze({...LIMIT})});
+ w.SukunGenericRecordings=Object.freeze({version:VERSION,snapshot,ready,epoch:()=>epoch,signature,hasKnown,find,probe,describeBank,inspectStored,inspectTotals,commitRecords,validateFiles,importFiles,loadBundled,setEnabled,exportBank,cancel(){operation?.controller.abort();},limits:Object.freeze({...LIMIT})});
  void ready();
 })(window);
