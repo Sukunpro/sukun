@@ -11,12 +11,39 @@
   const listeners=new Set(),signal={aborted:false,addEventListener(type,fn){if(type==='abort')listeners.add(fn);},removeEventListener(type,fn){if(type==='abort')listeners.delete(fn);}};
   return {signal,abort(){if(signal.aborted)return;signal.aborted=true;for(const fn of [...listeners])try{fn({type:'abort'});}catch(_){}listeners.clear();}};
  }
- function explain(error){
+ function explainSaved(error){
+  const code=String(error?.code||''),english=en();let reason;
+  if(code==='PREP_CANCELLED'||code==='STUDIO_STALE')reason=english?'The selection or session changed.':'Seçim veya oturum değişti.';
+  else if(code==='STUDIO_SOURCE_CHANGED')reason=english?'The recording changed again during analysis.':'Kayıt analiz sırasında yeniden değişti.';
+  else if(code==='PREP_DURATION_LIMIT')reason=english?'The verified duration including any safety margin exceeds the 60-second Studio processing limit.':'Güvenlik payı dahil doğrulanan süre, stüdyonun 60 saniyelik işleme sınırını aşıyor.';
+  else if(code==='PREP_SOURCE_LIMIT')reason=english?'The recording exceeds the 8 MiB Studio file limit.':'Kayıt, stüdyonun 8 MiB dosya sınırını aşıyor.';
+  else if(code==='PREP_MEMORY_LIMIT')reason=english?'Analysis would exceed the safe memory budget.':'Analiz, güvenli bellek bütçesini aşıyor.';
+  else if(code==='PREP_QUEUE_FULL')reason=english?'The audio preparation queue is full.':'Ses hazırlama sırası dolu.';
+  else if(code==='PREP_DECODE_BUSY')reason=english?'A previous audio decoding operation has not finished yet.':'Önceki ses çözümleme işlemi henüz bitmedi.';
+  else if(code==='PREP_WORKER_TIMEOUT'||code==='PREP_TIMEOUT')reason=english?'Analysis did not finish within the allowed time.':'Analiz, ayrılan süre içinde tamamlanamadı.';
+  else if(code==='PREP_INVALID_HEADER')reason=english?'The audio file header could not be verified.':'Ses dosyasının başlık bilgileri doğrulanamadı.';
+  else if(code==='PREP_UNKNOWN_DURATION')reason=english?'The recording duration could not be verified.':'Kaydın süresi doğrulanamadı.';
+  else if(code==='PREP_UNKNOWN_LAYOUT')reason=english?'The recording channel layout could not be verified.':'Kaydın kanal yapısı doğrulanamadı.';
+  else if(code==='PREP_WORKER_FAILED')reason=english?'The audio samples could not be processed.':'Ses örnekleri işlenemedi.';
+  else reason=english?'Audio analysis could not be completed.':'Ses analizi tamamlanamadı.';
+  return english?'The recording was saved; analysis of the current recording could not finish. '+reason+' The current recording is saved.':'Kayıt kaydedildi; güncel kaydın analizi tamamlanamadı. '+reason+' Güncel kayıt saklandı.';
+ }
+ function explain(error,opt={}){
+  if(opt.saved)return explainSaved(error);
   const code=String(error?.code||'');
   if(code==='PREP_CANCELLED'||code==='STUDIO_STALE')return en()?'The selection or session changed. The edit was cancelled and your original recording was kept.':'Seçim veya oturum değişti. Düzenleme iptal edildi; asıl kayıt korundu.';
   if(code==='STUDIO_SOURCE_CHANGED')return en()?'This recording changed while it was being edited. Your newer recording was kept.':'Düzenleme sırasında bu kayıt değişti. Daha yeni kayıt korundu.';
-  if(code==='PREP_UNKNOWN_DURATION'||code==='PREP_UNKNOWN_LAYOUT')return en()?'The recording duration or channel layout could not be verified. No changes were saved.':'Kaydın süresi veya kanal yapısı doğrulanamadı. Değişiklik kaydedilmedi.';
-  if(code.startsWith('PREP_'))return en()?'This recording could not be processed within the memory or time limit. Your original recording was kept.':'Bu kayıt bellek veya süre sınırında işlenemedi. Asıl kayıt korundu.';
+  if(code==='PREP_DURATION_LIMIT')return en()?'Studio processing supports a verified duration up to 60 seconds, including any safety margin. Your original recording was kept.':'Stüdyo işlemleri, güvenlik payıyla doğrulanmış en çok 60 saniyelik kayıtları destekliyor. Asıl kayıt korundu.';
+  if(code==='PREP_SOURCE_LIMIT')return en()?'This recording exceeds the 8 MiB file limit for Studio processing. Your original recording was kept.':'Bu kayıt, stüdyo işlemleri için 8 MiB dosya sınırını aşıyor. Asıl kayıt korundu.';
+  if(code==='PREP_MEMORY_LIMIT')return en()?'Processing this recording would exceed the safe memory budget. Your original recording was kept.':'Bu kaydın işlenmesi güvenli bellek bütçesini aşıyor. Asıl kayıt korundu.';
+  if(code==='PREP_QUEUE_FULL')return en()?'The audio preparation queue is full. Wait for the other operations to finish, then try again. Your original recording was kept.':'Ses hazırlama sırası dolu. Diğer işlemler bitince yeniden dene. Asıl kayıt korundu.';
+  if(code==='PREP_DECODE_BUSY')return en()?'A previous audio decoding operation has not finished yet. Try again after it finishes. Your original recording was kept.':'Önceki ses çözümleme işlemi henüz bitmedi. İşlem tamamlanınca yeniden dene. Asıl kayıt korundu.';
+  if(code==='PREP_WORKER_TIMEOUT'||code==='PREP_TIMEOUT')return en()?'Audio processing did not finish within the allowed time. You can try again. Your original recording was kept.':'Ses işleme, ayrılan süre içinde tamamlanamadı. Yeniden deneyebilirsin. Asıl kayıt korundu.';
+  if(code==='PREP_INVALID_HEADER')return en()?'The audio file header could not be verified. Your original recording was kept.':'Ses dosyasının başlık bilgileri doğrulanamadı. Asıl kayıt korundu.';
+  if(code==='PREP_UNKNOWN_DURATION')return en()?'The recording duration could not be verified. No changes were saved; your original recording was kept.':'Kaydın süresi doğrulanamadı. Değişiklik kaydedilmedi; asıl kayıt korundu.';
+  if(code==='PREP_UNKNOWN_LAYOUT')return en()?'The recording channel layout could not be verified. No changes were saved; your original recording was kept.':'Kaydın kanal yapısı doğrulanamadı. Değişiklik kaydedilmedi; asıl kayıt korundu.';
+  if(code==='PREP_WORKER_FAILED')return en()?'The audio samples could not be processed. You can try again. Your original recording was kept.':'Ses örnekleri işlenemedi. Yeniden deneyebilirsin. Asıl kayıt korundu.';
+  if(code.startsWith('PREP_'))return en()?'Audio processing could not be completed. Your original recording was kept.':'Ses işleme tamamlanamadı. Asıl kayıt korundu.';
   return en()?'The recording could not be processed. Your original recording was kept.':'Kayıt işlenemedi. Asıl kayıt korundu.';
  }
  async function process(blob,opt={}){

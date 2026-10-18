@@ -12,6 +12,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 EXCLUDED = {
+    'tests/r1096/studio-browser.cjs': 'Executed separately against frozen r1096 full application in native Chromium.',
     'tests/r1086/tts-name-browser.cjs': 'Separate full-app TTS name-vocative and native recording-priority suite; run directly after source freeze.',
     'tests/r1085/berhet-session-browser.cjs': 'Separate native Berhetiyye 28-step intention, audible-onset, rhythm and cadence suite; run directly after source freeze.',
     'tests/r1079/protective-plan-playing-browser.cjs': 'Separate native ongoing protective audio and accordion presentation suite; run directly after source freeze.',

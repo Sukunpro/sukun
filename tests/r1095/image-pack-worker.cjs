@@ -62,6 +62,7 @@ async function until(predicate){for(let i=0;i<200;i++){if(predicate())return;awa
   for(const row of catalog.assets.filter(row=>row.kind==='navigation')){const core=required.find(entry=>entry.url.split('?')[0]===row.url);assert.ok(core,'Navigation dependency stays core');assert.equal(core.sha256,row.sha256)}
   const tekke=required.find(row=>row.url.split('?')[0]==='./assets/scenes/tekke-r1014/berhet-billur.webp');assert.ok(tekke,'Core Tekke scene remains in the mandatory runtime graph');assert.equal(tekke.sha256,hash(fs.readFileSync(path.join(root,tekke.url.split('?')[0]))));
   const catalogRevision=manifestFile.match(/-(r\d+)\.json$/)[1],descriptor=required.find(row=>row.url.split('?')[0]==='./'+manifestFile),pinned=source.match(/const IMAGE_PACK_SHA256\s*=\s*['"]([a-f0-9]{64})/)[1];
+  assert.equal(source.match(/const IMAGE_PACK_MANIFEST\s*=\s*['"]([^'"]+)/)[1],'./'+manifestFile,'Worker reads the immutable catalog dependency after a release bump');
   assert.equal(catalog.version,catalogRevision,'Catalog data revision follows its immutable filename');assert.ok(descriptor,'Pinned catalog is a mandatory current release dependency');assert.equal(descriptor.sha256,pinned);assert.equal(pinned,hash(fs.readFileSync(path.join(root,manifestFile))));assert.equal(new URL(descriptor.url,scope).searchParams.get('v'),source.match(/^const SURUM\s*=\s*'(r\d+)';/m)[1]);
  });
  await test('Status is read-only, reports actual missing bytes, and never counts protected rows for public scope',async()=>{

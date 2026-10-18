@@ -385,7 +385,7 @@
     const attempt=++maintenanceAttempt;lastMaintenanceFailure=null;
     // A caller's exact unstarted Studio claim may be discounted by the bound
     // busy check. The binding still validates identity and every other source.
-    const admission=Object.freeze({maintenanceKind:kind,recordClaim:kind==='studio-record'?opt.recordClaim:null});
+    const admission=Object.freeze({maintenanceKind:kind,recordClaim:kind==='studio-record'?opt.recordClaim:null,editClaim:kind==='studio-edit'?opt.editClaim:null});
     const remember=error=>{if(attempt===maintenanceAttempt){lastMaintenanceFailure=Object.freeze({code:error.code,stage:error.ownerStage,errorName:error.errorName});emit();}};
     const denied=(code,warning='',stage='',error=null)=>{
       const failure=maintenanceFailure(code,stage,error);remember(failure);

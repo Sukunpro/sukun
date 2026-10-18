@@ -1,5 +1,19 @@
 [
   {
+    "v": "r1096",
+    "t": "Kayıt stüdyosunda doğru süre ve işlem sonucu",
+    "b": [
+      "Yeni kayıt seçilirken veya analiz yenilenirken önceki kaydın süre, tepe, boyut ve dalga bilgileri temizlenir. Başarısız analiz eski ölçümleri seçili kayda aitmiş gibi göstermez.",
+      "Stüdyo hata açıklamaları; doğrulanmış süre, dosya boyutu, bellek, hazırlık sırası, bekleyen çözümleme, zaman aşımı ve dosya biçimini ayrı belirtir.",
+      "Normalize ve sessizlik kırpma, uygulama boşta iken kendi bekleyen düzenleme isteği yüzünden engellenmez. Başka işlem, çalan veya duraklatılmış zikir ve başka sekme korumaları devam eder.",
+      "Normalize, sessizlik kırpma veya yeni kayıt kaydedildikten sonra analiz tamamlanamazsa kaydın saklandığı açıkça belirtilir. Düzenleme kaydından hemen sonra gelen iptal de başarılı kaydı geri alınmış gibi göstermez; başka kayda ait ekran güncellenmez.",
+      "Stüdyonun 60 saniye ve 8 MiB üst sınırı Türkçe ve İngilizce açıklanır. Bellek bütçesi ve WebM güvenlik payı daha kısa kayıtları da sınırlayabilir; mevcut korumalar korunur.",
+      "Bu sınırlar stüdyonun analiz ve düzenleme işlemlerine aittir. Mikrofon kaydını otomatik kesen yeni bir sınır eklenmez.",
+      "Kayıt yardımındaki sınırsız süre ifadeleri gerçek sınırlarla eşleştirildi: zikir/sûre kaydı en çok 10 dakika, dua kaydı en çok 45 dakika. Süreyi aşan okuyuşlar bölümlere ayrılabilir.",
+      "Sürüm hazırlığı, değişmeyen görsel kataloğunun dosya adını ve veri sürümünü korur. Güncelleme sonrası çevrimdışı paket denetiminin yanlış kataloğu istemesi önlenir."
+    ]
+  },
+  {
     "v": "r1095",
     "t": "Çevrimdışı görseller ve Kaynaklar",
     "b": [
