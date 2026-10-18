@@ -31,7 +31,7 @@ function harness(){
  run(between('function hardStopAll(){',"$('#stopAll').onclick=hardStopAll;"),'actual-hardStopAll');
  run(between('function syncFreqUI(){','/* ════════════════════════════════════════════════════════════\n   5)'),'actual-frequency-ui');
  run(html.split('\n').find(x=>x.startsWith('const _mFrS=frStart;')),'actual-mini-frStart-wrapper');
- run(html.split('\n').find(x=>x.startsWith("try{if(typeof frStart==='function')")),'actual-AudioLife-frStart-wrapper');
+ run(between("try{if(typeof frStart==='function')","try{if(typeof frStop==='function')"),'actual-AudioLife-frStart-wrapper');
  run(codeFor('r454-audio-session-registry-runtime'),'actual-registry');
  c.SukunNowPlayingStore={get:()=>{const s=c.PlaybackController.snapshot();return{...s,moduleTitle:s.title}},refresh(){c.currentFlowState?.refresh('fixture-np-refresh',true)}};
  run(codeFor('r508-current-flow-state'),'actual-current-flow');

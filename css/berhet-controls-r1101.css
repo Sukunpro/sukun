@@ -76,6 +76,24 @@ html[data-r1074-theme="berhet"] body #r1101ModeSwitch .r1101ModeThumb {
  background:var(--r1101-gem-diamond) center/100% 100% no-repeat,#d7ddcf!important;
 }
 
+/* r1112: ready ambience sessions use the same sapphire/gold material as the
+ * full mixer controls. Keep the renderer's native buttons and grid untouched.
+ * This explicit /css-relative URL also avoids inherited runtime URL bases. */
+html[data-r1074-theme="berhet"] body #tab-amb #sessRow>button.sess {
+ border:1px solid transparent!important;
+ border-image:url('../assets/berhetiyye-premium/gem-sapphire-r933.webp') 330 fill / 6px / 0 stretch!important;
+ background:#0a2637!important;color:#fff0d4!important;
+ box-shadow:none!important;text-shadow:0 1px 3px #001019!important;
+ -webkit-text-fill-color:currentColor!important;
+}
+html[data-r1074-theme="berhet"] body #tab-amb #sessRow>button.sess :is(.sIc,b,small) {
+ color:#fff0d4!important;opacity:1!important;
+ -webkit-text-fill-color:currentColor!important;text-shadow:0 1px 3px #001019!important;
+}
+html[data-r1074-theme="berhet"] body #tab-amb #sessRow>button.sess small {
+ color:#d8e4df!important;
+}
+
 /* Questions were excluded from the older material coat and painted as flat
  * circles by the compact layer. Keep each existing 32/44px native hit box;
  * use the same sapphire bezel as the neighbouring field. */
@@ -348,6 +366,15 @@ html[data-r1074-theme="berhet"] body :where(
  html[data-r1074-theme="berhet"] {
   --r1101-gem-emerald:none;--r1101-gem-sapphire:none;
   --r1101-gem-diamond:none;--r1101-gem-ruby:none;--r1101-panel-frame:none;
+ }
+ html[data-r1074-theme="berhet"] body #tab-amb #sessRow>button.sess {
+  border-image:none!important;border-color:ButtonText!important;
+  background:Canvas!important;color:CanvasText!important;
+  -webkit-text-fill-color:currentColor!important;text-shadow:none!important;box-shadow:none!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-amb #sessRow>button.sess :is(.sIc,b,small),
+ html[data-r1074-theme="berhet"] body #tab-amb #sessRow>button.sess small {
+  color:CanvasText!important;text-shadow:none!important;
  }
  html body #r920ViewOptions>summary #r1101ModeSwitch,
  html[data-r1074-theme="berhet"] body #r920ViewOptions>summary #r1101ModeSwitch,

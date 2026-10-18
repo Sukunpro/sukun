@@ -10,7 +10,7 @@
  let sweep=null,sweepTick=0,frequencyTimer=null,timerTick=0;
  const nativeCards={};
  function frequency(){return safe(()=>({playing:!!FR.playing,c:+FR.c,b:+FR.b,mode:FR.mode,vol:+FR.vol,pink:!!FR.pink}),{playing:false,c:180,b:7.83,mode:'bin',vol:.5,pink:false})}
- function held(){return !!safe(()=>window.SukunAudioSessionRegistry?.aggregateSnapshot?.()?.paused,false)}
+ function held(){return !!(safe(()=>window.SukunAudioSessionRegistry?.aggregateSnapshot?.()?.paused,false)||safe(()=>MINI?.paused,false)||safe(()=>window.AudioLife?.userPaused&&!window.AudioLife?._terminalIntent,false))}
  function notify(text){const el=$('r1101FrequencyNotice');if(el){el.textContent=text;el.hidden=!text}}
  function publish(reason){safe(()=>window.SukunAudioSessionRegistry?.schedule?.('frequency-hub:'+reason));safe(()=>window.currentFlowState?.refresh?.('frequency-hub:'+reason,true));safe(()=>window.SukunNowPlayingStore?.refresh?.());}
  function persist(){safe(()=>saveSettings())}
@@ -55,10 +55,16 @@
   open('overview',{navigate:false});return true;
  }
  function applyLibrary(item){
-  if(!item?.apply)return false;const a=item.apply;
-  apply({c:a.c??a.hz,b:a.b});
-  notify((safe(()=>window.I18N?.t?.(item.name),item.name)||item.name)+T(' ana frekansa uygulandı.',' applied to the main frequency.'));
-  mirror();return true;
+  if(initializing||!item?.apply||item.journey)return false;
+  const a=item.apply,c=a.c??a.hz;
+  if(!Number.isFinite(c)||(a.b!=null&&!Number.isFinite(a.b)))return false;
+  const values={c};if(a.b!=null)values.b=a.b;
+  if(!apply(values))return false;
+  // A library activation is an explicit play request. Reuse the common
+  // start guard: a playing graph is retuned, and global pause stays held.
+  const playing=start(),name=safe(()=>window.I18N?.t?.(item.name),item.name)||item.name;
+  notify(name+(playing?T(' çalıyor.',' is playing.'):held()?T(' uygulandı. Genel duraklatma açık; ana kontrollerden Devam et seçin.',' applied. Global pause is active; choose Resume in the main controls.'):T(' uygulandı. Çalma başlatılamadı; Frekansı Başlat düğmesini kullanın.',' applied. Playback could not start; use Start frequency.')));
+  mirror();return playing;
  }
  function sweepValue(s=sweep){
   if(!s)return frequency().c;
@@ -163,7 +169,7 @@
    host.querySelector('.r1101FrequencyDeck').appendChild(ns);
    ns.dataset.frequencyHub=VERSION;ns.removeAttribute('role');ns.hidden=!expanded;
    const legacy=$('panel-main');if(legacy){legacy.hidden=true;legacy.inert=true;legacy.setAttribute('aria-hidden','true')}
-   const libNote=$('panel-lib')?.querySelector('.libNote');text(libNote,'Tüm hazır setler tek kütüphanede. Bir satır seçince ana taşıyıcı/vuruş ayarlanır; çalma kendiliğinden başlamaz.','All presets in one library. Selecting a row sets the main carrier/beat without starting playback.');
+   const libNote=$('panel-lib')?.querySelector('.libNote');text(libNote,'Bir sete dokununca ana frekans ayarlanır ve çalmaya başlar. Çalıyorsa aynı ses akışı seçilen sete geçer. Genel duraklatma açıkken yalnız ayarlar uygulanır. Çok aşamalı yolculuklar başlatma alanına yönlendirir.','Tap a set to apply it and play the main frequency. While playing, the same audio stream switches to the selected set. During global pause, only settings are applied. Multi-stage journeys open their start area.');
    ns.querySelector('#tabNav')?.addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(!b)return;const tool=Object.keys(TOOLS).find(k=>TOOLS[k][2]===b.dataset.tab);if(tool)displayTool(tool)});
    $('cymNum')?.addEventListener('change',e=>{const c=+e.target.value;if(Number.isFinite(c))apply({c})});
    for(const id of ['cymPrev','cymNext'])$(id)?.addEventListener('click',()=>{const c=+$('cymNum')?.value;if(Number.isFinite(c))apply({c})});

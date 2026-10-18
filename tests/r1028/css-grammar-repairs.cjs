@@ -94,7 +94,15 @@ for(const filename of ['index.html','nero.html']){
   const check=(name,fn)=>test(filename+': '+name,fn);
   check('all source style openings have distinct raw-text boundaries and closes',()=>{
     const openings=(html.match(/<style\b/gi)||[]).length,closings=(html.match(/<\/style\s*>/gi)||[]).length;
-    assert(openings>=263);assert.equal(openings,closings);assert.equal(styles.length,openings);
+    // r1112 moved one complete style body to an external file. Count it only
+    // after verifying its exact original bytes and unique shell link.
+    const movedLinks=html.match(/<link\b[^>]*\bid="sukun-r990-tekke-set-style"[^>]*>/g)||[];
+    assert.equal(movedLinks.length,1);
+    assert.match(movedLinks[0],/href="\.\/css\/tekke-set-card-r1112\.css\?v=r\d+"/);
+    const moved=fs.readFileSync(path.join(root,'css/tekke-set-card-r1112.css'));
+    assert.equal(moved.length,7182);
+    assert.equal(crypto.createHash('sha256').update(moved).digest('hex'),'ad93851820e98e0f238459cc95fc26e89b1227f1174095a715e542c74e9470c7');
+    assert(openings+movedLinks.length>=263);assert.equal(openings,closings);assert.equal(styles.length,openings);
   });
   check('no style raw text contains a leaked opening style tag',()=>{for(const s of styles)assert(!/<style\b/i.test(s.text),'Leaked style in '+(s.id||'anonymous'));});
   check('all inline styles have balanced CSS quotes comments and delimiters',()=>{for(const s of styles)cssLexicalBalance(s.text);});

@@ -1,0 +1,265 @@
+{
+  "suite": "r1112 library playback routing",
+  "sourceBuild": "r1112",
+  "method": "Whole production frequency hub in fresh Node VMs; actual native library render/apply handlers, AudioLife object, frStart lifecycle wrapper and SukunVoiceAttempt guards. FR graph, DOM, storage, speech and foreground session dependencies use explicit controlled seams with allocation/call-count/intent-epoch assertions.",
+  "browserExecuted": false,
+  "audiblePlaybackExecuted": false,
+  "limitations": [
+    "Controlled FR graph seams establish controller routing and idempotence, not actual Web Audio rendering, autoplay permission or audible output.",
+    "Controlled keyboard events exercise actual handlers but do not establish native focus, user activation or browser default-action behavior.",
+    "Actual AudioLife/VoiceAttempt epoch checks do not execute native recordings, TTS, the outer background renderer, browser media events or a live dhikr counter."
+  ],
+  "sourceFiles": {
+    "js/frequency-hub-r1101.js": {
+      "bytes": 22490,
+      "sha256": "a6d64a2bd0b563178c2d87ad7fe0d658f66eaf6e709b801d8a87b77b63e58573"
+    },
+    "index.html": {
+      "bytes": 7416058,
+      "sha256": "8b019509e80f026f67e6af5a0d3f090a856624e16c371748fd6f9d5e12b97ea4"
+    },
+    "nero.html": {
+      "bytes": 7416058,
+      "sha256": "8b019509e80f026f67e6af5a0d3f090a856624e16c371748fd6f9d5e12b97ea4"
+    }
+  },
+  "scriptSha256": "e5e647d4bcc77bee5751163ff5e1ec7f91be622753904ac6245f313aac1dcc04",
+  "finishedAt": "2026-10-18T20:09:14.305Z",
+  "passed": 37,
+  "total": 37,
+  "results": [
+    {
+      "name": "Loading the complete hub neither starts audio nor writes stored settings",
+      "passed": true
+    },
+    {
+      "name": "Selecting an idle library set applies carrier and beat before exactly one main-controller start",
+      "passed": true,
+      "evidence": {
+        "mainToggleCalls": 1,
+        "controlledGraphAllocations": 1,
+        "carrierAtStart": 528,
+        "beatAtStart": 8
+      }
+    },
+    {
+      "name": "Changing a playing set retunes the same graph without toggling, stopping or allocating",
+      "passed": true
+    },
+    {
+      "name": "Rapid changes and reselecting the same set retain one graph and never act as a stop toggle",
+      "passed": true,
+      "evidence": {
+        "selections": 21,
+        "controlledGraphAllocations": 1
+      }
+    },
+    {
+      "name": "Solfej carrier-only entries preserve the selected beat and all independent controls",
+      "passed": true
+    },
+    {
+      "name": "Global hold while idle applies settings without resume, stop or replacement",
+      "passed": true,
+      "evidence": {
+        "logicalPlaying": false,
+        "context": "suspended",
+        "mainToggleCalls": 0
+      }
+    },
+    {
+      "name": "Global hold with an existing graph applies settings without resume, stop or replacement",
+      "passed": true,
+      "evidence": {
+        "logicalPlaying": true,
+        "context": "suspended",
+        "mainToggleCalls": 0
+      }
+    },
+    {
+      "name": "Nonterminal local pause remains held before registry pause publication: miniPaused",
+      "passed": true
+    },
+    {
+      "name": "Nonterminal local pause remains held before registry pause publication: lifePaused",
+      "passed": true
+    },
+    {
+      "name": "A terminal previous Stop permits a new explicit library selection to start",
+      "passed": true
+    },
+    {
+      "name": "A reentrant selection during the actual lazy initialization guard has no setting writes or start",
+      "passed": true
+    },
+    {
+      "name": "Malformed/non-frequency library item does not start: null",
+      "passed": true
+    },
+    {
+      "name": "Malformed/non-frequency library item does not start: {}",
+      "passed": true
+    },
+    {
+      "name": "Malformed/non-frequency library item does not start: {\"name\":\"Journey\",\"journey\":true,\"apply\":null}",
+      "passed": true
+    },
+    {
+      "name": "Malformed/non-frequency library item does not start: {\"name\":\"Journey with values\",\"journey\":true,\"apply\":{\"c\":528,\"b\":8}}",
+      "passed": true
+    },
+    {
+      "name": "Malformed/non-frequency library item does not start: {\"name\":\"Broken\",\"apply\":{}}",
+      "passed": true
+    },
+    {
+      "name": "Malformed/non-frequency library item does not start: {\"name\":\"NaN carrier\",\"apply\":{\"c\":null,\"b\":8}}",
+      "passed": true
+    },
+    {
+      "name": "Malformed/non-frequency library item does not start: {\"name\":\"Text carrier\",\"apply\":{\"c\":\"invalid\",\"b\":8}}",
+      "passed": true
+    },
+    {
+      "name": "Malformed/non-frequency library item does not start: {\"name\":\"NaN beat\",\"apply\":{\"c\":528,\"b\":null}}",
+      "passed": true
+    },
+    {
+      "name": "Malformed/non-frequency library item does not start: {\"name\":\"Infinite beat\",\"apply\":{\"c\":528,\"b\":null}}",
+      "passed": true
+    },
+    {
+      "name": "Malformed/non-frequency library item does not start: {\"name\":\"Text beat\",\"apply\":{\"c\":528,\"b\":\"invalid\"}}",
+      "passed": true
+    },
+    {
+      "name": "Failed main start produces a truthful ready/failure message: refuseStart",
+      "passed": true,
+      "evidence": {
+        "notice": "Dönüşüm Niyeti uygulandı. Çalma başlatılamadı; Frekansı Başlat düğmesini kullanın."
+      }
+    },
+    {
+      "name": "Failed main start produces a truthful ready/failure message: missingToggle",
+      "passed": true,
+      "evidence": {
+        "notice": "Dönüşüm Niyeti uygulandı. Çalma başlatılamadı; Frekansı Başlat düğmesini kullanın."
+      }
+    },
+    {
+      "name": "Successful library playback status matches selected language: tr",
+      "passed": true,
+      "evidence": {
+        "notice": "Dönüşüm Niyeti çalıyor."
+      }
+    },
+    {
+      "name": "Successful library playback status matches selected language: en",
+      "passed": true,
+      "evidence": {
+        "notice": "Dönüşüm Niyeti is playing."
+      }
+    },
+    {
+      "name": "Library start leaves foreground session identity, counter, ambience and speech ownership untouched",
+      "passed": true,
+      "evidence": {
+        "foregroundSession": {
+          "owner": "zikr:esma:0",
+          "token": 71,
+          "phase": "PLAYING",
+          "activeMode": "single",
+          "counter": 13
+        },
+        "controlledFrequencyStarted": true,
+        "claim": "Controller dependency-routing guard; real native voice/session integration is separate."
+      }
+    },
+    {
+      "name": "Actual AudioLife wrapper preserves an ongoing playing SukunVoiceAttempt when adding the background frequency",
+      "passed": true,
+      "evidence": {
+        "actualVoiceAttemptCurrent": true,
+        "actualUserIntentEpochBefore": 19,
+        "actualUserIntentEpochAfter": 19,
+        "actualAudioLifeOwnerRetained": true,
+        "controlledGraphAllocations": 1
+      }
+    },
+    {
+      "name": "Actual AudioLife wrapper preserves an ongoing preparing SukunVoiceAttempt when adding the background frequency",
+      "passed": true,
+      "evidence": {
+        "actualVoiceAttemptCurrent": true,
+        "actualUserIntentEpochBefore": 19,
+        "actualUserIntentEpochAfter": 19,
+        "actualAudioLifeOwnerRetained": true,
+        "controlledGraphAllocations": 1
+      }
+    },
+    {
+      "name": "A later pause invalidates the actual voice guard and stale frequency publication cannot undo its state",
+      "passed": true,
+      "evidence": {
+        "actualVoiceAttemptCurrent": false,
+        "retainedIntent": {
+          "state": "paused",
+          "reason": "fixture-pause",
+          "seq": 24,
+          "paused": true,
+          "terminal": false
+        },
+        "staleCallbacks": 1
+      }
+    },
+    {
+      "name": "A later stop invalidates the actual voice guard and stale frequency publication cannot undo its state",
+      "passed": true,
+      "evidence": {
+        "actualVoiceAttemptCurrent": false,
+        "retainedIntent": {
+          "state": "idle",
+          "reason": "stopped",
+          "seq": 24,
+          "paused": true,
+          "terminal": true
+        },
+        "staleCallbacks": 1
+      }
+    },
+    {
+      "name": "Native mouse, Enter and Space actions each delegate once and keep the same playing graph",
+      "passed": true,
+      "evidence": {
+        "nativeMouseActions": 1,
+        "nativeKeyboardActions": 2,
+        "controlledGraphAllocations": 1,
+        "claim": "Actual JavaScript handlers with controlled events; native browser keyboard dispatch is not exercised."
+      }
+    },
+    {
+      "name": "Native library row accessible label announces apply and play in tr",
+      "passed": true
+    },
+    {
+      "name": "Native library row accessible label announces apply and play in en",
+      "passed": true
+    },
+    {
+      "name": "Multi-stage native journey rows retain their redirect without starting a fixed tone",
+      "passed": true
+    },
+    {
+      "name": "Selecting a library set retires the frequency sweep and stale sweep callbacks cannot retune it later",
+      "passed": true
+    },
+    {
+      "name": "Existing frequency timer remains one timer while library selection starts the common graph",
+      "passed": true
+    },
+    {
+      "name": "Offline suggestion presets remain apply-only and never inherit library autoplay",
+      "passed": true
+    }
+  ]
+}
