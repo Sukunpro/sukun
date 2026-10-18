@@ -14,7 +14,8 @@ const mandatory=[
  'css/berhet-controls-r1101.css','js/section-switch-r1101.js',
  'css/frequency-hub-r1101.css','js/frequency-hub-r1101.js',
  'css/ambience-compact-r1102.css','css/ambience-info-round-r1103.css',
- 'css/ambience-readable-r1104.css','css/shared-readable-r1105.css'
+ 'css/ambience-readable-r1104.css','css/shared-readable-r1105.css',
+ 'css/kandil-preferences-r1108.css'
 ];
 const entry=(p,b)=>({url:'./'+p+'?v='+build,sha256:hash(b)}),results=[];
 async function run(entries,bodies){
@@ -37,14 +38,14 @@ async function run(entries,bodies){
 }
 async function test(name,fn){await fn();results.push({name,status:'PASS'});}
 (async()=>{
- await test('all eight mandatory shared controls verify exact shipped bytes under existing core budget',async()=>{
+ await test('all nine mandatory shared controls verify exact shipped bytes under existing core budget',async()=>{
   const marker=JSON.parse(fs.readFileSync(path.join(root,'sukun-build-'+build+'.json'),'utf8'));
   const rootEntries=marker.runtime.filter(e=>/^\.\/(?:css|js)\//.test(e.url));
   assert.deepEqual(rootEntries.map(e=>new URL(e.url,'https://test.invalid/').pathname.slice(1)).sort(),[...mandatory].sort());
   const bodies=new Map(mandatory.map(p=>[p,fs.readFileSync(path.join(root,p))]));
   const {result:r,maxActive}=await run(rootEntries,bodies);
   assert.equal(r.status,'PASS');assert.equal(r.evidence.configurationErrors,0);
-  assert.equal(r.evidence.files.length,8);assert(r.evidence.files.every(e=>e.status==='MATCH'));
+  assert.equal(r.evidence.files.length,9);assert(r.evidence.files.every(e=>e.status==='MATCH'));
   const bytes=[...bodies.values()].reduce((n,b)=>n+b.length,0);
   assert.equal(r.evidence.bytes,bytes);assert.equal(r.evidence.verifiedBytes,bytes);
   assert.equal(r.evidence.mediaBytes,0);assert(bytes<9437184);assert(maxActive<=2);

@@ -1,0 +1,47 @@
+{
+  "method": "Full production health collector and isolated cached snapshot/metadata checkpoint. Commands and network are trapped; recording bytes and physical speaker output are never read.",
+  "passed": 10,
+  "total": 10,
+  "results": [
+    {
+      "name": "known native media numbers and explicit mute/zero volume survive passive observation",
+      "passed": true
+    },
+    {
+      "name": "unknown native numeric metadata is omitted for null",
+      "passed": true
+    },
+    {
+      "name": "unknown native numeric metadata is omitted for undefined",
+      "passed": true
+    },
+    {
+      "name": "unknown native numeric metadata is omitted for 0",
+      "passed": true
+    },
+    {
+      "name": "unknown native numeric metadata is omitted for false",
+      "passed": true
+    },
+    {
+      "name": "unknown native numeric metadata is omitted for NaN",
+      "passed": true
+    },
+    {
+      "name": "unknown native numeric metadata is omitted for Infinity",
+      "passed": true
+    },
+    {
+      "name": "unknown native numeric metadata is omitted for -1",
+      "passed": true
+    },
+    {
+      "name": "unknown native numeric metadata is omitted for 10000000000000000",
+      "passed": true
+    },
+    {
+      "name": "checkpoint round trip retains numeric zero, native booleans and bounded reason while dropping extra content",
+      "passed": true
+    }
+  ]
+}

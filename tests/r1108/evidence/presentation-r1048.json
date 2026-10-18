@@ -1,0 +1,192 @@
+{
+  "variant": "candidate",
+  "source": "/workspace/scratch/0ed53697150f/sukun/assets/runtime/presentation-r979.js",
+  "sha256": "2b33c219afa5fb73d701bceeb0acb43840662a72271dc02bc724c508197dd48f",
+  "total": 13,
+  "passed": 13,
+  "failed": 0,
+  "scope": "Shipped runtime and handlers executed in controlled DOM/RAF, ResizeObserver and MutationObserver fixtures. Hit-test is modeled from controlled geometry/stacking, not browser-rendered pixels. No physical device unlock or real audio.",
+  "results": [
+    {
+      "name": "mobile mini protects Pause and Stop hit regions",
+      "status": "PASS",
+      "evidence": {
+        "hits": [
+          {
+            "id": "r588Play",
+            "hit": "r588Play"
+          },
+          {
+            "id": "r588Stop",
+            "hit": "r588Stop"
+          }
+        ],
+        "gap": 466
+      }
+    },
+    {
+      "name": "mobile midi protects Pause and Stop hit regions",
+      "status": "PASS",
+      "evidence": {
+        "hits": [
+          {
+            "id": "r588Play",
+            "hit": "r588Play"
+          },
+          {
+            "id": "r588Stop",
+            "hit": "r588Stop"
+          }
+        ],
+        "gap": 314
+      }
+    },
+    {
+      "name": "mobile max protects Pause and Stop hit regions",
+      "status": "PASS",
+      "evidence": {
+        "hits": [
+          {
+            "id": "r588Play",
+            "hit": "r588Play"
+          },
+          {
+            "id": "r588Stop",
+            "hit": "r588Stop"
+          }
+        ],
+        "gap": 114
+      }
+    },
+    {
+      "name": "desktop mini protects Pause and Stop hit regions",
+      "status": "PASS",
+      "evidence": {
+        "hits": [
+          {
+            "id": "r588Play",
+            "hit": "r588Play"
+          },
+          {
+            "id": "r588Stop",
+            "hit": "r588Stop"
+          }
+        ],
+        "gap": 526
+      }
+    },
+    {
+      "name": "desktop midi protects Pause and Stop hit regions",
+      "status": "PASS",
+      "evidence": {
+        "hits": [
+          {
+            "id": "r588Play",
+            "hit": "r588Play"
+          },
+          {
+            "id": "r588Stop",
+            "hit": "r588Stop"
+          }
+        ],
+        "gap": 374
+      }
+    },
+    {
+      "name": "desktop max protects Pause and Stop hit regions",
+      "status": "PASS",
+      "evidence": {
+        "hits": [
+          {
+            "id": "r588Play",
+            "hit": "r588Play"
+          },
+          {
+            "id": "r588Stop",
+            "hit": "r588Stop"
+          }
+        ],
+        "gap": 174
+      }
+    },
+    {
+      "name": "Active notice follows mode, drag and viewport resize",
+      "status": "PASS",
+      "evidence": {
+        "rect": {
+          "top": 12,
+          "left": 12,
+          "width": 316,
+          "height": 142,
+          "right": 328,
+          "bottom": 154
+        }
+      }
+    },
+    {
+      "name": "Short viewport fallback gives player stacking and pointer priority",
+      "status": "PASS",
+      "evidence": [
+        {
+          "id": "r588Play",
+          "hit": "r588Play"
+        },
+        {
+          "id": "r588Stop",
+          "hit": "r588Stop"
+        }
+      ]
+    },
+    {
+      "name": "Visual viewport offsets keep the warning within the visible mobile surface",
+      "status": "PASS",
+      "evidence": {
+        "rect": {
+          "top": 152,
+          "left": 30,
+          "width": 276,
+          "height": 142,
+          "right": 306,
+          "bottom": 294
+        }
+      }
+    },
+    {
+      "name": "Hidden player floating restore control remains reachable",
+      "status": "PASS",
+      "evidence": [
+        {
+          "id": "r433DockPeek",
+          "hit": "r433DockPeek"
+        }
+      ]
+    },
+    {
+      "name": "TR/EN dismiss and Escape leave audio/count/attention unchanged and return focus",
+      "status": "PASS",
+      "evidence": {
+        "state": "attention",
+        "count": 19,
+        "audio": "playing"
+      }
+    },
+    {
+      "name": "Redisplay preserves the existing frame-based recovery without resetting transport",
+      "status": "PASS",
+      "evidence": {
+        "state": "ready",
+        "count": 19,
+        "audio": "playing"
+      }
+    },
+    {
+      "name": "Hide cancels placement observers/jobs without waiting for a graphic frame",
+      "status": "PASS",
+      "evidence": {
+        "jobs": 0,
+        "frames": 0,
+        "observers": 0
+      }
+    }
+  ]
+}

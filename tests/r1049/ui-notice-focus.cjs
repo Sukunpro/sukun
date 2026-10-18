@@ -72,7 +72,7 @@ function fixture(width=390,height=740,dockHeight=68){
  function fire(n,type,extra={}){n.dispatchEvent({type,defaultPrevented:false,preventDefault(){this.defaultPrevented=true;},...extra});}
  function geometry(size,top){dockHeight=size;layout(top);for(const o of ros)o.callback();mutation(dock,'style');advance(0);}
  function resize(w,h){context.innerWidth=w;context.innerHeight=h;layout();fire(context,'resize');advance(0);}
- advance(1720);
+ advance(120);paint();paint();document.hidden=true;fire(document,'visibilitychange');document.hidden=false;fire(document,'visibilitychange');advance(1720);
  const notice=body.children.find(n=>n.id==='r979PresentationNotice');assert(notice&&!notice.hidden,'Actual missing-RAF notice did not appear');
  return{context,document,dock,nav,play,stop,peek,notice,prior,geometry,resize,fire,advance,paint,forbidden,jobs,frames,mos,ros,get restores(){return restores;}};
 }

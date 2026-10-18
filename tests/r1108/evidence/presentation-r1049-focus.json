@@ -1,0 +1,67 @@
+{
+  "variant": "candidate",
+  "source": "/workspace/scratch/0ed53697150f/sukun/assets/runtime/presentation-r979.js",
+  "sha256": "2b33c219afa5fb73d701bceeb0acb43840662a72271dc02bc724c508197dd48f",
+  "total": 8,
+  "passed": 8,
+  "failed": 0,
+  "scope": "Real shipped presentation handlers in controlled DOM/RAF. Focus lifecycle and no audio/count side effects; no rendered pixel or physical-device claim.",
+  "results": [
+    {
+      "name": "Keyboard redisplay restores focus to the prior visible control on success",
+      "status": "PASS",
+      "evidence": {
+        "focused": "prior"
+      }
+    },
+    {
+      "name": "Automatic healthy foreground probe restores focus before hiding a focused warning",
+      "status": "PASS",
+      "evidence": {
+        "focused": "prior"
+      }
+    },
+    {
+      "name": "Saved control hidden after a tab change is skipped for visible player focus",
+      "status": "PASS",
+      "evidence": {
+        "focused": "r588Play"
+      }
+    },
+    {
+      "name": "Escape follows the same visible focus target when the saved control is disabled",
+      "status": "PASS",
+      "evidence": {
+        "focused": "r588Play"
+      }
+    },
+    {
+      "name": "Disconnected saved control falls back to the existing visible player",
+      "status": "PASS",
+      "evidence": {
+        "focused": "r588Play"
+      }
+    },
+    {
+      "name": "Successful redisplay does not steal focus moved to another app control",
+      "status": "PASS",
+      "evidence": {
+        "focused": "r588Stop"
+      }
+    },
+    {
+      "name": "Page hiding cancels probes and does not focus an underlying inactive page",
+      "status": "PASS",
+      "evidence": {
+        "state": "hidden"
+      }
+    },
+    {
+      "name": "Pointer dismiss preserves an already-focused player control",
+      "status": "PASS",
+      "evidence": {
+        "focused": "r588Stop"
+      }
+    }
+  ]
+}

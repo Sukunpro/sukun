@@ -92,7 +92,7 @@ async function test(name,fn){try{await fn();results.push({name,status:'PASS'});}
   const f=fixture({noSurface:true});f.finish('boot');assert.equal(f.restores,1);assert.equal(f.snapshot().state,'recovered');assert.equal(f.snapshot().lastProbe.domSurfaceVisible,true);settled(f);
  });
  await test('Missing first RAF uses bounded repair and does not report a physical visibility pass',()=>{
-  const f=fixture();f.advance(120);assert.equal(f.frames.size,1);f.advance(800);assert.equal(f.restores,1);f.advance(800);assert.equal(f.snapshot().state,'attention');assert.equal(f.snapshot().lastProbe.frameObserved,false);assert.equal(f.snapshot().lastProbe.domSurfaceVisible,true);settled(f);
+  const f=fixture();f.finish('boot');f.hide();f.wake();f.advance(120);assert.equal(f.frames.size,1);f.advance(800);assert.equal(f.restores,1);f.advance(800);assert.equal(f.snapshot().state,'attention');assert.equal(f.snapshot().lastProbe.frameObserved,false);assert.equal(f.snapshot().lastProbe.domSurfaceVisible,true);settled(f);
  });
  for(const minutes of [30,45,120])await test('Virtual '+minutes+'-minute lock cancels work and healthy unlock requires no renderer restoration',()=>{
   const f=fixture();f.finish('boot');const checks=f.snapshot().checks;f.hide();assert.equal(f.snapshot().state,'hidden');settled(f);f.advance(minutes*60*1000);assert.equal(f.snapshot().checks,checks);assert.equal(f.restores,0);settled(f);f.wake();f.settle();assert.equal(f.restores,0);assert.equal(f.snapshot().checks,checks+1);assert.equal(f.snapshot().state,'ready');assert.equal(f.scrolls,0);settled(f);
@@ -126,7 +126,7 @@ async function test(name,fn){try{await fn();results.push({name,status:'PASS'});}
  });
  await test('An 800 ms fallback is not overridden by visible Classic geometry or by language changes',()=>{
   const f=fixture({tab:'amb',practiceHidden:true,navMissing:true,classicGeometry:true,repair:false,restoreResult:false});
-  f.advance(1720);const before=f.snapshot(),notice=f.body.children.find(n=>n.id==='r979PresentationNotice');
+  f.finish('boot');f.hide();f.wake();f.advance(1720);const before=f.snapshot(),notice=f.body.children.find(n=>n.id==='r979PresentationNotice');
   assert.equal(before.state,'attention');assert.equal(before.lastProbe.domSurfaceVisible,true);assert.equal(before.lastProbe.frameObserved,false);assert.equal(notice.hidden,false);
   f.document.documentElement.lang='en';fire(f.context,'sukun:languagechange',{detail:{language:'en'}});
   assert.deepEqual(f.snapshot(),before);assert.equal(notice.hidden,false);assert.equal(f.restores,1);assert.equal(f.scrolls,0);settled(f);
@@ -134,9 +134,9 @@ async function test(name,fn){try{await fn();results.push({name,status:'PASS'});}
  await test('An existing EN attention notice immediately becomes TR when the application language changes',()=>{
   const f=fixture({lang:'en',noSurface:true,repair:false,restoreResult:false});f.finish('boot');
   const notice=f.body.children.find(n=>n.id==='r979PresentationNotice'),before=f.snapshot(),notifications=f.notifications.length;
-  assert.equal(notice.firstElementChild.textContent,'The interface could not be verified after returning. Redisplay it without resetting your count.');assert.equal(notice.lastElementChild.textContent,'Redisplay interface');
+  assert.equal(notice.firstElementChild.textContent,'The interface could not be verified during startup. Redisplay it without resetting your count.');assert.equal(notice.lastElementChild.textContent,'Redisplay interface');
   f.document.documentElement.lang='tr';fire(f.context,'sukun:languagechange',{detail:{language:'tr'}});
-  assert.equal(notice.firstElementChild.textContent,'Ekrana dönüşte görünüm doğrulanamadı. Sayacı sıfırlamadan yeniden göster.');assert.equal(notice.lastElementChild.textContent,'Görünümü yeniden göster');
+  assert.equal(notice.firstElementChild.textContent,'İlk açılışta görünüm doğrulanamadı. Sayacı sıfırlamadan yeniden göster.');assert.equal(notice.lastElementChild.textContent,'Görünümü yeniden göster');
   assert.equal(notice.hidden,false);assert.deepEqual(f.snapshot(),before);assert.equal(f.notifications.length,notifications);assert.equal(f.restores,1);settled(f);
  });
  await test('Repeated TR/EN changes localize both labels without repeating recovery or changing attention',()=>{

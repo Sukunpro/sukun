@@ -89,7 +89,7 @@ async function test(name,fn){try{await fn();results.push({name,status:'PASS'});}
   const f=fixture({noSurface:true});f.finish('boot');assert.equal(f.restores,1);assert.equal(f.snapshot().state,'recovered');assert.equal(f.snapshot().lastProbe.domSurfaceVisible,true);settled(f);
  });
  await test('Missing first RAF uses bounded repair and does not report a physical visibility pass',()=>{
-  const f=fixture();f.advance(120);assert.equal(f.frames.size,1);f.advance(800);assert.equal(f.restores,1);f.advance(800);assert.equal(f.snapshot().state,'attention');assert.equal(f.snapshot().lastProbe.frameObserved,false);assert.equal(f.snapshot().lastProbe.domSurfaceVisible,true);settled(f);
+  const f=fixture();f.finish('boot');f.hide();f.wake();f.advance(120);assert.equal(f.frames.size,1);f.advance(800);assert.equal(f.restores,1);f.advance(800);assert.equal(f.snapshot().state,'attention');assert.equal(f.snapshot().lastProbe.frameObserved,false);assert.equal(f.snapshot().lastProbe.domSurfaceVisible,true);settled(f);
  });
  for(const minutes of [30,45,120])await test('Virtual '+minutes+'-minute lock cancels work and healthy unlock requires no renderer restoration',()=>{
   const f=fixture();f.finish('boot');const checks=f.snapshot().checks;f.hide();assert.equal(f.snapshot().state,'hidden');settled(f);f.advance(minutes*60*1000);assert.equal(f.snapshot().checks,checks);assert.equal(f.restores,0);settled(f);f.wake();f.settle();assert.equal(f.restores,0);assert.equal(f.snapshot().checks,checks+1);assert.equal(f.snapshot().state,'ready');assert.equal(f.scrolls,0);settled(f);

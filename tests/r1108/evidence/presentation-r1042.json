@@ -1,0 +1,116 @@
+{
+  "total": 27,
+  "passed": 27,
+  "failed": 0,
+  "scope": "Shipped presentation recovery executed in a controlled DOM/RAF VM. Virtual30/45/120-minute locks test timers, generation cancellation and visible-surface decisions only. DOM rectangles and delivered frames do not establish rendered pixels, physical Android unlock, audio output or real background transport.",
+  "results": [
+    {
+      "name": "Healthy boot observes DOM/frame without restoring or scrolling",
+      "status": "PASS"
+    },
+    {
+      "name": "Healthy visible observes DOM/frame without restoring or scrolling",
+      "status": "PASS"
+    },
+    {
+      "name": "Healthy focus observes DOM/frame without restoring or scrolling",
+      "status": "PASS"
+    },
+    {
+      "name": "Healthy pageshow observes DOM/frame without restoring or scrolling",
+      "status": "PASS"
+    },
+    {
+      "name": "Healthy pageshow-persisted observes DOM/frame without restoring or scrolling",
+      "status": "PASS"
+    },
+    {
+      "name": "Healthy resume observes DOM/frame without restoring or scrolling",
+      "status": "PASS"
+    },
+    {
+      "name": "Loading boot waits for DOMContentLoaded and still leaves a healthy renderer untouched",
+      "status": "PASS"
+    },
+    {
+      "name": "Intentionally hidden practice remains untouched on a different visible tab",
+      "status": "PASS"
+    },
+    {
+      "name": "Intentionally hidden or absent practice remains untouched on a different visible tab",
+      "status": "PASS"
+    },
+    {
+      "name": "Healthy tef surface does not render again even if non-owning practice is hidden",
+      "status": "PASS"
+    },
+    {
+      "name": "Hidden tef tab is repaired directly and re-probed without a needless practice render",
+      "status": "PASS"
+    },
+    {
+      "name": "Broken owning practice in tef is restored exactly once and verified on the next frame",
+      "status": "PASS"
+    },
+    {
+      "name": "Expired opening flags that alone hide a healthy surface are cleared before deciding on restoration",
+      "status": "PASS"
+    },
+    {
+      "name": "Live opening suppresses restoration and preserves its opening flags",
+      "status": "PASS"
+    },
+    {
+      "name": "No visible DOM surface restores once even outside tef mode",
+      "status": "PASS"
+    },
+    {
+      "name": "Missing first RAF uses bounded repair and does not report a physical visibility pass",
+      "status": "PASS"
+    },
+    {
+      "name": "Virtual 30-minute lock cancels work and healthy unlock requires no renderer restoration",
+      "status": "PASS"
+    },
+    {
+      "name": "Virtual 45-minute lock cancels work and healthy unlock requires no renderer restoration",
+      "status": "PASS"
+    },
+    {
+      "name": "Virtual 120-minute lock cancels work and healthy unlock requires no renderer restoration",
+      "status": "PASS"
+    },
+    {
+      "name": "Stale frame from before hide and a superseded resume never restores or commits a probe",
+      "status": "PASS"
+    },
+    {
+      "name": "Hide after repair cancels the stale settle frame; subsequent healthy resume does not repair twice",
+      "status": "PASS"
+    },
+    {
+      "name": "Input after return preserves an intentional offscreen focus position",
+      "status": "PASS"
+    },
+    {
+      "name": "Broken focus outside viewport is positioned only on an untouched foreground return",
+      "status": "PASS"
+    },
+    {
+      "name": "Unsuccessful presentation repair remains attention without transport intervention: false",
+      "status": "PASS"
+    },
+    {
+      "name": "Unsuccessful presentation repair remains attention without transport intervention: throws",
+      "status": "PASS"
+    },
+    {
+      "name": "Manual recovery observes a healthy surface without forcing render or touching app state",
+      "status": "PASS"
+    },
+    {
+      "name": "Snapshot is copied and stays passive after repeated healthy wake boundaries",
+      "status": "PASS"
+    }
+  ]
+}

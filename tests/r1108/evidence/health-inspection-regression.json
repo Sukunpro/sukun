@@ -1,0 +1,198 @@
+{
+  "source": "/workspace/scratch/0ed53697150f/sukun",
+  "collectorSha256": "cbc1175673971086356a20c355f0fbd1dc3542654f0a05401839749d238b9f8b",
+  "presenterSha256": "72fce7d75ad4fc40ee0fcae176cca4adc5c1989c33e99829454343acfa4d9683",
+  "scope": "Production health collector/presenter and isolated cached API counters; modeled DOM navigation. No real recording read, browser display, audio, update, recovery or publication verification.",
+  "passed": 47,
+  "total": 47,
+  "results": [
+    {
+      "name": "standalone cached owner is copied once; read and presenters cannot inspect, read DB or scan DOM",
+      "passed": true
+    },
+    {
+      "name": "no owner or throwing owner stays unknown with no legacy fallback",
+      "passed": true
+    },
+    {
+      "name": "true empty observation displays zero with timestamp and build, never content verification",
+      "passed": true
+    },
+    {
+      "name": "no completed observation is unknown, never zero or a successful check",
+      "passed": true
+    },
+    {
+      "name": "missing displays unknown current totals and historical success separately",
+      "passed": true
+    },
+    {
+      "name": "unsupported displays unknown current totals and historical success separately",
+      "passed": true
+    },
+    {
+      "name": "unavailable displays unknown current totals and historical success separately",
+      "passed": true
+    },
+    {
+      "name": "timed-out displays unknown current totals and historical success separately",
+      "passed": true
+    },
+    {
+      "name": "cancelled displays unknown current totals and historical success separately",
+      "passed": true
+    },
+    {
+      "name": "blocked displays unknown current totals and historical success separately",
+      "passed": true
+    },
+    {
+      "name": "fixed error idb-unavailable is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error db-missing is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error store-missing is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error db-blocked is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error db-open-failed is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error read-failed is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error read-aborted is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error read-timeout is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error inspection-cancelled is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error invalid-record is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error unsafe-total is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error SecurityError is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error VersionError is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error UnknownError is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error InvalidStateError is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error QuotaExceededError is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "fixed error AbortError is bounded and does not turn supplied zero into a measurement",
+      "passed": true
+    },
+    {
+      "name": "reading preserves timestamped completed observations without claiming a new measurement",
+      "passed": true
+    },
+    {
+      "name": "clock reversal retains both timestamps without inferring loss, recovery or ordering",
+      "passed": true
+    },
+    {
+      "name": "numeric strings, missing, negative, fractional and unsafe totals remain unknown",
+      "passed": true
+    },
+    {
+      "name": "success with any non-null error cannot pass and unexpected codes use fixed unknown",
+      "passed": true
+    },
+    {
+      "name": "only exact fixed fields enter a bounded local report; payloads, names and identifiers are dropped",
+      "passed": true
+    },
+    {
+      "name": "arrays, hostile fields, invalid enums and malformed roots do not break report or leak input",
+      "passed": true
+    },
+    {
+      "name": "presenter independently rejects unsafe evidence and forged PASS",
+      "passed": true
+    },
+    {
+      "name": "failed historical observation is discarded rather than claimed successful",
+      "passed": true
+    },
+    {
+      "name": "local storage persistence failure is separate from successful current metadata",
+      "passed": true
+    },
+    {
+      "name": "refresh uses new owner snapshot without retaining it in event history or checkpoints",
+      "passed": true
+    },
+    {
+      "name": "problem markers and their persisted context do not duplicate inspection history",
+      "passed": true
+    },
+    {
+      "name": "AI payload, aggregate counts, areas and report key are unchanged by any local inspection status",
+      "passed": true
+    },
+    {
+      "name": "historical update baseline remains separate from requested recording inspection",
+      "passed": true
+    },
+    {
+      "name": "mounted local report navigation, plain export and AI preview keep inspection local in tr",
+      "passed": true
+    },
+    {
+      "name": "mounted local report navigation, plain export and AI preview keep inspection local in en",
+      "passed": true
+    },
+    {
+      "name": "health open and repeated close/open render cached data without requesting inspection or DB access",
+      "passed": true
+    },
+    {
+      "name": "quick and deep health checks retain existing checks and never request recording inspection or DB reads",
+      "passed": true
+    },
+    {
+      "name": "real inspection owner loads retained metadata without a DB read and agrees with the health schema",
+      "passed": true
+    },
+    {
+      "name": "real owner failure on a later explicit request keeps successful history and the report remains cached-only",
+      "passed": true
+    },
+    {
+      "name": "technical export downloads sanitized cached inspection without DB reads or fresh collection",
+      "passed": true
+    }
+  ]
+}
