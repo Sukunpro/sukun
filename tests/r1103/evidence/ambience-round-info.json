@@ -1,0 +1,3087 @@
+{
+  "suite": "r1103 focused round ambience information face",
+  "build": "r1103",
+  "startedAt": "2026-10-18T13:16:44.188Z",
+  "scriptSha256": "f86bb05b786bc07f467c6b6437515698db38e6b8c6de69c48b4b088d050a10e9",
+  "sourceSha256": "a821965c9d15afdaf9e6fe5d31332be5f42a6df91ea00fa1ef4ee0b571412915",
+  "limitations": [
+    "Two isolated headless Chromium Classic/Feyz profiles (320×740 TR,390×844 EN), both canonical Esma and Berhetiyye themes. Physical touch and audible output are outside this focused CSS check.",
+    "Native information modal, keyboard focus, and one procedural channel on/off cycle per profile only. No dhikr, speech, microphone or recording is started. Service workers and external requests are blocked by the shared fixture."
+  ],
+  "profiles": [
+    {
+      "label": "320x740-tr",
+      "language": "tr",
+      "viewport": {
+        "width": 320,
+        "height": 740
+      },
+      "browser": "138.0.7204.0",
+      "screenshot": "/workspace/scratch/0ed53697150f/r1103-ambience-round-320-berhet-tr.png",
+      "final": {
+        "selected": {
+          "cat": "berhet",
+          "index": 0
+        },
+        "count": 0,
+        "total": 0,
+        "auto": false,
+        "journeys": {
+          "berhet": false,
+          "esma": false
+        },
+        "smart": false,
+        "speech": 0,
+        "ambience": []
+      }
+    },
+    {
+      "label": "390x844-en",
+      "language": "en",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "browser": "138.0.7204.0",
+      "final": {
+        "selected": {
+          "cat": "berhet",
+          "index": 0
+        },
+        "count": 0,
+        "total": 0,
+        "auto": false,
+        "journeys": {
+          "berhet": false,
+          "esma": false
+        },
+        "smart": false,
+        "speech": 0,
+        "ambience": []
+      }
+    }
+  ],
+  "checks": [
+    {
+      "profile": "320x740-tr",
+      "family": "esma",
+      "name": "28px real target,20px circular face centered with switch track and no overlap",
+      "evidence": {
+        "rows": [
+          {
+            "id": "chn-kedi",
+            "info": {
+              "x": 212,
+              "y": -539.5625,
+              "width": 28,
+              "height": 28,
+              "top": -539.5625,
+              "right": 240,
+              "bottom": -511.5625,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": -592.671875,
+              "width": 260,
+              "height": 139.90625,
+              "top": -592.671875,
+              "right": 290,
+              "bottom": -452.765625,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": -583.671875,
+              "width": 226.1875,
+              "height": 39.109375,
+              "top": -583.671875,
+              "right": 281,
+              "bottom": -544.5625,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": -541.5625,
+              "width": 36,
+              "height": 32,
+              "top": -541.5625,
+              "right": 281,
+              "bottom": -509.5625,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-bulbul",
+            "info": {
+              "x": 212,
+              "y": -392.65625,
+              "width": 28,
+              "height": 28,
+              "top": -392.65625,
+              "right": 240,
+              "bottom": -364.65625,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": -445.765625,
+              "width": 260,
+              "height": 139.90625,
+              "top": -445.765625,
+              "right": 290,
+              "bottom": -305.859375,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": -436.765625,
+              "width": 226.1875,
+              "height": 39.109375,
+              "top": -436.765625,
+              "right": 281,
+              "bottom": -397.65625,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": -394.65625,
+              "width": 36,
+              "height": 32,
+              "top": -394.65625,
+              "right": 281,
+              "bottom": -362.65625,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-muhabbet",
+            "info": {
+              "x": 212,
+              "y": -245.75,
+              "width": 28,
+              "height": 28,
+              "top": -245.75,
+              "right": 240,
+              "bottom": -217.75,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": -298.859375,
+              "width": 260,
+              "height": 139.90625,
+              "top": -298.859375,
+              "right": 290,
+              "bottom": -158.953125,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": -289.859375,
+              "width": 226.1875,
+              "height": 39.109375,
+              "top": -289.859375,
+              "right": 281,
+              "bottom": -250.75,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": -247.75,
+              "width": 36,
+              "height": 32,
+              "top": -247.75,
+              "right": 281,
+              "bottom": -215.75,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-kuzu",
+            "info": {
+              "x": 212,
+              "y": -98.84375,
+              "width": 28,
+              "height": 28,
+              "top": -98.84375,
+              "right": 240,
+              "bottom": -70.84375,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": -151.953125,
+              "width": 260,
+              "height": 139.90625,
+              "top": -151.953125,
+              "right": 290,
+              "bottom": -12.046875,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": -142.953125,
+              "width": 226.1875,
+              "height": 39.109375,
+              "top": -142.953125,
+              "right": 281,
+              "bottom": -103.84375,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": -100.84375,
+              "width": 36,
+              "height": 32,
+              "top": -100.84375,
+              "right": 281,
+              "bottom": -68.84375,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-ari",
+            "info": {
+              "x": 212,
+              "y": 48.0625,
+              "width": 28,
+              "height": 28,
+              "top": 48.0625,
+              "right": 240,
+              "bottom": 76.0625,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": -5.046875,
+              "width": 260,
+              "height": 139.90625,
+              "top": -5.046875,
+              "right": 290,
+              "bottom": 134.859375,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": 3.953125,
+              "width": 226.1875,
+              "height": 39.109375,
+              "top": 3.953125,
+              "right": 281,
+              "bottom": 43.0625,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": 46.0625,
+              "width": 36,
+              "height": 32,
+              "top": 46.0625,
+              "right": 281,
+              "bottom": 78.0625,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-kumru",
+            "info": {
+              "x": 212,
+              "y": 194.96875,
+              "width": 28,
+              "height": 28,
+              "top": 194.96875,
+              "right": 240,
+              "bottom": 222.96875,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": 141.859375,
+              "width": 260,
+              "height": 139.90625,
+              "top": 141.859375,
+              "right": 290,
+              "bottom": 281.765625,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": 150.859375,
+              "width": 226.1875,
+              "height": 39.109375,
+              "top": 150.859375,
+              "right": 281,
+              "bottom": 189.96875,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": 192.96875,
+              "width": 36,
+              "height": 32,
+              "top": 192.96875,
+              "right": 281,
+              "bottom": 224.96875,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-serce",
+            "info": {
+              "x": 212,
+              "y": 341.875,
+              "width": 28,
+              "height": 28,
+              "top": 341.875,
+              "right": 240,
+              "bottom": 369.875,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": 288.765625,
+              "width": 260,
+              "height": 139.90625,
+              "top": 288.765625,
+              "right": 290,
+              "bottom": 428.671875,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": 297.765625,
+              "width": 226.1875,
+              "height": 39.109375,
+              "top": 297.765625,
+              "right": 281,
+              "bottom": 336.875,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": 339.875,
+              "width": 36,
+              "height": 32,
+              "top": 339.875,
+              "right": 281,
+              "bottom": 371.875,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-baykus",
+            "info": {
+              "x": 212,
+              "y": 511.171875,
+              "width": 28,
+              "height": 28,
+              "top": 511.171875,
+              "right": 240,
+              "bottom": 539.171875,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": 435.671875,
+              "width": 260,
+              "height": 162.296875,
+              "top": 435.671875,
+              "right": 290,
+              "bottom": 597.96875,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": 444.671875,
+              "width": 226.1875,
+              "height": 61.5,
+              "top": 444.671875,
+              "right": 281,
+              "bottom": 506.171875,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": 509.171875,
+              "width": 36,
+              "height": 32,
+              "top": 509.171875,
+              "right": 281,
+              "bottom": 541.171875,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          }
+        ],
+        "page": {
+          "width": 320,
+          "scroll": 320,
+          "client": 320,
+          "theme": "esma",
+          "layout": "classic",
+          "skin": "feyz",
+          "lang": "tr"
+        },
+        "pseudoCenteredInActualTarget": true
+      },
+      "passed": true
+    },
+    {
+      "profile": "320x740-tr",
+      "family": "esma",
+      "name": "Native info opens correct modal, closes, restores focus and supports keyboard focus without changing state",
+      "evidence": {
+        "info": {
+          "title": "Serçe",
+          "expected": "Serçe",
+          "role": "dialog",
+          "ariaModal": "true",
+          "rect": {
+            "x": 12,
+            "y": 203.34375,
+            "width": 296,
+            "height": 522.65625,
+            "top": 203.34375,
+            "right": 308,
+            "bottom": 726,
+            "left": 12
+          },
+          "contentLength": 34
+        },
+        "focus": {
+          "id": "serce",
+          "visible": true
+        },
+        "stateUnchanged": true
+      },
+      "passed": true
+    },
+    {
+      "profile": "320x740-tr",
+      "family": "berhet",
+      "name": "28px real target,20px circular face centered with switch track and no overlap",
+      "evidence": {
+        "rows": [
+          {
+            "id": "chn-kedi",
+            "info": {
+              "x": 212,
+              "y": -539.5625,
+              "width": 28,
+              "height": 28,
+              "top": -539.5625,
+              "right": 240,
+              "bottom": -511.5625,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": -592.671875,
+              "width": 260,
+              "height": 139.90625,
+              "top": -592.671875,
+              "right": 290,
+              "bottom": -452.765625,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": -583.671875,
+              "width": 226.1875,
+              "height": 39.109375,
+              "top": -583.671875,
+              "right": 281,
+              "bottom": -544.5625,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": -541.5625,
+              "width": 36,
+              "height": 32,
+              "top": -541.5625,
+              "right": 281,
+              "bottom": -509.5625,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:45405/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-bulbul",
+            "info": {
+              "x": 212,
+              "y": -392.65625,
+              "width": 28,
+              "height": 28,
+              "top": -392.65625,
+              "right": 240,
+              "bottom": -364.65625,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": -445.765625,
+              "width": 260,
+              "height": 139.90625,
+              "top": -445.765625,
+              "right": 290,
+              "bottom": -305.859375,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": -436.765625,
+              "width": 226.1875,
+              "height": 39.109375,
+              "top": -436.765625,
+              "right": 281,
+              "bottom": -397.65625,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": -394.65625,
+              "width": 36,
+              "height": 32,
+              "top": -394.65625,
+              "right": 281,
+              "bottom": -362.65625,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:45405/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-muhabbet",
+            "info": {
+              "x": 212,
+              "y": -245.75,
+              "width": 28,
+              "height": 28,
+              "top": -245.75,
+              "right": 240,
+              "bottom": -217.75,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": -298.859375,
+              "width": 260,
+              "height": 139.90625,
+              "top": -298.859375,
+              "right": 290,
+              "bottom": -158.953125,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": -289.859375,
+              "width": 226.1875,
+              "height": 39.109375,
+              "top": -289.859375,
+              "right": 281,
+              "bottom": -250.75,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": -247.75,
+              "width": 36,
+              "height": 32,
+              "top": -247.75,
+              "right": 281,
+              "bottom": -215.75,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:45405/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-kuzu",
+            "info": {
+              "x": 212,
+              "y": -98.84375,
+              "width": 28,
+              "height": 28,
+              "top": -98.84375,
+              "right": 240,
+              "bottom": -70.84375,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": -151.953125,
+              "width": 260,
+              "height": 139.90625,
+              "top": -151.953125,
+              "right": 290,
+              "bottom": -12.046875,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": -142.953125,
+              "width": 226.1875,
+              "height": 39.109375,
+              "top": -142.953125,
+              "right": 281,
+              "bottom": -103.84375,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": -100.84375,
+              "width": 36,
+              "height": 32,
+              "top": -100.84375,
+              "right": 281,
+              "bottom": -68.84375,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:45405/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-ari",
+            "info": {
+              "x": 212,
+              "y": 48.0625,
+              "width": 28,
+              "height": 28,
+              "top": 48.0625,
+              "right": 240,
+              "bottom": 76.0625,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": -5.046875,
+              "width": 260,
+              "height": 139.90625,
+              "top": -5.046875,
+              "right": 290,
+              "bottom": 134.859375,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": 3.953125,
+              "width": 226.1875,
+              "height": 39.109375,
+              "top": 3.953125,
+              "right": 281,
+              "bottom": 43.0625,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": 46.0625,
+              "width": 36,
+              "height": 32,
+              "top": 46.0625,
+              "right": 281,
+              "bottom": 78.0625,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:45405/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-kumru",
+            "info": {
+              "x": 212,
+              "y": 194.96875,
+              "width": 28,
+              "height": 28,
+              "top": 194.96875,
+              "right": 240,
+              "bottom": 222.96875,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": 141.859375,
+              "width": 260,
+              "height": 139.90625,
+              "top": 141.859375,
+              "right": 290,
+              "bottom": 281.765625,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": 150.859375,
+              "width": 226.1875,
+              "height": 39.109375,
+              "top": 150.859375,
+              "right": 281,
+              "bottom": 189.96875,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": 192.96875,
+              "width": 36,
+              "height": 32,
+              "top": 192.96875,
+              "right": 281,
+              "bottom": 224.96875,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:45405/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-serce",
+            "info": {
+              "x": 212,
+              "y": 341.875,
+              "width": 28,
+              "height": 28,
+              "top": 341.875,
+              "right": 240,
+              "bottom": 369.875,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": 288.765625,
+              "width": 260,
+              "height": 139.90625,
+              "top": 288.765625,
+              "right": 290,
+              "bottom": 428.671875,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": 297.765625,
+              "width": 226.1875,
+              "height": 39.109375,
+              "top": 297.765625,
+              "right": 281,
+              "bottom": 336.875,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": 339.875,
+              "width": 36,
+              "height": 32,
+              "top": 339.875,
+              "right": 281,
+              "bottom": 371.875,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:45405/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-baykus",
+            "info": {
+              "x": 212,
+              "y": 511.171875,
+              "width": 28,
+              "height": 28,
+              "top": 511.171875,
+              "right": 240,
+              "bottom": 539.171875,
+              "left": 212
+            },
+            "card": {
+              "x": 30,
+              "y": 435.671875,
+              "width": 260,
+              "height": 162.296875,
+              "top": 435.671875,
+              "right": 290,
+              "bottom": 597.96875,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": 444.671875,
+              "width": 226.1875,
+              "height": 61.5,
+              "top": 444.671875,
+              "right": 281,
+              "bottom": 506.171875,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 245,
+              "y": 509.171875,
+              "width": 36,
+              "height": 32,
+              "top": 509.171875,
+              "right": 281,
+              "bottom": 541.171875,
+              "left": 245
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:45405/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          }
+        ],
+        "page": {
+          "width": 320,
+          "scroll": 320,
+          "client": 320,
+          "theme": "berhet",
+          "layout": "classic",
+          "skin": "feyz",
+          "lang": "tr"
+        },
+        "pseudoCenteredInActualTarget": true
+      },
+      "passed": true
+    },
+    {
+      "profile": "320x740-tr",
+      "family": "berhet",
+      "name": "Native info opens correct modal, closes, restores focus and supports keyboard focus without changing state",
+      "evidence": {
+        "info": {
+          "title": "Serçe",
+          "expected": "Serçe",
+          "role": "dialog",
+          "ariaModal": "true",
+          "rect": {
+            "x": 12,
+            "y": 203.34375,
+            "width": 296,
+            "height": 522.65625,
+            "top": 203.34375,
+            "right": 308,
+            "bottom": 726,
+            "left": 12
+          },
+          "contentLength": 34
+        },
+        "focus": {
+          "id": "serce",
+          "visible": true
+        },
+        "stateUnchanged": true
+      },
+      "passed": true
+    },
+    {
+      "profile": "320x740-tr",
+      "family": "profile",
+      "name": "One native procedural channel toggle cycle preserves dhikr and information geometry",
+      "evidence": {
+        "channel": "serce",
+        "nativeOnOff": true,
+        "stateUnchanged": true
+      },
+      "passed": true
+    },
+    {
+      "profile": "320x740-tr",
+      "family": "profile",
+      "name": "Forced colors keeps a visible plain circular disc",
+      "evidence": {
+        "pseudo": {
+          "width": "20px",
+          "height": "20px",
+          "radius": "50%",
+          "left": "14px",
+          "top": "14px",
+          "transform": "matrix(1, 0, 0, 1, -10, -10)",
+          "backgroundImage": "none, none",
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderColor": "rgb(0, 0, 0)",
+          "pointerEvents": "none",
+          "display": "block"
+        },
+        "borderImage": "none"
+      },
+      "passed": true
+    },
+    {
+      "profile": "320x740-tr",
+      "family": "profile",
+      "name": "Current served source bytes and trusted actions have no runtime or integrity errors",
+      "evidence": {
+        "pageErrors": [],
+        "consoleErrors": [
+          "Failed to load resource: net::ERR_FAILED"
+        ],
+        "failedRequests": [],
+        "servedFiles": 133,
+        "trustedClicks": [
+          {
+            "info": "serce",
+            "close": false,
+            "trusted": true
+          },
+          {
+            "close": true,
+            "trusted": true
+          },
+          {
+            "info": "serce",
+            "close": false,
+            "trusted": true
+          },
+          {
+            "close": true,
+            "trusted": true
+          },
+          {
+            "sw": "serce",
+            "close": false,
+            "trusted": true
+          },
+          {
+            "sw": "serce",
+            "close": false,
+            "trusted": true
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "profile": "390x844-en",
+      "family": "esma",
+      "name": "28px real target,20px circular face centered with switch track and no overlap",
+      "evidence": {
+        "rows": [
+          {
+            "id": "chn-kedi",
+            "info": {
+              "x": 113.5,
+              "y": -46.75,
+              "width": 28,
+              "height": 28,
+              "top": -46.75,
+              "right": 141.5,
+              "bottom": -18.75,
+              "left": 113.5
+            },
+            "card": {
+              "x": 30,
+              "y": -99.859375,
+              "width": 161.5,
+              "height": 139.90625,
+              "top": -99.859375,
+              "right": 191.5,
+              "bottom": 40.046875,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": -90.859375,
+              "width": 127.6875,
+              "height": 39.109375,
+              "top": -90.859375,
+              "right": 182.5,
+              "bottom": -51.75,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 146.5,
+              "y": -48.75,
+              "width": 36,
+              "height": 32,
+              "top": -48.75,
+              "right": 182.5,
+              "bottom": -16.75,
+              "left": 146.5
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-bulbul",
+            "info": {
+              "x": 282,
+              "y": -46.75,
+              "width": 28,
+              "height": 28,
+              "top": -46.75,
+              "right": 310,
+              "bottom": -18.75,
+              "left": 282
+            },
+            "card": {
+              "x": 198.5,
+              "y": -99.859375,
+              "width": 161.5,
+              "height": 139.90625,
+              "top": -99.859375,
+              "right": 360,
+              "bottom": 40.046875,
+              "left": 198.5
+            },
+            "title": {
+              "x": 223.3125,
+              "y": -90.859375,
+              "width": 127.6875,
+              "height": 39.109375,
+              "top": -90.859375,
+              "right": 351,
+              "bottom": -51.75,
+              "left": 223.3125
+            },
+            "sw": {
+              "x": 315,
+              "y": -48.75,
+              "width": 36,
+              "height": 32,
+              "top": -48.75,
+              "right": 351,
+              "bottom": -16.75,
+              "left": 315
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-muhabbet",
+            "info": {
+              "x": 113.5,
+              "y": 100.15625,
+              "width": 28,
+              "height": 28,
+              "top": 100.15625,
+              "right": 141.5,
+              "bottom": 128.15625,
+              "left": 113.5
+            },
+            "card": {
+              "x": 30,
+              "y": 47.046875,
+              "width": 161.5,
+              "height": 139.90625,
+              "top": 47.046875,
+              "right": 191.5,
+              "bottom": 186.953125,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": 56.046875,
+              "width": 127.6875,
+              "height": 39.109375,
+              "top": 56.046875,
+              "right": 182.5,
+              "bottom": 95.15625,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 146.5,
+              "y": 98.15625,
+              "width": 36,
+              "height": 32,
+              "top": 98.15625,
+              "right": 182.5,
+              "bottom": 130.15625,
+              "left": 146.5
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-kuzu",
+            "info": {
+              "x": 282,
+              "y": 100.15625,
+              "width": 28,
+              "height": 28,
+              "top": 100.15625,
+              "right": 310,
+              "bottom": 128.15625,
+              "left": 282
+            },
+            "card": {
+              "x": 198.5,
+              "y": 47.046875,
+              "width": 161.5,
+              "height": 139.90625,
+              "top": 47.046875,
+              "right": 360,
+              "bottom": 186.953125,
+              "left": 198.5
+            },
+            "title": {
+              "x": 223.3125,
+              "y": 56.046875,
+              "width": 127.6875,
+              "height": 39.109375,
+              "top": 56.046875,
+              "right": 351,
+              "bottom": 95.15625,
+              "left": 223.3125
+            },
+            "sw": {
+              "x": 315,
+              "y": 98.15625,
+              "width": 36,
+              "height": 32,
+              "top": 98.15625,
+              "right": 351,
+              "bottom": 130.15625,
+              "left": 315
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-ari",
+            "info": {
+              "x": 113.5,
+              "y": 247.0625,
+              "width": 28,
+              "height": 28,
+              "top": 247.0625,
+              "right": 141.5,
+              "bottom": 275.0625,
+              "left": 113.5
+            },
+            "card": {
+              "x": 30,
+              "y": 193.953125,
+              "width": 161.5,
+              "height": 139.90625,
+              "top": 193.953125,
+              "right": 191.5,
+              "bottom": 333.859375,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": 202.953125,
+              "width": 127.6875,
+              "height": 39.109375,
+              "top": 202.953125,
+              "right": 182.5,
+              "bottom": 242.0625,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 146.5,
+              "y": 245.0625,
+              "width": 36,
+              "height": 32,
+              "top": 245.0625,
+              "right": 182.5,
+              "bottom": 277.0625,
+              "left": 146.5
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-kumru",
+            "info": {
+              "x": 282,
+              "y": 247.0625,
+              "width": 28,
+              "height": 28,
+              "top": 247.0625,
+              "right": 310,
+              "bottom": 275.0625,
+              "left": 282
+            },
+            "card": {
+              "x": 198.5,
+              "y": 193.953125,
+              "width": 161.5,
+              "height": 139.90625,
+              "top": 193.953125,
+              "right": 360,
+              "bottom": 333.859375,
+              "left": 198.5
+            },
+            "title": {
+              "x": 223.3125,
+              "y": 202.953125,
+              "width": 127.6875,
+              "height": 39.109375,
+              "top": 202.953125,
+              "right": 351,
+              "bottom": 242.0625,
+              "left": 223.3125
+            },
+            "sw": {
+              "x": 315,
+              "y": 245.0625,
+              "width": 36,
+              "height": 32,
+              "top": 245.0625,
+              "right": 351,
+              "bottom": 277.0625,
+              "left": 315
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-serce",
+            "info": {
+              "x": 113.5,
+              "y": 393.96875,
+              "width": 28,
+              "height": 28,
+              "top": 393.96875,
+              "right": 141.5,
+              "bottom": 421.96875,
+              "left": 113.5
+            },
+            "card": {
+              "x": 30,
+              "y": 340.859375,
+              "width": 161.5,
+              "height": 139.90625,
+              "top": 340.859375,
+              "right": 191.5,
+              "bottom": 480.765625,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": 349.859375,
+              "width": 127.6875,
+              "height": 39.109375,
+              "top": 349.859375,
+              "right": 182.5,
+              "bottom": 388.96875,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 146.5,
+              "y": 391.96875,
+              "width": 36,
+              "height": 32,
+              "top": 391.96875,
+              "right": 182.5,
+              "bottom": 423.96875,
+              "left": 146.5
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-baykus",
+            "info": {
+              "x": 282,
+              "y": 426.75,
+              "width": 28,
+              "height": 28,
+              "top": 426.75,
+              "right": 310,
+              "bottom": 454.75,
+              "left": 282
+            },
+            "card": {
+              "x": 198.5,
+              "y": 340.859375,
+              "width": 161.5,
+              "height": 172.6875,
+              "top": 340.859375,
+              "right": 360,
+              "bottom": 513.546875,
+              "left": 198.5
+            },
+            "title": {
+              "x": 223.3125,
+              "y": 349.859375,
+              "width": 127.6875,
+              "height": 71.890625,
+              "top": 349.859375,
+              "right": 351,
+              "bottom": 421.75,
+              "left": 223.3125
+            },
+            "sw": {
+              "x": 315,
+              "y": 424.75,
+              "width": 36,
+              "height": 32,
+              "top": 424.75,
+              "right": 351,
+              "bottom": 456.75,
+              "left": 315
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "radial-gradient(circle at 35% 30%, rgb(24, 56, 65), rgb(7, 23, 37))",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          }
+        ],
+        "page": {
+          "width": 390,
+          "scroll": 390,
+          "client": 390,
+          "theme": "esma",
+          "layout": "classic",
+          "skin": "feyz",
+          "lang": "en"
+        },
+        "pseudoCenteredInActualTarget": true
+      },
+      "passed": true
+    },
+    {
+      "profile": "390x844-en",
+      "family": "esma",
+      "name": "Native info opens correct modal, closes, restores focus and supports keyboard focus without changing state",
+      "evidence": {
+        "info": {
+          "title": "Sparrow",
+          "expected": "Sparrow",
+          "role": "dialog",
+          "ariaModal": "true",
+          "rect": {
+            "x": 12,
+            "y": 307.34375,
+            "width": 366,
+            "height": 522.65625,
+            "top": 307.34375,
+            "right": 378,
+            "bottom": 830,
+            "left": 12
+          },
+          "contentLength": 39
+        },
+        "focus": {
+          "id": "serce",
+          "visible": true
+        },
+        "stateUnchanged": true
+      },
+      "passed": true
+    },
+    {
+      "profile": "390x844-en",
+      "family": "berhet",
+      "name": "28px real target,20px circular face centered with switch track and no overlap",
+      "evidence": {
+        "rows": [
+          {
+            "id": "chn-kedi",
+            "info": {
+              "x": 113.5,
+              "y": -46.75,
+              "width": 28,
+              "height": 28,
+              "top": -46.75,
+              "right": 141.5,
+              "bottom": -18.75,
+              "left": 113.5
+            },
+            "card": {
+              "x": 30,
+              "y": -99.859375,
+              "width": 161.5,
+              "height": 139.90625,
+              "top": -99.859375,
+              "right": 191.5,
+              "bottom": 40.046875,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": -90.859375,
+              "width": 127.6875,
+              "height": 39.109375,
+              "top": -90.859375,
+              "right": 182.5,
+              "bottom": -51.75,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 146.5,
+              "y": -48.75,
+              "width": 36,
+              "height": 32,
+              "top": -48.75,
+              "right": 182.5,
+              "bottom": -16.75,
+              "left": 146.5
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:37875/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-bulbul",
+            "info": {
+              "x": 282,
+              "y": -46.75,
+              "width": 28,
+              "height": 28,
+              "top": -46.75,
+              "right": 310,
+              "bottom": -18.75,
+              "left": 282
+            },
+            "card": {
+              "x": 198.5,
+              "y": -99.859375,
+              "width": 161.5,
+              "height": 139.90625,
+              "top": -99.859375,
+              "right": 360,
+              "bottom": 40.046875,
+              "left": 198.5
+            },
+            "title": {
+              "x": 223.3125,
+              "y": -90.859375,
+              "width": 127.6875,
+              "height": 39.109375,
+              "top": -90.859375,
+              "right": 351,
+              "bottom": -51.75,
+              "left": 223.3125
+            },
+            "sw": {
+              "x": 315,
+              "y": -48.75,
+              "width": 36,
+              "height": 32,
+              "top": -48.75,
+              "right": 351,
+              "bottom": -16.75,
+              "left": 315
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:37875/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-muhabbet",
+            "info": {
+              "x": 113.5,
+              "y": 100.15625,
+              "width": 28,
+              "height": 28,
+              "top": 100.15625,
+              "right": 141.5,
+              "bottom": 128.15625,
+              "left": 113.5
+            },
+            "card": {
+              "x": 30,
+              "y": 47.046875,
+              "width": 161.5,
+              "height": 139.90625,
+              "top": 47.046875,
+              "right": 191.5,
+              "bottom": 186.953125,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": 56.046875,
+              "width": 127.6875,
+              "height": 39.109375,
+              "top": 56.046875,
+              "right": 182.5,
+              "bottom": 95.15625,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 146.5,
+              "y": 98.15625,
+              "width": 36,
+              "height": 32,
+              "top": 98.15625,
+              "right": 182.5,
+              "bottom": 130.15625,
+              "left": 146.5
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:37875/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-kuzu",
+            "info": {
+              "x": 282,
+              "y": 100.15625,
+              "width": 28,
+              "height": 28,
+              "top": 100.15625,
+              "right": 310,
+              "bottom": 128.15625,
+              "left": 282
+            },
+            "card": {
+              "x": 198.5,
+              "y": 47.046875,
+              "width": 161.5,
+              "height": 139.90625,
+              "top": 47.046875,
+              "right": 360,
+              "bottom": 186.953125,
+              "left": 198.5
+            },
+            "title": {
+              "x": 223.3125,
+              "y": 56.046875,
+              "width": 127.6875,
+              "height": 39.109375,
+              "top": 56.046875,
+              "right": 351,
+              "bottom": 95.15625,
+              "left": 223.3125
+            },
+            "sw": {
+              "x": 315,
+              "y": 98.15625,
+              "width": 36,
+              "height": 32,
+              "top": 98.15625,
+              "right": 351,
+              "bottom": 130.15625,
+              "left": 315
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:37875/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-ari",
+            "info": {
+              "x": 113.5,
+              "y": 247.0625,
+              "width": 28,
+              "height": 28,
+              "top": 247.0625,
+              "right": 141.5,
+              "bottom": 275.0625,
+              "left": 113.5
+            },
+            "card": {
+              "x": 30,
+              "y": 193.953125,
+              "width": 161.5,
+              "height": 139.90625,
+              "top": 193.953125,
+              "right": 191.5,
+              "bottom": 333.859375,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": 202.953125,
+              "width": 127.6875,
+              "height": 39.109375,
+              "top": 202.953125,
+              "right": 182.5,
+              "bottom": 242.0625,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 146.5,
+              "y": 245.0625,
+              "width": 36,
+              "height": 32,
+              "top": 245.0625,
+              "right": 182.5,
+              "bottom": 277.0625,
+              "left": 146.5
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:37875/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-kumru",
+            "info": {
+              "x": 282,
+              "y": 247.0625,
+              "width": 28,
+              "height": 28,
+              "top": 247.0625,
+              "right": 310,
+              "bottom": 275.0625,
+              "left": 282
+            },
+            "card": {
+              "x": 198.5,
+              "y": 193.953125,
+              "width": 161.5,
+              "height": 139.90625,
+              "top": 193.953125,
+              "right": 360,
+              "bottom": 333.859375,
+              "left": 198.5
+            },
+            "title": {
+              "x": 223.3125,
+              "y": 202.953125,
+              "width": 127.6875,
+              "height": 39.109375,
+              "top": 202.953125,
+              "right": 351,
+              "bottom": 242.0625,
+              "left": 223.3125
+            },
+            "sw": {
+              "x": 315,
+              "y": 245.0625,
+              "width": 36,
+              "height": 32,
+              "top": 245.0625,
+              "right": 351,
+              "bottom": 277.0625,
+              "left": 315
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:37875/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-serce",
+            "info": {
+              "x": 113.5,
+              "y": 393.96875,
+              "width": 28,
+              "height": 28,
+              "top": 393.96875,
+              "right": 141.5,
+              "bottom": 421.96875,
+              "left": 113.5
+            },
+            "card": {
+              "x": 30,
+              "y": 340.859375,
+              "width": 161.5,
+              "height": 139.90625,
+              "top": 340.859375,
+              "right": 191.5,
+              "bottom": 480.765625,
+              "left": 30
+            },
+            "title": {
+              "x": 54.8125,
+              "y": 349.859375,
+              "width": 127.6875,
+              "height": 39.109375,
+              "top": 349.859375,
+              "right": 182.5,
+              "bottom": 388.96875,
+              "left": 54.8125
+            },
+            "sw": {
+              "x": 146.5,
+              "y": 391.96875,
+              "width": 36,
+              "height": 32,
+              "top": 391.96875,
+              "right": 182.5,
+              "bottom": 423.96875,
+              "left": 146.5
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:37875/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          },
+          {
+            "id": "chn-baykus",
+            "info": {
+              "x": 282,
+              "y": 426.75,
+              "width": 28,
+              "height": 28,
+              "top": 426.75,
+              "right": 310,
+              "bottom": 454.75,
+              "left": 282
+            },
+            "card": {
+              "x": 198.5,
+              "y": 340.859375,
+              "width": 161.5,
+              "height": 172.6875,
+              "top": 340.859375,
+              "right": 360,
+              "bottom": 513.546875,
+              "left": 198.5
+            },
+            "title": {
+              "x": 223.3125,
+              "y": 349.859375,
+              "width": 127.6875,
+              "height": 71.890625,
+              "top": 349.859375,
+              "right": 351,
+              "bottom": 421.75,
+              "left": 223.3125
+            },
+            "sw": {
+              "x": 315,
+              "y": 424.75,
+              "width": 36,
+              "height": 32,
+              "top": 424.75,
+              "right": 351,
+              "bottom": 456.75,
+              "left": 315
+            },
+            "borderImage": "none",
+            "borderWidth": "0px",
+            "outerRadius": "50%",
+            "pseudo": {
+              "width": "20px",
+              "height": "20px",
+              "radius": "50%",
+              "left": "14px",
+              "top": "14px",
+              "transform": "matrix(1, 0, 0, 1, -10, -10)",
+              "backgroundImage": "url(\"http://127.0.0.1:37875/assets/berhetiyye-premium/gem-sapphire-r933.webp\"), none",
+              "backgroundColor": "rgb(7, 23, 37)",
+              "borderColor": "rgb(191, 164, 109)",
+              "pointerEvents": "none",
+              "display": "block"
+            },
+            "track": {
+              "width": "36px",
+              "height": "20px",
+              "left": "0px",
+              "top": "6px"
+            },
+            "centerDifference": 0
+          }
+        ],
+        "page": {
+          "width": 390,
+          "scroll": 390,
+          "client": 390,
+          "theme": "berhet",
+          "layout": "classic",
+          "skin": "feyz",
+          "lang": "en"
+        },
+        "pseudoCenteredInActualTarget": true
+      },
+      "passed": true
+    },
+    {
+      "profile": "390x844-en",
+      "family": "berhet",
+      "name": "Native info opens correct modal, closes, restores focus and supports keyboard focus without changing state",
+      "evidence": {
+        "info": {
+          "title": "Sparrow",
+          "expected": "Sparrow",
+          "role": "dialog",
+          "ariaModal": "true",
+          "rect": {
+            "x": 12,
+            "y": 307.34375,
+            "width": 366,
+            "height": 522.65625,
+            "top": 307.34375,
+            "right": 378,
+            "bottom": 830,
+            "left": 12
+          },
+          "contentLength": 39
+        },
+        "focus": {
+          "id": "serce",
+          "visible": true
+        },
+        "stateUnchanged": true
+      },
+      "passed": true
+    },
+    {
+      "profile": "390x844-en",
+      "family": "profile",
+      "name": "One native procedural channel toggle cycle preserves dhikr and information geometry",
+      "evidence": {
+        "channel": "serce",
+        "nativeOnOff": true,
+        "stateUnchanged": true
+      },
+      "passed": true
+    },
+    {
+      "profile": "390x844-en",
+      "family": "profile",
+      "name": "Current served source bytes and trusted actions have no runtime or integrity errors",
+      "evidence": {
+        "pageErrors": [],
+        "consoleErrors": [
+          "Failed to load resource: net::ERR_FAILED"
+        ],
+        "failedRequests": [],
+        "servedFiles": 137,
+        "trustedClicks": [
+          {
+            "info": "serce",
+            "close": false,
+            "trusted": true
+          },
+          {
+            "close": true,
+            "trusted": true
+          },
+          {
+            "info": "serce",
+            "close": false,
+            "trusted": true
+          },
+          {
+            "close": true,
+            "trusted": true
+          },
+          {
+            "sw": "serce",
+            "close": false,
+            "trusted": true
+          },
+          {
+            "sw": "serce",
+            "close": false,
+            "trusted": true
+          }
+        ]
+      },
+      "passed": true
+    }
+  ],
+  "sourceFiles": {
+    "nero.html": {
+      "sha256": "a821965c9d15afdaf9e6fe5d31332be5f42a6df91ea00fa1ef4ee0b571412915",
+      "bytes": 7401314
+    },
+    "css/berhet-controls-r1101.css": {
+      "sha256": "00d1b69e1dd5a8a79eddeba920702e3cd28b56694cd1fa4576466d0ce0979dc0",
+      "bytes": 23689
+    },
+    "assets/runtime/browser-contrast-r1077.css": {
+      "sha256": "35eb72c7d208df77eaa80833bd33535db2e71359bef78cb0713574cdb52e6689",
+      "bytes": 6127
+    },
+    "assets/runtime/protective-plan-r1078.css": {
+      "sha256": "435d3597d787a42f4e4cb8014dad0d6cc1d944575cb82d6375a25376a8e73243",
+      "bytes": 4325
+    },
+    "css/ambience-info-round-r1103.css": {
+      "sha256": "26f50a886eaedc343bd4bcae22be40b58f8329afa38484c2ee752965aec0394b",
+      "bytes": 1657
+    },
+    "css/ambience-compact-r1102.css": {
+      "sha256": "b0c1b7ea6439a01b2d7893f080340b31d4e4f512a68c87f29283d35537c896cc",
+      "bytes": 2513
+    },
+    "assets/runtime/compact-ui-r1057.css": {
+      "sha256": "ea43a802d7059df167b1acf3504b96ba77dd73bd98b95b1e488d3ec4d57bfaea",
+      "bytes": 8438
+    },
+    "assets/runtime/berhet-layout-r938.css": {
+      "sha256": "e22130607a9dc18f298262d67a58393b4a51d09f3e7601a0f543df2ab0646491",
+      "bytes": 37423
+    },
+    "assets/runtime/berhet-materials-r933.css": {
+      "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+      "bytes": 622
+    },
+    "assets/runtime/berhet-controls-r933.css": {
+      "sha256": "3ad2239995fcc02fcbcf970d738a4b548716b9de360954af50839097c7c7c067",
+      "bytes": 39109
+    },
+    "assets/runtime/berhet-dock-r933.css": {
+      "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+      "bytes": 12309
+    },
+    "assets/runtime/reading-ui-r1064.css": {
+      "sha256": "c7e5ad5f763e51c806602b77bdc202ff2c9d491e461aa6ea1260a99e0a49d8b9",
+      "bytes": 5509
+    },
+    "assets/runtime/audio-preparation-r981.js": {
+      "sha256": "03b21ec8e0308489662825502b2abaa1e64d7475c8c221fe04c52f4d0601e08d",
+      "bytes": 20390
+    },
+    "assets/runtime/audio-cpu-r981.js": {
+      "sha256": "daba8b6eff390454fc7391aa80fdcf1f9e5db7d3a8b7d07d9be93abfb0cd0f4f",
+      "bytes": 7807
+    },
+    "assets/runtime/smart-session-ui-r1082.css": {
+      "sha256": "75a9a3565910449a6dd3b2a0b3d46487ed4d2c63ee7fd062b547a9f9a86db2a0",
+      "bytes": 9229
+    },
+    "assets/runtime/progress-journal-r982.js": {
+      "sha256": "1555800182b606e6abea73dd53bf8fa9392a7f42b4a3a628a208bf4ad8587cde",
+      "bytes": 21081
+    },
+    "assets/runtime/studio-preparation-r982.js": {
+      "sha256": "e341b06e7bfa66584d09941ce6ceffa681e513385c6e8db04e932543c5fefbb4",
+      "bytes": 8672
+    },
+    "assets/runtime/tab-owner-r981.js": {
+      "sha256": "d306eafe445953ac97537b3fbe68cc672c98cd124348340f53e9cb70d87e9f5e",
+      "bytes": 34931
+    },
+    "assets/runtime/recording-inspection-r1020.js": {
+      "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+      "bytes": 9674
+    },
+    "assets/runtime/background-owner-r949.js": {
+      "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+      "bytes": 11067
+    },
+    "assets/runtime/lifecycle-r949.js": {
+      "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+      "bytes": 4252
+    },
+    "assets/audio/sukun-intro-signature-r1037.wav": {
+      "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+      "bytes": 288044
+    },
+    "assets/runtime/recording-continuity-r1016.js": {
+      "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+      "bytes": 13251
+    },
+    "assets/runtime/audio-palette-r945.js": {
+      "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+      "bytes": 6073
+    },
+    "assets/branding/sukun-frameless-logo-r1029.png": {
+      "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+      "bytes": 27201
+    },
+    "assets/berhetiyye-gate/invitation-tr.mp3": {
+      "sha256": "18a114ec927508e4f5684a7e76d39abe28058c81f5632c797a707c6109bd5303",
+      "bytes": 54957
+    },
+    "assets/runtime/active-source-r1060.js": {
+      "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+      "bytes": 6128
+    },
+    "assets/runtime/esma-scenes-r923.js": {
+      "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+      "bytes": 4307
+    },
+    "assets/runtime/generic-recordings-r1055.js": {
+      "sha256": "c6823c9eeeae0525dcf09f8e2775e95ca964b902f76966e4ec9a3e893b88c1f3",
+      "bytes": 35912
+    },
+    "assets/runtime/archive-download-r1093.css": {
+      "sha256": "1e64b2d06b24547bb932d4148de660201ec62a5610d95c6148d8ba879cfbbebc",
+      "bytes": 3150
+    },
+    "assets/runtime/source-matrix-ui-r1094.css": {
+      "sha256": "ad4a4fa2d522d2a418403fc07b8f1a0979faf6e6d4db240e40e699eadcbe135a",
+      "bytes": 3903
+    },
+    "assets/runtime/archive-download-r1093.js": {
+      "sha256": "5a796fbbe29c0f5183434e655e792102fb831bb39895e1f5685d3c5aaf9fd3ad",
+      "bytes": 24139
+    },
+    "assets/runtime/generic-recordings-ui-r1055.js": {
+      "sha256": "4c60e36eff387b882d2b8d874799da2a3a469bb0ecca20b888fa511cf147dbcc",
+      "bytes": 32023
+    },
+    "assets/runtime/session-r919.js": {
+      "sha256": "5ef9efcb784542a53a9f3ebe8ec57f4694ebbeeb0b7af00428a6b4de9e2b8869",
+      "bytes": 46114
+    },
+    "assets/runtime/active-layers-r1061.js": {
+      "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+      "bytes": 14049
+    },
+    "assets/runtime/dock-r920.js": {
+      "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+      "bytes": 11007
+    },
+    "assets/runtime/wheels-r924.js": {
+      "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+      "bytes": 41623
+    },
+    "assets/runtime/berhet-layout-r938.js": {
+      "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+      "bytes": 8399
+    },
+    "assets/runtime/compact-ui-r1057.js": {
+      "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+      "bytes": 5342
+    },
+    "assets/runtime/interface-r920.js": {
+      "sha256": "517d7dc842e2dbebdea2373335c527e1dd08624584a31eac6f79f19f8c057ff0",
+      "bytes": 43131
+    },
+    "assets/runtime/wheels-r924.css": {
+      "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+      "bytes": 34043
+    },
+    "assets/runtime/berhet-theme-r933.js": {
+      "sha256": "e3f4ba9b695d25d34c7e098a7d51b51e778089ddd897ac9b10b9851e511d2069",
+      "bytes": 2335
+    },
+    "assets/runtime/health-view-r943.css": {
+      "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+      "bytes": 7440
+    },
+    "assets/runtime/health-view-r943.js": {
+      "sha256": "d04c05dfc3c0624226bec562acd5e8169c8ce5334836bcc8562e5fa37cfc4d84",
+      "bytes": 124592
+    },
+    "assets/branding/sukun-intro-pattern-r1029.svg": {
+      "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4",
+      "bytes": 769
+    },
+    "assets/runtime/scene-picker-r945.css": {
+      "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+      "bytes": 6657
+    },
+    "assets/runtime/scene-picker-r945.js": {
+      "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+      "bytes": 9860
+    },
+    "assets/runtime/presentation-r979.js": {
+      "sha256": "c648ddce99e0191ae5cb11bbccd19222a4bf3bb8764453c54d95d8e15831e033",
+      "bytes": 14768
+    },
+    "assets/runtime/nefs-r948.css": {
+      "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+      "bytes": 18988
+    },
+    "assets/runtime/health-r940.js": {
+      "sha256": "3484d47a7a55ff29348d62965bee516a71530c9dfe351ab9c4c3ad9579be6620",
+      "bytes": 94056
+    },
+    "assets/runtime/nefs-model-r948.js": {
+      "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+      "bytes": 18197
+    },
+    "assets/runtime/nefs-data-r948.js": {
+      "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+      "bytes": 283054
+    },
+    "assets/runtime/offline-scenes-r962.js": {
+      "sha256": "3d2bf56119336acd4a8dab2422b96914a7bc3d8b386c1e3a43ab47e82a328c62",
+      "bytes": 11161
+    },
+    "assets/runtime/nefs-ui-r948.js": {
+      "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+      "bytes": 48398
+    },
+    "assets/runtime/offline-images-ui-r1095.js": {
+      "sha256": "a73415347147aea22dc249f435aba425713e8bc4f7cf33c72ea1c372168f32ef",
+      "bytes": 13974
+    },
+    "assets/runtime/offline-images-ui-r1095.css": {
+      "sha256": "8d8790d515e1e752f4e80598e450eca83c96ae0c7397df3eb1156a16573ea70b",
+      "bytes": 3214
+    },
+    "assets/runtime/cadence-r981.css": {
+      "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+      "bytes": 1841
+    },
+    "assets/runtime/cadence-r981.js": {
+      "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+      "bytes": 23650
+    },
+    "assets/runtime/tekke-sequence-r988.js": {
+      "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+      "bytes": 10314
+    },
+    "assets/runtime/tekke-journey-r993.css": {
+      "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+      "bytes": 7044
+    },
+    "assets/runtime/tekke-set-r990.js": {
+      "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+      "bytes": 27409
+    },
+    "assets/runtime/tekke-ux-r992.css": {
+      "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+      "bytes": 37518
+    },
+    "assets/runtime/background-mix-render-r1059.js": {
+      "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e",
+      "bytes": 21067
+    },
+    "assets/runtime/background-mix-r1059.js": {
+      "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38",
+      "bytes": 18625
+    },
+    "assets/runtime/yasin-timing-r1067.js": {
+      "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+      "bytes": 5926
+    },
+    "assets/runtime/reading-audio-r1064.js": {
+      "sha256": "dbeccc27c91c5a87b494437ff835364350e23d00e61687378875c867891d9b44",
+      "bytes": 20352
+    },
+    "assets/runtime/bundled-arabic-r1065.js": {
+      "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+      "bytes": 9208
+    },
+    "assets/runtime/yasin-data-r1064.js": {
+      "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+      "bytes": 49799
+    },
+    "assets/runtime/reading-sources-r1064.js": {
+      "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+      "bytes": 67014
+    },
+    "assets/runtime/navigation-r1066.js": {
+      "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+      "bytes": 2624
+    },
+    "assets/runtime/protective-plan-r1078.js": {
+      "sha256": "eae538c9a50770b86751c48d1b4ab4515a443a541fb358c5e3d157bb2d6b6a22",
+      "bytes": 8374
+    },
+    "assets/runtime/smart-session-ui-r1082.js": {
+      "sha256": "5dac4626b57602a9d04b3bc7b58ff8dbaacc951c9bcd75a61f1835702d230713",
+      "bytes": 22631
+    },
+    "assets/runtime/reading-ui-r1064.js": {
+      "sha256": "e64203292bbb461b87526679593bf28b5cc43bc53e4ffc56acadea719572c09c",
+      "bytes": 43814
+    },
+    "assets/berhetiyye-gate/portal-r1080.css": {
+      "sha256": "5c115fb5f548e6d15bb938c5270d5431bcaabe03ea6abd164370ad05885bb757",
+      "bytes": 23097
+    },
+    "assets/berhetiyye-gate/entry-r1080.css": {
+      "sha256": "652561e9c60b412bbb6e03096c5576787aad2966b3bcfae8205d40b28d3e0374",
+      "bytes": 1562
+    },
+    "assets/berhetiyye-gate/audio-r1080.js": {
+      "sha256": "d77a0ecff6f7a7b11cee3116817c51c6a1cf568d0c7e8d7026383842936d015c",
+      "bytes": 12551
+    },
+    "integration/berhet-access/example-http-provider.js": {
+      "sha256": "ec2e1f22e7bf0ae938a7163019eec4556150bf858dc387e13b3596cce30f16ae",
+      "bytes": 7192
+    },
+    "assets/berhetiyye-gate/access-r1080.js": {
+      "sha256": "99270f5efc93e38ab95d1c6da32005232a63e181d94765e44f4c894d424a64c6",
+      "bytes": 14484
+    },
+    "assets/berhetiyye-gate/entry-r1080.js": {
+      "sha256": "8ef27093ff8da3fc8dc9a8f67563df4f49c0176ecbf18772c416c28d1194cde3",
+      "bytes": 3033
+    },
+    "assets/runtime/session-preflight-ui-r1092.css": {
+      "sha256": "e0b99033e8d528dffa1da89c778b8567c201db5dda32516a1105610a74cfd150",
+      "bytes": 2014
+    },
+    "assets/berhetiyye-gate/portal-r1080.js": {
+      "sha256": "0048e2a9cac8416faa0102b1cc10ff8d262693f09be89e4ad663c170e9c077c9",
+      "bytes": 53727
+    },
+    "assets/runtime/preflight-cache-r1092.js": {
+      "sha256": "840a9e120dc10f93842eada39e17ac316671c45405e8109694bfd20d8966d0ed",
+      "bytes": 4551
+    },
+    "assets/runtime/session-preflight-r1092.js": {
+      "sha256": "0c33412ea2ef96825ec6ac7bb9b8e30307b3b486aa14803e2becc0cb758ba986",
+      "bytes": 14381
+    },
+    "assets/runtime/source-matrix-r1094.js": {
+      "sha256": "07a56c03210a52669d9d0c5578339eac60423654bdf8ef13dc0d18a8f4607e1e",
+      "bytes": 14815
+    },
+    "assets/runtime/session-preflight-ui-r1092.js": {
+      "sha256": "c8239465b43a7cc392c7d87ca6fd2361d59e4fbcb08ad7852657ee58204ef844",
+      "bytes": 12494
+    },
+    "js/section-switch-r1101.js": {
+      "sha256": "29d8a99e6061997c0d392dc6e6493189eab9f2c10d67b87dcdb7dfa80b5d4a8f",
+      "bytes": 8329
+    },
+    "assets/runtime/source-matrix-ui-r1094.js": {
+      "sha256": "1cdc67d4769bc8707acdc7e175ed927faf3dc820f8834de984e144887540345c",
+      "bytes": 16449
+    },
+    "css/frequency-hub-r1101.css": {
+      "sha256": "23587c627d8683d16ca6d576ec3751af99595425e476d0dd0c695faf184c4c6e",
+      "bytes": 7142
+    },
+    "js/frequency-hub-r1101.js": {
+      "sha256": "037c2b1295f0ffe23a35818ab71193167b3440fd8fef6ff02987b6318d1a2353",
+      "bytes": 21532
+    },
+    "assets/runtime/recovery-versions-r1019.js": {
+      "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+      "bytes": 8407
+    },
+    "assets/runtime/studio-batch-r1020.js": {
+      "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+      "bytes": 23944
+    },
+    "assets/runtime/recovery-ui-r1019.js": {
+      "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+      "bytes": 6054
+    },
+    "assets/runtime/site-backup-r1020.js": {
+      "sha256": "5d8380543c1893a80c80c5b8a425cc28638615a724144243549469b9672cddf9",
+      "bytes": 29313
+    },
+    "assets/runtime/recovery-data-r1020.js": {
+      "sha256": "73dc56f2eb83405ee0801fd94703b85497963d02aad728216336e66e6e5da355",
+      "bytes": 52774
+    },
+    "assets/runtime/recording-salvage-r1020.js": {
+      "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+      "bytes": 36787
+    },
+    "assets/runtime/recovery-entry-r1027.js": {
+      "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+      "bytes": 5702
+    },
+    "assets/runtime/startup-intro-r1027.js": {
+      "sha256": "516685993fcf3c123e023a825ff49a222939e27a4a483147a87d082aab22e5d8",
+      "bytes": 22478
+    },
+    "assets/runtime/tekke-journey-r993.js": {
+      "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+      "bytes": 38289
+    },
+    "assets/runtime/tekke-ux-r992.js": {
+      "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+      "bytes": 25320
+    },
+    "assets/sukun-nur-orbit-r757.svg": {
+      "sha256": "b9e2f2d8d983b9b19cd4be7d16ab1fe82d47a89c82361c2a60f456f25e478854",
+      "bytes": 248
+    },
+    "assets/sukun-nur-mist-r759.svg": {
+      "sha256": "4b099628bd538f0a6e2b73b4ffea399319347375444312e7946ada10e8214ccf",
+      "bytes": 20321
+    },
+    "assets/sukun-tesbih-weave-r759.svg": {
+      "sha256": "f01e6993b482e6194f479416955b85e888b95c332187a1bc55aaa7b893502bba",
+      "bytes": 1296
+    },
+    "assets/scenes/mobile-r918/mevlevi.webp": {
+      "sha256": "38809a4ac966552a60fee4efb9e303b9edd2f9c13cca2b9787ed9cf67bfce565",
+      "bytes": 411132
+    },
+    "assets/sukun-nur-ring-r757.png": {
+      "sha256": "b9bf594010438b1c49ab693a94ba5022569462c334f606754306bb63f808f6fb",
+      "bytes": 1713434
+    },
+    "assets/scenes/esma-r923/mevlevi-sema.webp": {
+      "sha256": "c7dbea4be096916817a0550c698a1607dbf195d951d134874f0244eef1ef6950",
+      "bytes": 274004
+    },
+    "assets/wheels-r924/esma/inci-sema.webp": {
+      "sha256": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+      "bytes": 238294
+    },
+    "sukun-build-r1103.json": {
+      "sha256": "6ecadc828116f89ce876dec57c6752e5fa1b0ca96829fe090c09c01b39e60ea7",
+      "bytes": 34624
+    },
+    "assets/wheels-r977/ceviz-naksi.webp": {
+      "sha256": "86e88d374e02bdfdf6e2d31e59e4ff2dec6ab2eb3a0b5381aa379cd99f56b795",
+      "bytes": 1082544
+    },
+    "assets/wheels-r977/zeytin-tesbihi.webp": {
+      "sha256": "ade875147d0afd253d173ed87558a6fe4128892e415b7b69ff2a5cc33ab34746",
+      "bytes": 875528
+    },
+    "assets/wheels-r977/abanoz-sukunu.webp": {
+      "sha256": "7fc6002cb200e8f7dd9c2e045a20d9529f8a94949429f3fd02d43783cf9bfbd4",
+      "bytes": 1024218
+    },
+    "assets/wheels-r977/sandal-halkasi.webp": {
+      "sha256": "9aa32bbb2bafa81ab026d16abad11cc8f3e96e0ac5696c594c744fddd99b6a54",
+      "bytes": 1024854
+    },
+    "assets/wheels-r977/altin-nakis.webp": {
+      "sha256": "00e57bb2ba9128ce46c2bf2e1f72048c4cee57cd1bc6cb908dd5b14825c840c0",
+      "bytes": 1503206
+    },
+    "assets/wheels-r977/elmas-taci.webp": {
+      "sha256": "37dc4d2ce5ea19f163a6e798f72c1c3ed982f15fcee74a7a20cda554f2411d93",
+      "bytes": 1641778
+    },
+    "assets/berhetiyye-premium/panel-emerald-r932.webp": {
+      "sha256": "ef9b20b66a0f0a04846ab8ec6dafe348ee334c30c78414f7af4142a65eaf1f4e",
+      "bytes": 718568
+    },
+    "assets/berhetiyye-premium/gem-diamond-r933.webp": {
+      "sha256": "64aa52732c5b778602e1977452253ebb0d8b96538767dc1df6060257a4f4f0a8",
+      "bytes": 2021638
+    },
+    "assets/berhetiyye-premium/gem-emerald-r932.webp": {
+      "sha256": "19219874a4b5b1634630745b191b4a0bf9c17b4263450e8b9ca54ebfc025f721",
+      "bytes": 2085808
+    },
+    "assets/berhetiyye-premium/gem-sapphire-r933.webp": {
+      "sha256": "62c5ff06eae7fcf2cbba43f57228905e9460f8cfe26f205577d8473d179020be",
+      "bytes": 2184484
+    },
+    "assets/wheels-r977/gumus-telkari.webp": {
+      "sha256": "adc84abe1f6a8ed767c9116be868fb2830199a21958ce9925a8b376bafe352bb",
+      "bytes": 1446610
+    },
+    "assets/wheels-r977/sultan-taslari.webp": {
+      "sha256": "4f62138580ee38b3cbed0b3e6541703837d3f86d7767e907c62ec0c11cc8043f",
+      "bytes": 1579428
+    },
+    "assets/wheels/copper-amethyst-weave-r1057.webp": {
+      "sha256": "84e103a19bc8a1d3851c27852c272f733068cc939713680efd0c60f5d8e2b236",
+      "bytes": 600244
+    },
+    "assets/wheels/gold-amethyst-weave-r1057.webp": {
+      "sha256": "499b4eec9585cc5b7e057dc0ae52a31b8ffb95ce54e875e1af2339e696739462",
+      "bytes": 579802
+    },
+    "assets/wheels/copper-amber-spiral-r1057.webp": {
+      "sha256": "973a45d10b917c3d44de2c68c96528a90ddc6366959081f687261a88ec23f77a",
+      "bytes": 437590
+    },
+    "assets/wheels/platinum-turquoise-spiral-r1057.webp": {
+      "sha256": "7809e312fda0db9bbc34c0f3d181a12c4db273e61626d2286a47b65212fe1121",
+      "bytes": 460508
+    },
+    "assets/wheels/gold-ruby-weave-r1057.webp": {
+      "sha256": "941f1171719eeac81e5d2642a780740f03e0d6d6bb74e87b7f4e9aeffe89c1d1",
+      "bytes": 603890
+    },
+    "assets/wheels/copper-ruby-weave-r1057.webp": {
+      "sha256": "d5faec2e398aedacaaebfbeb715a46332c30456014e762f248ad164bf7d8bc10",
+      "bytes": 612604
+    },
+    "assets/wheels/sapphire-torus-r1057.webp": {
+      "sha256": "b291f853c2a689bc0ded9775ecea4b28d411fa08bc0c08bd568003da4733d1a2",
+      "bytes": 571632
+    },
+    "assets/wheels/gold-emerald-knot-r1057.webp": {
+      "sha256": "0505562349956fcf51ea6446b42cf3a6d2984a14b0a4dca1cbb25ff8c98dfd68",
+      "bytes": 569720
+    },
+    "assets/wheels/gold-emerald-weave-r1057.webp": {
+      "sha256": "3e7bdeb02100bf34a53c4295db70d9033de3b769fc356cc4cbb9d505dc0c4caf",
+      "bytes": 600304
+    },
+    "assets/wheels-r924/berhetiyye/ham-kristal.webp": {
+      "sha256": "ac69b24ba2cc986a24b5602a4ade9ee62fec34631ba9aa392185a019a768fb38",
+      "bytes": 396014
+    },
+    "assets/berhetiyye-premium/wheel-alpha-r915.png": {
+      "sha256": "23094d0fdcce710b60514fb6cc6af57f1fe19a4cf7818a24c7dbe5672b0a14d5",
+      "bytes": 2454994
+    },
+    "assets/scenes/mobile-r918/berhet-01.webp": {
+      "sha256": "1967cc5b4421bf65806e6d3ed1d03f44098d42573da897120c8e83792e7fa26d",
+      "bytes": 574308
+    },
+    "assets/scenes/mobile-r918/berhet-02.webp": {
+      "sha256": "72515dc67c915cba3e1f7acd65766ca58542137fcc757bcb0951ca77586d064d",
+      "bytes": 455084
+    },
+    "assets/berhetiyye-premium/gem-amethyst-r933.webp": {
+      "sha256": "9f82669a2d5c97e0dd9a4642c2230da2a76a285ed63e262f86665c5def59400b",
+      "bytes": 1990192
+    },
+    "assets/wheels-r924/esma/zumrut-tesbih.webp": {
+      "sha256": "f6ef62429640628ef259dc6d3666c3bffd1e2f348a3704cbe79a190ca903dc1f",
+      "bytes": 263780
+    },
+    "assets/wheels-r924/esma/oniks-sukuneti.webp": {
+      "sha256": "924f2399f024e25f51da721711a24e28f64f4350bc5be4943363df6cf01992c0",
+      "bytes": 198836
+    },
+    "assets/wheels-r924/esma/kehribar-tesbih.webp": {
+      "sha256": "efbb1d390e18026fc66a6dda5415e829f7e97a05883fe029df9cf85b51e5155e",
+      "bytes": 236926
+    },
+    "assets/wheels-r924/esma/sedef-nuru.webp": {
+      "sha256": "4a7befc82fc2cd7ebe9a9c2efcce700e7c6710b0772368fdb558365cd54daa0c",
+      "bytes": 235670
+    }
+  },
+  "total": 13,
+  "passed": 13,
+  "allPassed": true,
+  "finishedAt": "2026-10-18T13:17:29.511Z",
+  "geometryCombinations": [
+    [
+      "320x740-tr",
+      "esma",
+      8
+    ],
+    [
+      "320x740-tr",
+      "berhet",
+      8
+    ],
+    [
+      "390x844-en",
+      "esma",
+      8
+    ],
+    [
+      "390x844-en",
+      "berhet",
+      8
+    ]
+  ],
+  "verifiedCurrentSourceFiles": 137
+}
