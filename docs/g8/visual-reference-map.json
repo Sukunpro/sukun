@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "build": "r1117",
-  "scope": "Current release inventory image bytes; bounded quoted image-path candidates; existing active external-CSS audit; a small set of exact known scene and classic-wheel selection aliases.",
+  "scope": "Current release inventory image bytes; bounded quoted image-path candidates; existing active external-CSS audit; exact known scene tables and premium/native/woven/classic wheel catalog data shapes.",
   "limitations": [
     "Quoted candidates may occur in inactive code, data or comments; they do not prove runtime use. Noninventory quoted candidates are nonblocking observations for later review, not proven active missing-file bugs.",
     "Dynamic or generated paths, inline CSS variable resolution and computed cascade are incomplete. Unknowns remain explicit.",
@@ -21,12 +21,67 @@
     "byteEqualityGroups": 26,
     "quotedAndCssReferences": 902,
     "noninventoryQuotedCandidates": 79,
-    "runtimeAliases": 38,
+    "runtimeAliases": 88,
+    "resolvedDynamicObservations": 2,
     "imagesWithoutObservedReference": 87,
-    "literalAndAliasUnresolved": 38,
+    "literalAndAliasUnresolved": 35,
     "cssUnresolved": 129,
-    "unresolved": 167,
+    "unresolved": 164,
     "errors": 0
+  },
+  "wheelCatalog": {
+    "staticVerified": true,
+    "complete": true,
+    "meaning": "Exact known builder and consumer shapes plus literal-table-derived candidates; no JavaScript execution, runtime reachability, loading or rendering proof.",
+    "catalogRecognized": true,
+    "recognizedBuilders": {
+      "premium": true,
+      "classic": true,
+      "nativeWheel": true,
+      "wovenWheel": true
+    },
+    "recognizedTables": {
+      "newWheels": true,
+      "wovenWheels": true
+    },
+    "entryCount": 54,
+    "aliases": 54,
+    "uniqueTargets": 37,
+    "countsByBuilder": {
+      "premium": 16,
+      "classic": 4,
+      "nativeWheel": 16,
+      "wovenWheel": 18
+    },
+    "countsByFamily": {
+      "berhet": 31,
+      "esma": 23
+    },
+    "resolvedTemplates": [
+      {
+        "expression": "./assets/wheels-r924/${mode==='berhet'?'berhetiyye':'esma'}/${id}.webp",
+        "offset": 5936,
+        "line": 15,
+        "builder": "premium"
+      },
+      {
+        "expression": "./assets/wheels-r977/${id}.webp",
+        "offset": 6712,
+        "line": 19,
+        "builder": "nativeWheel"
+      },
+      {
+        "expression": "./assets/wheels/${id}-r1057.webp",
+        "offset": 7945,
+        "line": 33,
+        "builder": "wovenWheel"
+      }
+    ]
+  },
+  "tooling": {
+    "tools/visual-reference-map.cjs": "6a71e30cd31ec61e47672e797be206828d858ed23e9b43c19a28309aaf722acb",
+    "tools/wheel-catalog-map.cjs": "eb64670317220be3f7916071c8f8ec6a5675f1a8a5b04191fd32220dd99e1ff3",
+    "tools/css-assets.cjs": "9d18b0dc5dbd9734541ac94affdd08ba3d9ae57b5025eb4d4333f90cb1eb9391"
   },
   "sources": [
     {
@@ -11928,28 +11983,456 @@
       ]
     },
     {
+      "alias": "wheel:berhet:abanoz-sukunu",
+      "target": "assets/wheels-r977/abanoz-sukunu.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:altin-nakis",
+      "target": "assets/wheels-r977/altin-nakis.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:ametist-saltanati",
+      "target": "assets/wheels-r924/berhetiyye/ametist-saltanati.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.berhet literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:ametist-yuvarlak",
+      "target": "assets/wheels-r924/berhetiyye/ametist-yuvarlak.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.berhet literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:bakir-ruzgari",
+      "target": "assets/wheels-r924/berhetiyye/bakir-ruzgari.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.berhet literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:billur-hisar",
+      "target": "assets/wheels-r924/berhetiyye/billur-hisar.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.berhet literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:ceviz-naksi",
+      "target": "assets/wheels-r977/ceviz-naksi.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:copper-amber-spiral",
+      "target": "assets/wheels/copper-amber-spiral-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:copper-amethyst-weave",
+      "target": "assets/wheels/copper-amethyst-weave-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:copper-ruby-weave",
+      "target": "assets/wheels/copper-ruby-weave-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "berhet"
+    },
+    {
       "alias": "wheel:berhet:crystal",
       "target": "assets/berhetiyye-premium/wheel-alpha-r915.png",
       "source": "assets/runtime/wheels-r924.js",
-      "proof": "Literal classic() catalog call and exact known src-preserving builder"
+      "proof": "Exact known classic source form, catalog.berhet classic() literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "classic",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:elmas-taci",
+      "target": "assets/wheels-r977/elmas-taci.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:faset-kesim",
+      "target": "assets/wheels-r924/berhetiyye/faset-kesim.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.berhet literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:gold-amethyst-weave",
+      "target": "assets/wheels/gold-amethyst-weave-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:gold-emerald-knot",
+      "target": "assets/wheels/gold-emerald-knot-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:gold-emerald-weave",
+      "target": "assets/wheels/gold-emerald-weave-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:gold-ruby-weave",
+      "target": "assets/wheels/gold-ruby-weave-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:gumus-telkari",
+      "target": "assets/wheels-r977/gumus-telkari.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:ham-kristal",
+      "target": "assets/wheels-r924/berhetiyye/ham-kristal.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.berhet literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:lacivert-usturlap",
+      "target": "assets/wheels-r924/berhetiyye/lacivert-usturlap.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.berhet literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:obsidyen-muhur",
+      "target": "assets/wheels-r924/berhetiyye/obsidyen-muhur.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.berhet literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "berhet"
     },
     {
       "alias": "wheel:berhet:pearls",
       "target": "assets/berhetiyye-premium/wheel-pearls-r916.svg",
       "source": "assets/runtime/wheels-r924.js",
-      "proof": "Literal classic() catalog call and exact known src-preserving builder"
+      "proof": "Exact known classic source form, catalog.berhet classic() literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "classic",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:platinum-turquoise-spiral",
+      "target": "assets/wheels/platinum-turquoise-spiral-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:safir-ruzgari",
+      "target": "assets/wheels-r924/berhetiyye/safir-ruzgari.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.berhet literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:sandal-halkasi",
+      "target": "assets/wheels-r977/sandal-halkasi.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:sapphire-torus",
+      "target": "assets/wheels/sapphire-torus-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "berhet"
     },
     {
       "alias": "wheel:berhet:seal",
       "target": "assets/berhetiyye-premium/wheel-seal-r916.svg",
       "source": "assets/runtime/wheels-r924.js",
-      "proof": "Literal classic() catalog call and exact known src-preserving builder"
+      "proof": "Exact known classic source form, catalog.berhet classic() literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "classic",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:sultan-taslari",
+      "target": "assets/wheels-r977/sultan-taslari.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:yakut-muhur",
+      "target": "assets/wheels-r924/berhetiyye/yakut-muhur.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.berhet literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:zeytin-tesbihi",
+      "target": "assets/wheels-r977/zeytin-tesbihi.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:berhet:zumrut-tac",
+      "target": "assets/wheels-r924/berhetiyye/zumrut-tac.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.berhet literal rows and catalog.berhet map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "berhet"
+    },
+    {
+      "alias": "wheel:esma:abanoz-sukunu",
+      "target": "assets/wheels-r977/abanoz-sukunu.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:altin-nakis",
+      "target": "assets/wheels-r977/altin-nakis.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:ceviz-naksi",
+      "target": "assets/wheels-r977/ceviz-naksi.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "esma"
     },
     {
       "alias": "wheel:esma:classic",
       "target": "assets/sukun-nur-ring-r757.png",
       "source": "assets/runtime/wheels-r924.js",
-      "proof": "Literal classic() catalog call and exact known src-preserving builder"
+      "proof": "Exact known classic source form, catalog.esma classic() literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "classic",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:copper-amber-spiral",
+      "target": "assets/wheels/copper-amber-spiral-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:copper-amethyst-weave",
+      "target": "assets/wheels/copper-amethyst-weave-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:copper-ruby-weave",
+      "target": "assets/wheels/copper-ruby-weave-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:elmas-taci",
+      "target": "assets/wheels-r977/elmas-taci.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:gold-amethyst-weave",
+      "target": "assets/wheels/gold-amethyst-weave-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:gold-emerald-knot",
+      "target": "assets/wheels/gold-emerald-knot-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:gold-emerald-weave",
+      "target": "assets/wheels/gold-emerald-weave-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:gold-ruby-weave",
+      "target": "assets/wheels/gold-ruby-weave-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:gumus-telkari",
+      "target": "assets/wheels-r977/gumus-telkari.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:inci-sema",
+      "target": "assets/wheels-r924/esma/inci-sema.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.esma literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:kehribar-tesbih",
+      "target": "assets/wheels-r924/esma/kehribar-tesbih.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.esma literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:oniks-sukuneti",
+      "target": "assets/wheels-r924/esma/oniks-sukuneti.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.esma literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:platinum-turquoise-spiral",
+      "target": "assets/wheels/platinum-turquoise-spiral-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:sandal-halkasi",
+      "target": "assets/wheels-r977/sandal-halkasi.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:sapphire-torus",
+      "target": "assets/wheels/sapphire-torus-r1057.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known wovenWheel source form, wovenWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "wovenWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:sedef-nuru",
+      "target": "assets/wheels-r924/esma/sedef-nuru.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.esma literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:sultan-taslari",
+      "target": "assets/wheels-r977/sultan-taslari.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:zeytin-tesbihi",
+      "target": "assets/wheels-r977/zeytin-tesbihi.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known nativeWheel source form, newWheels literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "nativeWheel",
+      "family": "esma"
+    },
+    {
+      "alias": "wheel:esma:zumrut-tesbih",
+      "target": "assets/wheels-r924/esma/zumrut-tesbih.webp",
+      "source": "assets/runtime/wheels-r924.js",
+      "proof": "Exact known premium source form, catalog.esma literal rows and catalog.esma map/concat consumer; a static table-derived candidate only.",
+      "builder": "premium",
+      "family": "esma"
+    }
+  ],
+  "resolvedObservations": [
+    {
+      "code": "DYNAMIC_TEMPLATE",
+      "source": "assets/runtime/wheels-r924.js",
+      "offset": 6712,
+      "line": 19,
+      "expression": "./assets/wheels-r977/${id}.webp",
+      "resolvedBy": "known-wheel-catalog",
+      "builder": "nativeWheel"
+    },
+    {
+      "code": "DYNAMIC_TEMPLATE",
+      "source": "assets/runtime/wheels-r924.js",
+      "offset": 7945,
+      "line": 33,
+      "expression": "./assets/wheels/${id}-r1057.webp",
+      "resolvedBy": "known-wheel-catalog",
+      "builder": "wovenWheel"
     }
   ],
   "imagesWithoutObservedReference": {
@@ -12104,23 +12587,6 @@
       "source": "sw.js",
       "line": 965,
       "expression": "./assets/generic-recordings/"
-    },
-    {
-      "code": "DYNAMIC_TEMPLATE",
-      "source": "assets/runtime/wheels-r924.js",
-      "line": 19,
-      "expression": "./assets/wheels-r977/${id}.webp"
-    },
-    {
-      "code": "DYNAMIC_TEMPLATE",
-      "source": "assets/runtime/wheels-r924.js",
-      "line": 33,
-      "expression": "./assets/wheels/${id}-r1057.webp"
-    },
-    {
-      "code": "DYNAMIC_WHEEL_CATALOG",
-      "source": "assets/runtime/wheels-r924.js",
-      "detail": "premium/native/woven template builders and family selection require a separate reviewed extractor; no unused claim follows."
     },
     {
       "code": "PATH_OUTSIDE_ROOT",

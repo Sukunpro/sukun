@@ -50,10 +50,19 @@ Yöntemin kesin kapsamı, çözülmemiş başvuruları ve hata listesi JSON'un
 içindedir. Harita, çalışma zamanında tüm olası seçici ve dalların yürütüldüğü
 veya başvuru görülmeyen bir dosyanın kullanılmadığı anlamına gelmez.
 
-İlk r1117 haritası **295 görsel dosyasının** gerçek boyut ve SHA-256 değerini
-doğrular; **38 statik seçim eşlemesini** ve **26 aynı bayt grubunu** ayrı
-gösterir. Envanter dışında görünen tarihsel metin başvuruları, eksik bir aktif
-görselin kanıtı olarak sayılmaz; incelenecek gözlemler olarak tutulur.
+Genişletilen r1117 haritası **295 görsel dosyasının** gerçek boyut ve SHA-256
+değerini doğrular; **88 statik seçim eşlemesini** ve **26 aynı bayt grubunu**
+ayrı gösterir. İlk haritadaki 38 eşlemeye 50 çark seçimi eklendi.
+Envanter dışında görünen tarihsel metin başvuruları, eksik bir aktif görselin
+kanıtı olarak sayılmaz; incelenecek gözlemler olarak tutulur.
+
+`tools/wheel-catalog-map.cjs` yalnız bilinen kaynak biçimlerini tanır:
+premium, klasik, native ve woven üreticileri ile bunların gerçek katalog
+map/concat bağlarını denetler. **54 çark seçimi / 37 ayrı yol** çıkarır:
+Berhetiyye 31, Esmâ 23 seçim. Şablon kodunu çalıştırmaz. Tanım veya tüketici
+biçimi değişirse ilgili kapsam açık kalır; güvensiz/tekrarlı veri başarılı
+katalog olarak sunulmaz. Çözülen genel tarama gözlemleri tam kaynak
+konumuyla eşleştirilir; aynı satırdaki ilgisiz benzer şablon açık kalır.
 
 Eski seçim adları, dönüştürülmüş görsel varyantları ve gerçekten aynı baytları
 taşıyan dosyalar ayrı ilişkiler olarak değerlendirilir. Aynı SHA-256, dosyanın
@@ -64,8 +73,10 @@ kanıtlamaz. Dinamik yol üretimi gözden geçirme gerektirir.
 
 - [ ] Haritanın statik kapsamının dışındaki dinamik görsel üreticileri
   incelensin; her biri için açık bir karar ve kanıt kaydedilsin.
-- [ ] Sonraki ortak CSS/JS taşıma listesi ve her parçanın mevcut sahibi
-  belirlensin. Yinelenen katman kaldırılmadan karşılığı kanıtlansın.
+- [x] Sonraki küçük CSS taşıma listesi ve her parçanın mevcut sahibi
+  belirlendi: `NEXT_BATCH.md` ve `next-batch.json`. Üç gövdenin toplamı
+  9.173 bayt; henüz taşınmadı. Yinelenen katman kaldırılmadan karşılığı
+  kanıtlanmalı.
 - [ ] Seçilen her taşımada ID, yükleme sırası, CSS göreli yolları ve mevcut
   olay/ses sahipliği korunsun; uygun kaynak ve tarayıcı regresyonları geçsin.
 - [ ] Son üretim paketinde eski görsel bağlantıları, Klasik/Feyz görünümü,
@@ -84,21 +95,31 @@ Depo kökünden:
 ```bash
 node tools/visual-reference-map.cjs --root . --output docs/g8/visual-reference-map.json
 node tests/g8/visual-reference-map.cjs
+node tests/g8/wheel-catalog-map.cjs
+node tests/g8/wheel-map-integration.cjs
 node tools/release-integrity.cjs .
 ```
 
-Aracın sentetik hata girdileri kendi geçici ağaçlarını kullanır. Güncel
-üretim bütünlüğü bu tur yeniden **1.529 / 1.529** geçti. Bu sonuç yalnız
+Aracın sentetik hata girdileri kendi geçici ağaçlarını kullanır. İlk G8
+kontrol noktasındaki üretim bütünlüğü **1.529 / 1.529** geçti. Bu sonuç yalnız
 r1117'nin tam yerel üretim baytları, sürüm/SRI/SHA-256/sözdizimi ve mevcut
 harici CSS denetimi içindir; yeni bir fiziksel cihaz testi değildir.
 
-G6/G7 ve mevcut ortak CSS için bu tur ek olarak on odaklı suite çalıştırıldı:
+G6/G7 ve mevcut ortak CSS için ilk kontrol noktasında on odaklı suite çalıştırıldı:
 **262 / 262** kontrol geçti. Bunlar depoları ve arayüzü kontrollü VM
 girdileriyle, CSS taşımalarını ve kaynak denetimini statik dosya girdileriyle
 sınar. Bu sayı tarayıcı/gerçek cihaz kabul sayısına eklenmez.
 
-Yeni harita aracı için **13 / 13** geçici gerçek dosya sistemi test grubu
-geçti; eksik/değişmiş dosya, yol sınırı, sembolik ve sabit bağlantı üzerinden
-üzerine yazma, aynı çıktı ve eskimiş haritayı reddetme denetlendi. Haritanın
-güncel kaynaktan yeniden üretim kontrolü de geçti. Makine kaydı:
+Bu genişletmede üç güncel grup yeniden çalıştırıldı: ana harita **13 / 13**,
+çark çözümleyici **17 / 17**, bütünleşim **5 / 5**. Toplam **35 / 35** araç
+kontrolü geçti. Ana harita testleri eksik/değişmiş dosya, yol sınırı,
+sembolik/sabit bağlantı üzerinden üzerine yazma ve aynı çıktıyı denetler.
+Çark testleri tanım/tüketici değişikliği, tekrarlı/güvensiz veri ve
+çalıştırmadan çözümlemeyi sınar. Yalnız açıkça etiketlenmiş bütünleşim testi,
+değişmemiş ilk çark modülünü kontrollü VM'de çalıştırıp 54 seçimi bağımsız
+karşılaştırır; araç üretim JavaScript'ini çalıştırmaz.
+
+Haritanın güncel kaynaktan yeniden üretim kontrolü de geçti. Üretim baytları
+aynı kaldığı için 1.529 ve 262 sayıları önceki kontrol noktasının korunmuş
+kanıtlarıdır; bu genişletmede yeniden koşulmuş sayılmaz. Makine kaydı:
 `tests/g8/verification.json`.

@@ -3,6 +3,7 @@
 // dead-code, visual-equivalence, browser-loading or rendering proof.
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const {validateCssResources}=require('./css-assets.cjs');
+const {mapWheelCatalog}=require('./wheel-catalog-map.cjs');
 const IMAGE=/\.(?:avif|bmp|gif|ico|jpe?g|png|svg|webp)$/i;
 const TEXT=/\.(?:html|css|js|json|webmanifest)$/i;
 const LIMIT={files:4096,sourceBytes:64*1024*1024,references:30000};
@@ -77,7 +78,7 @@ function buildReferenceMap(root){
   const text=cache.get(source.path).toString('utf8'),base=source.path.endsWith('.css')?source.path:'index.html';
   for(const m of text.matchAll(/(["'`])([^\n\r"'`<>]{1,2048})\1/g)){
    const value=m[2];
-   if(value.includes('${')){if(/(?:assets\/|\.webp|\.png|\.svg)/.test(value))unresolved.push({code:'DYNAMIC_TEMPLATE',source:source.path,line:1+(text.slice(0,m.index).match(/\n/g)||[]).length,expression:value});continue}
+   if(value.includes('${')){if(/(?:assets\/|\.webp|\.png|\.svg)/.test(value))unresolved.push({code:'DYNAMIC_TEMPLATE',source:source.path,offset:m.index,line:1+(text.slice(0,m.index).match(/\n/g)||[]).length,expression:value});continue}
    if(IMAGE.test(value.split(/[?#]/,1)[0])&&!/\s/.test(value))reference(source.path,value,m.index,'quoted-image-candidate',base);
    else if(/^(?:\.\/?|\.\.\/)?assets\/[\w./-]*\/$/.test(value))unresolved.push({code:'DYNAMIC_DIRECTORY_FRAGMENT',source:source.path,line:1+(text.slice(0,m.index).match(/\n/g)||[]).length,expression:value});
   }
@@ -111,17 +112,26 @@ function buildReferenceMap(root){
   for(const m of fixed[1].matchAll(/([a-z]+):'([\w.-]+\.png)'/g))addAlias('berhet-fixed:'+m[1],'assets/scenes/mobile-r918/'+m[2].replace(/\.png$/,'.webp'),'index.html#sukun-r914-runtime','Literal fixed-choice table and exact known PNG-to-mobile-WebP consumer',{originalAsset:'assets/berhetiyye-premium/'+m[2],thumbnail:'assets/scenes/thumb-r949/'+m[2].replace(/\.png$/,'.webp'),relationship:'Derived variants; byte equivalence is not inferred.'});
  }else if(consumer)unresolved.push({code:'FIXED_SCENE_SHAPE_UNSUPPORTED',source:'index.html#sukun-r914-runtime'});
  const wheels=cache.get('assets/runtime/wheels-r924.js')?.toString('utf8');
+ let wheelCatalog=null;const resolvedObservations=[];
  if(wheels){
-  if(wheels.includes('const classic=(mode,id,title,src,matte=false)=>Object.freeze({mode,id,title,src,classic:true')){
-   for(const m of wheels.matchAll(/classic\('(berhet|esma)','([\w-]+)','[^'\n]*','(\.\/assets\/[\w/.-]+\.(?:png|svg|webp))'(?:,true)?\)/g))addAlias('wheel:'+m[1]+':'+m[2],m[3],'assets/runtime/wheels-r924.js','Literal classic() catalog call and exact known src-preserving builder');
+  wheelCatalog=mapWheelCatalog(wheels);
+  for(const row of wheelCatalog.aliases)addAlias(row.alias,row.target,'assets/runtime/wheels-r924.js',row.basis,{builder:row.builder,family:row.family});
+  for(const row of wheelCatalog.unresolved)unresolved.push({source:'assets/runtime/wheels-r924.js',...row});
+  for(const row of wheelCatalog.errors)error(row.code,{source:'assets/runtime/wheels-r924.js',...row});
+  if(wheelCatalog.coverage.staticVerified)for(const resolved of wheelCatalog.coverage.resolvedTemplates||[]){
+   for(let index=unresolved.length-1;index>=0;index--){
+    const row=unresolved[index];
+    if(row.code==='DYNAMIC_TEMPLATE'&&row.source==='assets/runtime/wheels-r924.js'&&row.offset===resolved.offset&&row.expression===resolved.expression){
+     resolvedObservations.push({...row,resolvedBy:'known-wheel-catalog',builder:resolved.builder});unresolved.splice(index,1);
+    }
+   }
   }
-  unresolved.push({code:'DYNAMIC_WHEEL_CATALOG',source:'assets/runtime/wheels-r924.js',detail:'premium/native/woven template builders and family selection require a separate reviewed extractor; no unused claim follows.'});
  }
  const candidateTargets=new Set(references.map(row=>row.target));for(const row of runtimeAliases)candidateTargets.add(row.target);
  const noObservedReference=visuals.filter(row=>!candidateTargets.has(row.path)).map(row=>row.path).sort(compare);
  const uniqueUnresolved=ordered([...new Map(unresolved.map(row=>[JSON.stringify(row),row])).values()]);
  const noninventoryCandidates=references.filter(row=>row.kind==='quoted-image-candidate'&&!row.inInventory).length;
- const report={schema:1,build:version,scope:'Current release inventory image bytes; bounded quoted image-path candidates; existing active external-CSS audit; a small set of exact known scene and classic-wheel selection aliases.',limitations:['Quoted candidates may occur in inactive code, data or comments; they do not prove runtime use. Noninventory quoted candidates are nonblocking observations for later review, not proven active missing-file bugs.','Dynamic or generated paths, inline CSS variable resolution and computed cascade are incomplete. Unknowns remain explicit.','Byte-equality groups do not prove interchangeable URLs. Derived PNG/WebP/thumbnail variants are separate assets.','No file is classified as unused, removed, renamed, redirected or visually verified. No browser or physical Android test is performed.'],inventory:{path:inventoryPath,sha256:sha(raw),members:members.size},summary:{images:visuals.length,verifiedImages:visuals.filter(row=>row.inventoryVerified).length,sourceFiles:sources.length,sourceBytes,byteEqualityGroups:byteEqualityGroups.length,quotedAndCssReferences:references.length,noninventoryQuotedCandidates:noninventoryCandidates,runtimeAliases:runtimeAliases.length,imagesWithoutObservedReference:noObservedReference.length,literalAndAliasUnresolved:uniqueUnresolved.length,cssUnresolved:css.unresolved.length,unresolved:uniqueUnresolved.length+css.unresolved.length,errors:errors.length+css.errors.length},sources:sources.sort((a,b)=>compare(a.path,b.path)),images:visuals.sort((a,b)=>compare(a.path,b.path)),byteEqualityGroups,references:ordered(references),runtimeAliases:ordered(runtimeAliases),imagesWithoutObservedReference:{meaning:'No reference observed within this bounded parser; not an unused-assets list.',paths:noObservedReference},unresolved:uniqueUnresolved,cssAudit:{scope:css.scope,files:css.files,references:css.references,unresolved:css.unresolved,errors:css.errors},errors:ordered(errors)};
+ const report={schema:1,build:version,scope:'Current release inventory image bytes; bounded quoted image-path candidates; existing active external-CSS audit; exact known scene tables and premium/native/woven/classic wheel catalog data shapes.',limitations:['Quoted candidates may occur in inactive code, data or comments; they do not prove runtime use. Noninventory quoted candidates are nonblocking observations for later review, not proven active missing-file bugs.','Dynamic or generated paths, inline CSS variable resolution and computed cascade are incomplete. Unknowns remain explicit.','Byte-equality groups do not prove interchangeable URLs. Derived PNG/WebP/thumbnail variants are separate assets.','No file is classified as unused, removed, renamed, redirected or visually verified. No browser or physical Android test is performed.'],inventory:{path:inventoryPath,sha256:sha(raw),members:members.size},summary:{images:visuals.length,verifiedImages:visuals.filter(row=>row.inventoryVerified).length,sourceFiles:sources.length,sourceBytes,byteEqualityGroups:byteEqualityGroups.length,quotedAndCssReferences:references.length,noninventoryQuotedCandidates:noninventoryCandidates,runtimeAliases:runtimeAliases.length,resolvedDynamicObservations:resolvedObservations.length,imagesWithoutObservedReference:noObservedReference.length,literalAndAliasUnresolved:uniqueUnresolved.length,cssUnresolved:css.unresolved.length,unresolved:uniqueUnresolved.length+css.unresolved.length,errors:errors.length+css.errors.length},wheelCatalog:wheelCatalog?.coverage||null,tooling:Object.fromEntries(['visual-reference-map.cjs','wheel-catalog-map.cjs','css-assets.cjs'].map(name=>['tools/'+name,sha(fs.readFileSync(path.join(__dirname,name)))])),sources:sources.sort((a,b)=>compare(a.path,b.path)),images:visuals.sort((a,b)=>compare(a.path,b.path)),byteEqualityGroups,references:ordered(references),runtimeAliases:ordered(runtimeAliases),resolvedObservations:ordered(resolvedObservations),imagesWithoutObservedReference:{meaning:'No reference observed within this bounded parser; not an unused-assets list.',paths:noObservedReference},unresolved:uniqueUnresolved,cssAudit:{scope:css.scope,files:css.files,references:css.references,unresolved:css.unresolved,errors:css.errors},errors:ordered(errors)};
  return report;
 }
 module.exports={buildReferenceMap,literalPath};
