@@ -1,0 +1,142 @@
+{
+  "schema": 1,
+  "baseCommit": "5459587e2a4ce794683908c1b098076b3f2eb081",
+  "applicationBuild": "r1117",
+  "productionFilesChanged": false,
+  "g8Complete": false,
+  "headingCounts": {
+    "all": {
+      "closed": 14,
+      "total": 15
+    },
+    "development": {
+      "closed": 7,
+      "total": 8
+    },
+    "meaning": "Equal heading counts only, not remaining effort"
+  },
+  "map": {
+    "build": "r1117",
+    "images": 295,
+    "verifiedImages": 295,
+    "sourceFiles": 143,
+    "sourceBytes": 18857717,
+    "byteEqualityGroups": 26,
+    "quotedAndCssReferences": 902,
+    "noninventoryQuotedCandidates": 79,
+    "runtimeAliases": 38,
+    "imagesWithoutObservedReference": 87,
+    "literalAndAliasUnresolved": 38,
+    "cssUnresolved": 129,
+    "unresolved": 167,
+    "errors": 0,
+    "report": "docs/g8/visual-reference-map.json",
+    "checked": true
+  },
+  "fixtureChecks": {
+    "passed": 13,
+    "total": 13
+  },
+  "baseline": {
+    "passed": 262,
+    "total": 262,
+    "suites": [
+      {
+        "source": "tests/r1107/storage-snapshot-ui.cjs",
+        "sourceSha256": "aa7356655ee32ede775c2b7c49d6f2131971298626a630566b34f38e6190d25c",
+        "report": "tests/g8/evidence/baseline/r1107-storage-snapshot-ui.json",
+        "reportSha256": "4ae6b05298026a865a97d91b2dc381221054b2b5a94fd00959f67e5fd4cb5161",
+        "passed": 27,
+        "total": 27
+      },
+      {
+        "source": "tests/r1107/storage-snapshot.cjs",
+        "sourceSha256": "4a9fc395e4f765265d6dcfdd9f670dc5e4ec0c7665bc11deb75c626f0b9f5051",
+        "report": "tests/g8/evidence/baseline/r1107-storage-snapshot.json",
+        "reportSha256": "8047e6a1e1d9939d0e86aa3c12a18c2b007e0957f2e930a4ee62ce5317adbb5f",
+        "passed": 30,
+        "total": 30
+      },
+      {
+        "source": "tests/r1108/health-presentation-context.cjs",
+        "sourceSha256": "656f8bb61bd5a69430b67c1f908ca0fade6bcca75f52a9603e20a0407d2c91c2",
+        "report": "tests/g8/evidence/baseline/r1108-health-presentation-context.json",
+        "reportSha256": "c33e38535a860d4899560287602b00c69fa085d9384c6165435eeeb581a3a8c9",
+        "passed": 30,
+        "total": 30
+      },
+      {
+        "source": "tests/r1108/kandil-preferences.cjs",
+        "sourceSha256": "bbb8818f8cae194e95e1ee7d93573dde188634739403a5ec7f36a5575202bff1",
+        "report": "tests/g8/evidence/baseline/r1108-kandil-preferences.json",
+        "reportSha256": "8b07ce1c599b67b99b56e39de15561d37001c93bed33c74e61627b1d0b202eb5",
+        "passed": 46,
+        "total": 46
+      },
+      {
+        "source": "tests/r1108/presentation-notice.cjs",
+        "sourceSha256": "da6340d66b9eae6fa9ea9a6abd14820587ee70be57f48d7f6d0126e656a6a637",
+        "report": "tests/g8/evidence/baseline/r1108-presentation-notice.json",
+        "reportSha256": "ffd73aba3c71bdcc4ed036264b64638aa63de4f9043820bb066cdb643d0e39a5",
+        "passed": 33,
+        "total": 33
+      },
+      {
+        "source": "tests/r1109/category-flow-extraction.cjs",
+        "sourceSha256": "488cb1feac610db251fe1dd080a72f58e35b41cac6c65ad19869833613b45ddb",
+        "report": "tests/g8/evidence/baseline/r1109-category-flow-extraction.json",
+        "reportSha256": "ee1ecd33a7f0d2ca8518c4bae0ade5eea9fc3136fdd5472c6f94aa14809b43b1",
+        "passed": 8,
+        "total": 8
+      },
+      {
+        "source": "tests/r1110/tooltip-help-extraction.cjs",
+        "sourceSha256": "6f37cd78b8d7a643b476a76a3bbf59de7555c0dca9fa20c3c922d393634b00f4",
+        "report": "tests/g8/evidence/baseline/r1110-tooltip-help-extraction.json",
+        "reportSha256": "cb8cd32fbf5ca2ca837b04c0e4f360194d504517963aa3dd873c000bbaabff16",
+        "passed": 8,
+        "total": 8
+      },
+      {
+        "source": "tests/r1111/css-assets.cjs",
+        "sourceSha256": "104539250ef7bda4872f7619f329f1e39c60bdd2a3243bc6d303cb72994df6dd",
+        "report": "tests/g8/evidence/baseline/r1111-css-assets.json",
+        "reportSha256": "9dff2f1871f8fa00f6fb8a5c65cc590317b535a319005c6e00887bdf4d35784a",
+        "passed": 62,
+        "total": 62
+      },
+      {
+        "source": "tests/r1111/notification-layout-extraction.cjs",
+        "sourceSha256": "33bf5725ba1dab940bad1f772a368c6781d5954a8338ec1f94c104a6d91318ca",
+        "report": "tests/g8/evidence/baseline/r1111-notification-layout-extraction.json",
+        "reportSha256": "2cc111be9ff818cdfbd1db0bd73213f4c5e277a540af42f89d0d8a55cc374b5d",
+        "passed": 9,
+        "total": 9
+      },
+      {
+        "source": "tests/r1112/tekke-set-card-extraction.cjs",
+        "sourceSha256": "cd408e301f44ef0665480ecc533c86251a8ee1379188215c568e7603c360bde4",
+        "report": "tests/g8/evidence/baseline/r1112-tekke-set-card-extraction.json",
+        "reportSha256": "0d382949b9332ef83480e5a18e15d522b6b517f42e279ffe3046090941460436",
+        "passed": 9,
+        "total": 9
+      }
+    ]
+  },
+  "integrity": {
+    "passed": 1529,
+    "total": 1529,
+    "report": "tests/g8/evidence/release-integrity.json",
+    "reportSha256": "c087210ec94f3340e027b7a93841ddb60878ad8046db4cc107494efc5edd197e"
+  },
+  "newSourceSha256": {
+    "tools/visual-reference-map.cjs": "b1e30aa690179aa3995db725539a0e2cee0bd03a6a83b9522a985aad287251b1",
+    "tests/g8/visual-reference-map.cjs": "65b899b7e96e66cca280a6e4d84f01b6b66b021eab926c0690d79e916748e850",
+    "docs/g8/visual-reference-map.json": "0bace07145e5b13f9022fe0fb0bcea53f7d24e7896ea822a34ddd9b9240c1017"
+  },
+  "limitations": [
+    "Static and controlled filesystem/VM checks only; no new browser/device/audio/worker-upgrade/rollback acceptance.",
+    "Unresolved dynamic references remain explicit; absent observations are not unused-file proof.",
+    "Application metadata still says fourth extraction despite five documented shipped CSS extractions."
+  ]
+}
