@@ -1,0 +1,20 @@
+{
+  "suite": "r1102 compact ambience cards and native information controls",
+  "build": "r1118",
+  "startedAt": "2026-10-19T19:01:45.541Z",
+  "testSha256": "ca8a89bdff3da981c6e25731759c861d1344902909cd8f90b26e87634dc8bfa9",
+  "sourceSha256": "87a220cd4731e6945acdc97bc9ab3a66af69fe700ee6a246dbfd82c401493fb8",
+  "checks": [],
+  "profiles": [],
+  "limitations": [
+    "Four isolated Classic/Feyz Chromium profiles at 320×740 and390×844 in Turkish and English; both canonical Esma and Berhetiyye themes. Physical Android touch and audible-output quality are not tested.",
+    "All card geometry is measured. A trusted information click per rendered group, native close/Escape, one channel switch and native keyboard volume edit verify handlers. No dhikr, speech, recording, microphone or broad audio suite is started.",
+    "The custom-sounds empty state is checked before adding one explicitly labelled custom catalogue row in disposable memory only. Its edit/delete controls are measured; it has no recording and is never played.",
+    "Service workers and external requests are blocked by the shared fixture. Screenshots are local visual QA evidence only."
+  ],
+  "fatal": "browserType.launch: Failed to launch chromium because executable doesn't exist at /root/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome\n    at fixture (/workspace/scratch/ea1685a18487/sukun/tests/r1064/browser-fixture.cjs:23:31)\n    at async run (/workspace/scratch/ea1685a18487/sukun/tests/r1102/ambience-compact-browser.cjs:51:61)\n    at async /workspace/scratch/ea1685a18487/sukun/tests/r1102/ambience-compact-browser.cjs:78:175",
+  "finishedAt": "2026-10-19T19:01:45.577Z",
+  "total": 0,
+  "passed": 0,
+  "allPassed": false
+}
