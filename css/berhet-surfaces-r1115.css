@@ -1,0 +1,85 @@
+/* r1115: extend the existing early material layer without changing its
+ * previous rules. Important layer precedence remains identical. */
+@layer sukun-r1101-controls {
+html[data-r1074-theme="berhet"] {
+ --r1115-sapphire:url('../assets/berhetiyye-premium/gem-sapphire-r933.webp');
+}
+/* r1115: shared surfaces follow the selected family on every tab. The older
+ * frame coat depended on the Practice tab being visible, leaving Ambience's
+ * mixer, personal centre and footer on the base glass. Hollow sapphire/gold
+ * edges keep the scene and all native content/controls visible. Paint only;
+ * disclosure state, hit targets, grid, focus and audio keep their owners. */
+html[data-r1074-theme="berhet"] body :is(
+ #prDashboard,#todayCard,#vakitBox,.wrap>footer,#bakBox,#r1029MicCard
+) {
+ border:1px solid #d1b77b99!important;
+ border-image:var(--r1115-sapphire) 330 / 8px / 0 stretch!important;
+ background:linear-gradient(145deg,#081e38dc,#061526e8)!important;
+ color:#fff0d4!important;box-shadow:none!important;
+}
+html[data-r1074-theme="berhet"] body #tab-amb #mixer :is(.chn,.mkCard) {
+ border:1px solid #d1b77b99!important;
+ border-image:var(--r1115-sapphire) 330 / 7px / 0 stretch!important;
+ background:linear-gradient(145deg,#081e38e8,#061526ed)!important;
+ color:#fff0d4!important;box-shadow:none!important;
+}
+html[data-r1074-theme="berhet"] body :is(
+ #prDashboard .prMetric,#prDashboard .prNow,#todayCard .tcStat,
+ #tcVirdSug,#anaVakit,#sozKutu,#vkSug
+) {
+ border:1px solid #d1b77b99!important;
+ border-image:var(--r1115-sapphire) 330 / 5px / 0 stretch!important;
+ background:linear-gradient(145deg,#0a2441d9,#071a2de8)!important;
+ color:#fff0d4!important;box-shadow:none!important;
+}
+html[data-r1074-theme="berhet"] body #prDashboard :is(.prDashTop,.prDashActions,.prPerfHelp) {
+ border-color:#d1b77b66!important;background:#071a2d99!important;
+}
+html[data-r1074-theme="berhet"] body #prDashboard::before {background:none!important}
+html[data-r1074-theme="berhet"] body :is(
+ #prDashboard,#todayCard,#vakitBox,#bakBox
+) :is(button:not(.sw),summary) {
+ border:1px solid transparent!important;
+ border-image:var(--r1115-sapphire) 330 fill / 6px / 0 stretch!important;
+ background:#0a2637!important;color:#fff0d4!important;
+ box-shadow:none!important;text-shadow:0 1px 3px #001019!important;
+ -webkit-text-fill-color:currentColor!important;
+}
+html[data-r1074-theme="berhet"] body #prState {
+ border-color:#d1b77b99!important;
+ border-image:var(--r1115-sapphire) 330 / 4px / 0 stretch!important;
+ background:#0a2637!important;color:#d8e4df!important;
+}
+html[data-r1074-theme="berhet"] body :is(
+ #prDashboard .prDashTitle,#prDashboard .prMetric b,#prDashboard .prNowText b,
+ #tab-amb #mixer .chName,#tab-amb #mixer .mkName
+) {color:#fff0d4!important;-webkit-text-fill-color:currentColor!important;text-shadow:0 1px 3px #001019!important}
+html[data-r1074-theme="berhet"] body :is(
+ #prDashboard .prEyebrow,#prDashboard .prMetric small,#prDashboard .prNowText small,
+ #prDashboard .prPerfHint,#prDashboard .prPerfHelp p,#bakBox .bakStat,#bakBox .hint,
+ #tab-amb #mixer .chName small,#tab-amb #mixer .mkName small
+) {color:#d8e4df!important;-webkit-text-fill-color:currentColor!important;text-shadow:0 1px 2px #001019!important}
+
+@media(forced-colors:active) {
+ html[data-r1074-theme="berhet"] {--r1115-sapphire:none}
+ html[data-r1074-theme="berhet"] body :is(
+  #prDashboard,#todayCard,#vakitBox,.wrap>footer,#bakBox,#r1029MicCard,
+  #prDashboard .prMetric,#prDashboard .prNow,#prDashboard .prDashTop,
+  #prDashboard .prDashActions,#prDashboard .prPerfHelp,#prState,
+  #todayCard .tcStat,#tcVirdSug,#anaVakit,#sozKutu,#vkSug
+ ),
+ html[data-r1074-theme="berhet"] body #tab-amb #mixer :is(.chn,.mkCard),
+ html[data-r1074-theme="berhet"] body :is(#prDashboard,#todayCard,#vakitBox,#bakBox) :is(button:not(.sw),summary) {
+  border-image:none!important;border-color:CanvasText!important;
+  background:Canvas!important;color:CanvasText!important;
+  -webkit-text-fill-color:currentColor!important;text-shadow:none!important;box-shadow:none!important;
+ }
+ html[data-r1074-theme="berhet"] body :is(
+  #prDashboard .prDashTitle,#prDashboard .prMetric b,#prDashboard .prNowText b,
+  #prDashboard .prEyebrow,#prDashboard .prMetric small,#prDashboard .prNowText small,
+  #prDashboard .prPerfHint,#prDashboard .prPerfHelp p,#bakBox .bakStat,#bakBox .hint,
+  #tab-amb #mixer .chName,#tab-amb #mixer .mkName,
+  #tab-amb #mixer .chName small,#tab-amb #mixer .mkName small
+ ) {color:CanvasText!important;text-shadow:none!important}
+}
+}

@@ -11,6 +11,7 @@
  let sweep=null,sweepTick=0,frequencyTimer=null,timerTick=0;
  const nativeCards={};
  function frequency(){return safe(()=>({playing:!!FR.playing,c:+FR.c,b:+FR.b,mode:FR.mode,vol:+FR.vol,pink:!!FR.pink}),{playing:false,c:180,b:7.83,mode:'bin',vol:.5,pink:false})}
+ function pending(){return safe(()=>!!(FR._restartTimer||FR._restartHeld),false)}
  function held(){return !!(safe(()=>window.SukunAudioSessionRegistry?.aggregateSnapshot?.()?.paused,false)||safe(()=>MINI?.paused,false)||safe(()=>window.AudioLife?.userPaused&&!window.AudioLife?._terminalIntent,false))}
  function notify(text){libraryNoticeKey='';const el=$('r1101FrequencyNotice');if(el){el.textContent=text;el.hidden=!text}}
  function libraryStateKey(f=frequency(),paused=held()){return[f.playing,paused,f.c,f.b].join('|')}
@@ -31,6 +32,9 @@
   const wasHeld=held();
   if(!options.sweep)stopSweep(false);
   safe(()=>stopJourney());
+  // The retired journey may still own future AudioParam ramps after its
+  // JavaScript timers stop. Retire those targets before applying this set.
+  cancelRamps();
   safe(()=>{
    if(Number.isFinite(+values.c))FR.c=Math.min(18000,Math.max(20,+values.c));
    if(Number.isFinite(+values.b))FR.b=Math.min(40,Math.max(.5,+values.b));
@@ -45,11 +49,11 @@
  }
  function start(){
   if(held()){notify(T('Genel duraklatma açık. Önce ana kontrollerden Devam et seçin.','Global pause is active. Choose Resume in the main controls first.'));return false;}
-  if(!frequency().playing)$('frToggle')?.click();
+  if(!frequency().playing){if(pending())safe(()=>frCancelPendingStart());$('frToggle')?.click();}
   mirror();publish('start');return frequency().playing;
  }
- function toggle(){if(frequency().playing)stop();else start();return frequency().playing}
- function stop(){stopSweep(false);cancelTimer(false);if(frequency().playing)$('frToggle')?.click();mirror();publish('stop');return true}
+ function toggle(){if(frequency().playing||pending())stop();else start();return frequency().playing}
+ function stop(){stopSweep(false);cancelTimer(false);if(frequency().playing)$('frToggle')?.click();else safe(()=>frStop());mirror();publish('stop');return true}
  function fromControls(){
   return apply({c:parseFloat($('carrierFreq')?.value),b:parseFloat($('beatFreq')?.value)});
  }
@@ -77,10 +81,19 @@
   const now=safe(()=>ctx.currentTime,s.t0),p=Math.max(0,Math.min(1,(now-s.t0)/s.duration));
   return s.scale==='log'?s.from*Math.pow(s.to/s.from,p):s.from+(s.to-s.from)*p;
  }
- function cancelRamps(){safe(()=>{
-  const now=ctx.currentTime;
-  for(const node of [FR.oL,FR.oR,FR.iso])if(node?.frequency){const p=node.frequency;p.cancelScheduledValues(now);p.setValueAtTime(p.value,now)}
- })}
+ function cancelRamps(){
+  const now=safe(()=>ctx.currentTime,null);if(now===null)return;
+  for(const node of [FR.oL,FR.oR,FR.iso,FR.gate])safe(()=>{
+   const p=node?.frequency;if(!p)return;
+   // Capture before cancellation: older implementations may then expose the
+   // pre-ramp value. Hold natively when supported for a continuous handoff.
+   const value=p.value;
+   if(typeof p.cancelAndHoldAtTime==='function'){
+    try{p.cancelAndHoldAtTime(now);return}catch(_){}
+   }
+   p.cancelScheduledValues(now);p.setValueAtTime(value,now);
+  });
+ }
  function scheduleSweep(){
   if(!sweep||!frequency().playing)return false;
   safe(()=>{
