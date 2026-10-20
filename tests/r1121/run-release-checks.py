@@ -35,7 +35,7 @@ commands=[
  ('baseline-navigation',['node','tests/r1121/navigation-labels.cjs',str(baseline),str(out/'baseline-navigation.json'),'--baseline']),
  ('candidate-navigation',['node','tests/r1121/navigation-labels.cjs',str(root),str(out/'candidate-navigation.json')]),
  ('mode-transport',['node','tests/r1117/release-mode-smoke.cjs',str(root),str(out/'mode-transport.json')]),
- ('native-frequency',['node','tests/r1120/audio-frequency-browser.cjs',str(root),str(baseline),str(out/'native-frequency.json')]),
+ ('native-frequency',['node','tests/r1121/audio-frequency-browser.cjs',str(root),str(baseline),str(out/'native-frequency.json')]),
  ('native-headroom',['node','tests/r1120/headroom-matrix-browser.cjs',str(root),str(out/'native-headroom.json')]),
  ('release-upgrade',['node','tests/r1121/release-upgrade-browser.cjs',str(root),str(baseline),str(out/'release-upgrade.json')]),
 ]
