@@ -1,0 +1,180 @@
+{
+  "passed": 43,
+  "total": 43,
+  "tests": [
+    {
+      "name": "Existing predicates and approved WAV/visual bootstrap are byte-identical",
+      "passed": true
+    },
+    {
+      "name": "Known owned anchor inspector returns bounded exact source states",
+      "passed": true
+    },
+    {
+      "name": "Rejected decision preserved with diagnosis: currentSrc empty",
+      "passed": true
+    },
+    {
+      "name": "Rejected decision preserved with diagnosis: requested source changed",
+      "passed": true
+    },
+    {
+      "name": "Rejected decision preserved with diagnosis: current source changed",
+      "passed": true
+    },
+    {
+      "name": "Rejected decision preserved with diagnosis: flag missing",
+      "passed": true
+    },
+    {
+      "name": "Rejected decision preserved with diagnosis: flag changed",
+      "passed": true
+    },
+    {
+      "name": "Rejected decision preserved with diagnosis: srcObject null versus undefined",
+      "passed": true
+    },
+    {
+      "name": "Rejected decision preserved with diagnosis: srcObject property missing",
+      "passed": true
+    },
+    {
+      "name": "Rejected decision preserved with diagnosis: actual recording stream",
+      "passed": true
+    },
+    {
+      "name": "Rejected decision preserved with diagnosis: throwing currentSrc getter",
+      "passed": true
+    },
+    {
+      "name": "Rejected decision preserved with diagnosis: throwing srcObject getter",
+      "passed": true
+    },
+    {
+      "name": "srcObject present but undefined is distinguished from absent",
+      "passed": true
+    },
+    {
+      "name": "readyState projection 0",
+      "passed": true
+    },
+    {
+      "name": "readyState projection 1",
+      "passed": true
+    },
+    {
+      "name": "readyState projection 2",
+      "passed": true
+    },
+    {
+      "name": "readyState projection 3",
+      "passed": true
+    },
+    {
+      "name": "readyState projection 4",
+      "passed": true
+    },
+    {
+      "name": "readyState projection 5",
+      "passed": true
+    },
+    {
+      "name": "readyState projection PRIVATE_SOURCE",
+      "passed": true
+    },
+    {
+      "name": "networkState projection 0",
+      "passed": true
+    },
+    {
+      "name": "networkState projection 1",
+      "passed": true
+    },
+    {
+      "name": "networkState projection 2",
+      "passed": true
+    },
+    {
+      "name": "networkState projection 3",
+      "passed": true
+    },
+    {
+      "name": "networkState projection 4",
+      "passed": true
+    },
+    {
+      "name": "Inspector missing cannot alter stop or leak",
+      "passed": true
+    },
+    {
+      "name": "Inspector throws cannot alter stop or leak",
+      "passed": true
+    },
+    {
+      "name": "Inspector invalid cannot alter stop or leak",
+      "passed": true
+    },
+    {
+      "name": "Foreign media clone cannot acquire ownership through diagnostic flag",
+      "passed": true
+    },
+    {
+      "name": "Inspector values are whitelisted before DOM snapshot",
+      "passed": true
+    },
+    {
+      "name": "Each inspector property read once; source throw preserves other reads",
+      "passed": true
+    },
+    {
+      "name": "Diagnostic dataset write failure cannot prevent cancellation or cleanup",
+      "passed": true
+    },
+    {
+      "name": "Rejected snapshot is captured once and is not a later live projection",
+      "passed": true
+    },
+    {
+      "name": "Health copies rejection evidence without re-inspecting live carrier or DOM",
+      "passed": true
+    },
+    {
+      "name": "Health rejects extra values, URL strings, wrong data types and malformed JSON",
+      "passed": true
+    },
+    {
+      "name": "Health samples diagnostic raw getter exactly once and does not disclose values",
+      "passed": true
+    },
+    {
+      "name": "Healthy path does not call inspector or add rejected evidence",
+      "passed": true
+    },
+    {
+      "name": "Explicit Health JSON export contains only saved bounded rejection evidence",
+      "passed": true
+    },
+    {
+      "name": "Health presenter and AI payload cannot create or transmit live rejection data",
+      "passed": true
+    },
+    {
+      "name": "After-rejection sample may match again and never rewrites the rejected result",
+      "passed": true
+    },
+    {
+      "name": "Missing or throwing anchor inspector remains observational true",
+      "passed": true
+    },
+    {
+      "name": "Missing or throwing anchor inspector remains observational false",
+      "passed": true
+    },
+    {
+      "name": "Actual ac initialization with unselected currentSrc can reject; fixture hypothesis only",
+      "passed": true
+    }
+  ]
+}
+
+STDERR:

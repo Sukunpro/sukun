@@ -4,6 +4,18 @@ Zikir, Esmâü’l-Hüsnâ, Berhetiyye ve sûre takibi için web uygulaması.
 
 [Uygulamayı aç](https://sukunpro.github.io/sukun/) · [Sürüm kimliği](version.txt) · [Sürüm notları](surumler.json)
 
+## r1120 — frekans araçları ve kişisel setler
+
+Frekans bölümünde dalga tipi, sol/sağ kanal seviyesi, ek gürültü, filtreler ve oktav düğmeleri ortak ses motoruna bağlıdır. Harmonikler, 3B ses ve mevcut bant/Hz kısayolları Mini/Midi/Pro görünümlerinde erişilebilir. “Şu anki ayarlardan set oluştur” ile mikrofonsuz bir ayarı adlandırıp kaydedebilir; düzenleyebilir, yükleyebilir, çoğaltabilir veya onayla silebilirsin. Eski kişisel/mikrofon kayıtları ayrı tutulur.
+
+Mevcut ses seviyesi varsayılan olarak korunur. “Daha belirgin” profili yalnız açık seçimle kullanılır; hedef kazanç en fazla 2×, yoğun katmanlarda daha düşüktür. Ana ses ve cihaz sesi de sonucu etkiler. Bu dijital ölçüm, akustik ses düzeyi veya işitme güvenliği garantisi değildir.
+
+Süreli/değişken frekanslar canlı ses yolunu kullanır; ekran kilidinde süreklilik cihaz desteğine bağlıdır. Genel duraklatma, süre bitişi ve yeni ayarın eski yolculuğu/taramayı devralması ayrı test edilir. Eski hızlı flaş yerine ses frekansından bağımsız sabit ışık vardır; varsayılan kapalıdır ve kayıt yüklenince kendiliğinden açılmaz.
+
+Set depolaması görülen çakışmaları reddeder, ancak eşzamanlı iki sekme yazması atomik değildir. Setleri aynı anda birden fazla sekmede düzenleme. Bozuk/yeni biçimli veri korunur ve yazma kapatılır.
+
+[Doğrulama kaydı](tests/r1120/verification.json), [test kapsamı](tests/r1120/README.md) ve [bağımsız kaynak incelemesi](tests/r1120/review.json) kesin kaynak/test hash’lerini ve kabul sınırlarını içerir. Fiziksel Android/PWA, Bluetooth, ekran kilidi ve duyulan ses testleri ayrıca açık kalır. Canlı sürüm için yukarıdaki sürüm kimliği bağlantısını kullan; tarihsel test belgeleri yayın durumunun kanıtı değildir.
+
 ## r1094 — ses kaynakları ve eksik kayıtlar
 
 Kayıt Stüdyosu içindeki kaynak matrisi, zikir kataloğundaki her okuma ve desteklenen biçim için kişisel kayıt, jenerik arşiv ve cihaz sesi durumunu ayrı gösterir. Standart katalog 284 kanonik okuma ve 381 geçerli biçim içerir; bunların içinde 127 isim ve 224 geçerli isim biçimi vardır. Kullanıcının eklediği terkipler kapsamı değiştirebilir. Favoriler aynı kaynağı ikinci kez saymaz; bağımsız dua okuyucuları bu matrisin kapsamına dahil değildir.

@@ -83,7 +83,7 @@
  }
  function cancelRamps(){
   const now=safe(()=>ctx.currentTime,null);if(now===null)return;
-  for(const node of [FR.oL,FR.oR,FR.iso,FR.gate])safe(()=>{
+  for(const node of [FR.oL,FR.oR,FR.iso,FR.gate,...(FR.harmonics||[]).map(h=>h.osc)])safe(()=>{
    const p=node?.frequency;if(!p)return;
    // Capture before cancellation: older implementations may then expose the
    // pre-ramp value. Hold natively when supported for a continuous handoff.
@@ -110,8 +110,13 @@
      p.setValueCurveAtTime(curve,now,sweep.duration);
     }else p.linearRampToValueAtTime(target,now+sweep.duration);
    }
+   frTuneHarmonics(sweep.to,.15,sweep.duration,sweep.from,sweep.scale,now);
   });
   return true;
+ }
+ function resumeSweepAfterRebuild(){
+  if(!sweep?.active)return false;const current=sweepValue(),remaining=Math.max(.001,sweep.t0+sweep.duration-ctx.currentTime);
+  sweep.original=sweep.original||{from:sweep.from,duration:sweep.duration};sweep.from=current;sweep.duration=remaining;return scheduleSweep();
  }
  function startSweep(){
   if(held()){start();return false}
@@ -120,6 +125,7 @@
   stopSweep(false);safe(()=>stopJourney());apply({c:from},{sweep:true});if(!start())return false;
   const safeFrom=safe(()=>frSafeCarrier(from,FR.b),from),safeTo=safe(()=>frSafeCarrier(to,FR.b),to);
   sweep={active:true,from:safeFrom,to:safeTo,duration,scale:document.querySelector('#sweepScaleGroup .active')?.dataset.scale==='linear'?'linear':'log',loop:!!$('sweepLoop')?.checked,t0:0};
+  FR._sweepActive=true;safe(()=>window.SukunBackgroundMix?.changed?.('frequency-sweep',{immediate:true}));
   scheduleSweep();sweepTick=setInterval(updateSweep,100);paintSweep();publish('sweep');return true;
  }
  function updateSweep(){
@@ -127,7 +133,7 @@
   if(!frequency().playing){stopSweep(false);return}
   const current=sweepValue();safe(()=>{FR.c=current;if(!document.hidden)syncFreqUI()});
   if(safe(()=>ctx.currentTime,0)>=sweep.t0+sweep.duration){
-   if(sweep.loop&&!held())scheduleSweep();else stopSweep(false);
+   if(sweep.loop&&!held()){if(sweep.original){sweep.from=sweep.original.from;sweep.duration=sweep.original.duration;sweep.original=null;}scheduleSweep();}else stopSweep(false);
   }
   mirror();
  }
@@ -135,7 +141,7 @@
   const old=sweep;
   // Retire ownership before native retuning can synchronously publish a
   // background-mix update and re-enter this controller through its listener.
-  sweep=null;clearInterval(sweepTick);sweepTick=0;
+  sweep=null;FR._sweepActive=false;clearInterval(sweepTick);sweepTick=0;
   if(old?.active){const c=sweepValue(old);cancelRamps();safe(()=>{FR.c=c;frRetune(.03);syncFreqUI()});}
   paintSweep();
   if(user)notify(T('Tarama durdu; ana frekans son değerde sürer.','Sweep stopped; the main frequency continues at its last value.'));
@@ -152,23 +158,36 @@
   if(same&&f.playing){stop();return false}
   apply({c:value});return start();
  }
- function cancelTimer(restore=true){if(restore&&frequencyTimer&&frequency().playing)safe(()=>FR.out.gain.setTargetAtTime(frequency().vol*.35,ctx.currentTime,.15));clearInterval(timerTick);timerTick=0;frequencyTimer=null;paintTimer()}
+ function timerRemaining(){return frequencyTimer?Math.max(0,frequencyTimer.end==null?frequencyTimer.duration:frequencyTimer.end-safe(()=>ctx.currentTime,0)):0;}
+ function cancelTimer(restore=true){
+  const had=!!frequencyTimer;clearInterval(timerTick);timerTick=0;frequencyTimer=null;FR._timerEnd=null;FR._timerFade=null;
+  if(restore)safe(()=>frApplyGains(.3));paintTimer();
+  if(had)safe(()=>window.SukunBackgroundMix?.changed?.('frequency-timer-cancel',{immediate:true}));
+ }
+ function armTimer(){
+  if(!frequencyTimer)return false;
+  if(frequencyTimer.end==null)frequencyTimer.end=ctx.currentTime+frequencyTimer.duration;
+  FR._timerEnd=frequencyTimer.end;FR._timerFade=frequencyTimer.fade;
+  return true;
+ }
  function setTimer(minutes,source){
   cancelTimer();const mins=+minutes;if(!Number.isFinite(mins)||mins<=0)return true;
-  frequencyTimer={end:Date.now()+Math.min(180,mins)*60000,fade:Math.min(300,Math.max(5,+$('fadeDuration')?.value||60)),fading:false,originalVolume:frequency().vol};
+  frequencyTimer={duration:Math.min(180,mins)*60,end:null,fade:Math.min(300,Math.max(5,+$('fadeDuration')?.value||60))};
+  if(frequency().playing){armTimer();safe(()=>frApplyGains(.3));}
   document.querySelectorAll('#ns .timer-btn').forEach(b=>b.classList.toggle('active',b===source||+b.dataset.min===mins));
-  timerTick=setInterval(updateTimer,500);paintTimer();return true;
+  timerTick=setInterval(updateTimer,250);paintTimer();
+  // Timed frequencies stay on the scheduled AudioContext envelope. A looping
+  // pre-rendered mix cannot own a deadline, so it retains ambience only.
+  safe(()=>window.SukunBackgroundMix?.changed?.('frequency-timer',{immediate:true}));return true;
  }
  function updateTimer(){
   if(!frequencyTimer)return;
-  const remaining=(frequencyTimer.end-Date.now())/1000;
-  if(remaining<=0){stop();notify(T('Frekans süresi tamamlandı.','Frequency timer finished.'));return}
-  // Fade the frequency output only; the saved slider preference is unchanged.
-  if(remaining<frequencyTimer.fade&&frequency().playing)safe(()=>FR.out.gain.setTargetAtTime(frequency().vol*.35*Math.max(0,remaining/frequencyTimer.fade),ctx.currentTime,.3));
+  if(frequency().playing&&frequencyTimer.end==null){armTimer();safe(()=>frApplyGains(.3));}
+  if(frequencyTimer.end!=null&&timerRemaining()<=0){stop();notify(T('Frekans süresi tamamlandı.','Frequency timer finished.'));return;}
   paintTimer();
  }
  function paintTimer(){
-  const display=$('timerDisplay');if(display){const s=frequencyTimer?Math.max(0,Math.ceil((frequencyTimer.end-Date.now())/1000)):null;display.textContent=s==null?'—':String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+  const display=$('timerDisplay');if(display){const s=frequencyTimer?Math.ceil(timerRemaining()):null;display.textContent=s==null?'—':String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
   if(!frequencyTimer)document.querySelectorAll('#ns .timer-btn').forEach(b=>b.classList.remove('active'));
  }
  function text(el,tr,en){if(!el)return;el.dataset.frTr=tr;el.dataset.frEn=en;el.textContent=T(tr,en)}
@@ -182,7 +201,7 @@
    const ns=$('ns'),app=ns?.querySelector(':scope > .app');if(!native||!ns||!app)return null;
    const overview=makePanel('r1101FrequencyOverview'),sweepPanel=makePanel('r1101FrequencySweep');app.append(overview,sweepPanel);
    moveCard('spectrumCanvas',overview);moveCard('aiInput',overview);
-   const time=moveCard('timerDisplay',overview);if(time){text(time.querySelector('.card-title'),'Frekans süresi','Frequency timer');const n=document.createElement('p');n.className='r1101FrequencyNote';text(n,'Yalnızca ana frekans kapanır; zikir ve ambiyans sürer. Genel uyku zamanlayıcısı ayrı kalır.','Stops only the main frequency; dhikr and ambience continue. The global sleep timer stays separate.');time.appendChild(n)}
+   const time=moveCard('timerDisplay',overview);if(time){text(time.querySelector('.card-title'),'Frekans süresi','Frequency timer');const n=document.createElement('p');n.className='r1101FrequencyNote';text(n,'Ana frekans, harmonikler, gürültü ve ikinci katman birlikte kapanır. Duraklatmada süre bekler. Zikir ve ambiyans sürer. Süreli frekans, tarama ve yolculuk kilitte canlı ses yolunu kullanır; cihaz desteği değişebilir.','Main tone, harmonics, noise and second layer stop together. Pause holds the timer. Dhikr and ambience continue. Timed frequency, sweeps and journeys use live audio while locked; device support may vary.');time.appendChild(n)}
    const sweepCard=moveCard('sweepToggle',sweepPanel);if(sweepCard){$('sweepBody').hidden=false;$('sweepToggle').onclick=null;$('sweepToggle').removeAttribute('style');$('sweepChev').hidden=true;$('sweepToggle').setAttribute('role','heading');$('sweepToggle').setAttribute('aria-level','3');const status=document.createElement('p');status.id='r1101SweepStatus';status.className='r1101FrequencyNote';status.setAttribute('role','status');sweepCard.appendChild(status)}
    for(const id of ['sweepStart','sweepEnd'])if($(id)){$(id).min='20';$(id).max='18000'}
    host.querySelector('.r1101FrequencyDeck').appendChild(ns);
@@ -192,7 +211,7 @@
    ns.querySelector('#tabNav')?.addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(!b)return;const tool=Object.keys(TOOLS).find(k=>TOOLS[k][2]===b.dataset.tab);if(tool)displayTool(tool)});
    $('cymNum')?.addEventListener('change',e=>{const c=+e.target.value;if(Number.isFinite(c))apply({c})});
    for(const id of ['cymPrev','cymNext'])$(id)?.addEventListener('click',()=>{const c=+$('cymNum')?.value;if(Number.isFinite(c))apply({c})});
-   $('fadeDuration')?.addEventListener('input',e=>{if(frequencyTimer)frequencyTimer.fade=Math.min(300,Math.max(5,+e.target.value||60))});
+   $('fadeDuration')?.addEventListener('input',e=>{if(frequencyTimer){frequencyTimer.fade=Math.min(300,Math.max(5,+e.target.value||60));armTimer();safe(()=>frApplyGains(.3))}});
    for(const [key,tool]of Object.entries(TOOLS)){const panel=$(key==='overview'?'r1101FrequencyOverview':key==='sweep'?'r1101FrequencySweep':tool[2]);if(panel){panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby','r1101FrequencyTab-'+key)}}
    // Give native suggestion cards their existing keyboard action, with no copies.
    ns.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const el=e.target.closest('.ai-result-preset');if(el){e.preventDefault();el.click()}});
@@ -272,10 +291,10 @@
   ['sukun:audioaggregatechange','sukun:audiostate','sukun:backgroundmix'].forEach(ev=>window.addEventListener(ev,()=>{if(sweep&&!frequency().playing)stopSweep(false);mirror()},{passive:true}));
   ['sukun:tabchange','sukun:r616viewchange'].forEach(ev=>window.addEventListener(ev,syncVisibility,{passive:true}));
   document.addEventListener('visibilitychange',syncVisibility,{passive:true});
-  window.addEventListener('pagehide',()=>{if(sweep)stopSweep(false);cancelTimer()},{passive:true});
+  window.addEventListener('pagehide',()=>{if(sweep)stopSweep(false)},{passive:true});
   mirror();
  }
- const controller=Object.freeze({open,close,toggle,stop,applyPreset,applyLibrary,startFromControls(){if(!initializing)fromControls();return start()},retuneFromControls:fromControls,startSweep,stopSweep,cymToggle,setTimer,state:frequency,canStartCoach:()=>!held(),coachSpeechAllowed});
- window.SukunFrequencyHubR1101=Object.freeze({version:VERSION,open,close,controller,snapshot:()=>({version:VERSION,initialized,selectedTool,expanded,mounted:!!$('ns')?.closest('#tab-frq'),frequency:frequency(),sweep:sweep?{active:!!sweep.active,from:sweep.from,to:sweep.to,duration:sweep.duration,loop:sweep.loop}: {active:false},timer:frequencyTimer?{remaining:Math.max(0,frequencyTimer.end-Date.now())}:null,native:safe(()=>native?.frequencyHubSnapshot?.()),duplicateControllers:document.querySelectorAll('#frToggle').length})});
+ const controller=Object.freeze({open,close,toggle,stop,start,applyPreset,applyLibrary,startFromControls(){if(!initializing)fromControls();return start()},retuneFromControls:fromControls,startSweep,stopSweep,resumeSweepAfterRebuild,cymToggle,setTimer,cancelTimer,armTimer,timerRemaining,state:frequency,canStartCoach:()=>!held(),coachSpeechAllowed});
+ window.SukunFrequencyHubR1101=Object.freeze({version:VERSION,open,close,controller,snapshot:()=>({version:VERSION,initialized,selectedTool,expanded,mounted:!!$('ns')?.closest('#tab-frq'),frequency:frequency(),sweep:sweep?{active:!!sweep.active,from:sweep.from,to:sweep.to,duration:sweep.duration,loop:sweep.loop}: {active:false},timer:frequencyTimer?{remaining:timerRemaining()*1000}:null,native:safe(()=>native?.frequencyHubSnapshot?.()),duplicateControllers:document.querySelectorAll('#frToggle').length})});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();

@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-20T06:45:35.495357+00:00",
+  "gatePath": "tests/r1120/build-verification.py",
+  "gateSha256": "d127f365d216e01cac16df503ddb4fa12fe82ae7ccced203232b1ab2bd26abe4",
+  "status": "PASS_GATE_STRUCTURE",
+  "productionModified": false,
+  "confirmedCounterexamples": [
+    {
+      "id": "missing-production-binding",
+      "reports": [
+        "native-mode-smoke.json",
+        "ambience-native-interaction.json"
+      ],
+      "mutation": "Remove sourceSha256 and all nested served maps. Leave all other report fields unchanged.",
+      "observed": "native_valid returned True for both reports.",
+      "required": "Mandatory per-suite production binding, required served evidence where relied upon, exact required source-hash key sets.",
+      "status": "RESOLVED",
+      "retest": "Patched native_valid rejects the mutation in all four completed native suites."
+    },
+    {
+      "id": "missing-case-duplicate-substitution",
+      "reports": [
+        "native-mode-smoke.json",
+        "ambience-native-interaction.json"
+      ],
+      "mutation": "Replace checks[0] with a copy of checks[1], retaining total count.",
+      "observed": "native_valid returned True for both reports.",
+      "required": "Compare exact expected ordered case inventory or multiset, including intentional duplicate case names in ambience profiles.",
+      "status": "RESOLVED",
+      "retest": "Patched native_valid rejects the mutation in all four completed native suites."
+    }
+  ],
+  "additionalFindings": [
+    {
+      "id": "group-inventory",
+      "finding": "Background/source/aggregate group count checks do not by themselves establish exact required suite membership; enforce exact inventories and reject unintended duplicates.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "vacuous-negative-fixtures",
+      "finding": "gate_tests mutates whatever audio report exists, including an already-invalid/stale report. Assert baseline fixture validity before treating negative mutations as independent guard tests.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "gate-evidence-write-order",
+      "status": "RESOLVED",
+      "finding": "build() hashes an existing evidence/verification-gate.json before __main__ replaces it. On the final change from pending to complete, verification.json can contain the previous negative-fixture hash. Write the fixture report first or exclude it from the evidence map.",
+      "retest": "__main__ writes verification-gate.json before build() reads its hash for verification.json."
+    },
+    {
+      "id": "harmonic-report-completeness",
+      "status": "RESOLVED",
+      "finding": "The new harmonic() gate accepts checks=[], duplicate-substituted case inventory, absent finishedAt, and nonempty fatal when counters remain 11. Each mutation was confirmed using an in-memory substituted report while leaving evidence and production files unchanged. Require exact ordered case inventory, completion, no fatal and allPassed is True.",
+      "retest": "Positive 11/11 report validates. Empty/duplicate checks, absent completion, fatal, stale source/test and an individually failed check all reject."
+    }
+  ],
+  "positiveAssessment": [
+    "Exact ordered native inventories reject missing/duplicate cases, including intentional repeated ambience case labels.",
+    "Required production bindings and served evidence reject the previously accepted missing-binding counterexamples.",
+    "All four completed native suites validate; pending audio and its invalid positive-baseline fixture fail closed.",
+    "All nine independent source-review production hashes remain unchanged."
+  ],
+  "limitation": "Read-only imported gate and in-memory mutated report objects; existing report files and production were not changed.",
+  "countertestResults": {
+    "completedNativeSuitesAccepted": [
+      "native-mode-smoke.json",
+      "frequency-hub.json",
+      "ambience-native-interaction.json",
+      "service-worker-upgrade-native.json"
+    ],
+    "eachCompletedSuiteRejects": [
+      "removed source hashes and served maps",
+      "duplicate substituted case",
+      "missing finishedAt",
+      "stale script hash",
+      "individually failed check"
+    ],
+    "pendingAudioRejected": true,
+    "invalidPositiveBaselineRejected": true,
+    "inMemoryFullGateAccepted": false
+  },
+  "remainingGateBlockers": [],
+  "nativeAcceptance": "PENDING: final audio23 rerun must complete with passing exact-byte evidence; completed headroom17 and previous native29 do not substitute for it.",
+  "headroomAdditionReview": {
+    "plannedCases": 15,
+    "provenanceAndProfileChecks": 2,
+    "inventory": "Exact ordered 15 case IDs and two named checks are required.",
+    "bindings": "Current index.html, renderer and runner hashes are required.",
+    "completion": "Requires finishedAt, no fatal, browserExecuted is True, allPassed is True and 17/17 counters plus individual passes.",
+    "currentNativeAcceptance": "The completed 17/17 matrix validates. Missing/duplicate cases or checks, missing completion, fatal, stale source/test/renderer hashes, a failed check and browserExecuted=false all reject."
+  },
+  "latestCountertests": {
+    "harmonicPositiveAccepted": true,
+    "harmonicNegativeVariantsRejected": 7,
+    "headroomPositiveAccepted": true,
+    "headroomNegativeVariantsRejected": 11,
+    "allOtherFinalGatesPassExcept": [
+      "audio-frequency-browser.json",
+      "gate negative fixtures"
+    ],
+    "sourceEntrypointSha256": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9"
+  }
+}

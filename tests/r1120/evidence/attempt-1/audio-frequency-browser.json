@@ -1,0 +1,2590 @@
+{
+  "suite": "r1120 native frequency audio and release acceptance",
+  "build": "r1120",
+  "startedAt": "2026-10-20T06:16:18.196Z",
+  "browserExecuted": true,
+  "checks": [
+    {
+      "name": "New controls are reachable in the unchanged default Midi density",
+      "passed": true,
+      "evidence": {
+        "density": "midi",
+        "controls": [
+          "#harmSayi",
+          "#harmSeri",
+          "#uzamTgl",
+          "#uzamHizSld",
+          "#fr1120-wave",
+          "#fr1120-balL",
+          "#fr1120-balR",
+          "#fr1120-noise",
+          "#fr1120-noiseVol",
+          "#fr1120-filterOn",
+          "#fr1120-lpf",
+          "#fr1120-hpf",
+          "#fr1120-levelProfile",
+          "#fr1120-octDown",
+          "#fr1120-octUp",
+          "#r1120SetCreate"
+        ],
+        "tools": {
+          "text": "Ses araçları\nDalga tipi\nSinüs\nÜçgen\nKare\nTestere\nSol kanal\n100%\nSağ kanal\n100%\nEk gürültü\nKapalı\nBeyaz\nPembe\nKahverengi\nGürültü seviyesi\n0%\nFrekans filtreleri\nAlçak geçiren\n2000 Hz\nYüksek geçiren\n80 Hz\nSeviye profili\nMevcut seviye\nDaha belirgin (isteğe bağlı)\n½× oktav\n2× oktav\n\nFrekans şiddeti ve ana ses birlikte etkilidir. Ana ses: %70. Yeni profil yalnız seçersen açılır; cihaz sesini düşükten ayarla.",
+          "width": 342,
+          "scroll": 342
+        }
+      }
+    },
+    {
+      "name": "Legacy default remains opt-in neutral and preserves r1119 native gain",
+      "passed": true,
+      "evidence": {
+        "previous": {
+          "mode": "bin",
+          "c": 180,
+          "b": 8,
+          "left": 176,
+          "right": 184,
+          "output": 0.17480410635471344,
+          "master": 0.699999988079071,
+          "measurement": {
+            "milliseconds": 900,
+            "frames": 40,
+            "sampleRate": 44100,
+            "limiterReduction": -0.00012332235928624868,
+            "frequency": {
+              "peak": 0.08742484450340271,
+              "rms": 0.0429132422616709,
+              "finite": true,
+              "samples": 81920
+            },
+            "preLimiter": {
+              "peak": 0.06119861453771591,
+              "rms": 0.03003967073242361,
+              "finite": true,
+              "samples": 81920
+            },
+            "postLimiter": {
+              "peak": 0.07451358437538147,
+              "rms": 0.036513077800255686,
+              "finite": true,
+              "samples": 81920
+            }
+          },
+          "sourceSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72"
+        },
+        "current": {
+          "playing": true,
+          "mode": "bin",
+          "c": 180,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17490139603614807,
+          "context": "running",
+          "time": 34.780589569160995,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "harmonics": [],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 0,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "measure": {
+          "milliseconds": 900,
+          "frames": 38,
+          "sampleRate": 44100,
+          "limiterReduction": -0.00012332235928624868,
+          "frequency": {
+            "peak": 0.08742484450340271,
+            "rms": 0.04315671507157273,
+            "finite": true,
+            "samples": 77824
+          },
+          "preLimiter": {
+            "peak": 0.06119861453771591,
+            "rms": 0.030247158950624783,
+            "finite": true,
+            "samples": 77824
+          },
+          "postLimiter": {
+            "peak": 0.07451358437538147,
+            "rms": 0.03693206292873821,
+            "finite": true,
+            "samples": 77824
+          }
+        }
+      }
+    },
+    {
+      "name": "Restored waveform, channel trim, noise, filters and octave controls act on the main engine",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "setting": "triangle",
+            "left": "triangle",
+            "right": "triangle"
+          },
+          {
+            "setting": "square",
+            "left": "square",
+            "right": "square"
+          },
+          {
+            "setting": "sawtooth",
+            "left": "sawtooth",
+            "right": "sawtooth"
+          },
+          {
+            "setting": "sine",
+            "left": "sine",
+            "right": "sine"
+          },
+          {
+            "noise": "white",
+            "measure": {
+              "milliseconds": 150,
+              "frames": 2,
+              "sampleRate": 44100,
+              "limiterReduction": -0.00012332235928624868,
+              "frequency": {
+                "peak": 0.0920829251408577,
+                "rms": 0.020529013559533644,
+                "finite": true,
+                "samples": 4096
+              },
+              "preLimiter": {
+                "peak": 0.07154300808906555,
+                "rms": 0.014355717813188616,
+                "finite": true,
+                "samples": 4096
+              },
+              "postLimiter": {
+                "peak": 0.09086175262928009,
+                "rms": 0.01832880331911796,
+                "finite": true,
+                "samples": 4096
+              }
+            }
+          },
+          {
+            "noise": "pink",
+            "measure": {
+              "milliseconds": 150,
+              "frames": 3,
+              "sampleRate": 44100,
+              "limiterReduction": -0.00012332235928624868,
+              "frequency": {
+                "peak": 0.09070660173892975,
+                "rms": 0.02585637967627347,
+                "finite": true,
+                "samples": 6144
+              },
+              "preLimiter": {
+                "peak": 0.06265146285295486,
+                "rms": 0.018102506226613305,
+                "finite": true,
+                "samples": 6144
+              },
+              "postLimiter": {
+                "peak": 0.07698793709278107,
+                "rms": 0.02495092565353265,
+                "finite": true,
+                "samples": 6144
+              }
+            }
+          },
+          {
+            "noise": "brown",
+            "measure": {
+              "milliseconds": 150,
+              "frames": 3,
+              "sampleRate": 44100,
+              "limiterReduction": -0.00012332235928624868,
+              "frequency": {
+                "peak": 0.09098196029663086,
+                "rms": 0.034993180529029326,
+                "finite": true,
+                "samples": 6144
+              },
+              "preLimiter": {
+                "peak": 0.06358128786087036,
+                "rms": 0.02313909573679704,
+                "finite": true,
+                "samples": 6144
+              },
+              "postLimiter": {
+                "peak": 0.07741464674472809,
+                "rms": 0.029406856433981894,
+                "finite": true,
+                "samples": 6144
+              }
+            }
+          },
+          {
+            "noise": "off",
+            "measure": {
+              "milliseconds": 150,
+              "frames": 5,
+              "sampleRate": 44100,
+              "limiterReduction": -0.00012332235928624868,
+              "frequency": {
+                "peak": 0.07825358957052231,
+                "rms": 0.030646509443570037,
+                "finite": true,
+                "samples": 10240
+              },
+              "preLimiter": {
+                "peak": 0.05477896332740784,
+                "rms": 0.021452313550401975,
+                "finite": true,
+                "samples": 10240
+              },
+              "postLimiter": {
+                "peak": 0.06628565490245819,
+                "rms": 0.025342806333733592,
+                "finite": true,
+                "samples": 10240
+              }
+            }
+          }
+        ],
+        "unfiltered": {
+          "milliseconds": 350,
+          "frames": 14,
+          "sampleRate": 44100,
+          "limiterReduction": -0.00012332235928624868,
+          "frequency": {
+            "peak": 0.0830269604921341,
+            "rms": 0.04075923248289886,
+            "finite": true,
+            "samples": 28672
+          },
+          "preLimiter": {
+            "peak": 0.058440372347831726,
+            "rms": 0.02853809351744845,
+            "finite": true,
+            "samples": 28672
+          },
+          "postLimiter": {
+            "peak": 0.07115522027015686,
+            "rms": 0.03385942752239726,
+            "finite": true,
+            "samples": 28672
+          }
+        },
+        "filtered": {
+          "milliseconds": 350,
+          "frames": 14,
+          "sampleRate": 44100,
+          "limiterReduction": -0.00012332235928624868,
+          "frequency": {
+            "peak": 0.00019912698189727962,
+            "rms": 0.00009244762902791059,
+            "finite": true,
+            "samples": 28672
+          },
+          "preLimiter": {
+            "peak": 0.00013998826034367085,
+            "rms": 0.00006499493915894889,
+            "finite": true,
+            "samples": 28672
+          },
+          "postLimiter": {
+            "peak": 0.00017044544802047312,
+            "rms": 0.00008042217124342523,
+            "finite": true,
+            "samples": 28672
+          }
+        },
+        "filterState": {
+          "filterOn": true,
+          "lpf": 200,
+          "hpf": 20
+        },
+        "retiredNeuro": {
+          "binaural": false,
+          "isPlaying": false,
+          "noise": false,
+          "special": false,
+          "breathRunning": false,
+          "breathPaused": false,
+          "guided": false,
+          "sharedContext": true
+        }
+      }
+    },
+    {
+      "name": "Native main and dogal partials retune 180 → 528 Hz without a second engine",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "playing": true,
+          "mode": "bin",
+          "c": 180,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17473995685577393,
+          "context": "running",
+          "time": 64.35120181405895,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 360,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 540,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 720,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 900,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "after": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17498767375946045,
+          "context": "running",
+          "time": 64.88235827664398,
+          "sampleRate": 44100,
+          "left": 524,
+          "right": 532,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 1056,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 1584,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 2112,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 2640,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "retiredNeuro": {
+          "binaural": false,
+          "isPlaying": false,
+          "noise": false,
+          "special": false,
+          "breathRunning": false,
+          "breathPaused": false,
+          "guided": false,
+          "sharedContext": true
+        }
+      }
+    },
+    {
+      "name": "Native main and tek partials retune 180 → 528 Hz without a second engine",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "playing": true,
+          "mode": "bin",
+          "c": 180,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17483793199062347,
+          "context": "running",
+          "time": 70.86149659863946,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "harmonics": [
+            {
+              "ratio": 3,
+              "hz": 540,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 5,
+              "hz": 900,
+              "gain": 0.06800000369548798
+            },
+            {
+              "ratio": 7,
+              "hz": 1260,
+              "gain": 0.04857143014669418
+            },
+            {
+              "ratio": 9,
+              "hz": 1620,
+              "gain": 0.03777777776122093
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "tek",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "after": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17498767375946045,
+          "context": "running",
+          "time": 71.51165532879818,
+          "sampleRate": 44100,
+          "left": 524,
+          "right": 532,
+          "harmonics": [
+            {
+              "ratio": 3,
+              "hz": 1584,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 5,
+              "hz": 2640,
+              "gain": 0.06800000369548798
+            },
+            {
+              "ratio": 7,
+              "hz": 3696,
+              "gain": 0.04857143014669418
+            },
+            {
+              "ratio": 9,
+              "hz": 4752,
+              "gain": 0.03777777776122093
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "tek",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "retiredNeuro": {
+          "binaural": false,
+          "isPlaying": false,
+          "noise": false,
+          "special": false,
+          "breathRunning": false,
+          "breathPaused": false,
+          "guided": false,
+          "sharedContext": true
+        }
+      }
+    },
+    {
+      "name": "Native main and oktav partials retune 180 → 528 Hz without a second engine",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "playing": true,
+          "mode": "bin",
+          "c": 180,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17483122646808624,
+          "context": "running",
+          "time": 77.45015873015873,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 360,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 4,
+              "hz": 720,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 8,
+              "hz": 1440,
+              "gain": 0.042500000447034836
+            },
+            {
+              "ratio": 16,
+              "hz": 2880,
+              "gain": 0.021250000223517418
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "oktav",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "after": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17498767375946045,
+          "context": "running",
+          "time": 77.9522902494331,
+          "sampleRate": 44100,
+          "left": 524,
+          "right": 532,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 1056,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 4,
+              "hz": 2112,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 8,
+              "hz": 4224,
+              "gain": 0.042500000447034836
+            },
+            {
+              "ratio": 16,
+              "hz": 8448,
+              "gain": 0.021250000223517418
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "oktav",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "retiredNeuro": {
+          "binaural": false,
+          "isPlaying": false,
+          "noise": false,
+          "special": false,
+          "breathRunning": false,
+          "breathPaused": false,
+          "guided": false,
+          "sharedContext": true
+        }
+      }
+    },
+    {
+      "name": "Native out-of-band harmonics silence at the Nyquist guard and restore below it",
+      "passed": true,
+      "evidence": {
+        "muted": {
+          "playing": true,
+          "mode": "bin",
+          "c": 12000,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17498767375946045,
+          "context": "running",
+          "time": 84.42195011337868,
+          "sampleRate": 44100,
+          "left": 11996,
+          "right": 12004,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 18000,
+              "gain": 0
+            },
+            {
+              "ratio": 4,
+              "hz": 18000,
+              "gain": 0
+            },
+            {
+              "ratio": 8,
+              "hz": 18000,
+              "gain": 0
+            },
+            {
+              "ratio": 16,
+              "hz": 18000,
+              "gain": 0
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 12000,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "oktav",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 12000,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "restored": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17498767375946045,
+          "context": "running",
+          "time": 85.08081632653061,
+          "sampleRate": 44100,
+          "left": 524,
+          "right": 532,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 1056,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 4,
+              "hz": 2112,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 8,
+              "hz": 4224,
+              "gain": 0.042500000447034836
+            },
+            {
+              "ratio": 16,
+              "hz": 8448,
+              "gain": 0.021250000223517418
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "oktav",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "Native linear journey ramps keep every harmonic at the moving carrier ratio",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Harmonic ×2: 586.2473754882812 ≠ 588.5994262695312 ± 0.8\n    at near (/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:29:117)\n    at assertTune (/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:30:242)\n    at /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:66:289\n    at async check (/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:22:50)\n    at async /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:66:2",
+      "state": {
+        "playing": true,
+        "mode": "bin",
+        "c": 528,
+        "b": 12,
+        "profile": "legacy",
+        "vol": 0.5,
+        "output": 0.1749470978975296,
+        "context": "running",
+        "time": 91.321179138322,
+        "sampleRate": 44100,
+        "left": 289.6427917480469,
+        "right": 298.9566345214844,
+        "harmonics": [
+          {
+            "ratio": 2,
+            "hz": 586.2473754882812,
+            "gain": 0.17000000178813934
+          },
+          {
+            "ratio": 3,
+            "hz": 879.3710327148438,
+            "gain": 0.1133333370089531
+          },
+          {
+            "ratio": 4,
+            "hz": 1172.4947509765625,
+            "gain": 0.08500000089406967
+          },
+          {
+            "ratio": 5,
+            "hz": 1465.618408203125,
+            "gain": 0.06800000369548798
+          }
+        ],
+        "ramp": {
+          "fromC": 180,
+          "fromB": 8,
+          "c": 528,
+          "b": 12,
+          "start": 90.66231292517007,
+          "end": 92.66231292517007
+        },
+        "journey": null,
+        "paused": false,
+        "miniPaused": false,
+        "held": false,
+        "pending": false,
+        "secondary": false,
+        "pink": false,
+        "ambience": {},
+        "timer": null,
+        "tool": {
+          "c": 528,
+          "b": 12,
+          "mode": "bin",
+          "vol": 0.5,
+          "pink": false,
+          "harmonik": 4,
+          "harmSeri": "dogal",
+          "uzam": false,
+          "uzamHiz": 22,
+          "wave": "sine",
+          "balL": 1,
+          "balR": 1,
+          "noise": "off",
+          "noiseVol": 0,
+          "filterOn": false,
+          "lpf": 2000,
+          "hpf": 80,
+          "levelProfile": "legacy",
+          "secondary": {
+            "on": false,
+            "c": 100,
+            "b": 2.5
+          }
+        },
+        "hub": {
+          "version": "r1101",
+          "initialized": true,
+          "selectedTool": "overview",
+          "expanded": true,
+          "mounted": true,
+          "frequency": {
+            "playing": true,
+            "c": 528,
+            "b": 12,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false
+          },
+          "sweep": {
+            "active": false
+          },
+          "timer": null,
+          "native": {
+            "binaural": false,
+            "isPlaying": false,
+            "noise": false,
+            "special": false,
+            "breathRunning": false,
+            "breathPaused": false,
+            "guided": false,
+            "sharedContext": true
+          },
+          "duplicateControllers": 1
+        }
+      }
+    },
+    {
+      "name": "Harmonic and 3D native toggles preserve an active journey and a held pause",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 10,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17485107481479645,
+          "context": "running",
+          "time": 96.86204081632653,
+          "sampleRate": 44100,
+          "left": 183.1618194580078,
+          "right": 191.20278930664062,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 374.3645324707031,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 561.5468139648438,
+              "gain": 0.1133333370089531
+            }
+          ],
+          "ramp": {
+            "fromC": 180,
+            "fromB": 8,
+            "c": 528,
+            "b": 10,
+            "start": 96.49052154195012,
+            "end": 114.49052154195012
+          },
+          "journey": {
+            "active": true,
+            "paused": false,
+            "index": 0
+          },
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 10,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 2,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 10,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "running": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 10,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.10215895622968674,
+          "context": "running",
+          "time": 98.87056689342404,
+          "sampleRate": 44100,
+          "left": 221.88174438476562,
+          "right": 230.1458740234375,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 452.0275573730469,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 678.0413208007812,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 904.0551147460938,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 1130.06884765625,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": {
+            "fromC": 217.54086167800452,
+            "fromB": 8.215752078609222,
+            "c": 528,
+            "b": 10,
+            "start": 98.43229024943311,
+            "end": 114.49052154195012
+          },
+          "journey": {
+            "active": true,
+            "paused": false,
+            "index": 0
+          },
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 10,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": true,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 10,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "paused": {
+          "playing": true,
+          "mode": "bin",
+          "c": 231.23289493575197,
+          "b": 8.294441924918116,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.13254620134830475,
+          "context": "suspended",
+          "time": 99.14049886621315,
+          "sampleRate": 44100,
+          "left": 227.08541870117188,
+          "right": 235.3795623779297,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 462.46490478515625,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 693.6973266601562,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 924.9298095703125,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 1156.1622314453125,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": null,
+          "journey": {
+            "active": true,
+            "paused": true,
+            "index": 0,
+            "remaining": 35350.02267573697,
+            "pausedRamp": {
+              "c": 528,
+              "b": 10,
+              "remaining": 15.350022675736966
+            }
+          },
+          "paused": true,
+          "miniPaused": true,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 231.23289493575197,
+            "b": 8.294441924918116,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": true,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 231.23289493575197,
+              "b": 8.294441924918116,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "held": {
+          "playing": true,
+          "mode": "bin",
+          "c": 231.23249053955078,
+          "b": 8.294143676757812,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0,
+          "context": "suspended",
+          "time": 99.14049886621315,
+          "sampleRate": 44100,
+          "left": 227.08541870117188,
+          "right": 235.3795623779297,
+          "harmonics": [
+            {
+              "ratio": 3,
+              "hz": 693.6974487304688,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 5,
+              "hz": 1156.1624755859375,
+              "gain": 0.06800000369548798
+            },
+            {
+              "ratio": 7,
+              "hz": 1618.62744140625,
+              "gain": 0.04857143014669418
+            },
+            {
+              "ratio": 9,
+              "hz": 2081.092529296875,
+              "gain": 0.03777777776122093
+            }
+          ],
+          "ramp": null,
+          "journey": {
+            "active": true,
+            "paused": true,
+            "index": 0,
+            "remaining": 35350.02267573697,
+            "pausedRamp": {
+              "c": 528,
+              "b": 10,
+              "remaining": 15.350022675736966
+            }
+          },
+          "paused": true,
+          "miniPaused": true,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 231.23249053955078,
+            "b": 8.294143676757812,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "tek",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 231.23249053955078,
+              "b": 8.294143676757812,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "resumed": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 10,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.15480618178844452,
+          "context": "running",
+          "time": 100.22022675736962,
+          "sampleRate": 44100,
+          "left": 247.8999481201172,
+          "right": 256.3142395019531,
+          "harmonics": [
+            {
+              "ratio": 3,
+              "hz": 756.3204956054688,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 5,
+              "hz": 1260.5340576171875,
+              "gain": 0.06800000369548798
+            },
+            {
+              "ratio": 7,
+              "hz": 1764.747802734375,
+              "gain": 0.04857143014669418
+            },
+            {
+              "ratio": 9,
+              "hz": 2268.96142578125,
+              "gain": 0.03777777776122093
+            }
+          ],
+          "ramp": {
+            "fromC": 231.23249053955078,
+            "fromB": 8.294143676757812,
+            "c": 528,
+            "b": 10,
+            "start": 99.14049886621315,
+            "end": 114.49052154195012
+          },
+          "journey": {
+            "active": true,
+            "paused": false,
+            "index": 0,
+            "remaining": 35350.02267573697,
+            "pausedRamp": null
+          },
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 10,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "tek",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 10,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "bin native graph keeps correct main frequencies and common harmonics",
+      "passed": true,
+      "evidence": {
+        "playing": true,
+        "mode": "bin",
+        "c": 180,
+        "b": 8,
+        "profile": "legacy",
+        "vol": 0.5,
+        "output": 0.17478430271148682,
+        "context": "running",
+        "time": 105.96136054421768,
+        "sampleRate": 44100,
+        "left": 176,
+        "right": 184,
+        "harmonics": [
+          {
+            "ratio": 2,
+            "hz": 360,
+            "gain": 0.17000000178813934
+          },
+          {
+            "ratio": 3,
+            "hz": 540,
+            "gain": 0.1133333370089531
+          }
+        ],
+        "ramp": null,
+        "journey": null,
+        "paused": false,
+        "miniPaused": false,
+        "held": false,
+        "pending": false,
+        "secondary": false,
+        "pink": false,
+        "ambience": {},
+        "timer": null,
+        "tool": {
+          "c": 180,
+          "b": 8,
+          "mode": "bin",
+          "vol": 0.5,
+          "pink": false,
+          "harmonik": 2,
+          "harmSeri": "dogal",
+          "uzam": false,
+          "uzamHiz": 22,
+          "wave": "sine",
+          "balL": 1,
+          "balR": 1,
+          "noise": "off",
+          "noiseVol": 0,
+          "filterOn": false,
+          "lpf": 2000,
+          "hpf": 80,
+          "levelProfile": "legacy",
+          "secondary": {
+            "on": false,
+            "c": 100,
+            "b": 2.5
+          }
+        },
+        "hub": {
+          "version": "r1101",
+          "initialized": true,
+          "selectedTool": "overview",
+          "expanded": true,
+          "mounted": true,
+          "frequency": {
+            "playing": true,
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false
+          },
+          "sweep": {
+            "active": false
+          },
+          "timer": null,
+          "native": {
+            "binaural": false,
+            "isPlaying": false,
+            "noise": false,
+            "special": false,
+            "breathRunning": false,
+            "breathPaused": false,
+            "guided": false,
+            "sharedContext": true
+          },
+          "duplicateControllers": 1
+        }
+      }
+    },
+    {
+      "name": "iso native graph keeps correct main frequencies and common harmonics",
+      "passed": true,
+      "evidence": {
+        "playing": true,
+        "mode": "iso",
+        "c": 180,
+        "b": 8,
+        "profile": "legacy",
+        "vol": 0.5,
+        "output": 0.1746974140405655,
+        "context": "running",
+        "time": 111.54285714285714,
+        "sampleRate": 44100,
+        "iso": 180,
+        "gate": 8,
+        "harmonics": [
+          {
+            "ratio": 2,
+            "hz": 360,
+            "gain": 0.17000000178813934
+          },
+          {
+            "ratio": 3,
+            "hz": 540,
+            "gain": 0.1133333370089531
+          }
+        ],
+        "ramp": null,
+        "journey": null,
+        "paused": false,
+        "miniPaused": false,
+        "held": false,
+        "pending": false,
+        "secondary": false,
+        "pink": false,
+        "ambience": {},
+        "timer": null,
+        "tool": {
+          "c": 180,
+          "b": 8,
+          "mode": "iso",
+          "vol": 0.5,
+          "pink": false,
+          "harmonik": 2,
+          "harmSeri": "dogal",
+          "uzam": false,
+          "uzamHiz": 22,
+          "wave": "sine",
+          "balL": 1,
+          "balR": 1,
+          "noise": "off",
+          "noiseVol": 0,
+          "filterOn": false,
+          "lpf": 2000,
+          "hpf": 80,
+          "levelProfile": "legacy",
+          "secondary": {
+            "on": false,
+            "c": 100,
+            "b": 2.5
+          }
+        },
+        "hub": {
+          "version": "r1101",
+          "initialized": true,
+          "selectedTool": "overview",
+          "expanded": true,
+          "mounted": true,
+          "frequency": {
+            "playing": true,
+            "c": 180,
+            "b": 8,
+            "mode": "iso",
+            "vol": 0.5,
+            "pink": false
+          },
+          "sweep": {
+            "active": false
+          },
+          "timer": null,
+          "native": {
+            "binaural": false,
+            "isPlaying": false,
+            "noise": false,
+            "special": false,
+            "breathRunning": false,
+            "breathPaused": false,
+            "guided": false,
+            "sharedContext": true
+          },
+          "duplicateControllers": 1
+        }
+      }
+    },
+    {
+      "name": "mono native graph keeps correct main frequencies and common harmonics",
+      "passed": true,
+      "evidence": {
+        "playing": true,
+        "mode": "mono",
+        "c": 180,
+        "b": 8,
+        "profile": "legacy",
+        "vol": 0.5,
+        "output": 0.17474138736724854,
+        "context": "running",
+        "time": 117.29269841269841,
+        "sampleRate": 44100,
+        "left": 176,
+        "right": 184,
+        "harmonics": [
+          {
+            "ratio": 2,
+            "hz": 360,
+            "gain": 0.17000000178813934
+          },
+          {
+            "ratio": 3,
+            "hz": 540,
+            "gain": 0.1133333370089531
+          }
+        ],
+        "ramp": null,
+        "journey": null,
+        "paused": false,
+        "miniPaused": false,
+        "held": false,
+        "pending": false,
+        "secondary": false,
+        "pink": false,
+        "ambience": {},
+        "timer": null,
+        "tool": {
+          "c": 180,
+          "b": 8,
+          "mode": "mono",
+          "vol": 0.5,
+          "pink": false,
+          "harmonik": 2,
+          "harmSeri": "dogal",
+          "uzam": false,
+          "uzamHiz": 22,
+          "wave": "sine",
+          "balL": 1,
+          "balR": 1,
+          "noise": "off",
+          "noiseVol": 0,
+          "filterOn": false,
+          "lpf": 2000,
+          "hpf": 80,
+          "levelProfile": "legacy",
+          "secondary": {
+            "on": false,
+            "c": 100,
+            "b": 2.5
+          }
+        },
+        "hub": {
+          "version": "r1101",
+          "initialized": true,
+          "selectedTool": "overview",
+          "expanded": true,
+          "mounted": true,
+          "frequency": {
+            "playing": true,
+            "c": 180,
+            "b": 8,
+            "mode": "mono",
+            "vol": 0.5,
+            "pink": false
+          },
+          "sweep": {
+            "active": false
+          },
+          "timer": null,
+          "native": {
+            "binaural": false,
+            "isPlaying": false,
+            "noise": false,
+            "special": false,
+            "breathRunning": false,
+            "breathPaused": false,
+            "guided": false,
+            "sharedContext": true
+          },
+          "duplicateControllers": 1
+        }
+      }
+    },
+    {
+      "name": "mix native graph keeps correct main frequencies and common harmonics",
+      "passed": true,
+      "evidence": {
+        "playing": true,
+        "mode": "mix",
+        "c": 180,
+        "b": 8,
+        "profile": "legacy",
+        "vol": 0.5,
+        "output": 0.17480798065662384,
+        "context": "running",
+        "time": 122.80163265306122,
+        "sampleRate": 44100,
+        "left": 176,
+        "right": 184,
+        "iso": 180,
+        "gate": 8,
+        "harmonics": [
+          {
+            "ratio": 2,
+            "hz": 360,
+            "gain": 0.17000000178813934
+          },
+          {
+            "ratio": 3,
+            "hz": 540,
+            "gain": 0.1133333370089531
+          }
+        ],
+        "ramp": null,
+        "journey": null,
+        "paused": false,
+        "miniPaused": false,
+        "held": false,
+        "pending": false,
+        "secondary": false,
+        "pink": false,
+        "ambience": {},
+        "timer": null,
+        "tool": {
+          "c": 180,
+          "b": 8,
+          "mode": "mix",
+          "vol": 0.5,
+          "pink": false,
+          "harmonik": 2,
+          "harmSeri": "dogal",
+          "uzam": false,
+          "uzamHiz": 22,
+          "wave": "sine",
+          "balL": 1,
+          "balR": 1,
+          "noise": "off",
+          "noiseVol": 0,
+          "filterOn": false,
+          "lpf": 2000,
+          "hpf": 80,
+          "levelProfile": "legacy",
+          "secondary": {
+            "on": false,
+            "c": 100,
+            "b": 2.5
+          }
+        },
+        "hub": {
+          "version": "r1101",
+          "initialized": true,
+          "selectedTool": "overview",
+          "expanded": true,
+          "mounted": true,
+          "frequency": {
+            "playing": true,
+            "c": 180,
+            "b": 8,
+            "mode": "mix",
+            "vol": 0.5,
+            "pink": false
+          },
+          "sweep": {
+            "active": false
+          },
+          "timer": null,
+          "native": {
+            "binaural": false,
+            "isPlaying": false,
+            "noise": false,
+            "special": false,
+            "breathRunning": false,
+            "breathPaused": false,
+            "guided": false,
+            "sharedContext": true
+          },
+          "duplicateControllers": 1
+        }
+      }
+    },
+    {
+      "name": "Monaural labels do not claim separate-ear binaural delivery in Turkish or English",
+      "passed": true,
+      "evidence": [
+        {
+          "lang": "tr",
+          "text": "Birleşik çıkış: 176.00 + 184.00 Hz · vuruş farkı 8.00 Hz"
+        },
+        {
+          "lang": "en",
+          "text": "Combined output: 176.00 + 184.00 Hz · beat difference 8.00 Hz"
+        }
+      ]
+    },
+    {
+      "name": "Balanced profile requires explicit opt-in, is at most 2× legacy, and persists",
+      "passed": true,
+      "evidence": {
+        "legacy": {
+          "playing": true,
+          "mode": "bin",
+          "c": 180,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17476427555084229,
+          "context": "running",
+          "time": 129.9911111111111,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "harmonics": [],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 0,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "balanced": {
+          "playing": true,
+          "mode": "bin",
+          "c": 180,
+          "b": 8,
+          "profile": "balanced",
+          "vol": 0.5,
+          "output": 0.3325939476490021,
+          "context": "running",
+          "time": 132.41179138321996,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "harmonics": [],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 0,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "gainRatio": 1.903100313840995,
+        "rmsRatio": 2.0059021557346033,
+        "legacySignal": {
+          "milliseconds": 900,
+          "frames": 36,
+          "sampleRate": 44100,
+          "limiterReduction": -0.00012332235928624868,
+          "frequency": {
+            "peak": 0.08742419630289078,
+            "rms": 0.041762601364989355,
+            "finite": true,
+            "samples": 73728
+          },
+          "preLimiter": {
+            "peak": 0.06119856983423233,
+            "rms": 0.029133874362631585,
+            "finite": true,
+            "samples": 73728
+          },
+          "postLimiter": {
+            "peak": 0.0745135247707367,
+            "rms": 0.03508598750488366,
+            "finite": true,
+            "samples": 73728
+          }
+        },
+        "balancedSignal": {
+          "milliseconds": 900,
+          "frames": 33,
+          "sampleRate": 44100,
+          "limiterReduction": -0.00012332235928624868,
+          "frequency": {
+            "peak": 0.17338034510612488,
+            "rms": 0.08377169210711703,
+            "finite": true,
+            "samples": 67584
+          },
+          "preLimiter": {
+            "peak": 0.12136949598789215,
+            "rms": 0.05864082169631397,
+            "finite": true,
+            "samples": 67584
+          },
+          "postLimiter": {
+            "peak": 0.1477758288383484,
+            "rms": 0.07070388428709486,
+            "finite": true,
+            "samples": 67584
+          }
+        },
+        "saved": {
+          "c": 180,
+          "b": 8,
+          "vol": 0.5,
+          "mode": "bin",
+          "pink": false,
+          "harmonik": 0,
+          "harmSeri": "dogal",
+          "uzam": false,
+          "uzamHiz": 22,
+          "wave": "sine",
+          "balL": 1,
+          "balR": 1,
+          "noise": "off",
+          "noiseVol": 0,
+          "filterOn": false,
+          "lpf": 2000,
+          "hpf": 80,
+          "levelProfile": "balanced"
+        }
+      }
+    },
+    {
+      "name": "Manual set round-trip persists all tools without touching the microphone store or autoplaying Load",
+      "passed": false,
+      "error": "page.waitForFunction: Timeout 10000ms exceeded.\n    at /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:86:95\n    at async check (/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:22:50)\n    at async /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:79:2",
+      "state": null
+    },
+    {
+      "name": "Complex mix retains finite headroom through the common limiter",
+      "passed": false,
+      "error": "page.evaluate: ReferenceError: SukunFrequencyHubR1101 is not defined\n    at eval (eval at evaluate (:311:30), <anonymous>:1:896)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at state (/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:21:33)\n    at /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:90:217\n    at async check (/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:22:50)\n    at async /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:90:2",
+      "state": null
+    },
+    {
+      "name": "Frequency timer natively fades main, harmonics, noise, pink and secondary but preserves ambience",
+      "passed": false,
+      "error": "page.evaluate: ReferenceError: SukunFrequencyHubR1101 is not defined\n    at eval (eval at evaluate (:311:30), <anonymous>:1:896)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at state (/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:21:33)\n    at /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:91:142\n    at check (/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:22:56)\n    at /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:91:8",
+      "state": null
+    },
+    {
+      "name": "Unmodified background admission renders restored tools and timer transfer preserves only ambience",
+      "passed": false,
+      "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:95:192\n    at async check (/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:22:50)\n    at async /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:94:2",
+      "state": null
+    },
+    {
+      "name": "Exact served release resources have no local load or JavaScript failures",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Failed to load resource: net::ERR_FAILED\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FILE_NOT_FOUND\nFailed to load resource: net::ERR_FAILED\nFailed to find a valid digest in the 'integrity' attribute for resource 'http://127.0.0.1:35291/assets/runtime/background-mix-render-r1059.js?v=r1120' with computed SHA-256 integrity 'oBtXoRz+wYmmuC7xlxyr6zSOhZq6nnL1EloAh1FYMpQ='. The resource has been blocked.\nFailed to find a valid digest in the 'integrity' attribute for resource 'http://127.0.0.1:35291/js/frequency-hub-r1101.js?v=r1120' with computed SHA-256 integrity 'Y3SjSEDpYhLOtkTSQocjjyZ9OkVFU2uBIXYMAlQXQps='. The resource has been blocked.\n    at /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:100:192\n    at check (/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:22:56)\n    at /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:100:8",
+      "state": null
+    }
+  ],
+  "limitations": [
+    "Disposable Linux Chromium with native audio nodes and time-domain analysers. Not physical Android/iOS, audible listening, sound-pressure measurement, screen lock, OS audio focus, service-worker upgrade, or hearing-safety acceptance.",
+    "The byte-exact existing fixture controls device speech, blocks external traffic and service workers. Initial playback and buttons use trusted Playwright clicks; ranges use keyboard input and native selects use Playwright selectOption (generated input/change events). Deterministic DSP, pause/journey and short timer edge cases explicitly use public production APIs and FR state.",
+    "Live DSP tests deliberately reject only background HTMLMediaElement admission with a labelled NotAllowedError so native live AudioParams stay audible and measurable. A final separate test restores unmodified media admission, accepts the real offline-rendered loop and tests timer ownership transfer. This is not an all-unmodified-runtime end-to-end audio claim.",
+    "Analyser taps do not connect new sound paths to the destination. Measured sample peaks are not inter-sample true peaks or a guarantee of acoustic safety. Complex-mix measurements cover the documented synthetic configuration, not every possible mix."
+  ],
+  "sourceHashes": {
+    "index": "b71ad6ea36ac45c822842b2f62ea07fc2b5d8baa4456c22779ff2b048ace99eb",
+    "nero": "77a5b47b65585832994d3b6715f7d09eaf14c46401ad3e2b35b66cb33cdbc91d"
+  },
+  "browser": "154.0.8037.57",
+  "total": 20,
+  "passed": 14,
+  "allPassed": false,
+  "finishedAt": "2026-10-20T06:19:48.546Z",
+  "testSha256": "7c971f7979f6021d8724523a646b25cec2d0cbcd28b8ec18d5af40c30e3ac6a0"
+}

@@ -1,0 +1,59 @@
+{
+  "suite": "r1120 native frequency audio and release acceptance",
+  "build": "r1120",
+  "startedAt": "2026-10-20T06:44:11.016Z",
+  "browserExecuted": true,
+  "testSha256": "c9a126b46411eaf5d2c62921343ebf34fe2e5c75b27f66921445a328eccb745c",
+  "checks": [
+    {
+      "name": "New controls are reachable in the unchanged default Midi density",
+      "passed": true,
+      "evidence": {
+        "density": "midi",
+        "controls": [
+          "#harmSayi",
+          "#harmSeri",
+          "#uzamTgl",
+          "#uzamHizSld",
+          "#fr1120-wave",
+          "#fr1120-balL",
+          "#fr1120-balR",
+          "#fr1120-noise",
+          "#fr1120-noiseVol",
+          "#fr1120-filterOn",
+          "#fr1120-lpf",
+          "#fr1120-hpf",
+          "#fr1120-levelProfile",
+          "#fr1120-octDown",
+          "#fr1120-octUp",
+          "#r1120SetCreate"
+        ],
+        "tools": {
+          "text": "Ses araçları\nDalga tipi\nSinüs\nÜçgen\nKare\nTestere\nSol kanal\n100%\nSağ kanal\n100%\nEk gürültü\nKapalı\nBeyaz\nPembe\nKahverengi\nGürültü seviyesi\n0%\nFrekans filtreleri\nAlçak geçiren\n2000 Hz\nYüksek geçiren\n80 Hz\nSeviye profili\nMevcut seviye\nDaha belirgin (isteğe bağlı)\n½× oktav\n2× oktav\n\nFrekans şiddeti ve ana ses birlikte etkilidir. Ana ses: %70. Yeni profil yalnız seçersen açılır; cihaz sesini düşükten ayarla.",
+          "width": 342,
+          "scroll": 342
+        }
+      }
+    },
+    {
+      "name": "Quick controls remain reachable at 320/390 px in Mini/Midi/Pro and light is steady, opt-in only",
+      "passed": false,
+      "error": "page.waitForTimeout: Target page, context or browser has been closed\n    at tap (/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:24:272)\n    at async /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:69:4\n    at async check (/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:22:50)\n    at async /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:64:2",
+      "state": null
+    }
+  ],
+  "limitations": [
+    "Disposable Linux Chromium with native audio nodes and time-domain analysers. Not physical Android/iOS, audible listening, sound-pressure measurement, screen lock, OS audio focus, service-worker upgrade, or hearing-safety acceptance.",
+    "The byte-exact existing fixture controls device speech, blocks external traffic and service workers. Initial playback and buttons use trusted Playwright clicks; ranges use keyboard input and native selects use Playwright selectOption (generated input/change events). Deterministic DSP, pause/journey and short timer edge cases explicitly use public production APIs and FR state.",
+    "Live DSP tests deliberately reject only background HTMLMediaElement admission with a labelled NotAllowedError so native live AudioParams stay audible and measurable. A final separate test restores unmodified media admission, accepts the real offline-rendered loop and tests timer ownership transfer. This is not an all-unmodified-runtime end-to-end audio claim.",
+    "Channel-preserving analyser taps do not connect new sound paths to the destination. Left/right RMS and sample peaks are measured independently, avoiding artificial binaural-beat interference from a stereo downmix. Sample peaks are not inter-sample true peaks or a guarantee of acoustic safety. Complex-mix measurements cover the documented synthetic configuration, not every possible mix."
+  ],
+  "sourceHashes": {
+    "index": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9",
+    "nero": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9"
+  },
+  "browser": "154.0.8037.57",
+  "total": 2,
+  "passed": 1,
+  "allPassed": false
+}

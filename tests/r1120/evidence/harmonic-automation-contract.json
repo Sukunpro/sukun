@@ -1,0 +1,121 @@
+{
+  "suite": "r1120 harmonic scheduling source contract",
+  "startedAt": "2026-10-20T06:36:46.174Z",
+  "method": "Extracted unmodified production function with recording AudioParams. Verifies event identities and piecewise schedules, not browser interpolation or sound.",
+  "sourceSha256": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9",
+  "functionSha256": "d2c341ccb2a78a37e4c8fea560bd25e8a4ef7480dcadb7cdc1908a9316413cee",
+  "testSha256": "0b294c5f7b90e115f306cc41e4364d0ff4cfbfaa567e8f157e574a1a93abeaf2",
+  "checks": [
+    {
+      "name": "In-band linear paths match native main ramp events",
+      "passed": true,
+      "evidence": {
+        "combinations": 48
+      }
+    },
+    {
+      "name": "Upward crossing clamps at the exact guard and mutes",
+      "passed": true,
+      "evidence": {
+        "combinations": 48
+      }
+    },
+    {
+      "name": "Downward crossing holds the guard then restores the ratio",
+      "passed": true,
+      "evidence": {
+        "combinations": 48
+      }
+    },
+    {
+      "name": "Both-above paths stay clamped and silent",
+      "passed": true,
+      "evidence": {
+        "combinations": 48
+      }
+    },
+    {
+      "name": "Exact-limit stationary paths remain supported",
+      "passed": true,
+      "evidence": {
+        "combinations": 48
+      }
+    },
+    {
+      "name": "Exact-limit start moving upward mutes immediately",
+      "passed": true,
+      "evidence": {
+        "combinations": 48
+      }
+    },
+    {
+      "name": "Exact-limit start moving downward remains supported",
+      "passed": true,
+      "evidence": {
+        "combinations": 48
+      }
+    },
+    {
+      "name": "Downward arrival exactly at the limit restores gain",
+      "passed": true,
+      "evidence": {
+        "combinations": 48
+      }
+    },
+    {
+      "name": "Upward arrival exactly at the limit remains supported",
+      "passed": true,
+      "evidence": {
+        "combinations": 48
+      }
+    },
+    {
+      "name": "Log sweep keeps matching sampled frequency and gain curves",
+      "passed": true,
+      "evidence": {
+        "points": 257,
+        "sharedStart": 40,
+        "duration": 10
+      }
+    },
+    {
+      "name": "Immediate retune holds existing automation and uses the supplied timestamp",
+      "passed": true,
+      "evidence": {
+        "frequency": [
+          [
+            "hold",
+            7
+          ],
+          [
+            "set",
+            123,
+            7
+          ],
+          [
+            "target",
+            1000,
+            7,
+            0.15
+          ]
+        ],
+        "gain": [
+          [
+            "hold",
+            7
+          ],
+          [
+            "target",
+            0.17,
+            7,
+            0.15
+          ]
+        ]
+      }
+    }
+  ],
+  "finishedAt": "2026-10-20T06:36:46.206Z",
+  "total": 11,
+  "passed": 11,
+  "allPassed": true
+}

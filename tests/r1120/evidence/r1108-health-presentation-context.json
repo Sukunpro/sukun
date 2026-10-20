@@ -1,0 +1,145 @@
+{
+  "suite": "r1108 contextual passive presentation health evidence",
+  "build": "r1108",
+  "method": "Production health collector and presenter execute against bounded synthetic cached presentation snapshots. Historical events and lifecycle checkpoints are round-tripped with audio commands, recovery calls, database access and network trapped.",
+  "browserExecuted": false,
+  "limitations": [
+    "This deterministic VM suite does not verify raster pixels, native browser semantics, physical Android return from lock, or audible sound."
+  ],
+  "sourceFiles": {
+    "assets/runtime/health-r940.js": {
+      "sha256": "5f5778ca40be10919b8af18ec1e675c53e4972ff1838d9faba429ed9689df749",
+      "bytes": 95206
+    },
+    "assets/runtime/health-view-r943.js": {
+      "sha256": "72fce7d75ad4fc40ee0fcae176cca4adc5c1989c33e99829454343acfa4d9683",
+      "bytes": 125481
+    }
+  },
+  "scriptSha256": "656f8bb61bd5a69430b67c1f908ca0fade6bcca75f52a9603e20a0407d2c91c2",
+  "finishedAt": "2026-10-20T06:37:04.447Z",
+  "passed": 30,
+  "total": 30,
+  "results": [
+    {
+      "name": "Cached startup context survives collector, event history, and checkpoint round trip",
+      "passed": true
+    },
+    {
+      "name": "Cached foreground context survives collector, event history, and checkpoint round trip",
+      "passed": true
+    },
+    {
+      "name": "Cached return context survives collector, event history, and checkpoint round trip",
+      "passed": true
+    },
+    {
+      "name": "Cached manual context survives collector, event history, and checkpoint round trip",
+      "passed": true
+    },
+    {
+      "name": "tr friendly presentation text preserves startup without creating physical display success",
+      "passed": true
+    },
+    {
+      "name": "tr friendly presentation text preserves foreground without creating physical display success",
+      "passed": true
+    },
+    {
+      "name": "tr friendly presentation text preserves return without creating physical display success",
+      "passed": true
+    },
+    {
+      "name": "tr friendly presentation text preserves manual without creating physical display success",
+      "passed": true
+    },
+    {
+      "name": "en friendly presentation text preserves startup without creating physical display success",
+      "passed": true
+    },
+    {
+      "name": "en friendly presentation text preserves foreground without creating physical display success",
+      "passed": true
+    },
+    {
+      "name": "en friendly presentation text preserves return without creating physical display success",
+      "passed": true
+    },
+    {
+      "name": "en friendly presentation text preserves manual without creating physical display success",
+      "passed": true
+    },
+    {
+      "name": "Legacy or invalid context undefined stays unknown and neutral",
+      "passed": true
+    },
+    {
+      "name": "Legacy or invalid context null stays unknown and neutral",
+      "passed": true
+    },
+    {
+      "name": "Legacy or invalid context boot stays unknown and neutral",
+      "passed": true
+    },
+    {
+      "name": "Legacy or invalid context visible stays unknown and neutral",
+      "passed": true
+    },
+    {
+      "name": "Legacy or invalid context focus stays unknown and neutral",
+      "passed": true
+    },
+    {
+      "name": "Legacy or invalid context __proto__ stays unknown and neutral",
+      "passed": true
+    },
+    {
+      "name": "Legacy or invalid context constructor stays unknown and neutral",
+      "passed": true
+    },
+    {
+      "name": "Legacy or invalid context false stays unknown and neutral",
+      "passed": true
+    },
+    {
+      "name": "Legacy or invalid context [object Object] stays unknown and neutral",
+      "passed": true
+    },
+    {
+      "name": "Legacy or invalid context  stays unknown and neutral",
+      "passed": true
+    },
+    {
+      "name": "tr unverified startup remains unverified in local evidence and wording",
+      "passed": true
+    },
+    {
+      "name": "en unverified startup remains unverified in local evidence and wording",
+      "passed": true
+    },
+    {
+      "name": "tr initial ready state without a completed probe does not imply successful observation",
+      "passed": true
+    },
+    {
+      "name": "en initial ready state without a completed probe does not imply successful observation",
+      "passed": true
+    },
+    {
+      "name": "Presenter labels hidden, pending, recovered, and missing observations without claiming a new probe",
+      "passed": true
+    },
+    {
+      "name": "Repeated report, summary, plain text, and AI payload reads stay passive and context does not leave the AI allowlist",
+      "passed": true
+    },
+    {
+      "name": "Missing producer omits the optional presentation check without inventing startup or return",
+      "passed": true
+    },
+    {
+      "name": "New Kandil stylesheet is accepted by exact path and hash while sibling, nested, and remote files stay untrusted",
+      "passed": true
+    }
+  ]
+}

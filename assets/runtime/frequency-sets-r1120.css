@@ -1,0 +1,36 @@
+/* Manual frequency sets: local ownership, native form controls and no theme reset. */
+.r1120-frequency-sets{margin:16px 0;padding:14px;border:1px solid color-mix(in srgb,var(--gold,#c9ac69) 36%,transparent);border-radius:16px;background:color-mix(in srgb,var(--bg,#111a22) 93%,var(--gold,#c9ac69));color:var(--fg,#eee8d9);min-width:0;overflow-wrap:anywhere}
+.r1120-frequency-sets [hidden]{display:none!important}
+.r1120-set-heading{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.r1120-set-heading h3{margin:0;font-size:1rem;line-height:1.5;color:inherit}
+.r1120-set-count{font-size:.78rem;white-space:nowrap;opacity:.85}
+.r1120-frequency-sets p{font-size:.82rem;line-height:1.55;margin:8px 0;color:inherit}
+.r1120-set-intro,.r1120-set-help,.r1120-set-hint,.r1120-set-summary{opacity:.86}
+.r1120-set-list{display:grid;gap:10px;list-style:none;margin:12px 0;padding:0;min-width:0}
+.r1120-set-card{padding:12px;border:1px solid color-mix(in srgb,var(--fg,#eee8d9) 20%,transparent);border-radius:12px;min-width:0;background:color-mix(in srgb,var(--bg,#111a22) 94%,var(--fg,#eee8d9))}
+.r1120-set-card.is-selected{border-color:var(--gold,#c9ac69);box-shadow:inset 3px 0 0 var(--gold,#c9ac69)}
+.r1120-set-card h4,.r1120-set-form h4{font-size:.94rem;line-height:1.5;margin:0 0 6px;color:inherit;overflow-wrap:anywhere}
+.r1120-set-description{white-space:pre-wrap}
+.r1120-set-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.r1120-frequency-sets .r1120-set-button{min-height:44px;min-width:44px;max-width:100%;height:auto;padding:9px 12px;line-height:1.35;font-size:.82rem;white-space:normal;overflow-wrap:anywhere;touch-action:manipulation}
+.r1120-frequency-sets .r1120-set-button:disabled{opacity:.5;cursor:not-allowed}
+.r1120-set-selection{padding:7px 10px;border-left:3px solid var(--gold,#c9ac69);background:color-mix(in srgb,var(--gold,#c9ac69) 8%,transparent)}
+.r1120-set-selection[data-modified="true"]{border-left-style:dashed}
+.r1120-set-status:empty{display:none}
+.r1120-set-status{padding:8px 10px;border:1px solid color-mix(in srgb,var(--gold,#c9ac69) 45%,transparent);border-radius:8px}
+.r1120-set-status[data-kind="notice"],.r1120-set-storage{border-color:var(--gold,#c9ac69)}
+.r1120-set-storage{padding:10px;border:1px solid;border-radius:8px;margin:10px 0}
+.r1120-set-editor{margin:14px 0;padding:12px;border:1px solid color-mix(in srgb,var(--gold,#c9ac69) 55%,transparent);border-radius:12px}
+.r1120-set-form{display:grid;gap:10px;min-width:0}
+.r1120-set-field{display:flex;flex-direction:column;gap:6px;font-size:.8rem;line-height:1.4;min-width:0}
+.r1120-set-field>span{color:inherit}
+.r1120-set-field input:not([type="checkbox"]),.r1120-set-field select,.r1120-set-field textarea{box-sizing:border-box;width:100%;min-width:0;max-width:100%;min-height:44px;padding:9px 10px;border:1px solid color-mix(in srgb,var(--fg,#eee8d9) 35%,transparent);border-radius:8px;background:var(--bg,#111a22);color:inherit;font:inherit;font-size:1rem;line-height:1.4}
+.r1120-set-field textarea{resize:vertical}
+.r1120-set-field select option{background:var(--bg,#111a22);color:var(--fg,#eee8d9)}
+.r1120-set-field.is-checkbox{flex-direction:row;align-items:center;justify-content:space-between;gap:10px;min-height:44px}
+.r1120-set-field input[type="checkbox"]{width:22px;height:22px;flex:0 0 22px;accent-color:var(--gold,#c9ac69)}
+.r1120-set-details>summary{cursor:pointer;min-height:44px;padding:10px 0;font-size:.85rem;line-height:1.5}
+.r1120-set-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:8px 0}
+.r1120-frequency-sets :is(button,input,select,textarea,summary):focus-visible{outline:2px solid var(--gold,#c9ac69);outline-offset:3px}
+@media(max-width:480px){.r1120-frequency-sets{padding:11px}.r1120-set-editor{padding:10px}.r1120-set-grid{grid-template-columns:1fr}.r1120-set-actions .r1120-set-button{flex:1 1 100px}.r1120-set-card{padding:10px}}
+@media(prefers-reduced-motion:reduce){.r1120-frequency-sets *{scroll-behavior:auto}}

@@ -1,0 +1,31 @@
+{"name":"Pending mode start is cancelled permanently by global Stop","passed":true}
+{"name":"Global Pause captures the 320 ms mode restart and explicit Resume starts the selected mode","passed":true}
+{"name":"Stop after pending Pause revokes the right to resume","passed":true}
+{"name":"An idle mode selection creates no playback or resume intent","passed":true}
+{"name":"A new library set retires a prior journey ramp and remains at its selected carrier","passed":true}
+{"name":"A paused native frequency journey retains its stage and resumes from its held position","passed":true}
+{"name":"The served release bytes produce no JavaScript errors, missing local resources or integrity failures","passed":true}
+{"passed":7,"total":7,"output":"/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/evidence/native-mode-smoke.json"}
+MODE_EXIT=0
+{"name":"New controls are reachable in the unchanged default Midi density","passed":true}
+{"name":"Legacy default remains opt-in neutral and preserves r1119 native gain","passed":true}
+{"name":"Restored waveform, channel trim, noise, filters and octave controls act on the main engine","passed":true}
+{"name":"Native main and dogal partials retune 180 → 528 Hz without a second engine","passed":true}
+{"name":"Native main and tek partials retune 180 → 528 Hz without a second engine","passed":true}
+{"name":"Native main and oktav partials retune 180 → 528 Hz without a second engine","passed":true}
+{"name":"Native out-of-band harmonics silence at the Nyquist guard and restore below it","passed":true}
+{"name":"Native linear journey ramps keep every harmonic at the moving carrier ratio","passed":false}
+{"name":"Harmonic and 3D native toggles preserve an active journey and a held pause","passed":true}
+{"name":"bin native graph keeps correct main frequencies and common harmonics","passed":true}
+{"name":"iso native graph keeps correct main frequencies and common harmonics","passed":true}
+{"name":"mono native graph keeps correct main frequencies and common harmonics","passed":true}
+{"name":"mix native graph keeps correct main frequencies and common harmonics","passed":true}
+{"name":"Monaural labels do not claim separate-ear binaural delivery in Turkish or English","passed":true}
+{"name":"Balanced profile requires explicit opt-in, is at most 2× legacy, and persists","passed":true}
+{"name":"Manual set round-trip persists all tools without touching the microphone store or autoplaying Load","passed":false}
+{"name":"Complex mix retains finite headroom through the common limiter","passed":false}
+{"name":"Frequency timer natively fades main, harmonics, noise, pink and secondary but preserves ambience","passed":false}
+{"name":"Unmodified background admission renders restored tools and timer transfer preserves only ambience","passed":false}
+{"name":"Exact served release resources have no local load or JavaScript failures","passed":false}
+{"passed":14,"total":20,"output":"/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/evidence/audio-frequency-browser.json"}
+FREQUENCY_EXIT=1

@@ -11,7 +11,7 @@
  const held=()=>departed||safe(()=>{const mic=window.SukunItemRecording?.snapshot?.();return !!(adapter?.held?.()??true)||!!window.SukunAudioSessionRegistry?.aggregateSnapshot?.()?.paused||!!(mic?.preparing||['permission','preparing','recording','stopping','saving'].includes(mic?.phase));},true);
  const config=()=>safe(()=>adapter?.snapshot?.(),null);
  const active=s=>!!(s&&(s.ambiences?.length||s.frequency?.playing||s.frequency?.secondary?.playing));
- const key=s=>JSON.stringify({ambiences:(s?.ambiences||[]).map(x=>[x.id,x.volume,x.url||'',x.hybridKey||'',x.hybridMix||0]),frequency:s?.frequency,eq:s?.eq,spatial:s?.spatial,sampleRate:s?.sampleRate});
+ const key=s=>JSON.stringify({ambiences:(s?.ambiences||[]).map(x=>[x.id,x.volume,x.url||'',x.hybridKey||'',x.hybridMix||0]),frequency:(s?.frequency?.playing||s?.frequency?.secondary?.playing)?s.frequency:{playing:false,secondary:{playing:false}},eq:s?.eq,spatial:s?.spatial,sampleRate:s?.sampleRate});
  const owns=element=>!!audio&&element===audio;
  function emit(reason){lastReason=reason;safe(()=>window.dispatchEvent(new CustomEvent('sukun:backgroundmix',{detail:snapshot()})));}
  function mute(value){if(mutedLive===value)return;adapter?.muteLive?.(value);mutedLive=value;}
@@ -127,7 +127,13 @@
  }
  function changed(reason='change',options={}){
   if(!adapter)return false;
+  if(options.immediate)invalidate(reason,true);
   const s=config();if(!active(s)){invalidate(reason,true);metrics.stops++;return false;}
+  // A retained ambience-only source cannot own a newly static frequency bus,
+  // and a retained static tone cannot own a newly moving/timed frequency.
+  // Restore the live graph before preparing across that ownership boundary.
+  const ownsFrequency=x=>!!(x?.frequency?.playing||x?.frequency?.secondary?.playing);
+  if(sourceKey&&ownsFrequency(s)!==ownsFrequency(safe(()=>JSON.parse(sourceKey))))invalidate('frequency-route-change',true);
   if(held()){invalidate(reason);return false;}
   if(options.gesture){cancelRecovery('new-gesture');lockCandidate=null;prime();}
   if(pending?.key===key(s)){if(audio)audio.volume=volume();if(mutedLive&&confirmed())adapter.muteLive(true);return true;}

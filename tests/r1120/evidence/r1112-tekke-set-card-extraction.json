@@ -1,0 +1,86 @@
+{
+  "suite": "r1112 Tekke set card CSS extraction",
+  "build": "r1120",
+  "phase": "finalized",
+  "method": "Frozen r1111 inline CSS and external Tekke-set owner SHA-256 baselines, exact ID/cascade anchors, public URL alias equality, and finalized SRI/runtime/inventory metadata. No browser rendering or audio playback claim.",
+  "browserExecuted": false,
+  "limitations": [
+    "Static byte and dependency checks do not establish native Tekke card geometry, control interaction, CSS loading timing or offline startup behavior."
+  ],
+  "sourceFiles": {
+    "index.html": {
+      "bytes": 7422432,
+      "sha256": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9"
+    },
+    "nero.html": {
+      "bytes": 7422432,
+      "sha256": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9"
+    },
+    "css/tekke-set-card-r1112.css": {
+      "bytes": 7182,
+      "sha256": "ad93851820e98e0f238459cc95fc26e89b1227f1174095a715e542c74e9470c7"
+    },
+    "assets/runtime/tekke-set-r990.js": {
+      "bytes": 27409,
+      "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a"
+    }
+  },
+  "finishedAt": "2026-10-20T06:37:05.930Z",
+  "passed": 9,
+  "total": 9,
+  "skipped": 0,
+  "results": [
+    {
+      "name": "Tekke set card CSS retains all frozen r1111 bytes",
+      "passed": true,
+      "evidence": {
+        "bytes": 7182,
+        "sha256": "ad93851820e98e0f238459cc95fc26e89b1227f1174095a715e542c74e9470c7"
+      }
+    },
+    {
+      "name": "Extracted card CSS introduces no asset, import, font-face, variable or executable dependency",
+      "passed": true
+    },
+    {
+      "name": "Index and nero URL aliases remain byte-identical",
+      "passed": true,
+      "evidence": {
+        "bytesEach": 7422432,
+        "sha256": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9"
+      }
+    },
+    {
+      "name": "Tekke card keeps its exact single ID and source body",
+      "passed": true,
+      "evidence": {
+        "phase": "finalized",
+        "external": true
+      }
+    },
+    {
+      "name": "Card keeps direct cascade adjacency after Tekke set owner and before Tekke UX stylesheet",
+      "passed": true
+    },
+    {
+      "name": "Existing Tekke set owner remains unchanged and never owns stylesheet text",
+      "passed": true,
+      "evidence": {
+        "ownerBytes": 27409,
+        "ownerSha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a"
+      }
+    },
+    {
+      "name": "Shared card CSS has a current release URL and exact SRI",
+      "passed": true
+    },
+    {
+      "name": "Build marker and service worker require one identical card dependency",
+      "passed": true
+    },
+    {
+      "name": "Deployment inventory includes unchanged Tekke card bytes",
+      "passed": true
+    }
+  ]
+}

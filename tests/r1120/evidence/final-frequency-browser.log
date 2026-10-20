@@ -1,0 +1,43 @@
+{"name":"New controls are reachable in the unchanged default Midi density","passed":true}
+{"name":"Quick controls remain reachable at 320/390 px in Mini/Midi/Pro and light is steady, opt-in only","passed":true}
+{"name":"Legacy default remains opt-in neutral and preserves r1119 native gain","passed":true}
+{"name":"Restored waveform, channel trim, noise, filters and octave controls act on the main engine","passed":true}
+{"name":"Native main and dogal partials retune 180 → 528 Hz without a second engine","passed":true}
+{"name":"Native main and tek partials retune 180 → 528 Hz without a second engine","passed":true}
+{"name":"Native main and oktav partials retune 180 → 528 Hz without a second engine","passed":true}
+{"name":"Native out-of-band harmonics silence at the Nyquist guard and restore below it","passed":true}
+{"name":"Native linear journey ramps keep every harmonic at the moving carrier ratio","passed":true}
+{"name":"Harmonic and 3D native toggles preserve an active journey and a held pause","passed":true}
+{"name":"bin native graph keeps correct main frequencies and common harmonics","passed":true}
+{"name":"iso native graph keeps correct main frequencies and common harmonics","passed":true}
+{"name":"mono native graph keeps correct main frequencies and common harmonics","passed":true}
+{"name":"mix native graph keeps correct main frequencies and common harmonics","passed":true}
+{"name":"Monaural labels do not claim separate-ear binaural delivery in Turkish or English","passed":true}
+{"name":"Balanced profile requires explicit opt-in, is at most 2× legacy, and persists","passed":false}
+{"name":"Manual set round-trip persists all tools without touching the microphone store or autoplaying Load","passed":true}
+{"name":"Complex mix retains finite headroom through the common limiter","passed":true}
+{"name":"Frequency timer natively fades main, harmonics, noise, pink and secondary but preserves ambience","passed":true}
+{"name":"An accepted native loop yields to a changing journey and sweep instead of hiding live automation","passed":true}
+{"name":"Admitted ambience during a live sweep cannot mute the replacement static frequency while it prepares","passed":true}
+{"name":"Unmodified background admission renders restored tools and timer transfer preserves only ambience","passed":true}
+{"name":"Exact served release resources have no local load or JavaScript failures","passed":true}
+{"passed":22,"total":23,"output":"/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/evidence/audio-frequency-browser.json"}
+FREQUENCY_EXIT=1
+{"case":"legacy-bin-sine","passed":true,"livePeak":0.2130265086889267,"offlinePeak":0.21307653188705444,"offlineScale":1}
+{"case":"balanced-bin-sine","passed":true,"livePeak":0.4260530173778534,"offlinePeak":0.4261530637741089,"offlineScale":1}
+{"case":"stack-bin-square","passed":true,"livePeak":0.7870982885360718,"offlinePeak":0.8364781737327576,"offlineScale":1}
+{"case":"stack-mono-square","passed":true,"livePeak":0.7432900667190552,"offlinePeak":0.7537912726402283,"offlineScale":1}
+{"case":"stack-iso-square","passed":true,"livePeak":0.7033817172050476,"offlinePeak":0.7447313666343689,"offlineScale":1}
+{"case":"stack-mix-square","passed":true,"livePeak":0.7176206111907959,"offlinePeak":0.769692063331604,"offlineScale":1}
+{"case":"stack-iso-sawtooth","passed":true,"livePeak":0.6243868470191956,"offlinePeak":0.6219725608825684,"offlineScale":1}
+{"case":"stack-iso-triangle","passed":true,"livePeak":0.6006813049316406,"offlinePeak":0.6084925532341003,"offlineScale":1}
+{"case":"octave-high-frequency","passed":true,"livePeak":0.855754554271698,"offlinePeak":0.8694409728050232,"offlineScale":1}
+{"case":"lp-resonant-sine","passed":true,"livePeak":0.9144600033760071,"offlinePeak":0.9131608605384827,"offlineScale":1}
+{"case":"lp-resonant-stack","passed":true,"livePeak":0.636422336101532,"offlinePeak":0.659207284450531,"offlineScale":1}
+{"case":"hp-resonant-stack","passed":true,"livePeak":0.9245572090148926,"offlinePeak":0.930544376373291,"offlineScale":1}
+{"case":"narrow-band-stack","passed":true,"livePeak":0.41860541701316833,"offlinePeak":0.4476276636123657,"offlineScale":1}
+{"case":"upper-lp-resonance","passed":true,"livePeak":0.8501773476600647,"offlinePeak":0.8647043108940125,"offlineScale":1}
+{"case":"legacy-iso-stack","passed":true,"livePeak":0.8081740140914917,"offlinePeak":0.8540962934494019,"offlineScale":1}
+{"passed":17,"total":17,"cases":15,"allPassed":true,"output":"/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/evidence/headroom-matrix-browser.json"}
+HEADROOM_EXIT=0
+R1120_AUDIO_COMPLETE

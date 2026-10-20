@@ -1,0 +1,42 @@
+{
+  "total": 8,
+  "passed": 8,
+  "failed": 0,
+  "scope": "Production finish and discardCheckpoint functions with controlled ownership/checkpoint callbacks; no phone, audio, count or actual recording data.",
+  "results": [
+    {
+      "name": "Finish without a set checkpoint never opens failing ownership storage",
+      "pass": true
+    },
+    {
+      "name": "Repeated Finish remains storage-free while unowned",
+      "pass": true
+    },
+    {
+      "name": "Finish fences pending starts before closing the scene",
+      "pass": true
+    },
+    {
+      "name": "Owned Finish clears the checkpoint saved by terminal stop exactly once",
+      "pass": true
+    },
+    {
+      "name": "Unowned Finish cannot overwrite another tab checkpoint or require its lock",
+      "pass": true
+    },
+    {
+      "name": "Explicit discard still claims ownership for a real checkpoint",
+      "pass": true
+    },
+    {
+      "name": "Explicit discard with unavailable ownership preserves checkpoint",
+      "pass": true
+    },
+    {
+      "name": "Discarding an absent checkpoint is an idempotent no-op",
+      "pass": true
+    }
+  ]
+}
+
+STDERR:

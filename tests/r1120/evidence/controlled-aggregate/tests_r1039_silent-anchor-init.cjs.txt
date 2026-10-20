@@ -1,0 +1,164 @@
+{
+  "total": 34,
+  "passed": 34,
+  "failed": 0,
+  "scope": "Actual source init/hooks/poll/session integration; simulated browser boundary, not whole-page or hardware audibility.",
+  "provenance": {
+    "htmlSHA256": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9",
+    "introSHA256": "233dce164e9869f13f5b69953f72235fb96b36ee2446f95521d70b8abe1932a5",
+    "sessionSHA256": "5ef9efcb784542a53a9f3ebe8ec57f4694ebbeeb0b7af00428a6b4de9e2b8869",
+    "sessionSRI": "sha256-Xvnvy3hFQqU6nz6+jsV/RpTrvusLevAEKKa03p4riGk=",
+    "extractedSHA256": {
+      "mainAudioInit": "707f1dbabd3660e841f283769fed95e49c9ec33247e3c6ed28444d44717b28d3",
+      "mainEngineAPI": "46a04b426059a8288739d8b0317bfcb313d32c45512df9152487a8046a6363ad",
+      "silentAnchor": "83ebb9c64a7313d1de4e528c689c8e5ad4a73fe5808bb82d8c6d5e7ae1645a39",
+      "reverbGenerator": "990b4da34e786b02bee23d88b66fa3fe9faf31253e5914d834e527a78669c54a",
+      "audioLife": "002a2ec2dd9e4df46d62e11abe59f8d4ee309ced8e25fc92255344fa9da0f97d",
+      "audioHub": "f8afb073b48d8b2334f724ec5591f6434d1cf9f5e77ad4698929e44aceb37c08",
+      "anchorHook": "bb486708412dc953c4f0087e508bd84655edee29f5417019071a797c7e1eb962",
+      "mediaHook": "b35972c6f0a9a4dad0b0d41ac0172c2b94690f195d02e9cbb45defa401495ca2",
+      "audioLifePoll": "bea011359411417d1e22b63bcbd0ce7507d3271479bc4b44e34c0b2706853381",
+      "carrierIdentity": "133b6d3ee14055f6ac7cc0a95122be2f252ea6de3542adbe605fe268578fdac3"
+    }
+  },
+  "results": [
+    {
+      "name": "Actual session dependency matches production HTML SRI",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual SesCapa literal is mono 8kHz PCM8 digital zero",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual ac/anchor/hooks/session/poll preserve whole intro; initBefore=false",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual ac/anchor/hooks/session/poll preserve whole intro; initBefore=true",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual legacy initialization reproduces r1038 cancellation at 1808ms",
+      "status": "PASS"
+    },
+    {
+      "name": "An idle poll before ac cannot prevent later main-context carrier initialization",
+      "status": "PASS"
+    },
+    {
+      "name": "Repeated ac calls reuse one main context and one anchor",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual initialized anchor loses certification: different source",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual initialized anchor loses certification: different currentSrc",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual initialized anchor loses certification: same recording in both sources",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual initialized anchor loses certification: empty currentSrc",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual initialized anchor loses certification: missing dedicated flag",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual initialized anchor loses certification: incorrect dedicated flag",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual initialized anchor loses certification: generic flag alone",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual initialized anchor loses certification: live srcObject",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual initialized anchor loses certification: missing srcObject",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual initialized anchor loses certification: throwing source",
+      "status": "PASS"
+    },
+    {
+      "name": "Unavailable dedicated classifier fails closed: missing",
+      "status": "PASS"
+    },
+    {
+      "name": "Unavailable dedicated classifier fails closed: throws",
+      "status": "PASS"
+    },
+    {
+      "name": "Unavailable dedicated classifier fails closed: truthy",
+      "status": "PASS"
+    },
+    {
+      "name": "A clone with exact zero-WAV bytes and flag has no private anchor identity",
+      "status": "PASS"
+    },
+    {
+      "name": "Another actual media player remains blocking at volume 1",
+      "status": "PASS"
+    },
+    {
+      "name": "Another actual media player remains blocking at volume 0.0025",
+      "status": "PASS"
+    },
+    {
+      "name": "Another actual media player remains blocking at volume 0",
+      "status": "PASS"
+    },
+    {
+      "name": "Both verified digital-zero carriers can coexist through the full source window",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual AudioLife FR still stops intro with a certified anchor",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual AudioLife Z still stops intro with a certified anchor",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual AudioLife AMB still stops intro with a certified anchor",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual AudioLife VH still stops intro with a certified anchor",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual AudioLife provider still stops intro with a certified anchor",
+      "status": "PASS"
+    },
+    {
+      "name": "Existing recording guard survives actual anchor initialization",
+      "status": "PASS"
+    },
+    {
+      "name": "Existing tickRecording guard survives actual anchor initialization",
+      "status": "PASS"
+    },
+    {
+      "name": "Existing owner guard survives actual anchor initialization",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual session state becomes PLAYING and blocks even when legacy AudioLife is idle",
+      "status": "PASS"
+    }
+  ]
+}
+
+STDERR:

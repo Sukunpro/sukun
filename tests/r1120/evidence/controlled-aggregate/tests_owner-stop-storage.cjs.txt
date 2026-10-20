@@ -1,0 +1,78 @@
+{
+  "root": "/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency",
+  "method": "Actual owner/Finish/discard code; controlled browser endpoints, no user audio accessed",
+  "passed": 17,
+  "total": 17,
+  "results": [
+    {
+      "name": "Finish without checkpoint closes locally without owner DB access",
+      "passed": true
+    },
+    {
+      "name": "Checkpoint discard without checkpoint does not claim another tab reservation",
+      "passed": true
+    },
+    {
+      "name": "Finish with unowned checkpoint tries one local discard without claiming",
+      "passed": true
+    },
+    {
+      "name": "Cancelled storage-open error cannot resurrect notice after Stop",
+      "passed": true
+    },
+    {
+      "name": "Dismissing pending attempt hides its later storage error without granting authority",
+      "passed": true
+    },
+    {
+      "name": "Cancelled queued acquisition never starts a new ownership request",
+      "passed": true
+    },
+    {
+      "name": "Already stale playback callback does not prime or open ownership storage",
+      "passed": true
+    },
+    {
+      "name": "Owner connection close is recovered on next explicit acquisition",
+      "passed": true
+    },
+    {
+      "name": "Unsignaled closed owner handle retries once before any claim is submitted",
+      "passed": true
+    },
+    {
+      "name": "Closing error notice never clears an active peer reservation",
+      "passed": true
+    },
+    {
+      "name": "Repeated same-attempt warning after dismissal emits no new feedback event",
+      "passed": true
+    },
+    {
+      "name": "Fresh explicit attempt can show a new storage warning after dismissal",
+      "passed": true
+    },
+    {
+      "name": "Cancelled submitted claim error is silent and never grants playback",
+      "passed": true
+    },
+    {
+      "name": "Owner security failure is terminal with no reconnect or metadata mutation",
+      "passed": true
+    },
+    {
+      "name": "Repeated closed-handle error stops after one reconnect",
+      "passed": true
+    },
+    {
+      "name": "Old owner close and versionchange cannot invalidate fresh cached handle",
+      "passed": true
+    },
+    {
+      "name": "Claim warning identifies tab verification without asserting audio deletion or audible stop",
+      "passed": true
+    }
+  ]
+}
+
+STDERR:

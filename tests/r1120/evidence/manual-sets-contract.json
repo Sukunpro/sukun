@@ -1,0 +1,87 @@
+{
+  "build": "r1120",
+  "method": "Source-level independent DOM, storage and audio-bridge fixtures; not browser, accessibility-tree, physical-device or acoustic acceptance.",
+  "passed": 19,
+  "total": 19,
+  "checks": [
+    {
+      "name": "Source never touches microphone, legacy store, export, cloud or audio nodes",
+      "passed": true,
+      "evidence": {
+        "sourceSha256": "ea404ecc246402db9b32f2200a24cbf0fb1904045b5787ada833a55ac8f85aff"
+      }
+    },
+    {
+      "name": "Startup is read-only; saves while stopped require neither microphone nor audio",
+      "passed": true
+    },
+    {
+      "name": "Full settings round-trip without losing any supported field and reload persistent data",
+      "passed": true
+    },
+    {
+      "name": "Load applies values without starting stopped or paused playback; play is explicit and pause wins",
+      "passed": true
+    },
+    {
+      "name": "A failed application never claims that the set was loaded or selected",
+      "passed": true
+    },
+    {
+      "name": "Editing is an isolated draft; cancel changes neither the stored set nor playback",
+      "passed": true
+    },
+    {
+      "name": "Editing updates all values and description only after save, without applying",
+      "passed": true
+    },
+    {
+      "name": "Selected indicator detects modification and return to exact saved settings",
+      "passed": true
+    },
+    {
+      "name": "Duplicate and delete require explicit confirmation and do not mutate originals on cancel",
+      "passed": true
+    },
+    {
+      "name": "Empty/overlong names, descriptions and invalid numeric settings are rejected without truncation",
+      "passed": true
+    },
+    {
+      "name": "A copied maximum-length name is never silently truncated and remains editable",
+      "passed": true
+    },
+    {
+      "name": "Every schema field rejects invalid enums, booleans, numeric coercion and unknown future data",
+      "passed": true
+    },
+    {
+      "name": "Limit 100 rejects creation/duplication and never discards any existing record",
+      "passed": true
+    },
+    {
+      "name": "Malformed, over-limit, duplicate-ID and future-format stores are never overwritten or silently sliced",
+      "passed": true
+    },
+    {
+      "name": "Quota/security errors preserve existing records and keep the user draft for retry",
+      "passed": true
+    },
+    {
+      "name": "Storage read failure is not an empty list, and unverified writes are never reported saved",
+      "passed": true
+    },
+    {
+      "name": "Concurrent write and storage-event edits preserve the newer record and unsaved draft",
+      "passed": true
+    },
+    {
+      "name": "Names/descriptions are text-only; language switch retains unfinished values and complete controls",
+      "passed": true
+    },
+    {
+      "name": "Repeated mount does not duplicate controls or event handlers",
+      "passed": true
+    }
+  ]
+}

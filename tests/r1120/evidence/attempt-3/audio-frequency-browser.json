@@ -1,0 +1,6493 @@
+{
+  "suite": "r1120 native frequency audio and release acceptance",
+  "build": "r1120",
+  "startedAt": "2026-10-20T06:37:30.491Z",
+  "browserExecuted": true,
+  "testSha256": "8e423601ec130e63344562f5e12a81976b4f4349c23e375aa5d20b49bf6ff6d0",
+  "checks": [
+    {
+      "name": "New controls are reachable in the unchanged default Midi density",
+      "passed": true,
+      "evidence": {
+        "density": "midi",
+        "controls": [
+          "#harmSayi",
+          "#harmSeri",
+          "#uzamTgl",
+          "#uzamHizSld",
+          "#fr1120-wave",
+          "#fr1120-balL",
+          "#fr1120-balR",
+          "#fr1120-noise",
+          "#fr1120-noiseVol",
+          "#fr1120-filterOn",
+          "#fr1120-lpf",
+          "#fr1120-hpf",
+          "#fr1120-levelProfile",
+          "#fr1120-octDown",
+          "#fr1120-octUp",
+          "#r1120SetCreate"
+        ],
+        "tools": {
+          "text": "Ses araçları\nDalga tipi\nSinüs\nÜçgen\nKare\nTestere\nSol kanal\n100%\nSağ kanal\n100%\nEk gürültü\nKapalı\nBeyaz\nPembe\nKahverengi\nGürültü seviyesi\n0%\nFrekans filtreleri\nAlçak geçiren\n2000 Hz\nYüksek geçiren\n80 Hz\nSeviye profili\nMevcut seviye\nDaha belirgin (isteğe bağlı)\n½× oktav\n2× oktav\n\nFrekans şiddeti ve ana ses birlikte etkilidir. Ana ses: %70. Yeni profil yalnız seçersen açılır; cihaz sesini düşükten ayarla.",
+          "width": 342,
+          "scroll": 342
+        }
+      }
+    },
+    {
+      "name": "Quick controls remain reachable at 320/390 px in Mini/Midi/Pro and light is steady, opt-in only",
+      "passed": true,
+      "evidence": [
+        {
+          "width": 320,
+          "density": "mini",
+          "light": {
+            "values": [
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              }
+            ],
+            "settings": {
+              "bendir": false,
+              "aveInt": 0.18,
+              "vhVol": 0.6,
+              "vhL": 5,
+              "spkOn": false,
+              "spkRate": 0.85,
+              "arOn": true,
+              "arPitch": 0.76,
+              "arRate": 0.7
+            },
+            "capturedKeys": [
+              "c",
+              "b",
+              "mode",
+              "vol",
+              "pink",
+              "harmonik",
+              "harmSeri",
+              "uzam",
+              "uzamHiz",
+              "wave",
+              "balL",
+              "balR",
+              "noise",
+              "noiseVol",
+              "filterOn",
+              "lpf",
+              "hpf",
+              "levelProfile",
+              "secondary"
+            ]
+          },
+          "geometry": [
+            {
+              "id": "beatChips",
+              "width": 272,
+              "scroll": 272,
+              "rect": {
+                "x": 24,
+                "y": 100.625,
+                "width": 272,
+                "height": 23.765625,
+                "top": 100.625,
+                "right": 296,
+                "bottom": 124.390625,
+                "left": 24
+              }
+            },
+            {
+              "id": "carChips",
+              "width": 272,
+              "scroll": 272,
+              "rect": {
+                "x": 24,
+                "y": 159.390625,
+                "width": 272,
+                "height": 79.296875,
+                "top": 159.390625,
+                "right": 296,
+                "bottom": 238.6875,
+                "left": 24
+              }
+            },
+            {
+              "id": "frequencyLightR1120",
+              "width": 272,
+              "scroll": 272,
+              "rect": {
+                "x": 24,
+                "y": 374.15625,
+                "width": 272,
+                "height": 66.75,
+                "top": 374.15625,
+                "right": 296,
+                "bottom": 440.90625,
+                "left": 24
+              }
+            }
+          ]
+        },
+        {
+          "width": 320,
+          "density": "midi",
+          "light": {
+            "values": [
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              }
+            ],
+            "settings": {
+              "bendir": false,
+              "aveInt": 0.18,
+              "vhVol": 0.6,
+              "vhL": 5,
+              "spkOn": false,
+              "spkRate": 0.85,
+              "arOn": true,
+              "arPitch": 0.76,
+              "arRate": 0.7
+            },
+            "capturedKeys": [
+              "c",
+              "b",
+              "mode",
+              "vol",
+              "pink",
+              "harmonik",
+              "harmSeri",
+              "uzam",
+              "uzamHiz",
+              "wave",
+              "balL",
+              "balR",
+              "noise",
+              "noiseVol",
+              "filterOn",
+              "lpf",
+              "hpf",
+              "levelProfile",
+              "secondary"
+            ]
+          },
+          "geometry": [
+            {
+              "id": "beatChips",
+              "width": 272,
+              "scroll": 272,
+              "rect": {
+                "x": 24,
+                "y": 100.625,
+                "width": 272,
+                "height": 23.765625,
+                "top": 100.625,
+                "right": 296,
+                "bottom": 124.390625,
+                "left": 24
+              }
+            },
+            {
+              "id": "carChips",
+              "width": 272,
+              "scroll": 272,
+              "rect": {
+                "x": 24,
+                "y": 159.390625,
+                "width": 272,
+                "height": 79.296875,
+                "top": 159.390625,
+                "right": 296,
+                "bottom": 238.6875,
+                "left": 24
+              }
+            },
+            {
+              "id": "frequencyLightR1120",
+              "width": 272,
+              "scroll": 272,
+              "rect": {
+                "x": 24,
+                "y": 374.15625,
+                "width": 272,
+                "height": 66.75,
+                "top": 374.15625,
+                "right": 296,
+                "bottom": 440.90625,
+                "left": 24
+              }
+            }
+          ]
+        },
+        {
+          "width": 320,
+          "density": "pro",
+          "light": {
+            "values": [
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              }
+            ],
+            "settings": {
+              "bendir": false,
+              "aveInt": 0.18,
+              "vhVol": 0.6,
+              "vhL": 5,
+              "spkOn": false,
+              "spkRate": 0.85,
+              "arOn": true,
+              "arPitch": 0.76,
+              "arRate": 0.7
+            },
+            "capturedKeys": [
+              "c",
+              "b",
+              "mode",
+              "vol",
+              "pink",
+              "harmonik",
+              "harmSeri",
+              "uzam",
+              "uzamHiz",
+              "wave",
+              "balL",
+              "balR",
+              "noise",
+              "noiseVol",
+              "filterOn",
+              "lpf",
+              "hpf",
+              "levelProfile",
+              "secondary"
+            ]
+          },
+          "geometry": [
+            {
+              "id": "beatChips",
+              "width": 272,
+              "scroll": 272,
+              "rect": {
+                "x": 24,
+                "y": 100.625,
+                "width": 272,
+                "height": 23.765625,
+                "top": 100.625,
+                "right": 296,
+                "bottom": 124.390625,
+                "left": 24
+              }
+            },
+            {
+              "id": "carChips",
+              "width": 272,
+              "scroll": 272,
+              "rect": {
+                "x": 24,
+                "y": 159.390625,
+                "width": 272,
+                "height": 79.296875,
+                "top": 159.390625,
+                "right": 296,
+                "bottom": 238.6875,
+                "left": 24
+              }
+            },
+            {
+              "id": "frequencyLightR1120",
+              "width": 272,
+              "scroll": 272,
+              "rect": {
+                "x": 24,
+                "y": 374.15625,
+                "width": 272,
+                "height": 66.75,
+                "top": 374.15625,
+                "right": 296,
+                "bottom": 440.90625,
+                "left": 24
+              }
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "density": "mini",
+          "light": {
+            "values": [
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              }
+            ],
+            "settings": {
+              "bendir": false,
+              "aveInt": 0.18,
+              "vhVol": 0.6,
+              "vhL": 5,
+              "spkOn": false,
+              "spkRate": 0.85,
+              "arOn": true,
+              "arPitch": 0.76,
+              "arRate": 0.7
+            },
+            "capturedKeys": [
+              "c",
+              "b",
+              "mode",
+              "vol",
+              "pink",
+              "harmonik",
+              "harmSeri",
+              "uzam",
+              "uzamHiz",
+              "wave",
+              "balL",
+              "balR",
+              "noise",
+              "noiseVol",
+              "filterOn",
+              "lpf",
+              "hpf",
+              "levelProfile",
+              "secondary"
+            ]
+          },
+          "geometry": [
+            {
+              "id": "beatChips",
+              "width": 342,
+              "scroll": 342,
+              "rect": {
+                "x": 24,
+                "y": 442.015625,
+                "width": 342,
+                "height": 23.765625,
+                "top": 442.015625,
+                "right": 366,
+                "bottom": 465.78125,
+                "left": 24
+              }
+            },
+            {
+              "id": "carChips",
+              "width": 342,
+              "scroll": 342,
+              "rect": {
+                "x": 24,
+                "y": 500.78125,
+                "width": 342,
+                "height": 51.53125,
+                "top": 500.78125,
+                "right": 366,
+                "bottom": 552.3125,
+                "left": 24
+              }
+            },
+            {
+              "id": "frequencyLightR1120",
+              "width": 342,
+              "scroll": 342,
+              "rect": {
+                "x": 24,
+                "y": 687.78125,
+                "width": 342,
+                "height": 49.875,
+                "top": 687.78125,
+                "right": 366,
+                "bottom": 737.65625,
+                "left": 24
+              }
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "density": "midi",
+          "light": {
+            "values": [
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              }
+            ],
+            "settings": {
+              "bendir": false,
+              "aveInt": 0.18,
+              "vhVol": 0.6,
+              "vhL": 5,
+              "spkOn": false,
+              "spkRate": 0.85,
+              "arOn": true,
+              "arPitch": 0.76,
+              "arRate": 0.7
+            },
+            "capturedKeys": [
+              "c",
+              "b",
+              "mode",
+              "vol",
+              "pink",
+              "harmonik",
+              "harmSeri",
+              "uzam",
+              "uzamHiz",
+              "wave",
+              "balL",
+              "balR",
+              "noise",
+              "noiseVol",
+              "filterOn",
+              "lpf",
+              "hpf",
+              "levelProfile",
+              "secondary"
+            ]
+          },
+          "geometry": [
+            {
+              "id": "beatChips",
+              "width": 342,
+              "scroll": 342,
+              "rect": {
+                "x": 24,
+                "y": 442.015625,
+                "width": 342,
+                "height": 23.765625,
+                "top": 442.015625,
+                "right": 366,
+                "bottom": 465.78125,
+                "left": 24
+              }
+            },
+            {
+              "id": "carChips",
+              "width": 342,
+              "scroll": 342,
+              "rect": {
+                "x": 24,
+                "y": 500.78125,
+                "width": 342,
+                "height": 51.53125,
+                "top": 500.78125,
+                "right": 366,
+                "bottom": 552.3125,
+                "left": 24
+              }
+            },
+            {
+              "id": "frequencyLightR1120",
+              "width": 342,
+              "scroll": 342,
+              "rect": {
+                "x": 24,
+                "y": 687.78125,
+                "width": 342,
+                "height": 49.875,
+                "top": 687.78125,
+                "right": 366,
+                "bottom": 737.65625,
+                "left": 24
+              }
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "density": "pro",
+          "light": {
+            "values": [
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              },
+              {
+                "opacity": 0.18,
+                "hidden": false,
+                "animation": "none"
+              }
+            ],
+            "settings": {
+              "bendir": false,
+              "aveInt": 0.18,
+              "vhVol": 0.6,
+              "vhL": 5,
+              "spkOn": false,
+              "spkRate": 0.85,
+              "arOn": true,
+              "arPitch": 0.76,
+              "arRate": 0.7
+            },
+            "capturedKeys": [
+              "c",
+              "b",
+              "mode",
+              "vol",
+              "pink",
+              "harmonik",
+              "harmSeri",
+              "uzam",
+              "uzamHiz",
+              "wave",
+              "balL",
+              "balR",
+              "noise",
+              "noiseVol",
+              "filterOn",
+              "lpf",
+              "hpf",
+              "levelProfile",
+              "secondary"
+            ]
+          },
+          "geometry": [
+            {
+              "id": "beatChips",
+              "width": 342,
+              "scroll": 342,
+              "rect": {
+                "x": 24,
+                "y": 442.015625,
+                "width": 342,
+                "height": 23.765625,
+                "top": 442.015625,
+                "right": 366,
+                "bottom": 465.78125,
+                "left": 24
+              }
+            },
+            {
+              "id": "carChips",
+              "width": 342,
+              "scroll": 342,
+              "rect": {
+                "x": 24,
+                "y": 500.78125,
+                "width": 342,
+                "height": 51.53125,
+                "top": 500.78125,
+                "right": 366,
+                "bottom": 552.3125,
+                "left": 24
+              }
+            },
+            {
+              "id": "frequencyLightR1120",
+              "width": 342,
+              "scroll": 342,
+              "rect": {
+                "x": 24,
+                "y": 687.78125,
+                "width": 342,
+                "height": 49.875,
+                "top": 687.78125,
+                "right": 366,
+                "bottom": 737.65625,
+                "left": 24
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Legacy default remains opt-in neutral and preserves r1119 native gain",
+      "passed": true,
+      "evidence": {
+        "previous": {
+          "mode": "bin",
+          "c": 180,
+          "b": 8,
+          "left": 176,
+          "right": 184,
+          "output": 0.17488136887550354,
+          "master": 0.699999988079071,
+          "measurement": {
+            "milliseconds": 900,
+            "frames": 41,
+            "sampleRate": 44100,
+            "limiterReduction": -0.00012332235928624868,
+            "frequency": {
+              "peak": 0.08742484450340271,
+              "rms": 0.0430787572242749,
+              "finite": true,
+              "samples": 83968
+            },
+            "preLimiter": {
+              "peak": 0.06119861453771591,
+              "rms": 0.03013247290250787,
+              "finite": true,
+              "samples": 83968
+            },
+            "postLimiter": {
+              "peak": 0.07451358437538147,
+              "rms": 0.03669790191917235,
+              "finite": true,
+              "samples": 83968
+            }
+          },
+          "sourceSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72"
+        },
+        "current": {
+          "playing": true,
+          "mode": "bin",
+          "c": 180,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17491093277931213,
+          "context": "running",
+          "time": 58.52009070294785,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "harmonics": [],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 0,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "measure": {
+          "milliseconds": 900,
+          "frames": 36,
+          "sampleRate": 44100,
+          "limiterReduction": -0.00012332235928624868,
+          "frequency": {
+            "peak": 0.08742484450340271,
+            "rms": 0.04185750418629631,
+            "finite": true,
+            "samples": 73728
+          },
+          "preLimiter": {
+            "peak": 0.06119861453771591,
+            "rms": 0.02930059678448113,
+            "finite": true,
+            "samples": 73728
+          },
+          "postLimiter": {
+            "peak": 0.07451358437538147,
+            "rms": 0.03611620214455176,
+            "finite": true,
+            "samples": 73728
+          }
+        }
+      }
+    },
+    {
+      "name": "Restored waveform, channel trim, noise, filters and octave controls act on the main engine",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "setting": "triangle",
+            "left": "triangle",
+            "right": "triangle"
+          },
+          {
+            "setting": "square",
+            "left": "square",
+            "right": "square"
+          },
+          {
+            "setting": "sawtooth",
+            "left": "sawtooth",
+            "right": "sawtooth"
+          },
+          {
+            "setting": "sine",
+            "left": "sine",
+            "right": "sine"
+          },
+          {
+            "noise": "white",
+            "measure": {
+              "milliseconds": 150,
+              "frames": 2,
+              "sampleRate": 44100,
+              "limiterReduction": -0.00012332235928624868,
+              "frequency": {
+                "peak": 0.11142915487289429,
+                "rms": 0.03600257851157504,
+                "finite": true,
+                "samples": 4096
+              },
+              "preLimiter": {
+                "peak": 0.08867312967777252,
+                "rms": 0.025103193101203028,
+                "finite": true,
+                "samples": 4096
+              },
+              "postLimiter": {
+                "peak": 0.10056774318218231,
+                "rms": 0.028441197665115513,
+                "finite": true,
+                "samples": 4096
+              }
+            }
+          },
+          {
+            "noise": "pink",
+            "measure": {
+              "milliseconds": 150,
+              "frames": 5,
+              "sampleRate": 44100,
+              "limiterReduction": -0.00012332235928624868,
+              "frequency": {
+                "peak": 0.09121465682983398,
+                "rms": 0.02909115414430974,
+                "finite": true,
+                "samples": 10240
+              },
+              "preLimiter": {
+                "peak": 0.06402278691530228,
+                "rms": 0.020364646836871638,
+                "finite": true,
+                "samples": 10240
+              },
+              "postLimiter": {
+                "peak": 0.07795220613479614,
+                "rms": 0.023366363770950194,
+                "finite": true,
+                "samples": 10240
+              }
+            }
+          },
+          {
+            "noise": "brown",
+            "measure": {
+              "milliseconds": 150,
+              "frames": 5,
+              "sampleRate": 44100,
+              "limiterReduction": -0.00012332235928624868,
+              "frequency": {
+                "peak": 0.06538332253694534,
+                "rms": 0.02188683446470834,
+                "finite": true,
+                "samples": 10240
+              },
+              "preLimiter": {
+                "peak": 0.04556813836097717,
+                "rms": 0.015321368495396837,
+                "finite": true,
+                "samples": 10240
+              },
+              "postLimiter": {
+                "peak": 0.05548238754272461,
+                "rms": 0.020130464084716575,
+                "finite": true,
+                "samples": 10240
+              }
+            }
+          },
+          {
+            "noise": "off",
+            "measure": {
+              "milliseconds": 150,
+              "frames": 4,
+              "sampleRate": 44100,
+              "limiterReduction": -0.00012332235928624868,
+              "frequency": {
+                "peak": 0.07043244689702988,
+                "rms": 0.02417786990374217,
+                "finite": true,
+                "samples": 8192
+              },
+              "preLimiter": {
+                "peak": 0.0493025928735733,
+                "rms": 0.01692541054789532,
+                "finite": true,
+                "samples": 8192
+              },
+              "postLimiter": {
+                "peak": 0.06161532551050186,
+                "rms": 0.02145672171640846,
+                "finite": true,
+                "samples": 8192
+              }
+            }
+          }
+        ],
+        "unfiltered": {
+          "milliseconds": 350,
+          "frames": 13,
+          "sampleRate": 44100,
+          "limiterReduction": -0.00012332235928624868,
+          "frequency": {
+            "peak": 0.08302673697471619,
+            "rms": 0.038584052501674924,
+            "finite": true,
+            "samples": 26624
+          },
+          "preLimiter": {
+            "peak": 0.05844021216034889,
+            "rms": 0.02712568897782023,
+            "finite": true,
+            "samples": 26624
+          },
+          "postLimiter": {
+            "peak": 0.07115502655506134,
+            "rms": 0.03315519040429955,
+            "finite": true,
+            "samples": 26624
+          }
+        },
+        "filtered": {
+          "milliseconds": 350,
+          "frames": 10,
+          "sampleRate": 44100,
+          "limiterReduction": -0.00012332235928624868,
+          "frequency": {
+            "peak": 0.00019912698189727962,
+            "rms": 0.00009574907750299345,
+            "finite": true,
+            "samples": 20480
+          },
+          "preLimiter": {
+            "peak": 0.00013998826034367085,
+            "rms": 0.00006731501995350014,
+            "finite": true,
+            "samples": 20480
+          },
+          "postLimiter": {
+            "peak": 0.0001701313303783536,
+            "rms": 0.00008057138464107408,
+            "finite": true,
+            "samples": 20480
+          }
+        },
+        "filterState": {
+          "filterOn": true,
+          "lpf": 200,
+          "hpf": 20
+        },
+        "retiredNeuro": {
+          "binaural": false,
+          "isPlaying": false,
+          "noise": false,
+          "special": false,
+          "breathRunning": false,
+          "breathPaused": false,
+          "guided": false,
+          "sharedContext": true
+        }
+      }
+    },
+    {
+      "name": "Native main and dogal partials retune 180 → 528 Hz without a second engine",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "playing": true,
+          "mode": "bin",
+          "c": 180,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17481185495853424,
+          "context": "running",
+          "time": 87.18222222222222,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 360,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 540,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 720,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 900,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "after": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17498767375946045,
+          "context": "running",
+          "time": 87.65242630385488,
+          "sampleRate": 44100,
+          "left": 524,
+          "right": 532,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 1056,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 1584,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 2112,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 2640,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "retiredNeuro": {
+          "binaural": false,
+          "isPlaying": false,
+          "noise": false,
+          "special": false,
+          "breathRunning": false,
+          "breathPaused": false,
+          "guided": false,
+          "sharedContext": true
+        }
+      }
+    },
+    {
+      "name": "Native main and tek partials retune 180 → 528 Hz without a second engine",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "playing": true,
+          "mode": "bin",
+          "c": 180,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17480120062828064,
+          "context": "running",
+          "time": 93.59092970521542,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "harmonics": [
+            {
+              "ratio": 3,
+              "hz": 540,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 5,
+              "hz": 900,
+              "gain": 0.06800000369548798
+            },
+            {
+              "ratio": 7,
+              "hz": 1260,
+              "gain": 0.04857143014669418
+            },
+            {
+              "ratio": 9,
+              "hz": 1620,
+              "gain": 0.03777777776122093
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "tek",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "after": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17498767375946045,
+          "context": "running",
+          "time": 94.11047619047619,
+          "sampleRate": 44100,
+          "left": 524,
+          "right": 532,
+          "harmonics": [
+            {
+              "ratio": 3,
+              "hz": 1584,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 5,
+              "hz": 2640,
+              "gain": 0.06800000369548798
+            },
+            {
+              "ratio": 7,
+              "hz": 3696,
+              "gain": 0.04857143014669418
+            },
+            {
+              "ratio": 9,
+              "hz": 4752,
+              "gain": 0.03777777776122093
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "tek",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "retiredNeuro": {
+          "binaural": false,
+          "isPlaying": false,
+          "noise": false,
+          "special": false,
+          "breathRunning": false,
+          "breathPaused": false,
+          "guided": false,
+          "sharedContext": true
+        }
+      }
+    },
+    {
+      "name": "Native main and oktav partials retune 180 → 528 Hz without a second engine",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "playing": true,
+          "mode": "bin",
+          "c": 180,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.1749228537082672,
+          "context": "running",
+          "time": 100.32181405895692,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 360,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 4,
+              "hz": 720,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 8,
+              "hz": 1440,
+              "gain": 0.042500000447034836
+            },
+            {
+              "ratio": 16,
+              "hz": 2880,
+              "gain": 0.021250000223517418
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "oktav",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "after": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17498767375946045,
+          "context": "running",
+          "time": 100.86167800453515,
+          "sampleRate": 44100,
+          "left": 524,
+          "right": 532,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 1056,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 4,
+              "hz": 2112,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 8,
+              "hz": 4224,
+              "gain": 0.042500000447034836
+            },
+            {
+              "ratio": 16,
+              "hz": 8448,
+              "gain": 0.021250000223517418
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "oktav",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "retiredNeuro": {
+          "binaural": false,
+          "isPlaying": false,
+          "noise": false,
+          "special": false,
+          "breathRunning": false,
+          "breathPaused": false,
+          "guided": false,
+          "sharedContext": true
+        }
+      }
+    },
+    {
+      "name": "Native out-of-band harmonics silence at the Nyquist guard and restore below it",
+      "passed": true,
+      "evidence": {
+        "muted": {
+          "playing": true,
+          "mode": "bin",
+          "c": 12000,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17498767375946045,
+          "context": "running",
+          "time": 107.10204081632654,
+          "sampleRate": 44100,
+          "left": 11996,
+          "right": 12004,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 18000,
+              "gain": 0
+            },
+            {
+              "ratio": 4,
+              "hz": 18000,
+              "gain": 0
+            },
+            {
+              "ratio": 8,
+              "hz": 18000,
+              "gain": 0
+            },
+            {
+              "ratio": 16,
+              "hz": 18000,
+              "gain": 0
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 12000,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "oktav",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 12000,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "restored": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17498767375946045,
+          "context": "running",
+          "time": 107.71156462585034,
+          "sampleRate": 44100,
+          "left": 524,
+          "right": 532,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 1056,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 4,
+              "hz": 2112,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 8,
+              "hz": 4224,
+              "gain": 0.042500000447034836
+            },
+            {
+              "ratio": 16,
+              "hz": 8448,
+              "gain": 0.021250000223517418
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "oktav",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "Native linear journey ramps keep every harmonic at the moving carrier ratio",
+      "passed": true,
+      "evidence": {
+        "middle": {
+          "sampling": "temporarily suspended native audio clock",
+          "time": 114.29151927437641,
+          "mode": "bin",
+          "left": 296.0255432128906,
+          "right": 305.41314697265625,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 601.438720703125,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 902.1589965820312,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 1202.87744140625,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 1503.5977783203125,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": {
+            "fromC": 180,
+            "fromB": 8,
+            "c": 528,
+            "b": 12,
+            "start": 113.59201814058957,
+            "end": 115.59201814058957
+          }
+        },
+        "end": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 12,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17499999701976776,
+          "context": "running",
+          "time": 115.92272108843538,
+          "sampleRate": 44100,
+          "left": 522,
+          "right": 534,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 1056,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 1584,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 2112,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 2640,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": {
+            "fromC": 180,
+            "fromB": 8,
+            "c": 528,
+            "b": 12,
+            "start": 113.59201814058957,
+            "end": 115.59201814058957
+          },
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 12,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 12,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "Harmonic and 3D native toggles preserve an active journey and a held pause",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 10,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17490950226783752,
+          "context": "running",
+          "time": 122.71165532879819,
+          "sampleRate": 44100,
+          "left": 183.1618194580078,
+          "right": 191.20278930664062,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 374.3645935058594,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 561.5464477539062,
+              "gain": 0.1133333370089531
+            }
+          ],
+          "ramp": {
+            "fromC": 180,
+            "fromB": 8,
+            "c": 528,
+            "b": 10,
+            "start": 122.34013605442176,
+            "end": 140.34013605442175
+          },
+          "journey": {
+            "active": true,
+            "paused": false,
+            "index": 0
+          },
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 10,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 2,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 10,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "running": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 10,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.14305640757083893,
+          "context": "running",
+          "time": 126.11047619047619,
+          "sampleRate": 44100,
+          "left": 248.68353271484375,
+          "right": 257.1026306152344,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 505.7856750488281,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 758.6780395507812,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 1011.5713500976562,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 1264.4647216796875,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": {
+            "fromC": 236.45157974300844,
+            "fromB": 8.324434366339128,
+            "c": 528,
+            "b": 10,
+            "start": 125.26004535147392,
+            "end": 140.34013605442175
+          },
+          "journey": {
+            "active": true,
+            "paused": false,
+            "index": 0
+          },
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 10,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": true,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 10,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "paused": {
+          "playing": true,
+          "mode": "bin",
+          "c": 256.59682539682547,
+          "b": 8.44021164021164,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.15359929203987122,
+          "context": "suspended",
+          "time": 126.31074829931973,
+          "sampleRate": 44100,
+          "left": 252.37672424316406,
+          "right": 260.8169250488281,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 513.2764892578125,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 770.0416259765625,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 1026.7213134765625,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 1283.40380859375,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": null,
+          "journey": {
+            "active": true,
+            "paused": true,
+            "index": 0,
+            "remaining": 34049.70521541951,
+            "pausedRamp": {
+              "c": 528,
+              "b": 10,
+              "remaining": 14.038095238095224
+            }
+          },
+          "paused": true,
+          "miniPaused": true,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 256.59682539682547,
+            "b": 8.44021164021164,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": true,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 256.59682539682547,
+              "b": 8.44021164021164,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "held": {
+          "playing": true,
+          "mode": "bin",
+          "c": 256.5968246459961,
+          "b": 8.440200805664062,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0,
+          "context": "suspended",
+          "time": 126.31074829931973,
+          "sampleRate": 44100,
+          "left": 252.37672424316406,
+          "right": 260.8169250488281,
+          "harmonics": [
+            {
+              "ratio": 3,
+              "hz": 769.7904663085938,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 5,
+              "hz": 1282.984130859375,
+              "gain": 0.06800000369548798
+            },
+            {
+              "ratio": 7,
+              "hz": 1796.177734375,
+              "gain": 0.04857143014669418
+            },
+            {
+              "ratio": 9,
+              "hz": 2309.371337890625,
+              "gain": 0.03777777776122093
+            }
+          ],
+          "ramp": null,
+          "journey": {
+            "active": true,
+            "paused": true,
+            "index": 0,
+            "remaining": 34049.70521541951,
+            "pausedRamp": {
+              "c": 528,
+              "b": 10,
+              "remaining": 14.038095238095224
+            }
+          },
+          "paused": true,
+          "miniPaused": true,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 256.5968246459961,
+            "b": 8.440200805664062,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "tek",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 256.5968246459961,
+              "b": 8.440200805664062,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "resumed": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 10,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.1504000723361969,
+          "context": "running",
+          "time": 127.29179138321996,
+          "sampleRate": 44100,
+          "left": 271.288330078125,
+          "right": 279.8381652832031,
+          "harmonics": [
+            {
+              "ratio": 3,
+              "hz": 826.6892700195312,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 5,
+              "hz": 1377.8167724609375,
+              "gain": 0.06800000369548798
+            },
+            {
+              "ratio": 7,
+              "hz": 1928.9442138671875,
+              "gain": 0.04857143014669418
+            },
+            {
+              "ratio": 9,
+              "hz": 2480.071533203125,
+              "gain": 0.03777777776122093
+            }
+          ],
+          "ramp": {
+            "fromC": 256.5968246459961,
+            "fromB": 8.440200805664062,
+            "c": 528,
+            "b": 10,
+            "start": 126.31074829931973,
+            "end": 140.34884353741495
+          },
+          "journey": {
+            "active": true,
+            "paused": false,
+            "index": 0,
+            "remaining": 34049.70521541951,
+            "pausedRamp": null
+          },
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 10,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "tek",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "overview",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 10,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "bin native graph keeps correct main frequencies and common harmonics",
+      "passed": true,
+      "evidence": {
+        "playing": true,
+        "mode": "bin",
+        "c": 180,
+        "b": 8,
+        "profile": "legacy",
+        "vol": 0.5,
+        "output": 0.1747356653213501,
+        "context": "running",
+        "time": 133.0009977324263,
+        "sampleRate": 44100,
+        "left": 176,
+        "right": 184,
+        "harmonics": [
+          {
+            "ratio": 2,
+            "hz": 360,
+            "gain": 0.17000000178813934
+          },
+          {
+            "ratio": 3,
+            "hz": 540,
+            "gain": 0.1133333370089531
+          }
+        ],
+        "ramp": null,
+        "journey": null,
+        "paused": false,
+        "miniPaused": false,
+        "held": false,
+        "pending": false,
+        "secondary": false,
+        "pink": false,
+        "ambience": {},
+        "timer": null,
+        "tool": {
+          "c": 180,
+          "b": 8,
+          "mode": "bin",
+          "vol": 0.5,
+          "pink": false,
+          "harmonik": 2,
+          "harmSeri": "dogal",
+          "uzam": false,
+          "uzamHiz": 22,
+          "wave": "sine",
+          "balL": 1,
+          "balR": 1,
+          "noise": "off",
+          "noiseVol": 0,
+          "filterOn": false,
+          "lpf": 2000,
+          "hpf": 80,
+          "levelProfile": "legacy",
+          "secondary": {
+            "on": false,
+            "c": 100,
+            "b": 2.5
+          }
+        },
+        "hub": {
+          "version": "r1101",
+          "initialized": true,
+          "selectedTool": "overview",
+          "expanded": true,
+          "mounted": true,
+          "frequency": {
+            "playing": true,
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false
+          },
+          "sweep": {
+            "active": false
+          },
+          "timer": null,
+          "native": {
+            "binaural": false,
+            "isPlaying": false,
+            "noise": false,
+            "special": false,
+            "breathRunning": false,
+            "breathPaused": false,
+            "guided": false,
+            "sharedContext": true
+          },
+          "duplicateControllers": 1
+        }
+      }
+    },
+    {
+      "name": "iso native graph keeps correct main frequencies and common harmonics",
+      "passed": true,
+      "evidence": {
+        "playing": true,
+        "mode": "iso",
+        "c": 180,
+        "b": 8,
+        "profile": "legacy",
+        "vol": 0.5,
+        "output": 0.17471987009048462,
+        "context": "running",
+        "time": 138.2312925170068,
+        "sampleRate": 44100,
+        "iso": 180,
+        "gate": 8,
+        "harmonics": [
+          {
+            "ratio": 2,
+            "hz": 360,
+            "gain": 0.17000000178813934
+          },
+          {
+            "ratio": 3,
+            "hz": 540,
+            "gain": 0.1133333370089531
+          }
+        ],
+        "ramp": null,
+        "journey": null,
+        "paused": false,
+        "miniPaused": false,
+        "held": false,
+        "pending": false,
+        "secondary": false,
+        "pink": false,
+        "ambience": {},
+        "timer": null,
+        "tool": {
+          "c": 180,
+          "b": 8,
+          "mode": "iso",
+          "vol": 0.5,
+          "pink": false,
+          "harmonik": 2,
+          "harmSeri": "dogal",
+          "uzam": false,
+          "uzamHiz": 22,
+          "wave": "sine",
+          "balL": 1,
+          "balR": 1,
+          "noise": "off",
+          "noiseVol": 0,
+          "filterOn": false,
+          "lpf": 2000,
+          "hpf": 80,
+          "levelProfile": "legacy",
+          "secondary": {
+            "on": false,
+            "c": 100,
+            "b": 2.5
+          }
+        },
+        "hub": {
+          "version": "r1101",
+          "initialized": true,
+          "selectedTool": "overview",
+          "expanded": true,
+          "mounted": true,
+          "frequency": {
+            "playing": true,
+            "c": 180,
+            "b": 8,
+            "mode": "iso",
+            "vol": 0.5,
+            "pink": false
+          },
+          "sweep": {
+            "active": false
+          },
+          "timer": null,
+          "native": {
+            "binaural": false,
+            "isPlaying": false,
+            "noise": false,
+            "special": false,
+            "breathRunning": false,
+            "breathPaused": false,
+            "guided": false,
+            "sharedContext": true
+          },
+          "duplicateControllers": 1
+        }
+      }
+    },
+    {
+      "name": "mono native graph keeps correct main frequencies and common harmonics",
+      "passed": true,
+      "evidence": {
+        "playing": true,
+        "mode": "mono",
+        "c": 180,
+        "b": 8,
+        "profile": "legacy",
+        "vol": 0.5,
+        "output": 0.1747657060623169,
+        "context": "running",
+        "time": 143.9724263038549,
+        "sampleRate": 44100,
+        "left": 176,
+        "right": 184,
+        "harmonics": [
+          {
+            "ratio": 2,
+            "hz": 360,
+            "gain": 0.17000000178813934
+          },
+          {
+            "ratio": 3,
+            "hz": 540,
+            "gain": 0.1133333370089531
+          }
+        ],
+        "ramp": null,
+        "journey": null,
+        "paused": false,
+        "miniPaused": false,
+        "held": false,
+        "pending": false,
+        "secondary": false,
+        "pink": false,
+        "ambience": {},
+        "timer": null,
+        "tool": {
+          "c": 180,
+          "b": 8,
+          "mode": "mono",
+          "vol": 0.5,
+          "pink": false,
+          "harmonik": 2,
+          "harmSeri": "dogal",
+          "uzam": false,
+          "uzamHiz": 22,
+          "wave": "sine",
+          "balL": 1,
+          "balR": 1,
+          "noise": "off",
+          "noiseVol": 0,
+          "filterOn": false,
+          "lpf": 2000,
+          "hpf": 80,
+          "levelProfile": "legacy",
+          "secondary": {
+            "on": false,
+            "c": 100,
+            "b": 2.5
+          }
+        },
+        "hub": {
+          "version": "r1101",
+          "initialized": true,
+          "selectedTool": "overview",
+          "expanded": true,
+          "mounted": true,
+          "frequency": {
+            "playing": true,
+            "c": 180,
+            "b": 8,
+            "mode": "mono",
+            "vol": 0.5,
+            "pink": false
+          },
+          "sweep": {
+            "active": false
+          },
+          "timer": null,
+          "native": {
+            "binaural": false,
+            "isPlaying": false,
+            "noise": false,
+            "special": false,
+            "breathRunning": false,
+            "breathPaused": false,
+            "guided": false,
+            "sharedContext": true
+          },
+          "duplicateControllers": 1
+        }
+      }
+    },
+    {
+      "name": "mix native graph keeps correct main frequencies and common harmonics",
+      "passed": true,
+      "evidence": {
+        "playing": true,
+        "mode": "mix",
+        "c": 180,
+        "b": 8,
+        "profile": "legacy",
+        "vol": 0.5,
+        "output": 0.174780011177063,
+        "context": "running",
+        "time": 149.4726530612245,
+        "sampleRate": 44100,
+        "left": 176,
+        "right": 184,
+        "iso": 180,
+        "gate": 8,
+        "harmonics": [
+          {
+            "ratio": 2,
+            "hz": 360,
+            "gain": 0.17000000178813934
+          },
+          {
+            "ratio": 3,
+            "hz": 540,
+            "gain": 0.1133333370089531
+          }
+        ],
+        "ramp": null,
+        "journey": null,
+        "paused": false,
+        "miniPaused": false,
+        "held": false,
+        "pending": false,
+        "secondary": false,
+        "pink": false,
+        "ambience": {},
+        "timer": null,
+        "tool": {
+          "c": 180,
+          "b": 8,
+          "mode": "mix",
+          "vol": 0.5,
+          "pink": false,
+          "harmonik": 2,
+          "harmSeri": "dogal",
+          "uzam": false,
+          "uzamHiz": 22,
+          "wave": "sine",
+          "balL": 1,
+          "balR": 1,
+          "noise": "off",
+          "noiseVol": 0,
+          "filterOn": false,
+          "lpf": 2000,
+          "hpf": 80,
+          "levelProfile": "legacy",
+          "secondary": {
+            "on": false,
+            "c": 100,
+            "b": 2.5
+          }
+        },
+        "hub": {
+          "version": "r1101",
+          "initialized": true,
+          "selectedTool": "overview",
+          "expanded": true,
+          "mounted": true,
+          "frequency": {
+            "playing": true,
+            "c": 180,
+            "b": 8,
+            "mode": "mix",
+            "vol": 0.5,
+            "pink": false
+          },
+          "sweep": {
+            "active": false
+          },
+          "timer": null,
+          "native": {
+            "binaural": false,
+            "isPlaying": false,
+            "noise": false,
+            "special": false,
+            "breathRunning": false,
+            "breathPaused": false,
+            "guided": false,
+            "sharedContext": true
+          },
+          "duplicateControllers": 1
+        }
+      }
+    },
+    {
+      "name": "Monaural labels do not claim separate-ear binaural delivery in Turkish or English",
+      "passed": true,
+      "evidence": [
+        {
+          "lang": "tr",
+          "text": "Birleşik çıkış: 176.00 + 184.00 Hz · vuruş farkı 8.00 Hz"
+        },
+        {
+          "lang": "en",
+          "text": "Combined output: 176.00 + 184.00 Hz · beat difference 8.00 Hz"
+        }
+      ]
+    },
+    {
+      "name": "Balanced profile requires explicit opt-in, is at most 2× legacy, and persists",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(rmsRatio>1&&rmsRatio<=2.03)\n\n    at /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:94:494\n    at async check (/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:22:50)\n    at async /workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/tests/r1120/audio-frequency-browser.cjs:94:2",
+      "state": {
+        "playing": true,
+        "mode": "bin",
+        "c": 180,
+        "b": 8,
+        "profile": "balanced",
+        "vol": 0.5,
+        "output": 0.34749534726142883,
+        "context": "running",
+        "time": 161.22195011337868,
+        "sampleRate": 44100,
+        "left": 176,
+        "right": 184,
+        "harmonics": [],
+        "ramp": null,
+        "journey": null,
+        "paused": false,
+        "miniPaused": false,
+        "held": false,
+        "pending": false,
+        "secondary": false,
+        "pink": false,
+        "ambience": {},
+        "timer": null,
+        "tool": {
+          "c": 180,
+          "b": 8,
+          "mode": "bin",
+          "vol": 0.5,
+          "pink": false,
+          "harmonik": 0,
+          "harmSeri": "dogal",
+          "uzam": false,
+          "uzamHiz": 22,
+          "wave": "sine",
+          "balL": 1,
+          "balR": 1,
+          "noise": "off",
+          "noiseVol": 0,
+          "filterOn": false,
+          "lpf": 2000,
+          "hpf": 80,
+          "levelProfile": "balanced",
+          "secondary": {
+            "on": false,
+            "c": 100,
+            "b": 2.5
+          }
+        },
+        "hub": {
+          "version": "r1101",
+          "initialized": true,
+          "selectedTool": "overview",
+          "expanded": true,
+          "mounted": true,
+          "frequency": {
+            "playing": true,
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false
+          },
+          "sweep": {
+            "active": false
+          },
+          "timer": null,
+          "native": {
+            "binaural": false,
+            "isPlaying": false,
+            "noise": false,
+            "special": false,
+            "breathRunning": false,
+            "breathPaused": false,
+            "guided": false,
+            "sharedContext": true
+          },
+          "duplicateControllers": 1
+        }
+      }
+    },
+    {
+      "name": "Manual set round-trip persists all tools without touching the microphone store or autoplaying Load",
+      "passed": true,
+      "evidence": {
+        "saved": {
+          "sets": [
+            {
+              "id": "set_mvgbdfmv_t0notqh22f",
+              "name": "Native round-trip 432",
+              "description": "Synthetic local QA settings, no microphone.",
+              "settings": {
+                "c": 432,
+                "b": 6.5,
+                "mode": "mono",
+                "wave": "triangle",
+                "vol": 0.43,
+                "levelProfile": "balanced",
+                "balL": 0.7,
+                "balR": 0.8,
+                "harmonik": 3,
+                "harmSeri": "tek",
+                "uzam": true,
+                "uzamHiz": 30,
+                "pink": true,
+                "noise": "brown",
+                "noiseVol": 0.22,
+                "filterOn": true,
+                "lpf": 3300,
+                "hpf": 60,
+                "secondary": {
+                  "on": true,
+                  "c": 110,
+                  "b": 2
+                }
+              },
+              "createdAt": 1792478423911,
+              "updatedAt": 1792478423911
+            }
+          ],
+          "selectedId": "set_mvgbdfmv_t0notqh22f",
+          "readOnly": false,
+          "storageProblem": "",
+          "draftOpen": false
+        },
+        "restored": {
+          "sets": {
+            "sets": [
+              {
+                "id": "set_mvgbdfmv_t0notqh22f",
+                "name": "Native round-trip 432",
+                "description": "Synthetic local QA settings, no microphone.",
+                "settings": {
+                  "c": 432,
+                  "b": 6.5,
+                  "mode": "mono",
+                  "wave": "triangle",
+                  "vol": 0.43,
+                  "levelProfile": "balanced",
+                  "balL": 0.7,
+                  "balR": 0.8,
+                  "harmonik": 3,
+                  "harmSeri": "tek",
+                  "uzam": true,
+                  "uzamHiz": 30,
+                  "pink": true,
+                  "noise": "brown",
+                  "noiseVol": 0.22,
+                  "filterOn": true,
+                  "lpf": 3300,
+                  "hpf": 60,
+                  "secondary": {
+                    "on": true,
+                    "c": 110,
+                    "b": 2
+                  }
+                },
+                "createdAt": 1792478423911,
+                "updatedAt": 1792478423911
+              }
+            ],
+            "selectedId": null,
+            "readOnly": false,
+            "storageProblem": "",
+            "draftOpen": false
+          },
+          "settings": {
+            "c": 432,
+            "b": 6.5,
+            "mode": "mono",
+            "vol": 0.43,
+            "pink": true,
+            "harmonik": 3,
+            "harmSeri": "tek",
+            "uzam": true,
+            "uzamHiz": 30,
+            "wave": "triangle",
+            "balL": 0.7,
+            "balR": 0.8,
+            "noise": "brown",
+            "noiseVol": 0.22,
+            "filterOn": true,
+            "lpf": 3300,
+            "hpf": 60,
+            "levelProfile": "balanced",
+            "secondary": {
+              "on": true,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "microphone": "[]",
+          "playing": false
+        },
+        "played": {
+          "playing": true,
+          "mode": "mono",
+          "c": 432,
+          "b": 6.5,
+          "profile": "balanced",
+          "vol": 0.43,
+          "output": 0.19987227022647858,
+          "context": "running",
+          "time": 9.502766439909298,
+          "sampleRate": 44100,
+          "left": 428.75,
+          "right": 435.25,
+          "harmonics": [
+            {
+              "ratio": 3,
+              "hz": 1296,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 5,
+              "hz": 2160,
+              "gain": 0.06800000369548798
+            },
+            {
+              "ratio": 7,
+              "hz": 3024,
+              "gain": 0.04857143014669418
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": true,
+          "secondaryGain": 0.06211409345269203,
+          "pink": true,
+          "pinkGain": 0.02966754138469696,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 432,
+            "b": 6.5,
+            "mode": "mono",
+            "vol": 0.43,
+            "pink": true,
+            "harmonik": 3,
+            "harmSeri": "tek",
+            "uzam": true,
+            "uzamHiz": 30,
+            "wave": "triangle",
+            "balL": 0.7,
+            "balR": 0.8,
+            "noise": "brown",
+            "noiseVol": 0.22,
+            "filterOn": true,
+            "lpf": 3300,
+            "hpf": 60,
+            "levelProfile": "balanced",
+            "secondary": {
+              "on": true,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": false,
+            "selectedTool": "overview",
+            "expanded": false,
+            "mounted": false,
+            "frequency": {
+              "playing": true,
+              "c": 432,
+              "b": 6.5,
+              "mode": "mono",
+              "vol": 0.43,
+              "pink": true
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "duplicateControllers": 1
+          }
+        },
+        "differentPlaying": {
+          "playing": true,
+          "mode": "bin",
+          "c": 700,
+          "b": 9,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.1559450328350067,
+          "context": "running",
+          "time": 10.620226757369615,
+          "sampleRate": 44100,
+          "left": 695.5,
+          "right": 704.5,
+          "harmonics": [],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 700,
+            "b": 9,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 0,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 100,
+              "b": 2.5
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": false,
+            "selectedTool": "overview",
+            "expanded": false,
+            "mounted": false,
+            "frequency": {
+              "playing": true,
+              "c": 700,
+              "b": 9,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "duplicateControllers": 1
+          }
+        },
+        "held": {
+          "playing": true,
+          "mode": "mono",
+          "c": 432,
+          "b": 6.5,
+          "profile": "balanced",
+          "vol": 0.43,
+          "output": 0,
+          "context": "suspended",
+          "time": 10.840816326530613,
+          "sampleRate": 44100,
+          "left": 428.75,
+          "right": 435.25,
+          "harmonics": [
+            {
+              "ratio": 3,
+              "hz": 1296,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 5,
+              "hz": 2160,
+              "gain": 0.06800000369548798
+            },
+            {
+              "ratio": 7,
+              "hz": 3024,
+              "gain": 0.04857143014669418
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": true,
+          "miniPaused": true,
+          "held": false,
+          "pending": false,
+          "secondary": true,
+          "secondaryGain": 0,
+          "pink": true,
+          "pinkGain": 0,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 432,
+            "b": 6.5,
+            "mode": "mono",
+            "vol": 0.43,
+            "pink": true,
+            "harmonik": 3,
+            "harmSeri": "tek",
+            "uzam": true,
+            "uzamHiz": 30,
+            "wave": "triangle",
+            "balL": 0.7,
+            "balR": 0.8,
+            "noise": "brown",
+            "noiseVol": 0.22,
+            "filterOn": true,
+            "lpf": 3300,
+            "hpf": 60,
+            "levelProfile": "balanced",
+            "secondary": {
+              "on": true,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": false,
+            "selectedTool": "overview",
+            "expanded": false,
+            "mounted": false,
+            "frequency": {
+              "playing": true,
+              "c": 432,
+              "b": 6.5,
+              "mode": "mono",
+              "vol": 0.43,
+              "pink": true
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "duplicateControllers": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "Complex mix retains finite headroom through the common limiter",
+      "passed": true,
+      "evidence": {
+        "state": {
+          "playing": true,
+          "mode": "mix",
+          "c": 180,
+          "b": 8,
+          "profile": "balanced",
+          "vol": 1,
+          "output": 0.38325101137161255,
+          "context": "running",
+          "time": 18.16090702947846,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "iso": 180,
+          "gate": 8,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 360,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 540,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 720,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 900,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": true,
+          "secondaryGain": 0.12042567878961563,
+          "pink": true,
+          "pinkGain": 0.06482972204685211,
+          "ambience": {
+            "rain": 0.3199999928474426
+          },
+          "timer": null,
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "mix",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "square",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "on": true,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": false,
+            "selectedTool": "overview",
+            "expanded": false,
+            "mounted": false,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "mix",
+              "vol": 1,
+              "pink": true
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "duplicateControllers": 1
+          }
+        },
+        "measurement": {
+          "milliseconds": 1800,
+          "frames": 64,
+          "sampleRate": 44100,
+          "limiterReduction": -0.00012332235928624868,
+          "frequency": {
+            "peak": 0.505186915397644,
+            "rms": 0.15732614920396856,
+            "finite": true,
+            "samples": 131072
+          },
+          "preLimiter": {
+            "peak": 0.3961949348449707,
+            "rms": 0.11274560185378452,
+            "finite": true,
+            "samples": 131072
+          },
+          "postLimiter": {
+            "peak": 0.4823949337005615,
+            "rms": 0.13707047911866704,
+            "finite": true,
+            "samples": 131072
+          }
+        }
+      }
+    },
+    {
+      "name": "Frequency timer natively fades main, harmonics, noise, pink and secondary but preserves ambience",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "playing": true,
+          "mode": "mix",
+          "c": 180,
+          "b": 8,
+          "profile": "balanced",
+          "vol": 1,
+          "output": 0.38325101137161255,
+          "context": "running",
+          "time": 19.98077097505669,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "iso": 180,
+          "gate": 8,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 360,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 540,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 720,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 900,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": true,
+          "secondaryGain": 0.12045031785964966,
+          "pink": true,
+          "pinkGain": 0.06550618261098862,
+          "ambience": {
+            "rain": 0.3199999928474426
+          },
+          "timer": null,
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "mix",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "square",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "on": true,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": false,
+            "selectedTool": "overview",
+            "expanded": false,
+            "mounted": false,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "mix",
+              "vol": 1,
+              "pink": true
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "duplicateControllers": 1
+          }
+        },
+        "early": {
+          "playing": true,
+          "mode": "mix",
+          "c": 180,
+          "b": 8,
+          "profile": "balanced",
+          "vol": 1,
+          "output": 0.026451710611581802,
+          "context": "running",
+          "time": 20.65124716553288,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "iso": 180,
+          "gate": 8,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 360,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 540,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 720,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 900,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": true,
+          "secondaryGain": 0.008313379250466824,
+          "pink": true,
+          "pinkGain": 0.004534582607448101,
+          "ambience": {
+            "rain": 0.3199999928474426
+          },
+          "timer": {
+            "remaining": 4141.133786848073
+          },
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "mix",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "square",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "on": true,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": false,
+            "selectedTool": "overview",
+            "expanded": false,
+            "mounted": false,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "mix",
+              "vol": 1,
+              "pink": true
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": {
+              "remaining": 4141.133786848073
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "late": {
+          "playing": true,
+          "mode": "mix",
+          "c": 180,
+          "b": 8,
+          "profile": "balanced",
+          "vol": 1,
+          "output": 0.01616215892136097,
+          "context": "running",
+          "time": 22.262131519274377,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "iso": 180,
+          "gate": 8,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 360,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 540,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 720,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 900,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": true,
+          "secondaryGain": 0.005079534836113453,
+          "pink": true,
+          "pinkGain": 0.0027706522960215807,
+          "ambience": {
+            "rain": 0.3199999928474426
+          },
+          "timer": {
+            "remaining": 2530.249433106576
+          },
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "mix",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "square",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "on": true,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": false,
+            "selectedTool": "overview",
+            "expanded": false,
+            "mounted": false,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "mix",
+              "vol": 1,
+              "pink": true
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": {
+              "remaining": 2530.249433106576
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "end": {
+          "playing": false,
+          "mode": "mix",
+          "c": 180,
+          "b": 8,
+          "profile": "balanced",
+          "vol": 1,
+          "context": "running",
+          "time": 26.061496598639454,
+          "sampleRate": 44100,
+          "harmonics": [],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {
+            "rain": 0.3199999928474426
+          },
+          "timer": null,
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "mix",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "square",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "on": true,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": false,
+            "selectedTool": "overview",
+            "expanded": false,
+            "mounted": false,
+            "frequency": {
+              "playing": false,
+              "c": 180,
+              "b": 8,
+              "mode": "mix",
+              "vol": 1,
+              "pink": true
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "duplicateControllers": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "An accepted native loop yields to a changing journey and sweep instead of hiding live automation",
+      "passed": true,
+      "evidence": {
+        "firstNative": {
+          "version": "r1061",
+          "state": "PLAYING",
+          "active": true,
+          "nativePaused": false,
+          "readyState": 4,
+          "nativeDuration": 48,
+          "currentSelectionPrepared": true,
+          "ready": true,
+          "reason": "prepare-settled",
+          "hidden": false,
+          "prepared": true,
+          "playing": true,
+          "nativeTime": 1.33521,
+          "duration": 48,
+          "volume": 0.7,
+          "sourceKind": "rendered-background-mix",
+          "mutedLive": true,
+          "preparing": false,
+          "primeAccepted": false,
+          "error": "",
+          "render": {
+            "duration": 48,
+            "sampleRate": 44100,
+            "channels": 2,
+            "peak": 0.18739059567451477,
+            "rms": 0.08301784533240514,
+            "virtualEvents": 0,
+            "bytes": 8467244
+          },
+          "native": {
+            "paused": false,
+            "ended": false,
+            "readyState": 4,
+            "networkState": 1,
+            "mediaErrorCode": 0,
+            "currentSourceMatch": true,
+            "waiting": false,
+            "pauseReason": "",
+            "pauseAt": null
+          },
+          "lockTransitionAgeMs": null,
+          "lockRecoveryWindowMs": 12000,
+          "lockRecoveryEligible": false,
+          "lockRecoveryPending": false,
+          "lockRecoveryAttempted": false,
+          "lockRecoveryReason": "source-replaced",
+          "metrics": {
+            "preparations": 7,
+            "accepted": 1,
+            "cancelled": 2,
+            "rejected": 3,
+            "stops": 21,
+            "nativePauses": 0,
+            "pauseRecoveries": 0,
+            "recoveryFailures": 0
+          },
+          "scope": "native pre-rendered ambience/frequency; no dhikr counter or voice ownership"
+        },
+        "journey": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 10,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17374049127101898,
+          "context": "running",
+          "time": 32.391836734693875,
+          "sampleRate": 44100,
+          "left": 190.26792907714844,
+          "right": 198.349853515625,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 388.6177978515625,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 582.9262084960938,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 777.235595703125,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 971.544921875,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": {
+            "fromC": 180,
+            "fromB": 8,
+            "c": 528,
+            "b": 10,
+            "start": 31.65170068027211,
+            "end": 49.651700680272114
+          },
+          "journey": {
+            "active": true,
+            "paused": false,
+            "index": 0
+          },
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 10,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": false,
+            "selectedTool": "overview",
+            "expanded": false,
+            "mounted": false,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 10,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "duplicateControllers": 1
+          }
+        },
+        "journeyRoute": {
+          "version": "r1061",
+          "state": "IDLE",
+          "active": false,
+          "nativePaused": true,
+          "readyState": 0,
+          "nativeDuration": null,
+          "currentSelectionPrepared": false,
+          "ready": false,
+          "reason": "frequency-ramp",
+          "hidden": false,
+          "prepared": false,
+          "playing": false,
+          "nativeTime": 0,
+          "duration": 0,
+          "volume": 0.7,
+          "sourceKind": "none",
+          "mutedLive": false,
+          "preparing": false,
+          "primeAccepted": false,
+          "error": "",
+          "render": null,
+          "native": {
+            "paused": true,
+            "ended": false,
+            "readyState": 0,
+            "networkState": 0,
+            "mediaErrorCode": 0,
+            "currentSourceMatch": false,
+            "waiting": false,
+            "pauseReason": "",
+            "pauseAt": null
+          },
+          "lockTransitionAgeMs": null,
+          "lockRecoveryWindowMs": 12000,
+          "lockRecoveryEligible": false,
+          "lockRecoveryPending": false,
+          "lockRecoveryAttempted": false,
+          "lockRecoveryReason": "source-cleared",
+          "metrics": {
+            "preparations": 7,
+            "accepted": 1,
+            "cancelled": 2,
+            "rejected": 3,
+            "stops": 22,
+            "nativePauses": 0,
+            "pauseRecoveries": 0,
+            "recoveryFailures": 0
+          },
+          "scope": "native pre-rendered ambience/frequency; no dhikr counter or voice ownership"
+        },
+        "sweep": {
+          "playing": true,
+          "mode": "bin",
+          "c": 318.29974112143435,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.1749637871980667,
+          "context": "running",
+          "time": 38.11265306122449,
+          "sampleRate": 44100,
+          "left": 337.47064208984375,
+          "right": 345.47064208984375,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 682.9412841796875,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 1024.4119873046875,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 1365.882568359375,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 1707.353271484375,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 318.29974112143435,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "sweep",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 318.29974112143435,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": true,
+              "from": 180,
+              "to": 528,
+              "duration": 2,
+              "loop": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "sweepRoute": {
+          "version": "r1061",
+          "state": "IDLE",
+          "active": false,
+          "nativePaused": true,
+          "readyState": 0,
+          "nativeDuration": null,
+          "currentSelectionPrepared": false,
+          "ready": false,
+          "reason": "frequency-retune",
+          "hidden": false,
+          "prepared": false,
+          "playing": false,
+          "nativeTime": 0,
+          "duration": 0,
+          "volume": 0.7,
+          "sourceKind": "none",
+          "mutedLive": false,
+          "preparing": false,
+          "primeAccepted": false,
+          "error": "",
+          "render": null,
+          "native": {
+            "paused": true,
+            "ended": false,
+            "readyState": 0,
+            "networkState": 0,
+            "mediaErrorCode": 0,
+            "currentSourceMatch": false,
+            "waiting": false,
+            "pauseReason": "",
+            "pauseAt": null
+          },
+          "lockTransitionAgeMs": null,
+          "lockRecoveryWindowMs": 12000,
+          "lockRecoveryEligible": false,
+          "lockRecoveryPending": false,
+          "lockRecoveryAttempted": false,
+          "lockRecoveryReason": "source-cleared",
+          "metrics": {
+            "preparations": 8,
+            "accepted": 2,
+            "cancelled": 2,
+            "rejected": 3,
+            "stops": 24,
+            "nativePauses": 0,
+            "pauseRecoveries": 0,
+            "recoveryFailures": 0
+          },
+          "scope": "native pre-rendered ambience/frequency; no dhikr counter or voice ownership"
+        },
+        "after": {
+          "playing": true,
+          "mode": "bin",
+          "c": 528,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0,
+          "context": "running",
+          "time": 40.28081632653061,
+          "sampleRate": 44100,
+          "left": 524,
+          "right": 532,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 1056,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 1584,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 2112,
+              "gain": 0.08500000089406967
+            },
+            {
+              "ratio": 5,
+              "hz": 2640,
+              "gain": 0.06800000369548798
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {},
+          "timer": null,
+          "tool": {
+            "c": 528,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "sweep",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 528,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "Admitted ambience during a live sweep cannot mute the replacement static frequency while it prepares",
+      "passed": true,
+      "evidence": {
+        "sweep": {
+          "playing": true,
+          "mode": "bin",
+          "c": 280.1269342642293,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0.17499999701976776,
+          "context": "running",
+          "time": 62.902857142857144,
+          "sampleRate": 44100,
+          "left": 278.5877990722656,
+          "right": 286.5877990722656,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 565.1755981445312,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 847.7633666992188,
+              "gain": 0.1133333370089531
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {
+            "rain": 0
+          },
+          "timer": null,
+          "tool": {
+            "c": 280.1269342642293,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 2,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "sweep",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 280.1269342642293,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": true,
+              "from": 180,
+              "to": 528,
+              "duration": 20,
+              "loop": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "ambienceRoute": {
+          "version": "r1061",
+          "state": "PLAYING",
+          "active": true,
+          "nativePaused": false,
+          "readyState": 4,
+          "nativeDuration": 48,
+          "currentSelectionPrepared": true,
+          "ready": true,
+          "reason": "prepare-settled",
+          "hidden": false,
+          "prepared": true,
+          "playing": true,
+          "nativeTime": 0.195348,
+          "duration": 48,
+          "volume": 0.7,
+          "sourceKind": "rendered-background-mix",
+          "mutedLive": true,
+          "preparing": false,
+          "primeAccepted": true,
+          "error": "",
+          "render": {
+            "duration": 48,
+            "sampleRate": 44100,
+            "channels": 2,
+            "peak": 0.056156255304813385,
+            "rms": 0.012399453746993621,
+            "virtualEvents": 297,
+            "bytes": 8467244
+          },
+          "native": {
+            "paused": false,
+            "ended": false,
+            "readyState": 4,
+            "networkState": 1,
+            "mediaErrorCode": 0,
+            "currentSourceMatch": true,
+            "waiting": false,
+            "pauseReason": "",
+            "pauseAt": null
+          },
+          "lockTransitionAgeMs": null,
+          "lockRecoveryWindowMs": 12000,
+          "lockRecoveryEligible": false,
+          "lockRecoveryPending": false,
+          "lockRecoveryAttempted": false,
+          "lockRecoveryReason": "source-replaced",
+          "metrics": {
+            "preparations": 12,
+            "accepted": 5,
+            "cancelled": 3,
+            "rejected": 3,
+            "stops": 31,
+            "nativePauses": 0,
+            "pauseRecoveries": 0,
+            "recoveryFailures": 0
+          },
+          "scope": "native pre-rendered ambience/frequency; no dhikr counter or voice ownership"
+        },
+        "transition": {
+          "result": {
+            "ok": true,
+            "playing": true,
+            "paused": false
+          },
+          "background": {
+            "version": "r1061",
+            "state": "PREPARING",
+            "active": true,
+            "nativePaused": true,
+            "readyState": 0,
+            "nativeDuration": null,
+            "currentSelectionPrepared": false,
+            "ready": false,
+            "reason": "frequency-settings",
+            "hidden": false,
+            "prepared": false,
+            "playing": false,
+            "nativeTime": 0,
+            "duration": 0,
+            "volume": 0.7,
+            "sourceKind": "none",
+            "mutedLive": false,
+            "preparing": false,
+            "primeAccepted": true,
+            "error": "",
+            "render": null,
+            "native": {
+              "paused": true,
+              "ended": false,
+              "readyState": 0,
+              "networkState": 3,
+              "mediaErrorCode": 0,
+              "currentSourceMatch": false,
+              "waiting": false,
+              "pauseReason": "",
+              "pauseAt": null
+            },
+            "lockTransitionAgeMs": null,
+            "lockRecoveryWindowMs": 12000,
+            "lockRecoveryEligible": false,
+            "lockRecoveryPending": false,
+            "lockRecoveryAttempted": false,
+            "lockRecoveryReason": "source-cleared",
+            "metrics": {
+              "preparations": 12,
+              "accepted": 5,
+              "cancelled": 3,
+              "rejected": 3,
+              "stops": 31,
+              "nativePauses": 0,
+              "pauseRecoveries": 0,
+              "recoveryFailures": 0
+            },
+            "scope": "native pre-rendered ambience/frequency; no dhikr counter or voice ownership"
+          },
+          "main": 0,
+          "oldMain": 0.17499999701976776,
+          "c": 432,
+          "b": 8,
+          "oldStillPlaying": false
+        },
+        "warming": {
+          "elapsedMs": 321.5,
+          "background": {
+            "version": "r1061",
+            "state": "PREPARING",
+            "active": true,
+            "nativePaused": true,
+            "readyState": 0,
+            "nativeDuration": null,
+            "currentSelectionPrepared": false,
+            "ready": false,
+            "reason": "frequency-settings",
+            "hidden": false,
+            "prepared": false,
+            "playing": false,
+            "nativeTime": 0,
+            "duration": 0,
+            "volume": 0.7,
+            "sourceKind": "none",
+            "mutedLive": false,
+            "preparing": false,
+            "primeAccepted": true,
+            "error": "",
+            "render": null,
+            "native": {
+              "paused": true,
+              "ended": false,
+              "readyState": 0,
+              "networkState": 0,
+              "mediaErrorCode": 0,
+              "currentSourceMatch": false,
+              "waiting": false,
+              "pauseReason": "",
+              "pauseAt": null
+            },
+            "lockTransitionAgeMs": null,
+            "lockRecoveryWindowMs": 12000,
+            "lockRecoveryEligible": false,
+            "lockRecoveryPending": false,
+            "lockRecoveryAttempted": false,
+            "lockRecoveryReason": "source-cleared",
+            "metrics": {
+              "preparations": 12,
+              "accepted": 5,
+              "cancelled": 3,
+              "rejected": 3,
+              "stops": 31,
+              "nativePauses": 0,
+              "pauseRecoveries": 0,
+              "recoveryFailures": 0
+            },
+            "scope": "native pre-rendered ambience/frequency; no dhikr counter or voice ownership"
+          },
+          "main": 0.08096199482679367,
+          "oldMain": 0.00017431884771212935,
+          "oldStillPlaying": false,
+          "rms": 0.013008973794341766
+        },
+        "after": {
+          "playing": true,
+          "mode": "bin",
+          "c": 432,
+          "b": 8,
+          "profile": "legacy",
+          "vol": 0.5,
+          "output": 0,
+          "context": "running",
+          "time": 71.2214058956916,
+          "sampleRate": 44100,
+          "left": 428,
+          "right": 436,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 864,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 1296,
+              "gain": 0.1133333370089531
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {
+            "rain": 0
+          },
+          "timer": null,
+          "tool": {
+            "c": 432,
+            "b": 8,
+            "mode": "bin",
+            "vol": 0.5,
+            "pink": false,
+            "harmonik": 2,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "on": false,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "sweep",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 432,
+              "b": 8,
+              "mode": "bin",
+              "vol": 0.5,
+              "pink": false
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "route": {
+          "version": "r1061",
+          "state": "PLAYING",
+          "active": true,
+          "nativePaused": false,
+          "readyState": 4,
+          "nativeDuration": 48,
+          "currentSelectionPrepared": true,
+          "ready": true,
+          "reason": "prepare-settled",
+          "hidden": false,
+          "prepared": true,
+          "playing": true,
+          "nativeTime": 0.21592,
+          "duration": 48,
+          "volume": 0.7,
+          "sourceKind": "rendered-background-mix",
+          "mutedLive": true,
+          "preparing": false,
+          "primeAccepted": true,
+          "error": "",
+          "render": {
+            "duration": 48,
+            "sampleRate": 44100,
+            "channels": 2,
+            "peak": 0.20978398621082306,
+            "rms": 0.08221550800231033,
+            "virtualEvents": 300,
+            "bytes": 8467244
+          },
+          "native": {
+            "paused": false,
+            "ended": false,
+            "readyState": 4,
+            "networkState": 1,
+            "mediaErrorCode": 0,
+            "currentSourceMatch": true,
+            "waiting": false,
+            "pauseReason": "",
+            "pauseAt": null
+          },
+          "lockTransitionAgeMs": null,
+          "lockRecoveryWindowMs": 12000,
+          "lockRecoveryEligible": false,
+          "lockRecoveryPending": false,
+          "lockRecoveryAttempted": false,
+          "lockRecoveryReason": "source-replaced",
+          "metrics": {
+            "preparations": 13,
+            "accepted": 6,
+            "cancelled": 3,
+            "rejected": 3,
+            "stops": 31,
+            "nativePauses": 0,
+            "pauseRecoveries": 0,
+            "recoveryFailures": 0
+          },
+          "scope": "native pre-rendered ambience/frequency; no dhikr counter or voice ownership"
+        }
+      }
+    },
+    {
+      "name": "Unmodified background admission renders restored tools and timer transfer preserves only ambience",
+      "passed": true,
+      "evidence": {
+        "nativeBefore": {
+          "version": "r1061",
+          "state": "PLAYING",
+          "active": true,
+          "nativePaused": false,
+          "readyState": 4,
+          "nativeDuration": 48,
+          "currentSelectionPrepared": true,
+          "ready": true,
+          "reason": "prepare-settled",
+          "hidden": false,
+          "prepared": true,
+          "playing": true,
+          "nativeTime": 0.092347,
+          "duration": 48,
+          "volume": 0.7,
+          "sourceKind": "rendered-background-mix",
+          "mutedLive": true,
+          "preparing": false,
+          "primeAccepted": true,
+          "error": "",
+          "render": {
+            "duration": 48,
+            "sampleRate": 44100,
+            "channels": 2,
+            "peak": 0.3553013503551483,
+            "rms": 0.10260589012587501,
+            "virtualEvents": 284,
+            "bytes": 8467244
+          },
+          "native": {
+            "paused": false,
+            "ended": false,
+            "readyState": 4,
+            "networkState": 1,
+            "mediaErrorCode": 0,
+            "currentSourceMatch": true,
+            "waiting": false,
+            "pauseReason": "",
+            "pauseAt": null
+          },
+          "lockTransitionAgeMs": null,
+          "lockRecoveryWindowMs": 12000,
+          "lockRecoveryEligible": false,
+          "lockRecoveryPending": false,
+          "lockRecoveryAttempted": false,
+          "lockRecoveryReason": "source-replaced",
+          "metrics": {
+            "preparations": 15,
+            "accepted": 7,
+            "cancelled": 4,
+            "rejected": 3,
+            "stops": 38,
+            "nativePauses": 0,
+            "pauseRecoveries": 0,
+            "recoveryFailures": 0
+          },
+          "scope": "native pre-rendered ambience/frequency; no dhikr counter or voice ownership"
+        },
+        "immediate": {
+          "background": {
+            "version": "r1061",
+            "state": "PREPARING",
+            "active": true,
+            "nativePaused": true,
+            "readyState": 0,
+            "nativeDuration": null,
+            "currentSelectionPrepared": false,
+            "ready": false,
+            "reason": "frequency-timer",
+            "hidden": false,
+            "prepared": false,
+            "playing": false,
+            "nativeTime": 0,
+            "duration": 0,
+            "volume": 0.7,
+            "sourceKind": "none",
+            "mutedLive": false,
+            "preparing": false,
+            "primeAccepted": true,
+            "error": "",
+            "render": null,
+            "native": {
+              "paused": true,
+              "ended": false,
+              "readyState": 0,
+              "networkState": 0,
+              "mediaErrorCode": 0,
+              "currentSourceMatch": false,
+              "waiting": false,
+              "pauseReason": "",
+              "pauseAt": null
+            },
+            "lockTransitionAgeMs": null,
+            "lockRecoveryWindowMs": 12000,
+            "lockRecoveryEligible": false,
+            "lockRecoveryPending": false,
+            "lockRecoveryAttempted": false,
+            "lockRecoveryReason": "source-cleared",
+            "metrics": {
+              "preparations": 15,
+              "accepted": 7,
+              "cancelled": 4,
+              "rejected": 3,
+              "stops": 38,
+              "nativePauses": 0,
+              "pauseRecoveries": 0,
+              "recoveryFailures": 0
+            },
+            "scope": "native pre-rendered ambience/frequency; no dhikr counter or voice ownership"
+          },
+          "oldSourceStillPlaying": false,
+          "main": 0.016819411888718605,
+          "secondary": 0.005286102183163166,
+          "pink": 0.002883327193558216
+        },
+        "handoff": {
+          "playing": true,
+          "mode": "mix",
+          "c": 180,
+          "b": 8,
+          "profile": "balanced",
+          "vol": 0.6,
+          "output": 0.0379016138613224,
+          "context": "running",
+          "time": 82.98231292517006,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "iso": 180,
+          "gate": 8,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 360,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 540,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 720,
+              "gain": 0.08500000089406967
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": true,
+          "secondaryGain": 0.011911922134459019,
+          "pink": true,
+          "pinkGain": 0.00649741617962718,
+          "ambience": {
+            "rain": 0.25600001215934753
+          },
+          "timer": {
+            "remaining": 8619.773242630386
+          },
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "mix",
+            "vol": 0.6,
+            "pink": true,
+            "harmonik": 3,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "triangle",
+            "balL": 1,
+            "balR": 1,
+            "noise": "pink",
+            "noiseVol": 0.2,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "on": true,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "sweep",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "mix",
+              "vol": 0.6,
+              "pink": true
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": {
+              "remaining": 8619.773242630386
+            },
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "ambienceOnly": {
+          "playing": true,
+          "mode": "mix",
+          "c": 180,
+          "b": 8,
+          "profile": "balanced",
+          "vol": 0.6,
+          "output": 0.008573641069233418,
+          "context": "running",
+          "time": 89.65224489795918,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "iso": 180,
+          "gate": 8,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 360,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 540,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 720,
+              "gain": 0.08500000089406967
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": true,
+          "secondaryGain": 0.0026945732533931732,
+          "pink": true,
+          "pinkGain": 0.001469767070375383,
+          "ambience": {
+            "rain": 0
+          },
+          "timer": {
+            "remaining": 1949.8412698412722
+          },
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "mix",
+            "vol": 0.6,
+            "pink": true,
+            "harmonik": 3,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "triangle",
+            "balL": 1,
+            "balR": 1,
+            "noise": "pink",
+            "noiseVol": 0.2,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "on": true,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "sweep",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "mix",
+              "vol": 0.6,
+              "pink": true
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": {
+              "remaining": 1949.8412698412722
+            },
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "nativeAmbience": {
+          "version": "r1061",
+          "state": "PLAYING",
+          "active": true,
+          "nativePaused": false,
+          "readyState": 4,
+          "nativeDuration": 48,
+          "currentSelectionPrepared": true,
+          "ready": true,
+          "reason": "prepare-settled",
+          "hidden": false,
+          "prepared": true,
+          "playing": true,
+          "nativeTime": 0.02197,
+          "duration": 48,
+          "volume": 0.7,
+          "sourceKind": "rendered-background-mix",
+          "mutedLive": true,
+          "preparing": false,
+          "primeAccepted": true,
+          "error": "",
+          "render": {
+            "duration": 48,
+            "sampleRate": 44100,
+            "channels": 2,
+            "peak": 0.05585314705967903,
+            "rms": 0.011647657242851201,
+            "virtualEvents": 297,
+            "bytes": 8467244
+          },
+          "native": {
+            "paused": false,
+            "ended": false,
+            "readyState": 4,
+            "networkState": 1,
+            "mediaErrorCode": 0,
+            "currentSourceMatch": true,
+            "waiting": false,
+            "pauseReason": "",
+            "pauseAt": null
+          },
+          "lockTransitionAgeMs": null,
+          "lockRecoveryWindowMs": 12000,
+          "lockRecoveryEligible": false,
+          "lockRecoveryPending": false,
+          "lockRecoveryAttempted": false,
+          "lockRecoveryReason": "source-replaced",
+          "metrics": {
+            "preparations": 16,
+            "accepted": 8,
+            "cancelled": 4,
+            "rejected": 3,
+            "stops": 38,
+            "nativePauses": 0,
+            "pauseRecoveries": 0,
+            "recoveryFailures": 0
+          },
+          "scope": "native pre-rendered ambience/frequency; no dhikr counter or voice ownership"
+        },
+        "paused": {
+          "playing": true,
+          "mode": "mix",
+          "c": 180,
+          "b": 8,
+          "profile": "balanced",
+          "vol": 0.6,
+          "output": 0.008229056373238564,
+          "context": "suspended",
+          "time": 89.73061224489796,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "iso": 180,
+          "gate": 8,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 360,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 540,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 720,
+              "gain": 0.08500000089406967
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": true,
+          "miniPaused": true,
+          "held": false,
+          "pending": false,
+          "secondary": true,
+          "secondaryGain": 0.002586275339126587,
+          "pink": true,
+          "pinkGain": 0.001410695374943316,
+          "ambience": {
+            "rain": 0
+          },
+          "timer": {
+            "remaining": 1871.4739229024958
+          },
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "mix",
+            "vol": 0.6,
+            "pink": true,
+            "harmonik": 3,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "triangle",
+            "balL": 1,
+            "balR": 1,
+            "noise": "pink",
+            "noiseVol": 0.2,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "on": true,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "sweep",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "mix",
+              "vol": 0.6,
+              "pink": true
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": {
+              "remaining": 1871.4739229024958
+            },
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "held": {
+          "playing": true,
+          "mode": "mix",
+          "c": 180,
+          "b": 8,
+          "profile": "balanced",
+          "vol": 0.6,
+          "output": 0.008229056373238564,
+          "context": "suspended",
+          "time": 89.73061224489796,
+          "sampleRate": 44100,
+          "left": 176,
+          "right": 184,
+          "iso": 180,
+          "gate": 8,
+          "harmonics": [
+            {
+              "ratio": 2,
+              "hz": 360,
+              "gain": 0.17000000178813934
+            },
+            {
+              "ratio": 3,
+              "hz": 540,
+              "gain": 0.1133333370089531
+            },
+            {
+              "ratio": 4,
+              "hz": 720,
+              "gain": 0.08500000089406967
+            }
+          ],
+          "ramp": null,
+          "journey": null,
+          "paused": true,
+          "miniPaused": true,
+          "held": false,
+          "pending": false,
+          "secondary": true,
+          "secondaryGain": 0.002586275339126587,
+          "pink": true,
+          "pinkGain": 0.001410695374943316,
+          "ambience": {
+            "rain": 0
+          },
+          "timer": {
+            "remaining": 1871.4739229024958
+          },
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "mix",
+            "vol": 0.6,
+            "pink": true,
+            "harmonik": 3,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "triangle",
+            "balL": 1,
+            "balR": 1,
+            "noise": "pink",
+            "noiseVol": 0.2,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "on": true,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "sweep",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": true,
+              "c": 180,
+              "b": 8,
+              "mode": "mix",
+              "vol": 0.6,
+              "pink": true
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": {
+              "remaining": 1871.4739229024958
+            },
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "after": {
+          "playing": false,
+          "mode": "mix",
+          "c": 180,
+          "b": 8,
+          "profile": "balanced",
+          "vol": 0.6,
+          "context": "running",
+          "time": 99.81097505668934,
+          "sampleRate": 44100,
+          "harmonics": [],
+          "ramp": null,
+          "journey": null,
+          "paused": false,
+          "miniPaused": false,
+          "held": false,
+          "pending": false,
+          "secondary": false,
+          "pink": false,
+          "ambience": {
+            "rain": 0
+          },
+          "timer": null,
+          "tool": {
+            "c": 180,
+            "b": 8,
+            "mode": "mix",
+            "vol": 0.6,
+            "pink": true,
+            "harmonik": 3,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "triangle",
+            "balL": 1,
+            "balR": 1,
+            "noise": "pink",
+            "noiseVol": 0.2,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "on": true,
+              "c": 110,
+              "b": 2
+            }
+          },
+          "hub": {
+            "version": "r1101",
+            "initialized": true,
+            "selectedTool": "sweep",
+            "expanded": true,
+            "mounted": true,
+            "frequency": {
+              "playing": false,
+              "c": 180,
+              "b": 8,
+              "mode": "mix",
+              "vol": 0.6,
+              "pink": true
+            },
+            "sweep": {
+              "active": false
+            },
+            "timer": null,
+            "native": {
+              "binaural": false,
+              "isPlaying": false,
+              "noise": false,
+              "special": false,
+              "breathRunning": false,
+              "breathPaused": false,
+              "guided": false,
+              "sharedContext": true
+            },
+            "duplicateControllers": 1
+          }
+        },
+        "nativeAfter": {
+          "version": "r1061",
+          "state": "PLAYING",
+          "active": true,
+          "nativePaused": false,
+          "readyState": 4,
+          "nativeDuration": 48,
+          "currentSelectionPrepared": true,
+          "ready": true,
+          "reason": "prepare-settled",
+          "hidden": false,
+          "prepared": true,
+          "playing": true,
+          "nativeTime": 0.075098,
+          "duration": 48,
+          "volume": 0.7,
+          "sourceKind": "rendered-background-mix",
+          "mutedLive": true,
+          "preparing": false,
+          "primeAccepted": true,
+          "error": "",
+          "render": {
+            "duration": 48,
+            "sampleRate": 44100,
+            "channels": 2,
+            "peak": 0.05195201560854912,
+            "rms": 0.011041109691099431,
+            "virtualEvents": 282,
+            "bytes": 8467244
+          },
+          "native": {
+            "paused": false,
+            "ended": false,
+            "readyState": 4,
+            "networkState": 1,
+            "mediaErrorCode": 0,
+            "currentSourceMatch": true,
+            "waiting": false,
+            "pauseReason": "app-pause",
+            "pauseAt": 1792478521340
+          },
+          "lockTransitionAgeMs": null,
+          "lockRecoveryWindowMs": 12000,
+          "lockRecoveryEligible": false,
+          "lockRecoveryPending": false,
+          "lockRecoveryAttempted": false,
+          "lockRecoveryReason": "source-replaced",
+          "metrics": {
+            "preparations": 17,
+            "accepted": 9,
+            "cancelled": 4,
+            "rejected": 3,
+            "stops": 38,
+            "nativePauses": 0,
+            "pauseRecoveries": 0,
+            "recoveryFailures": 0
+          },
+          "scope": "native pre-rendered ambience/frequency; no dhikr counter or voice ownership"
+        }
+      }
+    },
+    {
+      "name": "Exact served release resources have no local load or JavaScript failures",
+      "passed": true,
+      "evidence": {
+        "served": {
+          "nero.html": {
+            "sha256": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9",
+            "bytes": 7422432
+          },
+          "css/shared-readable-r1105.css": {
+            "sha256": "6f515d25354673aa17ea59ba9a0c884beffb7b8bbed1e2cc2700f2291008c57e",
+            "bytes": 4529
+          },
+          "css/kandil-preferences-r1108.css": {
+            "sha256": "8ffd305fef20dcc04277f2a61c7349e029b400506707974df68f13872c08ec08",
+            "bytes": 2543
+          },
+          "css/player-branding-r1109.css": {
+            "sha256": "0e1c4904c3290562081cf29326fb7fd70d17480db91205db966b5192d565f25a",
+            "bytes": 5118
+          },
+          "css/ambience-readable-r1104.css": {
+            "sha256": "200f0cdb827dbfb48e7a22e2ae01bbbbe954482faff85d8d288f4f71a0a306e2",
+            "bytes": 4855
+          },
+          "css/ambience-info-round-r1103.css": {
+            "sha256": "26f50a886eaedc343bd4bcae22be40b58f8329afa38484c2ee752965aec0394b",
+            "bytes": 1657
+          },
+          "css/ambience-compact-r1102.css": {
+            "sha256": "b0c1b7ea6439a01b2d7893f080340b31d4e4f512a68c87f29283d35537c896cc",
+            "bytes": 2513
+          },
+          "css/berhet-controls-r1101.css": {
+            "sha256": "3a5628a1796a0bf2dde3b7eafc68037bb8b4a0a549af9b53dfd1122e9dee7e47",
+            "bytes": 25169
+          },
+          "css/berhet-surfaces-r1115.css": {
+            "sha256": "cc1776fe16b64a9785d41161ff5d87cf6a9bcbe077340abf9608933d2af3949d",
+            "bytes": 4522
+          },
+          "assets/runtime/browser-contrast-r1077.css": {
+            "sha256": "35eb72c7d208df77eaa80833bd33535db2e71359bef78cb0713574cdb52e6689",
+            "bytes": 6127
+          },
+          "assets/runtime/protective-plan-r1078.css": {
+            "sha256": "435d3597d787a42f4e4cb8014dad0d6cc1d944575cb82d6375a25376a8e73243",
+            "bytes": 4325
+          },
+          "assets/runtime/compact-ui-r1057.css": {
+            "sha256": "ea43a802d7059df167b1acf3504b96ba77dd73bd98b95b1e488d3ec4d57bfaea",
+            "bytes": 8438
+          },
+          "assets/runtime/berhet-layout-r938.css": {
+            "sha256": "e22130607a9dc18f298262d67a58393b4a51d09f3e7601a0f543df2ab0646491",
+            "bytes": 37423
+          },
+          "assets/runtime/berhet-materials-r933.css": {
+            "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+            "bytes": 622
+          },
+          "assets/runtime/berhet-controls-r933.css": {
+            "sha256": "3ad2239995fcc02fcbcf970d738a4b548716b9de360954af50839097c7c7c067",
+            "bytes": 39109
+          },
+          "assets/runtime/berhet-dock-r933.css": {
+            "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+            "bytes": 12309
+          },
+          "assets/runtime/smart-session-ui-r1082.css": {
+            "sha256": "75a9a3565910449a6dd3b2a0b3d46487ed4d2c63ee7fd062b547a9f9a86db2a0",
+            "bytes": 9229
+          },
+          "assets/runtime/surface-clarity-r1118.css": {
+            "sha256": "9c8a993f293eacdb8658750b72bac7176b824d28cf78f1e625e35b53284e2581",
+            "bytes": 7630
+          },
+          "assets/runtime/personal-centre-glass-r1118.css": {
+            "sha256": "4a65531c6bca7cf34ced0ca03c135e8bd196d8d1e94d2a89e888db3859af583b",
+            "bytes": 1206
+          },
+          "assets/runtime/scene-info-r1118.css": {
+            "sha256": "3f53579550f9477097a0bab883b008863283b6de6d38ddd088e3e24252d7e891",
+            "bytes": 337
+          },
+          "assets/runtime/audio-cpu-r981.js": {
+            "sha256": "188aae6305898a25f846fa66b4565938344f5bdb82d6cc3ad132f049262ddcef",
+            "bytes": 7907
+          },
+          "assets/runtime/audio-preparation-r981.js": {
+            "sha256": "412ce19623c4807e4f7347ecb0b15eff1357c400463b14d9894617ea077cfa9a",
+            "bytes": 20891
+          },
+          "assets/runtime/studio-preparation-r982.js": {
+            "sha256": "25cde9f6c6416efeafcc22f957d21a6b3506eaaa7fd5c75c6a04aee2b4f10873",
+            "bytes": 8714
+          },
+          "assets/runtime/progress-journal-r982.js": {
+            "sha256": "1555800182b606e6abea73dd53bf8fa9392a7f42b4a3a628a208bf4ad8587cde",
+            "bytes": 21081
+          },
+          "assets/runtime/tab-owner-r981.js": {
+            "sha256": "d306eafe445953ac97537b3fbe68cc672c98cd124348340f53e9cb70d87e9f5e",
+            "bytes": 34931
+          },
+          "assets/runtime/recording-continuity-r1016.js": {
+            "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+            "bytes": 13251
+          },
+          "assets/runtime/recording-inspection-r1020.js": {
+            "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+            "bytes": 9674
+          },
+          "assets/runtime/background-owner-r949.js": {
+            "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+            "bytes": 11067
+          },
+          "assets/runtime/lifecycle-r949.js": {
+            "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+            "bytes": 4252
+          },
+          "assets/runtime/reading-ui-r1064.css": {
+            "sha256": "c7e5ad5f763e51c806602b77bdc202ff2c9d491e461aa6ea1260a99e0a49d8b9",
+            "bytes": 5509
+          },
+          "assets/runtime/recovery-entry-r1027.js": {
+            "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+            "bytes": 5702
+          },
+          "assets/audio/sukun-intro-signature-r1037.wav": {
+            "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+            "bytes": 288044
+          },
+          "assets/runtime/frequency-workbench-r1120.css": {
+            "sha256": "1d3b46e9bea83f578f3c2949ec3df83c6512b67a9268660a9948c81c50510b03",
+            "bytes": 1476
+          },
+          "assets/runtime/frequency-sets-r1120.css": {
+            "sha256": "36b37a5e992329f6c88df7f0e771e204c80ff9f50a7a4489311cecdfe43fa295",
+            "bytes": 4020
+          },
+          "assets/branding/sukun-frameless-logo-r1029.png": {
+            "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+            "bytes": 27201
+          },
+          "assets/branding/sukun-intro-pattern-r1029.svg": {
+            "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4",
+            "bytes": 769
+          },
+          "assets/runtime/startup-intro-r1027.js": {
+            "sha256": "233dce164e9869f13f5b69953f72235fb96b36ee2446f95521d70b8abe1932a5",
+            "bytes": 22478
+          },
+          "assets/runtime/audio-palette-r945.js": {
+            "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+            "bytes": 6073
+          },
+          "assets/runtime/active-source-r1060.js": {
+            "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+            "bytes": 6128
+          },
+          "css/notification-layout-r1111.css": {
+            "sha256": "dba02fc702f8320cf6ed05d847ac70df68c31ef43441be962484ecaad096e27f",
+            "bytes": 4990
+          },
+          "css/name-info-r1115.css": {
+            "sha256": "66d8c485c9c6c92939380a4ee07c471db127f6d9356b4f7320ada8454aaa27b4",
+            "bytes": 5642
+          },
+          "assets/sukun-nur-orbit-r757.svg": {
+            "sha256": "b9e2f2d8d983b9b19cd4be7d16ab1fe82d47a89c82361c2a60f456f25e478854",
+            "bytes": 248
+          },
+          "assets/sukun-tesbih-weave-r759.svg": {
+            "sha256": "f01e6993b482e6194f479416955b85e888b95c332187a1bc55aaa7b893502bba",
+            "bytes": 1296
+          },
+          "assets/sukun-nur-mist-r759.svg": {
+            "sha256": "4b099628bd538f0a6e2b73b4ffea399319347375444312e7946ada10e8214ccf",
+            "bytes": 20321
+          },
+          "assets/sukun-nur-ring-r757.png": {
+            "sha256": "b9bf594010438b1c49ab693a94ba5022569462c334f606754306bb63f808f6fb",
+            "bytes": 1713434
+          },
+          "assets/scenes/mobile-r918/mevlevi.webp": {
+            "sha256": "38809a4ac966552a60fee4efb9e303b9edd2f9c13cca2b9787ed9cf67bfce565",
+            "bytes": 411132
+          },
+          "assets/scenes/esma-r923/mevlevi-sema.webp": {
+            "sha256": "c7dbea4be096916817a0550c698a1607dbf195d951d134874f0244eef1ef6950",
+            "bytes": 274004
+          },
+          "assets/runtime/esma-scenes-r923.js": {
+            "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+            "bytes": 4307
+          },
+          "assets/runtime/generic-recordings-r1055.js": {
+            "sha256": "f3b3f3a90ab5451d9b50a227b6a619b4cd9592f4a8e45cd4648b8a6aaed45c89",
+            "bytes": 38555
+          },
+          "assets/runtime/archive-download-r1093.css": {
+            "sha256": "1e64b2d06b24547bb932d4148de660201ec62a5610d95c6148d8ba879cfbbebc",
+            "bytes": 3150
+          },
+          "assets/scenes/esma-r923/cami-avlusu.webp": {
+            "sha256": "17561714794972eb80240e57bcd07604e6db7d89c19af939e4df4280f339f93f",
+            "bytes": 362610
+          },
+          "assets/runtime/source-matrix-ui-r1094.css": {
+            "sha256": "ad4a4fa2d522d2a418403fc07b8f1a0979faf6e6d4db240e40e699eadcbe135a",
+            "bytes": 3903
+          },
+          "assets/runtime/archive-download-r1093.js": {
+            "sha256": "5a796fbbe29c0f5183434e655e792102fb831bb39895e1f5685d3c5aaf9fd3ad",
+            "bytes": 24139
+          },
+          "assets/runtime/generic-recordings-ui-r1055.js": {
+            "sha256": "4c60e36eff387b882d2b8d874799da2a3a469bb0ecca20b888fa511cf147dbcc",
+            "bytes": 32023
+          },
+          "assets/runtime/session-r919.js": {
+            "sha256": "5ef9efcb784542a53a9f3ebe8ec57f4694ebbeeb0b7af00428a6b4de9e2b8869",
+            "bytes": 46114
+          },
+          "assets/runtime/dock-r920.js": {
+            "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+            "bytes": 11007
+          },
+          "assets/runtime/active-layers-r1061.js": {
+            "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+            "bytes": 14049
+          },
+          "assets/runtime/wheels-r924.js": {
+            "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+            "bytes": 41623
+          },
+          "assets/runtime/berhet-layout-r938.js": {
+            "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+            "bytes": 8399
+          },
+          "assets/runtime/interface-r920.js": {
+            "sha256": "517d7dc842e2dbebdea2373335c527e1dd08624584a31eac6f79f19f8c057ff0",
+            "bytes": 43131
+          },
+          "assets/runtime/compact-ui-r1057.js": {
+            "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+            "bytes": 5342
+          },
+          "assets/wheels-r924/esma/inci-sema.webp": {
+            "sha256": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+            "bytes": 238294
+          },
+          "assets/runtime/wheels-r924.css": {
+            "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+            "bytes": 34043
+          },
+          "assets/runtime/berhet-theme-r933.js": {
+            "sha256": "e3f4ba9b695d25d34c7e098a7d51b51e778089ddd897ac9b10b9851e511d2069",
+            "bytes": 2335
+          },
+          "assets/runtime/storage-snapshot-r1107.css": {
+            "sha256": "e1222f0524734b2e07abf35700fb26e048926498ac11cb54dcdc4b7be43f6029",
+            "bytes": 2587
+          },
+          "assets/runtime/storage-snapshot-r1107.js": {
+            "sha256": "125fb6075cbf9de7c617e7cde6e204dc9d519e82f755c0367994df56183c9fdf",
+            "bytes": 11806
+          },
+          "assets/runtime/storage-snapshot-ui-r1107.js": {
+            "sha256": "bfc5c97505fde90dbec9d101fd7ac7e768d9f442e6e414f233305a2bb28185d4",
+            "bytes": 12475
+          },
+          "assets/runtime/health-view-r943.css": {
+            "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+            "bytes": 7440
+          },
+          "assets/runtime/health-view-r943.js": {
+            "sha256": "72fce7d75ad4fc40ee0fcae176cca4adc5c1989c33e99829454343acfa4d9683",
+            "bytes": 125481
+          },
+          "assets/runtime/scene-picker-r945.css": {
+            "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+            "bytes": 6657
+          },
+          "assets/runtime/scene-picker-r945.js": {
+            "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+            "bytes": 9860
+          },
+          "assets/runtime/presentation-r979.js": {
+            "sha256": "2b33c219afa5fb73d701bceeb0acb43840662a72271dc02bc724c508197dd48f",
+            "bytes": 16080
+          },
+          "assets/runtime/health-r940.js": {
+            "sha256": "5f5778ca40be10919b8af18ec1e675c53e4972ff1838d9faba429ed9689df749",
+            "bytes": 95206
+          },
+          "assets/runtime/nefs-r948.css": {
+            "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+            "bytes": 18988
+          },
+          "assets/runtime/nefs-data-r948.js": {
+            "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+            "bytes": 283054
+          },
+          "assets/runtime/nefs-model-r948.js": {
+            "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+            "bytes": 18197
+          },
+          "assets/runtime/nefs-ui-r948.js": {
+            "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+            "bytes": 48398
+          },
+          "assets/runtime/offline-scenes-r962.js": {
+            "sha256": "3d2bf56119336acd4a8dab2422b96914a7bc3d8b386c1e3a43ab47e82a328c62",
+            "bytes": 11161
+          },
+          "assets/runtime/offline-images-ui-r1095.css": {
+            "sha256": "8d8790d515e1e752f4e80598e450eca83c96ae0c7397df3eb1156a16573ea70b",
+            "bytes": 3214
+          },
+          "assets/runtime/offline-images-ui-r1095.js": {
+            "sha256": "a73415347147aea22dc249f435aba425713e8bc4f7cf33c72ea1c372168f32ef",
+            "bytes": 13974
+          },
+          "assets/runtime/cadence-r981.css": {
+            "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+            "bytes": 1841
+          },
+          "assets/runtime/cadence-r981.js": {
+            "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+            "bytes": 23650
+          },
+          "css/category-flow-r1109.css": {
+            "sha256": "cea8152b97516fb5bb7908c8868d190179cebe0c66d9fae548411d53487c1dd8",
+            "bytes": 1987
+          },
+          "css/tooltip-help-r1110.css": {
+            "sha256": "b5f598abc3d9660977742bb285802a691b21587e4c4eaf371af1bd31ece5b4da",
+            "bytes": 1721
+          },
+          "assets/runtime/tekke-sequence-r988.js": {
+            "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+            "bytes": 10314
+          },
+          "assets/runtime/tekke-set-r990.js": {
+            "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+            "bytes": 27409
+          },
+          "css/tekke-set-card-r1112.css": {
+            "sha256": "ad93851820e98e0f238459cc95fc26e89b1227f1174095a715e542c74e9470c7",
+            "bytes": 7182
+          },
+          "assets/runtime/tekke-ux-r992.css": {
+            "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+            "bytes": 37518
+          },
+          "assets/runtime/tekke-journey-r993.css": {
+            "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+            "bytes": 7044
+          },
+          "assets/runtime/tekke-ux-r992.js": {
+            "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+            "bytes": 25320
+          },
+          "assets/runtime/tekke-journey-r993.js": {
+            "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+            "bytes": 38289
+          },
+          "assets/runtime/background-mix-render-r1059.js": {
+            "sha256": "0c9ffc47c2aeab9182324cbde01aa66c77d5f370d73d85ed3c8c08581ebec7b4",
+            "bytes": 22401
+          },
+          "assets/runtime/background-mix-r1059.js": {
+            "sha256": "cfeba11a4ffcc0cee59aa51968eacdbc9ec7a8982991db1b4d915b3a1eaeb029",
+            "bytes": 19213
+          },
+          "assets/runtime/yasin-data-r1064.js": {
+            "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+            "bytes": 49799
+          },
+          "assets/runtime/reading-sources-r1064.js": {
+            "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+            "bytes": 67014
+          },
+          "assets/runtime/bundled-arabic-r1065.js": {
+            "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+            "bytes": 9208
+          },
+          "assets/runtime/yasin-timing-r1067.js": {
+            "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+            "bytes": 5926
+          },
+          "assets/runtime/reading-audio-r1064.js": {
+            "sha256": "dbeccc27c91c5a87b494437ff835364350e23d00e61687378875c867891d9b44",
+            "bytes": 20352
+          },
+          "assets/runtime/navigation-r1066.js": {
+            "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+            "bytes": 2624
+          },
+          "assets/runtime/reading-ui-r1064.js": {
+            "sha256": "e64203292bbb461b87526679593bf28b5cc43bc53e4ffc56acadea719572c09c",
+            "bytes": 43814
+          },
+          "assets/runtime/protective-plan-r1078.js": {
+            "sha256": "eae538c9a50770b86751c48d1b4ab4515a443a541fb358c5e3d157bb2d6b6a22",
+            "bytes": 8374
+          },
+          "assets/runtime/smart-session-ui-r1082.js": {
+            "sha256": "5dac4626b57602a9d04b3bc7b58ff8dbaacc951c9bcd75a61f1835702d230713",
+            "bytes": 22631
+          },
+          "assets/berhetiyye-gate/portal-r1080.css": {
+            "sha256": "5c115fb5f548e6d15bb938c5270d5431bcaabe03ea6abd164370ad05885bb757",
+            "bytes": 23097
+          },
+          "assets/berhetiyye-gate/entry-r1080.css": {
+            "sha256": "652561e9c60b412bbb6e03096c5576787aad2966b3bcfae8205d40b28d3e0374",
+            "bytes": 1562
+          },
+          "assets/berhetiyye-gate/invitation-tr.mp3": {
+            "sha256": "18a114ec927508e4f5684a7e76d39abe28058c81f5632c797a707c6109bd5303",
+            "bytes": 54957
+          },
+          "assets/berhetiyye-gate/audio-r1080.js": {
+            "sha256": "d77a0ecff6f7a7b11cee3116817c51c6a1cf568d0c7e8d7026383842936d015c",
+            "bytes": 12551
+          },
+          "integration/berhet-access/example-http-provider.js": {
+            "sha256": "ec2e1f22e7bf0ae938a7163019eec4556150bf858dc387e13b3596cce30f16ae",
+            "bytes": 7192
+          },
+          "assets/berhetiyye-gate/access-r1080.js": {
+            "sha256": "99270f5efc93e38ab95d1c6da32005232a63e181d94765e44f4c894d424a64c6",
+            "bytes": 14484
+          },
+          "assets/berhetiyye-gate/portal-r1080.js": {
+            "sha256": "0048e2a9cac8416faa0102b1cc10ff8d262693f09be89e4ad663c170e9c077c9",
+            "bytes": 53727
+          },
+          "assets/berhetiyye-gate/entry-r1080.js": {
+            "sha256": "8ef27093ff8da3fc8dc9a8f67563df4f49c0176ecbf18772c416c28d1194cde3",
+            "bytes": 3033
+          },
+          "assets/runtime/session-preflight-ui-r1092.css": {
+            "sha256": "e0b99033e8d528dffa1da89c778b8567c201db5dda32516a1105610a74cfd150",
+            "bytes": 2014
+          },
+          "assets/runtime/preflight-cache-r1092.js": {
+            "sha256": "840a9e120dc10f93842eada39e17ac316671c45405e8109694bfd20d8966d0ed",
+            "bytes": 4551
+          },
+          "assets/runtime/session-preflight-r1092.js": {
+            "sha256": "0c33412ea2ef96825ec6ac7bb9b8e30307b3b486aa14803e2becc0cb758ba986",
+            "bytes": 14381
+          },
+          "assets/runtime/session-preflight-ui-r1092.js": {
+            "sha256": "c8239465b43a7cc392c7d87ca6fd2361d59e4fbcb08ad7852657ee58204ef844",
+            "bytes": 12494
+          },
+          "assets/runtime/source-matrix-r1094.js": {
+            "sha256": "07a56c03210a52669d9d0c5578339eac60423654bdf8ef13dc0d18a8f4607e1e",
+            "bytes": 14815
+          },
+          "assets/runtime/source-matrix-ui-r1094.js": {
+            "sha256": "1cdc67d4769bc8707acdc7e175ed927faf3dc820f8834de984e144887540345c",
+            "bytes": 16449
+          },
+          "js/section-switch-r1101.js": {
+            "sha256": "29d8a99e6061997c0d392dc6e6493189eab9f2c10d67b87dcdb7dfa80b5d4a8f",
+            "bytes": 8329
+          },
+          "css/frequency-hub-r1101.css": {
+            "sha256": "23587c627d8683d16ca6d576ec3751af99595425e476d0dd0c695faf184c4c6e",
+            "bytes": 7142
+          },
+          "js/frequency-hub-r1101.js": {
+            "sha256": "8a0125ad70894a8fd41c2eee80b860f02dd548134e1f2ad63929907e57ccbba9",
+            "bytes": 25052
+          },
+          "assets/runtime/recording-panel-r1119.css": {
+            "sha256": "09f351325cc8b0f1366a1ff9b9246fa50b56573d48f1e9fc0dfc403931b0a941",
+            "bytes": 2126
+          },
+          "assets/runtime/studio-batch-r1020.js": {
+            "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+            "bytes": 23944
+          },
+          "assets/runtime/recovery-versions-r1019.js": {
+            "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+            "bytes": 8407
+          },
+          "assets/runtime/recovery-data-r1020.js": {
+            "sha256": "73dc56f2eb83405ee0801fd94703b85497963d02aad728216336e66e6e5da355",
+            "bytes": 52774
+          },
+          "assets/runtime/site-backup-r1020.js": {
+            "sha256": "5d8380543c1893a80c80c5b8a425cc28638615a724144243549469b9672cddf9",
+            "bytes": 29313
+          },
+          "assets/runtime/recovery-ui-r1019.js": {
+            "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+            "bytes": 6054
+          },
+          "assets/runtime/recording-salvage-r1020.js": {
+            "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+            "bytes": 36787
+          },
+          "assets/runtime/frequency-workbench-r1120.js": {
+            "sha256": "576e17ea4db1f04f9bedf44c647a5613d5425708f89e42343a771c97a499c840",
+            "bytes": 8810
+          },
+          "assets/runtime/frequency-sets-r1120.js": {
+            "sha256": "ea404ecc246402db9b32f2200a24cbf0fb1904045b5787ada833a55ac8f85aff",
+            "bytes": 27730
+          },
+          "sukun-build-r1120.json": {
+            "sha256": "fae36d4ef3303791ce51d11dcfa6256825739d544cf65704547f0162208961a7",
+            "bytes": 42327
+          },
+          "assets/wheels-r924/esma/zumrut-tesbih.webp": {
+            "sha256": "f6ef62429640628ef259dc6d3666c3bffd1e2f348a3704cbe79a190ca903dc1f",
+            "bytes": 263780
+          },
+          "assets/wheels-r924/esma/oniks-sukuneti.webp": {
+            "sha256": "924f2399f024e25f51da721711a24e28f64f4350bc5be4943363df6cf01992c0",
+            "bytes": 198836
+          },
+          "assets/wheels-r924/esma/kehribar-tesbih.webp": {
+            "sha256": "efbb1d390e18026fc66a6dda5415e829f7e97a05883fe029df9cf85b51e5155e",
+            "bytes": 236926
+          },
+          "assets/wheels-r924/esma/sedef-nuru.webp": {
+            "sha256": "4a7befc82fc2cd7ebe9a9c2efcce700e7c6710b0772368fdb558365cd54daa0c",
+            "bytes": 235670
+          },
+          "assets/wheels-r977/ceviz-naksi.webp": {
+            "sha256": "86e88d374e02bdfdf6e2d31e59e4ff2dec6ab2eb3a0b5381aa379cd99f56b795",
+            "bytes": 1082544
+          },
+          "assets/wheels-r977/zeytin-tesbihi.webp": {
+            "sha256": "ade875147d0afd253d173ed87558a6fe4128892e415b7b69ff2a5cc33ab34746",
+            "bytes": 875528
+          },
+          "assets/wheels-r977/abanoz-sukunu.webp": {
+            "sha256": "7fc6002cb200e8f7dd9c2e045a20d9529f8a94949429f3fd02d43783cf9bfbd4",
+            "bytes": 1024218
+          },
+          "assets/wheels-r977/sandal-halkasi.webp": {
+            "sha256": "9aa32bbb2bafa81ab026d16abad11cc8f3e96e0ac5696c594c744fddd99b6a54",
+            "bytes": 1024854
+          },
+          "assets/wheels-r977/altin-nakis.webp": {
+            "sha256": "00e57bb2ba9128ce46c2bf2e1f72048c4cee57cd1bc6cb908dd5b14825c840c0",
+            "bytes": 1503206
+          },
+          "assets/wheels-r977/elmas-taci.webp": {
+            "sha256": "37dc4d2ce5ea19f163a6e798f72c1c3ed982f15fcee74a7a20cda554f2411d93",
+            "bytes": 1641778
+          },
+          "assets/wheels-r977/gumus-telkari.webp": {
+            "sha256": "adc84abe1f6a8ed767c9116be868fb2830199a21958ce9925a8b376bafe352bb",
+            "bytes": 1446610
+          },
+          "assets/wheels/copper-amethyst-weave-r1057.webp": {
+            "sha256": "84e103a19bc8a1d3851c27852c272f733068cc939713680efd0c60f5d8e2b236",
+            "bytes": 600244
+          },
+          "assets/wheels-r977/sultan-taslari.webp": {
+            "sha256": "4f62138580ee38b3cbed0b3e6541703837d3f86d7767e907c62ec0c11cc8043f",
+            "bytes": 1579428
+          },
+          "assets/wheels/platinum-turquoise-spiral-r1057.webp": {
+            "sha256": "7809e312fda0db9bbc34c0f3d181a12c4db273e61626d2286a47b65212fe1121",
+            "bytes": 460508
+          },
+          "assets/wheels/copper-amber-spiral-r1057.webp": {
+            "sha256": "973a45d10b917c3d44de2c68c96528a90ddc6366959081f687261a88ec23f77a",
+            "bytes": 437590
+          },
+          "assets/wheels/gold-amethyst-weave-r1057.webp": {
+            "sha256": "499b4eec9585cc5b7e057dc0ae52a31b8ffb95ce54e875e1af2339e696739462",
+            "bytes": 579802
+          },
+          "assets/wheels/copper-ruby-weave-r1057.webp": {
+            "sha256": "d5faec2e398aedacaaebfbeb715a46332c30456014e762f248ad164bf7d8bc10",
+            "bytes": 612604
+          },
+          "assets/wheels/gold-ruby-weave-r1057.webp": {
+            "sha256": "941f1171719eeac81e5d2642a780740f03e0d6d6bb74e87b7f4e9aeffe89c1d1",
+            "bytes": 603890
+          },
+          "assets/wheels/gold-emerald-weave-r1057.webp": {
+            "sha256": "3e7bdeb02100bf34a53c4295db70d9033de3b769fc356cc4cbb9d505dc0c4caf",
+            "bytes": 600304
+          },
+          "assets/wheels/gold-emerald-knot-r1057.webp": {
+            "sha256": "0505562349956fcf51ea6446b42cf3a6d2984a14b0a4dca1cbb25ff8c98dfd68",
+            "bytes": 569720
+          },
+          "assets/wheels/sapphire-torus-r1057.webp": {
+            "sha256": "b291f853c2a689bc0ded9775ecea4b28d411fa08bc0c08bd568003da4733d1a2",
+            "bytes": 571632
+          },
+          "assets/sukun-nur-sanctuary-r757.png": {
+            "sha256": "069f73cef939fc839113e61248e8b41c9787836b7a017d8b7b6e3d3f5ee33cb4",
+            "bytes": 2662367
+          }
+        },
+        "pageErrors": [],
+        "failedRequests": [],
+        "consoleErrors": [
+          "Failed to load resource: net::ERR_FAILED",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FAILED",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+          "Failed to load resource: net::ERR_FILE_NOT_FOUND"
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "Disposable Linux Chromium with native audio nodes and time-domain analysers. Not physical Android/iOS, audible listening, sound-pressure measurement, screen lock, OS audio focus, service-worker upgrade, or hearing-safety acceptance.",
+    "The byte-exact existing fixture controls device speech, blocks external traffic and service workers. Initial playback and buttons use trusted Playwright clicks; ranges use keyboard input and native selects use Playwright selectOption (generated input/change events). Deterministic DSP, pause/journey and short timer edge cases explicitly use public production APIs and FR state.",
+    "Live DSP tests deliberately reject only background HTMLMediaElement admission with a labelled NotAllowedError so native live AudioParams stay audible and measurable. A final separate test restores unmodified media admission, accepts the real offline-rendered loop and tests timer ownership transfer. This is not an all-unmodified-runtime end-to-end audio claim.",
+    "Analyser taps do not connect new sound paths to the destination. Measured sample peaks are not inter-sample true peaks or a guarantee of acoustic safety. Complex-mix measurements cover the documented synthetic configuration, not every possible mix."
+  ],
+  "sourceHashes": {
+    "index": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9",
+    "nero": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9"
+  },
+  "browser": "154.0.8037.57",
+  "total": 23,
+  "passed": 22,
+  "allPassed": false,
+  "finishedAt": "2026-10-20T06:42:12.773Z",
+  "testUnchanged": true
+}
