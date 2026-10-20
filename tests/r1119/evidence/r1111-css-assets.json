@@ -1,0 +1,905 @@
+{
+  "suite": "r1111 local CSS asset graph validation",
+  "method": "The actual synchronous validator and CLI inspect isolated real filesystem trees. Fixtures include missing and undeployed assets, cross-directory custom properties, encoded paths, internal/external symlinks, comments/strings, imports, ambiguous definitions and planned read overrides.",
+  "browserExecuted": false,
+  "limitations": [
+    "Does not run a browser, compute matching selectors/cascade, test raster pixels or fetch remote resources.",
+    "Only linked external CSS and local imports are covered; inline/generated CSS and unresolved dynamic or conditional custom properties remain outside the blocking guarantee."
+  ],
+  "sourceFiles": {
+    "tools/css-assets.cjs": {
+      "sha256": "9d18b0dc5dbd9734541ac94affdd08ba3d9ae57b5025eb4d4333f90cb1eb9391",
+      "bytes": 16432
+    }
+  },
+  "scriptSha256": "104539250ef7bda4872f7619f329f1e39c60bdd2a3243bc6d303cb72994df6dd",
+  "finishedAt": "2026-10-20T05:09:52.855Z",
+  "passed": 62,
+  "total": 62,
+  "results": [
+    {
+      "name": "A concrete local image is validated relative to its stylesheet and must be deployed",
+      "passed": true,
+      "evidence": {
+        "files": 1,
+        "bytes": 35,
+        "declarations": 1,
+        "customProperties": 0,
+        "checkedReferences": 1,
+        "valueExpansions": 1
+      }
+    },
+    {
+      "name": "A missing concrete image blocks even if the stylesheet itself is deployed",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_ASSET_MISSING",
+          "source": "css/main.css",
+          "url": "../images/missing.svg",
+          "target": "images/missing.svg",
+          "line": 1,
+          "property": "background-image",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "An existing image omitted from the deployment inventory still blocks",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_ASSET_NOT_IN_INVENTORY",
+          "source": "css/main.css",
+          "url": "../images/a.svg",
+          "target": "images/a.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "An existing active stylesheet omitted from inventory blocks without adding it",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_FILE_NOT_IN_INVENTORY",
+          "source": "index.html",
+          "url": "css/main.css",
+          "target": "css/main.css",
+          "line": 1,
+          "kind": "stylesheet"
+        }
+      ]
+    },
+    {
+      "name": "A missing active linked stylesheet is reported independently",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_FILE_MISSING",
+          "source": "index.html",
+          "url": "css/main.css",
+          "target": "css/main.css",
+          "line": 1,
+          "kind": "stylesheet"
+        }
+      ]
+    },
+    {
+      "name": "Query and fragment do not change the asset file identity",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "css/main.css",
+          "url": "../images/a.svg?v=r1111#shape",
+          "target": "images/a.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Percent-encoded spaces map to exact inventory names",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "css/main.css",
+          "url": "../images/my%20art.svg",
+          "target": "images/my art.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "CSS escaped spaces and closing parentheses remain one URL token",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "css/main.css",
+          "url": "../images/a b).svg",
+          "target": "images/a b).svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Hex-escaped CSS function names are decoded before URL inspection",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "css/main.css",
+          "url": "../images/a.svg",
+          "target": "images/a.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Malformed percent encoding blocks without a filesystem read outside the source",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "INVALID_URL_ENCODING",
+          "source": "css/main.css",
+          "url": "../images/%ZZ.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Traversal or encoded separators do not escape the root: ../../outside.svg",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "PATH_OUTSIDE_ROOT",
+          "source": "css/main.css",
+          "url": "../../outside.svg",
+          "target": "../outside.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Traversal or encoded separators do not escape the root: ..%2F..%2Foutside.svg",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "UNSAFE_URL_PATH",
+          "source": "css/main.css",
+          "url": "..%2F..%2Foutside.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Traversal or encoded separators do not escape the root: ../../%2e%2e/outside.svg",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "PATH_OUTSIDE_ROOT",
+          "source": "css/main.css",
+          "url": "../../%2e%2e/outside.svg",
+          "target": "../../outside.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "A symlink to an existing file outside the release tree is rejected before reading it",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "REALPATH_OUTSIDE_ROOT",
+          "source": "css/main.css",
+          "url": "../images/foreign.svg",
+          "target": "images/foreign.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "An internal symlink resolves safely while retaining its requested inventory path",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "css/main.css",
+          "url": "../images/alias.svg",
+          "target": "images/alias.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "A directory is not mistaken for a deployable image file",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_ASSET_NOT_FILE",
+          "source": "css/main.css",
+          "url": "../images",
+          "target": "images",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Data SVG, blobs, fragments and remote URLs are skipped without reads or network work",
+      "passed": true,
+      "evidence": {
+        "remote": 2,
+        "data": 1,
+        "blob": 1,
+        "fragment": 1,
+        "empty": 0
+      }
+    },
+    {
+      "name": "Root-relative URLs remain explicitly unresolved because deployment origin prefixes are unknown",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "ROOT_RELATIVE_URL",
+          "source": "css/main.css",
+          "url": "/assets/a.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Comments and quoted content that merely mentions url() are not dependencies",
+      "passed": true,
+      "evidence": {
+        "files": 1,
+        "bytes": 107,
+        "declarations": 2,
+        "customProperties": 1,
+        "checkedReferences": 0,
+        "valueExpansions": 2
+      }
+    },
+    {
+      "name": "Nested CSS functions preserve each concrete image dependency",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "css/main.css",
+          "url": "../images/a.svg",
+          "target": "images/a.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        },
+        {
+          "source": "css/main.css",
+          "url": "../images/b.svg",
+          "target": "images/b.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Font-face src URLs are part of the same deployment guard",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "css/main.css",
+          "url": "../fonts/a.woff2",
+          "target": "fonts/a.woff2",
+          "line": 1,
+          "property": "src",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Unique unconditional root custom properties resolve at their consumer directory",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "assets/runtime/controls.css",
+          "url": "../images/gem.svg",
+          "target": "assets/images/gem.svg",
+          "line": 1,
+          "property": "border-image",
+          "chain": [
+            "--gem"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "The actual cross-directory root-variable regression is blocked at its consumer base",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_ASSET_MISSING",
+          "source": "css/player.css",
+          "url": "../images/gem.svg",
+          "target": "images/gem.svg",
+          "line": 1,
+          "property": "border-image",
+          "chain": [
+            "--gem"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "The corrected explicit cross-directory image URL passes",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "css/main.css",
+          "url": "../assets/images/gem.svg",
+          "target": "assets/images/gem.svg",
+          "line": 1,
+          "property": "border-image",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Root aliases retain the final ordinary consumer base through multiple variables",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "css/main.css",
+          "url": "../images/a.svg",
+          "target": "images/a.svg",
+          "line": 1,
+          "property": "background",
+          "chain": [
+            "--three",
+            "--two",
+            "--one"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "An unused root URL is not incorrectly checked at its declaration base",
+      "passed": true,
+      "evidence": {
+        "files": 1,
+        "bytes": 51,
+        "declarations": 1,
+        "customProperties": 1,
+        "checkedReferences": 0,
+        "valueExpansions": 0
+      }
+    },
+    {
+      "name": "Identical unconditional root definitions are consistent and remain resolvable",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "css/main.css",
+          "url": "../images/a.svg",
+          "target": "images/a.svg",
+          "line": 1,
+          "property": "background",
+          "chain": [
+            "--a"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Scoped, conditional or conflicting definitions are unresolved without a false missing asset: .theme{--a:url(missing-scoped.svg)}",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "AMBIGUOUS_VARIABLE",
+          "source": "css/main.css",
+          "line": 1,
+          "property": "background",
+          "variable": "--a",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Scoped, conditional or conflicting definitions are unresolved without a false missing asset: @media (max-width:400px){:root{--a:url(missing-media.svg)}}",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "AMBIGUOUS_VARIABLE",
+          "source": "css/main.css",
+          "line": 1,
+          "property": "background",
+          "variable": "--a",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Scoped, conditional or conflicting definitions are unresolved without a false missing asset: :root{--a:url(missing-conflict.svg)}",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "AMBIGUOUS_VARIABLE",
+          "source": "css/main.css",
+          "line": 1,
+          "property": "background",
+          "variable": "--a",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Unknown runtime variables do not cause speculative fallback failures",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "UNKNOWN_VARIABLE",
+          "source": "css/main.css",
+          "line": 1,
+          "property": "background",
+          "variable": "--runtime",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "A known root value selects its value without incorrectly requiring an unused fallback",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "css/main.css",
+          "url": "../images/a.svg",
+          "target": "images/a.svg",
+          "line": 1,
+          "property": "background",
+          "chain": [
+            "--a"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Variable cycles terminate with an explicit diagnostic instead of a fabricated target",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "VARIABLE_CYCLE",
+          "source": "css/main.css",
+          "line": 1,
+          "property": "background",
+          "variable": "--a",
+          "chain": [
+            "--a",
+            "--b"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Registered custom properties are left unresolved because their URL resolution contract differs",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "REGISTERED_VARIABLE",
+          "source": "css/main.css",
+          "line": 1,
+          "property": "background",
+          "variable": "--a",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Recursive local imports use each imported stylesheet base and cannot loop forever",
+      "passed": true,
+      "evidence": {
+        "files": 2,
+        "bytes": 87,
+        "declarations": 1,
+        "customProperties": 0,
+        "checkedReferences": 1,
+        "valueExpansions": 1
+      }
+    },
+    {
+      "name": "A missing local import blocks with a stylesheet-specific error",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_FILE_MISSING",
+          "source": "css/main.css",
+          "url": "missing.css",
+          "target": "css/missing.css",
+          "line": 1,
+          "kind": "import"
+        }
+      ]
+    },
+    {
+      "name": "A deployed import omitted from inventory is not automatically added",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_FILE_NOT_IN_INVENTORY",
+          "source": "css/main.css",
+          "url": "sub.css",
+          "target": "css/sub.css",
+          "line": 1,
+          "kind": "import"
+        }
+      ]
+    },
+    {
+      "name": "Remote imports remain skipped, with no read callback or network side effect",
+      "passed": true,
+      "evidence": {
+        "remote": 2,
+        "data": 0,
+        "blob": 0,
+        "fragment": 0,
+        "empty": 0
+      }
+    },
+    {
+      "name": "A conditional import does not turn its root variable into an unconditional global",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "AMBIGUOUS_VARIABLE",
+          "source": "css/main.css",
+          "line": 1,
+          "property": "background",
+          "variable": "--a",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Inline, generated script strings, templates, disabled links and non-stylesheet links are outside this phase",
+      "passed": true,
+      "evidence": {
+        "files": 1,
+        "bytes": 13,
+        "declarations": 1,
+        "customProperties": 0,
+        "checkedReferences": 0,
+        "valueExpansions": 0
+      }
+    },
+    {
+      "name": "Planned HTML uses the supplied entry directory and includes newly planned links",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "nested/css/main.css",
+          "url": "../image.svg",
+          "target": "nested/image.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "The read callback can inspect planned CSS bytes without writing them",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "css/main.css",
+          "url": "../images/a.svg",
+          "target": "images/a.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "CLI stdin accepts planned HTML, inventory and read overrides and never writes a report itself",
+      "passed": true,
+      "evidence": {
+        "files": 1,
+        "bytes": 35,
+        "declarations": 1,
+        "customProperties": 0,
+        "checkedReferences": 1,
+        "valueExpansions": 1
+      }
+    },
+    {
+      "name": "CLI exits nonzero for a concrete missing local CSS image",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_ASSET_MISSING",
+          "source": "css/main.css",
+          "url": "../images/missing.svg",
+          "target": "images/missing.svg",
+          "line": 1,
+          "property": "background",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "CLI rejects more than 32 MiB before JSON parsing or any writes",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CLI_INPUT_TOO_LARGE",
+          "message": "CSS audit input exceeds 32 MiB"
+        }
+      ]
+    },
+    {
+      "name": "Malformed unquoted CSS URL whitespace is unresolved, not a fabricated missing filename",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "UNSUPPORTED_URL_TOKEN",
+          "source": "css/main.css",
+          "line": 1,
+          "property": "background"
+        }
+      ]
+    },
+    {
+      "name": "An ignored unknown CSS property does not create a false image fetch",
+      "passed": true,
+      "evidence": {
+        "files": 1,
+        "bytes": 33,
+        "declarations": 1,
+        "customProperties": 0,
+        "checkedReferences": 0,
+        "valueExpansions": 0
+      }
+    },
+    {
+      "name": "Late imports after a style rule are ignored like the browser",
+      "passed": true,
+      "evidence": {
+        "files": 1,
+        "bytes": 38,
+        "declarations": 1,
+        "customProperties": 0,
+        "checkedReferences": 0,
+        "valueExpansions": 0
+      }
+    },
+    {
+      "name": "Nested imports inside a conditional group are ignored like the browser",
+      "passed": true,
+      "evidence": {
+        "files": 1,
+        "bytes": 50,
+        "declarations": 1,
+        "customProperties": 0,
+        "checkedReferences": 0,
+        "valueExpansions": 0
+      }
+    },
+    {
+      "name": "A layer ordering statement before an import preserves the valid import",
+      "passed": true,
+      "evidence": {
+        "files": 2,
+        "bytes": 53,
+        "declarations": 1,
+        "customProperties": 0,
+        "checkedReferences": 0,
+        "valueExpansions": 0
+      }
+    },
+    {
+      "name": "A later unconditional link upgrades a previously conditional copy of the same file",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_ASSET_MISSING",
+          "source": "css/a.css",
+          "url": "missing.png",
+          "target": "css/missing.png",
+          "line": 1,
+          "property": "background",
+          "chain": [
+            "--brand"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "A later unconditional import upgrades that stylesheet and its unconditional import descendants",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_ASSET_MISSING",
+          "source": "css/child.css",
+          "url": "missing.png",
+          "target": "css/missing.png",
+          "line": 1,
+          "property": "background",
+          "chain": [
+            "--a",
+            "--b"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "An upgraded import retains the conditional blocks declared inside its source",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "AMBIGUOUS_VARIABLE",
+          "source": "css/child.css",
+          "line": 1,
+          "property": "background",
+          "variable": "--a",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "An upgraded parent retains the explicit media condition on a child import",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "AMBIGUOUS_VARIABLE",
+          "source": "css/child.css",
+          "line": 1,
+          "property": "background",
+          "variable": "--a",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "CSS-wide custom property initial cannot silently claim a resource-free resolved value",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_WIDE_VARIABLE",
+          "source": "css/main.css",
+          "line": 1,
+          "property": "background",
+          "variable": "--a",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "CSS-wide custom property inherit cannot silently claim a resource-free resolved value",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_WIDE_VARIABLE",
+          "source": "css/main.css",
+          "line": 1,
+          "property": "background",
+          "variable": "--a",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "CSS-wide custom property unset cannot silently claim a resource-free resolved value",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_WIDE_VARIABLE",
+          "source": "css/main.css",
+          "line": 1,
+          "property": "background",
+          "variable": "--a",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "CSS-wide custom property revert cannot silently claim a resource-free resolved value",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_WIDE_VARIABLE",
+          "source": "css/main.css",
+          "line": 1,
+          "property": "background",
+          "variable": "--a",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "CSS-wide custom property revert-layer cannot silently claim a resource-free resolved value",
+      "passed": true,
+      "evidence": [
+        {
+          "code": "CSS_WIDE_VARIABLE",
+          "source": "css/main.css",
+          "line": 1,
+          "property": "background",
+          "variable": "--a",
+          "chain": []
+        }
+      ]
+    },
+    {
+      "name": "Branching acyclic aliases are deduplicated instead of expanding exponentially",
+      "passed": true,
+      "evidence": {
+        "files": 1,
+        "bytes": 533,
+        "declarations": 1,
+        "customProperties": 19,
+        "checkedReferences": 1,
+        "valueExpansions": 20
+      }
+    },
+    {
+      "name": "An excessive concrete reference list has a bounded validation failure",
+      "passed": true,
+      "evidence": {
+        "stats": {
+          "files": 1,
+          "bytes": 210041,
+          "declarations": 1,
+          "customProperties": 0,
+          "checkedReferences": 10000,
+          "valueExpansions": 1
+        },
+        "errors": [
+          {
+            "code": "CSS_REFERENCE_LIMIT",
+            "source": "css/main.css",
+            "line": 1,
+            "property": "background-image"
+          }
+        ]
+      }
+    },
+    {
+      "name": "HTML attribute quotes are not incorrectly escaped by a preceding backslash",
+      "passed": true,
+      "evidence": {
+        "errors": [
+          {
+            "code": "UNSAFE_URL_PATH",
+            "source": "index.html",
+            "url": "css/bad\\",
+            "line": 1,
+            "kind": "stylesheet"
+          }
+        ],
+        "files": [
+          "css/main.css"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "total": 25,
+  "passed": 22,
+  "failed": 3,
+  "scope": "Exact production mixer HTML producer and handler, native label-for associations, actual locale text-node round trips, synthetic input dispatch. No browser visibility or audible-volume claim.",
+  "results": [
+    {
+      "name": "Entry points remain identical",
+      "passed": true
+    },
+    {
+      "name": "water: producer emits one native label directly above its original range",
+      "passed": true
+    },
+    {
+      "name": "water: channel identity, value, input bounds and accessible name remain intact",
+      "passed": true
+    },
+    {
+      "name": "water: repeated rendering keeps the same association without extra controls",
+      "passed": true
+    },
+    {
+      "name": "maqam: producer emits one native label directly above its original range",
+      "passed": true
+    },
+    {
+      "name": "maqam: channel identity, value, input bounds and accessible name remain intact",
+      "passed": true
+    },
+    {
+      "name": "maqam: repeated rendering keeps the same association without extra controls",
+      "passed": true
+    },
+    {
+      "name": "c1234567890: producer emits one native label directly above its original range",
+      "passed": true
+    },
+    {
+      "name": "c1234567890: channel identity, value, input bounds and accessible name remain intact",
+      "passed": true
+    },
+    {
+      "name": "c1234567890: repeated rendering keeps the same association without extra controls",
+      "passed": true
+    },
+    {
+      "name": "Labels have distinct associations across visible cards",
+      "passed": true
+    },
+    {
+      "name": "Mixer refresh replaces its contents, so labels cannot accumulate",
+      "passed": true
+    },
+    {
+      "name": "Labels belong to the active mixer rather than the hidden master-bar wrapper",
+      "passed": false,
+      "error": "The input did not match the regular expression /html body #tab-amb #mixer \\.chn>\\.r1030ChannelVolumeLabel\\{\\s*display:block!important;/. Input:\n\n'<!DOCTYPE html>\\n' +\n  '\\n' +\n  '<!-- ════════════════════════════════════════════════════════════════\\n' +\n  '     SÜKÛN r950 — Zikre uyumlu çark nuru (base r949)\\n' +\n  '     Tek dosya • Web Audio API (tüm sesler cihazda sentezlenir)\\n' +\n  '     Binaural Beats + Isochronic Tones + Esmâ/Zikir Modülü\\n' +\n  '     ════════════════════════════════════════════════════════════════ -->\\n' +\n  '<html class=\"sukun-jewel-r798\" lang=\"tr\">\\n' +\n  '<head>\\n' +\n  '<meta charset=\"utf-8\"/>\\n' +\n  '<meta content=\"width=device-width, initial-scale=1, viewport-fit=cover\" name=\"viewport\"/>\\n' +\n  '<meta content=\"dark\" name=\"color-scheme\"/>\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/shared-readable-r1105.css?v=r1119\" integrity=\"sha256-b1FdJTVGc6oX6lm6mgyIS+/7e4u+0eLMJwDyKRAIxX4=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/kandil-preferences-r1108.css?v=r1119\" integrity=\"sha256-j/0wX+8g3MBCd/KmHHNJ4Cm0AFBnB5dN9o8ThywI7Ag=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/player-branding-r1109.css?v=r1119\" integrity=\"sha256-DhxJBMMpBWIIHPKTJvt/1w0XSA25EgXblmtRktVl8lo=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/ambience-readable-r1104.css?v=r1119\" integrity=\"sha256-IA8M24J9v7SOeiLirgG7u+lUSC+v+F2NKI9PcaCjBuI=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/ambience-info-round-r1103.css?v=r1119\" integrity=\"sha256-JvUKiG6u3DQ71LyuIr5AtY+DKa+jhITC7nUpZa7AOUs=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/ambience-compact-r1102.css?v=r1119\" integrity=\"sha256-sMG36mQ5oBsteJPwgDQLMdTk9RKmjIfykoPTVTfIlsw=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/berhet-controls-r1101.css?v=r1119\" integrity=\"sha256-OlYooXlqC/Ld47fq/GgDe7i0oKVJr5tT39ESLp3ufkc=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/berhet-surfaces-r1115.css?v=r1119\" integrity=\"sha256-zBd2/ha2SpeF1BFh/12Hz2qby+B3NAq/lgiTPSrzlJ0=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./assets/runtime/browser-contrast-r1077.css?v=r1119\" crossorigin=\"anonymous\" integrity=\"sha256-Netyx9II33fqqAgzvTNTXbLnE1m+94ywcTV0zbUuZok=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./assets/runtime/protective-plan-r1078.css?v=r1119\" crossorigin=\"anonymous\" integrity=\"sha256-Q101l9eHpC9OTLgBTa0NbMHZRFdcuC1jdaJTdqjnMkM=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./assets/runtime/compact-ui-r1057.css?v=r1119\" integrity=\"sha256-6kOoAtcFnfFnsazzUEuWunfdc72YuVseSI0+xNV7+uo=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./assets/runtime/berhet-layout-r938.css?v=r1119\" integrity=\"sha256-4iEwYHqdwY8pgmLWelg5O0pR0J8+dgGg9UPfKrBkZJE=\">\\n' +\n  '<link id=\"sukun-r933-materials-style\" rel=\"stylesheet\" href=\"./assets/runtime/berhet-materials-r933.css?v=r1119\" integrity=\"sha256-S+EKXiMlSkZEF40I5mQXfh2rYnXIsM6BfXv+7b9eKyQ=\">\\n' +\n  '<link id=\"sukun-r933-controls-style\" rel=\"stylesheet\" href=\"./assets/runtime/berhet-controls-r933.css?v=r1119\" integrity=\"sha256-OtIjmZX8wC/Lz5cNc4pLVIcWud42CVSvUIOQl8fHwGc=\">\\n' +\n  '<link id=\"sukun-r933-dock-style\" rel=\"stylesheet\" href=\"./assets/runtime/berhet-dock-r933.css?v=r1119\" integrity=\"sha256-aGTc1b0YjJ1r4mo4fcpuxg6N7GZVlgecQurxYo1MBZY=\">\\n' +\n  '<!-- Layer order: shared session exceptions follow layout and material owners. -->\\n' +\n  '<link rel=\"stylesheet\" href=\"./assets/runtime/smart-session-ui-r1082.css?v=r1119\" crossorigin=\"anonymous\" integrity=\"sha256-damjVlkQRJpt07Kgs9Rkh+1NLGPuf9BitUep+ahtsqA=\">\\n' +\n  '<link rel=\"stylesheet\" id=\"sukun-r1029-surface-clarity\" href=\"./assets/runtime/surface-clarity-r1118.css?v=r1119\" integrity=\"sha256-nIqZPyk+rNuGWHULcrrHF2uCTSjPePHmJeNbUyhOJYE=\">\\n' +\n  '<link rel=\"stylesheet\" id=\"sukun-r1031-personal-centre-glass\" href=\"./assets/runtime/personal-centre-glass-r1118.css?v=r1119\" integrity=\"sha256-SmVTHGvKfPNM7QygPBNei9GW2NHpTSqJ6IjbOFmvWDs=\">\\n' +\n  '<style id=\"sukun-r920-contract\">@layer sukun-r920-contract {\\n' +\n  '/* First important layer: each legacy visual has one explicit successor. */\\n' +\n  '/* r922: live native voice controls in the shared practice settings. */\\n' +\n  'body.r920-practice-on #r829QuickSettings{display:none!important}\\n' +\n  '#r920Practice #r679ZikirAyarBox>summary{justify-content:space-between!important;gap:8px!important;border:0!important;border-radius:14px!important;text-align:left!important;min-height:58px!important}\\n' +\n  '#r920Practice #r679ZikirAyarBox>summary::before,#r920Practice #r679ZikirAyarBox>summary::after{content:none!important;display:none!important}\\n' +\n  '#r920Practice #r679ZikirAyarBox .r679SettingsTitle{text-align:left!important}\\n' +\n  '#r920Practice #r679ZikirAyarBox .r679SettingsTitle b{font:600 14px/1.4 system-ui!important;white-space:normal!important}\\n' +\n  '#r920Practice #r679ZikirAyarBox .r679SettingsTitle small{display:block!important;font:400 12px/1.4 system-ui!important;color:var(--r920-muted)!important;margin-top:3px!important}\\n' +\n  '#r920Practice #r679ZikirAyarBox>.r679SettingsBody{padding:12px!important;margin:0!important;border:0!important;background:transparent!important;backdrop-filter:none!important}\\n' +\n  '#r920Practice #r679ZikirAyarBox #r852VoiceCard{position:relative!important;display:block!important;width:100%!important;padding:0 0 14px!important;margin:0 0 12px!important;background:transparent!important;border:0!important;border-bottom:1px solid #bfd1df2b!important;border-radius:0!important;visibility:visible!important;opacity:1!important;overflow:visible!important}\\n' +\n  '#r920Practice #r852VoiceCard .r852VoiceHead{display:flex!important;align-items:flex-start!important;gap:8px!important;flex-wrap:wrap!important;margin:0 0 12px!important}\\n' +\n  '#r920Practice #r852VoiceCard .r852VoiceHead>span{flex:1 1 140px!important}\\n' +\n  '#r920Practice #r852VoiceCard .r852VoiceHead b{font:600 15px/1.4 system-ui!important}\\n' +\n  '#r920Practice #r852VoiceCard .r852VoiceHead small,#r920Practice #r852VoiceCard :is(.r922VoiceNote,.r852VoiceNote){display:block!important;font:400 12px/1.55 system-ui!important;color:var(--r920-muted)!important;white-space:normal!important;overflow-wrap:anywhere!important;margin:6px 0!important}\\n' +\n  '#r920Practice #r852VoiceCard #r922VoiceNotice{padding:10px!important;border:1px solid #d8bc8b6b!important;border-radius:10px!important;color:var(--r920-ink)!important}\\n' +\n  '#r920Practice #r852VoiceCard .r922VoiceField{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:5px!important;width:100%!important;padding:0!important;margin:0 0 12px!important;font:500 12px/1.4 system-ui!important;color:var(--r920-muted)!important}\\n' +\n  '#r920Practice #r852VoiceCard :is(select,input,button){min-height:44px!important;font-size:14px!important;max-width:100%!important;touch-action:manipulation!important}\\n' +\n  '/* r976: native vertical pan and zoom own touch ranges; horizontal adjustment stays local. */\\n' +\n  'body input[type=\"range\"],#r920Practice #r852VoiceCard input[type=\"range\"]{touch-action:pan-y pinch-zoom!important}\\n' +\n  '#r920Practice #r852VoiceCard select{width:100%!important;height:44px!important;flex:none!important;margin:0!important;padding:10px!important;white-space:normal!important}\\n' +\n  '#r920Practice #r852VoiceCard .r922RecordRow{display:flex!important;flex-direction:column!important;gap:0!important;margin:12px 0!important}\\n' +\n  '#r920Practice #r852VoiceCard #r922RecordVoice{align-self:flex-start!important;min-height:44px!important;white-space:normal!important}\\n' +\n  '#r920Practice #r852VoiceCard #r922RecordVoice[aria-pressed=\"true\"]{border-color:#f4a293!important;color:#ffc5ba!important}\\n' +\n  '#r920Practice #r852VoiceCard :is(.r922SpeakRow,#r922ArabicFallback){display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;min-height:52px!important;margin:0!important;padding:4px 0!important}\\n' +\n  '#r920Practice #r852VoiceCard .opt>span{font:400 13px/1.45 system-ui!important}\\n' +\n  '#r920Practice #r852VoiceCard .sw{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:72px!important;height:44px!important;min-height:44px!important;flex:none!important;border-radius:14px!important;background:#0c1a2b!important;font:500 12px/1.2 system-ui!important;white-space:nowrap!important}\\n' +\n  '#r920Practice #r852VoiceCard .sw.on{background:var(--r920-selected)!important;border-color:var(--r920-accent)!important}\\n' +\n  '#r920Practice #r852VoiceCard .sw::before,#r920Practice #r852VoiceCard .sw::after{display:none!important;content:none!important}\\n' +\n  '#r920Practice #r852VoiceCard #arVoiceRow{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:7px!important;margin:12px 0!important}\\n' +\n  '#r920Practice #r852VoiceCard #arVoiceRow>b{grid-column:1/-1!important;font:500 12px/1.4 system-ui!important}\\n' +\n  '#r920Practice #r852VoiceCard #spkRow{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:0!important;margin:12px 0 0!important}\\n' +\n  '#r920Practice #r852VoiceCard #spkRow input[type=\"range\"]{width:100%!important;margin:0!important;min-height:44px!important}\\n' +\n  '#r920Practice #r852VoiceCard .r852Advanced>summary{min-height:44px!important;display:flex!important;align-items:center!important;font:500 12px/1.4 system-ui!important;color:var(--r920-muted)!important}\\n' +\n  '#r920Practice #r852VoiceCard [hidden],#r920Practice #r852VoiceCard #r922ArabicFallback[hidden],#r920Practice #r852VoiceCard #r922VoiceNotice[hidden]{display:none!important}\\n' +\n  '@media(min-width:520px){#r920Practice #r852VoiceCard #spkRow{grid-template-columns:1fr 1fr!important;gap:0 12px!important}#r920Practice #r852VoiceCard #spkRow>label:last-child{grid-column:1/-1!important}}\\n' +\n  '\\n' +\n  'body.r920-practice-on:not(.r920-details-open) #tab-zkr>:not(#r920Practice){display:none!important}\\n' +\n  'body.r920-practice-on #tab-zkr>#r883JourneyRemote{display:none!important}\\n' +\n  'body.r920-practice-on.r920-details-open:not(.sukun-tefekkur-mode) #tab-zkr>.zCtl{display:block!important}\\n' +\n  'body.r920-practice-on #tab-zkr>.zCtl>:is(.zCountTitle,.zCounterRow,.zCounterActions,#r616ZikirNavRow,#cntSub,#targetPremium,#tapBtn,#resetBtn,#r883JourneyRemote){display:none!important}\\n' +\n  'body.r920-practice-on #tab-zkr>.zCtl :is(.tfVisualPanel,.zCounterActions,.tfStatusRow,#r754TefBerhetContext,#tapBtn,#r442StepRail,#hatBox){display:none!important}\\n' +\n  'body #zaKat,body #zaKat .zaAtla{pointer-events:auto!important}\\n' +\n  'body #zaKat .zaAtla{display:inline-flex!important;min-height:44px!important;align-items:center!important;justify-content:center!important;padding:10px 22px!important;border:1px solid #d8bd83!important;border-radius:12px!important;background:#10222d!important;color:#f2ddb0!important;cursor:pointer!i'... 7169941 more characters\n"
+    },
+    {
+      "name": "Only native labels and stable input IDs were added to the channel producer",
+      "passed": true
+    },
+    {
+      "name": "Existing mixer input handler is byte-for-byte preserved",
+      "passed": true
+    },
+    {
+      "name": "Real mixer handler still addresses the same channel and numeric value",
+      "passed": true
+    },
+    {
+      "name": "Master gain and legacy mini mirror input handlers are untouched",
+      "passed": true
+    },
+    {
+      "name": "Actual label text localizes TR to EN and returns to TR",
+      "passed": true
+    },
+    {
+      "name": "A newly generated label also translates while already in English",
+      "passed": true
+    },
+    {
+      "name": "Caption CSS keeps readable text without hiding or moving the existing range",
+      "passed": false,
+      "error": "Cannot read properties of null (reading '1')"
+    },
+    {
+      "name": "One existing dock range mirrors the active source without creating a master or progress slider",
+      "passed": true
+    },
+    {
+      "name": "Existing dock label gets a full row above range and output without a visibility override",
+      "passed": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert(rules)\n"
+    },
+    {
+      "name": "Dock Zikir sesi translates accurately without calling dhikr a master volume",
+      "passed": true
+    },
+    {
+      "name": "Dock Zikir sesi seviyesi translates accurately without calling dhikr a master volume",
+      "passed": true
+    },
+    {
+      "name": "Actual dock text node and aria attribute make a clean EN/TR round trip",
+      "passed": true
+    }
+  ]
+}
+
+STDERR:

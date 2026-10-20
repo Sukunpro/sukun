@@ -1,0 +1,38 @@
+
+/* Status and controls get independent full-width rows at every text size. */
+html body #ydkBox #r187RecRescue .recRescueBar{
+ display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+ gap:10px!important;align-items:start!important;min-width:0!important;max-width:100%!important;
+}
+html body #ydkBox #r187RecStat{
+ min-width:0!important;width:100%!important;max-width:100%!important;
+ white-space:normal!important;word-break:normal!important;
+}
+html body #ydkBox #r187RecStat b,html body #ydkBox #r187RecStat span{
+ display:block!important;white-space:normal!important;word-break:normal!important;
+ overflow-wrap:anywhere!important;line-height:1.55!important;
+}
+html body #ydkBox #r187RecRescue .recInspectionActions{
+ display:grid!important;grid-template-columns:minmax(0,1fr)!important;min-width:0!important;
+}
+html body #ydkBox #r187RecRescue .recRescueBtn{
+ box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:100%!important;
+ min-height:44px!important;height:auto!important;padding:12px!important;
+ white-space:normal!important;word-break:normal!important;overflow-wrap:anywhere!important;line-height:1.5!important;
+}
+html body #ydkBox .zYonerge.r1018Hint{
+ display:flex!important;flex-direction:column!important;gap:10px!important;
+ min-width:0!important;max-height:none!important;white-space:normal!important;
+ padding:12px!important;opacity:1!important;overflow:visible!important;
+}
+html body #ydkBox .r1018HintText{
+ min-width:0!important;white-space:normal!important;word-break:normal!important;overflow-wrap:anywhere!important;
+}
+html body #ydkBox .r1018HintText[hidden]{display:none!important}
+html body #ydkBox .zYonerge.r1018Hint .yonergeKulak{
+ position:relative!important;inset:auto!important;flex:0 0 auto!important;
+ box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:100%!important;
+ height:auto!important;min-height:44px!important;margin:0!important;padding:10px 12px!important;
+ white-space:normal!important;line-height:1.5!important;
+}
+html body #ydkBox .zYonerge.r1018Hint .yonergeKulak span{white-space:normal!important}

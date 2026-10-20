@@ -1,0 +1,74 @@
+{
+  "suite": "r1109 category-flow extraction",
+  "build": "r1119",
+  "phase": "finalized",
+  "method": "Frozen r1108 inline-body SHA-256 baseline versus extracted bytes, exact shell ID/cascade anchors, public URL alias equality, and finalized SRI/runtime/inventory metadata. No browser rendering or audio playback claim.",
+  "browserExecuted": false,
+  "limitations": [
+    "Static byte and dependency checks do not establish native CSS loading timing, visible layout or offline startup behavior."
+  ],
+  "sourceFiles": {
+    "index.html": {
+      "bytes": 7411796,
+      "sha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72"
+    },
+    "nero.html": {
+      "bytes": 7411796,
+      "sha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72"
+    },
+    "css/category-flow-r1109.css": {
+      "bytes": 1987,
+      "sha256": "cea8152b97516fb5bb7908c8868d190179cebe0c66d9fae548411d53487c1dd8"
+    }
+  },
+  "finishedAt": "2026-10-20T05:09:51.940Z",
+  "passed": 8,
+  "total": 8,
+  "skipped": 0,
+  "results": [
+    {
+      "name": "Extracted CSS bytes equal the frozen r1108 inline baseline",
+      "passed": true,
+      "evidence": {
+        "bytes": 1987,
+        "sha256": "cea8152b97516fb5bb7908c8868d190179cebe0c66d9fae548411d53487c1dd8"
+      }
+    },
+    {
+      "name": "The extracted block introduces no relative asset, import or font dependency",
+      "passed": true
+    },
+    {
+      "name": "Public index and nero URL aliases remain byte-identical",
+      "passed": true,
+      "evidence": {
+        "bytesEach": 7411796,
+        "sha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72"
+      }
+    },
+    {
+      "name": "Exactly one category-flow ID remains in the shell",
+      "passed": true,
+      "evidence": {
+        "phase": "finalized",
+        "external": true
+      }
+    },
+    {
+      "name": "Cascade position stays directly between cadence and tooltip owners",
+      "passed": true
+    },
+    {
+      "name": "Shared CSS URL follows the current release and has exact SRI",
+      "passed": true
+    },
+    {
+      "name": "Build marker and service worker require the same unique CSS member",
+      "passed": true
+    },
+    {
+      "name": "Deployment inventory includes the unchanged shared CSS bytes",
+      "passed": true
+    }
+  ]
+}

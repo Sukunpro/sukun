@@ -1,0 +1,106 @@
+{
+  "type": "Visually reviewed native panel QA summary",
+  "scope": "Only #ydkBox CSS relocation acceptance. Screenshots contain synthetic QA status text and an empty disposable recording list; native inspection later uses only two synthetic Blobs.",
+  "productionSha256": {
+    "candidateIndex": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+    "candidateNero": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+    "baselineIndex": "87a220cd4731e6945acdc97bc9ab3a66af69fe700ee6a246dbfd82c401493fb8",
+    "baselineNero": "87a220cd4731e6945acdc97bc9ab3a66af69fe700ee6a246dbfd82c401493fb8",
+    "extractedCss": "09f351325cc8b0f1366a1ff9b9246fa50b56573d48f1e9fc0dfc403931b0a941",
+    "fixture": "b58ac3f8caafbbf6cea57e705930bc1f891bf6b410f95dc3dbaf17d9e6d007da",
+    "nativeObserver": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04"
+  },
+  "browserReport": {
+    "path": "tests/r1119/evidence/recording-panel-browser.json",
+    "sha256": "26135a56a13f3fed172c7d39f53bc258c649bcf6e9b8d9677bae775afcdb0650",
+    "passed": 271,
+    "executedChecks": 271,
+    "matrixStates": 128,
+    "matchedNodeObservations": 2816,
+    "failed": 0,
+    "baselineLayoutDefects": 0
+  },
+  "script": {
+    "path": "tests/r1119/recording-panel-browser.cjs",
+    "sha256": "ea47a9dab60b64a84e8161c470c649a7ad7710e36cdeb7f8add73250fe8e357b"
+  },
+  "screenshots": [
+    {
+      "path": "tests/r1119/evidence/recording-panel-320-klasik-en-large-expanded.png",
+      "sha256": "1e779185f5e48b43dd7f9c18b005ca22a819154e9370f6f6694f70aff5dabd70"
+    },
+    {
+      "path": "tests/r1119/evidence/recording-panel-320-klasik-en-large-collapsed.png",
+      "sha256": "e6fe52f83bf32eda022f1c7e79983cc17e29e5b76d1fce6085f1a5f4f42ea297"
+    },
+    {
+      "path": "tests/r1119/evidence/recording-panel-320-feyz-en-large-expanded.png",
+      "sha256": "b6221c3475d00034bfea9b5a55d217567f17128e76433474c991ce6faa1b7482"
+    },
+    {
+      "path": "tests/r1119/evidence/recording-panel-320-feyz-en-large-collapsed.png",
+      "sha256": "e98bb7a56812a4ffb01020ee31b3f3e04fda90157e29ee48e955f6904f60e115"
+    },
+    {
+      "path": "tests/r1119/evidence/recording-panel-1280-klasik-en-large-expanded.png",
+      "sha256": "5b82f7b2dbe20b26602150d9f30e9001785434379a166c6ab290de4d4dadb75c"
+    },
+    {
+      "path": "tests/r1119/evidence/recording-panel-1280-klasik-en-large-collapsed.png",
+      "sha256": "d43114b15198f95c8f62d1d378ee53f73618657e0778ff3076f852f28ef46dc9"
+    },
+    {
+      "path": "tests/r1119/evidence/recording-panel-1280-feyz-en-large-expanded.png",
+      "sha256": "12163ba17ca66875b0907edf05e6ff532973ff2de707d4f4bf52b8094d736d41"
+    },
+    {
+      "path": "tests/r1119/evidence/recording-panel-1280-feyz-en-large-collapsed.png",
+      "sha256": "bd3db478dfc6ffe0118b404faefb66cb2dc68860813e668a983e452c682289b6"
+    }
+  ],
+  "manualVisualReview": {
+    "files": [
+      "recording-panel-320-klasik-en-large-expanded.png",
+      "recording-panel-320-feyz-en-large-collapsed.png",
+      "recording-panel-1280-klasik-en-large-expanded.png",
+      "recording-panel-1280-feyz-en-large-collapsed.png"
+    ],
+    "finding": "No control/text overlap or clipped explanation controls in these representative screenshots. Long synthetic domain wraps in its full-width row. This is not pixel-perfect image diff, full-panel contrast acceptance, or real-device text scaling."
+  },
+  "preservedBaselineLocaleLimits": [
+    {
+      "selector": "#r187RecRescan",
+      "text": "↻ Kayıtları yeniden tara (geçici olarak durduruldu)"
+    },
+    {
+      "selector": "#r1017RecInspect",
+      "text": "Kayıt deposunu kontrol et"
+    },
+    {
+      "selector": "#r1011VoiceRestoreHint .yonergeKulak",
+      "expandedText": "⌃ Kısalt",
+      "collapsedText": "⌄ Açıklamayı göster"
+    },
+    {
+      "selector": "#ydkSetReset",
+      "text": "Yedek seti takibini sıfırla"
+    }
+  ],
+  "localeEvidence": "Same original Turkish strings and unchanged rendering owners exist in frozen r1118 source; visible in final English-locale screenshots. This suite proves equivalent English-locale layout, not complete English translation.",
+  "diagnosticHistory": [
+    "Initial restricted-exec Chromium socket failure retained as recording-panel-browser-sandbox-blocked.json/log; later native cloud terminal route successfully executed the final suite.",
+    "Initial missing production Settings/More navigation retained as navigation-attempt and settings-attempt reports; final harness uses trusted r938PanelToggle, r920More, zmgAraclar and ydkBox controls, not forced visibility.",
+    "First strict diff was only an invented relative position for a hidden 0x0 cancel button. One-state exact diff retained as recording-panel-diagnostic.json. Final collector retains all hidden styles/visibility/dimensions but records their native zero coordinates, while comparing every rendered relative geometry exactly.",
+    "Expanded and other native suites have their own reports; their counts are not included in this panel total."
+  ],
+  "limitations": [
+    "The matrix is scoped to #ydkBox and the extracted CSS selectors, not full-application acceptance.",
+    "Klasik/Feyz and Esma/Berhet are presentation-class/attribute permutations, not trusted unlock or family navigation acceptance.",
+    "Language uses the production I18N.set API. Explanations, details, Tab and Enter use native browser input.",
+    "The font stress condition injects a test-only 24px override for affected panel text and buttons. It is not browser zoom or OS accessibility text-size acceptance.",
+    "The status/domain text is synthetic and identical in both origins. No user data, real microphone, recorded voice, export, restoration or destructive action is used.",
+    "The native observer runs on real disposable IndexedDB seeded with two synthetic Blobs; cancellation UI additionally uses an explicitly labelled controlled pending observer.",
+    "Fixture blocks service workers and external requests and controls device speech. No offline upgrade, physical Android, screen lock, OS audio focus, audible playback or real storage-quota acceptance.",
+    "r1118 scene-info visibility, mixer .mkCard matching, Full/Ready, and microphone-disclosure preference acceptance are outside this recording-panel suite."
+  ]
+}

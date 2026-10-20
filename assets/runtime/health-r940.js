@@ -654,7 +654,7 @@
     const result=[];let total=0,reserved=0,mediaTotal=0,mediaReserved=0,expected=0;
     // The 9 MiB core allowance includes the shared session UI. Arabic recordings and the
     // exact short portal invitation share the separate bounded media allowance.
-    const maxRuntimeEntries=128,byteBudget=9437184,mediaByteBudget=33554432,waiters=new Set();
+    const maxRuntimeEntries=129,byteBudget=9437184,mediaByteBudget=33554432,waiters=new Set();
     function wakeBudget(){for(const wake of [...waiters])wake();}
     function waitForBudget(){return new Promise((resolve,reject)=>{
       let done=false;
@@ -677,7 +677,7 @@
     function settleBytes(allowance,actual=0,isMedia=false){if(isMedia){mediaReserved-=allowance;mediaTotal+=actual;}else{reserved-=allowance;total+=actual;}wakeBudget();}
     try {
       const markerURL=new URL('./sukun-build-'+build+'.json',location.href);
-      const bytes=await fetchBytes(markerURL.href,32768,controller);
+      const bytes=await fetchBytes(markerURL.href,65536,controller);
       let marker;try {marker=JSON.parse(new TextDecoder().decode(bytes));} catch(_) {
         return status('RUNTIME_INTEGRITY','FAIL','Sürüm dosya listesi geçersiz',{reason:'MARKER_INVALID_JSON',checkedAt:now(),scope:'served-through-current-service-worker',configurationErrors:1},'İndirilen sürüm listesi okunamadı. Tam sürüm paketini birlikte yükleyin.');
       }

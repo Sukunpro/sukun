@@ -1,0 +1,4067 @@
+{
+  "suite": "r1119 recording panel native Chromium equivalence and interaction",
+  "startedAt": "2026-10-20T05:08:08.106Z",
+  "roots": {
+    "candidate": "/workspace/scratch/55c51c2f8f94/sukun-g8-r1119",
+    "baseline": "/workspace/scratch/55c51c2f8f94/sukun-g8-recovery"
+  },
+  "sourceHashes": {
+    "candidateIndex": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+    "candidateNero": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+    "baselineIndex": "87a220cd4731e6945acdc97bc9ab3a66af69fe700ee6a246dbfd82c401493fb8",
+    "baselineNero": "87a220cd4731e6945acdc97bc9ab3a66af69fe700ee6a246dbfd82c401493fb8",
+    "extractedCss": "09f351325cc8b0f1366a1ff9b9246fa50b56573d48f1e9fc0dfc403931b0a941",
+    "fixture": "b58ac3f8caafbbf6cea57e705930bc1f891bf6b410f95dc3dbaf17d9e6d007da",
+    "nativeObserver": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04"
+  },
+  "plannedCoverage": {
+    "matrixStates": 128,
+    "widths": [
+      320,
+      390,
+      430,
+      1280
+    ],
+    "shells": [
+      "Klasik",
+      "Feyz"
+    ],
+    "families": [
+      "esma",
+      "berhet"
+    ],
+    "languages": [
+      "tr",
+      "en"
+    ],
+    "explanations": [
+      "expanded",
+      "collapsed"
+    ],
+    "textConditions": [
+      "normal",
+      "24px text with long synthetic domain/status"
+    ],
+    "interactions": [
+      "native explanation click in every matrix state",
+      "keyboard Tab and Enter",
+      "native details close/open repeated three times",
+      "native read-only IndexedDB inspection over two synthetic blobs",
+      "controlled pending/cancel/late completion UI",
+      "repeat native inspection"
+    ],
+    "forbiddenControls": [
+      "microphone",
+      "playback",
+      "export",
+      "import",
+      "restoration",
+      "delete",
+      "reset"
+    ]
+  },
+  "limitations": [
+    "The matrix is scoped to #ydkBox and the extracted CSS selectors, not full-application acceptance.",
+    "Klasik/Feyz and Esma/Berhet are presentation-class/attribute permutations, not trusted unlock or family navigation acceptance.",
+    "Language uses the production I18N.set API. Explanations, details, Tab and Enter use native browser input.",
+    "The font stress condition injects a test-only 24px override for affected panel text and buttons. It is not browser zoom or OS accessibility text-size acceptance.",
+    "The status/domain text is synthetic and identical in both origins. No user data, real microphone, recorded voice, export, restoration or destructive action is used.",
+    "The native observer runs on real disposable IndexedDB seeded with two synthetic Blobs; cancellation UI additionally uses an explicitly labelled controlled pending observer.",
+    "Fixture blocks service workers and external requests and controls device speech. No offline upgrade, physical Android, screen lock, OS audio focus, audible playback or real storage-quota acceptance.",
+    "r1118 scene-info visibility, mixer .mkCard matching, Full/Ready, and microphone-disclosure preference acceptance are outside this recording-panel suite."
+  ],
+  "checks": [
+    {
+      "name": "Candidate stylesheet is loaded at its preserved ID with correct path, SRI and rules",
+      "status": "passed",
+      "evidence": {
+        "tag": "LINK",
+        "href": "./assets/runtime/recording-panel-r1119.css?v=r1119",
+        "integrity": "sha256-CfNRMlzIsPE2ah/5uSRvpQtWVz1I8en8DfxAOTGwqUE=",
+        "rules": 10
+      }
+    },
+    {
+      "name": "Computed style and relative geometry: 320/Klasik/esma/tr/true/false",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "name": "44px targets, independent rows and overflow: 320/Klasik/esma/tr/true/false",
+      "status": "passed",
+      "evidence": {
+        "candidate": [],
+        "baseline": []
+      }
+    },
+    {
+      "name": "r1118 baseline: keyboard Tab focus and Enter explanation toggle",
+      "status": "passed",
+      "evidence": {
+        "id": "r1017RecInspect",
+        "focusVisible": true,
+        "outline": "rgb(145, 186, 255) solid 2px"
+      }
+    },
+    {
+      "name": "r1118 baseline: repeated native details close/open leaves controls usable",
+      "status": "passed",
+      "evidence": {
+        "repeatedCycles": 3,
+        "hintControls": 2
+      }
+    },
+    {
+      "name": "r1118 baseline: native read-only inspection returns only synthetic totals without recording mutation",
+      "status": "passed",
+      "evidence": {
+        "snapshot": {
+          "version": "r1020",
+          "phase": "idle",
+          "current": {
+            "at": 1792472923953,
+            "build": "r1118",
+            "status": "ok",
+            "count": 2,
+            "blobBytes": 160,
+            "errorCode": null
+          },
+          "lastSuccessful": {
+            "at": 1792472923953,
+            "build": "r1118",
+            "status": "ok",
+            "count": 2,
+            "blobBytes": 160,
+            "errorCode": null
+          },
+          "lastNonEmpty": {
+            "at": 1792472923953,
+            "build": "r1118",
+            "status": "ok",
+            "count": 2,
+            "blobBytes": 160,
+            "errorCode": null
+          },
+          "previouslyPopulatedNowEmpty": false,
+          "persistence": "available"
+        },
+        "ops": [
+          {
+            "operation": "transaction",
+            "stores": [
+              "clips"
+            ],
+            "mode": "readonly"
+          }
+        ],
+        "status": "Son kontrol: 20.10.2026 08:08:43\nDerleme: r1118\nBu kontrol: 2 kayıt · toplam 160 bayt",
+        "recordingDigests": [
+          {
+            "key": "r1119:synthetic-a",
+            "bytes": 64,
+            "sha256": "9aed5fce4bb60c40cb8a2983b43540adb4c8ac8aa1ef1f20de57526f9ed86e38"
+          },
+          {
+            "key": "r1119:synthetic-b",
+            "bytes": 96,
+            "sha256": "960684f5934670735059a3296a59937533d24a28d941496a6053cdd5debac9aa"
+          }
+        ]
+      }
+    },
+    {
+      "name": "r1118 baseline: controlled busy/double-click/cancel and late-result fence survive close/open",
+      "status": "passed",
+      "evidence": {
+        "calls": 1,
+        "aborted": true,
+        "cancelTarget": {
+          "x": 68,
+          "y": 494.984375,
+          "width": 254,
+          "height": 44
+        },
+        "lateCompletionIgnored": true,
+        "method": "Controlled promise for UI lifecycle only, not native IndexedDB cancellation timing."
+      }
+    },
+    {
+      "name": "r1118 baseline: repeated native inspection preserves synthetic recording bytes",
+      "status": "passed",
+      "evidence": {
+        "at": 1792472925952,
+        "build": "r1118",
+        "status": "ok",
+        "count": 2,
+        "blobBytes": 160,
+        "errorCode": null
+      }
+    },
+    {
+      "name": "r1118 baseline: no microphone request, file picker, download or recording write from tested interactions",
+      "status": "passed",
+      "evidence": {
+        "microphoneAttempts": 0,
+        "downloads": 0,
+        "fileChoosers": 0,
+        "recordingOps": [
+          {
+            "operation": "transaction",
+            "stores": [
+              "clips"
+            ],
+            "mode": "readonly"
+          },
+          {
+            "operation": "transaction",
+            "stores": [
+              "clips"
+            ],
+            "mode": "readonly"
+          },
+          {
+            "operation": "transaction",
+            "stores": [
+              "clips"
+            ],
+            "mode": "readonly"
+          },
+          {
+            "operation": "transaction",
+            "stores": [
+              "clips"
+            ],
+            "mode": "readonly"
+          },
+          {
+            "operation": "transaction",
+            "stores": [
+              "clips"
+            ],
+            "mode": "readonly"
+          },
+          {
+            "operation": "transaction",
+            "stores": [
+              "clips"
+            ],
+            "mode": "readonly"
+          }
+        ]
+      }
+    },
+    {
+      "name": "r1119 candidate: keyboard Tab focus and Enter explanation toggle",
+      "status": "passed",
+      "evidence": {
+        "id": "r1017RecInspect",
+        "focusVisible": true,
+        "outline": "rgb(145, 186, 255) solid 2px"
+      }
+    },
+    {
+      "name": "r1119 candidate: repeated native details close/open leaves controls usable",
+      "status": "passed",
+      "evidence": {
+        "repeatedCycles": 3,
+        "hintControls": 2
+      }
+    },
+    {
+      "name": "r1119 candidate: native read-only inspection returns only synthetic totals without recording mutation",
+      "status": "passed",
+      "evidence": {
+        "snapshot": {
+          "version": "r1020",
+          "phase": "idle",
+          "current": {
+            "at": 1792472929997,
+            "build": "r1119",
+            "status": "ok",
+            "count": 2,
+            "blobBytes": 160,
+            "errorCode": null
+          },
+          "lastSuccessful": {
+            "at": 1792472929997,
+            "build": "r1119",
+            "status": "ok",
+            "count": 2,
+            "blobBytes": 160,
+            "errorCode": null
+          },
+          "lastNonEmpty": {
+            "at": 1792472929997,
+            "build": "r1119",
+            "status": "ok",
+            "count": 2,
+            "blobBytes": 160,
+            "errorCode": null
+          },
+          "previouslyPopulatedNowEmpty": false,
+          "persistence": "available"
+        },
+        "ops": [
+          {
+            "operation": "transaction",
+            "stores": [
+              "clips"
+            ],
+            "mode": "readonly"
+          }
+        ],
+        "status": "Son kontrol: 20.10.2026 08:08:49\nDerleme: r1119\nBu kontrol: 2 kayıt · toplam 160 bayt",
+        "recordingDigests": [
+          {
+            "key": "r1119:synthetic-a",
+            "bytes": 64,
+            "sha256": "9aed5fce4bb60c40cb8a2983b43540adb4c8ac8aa1ef1f20de57526f9ed86e38"
+          },
+          {
+            "key": "r1119:synthetic-b",
+            "bytes": 96,
+            "sha256": "960684f5934670735059a3296a59937533d24a28d941496a6053cdd5debac9aa"
+          }
+        ]
+      }
+    },
+    {
+      "name": "r1119 candidate: controlled busy/double-click/cancel and late-result fence survive close/open",
+      "status": "passed",
+      "evidence": {
+        "calls": 1,
+        "aborted": true,
+        "cancelTarget": {
+          "x": 68,
+          "y": 494.859375,
+          "width": 254,
+          "height": 44
+        },
+        "lateCompletionIgnored": true,
+        "method": "Controlled promise for UI lifecycle only, not native IndexedDB cancellation timing."
+      }
+    },
+    {
+      "name": "r1119 candidate: repeated native inspection preserves synthetic recording bytes",
+      "status": "passed",
+      "evidence": {
+        "at": 1792472931862,
+        "build": "r1119",
+        "status": "ok",
+        "count": 2,
+        "blobBytes": 160,
+        "errorCode": null
+      }
+    },
+    {
+      "name": "r1119 candidate: no microphone request, file picker, download or recording write from tested interactions",
+      "status": "passed",
+      "evidence": {
+        "microphoneAttempts": 0,
+        "downloads": 0,
+        "fileChoosers": 0,
+        "recordingOps": [
+          {
+            "operation": "transaction",
+            "stores": [
+              "clips"
+            ],
+            "mode": "readonly"
+          },
+          {
+            "operation": "transaction",
+            "stores": [
+              "clips"
+            ],
+            "mode": "readonly"
+          },
+          {
+            "operation": "transaction",
+            "stores": [
+              "clips"
+            ],
+            "mode": "readonly"
+          },
+          {
+            "operation": "transaction",
+            "stores": [
+              "clips"
+            ],
+            "mode": "readonly"
+          },
+          {
+            "operation": "transaction",
+            "stores": [
+              "clips"
+            ],
+            "mode": "readonly"
+          },
+          {
+            "operation": "transaction",
+            "stores": [
+              "clips"
+            ],
+            "mode": "readonly"
+          }
+        ]
+      }
+    },
+    {
+      "name": "baseline: served source bytes, no script/resource/integrity failures",
+      "status": "passed",
+      "evidence": {
+        "servedFiles": 126,
+        "pageErrors": [],
+        "failedRequests": []
+      }
+    },
+    {
+      "name": "candidate: served source bytes, no script/resource/integrity failures",
+      "status": "passed",
+      "evidence": {
+        "servedFiles": 127,
+        "pageErrors": [],
+        "failedRequests": []
+      }
+    }
+  ],
+  "matrix": [
+    {
+      "name": "320/Klasik/esma/tr/true/false",
+      "state": {
+        "width": 320,
+        "shell": "Klasik",
+        "family": "esma",
+        "lang": "tr",
+        "expanded": true,
+        "large": false
+      },
+      "equivalent": true,
+      "error": null,
+      "candidateLayoutIssues": [],
+      "baselineLayoutIssues": [],
+      "matchedNodes": 22,
+      "actual": {
+        "rows": [
+          {
+            "selector": "#ydkBox",
+            "nodes": [
+              {
+                "tag": "DETAILS",
+                "id": "ydkBox",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "232px",
+                  "height": "1724.66px",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "10px 12px",
+                  "margin": "8px 0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "16px",
+                  "fontWeight": "400",
+                  "lineHeight": "23.2px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "hidden",
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "radial-gradient(120% 160% at 0% 0%, rgba(89, 255, 224, 0.06), rgba(0, 0, 0, 0) 42%), radial-gradient(120% 160% at 100% 100%, rgba(155, 108, 255, 0.08), rgba(0, 0, 0, 0) 42%), linear-gradient(155deg, rgba(6, 18, 28, 0.78), rgba(8, 24, 36, 0.58))",
+                  "borderWidth": "1px",
+                  "borderColor": "rgba(102, 255, 225, 0.18)",
+                  "borderRadius": "20px",
+                  "boxShadow": "rgba(0, 0, 0, 0.22) 0px 16px 40px 0px, rgba(255, 255, 255, 0.03) 0px 1px 0px 0px inset",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 232,
+                  "height": 1724.66
+                },
+                "clientWidth": 230,
+                "scrollWidth": 230,
+                "clientHeight": 1723,
+                "scrollHeight": 1723,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#ydkBox > summary",
+            "nodes": [
+              {
+                "tag": "SUMMARY",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "flex",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "206px",
+                  "height": "118.188px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "44px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "8px",
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "padding": "11px 42px 11px 11px",
+                  "margin": "0px 0px 9px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "17px",
+                  "fontWeight": "400",
+                  "lineHeight": "23.8px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "break-word",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "color(srgb 0.180392 0.901961 0.721569 / 0.05)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px 0px 1px",
+                  "borderColor": "rgb(223, 245, 239) rgb(223, 245, 239) color(srgb 0.180392 0.901961 0.721569 / 0.22)",
+                  "borderRadius": "12px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 13,
+                  "y": 11,
+                  "width": 206,
+                  "height": 118.19
+                },
+                "clientWidth": 206,
+                "scrollWidth": 206,
+                "clientHeight": 117,
+                "scrollHeight": 117,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r187RecRescue",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "r187RecRescue",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "206px",
+                  "height": "320.438px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "16px",
+                  "fontWeight": "400",
+                  "lineHeight": "23.2px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(223, 245, 239)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 13,
+                  "y": 138.19,
+                  "width": 206,
+                  "height": 320.44
+                },
+                "clientWidth": 206,
+                "scrollWidth": 206,
+                "clientHeight": 320,
+                "scrollHeight": 320,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r187RecRescue .recRescueBar",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "grid",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "206px",
+                  "height": "110.438px",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "188px",
+                  "gap": "10px",
+                  "alignItems": "start",
+                  "flexDirection": "row",
+                  "padding": "8px",
+                  "margin": "8px 0px 4px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "16px",
+                  "fontWeight": "400",
+                  "lineHeight": "23.2px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "rgba(255, 255, 255, 0.016)",
+                  "backgroundImage": "none",
+                  "borderWidth": "1px",
+                  "borderColor": "rgba(46, 230, 184, 0.18)",
+                  "borderRadius": "14px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 13,
+                  "y": 138.19,
+                  "width": 206,
+                  "height": 110.44
+                },
+                "clientWidth": 204,
+                "scrollWidth": 204,
+                "clientHeight": 108,
+                "scrollHeight": 108,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r187RecStat",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "r187RecStat",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "188px",
+                  "height": "29.4375px",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "auto",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "Figtree, sans-serif",
+                  "fontSize": "9px",
+                  "fontWeight": "500",
+                  "lineHeight": "12.6px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(143, 184, 174)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(143, 184, 174)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 22,
+                  "y": 147.19,
+                  "width": 188,
+                  "height": 29.44
+                },
+                "clientWidth": 188,
+                "scrollWidth": 188,
+                "clientHeight": 29,
+                "scrollHeight": 29,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r187RecStat b",
+            "nodes": [
+              {
+                "tag": "B",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "188px",
+                  "height": "15.5px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "Figtree, sans-serif",
+                  "fontSize": "10px",
+                  "fontWeight": "700",
+                  "lineHeight": "15.5px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(223, 245, 239)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 22,
+                  "y": 147.19,
+                  "width": 188,
+                  "height": 15.5
+                },
+                "clientWidth": 188,
+                "scrollWidth": 188,
+                "clientHeight": 16,
+                "scrollHeight": 16,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r187RecStat span",
+            "nodes": [
+              {
+                "tag": "SPAN",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "188px",
+                  "height": "13.9375px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "9px",
+                  "fontWeight": "500",
+                  "lineHeight": "13.95px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(143, 184, 174)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(143, 184, 174)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 22,
+                  "y": 162.69,
+                  "width": 188,
+                  "height": 13.94
+                },
+                "clientWidth": 188,
+                "scrollWidth": 188,
+                "clientHeight": 14,
+                "scrollHeight": 14,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r187RecRescan",
+            "nodes": [
+              {
+                "tag": "BUTTON",
+                "id": "r187RecRescan",
+                "hidden": false,
+                "expanded": null,
+                "disabled": true,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "188px",
+                  "height": "53px",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "44px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "12px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "9px",
+                  "fontWeight": "620",
+                  "lineHeight": "13.5px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(217, 102, 232)",
+                  "backgroundColor": "rgba(255, 255, 255, 0.01)",
+                  "backgroundImage": "linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)), none",
+                  "borderWidth": "1px",
+                  "borderColor": "rgba(102, 255, 225, 0.16)",
+                  "borderRadius": "16px",
+                  "boxShadow": "rgba(0, 0, 0, 0.18) 0px 10px 24px 0px, rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset",
+                  "opacity": "0.55"
+                },
+                "rect": {
+                  "x": 22,
+                  "y": 186.63,
+                  "width": 188,
+                  "height": 53
+                },
+                "clientWidth": 186,
+                "scrollWidth": 186,
+                "clientHeight": 51,
+                "scrollHeight": 51,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r1017RecInspection",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "r1017RecInspection",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "206px",
+                  "height": "164px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "10px",
+                  "margin": "9px 0px 0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "16px",
+                  "fontWeight": "400",
+                  "lineHeight": "23.2px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "1px",
+                  "borderColor": "rgba(46, 230, 184, 0.18)",
+                  "borderRadius": "12px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 13,
+                  "y": 294.63,
+                  "width": 206,
+                  "height": 164
+                },
+                "clientWidth": 204,
+                "scrollWidth": 204,
+                "clientHeight": 162,
+                "scrollHeight": 162,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r1017RecInspection .recInspectionActions",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "grid",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "184px",
+                  "height": "62px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "184px",
+                  "gap": "7px",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "16px",
+                  "fontWeight": "400",
+                  "lineHeight": "23.2px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(223, 245, 239)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 24,
+                  "y": 305.63,
+                  "width": 184,
+                  "height": 62
+                },
+                "clientWidth": 184,
+                "scrollWidth": 184,
+                "clientHeight": 62,
+                "scrollHeight": 62,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r1017RecInspect",
+            "nodes": [
+              {
+                "tag": "BUTTON",
+                "id": "r1017RecInspect",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "184px",
+                  "height": "62px",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "44px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "12px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "12px",
+                  "fontWeight": "620",
+                  "lineHeight": "18px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(217, 102, 232)",
+                  "backgroundColor": "rgba(255, 255, 255, 0.01)",
+                  "backgroundImage": "linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)), none",
+                  "borderWidth": "1px",
+                  "borderColor": "rgba(102, 255, 225, 0.16)",
+                  "borderRadius": "16px",
+                  "boxShadow": "rgba(0, 0, 0, 0.18) 0px 10px 24px 0px, rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 24,
+                  "y": 305.63,
+                  "width": 184,
+                  "height": 62
+                },
+                "clientWidth": 182,
+                "scrollWidth": 182,
+                "clientHeight": 60,
+                "scrollHeight": 60,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r1017RecInspectionCancel",
+            "nodes": [
+              {
+                "tag": "BUTTON",
+                "id": "r1017RecInspectionCancel",
+                "hidden": true,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "none",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "100%",
+                  "height": "auto",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "44px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "12px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "12px",
+                  "fontWeight": "620",
+                  "lineHeight": "18px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(217, 102, 232)",
+                  "backgroundColor": "rgba(255, 255, 255, 0.01)",
+                  "backgroundImage": "linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)), none",
+                  "borderWidth": "1px",
+                  "borderColor": "rgba(102, 255, 225, 0.16)",
+                  "borderRadius": "16px",
+                  "boxShadow": "rgba(0, 0, 0, 0.18) 0px 10px 24px 0px, rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 0,
+                  "height": 0
+                },
+                "clientWidth": 0,
+                "scrollWidth": 0,
+                "clientHeight": 0,
+                "scrollHeight": 0,
+                "visible": false
+              }
+            ]
+          },
+          {
+            "selector": "#r1017RecInspectionNote",
+            "nodes": [
+              {
+                "tag": "P",
+                "id": "r1017RecInspectionNote",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "184px",
+                  "height": "46.5px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "6px 0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "10px",
+                  "fontWeight": "500",
+                  "lineHeight": "15.5px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "break-word",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(143, 184, 174)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(143, 184, 174)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 24,
+                  "y": 373.63,
+                  "width": 184,
+                  "height": 46.5
+                },
+                "clientWidth": 184,
+                "scrollWidth": 184,
+                "clientHeight": 47,
+                "scrollHeight": 47,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r1017RecInspectionStatus",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "r1017RecInspectionStatus",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "184px",
+                  "height": "15.5px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "6px 0px",
+                  "fontFamily": "Figtree, sans-serif",
+                  "fontSize": "10px",
+                  "fontWeight": "500",
+                  "lineHeight": "15.5px",
+                  "whiteSpace": "pre-line",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(223, 245, 239)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 24,
+                  "y": 426.13,
+                  "width": 184,
+                  "height": 15.5
+                },
+                "clientWidth": 184,
+                "scrollWidth": 184,
+                "clientHeight": 16,
+                "scrollHeight": 16,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#ydkBox .zYonerge.r1018Hint",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "flex",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "206px",
+                  "height": "238.312px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "10px",
+                  "alignItems": "normal",
+                  "flexDirection": "column",
+                  "padding": "12px",
+                  "margin": "8px 0px 10px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "11px",
+                  "fontWeight": "400",
+                  "lineHeight": "17.82px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(143, 184, 174)",
+                  "backgroundColor": "color(srgb 0.180392 0.901961 0.721569 / 0.05)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px 0px 0px 2px",
+                  "borderColor": "rgb(143, 184, 174) rgb(143, 184, 174) rgb(143, 184, 174) rgba(46, 230, 184, 0.42)",
+                  "borderRadius": "0px 9px 9px 0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 13,
+                  "y": 466.63,
+                  "width": 206,
+                  "height": 238.31
+                },
+                "clientWidth": 204,
+                "scrollWidth": 204,
+                "clientHeight": 238,
+                "scrollHeight": 238,
+                "visible": true
+              },
+              {
+                "tag": "DIV",
+                "id": "r1011VoiceRestoreHint",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "flex",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "206px",
+                  "height": "167.062px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "10px",
+                  "alignItems": "normal",
+                  "flexDirection": "column",
+                  "padding": "12px",
+                  "margin": "8px 0px 10px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "11px",
+                  "fontWeight": "400",
+                  "lineHeight": "17.82px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(143, 184, 174)",
+                  "backgroundColor": "color(srgb 0.180392 0.901961 0.721569 / 0.05)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px 0px 0px 2px",
+                  "borderColor": "rgb(143, 184, 174) rgb(143, 184, 174) rgb(143, 184, 174) rgba(46, 230, 184, 0.42)",
+                  "borderRadius": "0px 9px 9px 0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 13,
+                  "y": 1146.06,
+                  "width": 206,
+                  "height": 167.06
+                },
+                "clientWidth": 204,
+                "scrollWidth": 204,
+                "clientHeight": 167,
+                "scrollHeight": 167,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#ydkBox .r1018HintText",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "r1018BackupHintContent",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "180px",
+                  "height": "160.312px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "auto",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "11px",
+                  "fontWeight": "400",
+                  "lineHeight": "17.82px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(143, 184, 174)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(143, 184, 174)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 27,
+                  "y": 478.63,
+                  "width": 180,
+                  "height": 160.31
+                },
+                "clientWidth": 180,
+                "scrollWidth": 180,
+                "clientHeight": 160,
+                "scrollHeight": 160,
+                "visible": true
+              },
+              {
+                "tag": "DIV",
+                "id": "r1011VoiceRestoreHintContent",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "180px",
+                  "height": "89.0625px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "auto",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "11px",
+                  "fontWeight": "400",
+                  "lineHeight": "17.82px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(143, 184, 174)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(143, 184, 174)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 27,
+                  "y": 1158.06,
+                  "width": 180,
+                  "height": 89.06
+                },
+                "clientWidth": 180,
+                "scrollWidth": 180,
+                "clientHeight": 89,
+                "scrollHeight": 89,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#ydkBox .r1018Hint .yonergeKulak",
+            "nodes": [
+              {
+                "tag": "BUTTON",
+                "id": "",
+                "hidden": false,
+                "expanded": "true",
+                "disabled": false,
+                "style": {
+                  "display": "flex",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "180px",
+                  "height": "44px",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "44px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "6px",
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "padding": "10px 12px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "9.5px",
+                  "fontWeight": "600",
+                  "lineHeight": "14.25px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "break-word",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(217, 102, 232)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "linear-gradient(color(srgb 0.053109 0.265545 0.212436 / 0.237765), rgba(0, 0, 0, 0.16))",
+                  "borderWidth": "1px",
+                  "borderColor": "color(srgb 0.180392 0.901961 0.721569 / 0.360706)",
+                  "borderRadius": "10px",
+                  "boxShadow": "rgba(255, 255, 255, 0.024) 0px 1px 0px 0px inset",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 27,
+                  "y": 648.94,
+                  "width": 180,
+                  "height": 44
+                },
+                "clientWidth": 178,
+                "scrollWidth": 178,
+                "clientHeight": 42,
+                "scrollHeight": 42,
+                "visible": true
+              },
+              {
+                "tag": "BUTTON",
+                "id": "",
+                "hidden": false,
+                "expanded": "true",
+                "disabled": false,
+                "style": {
+                  "display": "flex",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "180px",
+                  "height": "44px",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "44px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "6px",
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "padding": "10px 12px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "9.5px",
+                  "fontWeight": "600",
+                  "lineHeight": "14.25px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "break-word",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(217, 102, 232)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "linear-gradient(color(srgb 0.053109 0.265545 0.212436 / 0.237765), rgba(0, 0, 0, 0.16))",
+                  "borderWidth": "1px",
+                  "borderColor": "color(srgb 0.180392 0.901961 0.721569 / 0.360706)",
+                  "borderRadius": "10px",
+                  "boxShadow": "rgba(255, 255, 255, 0.024) 0px 1px 0px 0px inset",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 27,
+                  "y": 1257.13,
+                  "width": 180,
+                  "height": 44
+                },
+                "clientWidth": 178,
+                "scrollWidth": 178,
+                "clientHeight": 42,
+                "scrollHeight": 42,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#ydkBox .r1018Hint .yonergeKulak span",
+            "nodes": [
+              {
+                "tag": "SPAN",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "28.9688px",
+                  "height": "14.25px",
+                  "minWidth": "auto",
+                  "maxWidth": "none",
+                  "minHeight": "auto",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "9.5px",
+                  "fontWeight": "600",
+                  "lineHeight": "14.25px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "break-word",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(217, 102, 232)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(217, 102, 232)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "0.9"
+                },
+                "rect": {
+                  "x": 109.69,
+                  "y": 663.81,
+                  "width": 28.97,
+                  "height": 14.25
+                },
+                "clientWidth": 29,
+                "scrollWidth": 29,
+                "clientHeight": 14,
+                "scrollHeight": 14,
+                "visible": true
+              },
+              {
+                "tag": "SPAN",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "28.9688px",
+                  "height": "14.25px",
+                  "minWidth": "auto",
+                  "maxWidth": "none",
+                  "minHeight": "auto",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "9.5px",
+                  "fontWeight": "600",
+                  "lineHeight": "14.25px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "break-word",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(217, 102, 232)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(217, 102, 232)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "0.9"
+                },
+                "rect": {
+                  "x": 109.69,
+                  "y": 1272,
+                  "width": 28.97,
+                  "height": 14.25
+                },
+                "clientWidth": 29,
+                "scrollWidth": 29,
+                "clientHeight": 14,
+                "scrollHeight": 14,
+                "visible": true
+              }
+            ]
+          }
+        ],
+        "layoutIssues": []
+      },
+      "expected": {
+        "rows": [
+          {
+            "selector": "#ydkBox",
+            "nodes": [
+              {
+                "tag": "DETAILS",
+                "id": "ydkBox",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "232px",
+                  "height": "1724.66px",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "10px 12px",
+                  "margin": "8px 0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "16px",
+                  "fontWeight": "400",
+                  "lineHeight": "23.2px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "hidden",
+                  "overflowX": "hidden",
+                  "overflowY": "hidden",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "radial-gradient(120% 160% at 0% 0%, rgba(89, 255, 224, 0.06), rgba(0, 0, 0, 0) 42%), radial-gradient(120% 160% at 100% 100%, rgba(155, 108, 255, 0.08), rgba(0, 0, 0, 0) 42%), linear-gradient(155deg, rgba(6, 18, 28, 0.78), rgba(8, 24, 36, 0.58))",
+                  "borderWidth": "1px",
+                  "borderColor": "rgba(102, 255, 225, 0.18)",
+                  "borderRadius": "20px",
+                  "boxShadow": "rgba(0, 0, 0, 0.22) 0px 16px 40px 0px, rgba(255, 255, 255, 0.03) 0px 1px 0px 0px inset",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 232,
+                  "height": 1724.66
+                },
+                "clientWidth": 230,
+                "scrollWidth": 230,
+                "clientHeight": 1723,
+                "scrollHeight": 1723,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#ydkBox > summary",
+            "nodes": [
+              {
+                "tag": "SUMMARY",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "flex",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "206px",
+                  "height": "118.188px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "44px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "8px",
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "padding": "11px 42px 11px 11px",
+                  "margin": "0px 0px 9px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "17px",
+                  "fontWeight": "400",
+                  "lineHeight": "23.8px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "break-word",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "color(srgb 0.180392 0.901961 0.721569 / 0.05)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px 0px 1px",
+                  "borderColor": "rgb(223, 245, 239) rgb(223, 245, 239) color(srgb 0.180392 0.901961 0.721569 / 0.22)",
+                  "borderRadius": "12px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 13,
+                  "y": 11,
+                  "width": 206,
+                  "height": 118.19
+                },
+                "clientWidth": 206,
+                "scrollWidth": 206,
+                "clientHeight": 117,
+                "scrollHeight": 117,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r187RecRescue",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "r187RecRescue",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "206px",
+                  "height": "320.438px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "16px",
+                  "fontWeight": "400",
+                  "lineHeight": "23.2px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(223, 245, 239)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 13,
+                  "y": 138.19,
+                  "width": 206,
+                  "height": 320.44
+                },
+                "clientWidth": 206,
+                "scrollWidth": 206,
+                "clientHeight": 320,
+                "scrollHeight": 320,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r187RecRescue .recRescueBar",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "grid",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "206px",
+                  "height": "110.438px",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "188px",
+                  "gap": "10px",
+                  "alignItems": "start",
+                  "flexDirection": "row",
+                  "padding": "8px",
+                  "margin": "8px 0px 4px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "16px",
+                  "fontWeight": "400",
+                  "lineHeight": "23.2px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "rgba(255, 255, 255, 0.016)",
+                  "backgroundImage": "none",
+                  "borderWidth": "1px",
+                  "borderColor": "rgba(46, 230, 184, 0.18)",
+                  "borderRadius": "14px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 13,
+                  "y": 138.19,
+                  "width": 206,
+                  "height": 110.44
+                },
+                "clientWidth": 204,
+                "scrollWidth": 204,
+                "clientHeight": 108,
+                "scrollHeight": 108,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r187RecStat",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "r187RecStat",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "188px",
+                  "height": "29.4375px",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "auto",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "Figtree, sans-serif",
+                  "fontSize": "9px",
+                  "fontWeight": "500",
+                  "lineHeight": "12.6px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(143, 184, 174)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(143, 184, 174)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 22,
+                  "y": 147.19,
+                  "width": 188,
+                  "height": 29.44
+                },
+                "clientWidth": 188,
+                "scrollWidth": 188,
+                "clientHeight": 29,
+                "scrollHeight": 29,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r187RecStat b",
+            "nodes": [
+              {
+                "tag": "B",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "188px",
+                  "height": "15.5px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "Figtree, sans-serif",
+                  "fontSize": "10px",
+                  "fontWeight": "700",
+                  "lineHeight": "15.5px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(223, 245, 239)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 22,
+                  "y": 147.19,
+                  "width": 188,
+                  "height": 15.5
+                },
+                "clientWidth": 188,
+                "scrollWidth": 188,
+                "clientHeight": 16,
+                "scrollHeight": 16,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r187RecStat span",
+            "nodes": [
+              {
+                "tag": "SPAN",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "188px",
+                  "height": "13.9375px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "9px",
+                  "fontWeight": "500",
+                  "lineHeight": "13.95px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(143, 184, 174)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(143, 184, 174)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 22,
+                  "y": 162.69,
+                  "width": 188,
+                  "height": 13.94
+                },
+                "clientWidth": 188,
+                "scrollWidth": 188,
+                "clientHeight": 14,
+                "scrollHeight": 14,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r187RecRescan",
+            "nodes": [
+              {
+                "tag": "BUTTON",
+                "id": "r187RecRescan",
+                "hidden": false,
+                "expanded": null,
+                "disabled": true,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "188px",
+                  "height": "53px",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "44px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "12px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "9px",
+                  "fontWeight": "620",
+                  "lineHeight": "13.5px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(217, 102, 232)",
+                  "backgroundColor": "rgba(255, 255, 255, 0.01)",
+                  "backgroundImage": "linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)), none",
+                  "borderWidth": "1px",
+                  "borderColor": "rgba(102, 255, 225, 0.16)",
+                  "borderRadius": "16px",
+                  "boxShadow": "rgba(0, 0, 0, 0.18) 0px 10px 24px 0px, rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset",
+                  "opacity": "0.55"
+                },
+                "rect": {
+                  "x": 22,
+                  "y": 186.63,
+                  "width": 188,
+                  "height": 53
+                },
+                "clientWidth": 186,
+                "scrollWidth": 186,
+                "clientHeight": 51,
+                "scrollHeight": 51,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r1017RecInspection",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "r1017RecInspection",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "206px",
+                  "height": "164px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "10px",
+                  "margin": "9px 0px 0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "16px",
+                  "fontWeight": "400",
+                  "lineHeight": "23.2px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "1px",
+                  "borderColor": "rgba(46, 230, 184, 0.18)",
+                  "borderRadius": "12px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 13,
+                  "y": 294.63,
+                  "width": 206,
+                  "height": 164
+                },
+                "clientWidth": 204,
+                "scrollWidth": 204,
+                "clientHeight": 162,
+                "scrollHeight": 162,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r1017RecInspection .recInspectionActions",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "grid",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "184px",
+                  "height": "62px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "184px",
+                  "gap": "7px",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "16px",
+                  "fontWeight": "400",
+                  "lineHeight": "23.2px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(223, 245, 239)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 24,
+                  "y": 305.63,
+                  "width": 184,
+                  "height": 62
+                },
+                "clientWidth": 184,
+                "scrollWidth": 184,
+                "clientHeight": 62,
+                "scrollHeight": 62,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r1017RecInspect",
+            "nodes": [
+              {
+                "tag": "BUTTON",
+                "id": "r1017RecInspect",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "184px",
+                  "height": "62px",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "44px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "12px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "12px",
+                  "fontWeight": "620",
+                  "lineHeight": "18px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(217, 102, 232)",
+                  "backgroundColor": "rgba(255, 255, 255, 0.01)",
+                  "backgroundImage": "linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)), none",
+                  "borderWidth": "1px",
+                  "borderColor": "rgba(102, 255, 225, 0.16)",
+                  "borderRadius": "16px",
+                  "boxShadow": "rgba(0, 0, 0, 0.18) 0px 10px 24px 0px, rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 24,
+                  "y": 305.63,
+                  "width": 184,
+                  "height": 62
+                },
+                "clientWidth": 182,
+                "scrollWidth": 182,
+                "clientHeight": 60,
+                "scrollHeight": 60,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r1017RecInspectionCancel",
+            "nodes": [
+              {
+                "tag": "BUTTON",
+                "id": "r1017RecInspectionCancel",
+                "hidden": true,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "none",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "100%",
+                  "height": "auto",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "44px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "12px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "12px",
+                  "fontWeight": "620",
+                  "lineHeight": "18px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(217, 102, 232)",
+                  "backgroundColor": "rgba(255, 255, 255, 0.01)",
+                  "backgroundImage": "linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)), none",
+                  "borderWidth": "1px",
+                  "borderColor": "rgba(102, 255, 225, 0.16)",
+                  "borderRadius": "16px",
+                  "boxShadow": "rgba(0, 0, 0, 0.18) 0px 10px 24px 0px, rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 0,
+                  "height": 0
+                },
+                "clientWidth": 0,
+                "scrollWidth": 0,
+                "clientHeight": 0,
+                "scrollHeight": 0,
+                "visible": false
+              }
+            ]
+          },
+          {
+            "selector": "#r1017RecInspectionNote",
+            "nodes": [
+              {
+                "tag": "P",
+                "id": "r1017RecInspectionNote",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "184px",
+                  "height": "46.5px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "6px 0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "10px",
+                  "fontWeight": "500",
+                  "lineHeight": "15.5px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "break-word",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(143, 184, 174)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(143, 184, 174)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 24,
+                  "y": 373.63,
+                  "width": 184,
+                  "height": 46.5
+                },
+                "clientWidth": 184,
+                "scrollWidth": 184,
+                "clientHeight": 47,
+                "scrollHeight": 47,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#r1017RecInspectionStatus",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "r1017RecInspectionStatus",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "184px",
+                  "height": "15.5px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "6px 0px",
+                  "fontFamily": "Figtree, sans-serif",
+                  "fontSize": "10px",
+                  "fontWeight": "500",
+                  "lineHeight": "15.5px",
+                  "whiteSpace": "pre-line",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(223, 245, 239)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(223, 245, 239)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 24,
+                  "y": 426.13,
+                  "width": 184,
+                  "height": 15.5
+                },
+                "clientWidth": 184,
+                "scrollWidth": 184,
+                "clientHeight": 16,
+                "scrollHeight": 16,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#ydkBox .zYonerge.r1018Hint",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "flex",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "206px",
+                  "height": "238.312px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "10px",
+                  "alignItems": "normal",
+                  "flexDirection": "column",
+                  "padding": "12px",
+                  "margin": "8px 0px 10px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "11px",
+                  "fontWeight": "400",
+                  "lineHeight": "17.82px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(143, 184, 174)",
+                  "backgroundColor": "color(srgb 0.180392 0.901961 0.721569 / 0.05)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px 0px 0px 2px",
+                  "borderColor": "rgb(143, 184, 174) rgb(143, 184, 174) rgb(143, 184, 174) rgba(46, 230, 184, 0.42)",
+                  "borderRadius": "0px 9px 9px 0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 13,
+                  "y": 466.63,
+                  "width": 206,
+                  "height": 238.31
+                },
+                "clientWidth": 204,
+                "scrollWidth": 204,
+                "clientHeight": 238,
+                "scrollHeight": 238,
+                "visible": true
+              },
+              {
+                "tag": "DIV",
+                "id": "r1011VoiceRestoreHint",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "flex",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "206px",
+                  "height": "167.062px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "0px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "10px",
+                  "alignItems": "normal",
+                  "flexDirection": "column",
+                  "padding": "12px",
+                  "margin": "8px 0px 10px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "11px",
+                  "fontWeight": "400",
+                  "lineHeight": "17.82px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(143, 184, 174)",
+                  "backgroundColor": "color(srgb 0.180392 0.901961 0.721569 / 0.05)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px 0px 0px 2px",
+                  "borderColor": "rgb(143, 184, 174) rgb(143, 184, 174) rgb(143, 184, 174) rgba(46, 230, 184, 0.42)",
+                  "borderRadius": "0px 9px 9px 0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 13,
+                  "y": 1146.06,
+                  "width": 206,
+                  "height": 167.06
+                },
+                "clientWidth": 204,
+                "scrollWidth": 204,
+                "clientHeight": 167,
+                "scrollHeight": 167,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#ydkBox .r1018HintText",
+            "nodes": [
+              {
+                "tag": "DIV",
+                "id": "r1018BackupHintContent",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "180px",
+                  "height": "160.312px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "auto",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "11px",
+                  "fontWeight": "400",
+                  "lineHeight": "17.82px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(143, 184, 174)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(143, 184, 174)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 27,
+                  "y": 478.63,
+                  "width": 180,
+                  "height": 160.31
+                },
+                "clientWidth": 180,
+                "scrollWidth": 180,
+                "clientHeight": 160,
+                "scrollHeight": 160,
+                "visible": true
+              },
+              {
+                "tag": "DIV",
+                "id": "r1011VoiceRestoreHintContent",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "180px",
+                  "height": "89.0625px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "minHeight": "auto",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "11px",
+                  "fontWeight": "400",
+                  "lineHeight": "17.82px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "anywhere",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(143, 184, 174)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(143, 184, 174)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 27,
+                  "y": 1158.06,
+                  "width": 180,
+                  "height": 89.06
+                },
+                "clientWidth": 180,
+                "scrollWidth": 180,
+                "clientHeight": 89,
+                "scrollHeight": 89,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#ydkBox .r1018Hint .yonergeKulak",
+            "nodes": [
+              {
+                "tag": "BUTTON",
+                "id": "",
+                "hidden": false,
+                "expanded": "true",
+                "disabled": false,
+                "style": {
+                  "display": "flex",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "180px",
+                  "height": "44px",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "44px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "6px",
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "padding": "10px 12px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "9.5px",
+                  "fontWeight": "600",
+                  "lineHeight": "14.25px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "break-word",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(217, 102, 232)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "linear-gradient(color(srgb 0.053109 0.265545 0.212436 / 0.237765), rgba(0, 0, 0, 0.16))",
+                  "borderWidth": "1px",
+                  "borderColor": "color(srgb 0.180392 0.901961 0.721569 / 0.360706)",
+                  "borderRadius": "10px",
+                  "boxShadow": "rgba(255, 255, 255, 0.024) 0px 1px 0px 0px inset",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 27,
+                  "y": 648.94,
+                  "width": 180,
+                  "height": 44
+                },
+                "clientWidth": 178,
+                "scrollWidth": 178,
+                "clientHeight": 42,
+                "scrollHeight": 42,
+                "visible": true
+              },
+              {
+                "tag": "BUTTON",
+                "id": "",
+                "hidden": false,
+                "expanded": "true",
+                "disabled": false,
+                "style": {
+                  "display": "flex",
+                  "visibility": "visible",
+                  "position": "relative",
+                  "boxSizing": "border-box",
+                  "width": "180px",
+                  "height": "44px",
+                  "minWidth": "0px",
+                  "maxWidth": "100%",
+                  "minHeight": "44px",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "6px",
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "padding": "10px 12px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "9.5px",
+                  "fontWeight": "600",
+                  "lineHeight": "14.25px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "break-word",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(217, 102, 232)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "linear-gradient(color(srgb 0.053109 0.265545 0.212436 / 0.237765), rgba(0, 0, 0, 0.16))",
+                  "borderWidth": "1px",
+                  "borderColor": "color(srgb 0.180392 0.901961 0.721569 / 0.360706)",
+                  "borderRadius": "10px",
+                  "boxShadow": "rgba(255, 255, 255, 0.024) 0px 1px 0px 0px inset",
+                  "opacity": "1"
+                },
+                "rect": {
+                  "x": 27,
+                  "y": 1257.13,
+                  "width": 180,
+                  "height": 44
+                },
+                "clientWidth": 178,
+                "scrollWidth": 178,
+                "clientHeight": 42,
+                "scrollHeight": 42,
+                "visible": true
+              }
+            ]
+          },
+          {
+            "selector": "#ydkBox .r1018Hint .yonergeKulak span",
+            "nodes": [
+              {
+                "tag": "SPAN",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "28.9688px",
+                  "height": "14.25px",
+                  "minWidth": "auto",
+                  "maxWidth": "none",
+                  "minHeight": "auto",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "9.5px",
+                  "fontWeight": "600",
+                  "lineHeight": "14.25px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "break-word",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(217, 102, 232)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(217, 102, 232)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "0.9"
+                },
+                "rect": {
+                  "x": 109.69,
+                  "y": 663.81,
+                  "width": 28.97,
+                  "height": 14.25
+                },
+                "clientWidth": 29,
+                "scrollWidth": 29,
+                "clientHeight": 14,
+                "scrollHeight": 14,
+                "visible": true
+              },
+              {
+                "tag": "SPAN",
+                "id": "",
+                "hidden": false,
+                "expanded": null,
+                "disabled": false,
+                "style": {
+                  "display": "block",
+                  "visibility": "visible",
+                  "position": "static",
+                  "boxSizing": "border-box",
+                  "width": "28.9688px",
+                  "height": "14.25px",
+                  "minWidth": "auto",
+                  "maxWidth": "none",
+                  "minHeight": "auto",
+                  "maxHeight": "none",
+                  "gridTemplateColumns": "none",
+                  "gap": "normal",
+                  "alignItems": "normal",
+                  "flexDirection": "row",
+                  "padding": "0px",
+                  "margin": "0px",
+                  "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif",
+                  "fontSize": "9.5px",
+                  "fontWeight": "600",
+                  "lineHeight": "14.25px",
+                  "whiteSpace": "normal",
+                  "wordBreak": "normal",
+                  "overflowWrap": "break-word",
+                  "overflow": "visible",
+                  "overflowX": "visible",
+                  "overflowY": "visible",
+                  "color": "rgb(217, 102, 232)",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "borderWidth": "0px",
+                  "borderColor": "rgb(217, 102, 232)",
+                  "borderRadius": "0px",
+                  "boxShadow": "none",
+                  "opacity": "0.9"
+                },
+                "rect": {
+                  "x": 109.69,
+                  "y": 1272,
+                  "width": 28.97,
+                  "height": 14.25
+                },
+                "clientWidth": 29,
+                "scrollWidth": 29,
+                "clientHeight": 14,
+                "scrollHeight": 14,
+                "visible": true
+              }
+            ]
+          }
+        ],
+        "layoutIssues": []
+      }
+    }
+  ],
+  "screenshots": [],
+  "resources": {
+    "baseline": {
+      "root": "/workspace/scratch/55c51c2f8f94/sukun-g8-recovery",
+      "served": {
+        "nero.html": {
+          "sha256": "87a220cd4731e6945acdc97bc9ab3a66af69fe700ee6a246dbfd82c401493fb8",
+          "bytes": 7412578
+        },
+        "css/shared-readable-r1105.css": {
+          "sha256": "6f515d25354673aa17ea59ba9a0c884beffb7b8bbed1e2cc2700f2291008c57e",
+          "bytes": 4529
+        },
+        "css/kandil-preferences-r1108.css": {
+          "sha256": "8ffd305fef20dcc04277f2a61c7349e029b400506707974df68f13872c08ec08",
+          "bytes": 2543
+        },
+        "css/player-branding-r1109.css": {
+          "sha256": "0e1c4904c3290562081cf29326fb7fd70d17480db91205db966b5192d565f25a",
+          "bytes": 5118
+        },
+        "css/ambience-readable-r1104.css": {
+          "sha256": "200f0cdb827dbfb48e7a22e2ae01bbbbe954482faff85d8d288f4f71a0a306e2",
+          "bytes": 4855
+        },
+        "css/ambience-info-round-r1103.css": {
+          "sha256": "26f50a886eaedc343bd4bcae22be40b58f8329afa38484c2ee752965aec0394b",
+          "bytes": 1657
+        },
+        "css/berhet-controls-r1101.css": {
+          "sha256": "3a5628a1796a0bf2dde3b7eafc68037bb8b4a0a549af9b53dfd1122e9dee7e47",
+          "bytes": 25169
+        },
+        "css/ambience-compact-r1102.css": {
+          "sha256": "b0c1b7ea6439a01b2d7893f080340b31d4e4f512a68c87f29283d35537c896cc",
+          "bytes": 2513
+        },
+        "css/berhet-surfaces-r1115.css": {
+          "sha256": "cc1776fe16b64a9785d41161ff5d87cf6a9bcbe077340abf9608933d2af3949d",
+          "bytes": 4522
+        },
+        "assets/runtime/browser-contrast-r1077.css": {
+          "sha256": "35eb72c7d208df77eaa80833bd33535db2e71359bef78cb0713574cdb52e6689",
+          "bytes": 6127
+        },
+        "assets/runtime/protective-plan-r1078.css": {
+          "sha256": "435d3597d787a42f4e4cb8014dad0d6cc1d944575cb82d6375a25376a8e73243",
+          "bytes": 4325
+        },
+        "assets/runtime/berhet-materials-r933.css": {
+          "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+          "bytes": 622
+        },
+        "assets/runtime/berhet-layout-r938.css": {
+          "sha256": "e22130607a9dc18f298262d67a58393b4a51d09f3e7601a0f543df2ab0646491",
+          "bytes": 37423
+        },
+        "assets/runtime/berhet-controls-r933.css": {
+          "sha256": "3ad2239995fcc02fcbcf970d738a4b548716b9de360954af50839097c7c7c067",
+          "bytes": 39109
+        },
+        "assets/runtime/compact-ui-r1057.css": {
+          "sha256": "ea43a802d7059df167b1acf3504b96ba77dd73bd98b95b1e488d3ec4d57bfaea",
+          "bytes": 8438
+        },
+        "assets/runtime/berhet-dock-r933.css": {
+          "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+          "bytes": 12309
+        },
+        "assets/runtime/smart-session-ui-r1082.css": {
+          "sha256": "75a9a3565910449a6dd3b2a0b3d46487ed4d2c63ee7fd062b547a9f9a86db2a0",
+          "bytes": 9229
+        },
+        "assets/runtime/personal-centre-glass-r1118.css": {
+          "sha256": "4a65531c6bca7cf34ced0ca03c135e8bd196d8d1e94d2a89e888db3859af583b",
+          "bytes": 1206
+        },
+        "assets/runtime/scene-info-r1118.css": {
+          "sha256": "3f53579550f9477097a0bab883b008863283b6de6d38ddd088e3e24252d7e891",
+          "bytes": 337
+        },
+        "assets/runtime/audio-cpu-r981.js": {
+          "sha256": "188aae6305898a25f846fa66b4565938344f5bdb82d6cc3ad132f049262ddcef",
+          "bytes": 7907
+        },
+        "assets/runtime/surface-clarity-r1118.css": {
+          "sha256": "9c8a993f293eacdb8658750b72bac7176b824d28cf78f1e625e35b53284e2581",
+          "bytes": 7630
+        },
+        "assets/runtime/audio-preparation-r981.js": {
+          "sha256": "412ce19623c4807e4f7347ecb0b15eff1357c400463b14d9894617ea077cfa9a",
+          "bytes": 20891
+        },
+        "assets/runtime/studio-preparation-r982.js": {
+          "sha256": "25cde9f6c6416efeafcc22f957d21a6b3506eaaa7fd5c75c6a04aee2b4f10873",
+          "bytes": 8714
+        },
+        "assets/runtime/progress-journal-r982.js": {
+          "sha256": "1555800182b606e6abea73dd53bf8fa9392a7f42b4a3a628a208bf4ad8587cde",
+          "bytes": 21081
+        },
+        "assets/runtime/tab-owner-r981.js": {
+          "sha256": "d306eafe445953ac97537b3fbe68cc672c98cd124348340f53e9cb70d87e9f5e",
+          "bytes": 34931
+        },
+        "assets/runtime/recording-continuity-r1016.js": {
+          "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+          "bytes": 13251
+        },
+        "assets/runtime/recording-inspection-r1020.js": {
+          "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+          "bytes": 9674
+        },
+        "assets/runtime/background-owner-r949.js": {
+          "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+          "bytes": 11067
+        },
+        "assets/runtime/lifecycle-r949.js": {
+          "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+          "bytes": 4252
+        },
+        "assets/runtime/reading-ui-r1064.css": {
+          "sha256": "c7e5ad5f763e51c806602b77bdc202ff2c9d491e461aa6ea1260a99e0a49d8b9",
+          "bytes": 5509
+        },
+        "assets/runtime/recovery-entry-r1027.js": {
+          "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+          "bytes": 5702
+        },
+        "assets/branding/sukun-frameless-logo-r1029.png": {
+          "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+          "bytes": 27201
+        },
+        "assets/audio/sukun-intro-signature-r1037.wav": {
+          "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+          "bytes": 288044
+        },
+        "assets/branding/sukun-intro-pattern-r1029.svg": {
+          "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4",
+          "bytes": 769
+        },
+        "assets/runtime/startup-intro-r1027.js": {
+          "sha256": "2511c881c086fbe4df9a5e5b73c4fa26384bca4f4f1142a3e9195c27a78cc0b2",
+          "bytes": 22478
+        },
+        "assets/runtime/audio-palette-r945.js": {
+          "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+          "bytes": 6073
+        },
+        "assets/runtime/active-source-r1060.js": {
+          "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+          "bytes": 6128
+        },
+        "css/notification-layout-r1111.css": {
+          "sha256": "dba02fc702f8320cf6ed05d847ac70df68c31ef43441be962484ecaad096e27f",
+          "bytes": 4990
+        },
+        "css/name-info-r1115.css": {
+          "sha256": "66d8c485c9c6c92939380a4ee07c471db127f6d9356b4f7320ada8454aaa27b4",
+          "bytes": 5642
+        },
+        "assets/sukun-tesbih-weave-r759.svg": {
+          "sha256": "f01e6993b482e6194f479416955b85e888b95c332187a1bc55aaa7b893502bba",
+          "bytes": 1296
+        },
+        "assets/sukun-nur-mist-r759.svg": {
+          "sha256": "4b099628bd538f0a6e2b73b4ffea399319347375444312e7946ada10e8214ccf",
+          "bytes": 20321
+        },
+        "assets/sukun-nur-orbit-r757.svg": {
+          "sha256": "b9e2f2d8d983b9b19cd4be7d16ab1fe82d47a89c82361c2a60f456f25e478854",
+          "bytes": 248
+        },
+        "assets/scenes/esma-r923/mevlevi-sema.webp": {
+          "sha256": "c7dbea4be096916817a0550c698a1607dbf195d951d134874f0244eef1ef6950",
+          "bytes": 274004
+        },
+        "assets/scenes/mobile-r918/mevlevi.webp": {
+          "sha256": "38809a4ac966552a60fee4efb9e303b9edd2f9c13cca2b9787ed9cf67bfce565",
+          "bytes": 411132
+        },
+        "assets/sukun-nur-ring-r757.png": {
+          "sha256": "b9bf594010438b1c49ab693a94ba5022569462c334f606754306bb63f808f6fb",
+          "bytes": 1713434
+        },
+        "assets/runtime/esma-scenes-r923.js": {
+          "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+          "bytes": 4307
+        },
+        "assets/runtime/generic-recordings-r1055.js": {
+          "sha256": "f3b3f3a90ab5451d9b50a227b6a619b4cd9592f4a8e45cd4648b8a6aaed45c89",
+          "bytes": 38555
+        },
+        "assets/scenes/esma-r923/cami-avlusu.webp": {
+          "sha256": "17561714794972eb80240e57bcd07604e6db7d89c19af939e4df4280f339f93f",
+          "bytes": 362610
+        },
+        "assets/runtime/archive-download-r1093.css": {
+          "sha256": "1e64b2d06b24547bb932d4148de660201ec62a5610d95c6148d8ba879cfbbebc",
+          "bytes": 3150
+        },
+        "assets/runtime/source-matrix-ui-r1094.css": {
+          "sha256": "ad4a4fa2d522d2a418403fc07b8f1a0979faf6e6d4db240e40e699eadcbe135a",
+          "bytes": 3903
+        },
+        "assets/runtime/archive-download-r1093.js": {
+          "sha256": "5a796fbbe29c0f5183434e655e792102fb831bb39895e1f5685d3c5aaf9fd3ad",
+          "bytes": 24139
+        },
+        "assets/runtime/generic-recordings-ui-r1055.js": {
+          "sha256": "4c60e36eff387b882d2b8d874799da2a3a469bb0ecca20b888fa511cf147dbcc",
+          "bytes": 32023
+        },
+        "assets/runtime/session-r919.js": {
+          "sha256": "5ef9efcb784542a53a9f3ebe8ec57f4694ebbeeb0b7af00428a6b4de9e2b8869",
+          "bytes": 46114
+        },
+        "assets/runtime/dock-r920.js": {
+          "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+          "bytes": 11007
+        },
+        "assets/runtime/active-layers-r1061.js": {
+          "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+          "bytes": 14049
+        },
+        "assets/runtime/wheels-r924.js": {
+          "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+          "bytes": 41623
+        },
+        "assets/runtime/berhet-layout-r938.js": {
+          "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+          "bytes": 8399
+        },
+        "assets/runtime/interface-r920.js": {
+          "sha256": "517d7dc842e2dbebdea2373335c527e1dd08624584a31eac6f79f19f8c057ff0",
+          "bytes": 43131
+        },
+        "assets/runtime/compact-ui-r1057.js": {
+          "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+          "bytes": 5342
+        },
+        "assets/wheels-r924/esma/inci-sema.webp": {
+          "sha256": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+          "bytes": 238294
+        },
+        "assets/runtime/wheels-r924.css": {
+          "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+          "bytes": 34043
+        },
+        "assets/runtime/berhet-theme-r933.js": {
+          "sha256": "e3f4ba9b695d25d34c7e098a7d51b51e778089ddd897ac9b10b9851e511d2069",
+          "bytes": 2335
+        },
+        "assets/runtime/storage-snapshot-r1107.css": {
+          "sha256": "e1222f0524734b2e07abf35700fb26e048926498ac11cb54dcdc4b7be43f6029",
+          "bytes": 2587
+        },
+        "assets/runtime/storage-snapshot-r1107.js": {
+          "sha256": "125fb6075cbf9de7c617e7cde6e204dc9d519e82f755c0367994df56183c9fdf",
+          "bytes": 11806
+        },
+        "assets/runtime/storage-snapshot-ui-r1107.js": {
+          "sha256": "bfc5c97505fde90dbec9d101fd7ac7e768d9f442e6e414f233305a2bb28185d4",
+          "bytes": 12475
+        },
+        "assets/runtime/health-view-r943.css": {
+          "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+          "bytes": 7440
+        },
+        "assets/runtime/health-view-r943.js": {
+          "sha256": "72fce7d75ad4fc40ee0fcae176cca4adc5c1989c33e99829454343acfa4d9683",
+          "bytes": 125481
+        },
+        "assets/runtime/scene-picker-r945.css": {
+          "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+          "bytes": 6657
+        },
+        "assets/runtime/scene-picker-r945.js": {
+          "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+          "bytes": 9860
+        },
+        "assets/runtime/presentation-r979.js": {
+          "sha256": "2b33c219afa5fb73d701bceeb0acb43840662a72271dc02bc724c508197dd48f",
+          "bytes": 16080
+        },
+        "assets/runtime/health-r940.js": {
+          "sha256": "091f0faafa30fcda130db71d73b845dcdb36ee68df472a48853a44c82ae438ec",
+          "bytes": 95206
+        },
+        "assets/runtime/nefs-r948.css": {
+          "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+          "bytes": 18988
+        },
+        "assets/runtime/nefs-data-r948.js": {
+          "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+          "bytes": 283054
+        },
+        "assets/runtime/nefs-model-r948.js": {
+          "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+          "bytes": 18197
+        },
+        "assets/runtime/nefs-ui-r948.js": {
+          "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+          "bytes": 48398
+        },
+        "assets/runtime/offline-scenes-r962.js": {
+          "sha256": "3d2bf56119336acd4a8dab2422b96914a7bc3d8b386c1e3a43ab47e82a328c62",
+          "bytes": 11161
+        },
+        "assets/runtime/offline-images-ui-r1095.css": {
+          "sha256": "8d8790d515e1e752f4e80598e450eca83c96ae0c7397df3eb1156a16573ea70b",
+          "bytes": 3214
+        },
+        "assets/runtime/offline-images-ui-r1095.js": {
+          "sha256": "a73415347147aea22dc249f435aba425713e8bc4f7cf33c72ea1c372168f32ef",
+          "bytes": 13974
+        },
+        "assets/runtime/cadence-r981.css": {
+          "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+          "bytes": 1841
+        },
+        "assets/runtime/cadence-r981.js": {
+          "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+          "bytes": 23650
+        },
+        "css/category-flow-r1109.css": {
+          "sha256": "cea8152b97516fb5bb7908c8868d190179cebe0c66d9fae548411d53487c1dd8",
+          "bytes": 1987
+        },
+        "css/tooltip-help-r1110.css": {
+          "sha256": "b5f598abc3d9660977742bb285802a691b21587e4c4eaf371af1bd31ece5b4da",
+          "bytes": 1721
+        },
+        "assets/runtime/tekke-sequence-r988.js": {
+          "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+          "bytes": 10314
+        },
+        "assets/runtime/tekke-set-r990.js": {
+          "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+          "bytes": 27409
+        },
+        "css/tekke-set-card-r1112.css": {
+          "sha256": "ad93851820e98e0f238459cc95fc26e89b1227f1174095a715e542c74e9470c7",
+          "bytes": 7182
+        },
+        "assets/runtime/tekke-ux-r992.css": {
+          "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+          "bytes": 37518
+        },
+        "assets/runtime/tekke-journey-r993.css": {
+          "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+          "bytes": 7044
+        },
+        "assets/runtime/tekke-ux-r992.js": {
+          "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+          "bytes": 25320
+        },
+        "assets/runtime/tekke-journey-r993.js": {
+          "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+          "bytes": 38289
+        },
+        "assets/runtime/background-mix-render-r1059.js": {
+          "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e",
+          "bytes": 21067
+        },
+        "assets/runtime/background-mix-r1059.js": {
+          "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38",
+          "bytes": 18625
+        },
+        "assets/runtime/yasin-data-r1064.js": {
+          "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+          "bytes": 49799
+        },
+        "assets/runtime/reading-sources-r1064.js": {
+          "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+          "bytes": 67014
+        },
+        "assets/runtime/bundled-arabic-r1065.js": {
+          "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+          "bytes": 9208
+        },
+        "assets/runtime/yasin-timing-r1067.js": {
+          "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+          "bytes": 5926
+        },
+        "assets/runtime/reading-audio-r1064.js": {
+          "sha256": "dbeccc27c91c5a87b494437ff835364350e23d00e61687378875c867891d9b44",
+          "bytes": 20352
+        },
+        "assets/runtime/navigation-r1066.js": {
+          "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+          "bytes": 2624
+        },
+        "assets/runtime/reading-ui-r1064.js": {
+          "sha256": "e64203292bbb461b87526679593bf28b5cc43bc53e4ffc56acadea719572c09c",
+          "bytes": 43814
+        },
+        "assets/runtime/protective-plan-r1078.js": {
+          "sha256": "eae538c9a50770b86751c48d1b4ab4515a443a541fb358c5e3d157bb2d6b6a22",
+          "bytes": 8374
+        },
+        "assets/runtime/smart-session-ui-r1082.js": {
+          "sha256": "5dac4626b57602a9d04b3bc7b58ff8dbaacc951c9bcd75a61f1835702d230713",
+          "bytes": 22631
+        },
+        "assets/berhetiyye-gate/portal-r1080.css": {
+          "sha256": "5c115fb5f548e6d15bb938c5270d5431bcaabe03ea6abd164370ad05885bb757",
+          "bytes": 23097
+        },
+        "assets/berhetiyye-gate/entry-r1080.css": {
+          "sha256": "652561e9c60b412bbb6e03096c5576787aad2966b3bcfae8205d40b28d3e0374",
+          "bytes": 1562
+        },
+        "assets/berhetiyye-gate/audio-r1080.js": {
+          "sha256": "d77a0ecff6f7a7b11cee3116817c51c6a1cf568d0c7e8d7026383842936d015c",
+          "bytes": 12551
+        },
+        "assets/berhetiyye-gate/invitation-tr.mp3": {
+          "sha256": "18a114ec927508e4f5684a7e76d39abe28058c81f5632c797a707c6109bd5303",
+          "bytes": 54957
+        },
+        "integration/berhet-access/example-http-provider.js": {
+          "sha256": "ec2e1f22e7bf0ae938a7163019eec4556150bf858dc387e13b3596cce30f16ae",
+          "bytes": 7192
+        },
+        "assets/berhetiyye-gate/access-r1080.js": {
+          "sha256": "99270f5efc93e38ab95d1c6da32005232a63e181d94765e44f4c894d424a64c6",
+          "bytes": 14484
+        },
+        "assets/berhetiyye-gate/portal-r1080.js": {
+          "sha256": "0048e2a9cac8416faa0102b1cc10ff8d262693f09be89e4ad663c170e9c077c9",
+          "bytes": 53727
+        },
+        "assets/berhetiyye-gate/entry-r1080.js": {
+          "sha256": "8ef27093ff8da3fc8dc9a8f67563df4f49c0176ecbf18772c416c28d1194cde3",
+          "bytes": 3033
+        },
+        "assets/runtime/session-preflight-ui-r1092.css": {
+          "sha256": "e0b99033e8d528dffa1da89c778b8567c201db5dda32516a1105610a74cfd150",
+          "bytes": 2014
+        },
+        "assets/runtime/preflight-cache-r1092.js": {
+          "sha256": "840a9e120dc10f93842eada39e17ac316671c45405e8109694bfd20d8966d0ed",
+          "bytes": 4551
+        },
+        "assets/runtime/session-preflight-r1092.js": {
+          "sha256": "0c33412ea2ef96825ec6ac7bb9b8e30307b3b486aa14803e2becc0cb758ba986",
+          "bytes": 14381
+        },
+        "assets/runtime/session-preflight-ui-r1092.js": {
+          "sha256": "c8239465b43a7cc392c7d87ca6fd2361d59e4fbcb08ad7852657ee58204ef844",
+          "bytes": 12494
+        },
+        "assets/runtime/source-matrix-r1094.js": {
+          "sha256": "07a56c03210a52669d9d0c5578339eac60423654bdf8ef13dc0d18a8f4607e1e",
+          "bytes": 14815
+        },
+        "assets/runtime/source-matrix-ui-r1094.js": {
+          "sha256": "1cdc67d4769bc8707acdc7e175ed927faf3dc820f8834de984e144887540345c",
+          "bytes": 16449
+        },
+        "js/section-switch-r1101.js": {
+          "sha256": "29d8a99e6061997c0d392dc6e6493189eab9f2c10d67b87dcdb7dfa80b5d4a8f",
+          "bytes": 8329
+        },
+        "css/frequency-hub-r1101.css": {
+          "sha256": "23587c627d8683d16ca6d576ec3751af99595425e476d0dd0c695faf184c4c6e",
+          "bytes": 7142
+        },
+        "js/frequency-hub-r1101.js": {
+          "sha256": "9a32f709450323b576ca1a3f13eaf4595e4a1bcf95bdbc942139461835bf5816",
+          "bytes": 23564
+        },
+        "assets/runtime/studio-batch-r1020.js": {
+          "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+          "bytes": 23944
+        },
+        "assets/runtime/recovery-versions-r1019.js": {
+          "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+          "bytes": 8407
+        },
+        "assets/runtime/recovery-data-r1020.js": {
+          "sha256": "73dc56f2eb83405ee0801fd94703b85497963d02aad728216336e66e6e5da355",
+          "bytes": 52774
+        },
+        "assets/runtime/site-backup-r1020.js": {
+          "sha256": "5d8380543c1893a80c80c5b8a425cc28638615a724144243549469b9672cddf9",
+          "bytes": 29313
+        },
+        "assets/runtime/recovery-ui-r1019.js": {
+          "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+          "bytes": 6054
+        },
+        "assets/runtime/recording-salvage-r1020.js": {
+          "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+          "bytes": 36787
+        },
+        "sukun-build-r1118.json": {
+          "sha256": "d3880de599b52e45f51b6cf7a6a67856a8681ec0164effdf258c2583ab930ef0",
+          "bytes": 41557
+        },
+        "assets/wheel-navigation-r964/gold.png": {
+          "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2",
+          "bytes": 1345326
+        },
+        "assets/berhetiyye-gate/portal.webp": {
+          "sha256": "ff952d8df0e9d9f544fe24a8441cc1e57e27cc45685e5fc2475b41320b868cf5",
+          "bytes": 189544
+        }
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "failedRequests": [],
+      "externalBlocked": [
+        "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      ],
+      "serverRejectedRequests": []
+    },
+    "candidate": {
+      "root": "/workspace/scratch/55c51c2f8f94/sukun-g8-r1119",
+      "served": {
+        "nero.html": {
+          "sha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+          "bytes": 7411796
+        },
+        "css/shared-readable-r1105.css": {
+          "sha256": "6f515d25354673aa17ea59ba9a0c884beffb7b8bbed1e2cc2700f2291008c57e",
+          "bytes": 4529
+        },
+        "css/kandil-preferences-r1108.css": {
+          "sha256": "8ffd305fef20dcc04277f2a61c7349e029b400506707974df68f13872c08ec08",
+          "bytes": 2543
+        },
+        "css/player-branding-r1109.css": {
+          "sha256": "0e1c4904c3290562081cf29326fb7fd70d17480db91205db966b5192d565f25a",
+          "bytes": 5118
+        },
+        "css/ambience-readable-r1104.css": {
+          "sha256": "200f0cdb827dbfb48e7a22e2ae01bbbbe954482faff85d8d288f4f71a0a306e2",
+          "bytes": 4855
+        },
+        "css/ambience-info-round-r1103.css": {
+          "sha256": "26f50a886eaedc343bd4bcae22be40b58f8329afa38484c2ee752965aec0394b",
+          "bytes": 1657
+        },
+        "css/ambience-compact-r1102.css": {
+          "sha256": "b0c1b7ea6439a01b2d7893f080340b31d4e4f512a68c87f29283d35537c896cc",
+          "bytes": 2513
+        },
+        "css/berhet-surfaces-r1115.css": {
+          "sha256": "cc1776fe16b64a9785d41161ff5d87cf6a9bcbe077340abf9608933d2af3949d",
+          "bytes": 4522
+        },
+        "assets/runtime/browser-contrast-r1077.css": {
+          "sha256": "35eb72c7d208df77eaa80833bd33535db2e71359bef78cb0713574cdb52e6689",
+          "bytes": 6127
+        },
+        "css/berhet-controls-r1101.css": {
+          "sha256": "3a5628a1796a0bf2dde3b7eafc68037bb8b4a0a549af9b53dfd1122e9dee7e47",
+          "bytes": 25169
+        },
+        "assets/runtime/protective-plan-r1078.css": {
+          "sha256": "435d3597d787a42f4e4cb8014dad0d6cc1d944575cb82d6375a25376a8e73243",
+          "bytes": 4325
+        },
+        "assets/runtime/compact-ui-r1057.css": {
+          "sha256": "ea43a802d7059df167b1acf3504b96ba77dd73bd98b95b1e488d3ec4d57bfaea",
+          "bytes": 8438
+        },
+        "assets/runtime/berhet-layout-r938.css": {
+          "sha256": "e22130607a9dc18f298262d67a58393b4a51d09f3e7601a0f543df2ab0646491",
+          "bytes": 37423
+        },
+        "assets/runtime/berhet-materials-r933.css": {
+          "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24",
+          "bytes": 622
+        },
+        "assets/runtime/berhet-dock-r933.css": {
+          "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596",
+          "bytes": 12309
+        },
+        "assets/runtime/berhet-controls-r933.css": {
+          "sha256": "3ad2239995fcc02fcbcf970d738a4b548716b9de360954af50839097c7c7c067",
+          "bytes": 39109
+        },
+        "assets/runtime/smart-session-ui-r1082.css": {
+          "sha256": "75a9a3565910449a6dd3b2a0b3d46487ed4d2c63ee7fd062b547a9f9a86db2a0",
+          "bytes": 9229
+        },
+        "assets/runtime/surface-clarity-r1118.css": {
+          "sha256": "9c8a993f293eacdb8658750b72bac7176b824d28cf78f1e625e35b53284e2581",
+          "bytes": 7630
+        },
+        "assets/runtime/personal-centre-glass-r1118.css": {
+          "sha256": "4a65531c6bca7cf34ced0ca03c135e8bd196d8d1e94d2a89e888db3859af583b",
+          "bytes": 1206
+        },
+        "assets/runtime/scene-info-r1118.css": {
+          "sha256": "3f53579550f9477097a0bab883b008863283b6de6d38ddd088e3e24252d7e891",
+          "bytes": 337
+        },
+        "assets/runtime/audio-cpu-r981.js": {
+          "sha256": "188aae6305898a25f846fa66b4565938344f5bdb82d6cc3ad132f049262ddcef",
+          "bytes": 7907
+        },
+        "assets/runtime/audio-preparation-r981.js": {
+          "sha256": "412ce19623c4807e4f7347ecb0b15eff1357c400463b14d9894617ea077cfa9a",
+          "bytes": 20891
+        },
+        "assets/runtime/studio-preparation-r982.js": {
+          "sha256": "25cde9f6c6416efeafcc22f957d21a6b3506eaaa7fd5c75c6a04aee2b4f10873",
+          "bytes": 8714
+        },
+        "assets/runtime/progress-journal-r982.js": {
+          "sha256": "1555800182b606e6abea73dd53bf8fa9392a7f42b4a3a628a208bf4ad8587cde",
+          "bytes": 21081
+        },
+        "assets/runtime/tab-owner-r981.js": {
+          "sha256": "d306eafe445953ac97537b3fbe68cc672c98cd124348340f53e9cb70d87e9f5e",
+          "bytes": 34931
+        },
+        "assets/runtime/recording-continuity-r1016.js": {
+          "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e",
+          "bytes": 13251
+        },
+        "assets/runtime/recording-inspection-r1020.js": {
+          "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04",
+          "bytes": 9674
+        },
+        "assets/runtime/background-owner-r949.js": {
+          "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3",
+          "bytes": 11067
+        },
+        "assets/runtime/lifecycle-r949.js": {
+          "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40",
+          "bytes": 4252
+        },
+        "assets/runtime/recovery-entry-r1027.js": {
+          "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff",
+          "bytes": 5702
+        },
+        "assets/runtime/reading-ui-r1064.css": {
+          "sha256": "c7e5ad5f763e51c806602b77bdc202ff2c9d491e461aa6ea1260a99e0a49d8b9",
+          "bytes": 5509
+        },
+        "assets/branding/sukun-frameless-logo-r1029.png": {
+          "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd",
+          "bytes": 27201
+        },
+        "assets/audio/sukun-intro-signature-r1037.wav": {
+          "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+          "bytes": 288044
+        },
+        "assets/branding/sukun-intro-pattern-r1029.svg": {
+          "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4",
+          "bytes": 769
+        },
+        "assets/runtime/startup-intro-r1027.js": {
+          "sha256": "a174bd7f4138176108d5e88cf1567f36e5cd1ea3a12204b50ff2333edeef3836",
+          "bytes": 22478
+        },
+        "assets/runtime/audio-palette-r945.js": {
+          "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1",
+          "bytes": 6073
+        },
+        "assets/runtime/active-source-r1060.js": {
+          "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3",
+          "bytes": 6128
+        },
+        "css/notification-layout-r1111.css": {
+          "sha256": "dba02fc702f8320cf6ed05d847ac70df68c31ef43441be962484ecaad096e27f",
+          "bytes": 4990
+        },
+        "css/name-info-r1115.css": {
+          "sha256": "66d8c485c9c6c92939380a4ee07c471db127f6d9356b4f7320ada8454aaa27b4",
+          "bytes": 5642
+        },
+        "assets/sukun-tesbih-weave-r759.svg": {
+          "sha256": "f01e6993b482e6194f479416955b85e888b95c332187a1bc55aaa7b893502bba",
+          "bytes": 1296
+        },
+        "assets/sukun-nur-mist-r759.svg": {
+          "sha256": "4b099628bd538f0a6e2b73b4ffea399319347375444312e7946ada10e8214ccf",
+          "bytes": 20321
+        },
+        "assets/scenes/esma-r923/mevlevi-sema.webp": {
+          "sha256": "c7dbea4be096916817a0550c698a1607dbf195d951d134874f0244eef1ef6950",
+          "bytes": 274004
+        },
+        "assets/sukun-nur-orbit-r757.svg": {
+          "sha256": "b9e2f2d8d983b9b19cd4be7d16ab1fe82d47a89c82361c2a60f456f25e478854",
+          "bytes": 248
+        },
+        "assets/sukun-nur-ring-r757.png": {
+          "sha256": "b9bf594010438b1c49ab693a94ba5022569462c334f606754306bb63f808f6fb",
+          "bytes": 1713434
+        },
+        "assets/scenes/mobile-r918/mevlevi.webp": {
+          "sha256": "38809a4ac966552a60fee4efb9e303b9edd2f9c13cca2b9787ed9cf67bfce565",
+          "bytes": 411132
+        },
+        "assets/runtime/esma-scenes-r923.js": {
+          "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854",
+          "bytes": 4307
+        },
+        "assets/runtime/generic-recordings-r1055.js": {
+          "sha256": "f3b3f3a90ab5451d9b50a227b6a619b4cd9592f4a8e45cd4648b8a6aaed45c89",
+          "bytes": 38555
+        },
+        "assets/scenes/esma-r923/cami-avlusu.webp": {
+          "sha256": "17561714794972eb80240e57bcd07604e6db7d89c19af939e4df4280f339f93f",
+          "bytes": 362610
+        },
+        "assets/runtime/archive-download-r1093.css": {
+          "sha256": "1e64b2d06b24547bb932d4148de660201ec62a5610d95c6148d8ba879cfbbebc",
+          "bytes": 3150
+        },
+        "assets/runtime/source-matrix-ui-r1094.css": {
+          "sha256": "ad4a4fa2d522d2a418403fc07b8f1a0979faf6e6d4db240e40e699eadcbe135a",
+          "bytes": 3903
+        },
+        "assets/runtime/archive-download-r1093.js": {
+          "sha256": "5a796fbbe29c0f5183434e655e792102fb831bb39895e1f5685d3c5aaf9fd3ad",
+          "bytes": 24139
+        },
+        "assets/runtime/generic-recordings-ui-r1055.js": {
+          "sha256": "4c60e36eff387b882d2b8d874799da2a3a469bb0ecca20b888fa511cf147dbcc",
+          "bytes": 32023
+        },
+        "assets/runtime/session-r919.js": {
+          "sha256": "5ef9efcb784542a53a9f3ebe8ec57f4694ebbeeb0b7af00428a6b4de9e2b8869",
+          "bytes": 46114
+        },
+        "assets/runtime/dock-r920.js": {
+          "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590",
+          "bytes": 11007
+        },
+        "assets/runtime/active-layers-r1061.js": {
+          "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae",
+          "bytes": 14049
+        },
+        "assets/runtime/wheels-r924.js": {
+          "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+          "bytes": 41623
+        },
+        "assets/runtime/berhet-layout-r938.js": {
+          "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6",
+          "bytes": 8399
+        },
+        "assets/runtime/interface-r920.js": {
+          "sha256": "517d7dc842e2dbebdea2373335c527e1dd08624584a31eac6f79f19f8c057ff0",
+          "bytes": 43131
+        },
+        "assets/runtime/compact-ui-r1057.js": {
+          "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d",
+          "bytes": 5342
+        },
+        "assets/wheels-r924/esma/inci-sema.webp": {
+          "sha256": "ebb782553d41e0d9b50ac28468480c7ebc56914bf8a1163f8f8f6dd2b9ef20e7",
+          "bytes": 238294
+        },
+        "assets/runtime/wheels-r924.css": {
+          "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f",
+          "bytes": 34043
+        },
+        "assets/runtime/berhet-theme-r933.js": {
+          "sha256": "e3f4ba9b695d25d34c7e098a7d51b51e778089ddd897ac9b10b9851e511d2069",
+          "bytes": 2335
+        },
+        "assets/runtime/storage-snapshot-r1107.css": {
+          "sha256": "e1222f0524734b2e07abf35700fb26e048926498ac11cb54dcdc4b7be43f6029",
+          "bytes": 2587
+        },
+        "assets/runtime/storage-snapshot-r1107.js": {
+          "sha256": "125fb6075cbf9de7c617e7cde6e204dc9d519e82f755c0367994df56183c9fdf",
+          "bytes": 11806
+        },
+        "assets/runtime/storage-snapshot-ui-r1107.js": {
+          "sha256": "bfc5c97505fde90dbec9d101fd7ac7e768d9f442e6e414f233305a2bb28185d4",
+          "bytes": 12475
+        },
+        "assets/runtime/health-view-r943.css": {
+          "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3",
+          "bytes": 7440
+        },
+        "assets/runtime/health-view-r943.js": {
+          "sha256": "72fce7d75ad4fc40ee0fcae176cca4adc5c1989c33e99829454343acfa4d9683",
+          "bytes": 125481
+        },
+        "assets/runtime/scene-picker-r945.css": {
+          "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2",
+          "bytes": 6657
+        },
+        "assets/runtime/scene-picker-r945.js": {
+          "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75",
+          "bytes": 9860
+        },
+        "assets/runtime/presentation-r979.js": {
+          "sha256": "2b33c219afa5fb73d701bceeb0acb43840662a72271dc02bc724c508197dd48f",
+          "bytes": 16080
+        },
+        "assets/runtime/health-r940.js": {
+          "sha256": "46d98f22c46d51ae4212137727d0606dac98583cf38ecfdf241f2d8a5ea41c2c",
+          "bytes": 95206
+        },
+        "assets/runtime/nefs-r948.css": {
+          "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf",
+          "bytes": 18988
+        },
+        "assets/runtime/nefs-data-r948.js": {
+          "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c",
+          "bytes": 283054
+        },
+        "assets/runtime/nefs-model-r948.js": {
+          "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b",
+          "bytes": 18197
+        },
+        "assets/runtime/nefs-ui-r948.js": {
+          "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721",
+          "bytes": 48398
+        },
+        "assets/runtime/offline-scenes-r962.js": {
+          "sha256": "3d2bf56119336acd4a8dab2422b96914a7bc3d8b386c1e3a43ab47e82a328c62",
+          "bytes": 11161
+        },
+        "assets/runtime/offline-images-ui-r1095.css": {
+          "sha256": "8d8790d515e1e752f4e80598e450eca83c96ae0c7397df3eb1156a16573ea70b",
+          "bytes": 3214
+        },
+        "assets/runtime/offline-images-ui-r1095.js": {
+          "sha256": "a73415347147aea22dc249f435aba425713e8bc4f7cf33c72ea1c372168f32ef",
+          "bytes": 13974
+        },
+        "assets/runtime/cadence-r981.css": {
+          "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992",
+          "bytes": 1841
+        },
+        "assets/runtime/cadence-r981.js": {
+          "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda",
+          "bytes": 23650
+        },
+        "css/category-flow-r1109.css": {
+          "sha256": "cea8152b97516fb5bb7908c8868d190179cebe0c66d9fae548411d53487c1dd8",
+          "bytes": 1987
+        },
+        "css/tooltip-help-r1110.css": {
+          "sha256": "b5f598abc3d9660977742bb285802a691b21587e4c4eaf371af1bd31ece5b4da",
+          "bytes": 1721
+        },
+        "assets/runtime/tekke-sequence-r988.js": {
+          "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772",
+          "bytes": 10314
+        },
+        "assets/runtime/tekke-set-r990.js": {
+          "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a",
+          "bytes": 27409
+        },
+        "css/tekke-set-card-r1112.css": {
+          "sha256": "ad93851820e98e0f238459cc95fc26e89b1227f1174095a715e542c74e9470c7",
+          "bytes": 7182
+        },
+        "assets/runtime/tekke-ux-r992.css": {
+          "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3",
+          "bytes": 37518
+        },
+        "assets/runtime/tekke-journey-r993.css": {
+          "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863",
+          "bytes": 7044
+        },
+        "assets/runtime/tekke-ux-r992.js": {
+          "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d",
+          "bytes": 25320
+        },
+        "assets/runtime/tekke-journey-r993.js": {
+          "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a",
+          "bytes": 38289
+        },
+        "assets/runtime/background-mix-render-r1059.js": {
+          "sha256": "b6f2e15ac7d5b67f44c5668ac17628f8f25b3d8ac695ce4a489964873368db5e",
+          "bytes": 21067
+        },
+        "assets/runtime/background-mix-r1059.js": {
+          "sha256": "93cbb0462372d7789ef5739c71e5f5ba39f24cb81b04d0aca89257e4520ffc38",
+          "bytes": 18625
+        },
+        "assets/runtime/yasin-data-r1064.js": {
+          "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94",
+          "bytes": 49799
+        },
+        "assets/runtime/reading-sources-r1064.js": {
+          "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126",
+          "bytes": 67014
+        },
+        "assets/runtime/bundled-arabic-r1065.js": {
+          "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f",
+          "bytes": 9208
+        },
+        "assets/runtime/yasin-timing-r1067.js": {
+          "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e",
+          "bytes": 5926
+        },
+        "assets/runtime/reading-audio-r1064.js": {
+          "sha256": "dbeccc27c91c5a87b494437ff835364350e23d00e61687378875c867891d9b44",
+          "bytes": 20352
+        },
+        "assets/runtime/navigation-r1066.js": {
+          "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6",
+          "bytes": 2624
+        },
+        "assets/runtime/reading-ui-r1064.js": {
+          "sha256": "e64203292bbb461b87526679593bf28b5cc43bc53e4ffc56acadea719572c09c",
+          "bytes": 43814
+        },
+        "assets/runtime/protective-plan-r1078.js": {
+          "sha256": "eae538c9a50770b86751c48d1b4ab4515a443a541fb358c5e3d157bb2d6b6a22",
+          "bytes": 8374
+        },
+        "assets/runtime/smart-session-ui-r1082.js": {
+          "sha256": "5dac4626b57602a9d04b3bc7b58ff8dbaacc951c9bcd75a61f1835702d230713",
+          "bytes": 22631
+        },
+        "assets/berhetiyye-gate/portal-r1080.css": {
+          "sha256": "5c115fb5f548e6d15bb938c5270d5431bcaabe03ea6abd164370ad05885bb757",
+          "bytes": 23097
+        },
+        "assets/berhetiyye-gate/entry-r1080.css": {
+          "sha256": "652561e9c60b412bbb6e03096c5576787aad2966b3bcfae8205d40b28d3e0374",
+          "bytes": 1562
+        },
+        "assets/berhetiyye-gate/invitation-tr.mp3": {
+          "sha256": "18a114ec927508e4f5684a7e76d39abe28058c81f5632c797a707c6109bd5303",
+          "bytes": 54957
+        },
+        "assets/berhetiyye-gate/audio-r1080.js": {
+          "sha256": "d77a0ecff6f7a7b11cee3116817c51c6a1cf568d0c7e8d7026383842936d015c",
+          "bytes": 12551
+        },
+        "integration/berhet-access/example-http-provider.js": {
+          "sha256": "ec2e1f22e7bf0ae938a7163019eec4556150bf858dc387e13b3596cce30f16ae",
+          "bytes": 7192
+        },
+        "assets/berhetiyye-gate/access-r1080.js": {
+          "sha256": "99270f5efc93e38ab95d1c6da32005232a63e181d94765e44f4c894d424a64c6",
+          "bytes": 14484
+        },
+        "assets/berhetiyye-gate/portal-r1080.js": {
+          "sha256": "0048e2a9cac8416faa0102b1cc10ff8d262693f09be89e4ad663c170e9c077c9",
+          "bytes": 53727
+        },
+        "assets/berhetiyye-gate/entry-r1080.js": {
+          "sha256": "8ef27093ff8da3fc8dc9a8f67563df4f49c0176ecbf18772c416c28d1194cde3",
+          "bytes": 3033
+        },
+        "assets/runtime/session-preflight-ui-r1092.css": {
+          "sha256": "e0b99033e8d528dffa1da89c778b8567c201db5dda32516a1105610a74cfd150",
+          "bytes": 2014
+        },
+        "assets/runtime/preflight-cache-r1092.js": {
+          "sha256": "840a9e120dc10f93842eada39e17ac316671c45405e8109694bfd20d8966d0ed",
+          "bytes": 4551
+        },
+        "assets/runtime/session-preflight-r1092.js": {
+          "sha256": "0c33412ea2ef96825ec6ac7bb9b8e30307b3b486aa14803e2becc0cb758ba986",
+          "bytes": 14381
+        },
+        "assets/runtime/session-preflight-ui-r1092.js": {
+          "sha256": "c8239465b43a7cc392c7d87ca6fd2361d59e4fbcb08ad7852657ee58204ef844",
+          "bytes": 12494
+        },
+        "assets/runtime/source-matrix-r1094.js": {
+          "sha256": "07a56c03210a52669d9d0c5578339eac60423654bdf8ef13dc0d18a8f4607e1e",
+          "bytes": 14815
+        },
+        "assets/runtime/source-matrix-ui-r1094.js": {
+          "sha256": "1cdc67d4769bc8707acdc7e175ed927faf3dc820f8834de984e144887540345c",
+          "bytes": 16449
+        },
+        "js/section-switch-r1101.js": {
+          "sha256": "29d8a99e6061997c0d392dc6e6493189eab9f2c10d67b87dcdb7dfa80b5d4a8f",
+          "bytes": 8329
+        },
+        "css/frequency-hub-r1101.css": {
+          "sha256": "23587c627d8683d16ca6d576ec3751af99595425e476d0dd0c695faf184c4c6e",
+          "bytes": 7142
+        },
+        "js/frequency-hub-r1101.js": {
+          "sha256": "9a32f709450323b576ca1a3f13eaf4595e4a1bcf95bdbc942139461835bf5816",
+          "bytes": 23564
+        },
+        "assets/runtime/recording-panel-r1119.css": {
+          "sha256": "09f351325cc8b0f1366a1ff9b9246fa50b56573d48f1e9fc0dfc403931b0a941",
+          "bytes": 2126
+        },
+        "assets/runtime/studio-batch-r1020.js": {
+          "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda",
+          "bytes": 23944
+        },
+        "assets/runtime/recovery-versions-r1019.js": {
+          "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c",
+          "bytes": 8407
+        },
+        "assets/runtime/recovery-data-r1020.js": {
+          "sha256": "73dc56f2eb83405ee0801fd94703b85497963d02aad728216336e66e6e5da355",
+          "bytes": 52774
+        },
+        "assets/runtime/site-backup-r1020.js": {
+          "sha256": "5d8380543c1893a80c80c5b8a425cc28638615a724144243549469b9672cddf9",
+          "bytes": 29313
+        },
+        "assets/runtime/recovery-ui-r1019.js": {
+          "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541",
+          "bytes": 6054
+        },
+        "assets/runtime/recording-salvage-r1020.js": {
+          "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58",
+          "bytes": 36787
+        },
+        "sukun-build-r1119.json": {
+          "sha256": "81b259ec3130586bad937403e10979444ed58e70aa504aaeb4cacb5d0c7d872e",
+          "bytes": 41664
+        },
+        "assets/wheel-navigation-r964/gold.png": {
+          "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2",
+          "bytes": 1345326
+        },
+        "assets/berhetiyye-gate/portal.webp": {
+          "sha256": "ff952d8df0e9d9f544fe24a8441cc1e57e27cc45685e5fc2475b41320b868cf5",
+          "bytes": 189544
+        }
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ],
+      "failedRequests": [],
+      "externalBlocked": [
+        "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      ],
+      "serverRejectedRequests": []
+    }
+  },
+  "baselineDefects": [],
+  "stage": "complete",
+  "browser": "154.0.8037.57",
+  "diagnosticOnly": true,
+  "finishedAt": "2026-10-20T05:08:52.146Z",
+  "scriptSha256": "e67c756460ed2873dfe571b62e22d28a117b51fe4e0c65f29f5562e13406dec9",
+  "passed": 17,
+  "failed": 0,
+  "baselineDefectChecks": 0,
+  "executedChecks": 17,
+  "completedMatrixStates": 1,
+  "status": "passed"
+}

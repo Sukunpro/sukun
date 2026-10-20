@@ -1,0 +1,32 @@
+{"profile":"390x844-tr","name":"Unprotected Classic/Feyz profile starts with both real ambience surfaces and no active speech","passed":true}
+{"profile":"390x844-tr","name":"Full native catalogue and Ready cards have nonzero bounded geometry, across real density changes","passed":true}
+{"profile":"390x844-tr","name":"Every nonempty native channel group opens a meaningful explanation and restores focus","passed":true}
+{"profile":"390x844-tr","name":"Native Ready preset starts the documented mix; explanations and tab navigation preserve its exact audio objects","passed":true}
+390x844-tr page.reload: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for navigation until "load"[22m
+[2m    - navigated to "http://127.0.0.1:42839/nero.html"[22m
+
+    at /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:66:473
+    at async check (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:21:51)
+    at async run (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:65:3)
+    at async /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:88:178 {
+  log: [
+    '  - waiting for navigation until "load"',
+    '    - navigated to "http://127.0.0.1:42839/nero.html"'
+  ],
+  name: 'TimeoutError'
+}
+{
+  "build": "r1119",
+  "passed": 4,
+  "total": 5,
+  "allPassed": false,
+  "output": "/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/evidence/expanded-ambience-390-tr-attempt2.json",
+  "failedProfiles": [
+    {
+      "profile": "390x844-tr",
+      "error": "page.reload: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for navigation until \"load\"\u001b[22m\n\u001b[2m    - navigated to \"http://127.0.0.1:42839/nero.html\"\u001b[22m\n\n    at /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:66:473\n    at async check (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:21:51)\n    at async run (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:65:3)\n    at async /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:88:178"
+    }
+  ]
+}

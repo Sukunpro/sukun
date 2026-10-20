@@ -1,0 +1,132 @@
+{
+  "scope": "Exact FRM/CIZ/GORSEL/lifecycle source in controlled DOM/canvas/events; standard bitmap clearing modeled; no physical browser or audio claim.",
+  "baseline": [
+    {
+      "build": "fixed",
+      "mode": "tam",
+      "hiddenPainted": false,
+      "visiblePainted": true,
+      "width": 420
+    },
+    {
+      "build": "fixed",
+      "mode": "dengeli",
+      "hiddenPainted": false,
+      "visiblePainted": true,
+      "width": 420
+    },
+    {
+      "build": "fixed",
+      "mode": "pil",
+      "hiddenPainted": false,
+      "visiblePainted": true,
+      "width": 420
+    }
+  ],
+  "passed": 25,
+  "total": 25,
+  "results": [
+    {
+      "name": "Reduced-motion tam, visibility, hidden width 0",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion tam, visibility, hidden width 420",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion tam, freeze-resume, hidden width 0",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion tam, freeze-resume, hidden width 420",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion tam, pagehide-pageshow, hidden width 0",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion tam, pagehide-pageshow, hidden width 420",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion dengeli, visibility, hidden width 0",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion dengeli, visibility, hidden width 420",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion dengeli, freeze-resume, hidden width 0",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion dengeli, freeze-resume, hidden width 420",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion dengeli, pagehide-pageshow, hidden width 0",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion dengeli, pagehide-pageshow, hidden width 420",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion pil, visibility, hidden width 0",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion pil, visibility, hidden width 420",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion pil, freeze-resume, hidden width 0",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion pil, freeze-resume, hidden width 420",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion pil, pagehide-pageshow, hidden width 0",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion pil, pagehide-pageshow, hidden width 420",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion tam repeated hide/freeze/pagehide and latest state",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion dengeli repeated hide/freeze/pagehide and latest state",
+      "passed": true
+    },
+    {
+      "name": "Reduced-motion pil repeated hide/freeze/pagehide and latest state",
+      "passed": true
+    },
+    {
+      "name": "Animated tam retains scheduler and sleeps/resumes without transport",
+      "passed": true
+    },
+    {
+      "name": "Animated dengeli retains scheduler and sleeps/resumes without transport",
+      "passed": true
+    },
+    {
+      "name": "Battery non-reduced static wake remains a single non-animated drawing operation",
+      "passed": true
+    },
+    {
+      "name": "Still-zero visible width does not clear or force paint; later visible resize recovers",
+      "passed": true
+    }
+  ]
+}
+
+STDERR:

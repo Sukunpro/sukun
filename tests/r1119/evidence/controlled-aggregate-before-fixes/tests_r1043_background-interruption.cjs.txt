@@ -1,0 +1,127 @@
+{
+  "source": "/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/assets/runtime/background-owner-r949.js",
+  "total": 29,
+  "passed": 29,
+  "failed": 0,
+  "scope": "Actual native owner code with controlled media events and timers. No physical Android lock, audio-focus or audible output test.",
+  "results": [
+    {
+      "name": "Lock alone keeps the accepted source playing without a new play request",
+      "status": "PASS"
+    },
+    {
+      "name": "Unexpected pause at lock transition recovers the same accepted source once",
+      "status": "PASS"
+    },
+    {
+      "name": "A native pause immediately preceding hidden visibility belongs to the lock transition",
+      "status": "PASS"
+    },
+    {
+      "name": "An earlier visible interruption is not reopened by a later screen lock",
+      "status": "PASS"
+    },
+    {
+      "name": "A second pause in the same hidden epoch remains held without heartbeat retries",
+      "status": "PASS"
+    },
+    {
+      "name": "A later OS focus interruption in the background remains held",
+      "status": "PASS"
+    },
+    {
+      "name": "Recovery scheduled near the edge expires when its delay exceeds the lock window",
+      "status": "PASS"
+    },
+    {
+      "name": "Explicit owner userPause cancels a pending lock recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Explicit userPause before the native pause never schedules recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Delayed aggregate user pause blocks a scheduled lock recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Terminal Stop intent blocks a scheduled lock recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Lost tab ownership blocks a scheduled lock recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Release cancels the timer and leaves media stopped",
+      "status": "PASS"
+    },
+    {
+      "name": "Freeze cancels recovery and resume does not rearm it",
+      "status": "PASS"
+    },
+    {
+      "name": "Pagehide cancels recovery without changing the current media route",
+      "status": "PASS"
+    },
+    {
+      "name": "Pagehide before hidden visibility cannot arm departure recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Pageshow clears departure but cannot rearm a retired lock transition",
+      "status": "PASS"
+    },
+    {
+      "name": "Ended media never restarts during the transition",
+      "status": "PASS"
+    },
+    {
+      "name": "Media errors remain blocked without recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Zero volume and explicitly muted sources are not restarted",
+      "status": "PASS"
+    },
+    {
+      "name": "A silent preference introduced during the delay cancels recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Initial source-load pause has no confirmed-playback authority",
+      "status": "PASS"
+    },
+    {
+      "name": "A first source started while already hidden cannot claim transition recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Changing src, currentSrc or srcObject during the delay retires recovery eligibility",
+      "status": "PASS"
+    },
+    {
+      "name": "A new claimed source does not inherit the previous accepted source or pending timer",
+      "status": "PASS"
+    },
+    {
+      "name": "Rejected recovery consumes the source lease and performs no more play attempts",
+      "status": "PASS"
+    },
+    {
+      "name": "Pending recovery times out once and cannot trigger a retry storm",
+      "status": "PASS"
+    },
+    {
+      "name": "Visible return cancels the pending recovery and releases the paused native lease",
+      "status": "PASS"
+    },
+    {
+      "name": "A later distinct lock transition may recover once after a visible playing handoff",
+      "status": "PASS"
+    }
+  ]
+}
+
+STDERR:

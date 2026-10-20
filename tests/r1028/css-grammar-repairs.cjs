@@ -102,7 +102,20 @@ for(const filename of ['index.html','nero.html']){
     const moved=fs.readFileSync(path.join(root,'css/tekke-set-card-r1112.css'));
     assert.equal(moved.length,7182);
     assert.equal(crypto.createHash('sha256').update(moved).digest('hex'),'ad93851820e98e0f238459cc95fc26e89b1227f1174095a715e542c74e9470c7');
-    assert(openings+movedLinks.length>=263);assert.equal(openings,closings);assert.equal(styles.length,openings);
+    // Subsequent byte-identical extractions retain their owner IDs. Verify
+    // every additional moved body before including it in the historical count.
+    const later=[
+      ['r642-active-name-info-style','css/name-info-r1115.css',5642,'66d8c485c9c6c92939380a4ee07c471db127f6d9356b4f7320ada8454aaa27b4'],
+      ['sukun-r1029-surface-clarity','assets/runtime/surface-clarity-r1118.css',7630,'9c8a993f293eacdb8658750b72bac7176b824d28cf78f1e625e35b53284e2581'],
+      ['sukun-r1031-personal-centre-glass','assets/runtime/personal-centre-glass-r1118.css',1206,'4a65531c6bca7cf34ced0ca03c135e8bd196d8d1e94d2a89e888db3859af583b'],
+      ['sukun-r917-scene-info','assets/runtime/scene-info-r1118.css',337,'3f53579550f9477097a0bab883b008863283b6de6d38ddd088e3e24252d7e891'],
+      ['sukun-r1018-recording-panel-layout','assets/runtime/recording-panel-r1119.css',2126,'09f351325cc8b0f1366a1ff9b9246fa50b56573d48f1e9fc0dfc403931b0a941']
+    ];
+    for(const[id,file,bytes,digest]of later){
+      const links=[...html.matchAll(new RegExp('<link\\b[^>]*\\bid="'+id+'"[^>]*>','g'))];assert.equal(links.length,1,id);
+      assert(links[0][0].includes('href="./'+file+'?v='));const contents=fs.readFileSync(path.join(root,file));assert.equal(contents.length,bytes);assert.equal(crypto.createHash('sha256').update(contents).digest('hex'),digest);
+    }
+    assert(openings+movedLinks.length+later.length>=263);assert.equal(openings,closings);assert.equal(styles.length,openings);
   });
   check('no style raw text contains a leaked opening style tag',()=>{for(const s of styles)assert(!/<style\b/i.test(s.text),'Leaked style in '+(s.id||'anonymous'));});
   check('all inline styles have balanced CSS quotes comments and delimiters',()=>{for(const s of styles)cssLexicalBalance(s.text);});

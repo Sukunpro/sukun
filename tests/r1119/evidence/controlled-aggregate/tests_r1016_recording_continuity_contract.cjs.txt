@@ -1,0 +1,257 @@
+{
+  "status": "PASS",
+  "total": 61,
+  "passed": 61,
+  "failed": 0,
+  "scenarios": [
+    {
+      "name": "First install captures only a baseline, never invents BEFORE",
+      "status": "PASS"
+    },
+    {
+      "name": "Successful empty store is real zero",
+      "status": "PASS"
+    },
+    {
+      "name": "No IndexedDB keeps totals unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "Absent database enumeration keeps totals unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "Absent database abort fallback keeps totals unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "Missing clips store keeps totals unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "Open throws keeps totals unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "Open errors keeps totals unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "Blocked open keeps totals unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "Database enumeration rejects keeps totals unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "Transaction creation fails keeps totals unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "Cursor read fails keeps totals unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "Transaction aborts keeps totals unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "Transaction errors keeps totals unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid non-Blob record keeps totals unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "Cursor exhaustion is not a commit",
+      "status": "PASS"
+    },
+    {
+      "name": "Enumeration timeout never starts a late read",
+      "status": "PASS"
+    },
+    {
+      "name": "Timeout closes late open without scan or write",
+      "status": "PASS"
+    },
+    {
+      "name": "Only size metadata inspected, never keys or audio bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "Cancelled request cannot persist a pending receipt",
+      "status": "PASS"
+    },
+    {
+      "name": "Commit rechecks cancellation even after completed read",
+      "status": "PASS"
+    },
+    {
+      "name": "Abandoned ticket cannot commit later",
+      "status": "PASS"
+    },
+    {
+      "name": "A successful pair correlates update only once",
+      "status": "PASS"
+    },
+    {
+      "name": "Mismatch establishes different totals, never deletion causality",
+      "status": "PASS"
+    },
+    {
+      "name": "After read failure cannot compare to zero",
+      "status": "PASS"
+    },
+    {
+      "name": "Before read failure cannot produce verified comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "Same-page afterBoot cannot consume newly staged BEFORE",
+      "status": "PASS"
+    },
+    {
+      "name": "Wrong application build cannot consume pending pair",
+      "status": "PASS"
+    },
+    {
+      "name": "Stale pair not used as upgrade evidence",
+      "status": "PASS"
+    },
+    {
+      "name": "Completed pair survives same-version reload without scanning",
+      "status": "PASS"
+    },
+    {
+      "name": "Failed local persistence is not verified evidence",
+      "status": "PASS"
+    },
+    {
+      "name": "Failed local read never produces a baseline or comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "Pair retention is one bounded ASCII metadata record",
+      "status": "PASS"
+    },
+    {
+      "name": "Snapshot detached and deeply frozen",
+      "status": "PASS"
+    },
+    {
+      "name": "Persisted arbitrary fields and unsafe versions never leak",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid receipts unavailable, never mistaken for absent history",
+      "status": "PASS"
+    },
+    {
+      "name": "No crypto means no persistent user-derived correlation ID",
+      "status": "PASS"
+    },
+    {
+      "name": "A concurrent newer receipt prevents stale after-write",
+      "status": "PASS"
+    },
+    {
+      "name": "SecurityError retained without message or stack",
+      "status": "PASS"
+    },
+    {
+      "name": "UnknownError retained without message or stack",
+      "status": "PASS"
+    },
+    {
+      "name": "QuotaExceededError retained without message or stack",
+      "status": "PASS"
+    },
+    {
+      "name": "VersionError retained without message or stack",
+      "status": "PASS"
+    },
+    {
+      "name": "AbortError retained without message or stack",
+      "status": "PASS"
+    },
+    {
+      "name": "NotFoundError retained without message or stack",
+      "status": "PASS"
+    },
+    {
+      "name": "InvalidStateError retained without message or stack",
+      "status": "PASS"
+    },
+    {
+      "name": "DataError retained without message or stack",
+      "status": "PASS"
+    },
+    {
+      "name": "TransactionInactiveError retained without message or stack",
+      "status": "PASS"
+    },
+    {
+      "name": "ConstraintError retained without message or stack",
+      "status": "PASS"
+    },
+    {
+      "name": "InvalidAccessError retained without message or stack",
+      "status": "PASS"
+    },
+    {
+      "name": "NotReadableError retained without message or stack",
+      "status": "PASS"
+    },
+    {
+      "name": "Arbitrary error name cannot leak into metadata",
+      "status": "PASS"
+    },
+    {
+      "name": "Null correlation prevents a paired same/different assertion",
+      "status": "PASS"
+    },
+    {
+      "name": "Completed old pair becomes not relevant on a later app build",
+      "status": "PASS"
+    },
+    {
+      "name": "Expired completed pair is historical, not a fresh verification",
+      "status": "PASS"
+    },
+    {
+      "name": "Same-app fabricated update pair is rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "Wrong post-update controller cannot report matched totals",
+      "status": "PASS"
+    },
+    {
+      "name": "Legacy r657 global coexists in both script orders",
+      "status": "PASS"
+    },
+    {
+      "name": "Ancient BEFORE plus fresh AFTER cannot pass a comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "Interrupted first baseline explicitly records unknown measurement",
+      "status": "PASS"
+    },
+    {
+      "name": "Interrupted AFTER does not remain an indefinite pending pair",
+      "status": "PASS"
+    },
+    {
+      "name": "Unknown post-update controller prevents comparison certainty",
+      "status": "PASS"
+    }
+  ],
+  "limits": [
+    "Controlled IndexedDB and storage events; no physical-device or real browser quota/eviction behavior measured."
+  ]
+}
+
+STDERR:

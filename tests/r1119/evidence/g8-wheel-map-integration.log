@@ -1,0 +1,48 @@
+{
+  "suite": "G8 dynamic wheel mapping integration",
+  "method": "Compare static extraction with the unchanged first production catalog module in an explicitly controlled VM; separately verify main-map inventory membership on real temporary filesystem trees and current production bytes.",
+  "toolExecutesProduction": false,
+  "browserExecuted": false,
+  "sourceSha256": {
+    "assets/runtime/wheels-r924.js": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+    "tools/visual-reference-map.cjs": "e15011c47b25961bb3a1afdbe18f1489b076fc142fbd40be9494968d40255894",
+    "tools/wheel-catalog-map.cjs": "eb64670317220be3f7916071c8f8ec6a5675f1a8a5b04191fd32220dd99e1ff3"
+  },
+  "passed": 5,
+  "total": 5,
+  "results": [
+    {
+      "name": "Static wheel mappings match the actual production catalog in a controlled VM",
+      "passed": true,
+      "evidence": {
+        "familyCounts": {
+          "berhet": 31,
+          "esma": 23
+        },
+        "aliases": 54,
+        "uniqueTargets": 37
+      }
+    },
+    {
+      "name": "Main visual map requires every generated selection target to be inventoried and hash verified",
+      "passed": true
+    },
+    {
+      "name": "A missing dynamically generated target is an explicit alias-verification failure",
+      "passed": true
+    },
+    {
+      "name": "An unrelated identical template on the same line remains unresolved by exact offset",
+      "passed": true
+    },
+    {
+      "name": "Current production map preserves the original 88 scene and wheel selections plus reviewed dynamic variants",
+      "passed": true,
+      "evidence": {
+        "verifiedImages": 295,
+        "mappings": 182,
+        "wheelMappings": 54
+      }
+    }
+  ]
+}
