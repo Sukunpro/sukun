@@ -1,3 +1,11 @@
+# Recovery checkpoint — 2026-10-20
+
+The exact reviewed r1118 production ZIP has been recovered after workspace loss. Fresh static, source-continuity, map, native audio, frequency and real service-worker upgrade/offline/rollback checks have passed. Final visual rerun and authenticated publication are tracked in `RELEASE_ACCEPTANCE.md` and `tests/g8/current-verification.json`. The historical material below is retained as history; it is not the current completion or publication status.
+
+G8 remains open beyond the bounded three-CSS/map batch. The fourth panel identity and physical-device acceptance remain unresolved.
+
+---
+
 # SÜKÛN — G8 durum ve kabul kaydı
 
 Kaynak tabanı: **r1117**, `5459587e2a4ce794683908c1b098076b3f2eb081`.

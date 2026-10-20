@@ -55,13 +55,13 @@ try{
   assert.equal(unknown.length,1);assert.equal(known.length,1);assert.equal(unknown[0].line,known[0].line);assert.notEqual(unknown[0].offset,known[0].offset);
   assert.equal(report.runtimeAliases.length,54);
  });
- test('Current r1117 production map contains 88 verified scene and wheel selection mappings',()=>{
-  const report=buildReferenceMap(root);assert.equal(report.build,'r1117');assert.equal(report.summary.errors,0);
-  assert.equal(report.summary.verifiedImages,295);assert.equal(report.runtimeAliases.length,88);
+ test('Current production map preserves the original 88 scene and wheel selections plus reviewed dynamic variants',()=>{
+  const report=buildReferenceMap(root);assert.equal(report.build,fs.readFileSync(path.join(root,'version.txt'),'utf8').trim());assert.equal(report.summary.errors,0);
+  assert.equal(report.summary.verifiedImages,295);assert.equal(report.runtimeAliases.filter(row=>!row.source.startsWith('reviewed-dynamic:')).length,88);assert.equal(report.runtimeAliases.length,182);
   const mapped=report.runtimeAliases.filter(row=>row.source===sourcePath);
   assert.deepEqual(normalize(mapped.map(({alias,target})=>({alias,target}))),executed);
   assert(!report.unresolved.some(row=>row.code==='DYNAMIC_WHEEL_CATALOG'));
-  return{verifiedImages:295,mappings:88,wheelMappings:mapped.length};
+  return{verifiedImages:295,mappings:report.runtimeAliases.length,wheelMappings:mapped.length};
  });
 }finally{fs.rmSync(temporary,{recursive:true,force:true});}
 const report={suite:'G8 dynamic wheel mapping integration',method:'Compare static extraction with the unchanged first production catalog module in an explicitly controlled VM; separately verify main-map inventory membership on real temporary filesystem trees and current production bytes.',toolExecutesProduction:false,browserExecuted:false,sourceSha256:{[sourcePath]:hash(source),'tools/visual-reference-map.cjs':hash(fs.readFileSync(path.join(root,'tools/visual-reference-map.cjs'))),'tools/wheel-catalog-map.cjs':hash(fs.readFileSync(path.join(root,'tools/wheel-catalog-map.cjs')))},passed:results.filter(row=>row.passed).length,total:results.length,results};

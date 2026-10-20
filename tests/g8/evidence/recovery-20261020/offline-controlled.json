@@ -1,0 +1,81 @@
+{
+  "sourceRoot": "/workspace/scratch/55c51c2f8f94/sukun-g8-recovery",
+  "sourceSha256": "c676072d3958d2878230ca92ab26adfa78d5978aa0c62a1d9551acc8313d10d2",
+  "method": "Real SW messages + complete release CacheStorage + serialized recovery DOM; isolated memory only",
+  "passed": 18,
+  "total": 18,
+  "results": [
+    {
+      "name": "Complete current release agrees across STATUS, Tekke and navigation",
+      "ok": true
+    },
+    {
+      "name": "Missing canonical shell is not offline ready",
+      "ok": true
+    },
+    {
+      "name": "Shell tamper retaining build metadata is not offline ready",
+      "ok": true
+    },
+    {
+      "name": "Missing build marker is not offline ready",
+      "ok": true
+    },
+    {
+      "name": "Manifest points to another version: not offline ready",
+      "ok": true
+    },
+    {
+      "name": "Missing current runtime is rejected everywhere",
+      "ok": true
+    },
+    {
+      "name": "Coordinated marker/runtime/SRI tamper cannot override worker hashes at first enrollment",
+      "ok": true
+    },
+    {
+      "name": "Previously verified pin loses runtime: fresh status, Tekke and navigation fail",
+      "ok": true
+    },
+    {
+      "name": "Previously verified pin shell tamper is rejected by fresh readiness",
+      "ok": true
+    },
+    {
+      "name": "Unreadable state offers explicitly confirmed verified-current recovery: en",
+      "ok": true
+    },
+    {
+      "name": "Unreadable state offers explicitly confirmed verified-current recovery: tr",
+      "ok": true
+    },
+    {
+      "name": "Cancelling unreadable-state recovery keeps state and caches untouched",
+      "ok": true
+    },
+    {
+      "name": "Unreadable state never enables current return when current runtime is missing",
+      "ok": true
+    },
+    {
+      "name": "Read-only current check cannot mutate corrupt pin state",
+      "ok": true
+    },
+    {
+      "name": "Current recovery still requires explicit confirmation",
+      "ok": true
+    },
+    {
+      "name": "Current recovery still blocks other app windows",
+      "ok": true
+    },
+    {
+      "name": "Expired current recovery does not mutate pin state",
+      "ok": true
+    },
+    {
+      "name": "Rollback remains limited to five verified previous versions",
+      "ok": true
+    }
+  ]
+}
