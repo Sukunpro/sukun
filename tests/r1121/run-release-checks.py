@@ -40,7 +40,7 @@ commands=[
  ('release-upgrade',['node','tests/r1121/release-upgrade-browser.cjs',str(root),str(baseline),str(out/'release-upgrade.json')]),
 ]
 # These are required gates, not optional discovery: absence fails acceptance.
-for name in ['frequency-engine-contract','frequency-handoff-contract','frequency-handoff-regressions','frequency-engine-browser','frequency-renderer-browser','dhikr-lifecycle-contract','dhikr-source-regressions','dhikr-lifecycle-browser']:
+for name in ['activation-deadline-contract','frequency-engine-contract','frequency-handoff-contract','frequency-handoff-regressions','frequency-engine-browser','frequency-renderer-browser','dhikr-lifecycle-contract','dhikr-source-regressions','dhikr-lifecycle-browser']:
  commands.append((name,['node','tests/r1121/'+name+'.cjs',str(root),str(out/(name+'.json'))]))
 for name,cmd in commands:
  started=time.monotonic()

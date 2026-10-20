@@ -1056,10 +1056,15 @@ self.addEventListener('message',event=>{
   }
   if(d.type==='SKIP_WAITING'){
     event.waitUntil((async()=>{try{
-      let ready=await updateDeadline(currentComplete,12000,'Önbellek doğrulama');
-      if(!ready){const meta=await prepareShell();ready=!!meta.complete}
+      // Stay inside the client's 18-second reply window across every phase.
+      // Native activation includes verified-cache work and can exceed 4 seconds.
+      const deadline=Date.now()+17000;
+      const remaining=()=>{const ms=deadline-Date.now();if(ms<=0)throw Error('Servis aktivasyonu: zaman aşımı');return ms};
+      let ready=await updateDeadline(currentComplete,Math.min(12000,remaining()),'Önbellek doğrulama');
+      if(!ready){const meta=await updateDeadline(prepareShell,remaining(),'Dosya doğrulama');ready=!!meta.complete}
       if(!ready)throw Error('release incomplete');
-      await updateDeadline(()=>self.skipWaiting(),4000,'Servis aktivasyonu');
+      await updateDeadline(()=>{remaining();return self.skipWaiting()},Math.min(12000,remaining()),'Servis aktivasyonu');
+      remaining();
       replyUpdate(port,{ok:true,v:SURUM,complete:true});
     }catch(e){replyUpdate(port,{ok:false,v:SURUM,complete:false,error:String(e?.message||e)})}})());return;
   }
