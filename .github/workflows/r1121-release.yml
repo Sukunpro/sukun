@@ -13,8 +13,6 @@ jobs:
   acceptance:
     runs-on: ubuntu-24.04
     timeout-minutes: 35
-    env:
-      NODE_PATH: ${{ runner.temp }}/sukun-browser/node_modules
     steps:
       - name: Check out exact candidate commit
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -41,6 +39,8 @@ jobs:
       - name: Install pinned browser test dependency
         if: steps.release.outputs.enabled == 'true'
         run: |
+          export NODE_PATH="$RUNNER_TEMP/sukun-browser/node_modules"
+          echo "NODE_PATH=$NODE_PATH" >> "$GITHUB_ENV"
           npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
           "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
           echo "CHROMIUM_PATH=$(node -p 'require("playwright").chromium.executablePath()')" >> "$GITHUB_ENV"
