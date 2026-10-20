@@ -1,14 +1,14 @@
 {
-  "build": "r1113",
+  "build": "r1118",
   "method": "Complete local release bytes: identity, exact SHA-256 and sizes, HTML SRI, shipped JavaScript syntax, and scoped active external CSS resource validation. Unresolved CSS variables remain explicit; these are static assertions, not device/audio checks.",
-  "passed": 1514,
-  "total": 1514,
-  "inlineScriptsParsed": 309,
+  "passed": 1541,
+  "total": 1541,
+  "inlineScriptsParsed": 313,
   "externalScriptsParsed": 70,
-  "runtimeEntries": 123,
-  "siteFiles": 763,
-  "siteBytes": 306928084,
-  "sriEntries": 107,
+  "runtimeEntries": 128,
+  "siteFiles": 771,
+  "siteBytes": 306948224,
+  "sriEntries": 112,
   "cssAssets": {
     "schema": 1,
     "scope": "Active external CSS and recursive local imports; no inline/generated CSS, computed cascade, remote retrieval or rendering.",
@@ -296,6 +296,46 @@
       },
       {
         "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/berhet-surfaces-r1115.css",
+        "line": 15,
+        "property": "border-image",
+        "variable": "--r1115-sapphire",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/berhet-surfaces-r1115.css",
+        "line": 21,
+        "property": "border-image",
+        "variable": "--r1115-sapphire",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/berhet-surfaces-r1115.css",
+        "line": 30,
+        "property": "border-image",
+        "variable": "--r1115-sapphire",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/berhet-surfaces-r1115.css",
+        "line": 42,
+        "property": "border-image",
+        "variable": "--r1115-sapphire",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/berhet-surfaces-r1115.css",
+        "line": 49,
+        "property": "border-image",
+        "variable": "--r1115-sapphire",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
         "source": "assets/runtime/berhet-layout-r938.css",
         "line": 290,
         "property": "border-image",
@@ -468,6 +508,38 @@
         "line": 41,
         "property": "background",
         "variable": "--surface",
+        "chain": []
+      },
+      {
+        "code": "UNKNOWN_VARIABLE",
+        "source": "css/name-info-r1115.css",
+        "line": 32,
+        "property": "background",
+        "variable": "--goldh",
+        "chain": []
+      },
+      {
+        "code": "UNKNOWN_VARIABLE",
+        "source": "css/name-info-r1115.css",
+        "line": 32,
+        "property": "background",
+        "variable": "--sayfa2",
+        "chain": []
+      },
+      {
+        "code": "UNKNOWN_VARIABLE",
+        "source": "css/name-info-r1115.css",
+        "line": 41,
+        "property": "background",
+        "variable": "--sayfa2",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/name-info-r1115.css",
+        "line": 45,
+        "property": "background",
+        "variable": "--gold",
         "chain": []
       },
       {
@@ -983,6 +1055,7 @@
       "css/ambience-info-round-r1103.css",
       "css/ambience-compact-r1102.css",
       "css/berhet-controls-r1101.css",
+      "css/berhet-surfaces-r1115.css",
       "assets/runtime/browser-contrast-r1077.css",
       "assets/runtime/protective-plan-r1078.css",
       "assets/runtime/compact-ui-r1057.css",
@@ -991,8 +1064,12 @@
       "assets/runtime/berhet-controls-r933.css",
       "assets/runtime/berhet-dock-r933.css",
       "assets/runtime/smart-session-ui-r1082.css",
+      "assets/runtime/surface-clarity-r1118.css",
+      "assets/runtime/personal-centre-glass-r1118.css",
+      "assets/runtime/scene-info-r1118.css",
       "assets/runtime/reading-ui-r1064.css",
       "css/notification-layout-r1111.css",
+      "css/name-info-r1115.css",
       "assets/runtime/archive-download-r1093.css",
       "assets/runtime/source-matrix-ui-r1094.css",
       "assets/runtime/wheels-r924.css",
@@ -1754,12 +1831,12 @@
       "empty": 0
     },
     "stats": {
-      "files": 35,
-      "bytes": 345555,
-      "declarations": 7180,
-      "customProperties": 81,
+      "files": 40,
+      "bytes": 364892,
+      "declarations": 7559,
+      "customProperties": 83,
       "checkedReferences": 75,
-      "valueExpansions": 1025
+      "valueExpansions": 1104
     }
   },
   "checks": [
@@ -2305,6 +2382,26 @@
     },
     {
       "name": "Runtime SHA-256 css/tekke-set-card-r1112.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/berhet-surfaces-r1115.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/name-info-r1115.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 assets/runtime/surface-clarity-r1118.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 assets/runtime/personal-centre-glass-r1118.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 assets/runtime/scene-info-r1118.css",
       "passed": true
     },
     {
@@ -3528,6 +3625,22 @@
       "passed": true
     },
     {
+      "name": "JavaScript parse sukun-r1114-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1115-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1116-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1117-release-locale",
+      "passed": true
+    },
+    {
       "name": "JavaScript parse sukun-r1018-locale-notes",
       "passed": true
     },
@@ -3856,6 +3969,10 @@
       "passed": true
     },
     {
+      "name": "HTML SRI css/berhet-surfaces-r1115.css",
+      "passed": true
+    },
+    {
       "name": "HTML SRI assets/runtime/browser-contrast-r1077.css",
       "passed": true
     },
@@ -3885,6 +4002,18 @@
     },
     {
       "name": "HTML SRI assets/runtime/smart-session-ui-r1082.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI assets/runtime/surface-clarity-r1118.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI assets/runtime/personal-centre-glass-r1118.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI assets/runtime/scene-info-r1118.css",
       "passed": true
     },
     {
@@ -3949,6 +4078,10 @@
     },
     {
       "name": "HTML SRI css/notification-layout-r1111.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/name-info-r1115.css",
       "passed": true
     },
     {
@@ -4321,6 +4454,18 @@
     },
     {
       "name": "Site file hash and size README-r1107.md",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size README-r1115.md",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size README-r1116.md",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size README-r1117.md",
       "passed": true
     },
     {
@@ -6168,6 +6313,10 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size assets/runtime/personal-centre-glass-r1118.css",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size assets/runtime/preflight-cache-r1092.js",
       "passed": true
     },
@@ -6229,6 +6378,10 @@
     },
     {
       "name": "Site file hash and size assets/runtime/recovery-versions-r1019.js",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size assets/runtime/scene-info-r1118.css",
       "passed": true
     },
     {
@@ -6301,6 +6454,10 @@
     },
     {
       "name": "Site file hash and size assets/runtime/studio-preparation-r982.js",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size assets/runtime/surface-clarity-r1118.css",
       "passed": true
     },
     {
@@ -7096,6 +7253,10 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size css/berhet-surfaces-r1115.css",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size css/category-flow-r1109.css",
       "passed": true
     },
@@ -7133,6 +7294,10 @@
     },
     {
       "name": "Site file hash and size css/kandil-preferences-r1108.css",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size css/name-info-r1115.css",
       "passed": true
     },
     {
@@ -7288,7 +7453,7 @@
       "passed": true
     },
     {
-      "name": "Site file hash and size sukun-build-r1113.json",
+      "name": "Site file hash and size sukun-build-r1118.json",
       "passed": true
     },
     {
@@ -7805,6 +7970,26 @@
     },
     {
       "name": "Runtime is in site inventory css/tekke-set-card-r1112.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/berhet-surfaces-r1115.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/name-info-r1115.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory assets/runtime/surface-clarity-r1118.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory assets/runtime/personal-centre-glass-r1118.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory assets/runtime/scene-info-r1118.css",
       "passed": true
     },
     {

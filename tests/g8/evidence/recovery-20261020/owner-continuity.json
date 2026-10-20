@@ -1,0 +1,41 @@
+{
+  "startedAt": "2026-10-20T03:10:43.295Z",
+  "method": "Reconstructed and freshly run source continuity assertions, not recovered original evidence",
+  "sourceSha256": "87a220cd4731e6945acdc97bc9ab3a66af69fe700ee6a246dbfd82c401493fb8",
+  "checks": [
+    {
+      "name": "Script order and bodies preserved except release identifiers and notes",
+      "passed": true,
+      "evidence": {
+        "count": 388,
+        "exact": 385,
+        "release": 2,
+        "notes": 1
+      }
+    },
+    {
+      "name": "Every existing distributed image and audio byte preserved",
+      "passed": true,
+      "evidence": {
+        "count": 303
+      }
+    },
+    {
+      "name": "Existing external JavaScript preserved except release identifiers",
+      "passed": true,
+      "evidence": {
+        "exact": 80,
+        "release": 1
+      }
+    },
+    {
+      "name": "Entrypoint aliases identical",
+      "passed": true,
+      "evidence": {
+        "sha256": "87a220cd4731e6945acdc97bc9ab3a66af69fe700ee6a246dbfd82c401493fb8"
+      }
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

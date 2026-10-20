@@ -1,0 +1,246 @@
+{
+  "recovery": "Reconstructed from retained implementation and exact producer SHA gates; freshly tested, not claimed byte-identical to lost output files.",
+  "finishedAt": "2026-10-20T03:09:43.650829+00:00",
+  "passed": 44,
+  "total": 44,
+  "files": {
+    "tools/dynamic-visual-map.cjs": "7140b8a3427fafd8e5c8f64bf56ca9cc3d971fd09f384e0c912f475d6ae2db9d",
+    "tools/visual-reference-map.cjs": "e15011c47b25961bb3a1afdbe18f1489b076fc142fbd40be9494968d40255894",
+    "tests/g8/dynamic-visual-map.cjs": "d934de8328a19a90644850cce9c471f46b55e0942c881a3f716a1f926f21c9a0",
+    "tests/g8/dynamic-visual-map-results.json": "958e0eaaccbfc2edb3dbaa5fc868e1ce4205252f679ebcbe608879f2552a3b32",
+    "tests/g8/wheel-map-integration.cjs": "574ac3fb301d29d17fadb39a578339eac03a9e82d30f1a20c7b0c7af2c510542",
+    "docs/g8/DYNAMIC_VISUAL_DECISIONS.md": "759a0147a18e3a64f8812d90648aadee98cef21add84ef7ac0f5b743d27b53a3",
+    "docs/g8/visual-reference-map.json": "b366077f5be245e534d36ec91e7dc68fd31da1769295b320fabaa73def02c6fa",
+    "index.html": "87a220cd4731e6945acdc97bc9ab3a66af69fe700ee6a246dbfd82c401493fb8",
+    "sukun-site-assets-r1118.json": "2baa2b7a92e43327517c389768d8452a9ba2b98298e97a42f48a37a0a9f66d5e"
+  },
+  "suites": [
+    {
+      "suite": "G8 reviewed dynamic visual adapters",
+      "method": "Reconstructed tool, freshly tested. Tool never executes application code. Only the explicitly labelled Esma test runs its data-only production catalog in a controlled VM.",
+      "passed": 9,
+      "total": 9,
+      "results": [
+        {
+          "name": "Reviewed adapters produce 94 main, fallback and thumbnail mappings without executing source",
+          "passed": true
+        },
+        {
+          "name": "Independent controlled VM catalog agrees with all 20 Esma main/lite mappings and automatic policy",
+          "passed": true
+        },
+        {
+          "name": "Any esma source change reopens review and cannot emit that producer mapping",
+          "passed": true
+        },
+        {
+          "name": "Any portal source change reopens review and cannot emit that producer mapping",
+          "passed": true
+        },
+        {
+          "name": "Any consumer source change reopens review and cannot emit that producer mapping",
+          "passed": true
+        },
+        {
+          "name": "Any atlas source change reopens review and cannot emit that producer mapping",
+          "passed": true
+        },
+        {
+          "name": "Absent producer produces no invented mappings",
+          "passed": true
+        },
+        {
+          "name": "Final inventory validates generated target bytes and preserves all unresolved observations with dispositions",
+          "passed": true
+        },
+        {
+          "name": "Missing generated target is a blocking map error even when omitted from inventory",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "suite": "G8 bounded visual reference map",
+      "passed": 13,
+      "total": 13,
+      "results": [
+        {
+          "name": "Current bytes, references and CSS audit are deterministic and do not mutate source files",
+          "passed": true
+        },
+        {
+          "name": "Missing image inventory members fail verification",
+          "passed": true
+        },
+        {
+          "name": "Mismatched bytes cannot enter verified byte-equality groups",
+          "passed": true
+        },
+        {
+          "name": "Inventory traversal, encoded traversal and encoded slashes are rejected",
+          "passed": true
+        },
+        {
+          "name": "External symlink targets are never read as inventory members",
+          "passed": true
+        },
+        {
+          "name": "Internal symlinks preserve requested inventory paths and compare actual bytes",
+          "passed": true
+        },
+        {
+          "name": "Literal scene aliases are separate from derived variants and never execute source",
+          "passed": true
+        },
+        {
+          "name": "Unsupported consumers and dynamic image templates remain unresolved",
+          "passed": true
+        },
+        {
+          "name": "Default CLI writes only stdout; explicit output and check are deterministic",
+          "passed": true
+        },
+        {
+          "name": "CLI refuses deployment overwrites and destinations outside root or through symlinks",
+          "passed": true
+        },
+        {
+          "name": "Noninventory quoted candidates are explicit nonblocking observations",
+          "passed": true
+        },
+        {
+          "name": "CLI rejects an output hardlink to production and preserves both names",
+          "passed": true
+        },
+        {
+          "name": "Canonical entrypoint mismatch is an explicit failure",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "suite": "G8 bounded static wheel catalog map",
+      "method": "Data-only lexical/source-shape fixtures. Production JavaScript is never executed by this helper or suite.",
+      "passed": 17,
+      "total": 17,
+      "results": [
+        {
+          "name": "Current production is 54 scoped wheel candidates and 37 unique asset paths",
+          "passed": true
+        },
+        {
+          "name": "Resolved template metadata identifies exact source offsets without claiming unrelated templates",
+          "passed": true
+        },
+        {
+          "name": "Standalone literal tables produce exact synthetic targets and preserve distinct family paths",
+          "passed": true
+        },
+        {
+          "name": "Whitespace, comments, quote styles, Unicode titles, escapes and literal trailing commas are supported",
+          "passed": true
+        },
+        {
+          "name": "Each altered builder remains unresolved and emits no aliases from that builder",
+          "passed": true
+        },
+        {
+          "name": "Altered mode, chain, mapped arguments and extra catalog operations fail closed",
+          "passed": true
+        },
+        {
+          "name": "Unsupported literal table wrappers remain explicit and cannot borrow unrelated tables",
+          "passed": true
+        },
+        {
+          "name": "Computed rows and computed metadata remain unresolved and never execute expressions",
+          "passed": true
+        },
+        {
+          "name": "Unsafe, escaped, encoded and malformed IDs are blocking errors with no successful partial aliases",
+          "passed": true
+        },
+        {
+          "name": "Unsafe literal classic paths are rejected before mapping",
+          "passed": true
+        },
+        {
+          "name": "Duplicate rows and IDs shared across builders are blocking errors",
+          "passed": true
+        },
+        {
+          "name": "Malformed woven values and titles are blocking errors",
+          "passed": true
+        },
+        {
+          "name": "Unrelated calls, tables, regexes, strings, comments and shadowed bindings add no aliases",
+          "passed": true
+        },
+        {
+          "name": "Missing, duplicate and shadow-only builders stay unresolved",
+          "passed": true
+        },
+        {
+          "name": "Application statements and malicious strings are never evaluated or imported",
+          "passed": true
+        },
+        {
+          "name": "Limits and invalid source shapes fail closed without executing source",
+          "passed": true
+        },
+        {
+          "name": "Repeated extraction is byte-for-byte deterministic and preserves the supplied source",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "suite": "G8 dynamic wheel mapping integration",
+      "method": "Compare static extraction with the unchanged first production catalog module in an explicitly controlled VM; separately verify main-map inventory membership on real temporary filesystem trees and current production bytes.",
+      "toolExecutesProduction": false,
+      "browserExecuted": false,
+      "sourceSha256": {
+        "assets/runtime/wheels-r924.js": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+        "tools/visual-reference-map.cjs": "e15011c47b25961bb3a1afdbe18f1489b076fc142fbd40be9494968d40255894",
+        "tools/wheel-catalog-map.cjs": "eb64670317220be3f7916071c8f8ec6a5675f1a8a5b04191fd32220dd99e1ff3"
+      },
+      "passed": 5,
+      "total": 5,
+      "results": [
+        {
+          "name": "Static wheel mappings match the actual production catalog in a controlled VM",
+          "passed": true,
+          "evidence": {
+            "familyCounts": {
+              "berhet": 31,
+              "esma": 23
+            },
+            "aliases": 54,
+            "uniqueTargets": 37
+          }
+        },
+        {
+          "name": "Main visual map requires every generated selection target to be inventoried and hash verified",
+          "passed": true
+        },
+        {
+          "name": "A missing dynamically generated target is an explicit alias-verification failure",
+          "passed": true
+        },
+        {
+          "name": "An unrelated identical template on the same line remains unresolved by exact offset",
+          "passed": true
+        },
+        {
+          "name": "Current production map preserves the original 88 scene and wheel selections plus reviewed dynamic variants",
+          "passed": true,
+          "evidence": {
+            "verifiedImages": 295,
+            "mappings": 182,
+            "wheelMappings": 54
+          }
+        }
+      ]
+    }
+  ]
+}

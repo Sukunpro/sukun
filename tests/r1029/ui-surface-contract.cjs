@@ -6,7 +6,7 @@ const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const controls=fs.readFileSync(path.join(root,'assets/runtime/berhet-controls-r933.css'),'utf8');
 const layout=fs.readFileSync(path.join(root,'assets/runtime/berhet-layout-r938.css'),'utf8');
 const dock=fs.readFileSync(path.join(root,'assets/runtime/berhet-dock-r933.css'),'utf8');
-const paint=html.match(/<style id="sukun-r1029-surface-clarity">([\s\S]*?)<\/style>/)?.[1];
+const paint=fs.readFileSync(path.join(root,'assets/runtime/surface-clarity-r1118.css'),'utf8');
 const preference=html.match(/<script id="sukun-r1029-mic-notes-preference">([\s\S]*?)<\/script>/)?.[1];
 const results=[];function test(name,fn){try{fn();results.push({name,passed:true})}catch(e){results.push({name,passed:false,error:e.message})}}
 const sha=s=>crypto.createHash('sha256').update(s).digest('hex');

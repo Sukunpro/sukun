@@ -1,0 +1,23 @@
+
+/* Ambiyans personal centre only. Keep the r1029 no-blur contract and all
+   geometry/visibility owners; the scene remains visible through the frame. */
+@layer sukun-r933-controls {
+html body.r716-shell:has(#tab-amb:not([hidden])) .wrap>#prDashboard{
+ background:linear-gradient(160deg,#071c268a,#04121c73)!important;
+ border-color:#badbd26b!important;
+ box-shadow:0 14px 32px #0000001f,inset 0 1px 0 #ffffff1a,inset 0 -1px 0 #03101926!important;
+}
+/* Local text scrims keep bright scene details from washing out small labels. */
+html body.r716-shell:has(#tab-amb:not([hidden])) .wrap>#prDashboard :is(.prDashTop,.prNow,.prDashActions,.prMetric){
+ background:linear-gradient(180deg,#05141d70,#030d1666)!important;
+}
+html body.r716-shell:has(#tab-amb:not([hidden])) .wrap>#prDashboard :is(.prDashTitle,.prMetric b,.prNowText b,.prPerfBtn,.prSearchBtn){
+ color:#f4ead1!important;
+}
+html body.r716-shell:has(#tab-amb:not([hidden])) .wrap>#prDashboard :is(.prEyebrow,.prMetric small,.prNowText small,.prKeyHint,.prState:not(.on)){
+ color:#d8e4df!important;
+}
+@media(prefers-reduced-transparency:reduce){
+ html body.r716-shell:has(#tab-amb:not([hidden])) .wrap>#prDashboard{background:#071725f5!important}
+}
+}

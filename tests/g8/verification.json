@@ -1,0 +1,220 @@
+{
+  "schema": 2,
+  "baseCommit": "5459587e2a4ce794683908c1b098076b3f2eb081",
+  "applicationBuild": "r1117",
+  "productionFilesChanged": false,
+  "g8Complete": false,
+  "headingCounts": {
+    "all": {
+      "closed": 14,
+      "total": 15
+    },
+    "development": {
+      "closed": 7,
+      "total": 8
+    },
+    "meaning": "Equal heading counts only, not remaining effort"
+  },
+  "map": {
+    "build": "r1117",
+    "images": 295,
+    "verifiedImages": 295,
+    "sourceFiles": 143,
+    "sourceBytes": 18857717,
+    "byteEqualityGroups": 26,
+    "quotedAndCssReferences": 902,
+    "noninventoryQuotedCandidates": 79,
+    "runtimeAliases": 88,
+    "resolvedDynamicObservations": 2,
+    "imagesWithoutObservedReference": 87,
+    "literalAndAliasUnresolved": 35,
+    "cssUnresolved": 129,
+    "unresolved": 164,
+    "errors": 0,
+    "report": "docs/g8/visual-reference-map.json",
+    "checked": true
+  },
+  "fixtureChecks": {
+    "passed": 13,
+    "total": 13
+  },
+  "baseline": {
+    "passed": 262,
+    "total": 262,
+    "suites": [
+      {
+        "source": "tests/r1107/storage-snapshot-ui.cjs",
+        "sourceSha256": "aa7356655ee32ede775c2b7c49d6f2131971298626a630566b34f38e6190d25c",
+        "report": "tests/g8/evidence/baseline/r1107-storage-snapshot-ui.json",
+        "reportSha256": "4ae6b05298026a865a97d91b2dc381221054b2b5a94fd00959f67e5fd4cb5161",
+        "passed": 27,
+        "total": 27
+      },
+      {
+        "source": "tests/r1107/storage-snapshot.cjs",
+        "sourceSha256": "4a9fc395e4f765265d6dcfdd9f670dc5e4ec0c7665bc11deb75c626f0b9f5051",
+        "report": "tests/g8/evidence/baseline/r1107-storage-snapshot.json",
+        "reportSha256": "8047e6a1e1d9939d0e86aa3c12a18c2b007e0957f2e930a4ee62ce5317adbb5f",
+        "passed": 30,
+        "total": 30
+      },
+      {
+        "source": "tests/r1108/health-presentation-context.cjs",
+        "sourceSha256": "656f8bb61bd5a69430b67c1f908ca0fade6bcca75f52a9603e20a0407d2c91c2",
+        "report": "tests/g8/evidence/baseline/r1108-health-presentation-context.json",
+        "reportSha256": "c33e38535a860d4899560287602b00c69fa085d9384c6165435eeeb581a3a8c9",
+        "passed": 30,
+        "total": 30
+      },
+      {
+        "source": "tests/r1108/kandil-preferences.cjs",
+        "sourceSha256": "bbb8818f8cae194e95e1ee7d93573dde188634739403a5ec7f36a5575202bff1",
+        "report": "tests/g8/evidence/baseline/r1108-kandil-preferences.json",
+        "reportSha256": "8b07ce1c599b67b99b56e39de15561d37001c93bed33c74e61627b1d0b202eb5",
+        "passed": 46,
+        "total": 46
+      },
+      {
+        "source": "tests/r1108/presentation-notice.cjs",
+        "sourceSha256": "da6340d66b9eae6fa9ea9a6abd14820587ee70be57f48d7f6d0126e656a6a637",
+        "report": "tests/g8/evidence/baseline/r1108-presentation-notice.json",
+        "reportSha256": "ffd73aba3c71bdcc4ed036264b64638aa63de4f9043820bb066cdb643d0e39a5",
+        "passed": 33,
+        "total": 33
+      },
+      {
+        "source": "tests/r1109/category-flow-extraction.cjs",
+        "sourceSha256": "488cb1feac610db251fe1dd080a72f58e35b41cac6c65ad19869833613b45ddb",
+        "report": "tests/g8/evidence/baseline/r1109-category-flow-extraction.json",
+        "reportSha256": "ee1ecd33a7f0d2ca8518c4bae0ade5eea9fc3136fdd5472c6f94aa14809b43b1",
+        "passed": 8,
+        "total": 8
+      },
+      {
+        "source": "tests/r1110/tooltip-help-extraction.cjs",
+        "sourceSha256": "6f37cd78b8d7a643b476a76a3bbf59de7555c0dca9fa20c3c922d393634b00f4",
+        "report": "tests/g8/evidence/baseline/r1110-tooltip-help-extraction.json",
+        "reportSha256": "cb8cd32fbf5ca2ca837b04c0e4f360194d504517963aa3dd873c000bbaabff16",
+        "passed": 8,
+        "total": 8
+      },
+      {
+        "source": "tests/r1111/css-assets.cjs",
+        "sourceSha256": "104539250ef7bda4872f7619f329f1e39c60bdd2a3243bc6d303cb72994df6dd",
+        "report": "tests/g8/evidence/baseline/r1111-css-assets.json",
+        "reportSha256": "9dff2f1871f8fa00f6fb8a5c65cc590317b535a319005c6e00887bdf4d35784a",
+        "passed": 62,
+        "total": 62
+      },
+      {
+        "source": "tests/r1111/notification-layout-extraction.cjs",
+        "sourceSha256": "33bf5725ba1dab940bad1f772a368c6781d5954a8338ec1f94c104a6d91318ca",
+        "report": "tests/g8/evidence/baseline/r1111-notification-layout-extraction.json",
+        "reportSha256": "2cc111be9ff818cdfbd1db0bd73213f4c5e277a540af42f89d0d8a55cc374b5d",
+        "passed": 9,
+        "total": 9
+      },
+      {
+        "source": "tests/r1112/tekke-set-card-extraction.cjs",
+        "sourceSha256": "cd408e301f44ef0665480ecc533c86251a8ee1379188215c568e7603c360bde4",
+        "report": "tests/g8/evidence/baseline/r1112-tekke-set-card-extraction.json",
+        "reportSha256": "0d382949b9332ef83480e5a18e15d522b6b517f42e279ffe3046090941460436",
+        "passed": 9,
+        "total": 9
+      }
+    ],
+    "reusedFromFirstCheckpoint": true,
+    "reuseReason": "Production application bytes and baseline suites are unchanged; not rerun for tooling-only wheel-map expansion."
+  },
+  "integrity": {
+    "passed": 1529,
+    "total": 1529,
+    "report": "tests/g8/evidence/release-integrity.json",
+    "reportSha256": "c087210ec94f3340e027b7a93841ddb60878ad8046db4cc107494efc5edd197e",
+    "reusedFromFirstCheckpoint": true,
+    "reuseReason": "Production application bytes and baseline suites are unchanged; not rerun for tooling-only wheel-map expansion."
+  },
+  "newSourceSha256": {
+    "tools/visual-reference-map.cjs": "6a71e30cd31ec61e47672e797be206828d858ed23e9b43c19a28309aaf722acb",
+    "tools/wheel-catalog-map.cjs": "eb64670317220be3f7916071c8f8ec6a5675f1a8a5b04191fd32220dd99e1ff3",
+    "tools/css-assets.cjs": "9d18b0dc5dbd9734541ac94affdd08ba3d9ae57b5025eb4d4333f90cb1eb9391",
+    "tests/g8/visual-reference-map.cjs": "46fa19f40f5017c33091b3a83c81499d3187b6d585c56b823f52c698fa3e864e",
+    "tests/g8/wheel-catalog-map.cjs": "5df8b42e5d293d957cf3546bf38a6c4f2d724a24fcdeaeae147d01e53c8df8a2",
+    "tests/g8/wheel-map-integration.cjs": "219eb555ce8cdeadc08be747a4640dcf00d2bde12fb46dad421e206e1500595e",
+    "docs/g8/visual-reference-map.json": "d1e09bf0ce1590c1de5b20809b744abcab89abdaae201863a6543a0c698c86de",
+    "docs/g8/next-batch.json": "577b817c62f7f08c1de698ba1f411c09cdba671c5248eccf46dc42b05777390a"
+  },
+  "limitations": [
+    "Current tool fixtures include an explicitly labelled VM catalog oracle; no new browser/device/audio/worker-upgrade/rollback acceptance. The tool itself never executes production source.",
+    "Unresolved dynamic references remain explicit; absent observations are not unused-file proof.",
+    "Application metadata still says fourth extraction despite five documented shipped CSS extractions."
+  ],
+  "previousCheckpointCommit": "f4f9e9b0d934495e3716a7d27df82ac13971868a",
+  "wheelCatalog": {
+    "staticVerified": true,
+    "complete": true,
+    "meaning": "Exact known builder and consumer shapes plus literal-table-derived candidates; no JavaScript execution, runtime reachability, loading or rendering proof.",
+    "catalogRecognized": true,
+    "recognizedBuilders": {
+      "premium": true,
+      "classic": true,
+      "nativeWheel": true,
+      "wovenWheel": true
+    },
+    "recognizedTables": {
+      "newWheels": true,
+      "wovenWheels": true
+    },
+    "entryCount": 54,
+    "aliases": 54,
+    "uniqueTargets": 37,
+    "countsByBuilder": {
+      "premium": 16,
+      "classic": 4,
+      "nativeWheel": 16,
+      "wovenWheel": 18
+    },
+    "countsByFamily": {
+      "berhet": 31,
+      "esma": 23
+    },
+    "resolvedTemplates": [
+      {
+        "expression": "./assets/wheels-r924/${mode==='berhet'?'berhetiyye':'esma'}/${id}.webp",
+        "offset": 5936,
+        "line": 15,
+        "builder": "premium"
+      },
+      {
+        "expression": "./assets/wheels-r977/${id}.webp",
+        "offset": 6712,
+        "line": 19,
+        "builder": "nativeWheel"
+      },
+      {
+        "expression": "./assets/wheels/${id}-r1057.webp",
+        "offset": 7945,
+        "line": 33,
+        "builder": "wovenWheel"
+      }
+    ]
+  },
+  "wheelFixtureChecks": {
+    "passed": 17,
+    "total": 17
+  },
+  "integrationChecks": {
+    "passed": 5,
+    "total": 5
+  },
+  "totalCurrentToolChecks": {
+    "passed": 35,
+    "total": 35
+  },
+  "currentEvidenceSha256": {
+    "tests/g8/evidence/reference-map-tests.json": "4924d04b9e61b59f980c47e991dac833134256f2982535fed17811a5033a3101",
+    "tests/g8/evidence/wheel-catalog-tests.json": "8a3874c0d4c7461dfe88a0d8f84e2bd30932be24bc497f56906df4a83660d6ea",
+    "tests/g8/evidence/wheel-map-integration.json": "11af9b4f3cc003a9c32d85ea5b1230b1272ea5f63352cd7964004d3b8d3483d9",
+    "tests/g8/evidence/reference-map-check.json": "70cb2840526ab0c2747fe46d0e64b328958e25f119979378cc86bdcaadab783d"
+  }
+}

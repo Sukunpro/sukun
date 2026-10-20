@@ -1,0 +1,82 @@
+{
+  "suite": "r1111 notification layout extraction",
+  "build": "r1117",
+  "phase": "finalized",
+  "method": "Frozen r1110 inline CSS and adjacent notification-owner SHA-256 baselines, exact ID/cascade anchors, public URL alias equality, and finalized SRI/runtime/inventory metadata. No browser rendering or audio playback claim.",
+  "browserExecuted": false,
+  "limitations": [
+    "Static byte and dependency checks do not establish native center/drawer geometry, filter interaction, CSS loading timing or offline startup behavior."
+  ],
+  "sourceFiles": {
+    "index.html": {
+      "bytes": 7421084,
+      "sha256": "e5323c954da33c1535ae83a1044a4fc2b967e5d9a746959faf0300dc826be42b"
+    },
+    "nero.html": {
+      "bytes": 7421084,
+      "sha256": "e5323c954da33c1535ae83a1044a4fc2b967e5d9a746959faf0300dc826be42b"
+    },
+    "css/notification-layout-r1111.css": {
+      "bytes": 4990,
+      "sha256": "dba02fc702f8320cf6ed05d847ac70df68c31ef43441be962484ecaad096e27f"
+    }
+  },
+  "finishedAt": "2026-10-19T14:00:42.162Z",
+  "passed": 9,
+  "total": 9,
+  "skipped": 0,
+  "results": [
+    {
+      "name": "Notification layout CSS retains all frozen r1110 bytes",
+      "passed": true,
+      "evidence": {
+        "bytes": 4990,
+        "sha256": "dba02fc702f8320cf6ed05d847ac70df68c31ef43441be962484ecaad096e27f"
+      }
+    },
+    {
+      "name": "Extracted layout contains no asset, import, font, variable or executable dependency",
+      "passed": true
+    },
+    {
+      "name": "Index and nero URL aliases remain byte-identical",
+      "passed": true,
+      "evidence": {
+        "bytesEach": 7421084,
+        "sha256": "e5323c954da33c1535ae83a1044a4fc2b967e5d9a746959faf0300dc826be42b"
+      }
+    },
+    {
+      "name": "Notification layout keeps its exact single ID and source body",
+      "passed": true,
+      "evidence": {
+        "phase": "finalized",
+        "external": true
+      }
+    },
+    {
+      "name": "Layout keeps direct cascade adjacency between mini transport and notification owner",
+      "passed": true
+    },
+    {
+      "name": "Existing notification owner remains unchanged and never owns stylesheet text",
+      "passed": true,
+      "evidence": {
+        "ownerBytes": 1348,
+        "ownerSha256": "adf8413a3ade0ded1668144a6e749274bd5e2304618c7b8f00d936d747fa30bf"
+      }
+    },
+    {
+      "name": "Shared layout CSS has a current release URL and exact SRI",
+      "passed": true
+    },
+    {
+      "name": "Build marker and service worker require one identical layout dependency",
+      "passed": true
+    },
+    {
+      "name": "Deployment inventory includes unchanged notification layout bytes",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,213 @@
+{
+  "suite": "r1107 read-only storage metadata",
+  "build": "r1107",
+  "sourceBuild": "r1117",
+  "method": "Production metadata scanner executed in Node VM with native Blob instances whose content accessors throw, asynchronous controlled IndexedDB cursors, transaction-completion/abort events and fault injection. The fixture does not implement metadata counting. The real generic owner is separately exercised using its established import fixture; after setup imports, content/hash access is made fatal and assertions compare only inspection activity with the completed setup baseline.",
+  "limitations": [
+    "No real browser, device profile, persistent quota subsystem or audio hardware was exercised.",
+    "Quota observations are estimates; exact Blob sizes cover only the explicitly reported metadata scopes."
+  ],
+  "browserExecuted": false,
+  "scriptSha256": "4a9fc395e4f765265d6dcfdd9f670dc5e4ec0c7665bc11deb75c626f0b9f5051",
+  "sourceFiles": {
+    "assets/runtime/storage-snapshot-r1107.js": {
+      "sha256": "125fb6075cbf9de7c617e7cde6e204dc9d519e82f755c0367994df56183c9fdf",
+      "bytes": 11806
+    },
+    "assets/runtime/generic-recordings-r1055.js": {
+      "sha256": "f3b3f3a90ab5451d9b50a227b6a619b4cd9592f4a8e45cd4648b8a6aaed45c89",
+      "bytes": 38555
+    },
+    "tests/r1055/generic-bank-fixture.cjs": {
+      "sha256": "9fc2573da5ae0e418f44ba15d712d5e8b9e48598ab9bdc982f0b00002733e3a1",
+      "bytes": 7814
+    }
+  },
+  "finishedAt": "2026-10-19T14:00:42.070Z",
+  "passed": 30,
+  "total": 30,
+  "results": [
+    {
+      "name": "Loading and cached snapshots perform no storage reads, writes, quota query or audio work",
+      "passed": true
+    },
+    {
+      "name": "Inspection counts native Blob sizes across personal, ambience and all retained recovery copies",
+      "passed": true,
+      "evidence": {
+        "at": 1792418441814,
+        "build": "r1107",
+        "status": "complete",
+        "sources": {
+          "personal": {
+            "status": "ok",
+            "count": 2,
+            "blobBytes": 18,
+            "errorCode": null,
+            "scope": "current-personal"
+          },
+          "ambience": {
+            "status": "ok",
+            "count": 1,
+            "blobBytes": 13,
+            "errorCode": null,
+            "scope": "current-ambience"
+          },
+          "generic": {
+            "status": "ok",
+            "count": 2,
+            "blobBytes": 37,
+            "errorCode": null,
+            "scope": "accessible-generic",
+            "enabled": false
+          },
+          "recovery": {
+            "status": "ok",
+            "count": 3,
+            "blobBytes": 119,
+            "errorCode": null,
+            "scope": "recovery-copies",
+            "recordings": 3,
+            "ambience": 2,
+            "listed": 1
+          }
+        },
+        "quota": {
+          "status": "ok",
+          "usage": 1234,
+          "quota": 10000,
+          "approximate": true,
+          "errorCode": null
+        },
+        "elapsedMs": 4
+      }
+    },
+    {
+      "name": "Existing empty stores are measured zero; absent databases remain unknown and creation is aborted",
+      "passed": true
+    },
+    {
+      "name": "Read errors are partial unknown values and preserve the last successful observation",
+      "passed": true
+    },
+    {
+      "name": "Opening an inaccessible database never reports an empty successful source",
+      "passed": true
+    },
+    {
+      "name": "Invalid personal payload is unavailable, never silently skipped as zero bytes",
+      "passed": true
+    },
+    {
+      "name": "Quota estimates stay approximate and independent from exact Blob totals",
+      "passed": true
+    },
+    {
+      "name": "Unsupported quota API does not turn observed recording metadata into missing data",
+      "passed": true
+    },
+    {
+      "name": "Denied quota query preserves measured sources and exposes unavailable approximation",
+      "passed": true
+    },
+    {
+      "name": "Pre-cancelled inspection does not open storage and never claims empty data",
+      "passed": true
+    },
+    {
+      "name": "Cancellation aborts a held cursor and a late result cannot publish partial counts as successful",
+      "passed": true
+    },
+    {
+      "name": "A connection version change cancels the source read and closes the old connection",
+      "passed": true
+    },
+    {
+      "name": "Read deadline settles held storage as unavailable; late cursor completion stays retired",
+      "passed": true
+    },
+    {
+      "name": "Newest request owns publication and replaces a held older inspection without overlapping transactions",
+      "passed": true
+    },
+    {
+      "name": "A missing object store remains unknown without adding or repairing the store",
+      "passed": true
+    },
+    {
+      "name": "Invalid ambience and malformed recovery copies cannot disappear from totals as zero",
+      "passed": true
+    },
+    {
+      "name": "A store above the cursor row budget stops as unknown without allocating audio contents",
+      "passed": true
+    },
+    {
+      "name": "More than 1000 retained recovery points stops honestly at the safety limit",
+      "passed": true
+    },
+    {
+      "name": "Invalid generic owner summaries are unavailable rather than trusted as accurate counts",
+      "passed": true
+    },
+    {
+      "name": "Untrusted quota ranges are unavailable and are never added to recording Blob bytes",
+      "passed": true
+    },
+    {
+      "name": "Quota deadline retires its late estimate without replacing a newer cached observation",
+      "passed": true
+    },
+    {
+      "name": "Late missing-database upgrade is aborted even after the requesting inspection was cancelled",
+      "passed": true
+    },
+    {
+      "name": "Generic owner reports actual accessible stored Blobs while disabled without hashing or publishing a source",
+      "passed": true,
+      "evidence": {
+        "count": 2,
+        "blobBytes": 152,
+        "enabled": false,
+        "transactions": 1,
+        "audioPayloadReads": 0,
+        "hashes": 0
+      }
+    },
+    {
+      "name": "Generic metadata includes unlocked stored copies without enabling or mutating the live bank",
+      "passed": true
+    },
+    {
+      "name": "Generic payload-size mismatch stays unavailable without changing archive status or starting audio verification",
+      "passed": true
+    },
+    {
+      "name": "Generic orphan rows do not masquerade as a complete catalog",
+      "passed": true
+    },
+    {
+      "name": "Generic absent database is unknown; an existing empty bank is an observed zero",
+      "passed": true
+    },
+    {
+      "name": "Generic cancelled or stale ownership never opens a metadata transaction",
+      "passed": true
+    },
+    {
+      "name": "Generic cancellation aborts a pending readonly transaction before delayed metadata can publish totals",
+      "passed": true
+    },
+    {
+      "name": "A secret-access lock/unlock ABA invalidates an already pending generic metadata read",
+      "passed": true,
+      "evidence": {
+        "accessBefore": true,
+        "accessDuring": false,
+        "accessAtCompletion": true,
+        "status": "cancelled",
+        "count": null
+      }
+    }
+  ]
+}

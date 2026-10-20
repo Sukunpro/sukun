@@ -1,0 +1,25 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),vm=require('node:vm');
+const {mapDynamicVisuals}=require('../../tools/dynamic-visual-map.cjs');
+const {buildReferenceMap}=require('../../tools/visual-reference-map.cjs');
+const root=path.resolve(__dirname,'../..'),html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const script=id=>html.match(new RegExp('<script\\b[^>]*id="'+id+'"[^>]*>([\\s\\S]*?)</script>'))[1];
+const input={esma:fs.readFileSync(path.join(root,'assets/runtime/esma-scenes-r923.js'),'utf8'),portal:fs.readFileSync(path.join(root,'assets/berhetiyye-gate/portal-r1080.js'),'utf8'),consumer:script('sukun-r914-runtime'),atlas:script('sukun-r853-scene-runtime')},results=[];
+function test(name,fn){try{fn();results.push({name,passed:true})}catch(e){results.push({name,passed:false,error:e.stack})}}
+test('Reviewed adapters produce 94 main, fallback and thumbnail mappings without executing source',()=>{const x=mapDynamicVisuals(input);assert.equal(x.aliases.length,94);assert.equal(x.unresolved.length,0);assert(Object.values(x.coverage).every(x=>x.verified));assert.equal(new Set(x.aliases.map(x=>x.alias)).size,94)});
+test('Independent controlled VM catalog agrees with all 20 Esma main/lite mappings and automatic policy',()=>{const c={window:{}};new vm.Script(input.esma).runInNewContext(c,{timeout:1000});const rows=c.window.SukunEsmaScenes,x=mapDynamicVisuals(input);assert.equal(rows.length,10);for(const r of rows){assert.equal(x.aliases.find(x=>x.alias==='esma-scene:'+r.id).target,r.asset.replace(/^\.\//,''));assert.equal(x.aliases.find(x=>x.alias==='esma-scene:'+r.id+':lite').target,r.lite.replace(/^\.\//,''));}const p=c.window.SukunEsmaScenePolicy;for(let n=0;n<99;n++)assert.equal(p.resolve('auto',n).id,p.calmSequence[n%5]);assert.equal(p.resolve('auto',-1).id,'classic');assert.equal(p.resolve('invalid',0).id,'classic');});
+for(const key of Object.keys(input))test('Any '+key+' source change reopens review and cannot emit that producer mapping',()=>{const changed={...input,[key]:input[key]+'\nthrow new Error("MUST NEVER EXECUTE");'};const x=mapDynamicVisuals(changed);assert(x.unresolved.some(x=>x.producer===key));assert.equal(x.coverage[key].verified,false);const blocked=key==='consumer'?['esma','atlas']:[key];assert(!x.aliases.some(x=>blocked.includes(x.producer)));});
+test('Absent producer produces no invented mappings',()=>{const x=mapDynamicVisuals({});assert.deepEqual(x.aliases,[]);assert(Object.values(x.coverage).every(x=>!x.verified));});
+test('Final inventory validates generated target bytes and preserves all unresolved observations with dispositions',()=>{const x=buildReferenceMap(root);assert.equal(x.summary.errors,0);assert.equal(x.dynamicVisuals.openDecisions,0);assert.equal(x.dynamicVisuals.decisions.length,x.unresolved.length);assert(x.dynamicVisuals.decisions.some(x=>x.decision==='historical-atlas-reference'));assert(x.dynamicVisuals.decisions.some(x=>x.decision==='nonvisual-directory-observation'));for(const row of x.dynamicVisuals.aliases){assert(x.images.some(i=>i.path===row.target&&i.inventoryVerified));}assert(x.cssAudit.unresolved.length>0);});
+test('Missing generated target is a blocking map error even when omitted from inventory',()=>{
+ const os=require('node:os'),crypto=require('node:crypto'),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'sukun-dynamic-map-'));
+ try{const shell='<script id="sukun-r853-scene-runtime">'+input.atlas+'</script><script id="sukun-r914-runtime">'+input.consumer+'</script>',files={'index.html':shell,'nero.html':shell,'assets/runtime/esma-scenes-r923.js':input.esma,'assets/berhetiyye-gate/portal-r1080.js':input.portal};
+ for(const row of mapDynamicVisuals(input).aliases)files[row.target]='fixture image';
+ const atlas=JSON.parse(input.atlas.match(/nameScenes:Object\.freeze\((\[[\s\S]*?\])\.map\(Object\.freeze\)\)/)[1]);for(const r of atlas)files[r.runtimeAsset]='fixture image';
+ delete files['assets/scenes/esma-r923/mevlevi-sema-lite.webp'];
+ for(const [name,value]of Object.entries(files)){fs.mkdirSync(path.dirname(path.join(tmp,name)),{recursive:true});fs.writeFileSync(path.join(tmp,name),value)}
+ fs.writeFileSync(path.join(tmp,'version.txt'),'r1');fs.writeFileSync(path.join(tmp,'sukun-site-assets-r1.json'),JSON.stringify({build:'r1',files:Object.entries(files).map(([name,value])=>({path:name,bytes:Buffer.byteLength(value),sha256:crypto.createHash('sha256').update(value).digest('hex')}))}));
+ const report=buildReferenceMap(tmp);assert(report.errors.some(x=>x.code==='RUNTIME_ALIAS_TARGET_UNVERIFIED'&&x.target==='assets/scenes/esma-r923/mevlevi-sema-lite.webp'));
+ }finally{fs.rmSync(tmp,{recursive:true,force:true})}
+});
+console.log(JSON.stringify({suite:'G8 reviewed dynamic visual adapters',method:'Reconstructed tool, freshly tested. Tool never executes application code. Only the explicitly labelled Esma test runs its data-only production catalog in a controlled VM.',passed:results.filter(x=>x.passed).length,total:results.length,results},null,2));if(results.some(x=>!x.passed))process.exitCode=1;
