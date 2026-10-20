@@ -1,0 +1,58 @@
+name: r1121 source-bound release checks
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: r1121-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      NODE_PATH: ${{ runner.temp }}/sukun-browser/node_modules
+    steps:
+      - name: Check out exact candidate commit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: candidate
+          persist-credentials: false
+      - name: Select this historical release gate
+        id: release
+        run: |
+          if [ "$(cat candidate/version.txt | tr -d '\r\n')" = r1121 ]; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+            echo 'This historical gate applies only to r1121; no acceptance result is claimed.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Check out immutable r1120 reference
+        if: steps.release.outputs.enabled == 'true'
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 7b25996c9d545a3732d758136342da893bba6ed4
+          path: baseline
+          persist-credentials: false
+      - name: Install pinned browser test dependency
+        if: steps.release.outputs.enabled == 'true'
+        run: |
+          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
+          "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
+          echo "CHROMIUM_PATH=$(node -p 'require("playwright").chromium.executablePath()')" >> "$GITHUB_ENV"
+      - name: Run source-bound acceptance
+        if: steps.release.outputs.enabled == 'true'
+        working-directory: candidate
+        run: python3 tests/r1121/run-release-checks.py --baseline ../baseline --output ../acceptance
+      - name: Upload synthetic JSON evidence only
+        if: always() && steps.release.outputs.enabled == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1121-acceptance-${{ github.event.pull_request.head.sha || github.sha }}
+          path: acceptance/**/*.json
+          if-no-files-found: error
+          retention-days: 30

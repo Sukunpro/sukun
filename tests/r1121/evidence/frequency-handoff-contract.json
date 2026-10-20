@@ -1,0 +1,141 @@
+{
+  "suite": "r1121 frequency native handoff and silence guards",
+  "startedAt": "2026-10-20T20:27:55.605Z",
+  "finishedAt": "2026-10-20T20:28:01.712Z",
+  "testSha256": "58df105262c2989acffc85fbdaed73f7fcdef8183fc54c1faf33ba2c09b6889d",
+  "fixtureSha256": "38f75cd8f9e5e86f82fd74524ccb23c2bf33fd4a3a92a736b2354d871c14a708",
+  "method": "Unmodified production runtimes in Node VM; existing media fixture uses one explicit path adaptation. Renderer receives controlled zero PCM. No browser, real audio rendering, physical device or acoustic acceptance.",
+  "candidateOverride": false,
+  "controller": {
+    "referenced": "assets/runtime/background-mix-r1121.js",
+    "tested": "assets/runtime/background-mix-r1121.js",
+    "sha256": "0bc132112a28fd5cbf91624a3add898abb727759b1a1e031cd9890d3597ad954"
+  },
+  "renderer": {
+    "referenced": "assets/runtime/background-mix-render-r1121.js",
+    "tested": "assets/runtime/background-mix-render-r1121.js",
+    "sha256": "69f86632856b5d51b4a91e158b9b4f400931f7969e87806dcda851218be587fa"
+  },
+  "passed": 29,
+  "total": 29,
+  "results": [
+    {
+      "name": "Zero frequency volume immediately retires previously audible PCM",
+      "passed": true
+    },
+    {
+      "name": "Reduced frequency volume restores the quieter live graph without losing ambience",
+      "passed": true
+    },
+    {
+      "name": "Reduced explicit output level retires old higher-profile PCM",
+      "passed": true
+    },
+    {
+      "name": "Left-channel attenuation cannot leave that old channel audible",
+      "passed": true
+    },
+    {
+      "name": "Right-channel attenuation cannot leave that old channel audible",
+      "passed": true
+    },
+    {
+      "name": "Pink-layer removal retires independently audible old pink PCM",
+      "passed": true
+    },
+    {
+      "name": "Pink-level attenuation is independent of unchanged main level",
+      "passed": true
+    },
+    {
+      "name": "Secondary removal retires old secondary PCM even when main remains",
+      "passed": true
+    },
+    {
+      "name": "Secondary-level attenuation is independent of main stereo trims",
+      "passed": true
+    },
+    {
+      "name": "Noise-volume attenuation retires the previously louder noise",
+      "passed": true
+    },
+    {
+      "name": "Direct prepare also fences the obsolete louder frequency",
+      "passed": true
+    },
+    {
+      "name": "Attenuation during aggregate pause cannot restart any source",
+      "passed": true
+    },
+    {
+      "name": "Pure pitch changes retain accepted native route until current render is ready",
+      "passed": true
+    },
+    {
+      "name": "Delayed prior render cannot regain ownership after a zero-volume request",
+      "passed": true
+    },
+    {
+      "name": "Non-attenuating A to B to A via changed survives stale resolve",
+      "passed": true
+    },
+    {
+      "name": "Secondary mute and restore via changed survives stale resolve without replaying disabled audio",
+      "passed": true
+    },
+    {
+      "name": "Non-attenuating A to B to A via prepare survives stale resolve",
+      "passed": true
+    },
+    {
+      "name": "Secondary mute and restore via prepare survives stale resolve without replaying disabled audio",
+      "passed": true
+    },
+    {
+      "name": "Non-attenuating A to B to A via changed survives stale reject",
+      "passed": true
+    },
+    {
+      "name": "Secondary mute and restore via changed survives stale reject without replaying disabled audio",
+      "passed": true
+    },
+    {
+      "name": "Non-attenuating A to B to A via prepare survives stale reject",
+      "passed": true
+    },
+    {
+      "name": "Secondary mute and restore via prepare survives stale reject without replaying disabled audio",
+      "passed": true
+    },
+    {
+      "name": "Deliberately muted left and right channels accept digital-zero PCM",
+      "passed": true
+    },
+    {
+      "name": "Zero volume accepts digital-zero PCM",
+      "passed": true
+    },
+    {
+      "name": "Explicitly zero main output accepts digital-zero PCM",
+      "passed": true
+    },
+    {
+      "name": "An audible main channel still rejects unexpected silence",
+      "passed": true
+    },
+    {
+      "name": "Enabled independent pink output still rejects unexpected silence despite muted main trims",
+      "passed": true
+    },
+    {
+      "name": "Enabled independent secondary output still rejects unexpected silence despite muted main trims",
+      "passed": true
+    },
+    {
+      "name": "Explicitly muted pink and secondary outputs accept zero without masking audible branches",
+      "passed": true
+    }
+  ],
+  "failed": 0,
+  "allPassed": true
+}
