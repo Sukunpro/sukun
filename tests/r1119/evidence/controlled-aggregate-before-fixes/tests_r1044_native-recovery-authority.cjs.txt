@@ -1,0 +1,151 @@
+{
+  "root": "/workspace/scratch/55c51c2f8f94/sukun-g8-r1119",
+  "total": 35,
+  "passed": 35,
+  "failed": 0,
+  "scope": "Production-code event/timer fixtures; not a browser or physical phone/audible-output test.",
+  "results": [
+    {
+      "name": "Actual sesDurdur navigation cannot replay removed journey (synchronous pause)",
+      "status": "PASS"
+    },
+    {
+      "name": "Live production journey really recovers once (synchronous pause)",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual sesDurdur navigation cannot replay removed journey (queued pause)",
+      "status": "PASS"
+    },
+    {
+      "name": "Live production journey really recovers once (queued pause)",
+      "status": "PASS"
+    },
+    {
+      "name": "Delayed replay revalidates caller-token",
+      "status": "PASS"
+    },
+    {
+      "name": "Delayed replay revalidates voice-intent",
+      "status": "PASS"
+    },
+    {
+      "name": "Delayed replay revalidates selection",
+      "status": "PASS"
+    },
+    {
+      "name": "Delayed replay revalidates prepare-sequence",
+      "status": "PASS"
+    },
+    {
+      "name": "Delayed replay revalidates session-membership",
+      "status": "PASS"
+    },
+    {
+      "name": "Delayed replay revalidates finish-handler",
+      "status": "PASS"
+    },
+    {
+      "name": "App pause is retired before asynchronous pause dispatch",
+      "status": "PASS"
+    },
+    {
+      "name": "App cancellation after a recovery was scheduled cancels it synchronously",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual lock V2 reclaims preserve current journey recovery authority",
+      "status": "PASS"
+    },
+    {
+      "name": "New visible attempt on same lease cannot inherit canceled authority, and old cleanup cannot retire it",
+      "status": "PASS"
+    },
+    {
+      "name": "A canceled hidden same-source attempt cannot reopen the spent start lease",
+      "status": "PASS"
+    },
+    {
+      "name": "Rejected source stays blocked when a new caller presents the same URL",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent user-pause blocks scheduled production journey recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent terminal-stop blocks scheduled production journey recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent journey-pause blocks scheduled production journey recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent journey-stop blocks scheduled production journey recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent aggregate-pause blocks scheduled production journey recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent microphone blocks scheduled production journey recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent microphone-preparing blocks scheduled production journey recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent foreground-owner blocks scheduled production journey recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent foreground-observed blocks scheduled production journey recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent mini-pause blocks scheduled production journey recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent application-pause-stamp blocks scheduled production journey recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "A live auto-zikir native caller is not held by an old journey Stop",
+      "status": "PASS"
+    },
+    {
+      "name": "A live terkip native caller is not held by an old journey Stop",
+      "status": "PASS"
+    },
+    {
+      "name": "A live null native caller is not held by an old journey Stop",
+      "status": "PASS"
+    },
+    {
+      "name": "A pre-existing paused journey observation does not block accepted temporary solo recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Tekke owner remains eligible and retains its explicit pause/release contract",
+      "status": "PASS"
+    },
+    {
+      "name": "Single native recovery does not require journey SES membership",
+      "status": "PASS"
+    },
+    {
+      "name": "Changing a single native attempt epoch blocks retained-source recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Journey lease without its production caller authority cannot auto-recover",
+      "status": "PASS"
+    }
+  ]
+}
+
+STDERR:

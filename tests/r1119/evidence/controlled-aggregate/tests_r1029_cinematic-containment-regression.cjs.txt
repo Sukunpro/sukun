@@ -1,0 +1,462 @@
+{
+  "scope": "Synthetic production-module regression and source contracts. No physical Android/compositor or audible playback proof.",
+  "total": 113,
+  "passed": 113,
+  "failed": 0,
+  "results": [
+    {
+      "name": "idle starts paused",
+      "passed": true
+    },
+    {
+      "name": "main successful playback runs rotor",
+      "passed": true
+    },
+    {
+      "name": "Tekke open 1 immediately pauses rotor",
+      "passed": true
+    },
+    {
+      "name": "main refresh under Tekke 1 stays paused",
+      "passed": true
+    },
+    {
+      "name": "Tekke close 1 restores current PLAYING",
+      "passed": true
+    },
+    {
+      "name": "Tekke open 2 immediately pauses rotor",
+      "passed": true
+    },
+    {
+      "name": "main refresh under Tekke 2 stays paused",
+      "passed": true
+    },
+    {
+      "name": "Tekke close 2 restores current PLAYING",
+      "passed": true
+    },
+    {
+      "name": "Tekke open 3 immediately pauses rotor",
+      "passed": true
+    },
+    {
+      "name": "main refresh under Tekke 3 stays paused",
+      "passed": true
+    },
+    {
+      "name": "Tekke close 3 restores current PLAYING",
+      "passed": true
+    },
+    {
+      "name": "close after ERROR does not restart rotor",
+      "passed": true
+    },
+    {
+      "name": "close preserves explicit PAUSED",
+      "passed": true
+    },
+    {
+      "name": "close respects reduced motion",
+      "passed": true
+    },
+    {
+      "name": "close respects saving",
+      "passed": true
+    },
+    {
+      "name": "close while document hidden stays paused",
+      "passed": true
+    },
+    {
+      "name": "visible main resumes current eligibility",
+      "passed": true
+    },
+    {
+      "name": "visible Tekke also blocks motion before a body-class sync",
+      "passed": true
+    },
+    {
+      "name": "Tekke presentation does not write preferences",
+      "passed": true
+    },
+    {
+      "name": "rotor presentation changes only initialized composed angles and never body/geometry",
+      "passed": true
+    },
+    {
+      "name": "close preserves saved wheel-motion off",
+      "passed": true
+    },
+    {
+      "name": "main shell decoration is initially eligible",
+      "passed": true
+    },
+    {
+      "name": "Tekke open 1 immediately pauses shell",
+      "passed": true
+    },
+    {
+      "name": "Tekke close 1 reevaluates shell",
+      "passed": true
+    },
+    {
+      "name": "Tekke open 2 immediately pauses shell",
+      "passed": true
+    },
+    {
+      "name": "Tekke close 2 reevaluates shell",
+      "passed": true
+    },
+    {
+      "name": "Tekke open 3 immediately pauses shell",
+      "passed": true
+    },
+    {
+      "name": "Tekke close 3 reevaluates shell",
+      "passed": true
+    },
+    {
+      "name": "shell close honors reduced",
+      "passed": true
+    },
+    {
+      "name": "shell close honors saving",
+      "passed": true
+    },
+    {
+      "name": "shell close honors hidden",
+      "passed": true
+    },
+    {
+      "name": "live saving change suspends shell decoration",
+      "passed": true
+    },
+    {
+      "name": "shell only changes its pre-existing ambience style",
+      "passed": true
+    },
+    {
+      "name": "shell lifecycle never changes saved preferences",
+      "passed": true
+    },
+    {
+      "name": "close preserves saved shell disabled",
+      "passed": true
+    },
+    {
+      "name": "close preserves saved light off",
+      "passed": true
+    },
+    {
+      "name": "breath: main beat creates only local decorative animations",
+      "passed": true
+    },
+    {
+      "name": "breath: Tekke open 1 cancels pulse and flow",
+      "passed": true
+    },
+    {
+      "name": "breath: hidden main beat 1 does not animate",
+      "passed": true
+    },
+    {
+      "name": "breath: close 1 does not invent a pulse",
+      "passed": true
+    },
+    {
+      "name": "breath: close 1 restores flow preference",
+      "passed": true
+    },
+    {
+      "name": "breath: Tekke open 2 cancels pulse and flow",
+      "passed": true
+    },
+    {
+      "name": "breath: hidden main beat 2 does not animate",
+      "passed": true
+    },
+    {
+      "name": "breath: close 2 does not invent a pulse",
+      "passed": true
+    },
+    {
+      "name": "breath: close 2 restores flow preference",
+      "passed": true
+    },
+    {
+      "name": "breath: Tekke open 3 cancels pulse and flow",
+      "passed": true
+    },
+    {
+      "name": "breath: hidden main beat 3 does not animate",
+      "passed": true
+    },
+    {
+      "name": "breath: close 3 does not invent a pulse",
+      "passed": true
+    },
+    {
+      "name": "breath: close 3 restores flow preference",
+      "passed": true
+    },
+    {
+      "name": "breath: close preserves ERROR",
+      "passed": true
+    },
+    {
+      "name": "breath: close preserves PAUSED",
+      "passed": true
+    },
+    {
+      "name": "breath: close respects reduced",
+      "passed": true
+    },
+    {
+      "name": "breath: close respects saving",
+      "passed": true
+    },
+    {
+      "name": "breath: close respects hidden",
+      "passed": true
+    },
+    {
+      "name": "breath: overlay lifecycle writes no saved light preference",
+      "passed": true
+    },
+    {
+      "name": "breath: halo stays outside the clipped rotor",
+      "passed": true
+    },
+    {
+      "name": "breath: travelling neon stays outside the clipped rotor",
+      "passed": true
+    },
+    {
+      "name": "orbit: main beat creates only local decorative animations",
+      "passed": true
+    },
+    {
+      "name": "orbit: Tekke open 1 cancels pulse and flow",
+      "passed": true
+    },
+    {
+      "name": "orbit: hidden main beat 1 does not animate",
+      "passed": true
+    },
+    {
+      "name": "orbit: close 1 does not invent a pulse",
+      "passed": true
+    },
+    {
+      "name": "orbit: close 1 restores flow preference",
+      "passed": true
+    },
+    {
+      "name": "orbit: Tekke open 2 cancels pulse and flow",
+      "passed": true
+    },
+    {
+      "name": "orbit: hidden main beat 2 does not animate",
+      "passed": true
+    },
+    {
+      "name": "orbit: close 2 does not invent a pulse",
+      "passed": true
+    },
+    {
+      "name": "orbit: close 2 restores flow preference",
+      "passed": true
+    },
+    {
+      "name": "orbit: Tekke open 3 cancels pulse and flow",
+      "passed": true
+    },
+    {
+      "name": "orbit: hidden main beat 3 does not animate",
+      "passed": true
+    },
+    {
+      "name": "orbit: close 3 does not invent a pulse",
+      "passed": true
+    },
+    {
+      "name": "orbit: close 3 restores flow preference",
+      "passed": true
+    },
+    {
+      "name": "orbit: close preserves ERROR",
+      "passed": true
+    },
+    {
+      "name": "orbit: close preserves PAUSED",
+      "passed": true
+    },
+    {
+      "name": "orbit: close respects reduced",
+      "passed": true
+    },
+    {
+      "name": "orbit: close respects saving",
+      "passed": true
+    },
+    {
+      "name": "orbit: close respects hidden",
+      "passed": true
+    },
+    {
+      "name": "orbit: overlay lifecycle writes no saved light preference",
+      "passed": true
+    },
+    {
+      "name": "orbit: halo stays outside the clipped rotor",
+      "passed": true
+    },
+    {
+      "name": "orbit: travelling neon stays outside the clipped rotor",
+      "passed": true
+    },
+    {
+      "name": "wave: main beat creates only local decorative animations",
+      "passed": true
+    },
+    {
+      "name": "wave: Tekke open 1 cancels pulse and flow",
+      "passed": true
+    },
+    {
+      "name": "wave: hidden main beat 1 does not animate",
+      "passed": true
+    },
+    {
+      "name": "wave: close 1 does not invent a pulse",
+      "passed": true
+    },
+    {
+      "name": "wave: close 1 restores flow preference",
+      "passed": true
+    },
+    {
+      "name": "wave: Tekke open 2 cancels pulse and flow",
+      "passed": true
+    },
+    {
+      "name": "wave: hidden main beat 2 does not animate",
+      "passed": true
+    },
+    {
+      "name": "wave: close 2 does not invent a pulse",
+      "passed": true
+    },
+    {
+      "name": "wave: close 2 restores flow preference",
+      "passed": true
+    },
+    {
+      "name": "wave: Tekke open 3 cancels pulse and flow",
+      "passed": true
+    },
+    {
+      "name": "wave: hidden main beat 3 does not animate",
+      "passed": true
+    },
+    {
+      "name": "wave: close 3 does not invent a pulse",
+      "passed": true
+    },
+    {
+      "name": "wave: close 3 restores flow preference",
+      "passed": true
+    },
+    {
+      "name": "wave: close preserves ERROR",
+      "passed": true
+    },
+    {
+      "name": "wave: close preserves PAUSED",
+      "passed": true
+    },
+    {
+      "name": "wave: close respects reduced",
+      "passed": true
+    },
+    {
+      "name": "wave: close respects saving",
+      "passed": true
+    },
+    {
+      "name": "wave: close respects hidden",
+      "passed": true
+    },
+    {
+      "name": "wave: overlay lifecycle writes no saved light preference",
+      "passed": true
+    },
+    {
+      "name": "wave: halo stays outside the clipped rotor",
+      "passed": true
+    },
+    {
+      "name": "wave: travelling neon stays outside the clipped rotor",
+      "passed": true
+    },
+    {
+      "name": "exact markup inserts one fixed wrapper around existing rotor only",
+      "passed": true
+    },
+    {
+      "name": "wrapper clips overflow without scaling, animations or intercepting input",
+      "passed": true
+    },
+    {
+      "name": "rotor duration, phase-preserving CSS pause and label counter-rotation are unchanged",
+      "passed": true
+    },
+    {
+      "name": "interactive gems retain >=44px targets and native pointer events",
+      "passed": true
+    },
+    {
+      "name": "stationary counter/progress and old navigation event delegation remain",
+      "passed": true
+    },
+    {
+      "name": "all measured 44px circular action cores stay in fixed 276px square across rotation",
+      "passed": true
+    },
+    {
+      "name": "all measured 44px circular action cores stay in fixed 300px square across rotation",
+      "passed": true
+    },
+    {
+      "name": "all measured 44px circular action cores stay in fixed 320px square across rotation",
+      "passed": true
+    },
+    {
+      "name": "all measured 44px circular action cores stay in fixed 360px square across rotation",
+      "passed": true
+    },
+    {
+      "name": "all measured 44px circular action cores stay in fixed 440px square across rotation",
+      "passed": true
+    },
+    {
+      "name": "interface-r920.js: local HTML integrity is current",
+      "passed": true
+    },
+    {
+      "name": "wheels-r924.js: local HTML integrity is current",
+      "passed": true
+    },
+    {
+      "name": "wheels-r924.css: local HTML integrity is current",
+      "passed": true
+    },
+    {
+      "name": "mirrored HTML stays byte-identical",
+      "passed": true
+    }
+  ]
+}
+
+STDERR:

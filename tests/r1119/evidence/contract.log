@@ -1,0 +1,56 @@
+{
+  "build": "r1119",
+  "baseline": "r1118",
+  "method": "Read-only exact source, asset, ownership and release-contract assertions; not browser, microphone or physical-device acceptance.",
+  "sourceSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+  "baselineSha256": "87a220cd4731e6945acdc97bc9ab3a66af69fe700ee6a246dbfd82c401493fb8",
+  "checks": [
+    {
+      "name": "Exact source CSS body preserved, including whitespace and layer placement",
+      "passed": true,
+      "evidence": {
+        "bytes": 2126,
+        "sha256": "09f351325cc8b0f1366a1ff9b9246fa50b56573d48f1e9fc0dfc403931b0a941"
+      }
+    },
+    {
+      "name": "All existing style owners retain exact order and unique relocated owner",
+      "passed": true,
+      "evidence": {
+        "count": 268,
+        "tag": "<link rel=\"stylesheet\" id=\"sukun-r1018-recording-panel-layout\" href=\"./assets/runtime/recording-panel-r1119.css?v=r1119\" crossorigin=\"anonymous\" integrity=\"sha256-CfNRMlzIsPE2ah/5uSRvpQtWVz1I8en8DfxAOTGwqUE=\">"
+      }
+    },
+    {
+      "name": "Script order, events, recording and audio owners unchanged except release identity and notes",
+      "passed": true,
+      "evidence": {
+        "originalCount": 388,
+        "exact": 385,
+        "identity": 2,
+        "notes": 1,
+        "addedReleaseLocaleOnly": 1
+      }
+    },
+    {
+      "name": "All prior deployment members retained and non-metadata bytes unchanged",
+      "passed": true,
+      "evidence": {
+        "unchangedMembers": 761,
+        "previousMembers": 771,
+        "currentMembers": 772
+      }
+    },
+    {
+      "name": "Entrypoints, current release inventory, worker mandatory asset and safety settings agree",
+      "passed": true,
+      "evidence": {
+        "runtimeEntries": 129,
+        "automaticDataRecovery": false,
+        "exactDataRestoreEnabled": false
+      }
+    }
+  ],
+  "passed": 5,
+  "total": 5
+}

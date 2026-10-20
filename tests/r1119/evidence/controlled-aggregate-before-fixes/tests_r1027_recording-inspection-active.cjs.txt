@@ -1,0 +1,306 @@
+{
+  "status": "PASS",
+  "total": 73,
+  "passed": 73,
+  "failed": 0,
+  "scenarios": [
+    {
+      "name": "Startup only loads own metadata and performs no scan or write",
+      "status": "PASS"
+    },
+    {
+      "name": "Successful read counts Blobs and size only; closes connection",
+      "status": "PASS"
+    },
+    {
+      "name": "Successful empty store is an observed real zero",
+      "status": "PASS"
+    },
+    {
+      "name": "Zero-byte Blob is counted without reading its audio",
+      "status": "PASS"
+    },
+    {
+      "name": "No IndexedDB has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "No open method has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Missing enumerated database has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Missing store has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Database disappears after enumeration has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "No enumeration and missing database has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Blocked open has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Synchronous open failure has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Open request error has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Enumeration throws has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Enumeration rejects has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Malformed enumeration has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Object store names unavailable has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Transaction throws has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Object store throws has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Cursor creation throws has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Cursor error has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Transaction abort has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Transaction error has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Transaction completes before exhaustion has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Version change during read has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Cursor value inaccessible has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Cursor continuation fails has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Record is not a Blob has unknown totals, closes, and never writes",
+      "status": "PASS"
+    },
+    {
+      "name": "Existing database works without enumeration support",
+      "status": "PASS"
+    },
+    {
+      "name": "Only fixed native error classes survive; messages/stacks never persist",
+      "status": "PASS"
+    },
+    {
+      "name": "Native errors preserved across factory, enumeration, transaction and cursor paths",
+      "status": "PASS"
+    },
+    {
+      "name": "Arbitrary exception names never become errorCode",
+      "status": "PASS"
+    },
+    {
+      "name": "Exception name accessor is captured once and cannot bypass allowlist",
+      "status": "PASS"
+    },
+    {
+      "name": "Throwing exception name accessor falls back without leaking",
+      "status": "PASS"
+    },
+    {
+      "name": "Unsafe Blob size yields no partial totals",
+      "status": "PASS"
+    },
+    {
+      "name": "Sum overflow yields no partial totals",
+      "status": "PASS"
+    },
+    {
+      "name": "Negative or fractional Blob size is rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "Cursor exhaustion waits for transaction completion",
+      "status": "PASS"
+    },
+    {
+      "name": "Enumeration timeout cannot start a late read",
+      "status": "PASS"
+    },
+    {
+      "name": "Late open after timeout closes without reading or overwriting",
+      "status": "PASS"
+    },
+    {
+      "name": "Blocked then late success closes without scanning",
+      "status": "PASS"
+    },
+    {
+      "name": "Blocked then late upgrade still aborts and closes",
+      "status": "PASS"
+    },
+    {
+      "name": "Timeout then late upgrade still aborts and closes",
+      "status": "PASS"
+    },
+    {
+      "name": "Pre-aborted signal observes cancellation without opening",
+      "status": "PASS"
+    },
+    {
+      "name": "Abort while opening closes late connection and suppresses reads",
+      "status": "PASS"
+    },
+    {
+      "name": "Abort while reading aborts transaction and removes handlers",
+      "status": "PASS"
+    },
+    {
+      "name": "Cancellation between cursor end and transaction completion cannot claim success",
+      "status": "PASS"
+    },
+    {
+      "name": "Concurrent calls coalesce one Promise and one scan",
+      "status": "PASS"
+    },
+    {
+      "name": "A coalesced signal can cancel the shared observation",
+      "status": "PASS"
+    },
+    {
+      "name": "An already aborted joining signal still returns the same cancelled Promise",
+      "status": "PASS"
+    },
+    {
+      "name": "New generation succeeds before an old cancelled open resolves",
+      "status": "PASS"
+    },
+    {
+      "name": "A newer observation cannot be overwritten by old late cursor/completion callbacks",
+      "status": "PASS"
+    },
+    {
+      "name": "Abort listeners and timers are released on completion",
+      "status": "PASS"
+    },
+    {
+      "name": "A previous successful observation remains historical through every failure category",
+      "status": "PASS"
+    },
+    {
+      "name": "Reading exposes old observation with explicit reading phase",
+      "status": "PASS"
+    },
+    {
+      "name": "Repeated observations stay bounded to latest and last success",
+      "status": "PASS"
+    },
+    {
+      "name": "Successful new read replaces historical success including a real zero",
+      "status": "PASS"
+    },
+    {
+      "name": "Reload restores sanitized metadata without scanning or rewriting",
+      "status": "PASS"
+    },
+    {
+      "name": "Local storage read failure does not prevent explicit inspection",
+      "status": "PASS"
+    },
+    {
+      "name": "Local storage write failure preserves in-memory observation and success",
+      "status": "PASS"
+    },
+    {
+      "name": "Silently dropped storage writes are reported unavailable",
+      "status": "PASS"
+    },
+    {
+      "name": "Persistence can recover on a later explicit inspection",
+      "status": "PASS"
+    },
+    {
+      "name": "Observation, snapshot and nested cached fields are deeply frozen",
+      "status": "PASS"
+    },
+    {
+      "name": "Untrusted fields and malformed builds cannot escape sanitized load",
+      "status": "PASS"
+    },
+    {
+      "name": "Malformed, oversized, non-ASCII, or wrong-schema storage is ignored",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid cached statuses, codes, timestamps and totals are rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "Unknown outcomes cannot carry zero totals or mismatched fixed codes",
+      "status": "PASS"
+    },
+    {
+      "name": "A persisted failure restores its prior success as historical only",
+      "status": "PASS"
+    },
+    {
+      "name": "Clock corrections do not replace failed current with a later-dated old success",
+      "status": "PASS"
+    },
+    {
+      "name": "Build is read from current meta for each explicit observation",
+      "status": "PASS"
+    },
+    {
+      "name": "Existing update receipts and diagnostics remain byte-for-byte unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "Double script load preserves unique API and in-flight state",
+      "status": "PASS"
+    },
+    {
+      "name": "Production source contains no data/schema writes, payload/network or recorder open calls",
+      "status": "PASS"
+    }
+  ],
+  "limits": [
+    "Actual shipped runtime evaluated in Node VM with controlled IndexedDB, storage, timer and AbortSignal events; not real-browser IndexedDB or physical-device testing.",
+    "No microphone, playback, storage eviction, quota or recovery claim is tested or made."
+  ]
+}
+
+STDERR:

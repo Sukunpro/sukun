@@ -1,4 +1,11 @@
-# G8 — Sıradaki sınırlı CSS taşıma kapsamı
+# Güncel durum eki — 20 Ekim 2026
+
+Aşağıdaki üçlü r1118 / PR52 ile yayımlandı. Bu belgedeki “henüz taşınmadı”
+ifadeleri r1117 planının tarihsel kaydıdır. Yeni, yayımlanmamış r1119
+kayıt/yedekleme paneli adımı ve açık kabul kapıları `R1119_ACCEPTANCE.md`
+dosyasında; taze test sonuçları `tests/r1119/verification.json` içindedir.
+
+# G8 — Sıradaki sınırlı CSS taşıma kapsamı (tarihsel r1117 planı)
 
 Bu liste r1117 üretim kaynağında incelendi. Aşağıdaki üç gövde **henüz
 taşınmadı**; sonraki üretim değişikliği bu listeyle sınırlandırılabilir.

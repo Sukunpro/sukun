@@ -1,3 +1,12 @@
+# Later status addendum, 2026-10-20
+
+r1118 publication subsequently completed in PR52, merge
+`6ef3b9cca3d7b8c737b5656737ea683effe74e7f`, with successful Pages deployment
+and exact live hashes. The original recovery evidence below and
+`tests/g8/current-verification.json` remain frozen historical records. Current
+work is the unpublished r1119 candidate in `R1119_ACCEPTANCE.md`; it must pass
+its own tests and must not inherit r1118 browser passes as fresh evidence.
+
 # r1118 recovered release acceptance, 2026-10-20
 
 ## Exact production provenance

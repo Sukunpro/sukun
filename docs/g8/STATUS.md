@@ -1,3 +1,11 @@
+# Current-status addendum — 2026-10-20
+
+r1118 is published via PR52 and verified on the live site. The three planned
+CSS bodies below are no longer pending. The new, isolated r1119 recording-panel
+candidate and current acceptance gates are documented in `R1119_ACCEPTANCE.md`
+and `tests/r1119/verification.json`. r1119 has not been published. The older
+checkpoint text and checkboxes below are historical, not current status.
+
 # Recovery checkpoint — 2026-10-20
 
 The exact reviewed r1118 production ZIP has been recovered after workspace loss. Fresh static, source-continuity, map, native audio, frequency and real service-worker upgrade/offline/rollback checks have passed. Final visual rerun and authenticated publication are tracked in `RELEASE_ACCEPTANCE.md` and `tests/g8/current-verification.json`. The historical material below is retained as history; it is not the current completion or publication status.

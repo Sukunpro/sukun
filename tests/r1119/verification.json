@@ -1,0 +1,466 @@
+{
+  "build": "r1119",
+  "generatedAt": "2026-10-20T05:25:14.554627+00:00",
+  "baseline": {
+    "build": "r1118",
+    "publishedMerge": "6ef3b9cca3d7b8c737b5656737ea683effe74e7f",
+    "indexSha256": "87a220cd4731e6945acdc97bc9ab3a66af69fe700ee6a246dbfd82c401493fb8"
+  },
+  "production": {
+    "index.html": {
+      "bytes": 7411796,
+      "sha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72"
+    },
+    "nero.html": {
+      "bytes": 7411796,
+      "sha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72"
+    },
+    "sw.js": {
+      "bytes": 99730,
+      "sha256": "a786fd53dfe6ac8192768a289eeda29e8cfd9b188f793f1cdacc5e8bb2a53298"
+    },
+    "sukun-build-r1119.json": {
+      "bytes": 41664,
+      "sha256": "81b259ec3130586bad937403e10979444ed58e70aa504aaeb4cacb5d0c7d872e"
+    },
+    "sukun-site-assets-r1119.json": {
+      "bytes": 153209,
+      "sha256": "52e1c8d481faa5f1651ea766554c6ad669c188c1b7dbae6e28922c9d19d97101"
+    },
+    "manifest.webmanifest": {
+      "bytes": 1060,
+      "sha256": "8404dfac4e48444757527abf7c235122ac169fdf9556ff679ab8be8821743d48"
+    },
+    "version.txt": {
+      "bytes": 6,
+      "sha256": "9061b34753e4dd6af70f64670e14975832a2b40390a856ce7f813dc9aeceac9a"
+    },
+    "sukun-latest.json": {
+      "bytes": 84,
+      "sha256": "bf98aefdf694a93dd95ac33f8b8805aad25e8f5ce2d64c7355d297aff08d2971"
+    },
+    "surumler.json": {
+      "bytes": 371951,
+      "sha256": "4a7ea049f48107d5ac85a17907c5c9d7f5bfe84b46d63b7c3b1983d42bb9f153"
+    },
+    "assets/runtime/recording-panel-r1119.css": {
+      "bytes": 2126,
+      "sha256": "09f351325cc8b0f1366a1ff9b9246fa50b56573d48f1e9fc0dfc403931b0a941"
+    },
+    "assets/runtime/health-r940.js": {
+      "bytes": 95206,
+      "sha256": "46d98f22c46d51ae4212137727d0606dac98583cf38ecfdf241f2d8a5ea41c2c"
+    },
+    "assets/runtime/startup-intro-r1027.js": {
+      "bytes": 22478,
+      "sha256": "a174bd7f4138176108d5e88cf1567f36e5cd1ea3a12204b50ff2333edeef3836"
+    }
+  },
+  "testSources": {
+    "tests/r1119/build-verification.py": "2d4712503660e78b486ddbc1f5b0f4833034f74176923cd386e50754990ba143",
+    "tests/r1119/expanded-ambience-browser.cjs": "fb94db8d0f0420f9cbe89f694574a2c87034fc8b76fa158092bcd7e2317cf626",
+    "tests/r1119/health-marker-bytes.cjs": "87e54abaf57477a497388bf3a19b7e67c2b5387ce02caf5481c1e2f0ae94960b",
+    "tests/r1119/recording-panel-browser.cjs": "ea47a9dab60b64a84e8161c470c649a7ad7710e36cdeb7f8add73250fe8e357b",
+    "tests/r1119/recording-panel-contract.cjs": "36d00cd5408c9dd785205e8cdb7300e7d8b0193de61eb8c2d733a8dd828ff39c",
+    "tests/r1119/release-upgrade-browser.cjs": "7aa2cb560c3fd7fa0e8831608f369f581219c3bfdde7b6bc281c06ca6c956324",
+    "tests/r1119/run-controlled-regressions.py": "c33e00c160dda2a9422be2566037d2d14ad596e8e286341ee8dc21b540eb1576",
+    "tests/r1119/run-release-integrity.py": "4646fae6ea9ccf5966dbc506b100f816098e37bdefb20ede142fdd2e6fe28030",
+    "tests/r1119/run-source-checks.py": "541715a134d4d8ddcc4baae9a3571bc6ea3367f4bd274e69e7a15c9b1726cc7f",
+    "tests/r1119/verification-gate-test.py": "042b5d52bd3ae11f80f976d87ac427f6f7e2a9ff3db052c6670e207efebc447b"
+  },
+  "checks": [
+    {
+      "path": "tests/r1119/evidence/integrity.json",
+      "sha256": "10b276ec96630917923e3139826429234fb1128d88587eecbf00c5497636696f",
+      "kind": "release-integrity",
+      "passed": 1546,
+      "total": 1546,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:20:09.827771+00:00",
+      "sourceSha256": {
+        "index.html": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+        "nero.html": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+        "sw.js": "a786fd53dfe6ac8192768a289eeda29e8cfd9b188f793f1cdacc5e8bb2a53298",
+        "sukun-build-r1119.json": "81b259ec3130586bad937403e10979444ed58e70aa504aaeb4cacb5d0c7d872e",
+        "sukun-site-assets-r1119.json": "52e1c8d481faa5f1651ea766554c6ad669c188c1b7dbae6e28922c9d19d97101",
+        "assets/runtime/health-r940.js": "46d98f22c46d51ae4212137727d0606dac98583cf38ecfdf241f2d8a5ea41c2c"
+      },
+      "ok": true
+    },
+    {
+      "path": "tests/r1119/evidence/recording-panel-contract.json",
+      "sha256": "64aba882046ef2c746f5ddde94e7ab986a7f636eecd83be30ba2b8cf490450ae",
+      "kind": "source-contract",
+      "passed": 5,
+      "total": 5,
+      "status": "passed",
+      "finishedAt": null,
+      "sourceSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+      "ok": true
+    },
+    {
+      "path": "tests/r1119/evidence/controlled-aggregate/results.json",
+      "sha256": "ef42e2a52c7b3325525b49f0e9a5cff5a50334dbb29f7e55f86c93ca4006471b",
+      "kind": "controlled-aggregate",
+      "passed": 66,
+      "total": 66,
+      "status": "passed",
+      "finishedAt": null,
+      "sourceSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+      "ok": true
+    },
+    {
+      "path": "tests/r1119/evidence/health-entry-allowlist.json",
+      "sha256": "00ac31cbae5b112da0b8be8578b59fc6db0aad0fdcc895a2d60907ed651ec3c4",
+      "kind": "controlled-health",
+      "passed": 5,
+      "total": 5,
+      "status": "passed",
+      "finishedAt": null,
+      "sourceSha256": null,
+      "ok": true
+    },
+    {
+      "path": "tests/r1119/evidence/recording-inspection-ui-contract.json",
+      "sha256": "85089111cd8c0a8c18ce9651d84d2e2fb94d4db72e35b7c8e19facfba8b3c44d",
+      "kind": "controlled-recording",
+      "passed": 40,
+      "total": 40,
+      "status": "passed",
+      "finishedAt": null,
+      "sourceSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+      "ok": true
+    },
+    {
+      "path": "tests/r1119/evidence/service-worker-upgrade-native.json",
+      "sha256": "7db9bb8fa6f85755cd0ac560e3bfa5e4025dbfe7f8ebe62ef29cc84739b6c7e6",
+      "kind": "native-worker",
+      "passed": 8,
+      "total": 8,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:10:49.043Z",
+      "sourceSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+      "ok": true
+    },
+    {
+      "path": "tests/r1119/evidence/native-audio.json",
+      "sha256": "0435e6cea7a06d896c476bf4904227a4e138a81d81c38ee16ae861089e4c267c",
+      "kind": "native-audio",
+      "passed": 7,
+      "total": 7,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:11:29.671Z",
+      "sourceSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+      "ok": true
+    },
+    {
+      "path": "tests/r1119/evidence/frequency-hub.json",
+      "sha256": "5c5f9fc6f27f829fc8bb615edcc38122abca7f4d5950cda55b894962775466c1",
+      "kind": "native-frequency",
+      "passed": 6,
+      "total": 6,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:12:42.048Z",
+      "sourceSha256": null,
+      "ok": true
+    },
+    {
+      "path": "tests/r1119/evidence/ambience-native-interaction.json",
+      "sha256": "3dac9ac875f7f7146ee2d805dd36a6e946b872f62d3df98bdb6cc882d03bc4c7",
+      "kind": "native-ambience",
+      "passed": 8,
+      "total": 8,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:13:57.741Z",
+      "sourceSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+      "ok": true
+    },
+    {
+      "path": "tests/r1119/evidence/recording-panel-browser.json",
+      "sha256": "26135a56a13f3fed172c7d39f53bc258c649bcf6e9b8d9677bae775afcdb0650",
+      "kind": "native-panel",
+      "passed": 271,
+      "total": 271,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:15:28.299Z",
+      "sourceSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+      "ok": true
+    },
+    {
+      "path": "tests/r1119/evidence/expanded-ambience-full.json",
+      "sha256": "d77d1205af872c9fdc12c84eaeeafa8afe58ff15ddf382ce913e91f460912474",
+      "kind": "native-expanded-flows",
+      "passed": 32,
+      "total": 32,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:23:47.516Z",
+      "sourceSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+      "ok": true
+    },
+    {
+      "path": "tests/r1119/evidence/health-marker-bytes.json",
+      "sha256": "3454e5edf74831e5b8faa0a627409f1826aeaf2cfbd66ab37b353358ddbd4906",
+      "kind": "exact-marker-health",
+      "passed": 7,
+      "total": 7,
+      "status": "passed",
+      "finishedAt": null,
+      "sourceSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+      "ok": true
+    },
+    {
+      "path": "tests/r1119/evidence/verification-gate.json",
+      "sha256": "d51ff8907aa71e54a252478e2d90a7545c3b1c5593227108cf820b957b6882b3",
+      "kind": "evidence-gate-regression",
+      "passed": 35,
+      "total": 35,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:20:09.876267+00:00",
+      "sourceSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+      "ok": true
+    },
+    {
+      "path": "tests/r1119/evidence/r1107-storage-snapshot.json",
+      "sha256": "5b16548ee8e9a58d78408813f3210849d320deab953552beaee36c23efa09054",
+      "kind": "controlled-source",
+      "passed": 30,
+      "total": 30,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:09:50.694Z",
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/r1107-storage-snapshot-ui.json",
+      "sha256": "bad8ab0004977a98c84ac466d9eefa24f0e41d17db1368d749fe2d65cf4593f9",
+      "kind": "controlled-source",
+      "passed": 27,
+      "total": 27,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:09:50.964Z",
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/r1108-kandil-preferences.json",
+      "sha256": "e978f4a6c72ff6407f68fc691999622d51beef5417e60ce4b51a6f3415d39ffd",
+      "kind": "controlled-source",
+      "passed": 46,
+      "total": 46,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:09:51.469Z",
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/r1108-health-presentation-context.json",
+      "sha256": "f781dbb95d08b9589aba6f56242e794ccd89b1faff562aa702dbc94bf997fc69",
+      "kind": "controlled-source",
+      "passed": 30,
+      "total": 30,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:09:51.677Z",
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/r1108-presentation-notice.json",
+      "sha256": "57f42b65b68db746d5407a2b566c9de8c647da6a3dc3cf4546fdbd721e4a93cc",
+      "kind": "controlled-source",
+      "passed": 33,
+      "total": 33,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:09:51.803Z",
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/r1109-category-flow-extraction.json",
+      "sha256": "02b0b526db229438fe1d50319077bc9da5e8979910a040d2b674be1efab798b9",
+      "kind": "controlled-source",
+      "passed": 8,
+      "total": 8,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:09:51.940Z",
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/r1110-tooltip-help-extraction.json",
+      "sha256": "82838d22c524d6bde1015579633cef74adaaa53d285ef54f4ed9e8d5d97b3969",
+      "kind": "controlled-source",
+      "passed": 8,
+      "total": 8,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:09:52.076Z",
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/r1111-notification-layout-extraction.json",
+      "sha256": "c431325a8ab245627d53e500341dd433f273009d867c7c6b3b90f4bc6fa5b4c6",
+      "kind": "controlled-source",
+      "passed": 9,
+      "total": 9,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:09:52.217Z",
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/r1111-css-assets.json",
+      "sha256": "e97c44eb0b07ca59f0078d9a1a590caf09136ddf9d82a8e2952442450725f9a8",
+      "kind": "controlled-source",
+      "passed": 62,
+      "total": 62,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:09:52.855Z",
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/r1112-tekke-set-card-extraction.json",
+      "sha256": "bca5e4da9c2c74b7d0e937cc9ae93a182db84ed9be3f18d23b7ab8fba4443473",
+      "kind": "controlled-source",
+      "passed": 9,
+      "total": 9,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:09:53.001Z",
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/r1029-ui-surface-contract.json",
+      "sha256": "fe8e20522f9fe61924608995ef6f73df1c50b37b97a2ea82ae78ef699a61a626",
+      "kind": "controlled-source",
+      "passed": 50,
+      "total": 50,
+      "status": "passed",
+      "finishedAt": null,
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/r1031-personal-centre-glass.json",
+      "sha256": "9ee46e0bea7417f0d9163e8c93cf017f933a249e326e8d467dea1b03ffbfe2f7",
+      "kind": "controlled-source",
+      "passed": 21,
+      "total": 21,
+      "status": "passed",
+      "finishedAt": null,
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/r1112-ambience-ready-theme.json",
+      "sha256": "701645f0baba921c19c9e3dc43a1539ebac8a63bedcb5eeff9357f54b02adad2",
+      "kind": "controlled-source",
+      "passed": 16,
+      "total": 16,
+      "status": "passed",
+      "finishedAt": "2026-10-20T05:09:53.545Z",
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/g8-visual-reference-map.json",
+      "sha256": "4924d04b9e61b59f980c47e991dac833134256f2982535fed17811a5033a3101",
+      "kind": "map-tests",
+      "passed": 13,
+      "total": 13,
+      "status": "passed",
+      "finishedAt": null,
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/g8-wheel-catalog-map.json",
+      "sha256": "8a3874c0d4c7461dfe88a0d8f84e2bd30932be24bc497f56906df4a83660d6ea",
+      "kind": "map-tests",
+      "passed": 17,
+      "total": 17,
+      "status": "passed",
+      "finishedAt": null,
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/g8-wheel-map-integration.json",
+      "sha256": "3a77f1a0fb5f64140558d6b122ad21c599d74311630f9f1c6ee14517faa448fe",
+      "kind": "map-tests",
+      "passed": 5,
+      "total": 5,
+      "status": "passed",
+      "finishedAt": null,
+      "sourceSha256": {
+        "assets/runtime/wheels-r924.js": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f",
+        "tools/visual-reference-map.cjs": "e15011c47b25961bb3a1afdbe18f1489b076fc142fbd40be9494968d40255894",
+        "tools/wheel-catalog-map.cjs": "eb64670317220be3f7916071c8f8ec6a5675f1a8a5b04191fd32220dd99e1ff3"
+      },
+      "ok": true,
+      "exitCode": 0
+    },
+    {
+      "path": "tests/r1119/evidence/g8-dynamic-visual-map.json",
+      "sha256": "958e0eaaccbfc2edb3dbaa5fc868e1ce4205252f679ebcbe608879f2552a3b32",
+      "kind": "map-tests",
+      "passed": 9,
+      "total": 9,
+      "status": "passed",
+      "finishedAt": null,
+      "sourceSha256": null,
+      "ok": true,
+      "exitCode": 0
+    }
+  ],
+  "boundedCandidateAccepted": true,
+  "productionPublished": false,
+  "globalG8Complete": false,
+  "map": {
+    "path": "tests/r1119/visual-reference-map.json",
+    "sha256": "39896ea0d4a9bf828e9d2c32e885f4028a7ac8a31020326e63cd2de391de437d",
+    "summary": {
+      "images": 295,
+      "verifiedImages": 295,
+      "sourceFiles": 147,
+      "sourceBytes": 18852486,
+      "byteEqualityGroups": 26,
+      "quotedAndCssReferences": 902,
+      "noninventoryQuotedCandidates": 79,
+      "runtimeAliases": 182,
+      "resolvedDynamicObservations": 2,
+      "imagesWithoutObservedReference": 83,
+      "literalAndAliasUnresolved": 35,
+      "cssUnresolved": 129,
+      "unresolved": 164,
+      "errors": 0
+    },
+    "openDynamicDecisions": 0
+  },
+  "remaining": [
+    "Review and any subsequent authorized exact-commit publication and live validation.",
+    "Physical Android/PWA, lock/background, Bluetooth/OS audio focus, audible quality and real microphone/recording acceptance.",
+    "Global G8 bounded completion decision; no exhaustive extraction denominator was established."
+  ],
+  "evidencePolicy": "Historical r1118 evidence and initial failed attempts are retained but are not counted as fresh candidate passes. Controlled suite counts are not native/device acceptance. No live state changed by this task.",
+  "controlledSourceBinding": {
+    "path": "tests/r1119/evidence/controlled-source-binding.json",
+    "sha256": "4cd995e8e8e1768ffd986b94d181f8056dccca225bdca90b2f9425121bbea634",
+    "ok": true
+  }
+}

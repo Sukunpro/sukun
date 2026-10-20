@@ -1,0 +1,1760 @@
+{
+  "sourceRoot": "/workspace/scratch/55c51c2f8f94/sukun-g8-r1119",
+  "sourceBuild": "r1119",
+  "method": "Original r1048 controlled aggregate range only, explicit historical exclusions retained; later suites and native browser acceptance are separate.",
+  "groups": 66,
+  "passedGroups": 62,
+  "excluded": {
+    "tests/r1017/recording_inspection_contract.cjs": "Archived r1017 reader; r1027 active/history reader contracts cover the shipped r1020 API.",
+    "tests/r1017/health_inspection_contract.cjs": "Archived reader path and whole-object schema; current health UI/continuity and intro diagnostic contracts remain.",
+    "tests/r1021/release-integrity.cjs": "Historical hardcoded r1021 manifest; current r1027 release-integrity is selected separately.",
+    "tests/r1027/startup-intro.cjs": "Superseded oscillator intro graph; shipped WAV contracts begin in r1037.",
+    "tests/r1031/startup-intro-async.cjs": "Superseded oscillator intro graph.",
+    "tests/r1032/startup-intro-readiness.cjs": "Superseded oscillator intro graph.",
+    "tests/r1033/startup-intro-diagnostics.cjs": "Superseded oscillator intro graph.",
+    "tests/r1035/startup-intro-fresh-clock.cjs": "Superseded oscillator intro graph.",
+    "tests/r1036/startup-intro-timbre.cjs": "Superseded oscillator intro graph.",
+    "tests/r1036/measure-waveform.cjs": "Historical oscillator measurement, not a current WAV regression.",
+    "tests/r1021/persistence-browser.cjs": "Separate real-browser test; not a Node source fixture.",
+    "tests/r1027/recovery-browser.cjs": "Separate real-browser test; not a Node source fixture."
+  }
+}
+[
+  {
+    "script": "tests/r1016/recovered/health_ui_audit.cjs",
+    "exitCode": 1,
+    "seconds": 0.314,
+    "outputFile": "tests_r1016_recovered_health_ui_audit.cjs.txt",
+    "summary": null
+  },
+  {
+    "script": "tests/r1027/locale.cjs",
+    "exitCode": 1,
+    "seconds": 0.151,
+    "outputFile": "tests_r1027_locale.cjs.txt",
+    "summary": {
+      "passed": 354,
+      "total": 358,
+      "method": "Exact shipped I18N in Node VM, current/recent release notes and known visible helper text; no full-device locale claim.",
+      "results": [
+        {
+          "name": "r1119 note 1 has English translation",
+          "passed": false,
+          "error": "Expected \"actual\" to be strictly unequal to:\n\n'Kay\u0131t ve yedekleme panelinin stil g\u00f6vdesi ayn\u0131 kimlik, s\u0131ra ve i\u00e7erikle ayr\u0131 dosyaya ta\u015f\u0131nd\u0131.'"
+        },
+        {
+          "name": "r1119 note 2 has English translation",
+          "passed": false,
+          "error": "Expected \"actual\" to be strictly unequal to:\n\n'G\u00f6r\u00fcn\u00fcm, a\u00e7\u0131klama d\u00fc\u011fmeleri, kay\u0131t depolar\u0131 ve ses i\u015fleyi\u015fi de\u011fi\u015ftirilmedi.'"
+        },
+        {
+          "name": "r1118 note 1 has English translation",
+          "passed": false,
+          "error": "Expected \"actual\" to be strictly unequal to:\n\n'Ambiyans, ki\u015fisel merkez ve sahne a\u00e7\u0131klamas\u0131 stilleri ayn\u0131 s\u0131rada ayr\u0131 dosyalara ta\u015f\u0131nd\u0131.'"
+        },
+        {
+          "name": "r1118 note 2 has English translation",
+          "passed": false,
+          "error": "Expected \"actual\" to be strictly unequal to:\n\n'r1117 kayna\u011f\u0131ndan yeniden kurulmu\u015ftur; \u00f6nceki kay\u0131p r1118 paketiyle \u00f6zde\u015flik iddias\u0131 yoktur.'"
+        },
+        {
+          "name": "r1117 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1117 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1117 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1116 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1116 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1116 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1115 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1115 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1114 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1113 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1112 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1112 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1112 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1112 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1111 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1111 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1110 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1110 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1109 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1109 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1108 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1108 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1108 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1107 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1107 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1107 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1106 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1106 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1105 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1105 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1105 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1105 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1104 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1104 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1104 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1103 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1103 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1102 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1102 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1102 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1101 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1101 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1101 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1101 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1101 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1101 note 6 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1100 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1100 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1100 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1100 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1099 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1099 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1099 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1099 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1099 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1099 note 6 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1098 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1098 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1098 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1098 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1097 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1097 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1097 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1096 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1096 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1096 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1096 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1096 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1096 note 6 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1096 note 7 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1096 note 8 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1095 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1095 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1095 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1095 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1095 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1095 note 6 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1095 note 7 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1094 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1094 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1094 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1094 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1094 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1094 note 6 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1093 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1093 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1093 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1093 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1093 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1092 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1092 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1092 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1092 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1092 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1091 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1091 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1091 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1090 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1090 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1090 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1090 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1089 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1089 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1089 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1089 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1089 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1088 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1088 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1088 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1088 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1088 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1087 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1087 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1087 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1086 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1086 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1086 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1085 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1085 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1085 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1085 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1085 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1084 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1084 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1084 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1084 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1084 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1083 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1083 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1083 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1083 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1082 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1082 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1082 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1082 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1082 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1081 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1081 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1081 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1081 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1080 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1080 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1080 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1080 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1080 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1080 note 6 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1079 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1079 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1078 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1078 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1078 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1078 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1077 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1077 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1077 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1076 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1076 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1076 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1075 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1075 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1074 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1074 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1074 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1074 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1074 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1072 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1072 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1072 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1071 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1071 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1071 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1070 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1070 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1070 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1070 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1070 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1069 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1069 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1069 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1068 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1068 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1068 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1067 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1067 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1067 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1067 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1067 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1067 note 6 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1067 note 7 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1066 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1066 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1066 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1066 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1065 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1065 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1065 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1065 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1064 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1064 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1064 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1064 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1063 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1063 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1063 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1062 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1062 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1062 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1062 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1061 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1061 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1061 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1061 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1061 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1060 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1060 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1060 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1060 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1059 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1059 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1059 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1059 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1059 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1058 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1058 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1058 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1058 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1057 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1057 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1057 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1057 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1056 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1056 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1056 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1056 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1055 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1055 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1055 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1055 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1054 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1054 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1054 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1053 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1053 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1053 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1053 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1052 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1052 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1052 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1051 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1051 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1050 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1050 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1050 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1049 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1049 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1049 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1049 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1049 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1048 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1048 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1048 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1048 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1048 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1047 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1047 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1046 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1046 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1045 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1045 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1045 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1044 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1044 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1044 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1043 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1043 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1043 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1042 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1042 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1042 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1042 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1041 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1041 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1040 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1040 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1039 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1039 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1038 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1038 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1037 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1037 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1037 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1036 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1036 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1035 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1035 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1034 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1034 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1033 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1033 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1032 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1032 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1031 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1031 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1031 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1031 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1030 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1030 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1029 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1029 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1029 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1029 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1029 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1029 note 6 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1029 note 7 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1028 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1028 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1028 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1028 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1027 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1027 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1027 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1027 note 4 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1027 note 5 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1026 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1026 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1025 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1025 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1025 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1024 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1024 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1024 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1023 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1023 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1023 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1022 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1022 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1022 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1021 note 1 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1021 note 2 has English translation",
+          "passed": true
+        },
+        {
+          "name": "r1021 note 3 has English translation",
+          "passed": true
+        },
+        {
+          "name": "English helper: Bir zikir \u00e7ekti\u011finde ya da frekans dinledi\u011finde burada birikir.",
+          "passed": true
+        },
+        {
+          "name": "English helper: 1,5 dakikadan uzun bir seans bitince burada belirir.",
+          "passed": true
+        },
+        {
+          "name": "English helper: SE\u00c7ILI ESM\u00c2",
+          "passed": true
+        },
+        {
+          "name": "English helper: Ses ve ritim",
+          "passed": true
+        },
+        {
+          "name": "English helper: Ses a\u00e7\u0131lamad\u0131. Yeniden dene ile sesi tekrar ba\u015flat; manuel say\u0131m i\u00e7in \u00f6nce Bitir d\u00fc\u011fmesine dokun.",
+          "passed": true
+        },
+        {
+          "name": "English helper: Kay\u0131t tamamlanmad\u0131. Yeniden dinlemek i\u00e7in tekrar dene.",
+          "passed": true
+        },
+        {
+          "name": "English helper: Kay\u0131t deposu okunamad\u0131 \u00b7 \u25b6 ile tekrar dene",
+          "passed": true
+        },
+        {
+          "name": "English helper: Kay\u0131t tamamlanmad\u0131. Yeniden dene.",
+          "passed": true
+        },
+        {
+          "name": "English helper: Sesi yeniden dene",
+          "passed": true
+        },
+        {
+          "name": "English helper: Yeniden dene",
+          "passed": true
+        },
+        {
+          "name": "English helper: Kay\u0131t deposu okunamad\u0131. Bu, kay\u0131tlar\u0131n silindi\u011fi anlam\u0131na gelmez.",
+          "passed": true
+        },
+        {
+          "name": "English helper: Kay\u0131t silinemedi. Listede korundu.",
+          "passed": true
+        },
+        {
+          "name": "Turkish retains current release text: Kay\u0131t ve yedekleme panelinin stil g\u00f6vdesi ayn",
+          "passed": true
+        },
+        {
+          "name": "Turkish retains current release text: G\u00f6r\u00fcn\u00fcm, a\u00e7\u0131klama d\u00fc\u011fmeleri, kay\u0131t depolar\u0131 v",
+          "passed": true
+        }
+      ]
+    }
+  },
+  {
+    "script": "tests/r1028/css-grammar-repairs.cjs",
+    "exitCode": 1,
+    "seconds": 0.482,
+    "outputFile": "tests_r1028_css-grammar-repairs.cjs.txt",
+    "summary": {
+      "total": 37,
+      "passed": 35,
+      "failed": 2,
+      "scope": "Node-built-in source-boundary and exact CSS repair contracts. Not a complete standards parser, live CSSOM, geometry, or Android device test.",
+      "results": [
+        {
+          "name": "index.html: readable entrypoint",
+          "passed": true
+        },
+        {
+          "name": "index.html: all source style openings have distinct raw-text boundaries and closes",
+          "passed": false,
+          "error": "The expression evaluated to a falsy value:\n\n  assert(openings+movedLinks.length>=263)\n"
+        },
+        {
+          "name": "index.html: no style raw text contains a leaked opening style tag",
+          "passed": true
+        },
+        {
+          "name": "index.html: all inline styles have balanced CSS quotes comments and delimiters",
+          "passed": true
+        },
+        {
+          "name": "index.html: r800-notify-glass-clarity is a separate style immediately after the closed r530-critical-ui-style",
+          "passed": true
+        },
+        {
+          "name": "index.html: r530-critical-ui-style preserves every existing neighboring rule byte",
+          "passed": true
+        },
+        {
+          "name": "index.html: r613-zikir-top-scroll-fix is a separate style immediately after the closed r609-zikir-flow-lock-fix",
+          "passed": true
+        },
+        {
+          "name": "index.html: r609-zikir-flow-lock-fix preserves every existing neighboring rule byte",
+          "passed": true
+        },
+        {
+          "name": "index.html: r800 first glass rule is restored with its six intended declarations",
+          "passed": true
+        },
+        {
+          "name": "index.html: all r800 rules after the recovered first rule stay unchanged",
+          "passed": true
+        },
+        {
+          "name": "index.html: r613 restores only the scoped 12px scroll margin rule",
+          "passed": true
+        },
+        {
+          "name": "index.html: scripts following both repaired style boundaries remain outside raw CSS",
+          "passed": true
+        },
+        {
+          "name": "index.html: NeuroSync aspect-ratio fallback is a real standalone at-rule boundary",
+          "passed": true
+        },
+        {
+          "name": "index.html: fallback selectors and dimensions remain confined to NeuroSync",
+          "passed": true
+        },
+        {
+          "name": "index.html: sukun-r763-glass-header-refine has one final !important after four unchanged background layers",
+          "passed": true
+        },
+        {
+          "name": "index.html: sukun-r763-glass-header-refine preserves all non-background declarations and following rules",
+          "passed": true
+        },
+        {
+          "name": "index.html: sukun-r764-luxury-glass-tune has one final !important after four unchanged background layers",
+          "passed": true
+        },
+        {
+          "name": "index.html: sukun-r764-luxury-glass-tune preserves all non-background declarations and following rules",
+          "passed": true
+        },
+        {
+          "name": "nero.html: readable entrypoint",
+          "passed": true
+        },
+        {
+          "name": "nero.html: all source style openings have distinct raw-text boundaries and closes",
+          "passed": false,
+          "error": "The expression evaluated to a falsy value:\n\n  assert(openings+movedLinks.length>=263)\n"
+        },
+        {
+          "name": "nero.html: no style raw text contains a leaked opening style tag",
+          "passed": true
+        },
+        {
+          "name": "nero.html: all inline styles have balanced CSS quotes comments and delimiters",
+          "passed": true
+        },
+        {
+          "name": "nero.html: r800-notify-glass-clarity is a separate style immediately after the closed r530-critical-ui-style",
+          "passed": true
+        },
+        {
+          "name": "nero.html: r530-critical-ui-style preserves every existing neighboring rule byte",
+          "passed": true
+        },
+        {
+          "name": "nero.html: r613-zikir-top-scroll-fix is a separate style immediately after the closed r609-zikir-flow-lock-fix",
+          "passed": true
+        },
+        {
+          "name": "nero.html: r609-zikir-flow-lock-fix preserves every existing neighboring rule byte",
+          "passed": true
+        },
+        {
+          "name": "nero.html: r800 first glass rule is restored with its six intended declarations",
+          "passed": true
+        },
+        {
+          "name": "nero.html: all r800 rules after the recovered first rule stay unchanged",
+          "passed": true
+        },
+        {
+          "name": "nero.html: r613 restores only the scoped 12px scroll margin rule",
+          "passed": true
+        },
+        {
+          "name": "nero.html: scripts following both repaired style boundaries remain outside raw CSS",
+          "passed": true
+        },
+        {
+          "name": "nero.html: NeuroSync aspect-ratio fallback is a real standalone at-rule boundary",
+          "passed": true
+        },
+        {
+          "name": "nero.html: fallback selectors and dimensions remain confined to NeuroSync",
+          "passed": true
+        },
+        {
+          "name": "nero.html: sukun-r763-glass-header-refine has one final !important after four unchanged background layers",
+          "passed": true
+        },
+        {
+          "name": "nero.html: sukun-r763-glass-header-refine preserves all non-background declarations and following rules",
+          "passed": true
+        },
+        {
+          "name": "nero.html: sukun-r764-luxury-glass-tune has one final !important after four unchanged background layers",
+          "passed": true
+        },
+        {
+          "name": "nero.html: sukun-r764-luxury-glass-tune preserves all non-background declarations and following rules",
+          "passed": true
+        },
+        {
+          "name": "index.html and nero.html contain identical application bytes",
+          "passed": true
+        }
+      ]
+    }
+  },
+  {
+    "script": "tests/r1030/visible-volume-labels.cjs",
+    "exitCode": 1,
+    "seconds": 0.358,
+    "outputFile": "tests_r1030_visible-volume-labels.cjs.txt",
+    "summary": {
+      "total": 25,
+      "passed": 22,
+      "failed": 3,
+      "scope": "Exact production mixer HTML producer and handler, native label-for associations, actual locale text-node round trips, synthetic input dispatch. No browser visibility or audible-volume claim.",
+      "results": [
+        {
+          "name": "Entry points remain identical",
+          "passed": true
+        },
+        {
+          "name": "water: producer emits one native label directly above its original range",
+          "passed": true
+        },
+        {
+          "name": "water: channel identity, value, input bounds and accessible name remain intact",
+          "passed": true
+        },
+        {
+          "name": "water: repeated rendering keeps the same association without extra controls",
+          "passed": true
+        },
+        {
+          "name": "maqam: producer emits one native label directly above its original range",
+          "passed": true
+        },
+        {
+          "name": "maqam: channel identity, value, input bounds and accessible name remain intact",
+          "passed": true
+        },
+        {
+          "name": "maqam: repeated rendering keeps the same association without extra controls",
+          "passed": true
+        },
+        {
+          "name": "c1234567890: producer emits one native label directly above its original range",
+          "passed": true
+        },
+        {
+          "name": "c1234567890: channel identity, value, input bounds and accessible name remain intact",
+          "passed": true
+        },
+        {
+          "name": "c1234567890: repeated rendering keeps the same association without extra controls",
+          "passed": true
+        },
+        {
+          "name": "Labels have distinct associations across visible cards",
+          "passed": true
+        },
+        {
+          "name": "Mixer refresh replaces its contents, so labels cannot accumulate",
+          "passed": true
+        },
+        {
+          "name": "Labels belong to the active mixer rather than the hidden master-bar wrapper",
+          "passed": false,
+          "error": "The input did not match the regular expression /html body #tab-amb #mixer \\.chn>\\.r1030ChannelVolumeLabel\\{\\s*display:block!important;/. Input:\n\n'<!DOCTYPE html>\\n' +\n  '\\n' +\n  '<!-- \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\\n' +\n  '     S\u00dcK\u00dbN r950 \u2014 Zikre uyumlu \u00e7ark nuru (base r949)\\n' +\n  '     Tek dosya \u2022 Web Audio API (t\u00fcm sesler cihazda sentezlenir)\\n' +\n  '     Binaural Beats + Isochronic Tones + Esm\u00e2/Zikir Mod\u00fcl\u00fc\\n' +\n  '     \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 -->\\n' +\n  '<html class=\"sukun-jewel-r798\" lang=\"tr\">\\n' +\n  '<head>\\n' +\n  '<meta charset=\"utf-8\"/>\\n' +\n  '<meta content=\"width=device-width, initial-scale=1, viewport-fit=cover\" name=\"viewport\"/>\\n' +\n  '<meta content=\"dark\" name=\"color-scheme\"/>\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/shared-readable-r1105.css?v=r1119\" integrity=\"sha256-b1FdJTVGc6oX6lm6mgyIS+/7e4u+0eLMJwDyKRAIxX4=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/kandil-preferences-r1108.css?v=r1119\" integrity=\"sha256-j/0wX+8g3MBCd/KmHHNJ4Cm0AFBnB5dN9o8ThywI7Ag=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/player-branding-r1109.css?v=r1119\" integrity=\"sha256-DhxJBMMpBWIIHPKTJvt/1w0XSA25EgXblmtRktVl8lo=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/ambience-readable-r1104.css?v=r1119\" integrity=\"sha256-IA8M24J9v7SOeiLirgG7u+lUSC+v+F2NKI9PcaCjBuI=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/ambience-info-round-r1103.css?v=r1119\" integrity=\"sha256-JvUKiG6u3DQ71LyuIr5AtY+DKa+jhITC7nUpZa7AOUs=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/ambience-compact-r1102.css?v=r1119\" integrity=\"sha256-sMG36mQ5oBsteJPwgDQLMdTk9RKmjIfykoPTVTfIlsw=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/berhet-controls-r1101.css?v=r1119\" integrity=\"sha256-OlYooXlqC/Ld47fq/GgDe7i0oKVJr5tT39ESLp3ufkc=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./css/berhet-surfaces-r1115.css?v=r1119\" integrity=\"sha256-zBd2/ha2SpeF1BFh/12Hz2qby+B3NAq/lgiTPSrzlJ0=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./assets/runtime/browser-contrast-r1077.css?v=r1119\" crossorigin=\"anonymous\" integrity=\"sha256-Netyx9II33fqqAgzvTNTXbLnE1m+94ywcTV0zbUuZok=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./assets/runtime/protective-plan-r1078.css?v=r1119\" crossorigin=\"anonymous\" integrity=\"sha256-Q101l9eHpC9OTLgBTa0NbMHZRFdcuC1jdaJTdqjnMkM=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./assets/runtime/compact-ui-r1057.css?v=r1119\" integrity=\"sha256-6kOoAtcFnfFnsazzUEuWunfdc72YuVseSI0+xNV7+uo=\">\\n' +\n  '<link rel=\"stylesheet\" href=\"./assets/runtime/berhet-layout-r938.css?v=r1119\" integrity=\"sha256-4iEwYHqdwY8pgmLWelg5O0pR0J8+dgGg9UPfKrBkZJE=\">\\n' +\n  '<link id=\"sukun-r933-materials-style\" rel=\"stylesheet\" href=\"./assets/runtime/berhet-materials-r933.css?v=r1119\" integrity=\"sha256-S+EKXiMlSkZEF40I5mQXfh2rYnXIsM6BfXv+7b9eKyQ=\">\\n' +\n  '<link id=\"sukun-r933-controls-style\" rel=\"stylesheet\" href=\"./assets/runtime/berhet-controls-r933.css?v=r1119\" integrity=\"sha256-OtIjmZX8wC/Lz5cNc4pLVIcWud42CVSvUIOQl8fHwGc=\">\\n' +\n  '<link id=\"sukun-r933-dock-style\" rel=\"stylesheet\" href=\"./assets/runtime/berhet-dock-r933.css?v=r1119\" integrity=\"sha256-aGTc1b0YjJ1r4mo4fcpuxg6N7GZVlgecQurxYo1MBZY=\">\\n' +\n  '<!-- Layer order: shared session exceptions follow layout and material owners. -->\\n' +\n  '<link rel=\"stylesheet\" href=\"./assets/runtime/smart-session-ui-r1082.css?v=r1119\" crossorigin=\"anonymous\" integrity=\"sha256-damjVlkQRJpt07Kgs9Rkh+1NLGPuf9BitUep+ahtsqA=\">\\n' +\n  '<link rel=\"stylesheet\" id=\"sukun-r1029-surface-clarity\" href=\"./assets/runtime/surface-clarity-r1118.css?v=r1119\" integrity=\"sha256-nIqZPyk+rNuGWHULcrrHF2uCTSjPePHmJeNbUyhOJYE=\">\\n' +\n  '<link rel=\"stylesheet\" id=\"sukun-r1031-personal-centre-glass\" href=\"./assets/runtime/personal-centre-glass-r1118.css?v=r1119\" integrity=\"sha256-SmVTHGvKfPNM7QygPBNei9GW2NHpTSqJ6IjbOFmvWDs=\">\\n' +\n  '<style id=\"sukun-r920-contract\">@layer sukun-r920-contract {\\n' +\n  '/* First important layer: each legacy visual has one explicit successor. */\\n' +\n  '/* r922: live native voice controls in the shared practice settings. */\\n' +\n  'body.r920-practice-on #r829QuickSettings{display:none!important}\\n' +\n  '#r920Practice #r679ZikirAyarBox>summary{justify-content:space-between!important;gap:8px!important;border:0!important;border-radius:14px!important;text-align:left!important;min-height:58px!important}\\n' +\n  '#r920Practice #r679ZikirAyarBox>summary::before,#r920Practice #r679ZikirAyarBox>summary::after{content:none!important;display:none!important}\\n' +\n  '#r920Practice #r679ZikirAyarBox .r679SettingsTitle{text-align:left!important}\\n' +\n  '#r920Practice #r679ZikirAyarBox .r679SettingsTitle b{font:600 14px/1.4 system-ui!important;white-space:normal!important}\\n' +\n  '#r920Practice #r679ZikirAyarBox .r679SettingsTitle small{display:block!important;font:400 12px/1.4 system-ui!important;color:var(--r920-muted)!important;margin-top:3px!important}\\n' +\n  '#r920Practice #r679ZikirAyarBox>.r679SettingsBody{padding:12px!important;margin:0!important;border:0!important;background:transparent!important;backdrop-filter:none!important}\\n' +\n  '#r920Practice #r679ZikirAyarBox #r852VoiceCard{position:relative!important;display:block!important;width:100%!important;padding:0 0 14px!important;margin:0 0 12px!important;background:transparent!important;border:0!important;border-bottom:1px solid #bfd1df2b!important;border-radius:0!important;visibility:visible!important;opacity:1!important;overflow:visible!important}\\n' +\n  '#r920Practice #r852VoiceCard .r852VoiceHead{display:flex!important;align-items:flex-start!important;gap:8px!important;flex-wrap:wrap!important;margin:0 0 12px!important}\\n' +\n  '#r920Practice #r852VoiceCard .r852VoiceHead>span{flex:1 1 140px!important}\\n' +\n  '#r920Practice #r852VoiceCard .r852VoiceHead b{font:600 15px/1.4 system-ui!important}\\n' +\n  '#r920Practice #r852VoiceCard .r852VoiceHead small,#r920Practice #r852VoiceCard :is(.r922VoiceNote,.r852VoiceNote){display:block!important;font:400 12px/1.55 system-ui!important;color:var(--r920-muted)!important;white-space:normal!important;overflow-wrap:anywhere!important;margin:6px 0!important}\\n' +\n  '#r920Practice #r852VoiceCard #r922VoiceNotice{padding:10px!important;border:1px solid #d8bc8b6b!important;border-radius:10px!important;color:var(--r920-ink)!important}\\n' +\n  '#r920Practice #r852VoiceCard .r922VoiceField{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:5px!important;width:100%!important;padding:0!important;margin:0 0 12px!important;font:500 12px/1.4 system-ui!important;color:var(--r920-muted)!important}\\n' +\n  '#r920Practice #r852VoiceCard :is(select,input,button){min-height:44px!important;font-size:14px!important;max-width:100%!important;touch-action:manipulation!important}\\n' +\n  '/* r976: native vertical pan and zoom own touch ranges; horizontal adjustment stays local. */\\n' +\n  'body input[type=\"range\"],#r920Practice #r852VoiceCard input[type=\"range\"]{touch-action:pan-y pinch-zoom!important}\\n' +\n  '#r920Practice #r852VoiceCard select{width:100%!important;height:44px!important;flex:none!important;margin:0!important;padding:10px!important;white-space:normal!important}\\n' +\n  '#r920Practice #r852VoiceCard .r922RecordRow{display:flex!important;flex-direction:column!important;gap:0!important;margin:12px 0!important}\\n' +\n  '#r920Practice #r852VoiceCard #r922RecordVoice{align-self:flex-start!important;min-height:44px!important;white-space:normal!important}\\n' +\n  '#r920Practice #r852VoiceCard #r922RecordVoice[aria-pressed=\"true\"]{border-color:#f4a293!important;color:#ffc5ba!important}\\n' +\n  '#r920Practice #r852VoiceCard :is(.r922SpeakRow,#r922ArabicFallback){display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;min-height:52px!important;margin:0!important;padding:4px 0!important}\\n' +\n  '#r920Practice #r852VoiceCard .opt>span{font:400 13px/1.45 system-ui!important}\\n' +\n  '#r920Practice #r852VoiceCard .sw{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:72px!important;height:44px!important;min-height:44px!important;flex:none!important;border-radius:14px!important;background:#0c1a2b!important;font:500 12px/1.2 system-ui!important;white-space:nowrap!important}\\n' +\n  '#r920Practice #r852VoiceCard .sw.on{background:var(--r920-selected)!important;border-color:var(--r920-accent)!important}\\n' +\n  '#r920Practice #r852VoiceCard .sw::before,#r920Practice #r852VoiceCard .sw::after{display:none!important;content:none!important}\\n' +\n  '#r920Practice #r852VoiceCard #arVoiceRow{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:7px!important;margin:12px 0!important}\\n' +\n  '#r920Practice #r852VoiceCard #arVoiceRow>b{grid-column:1/-1!important;font:500 12px/1.4 system-ui!important}\\n' +\n  '#r920Practice #r852VoiceCard #spkRow{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:0!important;margin:12px 0 0!important}\\n' +\n  '#r920Practice #r852VoiceCard #spkRow input[type=\"range\"]{width:100%!important;margin:0!important;min-height:44px!important}\\n' +\n  '#r920Practice #r852VoiceCard .r852Advanced>summary{min-height:44px!important;display:flex!important;align-items:center!important;font:500 12px/1.4 system-ui!important;color:var(--r920-muted)!important}\\n' +\n  '#r920Practice #r852VoiceCard [hidden],#r920Practice #r852VoiceCard #r922ArabicFallback[hidden],#r920Practice #r852VoiceCard #r922VoiceNotice[hidden]{display:none!important}\\n' +\n  '@media(min-width:520px){#r920Practice #r852VoiceCard #spkRow{grid-template-columns:1fr 1fr!important;gap:0 12px!important}#r920Practice #r852VoiceCard #spkRow>label:last-child{grid-column:1/-1!important}}\\n' +\n  '\\n' +\n  'body.r920-practice-on:not(.r920-details-open) #tab-zkr>:not(#r920Practice){display:none!important}\\n' +\n  'body.r920-practice-on #tab-zkr>#r883JourneyRemote{display:none!important}\\n' +\n  'body.r920-practice-on.r920-details-open:not(.sukun-tefekkur-mode) #tab-zkr>.zCtl{display:block!important}\\n' +\n  'body.r920-practice-on #tab-zkr>.zCtl>:is(.zCountTitle,.zCounterRow,.zCounterActions,#r616ZikirNavRow,#cntSub,#targetPremium,#tapBtn,#resetBtn,#r883JourneyRemote){display:none!important}\\n' +\n  'body.r920-practice-on #tab-zkr>.zCtl :is(.tfVisualPanel,.zCounterActions,.tfStatusRow,#r754TefBerhetContext,#tapBtn,#r442StepRail,#hatBox){display:none!important}\\n' +\n  'body #zaKat,body #zaKat .zaAtla{pointer-events:auto!important}\\n' +\n  'body #zaKat .zaAtla{display:inline-flex!important;min-height:44px!important;align-items:center!important;justify-content:center!important;padding:10px 22px!important;border:1px solid #d8bd83!important;border-radius:12px!important;background:#10222d!important;color:#f2ddb0!important;cursor:pointer!i'... 7169941 more characters\n"
+        },
+        {
+          "name": "Only native labels and stable input IDs were added to the channel producer",
+          "passed": true
+        },
+        {
+          "name": "Existing mixer input handler is byte-for-byte preserved",
+          "passed": true
+        },
+        {
+          "name": "Real mixer handler still addresses the same channel and numeric value",
+          "passed": true
+        },
+        {
+          "name": "Master gain and legacy mini mirror input handlers are untouched",
+          "passed": true
+        },
+        {
+          "name": "Actual label text localizes TR to EN and returns to TR",
+          "passed": true
+        },
+        {
+          "name": "A newly generated label also translates while already in English",
+          "passed": true
+        },
+        {
+          "name": "Caption CSS keeps readable text without hiding or moving the existing range",
+          "passed": false,
+          "error": "Cannot read properties of null (reading '1')"
+        },
+        {
+          "name": "One existing dock range mirrors the active source without creating a master or progress slider",
+          "passed": true
+        },
+        {
+          "name": "Existing dock label gets a full row above range and output without a visibility override",
+          "passed": false,
+          "error": "The expression evaluated to a falsy value:\n\n  assert(rules)\n"
+        },
+        {
+          "name": "Dock Zikir sesi translates accurately without calling dhikr a master volume",
+          "passed": true
+        },
+        {
+          "name": "Dock Zikir sesi seviyesi translates accurately without calling dhikr a master volume",
+          "passed": true
+        },
+        {
+          "name": "Actual dock text node and aria attribute make a clean EN/TR round trip",
+          "passed": true
+        }
+      ]
+    }
+  }
+]

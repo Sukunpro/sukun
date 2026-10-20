@@ -1,0 +1,61 @@
+{
+  "build": "r1119",
+  "method": "Actual shipped integrity reader in VM with exact full build-marker and asset bytes over controlled same-origin Fetch responses. Header and streaming size boundaries plus abort; no compact marker substitution, browser or user storage.",
+  "sourceFiles": {
+    "assets/runtime/health-r940.js": "8b3eb932fb10cae0522d08d5f1281ed305cdd9e8eb4c8f7e14e5803487255e69",
+    "sukun-build-r1119.json": "724da00d58791d426cbb685bd6595390e7f4ab738fa0489adaf7aaacda986dcf"
+  },
+  "sourceSha256": "220889221702f940a4ec1753692df621b7f4864ebf0e42e777f7b257ef101fc8",
+  "passed": 3,
+  "total": 7,
+  "results": [
+    {
+      "name": "Exact shipped full marker and all mandatory assets verify under unchanged byte/concurrency budgets",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'NOT_MEASURED'\n- 'PASS'\n\n    at /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/health-marker-bytes.cjs:28:33\n    at async test (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/health-marker-bytes.cjs:24:74)\n    at async /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/health-marker-bytes.cjs:26:2"
+    },
+    {
+      "name": "A valid 65536-byte marker remains bounded and verifies unchanged runtime entries",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'NOT_MEASURED'\n- 'PASS'\n\n    at /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/health-marker-bytes.cjs:31:138\n    at async test (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/health-marker-bytes.cjs:24:74)\n    at async /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/health-marker-bytes.cjs:31:2"
+    },
+    {
+      "name": "65537-byte declared marker is rejected before any asset request",
+      "passed": true,
+      "evidence": {
+        "markerBytes": 65537,
+        "reason": "SIZE_LIMIT",
+        "requests": 1
+      }
+    },
+    {
+      "name": "65537-byte streamed marker is rejected before any asset request",
+      "passed": true,
+      "evidence": {
+        "markerBytes": 65537,
+        "reason": "SIZE_LIMIT",
+        "requests": 1
+      }
+    },
+    {
+      "name": "Actual full marker with 130 entries fails closed before any asset download",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'NOT_MEASURED'\n- 'FAIL'\n\n    at /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/health-marker-bytes.cjs:33:295\n    at async test (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/health-marker-bytes.cjs:24:74)\n    at async /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/health-marker-bytes.cjs:33:2"
+    },
+    {
+      "name": "Malformed full-marker JSON remains a configuration failure without asset fetches",
+      "passed": true,
+      "evidence": {
+        "reason": "MARKER_INVALID_JSON",
+        "checkedAt": 1792472885743,
+        "scope": "served-through-current-service-worker",
+        "configurationErrors": 1
+      }
+    },
+    {
+      "name": "Marker fetch still passes the abort signal and times out without asset fetches",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: {\"code\":\"RUNTIME_INTEGRITY\",\"status\":\"NOT_MEASURED\",\"evidence\":{\"files\":[],\"bytes\":0,\"mediaBytes\":0,\"verifiedBytes\":0,\"expected\":0,\"matched\":0,\"mismatched\":0,\"unverified\":0,\"configurationErrors\":0,\"complete\":false,\"checkedAt\":1792472885754,\"scope\":\"served-through-current-service-worker\",\"reason\":\"Aborted\"}}\n    at /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/health-marker-bytes.cjs:35:218\n    at async test (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/health-marker-bytes.cjs:24:74)\n    at async /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/health-marker-bytes.cjs:35:2"
+    }
+  ]
+}

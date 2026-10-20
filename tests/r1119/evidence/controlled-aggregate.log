@@ -1,0 +1,25 @@
+{
+  "sourceRoot": "/workspace/scratch/55c51c2f8f94/sukun-g8-r1119",
+  "sourceBuild": "r1119",
+  "sourceSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+  "healthSha256": "46d98f22c46d51ae4212137727d0606dac98583cf38ecfdf241f2d8a5ea41c2c",
+  "markerSha256": "81b259ec3130586bad937403e10979444ed58e70aa504aaeb4cacb5d0c7d872e",
+  "method": "Original r1048 controlled aggregate range only, explicit historical exclusions retained; later suites and native browser acceptance are separate.",
+  "groups": 66,
+  "passedGroups": 66,
+  "excluded": {
+    "tests/r1017/recording_inspection_contract.cjs": "Archived r1017 reader; r1027 active/history reader contracts cover the shipped r1020 API.",
+    "tests/r1017/health_inspection_contract.cjs": "Archived reader path and whole-object schema; current health UI/continuity and intro diagnostic contracts remain.",
+    "tests/r1021/release-integrity.cjs": "Historical hardcoded r1021 manifest; current r1027 release-integrity is selected separately.",
+    "tests/r1027/startup-intro.cjs": "Superseded oscillator intro graph; shipped WAV contracts begin in r1037.",
+    "tests/r1031/startup-intro-async.cjs": "Superseded oscillator intro graph.",
+    "tests/r1032/startup-intro-readiness.cjs": "Superseded oscillator intro graph.",
+    "tests/r1033/startup-intro-diagnostics.cjs": "Superseded oscillator intro graph.",
+    "tests/r1035/startup-intro-fresh-clock.cjs": "Superseded oscillator intro graph.",
+    "tests/r1036/startup-intro-timbre.cjs": "Superseded oscillator intro graph.",
+    "tests/r1036/measure-waveform.cjs": "Historical oscillator measurement, not a current WAV regression.",
+    "tests/r1021/persistence-browser.cjs": "Separate real-browser test; not a Node source fixture.",
+    "tests/r1027/recovery-browser.cjs": "Separate real-browser test; not a Node source fixture."
+  }
+}
+[]

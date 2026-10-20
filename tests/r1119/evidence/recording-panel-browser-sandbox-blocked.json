@@ -1,0 +1,89 @@
+{
+  "suite": "r1119 recording panel native Chromium equivalence and interaction",
+  "startedAt": "2026-10-20T04:59:03.110Z",
+  "roots": {
+    "candidate": "/workspace/scratch/55c51c2f8f94/sukun-g8-r1119",
+    "baseline": "/workspace/scratch/55c51c2f8f94/sukun-g8-recovery"
+  },
+  "sourceHashes": {
+    "candidateIndex": "3ff2666e3c7a05ede6aa0f3b67c6a72a9f8c11d3c9598176ae16fc12168b1c2f",
+    "candidateNero": "3ff2666e3c7a05ede6aa0f3b67c6a72a9f8c11d3c9598176ae16fc12168b1c2f",
+    "baselineIndex": "87a220cd4731e6945acdc97bc9ab3a66af69fe700ee6a246dbfd82c401493fb8",
+    "baselineNero": "87a220cd4731e6945acdc97bc9ab3a66af69fe700ee6a246dbfd82c401493fb8",
+    "extractedCss": "09f351325cc8b0f1366a1ff9b9246fa50b56573d48f1e9fc0dfc403931b0a941",
+    "fixture": "b58ac3f8caafbbf6cea57e705930bc1f891bf6b410f95dc3dbaf17d9e6d007da",
+    "nativeObserver": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04"
+  },
+  "plannedCoverage": {
+    "matrixStates": 128,
+    "widths": [
+      320,
+      390,
+      430,
+      1280
+    ],
+    "shells": [
+      "Klasik",
+      "Feyz"
+    ],
+    "families": [
+      "esma",
+      "berhet"
+    ],
+    "languages": [
+      "tr",
+      "en"
+    ],
+    "explanations": [
+      "expanded",
+      "collapsed"
+    ],
+    "textConditions": [
+      "normal",
+      "24px text with long synthetic domain/status"
+    ],
+    "interactions": [
+      "native explanation click in every matrix state",
+      "keyboard Tab and Enter",
+      "native details close/open repeated three times",
+      "native read-only IndexedDB inspection over two synthetic blobs",
+      "controlled pending/cancel/late completion UI",
+      "repeat native inspection"
+    ],
+    "forbiddenControls": [
+      "microphone",
+      "playback",
+      "export",
+      "import",
+      "restoration",
+      "delete",
+      "reset"
+    ]
+  },
+  "limitations": [
+    "The matrix is scoped to #ydkBox and the extracted CSS selectors, not full-application acceptance.",
+    "Klasik/Feyz and Esma/Berhet are presentation-class/attribute permutations, not trusted unlock or family navigation acceptance.",
+    "Language uses the production I18N.set API. Explanations, details, Tab and Enter use native browser input.",
+    "The font stress condition injects a test-only 24px override for affected panel text and buttons. It is not browser zoom or OS accessibility text-size acceptance.",
+    "The status/domain text is synthetic and identical in both origins. No user data, real microphone, recorded voice, export, restoration or destructive action is used.",
+    "The native observer runs on real disposable IndexedDB seeded with two synthetic Blobs; cancellation UI additionally uses an explicitly labelled controlled pending observer.",
+    "Fixture blocks service workers and external requests and controls device speech. No offline upgrade, physical Android, screen lock, OS audio focus, audible playback or real storage-quota acceptance.",
+    "r1118 scene-info visibility, mixer .mkCard matching, Full/Ready, and microphone-disclosure preference acceptance are outside this recording-panel suite."
+  ],
+  "checks": [],
+  "matrix": [],
+  "screenshots": [],
+  "resources": {},
+  "baselineDefects": [],
+  "stage": "starting native baseline Chromium",
+  "fatal": "browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --no-sandbox --autoplay-policy=no-user-gesture-required --disable-gpu --user-data-dir=/tmp/playwright_chromiumdev_profile-g0USG4 --remote-debugging-pipe --no-startup-window\n<launched> pid=26\n[pid=26][err] [26:26:1020/075903.238932:ERROR:third_party/crashpad/crashpad/util/file/filesystem_posix.cc:63] mkdir : No such file or directory (2)\n[pid=26][err] chrome_crashpad_handler: --database is required\n[pid=26][err] Try 'chrome_crashpad_handler --help' for more information.\n[pid=26][err] [26:26:1020/075903.279193:FATAL:chrome/browser/process_singleton_posix.cc:297] Check failed: . socket() failed: Operation not permitted (1)\nCall log:\n\u001b[2m  - <launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --no-sandbox --autoplay-policy=no-user-gesture-required --disable-gpu --user-data-dir=/tmp/playwright_chromiumdev_profile-g0USG4 --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=26\u001b[22m\n\u001b[2m  - [pid=26][err] [26:26:1020/075903.238932:ERROR:third_party/crashpad/crashpad/util/file/filesystem_posix.cc:63] mkdir : No such file or directory (2)\u001b[22m\n\u001b[2m  - [pid=26][err] chrome_crashpad_handler: --database is required\u001b[22m\n\u001b[2m  - [pid=26][err] Try 'chrome_crashpad_handler --help' for more information.\u001b[22m\n\u001b[2m  - [pid=26][err] [26:26:1020/075903.279193:FATAL:chrome/browser/process_singleton_posix.cc:297] Check failed: . socket() failed: Operation not permitted (1)\u001b[22m\n\u001b[2m  - [pid=26] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=26] <kill>\u001b[22m\n\u001b[2m  - [pid=26] <will force kill>\u001b[22m\n\u001b[2m  - [pid=26] <process did exit: exitCode=null, signal=SIGABRT>\u001b[22m\n\u001b[2m  - [pid=26] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=26] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=26] <gracefully close end>\u001b[22m\n\n    at fixture (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1064/browser-fixture.cjs:23:31)\n    at async /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/recording-panel-browser.cjs:235:61",
+  "blockedAt": "starting native baseline Chromium",
+  "finishedAt": "2026-10-20T04:59:03.286Z",
+  "scriptSha256": "5e47d13be53c2ecd225f9dca64184d810e7b69069cdf638acd54424cc08e7f6c",
+  "passed": 0,
+  "failed": 0,
+  "baselineDefectChecks": 0,
+  "executedChecks": 0,
+  "completedMatrixStates": 0,
+  "status": "blocked-not-run"
+}

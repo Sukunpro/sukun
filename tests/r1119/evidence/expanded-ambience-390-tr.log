@@ -1,0 +1,27 @@
+{"profile":"390x844-tr","name":"Unprotected Classic/Feyz profile starts with both real ambience surfaces and no active speech","passed":true}
+390x844-tr AssertionError [ERR_ASSERTION]: Nonempty text: 
+    at bounded (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:31:273)
+    at /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:49:214
+    at async check (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:21:51)
+    at async run (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:47:3)
+    at async /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:84:178 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+{
+  "build": "r1119",
+  "passed": 1,
+  "total": 2,
+  "allPassed": false,
+  "output": "/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/evidence/expanded-ambience-390-tr.json",
+  "failedProfiles": [
+    {
+      "profile": "390x844-tr",
+      "error": "AssertionError [ERR_ASSERTION]: Nonempty text: \n    at bounded (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:31:273)\n    at /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:49:214\n    at async check (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:21:51)\n    at async run (/workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:47:3)\n    at async /workspace/scratch/55c51c2f8f94/sukun-g8-r1119/tests/r1119/expanded-ambience-browser.cjs:84:178"
+    }
+  ]
+}

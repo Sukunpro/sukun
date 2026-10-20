@@ -1,0 +1,236 @@
+{
+  "source": "/workspace/scratch/55c51c2f8f94/sukun-g8-r1119",
+  "collectorSha256": "46d98f22c46d51ae4212137727d0606dac98583cf38ecfdf241f2d8a5ea41c2c",
+  "presenterSha256": "72fce7d75ad4fc40ee0fcae176cca4adc5c1989c33e99829454343acfa4d9683",
+  "scope": "Full production collector and presenter; synthetic cached metadata in isolated VM. No real storage, browser display, audio, update or recovery verification.",
+  "passed": 56,
+  "total": 56,
+  "results": [
+    {
+      "name": "cached snapshot is copied once; read and presenter are passive",
+      "passed": true
+    },
+    {
+      "name": "new update API coexists with legacy audio continuity without calling or replacing it",
+      "passed": true
+    },
+    {
+      "name": "same totals remain observation, never successful content verification",
+      "passed": true
+    },
+    {
+      "name": "count mismatch warns without attributing update deletion",
+      "passed": true
+    },
+    {
+      "name": "byte-only mismatch does not falsely claim counts differ",
+      "passed": true
+    },
+    {
+      "name": "successful empty reads render real zero count and zero bytes",
+      "passed": true
+    },
+    {
+      "name": "none stays unknown with truthful fixed status copy",
+      "passed": true
+    },
+    {
+      "name": "pending stays unknown with truthful fixed status copy",
+      "passed": true
+    },
+    {
+      "name": "unavailable stays unknown with truthful fixed status copy",
+      "passed": true
+    },
+    {
+      "name": "not-relevant stays unknown with truthful fixed status copy",
+      "passed": true
+    },
+    {
+      "name": "first-install baseline is observed with unknown before-update comparison",
+      "passed": true
+    },
+    {
+      "name": "idb-unavailable failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "db-missing failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "store-missing failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "db-blocked failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "db-open-failed failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "read-failed failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "read-aborted failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "read-timeout failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "invalid-record failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "unsafe-total failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "storage-unavailable failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "invalid-receipt failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "stale-receipt failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "build-mismatch failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "changed-receipt failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "update-cancelled failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "SecurityError failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "UnknownError failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "QuotaExceededError failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "VersionError failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "AbortError failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "NotFoundError failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "InvalidStateError failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "DataError failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "TransactionInactiveError failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "ConstraintError failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "InvalidAccessError failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "NotReadableError failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "correlation-unavailable failure never becomes empty successful storage",
+      "passed": true
+    },
+    {
+      "name": "malicious/unrecognized fields are excluded from current, plain and technical report",
+      "passed": true
+    },
+    {
+      "name": "only fixed fields and the latest pair are retained in the report",
+      "passed": true
+    },
+    {
+      "name": "unknown numbers never coerce to zero and malformed comparison cannot pass",
+      "passed": true
+    },
+    {
+      "name": "missing and throwing owners do not trigger fallback collection",
+      "passed": true
+    },
+    {
+      "name": "malformed roots, arrays, invalid enums and throwing fields cannot break report",
+      "passed": true
+    },
+    {
+      "name": "presenter independently rejects invalid evidence and ignores supplied PASS",
+      "passed": true
+    },
+    {
+      "name": "cancelled observation never claims the application update was cancelled",
+      "passed": true
+    },
+    {
+      "name": "contradictory success status with a read error stays unknown",
+      "passed": true
+    },
+    {
+      "name": "report refresh uses latest pair without growing event or checkpoint history",
+      "passed": true
+    },
+    {
+      "name": "persistence failure discloses that next-launch evidence may be unavailable",
+      "passed": true
+    },
+    {
+      "name": "AI payload is exactly unchanged by local receipts, including aggregate statuses",
+      "passed": true
+    },
+    {
+      "name": "TR and EN presenter use translated fixed labels and status text",
+      "passed": true
+    },
+    {
+      "name": "actual update diagnostics runtime and health agree on persisted synthetic receipt schema",
+      "passed": true
+    },
+    {
+      "name": "mounted local report, repeated navigation and AI preview preserve privacy in tr",
+      "passed": true
+    },
+    {
+      "name": "mounted local report, repeated navigation and AI preview preserve privacy in en",
+      "passed": true
+    },
+    {
+      "name": "technical export downloads sanitized cached pair with no DB, collection, or network work",
+      "passed": true
+    }
+  ]
+}
+
+STDERR:

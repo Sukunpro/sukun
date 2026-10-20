@@ -1,0 +1,409 @@
+{
+  "suite": "r1108 Kandil preferences and idle lifecycle",
+  "sourceBuild": "r1119",
+  "method": "Node VM executes the actual shipped Kandil owner, actual memory-fallback UI storage wrapper and onboarding open/close functions. A fake clock models timeout cancellation, intervals and explicitly invoked stale callbacks. Controlled capture/target/bubble propagation and default-action counters exercise wake-event consumption.",
+  "limitations": [
+    "No browser engine, native keyboard/touch synthesis, computed CSS, layout, screen-reader traversal, Android lock/power state, physical microphone or audible output was exercised.",
+    "Capture/default-action behavior is a controlled event model, not evidence of real browser event dispatch.",
+    "Focus visibility checks use controlled connected/hidden nodes, not rendered geometry."
+  ],
+  "browserExecuted": false,
+  "sourceFiles": {
+    "index.html": {
+      "sha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+      "bytes": 7411796
+    },
+    "nero.html": {
+      "sha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+      "bytes": 7411796
+    }
+  },
+  "scriptSha256": "bbb8818f8cae194e95e1ee7d93573dde188634739403a5ec7f36a5575202bff1",
+  "finishedAt": "2026-10-20T05:09:51.469Z",
+  "passed": 46,
+  "total": 46,
+  "results": [
+    {
+      "name": "index.html: default and persisted modes start without writing a Kandil preference",
+      "passed": true,
+      "evidence": {
+        "modes": [
+          "off",
+          "1m",
+          "5m"
+        ],
+        "default": "1m",
+        "startupPreferenceWrites": 0
+      }
+    },
+    {
+      "name": "index.html: malformed, unknown and object preferences use bounded default delay",
+      "passed": true,
+      "evidence": {
+        "malformedCases": 10,
+        "normalizedMode": "1m"
+      }
+    },
+    {
+      "name": "index.html: mode changes restart one chosen deadline, off cancels both timers and reload remembers",
+      "passed": true,
+      "evidence": {
+        "freshFiveMinuteDeadline": true,
+        "offTimers": 0,
+        "reloadedMode": "off"
+      }
+    },
+    {
+      "name": "index.html: legacy enable API preserves a single timer and off remains nonshowing",
+      "passed": true
+    },
+    {
+      "name": "index.html: delegated control change and late DOM binding use the same owner",
+      "passed": true
+    },
+    {
+      "name": "index.html: blocked storage keeps the setting usable and reports unsaved preference",
+      "passed": true,
+      "evidence": {
+        "deniedReadWrite": true,
+        "writeOnlyFailure": true,
+        "ownerPersistenceDenied": true,
+        "sessionChoiceRetained": true
+      }
+    },
+    {
+      "name": "index.html: a late callback after activity, off or pagehide cannot show or rearm Kandil",
+      "passed": true,
+      "evidence": {
+        "adversarialLateCallbacks": 3,
+        "staleCallbackStateChanges": 0
+      }
+    },
+    {
+      "name": "index.html: visibility/page lifecycle clears shown clock and resumes a fresh single deadline",
+      "passed": true
+    },
+    {
+      "name": "index.html: every existing playback and modal busy gate still blocks the idle overlay",
+      "passed": true,
+      "evidence": {
+        "busyCases": 22,
+        "pausedProviderProtected": true,
+        "legacySettingsAndBodyClassesProtected": true
+      }
+    },
+    {
+      "name": "index.html: hidden modal surfaces and inactive Kandil do not block the idle screen",
+      "passed": true,
+      "evidence": {
+        "inactiveKandilNotSelfBlocking": true,
+        "hiddenModalsIgnored": true
+      }
+    },
+    {
+      "name": "index.html: first tour, pending update tour and opening surfaces suppress Kandil",
+      "passed": true,
+      "evidence": {
+        "tourSuppressionCases": 4
+      }
+    },
+    {
+      "name": "index.html: actual onboarding open hides Kandil and close restarts only after fade",
+      "passed": true,
+      "evidence": {
+        "tourReplayClearsOverlay": true,
+        "closingFadeMs": 450,
+        "freshIdleDeadlineAfterClose": true
+      }
+    },
+    {
+      "name": "index.html: old onboarding close and rAF callbacks cannot hide or resurrect a newer tour",
+      "passed": true,
+      "evidence": {
+        "oldCloseCannotHideNewTour": true,
+        "oldRAFCannotResurrectClosedTour": true
+      }
+    },
+    {
+      "name": "index.html: wake click and key are consumed before an underlying action and focus is restored",
+      "passed": true,
+      "evidence": {
+        "controlledEventPhases": true,
+        "underlyingActions": 0,
+        "focusRestoredWithoutScroll": true
+      }
+    },
+    {
+      "name": "index.html: touchstart cannot uncover controls and Tab stays on the wake button",
+      "passed": true
+    },
+    {
+      "name": "index.html: held Enter and Space release cannot activate restored controls; the next press works",
+      "passed": true,
+      "evidence": {
+        "wakeKeys": [
+          "Enter",
+          "Space"
+        ],
+        "heldRepeatEventsConsumed": 8,
+        "releaseEventsConsumed": 2,
+        "nextDeliberatePressAllowed": true
+      }
+    },
+    {
+      "name": "index.html: lost key release cannot leave a wake latch after blur, hidden or pagehide",
+      "passed": true,
+      "evidence": {
+        "latchResetEvents": [
+          "blur",
+          "visibilitychange",
+          "pagehide",
+          "freeze/resume"
+        ],
+        "nextKeyNotSwallowed": true
+      }
+    },
+    {
+      "name": "index.html: disconnected or invisible previous focus is never forcibly restored",
+      "passed": true,
+      "evidence": {
+        "disconnectedFocusSkipped": true,
+        "hiddenFocusSkipped": true
+      }
+    },
+    {
+      "name": "index.html: another tab mode and clear events update runtime without writing back",
+      "passed": true
+    },
+    {
+      "name": "index.html: invalid API values and unrelated storage events cannot alter the active preference",
+      "passed": true,
+      "evidence": {
+        "invalidAPIInputs": 8,
+        "unrelatedStorageIgnored": true,
+        "otherStorageAreaIgnored": true
+      }
+    },
+    {
+      "name": "index.html: UI language refresh preserves preference, timers and all audio state",
+      "passed": true,
+      "evidence": {
+        "englishRefresh": true,
+        "audioStateUnchanged": true,
+        "preferenceWrites": 0
+      }
+    },
+    {
+      "name": "index.html: complete preference/wake/freeze lifecycle never changes playback, count or wake-lock owners",
+      "passed": true,
+      "evidence": {
+        "audioMutatorCalls": 0,
+        "countUnchanged": true,
+        "wakeLockRequests": 0,
+        "onlyPreferenceWrites": true,
+        "freezeAndResumeCovered": true
+      }
+    },
+    {
+      "name": "index.html: owner exposes only presentation actions and overlay/control markup is accessible",
+      "passed": true,
+      "evidence": {
+        "apiPreserved": true,
+        "namedDialog": true,
+        "realWakeButton": true,
+        "noLiveClock": true
+      }
+    },
+    {
+      "name": "nero.html: default and persisted modes start without writing a Kandil preference",
+      "passed": true,
+      "evidence": {
+        "modes": [
+          "off",
+          "1m",
+          "5m"
+        ],
+        "default": "1m",
+        "startupPreferenceWrites": 0
+      }
+    },
+    {
+      "name": "nero.html: malformed, unknown and object preferences use bounded default delay",
+      "passed": true,
+      "evidence": {
+        "malformedCases": 10,
+        "normalizedMode": "1m"
+      }
+    },
+    {
+      "name": "nero.html: mode changes restart one chosen deadline, off cancels both timers and reload remembers",
+      "passed": true,
+      "evidence": {
+        "freshFiveMinuteDeadline": true,
+        "offTimers": 0,
+        "reloadedMode": "off"
+      }
+    },
+    {
+      "name": "nero.html: legacy enable API preserves a single timer and off remains nonshowing",
+      "passed": true
+    },
+    {
+      "name": "nero.html: delegated control change and late DOM binding use the same owner",
+      "passed": true
+    },
+    {
+      "name": "nero.html: blocked storage keeps the setting usable and reports unsaved preference",
+      "passed": true,
+      "evidence": {
+        "deniedReadWrite": true,
+        "writeOnlyFailure": true,
+        "ownerPersistenceDenied": true,
+        "sessionChoiceRetained": true
+      }
+    },
+    {
+      "name": "nero.html: a late callback after activity, off or pagehide cannot show or rearm Kandil",
+      "passed": true,
+      "evidence": {
+        "adversarialLateCallbacks": 3,
+        "staleCallbackStateChanges": 0
+      }
+    },
+    {
+      "name": "nero.html: visibility/page lifecycle clears shown clock and resumes a fresh single deadline",
+      "passed": true
+    },
+    {
+      "name": "nero.html: every existing playback and modal busy gate still blocks the idle overlay",
+      "passed": true,
+      "evidence": {
+        "busyCases": 22,
+        "pausedProviderProtected": true,
+        "legacySettingsAndBodyClassesProtected": true
+      }
+    },
+    {
+      "name": "nero.html: hidden modal surfaces and inactive Kandil do not block the idle screen",
+      "passed": true,
+      "evidence": {
+        "inactiveKandilNotSelfBlocking": true,
+        "hiddenModalsIgnored": true
+      }
+    },
+    {
+      "name": "nero.html: first tour, pending update tour and opening surfaces suppress Kandil",
+      "passed": true,
+      "evidence": {
+        "tourSuppressionCases": 4
+      }
+    },
+    {
+      "name": "nero.html: actual onboarding open hides Kandil and close restarts only after fade",
+      "passed": true,
+      "evidence": {
+        "tourReplayClearsOverlay": true,
+        "closingFadeMs": 450,
+        "freshIdleDeadlineAfterClose": true
+      }
+    },
+    {
+      "name": "nero.html: old onboarding close and rAF callbacks cannot hide or resurrect a newer tour",
+      "passed": true,
+      "evidence": {
+        "oldCloseCannotHideNewTour": true,
+        "oldRAFCannotResurrectClosedTour": true
+      }
+    },
+    {
+      "name": "nero.html: wake click and key are consumed before an underlying action and focus is restored",
+      "passed": true,
+      "evidence": {
+        "controlledEventPhases": true,
+        "underlyingActions": 0,
+        "focusRestoredWithoutScroll": true
+      }
+    },
+    {
+      "name": "nero.html: touchstart cannot uncover controls and Tab stays on the wake button",
+      "passed": true
+    },
+    {
+      "name": "nero.html: held Enter and Space release cannot activate restored controls; the next press works",
+      "passed": true,
+      "evidence": {
+        "wakeKeys": [
+          "Enter",
+          "Space"
+        ],
+        "heldRepeatEventsConsumed": 8,
+        "releaseEventsConsumed": 2,
+        "nextDeliberatePressAllowed": true
+      }
+    },
+    {
+      "name": "nero.html: lost key release cannot leave a wake latch after blur, hidden or pagehide",
+      "passed": true,
+      "evidence": {
+        "latchResetEvents": [
+          "blur",
+          "visibilitychange",
+          "pagehide",
+          "freeze/resume"
+        ],
+        "nextKeyNotSwallowed": true
+      }
+    },
+    {
+      "name": "nero.html: disconnected or invisible previous focus is never forcibly restored",
+      "passed": true,
+      "evidence": {
+        "disconnectedFocusSkipped": true,
+        "hiddenFocusSkipped": true
+      }
+    },
+    {
+      "name": "nero.html: another tab mode and clear events update runtime without writing back",
+      "passed": true
+    },
+    {
+      "name": "nero.html: invalid API values and unrelated storage events cannot alter the active preference",
+      "passed": true,
+      "evidence": {
+        "invalidAPIInputs": 8,
+        "unrelatedStorageIgnored": true,
+        "otherStorageAreaIgnored": true
+      }
+    },
+    {
+      "name": "nero.html: UI language refresh preserves preference, timers and all audio state",
+      "passed": true,
+      "evidence": {
+        "englishRefresh": true,
+        "audioStateUnchanged": true,
+        "preferenceWrites": 0
+      }
+    },
+    {
+      "name": "nero.html: complete preference/wake/freeze lifecycle never changes playback, count or wake-lock owners",
+      "passed": true,
+      "evidence": {
+        "audioMutatorCalls": 0,
+        "countUnchanged": true,
+        "wakeLockRequests": 0,
+        "onlyPreferenceWrites": true,
+        "freezeAndResumeCovered": true
+      }
+    },
+    {
+      "name": "nero.html: owner exposes only presentation actions and overlay/control markup is accessible",
+      "passed": true,
+      "evidence": {
+        "apiPreserved": true,
+        "namedDialog": true,
+        "realWakeButton": true,
+        "noLiveClock": true
+      }
+    }
+  ]
+}
