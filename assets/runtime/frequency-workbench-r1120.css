@@ -1,0 +1,10 @@
+/* Narrow shared-frequency tools, independent of the Midi/Pro preference. */
+#frequencyAdvancedR1120,#frequencyWorkbenchR1120{display:block!important;visibility:visible!important}
+#frequencyWorkbenchR1120 .fr1120-workbench{margin:16px 0;background:rgba(8,15,26,.93);color:#eef2f7;padding:12px;border:1px solid rgba(209,181,110,.5);border-radius:14px}
+#frequencyWorkbenchR1120 summary,#frequencyAdvancedR1120 summary{cursor:pointer;font-weight:700;padding:8px 0;color:#f1dcaa}
+#frequencyWorkbenchR1120 .fr1120-row{display:grid;grid-template-columns:minmax(90px,1fr) minmax(90px,1.5fr) auto;gap:8px;align-items:center;margin:12px 0;font-size:13px}
+#frequencyWorkbenchR1120 select{grid-column:2/4;max-width:100%;min-width:0;background:#121e2b;color:#f5f5f5;border:1px solid #7b6e50;border-radius:8px;padding:9px}
+#frequencyWorkbenchR1120 input{min-width:0;max-width:100%}#frequencyWorkbenchR1120 output{min-width:42px;font-variant-numeric:tabular-nums;text-align:right}
+#frequencyWorkbenchR1120 input[type=checkbox]{width:24px;height:24px}#frequencyWorkbenchR1120 .fr1120-octaves{display:flex;gap:10px}#frequencyWorkbenchR1120 .fr1120-octaves button{flex:1}
+#frequencyWorkbenchR1120 .fr1120-note{font-size:12px;line-height:1.5;color:#d8dfeb;margin:12px 0 2px}#frequencyWorkbenchR1120 :focus-visible{outline:2px solid #ead7a1;outline-offset:3px}
+@media(max-width:350px){#frequencyWorkbenchR1120 .fr1120-row{grid-template-columns:minmax(76px,1fr) minmax(75px,1.2fr) auto;gap:5px}}

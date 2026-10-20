@@ -1,0 +1,122 @@
+{
+  "total": 28,
+  "passed": 28,
+  "failed": 0,
+  "scope": "Production standalone sources, synthetic event/timer/controller endpoints, no main runtime or real user data. Browser rendering and actual audio are separate checks.",
+  "results": [
+    {
+      "name": "No legacy tap curtain, visible tap label or obsolete toggle markup",
+      "status": "PASS"
+    },
+    {
+      "name": "Rescue does not import main JavaScript, CSS or any remote asset",
+      "status": "PASS"
+    },
+    {
+      "name": "Native keyboard fallback is a plain focusable same-origin link without main JS",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent entry script is deferred and has no main-runtime dependency",
+      "status": "PASS"
+    },
+    {
+      "name": "Short click remains unchanged and never navigates",
+      "status": "PASS"
+    },
+    {
+      "name": "Long press requires release and navigates once",
+      "status": "PASS"
+    },
+    {
+      "name": "English title entry forwards only whitelisted language",
+      "status": "PASS"
+    },
+    {
+      "name": "Native link uses current document language on explicit activation",
+      "status": "PASS"
+    },
+    {
+      "name": "pointercancel cancels long press",
+      "status": "PASS"
+    },
+    {
+      "name": "scroll cancels long press",
+      "status": "PASS"
+    },
+    {
+      "name": "blur cancels long press",
+      "status": "PASS"
+    },
+    {
+      "name": "pagehide cancels long press",
+      "status": "PASS"
+    },
+    {
+      "name": "Hidden visibility cancels long press",
+      "status": "PASS"
+    },
+    {
+      "name": "Escape cancels long press without intercepting keyboard input",
+      "status": "PASS"
+    },
+    {
+      "name": "Movement during press cancels without preventing scroll",
+      "status": "PASS"
+    },
+    {
+      "name": "Moved release cancels even when move event was missed",
+      "status": "PASS"
+    },
+    {
+      "name": "Second finger cancels the initial intent",
+      "status": "PASS"
+    },
+    {
+      "name": "Right button and untrusted input cannot open hidden entry",
+      "status": "PASS"
+    },
+    {
+      "name": "Title gesture handlers never prevent default, stop propagation or capture pointers",
+      "status": "PASS"
+    },
+    {
+      "name": "Returning through Back allows a fresh deliberate entry",
+      "status": "PASS"
+    },
+    {
+      "name": "Static page remains usable without accessible controlling SW: {\"noSW\":true}",
+      "status": "PASS"
+    },
+    {
+      "name": "Static page remains usable without accessible controlling SW: {}",
+      "status": "PASS"
+    },
+    {
+      "name": "Static page remains usable without accessible controlling SW: {\"throwSW\":true}",
+      "status": "PASS"
+    },
+    {
+      "name": "Only the matching activated same-origin worker exposes version options",
+      "status": "PASS"
+    },
+    {
+      "name": "Controller disappearance removes the no-longer-valid version link",
+      "status": "PASS"
+    },
+    {
+      "name": "Explicit language whitelist overrides device language without reading or writing storage",
+      "status": "PASS"
+    },
+    {
+      "name": "Both languages and usable app links are present before any JavaScript runs",
+      "status": "PASS"
+    },
+    {
+      "name": "Load cannot restore, unregister, clear cache, replace data, or select a version",
+      "status": "PASS"
+    }
+  ]
+}
+
+STDERR:

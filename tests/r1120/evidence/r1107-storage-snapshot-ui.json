@@ -1,0 +1,302 @@
+{
+  "suite": "r1107 explicit storage snapshot health presenter",
+  "build": "r1107",
+  "sourceBuild": "r1120",
+  "method": "The shipped presenter runs in a Node VM against a controlled parsed DOM and real EventTarget callbacks. The core is a deferred observer contract: tests drive resolve/reject and cancellation order and inspect rendered text and ownership. No production functions are copied into the test.",
+  "browserExecuted": false,
+  "limitations": [
+    "No browser engine, native disclosure interaction, accessibility tree, geometry, computed styles or screenshot pixels were exercised.",
+    "The storage core is a controlled deferred boundary here; IndexedDB traversal and archive access are validated by the separate storage core suite."
+  ],
+  "sourceFiles": {
+    "assets/runtime/storage-snapshot-ui-r1107.js": {
+      "sha256": "bfc5c97505fde90dbec9d101fd7ac7e768d9f442e6e414f233305a2bb28185d4",
+      "bytes": 12475
+    }
+  },
+  "scriptSha256": "aa7356655ee32ede775c2b7c49d6f2131971298626a630566b34f38e6190d25c",
+  "finishedAt": "2026-10-20T06:37:03.757Z",
+  "passed": 27,
+  "total": 27,
+  "results": [
+    {
+      "name": "Module loading, mounting, opening, rerendering and changing language never inspect stores",
+      "passed": true,
+      "evidence": {
+        "status": "unmeasured",
+        "text": "Henüz denetlenmedi. Denetimi başlatmak için düğmeye dokun.",
+        "results": "",
+        "busy": "false",
+        "calls": 0
+      }
+    },
+    {
+      "name": "Only the explicit inspect button passes a cancellable signal to the core and publishes the returned measurement",
+      "passed": true,
+      "evidence": {
+        "status": "complete",
+        "text": "Depolar denetlendi. Bu, yedeğin tamamlandığını doğrulamaz.",
+        "results": "Son gözlem: 18.10.2026 13:40:00 · r1107Kendi zikir / okuma kayıtlarımSes kaydı37Ses verisi3 KiBÖlçüldüKişisel JSON yedeğinin ses kapsamındadır; mevcut yedeğin tamamlandığı doğrulanmaz.Kendi ambiyanslarımSes kaydı11Ses verisi5 KiBÖlçüldüAyrı depo; kişisel JSON yedeğinin kapsamındadır.Erişilebilir jenerik arşivSes kaydı5Ses verisi7 KiBÖlçüldüKullanımı kapalıYalnız bu cihazdaki erişilebilir sesler. Kişisel JSON yedeğine dahil değildir.Kurtarma kopyalarıKurtarma noktası2Ses verisi11 KiBKayıt kopyaları: 43 · Ambiyans kopyaları: 9ÖlçüldüYerel kurtarma noktalarındaki ses kopyalarıdır. Aynı ses birden çok kez sayılabilir; ayarlar ve dizin yükü bu boyuta dahil değildir.Tarayıcı alan tahminiYaklaşık kullanım: 1 MiB / 4 MiBBu değer önbellek ve başka site verilerini de kapsayabilir; yukarıdaki ses boyutlarının toplamı değildir.",
+        "busy": "false",
+        "calls": 1
+      }
+    },
+    {
+      "name": "Repeated mounts retain exactly one card, button and inspect callback",
+      "passed": true,
+      "evidence": {
+        "mounts": 30,
+        "inspectCalls": 2
+      }
+    },
+    {
+      "name": "Refresh aborts the previous request and ignores its completion: old-first",
+      "passed": true,
+      "evidence": {
+        "status": "complete",
+        "text": "Depolar denetlendi. Bu, yedeğin tamamlandığını doğrulamaz.",
+        "results": "Son gözlem: 18.10.2026 13:40:00 · r1107Kendi zikir / okuma kayıtlarımSes kaydı8Ses verisi3 KiBÖlçüldüKişisel JSON yedeğinin ses kapsamındadır; mevcut yedeğin tamamlandığı doğrulanmaz.Kendi ambiyanslarımSes kaydı11Ses verisi5 KiBÖlçüldüAyrı depo; kişisel JSON yedeğinin kapsamındadır.Erişilebilir jenerik arşivSes kaydı5Ses verisi7 KiBÖlçüldüKullanımı kapalıYalnız bu cihazdaki erişilebilir sesler. Kişisel JSON yedeğine dahil değildir.Kurtarma kopyalarıKurtarma noktası2Ses verisi11 KiBKayıt kopyaları: 43 · Ambiyans kopyaları: 9ÖlçüldüYerel kurtarma noktalarındaki ses kopyalarıdır. Aynı ses birden çok kez sayılabilir; ayarlar ve dizin yükü bu boyuta dahil değildir.Tarayıcı alan tahminiYaklaşık kullanım: 1 MiB / 4 MiBBu değer önbellek ve başka site verilerini de kapsayabilir; yukarıdaki ses boyutlarının toplamı değildir.",
+        "busy": "false",
+        "calls": 2
+      }
+    },
+    {
+      "name": "Refresh aborts the previous request and ignores its completion: new-first",
+      "passed": true,
+      "evidence": {
+        "status": "complete",
+        "text": "Depolar denetlendi. Bu, yedeğin tamamlandığını doğrulamaz.",
+        "results": "Son gözlem: 18.10.2026 13:40:00 · r1107Kendi zikir / okuma kayıtlarımSes kaydı8Ses verisi3 KiBÖlçüldüKişisel JSON yedeğinin ses kapsamındadır; mevcut yedeğin tamamlandığı doğrulanmaz.Kendi ambiyanslarımSes kaydı11Ses verisi5 KiBÖlçüldüAyrı depo; kişisel JSON yedeğinin kapsamındadır.Erişilebilir jenerik arşivSes kaydı5Ses verisi7 KiBÖlçüldüKullanımı kapalıYalnız bu cihazdaki erişilebilir sesler. Kişisel JSON yedeğine dahil değildir.Kurtarma kopyalarıKurtarma noktası2Ses verisi11 KiBKayıt kopyaları: 43 · Ambiyans kopyaları: 9ÖlçüldüYerel kurtarma noktalarındaki ses kopyalarıdır. Aynı ses birden çok kez sayılabilir; ayarlar ve dizin yükü bu boyuta dahil değildir.Tarayıcı alan tahminiYaklaşık kullanım: 1 MiB / 4 MiBBu değer önbellek ve başka site verilerini de kapsayabilir; yukarıdaki ses boyutlarının toplamı değildir.",
+        "busy": "false",
+        "calls": 2
+      }
+    },
+    {
+      "name": "collapse aborts pending inspection and ignores late completion",
+      "passed": true,
+      "evidence": {
+        "status": "cancelled",
+        "text": "Denetim durduruldu; tamamlanmış yeni bir ölçüm yok.",
+        "results": "",
+        "busy": "false",
+        "calls": 1
+      }
+    },
+    {
+      "name": "dialog-close aborts pending inspection and ignores late completion",
+      "passed": true,
+      "evidence": {
+        "status": "cancelled",
+        "text": "Denetim durduruldu; tamamlanmış yeni bir ölçüm yok.",
+        "results": "",
+        "busy": "false",
+        "calls": 1
+      }
+    },
+    {
+      "name": "navigate aborts pending inspection and ignores late completion",
+      "passed": true,
+      "evidence": {
+        "status": "cancelled",
+        "text": "Denetim durduruldu; tamamlanmış yeni bir ölçüm yok.",
+        "results": "",
+        "busy": "false",
+        "calls": 1
+      }
+    },
+    {
+      "name": "pagehide aborts pending inspection and ignores late completion",
+      "passed": true,
+      "evidence": {
+        "status": "cancelled",
+        "text": "Denetim durduruldu; tamamlanmış yeni bir ölçüm yok.",
+        "results": "",
+        "busy": "false",
+        "calls": 1
+      }
+    },
+    {
+      "name": "visibilitychange aborts pending inspection and ignores late completion",
+      "passed": true,
+      "evidence": {
+        "status": "cancelled",
+        "text": "Denetim durduruldu; tamamlanmış yeni bir ölçüm yok.",
+        "results": "",
+        "busy": "false",
+        "calls": 1
+      }
+    },
+    {
+      "name": "cancel aborts pending inspection and ignores late completion",
+      "passed": true,
+      "evidence": {
+        "status": "cancelled",
+        "text": "Denetim durduruldu; tamamlanmış yeni bir ölçüm yok.",
+        "results": "",
+        "busy": "false",
+        "calls": 1
+      }
+    },
+    {
+      "name": "A closed or disconnected health panel cannot start inspection",
+      "passed": true,
+      "evidence": {
+        "inspectCalls": 0
+      }
+    },
+    {
+      "name": "Mount before connection still binds the eventual nearest dialog close event",
+      "passed": true,
+      "evidence": {
+        "status": "cancelled",
+        "text": "Denetim durduruldu; tamamlanmış yeni bir ölçüm yok.",
+        "results": "",
+        "busy": "false",
+        "calls": 1
+      }
+    },
+    {
+      "name": "sukun:secretaccesschange clears completed numbers and aborts in-flight work without scanning again",
+      "passed": true,
+      "evidence": {
+        "status": "privacy",
+        "text": "Erişim değişti. Güncel sayılar için depoları yeniden denetle.",
+        "results": "",
+        "busy": "false",
+        "calls": 2
+      }
+    },
+    {
+      "name": "sukun:secretpolicyready clears completed numbers and aborts in-flight work without scanning again",
+      "passed": true,
+      "evidence": {
+        "status": "privacy",
+        "text": "Erişim değişti. Güncel sayılar için depoları yeniden denetle.",
+        "results": "",
+        "busy": "false",
+        "calls": 2
+      }
+    },
+    {
+      "name": "Unknown failed-source totals stay unmeasured; genuinely empty measured stores show zero",
+      "passed": true,
+      "evidence": {
+        "sources": [
+          "Kendi zikir / okuma kayıtlarımSes kaydıÖlçülmediSes verisiÖlçülmediDepo denetimi tamamlanamadı; sayı ölçülmediKişisel JSON yedeğinin ses kapsamındadır; mevcut yedeğin tamamlandığı doğrulanmaz.Kendi ambiyanslarımSes kaydı0Ses verisi0 BÖlçüldüAyrı depo; kişisel JSON yedeğinin kapsamındadır.",
+          "Erişilebilir jenerik arşivSes kaydıÖlçülmediSes verisiÖlçülmediDepo bulunamadı; sayı ölçülmediKullanım tercihi ölçülmediYalnız bu cihazdaki erişilebilir sesler. Kişisel JSON yedeğine dahil değildir.",
+          "Kurtarma kopyalarıKurtarma noktasıÖlçülmediSes verisiÖlçülmediKayıt kopyaları: Ölçülmedi · Ambiyans kopyaları: ÖlçülmediDenetim tamamlanmadıYerel kurtarma noktalarındaki ses kopyalarıdır. Aynı ses birden çok kez sayılabilir; ayarlar ve dizin yükü bu boyuta dahil değildir."
+        ],
+        "status": "partial"
+      }
+    },
+    {
+      "name": "Failed sources cannot display stale numeric fields as valid totals",
+      "passed": true,
+      "evidence": {
+        "invalidTotalsHidden": true
+      }
+    },
+    {
+      "name": "TR to EN to TR rerender preserves the observation and never rescans",
+      "passed": true,
+      "evidence": {
+        "status": "complete",
+        "text": "Depolar denetlendi. Bu, yedeğin tamamlandığını doğrulamaz.",
+        "results": "Son gözlem: 18.10.2026 13:40:00 · r1107Kendi zikir / okuma kayıtlarımSes kaydı1.234Ses verisi1,5 KiBÖlçüldüKişisel JSON yedeğinin ses kapsamındadır; mevcut yedeğin tamamlandığı doğrulanmaz.Kendi ambiyanslarımSes kaydı11Ses verisi5 KiBÖlçüldüAyrı depo; kişisel JSON yedeğinin kapsamındadır.Erişilebilir jenerik arşivSes kaydı5Ses verisi7 KiBÖlçüldüKullanımı kapalıYalnız bu cihazdaki erişilebilir sesler. Kişisel JSON yedeğine dahil değildir.Kurtarma kopyalarıKurtarma noktası2Ses verisi11 KiBKayıt kopyaları: 43 · Ambiyans kopyaları: 9ÖlçüldüYerel kurtarma noktalarındaki ses kopyalarıdır. Aynı ses birden çok kez sayılabilir; ayarlar ve dizin yükü bu boyuta dahil değildir.Tarayıcı alan tahminiYaklaşık kullanım: 1 MiB / 4 MiBBu değer önbellek ve başka site verilerini de kapsayabilir; yukarıdaki ses boyutlarının toplamı değildir.",
+        "busy": "false",
+        "calls": 1
+      }
+    },
+    {
+      "name": "Language changes during an in-flight request retain its signal and present the completion in the current language",
+      "passed": true,
+      "evidence": {
+        "status": "complete",
+        "text": "Stores inspected. This does not verify a completed backup.",
+        "results": "Last observation: 18/10/2026, 13:40:00 · r1107My dhikr / reading recordingsRecordings37Audio data3 KiBMeasuredWithin the audio scope of personal JSON backups; this does not verify a completed backup.My ambience recordingsRecordings11Audio data5 KiBMeasuredSeparate store; within the scope of personal JSON backups.Accessible generic archiveRecordings5Audio data7 KiBMeasuredUse disabledOnly accessible recordings on this device. Not included in personal JSON backups.Recovery copiesRecovery points2Audio data11 KiBRecording copies: 43 · Ambience copies: 9MeasuredAudio copies in local recovery points. The same recording may be counted more than once; settings and index overhead are excluded.Browser storage estimateApproximate usage: 1 MiB / 4 MiBThis may include caches and other site data; it is not the sum of the audio sizes above.",
+        "busy": "false",
+        "calls": 1
+      }
+    },
+    {
+      "name": "A rejected core request is explicit and never renders unknown values as zero",
+      "passed": true,
+      "evidence": {
+        "status": "error",
+        "text": "Inspection did not finish. Unknown values are not zero.",
+        "results": "",
+        "busy": "false",
+        "calls": 1
+      }
+    },
+    {
+      "name": "A missing core remains explicit, local and non-crashing until the core becomes available",
+      "passed": true,
+      "evidence": {
+        "status": "complete",
+        "text": "Depolar denetlendi. Bu, yedeğin tamamlandığını doğrulamaz.",
+        "results": "Son gözlem: 18.10.2026 13:40:00 · r1107Kendi zikir / okuma kayıtlarımSes kaydı37Ses verisi3 KiBÖlçüldüKişisel JSON yedeğinin ses kapsamındadır; mevcut yedeğin tamamlandığı doğrulanmaz.Kendi ambiyanslarımSes kaydı11Ses verisi5 KiBÖlçüldüAyrı depo; kişisel JSON yedeğinin kapsamındadır.Erişilebilir jenerik arşivSes kaydı5Ses verisi7 KiBÖlçüldüKullanımı kapalıYalnız bu cihazdaki erişilebilir sesler. Kişisel JSON yedeğine dahil değildir.Kurtarma kopyalarıKurtarma noktası2Ses verisi11 KiBKayıt kopyaları: 43 · Ambiyans kopyaları: 9ÖlçüldüYerel kurtarma noktalarındaki ses kopyalarıdır. Aynı ses birden çok kez sayılabilir; ayarlar ve dizin yükü bu boyuta dahil değildir.Tarayıcı alan tahminiYaklaşık kullanım: 1 MiB / 4 MiBBu değer önbellek ve başka site verilerini de kapsayabilir; yukarıdaki ses boyutlarının toplamı değildir.",
+        "busy": "false",
+        "calls": 1
+      }
+    },
+    {
+      "name": "A cancelled core result cannot become a completed observation",
+      "passed": true,
+      "evidence": {
+        "status": "cancelled",
+        "text": "Denetim durduruldu; tamamlanmış yeni bir ölçüm yok.",
+        "results": "",
+        "busy": "false",
+        "calls": 1
+      }
+    },
+    {
+      "name": "Rerendering into a replacement slot aborts the old request and gives the new card one action",
+      "passed": true,
+      "evidence": {
+        "inspectCalls": 2,
+        "oldSignalAborted": true
+      }
+    },
+    {
+      "name": "Privacy invalidation of a detached panel still aborts its work and does not expose a late result",
+      "passed": true,
+      "evidence": {
+        "inspectCalls": 1,
+        "detachedSignalAborted": true
+      }
+    },
+    {
+      "name": "Detached-panel pruning and later remount retain one action and suppress the old result",
+      "passed": true,
+      "evidence": {
+        "inspectCalls": 2,
+        "remounts": 4,
+        "oldSignalAborted": true
+      }
+    },
+    {
+      "name": "An obsolete rejected request cannot replace the fresh request status or result",
+      "passed": true,
+      "evidence": {
+        "status": "complete",
+        "text": "Depolar denetlendi. Bu, yedeğin tamamlandığını doğrulamaz.",
+        "results": "Son gözlem: 18.10.2026 13:40:00 · r1107Kendi zikir / okuma kayıtlarımSes kaydı4Ses verisi3 KiBÖlçüldüKişisel JSON yedeğinin ses kapsamındadır; mevcut yedeğin tamamlandığı doğrulanmaz.Kendi ambiyanslarımSes kaydı11Ses verisi5 KiBÖlçüldüAyrı depo; kişisel JSON yedeğinin kapsamındadır.Erişilebilir jenerik arşivSes kaydı5Ses verisi7 KiBÖlçüldüKullanımı kapalıYalnız bu cihazdaki erişilebilir sesler. Kişisel JSON yedeğine dahil değildir.Kurtarma kopyalarıKurtarma noktası2Ses verisi11 KiBKayıt kopyaları: 43 · Ambiyans kopyaları: 9ÖlçüldüYerel kurtarma noktalarındaki ses kopyalarıdır. Aynı ses birden çok kez sayılabilir; ayarlar ve dizin yükü bu boyuta dahil değildir.Tarayıcı alan tahminiYaklaşık kullanım: 1 MiB / 4 MiBBu değer önbellek ve başka site verilerini de kapsayabilir; yukarıdaki ses boyutlarının toplamı değildir.",
+        "busy": "false",
+        "calls": 2
+      }
+    },
+    {
+      "name": "Navigation away hides the card and prevents inspection until returning to an eligible health screen",
+      "passed": true,
+      "evidence": {
+        "status": "complete",
+        "text": "Depolar denetlendi. Bu, yedeğin tamamlandığını doğrulamaz.",
+        "results": "Son gözlem: 18.10.2026 13:40:00 · r1107Kendi zikir / okuma kayıtlarımSes kaydı37Ses verisi3 KiBÖlçüldüKişisel JSON yedeğinin ses kapsamındadır; mevcut yedeğin tamamlandığı doğrulanmaz.Kendi ambiyanslarımSes kaydı11Ses verisi5 KiBÖlçüldüAyrı depo; kişisel JSON yedeğinin kapsamındadır.Erişilebilir jenerik arşivSes kaydı5Ses verisi7 KiBÖlçüldüKullanımı kapalıYalnız bu cihazdaki erişilebilir sesler. Kişisel JSON yedeğine dahil değildir.Kurtarma kopyalarıKurtarma noktası2Ses verisi11 KiBKayıt kopyaları: 43 · Ambiyans kopyaları: 9ÖlçüldüYerel kurtarma noktalarındaki ses kopyalarıdır. Aynı ses birden çok kez sayılabilir; ayarlar ve dizin yükü bu boyuta dahil değildir.Tarayıcı alan tahminiYaklaşık kullanım: 1 MiB / 4 MiBBu değer önbellek ve başka site verilerini de kapsayabilir; yukarıdaki ses boyutlarının toplamı değildir.",
+        "busy": "false",
+        "calls": 1
+      }
+    }
+  ]
+}

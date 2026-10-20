@@ -1,0 +1,226 @@
+{
+  "source": "/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/assets/runtime/background-mix-r1059.js",
+  "sourceSha256": "cfeba11a4ffcc0cee59aa51968eacdbc9ec7a8982991db1b4d915b3a1eaeb029",
+  "total": 54,
+  "passed": 54,
+  "failed": 0,
+  "scope": "Actual production controller with controlled native media events, offline preparation and wall clock; no physical phone lock or speaker-audibility claim.",
+  "results": [
+    {
+      "name": "Native pause on accepted visible output is reported as interrupted immediately",
+      "status": "PASS"
+    },
+    {
+      "name": "ambient recovers one same-source OS pause at five seconds after lock",
+      "status": "PASS"
+    },
+    {
+      "name": "bin recovers one same-source OS pause at five seconds after lock",
+      "status": "PASS"
+    },
+    {
+      "name": "iso recovers one same-source OS pause at five seconds after lock",
+      "status": "PASS"
+    },
+    {
+      "name": "mono recovers one same-source OS pause at five seconds after lock",
+      "status": "PASS"
+    },
+    {
+      "name": "mix recovers one same-source OS pause at five seconds after lock",
+      "status": "PASS"
+    },
+    {
+      "name": "combined recovers one same-source OS pause at five seconds after lock",
+      "status": "PASS"
+    },
+    {
+      "name": "secondary recovers one same-source OS pause at five seconds after lock",
+      "status": "PASS"
+    },
+    {
+      "name": "Ten ambience layers and both frequencies remain intact across lock recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Recovery is bounded to one attempt for one hidden transition",
+      "status": "PASS"
+    },
+    {
+      "name": "Repeated hidden notifications cannot grant a second recovery attempt",
+      "status": "PASS"
+    },
+    {
+      "name": "Repeated hidden notifications cannot extend the original twelve-second window",
+      "status": "PASS"
+    },
+    {
+      "name": "A later OS focus pause outside the lock transition window stays interrupted",
+      "status": "PASS"
+    },
+    {
+      "name": "A pause immediately preceding the hidden edge can recover after lock",
+      "status": "PASS"
+    },
+    {
+      "name": "A stale visible pause cannot be reclassified as a fresh lock interruption",
+      "status": "PASS"
+    },
+    {
+      "name": "Explicit aggregate Pause cancels a scheduled hidden recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Global Stop cancels hidden recovery and retires the accepted source",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent ambience can recover after the foreground voice lease has finished",
+      "status": "PASS"
+    },
+    {
+      "name": "A selection revision before scheduled recovery cannot replay obsolete media",
+      "status": "PASS"
+    },
+    {
+      "name": "Pagehide cancels a scheduled native recovery and unloads the mix",
+      "status": "PASS"
+    },
+    {
+      "name": "Freeze cancels scheduled recovery without creating a background polling timer",
+      "status": "PASS"
+    },
+    {
+      "name": "Aggregate Pause protects native playback even if the adapter hold is stale",
+      "status": "PASS"
+    },
+    {
+      "name": "Explicit global Resume can restart an unchanged held source while still locked",
+      "status": "PASS"
+    },
+    {
+      "name": "Explicit Resume notification cannot override the actual aggregate Pause gate",
+      "status": "PASS"
+    },
+    {
+      "name": "Microphone preparation, permission, recording and saving each cancel lock recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "A recovery timer delivered after the lock window cannot resume media",
+      "status": "PASS"
+    },
+    {
+      "name": "Lock recovery rejection reports failure and never retries while hidden",
+      "status": "PASS"
+    },
+    {
+      "name": "Resolved native play without playing confirmation cannot claim recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Explicit Pause while recovery play is pending defeats delayed playing acceptance",
+      "status": "PASS"
+    },
+    {
+      "name": "Global Stop while recovery play is pending defeats delayed playing acceptance",
+      "status": "PASS"
+    },
+    {
+      "name": "Visible cached resume also requires actual native playback confirmation",
+      "status": "PASS"
+    },
+    {
+      "name": "Repeated prepare requests cannot duplicate a candidate awaiting native play acceptance",
+      "status": "PASS"
+    },
+    {
+      "name": "Same-value settings cannot cancel the initial native candidate awaiting play acceptance",
+      "status": "PASS"
+    },
+    {
+      "name": "Visible return resumes one unchanged interrupted source without new rendering",
+      "status": "PASS"
+    },
+    {
+      "name": "Source URL mismatch is not accepted as playing or replayed at lock",
+      "status": "PASS"
+    },
+    {
+      "name": "Hidden edge flushes selection debounce before JavaScript can freeze",
+      "status": "PASS"
+    },
+    {
+      "name": "Unfinished offline preparation never claims native ready while locked",
+      "status": "PASS"
+    },
+    {
+      "name": "A render accepted shortly after lock can recover within the original lock window",
+      "status": "PASS"
+    },
+    {
+      "name": "A render accepted after the lock window cannot create a new automatic recovery window",
+      "status": "PASS"
+    },
+    {
+      "name": "A render finishing while hidden respects explicit Pause",
+      "status": "PASS"
+    },
+    {
+      "name": "A render finishing while hidden respects global Stop",
+      "status": "PASS"
+    },
+    {
+      "name": "Muted, zero-volume, unready, ended and failed native media do not auto-replay at lock",
+      "status": "PASS"
+    },
+    {
+      "name": "Native waiting/failure events report inactive playback without a retry heartbeat",
+      "status": "PASS"
+    },
+    {
+      "name": "Retuning does not label the obsolete accepted selection as currently ready",
+      "status": "PASS"
+    },
+    {
+      "name": "Returning to accepted selection via changed survives stale render resolve",
+      "status": "PASS"
+    },
+    {
+      "name": "Returning to accepted selection via prepare survives stale render resolve",
+      "status": "PASS"
+    },
+    {
+      "name": "Returning to accepted selection via changed survives stale render reject",
+      "status": "PASS"
+    },
+    {
+      "name": "Returning to accepted selection via prepare survives stale render reject",
+      "status": "PASS"
+    },
+    {
+      "name": "A slider returning to its accepted value cancels an unallocated debounce",
+      "status": "PASS"
+    },
+    {
+      "name": "Pause after restoring accepted selection fences stale render resolve",
+      "status": "PASS"
+    },
+    {
+      "name": "Pause after restoring accepted selection fences stale render reject",
+      "status": "PASS"
+    },
+    {
+      "name": "Stop after restoring accepted selection fences stale render resolve",
+      "status": "PASS"
+    },
+    {
+      "name": "Stop after restoring accepted selection fences stale render reject",
+      "status": "PASS"
+    },
+    {
+      "name": "Missing or invalid native duration cannot produce a ready lock label",
+      "status": "PASS"
+    }
+  ]
+}

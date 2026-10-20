@@ -112,7 +112,7 @@
         b3 = .8665 * b3 + w * .3104856; b4 = .55 * b4 + w * .5329522; b5 = -.7616 * b5 - w * .016898;
         data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * .5362) * .11; b6 = w * .115926;
       }
-    } else { for (let i = 0; i < length; i++) data[i] = Math.random() * 2 - 1; }
+    } else if(type==='brown'){let last=0;for(let i=0;i<length;i++){last=(last+.02*(Math.random()*2-1))/1.02;data[i]=last*3.5;}} else { for (let i = 0; i < length; i++) data[i] = Math.random() * 2 - 1; }
     return buffer;
   }
   function makeReverb(c) {
@@ -150,7 +150,7 @@
     if (config?.secondary?.playing && finite(config.vol, .5) > 0) {
       const second = config.secondary, carrier = finite(second.c, 100), beat = clamp(finite(second.b, 2.5), .5, 40);
       if (carrier - beat / 2 < 1 || carrier + beat / 2 >= c.sampleRate / 2) throw failure('secondary-frequency-range', 'The secondary stereo carrier exceeds the offline sample rate.');
-      const merge = c.createChannelMerger(2), left = c.createOscillator(), right = c.createOscillator(), gl = gain(c, .5), gr = gain(c, .5), out = gain(c, clamp(finite(config.vol, .5), 0, 1) * .22);
+      const merge = c.createChannelMerger(2), left = c.createOscillator(), right = c.createOscillator(), gl = gain(c, .5), gr = gain(c, .5), out = gain(c, finite(config.secondaryLevel, clamp(finite(config.vol, .5), 0, 1) * .22));
       left.frequency.value = carrier - beat / 2; right.frequency.value = carrier + beat / 2;
       left.connect(gl); right.connect(gr); gl.connect(merge, 0, 0); gr.connect(merge, 0, 1); merge.connect(out); out.connect(bus); left.start(0); right.start(0);
     }
@@ -159,24 +159,31 @@
     const carrier = finite(config.c, 180), nyquist = c.sampleRate / 2;
     if (carrier - beat / 2 < 1 || carrier + beat / 2 >= nyquist) throw failure('frequency-range', 'The selected stereo carrier exceeds the offline sample rate.');
     if (!['bin', 'mono', 'iso', 'mix'].includes(mode)) throw failure('frequency-mode', 'Unknown background frequency mode.');
-    const out = gain(c, vol * .35); out.connect(bus);
-    const target = config.uzam ? spatial(c, out, finite(config.uzamHiz, 22), .85, true) : out;
-    function tone(hz, level, output = target, type = 'sine') { const o = c.createOscillator(), g = gain(c, level); o.type = type; o.frequency.value = hz; o.connect(g); g.connect(output); o.start(0); return o; }
+    const out = gain(c, finite(config.outputLevel, vol * .35)); out.connect(bus);
+    const balanced=gain(c,1);balanced.channelCount=2;balanced.channelCountMode='explicit';
+    const splitter=c.createChannelSplitter(2),merger=c.createChannelMerger(2),balL=gain(c,clamp(finite(config.balL,1),0,1)),balR=gain(c,clamp(finite(config.balR,1),0,1));
+    balanced.connect(splitter);splitter.connect(balL,0);splitter.connect(balR,1);balL.connect(merger,0,0);balR.connect(merger,0,1);merger.connect(out);
+    let filtered=balanced;
+    if(config.filterOn){const lp=filter(c,'lowpass',clamp(finite(config.lpf,2000),200,Math.min(8000,c.sampleRate*.45)),1),hp=filter(c,'highpass',clamp(finite(config.hpf,80),20,Math.min(2000,c.sampleRate*.45)),1);lp.connect(hp);hp.connect(balanced);filtered=lp;}
+    const target = config.uzam ? spatial(c, filtered, finite(config.uzamHiz, 22), .85, true) : filtered;
+    const wave=['sine','square','sawtooth','triangle'].includes(config.wave)?config.wave:'sine';
+    function tone(hz, level, output = target, type = wave) { const o = c.createOscillator(), g = gain(c, level); o.type = type; o.frequency.value = hz; o.connect(g); g.connect(output); o.start(0); return o; }
     if (mode === 'bin' || mode === 'mix') {
       const merge = c.createChannelMerger(2), gl = gain(c, .5), gr = gain(c, .5), bg = gain(c, mode === 'mix' ? .6 : 1);
-      const l = c.createOscillator(), r = c.createOscillator(); l.frequency.value = carrier - beat / 2; r.frequency.value = carrier + beat / 2;
+      const l = c.createOscillator(), r = c.createOscillator();l.type=r.type=wave; l.frequency.value = carrier - beat / 2; r.frequency.value = carrier + beat / 2;
       l.connect(gl); r.connect(gr); gl.connect(merge, 0, 0); gr.connect(merge, 0, 1); merge.connect(bg); bg.connect(target); l.start(0); r.start(0);
     } else if (mode === 'mono') { tone(carrier - beat / 2, .42); tone(carrier + beat / 2, .42); }
     if (mode === 'iso' || mode === 'mix') {
       const o = c.createOscillator(), amp = gain(c, 0), bias = c.createConstantSource(), gate = c.createOscillator(), lp = filter(c, 'lowpass', 45), depth = gain(c, .48), isoMix = gain(c, mode === 'mix' ? .5 : 1);
-      o.frequency.value = carrier; bias.offset.value = .5; gate.type = 'square'; gate.frequency.value = beat;
+      o.type=wave;o.frequency.value = carrier; bias.offset.value = .5; gate.type = 'square'; gate.frequency.value = beat;
       bias.connect(amp.gain); gate.connect(lp); lp.connect(depth); depth.connect(amp.gain); o.connect(amp); amp.connect(isoMix); isoMix.connect(target);
       o.start(0); bias.start(0); gate.start(0);
     }
     let ratios = config.harmonicRatios;
     if (!Array.isArray(ratios)) { const seri = { dogal: [2, 3, 4, 5], tek: [3, 5, 7, 9], oktav: [2, 4, 8, 16] }; ratios = (seri[config.harmSeri] || seri.dogal).slice(0, clamp(config.harmonik, 0, 4)); }
-    ratios.slice(0, 8).forEach(x => { const ratio = finite(Array.isArray(x) ? x[0] : x, 0), hz = carrier * ratio; if (ratio > 0 && hz < Math.min(18000, nyquist)) tone(hz, Array.isArray(x) ? clamp(x[1], 0, 1) : .34 / ratio); });
-    if (config.pink) { const n = c.createBufferSource(), lp = filter(c, 'lowpass', Math.min(3200, nyquist * .9)), g = gain(c, vol * .12); n.buffer = adapter?.noise?.('pink') || makeNoise(c, 'pink'); n.loop = true; n.connect(lp); lp.connect(g); g.connect(bus); n.start(0); }
+    ratios.slice(0, 8).forEach(x => { const ratio = finite(Array.isArray(x) ? x[0] : x, 0), hz = carrier * ratio; if (ratio > 0 && hz <= Math.min(18000, nyquist-100)) tone(hz, Array.isArray(x) ? clamp(x[1], 0, 1) : .34 / ratio,target,'sine'); });
+    if(['white','pink','brown'].includes(config.noise)&&config.noiseVol>0){const n=c.createBufferSource(),g=gain(c,clamp(config.noiseVol,0,1)*.25);n.buffer=adapter?.noise?.(config.noise)||makeNoise(c,config.noise);n.loop=true;n.connect(g);g.connect(target);n.start(0);}
+    if (config.pink) { const n = c.createBufferSource(), lp = filter(c, 'lowpass', Math.min(3200, nyquist * .9)), g = gain(c, finite(config.pinkLevel,vol * .12)); n.buffer = adapter?.noise?.('pink') || makeNoise(c, 'pink'); n.loop = true; n.connect(lp); lp.connect(g); g.connect(bus); n.start(0); }
   }
   function hybrid(c, output, buffer, mix, horizon) {
     if (!buffer || typeof buffer.getChannelData !== 'function' || !(buffer.duration >= 1)) throw failure('hybrid-decode-failed', 'The hybrid ambience layer requires a valid decoded audio buffer.');

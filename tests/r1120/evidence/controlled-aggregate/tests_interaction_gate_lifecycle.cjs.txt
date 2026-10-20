@@ -1,0 +1,51 @@
+{
+  "source": "/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/index.html",
+  "total": 10,
+  "passed": 10,
+  "failed": 0,
+  "scope": "Actual production input-gate source with controlled timers and event endpoints only; no audio, count, tempo, browser rendering or real user data accessed.",
+  "results": [
+    {
+      "name": "Ordinary contact keeps layout gate closed until release and quiet window",
+      "status": "PASS"
+    },
+    {
+      "name": "Combined touchend clears both contacts",
+      "status": "PASS"
+    },
+    {
+      "name": "Pagehide clears an abandoned pointer",
+      "status": "PASS"
+    },
+    {
+      "name": "Hidden visibility clears abandoned touch and pointer",
+      "status": "PASS"
+    },
+    {
+      "name": "Blur clears abandoned touch and pointer gate",
+      "status": "PASS"
+    },
+    {
+      "name": "Blur releases queued layout without needing another gesture",
+      "status": "PASS"
+    },
+    {
+      "name": "Blur releases whenIdle callback instead of polling forever",
+      "status": "PASS"
+    },
+    {
+      "name": "Uninterrupted active input continues to defer layout and whenIdle",
+      "status": "PASS"
+    },
+    {
+      "name": "A fresh touch after blur owns input until its release",
+      "status": "PASS"
+    },
+    {
+      "name": "Repeated blur cleanup releases each queued job once",
+      "status": "PASS"
+    }
+  ]
+}
+
+STDERR:

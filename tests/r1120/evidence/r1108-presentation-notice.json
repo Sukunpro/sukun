@@ -1,0 +1,2626 @@
+{
+  "suite": "r1108 startup and true-return presentation notice criteria",
+  "build": "r1108",
+  "sourceBuild": "r1120",
+  "method": "The shipped runtime executes in an independent controlled DOM/RAF fixture with explicit lifecycle stimuli and timer delivery. Forbidden getters detect any new audio, count, persistence, network or reload dependency.",
+  "browserExecuted": false,
+  "limitations": [
+    "Controlled DOM rectangles and delivered animation callbacks do not establish rendered pixels, a native accessibility tree, physical Android lock/unlock or audible sound.",
+    "Historical notice geometry suites remain separate; this suite concentrates on the causal lifecycle and missing-frame decisions."
+  ],
+  "sourceFiles": {
+    "assets/runtime/presentation-r979.js": {
+      "sha256": "2b33c219afa5fb73d701bceeb0acb43840662a72271dc02bc724c508197dd48f",
+      "bytes": 16080
+    }
+  },
+  "scriptSha256": "da6340d66b9eae6fa9ea9a6abd14820587ee70be57f48d7f6d0126e656a6a637",
+  "finishedAt": "2026-10-20T06:37:04.588Z",
+  "passed": 33,
+  "total": 33,
+  "results": [
+    {
+      "name": "Visible startup with two missing RAFs remains unverified without a return warning: {}",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "unverified",
+        "checks": 1,
+        "recoveries": 0,
+        "lastReason": "boot",
+        "lastContext": "startup",
+        "lastAt": 11720,
+        "lastProbe": {
+          "at": 11720,
+          "reason": "boot",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Visible startup with two missing RAFs remains unverified without a return warning: {\"tab\":\"amb\",\"practiceHidden\":true,\"navMissing\":true,\"classicGeometry\":true}",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "unverified",
+        "checks": 1,
+        "recoveries": 0,
+        "lastReason": "boot",
+        "lastContext": "startup",
+        "lastAt": 11720,
+        "lastProbe": {
+          "at": 11720,
+          "reason": "boot",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-amb",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 1173,
+              "height": 4820,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 1173,
+              "height": 2666.3,
+              "inViewport": false,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "hidden"
+            },
+            "nav": {
+              "connected": false,
+              "display": "",
+              "visibility": "",
+              "opacity": 0,
+              "width": 0,
+              "height": 0,
+              "inViewport": false,
+              "blocker": "missing"
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Visible startup with two missing RAFs remains unverified without a return warning: {\"liveOpening\":true,\"openingFlags\":true,\"openingFlagsHide\":true}",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "unverified",
+        "checks": 1,
+        "recoveries": 0,
+        "lastReason": "boot",
+        "lastContext": "startup",
+        "lastAt": 11720,
+        "lastProbe": {
+          "at": 11720,
+          "reason": "boot",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": false,
+          "openingActive": true,
+          "openingPresent": true,
+          "lifecycleHidden": false,
+          "bodyFlags": [
+            "r608-opening-active",
+            "r610-opening-active"
+          ],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 0,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "opacity"
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 0,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "opacity"
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 0,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "opacity"
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 0,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "opacity"
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "A loading startup with no RAF does not probe before DOMContentLoaded or claim a completed return",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "unverified",
+        "checks": 1,
+        "recoveries": 0,
+        "lastReason": "boot",
+        "lastContext": "startup",
+        "lastAt": 16720,
+        "lastProbe": {
+          "at": 16720,
+          "reason": "boot",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "loading",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Initially hidden startup is still startup on its first visible event",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "unverified",
+        "checks": 1,
+        "recoveries": 0,
+        "lastReason": "visible",
+        "lastContext": "startup",
+        "lastAt": 311720,
+        "lastProbe": {
+          "at": 311720,
+          "reason": "visible",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Startup missing only its first frame does not rebuild a healthy view",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "ready",
+        "checks": 1,
+        "recoveries": 0,
+        "lastReason": "boot",
+        "lastContext": "startup",
+        "lastAt": 10936,
+        "lastProbe": {
+          "at": 10936,
+          "reason": "boot",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": true,
+          "frameDelayMs": 16,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Startup missing only the settle frame is unverified rather than a false successful frame",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "unverified",
+        "checks": 1,
+        "recoveries": 0,
+        "lastReason": "boot",
+        "lastContext": "startup",
+        "lastAt": 10936,
+        "lastProbe": {
+          "at": 10936,
+          "reason": "boot",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "A non-persisted pageshow and focus around boot cannot invent a return",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "unverified",
+        "checks": 1,
+        "recoveries": 0,
+        "lastReason": "pageshow",
+        "lastContext": "startup",
+        "lastAt": 11720,
+        "lastProbe": {
+          "at": 11720,
+          "reason": "pageshow",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Ordinary foreground focus after healthy startup does not become a lock return",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "unverified",
+        "checks": 2,
+        "recoveries": 0,
+        "lastReason": "focus",
+        "lastContext": "foreground",
+        "lastAt": 13172,
+        "lastProbe": {
+          "at": 13172,
+          "reason": "focus",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Ordinary foreground pageshow after healthy startup does not become a lock return",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "unverified",
+        "checks": 2,
+        "recoveries": 0,
+        "lastReason": "pageshow",
+        "lastContext": "foreground",
+        "lastAt": 13172,
+        "lastProbe": {
+          "at": 13172,
+          "reason": "pageshow",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Ordinary foreground visible after healthy startup does not become a lock return",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "unverified",
+        "checks": 2,
+        "recoveries": 0,
+        "lastReason": "visible",
+        "lastContext": "foreground",
+        "lastAt": 13172,
+        "lastProbe": {
+          "at": 13172,
+          "reason": "visible",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Observed hidden → visible retains the bounded return warning when both frames are missing",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 2,
+        "recoveries": 1,
+        "lastReason": "visible",
+        "lastContext": "return",
+        "lastAt": 1811872,
+        "lastProbe": {
+          "at": 1811872,
+          "reason": "visible",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 1811872,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Observed hidden → resume retains the bounded return warning when both frames are missing",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 2,
+        "recoveries": 1,
+        "lastReason": "resume",
+        "lastContext": "return",
+        "lastAt": 1811872,
+        "lastProbe": {
+          "at": 1811872,
+          "reason": "resume",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 1811872,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Observed hidden → pageshow-persisted retains the bounded return warning when both frames are missing",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 2,
+        "recoveries": 1,
+        "lastReason": "pageshow-persisted",
+        "lastContext": "return",
+        "lastAt": 1811872,
+        "lastProbe": {
+          "at": 1811872,
+          "reason": "pageshow-persisted",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 1811872,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Browser lifecycle resume is return evidence after a visible startup even without a prior delivered hidden event",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 2,
+        "recoveries": 1,
+        "lastReason": "resume",
+        "lastContext": "return",
+        "lastAt": 11872,
+        "lastProbe": {
+          "at": 11872,
+          "reason": "resume",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 11872,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Browser lifecycle pageshow-persisted is return evidence after a visible startup even without a prior delivered hidden event",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 2,
+        "recoveries": 1,
+        "lastReason": "pageshow-persisted",
+        "lastContext": "return",
+        "lastAt": 11872,
+        "lastProbe": {
+          "at": 11872,
+          "reason": "pageshow-persisted",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 11872,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Confirmed invisible DOM at startup still repairs once and warns with startup wording",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 1,
+        "recoveries": 0,
+        "lastReason": "boot",
+        "lastContext": "startup",
+        "lastAt": 10152,
+        "lastProbe": {
+          "at": 10152,
+          "reason": "boot",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": true,
+          "frameDelayMs": 16,
+          "domSurfaceVisible": false,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "none",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "display"
+            },
+            "tab": {
+              "connected": true,
+              "display": "none",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "display"
+            },
+            "practice": {
+              "connected": true,
+              "display": "none",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "display"
+            },
+            "nav": {
+              "connected": true,
+              "display": "none",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "display"
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Confirmed invisible DOM during ordinary foreground uses neutral wording",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 2,
+        "recoveries": 0,
+        "lastReason": "focus",
+        "lastContext": "foreground",
+        "lastAt": 11604,
+        "lastProbe": {
+          "at": 11604,
+          "reason": "focus",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": true,
+          "frameDelayMs": 16,
+          "domSurfaceVisible": false,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "none",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "display"
+            },
+            "tab": {
+              "connected": true,
+              "display": "none",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "display"
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "display"
+            },
+            "nav": {
+              "connected": true,
+              "display": "none",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "display"
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Successful startup repair keeps the existing recovery behavior and does not invent a return",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "recovered",
+        "checks": 1,
+        "recoveries": 1,
+        "lastReason": "boot",
+        "lastContext": "startup",
+        "lastAt": 10152,
+        "lastProbe": {
+          "at": 10152,
+          "reason": "boot",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": true,
+          "frameDelayMs": 16,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 10152,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "A stale boot frame cannot clear the real-return context or paint a false startup result",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 1,
+        "recoveries": 1,
+        "lastReason": "visible",
+        "lastContext": "return",
+        "lastAt": 11840,
+        "lastProbe": {
+          "at": 11840,
+          "reason": "visible",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 11840,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Late DOMContentLoaded during a pending return does not replace actual return evidence",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 1,
+        "recoveries": 1,
+        "lastReason": "pageshow",
+        "lastContext": "return",
+        "lastAt": 11720,
+        "lastProbe": {
+          "at": 11720,
+          "reason": "pageshow",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "loading",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 11720,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "A late settle frame from an old return cannot overwrite a newer hidden interval",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "ready",
+        "checks": 2,
+        "recoveries": 0,
+        "lastReason": "visible",
+        "lastContext": "return",
+        "lastAt": 10440,
+        "lastProbe": {
+          "at": 10440,
+          "reason": "visible",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": true,
+          "frameDelayMs": 16,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Manual redisplay keeps its recovery attempt but uses neutral wording instead of inventing a lock return",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "ready",
+        "checks": 3,
+        "recoveries": 1,
+        "lastReason": "manual",
+        "lastContext": "manual",
+        "lastAt": 13352,
+        "lastProbe": {
+          "at": 13352,
+          "reason": "manual",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": true,
+          "frameDelayMs": 16,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 13320,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Pending manual redisplay survives a coalescing pageshow without becoming a false return",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 2,
+        "recoveries": 1,
+        "lastReason": "pageshow",
+        "lastContext": "manual",
+        "lastAt": 11872,
+        "lastProbe": {
+          "at": 11872,
+          "reason": "pageshow",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 11872,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Pending manual redisplay survives a coalescing visible without becoming a false return",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 2,
+        "recoveries": 1,
+        "lastReason": "visible",
+        "lastContext": "manual",
+        "lastAt": 11872,
+        "lastProbe": {
+          "at": 11872,
+          "reason": "visible",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 11872,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "A later focus cannot silently clear unresolved return attention without a successful frame",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "unverified",
+        "checks": 5,
+        "recoveries": 2,
+        "lastReason": "focus",
+        "lastContext": "foreground",
+        "lastAt": 16764,
+        "lastProbe": {
+          "at": 16764,
+          "reason": "focus",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 13592,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "A later focus cannot silently clear unresolved manual attention without a successful frame",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "unverified",
+        "checks": 5,
+        "recoveries": 2,
+        "lastReason": "focus",
+        "lastContext": "foreground",
+        "lastAt": 16644,
+        "lastProbe": {
+          "at": 16644,
+          "reason": "focus",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 13472,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "TR/EN notice wording keeps its causal context without running another probe: startup",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 1,
+        "recoveries": 0,
+        "lastReason": "boot",
+        "lastContext": "startup",
+        "lastAt": 10152,
+        "lastProbe": {
+          "at": 10152,
+          "reason": "boot",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": true,
+          "frameDelayMs": 16,
+          "domSurfaceVisible": false,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "none",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "display"
+            },
+            "tab": {
+              "connected": true,
+              "display": "none",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "display"
+            },
+            "practice": {
+              "connected": true,
+              "display": "none",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "display"
+            },
+            "nav": {
+              "connected": true,
+              "display": "none",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": "display"
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "TR/EN notice wording keeps its causal context without running another probe: return",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 2,
+        "recoveries": 1,
+        "lastReason": "visible",
+        "lastContext": "return",
+        "lastAt": 11872,
+        "lastProbe": {
+          "at": 11872,
+          "reason": "visible",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 11872,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "TR/EN notice wording keeps its causal context without running another probe: manual",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 2,
+        "recoveries": 1,
+        "lastReason": "manual",
+        "lastContext": "manual",
+        "lastAt": 13320,
+        "lastProbe": {
+          "at": 13320,
+          "reason": "manual",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 13320,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "Language changes after an unverified startup never create or reveal a notice",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "unverified",
+        "checks": 1,
+        "recoveries": 0,
+        "lastReason": "boot",
+        "lastContext": "startup",
+        "lastAt": 11720,
+        "lastProbe": {
+          "at": 11720,
+          "reason": "boot",
+          "hidden": false,
+          "tef": false,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": false,
+          "frameDelayMs": null,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": null,
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "User input still prevents an automatic focus reposition after return",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "attention",
+        "checks": 2,
+        "recoveries": 1,
+        "lastReason": "visible",
+        "lastContext": "return",
+        "lastAt": 10304,
+        "lastProbe": {
+          "at": 10304,
+          "reason": "visible",
+          "hidden": false,
+          "tef": true,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": true,
+          "frameDelayMs": 16,
+          "domSurfaceVisible": false,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [
+            "sukun-tefekkur-mode",
+            "r920-practice-on"
+          ],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": false,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 10304,
+          "actions": [
+            "refresh-practice"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    },
+    {
+      "name": "An untouched offscreen focus surface is still repositioned on true return",
+      "passed": true,
+      "evidence": {
+        "version": "r1108",
+        "state": "recovered",
+        "checks": 2,
+        "recoveries": 1,
+        "lastReason": "visible",
+        "lastContext": "return",
+        "lastAt": 10304,
+        "lastProbe": {
+          "at": 10304,
+          "reason": "visible",
+          "hidden": false,
+          "tef": true,
+          "selectedTab": "tab-zkr",
+          "readyState": "complete",
+          "viewportWidth": 400,
+          "viewportHeight": 800,
+          "scrollX": 0,
+          "scrollY": 0,
+          "frameObserved": true,
+          "frameDelayMs": 16,
+          "domSurfaceVisible": true,
+          "openingActive": false,
+          "openingPresent": false,
+          "lifecycleHidden": false,
+          "bodyFlags": [
+            "sukun-tefekkur-mode",
+            "r920-practice-on"
+          ],
+          "roots": {
+            "wrap": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "tab": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "practice": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            },
+            "nav": {
+              "connected": true,
+              "display": "block",
+              "visibility": "visible",
+              "opacity": 1,
+              "width": 360,
+              "height": 650,
+              "inViewport": true,
+              "blocker": null
+            }
+          }
+        },
+        "lastRepair": {
+          "at": 10304,
+          "actions": [
+            "refresh-practice",
+            "restore-focus-position"
+          ]
+        },
+        "scope": "DOM visibility and observed animation frame; not raster or physical display test"
+      }
+    }
+  ]
+}

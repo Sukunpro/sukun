@@ -1,0 +1,119 @@
+{
+  "source": "/workspace/scratch/55c51c2f8f94/sukun-r1120-frequency/assets/runtime/background-mix-r1059.js",
+  "total": 27,
+  "passed": 26,
+  "skipped": 1,
+  "failed": 0,
+  "scope": "Actual controller source with controlled native media, audible PCM fixture, context suspension and frozen JavaScript timers; not physical Android playback or speaker audibility.",
+  "results": [
+    {
+      "name": "Current release wires PCM renderer, native controller, and live-background adapter",
+      "status": "PASS"
+    },
+    {
+      "name": "Baseline main graph uses a digital-zero native anchor and has no PCM background route",
+      "status": "SKIP",
+      "reason": "Historical r1058 baseline was not supplied; current production controller cases still execute. Pass an archived baseline as argv[3] to run this historical comparison."
+    },
+    {
+      "name": "ambient native mix survives hidden +8s context suspension and 120s frozen JS",
+      "status": "PASS"
+    },
+    {
+      "name": "bin native mix survives hidden +8s context suspension and 120s frozen JS",
+      "status": "PASS"
+    },
+    {
+      "name": "iso native mix survives hidden +8s context suspension and 120s frozen JS",
+      "status": "PASS"
+    },
+    {
+      "name": "mono native mix survives hidden +8s context suspension and 120s frozen JS",
+      "status": "PASS"
+    },
+    {
+      "name": "mix native mix survives hidden +8s context suspension and 120s frozen JS",
+      "status": "PASS"
+    },
+    {
+      "name": "combined native mix survives hidden +8s context suspension and 120s frozen JS",
+      "status": "PASS"
+    },
+    {
+      "name": "secondary native mix survives hidden +8s context suspension and 120s frozen JS",
+      "status": "PASS"
+    },
+    {
+      "name": "Native mix coexists with independent voice and stopping that voice retains mix",
+      "status": "PASS"
+    },
+    {
+      "name": "Master volume zero is exact and does not restore a positive level on hide",
+      "status": "PASS"
+    },
+    {
+      "name": "Native sleep fade decreases by elapsed time, preserves zero and clears its interval on Stop",
+      "status": "PASS"
+    },
+    {
+      "name": "Explicit aggregate Pause keeps native loop paused through hide/unlock",
+      "status": "PASS"
+    },
+    {
+      "name": "Global Stop clears native source, restores live bus and retires every audible URL",
+      "status": "PASS"
+    },
+    {
+      "name": "Pause while rendering cannot admit a delayed audible native candidate",
+      "status": "PASS"
+    },
+    {
+      "name": "Stop while rendering cannot revive after delayed preparation resolves",
+      "status": "PASS"
+    },
+    {
+      "name": "Pause while native play promise is pending cancels delayed playback acceptance",
+      "status": "PASS"
+    },
+    {
+      "name": "Stop while native play promise is pending cannot restart the removed mix",
+      "status": "PASS"
+    },
+    {
+      "name": "Native play rejection leaves no audible lease and restores the live background route",
+      "status": "PASS"
+    },
+    {
+      "name": "Selection change keeps prior native output until the replacement is prepared",
+      "status": "PASS"
+    },
+    {
+      "name": "Rapid slider revisions allocate only one in-flight render and only the latest queued snapshot",
+      "status": "PASS"
+    },
+    {
+      "name": "Finishing foreground voice ownership leaves the independent background mix running",
+      "status": "PASS"
+    },
+    {
+      "name": "Global ownership cleanup cancels a delayed candidate and retires background output",
+      "status": "PASS"
+    },
+    {
+      "name": "Preparation failure drops obsolete native selection and restores current live configuration",
+      "status": "PASS"
+    },
+    {
+      "name": "Hidden and visible transitions require no replay and produce no duplicated native route",
+      "status": "PASS"
+    },
+    {
+      "name": "Same-value live setters are muted again without rendering or restarting the accepted native source",
+      "status": "PASS"
+    },
+    {
+      "name": "Only the private prime resource is classified as silence; audible mix never is",
+      "status": "PASS"
+    }
+  ]
+}

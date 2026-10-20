@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "total": 13,
+  "passed": 13,
+  "failed": 0,
+  "scenarios": [
+    {
+      "name": "Authorized idle update commits BEFORE immediately before one reload",
+      "status": "PASS"
+    },
+    {
+      "name": "No update request only takes baseline and never reloads",
+      "status": "PASS"
+    },
+    {
+      "name": "Maintenance defers boot measurement and activation until settlement",
+      "status": "PASS"
+    },
+    {
+      "name": "Queued update cancellation prevents late import completion reload",
+      "status": "PASS"
+    },
+    {
+      "name": "Maintenance starting during diagnostic prevents stale receipt and reload",
+      "status": "PASS"
+    },
+    {
+      "name": "Controller replacement during diagnostic cannot persist old target",
+      "status": "PASS"
+    },
+    {
+      "name": "Unknown controller version does not wedge an approved update",
+      "status": "PASS"
+    },
+    {
+      "name": "Failed diagnostic persists unknown totals but approved update proceeds",
+      "status": "PASS"
+    },
+    {
+      "name": "Failed local diagnostic persistence never blocks approved reload",
+      "status": "PASS"
+    },
+    {
+      "name": "Diagnostic timeout never reports zero and late response cannot reload twice",
+      "status": "PASS"
+    },
+    {
+      "name": "Authorization timeout during diagnostic prevents a late reload",
+      "status": "PASS"
+    },
+    {
+      "name": "Absent new API preserves prior safe manager behavior",
+      "status": "PASS"
+    },
+    {
+      "name": "Ordinary microphone-save scope is not silently expanded",
+      "status": "PASS"
+    }
+  ],
+  "limits": [
+    "Actual manager and diagnostic source in controlled VM; no real service worker/browser scheduling, device storage, or microphone measurement."
+  ]
+}
+
+STDERR:

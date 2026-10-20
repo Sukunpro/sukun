@@ -1,0 +1,33 @@
+{
+  "suite": "Current and historical opening WAV cache contract",
+  "passed": 4,
+  "total": 4,
+  "build": "r1120",
+  "actualIntroURL": "./assets/audio/sukun-intro-signature-r1037.wav?v=r1120",
+  "results": [
+    {
+      "request": "./assets/audio/sukun-intro-signature-r1037.wav?v=r1120",
+      "historicalVerifiedCache": false,
+      "status": 200,
+      "type": "default",
+      "networkCalls": 0
+    },
+    {
+      "request": "./assets/audio/sukun-intro-signature-r1037.wav?v=r1119",
+      "historicalVerifiedCache": false,
+      "status": 0,
+      "type": "error",
+      "networkCalls": 0
+    },
+    {
+      "request": "./assets/audio/sukun-intro-signature-r1037.wav?v=r1119",
+      "historicalVerifiedCache": true,
+      "status": 200,
+      "type": "default",
+      "networkCalls": 0
+    }
+  ],
+  "scope": "Exact SW runtimeResponse; synthetic verified CacheStorage, no real browser/network"
+}
+
+STDERR:

@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "review": "independent r1120 frequency source review",
+  "build": "r1120",
+  "reviewedAt": "2026-10-20T06:37:12.265889+00:00",
+  "status": "PASS_SOURCE_REVIEW",
+  "remainingSourceBlockers": [],
+  "sourceHashes": {
+    "index.html": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9",
+    "nero.html": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9",
+    "assets/runtime/frequency-workbench-r1120.js": "576e17ea4db1f04f9bedf44c647a5613d5425708f89e42343a771c97a499c840",
+    "assets/runtime/frequency-workbench-r1120.css": "1d3b46e9bea83f578f3c2949ec3df83c6512b67a9268660a9948c81c50510b03",
+    "assets/runtime/frequency-sets-r1120.js": "ea404ecc246402db9b32f2200a24cbf0fb1904045b5787ada833a55ac8f85aff",
+    "assets/runtime/frequency-sets-r1120.css": "36b37a5e992329f6c88df7f0e771e204c80ff9f50a7a4489311cecdfe43fa295",
+    "assets/runtime/background-mix-r1059.js": "cfeba11a4ffcc0cee59aa51968eacdbc9ec7a8982991db1b4d915b3a1eaeb029",
+    "assets/runtime/background-mix-render-r1059.js": "0c9ffc47c2aeab9182324cbde01aa66c77d5f370d73d85ed3c8c08581ebec7b4",
+    "js/frequency-hub-r1101.js": "8a0125ad70894a8fd41c2eee80b860f02dd548134e1f2ad63929907e57ccbba9"
+  },
+  "baseline": {
+    "build": "r1119",
+    "indexSha256": "27a961f7c2a7bad1245a1cac10f43b971ad95384907f5dcec8450597b4a9db72",
+    "modifiedByReviewer": false
+  },
+  "resolvedFindings": [
+    {
+      "id": "saved-set-live-retune",
+      "status": "RESOLVED_BY_SOURCE_REVIEW",
+      "finding": "Saved-set application uses frRebuild(false), preserving requested carrier/beat rather than old oscillator position.",
+      "locations": [
+        "assets/runtime/frequency-workbench-r1120.js:apply",
+        "index.html:frRebuild"
+      ]
+    },
+    {
+      "id": "paused-auxiliary-reconstruction",
+      "status": "RESOLVED_BY_SOURCE_REVIEW",
+      "finding": "pinkOn and fr2Start create missing contexts only; rebuilding auxiliaries cannot resume an existing suspended context.",
+      "locations": [
+        "index.html:pinkOn",
+        "index.html:fr2Start"
+      ]
+    },
+    {
+      "id": "sweep-rebuild-continuity",
+      "status": "RESOLVED_BY_SOURCE_REVIEW",
+      "finding": "Rebuild reschedules the remaining sweep and preserves original loop range/duration; journey ramp identity and remaining automation are retained.",
+      "locations": [
+        "index.html:frRebuild",
+        "js/frequency-hub-r1101.js:resumeSweepAfterRebuild"
+      ]
+    },
+    {
+      "id": "harmonic-scheduling-and-boundary",
+      "status": "RESOLVED_BY_SOURCE_REVIEW",
+      "finding": "Main/partial linear automation shares one timestamp and identical native ramp event types. Exact guard crossings clamp frequency and mute/restore gain; logarithmic sweeps retain matching curves. Live/offline exact-limit comparison matches.",
+      "locations": [
+        "index.html:frTuneHarmonics",
+        "index.html:frRamp",
+        "js/frequency-hub-r1101.js:scheduleSweep",
+        "assets/runtime/background-mix-render-r1059.js:frequency"
+      ]
+    },
+    {
+      "id": "filter-parity",
+      "status": "RESOLVED_BY_SOURCE_REVIEW",
+      "finding": "Restored offline LPF/HPF explicitly use Q=1, matching live filters. Waveform and channel-balance routing match by source.",
+      "locations": [
+        "index.html:frBuildGraph",
+        "assets/runtime/background-mix-render-r1059.js:frequency"
+      ]
+    },
+    {
+      "id": "gain-transition-consistency",
+      "status": "RESOLVED_BY_SOURCE_REVIEW",
+      "finding": "Legacy gain remains default; balanced is opt-in, capped at 2x before headroom reduction. Pink changes recompute headroom; timed gain changes transition before rejoining the deadline envelope.",
+      "locations": [
+        "index.html:frHeadroom",
+        "index.html:frSetGain",
+        "index.html:pinkTgl"
+      ]
+    },
+    {
+      "id": "dynamic-native-ownership",
+      "status": "RESOLVED_BY_SOURCE_REVIEW",
+      "finding": "Timer/sweep/journey frequency is kept on the live route; inactive frequency fields have a stable native-preparation key; ownership changes immediately retire incompatible native loops.",
+      "locations": [
+        "index.html:frLiveOnly",
+        "index.html:r1059-background-mix-binding",
+        "assets/runtime/background-mix-r1059.js:key",
+        "assets/runtime/background-mix-r1059.js:changed"
+      ]
+    },
+    {
+      "id": "truthful-route-status",
+      "status": "RESOLVED_BY_SOURCE_REVIEW",
+      "finding": "Status distinguishes prepared ambience from live timed/moving frequency and discloses device-dependent lock-screen support.",
+      "locations": [
+        "index.html:r1059-background-mix-binding",
+        "js/frequency-hub-r1101.js:ensureNative"
+      ]
+    }
+  ],
+  "controlledVerification": {
+    "method": "Executed shipped background-mix controller using existing controlled DOM/media fixture, without changing production.",
+    "result": "Accepted ambience-only source -> static frequency retires old native source, leaves live frequency unmuted, enters PREPARING.",
+    "physicalDeviceTest": false
+  },
+  "storageAssessment": {
+    "corruptionAndQuotaProtection": "Readable valid records remain available; malformed/newer/over-limit data disables writes. Comparison and exact write verification reject observed conflicts/failures without claiming success.",
+    "simultaneousTabLimitation": "localStorage read/compare/write/verify is optimistic, not atomic. Truly simultaneous writes in different tabs can still overwrite one another. The UI explicitly warns against editing sets in multiple tabs at once. No guaranteed atomic multi-tab claim is approved.",
+    "legacyMicrophoneStore": "New module uses sukun.frequencySets.v2 and does not read, migrate or write sukun.myfreq."
+  },
+  "nativeAcceptance": {
+    "status": "PENDING",
+    "required": "A complete successful frozen-byte native browser acceptance rerun matching the current source hashes, including the corrected native linear trajectory check. Partial runs, stale hashes, missing cases, or a source-review PASS are not release acceptance."
+  },
+  "limitations": [
+    "Source review plus one controlled controller transition check, not an independent complete native browser rerun.",
+    "No physical Android/iOS, acoustic SPL, hearing-safety or OS screen-lock acceptance.",
+    "No production edits or CUA performed by this reviewer."
+  ],
+  "releaseApprovedByThisArtifact": false,
+  "revisionReview": {
+    "previousEntrypointSha256": "19751605fa84d28f7be19334783c23e0436de4edbfdf655e2e59b414a666dddb",
+    "newEntrypointSha256": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9",
+    "changedReviewedFiles": [
+      "index.html",
+      "nero.html"
+    ],
+    "finding": "Linear harmonic automation now uses the same native linearRampToValueAtTime event form and shared timestamp as the main oscillators. Exact Nyquist-guard crossings split clamped frequency automation and partial gain; logarithmic sweeps retain matching sampled curves. No remaining source blocker identified."
+  },
+  "harmonicControlledVerification": {
+    "test": "tests/r1120/harmonic-automation-contract.cjs",
+    "testSha256": "0b294c5f7b90e115f306cc41e4364d0ff4cfbfaa567e8f157e574a1a93abeaf2",
+    "report": "tests/r1120/evidence/harmonic-automation-contract.json",
+    "reportSha256": "fa6b11e8e71c709855f50acb37f8409459297896fb278fbb10ebd3f84917ab7e",
+    "passed": 11,
+    "total": 11,
+    "linearCombinations": 432,
+    "scope": "Recording AudioParams verify event schedules across three sample rates, eight ratios, native/fallback cancellation and crossing/boundary cases. This does not render audio or establish native interpolation acceptance."
+  }
+}

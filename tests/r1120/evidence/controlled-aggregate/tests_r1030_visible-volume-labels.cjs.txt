@@ -1,0 +1,110 @@
+{
+  "total": 25,
+  "passed": 25,
+  "failed": 0,
+  "scope": "Exact production mixer HTML producer and handler, native label-for associations, actual locale text-node round trips, synthetic input dispatch. No browser visibility or audible-volume claim.",
+  "results": [
+    {
+      "name": "Entry points remain identical",
+      "passed": true
+    },
+    {
+      "name": "water: producer emits one native label directly above its original range",
+      "passed": true
+    },
+    {
+      "name": "water: channel identity, value, input bounds and accessible name remain intact",
+      "passed": true
+    },
+    {
+      "name": "water: repeated rendering keeps the same association without extra controls",
+      "passed": true
+    },
+    {
+      "name": "maqam: producer emits one native label directly above its original range",
+      "passed": true
+    },
+    {
+      "name": "maqam: channel identity, value, input bounds and accessible name remain intact",
+      "passed": true
+    },
+    {
+      "name": "maqam: repeated rendering keeps the same association without extra controls",
+      "passed": true
+    },
+    {
+      "name": "c1234567890: producer emits one native label directly above its original range",
+      "passed": true
+    },
+    {
+      "name": "c1234567890: channel identity, value, input bounds and accessible name remain intact",
+      "passed": true
+    },
+    {
+      "name": "c1234567890: repeated rendering keeps the same association without extra controls",
+      "passed": true
+    },
+    {
+      "name": "Labels have distinct associations across visible cards",
+      "passed": true
+    },
+    {
+      "name": "Mixer refresh replaces its contents, so labels cannot accumulate",
+      "passed": true
+    },
+    {
+      "name": "Labels belong to the active mixer rather than the hidden master-bar wrapper",
+      "passed": true
+    },
+    {
+      "name": "Only native labels and stable input IDs were added to the channel producer",
+      "passed": true
+    },
+    {
+      "name": "Existing mixer input handler is byte-for-byte preserved",
+      "passed": true
+    },
+    {
+      "name": "Real mixer handler still addresses the same channel and numeric value",
+      "passed": true
+    },
+    {
+      "name": "Master gain and legacy mini mirror input handlers are untouched",
+      "passed": true
+    },
+    {
+      "name": "Actual label text localizes TR to EN and returns to TR",
+      "passed": true
+    },
+    {
+      "name": "A newly generated label also translates while already in English",
+      "passed": true
+    },
+    {
+      "name": "Caption CSS keeps readable text without hiding or moving the existing range",
+      "passed": true
+    },
+    {
+      "name": "One existing dock range mirrors the active source without creating a master or progress slider",
+      "passed": true
+    },
+    {
+      "name": "Existing dock label gets a full row above range and output without a visibility override",
+      "passed": true
+    },
+    {
+      "name": "Dock Zikir sesi translates accurately without calling dhikr a master volume",
+      "passed": true
+    },
+    {
+      "name": "Dock Zikir sesi seviyesi translates accurately without calling dhikr a master volume",
+      "passed": true
+    },
+    {
+      "name": "Actual dock text node and aria attribute make a clean EN/TR round trip",
+      "passed": true
+    }
+  ]
+}
+
+STDERR:

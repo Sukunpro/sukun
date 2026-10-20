@@ -1,0 +1,2502 @@
+{
+  "suite": "r1120 targeted live/offline headroom stress",
+  "build": "r1120",
+  "startedAt": "2026-10-20T06:42:13.105Z",
+  "browserExecuted": true,
+  "sourceSha256": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9",
+  "testSha256": "9366775b33e25942059af84bf4773f7069346e9f900f6737c1a5c708c4f26f85",
+  "rendererSha256": "0c9ffc47c2aeab9182324cbde01aa66c77d5f370d73d85ed3c8c08581ebec7b4",
+  "plannedCases": 15,
+  "cases": [
+    {
+      "id": "legacy-bin-sine",
+      "settings": {
+        "mode": "bin",
+        "c": 180,
+        "b": 8,
+        "vol": 1,
+        "pink": false,
+        "harmonik": 0,
+        "harmSeri": "dogal",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "sine",
+        "balL": 1,
+        "balR": 1,
+        "noise": "off",
+        "noiseVol": 0,
+        "filterOn": false,
+        "lpf": 2000,
+        "hpf": 80,
+        "levelProfile": "legacy",
+        "secondary": {
+          "on": false,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 61,
+        "elapsedMs": 1012.2999999970198,
+        "sampleRate": 44100,
+        "limiterReduction": -0.00012332235928624868,
+        "headroom": 1,
+        "gain": 0.35,
+        "master": 1,
+        "frequency": {
+          "peak": 0.17495892941951752,
+          "rms": 0.12059578379484157,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.17495892941951752,
+              "rms": 0.12060286576503883,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.17495891451835632,
+              "rms": 0.12058870140873218,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.1749604195356369,
+          "rms": 0.12064281307599312,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.17496030032634735,
+              "rms": 0.12060390353763248,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.1749604195356369,
+              "rms": 0.12068171006935342,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.2130265086889267,
+          "rms": 0.1469734362062681,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.21302635967731476,
+              "rms": 0.14696758445182628,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.2130265086889267,
+              "rms": 0.1469792877277313,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.21307653188705444,
+        "rms": 0.1506677793253273,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 19,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": false,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 1,
+            "pink": false,
+            "harmonik": 0,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "playing": false,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [],
+            "outputLevel": 0.35,
+            "pinkLevel": 0.12,
+            "secondaryLevel": 0.22
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9754802046223683,
+      "passed": true
+    },
+    {
+      "id": "balanced-bin-sine",
+      "settings": {
+        "mode": "bin",
+        "c": 180,
+        "b": 8,
+        "vol": 1,
+        "pink": false,
+        "harmonik": 0,
+        "harmSeri": "dogal",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "sine",
+        "balL": 1,
+        "balR": 1,
+        "noise": "off",
+        "noiseVol": 0,
+        "filterOn": false,
+        "lpf": 2000,
+        "hpf": 80,
+        "levelProfile": "balanced",
+        "secondary": {
+          "on": false,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 59,
+        "elapsedMs": 1013,
+        "sampleRate": 44100,
+        "limiterReduction": -0.00012332235928624868,
+        "headroom": 1,
+        "gain": 0.7,
+        "master": 1,
+        "frequency": {
+          "peak": 0.34991785883903503,
+          "rms": 0.24041419303007186,
+          "finite": true,
+          "samples": 483328,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.34991785883903503,
+              "rms": 0.2404128546450117,
+              "finite": true,
+              "samples": 241664
+            },
+            {
+              "channel": "right",
+              "peak": 0.34991782903671265,
+              "rms": 0.24041553140768132,
+              "finite": true,
+              "samples": 241664
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.3499208390712738,
+          "rms": 0.24054431619160088,
+          "finite": true,
+          "samples": 483328,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.3499206006526947,
+              "rms": 0.24041509325114627,
+              "finite": true,
+              "samples": 241664
+            },
+            {
+              "channel": "right",
+              "peak": 0.3499208390712738,
+              "rms": 0.2406734697493938,
+              "finite": true,
+              "samples": 241664
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.4260530173778534,
+          "rms": 0.29300072897354174,
+          "finite": true,
+          "samples": 483328,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.4260527193546295,
+              "rms": 0.2930713147279529,
+              "finite": true,
+              "samples": 241664
+            },
+            {
+              "channel": "right",
+              "peak": 0.4260530173778534,
+              "rms": 0.2929301262104717,
+              "finite": true,
+              "samples": 241664
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.4261530637741089,
+        "rms": 0.3013355586506546,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 19,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": false,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 1,
+            "pink": false,
+            "harmonik": 0,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "playing": false,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [],
+            "outputLevel": 0.7,
+            "pinkLevel": 0.12,
+            "secondaryLevel": 0.22
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9723403712643962,
+      "passed": true
+    },
+    {
+      "id": "stack-bin-square",
+      "settings": {
+        "mode": "bin",
+        "c": 180,
+        "b": 8,
+        "vol": 1,
+        "pink": true,
+        "harmonik": 4,
+        "harmSeri": "dogal",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "square",
+        "balL": 1,
+        "balR": 1,
+        "noise": "white",
+        "noiseVol": 1,
+        "filterOn": false,
+        "lpf": 2000,
+        "hpf": 80,
+        "levelProfile": "balanced",
+        "secondary": {
+          "on": true,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 61,
+        "elapsedMs": 1015.1000000014901,
+        "sampleRate": 44100,
+        "limiterReduction": -0.00012332235928624868,
+        "headroom": 0.6864399508051368,
+        "gain": 0.4805079655635957,
+        "master": 1,
+        "frequency": {
+          "peak": 0.5184943079948425,
+          "rms": 0.22310118561420145,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.5152410864830017,
+              "rms": 0.22327604208150656,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.5184943079948425,
+              "rms": 0.22292619199488883,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.6464502811431885,
+          "rms": 0.2293597648302079,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.6201095581054688,
+              "rms": 0.22964687908508047,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.6464502811431885,
+              "rms": 0.22907229071282054,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.7870982885360718,
+          "rms": 0.27935257395356816,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.755026638507843,
+              "rms": 0.28002756200734047,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.7870982885360718,
+              "rms": 0.27867595099899206,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.8364781737327576,
+        "rms": 0.2861353859097459,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 38,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": true,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 180,
+            "b": 8,
+            "mode": "bin",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "square",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "playing": true,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "outputLevel": 0.4805079655635957,
+            "pinkLevel": 0.08237279409661641,
+            "secondaryLevel": 0.1510167891771301
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9762950956428814,
+      "passed": true
+    },
+    {
+      "id": "stack-mono-square",
+      "settings": {
+        "mode": "mono",
+        "c": 180,
+        "b": 8,
+        "vol": 1,
+        "pink": true,
+        "harmonik": 4,
+        "harmSeri": "dogal",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "square",
+        "balL": 1,
+        "balR": 1,
+        "noise": "white",
+        "noiseVol": 1,
+        "filterOn": false,
+        "lpf": 2000,
+        "hpf": 80,
+        "levelProfile": "balanced",
+        "secondary": {
+          "on": true,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 61,
+        "elapsedMs": 1016.1999999992549,
+        "sampleRate": 44100,
+        "limiterReduction": -0.00012332235928624868,
+        "headroom": 0.5424341733529213,
+        "gain": 0.3797039213470449,
+        "master": 1,
+        "frequency": {
+          "peak": 0.5204617381095886,
+          "rms": 0.20297149759151548,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.5204617381095886,
+              "rms": 0.20297149759151548,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.5204617381095886,
+              "rms": 0.20297149759151548,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.6104702353477478,
+          "rms": 0.20754253542652498,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.5977011919021606,
+              "rms": 0.20744573253798904,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.6104702353477478,
+              "rms": 0.20763929318488317,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.7432900667190552,
+          "rms": 0.2533169405047201,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.7277428507804871,
+              "rms": 0.25328608153105375,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.7432900667190552,
+              "rms": 0.25334779571961585,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.7537912726402283,
+        "rms": 0.2585206093689385,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 36,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": true,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 180,
+            "b": 8,
+            "mode": "mono",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "square",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "playing": true,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "outputLevel": 0.3797039213470449,
+            "pinkLevel": 0.06509210080235056,
+            "secondaryLevel": 0.11933551813764269
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9798713577346084,
+      "passed": true
+    },
+    {
+      "id": "stack-iso-square",
+      "settings": {
+        "mode": "iso",
+        "c": 180,
+        "b": 8,
+        "vol": 1,
+        "pink": true,
+        "harmonik": 4,
+        "harmSeri": "dogal",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "square",
+        "balL": 1,
+        "balR": 1,
+        "noise": "white",
+        "noiseVol": 1,
+        "filterOn": false,
+        "lpf": 2000,
+        "hpf": 80,
+        "levelProfile": "balanced",
+        "secondary": {
+          "on": true,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 57,
+        "elapsedMs": 1018.2000000029802,
+        "sampleRate": 44100,
+        "limiterReduction": -0.00012332235928624868,
+        "headroom": 0.48021129296890636,
+        "gain": 0.33614790507823444,
+        "master": 1,
+        "frequency": {
+          "peak": 0.516196608543396,
+          "rms": 0.19840638058397944,
+          "finite": true,
+          "samples": 466944,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.516196608543396,
+              "rms": 0.19840638058397944,
+              "finite": true,
+              "samples": 233472
+            },
+            {
+              "channel": "right",
+              "peak": 0.516196608543396,
+              "rms": 0.19840638058397944,
+              "finite": true,
+              "samples": 233472
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.5776931643486023,
+          "rms": 0.2017521876644431,
+          "finite": true,
+          "samples": 466944,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.5720690488815308,
+              "rms": 0.20171601690286076,
+              "finite": true,
+              "samples": 233472
+            },
+            {
+              "channel": "right",
+              "peak": 0.5776931643486023,
+              "rms": 0.2017883519423808,
+              "finite": true,
+              "samples": 233472
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.7033817172050476,
+          "rms": 0.24439562912977666,
+          "finite": true,
+          "samples": 466944,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.6965339183807373,
+              "rms": 0.24433896944399044,
+              "finite": true,
+              "samples": 233472
+            },
+            {
+              "channel": "right",
+              "peak": 0.7033817172050476,
+              "rms": 0.2444522756828567,
+              "finite": true,
+              "samples": 233472
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.7447313666343689,
+        "rms": 0.2548679101991845,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 39,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": true,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 180,
+            "b": 8,
+            "mode": "iso",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "square",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "playing": true,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "outputLevel": 0.33614790507823444,
+            "pinkLevel": 0.05762535515626876,
+            "secondaryLevel": 0.1056464844531594
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9589109470030044,
+      "passed": true
+    },
+    {
+      "id": "stack-mix-square",
+      "settings": {
+        "mode": "mix",
+        "c": 180,
+        "b": 8,
+        "vol": 1,
+        "pink": true,
+        "harmonik": 4,
+        "harmSeri": "dogal",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "square",
+        "balL": 1,
+        "balR": 1,
+        "noise": "white",
+        "noiseVol": 1,
+        "filterOn": false,
+        "lpf": 2000,
+        "hpf": 80,
+        "levelProfile": "balanced",
+        "secondary": {
+          "on": true,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 61,
+        "elapsedMs": 1015.8000000007451,
+        "sampleRate": 44100,
+        "limiterReduction": -0.00012332235928624868,
+        "headroom": 0.5475014543007379,
+        "gain": 0.38325101801051653,
+        "master": 1,
+        "frequency": {
+          "peak": 0.5104008913040161,
+          "rms": 0.16476484073811146,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.5094990730285645,
+              "rms": 0.16482081818420413,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.5104008913040161,
+              "rms": 0.16470884426769558,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.5893877148628235,
+          "rms": 0.17015842347600416,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.5893877148628235,
+              "rms": 0.17005062595057227,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.5820236206054688,
+              "rms": 0.17026615275355486,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.7176206111907959,
+          "rms": 0.20740059816147163,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.7176206111907959,
+              "rms": 0.2074642095649175,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.7086543440818787,
+              "rms": 0.20733696724191863,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.769692063331604,
+        "rms": 0.21550665701387164,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 45,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": true,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 180,
+            "b": 8,
+            "mode": "mix",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "square",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "playing": true,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "outputLevel": 0.38325101801051653,
+            "pinkLevel": 0.06570017451608855,
+            "secondaryLevel": 0.12045031994616234
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9623860396485189,
+      "passed": true
+    },
+    {
+      "id": "stack-iso-sawtooth",
+      "settings": {
+        "mode": "iso",
+        "c": 180,
+        "b": 8,
+        "vol": 1,
+        "pink": true,
+        "harmonik": 4,
+        "harmSeri": "dogal",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "sawtooth",
+        "balL": 1,
+        "balR": 1,
+        "noise": "white",
+        "noiseVol": 1,
+        "filterOn": false,
+        "lpf": 2000,
+        "hpf": 80,
+        "levelProfile": "balanced",
+        "secondary": {
+          "on": true,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 61,
+        "elapsedMs": 1009.1999999992549,
+        "sampleRate": 44100,
+        "limiterReduction": -0.00012332235928624868,
+        "headroom": 0.48021129296890636,
+        "gain": 0.33614790507823444,
+        "master": 1,
+        "frequency": {
+          "peak": 0.4168125092983246,
+          "rms": 0.11868434176150278,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.4168125092983246,
+              "rms": 0.11868434176150278,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.4168125092983246,
+              "rms": 0.11868434176150278,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.5128140449523926,
+          "rms": 0.12414226930201111,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.48608270287513733,
+              "rms": 0.12407046062378466,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.5128140449523926,
+              "rms": 0.12421403646733328,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.6243868470191956,
+          "rms": 0.15069237291185295,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.5918395519256592,
+              "rms": 0.15059961174863992,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.6243868470191956,
+              "rms": 0.15078507700952645,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.6219725608825684,
+        "rms": 0.1560648485229198,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 39,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": true,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 180,
+            "b": 8,
+            "mode": "iso",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sawtooth",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "playing": true,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "outputLevel": 0.33614790507823444,
+            "pinkLevel": 0.05762535515626876,
+            "secondaryLevel": 0.1056464844531594
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9655753639470079,
+      "passed": true
+    },
+    {
+      "id": "stack-iso-triangle",
+      "settings": {
+        "mode": "iso",
+        "c": 180,
+        "b": 8,
+        "vol": 1,
+        "pink": true,
+        "harmonik": 4,
+        "harmSeri": "dogal",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "triangle",
+        "balL": 1,
+        "balR": 1,
+        "noise": "white",
+        "noiseVol": 1,
+        "filterOn": false,
+        "lpf": 2000,
+        "hpf": 80,
+        "levelProfile": "balanced",
+        "secondary": {
+          "on": true,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 61,
+        "elapsedMs": 1012.1999999992549,
+        "sampleRate": 44100,
+        "limiterReduction": -0.00012332235928624868,
+        "headroom": 0.48021129296890636,
+        "gain": 0.33614790507823444,
+        "master": 1,
+        "frequency": {
+          "peak": 0.4185243248939514,
+          "rms": 0.1415047813590523,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.4185243248939514,
+              "rms": 0.1415047813590523,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.4185243248939514,
+              "rms": 0.1415047813590523,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.4933444857597351,
+          "rms": 0.14626095234234127,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.4933444857597351,
+              "rms": 0.14627584108094976,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.49310705065727234,
+              "rms": 0.14624606208796864,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.6006813049316406,
+          "rms": 0.17759146205813955,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.6006813049316406,
+              "rms": 0.17750670423200335,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.60039222240448,
+              "rms": 0.17767617945179748,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.6084925532341003,
+        "rms": 0.18088185928721878,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 39,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": true,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 180,
+            "b": 8,
+            "mode": "iso",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "triangle",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "playing": true,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "outputLevel": 0.33614790507823444,
+            "pinkLevel": 0.05762535515626876,
+            "secondaryLevel": 0.1056464844531594
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9818091364051358,
+      "passed": true
+    },
+    {
+      "id": "octave-high-frequency",
+      "settings": {
+        "mode": "bin",
+        "c": 1100,
+        "b": 8,
+        "vol": 1,
+        "pink": true,
+        "harmonik": 4,
+        "harmSeri": "oktav",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "sine",
+        "balL": 1,
+        "balR": 1,
+        "noise": "white",
+        "noiseVol": 1,
+        "filterOn": false,
+        "lpf": 2000,
+        "hpf": 80,
+        "levelProfile": "balanced",
+        "secondary": {
+          "on": true,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 61,
+        "elapsedMs": 1015,
+        "sampleRate": 44100,
+        "limiterReduction": -0.00012332235928624868,
+        "headroom": 0.817891373801917,
+        "gain": 0.5725239616613419,
+        "master": 1,
+        "frequency": {
+          "peak": 0.5472573041915894,
+          "rms": 0.2268119319297483,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.5472573041915894,
+              "rms": 0.2264177248038867,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.5444613099098206,
+              "rms": 0.22720545509745357,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.7028382420539856,
+          "rms": 0.23539807837648302,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.6896765232086182,
+              "rms": 0.23507510456872988,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.7028382420539856,
+              "rms": 0.23572060966042485,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.855754554271698,
+          "rms": 0.286723305972625,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.8397292494773865,
+              "rms": 0.2862619660108261,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.855754554271698,
+              "rms": 0.2871839048264365,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.8694409728050232,
+        "rms": 0.2940490851104328,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 38,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": true,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 1100,
+            "b": 8,
+            "mode": "bin",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "oktav",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "balanced",
+            "secondary": {
+              "playing": true,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [
+              2,
+              4,
+              8,
+              16
+            ],
+            "outputLevel": 0.5725239616613419,
+            "pinkLevel": 0.09814696485623003,
+            "secondaryLevel": 0.17993610223642173
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9750865433400123,
+      "passed": true
+    },
+    {
+      "id": "lp-resonant-sine",
+      "settings": {
+        "mode": "iso",
+        "c": 141.421356,
+        "b": 8,
+        "vol": 1,
+        "pink": false,
+        "harmonik": 0,
+        "harmSeri": "dogal",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "sine",
+        "balL": 1,
+        "balR": 1,
+        "noise": "off",
+        "noiseVol": 0,
+        "filterOn": true,
+        "lpf": 200,
+        "hpf": 20,
+        "levelProfile": "balanced",
+        "secondary": {
+          "on": false,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 60,
+        "elapsedMs": 1000.8000000007451,
+        "sampleRate": 44100,
+        "limiterReduction": -1.9914124011993408,
+        "headroom": 1,
+        "gain": 0.7,
+        "master": 1,
+        "frequency": {
+          "peak": 0.9353523850440979,
+          "rms": 0.38965330020398004,
+          "finite": true,
+          "samples": 491520,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.9353523850440979,
+              "rms": 0.3897325158467167,
+              "finite": true,
+              "samples": 245760
+            },
+            {
+              "channel": "right",
+              "peak": 0.9353523850440979,
+              "rms": 0.3895740684536057,
+              "finite": true,
+              "samples": 245760
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.935375988483429,
+          "rms": 0.3896373431614211,
+          "finite": true,
+          "samples": 491520,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.935375988483429,
+              "rms": 0.3896297344399111,
+              "finite": true,
+              "samples": 245760
+            },
+            {
+              "channel": "right",
+              "peak": 0.935375988483429,
+              "rms": 0.38964495173435326,
+              "finite": true,
+              "samples": 245760
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.9144600033760071,
+          "rms": 0.40688236949537243,
+          "finite": true,
+          "samples": 491520,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.9144600033760071,
+              "rms": 0.4068831312252874,
+              "finite": true,
+              "samples": 245760
+            },
+            {
+              "channel": "right",
+              "peak": 0.9144600033760071,
+              "rms": 0.4068816077640314,
+              "finite": true,
+              "samples": 245760
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.9131608605384827,
+        "rms": 0.41970196623040446,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 22,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": false,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 141.421356,
+            "b": 8,
+            "mode": "iso",
+            "vol": 1,
+            "pink": false,
+            "harmonik": 0,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "off",
+            "noiseVol": 0,
+            "filterOn": true,
+            "lpf": 200,
+            "hpf": 20,
+            "levelProfile": "balanced",
+            "secondary": {
+              "playing": false,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [],
+            "outputLevel": 0.7,
+            "pinkLevel": 0.12,
+            "secondaryLevel": 0.22
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9694554761080284,
+      "passed": true
+    },
+    {
+      "id": "lp-resonant-stack",
+      "settings": {
+        "mode": "mono",
+        "c": 141.421356,
+        "b": 8,
+        "vol": 1,
+        "pink": true,
+        "harmonik": 4,
+        "harmSeri": "dogal",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "square",
+        "balL": 1,
+        "balR": 1,
+        "noise": "white",
+        "noiseVol": 1,
+        "filterOn": true,
+        "lpf": 200,
+        "hpf": 20,
+        "levelProfile": "balanced",
+        "secondary": {
+          "on": true,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 61,
+        "elapsedMs": 1016.3000000007451,
+        "sampleRate": 44100,
+        "limiterReduction": -0.00012332235928624868,
+        "headroom": 0.5424341733529213,
+        "gain": 0.3797039213470449,
+        "master": 1,
+        "frequency": {
+          "peak": 0.4522530734539032,
+          "rms": 0.21592098404403215,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.4522530734539032,
+              "rms": 0.21592098404403215,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.4522530734539032,
+              "rms": 0.21592098404403215,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.5226988792419434,
+          "rms": 0.2206878073077643,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.5199946165084839,
+              "rms": 0.22076505245957884,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.5226988792419434,
+              "rms": 0.22061053510913117,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.636422336101532,
+          "rms": 0.2685135970850338,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.6331297159194946,
+              "rms": 0.268462194737055,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.636422336101532,
+              "rms": 0.268564989594793,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.659207284450531,
+        "rms": 0.27212692823727846,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 38,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": true,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 141.421356,
+            "b": 8,
+            "mode": "mono",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "square",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": true,
+            "lpf": 200,
+            "hpf": 20,
+            "levelProfile": "balanced",
+            "secondary": {
+              "playing": true,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "outputLevel": 0.3797039213470449,
+            "pinkLevel": 0.06509210080235056,
+            "secondaryLevel": 0.11933551813764269
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9867218904955483,
+      "passed": true
+    },
+    {
+      "id": "hp-resonant-stack",
+      "settings": {
+        "mode": "iso",
+        "c": 2828.42712,
+        "b": 8,
+        "vol": 1,
+        "pink": true,
+        "harmonik": 4,
+        "harmSeri": "dogal",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "square",
+        "balL": 1,
+        "balR": 1,
+        "noise": "white",
+        "noiseVol": 1,
+        "filterOn": true,
+        "lpf": 8000,
+        "hpf": 2000,
+        "levelProfile": "balanced",
+        "secondary": {
+          "on": true,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 61,
+        "elapsedMs": 1009.1000000014901,
+        "sampleRate": 44100,
+        "limiterReduction": -1.6137807369232178,
+        "headroom": 0.48021129296890636,
+        "gain": 0.33614790507823444,
+        "master": 1,
+        "frequency": {
+          "peak": 0.8944542407989502,
+          "rms": 0.23624946381711284,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.8944542407989502,
+              "rms": 0.23622514908136646,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.8944542407989502,
+              "rms": 0.23627377605065022,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.9119998812675476,
+          "rms": 0.24093066670822105,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.8970720171928406,
+              "rms": 0.24086889444819004,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.9119998812675476,
+              "rms": 0.24099242313450955,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.9245572090148926,
+          "rms": 0.25982600271770506,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.9081506133079529,
+              "rms": 0.2598142784176412,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.9245572090148926,
+              "rms": 0.2598377264887495,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.930544376373291,
+        "rms": 0.26849546988404166,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 41,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": true,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 2828.42712,
+            "b": 8,
+            "mode": "iso",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "square",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": true,
+            "lpf": 8000,
+            "hpf": 2000,
+            "levelProfile": "balanced",
+            "secondary": {
+              "playing": true,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "outputLevel": 0.33614790507823444,
+            "pinkLevel": 0.05762535515626876,
+            "secondaryLevel": 0.1056464844531594
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9677109369104783,
+      "passed": true
+    },
+    {
+      "id": "narrow-band-stack",
+      "settings": {
+        "mode": "mix",
+        "c": 1900,
+        "b": 8,
+        "vol": 1,
+        "pink": true,
+        "harmonik": 4,
+        "harmSeri": "dogal",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "sawtooth",
+        "balL": 1,
+        "balR": 1,
+        "noise": "white",
+        "noiseVol": 1,
+        "filterOn": true,
+        "lpf": 2000,
+        "hpf": 1800,
+        "levelProfile": "balanced",
+        "secondary": {
+          "on": true,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 61,
+        "elapsedMs": 1010,
+        "sampleRate": 44100,
+        "limiterReduction": -0.00012332235928624868,
+        "headroom": 0.5475014543007379,
+        "gain": 0.38325101801051653,
+        "master": 1,
+        "frequency": {
+          "peak": 0.2882543206214905,
+          "rms": 0.09081278199586612,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.2864059805870056,
+              "rms": 0.09087301756091208,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.2882543206214905,
+              "rms": 0.09075250645040928,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.3438040614128113,
+          "rms": 0.1004982729875795,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.3438040614128113,
+              "rms": 0.10047023806362027,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.342006117105484,
+              "rms": 0.10052630009311778,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.41860541701316833,
+          "rms": 0.12203872949705137,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.41860541701316833,
+              "rms": 0.12206788408070024,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.4164162874221802,
+              "rms": 0.12200956794681997,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.4476276636123657,
+        "rms": 0.12473186813497351,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 47,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": true,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 1900,
+            "b": 8,
+            "mode": "mix",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sawtooth",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": true,
+            "lpf": 2000,
+            "hpf": 1800,
+            "levelProfile": "balanced",
+            "secondary": {
+              "playing": true,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "outputLevel": 0.38325101801051653,
+            "pinkLevel": 0.06570017451608855,
+            "secondaryLevel": 0.12045031994616234
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9784085761065658,
+      "passed": true
+    },
+    {
+      "id": "upper-lp-resonance",
+      "settings": {
+        "mode": "iso",
+        "c": 5656.8542,
+        "b": 8,
+        "vol": 1,
+        "pink": true,
+        "harmonik": 4,
+        "harmSeri": "dogal",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "sine",
+        "balL": 1,
+        "balR": 1,
+        "noise": "white",
+        "noiseVol": 1,
+        "filterOn": true,
+        "lpf": 8000,
+        "hpf": 20,
+        "levelProfile": "balanced",
+        "secondary": {
+          "on": true,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 61,
+        "elapsedMs": 1014.1000000014901,
+        "sampleRate": 44100,
+        "limiterReduction": -0.00012332235928624868,
+        "headroom": 0.5534672416576344,
+        "gain": 0.38742706916034403,
+        "master": 1,
+        "frequency": {
+          "peak": 0.6349051594734192,
+          "rms": 0.22131850757682722,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.6349051594734192,
+              "rms": 0.22131850757682722,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.6349051594734192,
+              "rms": 0.22131850757682722,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.6982576251029968,
+          "rms": 0.22763812609552123,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.6933335065841675,
+              "rms": 0.2275833267620586,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.6982576251029968,
+              "rms": 0.22769291224031304,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.8501773476600647,
+          "rms": 0.27834319123855134,
+          "finite": true,
+          "samples": 499712,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.8441818952560425,
+              "rms": 0.27818535974765146,
+              "finite": true,
+              "samples": 249856
+            },
+            {
+              "channel": "right",
+              "peak": 0.8501773476600647,
+              "rms": 0.2785009332835193,
+              "finite": true,
+              "samples": 249856
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.8647043108940125,
+        "rms": 0.279426741774204,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 37,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": true,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 5656.8542,
+            "b": 8,
+            "mode": "iso",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "sine",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": true,
+            "lpf": 8000,
+            "hpf": 20,
+            "levelProfile": "balanced",
+            "secondary": {
+              "playing": true,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "outputLevel": 0.38742706916034403,
+            "pinkLevel": 0.06641606899891613,
+            "secondaryLevel": 0.12176279316467957
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9961222375182391,
+      "passed": true
+    },
+    {
+      "id": "legacy-iso-stack",
+      "settings": {
+        "mode": "iso",
+        "c": 180,
+        "b": 8,
+        "vol": 1,
+        "pink": true,
+        "harmonik": 4,
+        "harmSeri": "dogal",
+        "uzam": false,
+        "uzamHiz": 22,
+        "wave": "square",
+        "balL": 1,
+        "balR": 1,
+        "noise": "white",
+        "noiseVol": 1,
+        "filterOn": false,
+        "lpf": 2000,
+        "hpf": 80,
+        "levelProfile": "legacy",
+        "secondary": {
+          "on": true,
+          "c": 100,
+          "b": 2.5
+        }
+      },
+      "live": {
+        "frames": 60,
+        "elapsedMs": 1013.1999999992549,
+        "sampleRate": 44100,
+        "limiterReduction": -0.00012332235928624868,
+        "headroom": 1,
+        "gain": 0.35,
+        "master": 1,
+        "frequency": {
+          "peak": 0.5374702215194702,
+          "rms": 0.2076055032615683,
+          "finite": true,
+          "samples": 491520,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.5374702215194702,
+              "rms": 0.2076055032615683,
+              "finite": true,
+              "samples": 245760
+            },
+            {
+              "channel": "right",
+              "peak": 0.5374702215194702,
+              "rms": 0.2076055032615683,
+              "finite": true,
+              "samples": 245760
+            }
+          ]
+        },
+        "preLimiter": {
+          "peak": 0.6637599468231201,
+          "rms": 0.22156363077210417,
+          "finite": true,
+          "samples": 491520,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.6557640433311462,
+              "rms": 0.2215189625723389,
+              "finite": true,
+              "samples": 245760
+            },
+            {
+              "channel": "right",
+              "peak": 0.6637599468231201,
+              "rms": 0.22160828996837936,
+              "finite": true,
+              "samples": 245760
+            }
+          ]
+        },
+        "postLimiter": {
+          "peak": 0.8081740140914917,
+          "rms": 0.2716366086688393,
+          "finite": true,
+          "samples": 491520,
+          "channels": [
+            {
+              "channel": "left",
+              "peak": 0.7984384298324585,
+              "rms": 0.27167550481528624,
+              "finite": true,
+              "samples": 245760
+            },
+            {
+              "channel": "right",
+              "peak": 0.8081740140914917,
+              "rms": 0.2715977069519839,
+              "finite": true,
+              "samples": 245760
+            }
+          ]
+        }
+      },
+      "offline": {
+        "duration": 48,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.8540962934494019,
+        "rms": 0.27860179174285543,
+        "scaledBy": 1,
+        "bytes": 8467244,
+        "nodes": 39,
+        "virtualEvents": 0,
+        "frequency": true,
+        "secondary": true,
+        "snapshot": {
+          "ambiences": [],
+          "frequency": {
+            "c": 180,
+            "b": 8,
+            "mode": "iso",
+            "vol": 1,
+            "pink": true,
+            "harmonik": 4,
+            "harmSeri": "dogal",
+            "uzam": false,
+            "uzamHiz": 22,
+            "wave": "square",
+            "balL": 1,
+            "balR": 1,
+            "noise": "white",
+            "noiseVol": 1,
+            "filterOn": false,
+            "lpf": 2000,
+            "hpf": 80,
+            "levelProfile": "legacy",
+            "secondary": {
+              "playing": true,
+              "c": 100,
+              "b": 2.5
+            },
+            "playing": true,
+            "harmonicRatios": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "outputLevel": 0.35,
+            "pinkLevel": 0.12,
+            "secondaryLevel": 0.22
+          },
+          "eq": {
+            "bas": 0,
+            "orta": 0,
+            "tiz": 0,
+            "komp": false
+          },
+          "spatial": false,
+          "sampleRate": 44100
+        }
+      },
+      "liveFrequencyBusBelowFullScale": true,
+      "liveOfflineRmsRatio": 0.9749995036627588,
+      "passed": true
+    }
+  ],
+  "checks": [
+    {
+      "name": "Measured simple balanced profile preserves the 2× target bound",
+      "passed": true,
+      "evidence": {
+        "gainRatio": 2,
+        "rmsRatio": 1.993553882771443
+      }
+    },
+    {
+      "name": "Exact source and served resource provenance",
+      "passed": true,
+      "evidence": {
+        "servedFiles": 129,
+        "pageErrors": [],
+        "failedRequests": []
+      }
+    }
+  ],
+  "limitations": [
+    "Native Linux Chromium AudioContext and shipped OfflineAudioContext renderer. Synthetic full-scale settings and unity master; no user recordings, microphone, physical speakers/headphones, audible listening, SPL, clinical or hearing-safety measurement.",
+    "Live measurements intentionally deny only background HTMLMediaElement admission with NotAllowedError to keep the fallback graph measurable. Offline render runs the exact shipped renderer with the same captured gain settings and a minimal synchronous context adapter; it includes the shipped limiter, warmup, seam and 0.95 peak normalization.",
+    "Live left/right sample peaks/RMS use independent channel-split analyser taps for a 1-second sampled observation after settling, not an exhaustive phase search or inter-sample true-peak measurement. Offline metrics cover a 48-second stereo loop. Noise is native randomly generated, so live/offline RMS are not bitwise comparators.",
+    "Frequency bus peak is reported separately from combined protected output. Passing the limiter ceiling does not prove every upstream bus is below full scale or establish safe device volume. Filter cases deliberately probe native Q response; live/offline filter parity is reported, not assumed."
+  ],
+  "browser": "154.0.8037.57",
+  "total": 17,
+  "passed": 17,
+  "allPassed": true,
+  "finishedAt": "2026-10-20T06:44:12.311Z"
+}

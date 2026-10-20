@@ -1,0 +1,229 @@
+{
+  "build": "r1120",
+  "startedAt": "2026-10-20T06:37:30.496Z",
+  "checks": [
+    {
+      "name": "Pending mode start is cancelled permanently by global Stop",
+      "passed": true,
+      "evidence": {
+        "queued": {
+          "pending": true,
+          "playing": false,
+          "mode": "iso"
+        },
+        "after": {
+          "playing": false,
+          "mode": "iso",
+          "pending": false,
+          "held": false,
+          "miniPaused": false,
+          "registryPaused": false,
+          "context": "running",
+          "time": 14.042267573696146,
+          "carrier": 180,
+          "beat": 7.83,
+          "ramp": null,
+          "journey": null,
+          "left": 176.0850067138672,
+          "right": 183.9149932861328
+        }
+      }
+    },
+    {
+      "name": "Global Pause captures the 320 ms mode restart and explicit Resume starts the selected mode",
+      "passed": true,
+      "evidence": {
+        "queued": {
+          "pending": true,
+          "playing": false,
+          "mode": "iso"
+        },
+        "paused": {
+          "playing": false,
+          "mode": "iso",
+          "pending": false,
+          "held": true,
+          "miniPaused": true,
+          "registryPaused": true,
+          "context": "suspended",
+          "time": 16.61097505668934,
+          "carrier": 180,
+          "beat": 7.83,
+          "ramp": null,
+          "journey": null,
+          "left": 176.0850067138672,
+          "right": 183.9149932861328
+        },
+        "resumed": {
+          "playing": true,
+          "mode": "iso",
+          "pending": false,
+          "held": false,
+          "miniPaused": false,
+          "registryPaused": false,
+          "context": "running",
+          "time": 17.452698412698414,
+          "carrier": 180,
+          "beat": 7.83,
+          "ramp": null,
+          "journey": null
+        }
+      }
+    },
+    {
+      "name": "Stop after pending Pause revokes the right to resume",
+      "passed": true,
+      "evidence": {
+        "playing": false,
+        "mode": "iso",
+        "pending": false,
+        "held": false,
+        "miniPaused": false,
+        "registryPaused": false,
+        "context": "suspended",
+        "time": 21.501678004535147,
+        "carrier": 180,
+        "beat": 7.83,
+        "ramp": null,
+        "journey": null,
+        "left": 176.0850067138672,
+        "right": 183.9149932861328
+      }
+    },
+    {
+      "name": "An idle mode selection creates no playback or resume intent",
+      "passed": true,
+      "evidence": {
+        "playing": false,
+        "mode": "iso",
+        "pending": false,
+        "held": false,
+        "miniPaused": false,
+        "registryPaused": false,
+        "context": "running",
+        "time": 23.28090702947846,
+        "carrier": 180,
+        "beat": 7.83,
+        "ramp": null,
+        "journey": null,
+        "left": 176.0850067138672,
+        "right": 183.9149932861328
+      }
+    },
+    {
+      "name": "A new library set retires a prior journey ramp and remains at its selected carrier",
+      "passed": true,
+      "evidence": {
+        "playing": true,
+        "mode": "bin",
+        "pending": false,
+        "held": false,
+        "miniPaused": false,
+        "registryPaused": false,
+        "context": "running",
+        "time": 27.76235827664399,
+        "carrier": 528,
+        "beat": 8,
+        "ramp": null,
+        "journey": null,
+        "left": 524,
+        "right": 532
+      }
+    },
+    {
+      "name": "A paused native frequency journey retains its stage and resumes from its held position",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "playing": true,
+          "mode": "bin",
+          "pending": false,
+          "held": false,
+          "miniPaused": true,
+          "registryPaused": true,
+          "context": "suspended",
+          "time": 31.550113378684806,
+          "carrier": 185.1083900226757,
+          "beat": 7.833934276347257,
+          "ramp": null,
+          "journey": {
+            "active": true,
+            "paused": true,
+            "index": 0,
+            "remaining": 25582.040816326535
+          },
+          "left": 181.1913299560547,
+          "right": 189.02523803710938
+        },
+        "held": {
+          "playing": true,
+          "mode": "bin",
+          "pending": false,
+          "held": false,
+          "miniPaused": true,
+          "registryPaused": true,
+          "context": "suspended",
+          "time": 31.550113378684806,
+          "carrier": 185.1083900226757,
+          "beat": 7.833934276347257,
+          "ramp": null,
+          "journey": {
+            "active": true,
+            "paused": true,
+            "index": 0,
+            "remaining": 25582.040816326535
+          },
+          "left": 181.1913299560547,
+          "right": 189.02523803710938
+        },
+        "resumed": {
+          "playing": true,
+          "mode": "bin",
+          "pending": false,
+          "held": false,
+          "miniPaused": false,
+          "registryPaused": false,
+          "context": "running",
+          "time": 32.56018140589569,
+          "carrier": 400,
+          "beat": 8,
+          "ramp": {
+            "fromC": 185.10828399658203,
+            "fromB": 7.8339080810546875,
+            "c": 400,
+            "b": 8,
+            "start": 31.550113378684806,
+            "end": 49.13215419501134
+          },
+          "journey": {
+            "active": true,
+            "paused": false,
+            "index": 0,
+            "remaining": 25582.040816326535
+          },
+          "left": 193.53173828125,
+          "right": 201.3751678466797
+        }
+      }
+    },
+    {
+      "name": "The served release bytes produce no JavaScript errors, missing local resources or integrity failures",
+      "passed": true,
+      "evidence": {
+        "servedFiles": 129,
+        "pageErrors": [],
+        "failedRequests": []
+      }
+    }
+  ],
+  "limitations": [
+    "Disposable Linux headless Chromium with native AudioContext, oscillators and timers; no physical Android, audible output, screen lock or OS audio focus acceptance.",
+    "The existing fixture controls device speech and blocks external traffic/service workers. Mode+transport race commands execute in one browser task through production DOM handlers and public registry APIs; they are not trusted input events. Initial frequency Play uses native trusted browser input."
+  ],
+  "browser": "154.0.8037.57",
+  "finishedAt": "2026-10-20T06:38:13.254Z",
+  "passed": 7,
+  "total": 7,
+  "scriptSha256": "4fd9e0650d405ffa7dfb18bfac7c28b2a0ad084187e46421e56edb378bd4ca40",
+  "sourceSha256": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9"
+}

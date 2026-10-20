@@ -1,0 +1,91 @@
+{
+  "build": "r1120",
+  "method": "Actual shipped integrity reader in VM with exact full build-marker and asset bytes over controlled same-origin Fetch responses. Header and streaming size boundaries plus abort; no compact marker substitution, browser or user storage.",
+  "scriptSha256": "98bdbcc1ba35926c34607fee2289be1b693ea083b35e2630692edf853f89411f",
+  "sourceFiles": {
+    "assets/runtime/health-r940.js": "5f5778ca40be10919b8af18ec1e675c53e4972ff1838d9faba429ed9689df749",
+    "sukun-build-r1120.json": "fae36d4ef3303791ce51d11dcfa6256825739d544cf65704547f0162208961a7"
+  },
+  "sourceSha256": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9",
+  "passed": 7,
+  "total": 7,
+  "results": [
+    {
+      "name": "Exact shipped full marker and all mandatory assets verify under unchanged byte/concurrency budgets",
+      "passed": true,
+      "evidence": {
+        "markerBytes": 42327,
+        "markerSha256": "fae36d4ef3303791ce51d11dcfa6256825739d544cf65704547f0162208961a7",
+        "expected": 133,
+        "coreBytes": 8857599,
+        "mediaBytes": 30143835,
+        "requests": 134,
+        "maxConcurrent": 2
+      }
+    },
+    {
+      "name": "A valid 65536-byte marker remains bounded and verifies unchanged runtime entries",
+      "passed": true,
+      "evidence": {
+        "markerBytes": 65536,
+        "maxConcurrent": 2
+      }
+    },
+    {
+      "name": "65537-byte declared marker is rejected before any asset request",
+      "passed": true,
+      "evidence": {
+        "markerBytes": 65537,
+        "reason": "SIZE_LIMIT",
+        "requests": 1
+      }
+    },
+    {
+      "name": "65537-byte streamed marker is rejected before any asset request",
+      "passed": true,
+      "evidence": {
+        "markerBytes": 65537,
+        "reason": "SIZE_LIMIT",
+        "requests": 1
+      }
+    },
+    {
+      "name": "Actual full marker with 134 entries fails closed before any asset download",
+      "passed": true,
+      "evidence": {
+        "entries": 134,
+        "requests": 1,
+        "reason": "MARKER_INVALID"
+      }
+    },
+    {
+      "name": "Malformed full-marker JSON remains a configuration failure without asset fetches",
+      "passed": true,
+      "evidence": {
+        "reason": "MARKER_INVALID_JSON",
+        "checkedAt": 1792478223647,
+        "scope": "served-through-current-service-worker",
+        "configurationErrors": 1
+      }
+    },
+    {
+      "name": "Marker fetch still passes the abort signal and times out without asset fetches",
+      "passed": true,
+      "evidence": {
+        "files": [],
+        "bytes": 0,
+        "mediaBytes": 0,
+        "verifiedBytes": 0,
+        "expected": 0,
+        "matched": 0,
+        "mismatched": 0,
+        "unverified": 0,
+        "configurationErrors": 0,
+        "complete": false,
+        "checkedAt": 1792478223657,
+        "scope": "served-through-current-service-worker",
+        "reason": "Aborted"
+      }
+    }
+  ]
+}
