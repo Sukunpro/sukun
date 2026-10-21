@@ -1,4 +1,4 @@
-name: r1122 required source-bound release checks
+name: Required current-release source-bound checks
 on:
   pull_request:
     branches: [main]
@@ -7,7 +7,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: r1122-${{ github.ref }}
+  group: release-acceptance-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   acceptance:
@@ -20,18 +20,35 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           path: candidate
           persist-credentials: false
-      - name: Require supported release identity
-        run: test "$(tr -d '\r\n' < candidate/version.txt)" = r1122
+      - name: Require supported release identity and runner
+        id: release
+        run: |
+          python3 - <<'PYCODE'
+          import os
+          from pathlib import Path
+          build = Path('candidate/version.txt').read_text().strip()
+          supported = {
+              'r1122': ('1e4f28d3fcb24ba362a026e4f3308ea20b4121f3', 20),
+              'r1123': ('0060e0a3ce2df94c6dbb7dc5c425080cc1de6cc7', 22),
+          }
+          assert build in supported, 'Unsupported release: never report a version skip as acceptance'
+          upgrade, groups = supported[build]
+          folder = Path('candidate/tests') / build
+          assert (folder / 'run-release-checks.py').is_file(), 'Missing required runner'
+          assert (folder / 'release-upgrade-browser.cjs').is_file(), 'Missing required upgrade suite'
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f'build={build}\nupgrade={upgrade}\ngroups={groups}\n')
+          PYCODE
       - name: Check out immutable r1120 regression reference
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           ref: 7b25996c9d545a3732d758136342da893bba6ed4
           path: baseline
           persist-credentials: false
-      - name: Check out immutable r1121 upgrade reference
+      - name: Check out immutable previous-release upgrade reference
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          ref: 1e4f28d3fcb24ba362a026e4f3308ea20b4121f3
+          ref: ${{ steps.release.outputs.upgrade }}
           path: upgrade-baseline
           persist-credentials: false
       - name: Install pinned browser test dependency
@@ -44,23 +61,23 @@ jobs:
       - name: Capture early upgrade diagnostics (full acceptance still required)
         continue-on-error: true
         working-directory: candidate
-        run: node tests/r1122/release-upgrade-browser.cjs . ../upgrade-baseline ../upgrade-probe/release-upgrade.json
+        run: node tests/${{ steps.release.outputs.build }}/release-upgrade-browser.cjs . ../upgrade-baseline ../upgrade-probe/release-upgrade.json
       - name: Upload early upgrade diagnostics
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: r1122-upgrade-probe-${{ github.event.pull_request.head.sha || github.sha }}
+          name: ${{ steps.release.outputs.build }}-upgrade-probe-${{ github.event.pull_request.head.sha || github.sha }}
           path: upgrade-probe/*.json
           if-no-files-found: error
           retention-days: 30
-      - name: Run twenty required source-bound groups
+      - name: Run all required current-release source-bound groups
         working-directory: candidate
-        run: python3 tests/r1122/run-release-checks.py --baseline ../baseline --upgrade-baseline ../upgrade-baseline --output ../acceptance
+        run: python3 tests/${{ steps.release.outputs.build }}/run-release-checks.py --baseline ../baseline --upgrade-baseline ../upgrade-baseline --output ../acceptance
       - name: Upload synthetic JSON evidence only
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: r1122-acceptance-${{ github.event.pull_request.head.sha || github.sha }}
+          name: ${{ steps.release.outputs.build }}-acceptance-${{ github.event.pull_request.head.sha || github.sha }}
           path: acceptance/**/*.json
           if-no-files-found: error
           retention-days: 30
