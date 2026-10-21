@@ -13,7 +13,7 @@ async function start(){await p.waitForFunction(()=>!window.SukunInteractionGateR
 async function modeAnd(action){return p.evaluate(action=>{document.querySelector('#modeSeg [data-m="iso"]').click();const queued={pending:!!FR._restartTimer,playing:FR.playing,mode:FR.mode};if(action==='pause')SukunAudioSessionRegistry.pauseAll('ui:r1117-mode-gap');if(action==='stop')SukunAudioSessionRegistry.stopAll('r1117-mode-gap');return queued;},action);}
 (async()=>{try{
  f=await fixture(root,{seed:{'sukun.obDone':'1','sukun.onboardSeen':'1','sukun.obSeenBuild':JSON.stringify('2026-08-06-r3'),'sukun.theme':'"feyz"'}});p=f.page;report.browser=f.browser.version();
- if(await p.locator('#dcClose').isVisible())await p.locator('#dcClose').click();
+ if(await p.locator('#dailyCard').isVisible())await p.keyboard.press('Escape');await p.locator('#dailyCard').waitFor({state:'hidden'});await p.waitForFunction(()=>!window.SukunInteractionGateR732?.active?.());
  await p.locator('.tab[data-t="frq"]').click();await reset();
  await check('Pending mode start is cancelled permanently by global Stop',async()=>{await start();const queued=await modeAnd('stop');assert(queued.pending);await p.waitForTimeout(900);const after=await state();assert.equal(after.playing,false);assert.equal(after.pending,false);assert.equal(after.held,false);return{queued,after};});
  await reset();

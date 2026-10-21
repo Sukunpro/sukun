@@ -16,7 +16,7 @@ async function measure(){return p.evaluate(()=>Array.from(document.querySelector
 async function check(name,fn){try{const evidence=await fn();report.checks.push({name,passed:true,evidence});}catch(e){report.checks.push({name,passed:false,error:e.stack});}console.log(name+': '+report.checks.at(-1).passed);}
 (async()=>{try{
  f=await fixture(root,{seed:{'sukun.obDone':'1','sukun.onboardSeen':'1','sukun.obSeenBuild':JSON.stringify('2026-08-06-r3'),'sukun.theme':'"feyz"'}});p=f.page;report.browser=f.browser.version();
- if(await p.locator('#dcClose').isVisible())await p.locator('#dcClose').click();
+ if(await p.locator('#dailyCard').isVisible())await p.keyboard.press('Escape');await p.locator('#dailyCard').waitFor({state:'hidden'});await p.waitForFunction(()=>!window.SukunInteractionGateR732?.active?.());
  await p.evaluate(()=>document.fonts.ready);
  await check('Fixture is actually classic with Feyz enabled',async()=>{const state=await p.evaluate(()=>({mode:localStorage.getItem('sukun.ui.shellMode'),tefekkur:document.body.classList.contains('sukun-tefekkur-mode'),feyz:SukunR716Shell.snapshot().enabled}));assert.equal(state.mode,'classic');assert.equal(state.tefekkur,false);assert.equal(state.feyz,true);return state;});
  for(const language of ['tr','en']){

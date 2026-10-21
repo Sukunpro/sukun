@@ -72,7 +72,7 @@ async function start(kind,index=0){await p.waitForFunction(()=>!SukunTabOwner.sn
 async function stop(kind){await tap('#r932EasyStop');await p.waitForFunction(kind=>!(kind===28?SukunBerhetiyyeSeyir:SukunEsma99Seyir).state().run,kind);}
 function own(s,kind){return kind===28?s.b:s.e;}
 (async()=>{try{
- f=await fixture(root,{seed:{'sukun.kilitAcik':'true','sukun.onboardSeen':'1','sukun.obDone':'1','sukun.obSeenBuild':'"2026-08-06-r3"','sukun.zikir.quickControls.focus.v1':'1','sukun.r920.focus':'0'}});p=f.page;if(await p.locator('#obSkip').isVisible())await tap('#obSkip');if(await p.locator('#dcClose').isVisible())await tap('#dcClose');
+ f=await fixture(root,{seed:{'sukun.kilitAcik':'true','sukun.onboardSeen':'1','sukun.obDone':'1','sukun.obSeenBuild':'"2026-08-06-r3"','sukun.zikir.quickControls.focus.v1':'1','sukun.r920.focus':'0'}});p=f.page;if(await p.locator('#obSkip').isVisible())await tap('#obSkip');if(await p.locator('#dailyCard').isVisible())await p.keyboard.press('Escape');await p.locator('#dailyCard').waitFor({state:'hidden'});await idle();
  await p.evaluate(async()=>{KLT_AC('r1121-isolated-fixture');NIYET.on=NIYET.spk=NIYET.devir=false;ZA.kapali=true;SPK.on=true;Z.tick=Z.vib=false;Z.adv=false;KAYIT.yankiMik=0;KAYIT.mekan=false;await SukunVoiceSettings.setContent('legacy');await SukunVoiceSettings.setMode('personal');SukunR698VoiceIntent.explicit(true);window.__r1121Clicks=[];document.addEventListener('click',e=>{const b=e.target.closest?.('button');if(b)__r1121Clicks.push({id:b.id,trusted:e.isTrusted,kind:window.SukunSessionState?.snapshot?.()?.journeyKind})},true);});
  await tap('.tab[data-t="zkr"]');
  for(const kind of [28,99]){
