@@ -249,6 +249,7 @@
         total, index: j.view ? index : null, complete: !!jd?.complete, paused: !!js?.paused }),
       owner, provider: clean(np.id || flow.playback?.id || ''),
       phase, playbackState: phase.toLowerCase(), playing: phase === 'PLAYING', paused: phase === 'PAUSED',
+      globalPauseBlocked: !['PLAYING','PREPARING'].includes(phase) && !!(registry.paused || window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent),
       preparing: phase === 'PREPARING', audioSource, sourceOrigin, recordingOrigin, sourceMetadata,
       recordingSource: matchingFailure ? 'USER_RECORDING_FAILED' : audioSource === 'USER_RECORDING' ? 'USER_RECORDING' : null,
       sourceLabel: smartSourcePreparing ? '' : clean(observedSource.label || flow.source?.label || (phase === 'PLAYING' && state?.epoch === epoch ? state?.sourceLabel : '') || ''),
@@ -485,7 +486,12 @@
     }
     const id = ++requestId, token = epoch;
     const diagnostic = beginCommandDiagnostic(action,id,token);
-    const reject = reason => { diagnostic.reason = reason; return false; };
+    const reject = reason => {
+      diagnostic.reason = reason;
+      // Explain the existing scope boundary; never release unrelated captured audio.
+      if (reason === 'global-pause') read(() => window.toast?.(window.I18N?.lang === 'en' ? 'Use Play on the bottom global player to resume the paused audio session.' : 'Devam etmek için alttaki genel oynatıcının ▶ düğmesini kullan.'));
+      return false;
+    };
     commandFailure = null;
     commands.push({ at: Date.now(), action, requestId: id, epoch: token });
     if (commands.length > 40) commands.shift();

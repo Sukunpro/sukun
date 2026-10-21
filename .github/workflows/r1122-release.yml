@@ -12,7 +12,7 @@ concurrency:
 jobs:
   acceptance:
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    timeout-minutes: 50
     steps:
       - name: Check out exact candidate commit
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -30,6 +30,7 @@ jobs:
           supported = {
               'r1122': ('1e4f28d3fcb24ba362a026e4f3308ea20b4121f3', 20),
               'r1123': ('0060e0a3ce2df94c6dbb7dc5c425080cc1de6cc7', 22),
+              'r1124': ('5869f46eace0d7445d42e82d6d8d9f1e61d5a2c5', 26),
           }
           assert build in supported, 'Unsupported release: never report a version skip as acceptance'
           upgrade, groups = supported[build]
@@ -68,6 +69,19 @@ jobs:
         with:
           name: ${{ steps.release.outputs.build }}-upgrade-probe-${{ github.event.pull_request.head.sha || github.sha }}
           path: upgrade-probe/*.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Observe immutable r1123 native media baseline (diagnostic, not candidate acceptance)
+        if: steps.release.outputs.build == 'r1124'
+        continue-on-error: true
+        working-directory: candidate
+        run: R1124_BASELINE=1 node tests/r1124/media-wheel-native-browser.cjs ../upgrade-baseline ../native-baseline-probe/media-wheel-native-browser.json
+      - name: Upload immutable native baseline diagnostic JSON
+        if: always() && steps.release.outputs.build == 'r1124'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1124-native-baseline-r1123-${{ github.event.pull_request.head.sha || github.sha }}
+          path: native-baseline-probe/*.json
           if-no-files-found: error
           retention-days: 30
       - name: Run all required current-release source-bound groups
