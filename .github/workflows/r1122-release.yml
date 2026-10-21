@@ -1,0 +1,66 @@
+name: r1122 required source-bound release checks
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: r1122-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Check out exact candidate commit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: candidate
+          persist-credentials: false
+      - name: Require supported release identity
+        run: test "$(tr -d '\r\n' < candidate/version.txt)" = r1122
+      - name: Check out immutable r1120 regression reference
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 7b25996c9d545a3732d758136342da893bba6ed4
+          path: baseline
+          persist-credentials: false
+      - name: Check out immutable r1121 upgrade reference
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 1e4f28d3fcb24ba362a026e4f3308ea20b4121f3
+          path: upgrade-baseline
+          persist-credentials: false
+      - name: Install pinned browser test dependency
+        run: |
+          export NODE_PATH="$RUNNER_TEMP/sukun-browser/node_modules"
+          echo "NODE_PATH=$NODE_PATH" >> "$GITHUB_ENV"
+          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
+          "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
+          echo "CHROMIUM_PATH=$(node -p 'require("playwright").chromium.executablePath()')" >> "$GITHUB_ENV"
+      - name: Capture early upgrade diagnostics (full acceptance still required)
+        continue-on-error: true
+        working-directory: candidate
+        run: node tests/r1122/release-upgrade-browser.cjs . ../upgrade-baseline ../upgrade-probe/release-upgrade.json
+      - name: Upload early upgrade diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1122-upgrade-probe-${{ github.event.pull_request.head.sha || github.sha }}
+          path: upgrade-probe/*.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Run twenty required source-bound groups
+        working-directory: candidate
+        run: python3 tests/r1122/run-release-checks.py --baseline ../baseline --upgrade-baseline ../upgrade-baseline --output ../acceptance
+      - name: Upload synthetic JSON evidence only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1122-acceptance-${{ github.event.pull_request.head.sha || github.sha }}
+          path: acceptance/**/*.json
+          if-no-files-found: error
+          retention-days: 30

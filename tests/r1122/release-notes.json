@@ -1,0 +1,12 @@
+{
+  "v": "r1122",
+  "t": "Frekans başlangıç geçişi düzeltmeleri",
+  "b": [
+    "Frekansın canlı motor ile arka plan oynatıcısı arasındaki başlangıç ve devam geçişinde iki yolun kısa süre birlikte ses vermesi önlendi.",
+    "3D ses açıkken uzamsal konum ilk ses başlamadan hazırlanır; ilk konum güncellemesinin oluşturduğu ani seviye değişimi önlenir. Genel ses seviyesi yükseltilmedi."
+  ],
+  "translations": {
+    "Frekansın canlı motor ile arka plan oynatıcısı arasındaki başlangıç ve devam geçişinde iki yolun kısa süre birlikte ses vermesi önlendi.": "Initial and resumed frequency handoffs no longer briefly leave both the live engine and background player audible.",
+    "3D ses açıkken uzamsal konum ilk ses başlamadan hazırlanır; ilk konum güncellemesinin oluşturduğu ani seviye değişimi önlenir. Genel ses seviyesi yükseltilmedi.": "With spatial audio enabled, its initial position is set before sound starts, avoiding the initial distance-gain step. Overall output levels are not increased."
+  }
+}
