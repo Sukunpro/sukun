@@ -25,7 +25,12 @@ async function check(name,fn){try{await reset();const evidence=await fn();report
  // setter and original handler unchanged; no provider is replaced.
  await p.addInitScript(()=>{const handlers={},log=[];window.__r1124Media={handlers,log};const proto=Object.getPrototypeOf(navigator.mediaSession),original=proto.setActionHandler;proto.setActionHandler=function(action,handler){handlers[action]=handler;return original.call(this,action,handler);};});
  await p.reload({waitUntil:'load'});await p.waitForTimeout(2200);await p.waitForFunction(()=>window.SukunSessionState&&window.SukunLockAudio&&window.SukunVoiceSettings);
- for(const id of ['#obSkip','#dcClose'])if(await p.locator(id).isVisible())await tap(id);
+ if(await p.locator('#obSkip').isVisible())await tap('#obSkip');
+ // The daily card may auto-hide after a visibility sample. Escape is its
+ // shipped native dismissal (document keydown -> splashOut), unlike a forced
+ // click on a button that has already disappeared. Verify the closed state.
+ if(await p.locator('#dailyCard').isVisible())await p.keyboard.press('Escape');
+ await p.locator('#dailyCard').waitFor({state:'hidden'});await idle();
  await p.evaluate(async()=>{KLT_AC('r1124-isolated-fixture');NIYET.on=NIYET.spk=NIYET.devir=false;ZA.kapali=true;SPK.on=true;Z.tick=Z.vib=false;Z.adv=false;KAYIT.yankiMik=0;KAYIT.mekan=false;await SukunVoiceSettings.setContent('legacy');await SukunVoiceSettings.setMode('personal');SukunR698VoiceIntent.explicit(true);SukunManualVoice.set(false);Object.assign(Z,{target:999,targetMode:'manual',adv:false,tick:false,vib:false});SukunTempo.set(6,'r1124-labelled-fixture');});
  await tap('.tab[data-t="zkr"]');
  for(const cat of ['esma','berhet'])await p.evaluate(async({key,tone})=>{await REC_DB.set(key,new Blob([Uint8Array.from(atob(tone),c=>c.charCodeAt(0))],{type:'audio/wav'}));RECKEYS.add(key);},{key:cat==='esma'?'esma:0:nida':'berhet:0',tone:wav(8,440).toString('base64')});
