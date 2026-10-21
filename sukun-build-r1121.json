@@ -1,0 +1,1036 @@
+{
+  "build": "r1121",
+  "base": "r1120",
+  "feature": "lifecycle-navigation",
+  "sessionVersion": "r919+r949+r973+r982+r983+r984+r985+r986+r987+r988+r989+r990+r991+r992+r993+r994+r995+r996+r997+r998+r999+r1000+r1001+r1002+r1003+r1004+r1005+r1006+r1007+r1008+r1009+r1010+r1011+r1012+r1013+r1014+r1015+r1016+r1017+r1018+r1019+r1020+r1021+r1022+r1023+r1024+r1025+r1026+r1027+r1028+r1029+r1030+r1031+r1032+r1033+r1034+r1035+r1036+r1037+r1038+r1039+r1040+r1041+r1042+r1043+r1044+r1045+r1046+r1047+r1048+r1049+r1050+r1051+r1052+r1053+r1054+r1055+r1056+r1057+r1058+r1059+r1060+r1061+r1062+r1063+r1064+r1065+r1066+r1067+r1068+r1069+r1070+r1071+r1072+r1073+r1074+r1075+r1076+r1077+r1078+r1079+r1080+r1081+r1082+r1083+r1084+r1085+r1086+r1087+r1088+r1089+r1090+r1091+r1092+r1093+r1094+r1095+r1096+r1097+r1098+r1099+r1100+r1101+r1102+r1103+r1104+r1105+r1106+r1107+r1108+r1109+r1110+r1111+r1112+r1113+r1114+r1115+r1116+r1117+r1118+r1119+r1120+r1121",
+  "uiVersion": "r979",
+  "dockVersion": "r929",
+  "wheelVersion": "r1057",
+  "runtime": [
+    {
+      "url": "./assets/runtime/berhet-layout-r938.css?v=r1121",
+      "sha256": "e22130607a9dc18f298262d67a58393b4a51d09f3e7601a0f543df2ab0646491"
+    },
+    {
+      "url": "./assets/runtime/berhet-materials-r933.css?v=r1121",
+      "sha256": "4be10a5e23254a4644178d08e664177e1dab6275c8b0ce817d7bfeedbf5e2b24"
+    },
+    {
+      "url": "./assets/runtime/berhet-controls-r933.css?v=r1121",
+      "sha256": "3ad2239995fcc02fcbcf970d738a4b548716b9de360954af50839097c7c7c067"
+    },
+    {
+      "url": "./assets/runtime/berhet-dock-r933.css?v=r1121",
+      "sha256": "6864dcd5bd188c9d6be26a387dca6ec60e8dec665596079c42eaf1628d4c0596"
+    },
+    {
+      "url": "./assets/runtime/background-owner-r949.js?v=r1121",
+      "sha256": "b953e3292807cc020c225325b8f1b2d36067225f2efb52b7c124a0ac5d86a1a3"
+    },
+    {
+      "url": "./assets/runtime/lifecycle-r949.js?v=r1121",
+      "sha256": "6cbdf363beac77a88db9d60916a57cc58144c14fe0c3de9498a5d740b2664c40"
+    },
+    {
+      "url": "./assets/runtime/audio-palette-r945.js?v=r1121",
+      "sha256": "0df6131d56e869f22ba011a084300d4bb9ddddc4d41589e63436850492003bd1"
+    },
+    {
+      "url": "./assets/runtime/esma-scenes-r923.js?v=r1121",
+      "sha256": "dc97cdaa6f31f63593f1576ad9ec7d3b206f0f55ff1b2aced8f43b0202d44854"
+    },
+    {
+      "url": "./assets/runtime/session-r919.js?v=r1121",
+      "sha256": "5ef9efcb784542a53a9f3ebe8ec57f4694ebbeeb0b7af00428a6b4de9e2b8869"
+    },
+    {
+      "url": "./assets/runtime/dock-r920.js?v=r1121",
+      "sha256": "921a6ec8374233a3db782eaf35dcd5628f2bcfa296f1efa34606871cda1e4590"
+    },
+    {
+      "url": "./assets/runtime/wheels-r924.js?v=r1121",
+      "sha256": "69d077ff9ae72d7cbfd26dcd92065054d1f9f7dec5c182996fbe3fd312988a9f"
+    },
+    {
+      "url": "./assets/runtime/berhet-layout-r938.js?v=r1121",
+      "sha256": "fc207191c48270c9dc4e84b3cb672e82f5d332f5fdc5d0deb709446471548dc6"
+    },
+    {
+      "url": "./assets/runtime/interface-r920.js?v=r1121",
+      "sha256": "517d7dc842e2dbebdea2373335c527e1dd08624584a31eac6f79f19f8c057ff0"
+    },
+    {
+      "url": "./assets/runtime/wheels-r924.css?v=r1121",
+      "sha256": "750168ec6e481deb4f85577f5005928e3dcca436eb090e59b17095e8cdaaa30f"
+    },
+    {
+      "url": "./assets/runtime/berhet-theme-r933.js?v=r1121",
+      "sha256": "e3f4ba9b695d25d34c7e098a7d51b51e778089ddd897ac9b10b9851e511d2069"
+    },
+    {
+      "url": "./assets/runtime/health-view-r943.css?v=r1121",
+      "sha256": "51a89716056a0c9b823421bf39ec30d6de99dd182ad8373a19454aa6509596c3"
+    },
+    {
+      "url": "./assets/runtime/health-view-r943.js?v=r1121",
+      "sha256": "72fce7d75ad4fc40ee0fcae176cca4adc5c1989c33e99829454343acfa4d9683"
+    },
+    {
+      "url": "./assets/runtime/scene-picker-r945.css?v=r1121",
+      "sha256": "95038f4efddb07a52626b6701c9edaddd5c8831d1f327b18d5160ae2bb7154d2"
+    },
+    {
+      "url": "./assets/runtime/scene-picker-r945.js?v=r1121",
+      "sha256": "1ed9d5905ed4c82834c69fb111d8fb24ad192d416a7c478c9075112b00794b75"
+    },
+    {
+      "url": "./assets/runtime/health-r940.js?v=r1121",
+      "sha256": "5f5778ca40be10919b8af18ec1e675c53e4972ff1838d9faba429ed9689df749"
+    },
+    {
+      "url": "./assets/runtime/nefs-r948.css?v=r1121",
+      "sha256": "94ccd9dad8bd65f2501f90d83bfb8aee1e27229fc7a3f497c5d51d0564848edf"
+    },
+    {
+      "url": "./assets/runtime/nefs-data-r948.js?v=r1121",
+      "sha256": "c29f42eacaa014b90b87b85d906f2468f91a8347ddd486467b9ad1d7c39c214c"
+    },
+    {
+      "url": "./assets/runtime/nefs-model-r948.js?v=r1121",
+      "sha256": "b5d4f9673e26f01ea5cb3714f5c45a1ca41c1cee1745f72461ed71b54fc7185b"
+    },
+    {
+      "url": "./assets/runtime/nefs-ui-r948.js?v=r1121",
+      "sha256": "8201e3904068e222f32a3ad704188c620c48ccc2c25091668854b5e6e12e5721"
+    },
+    {
+      "url": "./assets/runtime/offline-scenes-r962.js?v=r1121",
+      "sha256": "3d2bf56119336acd4a8dab2422b96914a7bc3d8b386c1e3a43ab47e82a328c62"
+    },
+    {
+      "url": "./assets/wheel-navigation-r964/gold.png?v=r1121",
+      "sha256": "3ed982ef9fdc057c97416b6837b780f08ffb0f9e0a9eca0daa973ddfc3660ca2"
+    },
+    {
+      "url": "./assets/wheel-navigation-r964/copper.png?v=r1121",
+      "sha256": "b731ba244c0f04a972276580a70e3b203a8a9e839abe35841cfd08c372283012"
+    },
+    {
+      "url": "./assets/wheel-navigation-r964/silver.png?v=r1121",
+      "sha256": "d7095d1597bdeb288035bd3aa87c4168c63a4dd6b98c7f6ab860f0f7c24a516f"
+    },
+    {
+      "url": "./assets/wheel-navigation-r964/dark.png?v=r1121",
+      "sha256": "c6407489d8c52d1b65985dbbdb8d5c3df625b184739c413c40c6d423d70c55bb"
+    },
+    {
+      "url": "./assets/wheel-navigation-r964/crystal.png?v=r1121",
+      "sha256": "dd751abc6483a3c5f3585e170d0c9888fdef5ccb69e276bd61d765b33bdb6b85"
+    },
+    {
+      "url": "./assets/runtime/presentation-r979.js?v=r1121",
+      "sha256": "2b33c219afa5fb73d701bceeb0acb43840662a72271dc02bc724c508197dd48f"
+    },
+    {
+      "url": "./assets/runtime/audio-cpu-r981.js?v=r1121",
+      "sha256": "188aae6305898a25f846fa66b4565938344f5bdb82d6cc3ad132f049262ddcef"
+    },
+    {
+      "url": "./assets/runtime/audio-preparation-r981.js?v=r1121",
+      "sha256": "412ce19623c4807e4f7347ecb0b15eff1357c400463b14d9894617ea077cfa9a"
+    },
+    {
+      "url": "./assets/runtime/tab-owner-r981.js?v=r1121",
+      "sha256": "d306eafe445953ac97537b3fbe68cc672c98cd124348340f53e9cb70d87e9f5e"
+    },
+    {
+      "url": "./assets/runtime/cadence-r981.css?v=r1121",
+      "sha256": "e8551396049c455e9c340c71e7d343ebbaf2f4cdeacc80bcb82e8d6046889992"
+    },
+    {
+      "url": "./assets/runtime/cadence-r981.js?v=r1121",
+      "sha256": "f9bd5dbaaaaf20fb5523afdcf00dec639ef17b2bf6b0cf6462c872dff9aa9cda"
+    },
+    {
+      "url": "./assets/runtime/studio-preparation-r982.js?v=r1121",
+      "sha256": "25cde9f6c6416efeafcc22f957d21a6b3506eaaa7fd5c75c6a04aee2b4f10873"
+    },
+    {
+      "url": "./assets/runtime/progress-journal-r982.js?v=r1121",
+      "sha256": "1555800182b606e6abea73dd53bf8fa9392a7f42b4a3a628a208bf4ad8587cde"
+    },
+    {
+      "url": "./assets/runtime/tekke-sequence-r988.js?v=r1121",
+      "sha256": "13e58d2412d8c215e968ec850fd5f18b49829ebdf0f9f9bd4adf4c502d4a0772"
+    },
+    {
+      "url": "./assets/runtime/tekke-set-r990.js?v=r1121",
+      "sha256": "1e3b3baf822bd83a1f24cae1cab28aee9f54312aa644f8b3eaca07d8ad8a6f0a"
+    },
+    {
+      "url": "./assets/runtime/tekke-ux-r992.css?v=r1121",
+      "sha256": "30d2a15133f7018a9378e349c8e495677ba74ca420f904c2e3f2cfc2a2d289b3"
+    },
+    {
+      "url": "./assets/runtime/tekke-ux-r992.js?v=r1121",
+      "sha256": "9baa78b9bc30249160be39e5f8d89fdbc5b5fbc8d0615ec4a6d0856423bee89d"
+    },
+    {
+      "url": "./assets/runtime/tekke-journey-r993.css?v=r1121",
+      "sha256": "1173ffc1a32c8201c990d26996cf44020195a1e9a65540f5c37ad8cbae1df863"
+    },
+    {
+      "url": "./assets/runtime/tekke-journey-r993.js?v=r1121",
+      "sha256": "0b09636e3ba8978dcf7e92221d03fb25ebe73d81feb61bef26ca1e408080e61a"
+    },
+    {
+      "url": "./assets/scenes/tekke-r1014/berhet-billur.webp?v=r1121",
+      "sha256": "17cbb4b7cc419bcc7e4fd0618c012ede1104523ed956aeed380280d169af6a50"
+    },
+    {
+      "url": "./assets/runtime/recording-continuity-r1016.js?v=r1121",
+      "sha256": "81b728a119d5dd0a10d9d28dcf87224def17d4876a50f718e1a5aae12e7e8d8e"
+    },
+    {
+      "url": "./assets/runtime/recording-inspection-r1020.js?v=r1121",
+      "sha256": "0e85827711831bc60ab62f6e7ef30397f087a75f25715d50cb04036119ab8c04"
+    },
+    {
+      "url": "./assets/runtime/studio-batch-r1020.js?v=r1121",
+      "sha256": "b3fec4c8f222778500e9eeaa67ca8fb054e510ffadca252618d866cfc99f0bda"
+    },
+    {
+      "url": "./assets/runtime/recovery-versions-r1019.js?v=r1121",
+      "sha256": "0f11bd2717934368c26c6e2670c0d3b97c10f89de329c08e6c533754ad97119c"
+    },
+    {
+      "url": "./assets/runtime/recovery-data-r1020.js?v=r1121",
+      "sha256": "73dc56f2eb83405ee0801fd94703b85497963d02aad728216336e66e6e5da355"
+    },
+    {
+      "url": "./assets/runtime/site-backup-r1020.js?v=r1121",
+      "sha256": "5d8380543c1893a80c80c5b8a425cc28638615a724144243549469b9672cddf9"
+    },
+    {
+      "url": "./assets/runtime/recovery-ui-r1019.js?v=r1121",
+      "sha256": "54468ea9aa52047ffcb76d2271b3f7cecab8b0e98877f2c0381abb031241e541"
+    },
+    {
+      "url": "./assets/runtime/recording-salvage-r1020.js?v=r1121",
+      "sha256": "77bb3ffca382820d11ba1c68917d6bf57457961c61831eb108afb8be3805fe58"
+    },
+    {
+      "url": "./assets/runtime/recovery-entry-r1027.js?v=r1121",
+      "sha256": "6ce0cc4c7ec758dffa69230149f26d57e57799cd8e9c6a33cbcf76781b13ebff"
+    },
+    {
+      "url": "./assets/runtime/startup-intro-r1027.js?v=r1121",
+      "sha256": "4ed7bbb2904c0afc626605e299ef908cb142502eafafe51cfbe42da143e02c30"
+    },
+    {
+      "url": "./rescue.html?v=r1121",
+      "sha256": "747a6f3c2b8664a4f287f18eb96f54270096ddaf28c57a4ba3dd6d2940b0acfd"
+    },
+    {
+      "url": "./assets/branding/sukun-frameless-logo-r1029.png?v=r1121",
+      "sha256": "19686a971a82137067622b90a9984ac146e68c3e7e9b82395dfc19462f4ffdcd"
+    },
+    {
+      "url": "./assets/branding/sukun-intro-pattern-r1029.svg?v=r1121",
+      "sha256": "e52c310a620872ab5f158dd12805d8f750dfda424224eb1e2ac01a42ee85f5f4"
+    },
+    {
+      "url": "./assets/audio/sukun-intro-signature-r1037.wav?v=r1121",
+      "sha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457"
+    },
+    {
+      "url": "./assets/runtime/generic-recordings-r1055.js?v=r1121",
+      "sha256": "f3b3f3a90ab5451d9b50a227b6a619b4cd9592f4a8e45cd4648b8a6aaed45c89"
+    },
+    {
+      "url": "./assets/runtime/generic-recordings-ui-r1055.js?v=r1121",
+      "sha256": "4c60e36eff387b882d2b8d874799da2a3a469bb0ecca20b888fa511cf147dbcc"
+    },
+    {
+      "url": "./assets/runtime/compact-ui-r1057.css?v=r1121",
+      "sha256": "ea43a802d7059df167b1acf3504b96ba77dd73bd98b95b1e488d3ec4d57bfaea"
+    },
+    {
+      "url": "./assets/runtime/compact-ui-r1057.js?v=r1121",
+      "sha256": "b2d6d78b94aba9cc7fd23ef830d8931dc0cf6e5e9a8f1e19b370e21d7efcae7d"
+    },
+    {
+      "url": "./assets/runtime/background-mix-render-r1121.js?v=r1121",
+      "sha256": "69f86632856b5d51b4a91e158b9b4f400931f7969e87806dcda851218be587fa"
+    },
+    {
+      "url": "./assets/runtime/background-mix-r1121.js?v=r1121",
+      "sha256": "0bc132112a28fd5cbf91624a3add898abb727759b1a1e031cd9890d3597ad954"
+    },
+    {
+      "url": "./assets/runtime/active-source-r1060.js?v=r1121",
+      "sha256": "4600b2a842da3dd588a71a8aba6c6f10b107901200503f52969c87fce67fc7e3"
+    },
+    {
+      "url": "./assets/runtime/active-layers-r1061.js?v=r1121",
+      "sha256": "fa1886b2c0b805773e66b7b96e19496dbf0da1c48a5e449590b4a62a1d821aae"
+    },
+    {
+      "url": "./assets/runtime/reading-ui-r1064.css?v=r1121",
+      "sha256": "c7e5ad5f763e51c806602b77bdc202ff2c9d491e461aa6ea1260a99e0a49d8b9"
+    },
+    {
+      "url": "./assets/runtime/yasin-data-r1064.js?v=r1121",
+      "sha256": "937cacc460aba0deca454506b44ed92731a389834fa3f8986ce5dbee01cd3b94"
+    },
+    {
+      "url": "./assets/runtime/reading-sources-r1064.js?v=r1121",
+      "sha256": "e5153c25c01536f94c2c482a094fcbec8fe23debaad2dac4cbb1fe4f4973c126"
+    },
+    {
+      "url": "./assets/runtime/reading-audio-r1064.js?v=r1121",
+      "sha256": "dbeccc27c91c5a87b494437ff835364350e23d00e61687378875c867891d9b44"
+    },
+    {
+      "url": "./assets/runtime/reading-ui-r1064.js?v=r1121",
+      "sha256": "e64203292bbb461b87526679593bf28b5cc43bc53e4ffc56acadea719572c09c"
+    },
+    {
+      "url": "./assets/audio/arabic-r1065/yasin.mp3?v=r1121",
+      "sha256": "4096f23ddba18fb4b410e54459cac520d91de178c5b5d2a78232e57723fb6a3d"
+    },
+    {
+      "url": "./assets/audio/arabic-r1065/fatiha.mp3?v=r1121",
+      "sha256": "46fe21a5118957d52ac76f5a6a7fdd7e75d52e4a569619ae3e174a23ce5c82bc"
+    },
+    {
+      "url": "./assets/audio/arabic-r1065/ayatul-kursi.mp3?v=r1121",
+      "sha256": "cb32b4b36012fdc2c4a93460a7106b9e337f1244d5198a549cea76a7edeaeb38"
+    },
+    {
+      "url": "./assets/audio/arabic-r1065/ikhlas.mp3?v=r1121",
+      "sha256": "9ad15357702fd585cfc9a4cb082c65a7d3930ff34ed1c720f14447a0fc60d361"
+    },
+    {
+      "url": "./assets/audio/arabic-r1065/falaq.mp3?v=r1121",
+      "sha256": "2e01e8048cca4ff3a7419331e119241d15565e1e5a531fab85bd53d7283afcc9"
+    },
+    {
+      "url": "./assets/audio/arabic-r1065/nas.mp3?v=r1121",
+      "sha256": "176441a835915036e7b517f723d49d2954a86cfd8bfd12d6172c77edcc85405e"
+    },
+    {
+      "url": "./assets/runtime/bundled-arabic-r1065.js?v=r1121",
+      "sha256": "e3b594ed25cb88af5cc1535c625e48aac2d7c74c8a8d6339177a0ea3a36f1a8f"
+    },
+    {
+      "url": "./assets/runtime/navigation-r1066.js?v=r1121",
+      "sha256": "fcee1b29945d5a294b9660047d803c615f6e309a5bbe9dda80df2e3f280f5ac6"
+    },
+    {
+      "url": "./assets/runtime/yasin-timing-r1067.js?v=r1121",
+      "sha256": "6d02c11f10f3fae3b0a93e3ff071103d1f02842cb651ca80599cbbb53029e98e"
+    },
+    {
+      "url": "./assets/runtime/browser-contrast-r1077.css?v=r1121",
+      "sha256": "35eb72c7d208df77eaa80833bd33535db2e71359bef78cb0713574cdb52e6689"
+    },
+    {
+      "url": "./assets/runtime/protective-plan-r1078.css?v=r1121",
+      "sha256": "435d3597d787a42f4e4cb8014dad0d6cc1d944575cb82d6375a25376a8e73243"
+    },
+    {
+      "url": "./assets/runtime/protective-plan-r1078.js?v=r1121",
+      "sha256": "eae538c9a50770b86751c48d1b4ab4515a443a541fb358c5e3d157bb2d6b6a22"
+    },
+    {
+      "url": "./assets/berhetiyye-gate/portal-r1080.css?v=r1121",
+      "sha256": "5c115fb5f548e6d15bb938c5270d5431bcaabe03ea6abd164370ad05885bb757"
+    },
+    {
+      "url": "./assets/berhetiyye-gate/entry-r1080.css?v=r1121",
+      "sha256": "652561e9c60b412bbb6e03096c5576787aad2966b3bcfae8205d40b28d3e0374"
+    },
+    {
+      "url": "./assets/berhetiyye-gate/invitation-tr.mp3?v=r1121",
+      "sha256": "18a114ec927508e4f5684a7e76d39abe28058c81f5632c797a707c6109bd5303"
+    },
+    {
+      "url": "./assets/berhetiyye-gate/audio-r1080.js?v=r1121",
+      "sha256": "d77a0ecff6f7a7b11cee3116817c51c6a1cf568d0c7e8d7026383842936d015c"
+    },
+    {
+      "url": "./integration/berhet-access/example-http-provider.js?v=r1121",
+      "sha256": "ec2e1f22e7bf0ae938a7163019eec4556150bf858dc387e13b3596cce30f16ae"
+    },
+    {
+      "url": "./assets/berhetiyye-gate/access-r1080.js?v=r1121",
+      "sha256": "99270f5efc93e38ab95d1c6da32005232a63e181d94765e44f4c894d424a64c6"
+    },
+    {
+      "url": "./assets/berhetiyye-gate/portal-r1080.js?v=r1121",
+      "sha256": "0048e2a9cac8416faa0102b1cc10ff8d262693f09be89e4ad663c170e9c077c9"
+    },
+    {
+      "url": "./assets/berhetiyye-gate/entry-r1080.js?v=r1121",
+      "sha256": "8ef27093ff8da3fc8dc9a8f67563df4f49c0176ecbf18772c416c28d1194cde3"
+    },
+    {
+      "url": "./assets/runtime/smart-session-ui-r1082.css?v=r1121",
+      "sha256": "75a9a3565910449a6dd3b2a0b3d46487ed4d2c63ee7fd062b547a9f9a86db2a0"
+    },
+    {
+      "url": "./assets/runtime/smart-session-ui-r1082.js?v=r1121",
+      "sha256": "5dac4626b57602a9d04b3bc7b58ff8dbaacc951c9bcd75a61f1835702d230713"
+    },
+    {
+      "url": "./assets/runtime/session-preflight-ui-r1092.css?v=r1121",
+      "sha256": "e0b99033e8d528dffa1da89c778b8567c201db5dda32516a1105610a74cfd150"
+    },
+    {
+      "url": "./assets/runtime/preflight-cache-r1092.js?v=r1121",
+      "sha256": "840a9e120dc10f93842eada39e17ac316671c45405e8109694bfd20d8966d0ed"
+    },
+    {
+      "url": "./assets/runtime/session-preflight-r1092.js?v=r1121",
+      "sha256": "0c33412ea2ef96825ec6ac7bb9b8e30307b3b486aa14803e2becc0cb758ba986"
+    },
+    {
+      "url": "./assets/runtime/session-preflight-ui-r1092.js?v=r1121",
+      "sha256": "c8239465b43a7cc392c7d87ca6fd2361d59e4fbcb08ad7852657ee58204ef844"
+    },
+    {
+      "url": "./assets/runtime/archive-download-r1093.css?v=r1121",
+      "sha256": "1e64b2d06b24547bb932d4148de660201ec62a5610d95c6148d8ba879cfbbebc"
+    },
+    {
+      "url": "./assets/runtime/archive-download-r1093.js?v=r1121",
+      "sha256": "5a796fbbe29c0f5183434e655e792102fb831bb39895e1f5685d3c5aaf9fd3ad"
+    },
+    {
+      "url": "./assets/runtime/source-matrix-ui-r1094.css?v=r1121",
+      "sha256": "ad4a4fa2d522d2a418403fc07b8f1a0979faf6e6d4db240e40e699eadcbe135a"
+    },
+    {
+      "url": "./assets/runtime/source-matrix-r1094.js?v=r1121",
+      "sha256": "07a56c03210a52669d9d0c5578339eac60423654bdf8ef13dc0d18a8f4607e1e"
+    },
+    {
+      "url": "./assets/runtime/source-matrix-ui-r1094.js?v=r1121",
+      "sha256": "1cdc67d4769bc8707acdc7e175ed927faf3dc820f8834de984e144887540345c"
+    },
+    {
+      "url": "./assets/runtime/image-pack-manifest-r1095.json?v=r1121",
+      "sha256": "00c62b2f7736479a0ee6f8ee1a02e054acb78fa34ee885f5cd618afcd5bb91a8"
+    },
+    {
+      "url": "./assets/runtime/offline-images-ui-r1095.css?v=r1121",
+      "sha256": "8d8790d515e1e752f4e80598e450eca83c96ae0c7397df3eb1156a16573ea70b"
+    },
+    {
+      "url": "./assets/runtime/offline-images-ui-r1095.js?v=r1121",
+      "sha256": "a73415347147aea22dc249f435aba425713e8bc4f7cf33c72ea1c372168f32ef"
+    },
+    {
+      "url": "./css/berhet-controls-r1101.css?v=r1121",
+      "sha256": "3a5628a1796a0bf2dde3b7eafc68037bb8b4a0a549af9b53dfd1122e9dee7e47"
+    },
+    {
+      "url": "./js/section-switch-r1101.js?v=r1121",
+      "sha256": "29d8a99e6061997c0d392dc6e6493189eab9f2c10d67b87dcdb7dfa80b5d4a8f"
+    },
+    {
+      "url": "./css/frequency-hub-r1101.css?v=r1121",
+      "sha256": "23587c627d8683d16ca6d576ec3751af99595425e476d0dd0c695faf184c4c6e"
+    },
+    {
+      "url": "./js/frequency-hub-r1101.js?v=r1121",
+      "sha256": "8a0125ad70894a8fd41c2eee80b860f02dd548134e1f2ad63929907e57ccbba9"
+    },
+    {
+      "url": "./css/ambience-compact-r1102.css?v=r1121",
+      "sha256": "b0c1b7ea6439a01b2d7893f080340b31d4e4f512a68c87f29283d35537c896cc"
+    },
+    {
+      "url": "./css/ambience-info-round-r1103.css?v=r1121",
+      "sha256": "26f50a886eaedc343bd4bcae22be40b58f8329afa38484c2ee752965aec0394b"
+    },
+    {
+      "url": "./css/ambience-readable-r1104.css?v=r1121",
+      "sha256": "200f0cdb827dbfb48e7a22e2ae01bbbbe954482faff85d8d288f4f71a0a306e2"
+    },
+    {
+      "url": "./css/shared-readable-r1105.css?v=r1121",
+      "sha256": "6f515d25354673aa17ea59ba9a0c884beffb7b8bbed1e2cc2700f2291008c57e"
+    },
+    {
+      "url": "./assets/runtime/storage-snapshot-r1107.css?v=r1121",
+      "sha256": "e1222f0524734b2e07abf35700fb26e048926498ac11cb54dcdc4b7be43f6029"
+    },
+    {
+      "url": "./assets/runtime/storage-snapshot-r1107.js?v=r1121",
+      "sha256": "125fb6075cbf9de7c617e7cde6e204dc9d519e82f755c0367994df56183c9fdf"
+    },
+    {
+      "url": "./assets/runtime/storage-snapshot-ui-r1107.js?v=r1121",
+      "sha256": "bfc5c97505fde90dbec9d101fd7ac7e768d9f442e6e414f233305a2bb28185d4"
+    },
+    {
+      "url": "./css/kandil-preferences-r1108.css?v=r1121",
+      "sha256": "8ffd305fef20dcc04277f2a61c7349e029b400506707974df68f13872c08ec08"
+    },
+    {
+      "url": "./css/player-branding-r1109.css?v=r1121",
+      "sha256": "0e1c4904c3290562081cf29326fb7fd70d17480db91205db966b5192d565f25a"
+    },
+    {
+      "url": "./css/category-flow-r1109.css?v=r1121",
+      "sha256": "cea8152b97516fb5bb7908c8868d190179cebe0c66d9fae548411d53487c1dd8"
+    },
+    {
+      "url": "./css/tooltip-help-r1110.css?v=r1121",
+      "sha256": "b5f598abc3d9660977742bb285802a691b21587e4c4eaf371af1bd31ece5b4da"
+    },
+    {
+      "url": "./css/notification-layout-r1111.css?v=r1121",
+      "sha256": "dba02fc702f8320cf6ed05d847ac70df68c31ef43441be962484ecaad096e27f"
+    },
+    {
+      "url": "./css/tekke-set-card-r1112.css?v=r1121",
+      "sha256": "ad93851820e98e0f238459cc95fc26e89b1227f1174095a715e542c74e9470c7"
+    },
+    {
+      "url": "./css/berhet-surfaces-r1115.css?v=r1121",
+      "sha256": "cc1776fe16b64a9785d41161ff5d87cf6a9bcbe077340abf9608933d2af3949d"
+    },
+    {
+      "url": "./css/name-info-r1115.css?v=r1121",
+      "sha256": "66d8c485c9c6c92939380a4ee07c471db127f6d9356b4f7320ada8454aaa27b4"
+    },
+    {
+      "url": "./assets/runtime/surface-clarity-r1118.css?v=r1121",
+      "sha256": "9c8a993f293eacdb8658750b72bac7176b824d28cf78f1e625e35b53284e2581"
+    },
+    {
+      "url": "./assets/runtime/personal-centre-glass-r1118.css?v=r1121",
+      "sha256": "4a65531c6bca7cf34ced0ca03c135e8bd196d8d1e94d2a89e888db3859af583b"
+    },
+    {
+      "url": "./assets/runtime/scene-info-r1118.css?v=r1121",
+      "sha256": "3f53579550f9477097a0bab883b008863283b6de6d38ddd088e3e24252d7e891"
+    },
+    {
+      "url": "./assets/runtime/recording-panel-r1119.css?v=r1121",
+      "sha256": "09f351325cc8b0f1366a1ff9b9246fa50b56573d48f1e9fc0dfc403931b0a941"
+    },
+    {
+      "url": "./assets/runtime/frequency-workbench-r1120.css?v=r1121",
+      "sha256": "1d3b46e9bea83f578f3c2949ec3df83c6512b67a9268660a9948c81c50510b03"
+    },
+    {
+      "url": "./assets/runtime/frequency-sets-r1120.css?v=r1121",
+      "sha256": "36b37a5e992329f6c88df7f0e771e204c80ff9f50a7a4489311cecdfe43fa295"
+    },
+    {
+      "url": "./assets/runtime/frequency-workbench-r1120.js?v=r1121",
+      "sha256": "576e17ea4db1f04f9bedf44c647a5613d5425708f89e42343a771c97a499c840"
+    },
+    {
+      "url": "./assets/runtime/frequency-sets-r1120.js?v=r1121",
+      "sha256": "ea404ecc246402db9b32f2200a24cbf0fb1904045b5787ada833a55ac8f85aff"
+    }
+  ],
+  "wheelAssets": [
+    "assets/wheels-r924/berhetiyye/ham-kristal.webp",
+    "assets/wheels-r924/berhetiyye/faset-kesim.webp",
+    "assets/wheels-r924/berhetiyye/ametist-yuvarlak.webp",
+    "assets/wheels-r924/berhetiyye/ametist-saltanati.webp",
+    "assets/wheels-r924/berhetiyye/zumrut-tac.webp",
+    "assets/wheels-r924/berhetiyye/safir-ruzgari.webp",
+    "assets/wheels-r924/berhetiyye/obsidyen-muhur.webp",
+    "assets/wheels-r924/berhetiyye/bakir-ruzgari.webp",
+    "assets/wheels-r924/berhetiyye/yakut-muhur.webp",
+    "assets/wheels-r924/berhetiyye/billur-hisar.webp",
+    "assets/wheels-r924/berhetiyye/lacivert-usturlap.webp",
+    "assets/wheels-r924/esma/inci-sema.webp",
+    "assets/wheels-r924/esma/zumrut-tesbih.webp",
+    "assets/wheels-r924/esma/oniks-sukuneti.webp",
+    "assets/wheels-r924/esma/kehribar-tesbih.webp",
+    "assets/wheels-r924/esma/sedef-nuru.webp"
+  ],
+  "sceneVersion": "r927",
+  "skinAssets": [
+    "assets/berhetiyye-premium/gem-amethyst-r933.webp",
+    "assets/berhetiyye-premium/gem-diamond-r933.webp",
+    "assets/berhetiyye-premium/gem-emerald-r932.webp",
+    "assets/berhetiyye-premium/gem-ruby-r933.webp",
+    "assets/berhetiyye-premium/gem-sapphire-r933.webp",
+    "assets/berhetiyye-premium/gem-topaz-r935.webp",
+    "assets/berhetiyye-premium/menu-ruby-r930.webp",
+    "assets/berhetiyye-premium/panel-emerald-r932.webp",
+    "assets/berhetiyye-premium/panel-ruby-r931.webp",
+    "assets/berhetiyye-premium/peek-ruby-r930.webp",
+    "assets/berhetiyye-premium/seal-amethyst-r931.webp",
+    "assets/berhetiyye-premium/tefekkur-amethyst-r931.webp"
+  ],
+  "skinVersion": "r935",
+  "newSkinAssets": [],
+  "healthVersion": "r975",
+  "aiVersion": "r941",
+  "scenePickerVersion": "r957",
+  "audioPaletteVersion": "r945",
+  "backgroundHandoffVersion": "r957",
+  "healthEvidenceVersion": "r979",
+  "nefsVersion": "r948",
+  "artwork": [
+    {
+      "url": "./assets/wheels-r977/ceviz-naksi.webp",
+      "sha256": "86e88d374e02bdfdf6e2d31e59e4ff2dec6ab2eb3a0b5381aa379cd99f56b795"
+    },
+    {
+      "url": "./assets/wheels-r977/zeytin-tesbihi.webp",
+      "sha256": "ade875147d0afd253d173ed87558a6fe4128892e415b7b69ff2a5cc33ab34746"
+    },
+    {
+      "url": "./assets/wheels-r977/abanoz-sukunu.webp",
+      "sha256": "7fc6002cb200e8f7dd9c2e045a20d9529f8a94949429f3fd02d43783cf9bfbd4"
+    },
+    {
+      "url": "./assets/wheels-r977/sandal-halkasi.webp",
+      "sha256": "9aa32bbb2bafa81ab026d16abad11cc8f3e96e0ac5696c594c744fddd99b6a54"
+    },
+    {
+      "url": "./assets/wheels-r977/altin-nakis.webp",
+      "sha256": "00e57bb2ba9128ce46c2bf2e1f72048c4cee57cd1bc6cb908dd5b14825c840c0"
+    },
+    {
+      "url": "./assets/wheels-r977/elmas-taci.webp",
+      "sha256": "37dc4d2ce5ea19f163a6e798f72c1c3ed982f15fcee74a7a20cda554f2411d93"
+    },
+    {
+      "url": "./assets/wheels-r977/gumus-telkari.webp",
+      "sha256": "adc84abe1f6a8ed767c9116be868fb2830199a21958ce9925a8b376bafe352bb"
+    },
+    {
+      "url": "./assets/wheels-r977/sultan-taslari.webp",
+      "sha256": "4f62138580ee38b3cbed0b3e6541703837d3f86d7767e907c62ec0c11cc8043f"
+    }
+  ],
+  "presentationVersion": "r1049",
+  "tempoMinimumSeconds": 0.6,
+  "tempoDefaultSeconds": 1,
+  "recordingRestoreVersion": "r1011",
+  "gestureVersion": "r1011",
+  "tabOwnerRevision": "r1070",
+  "recordingCaptureRevision": "r1012",
+  "tekkeLayoutRevision": "r1014",
+  "recordingCatalogRevision": "r1017",
+  "gestureRevision": "r1015",
+  "recordingUpdateDiagnosticsRevision": "r1016",
+  "updateGuardRevision": "r1070",
+  "recordingInspectionRevision": "r1020",
+  "manualRescanPauseRevision": "r1017",
+  "recordingCatalogSyncRevision": "r1017",
+  "recordingBackupCatalogRevision": "r1017",
+  "recordingPanelLayoutRevision": "r1018",
+  "tekkeEntryLayoutRevision": "r1018",
+  "studioBatchRevision": "r1020",
+  "dataRecoveryRevision": "r1020",
+  "versionRecoveryRevision": "r1019",
+  "siteBackupManifestUrl": "./sukun-site-assets-r1121.json",
+  "maxPreviousVersions": 5,
+  "maxPersonalRestorePoints": 5,
+  "shell": {
+    "url": "./nero.html",
+    "sha256": "5ad4dd9ce55ccc5a8853affb7fda651f44ac7fbfb2994d206ccc783b9defb411"
+  },
+  "recordingSalvageRevision": "r1020",
+  "blockedRollbackBuilds": [
+    "r1019"
+  ],
+  "automaticDataRecovery": false,
+  "exactDataRestoreEnabled": false,
+  "recordingImportGateRevision": "r1021",
+  "startupHandlerRevision": "r1022",
+  "smartSessionLabelRevision": "r1023",
+  "nativeWrapCounterRevision": "r1052",
+  "hydrationBudgetRevision": "r1025",
+  "headerWatermarkRevision": "r1026",
+  "prayerRecordingFaultRevision": "r1027",
+  "recordingDeleteRevision": "r1027",
+  "hiddenRecoveryRevision": "r1027",
+  "startupIntroRevision": "r1029",
+  "siteBackupReleaseRevision": "r1027",
+  "localeRevision": "r1027",
+  "brandingRevision": "r1029",
+  "cssGrammarRevision": "r1028",
+  "deliberateRecoveryRevision": "r1029",
+  "surfaceClarityRevision": "r1029",
+  "rotorContainmentRevision": "r1029",
+  "shellVisibilityRevision": "r1030",
+  "cabirBackdropRevision": "r1031",
+  "personalCentreGlassRevision": "r1031",
+  "miniPlayerBrandingRevision": "r1031",
+  "startupAudioEligibilityRevision": "r1035",
+  "startupReadinessClockRevision": "r1034",
+  "startupVisualFallbackRevision": "r1034",
+  "startupAudioClockRevision": "r1035",
+  "startupAudioLeadMilliseconds": 20,
+  "startupAudioTimbreRevision": "r1037",
+  "startupAudioMasterGain": 1,
+  "startupAudioTailZeroMilliseconds": 2770,
+  "startupAudioDurationMilliseconds": 3000,
+  "startupVisualDurationMilliseconds": 5800,
+  "startupAudioFile": "./assets/audio/sukun-intro-signature-r1037.wav?v=r1121",
+  "startupAudioSha256": "19e70027ad3125d1165a09fdb529c87881048c2866094e88e1a169e41f7de457",
+  "foregroundRenderQueueRevision": "r1042",
+  "runtimeIntegrityConfigurationRevision": "r1049",
+  "hiddenGraphicsRestRevision": "r1042",
+  "performanceModeDescriptionsRevision": "r1042",
+  "backgroundLockTransitionRevision": "r1044",
+  "recordingElementAttackRevision": "r1049",
+  "startupSilentCarrierRevision": "r1046",
+  "introRejectionDiagnosticRevision": "r1045",
+  "ambientInfoRevision": "r1045",
+  "presentationNoticeLocaleRevision": "r1048",
+  "quickErrorLabelRevision": "r1045",
+  "frequencyPauseIntentRevision": "r1047",
+  "recordingPreviewCancellationRevision": "r1048",
+  "recordingLiveVolumeRevision": "r1048",
+  "recordingNativeIntegrityRevision": "r1048",
+  "offlineReadinessRevision": "r1048",
+  "recoveryUnreadableStateRevision": "r1048",
+  "recordingPauseResumeRevision": "r1049",
+  "recordingPendingReadPauseRevision": "r1049",
+  "recordingCancellationEpochRevision": "r1049",
+  "recordingQuarantineJobReadRevision": "r1049",
+  "layoutModeSelectionRevision": "r1049",
+  "layoutModalKeyboardRevision": "r1049",
+  "presentationNoticeFocusRevision": "r1049",
+  "offlineGraphAdmissionRevision": "r1049",
+  "offlineRuntimeRefreshRevision": "r1049",
+  "dockProgressInvalidationRevision": "r1050",
+  "recordingCadenceEvidenceRevision": "r1050",
+  "nativeRecordingSourceEvidenceRevision": "r1050",
+  "dashboardErrorStatusRevision": "r1051",
+  "nativeRecordingBlockRevision": "r1052",
+  "nativeMediaEvidenceRevision": "r1052",
+  "nativeRecordingBlockTargetSeconds": 60,
+  "nativeRecordingBlockMaximumBytes": 16777216,
+  "nativeRecordingBlockMaximumUnits": 512,
+  "physicalLockScreenTest": "NOT_RUN",
+  "wheelMotionVersion": "r1054",
+  "manualWheelStepDegrees": -8,
+  "manualWheelStepDurationMs": 180,
+  "manualWheelStepRequiresCommittedCredit": true,
+  "touchHoldPausesWheel": false,
+  "pointerReleaseVisualDelayMs": 0,
+  "genericRecordingsVersion": "r1055",
+  "genericRecordingsDefaultEnabled": false,
+  "genericAudioSourcePending": false,
+  "genericRecordingsCount": 291,
+  "genericRecordingsBytes": 43004619,
+  "voiceSourceLabelsRevision": "r1056",
+  "quickControlsLayoutRevision": "r1056",
+  "compactUIVersion": "r1057",
+  "newWheelCount": 9,
+  "backgroundMixRevision": "r1121",
+  "backgroundMixRendererRevision": "r1059",
+  "backgroundMixPreparation": "visible-native-stereo-pcm",
+  "backgroundMixDurationSeconds": 48,
+  "backgroundMixScopes": [
+    "ambience",
+    "custom-and-hybrid-ambience",
+    "frequency-bin",
+    "frequency-iso",
+    "frequency-mono",
+    "frequency-mix",
+    "secondary-binaural",
+    "pink-noise",
+    "harmonics"
+  ],
+  "backgroundMixUsesSilentKeepalive": false,
+  "backgroundMixMainContextDependency": false,
+  "backgroundMixSerialPreparation": true,
+  "backgroundMixPreservesLocalDhikrFinish": true,
+  "activeSourcePresentationRevision": "r1061",
+  "dockVolumeScopeRevision": "r1060",
+  "dockActiveLayerCountRevision": "r1060",
+  "dockUnknownDurationRevision": "r1060",
+  "multiLayerDockPresentationRevision": "r1061",
+  "nativeLockPauseRevision": "r1061",
+  "nativeMediaSessionResumeRevision": "r1061",
+  "nativeBackgroundReadinessRevision": "r1061",
+  "secondaryFrequencyDetailsRevision": "r1061",
+  "dhikrPauseScopeRevision": "r1062",
+  "dhikrResumeScopeRevision": "r1062",
+  "localDhikrTransportRevision": "r1062",
+  "easyControlVisibilityRevision": "r1063",
+  "contemplationExitControlsRevision": "r1063",
+  "readingSourcesRevision": "r1064",
+  "readingAudioContentRevision": "r1064",
+  "readingAudioOriginRevision": "r1064",
+  "yasinTextRevision": "r1064",
+  "yasinVerseCount": 83,
+  "readingChoiceDefault": "legacy-preserved",
+  "readingMeaningSource": "Elmalili Hamdi Yazir / Wikisource revision150714",
+  "delailArabicMatching": "PENDING_SAME_EDITION",
+  "hizbArabicMatching": "PENDING_SAME_VERSION",
+  "readingOriginalScanCompared": false,
+  "arabicAudioVersion": "r1065",
+  "readingAudioVersion": "r1065",
+  "bundledArabicPriority": "bundled-arabic,generic,personal",
+  "bundledArabicFiles": [
+    {
+      "file": "yasin.mp3",
+      "bytes": 21195286,
+      "sha256": "4096f23ddba18fb4b410e54459cac520d91de178c5b5d2a78232e57723fb6a3d",
+      "license": "CC0",
+      "chapterVerses": "36:1-83"
+    },
+    {
+      "file": "fatiha.mp3",
+      "bytes": 2351078,
+      "sha256": "46fe21a5118957d52ac76f5a6a7fdd7e75d52e4a569619ae3e174a23ce5c82bc",
+      "license": "CC0",
+      "chapterVerses": "1:1-7"
+    },
+    {
+      "file": "ayatul-kursi.mp3",
+      "bytes": 2222734,
+      "sha256": "cb32b4b36012fdc2c4a93460a7106b9e337f1244d5198a549cea76a7edeaeb38",
+      "license": "CC BY-SA 4.0",
+      "chapterVerses": "2:255"
+    },
+    {
+      "file": "ikhlas.mp3",
+      "bytes": 1017788,
+      "sha256": "9ad15357702fd585cfc9a4cb082c65a7d3930ff34ed1c720f14447a0fc60d361",
+      "license": "CC BY-SA 4.0",
+      "chapterVerses": "112:1-4"
+    },
+    {
+      "file": "falaq.mp3",
+      "bytes": 1549641,
+      "sha256": "2e01e8048cca4ff3a7419331e119241d15565e1e5a531fab85bd53d7283afcc9",
+      "license": "CC0",
+      "chapterVerses": "113:1-5"
+    },
+    {
+      "file": "nas.mp3",
+      "bytes": 1752351,
+      "sha256": "176441a835915036e7b517f723d49d2954a86cfd8bfd12d6172c77edcc85405e",
+      "license": "CC0",
+      "chapterVerses": "114:1-6"
+    }
+  ],
+  "navigationVersion": "r1066",
+  "diagnosticsOverflowVersion": "r1066",
+  "tempoGestureVersion": "r1066",
+  "yasinFollowVersion": "r1067",
+  "readerClockVersion": "r1067",
+  "yasinTimingVersion": "r1067",
+  "scrollLifecycleVersion": "r1067",
+  "yasinSelectionVersion": "r1068",
+  "intentionTransitionVersion": "r1069",
+  "ownerReleaseStartRevision": "r1070",
+  "startupAssetReleaseRevision": "r1070",
+  "atlasFrameRevision": "r1071",
+  "singlePauseRetirementRevision": "r1072",
+  "pausedSingleNavigationRevision": "r1072",
+  "nameSelectionPauseSafetyRevision": "r1072",
+  "journeyPauseRetirementRevision": "r1073",
+  "smartPauseRetirementRevision": "r1073",
+  "sessionCommandDiagnosticRevision": "r1073",
+  "healthCommandDiagnosticRevision": "r1073",
+  "selectionThemeRevision": "r1074",
+  "berhetThemeVersion": "r1074",
+  "sessionControlRevision": "r1074",
+  "berhetCompactPanelRevision": "r1075",
+  "protectiveOriginalNativeRevision": "r1076",
+  "recordingErrorIdentityRevision": "r1076",
+  "protectiveMetadataRevision": "r1077",
+  "browserContrastRevision": "r1077",
+  "protectivePlanRevision": "r1079",
+  "manualReadingTransportRevision": "r1078",
+  "protectivePlanAccordionRevision": "r1079",
+  "berhetGateRevision": "r1080",
+  "berhetGateAccessMode": "configured-device-privacy",
+  "berhetGateRemoteProvider": "optional-not-configured",
+  "berhetGateSpeechRecording": "higgsfield-seed-audio-turkish-local-mp3",
+  "berhetGateQueuePrivacyRevision": "r1080",
+  "smartStepTargetRevision": "r1081",
+  "smartDhikrTransportRevision": "r1081",
+  "smartFixedRepeatConditionRevision": "r1081",
+  "smartJourneyPositionRevision": "r1081",
+  "smartSessionRevision": "r1082",
+  "sessionExperienceRevision": "r1082",
+  "runtimeCoreByteBudget": 9437184,
+  "visualConsistencyRevision": "r1083",
+  "themeLayerOrderRevision": "r1083",
+  "greetingGlassRevision": "r1083",
+  "sessionPresetIntegrityRevision": "r1084",
+  "smartResultProjectionRevision": "r1084",
+  "ttsCompletionRevision": "r1084",
+  "sessionPauseAdmissionRevision": "r1084",
+  "berhetSessionIntentionRevision": "r1085",
+  "smartRecordingOnsetRevision": "r1085",
+  "smartCadenceRevision": "r1085",
+  "nameTtsVocativeRevision": "r1086",
+  "journeyStripFrameRevision": "r1087",
+  "savedSessionIdentityRevision": "r1088",
+  "smartSessionContinuityRevision": "r1088",
+  "smartPauseReasonRevision": "r1088",
+  "smartDockResumeRevision": "r1088",
+  "gateAudioIsolationRevision": "r1088",
+  "gateEffectsDefaultEnabled": true,
+  "smartNavigationIntentRevision": "r1089",
+  "savedSessionTransactionsRevision": "r1089",
+  "savedSessionActivationRevision": "r1089",
+  "smartPreparationPresentationRevision": "r1089",
+  "gateStateConsistencyRevision": "r1089",
+  "unifiedBerhetEntryRevision": "r1090",
+  "smartDeferredIntentRevision": "r1090",
+  "canonicalSessionExportRevision": "r1090",
+  "savedActivationFailureRevision": "r1090",
+  "silenceRecordingLifecycleRevision": "r1091",
+  "gateMicrophoneIsolationRevision": "r1091",
+  "gateEntryRevealRevision": "r1091",
+  "sessionPreflightRevision": "r1092",
+  "smartSourcePolicyRevision": "r1092",
+  "readOnlyVoicePlanRevision": "r1092",
+  "healthRuntimeCapacityRevision": "r1092",
+  "archiveDownloadRevision": "r1093",
+  "genericArchiveCASRevision": "r1093",
+  "archiveWorkerStageRevision": "r1093",
+  "sourceMatrixRevision": "r1094",
+  "sourceMatrixUIRevision": "r1094",
+  "genericStoredInspectionRevision": "r1094",
+  "studioMatrixTargetRevision": "r1094",
+  "preflightVisibilityRevision": "r1094",
+  "imagePackRevision": "r1095",
+  "imagePackProtocol": 1,
+  "offlineImageUIRevision": "r1095",
+  "imagePackManifestSha256": "00c62b2f7736479a0ee6f8ee1a02e054acb78fa34ee885f5cd618afcd5bb91a8",
+  "sourceLayersFixRevision": 1095,
+  "studioWebmClustersRevision": "r1097",
+  "recordingOnsetRevision": "r1098",
+  "recordingPlaybackTrimRevision": "r1098",
+  "recordingPendingVolumeRevision": "r1098",
+  "recordingPauseEnvelopeRevision": "r1098",
+  "studioLongInspectionRevision": "r1105",
+  "studioInspectionMaxSeconds": 180,
+  "studioDecodeMaxSeconds": 180,
+  "studioSourceMaxBytes": 8388608,
+  "studioPreparationBudgetBytes": 33554432,
+  "studioLongEditingEnabled": false,
+  "studioWebmSafetyMarginSeconds": 1,
+  "contemplationReadingRevision": "r1100",
+  "contemplationReadingPresentation": "native-dialog-single-node",
+  "physicalAndroidTest": "NOT_RUN",
+  "sectionSwitchRevision": "r1101",
+  "berhetControlMaterialsRevision": "r1101",
+  "sectionSwitchAccessPolicy": "visible-only-while-current-secret-access-valid",
+  "sectionSwitchAutoPlay": false,
+  "frequencyHubRevision": "r1101",
+  "neuroFrequencyEngine": "main-FR-controller",
+  "neuroStandaloneSynthVisible": false,
+  "journeyPreferenceDraftRevision": "r1101",
+  "ambienceCompactRevision": "r1102",
+  "ambienceInfoButtonPixels": 28,
+  "ambienceCompactAudioChanges": false,
+  "ambienceInfoRoundRevision": "r1103",
+  "ambienceInfoVisibleDiameterPixels": 20,
+  "ambienceInfoHitTargetPixels": 28,
+  "ambienceInfoAudioChanges": false,
+  "ambienceTextContrastRevision": "r1104",
+  "ambienceTextSurfaceAlpha": 0.94,
+  "ambienceTextAudioChanges": false,
+  "sharedTextContrastRevision": "r1105",
+  "sharedTextSurfaceAlpha": 0.94,
+  "studioWaveformReadOnlyRevision": "r1105",
+  "studioReadOnlyAnalysisMaxSeconds": 180,
+  "studioEditMaxSeconds": 60,
+  "studioFxMaxSeconds": 60,
+  "studioAnalysisPCMMode": "borrowed-readonly-chunked",
+  "nativeBrowserValidationR1105": "NOT_RUN_BROWSER_UNAVAILABLE",
+  "healthRuntimePathRevision": "r1105",
+  "frequencyPresetsHeadingContrastRevision": "r1106",
+  "ambienceRecordedMicPlacementRevision": "r1106",
+  "ambienceRecordedMicPlacement": "after-custom-sounds-accordion",
+  "nativeBrowserValidationR1106": "NOT_RUN_BROWSER_UNAVAILABLE",
+  "frequencyPresetsDisclosureRevision": "r1107",
+  "frequencyPresetsDisclosurePreference": "sukun.ui.frequencyPresetsOpen.r1107",
+  "storageSnapshotRevision": "r1107",
+  "storageSnapshotReadOnly": true,
+  "storageSnapshotAutomaticScan": false,
+  "storageSnapshotByteScope": "audio-blob-bytes",
+  "storageSnapshotPlanPhase": "G6",
+  "nativeBrowserValidationR1107": "LOCAL_NATIVE_SUITE_NOT_RUN",
+  "cloudBrowserValidationR1107": "POST_DEPLOYMENT_UI_PENDING",
+  "kandilRevision": "r1108",
+  "kandilPreference": "sukun.kandil.idle",
+  "kandilModes": [
+    "off",
+    "1m",
+    "5m"
+  ],
+  "kandilDefault": "1m",
+  "kandilPlanPhase": "G7",
+  "presentationContextRevision": "r1108",
+  "presentationStartupFrameMiss": "unverified-without-return-notice",
+  "nativeBrowserValidationR1108": "LOCAL_NATIVE_SUITE_NOT_RUN",
+  "cloudBrowserValidationR1108": "POST_DEPLOYMENT_UI_PENDING",
+  "playerBrandingRevision": "r1109",
+  "playerBrandingOwner": "existing-r633-grip-css-only",
+  "categoryFlowExtractionRevision": "r1109",
+  "categoryFlowBaselineSha256": "cea8152b97516fb5bb7908c8868d190179cebe0c66d9fae548411d53487c1dd8",
+  "g8PlanPhase": "bounded-recording-panel-extraction",
+  "nativeBrowserValidationR1109": "LOCAL_NATIVE_SUITE_NOT_RUN",
+  "cloudBrowserValidationR1109": "POST_DEPLOYMENT_UI_PENDING",
+  "playerSapphireRevision": "r1110",
+  "playerSapphireScope": "canonical-r933-berhet-dock-only",
+  "playerSapphireAsset": "assets/berhetiyye-premium/gem-sapphire-r933.webp",
+  "tooltipHelpExtractionRevision": "r1110",
+  "tooltipHelpBaselineSha256": "b5f598abc3d9660977742bb285802a691b21587e4c4eaf371af1bd31ece5b4da",
+  "nativeBrowserValidationR1110": "LOCAL_NATIVE_SUITE_NOT_RUN",
+  "cloudBrowserValidationR1110": "PENDING",
+  "cssResourceValidationRevision": "r1111",
+  "cssResourceValidationScope": "active-external-css-and-local-imports",
+  "cssResourceUnresolvedPolicy": "explicit-diagnostics-not-pass",
+  "notificationLayoutExtractionRevision": "r1111",
+  "notificationLayoutBaselineSha256": "dba02fc702f8320cf6ed05d847ac70df68c31ef43441be962484ecaad096e27f",
+  "nativeBrowserValidationR1111": "LOCAL_NATIVE_SUITE_NOT_RUN",
+  "cloudBrowserValidationR1111": "PENDING_POST_DEPLOYMENT",
+  "libraryExplicitPlaybackRevision": "r1112",
+  "frequencyBackgroundIntentRevision": "r1112",
+  "ambienceReadyMaterialRevision": "r1112",
+  "tekkeSetCardExtractionRevision": "r1112",
+  "tekkeSetCardBaselineSha256": "ad93851820e98e0f238459cc95fc26e89b1227f1174095a715e542c74e9470c7",
+  "nativeBrowserValidationR1112": "LOCAL_NATIVE_SUITE_NOT_RUN",
+  "cloudBrowserValidationR1112": "PENDING_POST_DEPLOYMENT",
+  "libraryNoticeSynchronizationRevision": "r1113",
+  "nativeBrowserValidationR1113": "LOCAL_NATIVE_SUITE_NOT_RUN",
+  "cloudBrowserValidationR1113": "PENDING_POST_DEPLOYMENT",
+  "frequencyAutomationHandoffRevision": "r1114",
+  "nativeBrowserValidationR1114": "LOCAL_NATIVE_SUITE_NOT_RUN",
+  "cloudBrowserValidationR1114": "PENDING_POST_DEPLOYMENT",
+  "berhetSurfacesRevision": "r1115",
+  "nameInfoStylesRevision": "r1115",
+  "frequencyJourneyAutomationRevision": "r1116",
+  "frequencyModeRestartRevision": "r1116",
+  "frequencyJourneyPauseRevision": "r1116",
+  "frequencyRampContinuityRevision": "r1116",
+  "frequencyJourneyClock": "AudioContext.currentTime",
+  "frequencyPendingPauseCaptureRevision": "r1117",
+  "frequencyPendingPauseOwner": "registry-mix",
+  "g8SharedCssExtractions": 9,
+  "g8SharedCssExtractedBytes": 32821,
+  "g8CurrentBatchOwners": [
+    "sukun-r1018-recording-panel-layout"
+  ],
+  "g8AcceptanceRecord": "docs/g8/R1119_ACCEPTANCE.md",
+  "classicNavigationRevision": "r1121",
+  "frequencyLifecycleRevision": "r1121",
+  "journeyLifecycleRevision": "r1121"
+}

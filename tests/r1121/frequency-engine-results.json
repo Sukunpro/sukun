@@ -1,0 +1,89 @@
+{
+  "suite": "r1121 frequency engine controlled contracts",
+  "method": "Unmodified production oscillator/journey functions and hub in Node VM; deterministic recording AudioParams, graph nodes, DOM and clocks. Not a native browser, rendered/audible sound, screen-lock or physical-device acceptance.",
+  "startedAt": "2026-10-20T20:26:18.181Z",
+  "testSha256": "e088fe273e09f02e73b49ec0eba256db847148ee544d79423d87c8214dc1e976",
+  "checks": [
+    {
+      "name": "Repeated Start/Stop owns one graph and a stopped graph never revives",
+      "passed": true,
+      "evidence": {
+        "cycles": 20
+      }
+    },
+    {
+      "name": "Rapid mode restarts are cancelled by Stop and held by Pause until Resume",
+      "passed": true,
+      "evidence": {
+        "cancelledStart": true,
+        "resumeOnce": true
+      }
+    },
+    {
+      "name": "Carrier and beat separation respect the sample-rate guard in every mode",
+      "passed": true,
+      "evidence": {
+        "combinations": 108
+      }
+    },
+    {
+      "name": "Journey Pause freezes position and resumes the remaining ramp without skipping stages",
+      "passed": true,
+      "evidence": {
+        "c": 276.6666666666667,
+        "b": 8.988333333333323,
+        "remaining": 33000,
+        "index": 0
+      }
+    },
+    {
+      "name": "Timer starts on playback, freezes with audio pause and expires without changing saved volume",
+      "passed": true,
+      "evidence": {
+        "remainingAtPause": 9,
+        "savedVolume": 0.5
+      }
+    },
+    {
+      "name": "Timer cancellation removes the old deadline and does not stop a fresh session later",
+      "passed": true,
+      "evidence": {
+        "cancelledDeadline": true
+      }
+    },
+    {
+      "name": "Sweep keeps fixed beat spacing, survives rebuild, freezes on Pause and retires on Stop",
+      "passed": true,
+      "evidence": {
+        "scales": [
+          "linear",
+          "log"
+        ]
+      }
+    },
+    {
+      "name": "A separate chakra journey retires a running sweep before taking oscillator ownership",
+      "passed": true,
+      "evidence": {
+        "journeyTarget": 432,
+        "sweepActive": false
+      }
+    },
+    {
+      "name": "Fallback harmonic retune captures the moving value before removing the old ramp",
+      "passed": true,
+      "evidence": {
+        "held": 680,
+        "scheduledHold": 680
+      }
+    }
+  ],
+  "sourceHashes": {
+    "index": "802447d1c4e8e0d413358b3374c06752f72eb2f377d1b5ed3e1ba9ca3252b3ed",
+    "hub": "8a0125ad70894a8fd41c2eee80b860f02dd548134e1f2ad63929907e57ccbba9"
+  },
+  "finishedAt": "2026-10-20T20:26:23.417Z",
+  "total": 9,
+  "passed": 9,
+  "allPassed": true
+}

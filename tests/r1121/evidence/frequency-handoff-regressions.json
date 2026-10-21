@@ -1,0 +1,626 @@
+{
+  "suite": "r1121 source-bound historical frequency handoff regressions",
+  "startedAt": "2026-10-20T20:28:01.781Z",
+  "finishedAt": "2026-10-20T20:28:07.993Z",
+  "testSha256": "32e44341e34f239ab14dc7a36c2976a80f4864e8a26449b84bbdb1809a259e79",
+  "candidateOverride": false,
+  "method": "Fresh Node VM/source runs with only explicit immutable runtime path adaptations; four contradicted historical assumptions retain SUPERSEDED non-pass status and their new replacements are executed. No browser, native audio rendering, acoustic or physical-device acceptance.",
+  "controller": {
+    "referenced": "assets/runtime/background-mix-r1121.js",
+    "tested": "assets/runtime/background-mix-r1121.js",
+    "sha256": "0bc132112a28fd5cbf91624a3add898abb727759b1a1e031cd9890d3597ad954"
+  },
+  "renderer": {
+    "referenced": "assets/runtime/background-mix-render-r1121.js",
+    "tested": "assets/runtime/background-mix-render-r1121.js",
+    "sha256": "69f86632856b5d51b4a91e158b9b4f400931f7969e87806dcda851218be587fa"
+  },
+  "passed": 105,
+  "total": 105,
+  "totalMeaning": "Applicable freshly executed invariants only; excluded historical expectations are not counted as passes.",
+  "historicalExecuted": 81,
+  "excluded": [
+    {
+      "name": "Baseline main graph uses a digital-zero native anchor and has no PCM background route",
+      "status": "SKIP",
+      "reason": "Historical r1058 baseline was not supplied; current production controller cases still execute. Pass an archived baseline as argv[3] to run this historical comparison."
+    },
+    {
+      "name": "Returning to accepted selection via changed survives stale render resolve",
+      "status": "SUPERSEDED",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ ''\n- 'blob:lock-test-2'\n\n    at /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:213:429\n    at async test (/tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:75:36)\n    at async /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:211:94",
+      "originalStatus": "FAIL",
+      "reason": "The historical test requires a disabled secondary layer to remain audible during preparation; r1121 must stop that PCM immediately.",
+      "replacements": [
+        "Non-attenuating A to B to A via changed survives stale resolve",
+        "Secondary mute and restore via changed survives stale resolve without replaying disabled audio"
+      ]
+    },
+    {
+      "name": "Returning to accepted selection via prepare survives stale render resolve",
+      "status": "SUPERSEDED",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ ''\n- 'blob:lock-test-2'\n\n    at /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:213:429\n    at async test (/tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:75:36)\n    at async /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:211:94",
+      "originalStatus": "FAIL",
+      "reason": "The historical test requires a disabled secondary layer to remain audible during preparation; r1121 must stop that PCM immediately.",
+      "replacements": [
+        "Non-attenuating A to B to A via prepare survives stale resolve",
+        "Secondary mute and restore via prepare survives stale resolve without replaying disabled audio"
+      ]
+    },
+    {
+      "name": "Returning to accepted selection via changed survives stale render reject",
+      "status": "SUPERSEDED",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ ''\n- 'blob:lock-test-2'\n\n    at /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:213:429\n    at async test (/tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:75:36)\n    at async /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:211:94",
+      "originalStatus": "FAIL",
+      "reason": "The historical test requires a disabled secondary layer to remain audible during preparation; r1121 must stop that PCM immediately.",
+      "replacements": [
+        "Non-attenuating A to B to A via changed survives stale reject",
+        "Secondary mute and restore via changed survives stale reject without replaying disabled audio"
+      ]
+    },
+    {
+      "name": "Returning to accepted selection via prepare survives stale render reject",
+      "status": "SUPERSEDED",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ ''\n- 'blob:lock-test-2'\n\n    at /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:213:429\n    at async test (/tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:75:36)\n    at async /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:211:94",
+      "originalStatus": "FAIL",
+      "reason": "The historical test requires a disabled secondary layer to remain audible during preparation; r1121 must stop that PCM immediately.",
+      "replacements": [
+        "Non-attenuating A to B to A via prepare survives stale reject",
+        "Secondary mute and restore via prepare survives stale reject without replaying disabled audio"
+      ]
+    }
+  ],
+  "failed": 0,
+  "skipped": 1,
+  "superseded": 4,
+  "allRequiredPassed": true,
+  "allPassed": true,
+  "allPassedMeaning": "All required current contracts pass; explicitly counted historical supersessions and unavailable-baseline skip are not passes.",
+  "historicalController": {
+    "test": "tests/r1059/background-mix.cjs",
+    "testSha256": "38f75cd8f9e5e86f82fd74524ccb23c2bf33fd4a3a92a736b2354d871c14a708",
+    "adaptedTestSha256": "95ef796d35042f6107c9b597e7cdb2685ce9e1560933428799c1858250d8d1cf",
+    "pathAdaptations": [
+      {
+        "from": "assets/runtime/background-mix-r1059.js",
+        "to": "assets/runtime/background-mix-r1121.js",
+        "occurrences": 3
+      },
+      {
+        "from": "assets/runtime/background-mix-render-r1059.js",
+        "to": "assets/runtime/background-mix-render-r1121.js",
+        "occurrences": 1
+      }
+    ],
+    "exitCode": 0,
+    "stderr": "",
+    "report": {
+      "source": "/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/assets/runtime/background-mix-r1121.js",
+      "total": 27,
+      "passed": 26,
+      "skipped": 1,
+      "failed": 0,
+      "scope": "Actual controller source with controlled native media, audible PCM fixture, context suspension and frozen JavaScript timers; not physical Android playback or speaker audibility.",
+      "results": [
+        {
+          "name": "Current release wires PCM renderer, native controller, and live-background adapter",
+          "status": "PASS"
+        },
+        {
+          "name": "Baseline main graph uses a digital-zero native anchor and has no PCM background route",
+          "status": "SKIP",
+          "reason": "Historical r1058 baseline was not supplied; current production controller cases still execute. Pass an archived baseline as argv[3] to run this historical comparison."
+        },
+        {
+          "name": "ambient native mix survives hidden +8s context suspension and 120s frozen JS",
+          "status": "PASS"
+        },
+        {
+          "name": "bin native mix survives hidden +8s context suspension and 120s frozen JS",
+          "status": "PASS"
+        },
+        {
+          "name": "iso native mix survives hidden +8s context suspension and 120s frozen JS",
+          "status": "PASS"
+        },
+        {
+          "name": "mono native mix survives hidden +8s context suspension and 120s frozen JS",
+          "status": "PASS"
+        },
+        {
+          "name": "mix native mix survives hidden +8s context suspension and 120s frozen JS",
+          "status": "PASS"
+        },
+        {
+          "name": "combined native mix survives hidden +8s context suspension and 120s frozen JS",
+          "status": "PASS"
+        },
+        {
+          "name": "secondary native mix survives hidden +8s context suspension and 120s frozen JS",
+          "status": "PASS"
+        },
+        {
+          "name": "Native mix coexists with independent voice and stopping that voice retains mix",
+          "status": "PASS"
+        },
+        {
+          "name": "Master volume zero is exact and does not restore a positive level on hide",
+          "status": "PASS"
+        },
+        {
+          "name": "Native sleep fade decreases by elapsed time, preserves zero and clears its interval on Stop",
+          "status": "PASS"
+        },
+        {
+          "name": "Explicit aggregate Pause keeps native loop paused through hide/unlock",
+          "status": "PASS"
+        },
+        {
+          "name": "Global Stop clears native source, restores live bus and retires every audible URL",
+          "status": "PASS"
+        },
+        {
+          "name": "Pause while rendering cannot admit a delayed audible native candidate",
+          "status": "PASS"
+        },
+        {
+          "name": "Stop while rendering cannot revive after delayed preparation resolves",
+          "status": "PASS"
+        },
+        {
+          "name": "Pause while native play promise is pending cancels delayed playback acceptance",
+          "status": "PASS"
+        },
+        {
+          "name": "Stop while native play promise is pending cannot restart the removed mix",
+          "status": "PASS"
+        },
+        {
+          "name": "Native play rejection leaves no audible lease and restores the live background route",
+          "status": "PASS"
+        },
+        {
+          "name": "Selection change keeps prior native output until the replacement is prepared",
+          "status": "PASS"
+        },
+        {
+          "name": "Rapid slider revisions allocate only one in-flight render and only the latest queued snapshot",
+          "status": "PASS"
+        },
+        {
+          "name": "Finishing foreground voice ownership leaves the independent background mix running",
+          "status": "PASS"
+        },
+        {
+          "name": "Global ownership cleanup cancels a delayed candidate and retires background output",
+          "status": "PASS"
+        },
+        {
+          "name": "Preparation failure drops obsolete native selection and restores current live configuration",
+          "status": "PASS"
+        },
+        {
+          "name": "Hidden and visible transitions require no replay and produce no duplicated native route",
+          "status": "PASS"
+        },
+        {
+          "name": "Same-value live setters are muted again without rendering or restarting the accepted native source",
+          "status": "PASS"
+        },
+        {
+          "name": "Only the private prime resource is classified as silence; audible mix never is",
+          "status": "PASS"
+        }
+      ]
+    }
+  },
+  "historicalLock": {
+    "test": "tests/r1061/background-lock.cjs",
+    "testSha256": "d0a443e32cf7a78d3835c3d513c1d847587bcdab3a5d54c432c5c9e1f247685e",
+    "adaptedTestSha256": "5d52865ffadb546b44e7eabb1f237fb60aad9d5cd6774c24cf58624a94e22549",
+    "pathAdaptations": [
+      {
+        "from": "assets/runtime/background-mix-r1059.js",
+        "to": "assets/runtime/background-mix-r1121.js",
+        "occurrences": 1
+      }
+    ],
+    "exitCode": 1,
+    "stderr": "",
+    "report": {
+      "source": "/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/assets/runtime/background-mix-r1121.js",
+      "sourceSha256": "0bc132112a28fd5cbf91624a3add898abb727759b1a1e031cd9890d3597ad954",
+      "total": 54,
+      "passed": 50,
+      "failed": 4,
+      "scope": "Actual production controller with controlled native media events, offline preparation and wall clock; no physical phone lock or speaker-audibility claim.",
+      "results": [
+        {
+          "name": "Native pause on accepted visible output is reported as interrupted immediately",
+          "status": "PASS"
+        },
+        {
+          "name": "ambient recovers one same-source OS pause at five seconds after lock",
+          "status": "PASS"
+        },
+        {
+          "name": "bin recovers one same-source OS pause at five seconds after lock",
+          "status": "PASS"
+        },
+        {
+          "name": "iso recovers one same-source OS pause at five seconds after lock",
+          "status": "PASS"
+        },
+        {
+          "name": "mono recovers one same-source OS pause at five seconds after lock",
+          "status": "PASS"
+        },
+        {
+          "name": "mix recovers one same-source OS pause at five seconds after lock",
+          "status": "PASS"
+        },
+        {
+          "name": "combined recovers one same-source OS pause at five seconds after lock",
+          "status": "PASS"
+        },
+        {
+          "name": "secondary recovers one same-source OS pause at five seconds after lock",
+          "status": "PASS"
+        },
+        {
+          "name": "Ten ambience layers and both frequencies remain intact across lock recovery",
+          "status": "PASS"
+        },
+        {
+          "name": "Recovery is bounded to one attempt for one hidden transition",
+          "status": "PASS"
+        },
+        {
+          "name": "Repeated hidden notifications cannot grant a second recovery attempt",
+          "status": "PASS"
+        },
+        {
+          "name": "Repeated hidden notifications cannot extend the original twelve-second window",
+          "status": "PASS"
+        },
+        {
+          "name": "A later OS focus pause outside the lock transition window stays interrupted",
+          "status": "PASS"
+        },
+        {
+          "name": "A pause immediately preceding the hidden edge can recover after lock",
+          "status": "PASS"
+        },
+        {
+          "name": "A stale visible pause cannot be reclassified as a fresh lock interruption",
+          "status": "PASS"
+        },
+        {
+          "name": "Explicit aggregate Pause cancels a scheduled hidden recovery",
+          "status": "PASS"
+        },
+        {
+          "name": "Global Stop cancels hidden recovery and retires the accepted source",
+          "status": "PASS"
+        },
+        {
+          "name": "Independent ambience can recover after the foreground voice lease has finished",
+          "status": "PASS"
+        },
+        {
+          "name": "A selection revision before scheduled recovery cannot replay obsolete media",
+          "status": "PASS"
+        },
+        {
+          "name": "Pagehide cancels a scheduled native recovery and unloads the mix",
+          "status": "PASS"
+        },
+        {
+          "name": "Freeze cancels scheduled recovery without creating a background polling timer",
+          "status": "PASS"
+        },
+        {
+          "name": "Aggregate Pause protects native playback even if the adapter hold is stale",
+          "status": "PASS"
+        },
+        {
+          "name": "Explicit global Resume can restart an unchanged held source while still locked",
+          "status": "PASS"
+        },
+        {
+          "name": "Explicit Resume notification cannot override the actual aggregate Pause gate",
+          "status": "PASS"
+        },
+        {
+          "name": "Microphone preparation, permission, recording and saving each cancel lock recovery",
+          "status": "PASS"
+        },
+        {
+          "name": "A recovery timer delivered after the lock window cannot resume media",
+          "status": "PASS"
+        },
+        {
+          "name": "Lock recovery rejection reports failure and never retries while hidden",
+          "status": "PASS"
+        },
+        {
+          "name": "Resolved native play without playing confirmation cannot claim recovery",
+          "status": "PASS"
+        },
+        {
+          "name": "Explicit Pause while recovery play is pending defeats delayed playing acceptance",
+          "status": "PASS"
+        },
+        {
+          "name": "Global Stop while recovery play is pending defeats delayed playing acceptance",
+          "status": "PASS"
+        },
+        {
+          "name": "Visible cached resume also requires actual native playback confirmation",
+          "status": "PASS"
+        },
+        {
+          "name": "Repeated prepare requests cannot duplicate a candidate awaiting native play acceptance",
+          "status": "PASS"
+        },
+        {
+          "name": "Same-value settings cannot cancel the initial native candidate awaiting play acceptance",
+          "status": "PASS"
+        },
+        {
+          "name": "Visible return resumes one unchanged interrupted source without new rendering",
+          "status": "PASS"
+        },
+        {
+          "name": "Source URL mismatch is not accepted as playing or replayed at lock",
+          "status": "PASS"
+        },
+        {
+          "name": "Hidden edge flushes selection debounce before JavaScript can freeze",
+          "status": "PASS"
+        },
+        {
+          "name": "Unfinished offline preparation never claims native ready while locked",
+          "status": "PASS"
+        },
+        {
+          "name": "A render accepted shortly after lock can recover within the original lock window",
+          "status": "PASS"
+        },
+        {
+          "name": "A render accepted after the lock window cannot create a new automatic recovery window",
+          "status": "PASS"
+        },
+        {
+          "name": "A render finishing while hidden respects explicit Pause",
+          "status": "PASS"
+        },
+        {
+          "name": "A render finishing while hidden respects global Stop",
+          "status": "PASS"
+        },
+        {
+          "name": "Muted, zero-volume, unready, ended and failed native media do not auto-replay at lock",
+          "status": "PASS"
+        },
+        {
+          "name": "Native waiting/failure events report inactive playback without a retry heartbeat",
+          "status": "PASS"
+        },
+        {
+          "name": "Retuning does not label the obsolete accepted selection as currently ready",
+          "status": "PASS"
+        },
+        {
+          "name": "Returning to accepted selection via changed survives stale render resolve",
+          "status": "SUPERSEDED",
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ ''\n- 'blob:lock-test-2'\n\n    at /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:213:429\n    at async test (/tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:75:36)\n    at async /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:211:94",
+          "originalStatus": "FAIL",
+          "reason": "The historical test requires a disabled secondary layer to remain audible during preparation; r1121 must stop that PCM immediately.",
+          "replacements": [
+            "Non-attenuating A to B to A via changed survives stale resolve",
+            "Secondary mute and restore via changed survives stale resolve without replaying disabled audio"
+          ]
+        },
+        {
+          "name": "Returning to accepted selection via prepare survives stale render resolve",
+          "status": "SUPERSEDED",
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ ''\n- 'blob:lock-test-2'\n\n    at /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:213:429\n    at async test (/tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:75:36)\n    at async /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:211:94",
+          "originalStatus": "FAIL",
+          "reason": "The historical test requires a disabled secondary layer to remain audible during preparation; r1121 must stop that PCM immediately.",
+          "replacements": [
+            "Non-attenuating A to B to A via prepare survives stale resolve",
+            "Secondary mute and restore via prepare survives stale resolve without replaying disabled audio"
+          ]
+        },
+        {
+          "name": "Returning to accepted selection via changed survives stale render reject",
+          "status": "SUPERSEDED",
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ ''\n- 'blob:lock-test-2'\n\n    at /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:213:429\n    at async test (/tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:75:36)\n    at async /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:211:94",
+          "originalStatus": "FAIL",
+          "reason": "The historical test requires a disabled secondary layer to remain audible during preparation; r1121 must stop that PCM immediately.",
+          "replacements": [
+            "Non-attenuating A to B to A via changed survives stale reject",
+            "Secondary mute and restore via changed survives stale reject without replaying disabled audio"
+          ]
+        },
+        {
+          "name": "Returning to accepted selection via prepare survives stale render reject",
+          "status": "SUPERSEDED",
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ ''\n- 'blob:lock-test-2'\n\n    at /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:213:429\n    at async test (/tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:75:36)\n    at async /tmp/sukun-r1121-handoff-rl9oyu/r1061-background-lock.cjs:211:94",
+          "originalStatus": "FAIL",
+          "reason": "The historical test requires a disabled secondary layer to remain audible during preparation; r1121 must stop that PCM immediately.",
+          "replacements": [
+            "Non-attenuating A to B to A via prepare survives stale reject",
+            "Secondary mute and restore via prepare survives stale reject without replaying disabled audio"
+          ]
+        },
+        {
+          "name": "A slider returning to its accepted value cancels an unallocated debounce",
+          "status": "PASS"
+        },
+        {
+          "name": "Pause after restoring accepted selection fences stale render resolve",
+          "status": "PASS"
+        },
+        {
+          "name": "Pause after restoring accepted selection fences stale render reject",
+          "status": "PASS"
+        },
+        {
+          "name": "Stop after restoring accepted selection fences stale render resolve",
+          "status": "PASS"
+        },
+        {
+          "name": "Stop after restoring accepted selection fences stale render reject",
+          "status": "PASS"
+        },
+        {
+          "name": "Missing or invalid native duration cannot produce a ready lock label",
+          "status": "PASS"
+        }
+      ]
+    }
+  },
+  "replacementContract": {
+    "suite": "r1121 frequency native handoff and silence guards",
+    "startedAt": "2026-10-20T20:28:02.307Z",
+    "finishedAt": "2026-10-20T20:28:07.982Z",
+    "testSha256": "58df105262c2989acffc85fbdaed73f7fcdef8183fc54c1faf33ba2c09b6889d",
+    "fixtureSha256": "38f75cd8f9e5e86f82fd74524ccb23c2bf33fd4a3a92a736b2354d871c14a708",
+    "method": "Unmodified production runtimes in Node VM; existing media fixture uses one explicit path adaptation. Renderer receives controlled zero PCM. No browser, real audio rendering, physical device or acoustic acceptance.",
+    "candidateOverride": false,
+    "controller": {
+      "referenced": "assets/runtime/background-mix-r1121.js",
+      "tested": "assets/runtime/background-mix-r1121.js",
+      "sha256": "0bc132112a28fd5cbf91624a3add898abb727759b1a1e031cd9890d3597ad954"
+    },
+    "renderer": {
+      "referenced": "assets/runtime/background-mix-render-r1121.js",
+      "tested": "assets/runtime/background-mix-render-r1121.js",
+      "sha256": "69f86632856b5d51b4a91e158b9b4f400931f7969e87806dcda851218be587fa"
+    },
+    "passed": 29,
+    "total": 29,
+    "results": [
+      {
+        "name": "Zero frequency volume immediately retires previously audible PCM",
+        "passed": true
+      },
+      {
+        "name": "Reduced frequency volume restores the quieter live graph without losing ambience",
+        "passed": true
+      },
+      {
+        "name": "Reduced explicit output level retires old higher-profile PCM",
+        "passed": true
+      },
+      {
+        "name": "Left-channel attenuation cannot leave that old channel audible",
+        "passed": true
+      },
+      {
+        "name": "Right-channel attenuation cannot leave that old channel audible",
+        "passed": true
+      },
+      {
+        "name": "Pink-layer removal retires independently audible old pink PCM",
+        "passed": true
+      },
+      {
+        "name": "Pink-level attenuation is independent of unchanged main level",
+        "passed": true
+      },
+      {
+        "name": "Secondary removal retires old secondary PCM even when main remains",
+        "passed": true
+      },
+      {
+        "name": "Secondary-level attenuation is independent of main stereo trims",
+        "passed": true
+      },
+      {
+        "name": "Noise-volume attenuation retires the previously louder noise",
+        "passed": true
+      },
+      {
+        "name": "Direct prepare also fences the obsolete louder frequency",
+        "passed": true
+      },
+      {
+        "name": "Attenuation during aggregate pause cannot restart any source",
+        "passed": true
+      },
+      {
+        "name": "Pure pitch changes retain accepted native route until current render is ready",
+        "passed": true
+      },
+      {
+        "name": "Delayed prior render cannot regain ownership after a zero-volume request",
+        "passed": true
+      },
+      {
+        "name": "Non-attenuating A to B to A via changed survives stale resolve",
+        "passed": true
+      },
+      {
+        "name": "Secondary mute and restore via changed survives stale resolve without replaying disabled audio",
+        "passed": true
+      },
+      {
+        "name": "Non-attenuating A to B to A via prepare survives stale resolve",
+        "passed": true
+      },
+      {
+        "name": "Secondary mute and restore via prepare survives stale resolve without replaying disabled audio",
+        "passed": true
+      },
+      {
+        "name": "Non-attenuating A to B to A via changed survives stale reject",
+        "passed": true
+      },
+      {
+        "name": "Secondary mute and restore via changed survives stale reject without replaying disabled audio",
+        "passed": true
+      },
+      {
+        "name": "Non-attenuating A to B to A via prepare survives stale reject",
+        "passed": true
+      },
+      {
+        "name": "Secondary mute and restore via prepare survives stale reject without replaying disabled audio",
+        "passed": true
+      },
+      {
+        "name": "Deliberately muted left and right channels accept digital-zero PCM",
+        "passed": true
+      },
+      {
+        "name": "Zero volume accepts digital-zero PCM",
+        "passed": true
+      },
+      {
+        "name": "Explicitly zero main output accepts digital-zero PCM",
+        "passed": true
+      },
+      {
+        "name": "An audible main channel still rejects unexpected silence",
+        "passed": true
+      },
+      {
+        "name": "Enabled independent pink output still rejects unexpected silence despite muted main trims",
+        "passed": true
+      },
+      {
+        "name": "Enabled independent secondary output still rejects unexpected silence despite muted main trims",
+        "passed": true
+      },
+      {
+        "name": "Explicitly muted pink and secondary outputs accept zero without masking audible branches",
+        "passed": true
+      }
+    ],
+    "failed": 0,
+    "allPassed": true
+  }
+}

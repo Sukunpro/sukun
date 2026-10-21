@@ -1,0 +1,201 @@
+{
+  "suite": "r1121 exact journey lifecycle",
+  "sourceRoot": "/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo",
+  "sourceSha256": "802447d1c4e8e0d413358b3374c06752f72eb2f377d1b5ed3e1ba9ca3252b3ed",
+  "sourceFragmentsSha256": {
+    "28": "febcd913eb065c0c2a88be31fbf93ac9cf1c1ff8699e89bb4c9732e84256c507",
+    "99": "35e02b4dd331a059cd09c0b3a832a264ffe1516cb19b2b413669cf8d34263c57"
+  },
+  "testSha256": "a4ade12332f1044e32aa934dad56c53bf6bf47e5d51c1f5d0ce2b9da0a638fdf",
+  "passed": 46,
+  "total": 46,
+  "results": [
+    {
+      "name": "28: visible duplicate play/resume is one active reading",
+      "passed": true
+    },
+    {
+      "name": "28: visible stale watchdog cannot cut a resumed same-name source",
+      "passed": true
+    },
+    {
+      "name": "28: visible stop wins over unresolved and late successful provider",
+      "passed": true
+    },
+    {
+      "name": "28: visible completion credits once, then gap advances only current item",
+      "passed": true
+    },
+    {
+      "name": "28: visible pause during gap retains credit without launching next item",
+      "passed": true
+    },
+    {
+      "name": "28: visible next/previous retire old completion without credit",
+      "passed": true
+    },
+    {
+      "name": "28: visible provider stalls are bounded and never counted",
+      "passed": true
+    },
+    {
+      "name": "28: hidden duplicate play/resume is one active reading",
+      "passed": true
+    },
+    {
+      "name": "28: hidden stale watchdog cannot cut a resumed same-name source",
+      "passed": true
+    },
+    {
+      "name": "28: hidden stop wins over unresolved and late successful provider",
+      "passed": true
+    },
+    {
+      "name": "28: hidden completion credits once, then gap advances only current item",
+      "passed": true
+    },
+    {
+      "name": "28: hidden pause during gap retains credit without launching next item",
+      "passed": true
+    },
+    {
+      "name": "28: hidden next/previous retire old completion without credit",
+      "passed": true
+    },
+    {
+      "name": "28: hidden provider stalls are bounded and never counted",
+      "passed": true
+    },
+    {
+      "name": "28: delayed pageshow recovery respects newer stop",
+      "passed": true
+    },
+    {
+      "name": "28: delayed pageshow recovery respects newer pause",
+      "passed": true
+    },
+    {
+      "name": "28: delayed pageshow recovery respects newer new-play",
+      "passed": true
+    },
+    {
+      "name": "28: delayed pageshow recovery respects newer hidden",
+      "passed": true
+    },
+    {
+      "name": "28: delayed pageshow recovery respects newer lost-owner",
+      "passed": true
+    },
+    {
+      "name": "28: visible wake and repeated pageshow recover a held journey exactly once",
+      "passed": true
+    },
+    {
+      "name": "28: lost ownership is checked before a stale running flag can short-circuit Resume",
+      "passed": true
+    },
+    {
+      "name": "28: native Start button toggles running pause/resume without duplicate reads",
+      "passed": true
+    },
+    {
+      "name": "28: final heard reading completes once and explicit replay starts at first item",
+      "passed": true
+    },
+    {
+      "name": "99: visible duplicate play/resume is one active reading",
+      "passed": true
+    },
+    {
+      "name": "99: visible stale watchdog cannot cut a resumed same-name source",
+      "passed": true
+    },
+    {
+      "name": "99: visible stop wins over unresolved and late successful provider",
+      "passed": true
+    },
+    {
+      "name": "99: visible completion credits once, then gap advances only current item",
+      "passed": true
+    },
+    {
+      "name": "99: visible pause during gap retains credit without launching next item",
+      "passed": true
+    },
+    {
+      "name": "99: visible next/previous retire old completion without credit",
+      "passed": true
+    },
+    {
+      "name": "99: visible provider stalls are bounded and never counted",
+      "passed": true
+    },
+    {
+      "name": "99: hidden duplicate play/resume is one active reading",
+      "passed": true
+    },
+    {
+      "name": "99: hidden stale watchdog cannot cut a resumed same-name source",
+      "passed": true
+    },
+    {
+      "name": "99: hidden stop wins over unresolved and late successful provider",
+      "passed": true
+    },
+    {
+      "name": "99: hidden completion credits once, then gap advances only current item",
+      "passed": true
+    },
+    {
+      "name": "99: hidden pause during gap retains credit without launching next item",
+      "passed": true
+    },
+    {
+      "name": "99: hidden next/previous retire old completion without credit",
+      "passed": true
+    },
+    {
+      "name": "99: hidden provider stalls are bounded and never counted",
+      "passed": true
+    },
+    {
+      "name": "99: delayed pageshow recovery respects newer stop",
+      "passed": true
+    },
+    {
+      "name": "99: delayed pageshow recovery respects newer pause",
+      "passed": true
+    },
+    {
+      "name": "99: delayed pageshow recovery respects newer new-play",
+      "passed": true
+    },
+    {
+      "name": "99: delayed pageshow recovery respects newer hidden",
+      "passed": true
+    },
+    {
+      "name": "99: delayed pageshow recovery respects newer lost-owner",
+      "passed": true
+    },
+    {
+      "name": "99: visible wake and repeated pageshow recover a held journey exactly once",
+      "passed": true
+    },
+    {
+      "name": "99: lost ownership is checked before a stale running flag can short-circuit Resume",
+      "passed": true
+    },
+    {
+      "name": "99: native Start button toggles running pause/resume without duplicate reads",
+      "passed": true
+    },
+    {
+      "name": "99: final heard reading completes once and explicit replay starts at first item",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Node VM runs exact shipped journey owners with controlled DOM, voice providers and timer delivery; not native audio/Android lockscreen evidence."
+  ]
+}

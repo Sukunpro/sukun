@@ -1,0 +1,83 @@
+{
+  "suite": "r1121 frequency engine controlled contracts",
+  "method": "Unmodified production oscillator/journey functions and hub in Node VM; deterministic recording AudioParams, graph nodes, DOM and clocks. Not a native browser, rendered/audible sound, screen-lock or physical-device acceptance.",
+  "startedAt": "2026-10-20T20:22:18.849Z",
+  "testSha256": "e088fe273e09f02e73b49ec0eba256db847148ee544d79423d87c8214dc1e976",
+  "checks": [
+    {
+      "name": "Repeated Start/Stop owns one graph and a stopped graph never revives",
+      "passed": true,
+      "evidence": {
+        "cycles": 20
+      }
+    },
+    {
+      "name": "Rapid mode restarts are cancelled by Stop and held by Pause until Resume",
+      "passed": true,
+      "evidence": {
+        "cancelledStart": true,
+        "resumeOnce": true
+      }
+    },
+    {
+      "name": "Carrier and beat separation respect the sample-rate guard in every mode",
+      "passed": true,
+      "evidence": {
+        "combinations": 108
+      }
+    },
+    {
+      "name": "Journey Pause freezes position and resumes the remaining ramp without skipping stages",
+      "passed": true,
+      "evidence": {
+        "c": 276.6666666666667,
+        "b": 8.988333333333323,
+        "remaining": 33000,
+        "index": 0
+      }
+    },
+    {
+      "name": "Timer starts on playback, freezes with audio pause and expires without changing saved volume",
+      "passed": true,
+      "evidence": {
+        "remainingAtPause": 9,
+        "savedVolume": 0.5
+      }
+    },
+    {
+      "name": "Timer cancellation removes the old deadline and does not stop a fresh session later",
+      "passed": true,
+      "evidence": {
+        "cancelledDeadline": true
+      }
+    },
+    {
+      "name": "Sweep keeps fixed beat spacing, survives rebuild, freezes on Pause and retires on Stop",
+      "passed": true,
+      "evidence": {
+        "scales": [
+          "linear",
+          "log"
+        ]
+      }
+    },
+    {
+      "name": "A separate chakra journey retires a running sweep before taking oscillator ownership",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: The old sweep must not overwrite the journey\n\ntrue !== false\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/frequency-engine-contract.cjs:19:239\n    at check (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/frequency-engine-contract.cjs:11:44)\n    at Object.<anonymous> (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/frequency-engine-contract.cjs:19:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "name": "Fallback harmonic retune captures the moving value before removing the old ramp",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Harmonic handoff must match its pre-cancellation pitch: 360 != 680\n    at near (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/frequency-engine-contract.cjs:10:27)\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/frequency-engine-contract.cjs:20:378\n    at check (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/frequency-engine-contract.cjs:11:44)\n    at Object.<anonymous> (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/frequency-engine-contract.cjs:20:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)"
+    }
+  ],
+  "sourceHashes": {
+    "index": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9",
+    "hub": "8a0125ad70894a8fd41c2eee80b860f02dd548134e1f2ad63929907e57ccbba9"
+  },
+  "finishedAt": "2026-10-20T20:22:24.846Z",
+  "total": 9,
+  "passed": 7,
+  "allPassed": false
+}

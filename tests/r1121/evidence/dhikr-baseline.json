@@ -1,0 +1,222 @@
+{
+  "suite": "r1121 exact journey lifecycle",
+  "sourceRoot": "/tmp/r1121-base-dhikr",
+  "sourceSha256": "69575be0236df62f86fbbf4dea2a46f908134a94e40c4803a29e16c3166dbfe9",
+  "sourceFragmentsSha256": {
+    "28": "2032d143d872fc35ea4bc1c6c8c0e5aa730e044b427dc71255a86319fd6bcfa2",
+    "99": "b3a2559bda6ba5c8ca2bf7549927668ea07c1520803b087db1445ee51aac2d54"
+  },
+  "testSha256": "a4ade12332f1044e32aa934dad56c53bf6bf47e5d51c1f5d0ce2b9da0a638fdf",
+  "passed": 26,
+  "total": 46,
+  "results": [
+    {
+      "name": "28: visible duplicate play/resume is one active reading",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n3 !== 1\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:51:242\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:51:3"
+    },
+    {
+      "name": "28: visible stale watchdog cannot cut a resumed same-name source",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: retired watchdog changed current attempt\n\n4 !== 3\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:52:375\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:52:3"
+    },
+    {
+      "name": "28: visible stop wins over unresolved and late successful provider",
+      "passed": true
+    },
+    {
+      "name": "28: visible completion credits once, then gap advances only current item",
+      "passed": true
+    },
+    {
+      "name": "28: visible pause during gap retains credit without launching next item",
+      "passed": true
+    },
+    {
+      "name": "28: visible next/previous retire old completion without credit",
+      "passed": true
+    },
+    {
+      "name": "28: visible provider stalls are bounded and never counted",
+      "passed": true
+    },
+    {
+      "name": "28: hidden duplicate play/resume is one active reading",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n3 !== 1\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:51:242\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:51:3"
+    },
+    {
+      "name": "28: hidden stale watchdog cannot cut a resumed same-name source",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: retired watchdog changed current attempt\n\n4 !== 3\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:52:375\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:52:3"
+    },
+    {
+      "name": "28: hidden stop wins over unresolved and late successful provider",
+      "passed": true
+    },
+    {
+      "name": "28: hidden completion credits once, then gap advances only current item",
+      "passed": true
+    },
+    {
+      "name": "28: hidden pause during gap retains credit without launching next item",
+      "passed": true
+    },
+    {
+      "name": "28: hidden next/previous retire old completion without credit",
+      "passed": true
+    },
+    {
+      "name": "28: hidden provider stalls are bounded and never counted",
+      "passed": true
+    },
+    {
+      "name": "28: delayed pageshow recovery respects newer stop",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: delayed wake started an obsolete reading\n\n2 !== 1\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:498\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:72"
+    },
+    {
+      "name": "28: delayed pageshow recovery respects newer pause",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: delayed wake started an obsolete reading\n\n2 !== 1\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:498\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:72"
+    },
+    {
+      "name": "28: delayed pageshow recovery respects newer new-play",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: delayed wake started an obsolete reading\n\n3 !== 2\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:498\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:72"
+    },
+    {
+      "name": "28: delayed pageshow recovery respects newer hidden",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: delayed wake started an obsolete reading\n\n2 !== 1\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:498\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:72"
+    },
+    {
+      "name": "28: delayed pageshow recovery respects newer lost-owner",
+      "passed": true
+    },
+    {
+      "name": "28: visible wake and repeated pageshow recover a held journey exactly once",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n4 !== 2\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:60:280\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:60:2"
+    },
+    {
+      "name": "28: lost ownership is checked before a stale running flag can short-circuit Resume",
+      "passed": true
+    },
+    {
+      "name": "28: native Start button toggles running pause/resume without duplicate reads",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:62:355\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:62:2"
+    },
+    {
+      "name": "28: final heard reading completes once and explicit replay starts at first item",
+      "passed": true
+    },
+    {
+      "name": "99: visible duplicate play/resume is one active reading",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n3 !== 1\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:51:242\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:51:3"
+    },
+    {
+      "name": "99: visible stale watchdog cannot cut a resumed same-name source",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: retired watchdog changed current attempt\n\n4 !== 3\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:52:375\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:52:3"
+    },
+    {
+      "name": "99: visible stop wins over unresolved and late successful provider",
+      "passed": true
+    },
+    {
+      "name": "99: visible completion credits once, then gap advances only current item",
+      "passed": true
+    },
+    {
+      "name": "99: visible pause during gap retains credit without launching next item",
+      "passed": true
+    },
+    {
+      "name": "99: visible next/previous retire old completion without credit",
+      "passed": true
+    },
+    {
+      "name": "99: visible provider stalls are bounded and never counted",
+      "passed": true
+    },
+    {
+      "name": "99: hidden duplicate play/resume is one active reading",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n3 !== 1\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:51:242\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:51:3"
+    },
+    {
+      "name": "99: hidden stale watchdog cannot cut a resumed same-name source",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: retired watchdog changed current attempt\n\n4 !== 3\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:52:375\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:52:3"
+    },
+    {
+      "name": "99: hidden stop wins over unresolved and late successful provider",
+      "passed": true
+    },
+    {
+      "name": "99: hidden completion credits once, then gap advances only current item",
+      "passed": true
+    },
+    {
+      "name": "99: hidden pause during gap retains credit without launching next item",
+      "passed": true
+    },
+    {
+      "name": "99: hidden next/previous retire old completion without credit",
+      "passed": true
+    },
+    {
+      "name": "99: hidden provider stalls are bounded and never counted",
+      "passed": true
+    },
+    {
+      "name": "99: delayed pageshow recovery respects newer stop",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: delayed wake started an obsolete reading\n\n2 !== 1\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:498\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:72"
+    },
+    {
+      "name": "99: delayed pageshow recovery respects newer pause",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: delayed wake started an obsolete reading\n\n2 !== 1\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:498\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:72"
+    },
+    {
+      "name": "99: delayed pageshow recovery respects newer new-play",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: delayed wake started an obsolete reading\n\n3 !== 2\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:498\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:72"
+    },
+    {
+      "name": "99: delayed pageshow recovery respects newer hidden",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: delayed wake started an obsolete reading\n\n2 !== 1\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:498\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:59:72"
+    },
+    {
+      "name": "99: delayed pageshow recovery respects newer lost-owner",
+      "passed": true
+    },
+    {
+      "name": "99: visible wake and repeated pageshow recover a held journey exactly once",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n4 !== 2\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:60:280\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:60:2"
+    },
+    {
+      "name": "99: lost ownership is checked before a stale running flag can short-circuit Resume",
+      "passed": true
+    },
+    {
+      "name": "99: native Start button toggles running pause/resume without duplicate reads",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:62:355\n    at async test (/workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:47:51)\n    at async /workspace/scratch/55c51c2f8f94/r1121-rebuild/repo/tests/r1121/dhikr-lifecycle-contract.cjs:62:2"
+    },
+    {
+      "name": "99: final heard reading completes once and explicit replay starts at first item",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Node VM runs exact shipped journey owners with controlled DOM, voice providers and timer delivery; not native audio/Android lockscreen evidence."
+  ],
+  "evidenceRole": "Negative control: fresh regression run against immutable r1120 source commit 7b25996c9d545a3732d758136342da893bba6ed4; expected failures, not release acceptance."
+}
