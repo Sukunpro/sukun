@@ -18,7 +18,7 @@ const save=()=>{report.total=report.checks.length;report.passed=report.checks.fi
 async function state(){return p.evaluate(()=>{
  const all=new Set([...document.querySelectorAll('audio'),...(window.SES?.ler||[]),window.__sukJourneyNative?.a].filter(Boolean));
  return{b:SukunBerhetiyyeSeyir.state(),e:SukunEsma99Seyir.state(),counter:{cat:Z.cat,index:Z.idx,count:Z.count,total:Z.total,target:Z.target},session:SukunSessionState.snapshot().phase,frequency:FR.playing,ambience:Object.keys(AMB).sort(),context:ctx?.state||null,contextSampleRate:ctx?.sampleRate||null,aggregate:SukunAudioSessionRegistry.aggregateSnapshot(),speech:__r1064SpeechFixture.log.length,recordingFailure:SukunRecordingFailure.snapshot(),preparation:window.SukunAudioPreparation?.snapshot?.(),nativeEcho:window.SukunNativeEchoBridge?.snapshot?.(),
- media:[...all].filter(a=>a.dataset.sukSilentCarrier!=='1').map(a=>({key:a===window.__sukJourneyNative?.a?window.__sukJourneyNative.recordingKey:a.dataset.sukLockKey||a._sukunRecordingKey||'',paused:a.paused,ended:a.ended,time:a.currentTime,duration:a.duration,rate:a.playbackRate,ready:a.readyState})).filter(a=>a.key)};
+ media:[...all].filter(a=>a.dataset.sukSilentCarrier!=='1').map(a=>({key:a===window.__sukJourneyNative?.a?window.__sukJourneyNative.recordingKey:a.dataset.sukLockKey||a._sukunRecordingKey||'',nativeMedia:a instanceof HTMLMediaElement,nativeAudio:a instanceof HTMLAudioElement,constructor:a.constructor?.name,tag:a.tagName,paused:a.paused,ended:a.ended,seeking:a.seeking,time:a.currentTime,duration:a.duration,rate:a.playbackRate,ready:a.readyState,sourceMatches:a===window.__sukJourneyNative?.a&&a.currentSrc===window.__sukJourneyNative.playUrl})).filter(a=>a.key)};
 });}
 async function reset(){if(await p.locator('#r629DoneClose').isVisible()){await tap('#r629DoneClose');await p.locator('#r629JourneyDone').waitFor({state:'hidden'});}await p.evaluate(async()=>{delete window.__r1121Hidden;SukunR698Transport.stop('r1121-test-reset');await SukunR698Transport.whenStopped();SukunAudioSessionRegistry.stopAll();SukunBerhetiyyeSeyir.stop();SukunEsma99Seyir.stop();SukunForegroundArbiter.clearQueue('r1121-test-reset');SukunRecordingFailure.clearForRetry();if(window.__r1121Resolver){window.AudioResolver.play=__r1121Resolver;delete window.__r1121Resolver;}});await p.waitForFunction(()=>!SukunR698Transport.snapshot().pendingStop&&!SukunTabOwner.snapshot().releasing&&!SukunTabOwner.snapshot().pending);await p.waitForTimeout(200);}
 async function check(name,fn,cleanup){
@@ -42,7 +42,22 @@ async function selected(kind,index=0,repeats=3){
  assert(await p.locator('#r932EasyPlay').isVisible(),'Current easy transport is visible');
 }
 async function recording(kind,index,seconds){await p.evaluate(async({key,tone})=>{await REC_DB.set(key,new Blob([Uint8Array.from(atob(tone),c=>c.charCodeAt(0))],{type:'audio/wav'}));RECKEYS.add(key);},{key:kind===28?'berhet:'+index:'esma:'+index+':nida',tone:wav(seconds,440).toString('base64')});}
-async function waitPlaying(kind,index=0){await p.waitForFunction(({kind,index})=>{const s=(kind===28?SukunBerhetiyyeSeyir:SukunEsma99Seyir).state(),a=window.__sukJourneyNative?.a;return s.run&&!s.paused&&s.i===index&&a&&!a.paused&&!a.ended&&a.currentTime>.08;},{kind,index},{timeout:18000});}
+async function waitPlaying(kind,index=0){
+ await p.waitForFunction(async({kind,index})=>{
+  const api=kind===28?SukunBerhetiyyeSeyir:SukunEsma99Seyir,j=window.__sukJourneyNative,a=j?.a;
+  const key=kind===28?'berhet:'+index:'esma:'+index+':nida',s=api.state();
+  const ready=()=>{const now=api.state();return now.run&&!now.paused&&now.i===index&&now.attemptSeq===s.attemptSeq&&
+   !!j&&!!a&&j===window.__sukJourneyNative&&a===j.a&&a instanceof HTMLMediaElement&&a instanceof HTMLAudioElement&&
+   j.recordingKey===key&&a.currentSrc===j.playUrl&&a.readyState>=2&&!a.seeking&&!a.paused&&!a.ended&&
+   Number.isFinite(a.duration)&&a.duration>0&&window.SukunBackgroundAudioOwner.snapshot().playing;};
+  if(!ready())return false;
+  // The app seeks over a baked leading gap before metadata is loaded. That
+  // assigned currentTime is not evidence of playback: require native progress.
+  const before=a.currentTime,source=j.playUrl,sequence=j.prepareSeq;
+  await new Promise(resolve=>setTimeout(resolve,150));
+  return ready()&&j.playUrl===source&&j.prepareSeq===sequence&&a.currentTime>before+.03;
+ },{kind,index},{timeout:18000});
+}
 async function start(kind,index=0){await p.waitForFunction(()=>!SukunTabOwner.snapshot().releasing&&!SukunTabOwner.snapshot().pending);await tap('#r932EasyPlay');await waitPlaying(kind,index);}
 async function stop(kind){await tap('#r932EasyStop');await p.waitForFunction(kind=>!(kind===28?SukunBerhetiyyeSeyir:SukunEsma99Seyir).state().run,kind);}
 function own(s,kind){return kind===28?s.b:s.e;}
