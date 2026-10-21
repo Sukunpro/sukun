@@ -70,7 +70,8 @@ function noOverlap(s){assert(s.events.length>0,'Observe actual native playing');
    frStop();ac();const original=ctx.createPanner.bind(ctx),events=[];
    ctx.createPanner=function(){const node=original(),connect=node.connect.bind(node);node.connect=function(...args){events.push({x:node.positionX.value,y:node.positionY.value,z:node.positionZ.value,rolloff:node.rolloffFactor,ref:node.refDistance});return connect(...args)};return node;};
    try{const E=makeEnv();FR.uzam=true;FR.playing=false;const out=ctx.createGain();uzamKur(E,out);uzamDurdur();E.kill(0);FR.uzam=false;return events;}finally{ctx.createPanner=original;}
-  });assert.equal(evidence.length,1);assert.equal(evidence[0].x,0);assert.equal(evidence[0].y,0);assert.equal(evidence[0].z,1.6);return evidence;
+  });assert.equal(evidence.length,1);assert.equal(evidence[0].x,0);assert.equal(evidence[0].y,0);// Native AudioParam stores this position as Float32; retain exact equality.
+  assert.equal(evidence[0].z,Math.fround(1.6));return evidence;
  });
  report.fixture=f.evidence();assert.equal(report.fixture.served['nero.html']?.sha256,report.sourceHashes['nero.html']);assert.equal(report.fixture.served[controllerPath]?.sha256,report.sourceHashes[controllerPath]);
 }catch(error){report.fatal=error.stack;}finally{report.finishedAt=new Date().toISOString();if(f){report.fixture=f.evidence();await f.close()}save();console.log(JSON.stringify({output,passed:report.passed,total:report.total,allPassed:report.allPassed,fatal:report.fatal}));if(!report.allPassed)process.exitCode=1;}})();
