@@ -13,7 +13,7 @@ const report={suite:'r1121 native journey lifecycle and independent background s
  'Native interaction uses current visible r932 easy controls and r920 settings/navigation. Legacy bs/es99 button rows are intentionally hidden and are covered by the source-owner contract, not misreported as clickable UI.',
  'No physical Android, lockscreen, Bluetooth, audio-focus or subjective audibility acceptance is claimed.'
 ]};
-let f,p;
+let f,p,playProbeSeq=0;
 const save=()=>{report.total=report.checks.length;report.passed=report.checks.filter(x=>x.passed).length;report.allPassed=report.total>0&&report.total===report.passed&&!report.fatal;fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n');};
 async function state(){return p.evaluate(()=>{
  const all=new Set([...document.querySelectorAll('audio'),...(window.SES?.ler||[]),window.__sukJourneyNative?.a].filter(Boolean));
@@ -43,20 +43,30 @@ async function selected(kind,index=0,repeats=3){
 }
 async function recording(kind,index,seconds){await p.evaluate(async({key,tone})=>{await REC_DB.set(key,new Blob([Uint8Array.from(atob(tone),c=>c.charCodeAt(0))],{type:'audio/wav'}));RECKEYS.add(key);},{key:kind===28?'berhet:'+index:'esma:'+index+':nida',tone:wav(seconds,440).toString('base64')});}
 async function waitPlaying(kind,index=0){
- await p.waitForFunction(async({kind,index})=>{
-  const api=kind===28?SukunBerhetiyyeSeyir:SukunEsma99Seyir,j=window.__sukJourneyNative,a=j?.a;
-  const key=kind===28?'berhet:'+index:'esma:'+index+':nida',s=api.state();
-  const ready=()=>{const now=api.state();return now.run&&!now.paused&&now.i===index&&now.attemptSeq===s.attemptSeq&&
-   !!j&&!!a&&j===window.__sukJourneyNative&&a===j.a&&a instanceof HTMLMediaElement&&a instanceof HTMLAudioElement&&
-   j.recordingKey===key&&a.currentSrc===j.playUrl&&a.readyState>=2&&!a.seeking&&!a.paused&&!a.ended&&
-   Number.isFinite(a.duration)&&a.duration>0&&window.SukunBackgroundAudioOwner.snapshot().playing;};
-  if(!ready())return false;
-  // The app seeks over a baked leading gap before metadata is loaded. That
-  // assigned currentTime is not evidence of playback: require native progress.
-  const before=a.currentTime,source=j.playUrl,sequence=j.prepareSeq;
-  await new Promise(resolve=>setTimeout(resolve,150));
-  return ready()&&j.playUrl===source&&j.prepareSeq===sequence&&a.currentTime>before+.03;
- },{kind,index},{timeout:18000});
+ const probe=++playProbeSeq;let handle;
+ try{
+  // Playwright1.57 polls synchronous truthiness: an async predicate would
+  // accept its Promise even when it resolves false. Retain samples ourselves.
+  handle=await p.waitForFunction(({kind,index,probe})=>{
+   const api=kind===28?SukunBerhetiyyeSeyir:SukunEsma99Seyir,j=window.__sukJourneyNative,a=j?.a,s=api.state();
+   const key=kind===28?'berhet:'+index:'esma:'+index+':nida';
+   const ready=s.run&&!s.paused&&s.i===index&&!!j&&!!a&&a instanceof HTMLMediaElement&&a instanceof HTMLAudioElement&&
+    j.recordingKey===key&&a.currentSrc===j.playUrl&&a.readyState>=2&&!a.seeking&&!a.paused&&!a.ended&&
+    Number.isFinite(a.duration)&&a.duration>0&&window.SukunBackgroundAudioOwner.snapshot().playing;
+   if(!ready){delete window.__r1121MediaProbe;return false;}
+   const old=window.__r1121MediaProbe,at=performance.now();
+   if(!old||old.probe!==probe||old.j!==j||old.a!==a||old.source!==j.playUrl||old.sequence!==j.prepareSeq||old.attempt!==s.attemptSeq){
+    window.__r1121MediaProbe={probe,j,a,source:j.playUrl,sequence:j.prepareSeq,attempt:s.attemptSeq,time:a.currentTime,at};return false;
+   }
+   // The initial baked-gap seek is not playback. Require the same physical
+   // source/attempt to advance over a distinct150ms observation interval.
+   return at-old.at>=150&&a.currentTime>old.time+.03;
+  },{kind,index,probe},{timeout:18000,polling:50});
+  assert.equal(await handle.jsonValue(),true,'native readiness must resolve true, not merely settle');
+ }finally{
+  if(handle)await handle.dispose();
+  await p.evaluate(probe=>{if(window.__r1121MediaProbe?.probe===probe)delete window.__r1121MediaProbe;},probe);
+ }
 }
 async function start(kind,index=0){await p.waitForFunction(()=>!SukunTabOwner.snapshot().releasing&&!SukunTabOwner.snapshot().pending);await tap('#r932EasyPlay');await waitPlaying(kind,index);}
 async function stop(kind){await tap('#r932EasyStop');await p.waitForFunction(kind=>!(kind===28?SukunBerhetiyyeSeyir:SukunEsma99Seyir).state().run,kind);}
