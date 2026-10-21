@@ -388,8 +388,16 @@
     }
     const nav = window.SukunFlowNavigation;
     if(['next','previous','restart'].includes(action))clearSmartResult();
-    if (action === 'next') return nav?.nextContext?.({ surface: 'r919' });
-    if (action === 'previous') return nav?.previousContext?.({ surface: 'r919' });
+    // Local single-name controls retain the existing flow navigation effects,
+    // but do not borrow idle/unrelated-audio context at a zero repeat count.
+    // The flow boundary independently validates this narrowly scoped override.
+    const localNameNavigation = !choice && before.journeyKind === 'single' &&
+      ['next', 'previous'].includes(action) && ['esma', 'berhet'].includes(before.activeMode) &&
+      !read(() => window.currentZikirState?.snapshot?.()?.session?.active, false) &&
+      !read(() => { const nefs = window.currentZikirState?.snapshot?.()?.nefs; return nefs?.active && nefs.linked; }, false);
+    const navigationOptions = localNameNavigation ? { surface: 'r919', contextOverride: 'zikir' } : { surface: 'r919' };
+    if (action === 'next') return nav?.nextContext?.(navigationOptions);
+    if (action === 'previous') return nav?.previousContext?.(navigationOptions);
     if (action === 'restart') return nav?.restartContext?.({ surface: 'r919' });
     return false;
   }
