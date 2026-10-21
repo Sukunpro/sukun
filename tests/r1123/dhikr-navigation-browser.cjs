@@ -206,7 +206,9 @@ async function run(feyz) {
   }});
   p = f.page; profile.browser = f.browser.version();
   try {
-    if (await p.locator('#dcClose').isVisible()) await tap('#dcClose');
+    if (await p.locator('#dailyCard').isVisible()) await p.keyboard.press('Escape');
+    await p.locator('#dailyCard').waitFor({state: 'hidden'});
+    await idle();
     await p.evaluate(async tone => {
       KLT_AC('LABELLED-r1123-disposable-navigation-test');
       I18N.set('tr');
