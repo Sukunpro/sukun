@@ -52,18 +52,28 @@
  function wakeResume(value){const fn=resumeWaiter;resumeWaiter=null;if(fn)fn(value);}
  function say(text,plan,token,current){
   return new Promise(resolve=>{
-   let done=false,timer=0;const attempt=++partAttempt;
-   const finish=result=>{if(done)return;done=true;clearTimeout(timer);if(settleUtterance===finish)settleUtterance=null;if(utterance===u)utterance=null;if(u)u.onend=u.onerror=u.onstart=null;resolve(result);};
-   let u=null;settleUtterance=finish;
-   try{
-    if(!current())return finish('cancelled');
-    u=new SpeechSynthesisUtterance(text);u.lang=plan.lang;u.voice=plan.voice;u.rate=plan.rate*(w.OKUMA_HIZ||1);u.pitch=plan.pitch;
-    const voiceVolume=typeof ZVOL==='number'?ZVOL:1;u.volume=Math.min(1,Math.max(0,voiceVolume*(w.okumaSeviyesi?.()??1)));
-    utterance=u;u.onstart=()=>{if(!current()||attempt!==partAttempt){finish('cancelled');return;}change({phase:'playing',verseSync:'tts'},'tts-start');};
-    u.onend=()=>finish(current()&&attempt===partAttempt?'ended':'cancelled');u.onerror=()=>finish(state.phase==='paused'?'paused':'tts-failed');
-    timer=setTimeout(()=>{if(attempt===partAttempt){clearUtterance('tts-failed');}finish('tts-failed');},Math.max(12000,Math.min(120000,text.length*220+8000)));
-    w.speechSynthesis.speak(u);
-   }catch(_){finish('tts-failed');}
+   let done=false,timer=0,u=null,continuity=null,nativeSerial=0;const attempt=++partAttempt;
+   const finish=result=>{if(done)return;done=true;clearTimeout(timer);continuity?.close();if(settleUtterance===finish)settleUtterance=null;if(utterance===u)utterance=null;if(u)u.onend=u.onerror=u.onstart=null;resolve(result);};
+   const armTimeout=()=>{clearTimeout(timer);timer=setTimeout(deadline,Math.max(12000,Math.min(120000,text.length*220+8000)));};
+   function deadline(){if(done)return;if(continuity?.deferTimeout()){timer=setTimeout(deadline,1000);return;}if(attempt===partAttempt)clearUtterance('tts-failed');finish('tts-failed');}
+   function speak(){
+    if(done||!current()||attempt!==partAttempt||state.phase==='paused')return false;
+    try{
+     if(u)u.onend=u.onerror=u.onstart=null;
+     const serial=++nativeSerial;u=new SpeechSynthesisUtterance(text);const native=u;
+     u.lang=plan.lang;u.voice=plan.voice;u.rate=plan.rate*(w.OKUMA_HIZ||1);u.pitch=plan.pitch;
+     const voiceVolume=typeof ZVOL==='number'?ZVOL:1;u.volume=Math.min(1,Math.max(0,voiceVolume*(w.okumaSeviyesi?.()??1)));
+     const live=native=>!done&&serial===nativeSerial&&current()&&attempt===partAttempt&&(!native||typeof TTSD==='undefined'||TTSD.son===native);
+     utterance=u;u.onstart=function(){if(!live(this))return;u=this;utterance=this;continuity?.bind(this);change({phase:'playing',verseSync:'tts'},'tts-start');};
+     u.onend=function(){if(live(this))finish('ended');};
+     u.onerror=function(e){if(!live(this))return;if((w.document?.hidden||['interrupted','canceled'].includes(e?.error))&&continuity?.interrupted())return;finish(state.phase==='paused'?'paused':'tts-failed');};
+     continuity?.bind(native);armTimeout();w.speechSynthesis.speak(u);return true;
+    }catch(_){finish('tts-failed');return false;}
+   }
+   settleUtterance=finish;
+   if(!current())return finish('cancelled');
+   continuity=w.SukunTtsContinuityR1126?.create?.({source:state.kind||'reading',current:()=>!done&&current()&&attempt===partAttempt,paused:()=>state.phase==='paused',owns:native=>utterance===native,replay:speak,onWake:armTimeout,onUnavailable:()=>{if(attempt===partAttempt)clearUtterance('tts-failed');finish('tts-failed');}});
+   speak();
   });
  }
  async function findRecording(entry,opt,current){
