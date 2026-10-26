@@ -654,7 +654,7 @@
     const result=[];let total=0,reserved=0,mediaTotal=0,mediaReserved=0,expected=0;
     // The 9 MiB core allowance includes the shared session UI. Arabic recordings and the
     // exact short portal invitation share the separate bounded media allowance.
-    const maxRuntimeEntries=133,byteBudget=9437184,mediaByteBudget=33554432,waiters=new Set();
+    const maxRuntimeEntries=134,byteBudget=9437184,mediaByteBudget=33554432,waiters=new Set();
     function wakeBudget(){for(const wake of [...waiters])wake();}
     function waitForBudget(){return new Promise((resolve,reject)=>{
       let done=false;
@@ -719,7 +719,7 @@
             './css/player-branding-r1109.css','./css/category-flow-r1109.css',
             './css/tooltip-help-r1110.css','./css/notification-layout-r1111.css',
             './css/tekke-set-card-r1112.css','./css/berhet-surfaces-r1115.css',
-            './css/name-info-r1115.css']
+            './css/name-info-r1115.css','./css/berhet-consistency-r1125.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
           if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;

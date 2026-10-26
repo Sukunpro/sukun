@@ -31,12 +31,15 @@ jobs:
               'r1122': ('1e4f28d3fcb24ba362a026e4f3308ea20b4121f3', 20),
               'r1123': ('0060e0a3ce2df94c6dbb7dc5c425080cc1de6cc7', 22),
               'r1124': ('5869f46eace0d7445d42e82d6d8d9f1e61d5a2c5', 26),
+              'r1125': ('34668e0a8f829630b5ff60e7a9aed0770d38310e', 28),
           }
           assert build in supported, 'Unsupported release: never report a version skip as acceptance'
           upgrade, groups = supported[build]
           folder = Path('candidate/tests') / build
           assert (folder / 'run-release-checks.py').is_file(), 'Missing required runner'
           assert (folder / 'release-upgrade-browser.cjs').is_file(), 'Missing required upgrade suite'
+          if build == 'r1125':
+              assert (folder / 'atlas-private-access.cjs').is_file(), 'Missing required private-access suite'
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
               output.write(f'build={build}\nupgrade={upgrade}\ngroups={groups}\n')
           PYCODE

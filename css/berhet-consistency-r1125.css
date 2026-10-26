@@ -1,0 +1,199 @@
+/* r1125: canonical selection owns the Berhetiyye coat. Load before the
+ * existing important layers. Legacy data-r835-theme also exists for Esma;
+ * it must not turn source cards into stretched, gold-framed bitmaps.
+ * Decoration never owns visibility, disclosure, input or playback state. */
+@layer sukun-r1125-consistency {
+/* Private-content policy and the native hidden state remain authoritative. */
+html body :is(#berhetAtlas,#berhetSeyir)[hidden],
+html body #berhetAtlas [hidden] {display:none!important}
+/* Source text has one layout in both families. A nine-slice border reserves
+ * its own edge instead of drawing corner ornaments behind the text. */
+html body #berhetAtlas .r168Grid {
+ display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+ gap:12px!important;min-width:0!important;max-width:100%!important;
+}
+html body #berhetAtlas #berhetAtlasBody .r168Cell {
+ display:flex!important;flex-direction:column!important;
+ align-items:stretch!important;justify-content:flex-start!important;gap:7px!important;
+ box-sizing:border-box!important;grid-column:auto!important;
+ position:relative!important;inset:auto!important;transform:none!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ height:auto!important;min-height:0!important;max-height:none!important;
+ margin:0!important;padding:18px!important;
+ border:1px solid var(--line,#41625f)!important;border-image:none!important;
+ border-radius:12px!important;background:var(--surface,#09232de8)!important;
+ color:var(--txt,#edf2e5)!important;box-shadow:none!important;
+ white-space:normal!important;overflow:visible!important;
+}
+html body #berhetAtlas #berhetAtlasBody .r168Cell :is(small,b,.r168Break) {
+ position:static!important;inset:auto!important;transform:none!important;
+ display:block!important;box-sizing:border-box!important;
+ width:auto!important;min-width:0!important;max-width:100%!important;
+ margin:0!important;padding:0!important;
+ white-space:normal!important;overflow:visible!important;
+ overflow-wrap:anywhere!important;word-break:normal!important;text-overflow:clip!important;
+}
+html body #berhetAtlas #berhetAtlasBody .r168Cell small {
+ font:600 11px/1.5 system-ui,sans-serif!important;letter-spacing:.035em!important;
+ color:var(--mut,#c8d8d1)!important;
+}
+html body #berhetAtlas #berhetAtlasBody .r168Cell :is(b,.r168Break) {
+ font:500 14px/1.65 system-ui,sans-serif!important;color:inherit!important;
+}
+html body #berhetAtlas #berhetAtlasBody .r168Cell b[dir="rtl"] {
+ direction:rtl!important;unicode-bidi:plaintext!important;
+ text-align:right!important;font:400 30px/1.9 "Amiri","Noto Naskh Arabic",serif!important;
+}
+html[data-r1074-theme="berhet"] {
+ --r1125-sapphire:url('../assets/berhetiyye-premium/gem-sapphire-r933.webp');
+ --r1125-emerald:url('../assets/berhetiyye-premium/gem-emerald-r932.webp');
+ --r1125-amethyst:url('../assets/berhetiyye-premium/gem-amethyst-r933.webp');
+ --r1125-ruby:url('../assets/berhetiyye-premium/gem-ruby-r933.webp');
+ --r1125-topaz:url('../assets/berhetiyye-premium/gem-topaz-r935.webp');
+ --r1125-panel:url('../assets/berhetiyye-premium/panel-emerald-r932.webp');
+ --r1125-glass:linear-gradient(145deg,#0a233deb,#061624eb);
+}
+html[data-r1074-theme="berhet"] body #berhetAtlas #berhetAtlasBody .r168Cell {
+ padding:20px!important;border:1px solid #d1b77b99!important;
+ border-image:var(--r1125-panel) 250 / 10px / 0 stretch!important;
+ background:var(--r1125-glass)!important;color:#fff0d4!important;
+}
+html[data-r1074-theme="berhet"] body #berhetAtlas #berhetAtlasBody .r168Cell small {
+ color:#d6e4dd!important;
+}
+/* Source header/compare material follows the same theme, even when the
+ * shared practice player is collapsed or another tab is selected. */
+html[data-r1074-theme="berhet"] body :is(
+ #berhetAtlas,#berhetAtlas>summary.r168Head,#r170AtlasTools,
+ #berhetAtlasBody>.r168Source,#berhetAtlas .r174Cites,
+ #berhetAtlas .r754Mini,#berhetAtlas .r754CmpRows>div,
+ #berhetAtlas .r754Conflict,#berhetAtlas .r754CompareNote,
+ #r754AtlasContext,#r752BerhetRich .r752MetaCard,#r752BerhetRich .r752ProseCard,
+ #r752BerhetRich .r752Section,#r752BerhetRich .r752ElementPanel
+ ) {
+ border:1px solid #d1b77b99!important;
+ border-image:var(--r1125-panel) 250 / 7px / 0 stretch!important;
+ background:var(--r1125-glass)!important;color:#fff0d4!important;
+ box-shadow:none!important;
+}
+/* Shared reader, journey switches and section shortcuts were missing the
+ * canonical coat. Keep their current grids, wrapping and native hit boxes. */
+html[data-r1074-theme="berhet"] body :is(
+ #r1064ReadingExplorer,#r1064YasinBox,#r1064ReadingSources,
+ #r920Practice .r920Modes,.sukun-bottom-nav,#r616BottomNav,#zNav
+ ) {
+ border:1px solid #d1b77b99!important;
+ border-image:var(--r1125-panel) 250 / 7px / 0 stretch!important;
+ background:var(--r1125-glass)!important;color:#fff0d4!important;
+ box-shadow:none!important;
+}
+html[data-r1074-theme="berhet"] body :is(
+ .r1064-reading,.r920Modes,.r920Path,.sukun-bottom-nav,#r616BottomNav,
+ #zNav,#zCats,#r170AtlasTools
+ ) :is(button:not(.sw),select),
+html[data-r1074-theme="berhet"] body :is(
+ #berhetAtlas>summary.r168Head,#r1064ReadingExplorer>summary,
+ #r1064YasinBox>summary,#r1064ReadingSources>summary
+ ) {
+ border:1px solid transparent!important;
+ border-image:var(--r1125-sapphire) 330 fill / 6px / 0 stretch!important;
+ background:#0a2637!important;color:#fff0d4!important;
+ box-shadow:none!important;text-shadow:0 1px 3px #001019!important;
+ -webkit-text-fill-color:currentColor!important;
+}
+html[data-r1074-theme="berhet"] body :is(
+ .r1064-reading,.r920Modes,.r920Path,.sukun-bottom-nav,#r616BottomNav,
+ #zNav,#zCats
+ ) button:is(.act,.on,.active,[aria-pressed="true"],[aria-current="page"]),
+html[data-r1074-theme="berhet"] body #r920AtlasOpen {
+ border-image-source:var(--r1125-emerald)!important;
+ background:#0b392c!important;color:#fff4d8!important;
+}
+/* Retain the existing family colours instead of flattening those two
+ * semantically different switches into the shared sapphire action coat. */
+html[data-r1074-theme="berhet"] body #r920Practice #r920ModeEsma {
+ border-image-source:var(--r1125-emerald)!important;background:#053b2c!important;
+ font-weight:750!important;
+}
+html[data-r1074-theme="berhet"] body #r920Practice #r920ModeBerhet {
+ border-image-source:var(--r1125-topaz)!important;background:#b84c0d!important;
+ font-weight:750!important;
+}
+html[data-r1074-theme="berhet"] body #r920Practice #r920ModeEsma:is(:active,[aria-pressed="true"]) {
+ border-image-source:var(--r1125-ruby)!important;background:#5c1428!important;
+}
+html[data-r1074-theme="berhet"] body #r920Practice #r920ModeBerhet:is(:active,[aria-pressed="true"]) {
+ border-image-source:var(--r1125-amethyst)!important;background:#351b56!important;
+}
+html[data-r1074-theme="berhet"] body :is(
+ .r920Modes,.r920Path,.sukun-bottom-nav,#r616BottomNav,#zNav,#zCats
+ ) button>span {
+ color:inherit!important;-webkit-text-fill-color:currentColor!important;
+}
+html[data-r1074-theme="berhet"] body .r1064-reading button:disabled {
+ opacity:.48!important;
+}
+html[data-r1074-theme="berhet"] body .r1064-reading :is(
+ .r1064-field,.r1064-note,.r1064-missing,.r1064-verse-meaning,
+ #r1067YasinTrackingStatus
+ ) {
+ color:#d6e4dd!important;-webkit-text-fill-color:currentColor!important;
+}
+html[data-r1074-theme="berhet"] body .r1064-reading :is(
+ .r1064-verse,.r1064-verse-number
+ ) {
+ border-color:#d1b77b80!important;
+}
+/* Do not flatten the active-verse state into the ordinary surface. */
+html[data-r1074-theme="berhet"] body #r1064YasinBox .r1067-current-verse {
+ outline-color:#d7c07e!important;background-color:#c8ab5420!important;
+}
+html[data-r1074-theme="berhet"] body #r1064YasinBox .r1067-current-paused {
+ outline-color:#c9afe8!important;background-color:#7b528d26!important;
+}
+@media(min-width:600px) {
+ html body #berhetAtlas .r168Grid {grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html body #berhetAtlas #berhetAtlasBody .r168Cell.r168Wide {grid-column:1/-1!important}
+}
+@media(forced-colors:active) {
+ html[data-r1074-theme="berhet"] {
+  --r1125-sapphire:none;--r1125-emerald:none;--r1125-amethyst:none;
+  --r1125-ruby:none;--r1125-topaz:none;
+  --r1125-panel:none;--r1125-glass:Canvas;
+ }
+ html body #berhetAtlas #berhetAtlasBody .r168Cell,
+ html[data-r1074-theme="berhet"] body :is(
+  #berhetAtlas,#berhetAtlas>summary.r168Head,#r170AtlasTools,
+  #berhetAtlasBody>.r168Source,#berhetAtlas .r174Cites,
+  #berhetAtlas .r754Mini,#berhetAtlas .r754CmpRows>div,
+  #berhetAtlas .r754Conflict,#berhetAtlas .r754CompareNote,
+  #r754AtlasContext,#r752BerhetRich .r752MetaCard,#r752BerhetRich .r752ProseCard,
+  #r752BerhetRich .r752Section,#r752BerhetRich .r752ElementPanel,
+  #r1064ReadingExplorer,#r1064YasinBox,#r1064ReadingSources,
+  #r920Practice .r920Modes,.sukun-bottom-nav,#r616BottomNav,#zNav
+  ),
+ html[data-r1074-theme="berhet"] body :is(
+  .r1064-reading,.r920Modes,.r920Path,.sukun-bottom-nav,#r616BottomNav,
+  #zNav,#zCats,#r170AtlasTools
+  ) :is(button:not(.sw),select),
+ html[data-r1074-theme="berhet"] body :is(
+  #r1064ReadingExplorer>summary,#r1064YasinBox>summary,#r1064ReadingSources>summary
+  ) {
+  border-image:none!important;border-color:CanvasText!important;
+  background:Canvas!important;color:CanvasText!important;
+  -webkit-text-fill-color:currentColor!important;text-shadow:none!important;
+ }
+ html body #berhetAtlas #berhetAtlasBody .r168Cell small,
+ html[data-r1074-theme="berhet"] body .r1064-reading :is(
+  .r1064-field,.r1064-note,.r1064-missing,.r1064-verse-meaning,#r1067YasinTrackingStatus
+  ) {color:CanvasText!important;-webkit-text-fill-color:currentColor!important}
+ html[data-r1074-theme="berhet"] body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet),
+ html[data-r1074-theme="berhet"] body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet):is(:active,[aria-pressed="true"]) {
+  border-image:none!important;border-color:CanvasText!important;
+  background:Canvas!important;color:CanvasText!important;
+ }
+ html[data-r1074-theme="berhet"] body #r1064YasinBox :is(.r1067-current-verse,.r1067-current-paused) {
+  outline-color:Highlight!important;background:Canvas!important;
+ }
+}
+}
