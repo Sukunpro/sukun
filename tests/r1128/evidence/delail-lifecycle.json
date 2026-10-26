@@ -1,0 +1,164 @@
+{
+  "build": "r1128",
+  "scope": "Actual shipped legacy Delail and modern reading TTS with controlled native speech, clock, visibility and ownership; no physical Android or audible output acceptance",
+  "sourceSha256": "d27a6869acc12f926cc85e52d9b13e10c9e6c1c1dd5c77720c20796ccdc0a8d9",
+  "runtimeSha256": "e1e145a85216eefcab71001922600fbad37fe3e2ebd82aa3a970f6b1d0d92424",
+  "passed": 38,
+  "total": 38,
+  "expectedChecks": 38,
+  "allPassed": true,
+  "tests": [
+    {
+      "name": "legacy: accepted start establishes a media anchor before native speech",
+      "passed": true
+    },
+    {
+      "name": "legacy: hidden stale speaking flag receives periodic resume pulses",
+      "passed": true
+    },
+    {
+      "name": "legacy: visible screen switch proactively resumes an owned utterance",
+      "passed": true
+    },
+    {
+      "name": "legacy: page lifecycle resume can recover a dropped sentence while hidden",
+      "passed": true
+    },
+    {
+      "name": "legacy: page lifecycle events cannot restart a terminally stopped reader",
+      "passed": true
+    },
+    {
+      "name": "legacy: in-app screen changes preserve running speech",
+      "passed": true
+    },
+    {
+      "name": "legacy: native pause on hidden screen receives one guarded resume",
+      "passed": true
+    },
+    {
+      "name": "legacy: dropped hidden speech replays the same unfinished sentence before return",
+      "passed": true
+    },
+    {
+      "name": "legacy: interrupted native error does not skip text while hidden",
+      "passed": true
+    },
+    {
+      "name": "legacy: explicit pause defeats queued visibility recovery",
+      "passed": true
+    },
+    {
+      "name": "legacy: terminal stop defeats delayed recovery and old native events",
+      "passed": true
+    },
+    {
+      "name": "legacy: foreign ownership prevents recovering a stale sentence",
+      "passed": true
+    },
+    {
+      "name": "legacy: a competing reader cannot be replaced by old recovery",
+      "passed": true
+    },
+    {
+      "name": "legacy: reconstruction is bounded and exposes an unavailable outcome",
+      "passed": true
+    },
+    {
+      "name": "legacy: an unresponsive native resume retires speech after two attempts",
+      "passed": true
+    },
+    {
+      "name": "legacy: canceled native callbacks cannot finish a centrally resumed clone",
+      "passed": true
+    },
+    {
+      "name": "legacy: platform rejection of replay exposes a held or error outcome",
+      "passed": true
+    },
+    {
+      "name": "modern: accepted start establishes a media anchor before native speech",
+      "passed": true
+    },
+    {
+      "name": "modern: hidden stale speaking flag receives periodic resume pulses",
+      "passed": true
+    },
+    {
+      "name": "modern: visible screen switch proactively resumes an owned utterance",
+      "passed": true
+    },
+    {
+      "name": "modern: page lifecycle resume can recover a dropped sentence while hidden",
+      "passed": true
+    },
+    {
+      "name": "modern: page lifecycle events cannot restart a terminally stopped reader",
+      "passed": true
+    },
+    {
+      "name": "modern: in-app screen changes preserve running speech",
+      "passed": true
+    },
+    {
+      "name": "modern: native pause on hidden screen receives one guarded resume",
+      "passed": true
+    },
+    {
+      "name": "modern: dropped hidden speech replays the same unfinished sentence before return",
+      "passed": true
+    },
+    {
+      "name": "modern: interrupted native error does not skip text while hidden",
+      "passed": true
+    },
+    {
+      "name": "modern: explicit pause defeats queued visibility recovery",
+      "passed": true
+    },
+    {
+      "name": "modern: terminal stop defeats delayed recovery and old native events",
+      "passed": true
+    },
+    {
+      "name": "modern: foreign ownership prevents recovering a stale sentence",
+      "passed": true
+    },
+    {
+      "name": "modern: a competing reader cannot be replaced by old recovery",
+      "passed": true
+    },
+    {
+      "name": "modern: reconstruction is bounded and exposes an unavailable outcome",
+      "passed": true
+    },
+    {
+      "name": "modern: an unresponsive native resume retires speech after two attempts",
+      "passed": true
+    },
+    {
+      "name": "modern: canceled native callbacks cannot finish a centrally resumed clone",
+      "passed": true
+    },
+    {
+      "name": "modern: platform rejection of replay exposes a held or error outcome",
+      "passed": true
+    },
+    {
+      "name": "legacy fresh start after old terminal pause clears only its admission gates and recovers hidden",
+      "passed": true
+    },
+    {
+      "name": "legacy automatic chapter handoff cannot clear a later global pause",
+      "passed": true
+    },
+    {
+      "name": "modern central pause/resume clone remains the continuity owner",
+      "passed": true
+    },
+    {
+      "name": "legacy stop retry cannot cancel a newly started modern reader",
+      "passed": true
+    }
+  ]
+}

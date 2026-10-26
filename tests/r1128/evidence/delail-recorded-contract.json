@@ -1,0 +1,166 @@
+{
+  "build": "r1128",
+  "scope": "Exact shipped original sources, provider selection, production playback handoff and cancellation races; no physical Android, audible content or synchronized-text acceptance",
+  "passed": 39,
+  "total": 39,
+  "expectedChecks": 39,
+  "allPassed": true,
+  "tests": [
+    {
+      "name": "nine original sections",
+      "passed": true
+    },
+    {
+      "name": "no fabricated closing recording",
+      "passed": true
+    },
+    {
+      "name": "old availability retained",
+      "passed": true
+    },
+    {
+      "name": "old descriptor retained",
+      "passed": true
+    },
+    {
+      "name": "old finder delegated",
+      "passed": true
+    },
+    {
+      "name": "old and new source lists combined",
+      "passed": true
+    },
+    {
+      "name": "shipped original integrity and preservation flag reading:delail:acilis",
+      "passed": true
+    },
+    {
+      "name": "shipped original integrity and preservation flag reading:delail:h1",
+      "passed": true
+    },
+    {
+      "name": "shipped original integrity and preservation flag reading:delail:h2",
+      "passed": true
+    },
+    {
+      "name": "shipped original integrity and preservation flag reading:delail:h3",
+      "passed": true
+    },
+    {
+      "name": "shipped original integrity and preservation flag reading:delail:h4",
+      "passed": true
+    },
+    {
+      "name": "shipped original integrity and preservation flag reading:delail:h5",
+      "passed": true
+    },
+    {
+      "name": "shipped original integrity and preservation flag reading:delail:h6",
+      "passed": true
+    },
+    {
+      "name": "shipped original integrity and preservation flag reading:delail:h7",
+      "passed": true
+    },
+    {
+      "name": "shipped original integrity and preservation flag reading:delail:h8",
+      "passed": true
+    },
+    {
+      "name": "explicit source/content gate {\"source\":\"auto\",\"content\":\"meaning\"}",
+      "passed": true
+    },
+    {
+      "name": "explicit source/content gate {\"source\":\"auto\",\"content\":\"legacy\"}",
+      "passed": true
+    },
+    {
+      "name": "explicit source/content gate {\"source\":\"personal\",\"content\":\"arabic\"}",
+      "passed": true
+    },
+    {
+      "name": "explicit source/content gate {\"content\":\"arabic\"}",
+      "passed": true
+    },
+    {
+      "name": "explicit source/content gate {\"source\":\"auto\",\"content\":\"arabic\",\"onlyVerse\":true}",
+      "passed": true
+    },
+    {
+      "name": "ineligible requests never fetched",
+      "passed": true
+    },
+    {
+      "name": "validated original recording returned",
+      "passed": true
+    },
+    {
+      "name": "production reader forwards original preservation to native playback",
+      "passed": true
+    },
+    {
+      "name": "validated source cache reused",
+      "passed": true
+    },
+    {
+      "name": "invalid source rejects without fallback",
+      "passed": true
+    },
+    {
+      "name": "stale request never fetches",
+      "passed": true
+    },
+    {
+      "name": "installation is idempotent",
+      "passed": true
+    },
+    {
+      "name": "conditional permission preserved rather than labelled public domain",
+      "passed": true
+    },
+    {
+      "name": "source attribution and lack of text synchronization remain explicit",
+      "passed": true
+    },
+    {
+      "name": "first active download admitted",
+      "passed": true
+    },
+    {
+      "name": "superseding distinct section aborts prior download",
+      "passed": true
+    },
+    {
+      "name": "stale prior result is neutral",
+      "passed": true
+    },
+    {
+      "name": "new section survives stale prior result",
+      "passed": true
+    },
+    {
+      "name": "stale prior source was never cached",
+      "passed": true
+    },
+    {
+      "name": "same-section downloads coalesce",
+      "passed": true
+    },
+    {
+      "name": "stale coalesced caller is neutral",
+      "passed": true
+    },
+    {
+      "name": "live coalesced caller remains valid",
+      "passed": true
+    },
+    {
+      "name": "stop event aborts inactive request",
+      "passed": true
+    },
+    {
+      "name": "stopped result cannot publish",
+      "passed": true
+    }
+  ]
+}

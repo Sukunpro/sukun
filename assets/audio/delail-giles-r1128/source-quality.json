@@ -1,0 +1,68 @@
+{
+  "checked": "2026-10-26",
+  "scope": "FFmpeg full source decode, unmodified originals; no physical phone or audible-content acceptance",
+  "results": [
+    {
+      "file": "h1.mp3",
+      "decode_ok": true,
+      "exit_code": 0,
+      "errors": ""
+    },
+    {
+      "file": "h2.mp3",
+      "decode_ok": true,
+      "exit_code": 0,
+      "errors": ""
+    },
+    {
+      "file": "h3.mp3",
+      "decode_ok": true,
+      "exit_code": 0,
+      "errors": ""
+    },
+    {
+      "file": "h4.mp3",
+      "decode_ok": true,
+      "exit_code": 0,
+      "errors": ""
+    },
+    {
+      "file": "h5.mp3",
+      "decode_ok": false,
+      "exit_code": 0,
+      "errors": "[mp3float @ 0x5567e41e9440] Header missing\n[aist#0:0/mp3 @ 0x5567e41e92c0] Error submitting packet to decoder: Invalid data found when processing input\n[mp3float @ 0x5567e41e9440] Header missing\n[aist#0:0/mp3 @ 0x5567e41e92c0] Error submitting packet to decoder: Invalid data found when processing input\n"
+    },
+    {
+      "file": "h6.mp3",
+      "decode_ok": false,
+      "exit_code": 69,
+      "errors": "[mjpeg @ 0x559fa175a400] [IMGUTILS @ 0x7ffe5554a260] Picture size 28699x33857 is invalid\n[mjpeg @ 0x559fa17e7200] overread 8\n[mjpeg @ 0x559fa17e7200] [IMGUTILS @ 0x7f2415d98e80] Picture size 28699x33857 is invalid\n[vist#0:1/mjpeg @ 0x559fa175cb80] Error submitting packet to decoder: Invalid data found when processing input\n[mp3float @ 0x559fa17e6e40] Header missing\n[aist#0:0/mp3 @ 0x559fa17e6cc0] "
+    },
+    {
+      "file": "h7.mp3",
+      "decode_ok": true,
+      "exit_code": 0,
+      "errors": ""
+    },
+    {
+      "file": "h8.mp3",
+      "decode_ok": true,
+      "exit_code": 0,
+      "errors": ""
+    },
+    {
+      "file": "opening.mp3",
+      "decode_ok": true,
+      "exit_code": 0,
+      "errors": ""
+    }
+  ],
+  "sourceWarningOffsetsSeconds": {
+    "h5": [
+      1434.49
+    ],
+    "h6": [
+      109.584
+    ]
+  }
+}
