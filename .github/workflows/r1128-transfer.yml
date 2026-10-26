@@ -29,8 +29,8 @@ jobs:
           def fetch(track):
               name = track['filename']; url = track['source_url']
               assert name in allowed and url.startswith('https://al-adaab.org/audio/dalailul_%20khayrat/')
-              with urllib.request.urlopen(url, timeout=180) as response:
-                  data = response.read()
+              subprocess.run(['curl', '--silent', '--show-error', '--fail', '--location', '--retry', '2', '--max-time', '180', url, '--output', str(folder/name)], check=True)
+              data = (folder/name).read_bytes()
               assert len(data) == track['bytes'], name + ': wrong size'
               assert hashlib.sha256(data).hexdigest() == track['sha256'], name + ': wrong hash'
               (folder/name).write_bytes(data)
