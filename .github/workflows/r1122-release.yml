@@ -33,6 +33,7 @@ jobs:
               'r1124': ('5869f46eace0d7445d42e82d6d8d9f1e61d5a2c5', 26),
               'r1125': ('34668e0a8f829630b5ff60e7a9aed0770d38310e', 28),
               'r1126': ('1ead4017fd3d8159a7224cf749d42cffd2ac21da', 30),
+              'r1127': ('559b7eefcfcd9f8e318acf15fe41a198b77c1323', 30),
           }
           assert build in supported, 'Unsupported release: never report a version skip as acceptance'
           upgrade, groups = supported[build]
@@ -41,7 +42,7 @@ jobs:
           assert (folder / 'release-upgrade-browser.cjs').is_file(), 'Missing required upgrade suite'
           if build == 'r1125':
               assert (folder / 'atlas-private-access.cjs').is_file(), 'Missing required private-access suite'
-          if build == 'r1126':
+          if build in ('r1126', 'r1127'):
               assert (Path('candidate/tests/r1125') / 'atlas-private-access.cjs').is_file(), 'Missing inherited private-access suite'
               assert (folder / 'delail-tts-lifecycle.cjs').is_file(), 'Missing required Delail TTS lifecycle suite'
               assert (folder / 'delail-screen-browser.cjs').is_file(), 'Missing required Delail screen browser suite'

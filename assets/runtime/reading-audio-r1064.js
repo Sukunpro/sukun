@@ -183,7 +183,14 @@
   // New explicit starts release only a prior aggregate pause gate. Existing
   // paused ambience/frequency sources are not resumed by this reader start.
   w.SukunAudioSessionRegistry?.releasePauseGate?.('reading-start');
-  const runner=()=>{if(token!==sequence)return{ok:false,cancelled:true,reason:'stale-sequence'};w.AudioLife?.markUserPlay?.('reading-start');w.SukunAudioSessionRegistry?.activate?.(ID);return execute(entry,currentOptions,token);};
+  const runner=()=>{
+   if(token!==sequence)return{ok:false,cancelled:true,reason:'stale-sequence'};
+   w.AudioLife?.markUserPlay?.('reading-start');w.SukunAudioSessionRegistry?.activate?.(ID);
+   // Start the existing native media bridge after playback ownership is
+   // accepted and before any recording/voice preparation can await storage.
+   try{w.SesCapa?.start?.({title:state.title,onPause:()=>pause(),onPlay:()=>resume({registry:true}),onStop:()=>stop()})}catch(_){}
+   return execute(entry,currentOptions,token);
+  };
   const foreground=()=>w.SukunForegroundArbiter?.runOrQueue?.({type:'reader',identity:'reading:'+entry.id+':'+token,title:state.title,persistent:false,source:ID},runner)||runner();
   const owner=w.SukunTabOwner;
   // The tab lease must be acquired before the source/voice attempt captures
