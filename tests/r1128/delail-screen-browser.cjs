@@ -28,7 +28,9 @@ function sameSpeech(before,after){assert(before.speech.active,'Expected a live n
  await tap('.tab[data-t="zkr"]');
  await check('Classic active-reading button reveals the original-text explorer through its hidden ancestors',async()=>{
   await tap('#r1064CurrentReadingOpen');await p.locator('#r1064ReadingExplorer').waitFor({state:'visible'});assert.equal(await p.locator('#r1064ReadingSelect').isVisible(),true);
-  const visibility=await p.locator('#zCtl').evaluate(n=>({display:getComputedStyle(n).display,hidden:n.hidden,rect:n.getBoundingClientRect().toJSON()}));assert.notEqual(visibility.display,'none');assert(visibility.rect.width>0&&visibility.rect.height>0);return visibility;
+  const controls=p.locator('#r1064ReadingExplorer .r1064-actions:has(> #r1064ArabicListen)');assert.equal(await controls.count(),1,'the source-listening controls have one real owner');await controls.waitFor({state:'visible'});
+  for(const id of ['r1065AutoListen','r1064ArabicListen','r1064MeaningListen'])assert.equal(await p.locator('#'+id).isVisible(),true,id+' is reachable in the opened reader');
+  const visibility=await controls.evaluate(n=>({display:getComputedStyle(n).display,hidden:n.hidden,rect:n.getBoundingClientRect().toJSON(),hiddenAncestor:!!n.closest('[hidden],details:not([open])')}));assert.notEqual(visibility.display,'none');assert.equal(visibility.hiddenAncestor,false);assert(visibility.rect.width>0&&visibility.rect.height>0);return visibility;
  });
  await p.evaluate(()=>SukunPracticeUI.openSection('zmgOkumalar',{reveal:false}));
  await idle();if(!await p.locator('#dlOkuBtn').isVisible())await tap('#dlBox > summary');

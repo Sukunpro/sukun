@@ -26,6 +26,21 @@ function fixture(){
  vm.createContext(c);const preview=html.match(/let _r1048RecordingPreviewSeq=[\s\S]*?(?=\/\* Kayıttan çalan sesi)/);if(preview)vm.runInContext(preview[0],c);vm.runInContext(slice('async function duaRecReadState(','async function duaRecToggle(')+slice('async function duaRecPlay(','/* ════ MERKEZÎ SES OTORİTESİ')+rows.map(([play,,stop])=>fn(play)+'\n'+fn(stop)).join('\n')+'\n'+['tvkInit','dlInit','svkInit','tvkSil','tvkOynat','tvkSeyirStop','tvkSeyirPlay','tvkSeyirKayit','tvkSeyirTTS','tvKisimlariCal','dhKisimlariCal','svkKisimOku','svkKisimDurdur','r1065LegacyReadingSelected','r1065ReadingHasBundle','r1065LegacyReadingRoute','dlOku','dlStop','dlTamOku','dlSonraki'].map(fn).join('\n'),c);
  return {c,clip,nodes,logs,messages,played,data,revisions,audios};
 }
+function delailTtsFixture(){
+ const h=fixture(),spoken=[],pulses=new Set();
+ Object.assign(h.c,{SPK:{rate:1},spkPitch:()=>1,ttsAnaSes:()=>1,SpeechSynthesisUtterance:class{constructor(text){this.text=text}},dlParcala:()=>[{t:'synthetic',ar:false}],addEventListener:noop,removeEventListener:noop,setInterval(fn,ms){const id=setInterval(fn,ms);id.unref();pulses.add(id);return id},clearInterval(id){clearInterval(id);pulses.delete(id)}});
+ Object.assign(h.c.document,{addEventListener:noop,removeEventListener:noop});
+ h.c.speechSynthesis.speak=u=>{spoken.push(u);h.c.speechSynthesis.speaking=true};
+ h.c.speechSynthesis.cancel=()=>{h.c.speechSynthesis.speaking=false};
+ // Keep the shipped native callback wrapper and continuity owner together.
+ // The older fixture omitted these dependencies and never admitted speech.
+ vm.runInContext(slice('const TTSD={duruk:false, son:null};','/* Ana ses kaydırıcısının')+slice('window.SukunTtsContinuityR1126=Object.freeze({create(opt){','function ttsAnaSes(){')+slice('function ttsYenidenSoyle(u){','\nconst SES='),h.c);
+ const flush=async()=>{for(let turn=0;turn<20;turn++)await new Promise(resolve=>setImmediate(resolve))};
+ const admitted=async count=>{for(let turn=0;turn<20&&spoken.length<count;turn++)await new Promise(resolve=>setImmediate(resolve));assert.equal(spoken.length,count,'bounded native speech admission')};
+ const settled=async(promise,label)=>{let timer;try{await Promise.race([promise,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error(label+' did not settle')),500)})])}finally{clearTimeout(timer)}};
+ const close=()=>{for(const id of pulses)clearInterval(id);h.c.DL._ttsContinuity?.close()};
+ return{h,spoken,flush,admitted,settled,close};
+}
 const results=[];async function test(name,run){let timer;try{await Promise.race([run(),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Fixture did not settle')),2000)})]);results.push({name,passed:true})}catch(e){results.push({name,passed:false,error:e.stack})}finally{clearTimeout(timer)}}
 (async()=>{
  for(const [play,id,stop,prefix] of rows){
@@ -64,7 +79,29 @@ const results=[];async function test(name,run){let timer;try{await Promise.race(
  await test('Serial panel real ended event credits its step only once',async()=>{const h=fixture();h.data.set('dua:tovbe:0',h.clip);h.c.TVK.attempt=h.c.duaRecBegin('tovbe');h.c.TVK.playing=true;h.c.TVK.i=0;await h.c.tvkSeyirKayit(0);const ended=h.audios[0].onended;ended();ended();assert.equal(h.c.TVK.i,1)});
  await test('Serial panel Stop rejects late stored clip before audio creation',async()=>{const h=fixture(),late=deferred();h.c.TVK.attempt=h.c.duaRecBegin('tovbe');h.c.TVK.playing=true;h.c.TVK.i=0;h.c.REC_DB.get=()=>late.promise;const p=h.c.tvkSeyirKayit(0);h.c.tvkSeyirStop();late.resolve(h.clip);await p;assert.equal(h.audios.length,0);assert.equal(h.c.TVK.i,0)});
  await test('Serial TTS old/duplicate callbacks cannot credit a restarted attempt',async()=>{const h=fixture(),spoken=[];h.c.$=()=>null;Object.assign(h.c,{TV_ONLY:false,SPK:{rate:1},spkPitch:()=>1,SpeechSynthesisUtterance:class{},TOVBE_KISIM:[{p:[0]},{p:[1]}],TOVBE_P:['old','new']});h.c.speechSynthesis.speak=u=>spoken.push(u);h.c.TVK.attempt=h.c.duaRecBegin('tovbe');h.c.TVK.playing=true;h.c.TVK.i=0;h.c.tvkSeyirTTS(0);const old=spoken[0];h.c.duaRecCancel();h.c.TVK.attempt=h.c.duaRecBegin('tovbe');h.c.TVK.playing=true;h.c.TVK.i=0;h.c.tvkSeyirTTS(0);old.onend();old.onend();assert.equal(h.c.TVK.i,0);spoken[1].onend();spoken[1].onend();assert.equal(h.c.TVK.i,1)});
- await test('Delail old TTS callback settles only its own promise and preserves new reader',async()=>{const h=fixture(),spoken=[];Object.assign(h.c,{SPK:{rate:1},spkPitch:()=>1,SpeechSynthesisUtterance:class{},dlParcala:()=>[{t:'synthetic',ar:false}]});h.c.speechSynthesis.speak=u=>spoken.push(u);const old=h.c.dlOku(0),oldUtterance=spoken[0],fresh=h.c.dlOku(1),owner=h.c.DL._cozul;oldUtterance.onend();oldUtterance.onend();await old;assert.equal(h.c.DL._cozul,owner);assert.equal(h.c.DL.playing,true);assert.equal(h.c.DL.hedefHizb,1);spoken[1].onend();spoken[1].onend();await fresh;assert.equal(h.c.DL.playing,false);assert.equal(h.c.DL._cozul,null)});
+ await test('Superseded Delail read settles while its stale TTS callbacks preserve the current reader',async()=>{
+  const {h,spoken,admitted,settled,close}=delailTtsFixture();
+  try{
+   const old=h.c.dlOku(0);await admitted(1);const oldUtterance=spoken[0],fresh=h.c.dlOku(1);await admitted(2);const owner=h.c.DL._cozul;
+   oldUtterance.onend.call(oldUtterance);oldUtterance.onend.call(oldUtterance);await settled(old,'Superseded Delail reader');
+   assert.equal(h.c.DL._cozul,owner);assert.equal(h.c.DL.playing,true);assert.equal(h.c.DL.hedefHizb,1);
+   spoken[1].onend.call(spoken[1]);spoken[1].onend.call(spoken[1]);await settled(fresh,'Current Delail reader');
+   assert.equal(h.c.DL.playing,false);assert.equal(h.c.DL._cozul,null);
+  }finally{close()}
+ });
+ await test('Manual Delail selection during a running chain cannot revive its next old section',async()=>{
+  const {h,spoken,flush,admitted,settled,close}=delailTtsFixture();
+  h.c.dlSiraYap=()=>[0,1];h.c.dlParcala=i=>[{t:'section '+i,ar:false}];
+  try{
+   const chain=h.c.dlTamOku('all');await admitted(1);assert.equal(h.c.DL.hedefHizb,0);const chainAttempt=h.c.DL.chainAttempt;
+   const selected=h.c.dlOku(2);await flush();
+   assert.deepEqual(spoken.map(u=>u.text),['section 0','section 2'],'old chain must not enqueue section 1');
+   assert(h.c.DL.chainAttempt>chainAttempt,'manual selection fences the old chain');await settled(chain,'Superseded Delail chain');
+   assert.equal(h.c.DL.playing,true);assert.equal(h.c.DL.hedefHizb,2);assert.equal(h.c.DL.zincir,false);
+   spoken[1].onend.call(spoken[1]);await settled(selected,'Manually selected Delail reader');await flush();
+   assert.deepEqual(spoken.map(u=>u.text),['section 0','section 2']);assert.equal(h.c.DL.playing,false);assert.equal(h.c.DL._cozul,null);
+  }finally{close()}
+ });
  await test('Text section unavailable source stops chain without selecting TTS',async()=>{const h=fixture();h.c.SVK.has[0]=null;h.c.SVK.readError={0:true};h.c.REC_DB.get=async()=>{throw Error('SecurityError')};await h.c.svkKisimOku(0,[{p:[]}],()=> 'dua:salavat:0',h.c.SVK.has,'#dhText',false);assert.equal(h.c.SVK.zincir,false);assert.equal(h.c.SVK.okunan,null);assert.equal(h.played.length,0);assert.match(h.messages[0],/silindiği anlamına gelmez/)});
  await test('Canceled text section read cannot start late media',async()=>{const h=fixture(),late=deferred();h.c.SVK.has[0]=true;h.c.REC_DB.get=()=>late.promise;const p=h.c.svkKisimOku(0,[{p:[]}],()=> 'dua:salavat:0',h.c.SVK.has,'#dhText',false);h.c.svkKisimDurdur();late.resolve(h.clip);await p;assert.equal(h.played.length,0);assert.equal(h.c.SVK.okunan,null)});
  await test('Older same-section completion cannot clear replacement section',async()=>{const h=fixture(),late=deferred(),fresh=deferred();h.c.SVK.has[0]=true;h.data.set('dua:salavat:0',h.clip);let n=0;h.c.playRecording=()=>++n===1?late.promise:fresh.promise;const p=h.c.svkKisimOku(0,[{p:[]}],()=> 'dua:salavat:0',h.c.SVK.has,'#dhText',false);await Promise.resolve();await Promise.resolve();h.c.svkKisimDurdur();const q=h.c.svkKisimOku(0,[{p:[]}],()=> 'dua:salavat:0',h.c.SVK.has,'#dhText',false);await Promise.resolve();await Promise.resolve();const owner=h.c.SVK.okunan;late.resolve(true);await p;assert.equal(h.c.SVK.okunan,owner);fresh.resolve(true);await q;assert.equal(h.c.SVK.okunan,null)});
