@@ -1,0 +1,78 @@
+/* Mobile layout for Berhetiyye; the original gemstone artwork is unchanged. */
+@layer sukun-r1135-responsive {
+html[data-r1074-theme="berhet"] body :is(#vakitBox,#karisimBox,#r1029MicNotes)>summary {
+ display:flex!important;align-items:center!important;gap:9px!important;
+ position:relative!important;box-sizing:border-box!important;
+ min-width:0!important;max-width:100%!important;width:100%!important;
+ height:auto!important;max-height:none!important;min-height:56px!important;
+ padding:15px 28px!important;margin:0!important;
+ font:600 15px/1.45 system-ui,sans-serif!important;letter-spacing:0!important;
+ text-align:left!important;white-space:normal!important;overflow-wrap:anywhere!important;
+ border-image-width:14px 24px!important;list-style:none!important;
+}
+html[data-r1074-theme="berhet"] body .r1135SummaryLabel {
+ display:block!important;flex:1 1 0!important;min-width:0!important;
+ font:inherit!important;white-space:normal!important;overflow-wrap:anywhere!important;
+}
+html[data-r1074-theme="berhet"] body :is(#vakitBox,#karisimBox,#r1029MicNotes)>summary>.ico {
+ position:static!important;flex:0 0 18px!important;width:18px!important;height:18px!important;margin:0!important;
+}
+html[data-r1074-theme="berhet"] body :is(#vakitBox,#karisimBox,#r1029MicNotes)>summary::before {content:none!important;}
+html[data-r1074-theme="berhet"] body :is(#vakitBox,#karisimBox,#r1029MicNotes)>summary::after {
+ content:'⌄'!important;position:static!important;inset:auto!important;flex:0 0 14px!important;
+ display:block!important;margin:0!important;font:600 18px/1 system-ui!important;color:#ead5a5!important;
+ transform:rotate(0deg)!important;pointer-events:none!important;
+}
+html[data-r1074-theme="berhet"] body :is(#vakitBox,#karisimBox,#r1029MicNotes)[open]>summary::after {transform:rotate(180deg)!important;}
+html[data-r1074-theme="berhet"] body #karisimBox>summary>.bozet {position:static!important;flex:0 0 auto!important;margin:0!important;padding:4px 7px!important;max-width:76px!important;white-space:normal!important;font:600 10px/1.3 system-ui!important;}
+html[data-r1074-theme="berhet"] body #tab-amb #mixer .preAccHead {
+ display:grid!important;grid-template-columns:minmax(0,1fr) auto 14px!important;align-items:center!important;gap:8px!important;
+ box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:100%!important;
+ height:auto!important;min-height:56px!important;max-height:none!important;padding:15px 28px!important;
+ border-image-width:14px 24px!important;text-align:left!important;white-space:normal!important;
+}
+html[data-r1074-theme="berhet"] body #tab-amb #mixer .preAccT {display:block!important;min-width:0!important;max-width:100%!important;white-space:normal!important;overflow-wrap:anywhere!important;font:600 14px/1.4 system-ui!important;letter-spacing:0!important;}
+html[data-r1074-theme="berhet"] body #tab-amb #mixer :is(.preAccN,.preAccChev) {position:static!important;inset:auto!important;margin:0!important;justify-self:center!important;}
+html[data-r1074-theme="berhet"] body #tab-amb #sessRow {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;min-width:0!important;max-width:100%!important;align-items:stretch!important;}
+html[data-r1074-theme="berhet"] body #tab-amb #sessRow>button.sess {
+ display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:6px!important;
+ box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:100%!important;
+ height:auto!important;min-height:132px!important;max-height:none!important;padding:18px 25px!important;
+ margin:0!important;border-image-width:14px 22px!important;white-space:normal!important;overflow:visible!important;
+ content-visibility:visible!important;contain-intrinsic-size:none!important;
+}
+html[data-r1074-theme="berhet"] body #tab-amb #sessRow>button.sess :is(b,small) {display:block!important;position:static!important;flex:0 0 auto!important;width:100%!important;min-width:0!important;max-width:100%!important;height:auto!important;margin:0!important;padding:0!important;white-space:normal!important;overflow:visible!important;overflow-wrap:anywhere!important;text-align:center!important;}
+html[data-r1074-theme="berhet"] body #tab-amb #sessRow>button.sess b {font:650 14px/1.35 system-ui!important;color:#fff2d6!important;}
+html[data-r1074-theme="berhet"] body #tab-amb #sessRow>button.sess small {font:400 11px/1.45 system-ui!important;color:#e2e7e3!important;}
+html[data-r1074-theme="berhet"] body #tab-amb #sessRow>button.sess .sIc {display:block!important;flex:0 0 auto!important;font-size:24px!important;line-height:1.1!important;margin:0!important;}
+html[data-r1074-theme="berhet"] body #r1064CurrentReadingOpen {box-sizing:border-box!important;min-width:0!important;max-width:100%!important;height:auto!important;max-height:none!important;min-height:52px!important;padding:14px 30px!important;border-image-width:14px 26px!important;white-space:normal!important;overflow-wrap:anywhere!important;font:600 14px/1.45 system-ui!important;text-align:center!important;}
+html[data-r1074-theme="berhet"] body :is(#tcRx,#tcRut) {box-sizing:border-box!important;min-width:0!important;max-width:100%!important;height:auto!important;max-height:none!important;min-height:54px!important;padding:13px 27px!important;border-image-width:13px 23px!important;white-space:normal!important;overflow-wrap:anywhere!important;font:600 13px/1.4 system-ui!important;}
+html[data-r1074-theme="berhet"] body #r920JourneyMode {box-sizing:border-box!important;min-width:0!important;max-width:100%!important;padding-inline:27px!important;border-image-width:13px 23px!important;font-size:13px!important;}
+@media(min-width:680px){html[data-r1074-theme="berhet"] body #tab-amb #sessRow {grid-template-columns:repeat(3,minmax(0,1fr))!important;}}
+html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden]) {
+ display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;align-items:stretch!important;gap:7px!important;padding:8px!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;min-height:0!important;height:auto!important;max-height:none!important;
+ box-sizing:border-box!important;border-image-width:4px!important;border-radius:14px!important;
+ background:linear-gradient(135deg,#0a1b25fa,#030e18f5)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:0 7px 18px #0005!important;
+}
+html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button {
+ --r1133-end:min(27px,24%)!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;
+ gap:4px!important;min-width:0!important;width:100%!important;max-width:100%!important;min-height:60px!important;height:auto!important;max-height:none!important;
+ padding:10px 12px!important;margin:0!important;color:#f7e6c3!important;font-size:12px!important;line-height:1.2!important;box-sizing:border-box!important;overflow:visible!important;
+}
+html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button {--r1133-material:sapphire!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-sapphire.webp')!important;}
+html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button[data-t="ntf"] {--r1133-material:black-diamond!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-black-diamond.webp')!important;}
+html[data-r1074-theme="berhet"] body .wrap>nav.tabs>#tekkeTab {--r1133-material:amethyst!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-amethyst.webp')!important;}
+html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button.act {--r1133-material:emerald!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;color:#fff4d8!important;}
+html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button>.tbL {display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;flex-shrink:0!important;white-space:normal!important;overflow-wrap:anywhere!important;overflow:visible!important;text-overflow:clip!important;margin:0!important;padding:0!important;font-size:12px!important;font-weight:650!important;line-height:1.2!important;letter-spacing:.01em!important;text-align:center!important;color:inherit!important;}
+html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button>:is(.tbIc,.tbRub) {flex:none!important;width:20px!important;min-width:20px!important;height:20px!important;margin:0!important;padding:0!important;font-size:22px!important;line-height:20px!important;color:inherit!important;filter:none!important;transform:none!important;opacity:1!important;}
+html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button::before,html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button::after {content:none!important;animation:none!important;}
+html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button:focus-visible {outline:2px solid #ffe6a1!important;outline-offset:2px!important;}
+html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) :is(#tab-amb,#tab-frq,#tab-zkr,#tab-rx,#tab-ntf) {scroll-margin-block-start:calc(92px + env(safe-area-inset-top,0px))!important;}
+@media(max-width:720px){
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden]) {grid-template-columns:repeat(3,minmax(0,1fr))!important;}
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) :is(#tab-amb,#tab-frq,#tab-zkr,#tab-rx,#tab-ntf) {scroll-margin-block-start:calc(160px + env(safe-area-inset-top,0px))!important;}
+}
+@media(max-width:380px){html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button>.tbL {font-size:11.5px!important;letter-spacing:0!important;}}
+@media(forced-colors:active){html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden]) {background:Canvas!important;box-shadow:none!important;}html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button {color:ButtonText!important;}}
+}
