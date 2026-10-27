@@ -38,6 +38,7 @@ jobs:
               'r1129': ('4a0e0a1356ef00765bc3110c7ea3ec6147028c8a', 33),
               'r1130': ('65811b9e7b70aaa646d8a4609beb53dbb3b0cb5f', 34),
               'r1131': ('08701b15d603ee4b8ed1815fc31e67281095db04', 34),
+              'r1132': ('4f9b50e715f5dfd750060d86272bc1d309dcaf93', 34),
           }
           assert build in supported, 'Unsupported release: never report a version skip as acceptance'
           upgrade, groups = supported[build]
@@ -46,18 +47,18 @@ jobs:
           assert (folder / 'release-upgrade-browser.cjs').is_file(), 'Missing required upgrade suite'
           if build == 'r1125':
               assert (folder / 'atlas-private-access.cjs').is_file(), 'Missing required private-access suite'
-          if build in ('r1126', 'r1127', 'r1128', 'r1129', 'r1130', 'r1131'):
-              delail_folder = Path('candidate/tests/r1128') if build in ('r1129', 'r1130', 'r1131') else folder
+          if build in ('r1126', 'r1127', 'r1128', 'r1129', 'r1130', 'r1131', 'r1132'):
+              delail_folder = Path('candidate/tests/r1128') if build in ('r1129', 'r1130', 'r1131', 'r1132') else folder
               assert (Path('candidate/tests/r1125') / 'atlas-private-access.cjs').is_file(), 'Missing inherited private-access suite'
               assert (delail_folder / 'delail-tts-lifecycle.cjs').is_file(), 'Missing required Delail TTS lifecycle suite'
               assert (delail_folder / 'delail-screen-browser.cjs').is_file(), 'Missing required Delail screen browser suite'
-          if build in ('r1128', 'r1129', 'r1130', 'r1131'):
+          if build in ('r1128', 'r1129', 'r1130', 'r1131', 'r1132'):
               assert (delail_folder / 'delail-recorded-contract.cjs').is_file(), 'Missing required recorded Delail suite'
-          if build in ('r1129', 'r1130', 'r1131'):
-              transport_folder = Path('candidate/tests/r1129') if build in ('r1130', 'r1131') else folder
+          if build in ('r1129', 'r1130', 'r1131', 'r1132'):
+              transport_folder = Path('candidate/tests/r1129') if build in ('r1130', 'r1131', 'r1132') else folder
               assert (transport_folder / 'delail-global-transport.cjs').is_file(), 'Missing global reader transport regression'
               assert (transport_folder / 'delail-global-native-browser.cjs').is_file(), 'Missing native global reader transport regression'
-          if build in ('r1130', 'r1131'):
+          if build in ('r1130', 'r1131', 'r1132'):
               assert (folder / 'button-clarity-browser.cjs').is_file(), 'Missing responsive button-quality acceptance'
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
               output.write(f'build={build}\nupgrade={upgrade}\ngroups={groups}\n')
