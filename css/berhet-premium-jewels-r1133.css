@@ -75,6 +75,10 @@ html[data-r1074-theme="berhet"] body :is(button.sw.on,button.sw[aria-checked="tr
  background-image:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
 }
 html[data-r1074-theme="berhet"] body :is(#r920Actions,#r932WheelControls,.tabs,#r588DockShell) :is(svg,.ico) {filter:none!important;text-shadow:none!important;}
+/* Recording remains ruby even when its native pressed state is also active. */
+html[data-r1074-theme="berhet"] body button:is(#niyetRecBtn,#itemRecBtn,#r922RecordVoice,#huKayit,#r972TickRecord):is(.recording,[aria-pressed="true"]) {
+ --r1133-material:ruby!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-ruby.webp')!important;
+}
 html[data-r1074-theme="berhet"] body :is(button,select,summary,input[type="button"],input[type="submit"],input[type="reset"],a.btn,.tabTekke):focus-visible {
  outline:2px solid #ffe6a1!important;outline-offset:3px!important;
 }

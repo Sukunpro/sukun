@@ -42,7 +42,7 @@ async function paints(wanted=selectors){return p.evaluate(selectors=>{
  }
  return rows;
 },wanted);}
-async function screenshot(name){const files={};await settings();const panel=p.locator('#r938Panel');const target=path.join(shotDir,name+'-controls.png');await panel.screenshot({path:target,animations:'disabled',scale:'device'});files.controls=target;const sections=p.locator('#r986Sections');if(await sections.isVisible()){const file=path.join(shotDir,name+'-sections.png');await sections.screenshot({path:file,animations:'disabled',scale:'device'});files.sections=file;}return files;}
+async function screenshot(name){const files={};await settings();const hero=p.locator('#r938Hero');if(await hero.isVisible()){const file=path.join(shotDir,name+'-hero.png');await hero.screenshot({path:file,animations:'disabled',scale:'device'});files.hero=file;}const panel=p.locator('#r938Panel');const target=path.join(shotDir,name+'-controls.png');await panel.screenshot({path:target,animations:'disabled',scale:'device'});files.controls=target;const sections=p.locator('#r986Sections');if(await sections.isVisible()){const file=path.join(shotDir,name+'-sections.png');await sections.screenshot({path:file,animations:'disabled',scale:'device'});files.sections=file;}return files;}
 async function open(source,label){
  const b=fs.readFileSync(path.join(source,'version.txt'),'utf8').trim(),seed={'sukun.ui.shellMode':'classic','sukun.shell.r716':'1','sukun.obSeenBuild':JSON.stringify(b),'sukun.obDone':'1','sukun.onboardSeen':'1','sukun.theme':'"feyz"','sukun.esma.background.r923':'classic','sukun.r920.focus':'0','sukun.zikir.quickControls.focus.v1':'1'};
  const x=await fixture(source,{width:profile.width,height:950,voices:'tr',seed});f=x;
