@@ -1,0 +1,22 @@
+/* SÜKÛN r1134 — mobile jewel layout repair. Existing gemstone artwork is preserved. */
+@media (max-width: 650px) {
+ html,body{max-width:100%;overflow-x:clip!important}
+ body .wrap,body .card,body #tab-amb,body #tab-zkr{min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+ body .wrap>.tabs{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:clamp(1px,.45vw,4px)!important;padding:5px 3px!important;width:100%!important;box-sizing:border-box!important;overflow:visible!important}
+ body .wrap>.tabs>:is(.tab,.tabTekke,#tekkeTab){min-width:0!important;max-width:100%!important;width:100%!important;box-sizing:border-box!important;padding:5px 1px!important;margin:0!important;white-space:normal!important;overflow:hidden!important}
+ body .wrap>.tabs .tbL{display:block!important;max-width:100%!important;font-size:clamp(8px,2.05vw,11px)!important;line-height:1.15!important;letter-spacing:-.025em!important;overflow-wrap:anywhere!important;text-align:center!important}
+ body .wrap>.tabs .tbIc{max-width:46%!important;flex-shrink:0!important}
+ body #tab-amb #mixer,body #tab-amb #mixer .preAcc,body #tab-amb #mixer .preAccBody{min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+ body #tab-amb #mixer .preAccHead{min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+ body #tab-amb #mixer .chn{min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+ body #tab-amb #mixer .chn :is(input,button,select){max-width:100%!important;box-sizing:border-box!important}
+ body #tab-amb #mixer .chn :is(b,strong,small,p,span){overflow-wrap:break-word!important}
+ html[data-r853-berhet="1"] body :is(#zEsmaCard,#r829BerhetSceneQuick,#r768ActiveGlassHost){max-width:100%!important;box-sizing:border-box!important}
+ html[data-r853-berhet="1"] body #r768ActiveGlassHost #r611CurrentZikirName{font-size:clamp(18px,4.7vw,27px)!important;line-height:1.3!important}
+ body #r883JourneyRemote .r883Grid{min-width:0!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body #r883JourneyRemote .r883Btn{min-width:0!important;overflow-wrap:anywhere!important}
+}
+@media(max-width:390px){body .wrap>.tabs .tbL{font-size:8px!important}body #tab-amb #mixer .chn{padding-inline:8px!important}}
+/* Preserve sharp raster gems: avoid image filters on navigation and prevent text clipping. */
+html[data-r853-berhet="1"] body .wrap>.tabs>:is(.tab,.tabTekke,#tekkeTab){image-rendering:auto!important;filter:none!important}
+html[data-r853-berhet="1"] body :is(#r768ActiveGlassHost,#r829BerhetSceneQuick) :is(h2,h3,summary,label){overflow-wrap:break-word!important;min-width:0!important}
