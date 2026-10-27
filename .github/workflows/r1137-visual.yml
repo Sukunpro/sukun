@@ -1,0 +1,54 @@
+name: Verify Berhetiyye mobile labels before r1137 release
+on:
+  push:
+    branches: [release/r1137-gem-fit-20261027]
+    paths: [.github/workflows/r1137-visual.yml]
+permissions:
+  contents: read
+jobs:
+  visual:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          path: candidate
+          persist-credentials: false
+      - name: Checkout prior live version
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 7283a4d7dc006cebb3a38df1dcd61ceee7e0c76c
+          path: baseline
+          persist-credentials: false
+      - name: Check release graph and health
+        working-directory: candidate
+        run: |
+          node tools/release-integrity.cjs . > "$RUNNER_TEMP/r1137-integrity.json"
+          node tests/r1120/health-marker-bytes.cjs . "$RUNNER_TEMP/r1137-health.json" > /dev/null
+      - name: Prepare browser
+        run: |
+          export NODE_PATH="$RUNNER_TEMP/sukun-r1137-browser/node_modules"
+          echo "NODE_PATH=$NODE_PATH" >> "$GITHUB_ENV"
+          npm install --prefix "$RUNNER_TEMP/sukun-r1137-browser" --no-audit --no-fund playwright@1.57.0
+          if command -v google-chrome >/dev/null 2>&1; then
+            candidate_chrome="$(command -v google-chrome)"
+          else
+            "$RUNNER_TEMP/sukun-r1137-browser/node_modules/.bin/playwright" install --with-deps chromium
+            candidate_chrome="$(node -p 'require("playwright").chromium.executablePath()')"
+          fi
+          echo "CHROMIUM_PATH=$candidate_chrome" >> "$GITHUB_ENV"
+      - name: Check requested mobile controls
+        working-directory: candidate
+        run: node tests/r1137/mobile-fit.cjs . "$RUNNER_TEMP/r1137-mobile-fit.json" ../baseline
+      - name: Preserve disposable screenshots and report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1137-mobile-fit
+          path: |
+            ${{ runner.temp }}/r1137-mobile-fit.json
+            ${{ runner.temp }}/button-clarity/*.png
+          if-no-files-found: warn
+          retention-days: 7
