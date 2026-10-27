@@ -1,0 +1,86 @@
+/* r1133: horizontal gemstone masters inspired by the Yakut Muhru wheel.
+   Continuous optical reflections and engraved end settings, never tiled sparkle.
+   The existing original artwork remains available, unchanged, for prior builds.
+   This first important layer is scoped to the active Berhetiyye theme. */
+@layer sukun-r1133-premium-jewels {
+html[data-r1074-theme="berhet"] body :where(
+ button:not(.sw):not([role="switch"]):not(.dockTipHelp):not(.r924Gem):not(.r959WheelNav):not(.r746EsmaCardBtn):not(#r611CurrentZikirName):not(#r920NameInfo):not(#r920Counter):not(#zCountVisual):not(:where(#r924WheelFrame *,#r945SceneGrid .r945SceneCard,#r924WheelGallery > button)),
+ [role="button"]:not(button):not(#zCountVisual):not(#vaultTrigger):not(:where(#r924WheelFrame *,#r945SceneGrid *,#r924WheelGallery *)),select,summary,input[type="button"],input[type="submit"],input[type="reset"],a.btn,.tabTekke,.r920Stats>span
+) {
+ --r1133-material:sapphire!important;
+ --r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-sapphire.webp')!important;
+ --r1133-end:min(38px,30%);
+ border:1px solid transparent!important;
+ border-image:var(--r1133-gem) 210 540 fill / 29% var(--r1133-end) / 0 stretch!important;
+ border-radius:10px!important;
+ background:none!important;
+ background-clip:padding-box!important;
+ box-shadow:none!important;
+ color:#fff2d6!important;text-shadow:0 1px 1px #000,0 0 2px #0009!important;
+ filter:none!important;image-rendering:auto!important;box-sizing:border-box!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r932EasyPlay,#r920ModeBerhet,#r920AtlasOpen,#r588Play,#r920DockAmbience,#r1082SessionEntry,#r986Sections button.active,[data-act="transport"],button[id$="Play"],button[aria-pressed="true"],.tabs button.act,.tabs .tabTekke.act) {
+ --r1133-material:emerald!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r920TefEnter,#r920TefExit,#r932QuickWheel,#r920More,#tgtManBtn,[data-r616-znav="tef"],#r972TickTest,.r588Alert.berhet) {
+ --r1133-material:amethyst!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-amethyst.webp')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r938PanelToggle,#r920Restart,#r920ModeEsma,#r932EasyMinus,#r932QuickClose,#r1056FocusControlsToggle,#zBarHelp,#ebBtn,#freeBtn,#r588Hide,#r920DockExpand,summary,.r920Stats>span) {
+ --r1133-material:diamond!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-diamond.webp')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r932EasyStop,#r922RecordVoice,#huKayit,#r920RecordingRetry,#r588Stop,.r588Alert.warning,[data-act="stop"],button[id$="Stop"],#r972TickRecord.recording) {
+ --r1133-material:ruby!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-ruby.webp')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r925UpdateAction,.recording,[aria-pressed="true"].recording) {
+ --r1133-material:topaz!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-topaz.webp')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r932QuickScene,#r920Previous,#r920Next,#r932EasyPlus,#r920Actions button) {
+ --r1133-material:sapphire!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-sapphire.webp')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#niyetRecBtn,#r920Actions button[title*="Niyet"],#r920Actions button[aria-label*="Niyet"],#r972TickTest) {
+ --r1133-material:citrine!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-citrine.webp')!important;
+}
+/* The settings headings retain the earlier sapphire, amethyst and emerald roles. */
+html[data-r1074-theme="berhet"] body #r679ZikirAyarBox .huK {
+ --r1133-material:diamond!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-diamond.webp')!important;
+}
+html[data-r1074-theme="berhet"] body #r679ZikirAyarBox>summary {
+ --r1133-material:sapphire!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-sapphire.webp')!important;
+}
+html[data-r1074-theme="berhet"] body #r920ViewOptions>summary {
+ --r1133-material:amethyst!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-amethyst.webp')!important;
+}
+/* The earlier navigation used dark diamond for inactive tabs and emerald for the active one. */
+html[data-r1074-theme="berhet"] body .tabs :is(button,.tabTekke) {
+ --r1133-material:black-diamond!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-black-diamond.webp')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r920JourneySettings)>summary {
+ --r1133-material:emerald!important;--r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
+}
+/* All button lengths use a coherent horizontal stone. Only the quiet central
+   table/rail spans the available width; the carved ends are never repeated. */
+html[data-r1074-theme="berhet"] body :is(.tabs,#r588DockShell) :is(button,select,.tabTekke) {--r1133-end:min(30px,30%);}
+html[data-r1074-theme="berhet"] body #tab-amb #mixer .chn .chInfo {--r1133-end:30%;}
+/* Scene thumbnails stay visible through their original hollow panel setting. */
+html[data-r1074-theme="berhet"] body :is(#r945SceneGrid .r945SceneCard,#r924WheelGallery>button) {
+ border-image:url('../assets/berhetiyye-premium/panel-emerald-r932.webp') 250 / 9px / 0 stretch!important;
+}
+html[data-r1074-theme="berhet"] body #tab-amb #mixer .chn .chInfo::before {content:none!important;background:none!important;border:0!important;box-shadow:none!important;}
+/* Keep native switches and their thumbs intact, using the original stones. */
+html[data-r1074-theme="berhet"] body :is(button.sw,button[role="switch"]) {
+ background:#101c2b url('../assets/berhetiyye-premium/r1133/gem-black-diamond.webp') center/100% 100% no-repeat!important;
+ border-color:#d9ba70!important;box-shadow:inset 0 0 0 1px #7b531a,inset 0 1px 2px #fff5c577!important;
+}
+html[data-r1074-theme="berhet"] body :is(button.sw.on,button.sw[aria-checked="true"],button[role="switch"][aria-checked="true"]) {
+ background-image:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r920Actions,#r932WheelControls,.tabs,#r588DockShell) :is(svg,.ico) {filter:none!important;text-shadow:none!important;}
+html[data-r1074-theme="berhet"] body :is(button,select,summary,input[type="button"],input[type="submit"],input[type="reset"],a.btn,.tabTekke):focus-visible {
+ outline:2px solid #ffe6a1!important;outline-offset:3px!important;
+}
+@media(forced-colors:active) {
+ html[data-r1074-theme="berhet"] body :is(button,select,summary,input[type="button"],input[type="submit"],input[type="reset"],a.btn,.tabTekke):not(:where(#r924WheelFrame *)) {
+ border:1px solid ButtonText!important;border-image:none!important;background:ButtonFace!important;color:ButtonText!important;box-shadow:none!important;
+ }
+}
+}
