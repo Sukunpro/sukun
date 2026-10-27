@@ -35,6 +35,7 @@ jobs:
               'r1126': ('1ead4017fd3d8159a7224cf749d42cffd2ac21da', 30),
               'r1127': ('559b7eefcfcd9f8e318acf15fe41a198b77c1323', 30),
               'r1128': ('a220cdf4353fb919e218ebd86240054a74b3f833', 31),
+              'r1129': ('4a0e0a1356ef00765bc3110c7ea3ec6147028c8a', 33),
           }
           assert build in supported, 'Unsupported release: never report a version skip as acceptance'
           upgrade, groups = supported[build]
@@ -43,12 +44,16 @@ jobs:
           assert (folder / 'release-upgrade-browser.cjs').is_file(), 'Missing required upgrade suite'
           if build == 'r1125':
               assert (folder / 'atlas-private-access.cjs').is_file(), 'Missing required private-access suite'
-          if build in ('r1126', 'r1127', 'r1128'):
+          if build in ('r1126', 'r1127', 'r1128', 'r1129'):
+              delail_folder = Path('candidate/tests/r1128') if build == 'r1129' else folder
               assert (Path('candidate/tests/r1125') / 'atlas-private-access.cjs').is_file(), 'Missing inherited private-access suite'
-              assert (folder / 'delail-tts-lifecycle.cjs').is_file(), 'Missing required Delail TTS lifecycle suite'
-              assert (folder / 'delail-screen-browser.cjs').is_file(), 'Missing required Delail screen browser suite'
-          if build == 'r1128':
-              assert (folder / 'delail-recorded-contract.cjs').is_file(), 'Missing required recorded Delail suite'
+              assert (delail_folder / 'delail-tts-lifecycle.cjs').is_file(), 'Missing required Delail TTS lifecycle suite'
+              assert (delail_folder / 'delail-screen-browser.cjs').is_file(), 'Missing required Delail screen browser suite'
+          if build in ('r1128', 'r1129'):
+              assert (delail_folder / 'delail-recorded-contract.cjs').is_file(), 'Missing required recorded Delail suite'
+          if build == 'r1129':
+              assert (folder / 'delail-global-transport.cjs').is_file(), 'Missing global reader transport regression'
+              assert (folder / 'delail-global-native-browser.cjs').is_file(), 'Missing native global reader transport regression'
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
               output.write(f'build={build}\nupgrade={upgrade}\ngroups={groups}\n')
           PYCODE
