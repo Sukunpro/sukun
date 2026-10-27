@@ -1,0 +1,79 @@
+/* r1130: resolution-independent bezels for rectangular Berhetiyye controls.
+   This paint-only important layer is declared before the legacy layout layers.
+   Source artwork on wheels, seals, panels and other square ornaments is retained. */
+@layer sukun-r1130-button-clarity {
+html[data-r1074-theme="berhet"] body :where(#tab-zkr,#r616ToolsSheet,#r642ZikirInfoCard,#r588DockShell,.tabs) :where(
+  button:not(.sw):not(.dockTipHelp):not(.r924Gem):not(.r959WheelNav):not(.r746EsmaCardBtn):not(#r611CurrentZikirName):not(#r920NameInfo):not(#r920Counter):not(#zCountVisual):not(:where(#r924WheelFrame *)),
+  select,summary,.tabTekke) {
+  --r1130-top:#174477!important;--r1130-mid:#0b2853!important;
+  --r1130-base:#07162f!important;--r1130-glow:#357fd044!important;
+  --r1130-bezel:7px;
+  border:1px solid transparent!important;
+  border-image:url('../assets/berhetiyye-premium/gem-gold-bezel-r1130.svg') 24 / var(--r1130-bezel) / 0 stretch!important;
+  border-radius:8px!important;
+  background:
+    linear-gradient(135deg,#ffffff1f 0 4%,transparent 4% 96%,#00000020 96%),
+    radial-gradient(ellipse at 50% 112%,var(--r1130-glow),transparent 68%),
+    linear-gradient(180deg,#ffffff18,transparent 35% 65%,#00000021),
+    linear-gradient(155deg,var(--r1130-top),var(--r1130-mid) 42%,var(--r1130-base))!important;
+  background-clip:padding-box!important;
+  box-shadow:inset 0 0 0 2px #02080d66,inset 0 2px 1px #fff3c51a,0 2px 5px #00000035!important;
+  color:#fff2d6!important;text-shadow:0 1px 1px #000000a6!important;
+  filter:none!important;image-rendering:auto!important;box-sizing:border-box!important;
+}
+
+/* Stable material roles; faces change colour without resampling a square image. */
+html[data-r1074-theme="berhet"] body :is(
+  #r932EasyPlay,#r920ModeBerhet,#r920AtlasOpen,#r932EasyPlus,#favBtn,
+  #ebCalcBtn,#freeApplyBtn,#r924WheelRetry,#r588Play,#r920DockAmbience,
+  [data-act="transport"],button[id$="Play"],button[aria-pressed="true"],.tabs button.act) {
+  --r1130-top:#17644f!important;--r1130-mid:#0b3d32!important;
+  --r1130-base:#07251f!important;--r1130-glow:#49bb8b42!important;
+}
+html[data-r1074-theme="berhet"] body :is(
+  #r920TefEnter,#r920TefExit,#r932QuickWheel,#niyetRecBtn,#r920More,
+  #tgtManBtn,[data-r616-znav="tef"],#r972TickTest,.r588Alert.berhet) {
+  --r1130-top:#593077!important;--r1130-mid:#351c50!important;
+  --r1130-base:#20112e!important;--r1130-glow:#ac64dd3d!important;
+}
+html[data-r1074-theme="berhet"] body :is(
+  #r938PanelToggle,#r920Restart,#r920ModeEsma,#r932EasyMinus,#r932QuickClose,
+  #zBarHelp,#ebBtn,#freeBtn,#r588Hide,#r920DockExpand,
+  #r679ZikirAyarBox .huK,summary:not(#r920JourneySettings>summary):not(#r679ZikirAyarBox>summary)) {
+  --r1130-top:#3d535e!important;--r1130-mid:#243943!important;
+  --r1130-base:#13252e!important;--r1130-glow:#b9dce528!important;
+}
+html[data-r1074-theme="berhet"] body :is(#zDonguBtn,.recording,[aria-pressed="true"].recording) {
+  --r1130-top:#8a531d!important;--r1130-mid:#593010!important;
+  --r1130-base:#351c0b!important;--r1130-glow:#eeb36a35!important;
+}
+html[data-r1074-theme="berhet"] body :is(
+  #r932EasyStop,#itemRecBtn,#r922RecordVoice,#huKayit,#r920RecordingRetry,
+  #r588Stop,.r588Alert.warning,[data-act="stop"],button[id$="Stop"],#r972TickRecord.recording) {
+  --r1130-top:#77304a!important;--r1130-mid:#4b1930!important;
+  --r1130-base:#2e0e1f!important;--r1130-glow:#db6b8735!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r920JourneySettings)>summary {
+  --r1130-top:#17644f!important;--r1130-mid:#0b3d32!important;
+  --r1130-base:#07251f!important;--r1130-glow:#49bb8b42!important;
+}
+
+/* These two wide controls previously crushed the complete square gemstone. */
+html[data-r1074-theme="berhet"] body :is(#r920TefEnter,#r920TefExit,#r938PanelToggle) {
+  --r1130-bezel:8px;border-radius:10px!important;
+}
+html[data-r1074-theme="berhet"] body .tabs :is(button,.tabTekke) {--r1130-bezel:6px;}
+html[data-r1074-theme="berhet"] body #r588DockShell :is(button,select) {--r1130-bezel:6px;}
+html[data-r1074-theme="berhet"] body :is(#r920Actions,#r932WheelControls,.tabs,#r588DockShell) :is(svg,.ico) {
+  filter:none!important;text-shadow:none!important;
+}
+html[data-r1074-theme="berhet"] body :is(#tab-zkr,#r616ToolsSheet,#r588DockShell,.tabs) :is(button,select,summary):not(:where(#r924WheelFrame *)):focus-visible {
+  outline:2px solid #ffe6a1!important;outline-offset:3px!important;
+}
+@media(forced-colors:active) {
+  html[data-r1074-theme="berhet"] body :is(#tab-zkr,#r616ToolsSheet,#r642ZikirInfoCard,#r588DockShell,.tabs) :is(button,select,summary,.tabTekke):not(:where(#r924WheelFrame *)) {
+    border:1px solid ButtonText!important;border-image:none!important;
+    background:ButtonFace!important;color:ButtonText!important;box-shadow:none!important;
+  }
+}
+}
