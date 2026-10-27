@@ -1,0 +1,100 @@
+/* r1131 — Berhetiyye cut gemstones and carved precious-metal settings.
+   First important layer; paint follows the canonical theme across tabs/portals.
+   Control dimensions, event ownership, thumbnails and wheel artwork are retained. */
+@layer sukun-r1131-jeweled-controls {
+html[data-r1074-theme="berhet"] body :where(
+ button:not(.sw):not([role="switch"]):not(.dockTipHelp):not(.r924Gem):not(.r959WheelNav):not(.r746EsmaCardBtn):not(#r611CurrentZikirName):not(#r920NameInfo):not(#r920Counter):not(#zCountVisual):not(:where(#r924WheelFrame *,#r945SceneGrid .r945SceneCard,#r924WheelGallery > button)),
+ [role="button"]:not(button):not(#zCountVisual):not(#vaultTrigger):not(:where(#r924WheelFrame *,#r945SceneGrid *,#r924WheelGallery *)),select,summary,input[type="button"],input[type="submit"],input[type="reset"],a.btn,.tabTekke
+) {
+ --r1131-material:sapphire!important;
+ --r1131-face:url('../assets/berhetiyye-premium/r1131/face-sapphire.svg')!important;
+ --r1131-frame:url('../assets/berhetiyye-premium/r1131/frame-gold.svg')!important;
+ --r1131-bezel:10px;
+ border:1px solid transparent!important;
+ border-image:var(--r1131-frame) 24 / var(--r1131-bezel) / 0 round!important;
+ border-radius:10px!important;
+ background:var(--r1131-face) center/100% 100% no-repeat!important;
+ background-clip:padding-box!important;
+ box-shadow:inset 0 0 0 2px #050810ad,inset 0 2px 3px #ffffed44,0 2px 5px #0007!important;
+ color:#fff4db!important;text-shadow:0 1px 2px #000,0 0 3px #0009!important;
+ filter:none!important;image-rendering:auto!important;box-sizing:border-box!important;
+}
+html[data-r1074-theme="berhet"] body :where(button:nth-of-type(8n+2),select:nth-of-type(8n+2)) {
+ --r1131-material:emerald!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-emerald.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :where(button:nth-of-type(8n+3),select:nth-of-type(8n+3)) {
+ --r1131-material:amethyst!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-amethyst.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :where(button:nth-of-type(8n+4),select:nth-of-type(8n+4)) {
+ --r1131-material:topaz!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-topaz.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :where(button:nth-of-type(8n+5),select:nth-of-type(8n+5)) {
+ --r1131-material:diamond!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-diamond.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :where(button:nth-of-type(8n+6),select:nth-of-type(8n+6)) {
+ --r1131-material:citrine!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-citrine.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :where(button:nth-of-type(8n+7),select:nth-of-type(8n+7)) {
+ --r1131-material:black-diamond!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-black-diamond.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :where(button:nth-of-type(8n+8),select:nth-of-type(8n+8)) {
+ --r1131-material:ruby!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-ruby.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r932EasyPlay,#r920ModeBerhet,#r920AtlasOpen,#r932EasyPlus,#favBtn,#ebCalcBtn,#freeApplyBtn,#r924WheelRetry,#r588Play,#r920DockAmbience,[data-act="transport"],button[id$="Play"],button[aria-pressed="true"],.tabs button.act,.tabs .tabTekke.act) {
+ --r1131-material:emerald!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-emerald.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r920TefEnter,#r920TefExit,#r932QuickWheel,#niyetRecBtn,#r920More,#tgtManBtn,[data-r616-znav="tef"],#r972TickTest,.r588Alert.berhet) {
+ --r1131-material:amethyst!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-amethyst.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r932EasyMinus,#r932QuickClose,#zBarHelp,#ebBtn,#freeBtn,#r588Hide,#r920DockExpand,#r679ZikirAyarBox .huK) {
+ --r1131-material:diamond!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-diamond.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r938PanelToggle,#r920Restart,#r920ModeEsma,summary) {
+ --r1131-material:black-diamond!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-black-diamond.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#zDonguBtn,.recording,[aria-pressed="true"].recording) {
+ --r1131-material:citrine!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-citrine.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r932EasyStop,#itemRecBtn,#r922RecordVoice,#huKayit,#r920RecordingRetry,#r588Stop,.r588Alert.warning,[data-act="stop"],button[id$="Stop"],#r972TickRecord.recording) {
+ --r1131-material:ruby!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-ruby.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r932QuickScene,#r920Previous,#r920Next) {
+ --r1131-material:sapphire!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-sapphire.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r1082SessionEntry,#r1056FocusControlsToggle) {
+ --r1131-material:topaz!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-topaz.svg')!important;
+}
+/* Silver settings distinguish clear and black diamonds from coloured stones. */
+html[data-r1074-theme="berhet"] body :is(#r932EasyMinus,#r932QuickClose,#r938PanelToggle,#r920Restart,#r920ModeEsma,#zBarHelp,#ebBtn,#freeBtn,#r588Hide,#r920DockExpand,summary) {
+ --r1131-frame:url('../assets/berhetiyye-premium/r1131/frame-silver.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r920JourneySettings)>summary {
+ --r1131-material:emerald!important;--r1131-face:url('../assets/berhetiyye-premium/r1131/face-emerald.svg')!important;
+ --r1131-frame:url('../assets/berhetiyye-premium/r1131/frame-gold.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r920TefEnter,#r920TefExit,#r938PanelToggle) {--r1131-bezel:12px;}
+html[data-r1074-theme="berhet"] body :is(.tabs,#r588DockShell) :is(button,select,.tabTekke) {--r1131-bezel:9px;}
+/* Photo previews keep their actual thumbnail, with an open carved setting. */
+html[data-r1074-theme="berhet"] body :is(#r945SceneGrid .r945SceneCard,#r924WheelGallery>button) {
+ border-image:url('../assets/berhetiyye-premium/r1131/frame-gold.svg') 24 / 9px / 0 round!important;
+}
+/* The info button now owns its complete jewel; retire its old small raster face. */
+html[data-r1074-theme="berhet"] body #tab-amb #mixer .chn .chInfo::before {content:none!important;background:none!important;border:0!important;box-shadow:none!important;}
+/* Switches retain their knob, hit area and checked-state geometry. */
+html[data-r1074-theme="berhet"] body :is(button.sw,button[role="switch"]) {
+ background:#101c2b url('../assets/berhetiyye-premium/r1131/face-black-diamond.svg') center/100% 100% no-repeat!important;
+ border-color:#d9ba70!important;box-shadow:inset 0 0 0 1px #7b531a,inset 0 1px 2px #fff5c577!important;
+}
+html[data-r1074-theme="berhet"] body :is(button.sw.on,button.sw[aria-checked="true"],button[role="switch"][aria-checked="true"]) {
+ background-image:url('../assets/berhetiyye-premium/r1131/face-emerald.svg')!important;
+}
+html[data-r1074-theme="berhet"] body :is(#r920Actions,#r932WheelControls,.tabs,#r588DockShell) :is(svg,.ico) {filter:none!important;text-shadow:none!important;}
+html[data-r1074-theme="berhet"] body :is(button,select,summary,input[type="button"],input[type="submit"],input[type="reset"],a.btn,.tabTekke):focus-visible {
+ outline:2px solid #ffe6a1!important;outline-offset:3px!important;
+}
+@media(forced-colors:active) {
+ html[data-r1074-theme="berhet"] body :is(button,select,summary,input[type="button"],input[type="submit"],input[type="reset"],a.btn,.tabTekke):not(:where(#r924WheelFrame *)) {
+ border:1px solid ButtonText!important;border-image:none!important;background:ButtonFace!important;color:ButtonText!important;box-shadow:none!important;
+ }
+}
+}
