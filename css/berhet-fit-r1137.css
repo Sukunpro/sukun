@@ -1,0 +1,74 @@
+/* Berhetiyye: reserve the jewelled edges and keep controls legible. */
+@layer sukun-r1137-fit {
+html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden]) {
+ justify-items:center!important;align-items:stretch!important;
+}
+html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button {
+ width:min(100%,clamp(96px,27vw,155px))!important;max-width:100%!important;
+ min-height:72px!important;height:auto!important;justify-self:center!important;
+ padding:10px 10px!important;gap:5px!important;--r1133-end:min(24px,22%)!important;
+}
+html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button>.tbL {
+ width:100%!important;min-width:0!important;white-space:normal!important;
+ overflow-wrap:normal!important;word-break:normal!important;text-align:center!important;
+}
+@media(max-width:720px) {
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) :is(#tab-amb,#tab-frq,#tab-zkr,#tab-rx,#tab-ntf) {
+  scroll-margin-block-start:calc(184px + env(safe-area-inset-top,0px))!important;
+ }
+}
+/* Preserve the real native select and its semantics. Its decorative arrow
+   does not consume the room needed by the selected label. */
+html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] .r920Path {
+ width:min(100%,350px)!important;max-width:350px!important;gap:8px!important;
+}
+html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] #r920AtlasOpen {
+ width:110px!important;min-width:0!important;flex:0 1 110px!important;
+ padding-inline:22px!important;
+}
+html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] #r920JourneyLabel {
+ position:relative!important;box-sizing:border-box!important;
+ width:auto!important;min-width:min(100%,145px)!important;max-width:min(100%,190px)!important;
+ flex:1 1 155px!important;
+}
+html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] #r920JourneyMode {
+ appearance:none!important;-webkit-appearance:none!important;
+ width:100%!important;min-width:0!important;min-height:48px!important;
+ box-sizing:border-box!important;padding:12px 30px 12px 14px!important;
+ border-image-width:13px 23px!important;text-align:center!important;text-align-last:center!important;
+ font:600 13px/1.35 system-ui,sans-serif!important;white-space:nowrap!important;
+}
+html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] #r920JourneyLabel::after {
+ content:'⌄'!important;display:block!important;position:absolute!important;right:16px!important;top:50%!important;
+ transform:translateY(-50%)!important;color:#f5e6c3!important;font:600 16px/1 system-ui,sans-serif!important;
+ pointer-events:none!important;
+}
+html[data-r1074-theme="berhet"] body #r1042PerfSummary {
+ display:flex!important;align-items:center!important;justify-content:center!important;position:relative!important;
+ box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:100%!important;
+ min-height:52px!important;height:auto!important;max-height:none!important;padding:14px 38px!important;
+ border-image-width:14px 24px!important;text-align:center!important;white-space:normal!important;
+ overflow-wrap:anywhere!important;font:600 14px/1.45 system-ui,sans-serif!important;list-style:none!important;
+}
+html[data-r1074-theme="berhet"] body #r1042PerfSummary::after {
+ content:'⌄'!important;position:absolute!important;right:20px!important;top:50%!important;
+ transform:translateY(-50%)!important;font:600 16px/1 system-ui,sans-serif!important;
+ color:#ead5a5!important;pointer-events:none!important;
+}
+html[data-r1074-theme="berhet"] body #r1042PerfHelp[open]>#r1042PerfSummary::after {transform:translateY(-50%) rotate(180deg)!important;}
+html[data-r1074-theme="berhet"] body #prDashboard #prDGo {
+ box-sizing:border-box!important;min-width:110px!important;max-width:100%!important;min-height:48px!important;
+ height:auto!important;padding:12px 25px!important;border-image-width:13px 22px!important;
+ white-space:normal!important;overflow-wrap:anywhere!important;text-align:center!important;
+}
+html[data-r1074-theme="berhet"] body #prDashboard .prNowText {min-width:0!important;flex:1 1 auto!important;overflow-wrap:anywhere!important;}
+html[data-r1074-theme="berhet"] body #prDashboard #prSearchOpen {
+ box-sizing:border-box!important;min-width:0!important;max-width:100%!important;min-height:52px!important;height:auto!important;
+ padding:14px 30px!important;border-image-width:13px 22px!important;white-space:normal!important;
+ overflow-wrap:anywhere!important;text-align:center!important;
+}
+@media(forced-colors:active) {
+ html[data-r1074-theme="berhet"] body #r920JourneyLabel::after,
+ html[data-r1074-theme="berhet"] body #r1042PerfSummary::after {color:ButtonText!important;}
+}
+}
