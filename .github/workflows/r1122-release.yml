@@ -45,6 +45,7 @@ jobs:
               'r1137': ('7283a4d7dc006cebb3a38df1dcd61ceee7e0c76c', 34),
               'r1138': ('bd76cbddb86b06204f2ea2a4a04ae5c9f61dcccc', 35),
               'r1139': ('bb8185d95deb8e1b84aab3aafb3a1c70a1a38861', 36),
+              'r1140': ('e9de4330b2196b38edd02f5dd0ca7c847b93e8c2', 37),
           }
           assert build in supported, 'Unsupported release: never report a version skip as acceptance'
           upgrade, groups = supported[build]
@@ -53,23 +54,25 @@ jobs:
           assert (folder / 'release-upgrade-browser.cjs').is_file(), 'Missing required upgrade suite'
           if build == 'r1125':
               assert (folder / 'atlas-private-access.cjs').is_file(), 'Missing required private-access suite'
-          if build in ('r1126', 'r1127', 'r1128', 'r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139'):
-              delail_folder = Path('candidate/tests/r1128') if build in ('r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139') else folder
+          if build in ('r1126', 'r1127', 'r1128', 'r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140'):
+              delail_folder = Path('candidate/tests/r1128') if build in ('r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140') else folder
               assert (Path('candidate/tests/r1125') / 'atlas-private-access.cjs').is_file(), 'Missing inherited private-access suite'
               assert (delail_folder / 'delail-tts-lifecycle.cjs').is_file(), 'Missing required Delail TTS lifecycle suite'
               assert (delail_folder / 'delail-screen-browser.cjs').is_file(), 'Missing required Delail screen browser suite'
-          if build in ('r1128', 'r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139'):
+          if build in ('r1128', 'r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140'):
               assert (delail_folder / 'delail-recorded-contract.cjs').is_file(), 'Missing required recorded Delail suite'
-          if build in ('r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139'):
-              transport_folder = Path('candidate/tests/r1129') if build in ('r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139') else folder
+          if build in ('r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140'):
+              transport_folder = Path('candidate/tests/r1129') if build in ('r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140') else folder
               assert (transport_folder / 'delail-global-transport.cjs').is_file(), 'Missing global reader transport regression'
               assert (transport_folder / 'delail-global-native-browser.cjs').is_file(), 'Missing native global reader transport regression'
-          if build in ('r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139'):
-              assert (folder / ('mobile-layout.cjs' if build in ('r1135', 'r1136') else ('mobile-fit.cjs' if build in ('r1137', 'r1138', 'r1139') else 'button-clarity-browser.cjs'))).is_file(), 'Missing responsive button-quality acceptance'
-          if build in ('r1138', 'r1139'):
+          if build in ('r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140'):
+              assert (folder / ('mobile-layout.cjs' if build in ('r1135', 'r1136') else ('mobile-fit.cjs' if build in ('r1137', 'r1138', 'r1139', 'r1140') else 'button-clarity-browser.cjs'))).is_file(), 'Missing responsive button-quality acceptance'
+          if build in ('r1138', 'r1139', 'r1140'):
               assert (folder / 'dock-layout.cjs').is_file(), 'Missing responsive dock-layout acceptance'
-          if build == 'r1139':
+          if build in ('r1139', 'r1140'):
               assert (folder / 'dock-page-access.cjs').is_file(), 'Missing dock/page hit-testing acceptance'
+          if build == 'r1140':
+              assert (folder / 'details-label.cjs').is_file(), 'Missing details label acceptance'
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
               output.write(f'build={build}\nupgrade={upgrade}\ngroups={groups}\n')
           PYCODE
@@ -103,6 +106,19 @@ jobs:
         with:
           name: r1139-dock-probe-${{ github.event.pull_request.head.sha || github.sha }}
           path: dock-probe/*.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Capture early r1140 details label diagnostics (full acceptance still required)
+        if: steps.release.outputs.build == 'r1140'
+        continue-on-error: true
+        working-directory: candidate
+        run: node tests/r1140/details-label.cjs . ../details-probe/details-label.json
+      - name: Upload early r1140 details label diagnostics
+        if: always() && steps.release.outputs.build == 'r1140'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1140-details-probe-${{ github.event.pull_request.head.sha || github.sha }}
+          path: details-probe/*.json
           if-no-files-found: error
           retention-days: 30
       - name: Capture early upgrade diagnostics (full acceptance still required)
