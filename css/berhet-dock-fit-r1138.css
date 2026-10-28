@@ -22,7 +22,7 @@ html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r588DockShe
 }
 html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r659DockBody {
  box-sizing:border-box!important;min-width:0!important;max-width:100%!important;
- padding-inline:0 3px!important;scrollbar-gutter:stable!important;
+ padding-inline:0 16px!important;scrollbar-gutter:stable!important;
 }
 html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r588DockShell .r588Stats {
  grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;
@@ -86,6 +86,12 @@ html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r920DockVol
  grid-column:3!important;grid-row:1!important;width:40px!important;
  min-width:0!important;max-width:40px!important;white-space:nowrap!important;
  text-align:right!important;font-variant-numeric:tabular-nums!important;
+}
+/* The grip is a native button but the wordmark span already owns the single
+   jeweled plate. Do not paint a second gemstone behind it. */
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r588DockShell>#r633DockGrip {
+ border:0!important;border-image:none!important;background:transparent!important;
+ box-shadow:none!important;
 }
 /* Compact the existing brand and its matching Max grid track together.
    No Mini geometry or keyboard/drawer display owner is replaced. */
