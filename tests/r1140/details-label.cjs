@@ -36,15 +36,18 @@ function intersects(a,b){return a.left<b.right-1&&a.right>b.left+1&&a.top<b.bott
    for(const c of data.controls)if(c.visible)assert(!intersects(data.rect,c.rect),'hint overlaps '+c.id+' '+JSON.stringify(data));
    assert(data.hitTarget,'hint center must receive native pointer '+JSON.stringify(data));
    await hint.click();const popup=p.locator('#r1061ActiveLayersPopup');await popup.waitFor({state:'visible'});
-   // Locale changes asynchronously refresh both source names and popup. Wait
-   // for the current authoritative model and visible list to converge, rather
-   // than comparing a pre-refresh snapshot with the refreshed translations.
-   await p.waitForFunction(lang=>{const current=SukunActiveSource.read().layers;const shown=[...document.querySelectorAll('#r1061ActiveLayersList>li')].map(n=>n.textContent);return I18N.lang===lang&&current.length>=4&&JSON.stringify(current)===JSON.stringify(shown)&&current.some(x=>(lang==='en'?/Birdsong/i:/Kuş Cıvıltıları/i).test(x));},lang,{timeout:15000});
-   const current=await p.evaluate(()=>SukunActiveSource.read().layers);const shown=await p.locator('#r1061ActiveLayersList>li').allTextContents();
-   assert(current.length>=4,'expected real preset frequency and ambience items');assert.deepEqual(shown,current,'click opens the complete current source list in order');
-   assert(current.some(x=>(lang==='en'?/Birdsong/i:/Kuş Cıvıltıları/i).test(x)),'source names match active language');
+   // The Seher preset has a known frequency and three known ambient sources.
+   // The app's translator can translate rendered DOM separately from the source
+   // model; compare visible localized names with independently expected values.
+   const expected=lang==='tr'
+    ? ['〰 220 Hz taşıyıcı · Alfa · vuruş 10 Hz','🐦 Kuş Cıvıltıları · 55%','💧 Dere Sesi · 40%','🌬 Rüzgâr · 15%']
+    : ['〰 220 Hz taşıyıcı · Alpha · beat 10 Hz','🐦 Birdsong · 55%','💧 Stream · 40%','🌬 Wind · 15%'];
+   await p.waitForFunction(({lang,expected})=>{const shown=[...document.querySelectorAll('#r1061ActiveLayersList>li')].map(n=>n.textContent);return I18N.lang===lang&&JSON.stringify(shown)===JSON.stringify(expected);},{lang,expected},{timeout:15000});
+   const source=await p.evaluate(()=>({channels:Object.keys(AMB).sort(),frequency:FR.playing,carrier:FR.c,beat:FR.b}));
+   assert.deepEqual(source.channels,['birds','stream','wind'],'the real Seher preset retains its three channels');assert.equal(source.frequency,true);assert.equal(source.carrier,220);assert.equal(source.beat,10);
+   const shown=await p.locator('#r1061ActiveLayersList>li').allTextContents();assert.deepEqual(shown,expected,'click opens every preset source with localized label, volume and order');
    await p.locator('#r1061ActiveLayersClose').click();assert.equal(await popup.isVisible(),false);
-   checks.push({width,lang,passed:true,evidence:{...data,currentLayers:current}});
+   checks.push({width,lang,passed:true,evidence:{...data,currentLayers:shown,source}});
   }catch(error){checks.push({width,lang,passed:false,error:error.stack||String(error)});}finally{save();}}
   await f.close();f=null;
  }
