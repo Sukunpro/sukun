@@ -35,6 +35,15 @@ async function test(name,fn){try{results.push({name,passed:true,evidence:await f
   const invalid=['./css/other-r1125.css','./nested/css/berhet-consistency-r1125.css','https://evil.invalid/sukun/css/berhet-consistency-r1125.css'].map(url=>({url,sha256:entry.sha256}));invalid.push({...entry,sha256:'invalid'});
   const rejected=await run(Buffer.from(JSON.stringify({...marker,runtime:invalid})));assert.equal(rejected.result.status,'FAIL');assert.equal(rejected.result.evidence.configurationErrors,invalid.length);assert.equal(rejected.calls.length,1);assert.equal(rejected.maxActive,0);return{verified:valid.result.evidence.matched,rejected:rejected.result.evidence.configurationErrors,requests:rejected.calls.length};
  });
+ if(build==='r1138')await test('Exact r1138 stylesheets verify while siblings, nesting and external paths remain rejected',async()=>{
+  for(const name of ['css/berhet-dock-fit-r1138.css','css/berhet-panels-r1138.css']){
+   const entry=marker.runtime.find(e=>new URL(e.url,'https://test.invalid/').pathname.slice(1)===name);assert(entry,'Mandatory stylesheet is present: '+name);
+   const valid=await run(Buffer.from(JSON.stringify({...marker,runtime:[entry]})));assert.equal(valid.result.status,'PASS');assert.equal(valid.result.evidence.matched,1);
+   const invalid=['./css/other-r1138.css','./nested/'+name,'https://evil.invalid/sukun/'+name].map(url=>({url,sha256:entry.sha256}));
+   const rejected=await run(Buffer.from(JSON.stringify({...marker,runtime:invalid})));assert.equal(rejected.result.status,'FAIL');assert.equal(rejected.result.evidence.configurationErrors,invalid.length);assert.equal(rejected.calls.length,1);
+  }
+  return {exactPaths:2,rejectedVariants:6};
+ });
  const exact=Buffer.concat([raw,Buffer.alloc(65536-raw.length,32)]);
  await test('A valid 65536-byte marker remains bounded and verifies unchanged runtime entries',async()=>{const x=await run(exact);assert.equal(x.result.status,'PASS');assert.equal(x.result.evidence.matched,expectedEntries);return{markerBytes:exact.length,maxConcurrent:x.maxActive}});
  for(const header of [true,false])await test('65537-byte '+(header?'declared':'streamed')+' marker is rejected before any asset request',async()=>{const bytes=Buffer.concat([exact,Buffer.from(' ')]),x=await run(bytes,{header});assert.equal(x.result.status,'NOT_MEASURED');assert.equal(x.result.evidence.reason,'SIZE_LIMIT');assert.equal(x.calls.length,1);assert.equal(x.maxActive,0);return{markerBytes:bytes.length,reason:x.result.evidence.reason,requests:x.calls.length}});

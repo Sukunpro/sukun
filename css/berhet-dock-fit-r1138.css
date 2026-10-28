@@ -1,0 +1,115 @@
+/* r1138: fit the Berhetiyye dock inside its existing measured shell.
+   The existing controller still owns Mini height, visibility, drag and audio.
+   Load before previous important layers; retain the original gemstone files. */
+@layer sukun-r1138-dock {
+html[data-r1074-theme="berhet"] body.r920-dock #r170Now.r588-authority {
+ background:linear-gradient(145deg,#0b2c28,#041c17)!important;
+ backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+/* Names and values are text inside the surrounding setting, not extra gems.
+   Their native roles, click handlers and hidden states remain unchanged. */
+html[data-r1074-theme="berhet"] body.r920-dock #r588DockShell :is(
+ #r588Title,#r921DockName,#r588Source,#r588Current,#r588State,
+ .r588Stat>i,.r588Stat>b,.r588Meta b,#r1060DockVolumeLabel,#r920DockVolumeValue
+) {
+ border:0!important;border-image:none!important;background:none!important;
+ box-shadow:none!important;padding:0!important;margin:0!important;
+ min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock #r588DockShell [hidden] {display:none!important;}
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r588DockShell {
+ padding:10px 12px!important;row-gap:6px!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r659DockBody {
+ box-sizing:border-box!important;min-width:0!important;max-width:100%!important;
+ padding-inline:0 3px!important;scrollbar-gutter:stable!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r588DockShell .r588Stats {
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r588DockShell .r588Stat {
+ box-sizing:border-box!important;min-width:0!important;min-height:48px!important;
+ height:auto!important;max-height:none!important;padding:9px 10px!important;
+ align-items:center!important;justify-content:center!important;text-align:center!important;
+ gap:4px!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r588DockShell .r588Stat :is(i,b) {
+ width:100%!important;text-align:center!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r588DockShell .r588Meta>span {
+ box-sizing:border-box!important;min-width:0!important;min-height:38px!important;
+ height:auto!important;max-height:none!important;padding:9px 12px!important;
+}
+/* Keep each footer group in its own column and paint selection inside its
+   hit box, so the neighbouring stone is never covered by the active ring. */
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r588DockShell>.r588Mode {
+ grid-template-columns:minmax(0,1fr) 92px 44px!important;gap:4px!important;
+ min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
+ padding:6px 0 0!important;background:#05251e!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r588DockShell .r588ModeSeg {
+ display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ min-width:0!important;width:100%!important;gap:4px!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r588DockShell .r588Transport {
+ display:grid!important;grid-template-columns:44px 44px!important;gap:4px!important;
+ min-width:0!important;width:92px!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r588DockShell .r588Mode button {
+ box-sizing:border-box!important;min-width:0!important;height:44px!important;
+ min-height:44px!important;max-height:44px!important;margin:0!important;
+ padding:7px 5px!important;border-image-width:12px 12px!important;
+ white-space:nowrap!important;font-size:12px!important;line-height:1.2!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock #r588DockShell [data-r588-mode].active {
+ outline:1px solid #ffe09a!important;outline-offset:-3px!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r588DockShell :is(#r588Play,#r588Stop,#r588Hide) {
+ font-size:18px!important;
+}
+/* Undo the earlier two-row volume rule: a bounded output always gets its
+   own column, even when the slider is at its maximum. Mini remains hidden. */
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r920DockLevel {
+ display:grid!important;grid-template-columns:62px minmax(0,1fr) 40px!important;
+ align-items:center!important;gap:6px!important;box-sizing:border-box!important;
+ min-width:0!important;width:100%!important;max-width:100%!important;
+ padding:0!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r1060DockVolumeLabel {
+ grid-column:1!important;grid-row:1!important;white-space:normal!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r920DockVolume {
+ grid-column:2!important;grid-row:1!important;box-sizing:border-box!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;margin:0!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r920DockVolumeValue {
+ grid-column:3!important;grid-row:1!important;width:40px!important;
+ min-width:0!important;max-width:40px!important;white-space:nowrap!important;
+ text-align:right!important;font-variant-numeric:tabular-nums!important;
+}
+/* Compact the existing brand and its matching Max grid track together.
+   No Mini geometry or keyboard/drawer display owner is replaced. */
+html[data-r1074-theme="berhet"] body.r920-dock.r588-mode-max:not(.r699-keyboard-compact) #r170Now.r588-authority:not(.r554-alert-open)>#r588DockShell {
+ grid-template-rows:52px minmax(0,1fr) auto!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock.r588-mode-max:not(.r699-keyboard-compact) #r588DockShell>#r633DockGrip {
+ height:52px!important;min-height:52px!important;max-height:52px!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock.r588-mode-max #r588DockShell>#r633DockGrip>span:first-child {
+ flex-direction:row!important;width:154px!important;height:52px!important;
+ min-height:0!important;max-height:52px!important;padding:8px 10px!important;gap:8px!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock.r588-mode-max #r588DockShell>#r633DockGrip>span:first-child::before {
+ width:28px!important;height:34px!important;
+ background-position:center -11px!important;background-size:68px 68px!important;
+}
+html[data-r1074-theme="berhet"] body.r920-dock.r588-mode-max #r588DockShell>#r633DockGrip>span:first-child::after {
+ font-size:15px!important;line-height:20px!important;letter-spacing:.08em!important;
+}
+@media(forced-colors:active) {
+ html[data-r1074-theme="berhet"] body.r920-dock #r170Now.r588-authority,
+ html[data-r1074-theme="berhet"] body.r920-dock:not(.r588-mode-mini) #r588DockShell>.r588Mode {
+  background:Canvas!important;color:CanvasText!important;
+ }
+}
+}
