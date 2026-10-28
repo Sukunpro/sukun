@@ -113,7 +113,8 @@
   });
   const mode=window.SukunDockSize?.get?.()||(document.body.classList.contains('r588-mode-mini')?'mini':'midi'),name=$(mode==='mini'?'r921DockName':'r588Current');
   const overflow=background&&visible(name)&&name.scrollHeight>name.clientHeight+1,hint=$('r1061LayersHint');hint.hidden=!overflow;
-  text(hint,t("Tüm çalan ögeler için Detaylar'a dokun",'Tap Details to see all playing items'));
+  text(hint,t('Detaylar','Details'));
+  hint.setAttribute('aria-label',t('Tüm çalan ögeleri göster','Show all playing items'));
   if(!values.length){hide(false);clearList();}else if(opened){if(!visible(anchor))hide(false);else{fill(s);position();}}
  }
  function schedule(){if(raf)return;if(document.hidden){hide(false);return;}raf=requestAnimationFrame(()=>{raf=0;sync();});}
