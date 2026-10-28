@@ -92,6 +92,19 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
           "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
           echo "CHROMIUM_PATH=$(node -p 'require("playwright").chromium.executablePath()')" >> "$GITHUB_ENV"
+      - name: Capture early r1139 dock access diagnostics (full acceptance still required)
+        if: steps.release.outputs.build == 'r1139'
+        continue-on-error: true
+        working-directory: candidate
+        run: node tests/r1139/dock-page-access.cjs . ../dock-probe/dock-page-access.json
+      - name: Upload early r1139 dock access diagnostics
+        if: always() && steps.release.outputs.build == 'r1139'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1139-dock-probe-${{ github.event.pull_request.head.sha || github.sha }}
+          path: dock-probe/*.json
+          if-no-files-found: error
+          retention-days: 30
       - name: Capture early upgrade diagnostics (full acceptance still required)
         continue-on-error: true
         working-directory: candidate
