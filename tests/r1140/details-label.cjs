@@ -36,9 +36,15 @@ function intersects(a,b){return a.left<b.right-1&&a.right>b.left+1&&a.top<b.bott
    for(const c of data.controls)if(c.visible)assert(!intersects(data.rect,c.rect),'hint overlaps '+c.id+' '+JSON.stringify(data));
    assert(data.hitTarget,'hint center must receive native pointer '+JSON.stringify(data));
    await hint.click();const popup=p.locator('#r1061ActiveLayersPopup');await popup.waitFor({state:'visible'});
-   assert.deepEqual(await p.locator('#r1061ActiveLayersList>li').allTextContents(),data.layers,'click opens complete source list');
+   // Locale changes asynchronously refresh both source names and popup. Wait
+   // for the current authoritative model and visible list to converge, rather
+   // than comparing a pre-refresh snapshot with the refreshed translations.
+   await p.waitForFunction(lang=>{const current=SukunActiveSource.read().layers;const shown=[...document.querySelectorAll('#r1061ActiveLayersList>li')].map(n=>n.textContent);return I18N.lang===lang&&current.length>=4&&JSON.stringify(current)===JSON.stringify(shown)&&current.some(x=>(lang==='en'?/Birdsong/i:/Kuş Cıvıltıları/i).test(x));},lang,{timeout:15000});
+   const current=await p.evaluate(()=>SukunActiveSource.read().layers);const shown=await p.locator('#r1061ActiveLayersList>li').allTextContents();
+   assert(current.length>=4,'expected real preset frequency and ambience items');assert.deepEqual(shown,current,'click opens the complete current source list in order');
+   assert(current.some(x=>(lang==='en'?/Birdsong/i:/Kuş Cıvıltıları/i).test(x)),'source names match active language');
    await p.locator('#r1061ActiveLayersClose').click();assert.equal(await popup.isVisible(),false);
-   checks.push({width,lang,passed:true,evidence:data});
+   checks.push({width,lang,passed:true,evidence:{...data,currentLayers:current}});
   }catch(error){checks.push({width,lang,passed:false,error:error.stack||String(error)});}finally{save();}}
   await f.close();f=null;
  }
