@@ -15,13 +15,13 @@ async function tap(selector){await p.waitForFunction(()=>!window.SukunInteractio
 // Scroll the real document until the chosen point sits in the strip above the
 // dock. The test checks the browser's hit test before dispatching a real click.
 async function pageTarget(selector,click){
- await p.evaluate(selector=>{const n=document.querySelector(selector),dock=document.querySelector('#r170Now');const r=n.getBoundingClientRect(),d=dock.getBoundingClientRect();const safe=Math.max(30,Math.min(innerHeight-30,d.top/2));window.scrollBy(0,r.top+r.height/2-safe);},selector);
+ await p.evaluate(selector=>{const n=document.querySelector(selector),dock=document.querySelector('#r170Now');const r=n.getBoundingClientRect(),d=dock.getBoundingClientRect();const safe=Math.max(30,Math.min(innerHeight-30,d.top/2));window.scrollBy({top:r.top+r.height/2-safe,behavior:"instant"});},selector);
  await p.waitForTimeout(250);
- const g=await p.evaluate(selector=>{const n=document.querySelector(selector),r=n.getBoundingClientRect(),d=document.querySelector('#r170Now').getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,hit=document.elementFromPoint(x,y);return{rect:r.toJSON(),dock:d.toJSON(),x,y,hit:hit?.id||hit?.tagName,hitTarget:!!hit&&(hit===n||n.contains(hit)),scrollY,viewport:{width:innerWidth,height:innerHeight}};},selector);
+ const g=await p.evaluate(selector=>{const n=document.querySelector(selector),r=n.getBoundingClientRect(),d=document.querySelector('#r170Now').getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,hit=document.elementFromPoint(x,y);return{rect:r.toJSON(),dock:d.toJSON(),x,y,hit:hit?.id||hit?.tagName,hitHTML:hit?.outerHTML?.slice(0,600)||null,hitAncestors:hit?[...function*(e){for(let i=0;e&&i<5;i++,e=e.parentElement)yield {tag:e.tagName,id:e.id,className:String(e.className||'').slice(0,120)}}(hit)]:[],pointStack:document.elementsFromPoint(x,y).slice(0,6).map(e=>({tag:e.tagName,id:e.id,className:String(e.className||'').slice(0,120)})),hitTarget:!!hit&&(hit===n||n.contains(hit)),disabled:!!n.disabled,phase:window.SukunSessionState?.snapshot?.()?.phase||null,gate:window.SukunCountCorrection?.status?.(1)||null,scrollY,viewport:{width:innerWidth,height:innerHeight}};},selector);
  assert(g.x>=0&&g.x<g.viewport.width&&g.y>=0&&g.y<g.viewport.height,'Target point is outside viewport '+selector+' '+JSON.stringify(g));
  assert(g.y<g.dock.top,'Target still covered by the dock '+selector+' '+JSON.stringify(g));
  assert(g.hitTarget,'Target not hittable at its center '+selector+' '+JSON.stringify(g));
- if(click){await p.evaluate(selector=>{const n=document.querySelector(selector);window.__r1139Clicked=false;n.addEventListener('click',()=>{window.__r1139Clicked=true},{once:true});},selector);await p.mouse.click(g.x,g.y);assert(await p.evaluate(()=>window.__r1139Clicked),'Native click did not reach '+selector);}
+ if(click){assert(!g.disabled,'Native target disabled '+selector+' '+JSON.stringify(g));await p.evaluate(selector=>{const n=document.querySelector(selector);window.__r1139Clicked=false;n.addEventListener('click',()=>{window.__r1139Clicked=true},{once:true});},selector);await p.mouse.click(g.x,g.y);assert(await p.evaluate(()=>window.__r1139Clicked),'Native click did not reach '+selector+' '+JSON.stringify(g));}
  return g;
 }
 (async()=>{try{
@@ -35,6 +35,10 @@ async function pageTarget(selector,click){
   await p.waitForFunction(()=>document.documentElement.dataset.r1074Theme==='berhet');await tap('#r932EasyPlay');await p.locator('#r170Now').waitFor({state:'visible'});
   for(const mode of ['midi','max']){
    try{
+    // Exercise each mode first while the session is playing, then pause using
+    // the real dock control before testing the intentionally disabled counter.
+    if(await p.evaluate(()=>SukunSessionState.snapshot().phase==='PAUSED')){await tap('#r588Play');}
+    await p.waitForFunction(()=>SukunSessionState.snapshot().phase==='PLAYING',null,{timeout:15000});
     await p.evaluate(m=>SukunDockSize.set(m,true),mode);await p.waitForTimeout(350);assert.equal(await p.evaluate(()=>SukunDockSize.get()),mode);
     // Only the inner wordmark owns the jewel; the native draggable button
     // remains transparent so the two blue plates cannot overlap.
@@ -45,7 +49,14 @@ async function pageTarget(selector,click){
     assert.match(grip.plateBorder,/gem-sapphire-r933\.webp/,'Wordmark retains its sapphire plate');
     assert(grip.plateRect.width>0&&grip.plateRect.height>0,'Wordmark plate must remain visible');
     const nav=await pageTarget('.tab[data-t="zkr"]',false);
+    const playingCounter=await pageTarget('#r920Counter',false);
+    await tap('#r588Play');
+    await p.waitForFunction(()=>SukunSessionState.snapshot().phase==='PAUSED'&&!document.querySelector('#r920Counter')?.disabled&&SukunCountCorrection.status(1).allowed,null,{timeout:15000});
+    await p.waitForTimeout(300);
+    const before=await p.evaluate(()=>Z.total);
     const counter=await pageTarget('#r920Counter',true);
+    await p.waitForFunction(before=>Z.total>before,before,{timeout:15000});
+    const after=await p.evaluate(()=>Z.total);
     const plus=await pageTarget('#r920Plus',false);
     // Dock's own scroller is independent of page scrolling, and its volume
     // value must fit within the actual client box rather than under a scrollbar.
@@ -56,7 +67,7 @@ async function pageTarget(selector,click){
     assert(dock.slider.right<=dock.output.left+1,'Slider overlaps percentage '+JSON.stringify(dock));
     assert(dock.body.bottom<=dock.footer.top+1,'Dock body overlaps footer '+JSON.stringify(dock));
     assert(dock.scrollHeight<=dock.clientHeight+2||dock.scrollTop>0,'Scrollable dock did not scroll '+JSON.stringify(dock));
-    report.checks.push({profile,mode,passed:true,grip,nav,counter,plus,dock});
+    report.checks.push({profile,mode,passed:true,grip,nav,playingCounter,counter,before,after,plus,dock});
    }catch(error){report.checks.push({profile,mode,passed:false,error:error.stack||String(error)});}
    save();console.log(JSON.stringify({profile,mode,passed:report.checks.at(-1).passed}));
   }
