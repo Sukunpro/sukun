@@ -1,0 +1,42 @@
+/* r1142: keep long frequency disclosure labels inside the existing jewel.
+   Native summaries and their explanatory help controls remain interactive. */
+@layer sukun-r1142-frequency-headings {
+html[data-r1074-theme="berhet"] body #tab-frq :is(#jEd,#fr2Box,#pitBox,#frequencyAdvancedR1120)>summary {
+ display:grid!important;grid-template-columns:minmax(0,1fr) 24px 12px!important;
+ align-items:start!important;justify-content:stretch!important;gap:6px 8px!important;
+ position:relative!important;box-sizing:border-box!important;width:100%!important;
+ min-width:0!important;max-width:100%!important;min-height:56px!important;
+ height:auto!important;max-height:none!important;margin:0!important;
+ padding:13px 27px!important;border-image-width:12px 24px!important;
+ overflow:visible!important;white-space:normal!important;overflow-wrap:anywhere!important;
+ font:600 14px/1.45 system-ui,sans-serif!important;letter-spacing:0!important;
+ text-align:left!important;list-style:none!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq #frequencyAdvancedR1120>summary {grid-template-columns:minmax(0,1fr) 12px!important}
+html[data-r1074-theme="berhet"] body #tab-frq :is(#jEd,#fr2Box,#pitBox)>summary:has(>.ico) {
+ grid-template-columns:20px minmax(0,1fr) 24px 12px!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq :is(#jEd,#fr2Box,#pitBox,#frequencyAdvancedR1120)[open]>summary {margin-bottom:9px!important}
+html[data-r1074-theme="berhet"] body #tab-frq :is(#jEd,#fr2Box,#pitBox,#frequencyAdvancedR1120)>summary::-webkit-details-marker {display:none!important}
+html[data-r1074-theme="berhet"] body #tab-frq :is(#jEd,#fr2Box,#pitBox,#frequencyAdvancedR1120)>summary::before {content:none!important;display:none!important}
+html[data-r1074-theme="berhet"] body #tab-frq :is(#jEd,#fr2Box,#pitBox)>summary>.ico {
+ grid-column:1!important;grid-row:1!important;position:static!important;
+ width:20px!important;min-width:20px!important;max-width:20px!important;height:20px!important;
+ margin:1px 0 0!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq :is(#jEd,#fr2Box,#pitBox)>summary>.qb {
+ grid-column:2!important;grid-row:1!important;position:static!important;inset:auto!important;
+ justify-self:center!important;align-self:start!important;margin:0!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq :is(#jEd,#fr2Box,#pitBox)>summary:has(>.ico)>.qb {grid-column:3!important}
+html[data-r1074-theme="berhet"] body #tab-frq :is(#jEd,#fr2Box,#pitBox,#frequencyAdvancedR1120)>summary::after {
+ content:'▾'!important;display:block!important;position:static!important;
+ grid-column:3!important;grid-row:1!important;align-self:center!important;justify-self:center!important;
+ width:auto!important;height:auto!important;margin:0!important;
+ color:#ead29a!important;font:600 12px/1 system-ui,sans-serif!important;
+ pointer-events:none!important;transform:none!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq #frequencyAdvancedR1120>summary::after {grid-column:2!important}
+html[data-r1074-theme="berhet"] body #tab-frq :is(#jEd,#fr2Box,#pitBox)>summary:has(>.ico)::after {grid-column:4!important}
+html[data-r1074-theme="berhet"] body #tab-frq :is(#jEd,#fr2Box,#pitBox,#frequencyAdvancedR1120)[open]>summary::after {transform:rotate(180deg)!important}
+}
