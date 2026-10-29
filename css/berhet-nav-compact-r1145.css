@@ -3,17 +3,17 @@
 @layer sukun-r1145-nav-compact {
 @media (max-width:720px) {
  html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden]) {
-  grid-template-columns:repeat(3,minmax(0,96px))!important;
+  grid-template-columns:repeat(3,minmax(0,100px))!important;
   grid-auto-rows:1fr!important;justify-content:center!important;justify-items:stretch!important;
   align-items:stretch!important;gap:8px!important;padding:8px!important;
  }
  html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button {
   box-sizing:border-box!important;display:flex!important;flex-direction:column!important;
   align-items:center!important;justify-content:center!important;justify-self:stretch!important;
-  width:100%!important;min-width:0!important;max-width:96px!important;
+  width:100%!important;min-width:0!important;max-width:100px!important;
   height:auto!important;min-height:min-content!important;max-height:none!important;aspect-ratio:1/1!important;
-  margin:0!important;padding:12px 9px!important;gap:5px!important;
-  border-image-width:11px 8px!important;--r1133-end:8px!important;
+  margin:0!important;padding:12px 14px!important;gap:5px!important;
+  border-image-width:11px 13px!important;--r1133-end:13px!important;
  }
  html[data-r1074-theme="berhet"] body .wrap>nav.tabs:not([hidden])>button>:is(.tbIc,.tbRub) {
   display:grid!important;place-items:center!important;align-self:center!important;flex:0 0 20px!important;

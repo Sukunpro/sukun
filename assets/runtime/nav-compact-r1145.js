@@ -23,7 +23,7 @@
   const bs=getComputedStyle(button),gap=parseFloat(ns.columnGap)||0;
   const available=nav.clientWidth-(parseFloat(ns.paddingLeft)||0)-(parseFloat(ns.paddingRight)||0);
   const inset=(parseFloat(bs.paddingLeft)||0)+(parseFloat(bs.paddingRight)||0)+(parseFloat(bs.borderLeftWidth)||0)+(parseFloat(bs.borderRightWidth)||0);
-  const three=Math.min(96,Math.max(0,(available-2*gap)/3))-inset;
+  const three=Math.min(100,Math.max(0,(available-2*gap)/3))-inset;
   const two=Math.min(144,Math.max(0,(available-gap)/2))-inset;
   const largest=Math.max(0,...labels.map(textWidth));
   // Compare with the hypothetical 3-column capacity even in fallback mode;
