@@ -8,8 +8,12 @@
   grid-template-columns:38px minmax(0,1fr) auto!important;
   align-items:center!important;gap:8px!important;
   width:100%!important;min-width:0!important;max-width:100%!important;
-  height:auto!important;min-height:82px!important;max-height:none!important;
-  padding:13px 22px!important;overflow:visible!important;
+  /* The jewel previously used 29% of its own height as its top/bottom
+     border image. Fix the bevel width and leave a real inner safe area so
+     multi-line descriptions never run across the silver facets. */
+  border-image-width:18px 28px!important;
+  height:auto!important;min-height:94px!important;max-height:none!important;
+  padding:26px 32px!important;overflow:visible!important;
  }
  html[data-r1074-theme="berhet"] body #tab-zkr #zMegaHost > .zMegaGroup > summary .zMegaIc {
   box-sizing:border-box!important;width:38px!important;height:38px!important;
