@@ -1,0 +1,95 @@
+/* Fit frequency controls and preset text within the visible jewel interior. */
+@layer sukun-r1146-frequency-fit {
+@media (max-width:720px) {
+html[data-r1074-theme="berhet"] body #tab-frq #frequencyWorkbenchR1120 .fr1120-workbench>summary {
+ box-sizing:border-box!important;width:100%!important;min-height:52px!important;height:auto!important;
+ padding:13px 30px!important;border-image-width:10px 24px!important;
+ font:700 16px/1.35 system-ui,sans-serif!important;white-space:normal!important;overflow-wrap:anywhere!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq #frequencyWorkbenchR1120 .fr1120-row:has(select) {
+ grid-template-columns:minmax(0,1fr)!important;gap:5px!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq #frequencyWorkbenchR1120 .fr1120-row:has(select)>label {
+ grid-column:1!important;min-width:0!important;font-size:13px!important;line-height:1.35!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq #frequencyWorkbenchR1120 .fr1120-row>select {
+ grid-column:1!important;box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:100%!important;
+ height:auto!important;min-height:48px!important;padding:12px 32px!important;border-image-width:10px 24px!important;
+ font:500 14px/1.35 system-ui,sans-serif!important;text-overflow:clip!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq :is(#r1101FrequencyToolsToggle,#r1120SetCreate) {
+ box-sizing:border-box!important;min-width:0!important;max-width:100%!important;min-height:48px!important;height:auto!important;
+ padding:12px 28px!important;border-image-width:10px 24px!important;
+ font:650 13px/1.4 system-ui,sans-serif!important;white-space:normal!important;overflow-wrap:break-word!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq #r1101FrequencyHub .r1101FrequencyTop {gap:8px!important}
+html[data-r1074-theme="berhet"] body #tab-frq #r1107PresetsSummary {
+ box-sizing:border-box!important;min-width:0!important;min-height:54px!important;height:auto!important;
+ padding:12px 30px!important;border-image-width:10px 24px!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq #r1106PresetsTitle {
+ box-sizing:border-box!important;min-width:0!important;width:100%!important;min-height:30px!important;height:auto!important;
+ display:flex!important;align-items:center!important;gap:8px!important;margin:0!important;
+ padding:0!important;
+ font:700 16px/1.35 system-ui,sans-serif!important;white-space:normal!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq #r1106PresetsTitle>span {min-width:0!important;overflow-wrap:break-word!important}
+html[data-r1074-theme="berhet"] body #tab-frq #r1106PresetsTitle>.qb {position:static!important;inset:auto!important;flex:0 0 24px!important;margin:0!important}
+/* Filters are all visible without a hidden horizontal carousel. */
+html[data-r1074-theme="berhet"] body #tab-frq #presets>.preFilter {
+ display:flex!important;flex-wrap:wrap!important;gap:6px!important;overflow:visible!important;
+ padding:0 0 10px!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq #presets>.preFilter>button {
+ flex:0 1 auto!important;box-sizing:border-box!important;min-width:0!important;max-width:100%!important;
+ min-height:42px!important;height:auto!important;padding:10px 24px!important;border-image-width:8px 20px!important;
+ white-space:normal!important;overflow-wrap:break-word!important;font:600 12px/1.3 system-ui,sans-serif!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq #presets .preAccHead {
+ box-sizing:border-box!important;display:flex!important;align-items:center!important;gap:8px!important;
+ min-width:0!important;width:100%!important;min-height:52px!important;height:auto!important;
+ padding:12px 26px!important;border-image-width:10px 22px!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq #presets .preAccT {
+ min-width:0!important;flex:1 1 auto!important;white-space:normal!important;overflow-wrap:break-word!important;
+ font:650 13px/1.35 system-ui,sans-serif!important;letter-spacing:0!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq #presets :is(.preAccN,.preAccChev) {position:static!important;inset:auto!important;flex:0 0 auto!important;margin:0!important}
+html[data-r1074-theme="berhet"] body #tab-frq #presets .preGrid2 {grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+html[data-r1074-theme="berhet"] body #tab-frq #presets .preGrid2>.pre {
+ box-sizing:border-box!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;
+ min-width:0!important;width:100%!important;max-width:100%!important;min-height:92px!important;height:auto!important;
+ padding:13px 23px!important;gap:3px!important;border-image-width:10px 19px!important;
+ white-space:normal!important;overflow:visible!important;text-align:left!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq #presets .preGrid2>.pre :is(.pIc,b,small) {
+ position:static!important;inset:auto!important;display:block!important;min-width:0!important;max-width:100%!important;margin:0!important;
+ white-space:normal!important;overflow-wrap:break-word!important;word-break:normal!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq #presets .preGrid2>.pre .pIc {font-size:17px!important;line-height:1!important}
+html[data-r1074-theme="berhet"] body #tab-frq #presets .preGrid2>.pre b {font:650 12px/1.3 system-ui,sans-serif!important}
+html[data-r1074-theme="berhet"] body #tab-frq #presets .preGrid2>.pre small {font:400 11px/1.3 system-ui,sans-serif!important;color:#d9e1dd!important;opacity:1!important}
+/* The slider help manager nests its own button inside the older .qb span.
+   Keep both help actions usable, with room for both glyphs, instead of
+   squeezing a 32px button into the old 16px circular badge. */
+html[data-r1074-theme="berhet"] body #tab-frq .sldRow:has(#beatSld) {
+ grid-template-columns:minmax(94px,max-content) minmax(0,1fr) auto!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq .sldRow:has(#beatSld)>label .qb:has(>.dockTipHelp) {
+ display:inline-flex!important;align-items:center!important;justify-content:flex-start!important;
+ box-sizing:border-box!important;width:auto!important;min-width:0!important;max-width:none!important;
+ height:auto!important;min-height:32px!important;max-height:none!important;flex:0 0 auto!important;
+ margin:0!important;padding:0 0 0 3px!important;gap:4px!important;
+ border:0!important;background:none!important;line-height:1!important;vertical-align:middle!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq .sldRow:has(#beatSld)>label .qb>.dockTipHelp {
+ position:static!important;inset:auto!important;margin:0!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq .sldRow:has(#beatSld)>label,
+html[data-r1074-theme="berhet"] body #tab-frq .sldRow:has(#uzamHizSld)>label {
+ display:inline-flex!important;align-items:center!important;gap:5px!important;min-width:0!important;white-space:nowrap!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq .sldRow:has(#beatSld)>label .qb,
+html[data-r1074-theme="berhet"] body #tab-frq .sldRow:has(#uzamHizSld)>label .qb {position:static!important;inset:auto!important;margin:0!important;flex:0 0 auto!important}
+}
+}
