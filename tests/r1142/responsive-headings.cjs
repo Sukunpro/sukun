@@ -48,6 +48,10 @@ async function run(check,width,fn){try{const evidence=await fn();checks.push({wi
   await tap(p,'#r986Sections button[aria-controls="zmgAraclar"]');await p.waitForFunction(()=>document.getElementById('zmgAraclar')?.open);
   const rows=await measure(p,'#vhBox>summary,#trkBox>summary,#ydkBox>summary');validate(rows,3);named(rows,['Kendi sesinle','Terkip Kur','Kayıtlarım']);await toggle(p,'vhBox',true);await toggle(p,'vhBox',false);return rows;});
  await run('frequency-disclosures',width,async()=>{
-  await tap(p,'.tab[data-t="frq"]');const rows=await measure(p,'#frequencyAdvancedR1120>summary,#jEd>summary,#fr2Box>summary,#pitBox>summary');validate(rows,4);named(rows,['Harmonikler','Kendi yolculuğunu','İkinci binaural','Ledün Lab']);await toggle(p,'jEd',true);await toggle(p,'jEd',false);return rows;});
+  await tap(p,'.tab[data-t="frq"]');
+  // These three settings are intentionally hidden in the default Geniş mode.
+  // Select the actual full-view product mode before inspecting its real DOM.
+  await p.evaluate(()=>applyUI('pro'));await p.waitForFunction(()=>document.body.classList.contains('mode-pro'));
+  const rows=await measure(p,'#frequencyAdvancedR1120>summary,#jEd>summary,#fr2Box>summary,#pitBox>summary');validate(rows,4);named(rows,['Harmonikler','Kendi yolculuğunu','İkinci binaural','Ledün Lab']);await toggle(p,'jEd',true);await toggle(p,'jEd',false);return rows;});
  await f.close();f=null;
 }}catch(e){report.fatal=e.stack||String(e);}finally{if(f)await f.close().catch(()=>{});save();console.log(JSON.stringify({passed:report.passed,total:report.total,allPassed:report.allPassed,fatal:report.fatal,output}));if(!report.allPassed)process.exitCode=1;}})();
