@@ -29,6 +29,8 @@ async function run(name,width,scale,fn){try{const evidence=await fn();checks.pus
  await tap(p,'.tab[data-t="zkr"]');assert.equal(await p.evaluate(()=>KLT_AC('LABELLED-r1143-disposable-profile')),true);
  assert.equal((await p.evaluate(()=>SukunSessionState.command('select',{mode:'berhet',index:15,journeyKind:'single'}))).accepted,true);await p.waitForFunction(()=>document.documentElement.dataset.r1074Theme==='berhet');
  if(await p.locator('#r938Panel').getAttribute('data-open')!=='true')await tap(p,'#r938PanelToggle');
+ // Real navigation into a section mounts/reveals the accordion group list.
+ await tap(p,'#r986Sections button[aria-controls="zmgOkumalar"]');await p.waitForFunction(()=>document.getElementById('zmgOkumalar')?.open);
  await p.waitForSelector('#zMegaHost>.zMegaGroup>summary');
  if(scale!==1)await p.evaluate(scale=>{for(const n of document.querySelectorAll('#zMegaHost>.zMegaGroup>summary .zMegaTxt :is(b,small),#tekkeContextCard :is(#tekkeBtn,#tekkeChangeBtn)')){const size=parseFloat(getComputedStyle(n).fontSize);n.style.setProperty('font-size',(size*scale)+'px','important');n.style.setProperty('line-height','1.35','important');}},scale);
  await run('group-frame-interior',width,scale,async()=>{
