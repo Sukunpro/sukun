@@ -69,6 +69,22 @@ html[data-r1074-theme="berhet"] body #tab-frq #presets .preGrid2>.pre :is(.pIc,b
 html[data-r1074-theme="berhet"] body #tab-frq #presets .preGrid2>.pre .pIc {font-size:17px!important;line-height:1!important}
 html[data-r1074-theme="berhet"] body #tab-frq #presets .preGrid2>.pre b {font:650 12px/1.3 system-ui,sans-serif!important}
 html[data-r1074-theme="berhet"] body #tab-frq #presets .preGrid2>.pre small {font:400 11px/1.3 system-ui,sans-serif!important;color:#d9e1dd!important;opacity:1!important}
+/* The slider help manager nests its own button inside the older .qb span.
+   Keep both help actions usable, with room for both glyphs, instead of
+   squeezing a 32px button into the old 16px circular badge. */
+html[data-r1074-theme="berhet"] body #tab-frq .sldRow:has(#beatSld) {
+ grid-template-columns:minmax(94px,max-content) minmax(0,1fr) auto!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq .sldRow:has(#beatSld)>label .qb:has(>.dockTipHelp) {
+ display:inline-flex!important;align-items:center!important;justify-content:flex-start!important;
+ box-sizing:border-box!important;width:auto!important;min-width:0!important;max-width:none!important;
+ height:auto!important;min-height:32px!important;max-height:none!important;flex:0 0 auto!important;
+ margin:0!important;padding:0 0 0 3px!important;gap:4px!important;
+ border:0!important;background:none!important;line-height:1!important;vertical-align:middle!important;
+}
+html[data-r1074-theme="berhet"] body #tab-frq .sldRow:has(#beatSld)>label .qb>.dockTipHelp {
+ position:static!important;inset:auto!important;margin:0!important;
+}
 html[data-r1074-theme="berhet"] body #tab-frq .sldRow:has(#beatSld)>label,
 html[data-r1074-theme="berhet"] body #tab-frq .sldRow:has(#uzamHizSld)>label {
  display:inline-flex!important;align-items:center!important;gap:5px!important;min-width:0!important;white-space:nowrap!important;
