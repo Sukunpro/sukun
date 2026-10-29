@@ -1,0 +1,60 @@
+/* r1141: content-sized Berhetiyye reading and prayer disclosure headings.
+   Each native summary remains the only disclosure control. The jewel remains
+   its existing border image; no artwork, labels or interaction are replaced. */
+@layer sukun-r1141-long-headings {
+html[data-r1074-theme="berhet"] body #r948NefsRoot .nr-reading>summary {
+ display:block!important;position:relative!important;box-sizing:border-box!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ min-height:56px!important;height:auto!important;max-height:none!important;
+ margin:0!important;padding:13px 37px 13px 30px!important;
+ border-image-width:12px 24px!important;overflow:visible!important;
+ font:650 14px/1.5 system-ui,sans-serif!important;letter-spacing:0!important;
+ text-align:left!important;white-space:normal!important;overflow-wrap:anywhere!important;
+ list-style:none!important;
+}
+html[data-r1074-theme="berhet"] body #r948NefsRoot .nr-reading[open]>summary {margin-bottom:14px!important}
+html[data-r1074-theme="berhet"] body #r948NefsRoot .nr-reading>summary::-webkit-details-marker {display:none!important}
+html[data-r1074-theme="berhet"] body #r948NefsRoot .nr-reading>summary::before {content:none!important;display:none!important}
+html[data-r1074-theme="berhet"] body #r948NefsRoot .nr-reading>summary::after {
+ content:'▾'!important;display:block!important;position:absolute!important;right:22px!important;top:17px!important;
+ color:#ead29a!important;font:600 12px/1 system-ui,sans-serif!important;
+ pointer-events:none!important;transform:none!important;
+}
+html[data-r1074-theme="berhet"] body #r948NefsRoot .nr-reading[open]>summary::after {transform:rotate(180deg)!important}
+/* The original label is a text node between the icon and optional count.
+   Grid gives it a flexible column; counts get a separate row instead of
+   squeezing a long title into a few characters. */
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#niyetBox,#hzvBox,#seyBox,#tvBox,#mzbzBox,#dhBox,#dlBox,#akBox)>summary {
+ display:grid!important;grid-template-columns:20px minmax(0,1fr) 12px!important;
+ align-items:start!important;justify-content:stretch!important;gap:4px 8px!important;
+ position:relative!important;box-sizing:border-box!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ min-height:56px!important;height:auto!important;max-height:none!important;
+ margin:0!important;padding:13px 27px!important;overflow:visible!important;
+ border-image-width:12px 24px!important;
+ font:600 15px/1.45 system-ui,sans-serif!important;letter-spacing:0!important;
+ text-align:left!important;white-space:normal!important;overflow-wrap:anywhere!important;
+ list-style:none!important;
+}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#niyetBox,#hzvBox,#seyBox,#tvBox,#mzbzBox,#dhBox,#dlBox,#akBox)[open]>summary {margin-bottom:9px!important}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#niyetBox,#hzvBox,#seyBox,#tvBox,#mzbzBox,#dhBox,#dlBox,#akBox)>summary::-webkit-details-marker {display:none!important}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#niyetBox,#hzvBox,#seyBox,#tvBox,#mzbzBox,#dhBox,#dlBox,#akBox)>summary::before {content:none!important;display:none!important}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#niyetBox,#hzvBox,#seyBox,#tvBox,#mzbzBox,#dhBox,#dlBox,#akBox)>summary>.ico {
+ grid-column:1!important;grid-row:1!important;position:static!important;align-self:start!important;
+ width:20px!important;min-width:20px!important;max-width:20px!important;height:20px!important;
+ margin:1px 0 0!important;
+}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#niyetBox,#hzvBox,#seyBox,#tvBox,#mzbzBox,#dhBox,#dlBox,#akBox)>summary>.bozet {
+ grid-column:2!important;grid-row:2!important;position:static!important;justify-self:start!important;
+ min-width:0!important;max-width:100%!important;width:auto!important;height:auto!important;
+ margin:1px 0 0!important;white-space:normal!important;overflow-wrap:anywhere!important;
+}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#niyetBox,#hzvBox,#seyBox,#tvBox,#mzbzBox,#dhBox,#dlBox,#akBox)>summary::after {
+ content:'▾'!important;display:block!important;position:static!important;
+ grid-column:3!important;grid-row:1!important;align-self:center!important;justify-self:center!important;
+ width:auto!important;height:auto!important;margin:0!important;
+ color:#ead29a!important;font:600 12px/1 system-ui,sans-serif!important;
+ pointer-events:none!important;transform:none!important;
+}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#niyetBox,#hzvBox,#seyBox,#tvBox,#mzbzBox,#dhBox,#dlBox,#akBox)[open]>summary::after {transform:rotate(180deg)!important}
+}
