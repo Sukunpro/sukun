@@ -1,14 +1,14 @@
 {
-  "build": "r1140",
+  "build": "r1141",
   "method": "Complete local release bytes: identity, exact SHA-256 and sizes, HTML SRI, shipped JavaScript syntax, and scoped active external CSS resource validation. Unresolved CSS variables remain explicit; these are static assertions, not device/audio checks.",
-  "passed": 1651,
-  "total": 1651,
+  "passed": 1655,
+  "total": 1655,
   "inlineScriptsParsed": 328,
   "externalScriptsParsed": 73,
-  "runtimeEntries": 143,
-  "siteFiles": 821,
-  "siteBytes": 445487205,
-  "sriEntries": 124,
+  "runtimeEntries": 144,
+  "siteFiles": 822,
+  "siteBytes": 445495505,
+  "sriEntries": 125,
   "cssAssets": {
     "schema": 1,
     "scope": "Active external CSS and recursive local imports; no inline/generated CSS, computed cascade, remote retrieval or rendering.",
@@ -1224,6 +1224,7 @@
       }
     ],
     "files": [
+      "css/berhet-long-headings-r1141.css",
       "css/berhet-dock-fit-r1138.css",
       "css/berhet-panels-r1138.css",
       "css/berhet-fit-r1137.css",
@@ -2048,12 +2049,12 @@
       "empty": 0
     },
     "stats": {
-      "files": 49,
-      "bytes": 425705,
-      "declarations": 8709,
+      "files": 50,
+      "bytes": 430382,
+      "declarations": 8804,
       "customProperties": 93,
       "checkedReferences": 79,
-      "valueExpansions": 1183
+      "valueExpansions": 1189
     }
   },
   "checks": [
@@ -2679,6 +2680,10 @@
     },
     {
       "name": "Runtime SHA-256 css/berhet-panels-r1138.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/berhet-long-headings-r1141.css",
       "passed": true
     },
     {
@@ -4287,6 +4292,10 @@
     },
     {
       "name": "Runtime JavaScript parses assets/runtime/delail-recorded-r1128.js",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/berhet-long-headings-r1141.css",
       "passed": true
     },
     {
@@ -7826,6 +7835,10 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size css/berhet-long-headings-r1141.css",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size css/berhet-original-stone-r1132.css",
       "passed": true
     },
@@ -8050,7 +8063,7 @@
       "passed": true
     },
     {
-      "name": "Site file hash and size sukun-build-r1140.json",
+      "name": "Site file hash and size sukun-build-r1141.json",
       "passed": true
     },
     {
@@ -8647,6 +8660,10 @@
     },
     {
       "name": "Runtime is in site inventory css/berhet-panels-r1138.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/berhet-long-headings-r1141.css",
       "passed": true
     },
     {

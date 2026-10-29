@@ -723,7 +723,7 @@
             './css/tekke-set-card-r1112.css','./css/berhet-surfaces-r1115.css',
             './css/name-info-r1115.css','./css/berhet-consistency-r1125.css',
             './css/button-clarity-r1130.css','./css/berhet-jeweled-controls-r1131.css','./css/berhet-original-stone-r1132.css','./css/berhet-premium-jewels-r1133.css','./css/berhet-responsive-r1135.css','./css/berhet-fit-r1137.css',
-            './css/berhet-dock-fit-r1138.css','./css/berhet-panels-r1138.css']
+            './css/berhet-dock-fit-r1138.css','./css/berhet-panels-r1138.css','./css/berhet-long-headings-r1141.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
           if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;
