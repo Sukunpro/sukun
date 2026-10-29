@@ -47,6 +47,7 @@ jobs:
               'r1139': ('bb8185d95deb8e1b84aab3aafb3a1c70a1a38861', 36),
               'r1140': ('e9de4330b2196b38edd02f5dd0ca7c847b93e8c2', 37),
               'r1141': ('1febda15e22faa4cfcda04ea7ac2617c909a2285', 38),
+              'r1142': ('470d870d7f1b2df4c6e2cce0c2c1b50162ea6889', 39),
           }
           assert build in supported, 'Unsupported release: never report a version skip as acceptance'
           upgrade, groups = supported[build]
@@ -55,27 +56,29 @@ jobs:
           assert (folder / 'release-upgrade-browser.cjs').is_file(), 'Missing required upgrade suite'
           if build == 'r1125':
               assert (folder / 'atlas-private-access.cjs').is_file(), 'Missing required private-access suite'
-          if build in ('r1126', 'r1127', 'r1128', 'r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141'):
-              delail_folder = Path('candidate/tests/r1128') if build in ('r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141') else folder
+          if build in ('r1126', 'r1127', 'r1128', 'r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142'):
+              delail_folder = Path('candidate/tests/r1128') if build in ('r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142') else folder
               assert (Path('candidate/tests/r1125') / 'atlas-private-access.cjs').is_file(), 'Missing inherited private-access suite'
               assert (delail_folder / 'delail-tts-lifecycle.cjs').is_file(), 'Missing required Delail TTS lifecycle suite'
               assert (delail_folder / 'delail-screen-browser.cjs').is_file(), 'Missing required Delail screen browser suite'
-          if build in ('r1128', 'r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141'):
+          if build in ('r1128', 'r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142'):
               assert (delail_folder / 'delail-recorded-contract.cjs').is_file(), 'Missing required recorded Delail suite'
-          if build in ('r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141'):
-              transport_folder = Path('candidate/tests/r1129') if build in ('r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141') else folder
+          if build in ('r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142'):
+              transport_folder = Path('candidate/tests/r1129') if build in ('r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142') else folder
               assert (transport_folder / 'delail-global-transport.cjs').is_file(), 'Missing global reader transport regression'
               assert (transport_folder / 'delail-global-native-browser.cjs').is_file(), 'Missing native global reader transport regression'
-          if build in ('r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141'):
-              assert (folder / ('mobile-layout.cjs' if build in ('r1135', 'r1136') else ('mobile-fit.cjs' if build in ('r1137', 'r1138', 'r1139', 'r1140', 'r1141') else 'button-clarity-browser.cjs'))).is_file(), 'Missing responsive button-quality acceptance'
-          if build in ('r1138', 'r1139', 'r1140', 'r1141'):
+          if build in ('r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142'):
+              assert (folder / ('mobile-layout.cjs' if build in ('r1135', 'r1136') else ('mobile-fit.cjs' if build in ('r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142') else 'button-clarity-browser.cjs'))).is_file(), 'Missing responsive button-quality acceptance'
+          if build in ('r1138', 'r1139', 'r1140', 'r1141', 'r1142'):
               assert (folder / 'dock-layout.cjs').is_file(), 'Missing responsive dock-layout acceptance'
-          if build in ('r1139', 'r1140', 'r1141'):
+          if build in ('r1139', 'r1140', 'r1141', 'r1142'):
               assert (folder / 'dock-page-access.cjs').is_file(), 'Missing dock/page hit-testing acceptance'
-          if build in ('r1140', 'r1141'):
+          if build in ('r1140', 'r1141', 'r1142'):
               assert (folder / 'details-label.cjs').is_file(), 'Missing details label acceptance'
-          if build == 'r1141':
+          if build in ('r1141', 'r1142'):
               assert (folder / 'nefs-access-layout.cjs').is_file(), 'Missing nefs and heading access acceptance'
+          if build == 'r1142':
+              assert (folder / 'responsive-headings.cjs').is_file(), 'Missing responsive heading acceptance'
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
               output.write(f'build={build}\nupgrade={upgrade}\ngroups={groups}\n')
           PYCODE
@@ -135,6 +138,19 @@ jobs:
         with:
           name: r1141-nefs-probe-${{ github.event.pull_request.head.sha || github.sha }}
           path: nefs-probe/*.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Capture early r1142 responsive heading diagnostics (full acceptance still required)
+        if: steps.release.outputs.build == 'r1142'
+        continue-on-error: true
+        working-directory: candidate
+        run: node tests/r1142/responsive-headings.cjs . ../headings-probe/responsive-headings.json
+      - name: Upload early r1142 responsive heading diagnostics
+        if: always() && steps.release.outputs.build == 'r1142'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1142-headings-probe-${{ github.event.pull_request.head.sha || github.sha }}
+          path: headings-probe/*.json
           if-no-files-found: error
           retention-days: 30
       - name: Capture early upgrade diagnostics (full acceptance still required)

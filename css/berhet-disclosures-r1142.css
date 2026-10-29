@@ -1,0 +1,63 @@
+/* r1142: readable disclosure labels on Berhetiyye's reading and tool pages.
+   These rules only adjust layout. The native summary, labels and gem art stay. */
+@layer sukun-r1142-disclosures {
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#nefsLtfHub,#nefsBox,#ltfBox,#cakraBox,#virdBox,#vhBox,#trkBox,#ydkBox)>summary {
+ display:grid!important;grid-template-columns:20px minmax(0,1fr) 12px!important;
+ align-items:start!important;justify-content:stretch!important;gap:4px 8px!important;
+ position:relative!important;box-sizing:border-box!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ min-height:56px!important;height:auto!important;max-height:none!important;
+ margin:0!important;padding:13px 27px!important;overflow:visible!important;
+ border-image-width:12px 24px!important;
+ font:600 15px/1.45 system-ui,sans-serif!important;letter-spacing:0!important;
+ text-align:left!important;white-space:normal!important;overflow-wrap:anywhere!important;
+ list-style:none!important;
+}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#nefsLtfHub,#nefsBox,#ltfBox,#cakraBox,#virdBox,#vhBox,#trkBox,#ydkBox)[open]>summary {margin-bottom:9px!important}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#nefsLtfHub,#nefsBox,#ltfBox,#cakraBox,#virdBox,#vhBox,#trkBox,#ydkBox)>summary::-webkit-details-marker {display:none!important}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#nefsLtfHub,#nefsBox,#ltfBox,#cakraBox,#virdBox,#vhBox,#trkBox,#ydkBox)>summary::before {content:none!important;display:none!important}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#nefsLtfHub,#nefsBox,#ltfBox,#cakraBox,#virdBox,#vhBox,#trkBox,#ydkBox)>summary>.ico {
+ grid-column:1!important;grid-row:1!important;position:static!important;align-self:start!important;
+ width:20px!important;min-width:20px!important;max-width:20px!important;height:20px!important;
+ margin:1px 0 0!important;
+}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#nefsLtfHub,#nefsBox,#ltfBox,#cakraBox,#virdBox,#vhBox,#trkBox,#ydkBox)>summary :is(.bozet,.nLtfMini) {
+ grid-column:2!important;grid-row:2!important;position:static!important;justify-self:start!important;
+ min-width:0!important;max-width:100%!important;width:auto!important;height:auto!important;
+ margin:1px 0 0!important;white-space:normal!important;overflow-wrap:anywhere!important;
+}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#nefsLtfHub,#nefsBox,#ltfBox,#cakraBox,#virdBox,#vhBox,#trkBox,#ydkBox)>summary::after {
+ content:'▾'!important;display:block!important;position:static!important;
+ grid-column:3!important;grid-row:1!important;align-self:center!important;justify-self:center!important;
+ width:auto!important;height:auto!important;margin:0!important;
+ color:#ead29a!important;font:600 12px/1 system-ui,sans-serif!important;
+ pointer-events:none!important;transform:none!important;
+}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#nefsLtfHub,#nefsBox,#ltfBox,#cakraBox,#virdBox,#vhBox,#trkBox,#ydkBox)[open]>summary::after {transform:rotate(180deg)!important}
+/* Reader headings can contain only a localized text node; use a text-sized
+   block instead of flex, reserving the jewel's carved ends and chevron. */
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#r1064ReadingExplorer,#r1064YasinBox)>summary,
+html[data-r1074-theme="berhet"] body :is(#r1064ReadingExplorer,#r1064YasinBox) .r1064-content details>summary {
+ display:block!important;position:relative!important;box-sizing:border-box!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ min-height:56px!important;height:auto!important;max-height:none!important;
+ margin:0!important;padding:13px 42px 13px 30px!important;
+ border-image-width:12px 24px!important;overflow:visible!important;
+ font:600 15px/1.45 system-ui,sans-serif!important;letter-spacing:0!important;
+ text-align:left!important;white-space:normal!important;overflow-wrap:anywhere!important;
+ list-style:none!important;
+}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#r1064ReadingExplorer,#r1064YasinBox)[open]>summary {margin-bottom:9px!important}
+html[data-r1074-theme="berhet"] body :is(#r1064ReadingExplorer,#r1064YasinBox) details>summary::-webkit-details-marker,
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#r1064ReadingExplorer,#r1064YasinBox)>summary::-webkit-details-marker {display:none!important}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#r1064ReadingExplorer,#r1064YasinBox)>summary::before,
+html[data-r1074-theme="berhet"] body :is(#r1064ReadingExplorer,#r1064YasinBox) .r1064-content details>summary::before {content:none!important;display:none!important}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#r1064ReadingExplorer,#r1064YasinBox)>summary::after,
+html[data-r1074-theme="berhet"] body :is(#r1064ReadingExplorer,#r1064YasinBox) .r1064-content details>summary::after {
+ content:'▾'!important;display:block!important;position:absolute!important;right:23px!important;top:18px!important;
+ color:#ead29a!important;font:600 12px/1 system-ui,sans-serif!important;
+ pointer-events:none!important;transform:none!important;
+}
+html[data-r1074-theme="berhet"] body #tab-zkr :is(#r1064ReadingExplorer,#r1064YasinBox)[open]>summary::after,
+html[data-r1074-theme="berhet"] body :is(#r1064ReadingExplorer,#r1064YasinBox) .r1064-content details[open]>summary::after {transform:rotate(180deg)!important}
+}
