@@ -1,0 +1,85 @@
+/* Mobile Berhetiyye: room for labels inside existing jeweled borders. */
+@layer sukun-r1146-zikir-cards {
+@media (max-width:700px) {
+ html[data-r1074-theme="berhet"] body #tab-zkr :is(#gqHub,#r170SessionHub,#r170Sources)>summary {
+  box-sizing:border-box!important;display:grid!important;grid-template-columns:24px minmax(0,1fr) 12px!important;
+  align-items:center!important;justify-content:stretch!important;gap:8px!important;
+  position:relative!important;width:100%!important;min-width:0!important;max-width:100%!important;
+  height:auto!important;min-height:96px!important;max-height:none!important;
+  border-image-width:14px 24px!important;padding:21px 29px!important;overflow:visible!important;
+  text-align:left!important;list-style:none!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr :is(#gqHub,#r170SessionHub,#r170Sources)>summary>span:first-child {
+  display:grid!important;place-items:center!important;position:static!important;
+  grid-column:1!important;grid-row:1!important;width:24px!important;min-width:0!important;height:auto!important;margin:0!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr :is(#gqHub,#r170SessionHub,#r170Sources)>summary>span:nth-child(2) {
+  display:flex!important;flex-direction:column!important;gap:4px!important;grid-column:2!important;grid-row:1!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;height:auto!important;overflow:visible!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr :is(#gqHub,#r170SessionHub,#r170Sources)>summary>span:nth-child(2)>b {
+  display:block!important;min-width:0!important;max-width:100%!important;margin:0!important;
+  white-space:normal!important;overflow-wrap:break-word!important;font:700 14px/1.25 system-ui,sans-serif!important;letter-spacing:.02em!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr :is(#gqHub,#r170SessionHub,#r170Sources)>summary>span:nth-child(2)>small {
+  display:block!important;min-width:0!important;max-width:100%!important;height:auto!important;max-height:none!important;
+  margin:0!important;overflow:visible!important;white-space:normal!important;overflow-wrap:break-word!important;
+  font:500 11px/1.35 system-ui,sans-serif!important;letter-spacing:0!important;color:#e5e7dc!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr :is(#gqHub,#r170SessionHub,#r170Sources)>summary::before {content:none!important;display:none!important}
+ html[data-r1074-theme="berhet"] body #tab-zkr :is(#gqHub,#r170SessionHub,#r170Sources)>summary::after {
+  content:'▾'!important;display:block!important;position:static!important;grid-column:3!important;grid-row:1!important;
+  width:auto!important;height:auto!important;margin:0!important;transform:none!important;
+  color:#ead29a!important;font:600 12px/1 system-ui,sans-serif!important;pointer-events:none!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr :is(#gqHub,#r170SessionHub,#r170Sources)[open]>summary::after {transform:rotate(180deg)!important}
+ html[data-r1074-theme="berhet"] body #tab-zkr #maneviGunluk>summary {
+  box-sizing:border-box!important;display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  align-content:center!important;justify-items:center!important;gap:4px!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;height:auto!important;min-height:88px!important;max-height:none!important;
+  border-image-width:14px 24px!important;padding:20px 30px!important;overflow:visible!important;text-align:center!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr #maneviGunluk>summary>b,
+ html[data-r1074-theme="berhet"] body #tab-zkr #maneviGunluk>summary>.r168Tag {
+  box-sizing:border-box!important;display:block!important;position:static!important;width:100%!important;min-width:0!important;max-width:100%!important;
+  height:auto!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;background:none!important;box-shadow:none!important;
+  white-space:normal!important;overflow-wrap:break-word!important;overflow:visible!important;text-align:center!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr #maneviGunluk>summary>b {font:700 15px/1.25 system-ui,sans-serif!important;letter-spacing:.02em!important}
+ html[data-r1074-theme="berhet"] body #tab-zkr #maneviGunluk>summary>.r168Tag {font:500 11px/1.35 system-ui,sans-serif!important;letter-spacing:0!important}
+ html[data-r1074-theme="berhet"] body #tab-zkr #maneviGunluk>summary::before,
+ html[data-r1074-theme="berhet"] body #tab-zkr #maneviGunluk>summary::after {content:none!important;display:none!important}
+ html[data-r1074-theme="berhet"] body #tab-zkr #trkBox .zBtns {
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr #trkBox .zBtns>.btn {
+  box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:100%!important;
+  height:auto!important;min-height:52px!important;max-height:none!important;padding:12px 20px!important;
+  white-space:normal!important;overflow-wrap:break-word!important;line-height:1.25!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr #trkSec {gap:7px!important;padding:10px!important}
+ html[data-r1074-theme="berhet"] body #tab-zkr #trkSec .trkAd {
+  box-sizing:border-box!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:auto!important;min-width:0!important;max-width:100%!important;height:auto!important;min-height:38px!important;max-height:none!important;
+  padding:9px 20px!important;white-space:normal!important;overflow-wrap:break-word!important;line-height:1.25!important;text-align:center!important;
+ }
+ /* Atlas and the native single/journey selector share equal-width slots. */
+ html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] .r920Path {
+  display:flex!important;flex-wrap:wrap!important;justify-content:center!important;align-items:stretch!important;
+  width:min(100%,350px)!important;max-width:350px!important;gap:8px!important;
+ }
+ html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] .r920Path>button,
+ html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] #r920JourneyLabel {
+  box-sizing:border-box!important;flex:1 1 145px!important;width:0!important;min-width:min(100%,145px)!important;max-width:none!important;
+  height:auto!important;min-height:52px!important;
+ }
+ html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] #r920AtlasOpen {
+  padding:12px 24px!important;white-space:normal!important;line-height:1.25!important;
+ }
+ html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] #r920JourneyMode {
+  box-sizing:border-box!important;width:100%!important;height:100%!important;min-height:52px!important;
+  padding:12px 29px 12px 16px!important;text-align:center!important;text-align-last:center!important;
+ }
+
+}
+}
