@@ -41,6 +41,16 @@ html[data-r1074-theme="berhet"] body button.sw:empty:not(#arTgl):not(#optSpeak):
 }
 /* Mixer rows have a narrow, pre-existing grid slot. Keep its touch target
    compact so the adjacent preview and information controls never overlap. */
+html[data-r1074-theme="berhet"] body #tab-amb #mixer .chn>.chTop {
+ grid-template-columns:auto minmax(0,1fr) 28px 44px!important;
+}
+/* Preview cards have an extra action. Give each action its own grid cell,
+   including the 44px switch, on the narrowest supported cards. */
+html[data-r1074-theme="berhet"] body #tab-amb #mixer .chn>.chTop:has(>.chPrev) {
+ grid-template-columns:minmax(28px,1fr) 28px 44px!important;
+ grid-template-areas:"ic name name" "prev info sw" "eq eq eq"!important;
+ column-gap:4px!important;
+}
 html[data-r1074-theme="berhet"] body #tab-amb #mixer .chn button.sw:empty {
  width:44px!important; min-width:44px!important; max-width:44px!important;
  flex-basis:44px!important;
