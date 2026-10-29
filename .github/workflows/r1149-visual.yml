@@ -30,6 +30,11 @@ jobs:
         run: |
           export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
           node tests/r1148/nav-visual.cjs "$GITHUB_WORKSPACE" "$RUNNER_TEMP/r1149-nav/report.json"
+      - name: Check backup frame and buttons
+        if: always()
+        run: |
+          export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          node tests/r1149/backup-visual.cjs "$GITHUB_WORKSPACE" "$RUNNER_TEMP/r1149-backup"
       - name: Upload measurements and screenshots
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -38,4 +43,5 @@ jobs:
           path: |
             ${{ runner.temp }}/r1149-visual
             ${{ runner.temp }}/r1149-nav
+            ${{ runner.temp }}/r1149-backup
           if-no-files-found: warn

@@ -2,6 +2,20 @@
    reduce the collapsed player affordance while the session editor is open. */
 @layer sukun-r1149-session-fit {
 @media (max-width:700px) {
+ /* The restore status is much longer than the two download labels. Give it
+    its own row so the ornate end caps never cover the text. */
+ html[data-r1074-theme="berhet"] body #bakBox .bakRow {
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  align-items:stretch!important;gap:8px!important;width:100%!important;min-width:0!important;
+ }
+ html[data-r1074-theme="berhet"] body #bakBox .bakRow>.btn {
+  box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:100%!important;
+  min-height:56px!important;height:auto!important;max-height:none!important;
+  padding:12px 25px!important;border-image-width:10px 20px!important;
+  font:700 12px/1.35 system-ui,sans-serif!important;letter-spacing:0!important;
+  text-align:center!important;white-space:normal!important;word-break:normal!important;overflow-wrap:break-word!important;
+ }
+ html[data-r1074-theme="berhet"] body #bakBox .bakRow>#bakImportBtn {grid-column:1/-1!important}
  html[data-r1074-theme="berhet"] body #r170SessionHub :is(#r1082OrderTitle,#r1092PreflightSummary) {
   position:relative!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;
   width:100%!important;min-width:0!important;max-width:100%!important;height:auto!important;min-height:50px!important;
