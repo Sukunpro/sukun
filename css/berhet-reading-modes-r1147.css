@@ -1,12 +1,12 @@
-/* Match the Atlas and native reading-mode select to the same jewel bezel.
-   The original emerald/sapphire materials and the real select remain in use. */
+/* Atlas and the native reading-mode select share a single jewel frame.
+   The real select retains its keyboard, accessibility and option behaviour. */
 @layer sukun-r1147-reading-modes {
 @media (max-width:700px) {
  html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] :is(#r920AtlasOpen,#r920JourneyMode) {
   box-sizing:border-box!important;
   min-height:52px!important;
   border:1px solid transparent!important;
-  border-image:var(--r1133-gem) 210 540 fill / 29% min(38px,30%) / 0 stretch!important;
+  border-image:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp') 210 540 fill / 29% min(38px,30%) / 0 stretch!important;
   border-radius:10px!important;
   padding:15px 39px!important;
   color:#fff2d6!important;
@@ -20,6 +20,11 @@
  }
  html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] #r920JourneyLabel::after {
   right:39px!important;
+ }
+ /* Classical Esmâ keeps its own visual treatment, with matching type. */
+ html:not([data-r1074-theme="berhet"]) body #r920Practice :is(#r920AtlasOpen,#r920JourneyMode) {
+  font:500 12px/1.3 system-ui,sans-serif!important;
+  letter-spacing:0!important;
  }
 }
 }
