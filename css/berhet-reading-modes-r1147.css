@@ -1,0 +1,25 @@
+/* Match the Atlas and native reading-mode select to the same jewel bezel.
+   The original emerald/sapphire materials and the real select remain in use. */
+@layer sukun-r1147-reading-modes {
+@media (max-width:700px) {
+ html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] :is(#r920AtlasOpen,#r920JourneyMode) {
+  box-sizing:border-box!important;
+  min-height:52px!important;
+  border:1px solid transparent!important;
+  border-image:var(--r1133-gem) 210 540 fill / 29% min(38px,30%) / 0 stretch!important;
+  border-radius:10px!important;
+  padding:15px 39px!important;
+  color:#fff2d6!important;
+  font:600 13px/1.35 system-ui,sans-serif!important;
+  letter-spacing:0!important;
+  text-align:center!important;
+ }
+ html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] #r920JourneyMode {
+  text-align-last:center!important;
+  appearance:none!important;-webkit-appearance:none!important;
+ }
+ html[data-r1074-theme="berhet"] body #r920Practice[data-r938-layout="1"] #r920JourneyLabel::after {
+  right:39px!important;
+ }
+}
+}
