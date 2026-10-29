@@ -28,18 +28,37 @@
   height:auto!important;min-height:0!important;max-height:none!important;
   margin:0!important;padding:0!important;text-align:center!important;
   font:650 11.25px/1.2 system-ui,sans-serif!important;letter-spacing:0!important;
-  white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;
+  white-space:nowrap!important;overflow-wrap:normal!important;word-break:normal!important;
   overflow:visible!important;text-overflow:clip!important;
+ }
+ /* If a translated or enlarged single word cannot fit the three-column
+    interior, use two equal wider columns. Only the presentation changes. */
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="2"] {
+  grid-template-columns:repeat(2,minmax(0,144px))!important;
+ }
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="2"]>button {
+  max-width:144px!important;aspect-ratio:4/3!important;
+ }
+ /* Very large text can require one row per item; let it wrap only when even
+    the two-column measure cannot fit and keep each action at least 44px. */
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="1"] {
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="1"]>button {
+  max-width:none!important;min-height:44px!important;aspect-ratio:auto!important;flex-direction:row!important;
+ }
+ html[data-r1074-theme="berhet"] body .wrap>nav.tabs[data-r1145-cols="1"]>button>.tbL {
+  width:auto!important;white-space:normal!important;overflow-wrap:anywhere!important;
  }
  /* Native section navigation targets the group, not its parent tab. The
     document already supplies 90px scroll-padding; this extra margin places
     the target below the expanded 3x2 sticky navigation. */
  html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) #zMegaHost>.zMegaGroup {
-  scroll-margin-block-start:calc(150px + env(safe-area-inset-top,0px))!important;
+  scroll-margin-block-start:var(--r1145-nav-scroll-margin,150px)!important;
  }
  /* Keep in-page navigation clear of the now taller two-row sticky bar. */
  html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) :is(#tab-amb,#tab-frq,#tab-zkr,#tab-rx,#tab-ntf) {
-  scroll-margin-block-start:calc(210px + env(safe-area-inset-top,0px))!important;
+  scroll-margin-block-start:var(--r1145-nav-scroll-margin,150px)!important;
  }
 }
 }
