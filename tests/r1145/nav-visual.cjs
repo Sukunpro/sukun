@@ -35,7 +35,7 @@ async function run(name,width,language,scale,fn){try{const evidence=await fn();c
  for(const scale of [1,1.25])await run('nav-geometry-and-interaction',width,language,scale,async()=>{
   await p.evaluate(scale=>{for(const n of document.querySelectorAll('.wrap > nav.tabs > button > .tbL')){n.style.removeProperty('font-size');if(scale!==1)n.style.setProperty('font-size',(parseFloat(getComputedStyle(n).fontSize)*scale)+'px','important');}},scale);
   await p.evaluate(()=>{window.scrollTo({top:0,behavior:'instant'});const b=document.querySelector('#r554NavCount');b.hidden=false;b.textContent='99+';});await p.waitForTimeout(300);
-  await p.screenshot({path:path.join(shots,`nav-${width}-${language}-${Math.round(scale*100)}.png`)});const initial=await measure(p);assert(initial.rows.find(r=>r.key==='ntf')?.badge,'99+ badge not visible');validate(initial,language);
+  await p.screenshot({path:path.join(shots,`nav-${width}-${language}-${Math.round(scale*100)}.png`)});const initial=await measure(p);assert(initial.rows.find(r=>r.key==='ntf')?.badge,'99+ badge not visible');validate(initial,language);if(language==='tr'&&scale===1)for(const key of ['frq','ntf']){const row=initial.rows.find(r=>r.key===key);assert(row&&row.lines.length===1,'Turkish navigation word wraps at normal size '+JSON.stringify(row));}
   for(const sel of ['.tab[data-t="frq"]','.tab[data-t="zkr"]']){await tap(p,sel);assert(await p.locator(sel).evaluate(n=>n.classList.contains('act')),'Tab click failed '+sel);}
   for(const n of await p.locator('.wrap > nav.tabs > button').all()){await n.focus();assert(await n.evaluate(e=>document.activeElement===e),'Button not keyboard focusable');}
   await p.evaluate(()=>window.scrollTo({top:800,behavior:'instant'}));await p.waitForTimeout(400);

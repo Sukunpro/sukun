@@ -3,17 +3,17 @@
 @layer sukun-r1145-nav-compact {
 @media (max-width:720px) {
  html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden]) {
-  grid-template-columns:repeat(3,minmax(0,88px))!important;
+  grid-template-columns:repeat(3,minmax(0,96px))!important;
   grid-auto-rows:1fr!important;justify-content:center!important;justify-items:stretch!important;
   align-items:stretch!important;gap:8px!important;padding:8px!important;
  }
  html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button {
   box-sizing:border-box!important;display:flex!important;flex-direction:column!important;
   align-items:center!important;justify-content:center!important;justify-self:stretch!important;
-  width:100%!important;min-width:0!important;max-width:88px!important;
+  width:100%!important;min-width:0!important;max-width:96px!important;
   height:auto!important;min-height:min-content!important;max-height:none!important;aspect-ratio:1/1!important;
-  margin:0!important;padding:12px 10px!important;gap:5px!important;
-  border-image-width:11px 9px!important;--r1133-end:9px!important;
+  margin:0!important;padding:12px 9px!important;gap:5px!important;
+  border-image-width:11px 8px!important;--r1133-end:8px!important;
  }
  html[data-r1074-theme="berhet"] body .wrap>nav.tabs:not([hidden])>button>:is(.tbIc,.tbRub) {
   display:grid!important;place-items:center!important;align-self:center!important;flex:0 0 20px!important;
@@ -23,13 +23,19 @@
  }
  html[data-r1074-theme="berhet"] body .wrap>nav.tabs:not([hidden])>button>svg.tbIc {display:block!important}
  html[data-r1074-theme="berhet"] body .wrap>nav.tabs:not([hidden])>button>.tbL {
-  display:block!important;box-sizing:border-box!important;align-self:center!important;
+  display:block!important;box-sizing:border-box!important;align-self:center!important;flex:0 0 auto!important;
   width:100%!important;min-width:0!important;max-width:100%!important;
   height:auto!important;min-height:0!important;max-height:none!important;
   margin:0!important;padding:0!important;text-align:center!important;
-  font:650 11.5px/1.2 system-ui,sans-serif!important;letter-spacing:0!important;
+  font:650 11.25px/1.2 system-ui,sans-serif!important;letter-spacing:0!important;
   white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;
   overflow:visible!important;text-overflow:clip!important;
+ }
+ /* Native section navigation targets the group, not its parent tab. The
+    document already supplies 90px scroll-padding; this extra margin places
+    the target below the expanded 3x2 sticky navigation. */
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) #zMegaHost>.zMegaGroup {
+  scroll-margin-block-start:calc(150px + env(safe-area-inset-top,0px))!important;
  }
  /* Keep in-page navigation clear of the now taller two-row sticky bar. */
  html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) :is(#tab-amb,#tab-frq,#tab-zkr,#tab-rx,#tab-ntf) {
