@@ -36,5 +36,23 @@
   font: 650 12px/1.2 system-ui,sans-serif !important;
   text-align: center !important; text-align-last: center !important;
  }
+ /* Give the native selector the full cell width. The clock, caption and
+    help retain their own row instead of consuming the selected text area. */
+ html[data-r1074-theme="berhet"] body #dockTimer {
+  grid-template-columns:20px minmax(0,1fr) 32px !important;
+  grid-template-rows:minmax(44px,auto) minmax(32px,auto) !important;
+ }
+ html[data-r1074-theme="berhet"] body #dockTimer>#sleepTimer {
+  grid-column:1 / -1 !important; grid-row:1 !important;
+ }
+ html[data-r1074-theme="berhet"] body #dockTimer>.di {
+  grid-column:1 !important; grid-row:2 !important;
+ }
+ html[data-r1074-theme="berhet"] body #dockTimer>.dl {
+  grid-column:2 !important; grid-row:2 !important; text-align:center !important;
+ }
+ html[data-r1074-theme="berhet"] body #dockTimer>.dockTipHelp {
+  grid-column:3 !important; grid-row:2 !important;
+ }
 }
 }

@@ -5,7 +5,7 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),cryp
 const root=path.resolve(process.argv[2]||'.'),out=path.resolve(process.argv[3]||path.join(root,'tests/r1120/evidence/health-marker-bytes.json'));
 const build=fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),markerPath='sukun-build-'+build+'.json';
 const raw=fs.readFileSync(path.join(root,markerPath)),marker=JSON.parse(raw),source=fs.readFileSync(path.join(root,'assets/runtime/health-r940.js'),'utf8');
-const expectedEntries=marker.runtime.length,entryLimit=160;
+const expectedEntries=marker.runtime.length,entryLimit=192;
 const start=source.indexOf('  async function responseBytes('),end=source.indexOf('  function sampleExplicit()',start);assert(start>0&&end>start);
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex'),results=[];
 async function run(bytes,{header=true,timeout=false}={}){
@@ -44,17 +44,27 @@ async function test(name,fn){try{results.push({name,passed:true,evidence:await f
   }
   return {exactPaths:2,rejectedVariants:6};
  });
+ if(build==='r1149')await test('Exact r1149 stylesheets verify while siblings, nesting and external paths remain rejected',async()=>{
+  const names=['css/berhet-hero-r1149.css','css/berhet-nav-r1149.css','css/berhet-quick-controls-r1149.css','css/berhet-session-fit-r1149.css'];
+  for(const name of names){
+   const entry=marker.runtime.find(e=>new URL(e.url,'https://test.invalid/').pathname.slice(1)===name);assert(entry,'Mandatory stylesheet is present: '+name);
+   const valid=await run(Buffer.from(JSON.stringify({...marker,runtime:[entry]})));assert.equal(valid.result.status,'PASS');assert.equal(valid.result.evidence.matched,1);
+   const invalid=['./css/other-r1149.css','./nested/'+name,'https://evil.invalid/sukun/'+name].map(url=>({url,sha256:entry.sha256}));
+   const rejected=await run(Buffer.from(JSON.stringify({...marker,runtime:invalid})));assert.equal(rejected.result.status,'FAIL');assert.equal(rejected.result.evidence.configurationErrors,invalid.length);assert.equal(rejected.calls.length,1);assert.equal(rejected.maxActive,0);
+  }
+  return {exactPaths:names.length,rejectedVariants:names.length*3};
+ });
  const exact=Buffer.concat([raw,Buffer.alloc(65536-raw.length,32)]);
  await test('A valid 65536-byte marker remains bounded and verifies unchanged runtime entries',async()=>{const x=await run(exact);assert.equal(x.result.status,'PASS');assert.equal(x.result.evidence.matched,expectedEntries);return{markerBytes:exact.length,maxConcurrent:x.maxActive}});
  for(const header of [true,false])await test('65537-byte '+(header?'declared':'streamed')+' marker is rejected before any asset request',async()=>{const bytes=Buffer.concat([exact,Buffer.from(' ')]),x=await run(bytes,{header});assert.equal(x.result.status,'NOT_MEASURED');assert.equal(x.result.evidence.reason,'SIZE_LIMIT');assert.equal(x.calls.length,1);assert.equal(x.maxActive,0);return{markerBytes:bytes.length,reason:x.result.evidence.reason,requests:x.calls.length}});
- await test('The bounded 160-entry limit still verifies actual source bytes and SHA-256 values',async()=>{
+ await test('The bounded 192-entry limit still verifies actual source bytes and SHA-256 values',async()=>{
   // Repeated real entries isolate the count boundary; no invented asset or hash
   // can turn a failed source verification into a successful result.
   const entry=marker.runtime.filter(e=>/\/assets\/runtime\//.test(e.url)).sort((a,b)=>fs.statSync(path.join(root,new URL(a.url,'https://test.invalid/').pathname)).size-fs.statSync(path.join(root,new URL(b.url,'https://test.invalid/').pathname)).size)[0];
   assert(entry);const value={...marker,runtime:[...marker.runtime,...Array.from({length:entryLimit-expectedEntries},()=>({...entry}))]},bytes=Buffer.from(JSON.stringify(value));assert(bytes.length<=65536);
   const x=await run(bytes);assert.equal(x.result.status,'PASS');assert.equal(x.result.evidence.expected,entryLimit);assert.equal(x.result.evidence.matched,entryLimit);assert.equal(x.calls.length,entryLimit+1);assert(x.maxActive<=2);return{entries:value.runtime.length,requests:x.calls.length,maxConcurrent:x.maxActive};
  });
- await test('A 161-entry marker fails closed before any asset download',async()=>{const value={...marker,runtime:Array.from({length:entryLimit+1},(_,i)=>({...marker.runtime[i%expectedEntries]}))},bytes=Buffer.from(JSON.stringify(value));assert(bytes.length<=65536);const x=await run(bytes);assert.equal(x.result.status,'FAIL');assert.equal(x.result.evidence.reason,'MARKER_INVALID');assert.equal(x.calls.length,1);assert.equal(x.maxActive,0);return{entries:value.runtime.length,requests:x.calls.length,reason:x.result.evidence.reason}});
+ await test('A 193-entry marker fails closed before any asset download',async()=>{const value={...marker,runtime:Array.from({length:entryLimit+1},(_,i)=>({...marker.runtime[i%expectedEntries]}))},bytes=Buffer.from(JSON.stringify(value));assert(bytes.length<=65536);const x=await run(bytes);assert.equal(x.result.status,'FAIL');assert.equal(x.result.evidence.reason,'MARKER_INVALID');assert.equal(x.calls.length,1);assert.equal(x.maxActive,0);return{entries:value.runtime.length,requests:x.calls.length,reason:x.result.evidence.reason}});
  await test('An admitted real runtime path with an incorrect hash remains a verification failure',async()=>{const entry=marker.runtime.find(e=>/\/assets\/runtime\//.test(e.url));assert(entry);const x=await run(Buffer.from(JSON.stringify({...marker,runtime:[{...entry,sha256:'0'.repeat(64)}]})));assert.equal(x.result.status,'FAIL');assert.equal(x.result.evidence.mismatched,1);assert.equal(x.result.evidence.matched,0);assert.equal(x.calls.length,2);return{mismatched:x.result.evidence.mismatched,requests:x.calls.length};});
  await test('Malformed full-marker JSON remains a configuration failure without asset fetches',async()=>{const x=await run(Buffer.from('{bad'));assert.equal(x.result.status,'FAIL');assert.equal(x.result.evidence.reason,'MARKER_INVALID_JSON');assert.equal(x.calls.length,1);return x.result.evidence});
  await test('Marker fetch still passes the abort signal and times out without asset fetches',async()=>{const x=await run(raw,{timeout:true});assert.equal(x.result.status,'NOT_MEASURED');assert.equal(x.calls.length,1);assert.equal(x.result.evidence.reason,'Aborted');return x.result.evidence});

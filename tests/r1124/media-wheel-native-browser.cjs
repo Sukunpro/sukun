@@ -24,7 +24,9 @@ async function check(name,fn){try{await reset();const evidence=await fn();report
  // Reload the exact served bytes after installing observation. Keep the native
  // setter and original handler unchanged; no provider is replaced.
  await p.addInitScript(()=>{const handlers={},log=[];window.__r1124Media={handlers,log};const proto=Object.getPrototypeOf(navigator.mediaSession),original=proto.setActionHandler;proto.setActionHandler=function(action,handler){handlers[action]=handler;return original.call(this,action,handler);};});
- await p.reload({waitUntil:'load'});await p.waitForTimeout(2200);await p.waitForFunction(()=>window.SukunSessionState&&window.SukunLockAudio&&window.SukunVoiceSettings);
+ // Match the initial fixture navigation's resource-loading budget. The old
+ // default 10 s expired during load before any media assertion could execute.
+ await p.reload({waitUntil:'load',timeout:60000});await p.waitForTimeout(2200);await p.waitForFunction(()=>window.SukunSessionState&&window.SukunLockAudio&&window.SukunVoiceSettings);
  if(await p.locator('#obSkip').isVisible())await tap('#obSkip');
  // The daily card may auto-hide after a visibility sample. Escape is its
  // shipped native dismissal (document keydown -> splashOut), unlike a forced

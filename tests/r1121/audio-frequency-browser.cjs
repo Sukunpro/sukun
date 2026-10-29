@@ -50,6 +50,12 @@ let adapted=original.slice(0,first)+prepare+original.slice(last);
 // adaptation below. No historical assertion or measurement threshold is removed.
 assert.equal(adapted.slice(0,first),original.slice(0,first));
 assert.equal(adapted.slice(first+prepare.length),original.slice(last));
+// CI's native reload can outlast Playwright's default 10 s while all shipped
+// assets finish loading. The fixture's first navigation already permits 60 s.
+// Retain the real load event and the complete prepare/readiness checks after it.
+const historicalReload="await p.reload({waitUntil:'load'});";
+assert.equal(adapted.split(historicalReload).length-1,1,'One exact manual-set reload');
+adapted=adapted.replace(historicalReload,"await p.reload({waitUntil:'load',timeout:60000});");
 const scenarioName='Unmodified background admission renders restored tools and timer transfer preserves only ambience';
 const scenarioFirst=adapted.indexOf(" await check('"+scenarioName+"',async()=>{");
 const scenarioLast=adapted.indexOf("\n await check('Exact served release resources",scenarioFirst);

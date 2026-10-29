@@ -656,7 +656,7 @@
     // exact short portal invitation share the separate bounded media allowance.
     // Leave bounded room for small releases to add mandatory runtime files.
     // Marker size, file paths, hashes, concurrency and byte budgets stay strict.
-    const maxRuntimeEntries=160,byteBudget=9437184,mediaByteBudget=33554432,waiters=new Set();
+    const maxRuntimeEntries=192,byteBudget=9437184,mediaByteBudget=33554432,waiters=new Set();
     function wakeBudget(){for(const wake of [...waiters])wake();}
     function waitForBudget(){return new Promise((resolve,reject)=>{
       let done=false;

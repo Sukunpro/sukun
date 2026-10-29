@@ -91,15 +91,21 @@ function own(s,kind){return kind===28?s.b:s.e;}
    await tap('#r932EasyPlay');await p.waitForFunction(()=>Number.isFinite(window.__r1121OldStart));await p.waitForTimeout(1000);
    await p.evaluate(kind=>{const api=kind===28?SukunBerhetiyyeSeyir:SukunEsma99Seyir;api.pause();window.AudioResolver.play=__r1121Resolver;delete window.__r1121Resolver;window.__r1121NewStart=performance.now();api.resume();},kind);
    await waitPlaying(kind);const before=await state();
+   // Keep the exact native element and source for the later clock comparison.
+   await p.evaluate(()=>{window.__r1121ReplacementMedia=window.__sukJourneyNative.a;window.__r1121ReplacementSource=window.__sukJourneyNative.playUrl;});
    const deadline=await p.evaluate(kind=>({old:__r1121OldStart+(kind===28?26000:35000),next:__r1121NewStart+(kind===28?26000:35000),now:performance.now()}),kind);
-   const target=deadline.old+Math.min(300,(deadline.next-deadline.old)/2);assert(target<deadline.next,'old/new deadlines distinct');
+   const target=deadline.old+Math.min(300,(deadline.next-deadline.old)/2);assert(target<deadline.next,'old/new deadlines distinct');assert(deadline.now<target,'Observe replacement before the retired deadline');
    const replacement=before.media.find(a=>!a.paused&&!a.ended);assert(replacement,'real replacement media exists');
    assert((replacement.duration-replacement.time)/replacement.rate*1000>target-deadline.now,'native fixture outlasts the retired watchdog');
    await p.waitForTimeout(Math.max(0,target-deadline.now));const after=await state();
    assert.equal(own(after,kind).run,true);assert.equal(own(after,kind).attemptSeq,own(before,kind).attemptSeq);assert.equal(after.counter.total,before.counter.total);
-   assert(after.media.some(a=>!a.paused&&!a.ended&&a.time>20),'native replacement clock kept progressing');
+   // Preparation uses real decode/render time. At the old deadline its native
+   // clock need not exceed an arbitrary 20 s (CI observed 19.245 s with the
+   // same playing attempt). Require progress of the same physical source.
+   assert(await p.evaluate(()=>window.__sukJourneyNative.a===window.__r1121ReplacementMedia&&window.__sukJourneyNative.playUrl===window.__r1121ReplacementSource),'same native replacement element/source');
+   assert(after.media.some(a=>!a.paused&&!a.ended&&a.key===replacement.key&&a.sourceMatches&&a.time>replacement.time+.1),'native replacement clock kept progressing');
    await stop(kind);return{before,after,deadline,target,fixtureSeconds:37};
-  },async()=>{try{await reset();}finally{await recording(kind,0,8);}});
+  },async()=>{try{await reset();}finally{await p.evaluate(()=>{delete window.__r1121ReplacementMedia;delete window.__r1121ReplacementSource;});await recording(kind,0,8);}});
 
  }
  for(const hidden of [false,true])await check(`${hidden?'simulated hidden':'visible'} local journey Pause/Resume/Finish preserve real ambience and frequency`,async()=>{await selected(99);await p.evaluate(()=>{ac();const def=AMBIENT_DEFS.find(x=>x.id==='stream')||AMBIENT_DEFS[0];window.__r1121AmbId=def.id;chOn(def);frStart();window.__r1121AmbRef=AMB[def.id];window.__r1121FreqRef=FR.E;});await start(99);if(hidden)await p.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>!!window.__r1121Hidden});Object.defineProperty(document,'visibilityState',{configurable:true,get:()=>window.__r1121Hidden?'hidden':'visible'});window.__r1121Hidden=true;document.dispatchEvent(new Event('visibilitychange'));});if(hidden)await p.waitForTimeout(1200);await p.evaluate(()=>{window.__r1121AmbRef=AMB[__r1121AmbId];window.__r1121FreqRef=FR.E;});const before=await state();for(const action of ['pause','resume','stop']){const result=await p.evaluate(action=>SukunSessionState.command(action),action);assert.equal(result.accepted,true,JSON.stringify(result));await p.waitForTimeout(200);const s=await state();assert.equal(s.frequency,true);assert(s.ambience.includes(await p.evaluate(()=>__r1121AmbId)));assert.equal(s.context,before.context);assert.equal(s.aggregate.paused,false);assert(await p.evaluate(()=>AMB[__r1121AmbId]===__r1121AmbRef&&FR.E===__r1121FreqRef));}const after=await state();assert.equal(after.counter.total,before.counter.total);await p.evaluate(()=>{window.__r1121Hidden=false;document.dispatchEvent(new Event('visibilitychange'));});return{before,after};});
