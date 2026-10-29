@@ -46,10 +46,12 @@
  /* Title and continuation text are separate rows, never competing for a gem. */
  html[data-r1074-theme="berhet"] body #tab-zkr :is(#berhetSeyir,#esmaSeyir99) > summary.r168Head {
   box-sizing:border-box!important;display:grid!important;grid-template-columns:minmax(0,1fr)!important;
-  align-content:center!important;justify-items:center!important;gap:4px!important;
+  align-content:center!important;justify-items:center!important;gap:6px!important;
   width:100%!important;min-width:0!important;max-width:100%!important;
-  height:auto!important;min-height:86px!important;max-height:none!important;
-  padding:12px 28px!important;overflow:visible!important;text-align:center!important;
+  height:auto!important;min-height:92px!important;max-height:none!important;
+  /* Keep both lines clear of the carved facets at any heading height. */
+  border-image-width:14px 24px!important;
+  padding:20px 30px!important;overflow:visible!important;text-align:center!important;
  }
  html[data-r1074-theme="berhet"] body #tab-zkr :is(#berhetSeyir,#esmaSeyir99) > summary.r168Head > b {
   box-sizing:border-box!important;display:block!important;position:static!important;
