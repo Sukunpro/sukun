@@ -1,0 +1,14 @@
+/* In contemplation, keep the wheel clear while a recitation is active.
+   The existing session renderer owns data-phase, so this presentation rule
+   never starts, pauses or changes the session and works for both name sets.
+   Removing the group from layout also removes its controls from keyboard focus. */
+@layer sukun-r1148-tefekkur-controls {
+  body.sukun-tefekkur-mode #r920Practice:is(
+    [data-phase="PREPARING"],
+    [data-phase="PLAYING"],
+    [data-phase="RECOVERING"],
+    [data-phase="COMPLETING"]
+  ) .r920Path {
+    display: none !important;
+  }
+}
