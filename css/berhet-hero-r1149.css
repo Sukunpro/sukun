@@ -1,0 +1,56 @@
+/* Berhetiyye owns the main brand frame only while its theme is active.
+   Reuse Sükûn's existing gold seal and the original jewel-frame artwork. */
+@layer sukun-r1149-berhet-hero {
+ html[data-r1074-theme="berhet"] body .wrap > header {
+  box-sizing:border-box!important;
+  position:relative!important;
+  width:100%!important; min-width:0!important; max-width:100%!important;
+  height:auto!important; min-height:0!important;
+  margin:8px 0 14px!important;
+  padding:30px 38px 28px!important;
+  border:1px solid transparent!important;
+  border-image:url('../assets/berhetiyye-premium/panel-emerald-r932.webp') 250 / 28px / 0 stretch!important;
+  border-radius:0!important;
+  background:radial-gradient(ellipse at 50% 15%,#123c32 0%,#061c20 56%,#05121c 100%)!important;
+  box-shadow:0 12px 28px #0007!important;
+  text-align:center!important;
+  overflow:hidden!important;
+ }
+ html[data-r1074-theme="berhet"] body .wrap > header::before,
+ html[data-r1074-theme="berhet"] body .wrap > header::after {
+  content:none!important; display:none!important;
+ }
+ html[data-r1074-theme="berhet"] body .wrap > header > .logo {
+  display:block!important; position:relative!important;
+  width:90px!important; min-width:90px!important; max-width:90px!important;
+  height:74px!important; min-height:74px!important; max-height:74px!important;
+  margin:0 auto 5px!important; padding:0!important;
+  font-size:0!important; line-height:0!important; text-shadow:none!important;
+  background: url('../assets/branding/sukun-frameless-logo-r1029.png') center -10px / 116px 116px no-repeat,
+              url('../assets/berhetiyye-premium/gem-emerald-r932.webp') center / 90px 74px no-repeat!important;
+  overflow:hidden!important;
+  animation:none!important; filter:drop-shadow(0 2px 5px #0009)!important;
+ }
+ html[data-r1074-theme="berhet"] body .wrap > header > .logo :is(.girih,.spark) {display:none!important}
+ html[data-r1074-theme="berhet"] body .wrap > header > h1.shimmer-text {
+  display:block!important; min-width:0!important; max-width:100%!important;
+  min-height:0!important; margin:0!important; padding:0!important;
+  font:600 clamp(23px,6vw,30px)/1.2 Georgia,serif!important;
+  letter-spacing:.20em!important; text-indent:.20em!important;
+  white-space:normal!important; overflow-wrap:break-word!important;
+  color:#fff0c6!important; -webkit-text-fill-color:currentColor!important;
+  background:none!important; text-shadow:0 2px 4px #000!important; animation:none!important;
+ }
+ html[data-r1074-theme="berhet"] body .wrap > header > .sub {
+  display:block!important; max-width:100%!important; min-width:0!important;
+  margin:5px auto 0!important; padding:0!important;
+  font:600 10px/1.4 system-ui,sans-serif!important;
+  letter-spacing:.14em!important; text-indent:.14em!important;
+  color:#dcece2!important; text-shadow:0 1px 2px #000!important;
+  white-space:normal!important; overflow-wrap:break-word!important;
+ }
+ @media (max-width:360px) {
+  html[data-r1074-theme="berhet"] body .wrap > header {padding-inline:32px!important}
+  html[data-r1074-theme="berhet"] body .wrap > header > .sub {letter-spacing:.10em!important;text-indent:.10em!important}
+ }
+}
