@@ -429,3 +429,32 @@ html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(.r992SheetHe
  html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #r1014CabirSelection{padding:6px 8px}
  html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] .r992TransportControls button{font-size:15px}
 }
+
+/* r1158: discovery stays reachable on the Tekke entrance and beneath its
+   active transport. It does not own or change the running Tekke session. */
+html body #tk[data-tk-ux="r992"] .r1158TekkeDiscovery {
+ box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:520px!important;
+ margin:10px auto 0!important;padding:14px!important;border:1px solid #bf9a5c88!important;
+ border-radius:14px!important;background:linear-gradient(150deg,#09271ff0,#061720f2)!important;
+ color:#f4e3be!important;box-shadow:inset 0 0 0 3px #c69c5d19!important;
+}
+html body #tk[data-tk-ux="r992"] .r1158TekkeDiscovery :is(h3,summary) {
+ margin:0 0 10px!important;padding:0!important;color:#e7c988!important;
+ font:650 12px/1.4 system-ui,sans-serif!important;letter-spacing:.08em!important;
+ text-align:center!important;overflow-wrap:anywhere!important;
+}
+html body #tk[data-tk-ux="r992"] .r1158TekkeDiscovery summary {cursor:pointer!important;min-height:40px!important;display:grid!important;place-items:center!important;list-style:none!important}
+html body #tk[data-tk-ux="r992"] .r1158TekkeDiscovery summary::-webkit-details-marker {display:none!important}
+html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryGrid {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;min-width:0!important}
+html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn {
+ box-sizing:border-box!important;position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;min-height:48px!important;height:auto!important;
+ margin:0!important;padding:8px 10px!important;border:1px solid #c8a565!important;border-radius:10px!important;
+ background:linear-gradient(150deg,#16394a,#071b2d 70%,#102c37)!important;color:#fff3d7!important;
+ font:600 12px/1.3 system-ui,sans-serif!important;text-align:center!important;white-space:normal!important;overflow-wrap:anywhere!important;
+}
+html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn[data-discovery="berhet"] {background:linear-gradient(140deg,#13644c,#07362c 55%,#031d1b)!important;border-color:#d5b879!important}
+html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn:focus-visible,html body #tk[data-tk-ux="r992"] .r1158TekkeDiscovery summary:focus-visible {outline:2px solid #fff0be!important;outline-offset:2px!important}
+html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryScene {max-width:600px!important;padding:4px 10px 10px!important}
+html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryScene:not([open]) {padding-bottom:4px!important}
+@media(forced-colors:active){html body #tk[data-tk-ux="r992"] .r1158TekkeDiscovery,html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn {background:Canvas!important;color:CanvasText!important;border-color:CanvasText!important}}

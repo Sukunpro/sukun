@@ -55,6 +55,30 @@
   tabs.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;const bs=[...tabs.querySelectorAll('[data-tk-tab]')],i=bs.findIndex(b=>b.dataset.tkTab===tab),n=e.key==='Home'?0:e.key==='End'?3:(i+(e.key==='ArrowRight'?1:3))%4;e.preventDefault();chooseTab(bs[n].dataset.tkTab);bs[n].focus();});
   chooseTab(tab);
  }
+ // Discovery entries preserve the Tekke session by leaving its surface rather
+ // than closing/stopping it; the shared router owns tab and gate navigation.
+ function discoveryEntries(){
+  const entries=document.createElement('div');entries.className='r1158TekkeDiscoveryGrid';
+  const labels=[['okumalar','📖 Okumalar|📖 Readings'],['seyirler','🧭 Seyirler|🧭 Journeys'],['araclar','⚒ Araçlar|⚒ Tools'],['berhet','✦ Berhetiyye Kapısı|✦ Berhetiyye Gate']];
+  for(const [key,label] of labels){
+   const b=document.createElement('button');b.type='button';b.className='r1158TekkeDiscoveryBtn';b.dataset.tkCopy=label;b.dataset.discovery=key;
+   b.addEventListener('click',()=>{
+    const router=window.SukunDiscoveryR1158;
+    if(typeof router?.open!=='function'){b.setAttribute('aria-label',copy('Keşif bağlantıları henüz hazır değil','Discovery links are not ready yet'));return;}
+    // Factory's leave() preserves an active Tekke session and its audio.
+    const trigger=document.getElementById('tekkeTab');
+    if(typeof factory()?.leave!=='function')return;
+    factory().leave();router.open(key,trigger);
+   });entries.append(b);
+  }
+  return entries;
+ }
+ function mountDiscovery(transport){
+  const gate=$('#gate');if(gate){const section=document.createElement('section');section.className='r1158TekkeDiscovery';section.setAttribute('aria-label',copy('Keşif Kapıları','Discovery Gates'));const heading=document.createElement('h3');heading.dataset.tkCopy='✦ KEŞİF KAPILARI ✦|✦ DISCOVERY GATES ✦';section.append(heading,discoveryEntries());gate.append(section);}
+  // During an active scene the same entries are compact and expandable below
+  // the transport, avoiding an always-on overlay across the breathing scene.
+  if(transport){const details=document.createElement('details');details.className='r1158TekkeDiscovery r1158TekkeDiscoveryScene';const summary=document.createElement('summary');summary.dataset.tkCopy='✦ Keşif Kapıları ✦|✦ Discovery Gates ✦';details.append(summary,discoveryEntries());transport.append(details);}
+ }
  function mount(){
   root=document.getElementById('tk');if(!root?.firstElementChild||root.dataset.tkUx==='r992')return;
   root.dataset.tkUx='r992';
@@ -82,6 +106,7 @@
   range.addEventListener('input',()=>{const master=$('#vMaster');master.value=range.value;master.dispatchEvent(new Event('input',{bubbles:true}));render();});
   const note=document.createElement('p');note.id='r992NavigationHint';note.dataset.tkCopy='Ana sayfaya dönmek akışı durdurmaz.|Returning to Home keeps the session going.';
   controls.append(pause,end,volume);transport.append(title,controls,note);root.append(transport);
+  mountDiscovery(transport);
   const home=section('r992HomeSession','r992HomeSession');home.hidden=true;
   const homeTitle=document.createElement('strong');homeTitle.id='r992HomeTitle';const homeNotice=document.createElement('p');homeNotice.id='r992HomeNotice';
   const returnBtn=button('','return','r992SettingsBtn');returnBtn.dataset.tkCopy='Tekke’ye dön|Return to Tekke';home.append(homeTitle,homeNotice,returnBtn);
