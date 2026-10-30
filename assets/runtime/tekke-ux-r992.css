@@ -306,15 +306,8 @@ html body #tk[data-tk-ux="r992"] #telkin{min-height:3.2em}
 
 /* r1014 Cabir Tekkesi: a live, scoped Berhetiyye presentation.
    The palace is one root background; gemstone paint never owns interaction. */
-@supports selector(body:has(*)){
- html body.r821-tekke-open:has(#tk[data-tk-scene-family="berhet"]:not([hidden]))::after{
-  content:'';position:fixed;inset:0;z-index:2147481999!important;pointer-events:none;
-  opacity:1!important;animation:none!important;transform:none!important;filter:none!important;
-  background-color:#071327!important;
-  background-image:linear-gradient(180deg,#020d2226,#020d2261 48%,#020d2226),url('../scenes/tekke-r1014/berhet-billur.webp')!important;
-  background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important;
- }
-}
+/* Keep the artwork on #tk itself. A body pseudo-element can fall behind an
+   isolated, paint-contained fullscreen root on some mobile compositors. */
 html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"]{
  --tkux-gold:#eed598;--tkux-ink:#fff1d7;--tkux-mint:#bcf5dd;
  --tkux-panel:#071525;--gold:#eed598;
@@ -322,9 +315,6 @@ html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"]{
  background-image:linear-gradient(180deg,#020d2226,#020d2261 48%,#020d2226),url('../scenes/tekke-r1014/berhet-billur.webp')!important;
  background-position:center center!important;background-size:cover!important;background-repeat:no-repeat!important;
  color:var(--tkux-ink);
-}
-@supports selector(body:has(*)){
- html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"]{background-color:transparent!important;background-image:none!important}
 }
 html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(#top,#r992Transport){
  background:linear-gradient(140deg,#041425e8,#071521ec)!important;
@@ -421,6 +411,19 @@ html body.r821-tekke-open #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] 
  background:linear-gradient(180deg,#04132670,#041326b8)!important;
 }
 html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #gT{color:#ffe1a3;letter-spacing:.12em!important}
+/* The entrance must reveal the selected artwork while retaining a readable
+   dark veil. Paint on the fullscreen Tekke root for both visual families. */
+html body.r821-tekke-open #tk[data-tk-ux="r992"]:not([data-tk-scene-family="berhet"]){
+ background-color:#041017!important;
+ background-image:var(--r717-veil),url('../sukun-nur-sanctuary-r757.png')!important;
+ background-position:center top!important;background-size:cover!important;background-repeat:no-repeat!important;
+}
+html body.r821-tekke-open #tk[data-tk-ux="r992"]:not([data-tk-scene-family="berhet"]) #gate:not(.bye){
+ background:linear-gradient(180deg,rgba(3,19,29,.20),rgba(3,16,27,.58))!important;
+}
+html body.r821-tekke-open #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] #gate:not(.bye){
+ background:linear-gradient(180deg,rgba(4,19,38,.24),rgba(4,19,38,.58))!important;
+}
 html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(#gContext,#panel .pSec,#r990TekkeSetCard){background:#071a2be8;border-color:#d3b47788}
 html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(#panel,#tkHelp){background:#061426!important;border-color:#d3b4779c;color:#fff0d4}
 html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] :is(.r992SheetHead,.r992SheetFoot,#r992PanelTabs,#r997HelpHeader){background:#061426!important;border-color:#d3b47760}

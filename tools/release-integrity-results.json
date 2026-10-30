@@ -1,5 +1,5 @@
 {
-  "build": "r1178",
+  "build": "r1179",
   "method": "Complete local release bytes: identity, exact SHA-256 and sizes, HTML SRI, shipped JavaScript syntax, and scoped active external CSS resource validation. Unresolved CSS variables remain explicit; these are static assertions, not device/audio checks.",
   "passed": 1774,
   "total": 1774,
@@ -7,7 +7,7 @@
   "externalScriptsParsed": 75,
   "runtimeEntries": 169,
   "siteFiles": 850,
-  "siteBytes": 448925970,
+  "siteBytes": 448927761,
   "sriEntries": 148,
   "cssAssets": {
     "schema": 1,
@@ -1265,7 +1265,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "assets/runtime/tekke-ux-r992.css",
-        "line": 336,
+        "line": 326,
         "property": "border-image",
         "variable": "--cabir-art",
         "chain": []
@@ -1273,9 +1273,17 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "assets/runtime/tekke-ux-r992.css",
-        "line": 336,
+        "line": 326,
         "property": "background",
         "variable": "--cabir-face",
+        "chain": []
+      },
+      {
+        "code": "UNKNOWN_VARIABLE",
+        "source": "assets/runtime/tekke-ux-r992.css",
+        "line": 417,
+        "property": "background-image",
+        "variable": "--r717-veil",
         "chain": []
       },
       {
@@ -2336,15 +2344,15 @@
         "source": "assets/runtime/tekke-ux-r992.css",
         "url": "../scenes/tekke-r1014/berhet-billur.webp",
         "target": "assets/scenes/tekke-r1014/berhet-billur.webp",
-        "line": 313,
+        "line": 314,
         "property": "background-image",
         "chain": []
       },
       {
         "source": "assets/runtime/tekke-ux-r992.css",
-        "url": "../scenes/tekke-r1014/berhet-billur.webp",
-        "target": "assets/scenes/tekke-r1014/berhet-billur.webp",
-        "line": 321,
+        "url": "../sukun-nur-sanctuary-r757.png",
+        "target": "assets/sukun-nur-sanctuary-r757.png",
+        "line": 417,
         "property": "background-image",
         "chain": []
       },
@@ -2352,7 +2360,7 @@
         "source": "assets/runtime/tekke-ux-r992.css",
         "url": "../berhetiyye-premium/r1133/gem-sapphire.webp",
         "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
-        "line": 491,
+        "line": 494,
         "property": "border-image",
         "chain": []
       },
@@ -2360,7 +2368,7 @@
         "source": "assets/runtime/tekke-ux-r992.css",
         "url": "../berhetiyye-premium/r1133/gem-emerald.webp",
         "target": "assets/berhetiyye-premium/r1133/gem-emerald.webp",
-        "line": 500,
+        "line": 503,
         "property": "border-image-source",
         "chain": []
       },
@@ -2368,7 +2376,7 @@
         "source": "assets/runtime/tekke-ux-r992.css",
         "url": "../berhetiyye-gate/portal.webp",
         "target": "assets/berhetiyye-gate/portal.webp",
-        "line": 535,
+        "line": 538,
         "property": "background",
         "chain": []
       },
@@ -2398,11 +2406,11 @@
     },
     "stats": {
       "files": 70,
-      "bytes": 610586,
-      "declarations": 12193,
+      "bytes": 610822,
+      "declarations": 12184,
       "customProperties": 96,
       "checkedReferences": 107,
-      "valueExpansions": 1515
+      "valueExpansions": 1519
     }
   },
   "checks": [
@@ -8783,7 +8791,7 @@
       "passed": true
     },
     {
-      "name": "Site file hash and size sukun-build-r1178.json",
+      "name": "Site file hash and size sukun-build-r1179.json",
       "passed": true
     },
     {
