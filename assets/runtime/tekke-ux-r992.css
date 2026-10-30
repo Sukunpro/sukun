@@ -458,3 +458,27 @@ html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn:focus-visible,html body
 html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryScene {max-width:600px!important;padding:4px 10px 10px!important}
 html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryScene:not([open]) {padding-bottom:4px!important}
 @media(forced-colors:active){html body #tk[data-tk-ux="r992"] .r1158TekkeDiscovery,html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn {background:Canvas!important;color:CanvasText!important;border-color:CanvasText!important}}
+
+/* Match the transparent, compact discovery links in the shared footer. */
+@layer sukun-r1149-berhet-hero {
+ html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn,
+ html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn[data-discovery="berhet"] {
+  min-height:44px!important;height:auto!important;padding:6px 5px!important;
+  border:0!important;border-image:none!important;background:transparent!important;background-image:none!important;
+  box-shadow:none!important;filter:none!important;
+  color:#fff2d9!important;-webkit-text-fill-color:currentColor!important;
+  text-shadow:0 1px 3px #000,0 0 5px #000!important;
+ }
+ html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn[data-discovery="berhet"] {
+  color:#b9f6d4!important;-webkit-text-fill-color:currentColor!important;
+ }
+ html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn:focus-visible {
+  outline:2px solid #fff0be!important;outline-offset:2px!important;
+ }
+ @media(forced-colors:active) {
+  html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn,
+  html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn[data-discovery="berhet"] {
+   color:ButtonText!important;-webkit-text-fill-color:ButtonText!important;text-shadow:none!important;
+  }
+ }
+}
