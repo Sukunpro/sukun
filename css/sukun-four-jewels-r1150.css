@@ -1,0 +1,59 @@
+/* Preview: approved ruby / emerald / sapphire / amethyst jewels.
+   Load this as the FIRST stylesheet in nero.html: important declarations in
+   earlier CSS layers take precedence over later layered and unlayered rules.
+   Both selection themes; native button and select behaviors remain unchanged. */
+@layer sukun-four-jewels-preview {
+ html body #r920Practice .r920Modes {
+  box-sizing:border-box!important;width:min(100%,350px)!important;max-width:350px!important;
+  margin-inline:auto!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ }
+ html body #r920Practice .r920Modes:has(#r920ModeBerhet[hidden]) {
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet,#r920AtlasOpen,#r920JourneyMode) {
+  box-sizing:border-box!important;
+  min-width:0!important;
+  min-height:48px!important;
+  border:1px solid transparent!important;
+  border-image:var(--four-jewel-art) 210 540 fill / 29% min(25px,22%) / 0 stretch!important;
+  border-radius:10px!important;
+  background:none!important;
+  color:#fff2d6!important;
+  font:600 clamp(11px,3.1vw,13px)/1.25 system-ui,sans-serif!important;
+  letter-spacing:0!important;
+  text-align:center!important;
+  text-shadow:0 1px 2px #000,0 0 2px #000!important;
+  white-space:normal!important;
+ }
+ html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet) {
+  width:100%!important;max-width:100%!important;padding:12px 26px!important;
+ }
+ html body #r920Practice :is(#r920AtlasOpen,#r920JourneyMode) {
+  padding:12px 26px!important;
+ }
+ html body #r920Practice #r920ModeEsma {
+  --four-jewel-art:url('../assets/berhetiyye-premium/r1133/gem-ruby.webp')!important;
+ }
+ html body #r920Practice #r920ModeBerhet {
+  --four-jewel-art:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
+ }
+ html body #r920Practice #r920AtlasOpen {
+  --four-jewel-art:url('../assets/berhetiyye-premium/r1133/gem-sapphire.webp')!important;
+ }
+ html body #r920Practice #r920JourneyMode {
+  --four-jewel-art:url('../assets/berhetiyye-premium/r1133/gem-amethyst.webp')!important;
+  appearance:none!important;-webkit-appearance:none!important;
+  text-align-last:center!important;
+ }
+ html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet)[aria-pressed="true"] {
+  filter:brightness(1.14)!important;
+ }
+ html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet,#r920AtlasOpen,#r920JourneyMode):focus-visible {
+  outline:2px solid #ffe6a1!important;outline-offset:2px!important;
+ }
+ @media (forced-colors:active) {
+  html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet,#r920AtlasOpen,#r920JourneyMode) {
+   border:1px solid ButtonText!important;border-image:none!important;background:ButtonFace!important;color:ButtonText!important;filter:none!important;text-shadow:none!important;
+  }
+ }
+}

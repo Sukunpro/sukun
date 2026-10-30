@@ -55,6 +55,7 @@ jobs:
               'r1147': ('fbb1da112aa5357ab2bc866e0d6d3fa34ecbfb50', 42),
               'r1148': ('b0bd3055c45bf194b185530367e556313312fb5e', 42),
               'r1149': ('f0986e7ae9a12f6f1127c1a81484752ab4e92868', 42),
+              'r1150': ('16ee54fee988be7420b53a5f75c37aa63f7a9b76', 42),
           }
           assert build in supported, 'Unsupported release: never report a version skip as acceptance'
           upgrade, groups = supported[build]
@@ -63,34 +64,34 @@ jobs:
           assert (folder / 'release-upgrade-browser.cjs').is_file(), 'Missing required upgrade suite'
           if build == 'r1125':
               assert (folder / 'atlas-private-access.cjs').is_file(), 'Missing required private-access suite'
-          if build in ('r1126', 'r1127', 'r1128', 'r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              delail_folder = Path('candidate/tests/r1128') if build in ('r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149') else folder
+          if build in ('r1126', 'r1127', 'r1128', 'r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150'):
+              delail_folder = Path('candidate/tests/r1128') if build in ('r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150') else folder
               assert (Path('candidate/tests/r1125') / 'atlas-private-access.cjs').is_file(), 'Missing inherited private-access suite'
               assert (delail_folder / 'delail-tts-lifecycle.cjs').is_file(), 'Missing required Delail TTS lifecycle suite'
               assert (delail_folder / 'delail-screen-browser.cjs').is_file(), 'Missing required Delail screen browser suite'
-          if build in ('r1128', 'r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
+          if build in ('r1128', 'r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150'):
               assert (delail_folder / 'delail-recorded-contract.cjs').is_file(), 'Missing required recorded Delail suite'
-          if build in ('r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              transport_folder = Path('candidate/tests/r1129') if build in ('r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149') else folder
+          if build in ('r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150'):
+              transport_folder = Path('candidate/tests/r1129') if build in ('r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150') else folder
               assert (transport_folder / 'delail-global-transport.cjs').is_file(), 'Missing global reader transport regression'
               assert (transport_folder / 'delail-global-native-browser.cjs').is_file(), 'Missing native global reader transport regression'
-          if build in ('r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              assert (folder / ('mobile-layout.cjs' if build in ('r1135', 'r1136') else ('mobile-fit.cjs' if build in ('r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149') else 'button-clarity-browser.cjs'))).is_file(), 'Missing responsive button-quality acceptance'
-          if build in ('r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
+          if build in ('r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150'):
+              assert (folder / ('mobile-layout.cjs' if build in ('r1135', 'r1136') else ('mobile-fit.cjs' if build in ('r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150') else 'button-clarity-browser.cjs'))).is_file(), 'Missing responsive button-quality acceptance'
+          if build in ('r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150'):
               assert (folder / 'dock-layout.cjs').is_file(), 'Missing responsive dock-layout acceptance'
-          if build in ('r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
+          if build in ('r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150'):
               assert (folder / 'dock-page-access.cjs').is_file(), 'Missing dock/page hit-testing acceptance'
-          if build in ('r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
+          if build in ('r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150'):
               assert (folder / 'details-label.cjs').is_file(), 'Missing details label acceptance'
-          if build in ('r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
+          if build in ('r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150'):
               assert (folder / 'nefs-access-layout.cjs').is_file(), 'Missing nefs and heading access acceptance'
-          if build in ('r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
+          if build in ('r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150'):
               assert (folder / 'responsive-headings.cjs').is_file(), 'Missing responsive heading acceptance'
-          if build in ('r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
+          if build in ('r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150'):
               assert (folder / 'visual-ux.cjs').is_file(), 'Missing visual UX acceptance'
-          if build in ('r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
+          if build in ('r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150'):
               assert (folder / 'seyir-visual.cjs').is_file(), 'Missing seyir visual acceptance'
-          if build in ('r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
+          if build in ('r1145', 'r1146', 'r1147', 'r1148', 'r1149', 'r1150'):
               assert (folder / 'nav-visual.cjs').is_file(), 'Missing navigation visual acceptance'
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
               output.write(f'build={build}\nupgrade={upgrade}\ngroups={groups}\n')
