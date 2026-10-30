@@ -4,7 +4,6 @@
   'use strict';
   if (window.SukunMevleviLock) return;
   const read = (fn, fallback = null) => { try { return fn() ?? fallback; } catch (_) { return fallback; } };
-  const grids = '#tk #topR';
   let locking = false, awaitingEntry = false, lastEsmaIndex = null, lockAborter = null;
   let soundContext = null, soundTimer = 0, soundGeneration = 0, soundOutput = null, soundReady = null;
   const english = () => read(() => window.I18N.lang, document.documentElement.lang) === 'en';
@@ -84,7 +83,7 @@
   }
   function announce(tr, en, grid = null) {
     const value = english() ? en : tr;
-    const status = grid?.parentElement?.querySelector('[data-mevlevi-lock-status]') || document.getElementById('sukunDiscoveryStatus');
+    const status = grid?.querySelector('[data-mevlevi-lock-status]') || grid?.parentElement?.querySelector('[data-mevlevi-lock-status]') || document.getElementById('sukunDiscoveryStatus');
     if (status) status.textContent = value;
   }
   function picture() {
@@ -105,18 +104,31 @@
       button.title = action;
     });
   }
+  function makeButton() {
+    const button = document.createElement('button'); button.type = 'button';
+    button.className = 'r1176MevleviLock'; button.setAttribute('data-mevlevi-lock', '');
+    button.innerHTML = picture() + '<span data-lock-title></span><small data-lock-action></small>';
+    return button;
+  }
   function mount() {
-    document.querySelectorAll(grids).forEach(grid => {
-      if (grid.querySelector('[data-mevlevi-lock]')) return;
-      const button = document.createElement('button'); button.type = 'button';
-      button.className = 'r1176MevleviLock'; button.setAttribute('data-mevlevi-lock', '');
-      button.innerHTML = picture() + '<span data-lock-title></span><small data-lock-action></small>';
-      grid.append(button); grid.setAttribute('data-mevlevi-switch', '');
-      if (!grid.parentElement.querySelector('[data-mevlevi-lock-status]')) {
-        const status = document.createElement('p'); status.setAttribute('data-mevlevi-lock-status', '');
-        status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite'); grid.after(status);
-      }
-    });
+    // Keep the gate as a direct grid child so existing gate routing and visual rules stay intact.
+    const home = document.querySelector('#sukunDiscovery .discoveryGrid');
+    const door = home?.querySelector('[data-discovery="berhet"]');
+    if (home && door && !home.querySelector('[data-mevlevi-lock]')) {
+      home.setAttribute('data-mevlevi-switch', ''); door.after(makeButton());
+    }
+    // The Tekke is hydrated lazily; place its control inside the settings sheet,
+    // not the title bar. Its own live status stays in the sheet and can wrap.
+    const panel = document.querySelector('#tk #panel');
+    const header = panel?.querySelector('#r992PanelHeader');
+    if (panel && header && !panel.querySelector('[data-mevlevi-lock]')) {
+      const row = document.createElement('div'); row.className = 'r1178MihrabLock';
+      row.setAttribute('data-mevlevi-switch', '');
+      const button = makeButton();
+      const status = document.createElement('p'); status.setAttribute('data-mevlevi-lock-status', '');
+      status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite');
+      row.append(button, status); header.after(row);
+    }
     refresh();
   }
   function abortable(operation, signal) {
@@ -140,12 +152,15 @@
   }
   function rebindIdleTekke() {
     const root = document.getElementById('tk');
-    if (!root || root.hidden || tekkeBusy()) return false;
+    if (!root || root.hidden) return true;
+    if (tekkeBusy()) return false;
     try {
       // An idle Tekke snapshots its selected item on open. Re-open only when
       // idle, so the new mode is reflected without overwriting a live count.
+      const settingsOpen = !!root.querySelector('#panel.open');
       window.Tekke.close();
       window.Tekke.open();
+      if (settingsOpen) window.Tekke.hazirla()?.openSettings?.();
       return true;
     } catch (_) { return false; }
   }
@@ -209,7 +224,7 @@
       awaitingEntry = false;
       if (inBerhet() && access()?.isUnlocked?.()) {
         if (rebindIdleTekke()) cue('unlock');
-        else { stopSound(); announce('Tekke görünümü güncellenemedi. Tekkeye yeniden gir.', 'Tekke could not refresh. Re-enter Tekke.', document.querySelector('#tk #topR')); }
+        else { stopSound(); announce('Tekke görünümü güncellenemedi. Tekkeye yeniden gir.', 'Tekke could not refresh. Re-enter Tekke.', document.querySelector('#tk .r1178MihrabLock')); }
       } else stopSound();
     }
     refresh();
@@ -219,9 +234,11 @@
   ['sukun:mediaactivitychange', 'sukun:itemrecordingchange'].forEach(name => window.addEventListener(name, () => { if (microphoneBusy()) stopSound(); }));
   document.addEventListener('visibilitychange', () => { if (document.hidden) stopSound(); });
   window.addEventListener('pagehide', () => { awaitingEntry = false; lockAborter?.abort(); stopSound(); });
-  // Tekke içeriği ilk açılışta oluşturulur; kilit o anda bir kez eklenir.
+  // Tekke content and its settings sheet are lazily constructed.
   const tekkeHost = document.getElementById('tk');
-  if (tekkeHost && window.MutationObserver) new MutationObserver(() => { if (tekkeHost.querySelector('#topR') && !tekkeHost.querySelector('#topR [data-mevlevi-lock]')) mount(); }).observe(tekkeHost, {childList:true, subtree:true});
+  if (tekkeHost && window.MutationObserver) new MutationObserver(() => {
+    if (tekkeHost.querySelector('#r992PanelHeader') && !tekkeHost.querySelector('#panel [data-mevlevi-lock]')) mount();
+  }).observe(tekkeHost, {childList:true, subtree:true});
   window.SukunMevleviLock = Object.freeze({version:'r1176', refresh:mount,
     snapshot:() => ({mode:inBerhet()?'berhet':'mevlevi', locking, awaitingEntry})});
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount, {once:true}); else mount();
