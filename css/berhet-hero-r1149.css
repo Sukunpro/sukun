@@ -30,6 +30,24 @@
   flex:none!important;width:18px!important;min-width:18px!important;max-width:18px!important;
   height:18px!important;min-height:18px!important;max-height:18px!important;margin:0!important;padding:0!important;
  }
+ /* Mevlevi navigation needs an opaque face and a clear frame to remain
+    readable over the detailed background. Keep the compact native layout. */
+ html:not([data-r1074-theme="berhet"]) body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button {
+  border:1px solid color-mix(in srgb,var(--gold,#d8b574) 85%,white 15%)!important;
+  border-image:none!important;border-radius:9px!important;
+  background-color:rgb(var(--yuzeyK,8,28,34))!important;
+  background-image:linear-gradient(155deg,rgba(255,255,255,.12),transparent 42%,rgba(0,0,0,.38))!important;
+  box-shadow:inset 0 1px 0 #fff4,inset 0 0 0 1px #0007,0 2px 6px #0009!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button.act {
+  border-color:var(--goldh,#f8d795)!important;
+  background-image:linear-gradient(155deg,rgba(255,235,170,.26),transparent 50%,rgba(0,0,0,.3))!important;
+  box-shadow:inset 0 0 0 1px #f7d89780,0 0 10px #e5c16a66!important;
+ }
+ @media(forced-colors:active) {
+  html:not([data-r1074-theme="berhet"]) body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button {border:1px solid ButtonText!important;background:ButtonFace!important;box-shadow:none!important}
+  html:not([data-r1074-theme="berhet"]) body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button.act {outline:2px solid Highlight!important;outline-offset:-3px!important}
+ }
  html body .wrap>nav.tabs>button::before,
  html body .wrap>nav.tabs>button::after {content:none!important;display:none!important;animation:none!important}
  html body .wrap>nav.tabs>button.act {color:var(--goldh,#f8d795)!important;box-shadow:inset 0 -2px 0 var(--goldh,#f8d795)!important}
