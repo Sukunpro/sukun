@@ -842,3 +842,27 @@
   white-space:normal!important; overflow-wrap:anywhere!important; line-height:1.2!important;
  }
 }
+
+/* Mevlevî surface transparency: change the surface only, never the text. */
+@layer sukun-r1149-berhet-hero {
+ @media (forced-colors: none) {
+  html:not([data-r1074-theme="berhet"]) body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button {
+   background-color:rgba(var(--yuzeyK,8,28,34),var(--r1175-top-alpha,1))!important;
+   background-image:linear-gradient(155deg,rgba(255,255,255,calc(.12 * var(--r1175-top-alpha,1))),transparent 42%,rgba(0,0,0,calc(.38 * var(--r1175-top-alpha,1))))!important;
+  }
+  html:not([data-r1074-theme="berhet"]) body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button.act {
+   background-image:linear-gradient(155deg,rgba(255,235,170,calc(.26 * var(--r1175-top-alpha,1))),transparent 50%,rgba(0,0,0,calc(.3 * var(--r1175-top-alpha,1))))!important;
+  }
+  html:not([data-r1074-theme="berhet"]) body.r716-shell .wrap>:is(#prDashboard,#todayCard,#vakitBox,.masterBar) {
+   background:rgba(5,22,31,var(--r1175-lower-alpha,.8))!important;
+  }
+  html:not([data-r1074-theme="berhet"]) body .wrap>footer>#sukunDiscovery .discoveryGrid>button:not([data-discovery="berhet"]) {
+   background:rgba(var(--yuzeyK,8,28,34),var(--r1175-lower-alpha,.8))!important;
+   border:1px solid rgba(216,181,116,.75)!important;border-radius:9px!important;
+  }
+  html:not([data-r1074-theme="berhet"]) body #tab-zkr .zMegaGroup>summary,
+  html:not([data-r1074-theme="berhet"]) body #r920Practice :is(#r920ModeEsma,#r920AtlasOpen,#r920JourneyMode) {
+   background:rgba(var(--yuzeyK,8,28,34),var(--r1175-lower-alpha,.8))!important;
+  }
+ }
+}
