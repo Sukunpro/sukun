@@ -127,3 +127,47 @@ html body #kandil :is(#kandilSettingsButton,#kandilPowerSel,#kandilOpacitySel):f
  html body #kandil #kandilPowerWrap,html body #kandil #kandilPowerWrap select {background:Canvas!important;color:CanvasText!important;border-color:ButtonText!important}
 }
 }
+
+/* r1155: the jewel gear sits immediately above the return control. */
+@layer sukun-r1149-berhet-hero {
+ html body #kandil {
+  padding-top:calc(20px + env(safe-area-inset-top))!important;
+  padding-bottom:calc(160px + env(safe-area-inset-bottom))!important;
+ }
+ html body #kandil #kandilSettingsButton {
+  top:auto!important;right:auto!important;left:50%!important;
+  bottom:calc(68px + env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;
+  width:138px!important;min-height:70px!important;padding:3px 4px!important;gap:2px!important;
+  color:#eacb86!important;font-size:10px!important;
+ }
+ html body #kandil #kandilSettingsButton svg.kSettingsCog {
+  flex-basis:46px!important;width:46px!important;height:46px!important;
+  filter:drop-shadow(0 2px 3px #000b) drop-shadow(0 0 3px #c18d3d55)!important;
+ }
+ html body #kandil #kandilPowerWrap {
+  top:auto!important;right:auto!important;left:50%!important;
+  bottom:calc(145px + env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;
+  max-height:min(44vh,175px)!important;overflow-y:auto!important;
+ }
+ @media(max-height:600px) {
+  html body #kandil {gap:4px!important;padding-top:calc(12px + env(safe-area-inset-top))!important;}
+  html body #kandil .kFlame {width:min(50vw,24vh)!important;height:min(50vw,24vh)!important}
+  html body #kandil .kSaat {font-size:clamp(27px,6vh,40px)!important}
+  html body #kandil .kEsma .ar {font-size:clamp(20px,4vh,26px)!important}
+ }
+ @media(max-height:380px) {
+  html body #kandil .kFlame {width:min(40vw,20vh)!important;height:min(40vw,20vh)!important}
+  html body #kandil .kEsma .ar {font-size:18px!important;margin-bottom:0!important}
+  html body #kandil .kTarih {font-size:10px!important}
+ }
+ @media(max-height:320px) {
+  html body #kandil {padding-top:calc(8px + env(safe-area-inset-top))!important;padding-bottom:calc(146px + env(safe-area-inset-bottom))!important;gap:2px!important}
+  html body #kandil .kFlame {width:min(36vw,16vh)!important;height:min(36vw,16vh)!important}
+  html body #kandil .kSaat {font-size:22px!important}
+  html body #kandil .kEsma .ar {font-size:16px!important}
+  html body #kandil .kEsma .tr {font-size:9px!important}
+ }
+ @media(forced-colors:active) {
+  html body #kandil #kandilSettingsButton svg.kSettingsCog {filter:none!important}
+ }
+}
