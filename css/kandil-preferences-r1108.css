@@ -89,3 +89,41 @@ html body #kandil[data-power="saving"] .kFlame {animation:none!important;opacity
 @media (prefers-reduced-motion:reduce) {html body #kandil.on .kFlame {animation:none!important}}
 @media (max-height:600px) {html body #kandil {gap:4px!important} html body #kandil .kFlame {width:min(50vw,25vh)!important;height:min(50vw,25vh)!important}}
 }
+
+/* r1154: an unobtrusive, friendly settings gear opens the saver controls. */
+@layer sukun-r1149-berhet-hero {
+html body #kandil #kandilSettingsButton {
+ position:absolute!important;top:calc(18px + env(safe-area-inset-top))!important;right:20px!important;z-index:3!important;
+ box-sizing:border-box!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;
+ width:116px!important;min-width:0!important;max-width:calc(100% - 40px)!important;min-height:72px!important;height:auto!important;
+ margin:0!important;padding:4px!important;border:0!important;border-image:none!important;border-radius:12px!important;
+ background:transparent!important;background-image:none!important;box-shadow:none!important;filter:none!important;
+ color:#e9c984!important;-webkit-text-fill-color:currentColor!important;text-shadow:0 1px 3px #000!important;
+ font:600 10px/1.2 system-ui,sans-serif!important;letter-spacing:0!important;text-align:center!important;white-space:normal!important;
+ opacity:0!important;pointer-events:none!important;transition:opacity .35s ease!important;cursor:pointer!important;
+}
+html body #kandil:is(.k-settings-active,.k-settings-peek) #kandilSettingsButton,
+html body #kandil #kandilSettingsButton:focus-visible,
+html body #kandil #kandilSettingsButton[aria-expanded="true"] {opacity:1!important;pointer-events:auto!important}
+html body #kandil #kandilSettingsButton svg.kSettingsCog {
+ display:block!important;position:static!important;flex:0 0 40px!important;width:40px!important;height:40px!important;
+ fill:currentColor!important;filter:drop-shadow(0 2px 4px #0009)!important;
+}
+html body #kandil #kandilSettingsLabel {display:block!important;position:static!important;width:100%!important;color:inherit!important;font:inherit!important;white-space:normal!important}
+html body #kandil #kandilPowerWrap {
+ top:calc(95px + env(safe-area-inset-top))!important;right:20px!important;
+ width:min(290px,calc(100% - 40px))!important;box-sizing:border-box!important;
+ padding:12px!important;border:1px solid #c6a868a6!important;border-radius:12px!important;
+ background:#0b211bf2!important;box-shadow:0 6px 18px #0009!important;
+ grid-template-columns:minmax(0,1fr) minmax(100px,145px)!important;gap:8px!important;
+}
+html body #kandil #kandilPowerWrap[hidden] {display:none!important}
+html body #kandil #kandilPowerWrap label {color:#f0dfbc!important;white-space:normal!important;overflow-wrap:break-word!important}
+html body #kandil #kandilPowerWrap select {width:100%!important;min-width:0!important;max-width:100%!important;border-image:none!important;background-image:none!important}
+html body #kandil :is(#kandilSettingsButton,#kandilPowerSel,#kandilOpacitySel):focus-visible {outline:2px solid #fff1d5!important;outline-offset:3px!important}
+@media(prefers-reduced-motion:reduce) {html body #kandil #kandilSettingsButton {transition:none!important}}
+@media(forced-colors:active) {
+ html body #kandil #kandilSettingsButton {color:ButtonText!important}
+ html body #kandil #kandilPowerWrap,html body #kandil #kandilPowerWrap select {background:Canvas!important;color:CanvasText!important;border-color:ButtonText!important}
+}
+}
