@@ -100,8 +100,26 @@
   right:18px!important; top:50%!important; transform:translateY(-50%)!important;
   color:#fff1d7!important; font:600 14px/1 system-ui,sans-serif!important; pointer-events:none!important;
  }
- html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet)[aria-pressed="true"] {
-  outline:2px solid #fbe6ad!important; outline-offset:2px!important;
+ /* A selected gem brightens in its own colour without adding a frame.
+    Atlas is an action, so it only lights while pressed or its dialog is open;
+    the journey control lights when its actual selected value is Seyir. */
+ html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet)[aria-pressed="true"],
+ html body:has(#r920Atlas[open]) #r920Practice #r920AtlasOpen,
+ html body #r920Practice #r920AtlasOpen:active,
+ html body #r920Practice #r920JourneyMode:has(option[value="journey"]:checked) {
+  outline:none!important;
+  filter:brightness(1.23) saturate(1.32)!important;
+  animation:sukun-r1152-gem-light 3s ease-in-out infinite!important;
+ }
+ @keyframes sukun-r1152-gem-light {
+  0%,100% {opacity:.88}
+  50% {opacity:1}
+ }
+ @media (prefers-reduced-motion: reduce) {
+  html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet)[aria-pressed="true"],
+  html body:has(#r920Atlas[open]) #r920Practice #r920AtlasOpen,
+  html body #r920Practice #r920AtlasOpen:active,
+  html body #r920Practice #r920JourneyMode:has(option[value="journey"]:checked) {animation:none!important}
  }
  html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet,#r920AtlasOpen,#r920JourneyMode):focus-visible {
   outline:2px solid #fff2c4!important; outline-offset:3px!important;
@@ -112,6 +130,7 @@
   html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet,#r920AtlasOpen,#r920JourneyMode) {
    border-image:none!important; border:1px solid ButtonText!important; background:ButtonFace!important;
    color:ButtonText!important; -webkit-text-fill-color:ButtonText!important; text-shadow:none!important;
+   filter:none!important; animation:none!important;
   }
   html body #r920Practice #r920JourneyLabel::after {color:ButtonText!important}
  }
