@@ -1,45 +1,58 @@
 /* Berhetiyye owns the main brand frame only while its theme is active.
    Reuse Sükûn's existing gold seal and the original jewel-frame artwork. */
 @layer sukun-r1149-berhet-hero {
- /* The six Sükûn Merkezi actions use transparent faces in both themes.
-    Keep selection and keyboard focus clear without filling the buttons. */
- html body .wrap>nav.tabs>button {
-  box-sizing:border-box!important;min-height:48px!important;height:auto!important;
-  padding:5px 4px!important;gap:3px!important;
-  border:0!important;border-image:none!important;background:transparent!important;
-  background-image:none!important;box-shadow:none!important;filter:none!important;
-  color:var(--ink,#f5e7cc)!important;-webkit-text-fill-color:currentColor!important;
-  text-shadow:0 1px 3px #000a!important;
+ /* r1160: six actions in a single horizontal row, with a transparent rail.
+    Berhetiyye retains its jewel surfaces; other themes keep transparent buttons. */
+ html body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden]) {
+  box-sizing:border-box!important;display:grid!important;
+  grid-template-columns:repeat(6,minmax(44px,1fr))!important;grid-template-rows:auto!important;
+  grid-auto-rows:auto!important;align-items:stretch!important;justify-items:stretch!important;
+  gap:2px!important;width:100%!important;min-width:0!important;max-width:100%!important;
+  height:auto!important;min-height:0!important;max-height:none!important;margin-inline:auto!important;padding:2px!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  border:0!important;border-image:none!important;background:transparent!important;box-shadow:none!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+ }
+ html body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button {
+  box-sizing:border-box!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+  width:100%!important;min-width:44px!important;max-width:none!important;min-height:64px!important;height:auto!important;max-height:none!important;
+  aspect-ratio:auto!important;margin:0!important;padding:5px 2px!important;gap:3px!important;
+  border:0!important;border-image:none!important;background:transparent!important;background-image:none!important;
+  box-shadow:none!important;filter:none!important;color:var(--ink,#f5e7cc)!important;-webkit-text-fill-color:currentColor!important;
+  text-shadow:0 1px 3px #000,0 0 5px #000!important;
+ }
+ html body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button>.tbL {
+  display:block!important;box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:100%!important;
+  margin:0!important;padding:0!important;text-align:center!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;
+  font:650 clamp(9px,2.5vw,11px)/1.15 system-ui,sans-serif!important;letter-spacing:0!important;
+ }
+ html body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button>:is(.tbIc,.tbRub) {
+  flex:none!important;width:18px!important;min-width:18px!important;max-width:18px!important;
+  height:18px!important;min-height:18px!important;max-height:18px!important;margin:0!important;padding:0!important;
  }
  html body .wrap>nav.tabs>button::before,
  html body .wrap>nav.tabs>button::after {content:none!important;display:none!important;animation:none!important}
- html body .wrap>nav.tabs>button.act {
-  color:var(--goldh,#f8d795)!important;
-  box-shadow:inset 0 -2px 0 var(--goldh,#f8d795)!important;
+ html body .wrap>nav.tabs>button.act {color:var(--goldh,#f8d795)!important;box-shadow:inset 0 -2px 0 var(--goldh,#f8d795)!important}
+ html body .wrap>nav.tabs>button:focus-visible {outline:2px solid var(--goldh,#f8d795)!important;outline-offset:-3px!important}
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button {
+  --r1160-gem:url('../assets/berhetiyye-premium/r1133/gem-sapphire.webp');
+  border:1px solid transparent!important;
+  border-image:var(--r1160-gem) 210 540 fill / 8px 7px / 0 stretch!important;
+  background:transparent!important;box-shadow:none!important;
+  color:#fff4dc!important;-webkit-text-fill-color:currentColor!important;
  }
- html body .wrap>nav.tabs>button:focus-visible {outline:2px solid var(--goldh,#f8d795)!important;outline-offset:2px!important}
- @media(max-width:720px) {
-  html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden]) {
-   width:min(100%,258px)!important;max-width:258px!important;
-   grid-template-columns:repeat(3,minmax(0,76px))!important;gap:5px!important;padding:6px!important;
-  }
-  html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button {
-   width:100%!important;max-width:76px!important;min-height:48px!important;
-   aspect-ratio:1/1!important;padding:5px 3px!important;gap:3px!important;
-  }
-  html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="2"] {
-   grid-template-columns:repeat(2,minmax(0,116px))!important;
-  }
-  html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="2"]>button {
-   max-width:116px!important;aspect-ratio:4/3!important;
-  }
-  html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="1"] {grid-template-columns:minmax(0,1fr)!important}
-  html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="1"]>button {
-   max-width:none!important;aspect-ratio:auto!important;
-  }
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button[data-t="ntf"] {
+  --r1160-gem:url('../assets/berhetiyye-premium/r1133/gem-black-diamond.webp');
+ }
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>#tekkeTab {
+  --r1160-gem:url('../assets/berhetiyye-premium/r1133/gem-amethyst.webp');
+ }
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button.act {
+  --r1160-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp');
  }
  @media(forced-colors:active) {
   html body .wrap>nav.tabs>button {color:ButtonText!important;-webkit-text-fill-color:ButtonText!important;text-shadow:none!important}
+  html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button {border:1px solid ButtonText!important;border-image:none!important}
   html body .wrap>nav.tabs>button.act {box-shadow:inset 0 -2px 0 ButtonText!important}
   html body .wrap>nav.tabs>button:focus-visible {outline-color:Highlight!important}
  }
