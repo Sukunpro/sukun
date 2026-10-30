@@ -4,13 +4,13 @@
   'use strict';
   if (window.SukunMevleviLock) return;
   const read = (fn, fallback = null) => { try { return fn() ?? fallback; } catch (_) { return fallback; } };
-  const grids = '#sukunDiscovery .discoveryGrid, #tk .r1158TekkeDiscoveryGrid';
+  const grids = '#tk #topR';
   let locking = false, awaitingEntry = false, lastEsmaIndex = null, lockAborter = null;
   let soundContext = null, soundTimer = 0, soundGeneration = 0, soundOutput = null, soundReady = null;
   const english = () => read(() => window.I18N.lang, document.documentElement.lang) === 'en';
   const access = () => window.SukunBerhetGateAccess;
   const session = () => read(() => window.SukunSessionState.snapshot(), {});
-  const inBerhet = () => session().activeMode === 'berhet';
+  const inBerhet = () => session().activeMode === 'berhet' && read(() => access()?.isUnlocked?.(), false) === true;
   const microphoneBusy = () => !!read(() => window.SukunSilenceSession.snapshot().recording, false) ||
     !!read(() => window.SukunPhysicalRecordingBusyR696(), false);
   function soundSettings() {
@@ -87,41 +87,32 @@
     const status = grid?.parentElement?.querySelector('[data-mevlevi-lock-status]') || document.getElementById('sukunDiscoveryStatus');
     if (status) status.textContent = value;
   }
-  const beadPositions = [[29,19],[21,29],[16,41],[14,54],[15,68],[20,81],[29,92],[41,99],[55,100],[68,95],[78,86],[84,73],[86,59],[84,45],[79,32],[70,22]];
   function picture() {
-    return '<svg class="r1176LockArt" viewBox="0 0 100 126" aria-hidden="true" focusable="false">' +
-      '<path class="r1176TasbihCord" d="M45 13C-3 14 1 99 47 103S108 23 56 14"/>' +
-      beadPositions.map(([x,y]) => '<circle class="r1176TasbihBead" cx="'+x+'" cy="'+y+'" r="5.1"/>').join('') +
-      '<path class="r1176LockShackle" d="M35 55V42a15 15 0 0 1 30 0v13"/>' +
-      '<rect class="r1176LockBody" x="27" y="51" width="46" height="39" rx="10"/>' +
-      '<path class="r1176LockEtching" d="M33 59h34M33 82h34M35 63l-3 8 3 7M65 63l3 8-3 7"/>' +
-      '<path class="r1176LockKey" d="M54 68a4 4 0 1 0-8 0c0 1.5.7 2.6 2 3.4L47 78h6l-1-6.6c1.3-.8 2-1.9 2-3.4Z"/>' +
-      '<path class="r1176TasbihCord" d="M47 104v8m0-1-5 11m5-11v12m0-12 5 11"/><circle class="r1176TasbihBead" cx="47" cy="107" r="4.5"/></svg>';
+    return '<img class="r1176LockArt" src="./assets/branding/tekke-lock-r1177.webp?v=r1177" alt="" aria-hidden="true" decoding="async">';
   }
   function refresh() {
-    const state = session(), active = state.activeMode === 'berhet';
+    const state = session(), active = inBerhet();
     if (!locking && !awaitingEntry && state.activeMode === 'esma' && Number.isInteger(state.activeIndex)) lastEsmaIndex = state.activeIndex;
     document.querySelectorAll('[data-mevlevi-lock]').forEach(button => {
       button.dataset.lockMode = active ? 'berhet' : 'mevlevi';
       button.setAttribute('aria-pressed', String(active)); button.disabled = locking;
       button.setAttribute('aria-busy', String(locking));
-      const name = english() ? 'Mevleviye lock' : 'Mevleviye kilidi';
-      const action = active ? (english() ? 'Return to Mevleviye' : 'Mevleviye’ye dön') : (english() ? 'Open Berhetiyye' : 'Berhetiyye’ye geç');
+      const name = english() ? 'Secret' : 'Sır';
+      const action = active ? (english() ? 'Lock' : 'Sırla') : (english() ? 'Open' : 'Aç');
       button.querySelector('[data-lock-title]').textContent = name;
       button.querySelector('[data-lock-action]').textContent = locking ? (english() ? 'Locking…' : 'Kilitleniyor…') : action;
       button.setAttribute('aria-label', name + ' · ' + action);
-      button.title = active ? (english() ? 'Lock Berhetiyye and return to Mevleviye' : 'Berhetiyye’yi kilitle ve Mevleviye’ye dön') :
-        (english() ? 'Enter Berhetiyye through the private gate' : 'Şifreli kapıdan Berhetiyye’ye geç');
+      button.title = action;
     });
   }
   function mount() {
     document.querySelectorAll(grids).forEach(grid => {
-      if (grid.querySelector('[data-mevlevi-lock]') || !grid.querySelector('[data-discovery="berhet"]')) return;
+      if (grid.querySelector('[data-mevlevi-lock]')) return;
       const button = document.createElement('button'); button.type = 'button';
       button.className = 'r1176MevleviLock'; button.setAttribute('data-mevlevi-lock', '');
       button.innerHTML = picture() + '<span data-lock-title></span><small data-lock-action></small>';
       grid.append(button); grid.setAttribute('data-mevlevi-switch', '');
-      if (!grid.closest('#sukunDiscovery')) {
+      if (!grid.parentElement.querySelector('[data-mevlevi-lock-status]')) {
         const status = document.createElement('p'); status.setAttribute('data-mevlevi-lock-status', '');
         status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite'); grid.after(status);
       }
@@ -138,10 +129,35 @@
       });
     });
   }
+  // Tekke owns a separate, stored sequence. Never change the global mode while
+  // that sequence (including a paused one) or its audio remains active.
+  function tekkeBusy() {
+    try {
+      const tk = window.Tekke;
+      if (!tk || typeof tk.sessionState !== 'function' || typeof tk.isActive !== 'function') return true;
+      return !!tk.sessionState()?.active || !!tk.isActive();
+    } catch (_) { return true; }
+  }
+  function rebindIdleTekke() {
+    const root = document.getElementById('tk');
+    if (!root || root.hidden || tekkeBusy()) return false;
+    try {
+      // An idle Tekke snapshots its selected item on open. Re-open only when
+      // idle, so the new mode is reflected without overwriting a live count.
+      window.Tekke.close();
+      window.Tekke.open();
+      return true;
+    } catch (_) { return false; }
+  }
   async function activate(button) {
     if (locking || awaitingEntry) return;
     const grid = button.closest('[data-mevlevi-switch]');
-    announce('', '', grid); prepareSound();
+    announce('', '', grid);
+    if (tekkeBusy()) {
+      announce('Önce Tekke seansını bitir.', 'Finish the Tekke session first.', grid);
+      return;
+    }
+    prepareSound();
     if (!inBerhet()) {
       const gate = window.SukunBerhetGate;
       if (!gate || typeof gate.open !== 'function') { stopSound(); announce('Geçiş henüz hazır değil. Lütfen yeniden dene.', 'The gate is not ready. Please try again.', grid); return; }
@@ -151,6 +167,8 @@
       return;
     }
     locking = true; refresh();
+    const root = document.getElementById('tk'), priorInert = root?.inert;
+    if (root) root.inert = true;
     const destination = lastEsmaIndex;
     const controller = new AbortController(); lockAborter = controller;
     const timeout = setTimeout(() => controller.abort(), 15000);
@@ -168,7 +186,8 @@
       const options = {mode:'esma', journeyKind:'single'};
       if (Number.isInteger(destination) && destination >= 0 && destination < 99) options.index = destination;
       const result = await window.SukunSessionState.command('select', options);
-      if (result === false || result?.accepted === false || inBerhet()) throw new Error('selection-incomplete');
+      if (result === false || result?.accepted === false || session().activeMode === 'berhet') throw new Error('selection-incomplete');
+      if (!rebindIdleTekke()) throw new Error('tekke-rebind-incomplete');
       cue('lock');
       announce('Berhetiyye kilitlendi. Mevleviye açık.', 'Berhetiyye locked. Mevleviye is open.', grid);
     } catch (_) {
@@ -177,6 +196,7 @@
     } finally {
       clearTimeout(timeout);
       if (lockAborter === controller) lockAborter = null;
+      if (root) root.inert = !!priorInert;
       locking = false; refresh();
     }
   }
@@ -187,7 +207,10 @@
   document.addEventListener('sukun:berhet-gate-state', event => {
     if (awaitingEntry && event.detail?.open === false) {
       awaitingEntry = false;
-      if (inBerhet() && access()?.isUnlocked?.()) cue('unlock'); else stopSound();
+      if (inBerhet() && access()?.isUnlocked?.()) {
+        if (rebindIdleTekke()) cue('unlock');
+        else { stopSound(); announce('Tekke görünümü güncellenemedi. Tekkeye yeniden gir.', 'Tekke could not refresh. Re-enter Tekke.', document.querySelector('#tk #topR')); }
+      } else stopSound();
     }
     refresh();
   });
@@ -196,6 +219,9 @@
   ['sukun:mediaactivitychange', 'sukun:itemrecordingchange'].forEach(name => window.addEventListener(name, () => { if (microphoneBusy()) stopSound(); }));
   document.addEventListener('visibilitychange', () => { if (document.hidden) stopSound(); });
   window.addEventListener('pagehide', () => { awaitingEntry = false; lockAborter?.abort(); stopSound(); });
+  // Tekke içeriği ilk açılışta oluşturulur; kilit o anda bir kez eklenir.
+  const tekkeHost = document.getElementById('tk');
+  if (tekkeHost && window.MutationObserver) new MutationObserver(() => { if (tekkeHost.querySelector('#topR') && !tekkeHost.querySelector('#topR [data-mevlevi-lock]')) mount(); }).observe(tekkeHost, {childList:true, subtree:true});
   window.SukunMevleviLock = Object.freeze({version:'r1176', refresh:mount,
     snapshot:() => ({mode:inBerhet()?'berhet':'mevlevi', locking, awaitingEntry})});
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount, {once:true}); else mount();
