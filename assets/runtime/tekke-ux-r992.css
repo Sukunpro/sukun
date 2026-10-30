@@ -511,3 +511,34 @@ html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryScene:not([open]) {padding-
   }
  }
 }
+
+/* r1164: one actual miniature gate beside the three discovery buttons. */
+@layer sukun-r1149-berhet-hero {
+ html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryGrid {
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  grid-template-rows:repeat(3,minmax(44px,auto))!important;align-items:stretch!important;
+ }
+ html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn:not([data-discovery="berhet"]) {grid-column:1!important;min-height:44px!important}
+ html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn[data-discovery="berhet"],
+ html[data-r1074-theme="berhet"] body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn[data-discovery="berhet"],
+ html body #tk[data-tk-ux="r992"][data-tk-scene-family="berhet"] .r1158TekkeDiscoveryBtn[data-discovery="berhet"] {
+  grid-column:2!important;grid-row:1 / span 3!important;display:flex!important;flex-direction:column!important;
+  align-items:center!important;justify-content:center!important;gap:5px!important;
+  min-height:44px!important;width:100%!important;padding:4px!important;
+  border:0!important;border-image:none!important;border-radius:0!important;background:transparent!important;background-image:none!important;
+  box-shadow:none!important;filter:none!important;color:#f7e5b8!important;-webkit-text-fill-color:currentColor!important;
+  font:650 11px/1.25 system-ui,sans-serif!important;text-align:center!important;white-space:normal!important;
+ }
+ html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn[data-discovery="berhet"]::before {
+  content:''!important;display:block!important;position:static!important;flex:0 0 auto!important;
+  box-sizing:border-box!important;width:68px!important;height:100px!important;
+  border:2px solid #d5b46f!important;border-radius:50% 50% 4px 4px / 32% 32% 4px 4px!important;
+  background:#10382d url('../berhetiyye-gate/portal.webp') 50% 43% / 180% auto no-repeat!important;
+  box-shadow:inset 0 0 0 2px #36200e99,0 2px 7px #000b!important;pointer-events:none!important;
+ }
+ @media(forced-colors:active) {
+  html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn[data-discovery="berhet"]::before {background:Canvas!important;border-color:CanvasText!important;box-shadow:none!important}
+  html body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn[data-discovery="berhet"],
+  html[data-r1074-theme="berhet"] body #tk[data-tk-ux="r992"] .r1158TekkeDiscoveryBtn[data-discovery="berhet"] {color:ButtonText!important;-webkit-text-fill-color:ButtonText!important}
+ }
+}

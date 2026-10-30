@@ -59,7 +59,7 @@
  // than closing/stopping it; the shared router owns tab and gate navigation.
  function discoveryEntries(){
   const entries=document.createElement('div');entries.className='r1158TekkeDiscoveryGrid';
-  const labels=[['okumalar','📖 Okumalar|📖 Readings'],['seyirler','🧭 Seyirler|🧭 Journeys'],['araclar','⚒ Araçlar|⚒ Tools'],['berhet','✦ Berhetiyye Kapısı|✦ Berhetiyye Gate']];
+  const labels=[['okumalar','📖 Okumalar|📖 Readings'],['seyirler','🧭 Seyirler|🧭 Journeys'],['araclar','⚒ Araçlar|⚒ Tools'],['berhet','Gizli İlimler Kapısı|Gate of Hidden Knowledge']];
   for(const [key,label] of labels){
    const b=document.createElement('button');b.type='button';b.className='r1158TekkeDiscoveryBtn';b.dataset.tkCopy=label;b.dataset.discovery=key;
    b.addEventListener('click',()=>{
