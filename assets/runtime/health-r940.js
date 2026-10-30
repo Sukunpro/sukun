@@ -656,7 +656,7 @@
     // exact short portal invitation share the separate bounded media allowance.
     // Leave bounded room for small releases to add mandatory runtime files.
     // Marker size, file paths, hashes, concurrency and byte budgets stay strict.
-    const maxRuntimeEntries=160,byteBudget=9437184,mediaByteBudget=33554432,waiters=new Set();
+    const maxRuntimeEntries=192,byteBudget=9437184,mediaByteBudget=33554432,waiters=new Set();
     function wakeBudget(){for(const wake of [...waiters])wake();}
     function waitForBudget(){return new Promise((resolve,reject)=>{
       let done=false;
@@ -725,7 +725,7 @@
             './css/button-clarity-r1130.css','./css/berhet-jeweled-controls-r1131.css','./css/berhet-original-stone-r1132.css','./css/berhet-premium-jewels-r1133.css','./css/berhet-responsive-r1135.css','./css/berhet-fit-r1137.css',
             './css/berhet-dock-fit-r1138.css','./css/berhet-panels-r1138.css','./css/berhet-long-headings-r1141.css',
             './css/berhet-disclosures-r1142.css','./css/berhet-headers-r1142.css','./css/berhet-frequency-headings-r1142.css',
-            './css/berhet-tekke-actions-r1143.css','./css/berhet-nav-compact-r1145.css','./css/berhet-frequency-fit-r1146.css','./css/berhet-misc-fit-r1146.css','./css/berhet-recordings-r1146.css','./css/berhet-zikir-cards-r1146.css','./css/berhet-reading-modes-r1147.css','./css/berhet-settings-r1148.css','./css/berhet-switches-r1148.css','./css/tefekkur-controls-r1148.css']
+            './css/berhet-tekke-actions-r1143.css','./css/berhet-nav-compact-r1145.css','./css/berhet-frequency-fit-r1146.css','./css/berhet-misc-fit-r1146.css','./css/berhet-recordings-r1146.css','./css/berhet-zikir-cards-r1146.css','./css/berhet-reading-modes-r1147.css','./css/berhet-settings-r1148.css','./css/berhet-switches-r1148.css','./css/tefekkur-controls-r1148.css','./css/berhet-hero-r1149.css','./css/berhet-nav-r1149.css','./css/berhet-quick-controls-r1149.css','./css/berhet-session-fit-r1149.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
           if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;

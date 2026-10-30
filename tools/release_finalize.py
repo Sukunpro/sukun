@@ -197,7 +197,11 @@ def main():
             additions = json.loads(a.metadata.read_text(encoding="utf-8"))
             assert isinstance(additions, dict)
             build.update(additions)
-        build.update(build=new, base=old, feature=a.feature, siteBackupManifestUrl=f"./sukun-site-assets-{new}.json")
+        # Re-finalizing an unpublished candidate must keep its predecessor.
+        # Setting base to the same build erases the historical-runtime boundary.
+        release_base = build.get("base") if old == new else old
+        assert isinstance(release_base, str) and re.fullmatch(r"r\d+", release_base) and int(release_base[1:]) < int(new[1:]), "Release base must precede the build; repair an invalid same-build base with --metadata"
+        build.update(build=new, base=release_base, feature=a.feature, siteBackupManifestUrl=f"./sukun-site-assets-{new}.json")
         if not build.get("sessionVersion", "").endswith("+" + new):
             build["sessionVersion"] = build.get("sessionVersion", old) + "+" + new
         for entries in (build["runtime"], build.get("artwork", [])):

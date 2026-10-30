@@ -81,7 +81,28 @@ function fixture(kind){
   await test(kind+': platform rejection of replay exposes a held or error outcome',async()=>{const f=fixture(kind);f.api.start();await f.flush();f.visibility(true);f.drop();f.synth.failSpeak=true;await f.advance(5600);assert.equal(f.spoken.length,1);assert.equal(f.api.part(),1);assert.equal(f.api.phase(),kind==='legacy'?'paused':'error');await f.advance(60000);assert.equal(f.spoken.length,1);await f.cleanup();});
  }
  await test('legacy fresh start after old terminal pause clears only its admission gates and recovers hidden',async()=>{const f=fixture('legacy');f.c.AudioLife.userPaused=true;f.c.AudioLife._terminalIntent=true;f.setAggregatePaused(true);f.api.start();await f.flush();assert.equal(f.c.AudioLife.userPaused,false);assert.equal(f.c.AudioLife._terminalIntent,false);assert.equal(f.c.SukunAudioSessionRegistry.aggregateSnapshot().paused,false);assert.equal(f.spoken.length,1);f.visibility(true);f.drop();await f.advance(5600);assert.equal(f.c.document.hidden,true);assert.equal(f.spoken.length,2);assert.equal(f.spoken[0].text,f.spoken[1].text);assert.equal(f.api.part(),1);await f.cleanup();});
- await test('legacy automatic chapter handoff cannot clear a later global pause',async()=>{const f=fixture('legacy');f.c.DL.zincir=true;f.c.DL.chainAttempt=71;f.api.start();await f.flush();assert.equal(f.c.DL._playChain,71);f.api.pause();f.c.AudioLife.userPaused=true;f.setAggregatePaused(true);const intent=f.c.AudioLife._userIntentSeq,starts=f.trace.filter(x=>x==='accepted-start').length,anchors=f.anchors.length,spoken=f.spoken.length,resumes=f.synth.resumes;f.api.start();await f.flush();f.visibility(true);await f.advance(9000);assert.equal(f.c.AudioLife.userPaused,true);assert.equal(f.c.SukunAudioSessionRegistry.aggregateSnapshot().paused,true);assert.equal(f.c.AudioLife._userIntentSeq,intent,'a chapter handoff is not another user Play');assert.equal(f.trace.filter(x=>x==='accepted-start').length,starts);assert.equal(f.anchors.length,anchors,'a handoff does not start or clear the global media gate');assert.equal(f.spoken.length,spoken);assert.equal(f.synth.resumes,resumes);await f.cleanup();});
+ await test('legacy automatic chapter handoff cannot clear a later global pause',async()=>{
+  const f=fixture('legacy');
+  // Run the shipped chain loop. Calling dlOku again while its previous waiter
+  // is still pending is an explicit chapter selection, not an automatic
+  // handoff, and correctly creates a fresh user intent in the current owner.
+  vm.runInContext(block('async function dlTamOku(mod){','function dlPause(){'),f.c);
+  f.c.dlSiraYap=()=>[0,1];f.c.DELAIL_HIZB.push({id:'h2',ad:'Delail 2'});f.c.DL.chainAttempt=70;
+  const chain=f.c.dlTamOku('tum');await f.flush();assert.equal(f.c.DL._playChain,71);
+  f.end();await f.flush();assert.equal(f.spoken.length,2,'first chapter reaches its final sentence');
+  f.end();assert.equal(f.c.DL._cozul,null,'completed chapter settles before automatic continuation');
+  assert.equal(f.c.DL.zincir,true);assert.equal(f.c.DL.chainAttempt,71);
+  // Interpose global Pause after chapter completion, before the awaited loop
+  // resumes and enters the next chapter. No manual start command is issued.
+  f.c.ttsDurakla();f.c.AudioLife.userPaused=true;f.setAggregatePaused(true);
+  const intent=f.c.AudioLife._userIntentSeq,starts=f.trace.filter(x=>x==='accepted-start').length,anchors=f.anchors.length,spoken=f.spoken.length,resumes=f.synth.resumes;
+  await f.flush();assert.equal(f.c.DL.hedefHizb,1,'the real chain enters its next chapter');
+  f.visibility(true);await f.advance(9000);
+  assert.equal(f.c.AudioLife.userPaused,true);assert.equal(f.c.SukunAudioSessionRegistry.aggregateSnapshot().paused,true);
+  assert.equal(f.c.AudioLife._userIntentSeq,intent,'a chapter handoff is not another user Play');assert.equal(f.trace.filter(x=>x==='accepted-start').length,starts);
+  assert.equal(f.anchors.length,anchors,'a handoff does not start or clear the global media gate');assert.equal(f.spoken.length,spoken);assert.equal(f.synth.resumes,resumes);
+  await f.cleanup();await chain;
+ });
  await test('modern central pause/resume clone remains the continuity owner',async()=>{const f=fixture('modern');f.api.start();await f.flush();const first=f.spoken[0];f.c.ttsDurakla();f.c.ttsSurdur();await f.flush();assert.equal(f.spoken.length,2);assert.equal(f.spoken[1].text,first.text);f.visibility(true);f.drop();await f.advance(1000);f.visibility(false);await f.advance(1600);assert.equal(f.spoken.length,3);assert.equal(f.spoken[2].text,first.text);assert.equal(f.api.part(),1);f.end();await f.flush();assert.equal(f.api.part(),2);await f.cleanup();});
  await test('legacy stop retry cannot cancel a newly started modern reader',async()=>{const f=fixture('legacy');f.api.start();await f.flush();f.api.stop();f.c.SukunReadingAudioR1064={snapshot:()=>({phase:'playing'})};const u=new f.c.SpeechSynthesisUtterance('Yeni okuma');f.synth.speak(u);const cancels=f.synth.cancels;await f.advance(100);assert.equal(f.synth.cancels,cancels);assert.equal(f.synth.speaking,true);f.synth.cancel();});
  const report={build:'r1128',scope:'Actual shipped legacy Delail and modern reading TTS with controlled native speech, clock, visibility and ownership; no physical Android or audible output acceptance',sourceSha256:crypto.createHash('sha256').update(core).digest('hex'),runtimeSha256:crypto.createHash('sha256').update(runtime).digest('hex'),passed:result.filter(x=>x.passed).length,total:result.length,expectedChecks:38,allPassed:result.every(x=>x.passed),tests:result};
