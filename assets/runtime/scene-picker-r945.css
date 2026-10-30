@@ -14,7 +14,8 @@
 #r920Practice:is([data-mode="berhet"],[data-mode="esma"]) :is(#r945OpenScenes,#r956OpenEsmaScenes)::before,
 #r920Practice:is([data-mode="berhet"],[data-mode="esma"]) :is(#r945OpenScenes,#r956OpenEsmaScenes)::after{content:none!important;display:none!important}
 #r920Practice:is([data-mode="berhet"],[data-mode="esma"]) #r945SceneClose{flex:0 0 auto!important;width:auto!important;min-width:60px!important;padding:8px!important}
-#r920Practice:is([data-mode="berhet"],[data-mode="esma"]) #r945SceneAuto{display:flex!important;flex-direction:column!important;align-items:flex-start!important;width:100%!important;text-align:left!important;padding:10px 12px!important;margin:10px 0 0!important;gap:3px!important}
+#r920Practice:is([data-mode="berhet"],[data-mode="esma"]) #r945SceneAuto{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;width:100%!important;text-align:center!important;padding:10px 12px!important;margin:10px 0 0!important;gap:3px!important}
+#r920Practice:is([data-mode="berhet"],[data-mode="esma"]) #r945SceneAuto :is(strong,small){display:block!important;max-width:100%!important;text-align:center!important;overflow-wrap:anywhere!important}
 #r920Practice:is([data-mode="berhet"],[data-mode="esma"]) #r945SceneAuto small{font:400 11px/1.4 system-ui!important;color:#d1e2de!important}
 #r920Practice:is([data-mode="berhet"],[data-mode="esma"]) #r945SceneSelection{min-height:2.8em!important;margin:8px 0!important;color:#d1e2de!important;font:400 11px/1.4 system-ui!important;overflow-wrap:anywhere!important}
 #r920Practice:is([data-mode="berhet"],[data-mode="esma"]) #r945SceneGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;min-width:0!important;overflow:visible!important}

@@ -176,3 +176,25 @@
   html body #r920Practice #r924WheelGallery>button img {max-width:100%!important; height:auto!important}
  }
 }
+/* Berhetiyye: preserve the original transparent Sükûn emblem, with an
+   understated emerald-gold mount. The wordmark remains the real heading. */
+@layer sukun-r1149-berhet-hero {
+ html[data-r1074-theme="berhet"] body .wrap > header > .logo {
+  box-sizing:border-box!important;
+  width:132px!important;min-width:132px!important;max-width:132px!important;
+  height:106px!important;min-height:106px!important;max-height:106px!important;
+  margin:0 auto 7px!important;
+  border:1px solid rgba(223,184,104,.66)!important;
+  border-radius:50%!important;
+  background:
+   url('../assets/branding/sukun-frameless-logo-r1029.png') center -15px / 165px 165px no-repeat,
+   radial-gradient(ellipse at 50% 34%,rgba(51,140,98,.4),rgba(3,44,34,.65) 55%,rgba(1,19,20,.35) 76%,transparent 100%)!important;
+  box-shadow:inset 0 0 0 3px rgba(9,32,25,.75),inset 0 0 0 4px rgba(211,167,85,.28),0 4px 14px rgba(0,0,0,.4),0 0 16px rgba(182,143,66,.1)!important;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.55))!important;
+  opacity:1!important;
+ }
+ html[data-r1074-theme="berhet"] body .wrap > header > h1.shimmer-text {
+  color:#fbe9b6!important;
+  text-shadow:0 1px 0 #674913,0 2px 5px rgba(0,0,0,.9),0 0 12px rgba(218,180,103,.18)!important;
+ }
+}

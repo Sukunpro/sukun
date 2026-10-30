@@ -45,3 +45,47 @@ html body #kandil #kandilWake {
  html body #kandilPrefs :is(label,p,select,option) {color:CanvasText!important;}
 }
 }
+
+/* r1153: the idle display uses the original transparent Sükûn mark. */
+@layer sukun-r1108-kandil {
+html body #kandil {
+ box-sizing:border-box!important; gap:clamp(6px,1.3vh,12px)!important;
+ padding:calc(104px + env(safe-area-inset-top)) 16px calc(70px + env(safe-area-inset-bottom))!important;
+ background:radial-gradient(ellipse at 50% 44%,#15352e 0%,#071713 47%,#010806 100%)!important;
+}
+html body #kandil::before {
+ content:''!important;position:absolute!important;inset:14px!important;pointer-events:none!important;
+ border:1px solid #bb93565c!important;border-radius:20px!important;
+ box-shadow:inset 0 0 0 5px #b8914b12,inset 0 0 0 7px #b8914b35!important;
+ background:repeating-linear-gradient(135deg,transparent 0 23px,#d2ac6b09 24px 25px,transparent 26px 48px)!important;
+}
+html body #kandil .kFlame {
+ box-sizing:border-box!important; width:min(66vw,290px,32vh)!important;height:min(66vw,290px,32vh)!important;
+ flex:0 0 auto!important; margin:0!important;
+ opacity:var(--kandil-logo-opacity,1)!important;
+ background:url('../assets/branding/sukun-frameless-logo-r1029.png') center/contain no-repeat!important;
+}
+html body #kandil .kFlame>span {display:none!important;animation:none!important}
+html body #kandil.on:not([data-power="saving"]) .kFlame {animation:sukun-saver-glow 8s ease-in-out infinite!important}
+@keyframes sukun-saver-glow {0%,100%{transform:scale(.98)}50%{transform:scale(1.025)}}
+html body #kandil .kSaat {font-size:clamp(31px,7vh,58px)!important;line-height:1!important}
+html body #kandil .kTarih {font-size:11px!important;letter-spacing:.12em!important;text-align:center!important}
+html body #kandil .kEsma .ar {font-size:clamp(22px,4.5vh,30px)!important;line-height:1.25!important}
+html body #kandil .kEsma .tr {font-size:11px!important}
+html body #kandil #kandilPowerWrap {
+ position:absolute!important;top:calc(15px + env(safe-area-inset-top))!important;right:20px!important;
+ display:grid!important;grid-template-columns:auto auto!important;align-items:center!important;gap:4px 6px!important;z-index:2!important;
+ color:#e5d3ad!important;font:600 12px/1.3 system-ui,sans-serif!important;
+}
+html body #kandil #kandilPowerWrap select {
+ box-sizing:border-box!important;min-height:40px!important;max-width:180px!important;padding:6px 24px 6px 9px!important;
+ border:1px solid #c1a76f!important;border-radius:8px!important;background:#102921!important;color:#fff4dc!important;
+ -webkit-text-fill-color:currentColor!important;font:500 12px/1.3 system-ui,sans-serif!important;color-scheme:dark!important;
+}
+html body #kandil #kandilWake {bottom:calc(14px + env(safe-area-inset-bottom))!important}
+html body #kandil[data-power="saving"] {background:#000!important}
+html body #kandil[data-power="saving"]::before {background:none!important;box-shadow:none!important;border-color:#79644144!important}
+html body #kandil[data-power="saving"] .kFlame {animation:none!important;opacity:var(--kandil-logo-opacity,1)!important}
+@media (prefers-reduced-motion:reduce) {html body #kandil.on .kFlame {animation:none!important}}
+@media (max-height:600px) {html body #kandil {gap:4px!important} html body #kandil .kFlame {width:min(50vw,25vh)!important;height:min(50vw,25vh)!important}}
+}
