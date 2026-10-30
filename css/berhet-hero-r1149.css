@@ -707,3 +707,79 @@
   html[data-r1074-theme="berhet"] body .wrap>header>.logo {border-color:CanvasText!important}
  }
 }
+
+/* r1170: the approved complete artwork is shared by the Berhetiyye header
+   and saver. A light translucent tint stays inside its border; no blur. */
+@layer sukun-r1149-berhet-hero {
+ html[data-r1074-theme="berhet"] body .wrap>header {
+  box-sizing:border-box!important;position:relative!important;
+  width:100%!important;min-width:0!important;max-width:580px!important;
+  height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:1565/1005!important;
+  margin:8px auto 14px!important;padding:0!important;border:0!important;border-image:none!important;
+  border-radius:0!important;box-shadow:none!important;filter:none!important;overflow:visible!important;
+  background:
+   url('../assets/branding/sukun-berhet-approved-r1170.png') center / contain no-repeat,
+   linear-gradient(145deg,rgba(115,203,165,.14),rgba(18,91,67,.22),rgba(166,222,193,.12)) center / 86% 78% no-repeat!important;
+ }
+ html[data-r1074-theme="berhet"] body .wrap>header::before,
+ html[data-r1074-theme="berhet"] body .wrap>header::after {content:none!important;display:none!important}
+ html[data-r1074-theme="berhet"] body .wrap>header>.logo {display:none!important}
+ /* Keep the real heading and description available to assistive technology. */
+ html[data-r1074-theme="berhet"] body .wrap>header>:is(h1.shimmer-text,.sub) {
+  display:block!important;position:absolute!important;box-sizing:border-box!important;
+  width:1px!important;min-width:0!important;max-width:1px!important;
+  height:1px!important;min-height:0!important;max-height:1px!important;
+  margin:0!important;padding:0!important;overflow:hidden!important;
+  clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important;
+ }
+ html[data-r1074-theme="berhet"] body #kandil.on .kFlame {
+  display:block!important;position:relative!important;box-sizing:border-box!important;
+  width:min(86vw,420px,80vh)!important;min-width:0!important;max-width:100%!important;
+  height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:1565/1005!important;
+  padding:0!important;border:0!important;border-image:none!important;border-radius:0!important;
+  box-shadow:none!important;overflow:visible!important;
+  background:
+   url('../assets/branding/sukun-berhet-approved-r1170.png') center / contain no-repeat,
+   linear-gradient(145deg,rgba(115,203,165,.14),rgba(18,91,67,.22),rgba(166,222,193,.12)) center / 86% 78% no-repeat!important;
+ }
+ html[data-r1074-theme="berhet"] body #kandil.on .kFlame::before,
+ html[data-r1074-theme="berhet"] body #kandil.on .kFlame::after {content:none!important;display:none!important}
+ html[data-r1074-theme="berhet"] body #kandil.on .kFlame>span {display:none!important}
+ @media(max-height:600px) {
+  html[data-r1074-theme="berhet"] body #kandil.on .kFlame {
+   width:min(78vw,420px,46vh)!important;height:auto!important;aspect-ratio:1565/1005!important;
+  }
+ }
+ @media(forced-colors:active) {
+  html[data-r1074-theme="berhet"] body .wrap>header {aspect-ratio:auto!important;padding:14px!important;background:none!important}
+  html[data-r1074-theme="berhet"] body .wrap>header>:is(h1.shimmer-text,.sub) {
+   position:static!important;width:auto!important;max-width:100%!important;height:auto!important;max-height:none!important;
+   clip-path:none!important;white-space:normal!important;color:CanvasText!important;-webkit-text-fill-color:CanvasText!important;
+  }
+ }
+}
+
+/* The original recovery heading remains the gesture target over the whole
+   approved artwork. Its text stays semantic without duplicating the artwork. */
+@layer sukun-r1149-berhet-hero {
+ html[data-r1074-theme="berhet"] body .wrap>header>h1.shimmer-text[data-sukun-recovery-title] {
+  display:block!important;position:absolute!important;inset:0!important;z-index:2!important;
+  box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:none!important;
+  height:100%!important;min-height:0!important;max-height:none!important;
+  margin:0!important;padding:0!important;border:0!important;clip-path:none!important;overflow:hidden!important;
+  font-size:1px!important;line-height:1!important;text-indent:-9999px!important;white-space:nowrap!important;
+  color:transparent!important;-webkit-text-fill-color:transparent!important;background:none!important;text-shadow:none!important;
+  pointer-events:auto!important;
+ }
+ @media(prefers-reduced-motion:reduce) {
+  html[data-r1074-theme="berhet"] body #kandil.on:not([data-power="saving"]) .kFlame {animation:none!important}
+ }
+ html[data-r1074-theme="berhet"] body #kandil.on[data-power="saving"] .kFlame {animation:none!important}
+ @media(forced-colors:active) {
+  html[data-r1074-theme="berhet"] body .wrap>header>h1.shimmer-text[data-sukun-recovery-title] {
+   position:static!important;inset:auto!important;width:auto!important;height:auto!important;max-width:100%!important;max-height:none!important;
+   font:600 24px/1.2 Georgia,serif!important;text-indent:0!important;white-space:normal!important;overflow:visible!important;
+   color:CanvasText!important;-webkit-text-fill-color:CanvasText!important;
+  }
+ }
+}
