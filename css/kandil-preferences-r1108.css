@@ -171,3 +171,22 @@ html body #kandil :is(#kandilSettingsButton,#kandilPowerSel,#kandilOpacitySel):f
   html body #kandil #kandilSettingsButton svg.kSettingsCog {filter:none!important}
  }
 }
+
+/* A friendly, brief response for the screensaver settings mascot. */
+@layer sukun-r1149-berhet-hero {
+ html body #kandil #kandilSettingsButton svg .kGearSmile {opacity:0!important}
+ html body #kandil #kandilSettingsButton:is(:hover,:focus-visible,.k-is-happy) svg .kGearSmile {opacity:1!important}
+ html body #kandil #kandilSettingsButton:is(:hover,:focus-visible,.k-is-happy) svg .kGearMouth {opacity:0!important}
+ html body #kandil:not([data-power="saving"]) #kandilSettingsButton.k-is-happy svg.kSettingsCog {
+  transform-origin:50% 50%!important;
+  animation:kandil-gear-greeting 850ms cubic-bezier(.22,.7,.26,1) 1!important;
+ }
+ @keyframes kandil-gear-greeting {
+  0%,100% {transform:translateY(0) rotate(0deg)}
+  38% {transform:translateY(-10px) rotate(180deg)}
+  72% {transform:translateY(-4px) rotate(360deg)}
+ }
+ @media (prefers-reduced-motion:reduce) {
+  html body #kandil #kandilSettingsButton.k-is-happy svg.kSettingsCog {animation:none!important}
+ }
+}

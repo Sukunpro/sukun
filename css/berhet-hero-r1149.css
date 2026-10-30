@@ -593,3 +593,63 @@
  html body .wrap>footer #r1165UpdateStatus:empty {display:none!important}
  @media(forced-colors:active){html body .wrap>footer #r1165UpdateCheck {border:1px solid ButtonText!important;background:ButtonFace!important;color:ButtonText!important;-webkit-text-fill-color:ButtonText!important;box-shadow:none!important}html body .wrap>footer #r1165UpdateStatus,html body .wrap>footer .r1165UpdateIcon {color:CanvasText!important}}
 }
+
+/* The Tekke jewel catches light on hover or keyboard focus; its star turns once. */
+@layer sukun-r1149-berhet-hero {
+ @media (forced-colors: none) {
+  html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>#tekkeTab:is(:hover,:focus-visible) {
+   filter:brightness(1.25) saturate(1.16) drop-shadow(0 0 5px #ad72e880)!important;
+  }
+ }
+ @media (prefers-reduced-motion: no-preference) {
+  html body:not([data-perf="pil"]):not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>#tekkeTab:is(:hover,:focus-visible)>.tbRub>svg {
+   transform-origin:center;
+   animation:sukun-tekke-star-turn 800ms ease-in-out 1 both!important;
+  }
+ }
+ @keyframes sukun-tekke-star-turn {from {transform:rotate(0deg)} to {transform:rotate(-360deg)}}
+}
+
+/* Berhetiyye: a smaller centered control cluster, while retaining readable
+   labels, a full native timer selector and usable touch targets. */
+@layer sukun-r1149-berhet-hero {
+ @media(max-width:700px) {
+  html[data-r1074-theme="berhet"] body .wrap>.masterBar>#dock {
+   width:min(100%,244px)!important;max-width:244px!important;
+   grid-template-columns:repeat(3,minmax(0,1fr))!important;
+   gap:4px!important;margin-inline:auto!important;
+  }
+  html[data-r1074-theme="berhet"] body .wrap>.masterBar #dock>button.dockItem {
+   box-sizing:border-box!important;width:100%!important;min-width:44px!important;min-height:52px!important;
+   height:auto!important;max-height:none!important;aspect-ratio:1.12/1!important;
+   padding:4px 6px!important;gap:1px!important;overflow:visible!important;
+  }
+  html[data-r1074-theme="berhet"] body .wrap>.masterBar #dock>button.dockItem :is(.dl,.dlAlt) {
+   min-width:0!important;max-width:100%!important;text-align:center!important;white-space:normal!important;
+   overflow:visible!important;overflow-wrap:break-word!important;word-break:normal!important;text-overflow:clip!important;
+  }
+  html[data-r1074-theme="berhet"] body .wrap>.masterBar #dock>button.dockItem .dl {
+   font:650 10px/1.2 system-ui,sans-serif!important;letter-spacing:0!important;
+  }
+  html[data-r1074-theme="berhet"] body .wrap>.masterBar #dock>button.dockItem .dlAlt {
+   font:650 9px/1.2 system-ui,sans-serif!important;letter-spacing:0!important;
+  }
+  html[data-r1074-theme="berhet"] body #dock>#stopAll.dockItem.danger .di.dStop {
+   width:27px!important;height:27px!important;min-width:27px!important;min-height:27px!important;
+  }
+  html[data-r1074-theme="berhet"] body .wrap>.masterBar #dockTimer {
+   grid-template-columns:26px minmax(0,1fr) 44px!important;grid-template-rows:22px 22px!important;
+   box-sizing:border-box!important;min-width:0!important;min-height:52px!important;height:auto!important;
+   gap:0 2px!important;padding:3px 4px!important;
+  }
+  html[data-r1074-theme="berhet"] body .wrap>.masterBar #dockTimer>#sleepTimer {
+   min-width:0!important;width:100%!important;min-height:44px!important;height:auto!important;
+   padding:7px 5px!important;font:650 11px/1.2 system-ui,sans-serif!important;
+   text-align:center!important;text-align-last:center!important;
+  }
+  html[data-r1074-theme="berhet"] body .wrap>.masterBar #dockTimer>.dockTipHelp {
+   box-sizing:border-box!important;width:44px!important;min-width:44px!important;
+   height:44px!important;min-height:44px!important;padding:0!important;
+  }
+ }
+}

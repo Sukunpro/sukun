@@ -1,0 +1,29 @@
+/* Berhetiyye ekran koruyucusu: özgün Sükûn işareti, taşlı mühür içinde. */
+@layer sukun-r1108-kandil {
+ html[data-r1074-theme="berhet"] body #kandil .kFlame {
+  background:
+   url('../assets/branding/sukun-frameless-logo-r1029.png') center / 80% 80% no-repeat,
+   radial-gradient(circle closest-side,#0e081af7 0 55%,transparent 64%) center / 100% 100% no-repeat,
+   url('../assets/berhetiyye-premium/berhetiyye-wheel-user-r886.webp') center / 100% 100% no-repeat!important;
+ }
+ /* İnce altın işleme ve dört taş, ekranı kaplamadan mevcut dış kenarı süsler. */
+ html[data-r1074-theme="berhet"] body #kandil::before {
+  inset:10px!important;border:2px solid #c89b50!important;border-radius:24px!important;
+  box-shadow:inset 0 0 0 2px #352112,inset 0 0 0 5px #aa783d,inset 0 0 0 7px #f5d89280,inset 0 0 0 9px #3c2437!important;
+  background:
+   radial-gradient(circle at 12px 12px,#d8dcff 0 1px,#5f6cec 2px,#14277f 5px,#c89b50 6px,transparent 8px),
+   radial-gradient(circle at calc(100% - 12px) 12px,#ffe0e0 0 1px,#d5476b 2px,#72182f 5px,#c89b50 6px,transparent 8px),
+   radial-gradient(circle at 12px calc(100% - 12px),#d9fff2 0 1px,#4bc39a 2px,#10533f 5px,#c89b50 6px,transparent 8px),
+   radial-gradient(circle at calc(100% - 12px) calc(100% - 12px),#f1ddff 0 1px,#a86be1 2px,#48236d 5px,#c89b50 6px,transparent 8px),
+   repeating-linear-gradient(135deg,transparent 0 23px,#dfb76b0c 24px 25px,transparent 26px 48px)!important;
+ }
+ /* Pil modunda parlak süsleme yerine tek, sönük bir çizgi kalır. */
+ html[data-r1074-theme="berhet"] body #kandil[data-power="saving"]::before {
+  background:none!important;box-shadow:none!important;border-color:#8b704c66!important;
+ }
+ @media(max-width:420px) {
+  html[data-r1074-theme="berhet"] body #kandil::before {inset:7px!important;border-radius:19px!important}
+ }
+ /* Opacity and animation remain on the existing parent: saver and reduced
+    motion keep their original rules and all layers dim together. */
+}
