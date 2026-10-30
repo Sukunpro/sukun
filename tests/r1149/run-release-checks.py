@@ -85,35 +85,43 @@ def execute(item):
   code='timeout';stdout=str(error.stdout or '');stderr=str(error.stderr or '')
  return name,cmd,code,stdout,stderr,round(time.monotonic()-started,3)
 
-# Every group uses its own output filename and disposable browser origin/profile.
-# The controlled aggregate uses mkdtemp; shared source/test inputs are read-only.
-# Only one release-integrity invocation writes its separate generated JSON.
-# map returns results in command order, preserving deterministic evidence/log order.
-with concurrent.futures.ThreadPoolExecutor(max_workers=a.jobs) as pool:
- for name,cmd,code,stdout,stderr,seconds in pool.map(execute,commands):
-  print('\n=== '+name+' ===',flush=True)
-  # CI logs contain only synthetic execution; artifacts exclude logs.
-  print(stdout[-16000:],flush=True);print(stderr[-6000:],flush=True)
-  row={'name':name,'command':cmd,'exitCode':code,'seconds':seconds}
-  if name=='release-integrity' and (root/'tools/release-integrity-results.json').exists():
-   (out/'release-integrity.json').write_bytes((root/'tools/release-integrity-results.json').read_bytes())
-  evidence=out/('controlled/results.json' if name=='controlled-regressions' else name+'.json')
-  try:
-   data=json.loads(evidence.read_text())
-   total=data.get('total',data.get('expectedChecks',data.get('groups')))
-   passed=data.get('passed',data.get('passedGroups'))
-   assert isinstance(total,int) and total>0, 'Missing nonzero completed check count'
-   assert passed==total and not data.get('fatal'), 'Report does not show complete success'
-   if name in required_counts: assert total==required_counts[name], 'Required case count changed or incomplete'
-   if 'expectedChecks' in data: assert total==data['expectedChecks'], 'Partial expected-check report'
-   if 'allPassed' in data: assert data['allPassed'] is True, 'Suite rejected acceptance'
-   row['evidence']={'file':str(evidence.relative_to(out)),'sha256':sha(evidence),'passed':passed,'total':total}
-  except (OSError,ValueError,AssertionError) as error:
-   row['evidenceError']=str(error)
-   row['exitCode']=code if code else 'invalid-evidence'
-  report['checks'].append(row)
-  report['passed']=sum(x['exitCode']==0 for x in report['checks']);report['total']=len(commands)
-  (out/'acceptance-summary.json').write_text(json.dumps(report,indent=2)+'\n')
+# Native activation and the audio admission probe have real production deadlines.
+# Run them with the runner's CPU available, before unrelated OfflineAudioContext
+# workloads. Each still executes every original assertion on unchanged bytes.
+# The remaining independent groups retain disposable browser origins/profiles.
+# Every command runs exactly once; no previous evidence substitutes for a result.
+def scheduled_results():
+ isolated={'release-upgrade','native-frequency'}
+ for item in commands:
+  if item[0] in isolated:
+   yield execute(item)
+ with concurrent.futures.ThreadPoolExecutor(max_workers=a.jobs) as pool:
+  yield from pool.map(execute,[item for item in commands if item[0] not in isolated])
+
+for name,cmd,code,stdout,stderr,seconds in scheduled_results():
+ print('\n=== '+name+' ===',flush=True)
+ # CI logs contain only synthetic execution; artifacts exclude logs.
+ print(stdout[-16000:],flush=True);print(stderr[-6000:],flush=True)
+ row={'name':name,'command':cmd,'exitCode':code,'seconds':seconds}
+ if name=='release-integrity' and (root/'tools/release-integrity-results.json').exists():
+  (out/'release-integrity.json').write_bytes((root/'tools/release-integrity-results.json').read_bytes())
+ evidence=out/('controlled/results.json' if name=='controlled-regressions' else name+'.json')
+ try:
+  data=json.loads(evidence.read_text())
+  total=data.get('total',data.get('expectedChecks',data.get('groups')))
+  passed=data.get('passed',data.get('passedGroups'))
+  assert isinstance(total,int) and total>0, 'Missing nonzero completed check count'
+  assert passed==total and not data.get('fatal'), 'Report does not show complete success'
+  if name in required_counts: assert total==required_counts[name], 'Required case count changed or incomplete'
+  if 'expectedChecks' in data: assert total==data['expectedChecks'], 'Partial expected-check report'
+  if 'allPassed' in data: assert data['allPassed'] is True, 'Suite rejected acceptance'
+  row['evidence']={'file':str(evidence.relative_to(out)),'sha256':sha(evidence),'passed':passed,'total':total}
+ except (OSError,ValueError,AssertionError) as error:
+  row['evidenceError']=str(error)
+  row['exitCode']=code if code else 'invalid-evidence'
+ report['checks'].append(row)
+ report['passed']=sum(x['exitCode']==0 for x in report['checks']);report['total']=len(commands)
+ (out/'acceptance-summary.json').write_text(json.dumps(report,indent=2)+'\n')
 report['finishedAt']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
 report['productionHashes']=before_production
 report['testInputHashes']=before_tests
