@@ -1,0 +1,62 @@
+/* Declare this layer before the existing important layers. Only light is
+   changed: native controls, selected state, jewel artwork and geometry stay
+   with their current owners. Drop shadows follow the engraved gem silhouette. */
+@layer sukun-r1176-control-glow {
+ html body #r920Practice #r920ModeEsma {--r1176-glow-rgb:255 104 132}
+ html body #r920Practice #r920ModeBerhet {--r1176-glow-rgb:141 242 174}
+ html body #r920Practice #r920AtlasOpen {--r1176-glow-rgb:113 184 255}
+ html body #r920Practice #r920JourneyMode {--r1176-glow-rgb:211 159 255}
+
+ /* Inactive navigation retains its sapphire/diamond/amethyst face. The
+    active control already changes to emerald and its light follows it. */
+ html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button {--r1176-glow-rgb:113 184 255}
+ html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button[data-t="ntf"] {--r1176-glow-rgb:190 209 234}
+ html[data-r1074-theme="berhet"] body .wrap>nav.tabs>#tekkeTab {--r1176-glow-rgb:211 159 255}
+ html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button.act,
+ html[data-r1074-theme="berhet"] body .wrap>nav.tabs>#tekkeTab.act {--r1176-glow-rgb:141 242 174}
+
+ @media (forced-colors:none) {
+  html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet,#r920AtlasOpen,#r920JourneyMode),
+  html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button {
+   transition:filter 180ms ease!important;
+  }
+  html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button:not(:disabled):not([aria-disabled="true"]) {
+   filter:drop-shadow(0 0 2px rgb(var(--r1176-glow-rgb) / .42))!important;
+  }
+  html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button.act:not(:disabled):not([aria-disabled="true"]) {
+   filter:brightness(1.08) saturate(1.08) drop-shadow(0 0 3px rgb(var(--r1176-glow-rgb) / .54))!important;
+  }
+
+  /* Real pressed/focus states also work on touch screens and with a keyboard. */
+  html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet,#r920AtlasOpen,#r920JourneyMode):not(:disabled):not([aria-disabled="true"]):is(:active,:focus-visible),
+  html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button:not(:disabled):not([aria-disabled="true"]):is(:active,:focus-visible) {
+   filter:brightness(1.22) saturate(1.12) drop-shadow(0 0 6px rgb(var(--r1176-glow-rgb) / .66))!important;
+  }
+  html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet,#r920AtlasOpen,#r920JourneyMode):focus-visible {
+   outline:2px solid #fff2c4!important;outline-offset:3px!important;
+  }
+  html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button:focus-visible {
+   outline:2px solid #fff2c4!important;outline-offset:-3px!important;
+  }
+
+  @media (hover:hover) {
+   html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet,#r920AtlasOpen,#r920JourneyMode):not(:disabled):not([aria-disabled="true"]):hover,
+   html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button:not(:disabled):not([aria-disabled="true"]):hover {
+    filter:brightness(1.22) saturate(1.12) drop-shadow(0 0 6px rgb(var(--r1176-glow-rgb) / .66))!important;
+   }
+  }
+  /* Six 44px targets fit from 300px upward. Release only the clipping so the
+     outer light can show; the existing scroll fallback remains on tiny views. */
+  @media (min-width:300px) {
+   html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden]) {
+    overflow:visible!important;
+   }
+  }
+  @media (prefers-reduced-motion:reduce) {
+   html body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet,#r920AtlasOpen,#r920JourneyMode),
+   html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button {
+    transition:none!important;animation:none!important;
+   }
+  }
+ }
+}

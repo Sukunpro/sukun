@@ -1,19 +1,123 @@
 {
-  "build": "r1145",
+  "build": "r1176",
   "method": "Complete local release bytes: identity, exact SHA-256 and sizes, HTML SRI, shipped JavaScript syntax, and scoped active external CSS resource validation. Unresolved CSS variables remain explicit; these are static assertions, not device/audio checks.",
-  "passed": 1680,
-  "total": 1680,
-  "inlineScriptsParsed": 328,
-  "externalScriptsParsed": 74,
-  "runtimeEntries": 150,
-  "siteFiles": 828,
-  "siteBytes": 445527325,
-  "sriEntries": 131,
+  "passed": 1769,
+  "total": 1769,
+  "inlineScriptsParsed": 343,
+  "externalScriptsParsed": 75,
+  "runtimeEntries": 168,
+  "siteFiles": 849,
+  "siteBytes": 448846768,
+  "sriEntries": 147,
   "cssAssets": {
     "schema": 1,
     "scope": "Active external CSS and recursive local imports; no inline/generated CSS, computed cascade, remote retrieval or rendering.",
     "errors": [],
     "unresolved": [
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/neon-controls-r1176.css",
+        "line": 23,
+        "property": "filter",
+        "variable": "--r1176-glow-rgb",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/neon-controls-r1176.css",
+        "line": 26,
+        "property": "filter",
+        "variable": "--r1176-glow-rgb",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/neon-controls-r1176.css",
+        "line": 32,
+        "property": "filter",
+        "variable": "--r1176-glow-rgb",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/neon-controls-r1176.css",
+        "line": 44,
+        "property": "filter",
+        "variable": "--r1176-glow-rgb",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/berhet-hero-r1149.css",
+        "line": 57,
+        "property": "border-image",
+        "variable": "--r1160-gem",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/berhet-hero-r1149.css",
+        "line": 205,
+        "property": "border-image",
+        "variable": "--practice-gem",
+        "chain": []
+      },
+      {
+        "code": "UNKNOWN_VARIABLE",
+        "source": "css/berhet-hero-r1149.css",
+        "line": 850,
+        "property": "background-image",
+        "variable": "--r1175-top-alpha",
+        "chain": []
+      },
+      {
+        "code": "UNKNOWN_VARIABLE",
+        "source": "css/berhet-hero-r1149.css",
+        "line": 853,
+        "property": "background-image",
+        "variable": "--r1175-top-alpha",
+        "chain": []
+      },
+      {
+        "code": "UNKNOWN_VARIABLE",
+        "source": "css/berhet-hero-r1149.css",
+        "line": 856,
+        "property": "background",
+        "variable": "--r1175-lower-alpha",
+        "chain": []
+      },
+      {
+        "code": "UNKNOWN_VARIABLE",
+        "source": "css/berhet-hero-r1149.css",
+        "line": 859,
+        "property": "background",
+        "variable": "--yuzeyK",
+        "chain": []
+      },
+      {
+        "code": "UNKNOWN_VARIABLE",
+        "source": "css/berhet-hero-r1149.css",
+        "line": 859,
+        "property": "background",
+        "variable": "--r1175-lower-alpha",
+        "chain": []
+      },
+      {
+        "code": "UNKNOWN_VARIABLE",
+        "source": "css/berhet-hero-r1149.css",
+        "line": 864,
+        "property": "background",
+        "variable": "--yuzeyK",
+        "chain": []
+      },
+      {
+        "code": "UNKNOWN_VARIABLE",
+        "source": "css/berhet-hero-r1149.css",
+        "line": 864,
+        "property": "background",
+        "variable": "--r1175-lower-alpha",
+        "chain": []
+      },
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/berhet-premium-jewels-r1133.css",
@@ -1224,6 +1328,20 @@
       }
     ],
     "files": [
+      "css/neon-controls-r1176.css",
+      "css/mevlevi-lock-r1176.css",
+      "css/berhet-hero-r1149.css",
+      "css/berhet-nav-r1149.css",
+      "css/berhet-quick-controls-r1149.css",
+      "css/berhet-session-fit-r1149.css",
+      "css/berhet-settings-r1148.css",
+      "css/berhet-switches-r1148.css",
+      "css/tefekkur-controls-r1148.css",
+      "css/berhet-reading-modes-r1147.css",
+      "css/berhet-frequency-fit-r1146.css",
+      "css/berhet-misc-fit-r1146.css",
+      "css/berhet-recordings-r1146.css",
+      "css/berhet-zikir-cards-r1146.css",
       "css/berhet-nav-compact-r1145.css",
       "css/berhet-tekke-actions-r1143.css",
       "css/berhet-frequency-headings-r1142.css",
@@ -1238,6 +1356,7 @@
       "css/berhet-consistency-r1125.css",
       "css/shared-readable-r1105.css",
       "css/kandil-preferences-r1108.css",
+      "css/kandil-berhet-r1167.css",
       "css/player-branding-r1109.css",
       "css/ambience-readable-r1104.css",
       "css/ambience-info-round-r1103.css",
@@ -1282,6 +1401,174 @@
     ],
     "references": [
       {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-ruby.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-ruby.webp",
+        "line": 88,
+        "property": "border-image",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/berhetiyye-premium/panel-emerald-r932.webp",
+        "target": "assets/berhetiyye-premium/panel-emerald-r932.webp",
+        "line": 133,
+        "property": "border-image",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/branding/sukun-frameless-logo-r1029.png",
+        "target": "assets/branding/sukun-frameless-logo-r1029.png",
+        "line": 150,
+        "property": "background",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/berhetiyye-premium/gem-emerald-r932.webp",
+        "target": "assets/berhetiyye-premium/gem-emerald-r932.webp",
+        "line": 150,
+        "property": "background",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "line": 219,
+        "property": "border-image",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/branding/sukun-frameless-logo-r1029.png",
+        "target": "assets/branding/sukun-frameless-logo-r1029.png",
+        "line": 334,
+        "property": "background",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "line": 387,
+        "property": "border-image",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "line": 390,
+        "property": "border-image-source",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "line": 505,
+        "property": "border-image",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "line": 512,
+        "property": "border-image-source",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/berhetiyye-gate/portal.webp",
+        "target": "assets/berhetiyye-gate/portal.webp",
+        "line": 573,
+        "property": "background",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/berhetiyye-premium/r1131/frame-gold.svg",
+        "target": "assets/berhetiyye-premium/r1131/frame-gold.svg",
+        "line": 723,
+        "property": "border-image",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/branding/sukun-frameless-logo-r1029.png",
+        "target": "assets/branding/sukun-frameless-logo-r1029.png",
+        "line": 741,
+        "property": "background",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/branding/sukun-berhet-selected-r1172.png",
+        "target": "assets/branding/sukun-berhet-selected-r1172.png",
+        "line": 760,
+        "property": "background",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-hero-r1149.css",
+        "url": "../assets/branding/sukun-berhet-selected-r1172.png",
+        "target": "assets/branding/sukun-berhet-selected-r1172.png",
+        "line": 781,
+        "property": "background",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-session-fit-r1149.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "line": 60,
+        "property": "border-image",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-switches-r1148.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-black-diamond.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-black-diamond.webp",
+        "line": 17,
+        "property": "background",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-switches-r1148.css",
+        "url": "../assets/berhetiyye-premium/gem-diamond-r933.webp",
+        "target": "assets/berhetiyye-premium/gem-diamond-r933.webp",
+        "line": 25,
+        "property": "background",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-switches-r1148.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "line": 31,
+        "property": "background-image",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-switches-r1148.css",
+        "url": "../assets/berhetiyye-premium/gem-emerald-r932.webp",
+        "target": "assets/berhetiyye-premium/gem-emerald-r932.webp",
+        "line": 35,
+        "property": "background-image",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-reading-modes-r1147.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "line": 8,
+        "property": "border-image",
+        "chain": []
+      },
+      {
         "source": "css/berhet-panels-r1138.css",
         "url": "../assets/berhetiyye-premium/r1133/gem-sapphire.webp",
         "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
@@ -1311,6 +1598,38 @@
         "target": "assets/berhetiyye-premium/r1133/gem-emerald.webp",
         "line": 74,
         "property": "background-image",
+        "chain": []
+      },
+      {
+        "source": "css/kandil-preferences-r1108.css",
+        "url": "../assets/branding/sukun-frameless-logo-r1029.png",
+        "target": "assets/branding/sukun-frameless-logo-r1029.png",
+        "line": 65,
+        "property": "background",
+        "chain": []
+      },
+      {
+        "source": "css/kandil-berhet-r1167.css",
+        "url": "../assets/branding/sukun-berhet-saver-r1167.webp",
+        "target": "assets/branding/sukun-berhet-saver-r1167.webp",
+        "line": 4,
+        "property": "background",
+        "chain": []
+      },
+      {
+        "source": "css/kandil-berhet-r1167.css",
+        "url": "../assets/berhetiyye-premium/r1131/frame-gold.svg",
+        "target": "assets/berhetiyye-premium/r1131/frame-gold.svg",
+        "line": 35,
+        "property": "border-image",
+        "chain": []
+      },
+      {
+        "source": "css/kandil-berhet-r1167.css",
+        "url": "../assets/branding/sukun-frameless-logo-r1029.png",
+        "target": "assets/branding/sukun-frameless-logo-r1029.png",
+        "line": 52,
+        "property": "background",
         "chain": []
       },
       {
@@ -2030,6 +2349,30 @@
         "chain": []
       },
       {
+        "source": "assets/runtime/tekke-ux-r992.css",
+        "url": "../berhetiyye-premium/r1133/gem-sapphire.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "line": 491,
+        "property": "border-image",
+        "chain": []
+      },
+      {
+        "source": "assets/runtime/tekke-ux-r992.css",
+        "url": "../berhetiyye-premium/r1133/gem-emerald.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "line": 500,
+        "property": "border-image-source",
+        "chain": []
+      },
+      {
+        "source": "assets/runtime/tekke-ux-r992.css",
+        "url": "../berhetiyye-gate/portal.webp",
+        "target": "assets/berhetiyye-gate/portal.webp",
+        "line": 535,
+        "property": "background",
+        "chain": []
+      },
+      {
         "source": "assets/berhetiyye-gate/entry-r1080.css",
         "url": "./portal.webp",
         "target": "assets/berhetiyye-gate/portal.webp",
@@ -2048,18 +2391,18 @@
     ],
     "ignored": {
       "remote": 1,
-      "data": 1,
+      "data": 3,
       "blob": 0,
       "fragment": 2,
       "empty": 0
     },
     "stats": {
-      "files": 55,
-      "bytes": 451745,
-      "declarations": 9221,
-      "customProperties": 93,
-      "checkedReferences": 79,
-      "valueExpansions": 1200
+      "files": 70,
+      "bytes": 611509,
+      "declarations": 12217,
+      "customProperties": 96,
+      "checkedReferences": 107,
+      "valueExpansions": 1539
     }
   },
   "checks": [
@@ -2713,6 +3056,78 @@
     },
     {
       "name": "Runtime SHA-256 css/berhet-nav-compact-r1145.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/berhet-frequency-fit-r1146.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/berhet-misc-fit-r1146.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/berhet-recordings-r1146.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/berhet-zikir-cards-r1146.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/berhet-reading-modes-r1147.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/berhet-settings-r1148.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/berhet-switches-r1148.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/tefekkur-controls-r1148.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/berhet-hero-r1149.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/berhet-nav-r1149.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/berhet-quick-controls-r1149.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/berhet-session-fit-r1149.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/kandil-berhet-r1167.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 assets/branding/sukun-berhet-saver-r1167.webp",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 assets/branding/sukun-berhet-selected-r1172.png",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/neon-controls-r1176.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/mevlevi-lock-r1176.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 assets/runtime/mevlevi-lock-r1176.js",
       "passed": true
     },
     {
@@ -4012,6 +4427,66 @@
       "passed": true
     },
     {
+      "name": "JavaScript parse sukun-r1146-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1147-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1148-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1149-prior-notes-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1149-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1151-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1152-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1154-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1158-discovery",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1159-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1160-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1162-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1164-stop-cue",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1164-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1165-footer-update",
+      "passed": true
+    },
+    {
       "name": "JavaScript parse sukun-r1018-locale-notes",
       "passed": true
     },
@@ -4328,7 +4803,67 @@
       "passed": true
     },
     {
+      "name": "Runtime JavaScript parses assets/runtime/mevlevi-lock-r1176.js",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/neon-controls-r1176.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/mevlevi-lock-r1176.css",
+      "passed": true
+    },
+    {
       "name": "HTML SRI assets/runtime/nav-compact-r1145.js",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/berhet-hero-r1149.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/berhet-nav-r1149.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/berhet-quick-controls-r1149.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/berhet-session-fit-r1149.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/berhet-settings-r1148.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/berhet-switches-r1148.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/tefekkur-controls-r1148.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/berhet-reading-modes-r1147.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/berhet-frequency-fit-r1146.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/berhet-misc-fit-r1146.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/berhet-recordings-r1146.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/berhet-zikir-cards-r1146.css",
       "passed": true
     },
     {
@@ -4385,6 +4920,10 @@
     },
     {
       "name": "HTML SRI css/kandil-preferences-r1108.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/kandil-berhet-r1167.css",
       "passed": true
     },
     {
@@ -4777,6 +5316,10 @@
     },
     {
       "name": "HTML SRI assets/berhetiyye-gate/entry-r1080.js",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI assets/runtime/mevlevi-lock-r1176.js",
       "passed": true
     },
     {
@@ -5505,6 +6048,18 @@
     },
     {
       "name": "Site file hash and size assets/berhetiyye-premium/wheel-seal-r916.svg",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size assets/branding/sukun-berhet-approved-r1170.png",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size assets/branding/sukun-berhet-saver-r1167.webp",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size assets/branding/sukun-berhet-selected-r1172.png",
       "passed": true
     },
     {
@@ -6900,6 +7455,10 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size assets/runtime/mevlevi-lock-r1176.js",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size assets/runtime/nav-compact-r1145.js",
       "passed": true
     },
@@ -7896,11 +8455,19 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size css/berhet-frequency-fit-r1146.css",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size css/berhet-frequency-headings-r1142.css",
       "passed": true
     },
     {
       "name": "Site file hash and size css/berhet-headers-r1142.css",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size css/berhet-hero-r1149.css",
       "passed": true
     },
     {
@@ -7912,7 +8479,15 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size css/berhet-misc-fit-r1146.css",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size css/berhet-nav-compact-r1145.css",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size css/berhet-nav-r1149.css",
       "passed": true
     },
     {
@@ -7928,7 +8503,27 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size css/berhet-quick-controls-r1149.css",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size css/berhet-reading-modes-r1147.css",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size css/berhet-recordings-r1146.css",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size css/berhet-responsive-r1135.css",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size css/berhet-session-fit-r1149.css",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size css/berhet-settings-r1148.css",
       "passed": true
     },
     {
@@ -7936,7 +8531,15 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size css/berhet-switches-r1148.css",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size css/berhet-tekke-actions-r1143.css",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size css/berhet-zikir-cards-r1146.css",
       "passed": true
     },
     {
@@ -7980,11 +8583,23 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size css/kandil-berhet-r1167.css",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size css/kandil-preferences-r1108.css",
       "passed": true
     },
     {
+      "name": "Site file hash and size css/mevlevi-lock-r1176.css",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size css/name-info-r1115.css",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size css/neon-controls-r1176.css",
       "passed": true
     },
     {
@@ -8001,6 +8616,10 @@
     },
     {
       "name": "Site file hash and size css/sukun-r1134-mobile-fix.css",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size css/tefekkur-controls-r1148.css",
       "passed": true
     },
     {
@@ -8144,7 +8763,11 @@
       "passed": true
     },
     {
-      "name": "Site file hash and size sukun-build-r1145.json",
+      "name": "Site file hash and size sukun-build-r1171.json",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size sukun-build-r1176.json",
       "passed": true
     },
     {
@@ -8157,6 +8780,10 @@
     },
     {
       "name": "Site file hash and size sukun-nur-sanctuary-r757.png",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size sukun-site-assets-r1171.json",
       "passed": true
     },
     {
@@ -8769,6 +9396,78 @@
     },
     {
       "name": "Runtime is in site inventory css/berhet-nav-compact-r1145.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/berhet-frequency-fit-r1146.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/berhet-misc-fit-r1146.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/berhet-recordings-r1146.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/berhet-zikir-cards-r1146.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/berhet-reading-modes-r1147.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/berhet-settings-r1148.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/berhet-switches-r1148.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/tefekkur-controls-r1148.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/berhet-hero-r1149.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/berhet-nav-r1149.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/berhet-quick-controls-r1149.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/berhet-session-fit-r1149.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/kandil-berhet-r1167.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory assets/branding/sukun-berhet-saver-r1167.webp",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory assets/branding/sukun-berhet-selected-r1172.png",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/neon-controls-r1176.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/mevlevi-lock-r1176.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory assets/runtime/mevlevi-lock-r1176.js",
       "passed": true
     },
     {

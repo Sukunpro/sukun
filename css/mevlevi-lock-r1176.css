@@ -1,0 +1,59 @@
+/* Load this layer before earlier appearance layers: important declarations
+   intentionally keep the two miniature controls independent of jewel buttons. */
+@layer sukun-r1176-mevlevi-lock {
+ html body :is(#sukunDiscovery .discoveryGrid, #tk .r1158TekkeDiscoveryGrid)[data-mevlevi-switch] {
+  grid-template-columns:minmax(74px,1.2fr) minmax(0,.9fr) minmax(0,.9fr)!important;
+  grid-template-rows:repeat(3,minmax(44px,auto))!important;
+  gap:9px!important;align-items:stretch!important;
+ }
+ html body :is(#sukunDiscovery .discoveryGrid, #tk .r1158TekkeDiscoveryGrid)[data-mevlevi-switch]>[data-discovery="berhet"] {
+  grid-column:2!important;grid-row:1 / span 3!important;min-width:0!important;
+ }
+ html body :is(#sukunDiscovery .discoveryGrid, #tk .r1158TekkeDiscoveryGrid)[data-mevlevi-switch]>[data-mevlevi-lock] {
+  grid-column:3!important;grid-row:1 / span 3!important;
+  display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+  min-width:0!important;min-height:44px!important;width:100%!important;height:auto!important;padding:4px 2px!important;
+  gap:3px!important;border:0!important;border-image:none!important;border-radius:12px!important;
+  background:transparent!important;background-image:none!important;box-shadow:none!important;
+  color:#f5e2b5!important;-webkit-text-fill-color:currentColor!important;
+  font:650 11px/1.3 system-ui,sans-serif!important;text-align:center!important;white-space:normal!important;
+  overflow:visible!important;cursor:pointer!important;touch-action:manipulation!important;
+  transition:filter .2s ease!important;filter:drop-shadow(0 1px 3px #0008)!important;
+ }
+ html body [data-mevlevi-lock]::before,html body [data-mevlevi-lock]::after {content:none!important;display:none!important}
+ html body [data-mevlevi-lock] .r1176LockArt {display:block!important;flex:0 0 auto!important;width:76px!important;max-width:100%!important;height:99px!important;overflow:visible!important}
+ html body [data-mevlevi-lock] [data-lock-title] {display:block!important;font:inherit!important;max-width:100%!important;overflow-wrap:break-word!important}
+ html body [data-mevlevi-lock] [data-lock-action] {display:block!important;font:500 9px/1.3 system-ui,sans-serif!important;color:#d5d4bd!important;-webkit-text-fill-color:currentColor!important;max-width:100%!important;overflow-wrap:break-word!important}
+ html body [data-mevlevi-lock] .r1176TasbihCord {fill:none;stroke:#d3b577;stroke-width:2;stroke-linecap:round}
+ html body [data-mevlevi-lock] .r1176TasbihBead {fill:#174e48;stroke:#d4bc80;stroke-width:1.5;filter:drop-shadow(0 1px 1px #000b)}
+ html body [data-mevlevi-lock] .r1176LockShackle {fill:none;stroke:#e5ca88;stroke-width:6;stroke-linecap:round;transform-origin:35px 55px;transition:transform .3s ease}
+ html body [data-mevlevi-lock] .r1176LockBody {fill:#145344;stroke:#e5ca88;stroke-width:2.5;filter:drop-shadow(0 2px 3px #0009)}
+ html body [data-mevlevi-lock] .r1176LockEtching {fill:none;stroke:#cfb474;stroke-width:1;opacity:.7}
+ html body [data-mevlevi-lock] .r1176LockKey {fill:#f2d791;stroke:#6f4d22;stroke-width:.7}
+ html body [data-mevlevi-lock][data-lock-mode="berhet"] .r1176LockShackle {transform:translate(-2px,-4px) rotate(-23deg)}
+ html body [data-mevlevi-lock][data-lock-mode="berhet"] .r1176TasbihBead {fill:#23676c}
+ @media(hover:hover) {
+  html body [data-mevlevi-lock]:not(:disabled):hover {filter:drop-shadow(0 0 7px #78d5c077)!important}
+ }
+ html body [data-mevlevi-lock]:not(:disabled):active {filter:drop-shadow(0 0 8px #9be7cf99)!important}
+ html body [data-mevlevi-lock]:focus-visible {outline:2px solid #f8df9e!important;outline-offset:3px!important;filter:drop-shadow(0 0 7px #78d5c077)!important}
+ html body [data-mevlevi-lock]:disabled {opacity:.65!important;cursor:wait!important}
+ html body [data-mevlevi-lock-status] {margin:6px 0 0!important;color:inherit!important;font:500 11px/1.4 system-ui,sans-serif!important;text-align:center!important}
+ html body [data-mevlevi-lock-status]:empty {display:none!important}
+ @media(max-width:400px) {
+  html body :is(#sukunDiscovery .discoveryGrid, #tk .r1158TekkeDiscoveryGrid)[data-mevlevi-switch] {gap:6px!important;grid-template-columns:minmax(68px,1.2fr) minmax(0,.9fr) minmax(0,.9fr)!important}
+  html body :is(#sukunDiscovery .discoveryGrid, #tk .r1158TekkeDiscoveryGrid)[data-mevlevi-switch]>[data-discovery="berhet"]::before {width:54px!important;height:82px!important}
+  html body [data-mevlevi-lock] .r1176LockArt {width:66px!important;height:87px!important}
+  html body [data-mevlevi-lock] [data-lock-title] {font-size:10px!important}
+ }
+ @media(prefers-reduced-motion:reduce) {
+  html body [data-mevlevi-lock],html body [data-mevlevi-lock] .r1176LockShackle {transition:none!important;animation:none!important}
+ }
+ @media(forced-colors:active) {
+  html body [data-mevlevi-lock] {color:ButtonText!important;filter:none!important;background:ButtonFace!important;border:1px solid ButtonText!important}
+  html body [data-mevlevi-lock] [data-lock-action] {color:ButtonText!important}
+  html body [data-mevlevi-lock] :is(.r1176LockBody,.r1176TasbihBead) {fill:Canvas!important;stroke:ButtonText!important;filter:none!important}
+  html body [data-mevlevi-lock] :is(.r1176LockShackle,.r1176TasbihCord,.r1176LockEtching) {stroke:ButtonText!important}
+  html body [data-mevlevi-lock] .r1176LockKey {fill:ButtonText!important;stroke:none!important}
+ }
+}
