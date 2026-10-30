@@ -190,3 +190,16 @@ html body #kandil :is(#kandilSettingsButton,#kandilPowerSel,#kandilOpacitySel):f
   html body #kandil #kandilSettingsButton.k-is-happy svg.kSettingsCog {animation:none!important}
  }
 }
+
+/* Preserve the rectangular transparent Berhetiyye brand on short screens.
+   This lives in the earlier important layer that owns saver responsive sizing. */
+@layer sukun-r1149-berhet-hero {
+ @media(max-height:600px) {
+  html[data-r1074-theme="berhet"] body #kandil .kFlame {
+   width:min(78vw,420px,46vh)!important;height:auto!important;aspect-ratio:31/20!important;
+  }
+ }
+ @media(prefers-reduced-motion:reduce) {
+  html[data-r1074-theme="berhet"] body #kandil.on:not([data-power="saving"]) .kFlame {animation:none!important}
+ }
+}

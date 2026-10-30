@@ -25,3 +25,56 @@
  /* Opacity and animation remain on the existing parent: saver and reduced
     motion keep their original rules and all layers dim together. */
 }
+
+/* Transparent version of the same framed Berhetiyye identity as the header. */
+@layer sukun-r1108-kandil {
+ html[data-r1074-theme="berhet"] body #kandil .kFlame {
+  display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+  position:relative!important;box-sizing:border-box!important;width:min(86vw,420px,80vh)!important;
+  height:auto!important;aspect-ratio:31/20!important;gap:4px!important;padding:19px 24px!important;
+  border:1px solid transparent!important;
+  border-image:url('../assets/berhetiyye-premium/r1131/frame-gold.svg') 24 / 22px / 0 stretch!important;
+  background:transparent!important;box-shadow:none!important;
+ }
+ html[data-r1074-theme="berhet"] body #kandil .kFlame::after {
+  content:''!important;display:block!important;position:absolute!important;inset:0!important;z-index:1!important;
+  pointer-events:none!important;border:0!important;border-image:none!important;box-shadow:none!important;
+  background:
+   radial-gradient(circle at 14px 14px,#d8ffed 0 1px,#47d397 2px,#08764f 5px,#003923 8px,#c69339 9px,transparent 10px),
+   radial-gradient(circle at calc(100% - 14px) 14px,#d8ffed 0 1px,#47d397 2px,#08764f 5px,#003923 8px,#c69339 9px,transparent 10px),
+   radial-gradient(circle at 14px calc(100% - 14px),#d8ffed 0 1px,#47d397 2px,#08764f 5px,#003923 8px,#c69339 9px,transparent 10px),
+   radial-gradient(circle at calc(100% - 14px) calc(100% - 14px),#d8ffed 0 1px,#47d397 2px,#08764f 5px,#003923 8px,#c69339 9px,transparent 10px)!important;
+ }
+ html[data-r1074-theme="berhet"] body #kandil .kFlame>.kBrandMark {
+  display:block!important;position:static!important;box-sizing:border-box!important;flex:0 1 auto!important;
+  width:clamp(70px,29vw,132px)!important;height:clamp(56px,23vw,106px)!important;
+  min-width:0!important;max-width:100%!important;margin:0!important;padding:0!important;
+  border:1px solid #d1ad63!important;border-radius:50%!important;overflow:hidden!important;
+  background:transparent url('../assets/branding/sukun-frameless-logo-r1029.png') center 32% / 150% auto no-repeat!important;
+  animation:none!important;box-shadow:none!important;
+ }
+ html[data-r1074-theme="berhet"] body #kandil .kFlame>.kBrandTitle {
+  display:block!important;position:static!important;max-width:100%!important;margin:0!important;padding:0!important;
+  color:#ffe7a7!important;-webkit-text-fill-color:currentColor!important;
+  font:700 clamp(18px,5.5vw,27px)/1.1 Georgia,serif!important;letter-spacing:.16em!important;text-indent:.16em!important;
+  text-align:center!important;text-shadow:0 1px 3px #000!important;white-space:normal!important;
+ }
+ html[data-r1074-theme="berhet"] body #kandil .kFlame>.kBrandSub {
+  display:block!important;position:static!important;max-width:100%!important;margin:0!important;padding:0!important;
+  color:#f5f2e4!important;-webkit-text-fill-color:currentColor!important;
+  font:600 clamp(8px,2.35vw,11px)/1.25 system-ui,sans-serif!important;letter-spacing:.08em!important;
+  text-align:center!important;text-shadow:0 1px 2px #000!important;white-space:normal!important;overflow-wrap:anywhere!important;
+ }
+ @media(max-height:600px) {
+  html[data-r1074-theme="berhet"] body #kandil .kFlame {width:min(78vw,420px,46vh)!important;padding:13px 20px!important;gap:2px!important}
+  html[data-r1074-theme="berhet"] body #kandil .kFlame>.kBrandMark {width:clamp(52px,13vh,95px)!important;height:clamp(42px,10vh,76px)!important}
+  html[data-r1074-theme="berhet"] body #kandil .kFlame>.kBrandTitle {font-size:clamp(15px,3.7vh,21px)!important}
+  html[data-r1074-theme="berhet"] body #kandil .kFlame>.kBrandSub {font-size:clamp(8px,1.8vh,10px)!important}
+ }
+ @media(forced-colors:active) {
+  html[data-r1074-theme="berhet"] body #kandil .kFlame {border-image:none!important;border:1px solid CanvasText!important}
+  html[data-r1074-theme="berhet"] body #kandil .kFlame::after {display:none!important}
+  html[data-r1074-theme="berhet"] body #kandil .kFlame>.kBrandMark {border-color:CanvasText!important}
+  html[data-r1074-theme="berhet"] body #kandil .kFlame>:is(.kBrandTitle,.kBrandSub) {color:CanvasText!important;-webkit-text-fill-color:CanvasText!important;text-shadow:none!important}
+ }
+}
