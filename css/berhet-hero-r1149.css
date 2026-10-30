@@ -653,3 +653,23 @@
   }
  }
 }
+
+/* The update action keeps its emerald face and reflects the actual check state. */
+@layer sukun-r1166-berhet-footer {
+ @media (forced-colors: none) {
+  html[data-r1074-theme="berhet"] body #r1165UpdateCheck:is(:hover,:focus-visible,:disabled) {
+   filter:brightness(1.22) saturate(1.12) drop-shadow(0 0 6px #8df2ae99)!important;
+  }
+ }
+ @media (prefers-reduced-motion: no-preference) {
+  html[data-r1074-theme="berhet"] body:not([data-perf="pil"]) #r1165UpdateCheck:not(:disabled):is(:hover,:focus-visible) .r1165UpdateIcon {
+   transform-origin:center;
+   animation:sukun-update-turn 650ms ease-in-out 1 both!important;
+  }
+  html[data-r1074-theme="berhet"] body:not([data-perf="pil"]) #r1165UpdateCheck:disabled .r1165UpdateIcon {
+   transform-origin:center;
+   animation:sukun-update-turn 1.2s linear infinite!important;
+  }
+ }
+ @keyframes sukun-update-turn {from {transform:rotate(0deg)} to {transform:rotate(360deg)}}
+}

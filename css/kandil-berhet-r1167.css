@@ -1,10 +1,8 @@
-/* Berhetiyye ekran koruyucusu: özgün Sükûn işareti, taşlı mühür içinde. */
+/* Berhetiyye ekran koruyucusunda verilen Sükûn görseli eksiksiz görünür. */
 @layer sukun-r1108-kandil {
  html[data-r1074-theme="berhet"] body #kandil .kFlame {
-  background:
-   url('../assets/branding/sukun-frameless-logo-r1029.png') center / 80% 80% no-repeat,
-   radial-gradient(circle closest-side,#0e081af7 0 55%,transparent 64%) center / 100% 100% no-repeat,
-   url('../assets/berhetiyye-premium/berhetiyye-wheel-user-r886.webp') center / 100% 100% no-repeat!important;
+  width:min(86vw,480px,60vh)!important;height:auto!important;aspect-ratio:1536 / 987!important;
+  background:url('../assets/branding/sukun-berhet-saver-r1167.webp') center / contain no-repeat!important;
  }
  /* İnce altın işleme ve dört taş, ekranı kaplamadan mevcut dış kenarı süsler. */
  html[data-r1074-theme="berhet"] body #kandil::before {
