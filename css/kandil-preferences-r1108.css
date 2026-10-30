@@ -203,3 +203,25 @@ html body #kandil :is(#kandilSettingsButton,#kandilPowerSel,#kandilOpacitySel):f
   html[data-r1074-theme="berhet"] body #kandil.on:not([data-power="saving"]) .kFlame {animation:none!important}
  }
 }
+
+/* Keep the return control clear of the lower decorative frame in both themes.
+   Move its associated settings controls by the same amount to retain spacing. */
+@layer sukun-r1149-berhet-hero {
+ html body #kandil {
+  padding-bottom:calc(172px + env(safe-area-inset-bottom))!important;
+ }
+ html body #kandil #kandilWake {
+  bottom:calc(26px + env(safe-area-inset-bottom))!important;
+ }
+ html body #kandil #kandilSettingsButton {
+  bottom:calc(80px + env(safe-area-inset-bottom))!important;
+ }
+ html body #kandil #kandilPowerWrap {
+  bottom:calc(157px + env(safe-area-inset-bottom))!important;
+ }
+ @media(max-height:320px) {
+  html body #kandil {
+   padding-bottom:calc(158px + env(safe-area-inset-bottom))!important;
+  }
+ }
+}

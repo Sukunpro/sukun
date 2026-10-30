@@ -33,6 +33,26 @@
   max-width:none!important;min-height:44px!important;aspect-ratio:auto!important;flex-direction:row!important;
  }
 }
+
+/* Mevlevi: restore a visible frame around each compact navigation action.
+   The six-column layout and the buttons' existing behaviour stay unchanged. */
+@layer sukun-r1149-berhet-hero {
+ html:not([data-r1074-theme="berhet"]) body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button {
+  border:1px solid color-mix(in srgb,var(--gold,#d8b574) 45%,transparent)!important;
+  border-image:none!important;border-radius:9px!important;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--gold,#d8b574) 10%,transparent),rgba(var(--yuzeyK,8,28,34),.82))!important;
+  box-shadow:inset 0 1px 0 #ffffff19,0 2px 6px #0004!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button.act {
+  border-color:var(--goldh,#f8d795)!important;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--gold,#d8b574) 23%,transparent),rgba(var(--yuzeyK,8,28,34),.92))!important;
+  box-shadow:inset 0 0 0 1px #f7d8973b,0 0 10px #e5c16a33!important;
+ }
+ @media(forced-colors:active) {
+  html:not([data-r1074-theme="berhet"]) body .wrap>nav.tabs>button {border:1px solid ButtonText!important;background:Canvas!important;box-shadow:none!important}
+  html:not([data-r1074-theme="berhet"]) body .wrap>nav.tabs>button.act {outline:2px solid Highlight!important;outline-offset:-3px!important}
+ }
+}
 @media (forced-colors:active) {
  html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button {filter:none!important;text-shadow:none!important}
 }

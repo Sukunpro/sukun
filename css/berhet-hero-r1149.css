@@ -192,6 +192,29 @@
   letter-spacing:0!important; text-align:center!important; white-space:nowrap!important;
   text-shadow:0 1px 2px #000,0 0 3px #000!important;
  }
+ /* Keep the Berhetiyye entry visibly framed when the Esmâ/Mevlevî
+    family is currently selected. The same native button and lock state stay in place. */
+ html:not([data-r1074-theme="berhet"]) body #r920Practice #r920ModeBerhet {
+  box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:none!important;
+  height:50px!important;min-height:50px!important;max-height:none!important;
+  margin:0!important;padding:10px 24px!important;
+  border:1px solid transparent!important;
+  border-image:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp') 210 540 fill / 29% min(28px,20%) / 0 stretch!important;
+  border-radius:10px!important;background:none!important;box-shadow:none!important;
+  color:#fff1d7!important;-webkit-text-fill-color:currentColor!important;
+  font:650 clamp(11px,3.1vw,13px)/1.25 system-ui,sans-serif!important;
+  letter-spacing:0!important;text-align:center!important;white-space:nowrap!important;
+  text-shadow:0 1px 2px #000,0 0 3px #000!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body #r920Practice #r920ModeBerhet:focus-visible {
+  outline:2px solid #fff2c4!important;outline-offset:3px!important;
+ }
+ @media(forced-colors:active) {
+  html:not([data-r1074-theme="berhet"]) body #r920Practice #r920ModeBerhet {
+   border-image:none!important;border:1px solid ButtonText!important;background:ButtonFace!important;
+   color:ButtonText!important;-webkit-text-fill-color:ButtonText!important;text-shadow:none!important;
+  }
+ }
  html[data-r1074-theme="berhet"] body #r920Practice #r920ModeEsma {--practice-gem:url('../assets/berhetiyye-premium/r1133/gem-ruby.webp')!important}
  html[data-r1074-theme="berhet"] body #r920Practice #r920ModeBerhet {--practice-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important}
  html[data-r1074-theme="berhet"] body #r920Practice #r920AtlasOpen {--practice-gem:url('../assets/berhetiyye-premium/r1133/gem-sapphire.webp')!important}
@@ -784,3 +807,20 @@
  }
 }
 
+/* The quick wheel picker uses a native select. Center its selected label on
+   the gemstone face and give the shortcut captions room on small screens. */
+@layer sukun-r1166-berhet-footer {
+ html[data-r1074-theme="berhet"] body #r920Practice #r932WheelControls #r932QuickSelect {
+  box-sizing:border-box!important; width:100%!important; min-width:0!important; max-width:100%!important;
+  min-height:48px!important; padding:8px 18px!important;
+  text-align:center!important; text-align-last:center!important; appearance:none!important;
+  font-size:clamp(11px,3.1vw,13px)!important; text-overflow:ellipsis!important;
+ }
+ html[data-r1074-theme="berhet"] body #r920Practice #r932WheelControls .r932VisualShortcuts button {
+  min-height:48px!important; height:auto!important; padding:6px 18px!important;
+ }
+ html[data-r1074-theme="berhet"] body #r920Practice #r932WheelControls .r932VisualShortcuts small {
+  min-width:0!important; max-width:100%!important; text-align:center!important;
+  white-space:normal!important; overflow-wrap:anywhere!important; line-height:1.2!important;
+ }
+}
