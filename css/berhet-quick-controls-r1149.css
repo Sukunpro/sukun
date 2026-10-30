@@ -22,12 +22,12 @@
  html[data-r1074-theme="berhet"] body #dock > button.dockItem .dl {
   font: 650 9px/1.2 system-ui,sans-serif !important;
   letter-spacing: .025em !important; white-space: normal !important;
-  overflow: visible !important; overflow-wrap: break-word !important; text-overflow: clip !important;
+  overflow: visible !important; overflow-wrap: normal !important; word-break: normal !important; text-overflow: clip !important;
  }
  html[data-r1074-theme="berhet"] body #dock > button.dockItem .dlAlt {
   font: 650 8px/1.2 system-ui,sans-serif !important;
   letter-spacing: .025em !important; white-space: normal !important;
-  overflow: visible !important; overflow-wrap: break-word !important;
+  overflow: visible !important; overflow-wrap: normal !important; word-break: normal !important;
  }
  html[data-r1074-theme="berhet"] body #dockTimer #sleepTimer {
   box-sizing: border-box !important; min-width: 0 !important; width: 100% !important;
@@ -53,6 +53,13 @@
  }
  html[data-r1074-theme="berhet"] body #dockTimer>.dockTipHelp {
   grid-column:3 !important; grid-row:2 !important;
+ }
+}
+/* Four narrow cells leave less space than an ordinary label after the gem
+   bezel. Use three columns on phones so words stay whole at the same size. */
+@media (max-width: 420px) {
+ html[data-r1074-theme="berhet"] body #dock {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
  }
 }
 }

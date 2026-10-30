@@ -39,12 +39,21 @@ async function measure(){return p.evaluate(async()=>{
   const channels=[0,1].map(ch=>{const a=ctx.createAnalyser();a.fftSize=4096;a.smoothingTimeConstant=0;splitter.connect(a,ch);return {a,buffer:new Float32Array(a.fftSize),peak:0,sum:0,count:0,finite:true}});
   taps[key]={node,splitter,channels};
  }
+ // A newly connected analyser starts with an empty 4096-frame history. Wait
+ // for native audio time to fill it before comparing independent profiles;
+ // wall-clock scheduling under CI load otherwise biases the first profile.
+ const tapWarmupFrames=4096,warmupAudioStart=ctx.currentTime,warmupWallStart=performance.now();
+ while(ctx.currentTime-warmupAudioStart<tapWarmupFrames/ctx.sampleRate){
+  if(performance.now()-warmupWallStart>5000)throw new Error('Native analyser history did not fill within 5 s');
+  await new Promise(r=>setTimeout(r,15));
+ }
+ const tapWarmup={frames:tapWarmupFrames,audioSeconds:ctx.currentTime-warmupAudioStart,wallMs:performance.now()-warmupWallStart};
  let frames=0;const started=performance.now();
  while(performance.now()-started<1000){
   for(const tap of Object.values(taps))for(const t of tap.channels){t.a.getFloatTimeDomainData(t.buffer);for(const x of t.buffer){t.peak=Math.max(t.peak,Math.abs(x));t.sum+=x*x;t.count++;t.finite=t.finite&&Number.isFinite(x)}}
   frames++;await new Promise(r=>setTimeout(r,15));
  }
- const result={frames,elapsedMs:performance.now()-started,sampleRate:ctx.sampleRate,limiterReduction:limiter.reduction,headroom:frHeadroom(),gain:frOutputLevel(),master:master.gain.value};
+ const result={frames,tapWarmup,elapsedMs:performance.now()-started,sampleRate:ctx.sampleRate,limiterReduction:limiter.reduction,headroom:frHeadroom(),gain:frOutputLevel(),master:master.gain.value};
  for(const[k,t]of Object.entries(taps)){
   const count=t.channels.reduce((n,c)=>n+c.count,0),sum=t.channels.reduce((n,c)=>n+c.sum,0);
   result[k]={peak:Math.max(...t.channels.map(c=>c.peak)),rms:Math.sqrt(sum/count),finite:t.channels.every(c=>c.finite),samples:count,channels:t.channels.map((c,i)=>({channel:i===0?'left':'right',peak:c.peak,rms:Math.sqrt(c.sum/c.count),finite:c.finite,samples:c.count}))};

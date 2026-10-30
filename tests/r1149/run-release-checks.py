@@ -75,7 +75,11 @@ def execute(item):
  name,cmd=item
  started=time.monotonic()
  try:
-  result=subprocess.run(cmd,cwd=root,capture_output=True,text=True,timeout=650)
+  # The 76-case navigation suite covers two full appearance profiles. On the
+  # exact r1149 candidate all first35 cases passed before the old650 s process
+  # cap killed it. Keep every case and assertion, with a bounded full-run budget.
+  budget=1500 if name=='dhikr-navigation-browser' else 650
+  result=subprocess.run(cmd,cwd=root,capture_output=True,text=True,timeout=budget)
   code=result.returncode; stdout=result.stdout; stderr=result.stderr
  except subprocess.TimeoutExpired as error:
   code='timeout';stdout=str(error.stdout or '');stderr=str(error.stderr or '')

@@ -72,7 +72,11 @@ async function tap(selector) {
   if (await p.locator('#kandil.on').isVisible()) { await p.locator('#kandil.on').click({position: {x: 20, y: 20}}); await idle(); }
   assert(await p.locator(selector).isVisible(), 'Native control must be visible: ' + selector);
   assert(await p.locator(selector).isEnabled(), 'Native control must be enabled: ' + selector);
-  await p.locator(selector).scrollIntoViewIfNeeded();
+  // Native center scrolling through the app's explicit navigation policy keeps
+  // controls below the sticky Berhetiyye menu. Playwright's nearest-edge scroll
+  // can leave a visible button underneath it; clicks still require hit testing.
+  await p.locator(selector).evaluate(el => SukunViewportPolicy.scrollTo(el, {block: 'center', behavior: 'instant'}, 'r1123-native-control'));
+  await p.waitForTimeout(250);
   await p.locator(selector).click({timeout: 15000});
   await idle();
 }
@@ -278,7 +282,9 @@ async function run(feyz) {
           const start = await p.evaluate(() => __r1123Clicks.length);
           // No artificial cleanup await between these trusted UI commands.
           for (const selector of [button(surface, 1), button(surface, 1), button(surface, -1), '#r932EasyStop']) {
-            assert(await p.locator(selector).isVisible()); await p.locator(selector).click({timeout: 15000});
+            assert(await p.locator(selector).isVisible());
+            await p.locator(selector).evaluate(el => SukunViewportPolicy.scrollTo(el, {block: 'center', behavior: 'instant'}, 'r1123-native-burst'));
+            await p.locator(selector).click({timeout: 15000});
           }
           await p.waitForFunction(() => !SukunR698Transport.snapshot().pendingStop && !SukunTabOwner.snapshot().pending && !SukunTabOwner.snapshot().releasing && !Z.auto);
           await p.waitForTimeout(1200);

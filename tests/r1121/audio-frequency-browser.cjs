@@ -56,6 +56,24 @@ assert.equal(adapted.slice(first+prepare.length),original.slice(last));
 const historicalReload="await p.reload({waitUntil:'load'});";
 assert.equal(adapted.split(historicalReload).length-1,1,'One exact manual-set reload');
 adapted=adapted.replace(historicalReload,"await p.reload({waitUntil:'load',timeout:60000});");
+// This native 48-second loop is rendered while other acceptance groups run.
+// The previous 15 s admission wait expired while the real renderer was still
+// preparing. Keep all sweep ownership and PCM assertions, but allow the same
+// bounded 30 s admission budget as the scenario's two other render waits.
+// Keep the sweep active for 45 s so it cannot finish during that wait; the
+// existing active-sweep, route-ownership and replacement assertions still apply.
+const sweepName='Admitted ambience during a live sweep cannot mute the replacement static frequency while it prepares';
+const sweepFirst=adapted.indexOf(" await check('"+sweepName+"',async()=>{");
+const sweepLast=adapted.indexOf("\n await reset({mode:'mix'",sweepFirst);
+assert(sweepFirst>=0&&sweepLast>sweepFirst,'Exact sweep integration scenario boundary');
+const originalSweep=adapted.slice(sweepFirst,sweepLast);
+const sweepWait='SukunBackgroundMix.snapshot().ready,null,{timeout:15000}';
+assert.equal(originalSweep.split(sweepWait).length-1,1,'One sweep renderer admission budget');
+const sweepDuration="p.locator('#sweepDur').fill('20')";
+assert.equal(originalSweep.split(sweepDuration).length-1,1,'One sweep integration duration');
+const adaptedSweep=originalSweep.replace(sweepWait,'SukunBackgroundMix.snapshot().ready,null,{timeout:30000}').replace(sweepDuration,"p.locator('#sweepDur').fill('45')");
+assert.equal(adaptedSweep.replace('SukunBackgroundMix.snapshot().ready,null,{timeout:30000});const sweep=',sweepWait+');const sweep=').replace("p.locator('#sweepDur').fill('45')",sweepDuration),originalSweep,'All historical sweep assertions retained');
+adapted=adapted.slice(0,sweepFirst)+adaptedSweep+adapted.slice(sweepLast);
 const scenarioName='Unmodified background admission renders restored tools and timer transfer preserves only ambience';
 const scenarioFirst=adapted.indexOf(" await check('"+scenarioName+"',async()=>{");
 const scenarioLast=adapted.indexOf("\n await check('Exact served release resources",scenarioFirst);
@@ -67,12 +85,14 @@ function changeScenario(before,after,reason){
  assert.equal(scenario.split(before).length-1,1,'One scoped timing/diagnostic site: '+reason);
  scenario=scenario.replace(before,after);scenarioEdits.push({before,after,reason});
 }
-// The historical 9 s timer could expire during its permitted 20 s real render.
+// The historical 9 s timer could expire during its permitted real render.
 // A passing CI run had only 1.85 s remaining; the later failure had already
-// stopped every frequency layer. Keep the 20 s render deadline and require an
+// stopped every frequency layer. Native admission took more than 20 s under
+// concurrent CI rendering. Keep a bounded 30 s render deadline and require an
 // active timer at admission, rather than accepting stopped/silent frequency.
-changeScenario('controller.setTimer(.15)','controller.setTimer(.5);window.__r1121TimerTrace.sample("timer-armed")','30 s integration timer exceeds the unchanged 20 s render budget');
-changeScenario("()=>!FR.playing&&!FR2.E&&!PINKE,null,{timeout:15000}","()=>!FR.playing&&!FR2.E&&!PINKE,null,{timeout:35000}",'Observe natural expiry of the same timer, with 5 s scheduler allowance');
+changeScenario('controller.setTimer(.15)','controller.setTimer(.75);window.__r1121TimerTrace.sample("timer-armed")','45 s integration timer exceeds the bounded 30 s native admission budget');
+changeScenario('SukunBackgroundMix.snapshot().ready,null,{timeout:20000});const ambienceOnly=','SukunBackgroundMix.snapshot().ready,null,{timeout:30000});const ambienceOnly=','Allow native render plus media admission within a bounded 30 s budget');
+changeScenario("()=>!FR.playing&&!FR2.E&&!PINKE,null,{timeout:15000}","()=>!FR.playing&&!FR2.E&&!PINKE,null,{timeout:50000}",'Observe natural expiry of the same timer, with 5 s scheduler allowance');
 changeScenario("const handoff=await state();","const handoff=await state();await p.evaluate(()=>window.__r1121TimerTrace.sample('live-handoff'));",'Record live handoff clock and gains');
 changeScenario("const ambienceOnly=await state(),nativeAmbience=await p.evaluate(()=>SukunBackgroundMix.snapshot());","const ambienceOnly=await state(),nativeAmbience=await p.evaluate(()=>SukunBackgroundMix.snapshot());await p.evaluate(()=>window.__r1121TimerTrace.sample('ambience-admission-observed'));assert(ambienceOnly.playing&&ambienceOnly.timer?.remaining>0,'Timer must still be active when ambience admission is observed');",'Require active-timer precondition before unchanged positive-gain assertions');
 changeScenario("const paused=await state();","const paused=await state();await p.evaluate(()=>window.__r1121TimerTrace.sample('paused'));",'Record suspension with native audio clock');
@@ -101,7 +121,7 @@ const diagnosticsStart=`
 `;
 const diagnosticsEnd=`
   } finally {
-   report.timerTransferDiagnostics={method:'Read-only, atomic browser samples of native audio time, wall time, timer deadline, gains and route events; retained on failure.',timerSeconds:30,rendererTimeoutMs:20000,naturalExpiryTimeoutMs:35000,rows:await p.evaluate(()=>{const trace=window.__r1121TimerTrace;try{return trace?.finish()||[]}finally{delete window.__r1121TimerTrace}})};
+   report.timerTransferDiagnostics={method:'Read-only, atomic browser samples of native audio time, wall time, timer deadline, gains and route events; retained on failure.',timerSeconds:45,rendererTimeoutMs:30000,naturalExpiryTimeoutMs:50000,rows:await p.evaluate(()=>{const trace=window.__r1121TimerTrace;try{return trace?.finish()||[]}finally{delete window.__r1121TimerTrace}})};
   }
 `;
 changeScenario("',async()=>{","',async()=>{"+diagnosticsStart,'Install read-only clock and lifecycle diagnostics');
@@ -120,7 +140,7 @@ assert.equal(adapted.slice(0,scenarioFirst),beforeScenario);
 assert.equal(adapted.slice(scenarioFirst+scenario.length),afterScenario);
 const declaredChecks=(original.match(/await check\(/g)||[]).length;
 assert.equal((adapted.match(/await check\(/g)||[]).length,declaredChecks);
-const metadata={suite:'r1121 native frequency audio with awaited reload readiness',historicalTest:'tests/r1120/audio-frequency-browser.cjs',historicalTestSha256:hash(original),adaptedScenarioSha256:hash(adapted),wrapperTestSha256:hash(fs.readFileSync(__filename)),preparationAdaptation:{changedFunction:'prepare',changes:'Replace a visibility-only close click with observed natural startup completion and awaited active/visible frequency navigation.',checkBodiesUnchanged:false,allHistoricalAssertionsRetained:true,declaredCheckSites:declaredChecks,noForcedClicks:true,noDialogOrStyleMutation:true},timerIntegrationAdaptation:{check:scenarioName,originalScenarioSha256:hash(oldScenario),adaptedScenarioSha256:hash(scenario),historicalTimerSeconds:9,timerSeconds:30,rendererTimeoutMs:20000,historicalExpiryTimeoutMs:15000,naturalExpiryTimeoutMs:35000,activeTimerPreconditionAdded:true,naturalExpiryRequired:true,shortTimerCaseUnchanged:true,otherCheckBodiesUnchanged:true,changes:scenarioEdits.map(({reason})=>reason)}};
+const metadata={suite:'r1121 native frequency audio with awaited reload readiness',historicalTest:'tests/r1120/audio-frequency-browser.cjs',historicalTestSha256:hash(original),adaptedScenarioSha256:hash(adapted),wrapperTestSha256:hash(fs.readFileSync(__filename)),preparationAdaptation:{changedFunction:'prepare',changes:'Replace a visibility-only close click with observed natural startup completion and awaited active/visible frequency navigation.',checkBodiesUnchanged:false,allHistoricalAssertionsRetained:true,declaredCheckSites:declaredChecks,noForcedClicks:true,noDialogOrStyleMutation:true},sweepIntegrationAdaptation:{check:sweepName,originalScenarioSha256:hash(originalSweep),adaptedScenarioSha256:hash(adaptedSweep),historicalSweepSeconds:20,sweepSeconds:45,historicalAdmissionTimeoutMs:15000,admissionTimeoutMs:30000,allHistoricalAssertionsRetained:true},timerIntegrationAdaptation:{check:scenarioName,originalScenarioSha256:hash(oldScenario),adaptedScenarioSha256:hash(scenario),historicalTimerSeconds:9,timerSeconds:45,rendererTimeoutMs:30000,historicalExpiryTimeoutMs:15000,naturalExpiryTimeoutMs:50000,activeTimerPreconditionAdded:true,naturalExpiryRequired:true,shortTimerCaseUnchanged:true,otherCheckBodiesUnchangedExceptDocumentedSweepBudget:true,changes:scenarioEdits.map(({reason})=>reason)}};
 const reportBoundary='let f,p;';
 assert.equal(adapted.split(reportBoundary).length-1,1,'One report metadata boundary');
 adapted=adapted.replace(reportBoundary,'Object.assign(report,'+JSON.stringify(metadata)+');\n'+reportBoundary);
