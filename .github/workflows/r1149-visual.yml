@@ -1,4 +1,4 @@
-name: r1149 mobile header and controls
+name: r1150 mobile header and controls
 on:
   pull_request:
     branches: [main]
@@ -17,17 +17,17 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           path: candidate
           persist-credentials: false
-      - name: Checkout immutable r1148 upgrade baseline
+      - name: Checkout immutable r1149 upgrade baseline
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          ref: f0986e7ae9a12f6f1127c1a81484752ab4e92868
+          ref: 16ee54fee988be7420b53a5f75c37aa63f7a9b76
           path: baseline
           persist-credentials: false
       - name: Verify bounded cache admission and activation deadlines
         working-directory: candidate
         run: |
-          node tests/r1149/cache-verification-contract.cjs "$PWD" "$RUNNER_TEMP/r1149-upgrade/cache-verification.json"
-          node tests/r1149/activation-deadline-contract.cjs "$PWD" "$RUNNER_TEMP/r1149-upgrade/activation-deadline.json"
+          node tests/r1150/cache-verification-contract.cjs "$PWD" "$RUNNER_TEMP/r1150-upgrade/cache-verification.json"
+          node tests/r1150/activation-deadline-contract.cjs "$PWD" "$RUNNER_TEMP/r1150-upgrade/activation-deadline.json"
       - name: Install browser
         run: |
           npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
@@ -37,13 +37,13 @@ jobs:
         working-directory: candidate
         run: |
           export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
-          node tests/r1149/release-upgrade-browser.cjs "$PWD" "$GITHUB_WORKSPACE/baseline" "$RUNNER_TEMP/r1149-upgrade/release-upgrade.json"
+          node tests/r1150/release-upgrade-browser.cjs "$PWD" "$GITHUB_WORKSPACE/baseline" "$RUNNER_TEMP/r1150-upgrade/release-upgrade.json"
       - name: Upload source-bound upgrade evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: r1149-upgrade-${{ github.event.pull_request.head.sha || github.sha }}
-          path: ${{ runner.temp }}/r1149-upgrade/*.json
+          name: r1150-upgrade-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/r1150-upgrade/*.json
           if-no-files-found: error
   mobile-visual:
     runs-on: ubuntu-24.04
@@ -62,24 +62,24 @@ jobs:
       - name: Check header and controls
         run: |
           export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
-          node tests/r1149/header-controls-visual.cjs "$GITHUB_WORKSPACE" "$RUNNER_TEMP/r1149-visual"
+          node tests/r1150/header-controls-visual.cjs "$GITHUB_WORKSPACE" "$RUNNER_TEMP/r1150-visual"
       - name: Check navigation and font enlargement
         if: always()
         run: |
           export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
-          node tests/r1148/nav-visual.cjs "$GITHUB_WORKSPACE" "$RUNNER_TEMP/r1149-nav/report.json"
+          node tests/r1150/nav-visual.cjs "$GITHUB_WORKSPACE" "$RUNNER_TEMP/r1150-nav/report.json"
       - name: Check backup frame and buttons
         if: always()
         run: |
           export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
-          node tests/r1149/backup-visual.cjs "$GITHUB_WORKSPACE" "$RUNNER_TEMP/r1149-backup"
+          node tests/r1150/backup-visual.cjs "$GITHUB_WORKSPACE" "$RUNNER_TEMP/r1150-backup"
       - name: Upload measurements and screenshots
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: r1149-mobile-visual
+          name: r1150-mobile-visual
           path: |
-            ${{ runner.temp }}/r1149-visual
-            ${{ runner.temp }}/r1149-nav
-            ${{ runner.temp }}/r1149-backup
+            ${{ runner.temp }}/r1150-visual
+            ${{ runner.temp }}/r1150-nav
+            ${{ runner.temp }}/r1150-backup
           if-no-files-found: warn

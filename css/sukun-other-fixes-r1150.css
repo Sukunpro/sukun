@@ -1,0 +1,47 @@
+/* Focused mobile fixes for the Berhetiyye jewel theme. This layer must be
+   declared before older important layers to take precedence. */
+@layer sukun-r1150-other-fixes {
+@media (max-width:720px) {
+ html[data-r1074-theme="berhet"] body #r1128DelailRecorded details>summary#r1128DelailRightsTitle {
+  box-sizing:border-box!important;display:block!important;position:relative!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  min-height:52px!important;height:auto!important;padding:14px 28px!important;
+  border-image-width:10px 20px!important;line-height:1.35!important;
+  text-align:center!important;white-space:normal!important;overflow-wrap:break-word!important;
+  list-style:none!important;
+ }
+ html[data-r1074-theme="berhet"] body #r1128DelailRecorded details>summary#r1128DelailRightsTitle::-webkit-details-marker {display:none!important}
+ html[data-r1074-theme="berhet"] body #r1128DelailRecorded details>summary#r1128DelailRightsTitle::before {content:none!important;display:none!important}
+ html[data-r1074-theme="berhet"] body #r1128DelailRecorded details>summary#r1128DelailRightsTitle::after {
+  content:'▾'!important;display:block!important;position:absolute!important;right:18px!important;top:50%!important;
+  transform:translateY(-50%)!important;color:#fff2d6!important;pointer-events:none!important;
+ }
+ html[data-r1074-theme="berhet"] body #r1128DelailRecorded details[open]>summary#r1128DelailRightsTitle::after {transform:translateY(-50%) rotate(180deg)!important}
+ html[data-r1074-theme="berhet"] body #vhBox #vhLayers {
+  box-sizing:border-box!important;flex:0 0 82px!important;width:82px!important;min-width:82px!important;max-width:82px!important;
+  min-height:44px!important;height:auto!important;padding:10px 15px!important;border-image-width:9px 12px!important;
+  appearance:none!important;-webkit-appearance:none!important;text-align:center!important;text-align-last:center!important;
+  font:600 12px/1.25 system-ui,sans-serif!important;letter-spacing:0!important;
+ }
+ html[data-r1074-theme="berhet"] body #vhBox #vhVol {min-width:0!important;flex:1 1 0!important}
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden]) {
+  width:min(100%,280px)!important;max-width:280px!important;
+  grid-template-columns:repeat(3,minmax(0,84px))!important;
+ }
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button {
+  max-width:84px!important;aspect-ratio:1/1!important;padding:9px 8px!important;
+ }
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="2"] {
+  grid-template-columns:repeat(2,minmax(0,129px))!important;
+ }
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="2"]>button {
+  max-width:129px!important;aspect-ratio:1/1!important;
+ }
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="1"] {
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="1"]>button {
+  max-width:none!important;aspect-ratio:auto!important;
+ }
+}
+}
