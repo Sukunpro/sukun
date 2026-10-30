@@ -37,3 +37,107 @@
  html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button {filter:none!important;text-shadow:none!important}
 }
 }
+
+/* r1150: retain the jewel artwork while reserving room for text on phones. */
+@layer sukun-r1149-nav {
+@media (max-width:720px) {
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden]) {
+  width:min(100%,276px)!important;max-width:276px!important;
+  grid-template-columns:repeat(3,minmax(0,82px))!important;
+ }
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs:not([hidden])>button {
+  max-width:82px!important;padding:9px 8px!important;gap:3px!important;
+ }
+ /* Keep the native label fully inside the end caps and give the slider its own row. */
+ html[data-r1074-theme="berhet"] body #tab-zkr #vhBox .jRow {
+  display:grid!important;grid-template-columns:auto minmax(100px,1fr)!important;
+  align-items:center!important;gap:8px!important;min-width:0!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr #vhBox #vhLayers {
+  box-sizing:border-box!important;min-width:100px!important;width:100%!important;max-width:100%!important;
+  min-height:46px!important;padding:9px 26px 9px 20px!important;
+  border-image-width:9px 17px!important;text-align:center!important;text-align-last:center!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr #vhBox #vhVol {
+  grid-column:1/-1!important;box-sizing:border-box!important;width:100%!important;min-width:0!important;
+ }
+ /* Recorded recitation disclosures may be themed as carved panels. Reserve
+    the ends for the ornament and let every line use the available inner area. */
+ html[data-r1074-theme="berhet"] body #r1128DelailRecorded {
+  box-sizing:border-box!important;min-width:0!important;max-width:100%!important;
+  padding:14px 20px!important;overflow-wrap:anywhere!important;
+ }
+ html[data-r1074-theme="berhet"] body #r1128DelailRecorded :is(h3,label,p,a) {
+  box-sizing:border-box!important;min-width:0!important;max-width:100%!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;line-height:1.5!important;
+ }
+ html[data-r1074-theme="berhet"] body #r1128DelailRecorded select {
+  min-height:48px!important;padding:10px 28px 10px 23px!important;border-image-width:10px 19px!important;
+ }
+ html[data-r1074-theme="berhet"] body #r1128DelailRecorded details>summary {
+  display:block!important;position:relative!important;box-sizing:border-box!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;height:auto!important;min-height:54px!important;
+  padding:13px 39px 13px 25px!important;border-image-width:10px 21px!important;
+  font:600 13px/1.4 system-ui,sans-serif!important;white-space:normal!important;
+  overflow-wrap:break-word!important;overflow:visible!important;text-align:left!important;
+ }
+ html[data-r1074-theme="berhet"] body #r1128DelailRecorded details>summary::after {
+  right:19px!important;top:50%!important;transform:translateY(-50%)!important;
+ }
+ html[data-r1074-theme="berhet"] body #r1128DelailRecorded .r1128-delail-actions {
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;
+ }
+ html[data-r1074-theme="berhet"] body #r1128DelailRecorded .r1128-delail-actions>button {
+  box-sizing:border-box!important;min-width:0!important;max-width:100%!important;min-height:46px!important;
+  height:auto!important;padding:10px 22px!important;border-image-width:9px 18px!important;
+  white-space:normal!important;overflow-wrap:break-word!important;text-align:center!important;
+ }
+ /* Studio metadata and disclosure text must not occupy the gilt edges. */
+ html[data-r1074-theme="berhet"] body #tab-zkr #r170Studio>summary {
+  padding:14px 29px!important;grid-template-columns:20px minmax(0,1fr) 12px!important;gap:6px!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr #r170Studio>summary>span:nth-child(2) {
+  display:block!important;min-width:0!important;max-width:100%!important;white-space:normal!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr #r170Studio>summary>span:nth-child(2) :is(b,small) {
+  display:block!important;position:static!important;white-space:normal!important;overflow-wrap:break-word!important;line-height:1.35!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr #r170Studio .r170StudioMeta {
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px!important;
+ }
+ html[data-r1074-theme="berhet"] body #tab-zkr #r170Studio .r170StudioMeta>div {
+  box-sizing:border-box!important;min-width:0!important;min-height:58px!important;height:auto!important;
+  padding:12px 14px!important;border-image-width:9px 12px!important;
+  white-space:normal!important;overflow-wrap:break-word!important;
+ }
+}
+}
+@layer sukun-r1149-nav {
+@media (max-width:720px) {
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="2"] {
+  grid-template-columns:repeat(2,minmax(0,126px))!important;
+ }
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="2"]>button {max-width:126px!important;}
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="1"] {grid-template-columns:minmax(0,1fr)!important;}
+ html[data-r1074-theme="berhet"] body:not(:is(.sukun-tefekkur-mode,.sukun-focus-mode,.r616-ui)) .wrap>nav.tabs[data-r1145-cols="1"]>button {max-width:none!important;}
+}
+}
+@layer sukun-r1149-nav {
+@media (max-width:720px) {
+ html[data-r1074-theme="berhet"] body #gqHub>summary {
+  display:grid!important;grid-template-columns:20px minmax(0,1fr) 12px!important;
+  align-items:center!important;gap:6px!important;box-sizing:border-box!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;min-height:66px!important;height:auto!important;
+  padding:14px 28px!important;border-image-width:11px 22px!important;
+  overflow:visible!important;white-space:normal!important;
+ }
+ html[data-r1074-theme="berhet"] body #gqHub>summary>span:nth-child(2) {
+  display:block!important;position:static!important;min-width:0!important;max-width:100%!important;
+ }
+ html[data-r1074-theme="berhet"] body #gqHub>summary>span:nth-child(2) :is(b,small) {
+  display:block!important;position:static!important;white-space:normal!important;
+  overflow-wrap:break-word!important;line-height:1.35!important;
+ }
+ html[data-r1074-theme="berhet"] body #gqHub>summary::after {position:static!important;justify-self:center!important;}
+}
+}

@@ -90,6 +90,35 @@
  const title=row=>en()?row.titleEn:row.title;
  const duration=seconds=>Math.floor(seconds/60)+':'+String(Math.floor(seconds%60)).padStart(2,'0');
  let card=null,subscribed=null,request=0,notice='',observer=null;
+ // Only a playback explicitly started from this card arms the continuation.
+ // Avoid resuming an old ended snapshot after reload, a stop, or another reader.
+ const autoKey='sukun.delail.autoNext.r1150';
+ let autoNext=false,chainId='',continuation=0;
+ try{autoNext=w.localStorage?.getItem(autoKey)==='1'}catch(_){}
+ function cancelContinuation(){chainId='';continuation++;}
+ function setAutoNext(enabled){
+  autoNext=!!enabled;
+  try{w.localStorage?.setItem(autoKey,autoNext?'1':'0')}catch(_){}
+  if(!autoNext)cancelContinuation();
+  else {const state=audio()?.snapshot?.();if(owns(state))chainId=state.id;}
+  render();
+ }
+ function observePlayback(state){
+  if(!chainId)return;
+  if(state?.id!==chainId || ['idle','error'].includes(state?.phase)){cancelContinuation();return;}
+  if(state.phase!=='ended'||state.content!=='arabic'||state.source!=='auto'||!autoNext)return;
+  const index=rows.findIndex(row=>row.ids[0]===chainId),next=rows[index+1];
+  const token=++continuation,endedId=chainId;
+  chainId='';
+  if(!next)return;
+  // Let the preceding reader finish releasing its cross-tab/audio lease.
+  w.setTimeout(()=>{
+   const current=audio()?.snapshot?.();
+   if(token!==continuation||!autoNext||current?.id!==endedId||current?.phase!=='ended')return;
+   const select=node('r1128DelailSection');if(select)select.value=next.ids[0];
+   void play(next.ids[0]);
+  },0);
+ }
  const node=id=>d?.getElementById(id);
  function render(){
   if(!card?.isConnected)return;
@@ -99,6 +128,8 @@
   for(let index=0;index<rows.length;index++)select.options[index].textContent=title(rows[index])+' · '+duration(rows[index].durationSeconds);
   select.value=prior;
   node('r1128DelailPlay').textContent=copy('Seçili bölümü dinle','Listen to selected section');
+  node('r1150DelailAutoNext').checked=autoNext;
+  node('r1150DelailAutoLabelText').textContent=copy('Bölüm bitince sıradakine otomatik geç','Automatically continue to the next section');
   node('r1128DelailPause').textContent=copy('Duraklat','Pause');
   node('r1128DelailResume').textContent=copy('Sürdür','Resume');
   node('r1128DelailStop').textContent=copy('Bitir','Finish');
@@ -123,15 +154,20 @@
   const id=selectedId(part),row=ownDescriptor(id);
   if(!row)return{ok:false,reason:'arabic-audio-unavailable'};
   const mine=++request;notice='';
+  cancelContinuation();
   try{
-   const result=await audio()?.play?.({id,content:'arabic',source:'auto'});
-   if(mine===request&&!result?.cancelled){notice=!result||result.ok===false?'unavailable':'';render();}
+   const pending=audio()?.play?.({id,content:'arabic',source:'auto'});
+   // The audio service can synchronously stop a previous section first.
+   if(autoNext&&owns(audio()?.snapshot?.())&&audio().snapshot().id===id)chainId=id;
+   const result=await pending;
+   if(mine===request&&!result?.cancelled){notice=!result||result.ok===false?'unavailable':'';if(notice)cancelContinuation();render();}
+   if(mine===request&&result?.cancelled)cancelContinuation();
    return result||{ok:false,reason:'reader-unavailable'};
-  }catch(_){if(mine===request){notice='unavailable';render();}return{ok:false,reason:'recording-required'};}
+  }catch(_){if(mine===request){cancelContinuation();notice='unavailable';render();}return{ok:false,reason:'recording-required'};}
  }
  function transport(action){
   const state=audio()?.snapshot?.();if(!owns(state))return false;
-  if(action==='stop')request++;
+  if(action==='stop'){request++;cancelContinuation();}
   notice='';const result=audio()?.[action]?.();render();return result;
  }
  function mount(){
@@ -141,10 +177,11 @@
    card=node('r1128DelailRecorded');
    if(!card){
     card=d.createElement('section');card.id='r1128DelailRecorded';card.setAttribute('data-noi18n','');card.setAttribute('aria-labelledby','r1128DelailHeading');
-    card.innerHTML='<h3 id="r1128DelailHeading"></h3><label for="r1128DelailSection" id="r1128DelailLabel"></label><select id="r1128DelailSection"></select><div class="r1128-delail-actions"><button class="btn" type="button" id="r1128DelailPlay"></button><button class="btn" type="button" id="r1128DelailPause" disabled></button><button class="btn" type="button" id="r1128DelailResume" disabled></button><button class="btn" type="button" id="r1128DelailStop" disabled></button></div><p id="r1128DelailStatus" role="status" aria-live="polite"></p><p id="r1128DelailSourceWarning" role="note" hidden></p><p id="r1128DelailScope"></p><details><summary id="r1128DelailRightsTitle"></summary><p id="r1128DelailRights"></p><a id="r1128DelailPermission" target="_blank" rel="noopener noreferrer"></a></details>';
+    card.innerHTML='<h3 id="r1128DelailHeading"></h3><label for="r1128DelailSection" id="r1128DelailLabel"></label><select id="r1128DelailSection"></select><label class="r1150-delail-auto"><input type="checkbox" id="r1150DelailAutoNext"> <span id="r1150DelailAutoLabelText"></span></label><div class="r1128-delail-actions"><button class="btn" type="button" id="r1128DelailPlay"></button><button class="btn" type="button" id="r1128DelailPause" disabled></button><button class="btn" type="button" id="r1128DelailResume" disabled></button><button class="btn" type="button" id="r1128DelailStop" disabled></button></div><p id="r1128DelailStatus" role="status" aria-live="polite"></p><p id="r1128DelailSourceWarning" role="note" hidden></p><p id="r1128DelailScope"></p><details><summary id="r1128DelailRightsTitle"></summary><p id="r1128DelailRights"></p><a id="r1128DelailPermission" target="_blank" rel="noopener noreferrer"></a></details>';
     anchor.after(card);
     const select=node('r1128DelailSection');for(const row of rows){const option=d.createElement('option');option.value=row.ids[0];select.append(option);}
-    select.addEventListener('change',render);
+    select.addEventListener('change',()=>{cancelContinuation();render()});
+    node('r1150DelailAutoNext').addEventListener('change',event=>setAutoNext(event.target.checked));
     node('r1128DelailPermission').href=rows[0].licenseUrl;
     node('r1128DelailPlay').addEventListener('click',()=>{void play(select.value)});
     node('r1128DelailPause').addEventListener('click',()=>transport('pause'));
@@ -153,11 +190,11 @@
    }
    if(!node('r1128DelailRecordedStyle')){
     const style=d.createElement('style');style.id='r1128DelailRecordedStyle';
-    style.textContent='#r1128DelailRecorded{margin:12px 0;padding:12px;border:1px solid var(--line,#7f9a754d);border-radius:12px;background:var(--card,transparent);color:var(--txt,inherit);overflow-wrap:anywhere}#r1128DelailRecorded h3{font-size:.95rem;margin:0 0 10px;line-height:1.5}#r1128DelailRecorded label{display:block;font-size:.8rem;margin-bottom:5px}#r1128DelailRecorded select{box-sizing:border-box;width:100%;max-width:100%;min-height:42px;border-radius:8px;padding:7px;background:var(--bg,#17231c);color:inherit;border:1px solid var(--line,#7f9a7566)}#r1128DelailRecorded .r1128-delail-actions{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0}#r1128DelailRecorded .btn{min-height:40px;white-space:normal}#r1128DelailRecorded p,#r1128DelailRecorded details{font-size:.78rem;line-height:1.6;margin:7px 0}#r1128DelailRecorded #r1128DelailStatus{font-weight:600}#r1128DelailRecorded a{color:inherit;text-decoration:underline}';
+    style.textContent='#r1128DelailRecorded{margin:12px 0;padding:12px;border:1px solid var(--line,#7f9a754d);border-radius:12px;background:var(--card,transparent);color:var(--txt,inherit);overflow-wrap:anywhere}#r1128DelailRecorded h3{font-size:.95rem;margin:0 0 10px;line-height:1.5}#r1128DelailRecorded label{display:block;font-size:.8rem;margin-bottom:5px}#r1128DelailRecorded select{box-sizing:border-box;width:100%;max-width:100%;min-height:42px;border-radius:8px;padding:7px;background:var(--bg,#17231c);color:inherit;border:1px solid var(--line,#7f9a7566)}#r1128DelailRecorded .r1150-delail-auto{display:flex;align-items:center;gap:8px;margin:10px 0 2px;line-height:1.4;cursor:pointer}#r1128DelailRecorded .r1150-delail-auto input{flex:0 0 auto;width:18px;height:18px;accent-color:#a97b38}#r1128DelailRecorded .r1128-delail-actions{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0}#r1128DelailRecorded .btn{min-height:40px;white-space:normal}#r1128DelailRecorded p,#r1128DelailRecorded details{font-size:.78rem;line-height:1.6;margin:7px 0}#r1128DelailRecorded #r1128DelailStatus{font-weight:600}#r1128DelailRecorded a{color:inherit;text-decoration:underline}';
     (d.head||d.documentElement).append(style);
    }
   }
-  const service=audio();if(service&&service!==subscribed){subscribed=service;service.subscribe?.(()=>{notice='';render()});}
+  const service=audio();if(service&&service!==subscribed){subscribed=service;service.subscribe?.(state=>{notice='';observePlayback(state);render()});}
   render();return true;
  }
  function install(){
