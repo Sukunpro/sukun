@@ -87,7 +87,7 @@
     if (status) status.textContent = value;
   }
   function picture() {
-    return '<img class="r1176LockArt" src="./assets/branding/tekke-lock-r1177.webp?v=r1177" alt="" aria-hidden="true" decoding="async">';
+    return '<img class="r1176LockArt" src="./assets/branding/tekke-lock-r1177.webp" alt="" aria-hidden="true" decoding="async">';
   }
   function refresh() {
     const state = session(), active = inBerhet();
