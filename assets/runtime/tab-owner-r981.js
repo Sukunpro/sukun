@@ -326,8 +326,8 @@
     const command=(action,opt={})=>{
       const a=String(action||'').toLowerCase();
       if(maintenanceActive&&a!=='stop')return Promise.resolve(Object.freeze({accepted:false,reason:'data-maintenance',snapshot:api.snapshot()}));
-      if(['pause','stop','select','next','previous','restart'].includes(a))cancelPending('command:'+a);
-      if(['start','play','resume','retry','adjust','restart'].includes(a)&&!held){
+      if(['pause','stop','select','next','previous','restart','restart-journey'].includes(a))cancelPending('command:'+a);
+      if(['start','play','resume','retry','adjust','restart','restart-journey'].includes(a)&&!held){
         return Promise.resolve(run(a,()=>api.command(action,opt),{releaseAfter:a==='adjust'||a==='restart'})).then(value=>value===false?Object.freeze({accepted:false,reason:'cross-tab-held',snapshot:api.snapshot()}):value);
       }
       const result=api.command(action,opt);

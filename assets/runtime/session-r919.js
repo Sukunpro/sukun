@@ -307,7 +307,7 @@
     return read(()=>player?.hasPendingContinuation?.(),false)?player:null;
   }
 
-  function route(action, before, reject = () => false) {
+  function route(action, before, reject = () => false, options = {}) {
     const j = journeys(), active = j.active, choice = active || (!before.smartSession?.terminal ? j.view : null);
     const pc = window.PlaybackController, registry = window.SukunAudioSessionRegistry;
     const direct = window.SukunR698Transport, pendingSmart=pendingSmartContinuation();
@@ -337,6 +337,13 @@
       read(() => window.SukunJourneyAudioMachine?.intent?.('pause', 'local:r919-command'));
       if (active?.api.pause) return active.api.pause();
       return window.SukunDirectZikirTransportR698?.pause?.() ?? false;
+    }
+    if (action === 'restart-journey') {
+      if (!choice || !['28','99'].includes(options.journeyKind) || choice.kind !== options.journeyKind || before.journeyKind !== choice.kind || before.smartSession) return reject('selection-unavailable');
+      if (choice.kind === '28' && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
+      if (window.SukunVoiceSettings?.checkReady?.() === false || before.recordingSource === 'USER_RECORDING_FAILED') return reject('voice-not-ready');
+      if (read(() => registry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent) return reject('global-pause');
+      return choice.api.restartAll?.() ?? reject('selection-unavailable');
     }
     if (action === 'play' || action === 'start' || action === 'resume') {
       if (window.SukunVoiceSettings?.checkReady?.() === false) return reject('voice-not-ready');
@@ -457,7 +464,7 @@
 
   function command(action, options = {}) {
     action = clean(action).toLowerCase();
-    if (!['start', 'play', 'pause', 'resume', 'stop', 'next', 'previous', 'restart', 'retry', 'select', 'adjust'].includes(action))
+    if (!['start', 'play', 'pause', 'resume', 'stop', 'next', 'previous', 'restart', 'restart-journey', 'retry', 'select', 'adjust'].includes(action))
       return Promise.resolve({ accepted: false, reason: 'unsupported-action', snapshot: snapshot() });
     const before = snapshot();
     if (options.epoch != null && Number(options.epoch) !== epoch) {
@@ -473,15 +480,15 @@
       settleCommandDiagnostic(diagnostic,value===true,false);
       return Promise.resolve(freeze({accepted:value===true,epoch,requestId,snapshot:refresh('manual-correction')}));
     }
-    const isStart = ['start', 'play', 'resume', 'retry'].includes(action);
-    if (isStart && pendingStart?.epoch === epoch) return pendingStart.promise;
+    const isStart = ['start', 'play', 'resume', 'retry', 'restart-journey'].includes(action);
+    if (isStart && action !== 'restart-journey' && pendingStart?.epoch === epoch) return pendingStart.promise;
     // Pause supersedes a queued Start. An immediate Resume must get a fresh
     // request, while both requests still wait for the native stop barrier.
     if (action === 'pause' && pendingStart) {
       pendingStart = null;
       read(() => window.SukunR698Transport?.cancelPending?.('r973-pause-pending-start'));
     }
-    if (action === 'stop' || action === 'next' || action === 'previous' || action === 'restart' || action === 'select') {
+    if (action === 'stop' || action === 'next' || action === 'previous' || action === 'restart' || action === 'restart-journey' || action === 'select') {
       epoch++; pendingStart = null; completion = null;
     }
     const id = ++requestId, token = epoch;
@@ -515,9 +522,9 @@
           if (ok === false) return reject('stop-not-complete');
           if (read(() => window.SukunAudioSessionRegistry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused) return reject('global-pause');
           if (window.AudioLife?._terminalIntent) return reject('superseded-command');
-          return route(action, before, reject);
+          return route(action, before, reject, options);
         }) : reject('stop-wait-unavailable');
-      } else result = action === 'select' ? select(options, token, id, reject) : route(action, before, reject);
+      } else result = action === 'select' ? select(options, token, id, reject) : route(action, before, reject, options);
     }
     catch (error) { result = Promise.reject(error); }
     const promise = Promise.resolve(result).then(value => {
