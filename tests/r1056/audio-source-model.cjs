@@ -30,7 +30,7 @@ const results=[];async function test(name,work){try{await work();results.push({n
  for(const phase of ['PLAYING','PAUSED','INTERRUPTED'])for(const origin of ['personal','generic'])await test(`${phase} accepted native ${origin} wins stale opposite badge and keeps historic playback enum`,()=>{
   const f=fixture({native:true,nativeOrigin:origin,origin:origin==='personal'?'generic':'personal',label:origin==='personal'?'GENERIC VOICE ARCHIVE':'KENDİ KAYIT',phase});
   const s=f.snapshot();assert.equal(s.audioSource,'USER_RECORDING');assert.equal(s.recordingSource,'USER_RECORDING');assert.equal(s.sourceOrigin,origin);assert.equal(s.recordingOrigin,origin);
-  assert.equal(s.sourceMetadata.provenance,'native-single');assert(Object.isFrozen(s.sourceMetadata));assert.equal(f.text.label(s,'tr'),origin==='personal'?'Kendi kaydın':'Jenerik kayıt');assert.equal(f.text.label(s,'en'),origin==='personal'?'Your recording':'Generic recording');
+  assert.equal(s.sourceMetadata.provenance,'native-single');assert(Object.isFrozen(s.sourceMetadata));assert.equal(f.text.label(s,'tr'),origin==='personal'?'Kendi kaydın':'Hazır kayıt');assert.equal(f.text.label(s,'en'),origin==='personal'?'Your recording':'Generic recording');
   assert.equal(s.count,33);assert.equal(f.z.count,33);assert.equal(f.commands.length,0);
  });
  for(const origin of ['personal','generic'])await test(`resolver ${origin} metadata has priority over a misleading translated label`,()=>{
@@ -49,27 +49,27 @@ const results=[];async function test(name,work){try{await work();results.push({n
   const f=fixture({kind:'silent',origin:'generic',label:'Jenerik kayıt',phase:'IDLE'}),s=f.snapshot();assert.equal(s.audioSource,'SILENCE');assert.equal(s.sourceOrigin,'none');assert.equal(s.recordingOrigin,null);assert.equal(f.text.label(s,'tr'),'Ses kapalı');assert.equal(f.commands.length,0);
  });
  await test('between-word idle badge retains accepted generic origin within the same session',()=>{
-  const f=fixture({origin:'generic',label:'Genel ses arşivi'});const before=f.snapshot();f.resolver.kind='idle';f.resolver.label='HAZIR';f.resolver.recordingOrigin=null;const after=f.snapshot();assert.equal(after.audioSource,'USER_RECORDING');assert.equal(after.sourceOrigin,'generic');assert.equal(after.sourceMetadata.provenance,'retained');assert.equal(after.epoch,before.epoch);assert.equal(f.text.label(after,'tr'),'Jenerik kayıt');
+  const f=fixture({origin:'generic',label:'Genel ses arşivi'});const before=f.snapshot();f.resolver.kind='idle';f.resolver.label='HAZIR';f.resolver.recordingOrigin=null;const after=f.snapshot();assert.equal(after.audioSource,'USER_RECORDING');assert.equal(after.sourceOrigin,'generic');assert.equal(after.sourceMetadata.provenance,'retained');assert.equal(after.epoch,before.epoch);assert.equal(f.text.label(after,'tr'),'Hazır kayıt');
  });
  await test('name change fences between-word retained source metadata',()=>{
   const f=fixture({origin:'generic'});const before=f.snapshot();f.z.idx=1;f.z.name='Yâ Rahîm';f.resolver.kind='idle';f.resolver.recordingOrigin=null;f.resolver.label='HAZIR';const after=f.snapshot();assert(after.epoch>before.epoch);assert.equal(after.sourceOrigin,'none');assert.equal(after.recordingOrigin,null);assert.equal(f.commands.length,0);
  });
  for(const origin of ['personal','generic'])await test(`${origin} recording failure label stays specific without starting a fallback`,()=>{
-  const f=fixture({kind:'error',origin,label:origin==='personal'?'KENDİ KAYIT AÇILAMADI':'GENEL SES ARŞİVİ AÇILAMADI'});f.c.SukunRecordingFailure={get:()=>({active:true,cat:'esma',index:0,key:'esma:0:nida',message:'Controlled failure'})};const s=f.snapshot();assert.equal(s.phase,'ERROR');assert.equal(s.sourceOrigin,origin);assert.equal(f.text.label(s,'tr'),origin==='personal'?'Kendi kaydın açılamadı':'Jenerik kayıt açılamadı');assert.equal(f.commands.length,0);assert.equal(s.count,33);
+  const f=fixture({kind:'error',origin,label:origin==='personal'?'KENDİ KAYIT AÇILAMADI':'GENEL SES ARŞİVİ AÇILAMADI'});f.c.SukunRecordingFailure={get:()=>({active:true,cat:'esma',index:0,key:'esma:0:nida',message:'Controlled failure'})};const s=f.snapshot();assert.equal(s.phase,'ERROR');assert.equal(s.sourceOrigin,origin);assert.equal(f.text.label(s,'tr'),origin==='personal'?'Kendi kaydın açılamadı':'Hazır kayıt açılamadı');assert.equal(f.commands.length,0);assert.equal(s.count,33);
  });
  await test('unknown source failure is not attributed to a personal recording',()=>{
   const f=fixture({kind:'error',label:'Ses hatası'}),s=f.snapshot();assert.equal(s.sourceOrigin,'error');assert.equal(s.recordingOrigin,null);assert.equal(f.text.label(s,'en'),'Audio is unavailable');
  });
  for(const origin of [null,'personal','generic','device'])await test(`preparation label is truthful for ${origin||'unknown'} source`,()=>{
   const f=fixture();const s={audioSource:origin===null?'PREPARING':origin==='device'?'TTS':'USER_RECORDING',recordingOrigin:origin,phase:'PREPARING'};
-  assert.equal(f.text.label(s,'tr'),origin==='personal'?'Kendi kaydın hazırlanıyor':origin==='generic'?'Jenerik kayıt hazırlanıyor':origin==='device'?'Cihaz sesi hazırlanıyor':'Ses hazırlanıyor');
+  assert.equal(f.text.label(s,'tr'),origin==='personal'?'Kendi kaydın hazırlanıyor':origin==='generic'?'Hazır kayıt hazırlanıyor':origin==='device'?'Cihaz sesi hazırlanıyor':'Ses hazırlanıyor');
   assert(f.text.label(s,'en').startsWith('Preparing'));assert.equal(f.commands.length,0);
  });
  await test('shared TR and EN chain keeps optional archive between personal and device audio',()=>{
-  const f=fixture();assert.equal(f.text.chain('tr'),'Kendi kaydın → etkin jenerik arşiv → cihaz sesi');assert.equal(f.text.chain('en'),'Your recording → enabled generic archive → device voice');assert(f.text.modeNote('auto','tr').includes('etkin jenerik'));assert(f.text.modeNote('auto','en').includes('enabled generic'));
+  const f=fixture();assert.equal(f.text.chain('tr'),'Kendi kaydın → etkin hazır kayıt → cihaz sesi');assert.equal(f.text.chain('en'),'Your recording → enabled generic archive → device voice');assert(f.text.modeNote('auto','tr').includes('etkin hazır'));assert(f.text.modeNote('auto','en').includes('enabled generic'));
  });
  await test('shared labels refresh language without playback/count/storage changes',()=>{
-  const f=fixture({origin:'generic'}),before=f.snapshot();assert.equal(f.text.label(before),'Jenerik kayıt');f.c.I18N.lang='en';const after=f.snapshot();assert.equal(f.text.label(after),'Generic recording');assert.equal(after.epoch,before.epoch);assert.equal(after.count,before.count);assert.equal(f.commands.length,0);
+  const f=fixture({origin:'generic'}),before=f.snapshot();assert.equal(f.text.label(before),'Hazır kayıt');f.c.I18N.lang='en';const after=f.snapshot();assert.equal(f.text.label(after),'Generic recording');assert.equal(after.epoch,before.epoch);assert.equal(after.count,before.count);assert.equal(f.commands.length,0);
  });
  for(const [kind,expected]of [['local-recording','Local recording'],['reader-recording','Recorded reader']])await test(`legacy ${kind} retains its separate human label`,()=>{
   const f=fixture({kind,label:'External reader'}),s=f.snapshot();assert.equal(s.sourceOrigin,'other');assert.equal(f.text.label(s,'en'),expected);

@@ -21,7 +21,7 @@
       // wins over a stale resolver label or a differently translated reason.
       const recorded = /RECORD|LOCAL|FILE|SAMPLE|READER/.test(kind);
       const failure = /ERROR|FAIL/.test(kind);
-      const generic = value.generic === true || /jenerik|generic|genel ses arşivi|general voice archive/i.test(clean(value.sourceLabel || value.label) + ' ' + clean(value.reason));
+      const generic = value.generic === true || /jenerik|generic|hazır kayıt|genel ses arşivi|general voice archive/i.test(clean(value.sourceLabel || value.label) + ' ' + clean(value.reason));
       if (recorded || failure) {
         if (generic) return 'generic';
         if (failure) return /kendi kay|your recording|own recording/i.test(clean(value.sourceLabel || value.label)) ? 'personal' : 'error';
@@ -34,11 +34,11 @@
       const english = language(lang) === 'en', from = origin(value);
       const failed = /ERROR|FAIL/.test(kinds(value.audioSource || value.kind)) || value.phase === 'ERROR';
       if (!failed && (value.phase === 'PREPARING' || kinds(value.audioSource || value.kind) === 'PREPARING')) {
-        const preparing = {bundled:['Gömülü Arapça kayıt hazırlanıyor','Preparing bundled Arabic recording'],personal:['Kendi kaydın hazırlanıyor','Preparing your recording'],generic:['Jenerik kayıt hazırlanıyor','Preparing generic recording'],device:['Cihaz sesi hazırlanıyor','Preparing device voice'],none:['Ses hazırlanıyor','Preparing audio'],error:['Ses hazırlanıyor','Preparing audio'],other:['Ses hazırlanıyor','Preparing audio']};
+        const preparing = {bundled:['Gömülü Arapça kayıt hazırlanıyor','Preparing bundled Arabic recording'],personal:['Kendi kaydın hazırlanıyor','Preparing your recording'],generic:['Hazır kayıt hazırlanıyor','Preparing generic recording'],device:['Cihaz sesi hazırlanıyor','Preparing device voice'],none:['Ses hazırlanıyor','Preparing audio'],error:['Ses hazırlanıyor','Preparing audio'],other:['Ses hazırlanıyor','Preparing audio']};
         return preparing[from][english ? 1 : 0];
       }
-      const labels = failed ? {bundled:['Gömülü Arapça kayıt açılamadı','Bundled Arabic recording is unavailable'],personal:['Kendi kaydın açılamadı','Your recording is unavailable'],generic:['Jenerik kayıt açılamadı','Generic recording is unavailable'],device:['Cihaz sesi açılamadı','Device voice is unavailable'],none:['Ses açılamadı','Audio is unavailable'],error:['Ses açılamadı','Audio is unavailable'],other:['Ses açılamadı','Audio is unavailable']} :
-        {bundled:['Gömülü Arapça kayıt','Bundled Arabic recording'],personal:['Kendi kaydın','Your recording'],generic:['Jenerik kayıt','Generic recording'],device:['Cihaz sesi','Device voice'],none:['Ses kapalı','Audio off'],error:['Ses açılamadı','Audio is unavailable'],other:['Diğer ses','Other audio']};
+      const labels = failed ? {bundled:['Gömülü Arapça kayıt açılamadı','Bundled Arabic recording is unavailable'],personal:['Kendi kaydın açılamadı','Your recording is unavailable'],generic:['Hazır kayıt açılamadı','Generic recording is unavailable'],device:['Cihaz sesi açılamadı','Device voice is unavailable'],none:['Ses açılamadı','Audio is unavailable'],error:['Ses açılamadı','Audio is unavailable'],other:['Ses açılamadı','Audio is unavailable']} :
+        {bundled:['Gömülü Arapça kayıt','Bundled Arabic recording'],personal:['Kendi kaydın','Your recording'],generic:['Hazır kayıt','Generic recording'],device:['Cihaz sesi','Device voice'],none:['Ses kapalı','Audio off'],error:['Ses açılamadı','Audio is unavailable'],other:['Diğer ses','Other audio']};
       if (!failed && from === 'other') {
         const kind = kinds(value.audioSource || value.kind);
         if (/READER/.test(kind)) return english ? 'Recorded reader' : 'Kayıtlı okuyucu';
@@ -46,16 +46,16 @@
       }
       return labels[from][english ? 1 : 0];
     }
-    const chain = lang => language(lang) === 'en' ? 'Your recording → enabled generic archive → device voice' : 'Kendi kaydın → etkin jenerik arşiv → cihaz sesi';
+    const chain = lang => language(lang) === 'en' ? 'Your recording → enabled generic archive → device voice' : 'Kendi kaydın → etkin hazır kayıt → cihaz sesi';
     function modeNote(mode = 'auto', lang) {
       const english = language(lang) === 'en';
       const meaning = window.SukunVoiceSettings?.getContent?.() === 'meaning';
       if (mode === 'personal') return english ? 'Only your recording for the selected content is used. Missing or unclassified audio is reported; another source is not substituted.' : 'Yalnız seçilen içeriğe ait kendi kaydın kullanılır. Eksik veya içeriği belirsiz ses belirtilir; başka kaynak kendiliğinden çalmaz.';
-      if (mode === 'generic') return english ? 'Only a matching enabled generic recording is used. Your recordings and device voices are not substituted.' : 'Yalnız eşleşen etkin jenerik kayıt kullanılır. Kendi kayıtların veya cihaz sesi kendiliğinden onun yerine çalmaz.';
+      if (mode === 'generic') return english ? 'Only a matching enabled generic recording is used. Your recordings and device voices are not substituted.' : 'Yalnız eşleşen etkin hazır kayıt kullanılır. Kendi kayıtların veya cihaz sesi kendiliğinden onun yerine çalmaz.';
       if (mode === 'arabic') return english ? 'Arabic text is read with your selected Arabic device voice.' : 'Arapça metin, seçtiğin Arapça cihaz sesiyle okunur.';
       if (mode === 'turkish' && meaning) return english ? 'The Turkish meaning is read with your selected Turkish device voice.' : 'Türkçe anlam, seçtiğin Türkçe cihaz sesiyle okunur.';
       if (mode === 'turkish') return english ? 'The Turkish recitation is read with your selected Turkish device voice.' : 'Türkçe okunuş, seçtiğin Türkçe cihaz sesiyle okunur.';
-      return english ? 'Your recording plays first. Otherwise an enabled generic recording is used, then a suitable device voice.' : 'Kendi kaydın varsa önce o çalar; yoksa etkin jenerik kayıt, o da yoksa uygun cihaz sesi kullanılır.';
+      return english ? 'Your recording plays first. Otherwise an enabled generic recording is used, then a suitable device voice.' : 'Kendi kaydın varsa önce o çalar; yoksa etkin hazır kayıt, o da yoksa uygun cihaz sesi kullanılır.';
     }
     function explanation(value = {}, lang) {
       const english = language(lang) === 'en', from = origin(value);
