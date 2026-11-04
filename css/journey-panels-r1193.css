@@ -1,0 +1,9 @@
+/* Separate from the intentionally hidden legacy transport rows. */
+html body :is(#berhetSeyir,#esmaSeyir99)>.r1193JourneyActions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0;min-width:0;width:100%;box-sizing:border-box}
+html body :is(#berhetSeyir,#esmaSeyir99)>.r1193JourneyActions>button{display:flex!important;align-items:center;justify-content:center;min-width:0;min-height:48px;height:auto;padding:12px 10px;border:1px solid #bba66f;border-radius:13px;background:linear-gradient(145deg,#17443d,#0c262e);color:#fff3d5;font:600 13px/1.4 system-ui,sans-serif;white-space:normal;overflow-wrap:anywhere;text-align:center;cursor:pointer;box-sizing:border-box}
+html body :is(#berhetSeyir,#esmaSeyir99)>.r1193JourneyActions>[data-journey-action="resume"]{grid-column:1/-1;background:linear-gradient(130deg,#166b5b,#164054)}
+html body :is(#berhetSeyir,#esmaSeyir99)>.r1193JourneyActions>[data-journey-action="stop"]{background:linear-gradient(130deg,#5c2935,#34222f)}
+html body :is(#berhetSeyir,#esmaSeyir99) .r1193ResumeTag{cursor:pointer;min-height:44px}
+html body :is(#berhetSeyir,#esmaSeyir99) :is(.r1193JourneyActions>button,.r1193ResumeTag):disabled{opacity:.6;cursor:default}
+html body :is(#berhetSeyir,#esmaSeyir99) :is(.r1193JourneyActions>button,.r1193ResumeTag):focus-visible{outline:2px solid #ffe39c;outline-offset:3px}
+@media(max-width:360px){html body :is(#berhetSeyir,#esmaSeyir99)>.r1193JourneyActions{grid-template-columns:1fr}}

@@ -349,7 +349,7 @@
       if (window.SukunVoiceSettings?.checkReady?.() === false) return reject('voice-not-ready');
       if (before.playing || before.preparing) return true;
       if (before.recordingSource === 'USER_RECORDING_FAILED') return reject('recording-unavailable');
-      if (choice && !before.smartSession?.terminal && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
+      if (choice?.kind === '28' && !before.smartSession?.terminal && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
       // This command is an explicit Start/Resume. Release its matching pause
       // intent before entering the provider; lifecycle recovery never uses it.
       // A global Pause remains authoritative. Local Resume never replays its
@@ -362,7 +362,7 @@
       if (direct?.resumeDhikr && !before.presentationOnly) return direct.resumeDhikr('r919-command');
       read(() => window.SukunJourneyAudioMachine?.intent?.('play', 'local:r919-command'));
       if (choice) {
-        if (!read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
+        if (choice.kind === '28' && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
         return choice.state.paused ? choice.api.resume({ system: false, reason: 'r919-command' }) : choice.api.play();
       }
       if (direct?.playPause && read(() => !!ZIKIR[before.activeMode]?.items, false)) return direct.playPause('r919-command');
@@ -377,7 +377,7 @@
     }
     if(action==='restart'&&before.smartSession?.terminal)return route('play',before,reject);
     if (choice) {
-      if (!read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
+      if (choice.kind === '28' && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
       if (action === 'next') return choice.api.next();
       if (action === 'previous') return choice.api.previous();
       if (action === 'restart') return choice.api.jumpTo(Math.max(0, number(choice.state.i)));
@@ -413,7 +413,7 @@
   async function select(options, token, commandId, reject = () => false) {
     const mode = clean(options.mode), kind = clean(options.journeyKind || 'single');
     if (!read(() => !!ZIKIR[mode]?.items, false) || !['single', '99', '28'].includes(kind)) return reject('selection-unavailable');
-    if ((mode === 'berhet' || kind !== 'single') && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
+    if (mode === 'berhet' && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
     if (kind === '28' && mode !== 'berhet' || kind === '99' && mode !== 'esma') return reject('selection-unavailable');
     const index = options.index == null ? null : Number(options.index), max = read(() => ZIKIR[mode].items.length, 0);
     if (index != null && (!Number.isInteger(index) || index < 0 || index >= max)) return reject('selection-unavailable');

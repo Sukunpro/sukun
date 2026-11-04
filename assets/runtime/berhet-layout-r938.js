@@ -76,7 +76,7 @@ function build(root){
  const hint=$('r968ManualHint');if(hint)hiddenStates.set(hint,hint.hidden);move(hint,quick);
  focusToggle=document.createElement('button');focusToggle.id='r1056FocusControlsToggle';focusToggle.type='button';focusToggle.setAttribute('aria-controls','r1056PrimaryControls r1056FinishRow r1056ReadingSummary r968ManualHint');quick.append(focusToggle,toggle,body);
  // Keep restart visible while the settings panel is closed.
- const restartAll=$('r920JourneyRestartAll');if(restartAll){move(restartAll,quick);quick.insertBefore(restartAll,toggle)}
+ const restartAll=$('r920JourneyRestartAll');if(restartAll){move(restartAll,quick);quick.insertBefore(restartAll,focusToggle)}
  for(const node of [shortcuts,picker])move(node,body);
  primary=document.createElement('div');primary.id='r968PrimaryActions';body.append(primary);
  const nav=root.querySelector('.r920Transport');move(nav,body);body.insertBefore(nav,primary);
