@@ -1,0 +1,21 @@
+'use strict';
+const vm=require('vm'),fs=require('fs'),assert=require('assert');
+const source=fs.readFileSync('index.html','utf8').match(/<script id="sukun-r1210-mini-door-audio">([\s\S]*?)<\/script>/)[1];
+(async()=>{
+ let dl={},wl={},setting={},locked=true,rec=false,speaking=false,calls=[];
+ const doc={hidden:false,addEventListener:(n,f)=>{(dl[n]??=[]).push(f)}};
+ const win={addEventListener:(n,f)=>{(wl[n]??=[]).push(f)},SukunBerhetGateAccess:{isUnlocked:()=>!locked},SukunSilenceSession:{snapshot:()=>({recording:rec})},SukunSessionState:{snapshot:()=>({playing:speaking})},createSukunPortalAudio:()=>{const a={setVolume:v=>calls.push(['volume',v]),setMix:v=>calls.push(['mix',v]),enableFromGesture:()=>Promise.resolve(true),play:n=>calls.push(['play',n]),stop:()=>calls.push(['stop']),destroy:()=>calls.push(['destroy'])};calls.push(['new']);return a}};
+ const timers=new Map();let id=0;const context={window:win,document:doc,localStorage:{getItem:()=>JSON.stringify(setting)},setTimeout:f=>(timers.set(++id,f),id),clearTimeout:n=>timers.delete(n),Promise};
+ vm.runInNewContext(source,context);const tap=(trusted=true)=>dl.click[0]({isTrusted:trusted,target:{closest:s=>s==='#sbgAudioToggle'?null:({disabled:false})}});const tick=async()=>{await Promise.resolve();await Promise.resolve()};
+ tap();dl['sukun:berhet-gate-state'][0]({detail:{phase:'closed'}});await tick();assert(calls.some(c=>c[0]==='play'&&c[1]==='knock'));
+ calls=[];tap();dl['sukun:berhet-gate-state'][0]({detail:{phase:'knocking'}});await tick();assert(!calls.some(c=>c[0]==='play'));
+ calls=[];tap();dl['sukun:berhet-gate-state'][0]({detail:{phase:'setup'}});await tick();assert(calls.some(c=>c[0]==='play'&&c[1]==='knock'));
+ dl['sukun:berhet-gate-state'][0]({detail:{phase:'opening'}});assert(calls.some(c=>c[0]==='destroy'));
+ calls=[];setting={effects:false};tap();await tick();assert(!calls.some(c=>c[0]==='new'));
+ calls=[];setting={effects:true,volume:0};tap();await tick();assert(!calls.some(c=>c[0]==='new'));
+ calls=[];setting={};locked=false;tap();await tick();assert(!calls.some(c=>c[0]==='new'));
+ calls=[];locked=true;rec=true;tap();await tick();assert(!calls.some(c=>c[0]==='new'));
+ calls=[];rec=false;speaking=true;tap();await tick();assert(calls.some(c=>c[0]==='mix'&&c[1]===.32));
+ calls=[];tap(false);await tick();assert.equal(calls.length,0);
+ console.log('PASS: trusted tap; silent, zero volume, lock, recording, busy audio, competing portal cue');
+})().catch(e=>{console.error(e);process.exit(1)});

@@ -9,7 +9,8 @@
   const english = () => read(() => window.I18N.lang, document.documentElement.lang) === 'en';
   const access = () => window.SukunBerhetGateAccess;
   const session = () => read(() => window.SukunSessionState.snapshot(), {});
-  const inBerhet = () => session().activeMode === 'berhet' && read(() => access()?.isUnlocked?.(), false) === true;
+  const isUnlocked = () => read(() => access()?.isUnlocked?.(), false) === true;
+  const inBerhet = () => session().activeMode === 'berhet' && isUnlocked();
   const microphoneBusy = () => !!read(() => window.SukunSilenceSession.snapshot().recording, false) ||
     !!read(() => window.SukunPhysicalRecordingBusyR696(), false);
   function soundSettings() {
@@ -90,12 +91,15 @@
     return '<img class="r1176LockArt" src="./assets/branding/tekke-lock-r1177.webp" alt="" aria-hidden="true" decoding="async">';
   }
   function refresh() {
-    const state = session(), active = inBerhet();
+    const state = session(), active = isUnlocked();
     if (!locking && !awaitingEntry && state.activeMode === 'esma' && Number.isInteger(state.activeIndex)) lastEsmaIndex = state.activeIndex;
     document.querySelectorAll('[data-mevlevi-lock]').forEach(button => {
       button.dataset.lockMode = active ? 'berhet' : 'mevlevi';
       button.setAttribute('aria-pressed', String(active)); button.disabled = locking;
       button.setAttribute('aria-busy', String(locking));
+      const image = button.querySelector('.r1176LockArt');
+      const imageSrc = active ? './assets/branding/tekke-lock-open-r1210.png' : './assets/branding/tekke-lock-r1177.webp';
+      if (image && image.getAttribute('src') !== imageSrc) image.setAttribute('src', imageSrc);
       const name = english() ? 'Secret' : 'Sır';
       const action = active ? (english() ? 'Lock' : 'Sırla') : (english() ? 'Open' : 'Aç');
       button.querySelector('[data-lock-title]').textContent = name;
@@ -173,7 +177,7 @@
       return;
     }
     prepareSound();
-    if (!inBerhet()) {
+    if (!isUnlocked()) {
       const gate = window.SukunBerhetGate;
       if (!gate || typeof gate.open !== 'function') { stopSound(); announce('Geçiş henüz hazır değil. Lütfen yeniden dene.', 'The gate is not ready. Please try again.', grid); return; }
       awaitingEntry = true;
@@ -184,7 +188,7 @@
     locking = true; refresh();
     const root = document.getElementById('tk'), priorInert = root?.inert;
     if (root) root.inert = true;
-    const destination = lastEsmaIndex;
+    const destination = lastEsmaIndex, priorMode = session().activeMode;
     const controller = new AbortController(); lockAborter = controller;
     const timeout = setTimeout(() => controller.abort(), 15000);
     try {
@@ -198,10 +202,14 @@
       clearTimeout(timeout);
       if (closed === false || closed?.ok === false) throw new Error('lock-incomplete');
       if (access().isUnlocked()) throw new Error('lock-incomplete');
-      const options = {mode:'esma', journeyKind:'single'};
-      if (Number.isInteger(destination) && destination >= 0 && destination < 99) options.index = destination;
-      const result = await window.SukunSessionState.command('select', options);
-      if (result === false || result?.accepted === false || session().activeMode === 'berhet') throw new Error('selection-incomplete');
+      // A previously selected Esma session must keep its active mode and count.
+      // Switching to Esma is needed only when leaving a Berhetiyye session.
+      if (priorMode === 'berhet') {
+        const options = {mode:'esma', journeyKind:'single'};
+        if (Number.isInteger(destination) && destination >= 0 && destination < 99) options.index = destination;
+        const result = await window.SukunSessionState.command('select', options);
+        if (result === false || result?.accepted === false || session().activeMode === 'berhet') throw new Error('selection-incomplete');
+      }
       if (!rebindIdleTekke()) throw new Error('tekke-rebind-incomplete');
       cue('lock');
       announce('Berhetiyye kilitlendi. Mevleviye açık.', 'Berhetiyye locked. Mevleviye is open.', grid);
