@@ -1,19 +1,27 @@
 {
-  "build": "r1195",
+  "build": "r1197",
   "method": "Complete local release bytes: identity, exact SHA-256 and sizes, HTML SRI, shipped JavaScript syntax, and scoped active external CSS resource validation. Unresolved CSS variables remain explicit; these are static assertions, not device/audio checks.",
-  "passed": 1799,
-  "total": 1799,
+  "passed": 1803,
+  "total": 1803,
   "inlineScriptsParsed": 346,
   "externalScriptsParsed": 77,
-  "runtimeEntries": 174,
-  "siteFiles": 857,
-  "siteBytes": 449200977,
-  "sriEntries": 152,
+  "runtimeEntries": 175,
+  "siteFiles": 858,
+  "siteBytes": 449207117,
+  "sriEntries": 153,
   "cssAssets": {
     "schema": 1,
     "scope": "Active external CSS and recursive local imports; no inline/generated CSS, computed cascade, remote retrieval or rendering.",
     "errors": [],
     "unresolved": [
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/berhet-controls-hd-r1197.css",
+        "line": 7,
+        "property": "border-image",
+        "variable": "--r1133-gem",
+        "chain": []
+      },
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/neon-controls-r1176.css",
@@ -561,7 +569,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "assets/runtime/berhet-layout-r938.css",
-        "line": 290,
+        "line": 294,
         "property": "border-image",
         "variable": "--r933-summary-art",
         "chain": []
@@ -569,7 +577,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "assets/runtime/berhet-layout-r938.css",
-        "line": 291,
+        "line": 295,
         "property": "background",
         "variable": "--r933-summary-face",
         "chain": []
@@ -577,7 +585,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "assets/runtime/berhet-layout-r938.css",
-        "line": 363,
+        "line": 367,
         "property": "background",
         "variable": "--r933-control-art",
         "chain": []
@@ -585,7 +593,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "assets/runtime/berhet-layout-r938.css",
-        "line": 363,
+        "line": 367,
         "property": "background",
         "variable": "--r933-control-dark",
         "chain": []
@@ -1336,6 +1344,7 @@
       }
     ],
     "files": [
+      "css/berhet-controls-hd-r1197.css",
       "css/neon-controls-r1176.css",
       "css/mevlevi-lock-r1176.css",
       "css/berhet-hero-r1149.css",
@@ -1410,6 +1419,22 @@
       "css/saver-info-r1193.css"
     ],
     "references": [
+      {
+        "source": "css/berhet-controls-hd-r1197.css",
+        "url": "../assets/berhetiyye-premium/gem-sapphire-r933.webp",
+        "target": "assets/berhetiyye-premium/gem-sapphire-r933.webp",
+        "line": 20,
+        "property": "border-image",
+        "chain": []
+      },
+      {
+        "source": "css/berhet-controls-hd-r1197.css",
+        "url": "../assets/berhetiyye-premium/gem-diamond-r933.webp",
+        "target": "assets/berhetiyye-premium/gem-diamond-r933.webp",
+        "line": 23,
+        "property": "border-image",
+        "chain": []
+      },
       {
         "source": "css/berhet-hero-r1149.css",
         "url": "../assets/berhetiyye-premium/r1133/gem-ruby.webp",
@@ -1690,7 +1715,7 @@
         "source": "assets/runtime/berhet-layout-r938.css",
         "url": "../berhetiyye-premium/gem-amethyst-r933.webp",
         "target": "assets/berhetiyye-premium/gem-amethyst-r933.webp",
-        "line": 106,
+        "line": 110,
         "property": "background",
         "chain": [
           "--r933-gem-amethyst"
@@ -1700,7 +1725,7 @@
         "source": "assets/runtime/berhet-layout-r938.css",
         "url": "../berhetiyye-premium/panel-emerald-r932.webp",
         "target": "assets/berhetiyye-premium/panel-emerald-r932.webp",
-        "line": 193,
+        "line": 197,
         "property": "border-image",
         "chain": [
           "--r933-panel-frame"
@@ -1710,7 +1735,7 @@
         "source": "assets/runtime/berhet-layout-r938.css",
         "url": "../berhetiyye-premium/gem-sapphire-r933.webp",
         "target": "assets/berhetiyye-premium/gem-sapphire-r933.webp",
-        "line": 201,
+        "line": 205,
         "property": "border-image",
         "chain": [
           "--r933-gem-sapphire"
@@ -1720,7 +1745,7 @@
         "source": "assets/runtime/berhet-layout-r938.css",
         "url": "../berhetiyye-premium/gem-emerald-r932.webp",
         "target": "assets/berhetiyye-premium/gem-emerald-r932.webp",
-        "line": 204,
+        "line": 208,
         "property": "border-image-source",
         "chain": [
           "--r933-gem-emerald"
@@ -1730,7 +1755,7 @@
         "source": "assets/runtime/berhet-layout-r938.css",
         "url": "../berhetiyye-premium/panel-emerald-r932.webp",
         "target": "assets/berhetiyye-premium/panel-emerald-r932.webp",
-        "line": 222,
+        "line": 226,
         "property": "border-image",
         "chain": [
           "--r933-panel-frame"
@@ -2407,12 +2432,12 @@
       "empty": 0
     },
     "stats": {
-      "files": 72,
-      "bytes": 615519,
-      "declarations": 12290,
+      "files": 73,
+      "bytes": 618464,
+      "declarations": 12327,
       "customProperties": 96,
-      "checkedReferences": 107,
-      "valueExpansions": 1531
+      "checkedReferences": 109,
+      "valueExpansions": 1537
     }
   },
   "checks": [
@@ -3162,6 +3187,10 @@
     },
     {
       "name": "Runtime SHA-256 assets/runtime/saver-info-r1193.js",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/berhet-controls-hd-r1197.css",
       "passed": true
     },
     {
@@ -4858,6 +4887,10 @@
     },
     {
       "name": "Runtime JavaScript parses assets/runtime/saver-info-r1193.js",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/berhet-controls-hd-r1197.css",
       "passed": true
     },
     {
@@ -8525,6 +8558,10 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size css/berhet-controls-hd-r1197.css",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size css/berhet-controls-r1101.css",
       "passed": true
     },
@@ -8873,7 +8910,7 @@
       "passed": true
     },
     {
-      "name": "Site file hash and size sukun-build-r1195.json",
+      "name": "Site file hash and size sukun-build-r1197.json",
       "passed": true
     },
     {
@@ -9598,6 +9635,10 @@
     },
     {
       "name": "Runtime is in site inventory assets/runtime/saver-info-r1193.js",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/berhet-controls-hd-r1197.css",
       "passed": true
     },
     {

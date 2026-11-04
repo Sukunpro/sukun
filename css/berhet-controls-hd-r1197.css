@@ -1,0 +1,45 @@
+/* r1197: use the horizontal 2170px gemstone masters at their intended
+   nine-slice proportions. Keep native sizes, click owners and hidden states. */
+@layer sukun-r1197-control-detail {
+ @media (forced-colors:none) {
+  html[data-r1074-theme="berhet"] body :is(#r920JourneyRestartAll,#bsRestartAll,#r1193Journey28restart,#r883JourneyRemote [data-act="restartAll"]) {
+   --r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
+   border:1px solid transparent!important;
+   border-image:var(--r1133-gem) 210 540 fill / 14px 36px / 0 stretch!important;
+   background:none!important;box-shadow:none!important;filter:none!important;
+   padding:15px 38px!important;line-height:1.4!important;
+   text-shadow:0 1px 1px #000!important;image-rendering:auto!important;
+  }
+  html[data-r1074-theme="berhet"] body :is(#r1056FocusControlsToggle,#r938PanelToggle,#r1064CurrentReadingOpen,#r1082SessionEntry,#r1056ReadingSource) {
+   border-image-slice:210 540 fill!important;
+   border-image-width:13px 33px!important;border-image-repeat:stretch!important;
+   background:none!important;image-rendering:auto!important;
+   text-shadow:0 1px 1px #000!important;font-weight:650!important;
+  }
+  /* The narrow +/- controls use square gems instead of squeezed end caps. */
+  html[data-r1074-theme="berhet"] body #r932EasyPlus {
+   border-image:url('../assets/berhetiyye-premium/gem-sapphire-r933.webp') 330 fill / 10px / 0 stretch!important;
+  }
+  html[data-r1074-theme="berhet"] body #r932EasyMinus {
+   border-image:url('../assets/berhetiyye-premium/gem-diamond-r933.webp') 330 fill / 10px / 0 stretch!important;
+  }
+  @media (min-width:721px) {
+   /* 540/210 source slices need the same horizontal/vertical scale.
+      Previously the 540px carved ends were squeezed into only 7px. */
+   html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button {
+    border-image-slice:210 540 fill!important;
+    border-image-width:clamp(8px,1.18vw,16px) clamp(21px,3.03vw,41px)!important;border-image-repeat:stretch!important;
+    padding-inline:clamp(22px,3.1vw,42px)!important;text-shadow:0 1px 1px #000!important;
+    image-rendering:auto!important;
+   }
+   html[data-r1074-theme="berhet"] body #r920Practice :is(#r920ModeEsma,#r920ModeBerhet,#r920AtlasOpen,#r920JourneyMode) {
+    border-image-width:14px 36px!important;border-image-repeat:stretch!important;
+    text-shadow:0 1px 1px #000!important;image-rendering:auto!important;
+   }
+   html[data-r1074-theme="berhet"] body #r938PanelBody summary {
+    border-image-width:13px 33px!important;border-image-repeat:stretch!important;
+    text-shadow:0 1px 1px #000!important;
+   }
+  }
+ }
+}

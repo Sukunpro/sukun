@@ -1,6 +1,10 @@
 /* r986: accessible sections and totals live outside the collapsed control panel.
    This first important layer owns geometry; gemstone paint is mode-scoped. */
 @layer sukun-r986-access {
+#r920Practice[data-r938-layout="1"] #r1196JourneyRestartControls{
+ width:min(100%,340px)!important;max-width:100%!important;min-width:0!important;align-self:center!important;justify-self:center!important;
+}
+#r920Practice[data-r938-layout="1"] #r1196JourneyRestartControls[hidden]{display:none!important}
 /* r1056: everyday actions stay outside the settings disclosure. The same
    quick-control ancestor retains its native delegated click owner. */
 #r920Practice[data-r938-layout="1"] #r932WheelControls .r932VisualShortcuts{

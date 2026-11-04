@@ -2,7 +2,7 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id);
 const FOCUS_KEY='sukun.zikir.quickControls.focus.v1';
-let host,hero,panel,body,toggle,primary,quick,transport,finishRow,focusToggle,anchors=[],hiddenStates=new Map(),lastTef=null,open=false,transportId='';
+let host,hero,panel,body,toggle,primary,quick,transport,finishRow,restartControls,focusToggle,anchors=[],hiddenStates=new Map(),lastTef=null,open=false,transportId='';
 let focusControlsVisible=true;try{focusControlsVisible=localStorage.getItem(FOCUS_KEY)!=='0'}catch(_){}
 const english=()=>window.I18N?.lang==='en';
 function write(node,tr,en){const value=english()?en:tr;if(node&&node.textContent!==value)node.textContent=value;}
@@ -32,8 +32,9 @@ function focusControls(tef=lastTef){
  // r1063: the saved easy-control preference applies on both sides of the
  // focus transition. The toggle must remain available to show them again.
  if(!host)return;const visible=focusControlsVisible;
- if(!visible&&[transport,finishRow,$('r1056ReadingSummary')].some(node=>node?.contains(document.activeElement)))focusToggle?.focus({preventScroll:true});
+ if(!visible&&[transport,finishRow,restartControls,$('r1056ReadingSummary')].some(node=>node?.contains(document.activeElement)))focusToggle?.focus({preventScroll:true});
  hidden(transport,!visible);hidden(finishRow,!visible);
+ hidden(restartControls,!visible||!!$('r920JourneyRestartAll')?.hidden);
  hidden($('r1056ReadingSummary'),!visible);hidden($('r968ManualHint'),!visible);hidden(focusToggle,false);
  const state=visible?'shown':'hidden';if(host.dataset.r1056FocusControls!==state)host.dataset.r1056FocusControls=state;labels();
 }
@@ -54,9 +55,9 @@ function restore(){
  for(const [node,anchor]of anchors.reverse()){if(anchor.isConnected)anchor.replaceWith(node)}anchors=[];
  for(const [node,hidden]of hiddenStates)node.hidden=hidden;hiddenStates.clear();
  if(transport)transport.id=transportId;
- body?.remove();toggle?.remove();primary?.remove();finishRow?.remove();focusToggle?.remove();hero?.remove();panel?.remove();
+ body?.remove();toggle?.remove();primary?.remove();finishRow?.remove();restartControls?.remove();focusToggle?.remove();hero?.remove();panel?.remove();
  if(host){delete host.dataset.r938Layout;delete host.dataset.r1056FocusControls}
- host=hero=panel=body=toggle=quick=transport=finishRow=focusToggle=primary=null;lastTef=null;
+ host=hero=panel=body=toggle=quick=transport=finishRow=restartControls=focusToggle=primary=null;lastTef=null;
 }
 function build(root){
  host=root;host.dataset.r938Layout='1';
@@ -74,9 +75,9 @@ function build(root){
  if(transport){hiddenStates.set(transport,transport.hidden);move(transport,quick);transport.id='r1056PrimaryControls';quick.insertBefore(transport,quick.children[0]||null)}
  finishRow=document.createElement('div');finishRow.id='r1056FinishRow';quick.append(finishRow);move($('r932EasyStop'),finishRow);
  const hint=$('r968ManualHint');if(hint)hiddenStates.set(hint,hint.hidden);move(hint,quick);
- focusToggle=document.createElement('button');focusToggle.id='r1056FocusControlsToggle';focusToggle.type='button';focusToggle.setAttribute('aria-controls','r1056PrimaryControls r1056FinishRow r1056ReadingSummary r968ManualHint');quick.append(focusToggle,toggle,body);
- // Keep restart visible while the settings panel is closed.
- const restartAll=$('r920JourneyRestartAll');if(restartAll){move(restartAll,quick);quick.insertBefore(restartAll,focusToggle)}
+ focusToggle=document.createElement('button');focusToggle.id='r1056FocusControlsToggle';focusToggle.type='button';focusToggle.setAttribute('aria-controls','r1056PrimaryControls r1056FinishRow r1196JourneyRestartControls r1056ReadingSummary r968ManualHint');quick.append(focusToggle,toggle,body);
+ // Easy controls own the wrapper; the session renderer keeps the button's eligibility.
+ const restartAll=$('r920JourneyRestartAll');if(restartAll){restartControls=document.createElement('div');restartControls.id='r1196JourneyRestartControls';quick.insertBefore(restartControls,focusToggle);move(restartAll,restartControls)}
  for(const node of [shortcuts,picker])move(node,body);
  primary=document.createElement('div');primary.id='r968PrimaryActions';body.append(primary);
  const nav=root.querySelector('.r920Transport');move(nav,body);body.insertBefore(nav,primary);
@@ -116,5 +117,5 @@ function sync(root,tef){
  const phase=$('r920Phase'),wheel=$('r924WheelFrame');if(phase&&wheel&&phase.parentElement!==wheel)wheel.append(phase);if(root.dataset.phase==='PLAYING'&&!phase.textContent)phase.textContent='Zikir sürüyor';
 }
 window.addEventListener?.('sukun:languagechange',labels,{passive:true});
-window.SukunBerhetLayout=Object.freeze({version:'r1056',revision:'r1063',sync,setFocusControls,snapshot:()=>({active:!!host,open,tef:lastTef,focusControlsVisible})});
+window.SukunBerhetLayout=Object.freeze({version:'r1056',revision:'r1196',sync,setFocusControls,snapshot:()=>({active:!!host,open,tef:lastTef,focusControlsVisible})});
 })();
