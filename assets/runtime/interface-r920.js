@@ -80,7 +80,7 @@ function markComplete(mode,i){if(!['esma','berhet'].includes(mode)||i<0||i>=item
 function make(){
  if(root?.isConnected)return true;const tab=$('tab-zkr');if(!tab||!window.SukunSessionState)return false;
  root=document.createElement('section');root.id='r920Practice';root.setAttribute('aria-label','Zikir ve seyir');
- root.innerHTML=`<div class="r920Modes" role="group" aria-label="Zikir ailesi"><button id="r920ModeEsma" type="button">99 Esmâ</button><button id="r920ModeBerhet" type="button" hidden>28 Berhetiyye</button></div>
+ root.innerHTML=`<div id="r1211PracticeUnavailable" hidden><p id="r1211PracticeNotice" role="status" aria-live="polite"></p><div><button id="r1211PracticeEsma" type="button"></button><button id="r1211PracticeGate" type="button" hidden></button><button id="r1211PracticeExit" type="button" hidden></button></div></div><div class="r920Modes" role="group" aria-label="Zikir ailesi"><button id="r920ModeEsma" type="button">99 Esmâ</button><button id="r920ModeBerhet" type="button" hidden>28 Berhetiyye</button></div>
  <div class="r920Path"><button id="r920AtlasOpen" type="button">Atlas</button><label id="r920JourneyLabel"><span>Okuyuş</span><select id="r920JourneyMode" aria-label="Tekil zikir veya seyir"><option value="single">Tekil zikir</option><option value="journey">Seyir</option></select></label><button id="r920TefEnter" type="button"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M12 18V5a3 3 0 0 0-5.8-1 4.3 4.3 0 0 0-3.2 6.9 4.5 4.5 0 0 0 1.2 7.7 4 4 0 0 0 7.8 1.2 4 4 0 0 0 7.8-1.2 4.5 4.5 0 0 0 1.2-7.7 4.3 4.3 0 0 0-3.2-6.9A3 3 0 0 0 12 5"/><path d="M8 7c0 1.5-1 2.5-2.5 2.5M8.2 14.2C6.7 14 6 13 6 12m2 6c.4-1.5 1.6-2.4 4-2.4M16 7c0 1.5 1 2.5 2.5 2.5m-2.7 4.7C17.3 14 18 13 18 12m-2 6c-.4-1.5-1.6-2.4-4-2.4"/></svg><span>Tefekküre geç</span></button></div>
  <div class="r920Identity"><p id="r920Eyebrow"></p><button id="r920NameInfo" type="button" aria-label="Aktif ismin açıklaması"><span id="r920Arabic" lang="ar" dir="rtl"></span><span id="r920ActiveName"></span></button><p id="r920SceneTitle"></p><p id="r920VoiceSource" role="status"></p></div>
  <div id="r924WheelFrame" data-wheel-state="loading"><div id="r1029WheelClip"><div id="r925WheelRotor"><img id="r920Wheel" alt="" aria-hidden="true" decoding="async"><button id="r920Minus" class="r924Gem" type="button" aria-label="Bir azalt"><span class="r925GemLabel">−1</span></button><button id="r920Plus" class="r924Gem" type="button" aria-label="Bir artır"><span class="r925GemLabel">+1</span></button><button id="r920Stop" class="r924Gem" type="button"><span class="r925GemLabel r927GemAction"><span aria-hidden="true" class="r927GemIcon">■</span><span class="r927GemCaption">Bitir</span></span></button><button id="r920Play" class="r924Gem" type="button"><span id="r925PlayLabel" class="r925GemLabel r927GemAction"><span id="r927PlayIcon" class="r927GemIcon" aria-hidden="true">▶</span><span id="r927PlayCaption" class="r927GemCaption">Başlat</span></span></button></div></div><svg class="r920Progress" viewBox="0 0 300 300" aria-hidden="true"><defs><filter id="r921EsmaMatte" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  10 10 10 0 0"/></filter></defs><circle cx="150" cy="150" r="75" class="r920Track"></circle><circle cx="150" cy="150" r="75" class="r920Arc" pathLength="100"></circle><circle cx="150" cy="150" r="75" class="r959LightCore" pathLength="100"></circle></svg><button id="r920Counter" type="button" aria-label="Bir zikir say"><span class="r920CounterCore"><small id="r1082CountLabel">TEKRAR</small><strong id="r920Count">0</strong><span id="r920Percent">%0</span></span></button><button id="r959WheelPrevious" class="r959WheelNav" type="button" aria-label="Önceki zikre geç" title="Önceki zikre geç"><svg class="r925GemLabel r962NavGlyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 5v14M18 5L9 12l9 7Z"/></svg></button><button id="r959WheelNext" class="r959WheelNav" type="button" aria-label="Sonraki zikre geç" title="Sonraki zikre geç"><svg class="r925GemLabel r962NavGlyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17 5v14M6 5l9 7-9 7Z"/></svg></button><div id="r920Phase" role="status" aria-live="polite" aria-atomic="true"></div></div>
@@ -100,6 +100,9 @@ function make(){
  dialog.innerHTML='<div class="r920AtlasHead"><h2 id="r920AtlasTitle">Atlas</h2><button id="r920AtlasClose" type="button">Kapat</button></div><p id="r920AtlasCaption"></p><div id="r920AtlasNodes" role="group" aria-label="Duraklar"></div><p class="r920AtlasLegend">✓ Tamamlandı · ● Aktif · Diğer duraklara dokunarak incele</p><article id="r920AtlasDetail"><h3 id="r920AtlasName"></h3><p id="r920AtlasMeaning"></p><dl><div><dt>Ebced</dt><dd id="r920AtlasEbced"></dd></div><div><dt>Seyir durumu</dt><dd id="r920AtlasProgress"></dd></div></dl><p id="r920AtlasScene"></p><small id="r920AtlasNote"></small><button id="r920AtlasChoose" type="button">Bu isme geç</button></article>';
  document.body.append(dialog);
  $('r920ModeEsma').onclick=()=>select('esma');$('r920ModeBerhet').onclick=()=>select('berhet');
+ $('r1211PracticeEsma').onclick=()=>select('esma',undefined,false);
+ $('r1211PracticeGate').onclick=()=>window.SukunBerhetGate?.open?.({trigger:$('r1211PracticeGate')});
+ $('r1211PracticeExit').onclick=()=>{window.SUKUN_TEFEKKUR?.exit?.();queue()};
  $('r920JourneyMode').onchange=e=>select(snap()?.activeMode||'esma',undefined,e.target.value==='journey');
  $('r920RepeatMode').onchange=e=>writeJourneySetting('Mode',e.target.value,'change');
  $('r920RepeatCustom').oninput=e=>writeJourneySetting('Custom',e.target.value,'input');
@@ -208,10 +211,32 @@ function readingSummary(s){
  const explanation=cadence?safe(()=>window.SukunCadenceUI.view(cadence),null):null;
  attr(tempo,'title',explanation?.reason||(en?'The selected interval does not cut off a recording or device recitation.':'Seçili aralık, kayıt veya cihaz okuyuşunu yarıda kesmez.'));
 }
-function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view();if(!s)return;renders++;
- const mode=s.activeMode,valid=items(mode).length>0&&(mode!=='berhet'||allowed()),tef=!!window.SUKUN_TEFEKKUR?.active?.();
- if(document.body.classList.contains('r920-practice-on')!==valid)document.body.classList.toggle('r920-practice-on',valid);if(root.hidden===valid)root.hidden=!valid;if(!valid){window.SukunBerhetLayout?.sync(root,tef);
- if(dialog.open)dialog.close();return}
+// The modern renderer owns this surface after mounting. A temporarily missing
+// or locked selection must not remove that ownership and uncover retired DOM.
+// This is presentation only; choosing Esma or opening the gate needs a click.
+function presentationAvailable(s,tef){
+ const mode=s?.activeMode,valid=items(mode).length>0&&(mode!=='berhet'||allowed());
+ if(!document.body.classList.contains('r920-practice-on'))document.body.classList.add('r920-practice-on');
+ prop(root,'hidden',false);attr(root,'data-r1211-state',valid?'ready':'unavailable');
+ const notice=$('r1211PracticeUnavailable'),wasUnavailable=!notice.hidden;
+ prop(notice,'hidden',valid);
+ if(!valid){
+  const locked=mode==='berhet'&&!allowed(),en=window.I18N?.lang==='en';
+  text($('r1211PracticeNotice'),locked?(en?'The Hidden Sciences gate is closed. Continue with Esma or open the gate.':'Gizli İlimler Kapısı kapalı. Esmâ’dan devam edebilir veya kapıyı açabilirsin.'):(en?'Choose a dhikr to continue.':'Devam etmek için bir zikir seç.'));
+  text($('r1211PracticeEsma'),en?'Choose Esma':'Esmâ seç');
+  text($('r1211PracticeGate'),en?'Open the gate':'Kapıyı aç');
+  text($('r1211PracticeExit'),en?'Leave contemplation':'Tefekkürden çık');
+  prop($('r1211PracticeGate'),'hidden',!locked||typeof window.SukunBerhetGate?.open!=='function');
+  prop($('r1211PracticeExit'),'hidden',!tef);
+  if(document.body.classList.contains('r920-details-open'))showExtras(false);
+  if(dialog.open)dialog.close();
+  if(root.contains(document.activeElement)&&!notice.contains(document.activeElement))$('r1211PracticeEsma')?.focus({preventScroll:true});
+ }else if(wasUnavailable&&notice.contains(document.activeElement))$('r920NameInfo')?.focus({preventScroll:true});
+ return valid;
+}
+function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view();renders++;
+ const tef=!!window.SUKUN_TEFEKKUR?.active?.();if(!presentationAvailable(s,tef))return;
+ const mode=s.activeMode;
  mountSectionAccess();
  attr(root,'data-mode',mode);attr(root,'data-phase',s.phase);const journey=s.journeyKind&&s.journeyKind!=='single';
  prop($('r920JourneyRestartAll'),'hidden',!journeyModeAllowed(mode)||!!s.smartSession);text($('r920JourneyRestartAll'),window.I18N?.lang==='en'?(mode==='berhet'?'Restart entire Berhetiyye journey':'Restart entire Esma journey'):(mode==='berhet'?'Tüm Berhetiyye seyrini baştan başlat':'Tüm Esmâ seyrini baştan başlat'));text($('r920Restart'),journey?(window.I18N?.lang==='en'?'Restart this name':'Bu ismi baştan'):(window.I18N?.lang==='en'?'Restart':'Baştan başla'));

@@ -157,7 +157,14 @@
     const smart = z.session?.presentation ? z.session : null;
     // A live smart step (including silence) and its retained result outrank
     // an idle journey preview. Its values already carry their own count fence.
-    const journey = journeys(), j = smart ? { ...journey, active:null, view:null } : journey;
+    const journey = journeys();
+    // r1211: an inaccessible saved/paused Berhetiyye journey must not replace
+    // the visible Esma selection. Keep the raw owner in journeys() so Stop and
+    // selection can still retire it through its existing transport, preserving
+    // its saved index/count. This changes presentation, never stored progress.
+    const privateJourneyHidden = journey.view?.kind === '28' &&
+      !read(() => window.SukunSecretPolicy?.unlocked(), false);
+    const j = smart || privateJourneyHidden ? { ...journey, active:null, view:null } : journey;
     const jd = j.view?.display, js = j.active?.state;
     const selectedMode = jd ? (j.view.kind === '28' ? 'berhet' : 'esma') : clean(z.cat || 'esma');
     const mode = j.active ? (j.active.kind === '28' ? 'berhet' : 'esma') : selectedMode;
@@ -603,6 +610,10 @@
     'sukun:journey-advance', 'sukun:sessiondraftchange', 'sukun:tefekkurchange', 'sukun:recordingerror', 'sukun:recordingretry',
     'sukun:scenechange', 'sukun:scenestate', 'sukun:recordingrecovered', 'sukun:tabchange', 'sukun:zikirtransportgate', 'sukun:languagechange'];
   events.forEach(event => window.addEventListener(event, () => schedule(event), { passive: true }));
+  // The practice renderer uses peek(). Publish the access boundary immediately
+  // rather than letting it paint an old private journey for another frame.
+  ['sukun:secretaccesschange', 'sukun:secretpolicyready'].forEach(event =>
+    window.addEventListener(event, () => refresh(event), { passive: true }));
   // renderZikir also emits selection changes during startup/hydration. Only
   // a commit nested in an actively dispatching trusted input is a new native
   // user intent. eventPhase returns to zero after that dispatch; no elapsed
