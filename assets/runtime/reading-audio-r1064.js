@@ -18,7 +18,12 @@
   try{w.sukunSourceSet?.(recording?'recording':'tts',label,state.title);w.SukunVoiceSource?.set?.(recording?'recording':state.content==='arabic'?'tts-ar':'tts-tr',label,state.title,recording?{recordingOrigin:kind}:undefined)}catch(_){}
  }
  function failure(reason){
-  const r=w.SukunReadingPolicy.unavailable(reason);change({phase:'error',reason,sourceKind:'none'},'error');return r;
+  // r1215: an error is terminal for this attempt. Native preparation may
+  // settle after a rejected play/owner request; its captured guard must not
+  // remain valid, and only this reader's media may be retired.
+  retireAttempt('failed');const retired=sequence;
+  const r=w.SukunReadingPolicy.unavailable(reason);
+  if(sequence===retired)change({phase:'error',reason,sourceKind:'none'},'error');return r;
  }
  function contentOptions(opt={}){
   return{content:opt.content||w.SukunVoiceSettings?.getContent?.()||'legacy',source:opt.source||w.SukunVoiceSettings?.getMode?.()||'auto'};
@@ -195,13 +200,17 @@
   const owner=w.SukunTabOwner;
   // The tab lease must be acquired before the source/voice attempt captures
   // its epoch. A foreground arbiter claim alone is not cross-tab authority.
-  const task=typeof owner?.run==='function'?(async()=>{
+  let task;try{task=typeof owner?.run==='function'?(async()=>{
     if(!await waitOwnRelease(owner,token)||token!==sequence)return{ok:false,cancelled:true,source:'tab-held',reason:'cross-tab-held'};
     // Claim normally after the prior physical lease closes. No lock is
     // cleared, forced or reclaimed from another tab by this wait.
     return owner.run('listen',foreground,{isCurrent:()=>token===sequence,keepSelection:true,releaseAfter:true});
-  })():foreground();
-  ownerPromise=Promise.resolve(task).then(result=>{if(result===false)result={ok:false,cancelled:true,source:'tab-held',reason:'cross-tab-held'};if(token===sequence&&active()){change({phase:result?.ok?'ended':'error',reason:result?.reason||''},'settled');}return result;});
+  })():foreground();}catch(error){task=Promise.reject(error);}
+  ownerPromise=Promise.resolve(task).then(result=>{if(result===false)result={ok:false,cancelled:true,source:'tab-held',reason:'cross-tab-held'};if(token===sequence&&active()){change({phase:result?.ok?'ended':'error',reason:result?.reason||''},'settled');}return result;},()=>{
+   // A late rejection from an old lease/arbiter must not stop a newer reader.
+   if(token!==sequence)return{ok:false,cancelled:true,reason:'stale-sequence'};
+   return failure('tts-failed');
+  });
   return ownerPromise;
  }
  function pause(){
@@ -220,9 +229,13 @@
   if(['personal','generic','bundled'].includes(state.sourceKind))try{const source='reading-r1064:'+state.id;if(SES.ad===source)for(const a of SES.ler)a._sukunIntentAuthority?.renewReaderPause?.(source);sesSurdur()}catch(_){}
   wakeResume(true);return true;
  }
- function stop(reason='stopped'){
+ function retireAttempt(reason){
   const wasActive=active();sequence++;clearUtterance('cancelled');wakeResume(false);activeCurrent=null;
   if(wasActive&&['personal','generic','bundled'].includes(state.sourceKind))try{const source='reading-r1064:'+state.id;if(SES.ad===source)sesDurdur('reading-'+reason,{retireNativeOwner:source})}catch(_){}
+  return wasActive;
+ }
+ function stop(reason='stopped'){
+  const wasActive=retireAttempt(reason);
   change({phase:'idle',reason,sourceKind:'none',verse:0,verseSync:'none',currentTime:null,duration:null},'stop');return wasActive;
  }
  function navigate(delta,repeat=false){

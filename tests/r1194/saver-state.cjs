@@ -1,4 +1,4 @@
-const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');const h=fs.readFileSync('nero.html','utf8'),s=fs.readFileSync('assets/runtime/saver-info-r1193.js','utf8');
+const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');const h=require('../helpers/shipped-shell.cjs').readShippedShell('nero.html'),s=fs.readFileSync('assets/runtime/saver-info-r1193.js','utf8');
 function between(t,a,b){const i=t.indexOf(a);assert(i>=0);return t.slice(i,t.indexOf(b,i));}
 const ZIKIR=vm.runInNewContext(between(h,'const ZIKIR={','\n};')+'\n};ZIKIR');
 const c={window:{},GEO:null,ZIKIR,berhetUnlocked:()=>true};vm.createContext(c);vm.runInContext(between(h,'const WEEKDAY_ESMA=','let timer=0,lastMinute='),c);

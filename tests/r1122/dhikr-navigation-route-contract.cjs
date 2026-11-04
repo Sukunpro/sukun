@@ -5,7 +5,7 @@
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict'),crypto=require('node:crypto');
 const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
 const output=process.argv[3]?path.resolve(process.argv[3]):null;
-const html=fs.readFileSync(path.join(root,'nero.html'),'utf8');
+const html=require('../helpers/shipped-shell.cjs').readShippedShell(path.join(root,'nero.html'));
 const session=fs.readFileSync(path.join(root,'assets/runtime/session-r919.js'),'utf8');
 const interfaceSource=fs.readFileSync(path.join(root,'assets/runtime/interface-r920.js'),'utf8');
 const handlerLine=prefix=>{const line=interfaceSource.split('\n').find(x=>x.trim().startsWith(prefix));assert(line,'exact interface handler '+prefix);return line};

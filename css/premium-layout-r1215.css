@@ -1,0 +1,251 @@
+/* r1215 presentation owner. Load this layer before legacy important layers.
+   Geometry is limited to the ordinary shell; Tekke/focus/saver retain owners. */
+@layer sukun-r1215-layout {
+ html {
+  --sukun-surface-glass:linear-gradient(145deg,rgba(13,34,47,.96),rgba(4,17,29,.94));
+  --sukun-surface-inset:linear-gradient(160deg,#102e40f5,#081b2cf5);
+  --sukun-surface-line:#b5c5cf66;
+  --sukun-surface-highlight:#e2edf1;
+  --sukun-surface-muted:#bacbd3;
+  --sukun-surface-accent:#7de3c3;
+  --sukun-surface-active:linear-gradient(135deg,#176052,#0a4038 55%,#072f32);
+ }
+ html[data-r1074-theme="berhet"] {
+  --sukun-surface-glass:linear-gradient(145deg,rgba(11,32,51,.97),rgba(3,15,32,.94));
+  --sukun-surface-inset:linear-gradient(150deg,#123653f5,#061a32fa);
+  --sukun-surface-line:#c6a96888;
+  --sukun-surface-highlight:var(--sukun-material-ink,#fff0ce);
+  --sukun-surface-muted:#d5d2c5;
+ }
+ body.r1215-premium:not(.sukun-tefekkur-mode)>.wrap {
+  width:min(100%,740px)!important;max-width:740px!important;box-sizing:border-box!important;
+  padding-inline:14px!important;padding-bottom:calc(112px + env(safe-area-inset-bottom) + var(--sukun-dock-safe,0px))!important;
+  scroll-padding-bottom:calc(108px + env(safe-area-inset-bottom))!important;
+ }
+ /* Classic keeps its existing navigation and receives the same readable materials. */
+ body.r1215-premium:not(.r616-ui):not(.sukun-tefekkur-mode)>.wrap {
+  margin-inline:auto!important;padding-bottom:calc(40px + env(safe-area-inset-bottom) + var(--sukun-dock-safe,0px))!important;
+ }
+ body.r1215-premium:not(.r616-ui) .wrap>:is(header,.tabs,.masterBar,#todayCard,#prDashboard,#vakitBox),
+ body.r1215-premium:not(.r616-ui) :is(#tab-amb,#tab-frq,#tab-zkr)>.card {
+  background:var(--sukun-surface-glass)!important;border-color:var(--sukun-surface-line)!important;
+  color:var(--sukun-surface-highlight)!important;box-shadow:inset 0 1px #fff1b90d,0 8px 20px #0002!important;
+ }
+ body.r1215-premium #r616Topbar {
+  background:var(--sukun-surface-glass)!important;border:1px solid var(--sukun-surface-line)!important;
+  border-radius:20px!important;box-shadow:inset 0 1px #f3e1ae18,0 10px 24px #0003!important;
+  backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;
+ }
+ body.r1215-premium :is(#r616HomeHero,#r616Continue,.r616Stat,.r616Shortcut,#r616SoundHeader) {
+  background:var(--sukun-surface-glass)!important;border:1px solid var(--sukun-surface-line)!important;
+  color:var(--sukun-surface-highlight)!important;border-radius:18px!important;
+  box-shadow:inset 0 1px #fff1b90d,0 8px 20px #0002!important;
+ }
+ body.r1215-premium :is(#r616HomeMeaning,#r616ContinueMeta,.r616Stat span,.r616Lead) {
+  color:var(--sukun-surface-muted)!important;opacity:1!important;font-size:13px!important;line-height:1.5!important;
+ }
+ body.r1215-premium #r616HomeHero {padding:24px!important}
+ body.r1215-premium #r616HomeStart {
+  background:var(--sukun-surface-active)!important;border:1px solid #afcbb199!important;
+  color:#f8f4dc!important;box-shadow:inset 0 1px #dbf9e326,0 4px 12px #00140f88!important;
+  min-height:50px!important;font-size:15px!important;
+ }
+ body.r1215-premium.r616-ui #r616BottomNav {
+  background:var(--sukun-surface-glass)!important;border:1px solid var(--sukun-surface-line)!important;
+  backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;
+  box-shadow:0 -8px 30px #0005!important;
+  width:min(calc(100% - 16px),710px)!important;max-width:calc(100% - 16px)!important;
+  bottom:0!important;padding:6px 6px calc(6px + env(safe-area-inset-bottom))!important;
+ }
+ body.r1215-premium.r616-ui #r616BottomNav button {
+  min-height:52px!important;font:600 11px/1.3 system-ui,sans-serif!important;
+  color:var(--sukun-surface-muted)!important;border:1px solid transparent!important;
+ }
+ body.r1215-premium.r616-ui #r616BottomNav button span {font-size:11px!important;white-space:normal!important}
+ body.r1215-premium.r616-ui #r616BottomNav button.active {
+  background:var(--sukun-surface-active)!important;border:1px solid #85baad88!important;
+  box-shadow:inset 0 1px #d5f4df22!important;color:#ebfff4!important;
+ }
+ /* Existing source and counter nodes keep their handlers and accessible names. */
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice:not([hidden]) {
+  position:relative!important;display:flex!important;flex-direction:column!important;
+  width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box!important;
+  margin:16px auto!important;padding:18px 14px!important;gap:14px!important;
+  border:1px solid var(--sukun-surface-line)!important;border-image:none!important;border-radius:24px!important;
+  background:var(--sukun-surface-glass)!important;box-shadow:inset 0 1px #dceaf21c,0 16px 42px #0004!important;
+  overflow:visible!important;
+ }
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice>.r920Modes {
+  width:min(100%,420px)!important;max-width:100%!important;margin:0 auto!important;gap:8px!important;
+ }
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice>.r920Path {
+  display:flex!important;flex-wrap:wrap!important;align-items:center!important;justify-content:center!important;
+  width:min(100%,440px)!important;max-width:100%!important;margin:0 auto!important;gap:8px!important;
+ }
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice .r920Path>:is(button,label) {
+  flex:1 1 88px!important;width:auto!important;min-width:0!important;max-width:100%!important;
+ }
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice :is(.r920Modes button,.r920Path button,#r920JourneyMode) {
+  min-height:44px!important;height:auto!important;padding:10px 14px!important;box-sizing:border-box!important;
+  font:600 13px/1.35 system-ui,sans-serif!important;border-radius:12px!important;
+ }
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r938Hero {
+  width:100%!important;min-width:0!important;max-width:100%!important;display:flex!important;flex-direction:column!important;
+  align-items:center!important;gap:10px!important;padding:6px 0!important;margin:0!important;
+ }
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r938Hero>.r920Identity {
+  width:100%!important;max-width:100%!important;min-height:0!important;box-sizing:border-box!important;
+  padding:0 8px!important;margin:0!important;text-align:center!important;
+ }
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r920NameInfo {
+  background:none!important;border:0!important;border-image:none!important;padding:4px 8px!important;
+  color:var(--sukun-surface-highlight)!important;max-width:100%!important;box-shadow:none!important;
+ }
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r920ActiveName {
+  font:400 clamp(28px,6.8vw,40px)/1.2 Georgia,serif!important;color:var(--sukun-surface-highlight)!important;
+  overflow-wrap:anywhere!important;white-space:normal!important;text-shadow:0 2px 7px #0007!important;
+ }
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r920Arabic {font-size:26px!important;color:#a8d9c7!important;line-height:1.5!important}
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r920Eyebrow {font-size:10px!important;letter-spacing:1.6px!important;margin:0 0 5px!important;color:var(--sukun-surface-muted)!important}
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r920SceneTitle {font:400 14px/1.6 system-ui,sans-serif!important;max-width:440px!important;margin:6px auto!important;color:var(--sukun-surface-muted)!important}
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r1064CurrentReadingOpen {font-size:11px!important;min-height:36px!important;padding:6px 12px!important;margin:4px auto!important}
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r924WheelFrame {
+  width:min(84vw,360px,46svh)!important;max-width:100%!important;margin:6px auto!important;flex:none!important;
+ }
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r938Hero .r920Stats {
+  width:min(100%,330px)!important;margin:4px auto!important;gap:12px!important;
+ }
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r938Hero .r920Stats>span {
+  background:var(--sukun-surface-inset)!important;border:1px solid var(--sukun-surface-line)!important;border-image:none!important;
+  border-radius:13px!important;color:var(--sukun-surface-muted)!important;box-shadow:inset 0 1px #fff1b912!important;
+ }
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r938Hero .r920Stats b {font-size:26px!important;color:var(--sukun-surface-highlight)!important}
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r938Panel {
+  min-width:0!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;
+  margin:0!important;padding:16px!important;background:var(--sukun-surface-inset)!important;
+  border:1px solid var(--sukun-surface-line)!important;border-image:none!important;border-radius:18px!important;
+ }
+ body.r1215-premium:not(.sukun-tefekkur-mode) #r932WheelControls {
+  width:100%!important;min-width:0!important;max-width:none!important;margin:0!important;padding:0!important;gap:10px!important;
+  background:none!important;border:0!important;border-image:none!important;box-shadow:none!important;
+ }
+ body.r1215-premium #r1056ReadingSummary {
+  background:#061623c7!important;border:1px solid #95b1c13d!important;border-radius:12px!important;padding:10px!important;
+  color:var(--sukun-surface-muted)!important;gap:7px!important;
+ }
+ body.r1215-premium #r1056ReadingSource {background:#103243!important;color:#e8efdf!important;border:1px solid #8ca6b45c!important;border-image:none!important;border-radius:9px!important}
+ body.r1215-premium #r968PrimaryActions {display:flex!important;justify-content:center!important;width:100%!important;margin:4px auto!important}
+ body.r1215-premium #r968PrimaryActions #r920TefEnter {
+  width:100%!important;min-height:48px!important;max-width:340px!important;padding:10px 18px!important;box-sizing:border-box!important;
+  background:var(--sukun-surface-active)!important;border:1px solid #b7c398b3!important;border-image:none!important;border-radius:12px!important;
+  color:#f6f0d6!important;font:600 14px/1.4 system-ui,sans-serif!important;box-shadow:inset 0 1px #e6ffde22!important;
+ }
+ body.r1215-premium #r1215PracticeContext {margin:0 0 14px!important;padding:0 0 12px!important;border-bottom:1px solid var(--sukun-surface-line)!important;min-width:0!important}
+ body.r1215-premium #r1215ContextKicker {font:600 10px/1.4 system-ui,sans-serif!important;letter-spacing:1.7px!important;color:#a9bcc7!important;margin:0 0 7px!important}
+ body.r1215-premium #r1215ContextTitle {font:400 24px/1.25 Georgia,serif!important;color:var(--sukun-surface-highlight)!important;margin:0!important;overflow-wrap:anywhere!important}
+ body.r1215-premium #r1215ContextProgress {font:400 13px/1.5 system-ui,sans-serif!important;color:var(--sukun-surface-muted)!important;margin:8px 0!important}
+ body.r1215-premium #r1215NextCard {padding:12px 14px!important;margin:14px 0!important;border:1px solid var(--sukun-surface-line)!important;border-radius:12px!important;background:#03172499!important}
+ body.r1215-premium #r1215NextCard small {display:block!important;color:var(--sukun-surface-muted)!important;font:400 12px/1.6 system-ui,sans-serif!important}
+ body.r1215-premium #r1215NextCard strong {display:block!important;color:var(--sukun-surface-highlight)!important;font:400 23px/1.4 Georgia,serif!important;overflow-wrap:anywhere!important}
+ body.r1215-premium #r1215SaveState {font:500 12px/1.5 system-ui,sans-serif!important;color:#b5cbc8!important;margin:10px 0 0!important;overflow-wrap:anywhere!important}
+ body.r1215-premium #r1215SaveState[data-state="saved"] {color:#96dbc2!important}
+ body.r1215-premium #r1215SaveState[data-state="error"] {color:#ffb8b8!important}
+ body.r1215-premium #r1215SaveState[data-state="pending"] {color:#f0dca2!important}
+ body.r1215-premium #r1215ReadingsEntry {display:flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;color:var(--sukun-surface-highlight)!important;background:var(--sukun-surface-inset)!important;border:1px solid var(--sukun-surface-line)!important;border-radius:12px!important;cursor:pointer!important}
+ body.r1215-premium #r1215ReadingsEntry i {width:19px!important;height:19px!important;display:grid!important;place-items:center!important}
+ body.r1215-premium #r1215ReadingsEntry svg {width:19px!important;height:19px!important}
+ /* Only redundant navigation disappears; canonical targets and handlers remain. */
+ body.r1215-premium.r616-ui:has(#r616BottomNav) #r986Sections,
+ body.r1215-premium.r616-ui:has(#r616BottomNav) #sukunDiscovery [data-discovery="seyirler"],
+ body.r1215-premium.r616-ui:has(#r616BottomNav) #sukunDiscovery [data-discovery="araclar"],
+ body.r1215-premium.r616-ui[data-r616-view="zikir"]:has(#r1215ReadingsEntry) #sukunDiscovery [data-discovery="okumalar"] {display:none!important}
+ body.r1215-premium .wrap>footer {margin:24px 0 12px!important;padding:14px!important;background:var(--sukun-surface-glass)!important;border:1px solid var(--sukun-surface-line)!important;border-radius:18px!important}
+ body.r1215-premium #sukunDiscovery {margin:0!important;padding:14px!important;max-width:100%!important;box-sizing:border-box!important;background:#061a27b8!important;border:1px solid var(--sukun-surface-line)!important;border-radius:14px!important}
+ body.r1215-premium #sukunDiscovery .discoveryGrid {display:flex!important;align-items:center!important;justify-content:center!important;flex-wrap:wrap!important;gap:14px!important;width:100%!important;margin:0!important}
+ body.r1215-premium #sukunDiscovery [data-discovery="okumalar"] {flex:1 1 140px!important;width:auto!important;min-height:48px!important}
+ body.r1215-premium #sukunDiscovery :is([data-discovery="berhet"],[data-mevlevi-lock]) {flex:0 0 84px!important;width:84px!important;min-width:84px!important;max-width:84px!important;grid-area:auto!important;grid-column:auto!important;grid-row:auto!important}
+ body.r1215-premium #r1165FooterUpdate {margin:12px auto 0!important;min-height:48px!important}
+ body.r1215-premium :is(#r938Panel,#r616BottomNav,#sukunDiscovery) :is(button,summary,select):focus-visible {outline:2px solid #ffe4a3!important;outline-offset:4px!important}
+ body.r1215-premium :is(#r1215PracticeContext,#r1215NextCard,#r968PrimaryActions,#r1056ReadingSummary)[hidden],
+ body.r1215-premium #r968PrimaryActions>[hidden] {display:none!important}
+ body.r1215-premium.sukun-tefekkur-mode #r1215ReadingsEntry {display:none!important}
+ @media(min-width:1100px) {
+  body.r1215-premium:not(.r616-ui):not(.sukun-tefekkur-mode)>.wrap {
+   width:calc(100% - 48px)!important;max-width:1180px!important;margin-inline:auto!important;
+  }
+  body.r1215-premium.r616-ui:not(.sukun-tefekkur-mode):not(:has(#tk:not([hidden])))>.wrap {
+   width:calc(100% - 244px)!important;max-width:1236px!important;margin:0 24px 0 max(220px,calc((100vw - 1480px)/2 + 220px))!important;
+   padding-inline:0!important;padding-bottom:calc(48px + var(--sukun-dock-safe,0px))!important;
+  }
+  body.r1215-premium.r616-ui #r616BottomNav {
+   top:24px!important;bottom:24px!important;left:max(20px,calc((100vw - 1480px)/2 + 20px))!important;right:auto!important;
+   width:176px!important;max-width:176px!important;min-height:0!important;height:auto!important;transform:none!important;
+   display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:stretch!important;gap:10px!important;
+   padding:22px 12px!important;border-radius:22px!important;z-index:1180!important;box-shadow:8px 0 30px #0003!important;
+  }
+  body.r1215-premium.r616-ui #r616BottomNav::before {content:'SÜKÛN';display:block;margin-bottom:26px;text-align:center;font:400 23px/1.4 Georgia,serif;letter-spacing:4px;color:var(--sukun-surface-highlight)}
+  body.r1215-premium.r616-ui #r616BottomNav button {flex:none!important;flex-direction:row!important;justify-content:flex-start!important;gap:12px!important;width:100%!important;min-height:54px!important;padding:10px 12px!important;order:0!important}
+  body.r1215-premium.r616-ui #r616BottomNav button i {margin:0!important;flex:0 0 24px!important}
+  body.r1215-premium.r616-ui #r616BottomNav button span {font-size:14px!important}
+  body.r1215-premium:not(.sukun-tefekkur-mode) #tab-zkr {width:100%!important;max-width:100%!important;padding-inline:0!important}
+  body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice:not([hidden]) {
+   display:grid!important;grid-template-columns:minmax(0,1fr) minmax(250px,.55fr)!important;
+   grid-template-rows:auto auto auto!important;align-items:start!important;gap:20px 24px!important;padding:24px!important;
+  }
+  body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice>* {grid-column:1/-1}
+  body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice>.r920Modes {grid-column:1!important;grid-row:1!important;align-self:center!important}
+  body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice>.r920Path {grid-column:2!important;grid-row:1!important;align-self:center!important}
+  body.r1215-premium:not(.sukun-tefekkur-mode) #r938Hero {grid-column:1!important;grid-row:2!important;align-self:center!important}
+  body.r1215-premium:not(.sukun-tefekkur-mode) #r938Panel {grid-column:2!important;grid-row:2!important;align-self:start!important;padding:20px!important}
+  body.r1215-premium:not(.sukun-tefekkur-mode) #r924WheelFrame {width:min(34vw,390px,45svh)!important}
+  body.r1215-premium.r616-ui:has(#r616BottomNav #r1215ReadingsEntry) #sukunDiscovery [data-discovery="okumalar"] {display:none!important}
+  body.r1215-premium :is(#r616Home,#r616Journeys,#r616SoundHeader) {max-width:960px!important;margin-inline:auto!important}
+  body.r1215-premium #r616Home {display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  body.r1215-premium #r616Home>:is(#r616HomeHead,.r616Stats,.r616HomeShortcuts) {grid-column:1/-1}
+  body.r1215-premium #r616Home>[hidden],body.r1215-premium #r616Home[hidden] {display:none!important}
+  /* Full-screen scenes keep the existing navigation visibility contract. */
+  body.r1215-premium.sukun-tefekkur-mode #r616BottomNav,
+  body.r1215-premium:has(#tk:not([hidden])) #r616BottomNav {display:none!important}
+ }
+ @media(max-width:1099px) {
+  body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice :is(.r920Path button,#r920JourneyMode) {padding-inline:8px!important;font-size:12px!important;white-space:nowrap!important;word-break:normal!important;overflow-wrap:normal!important}
+  body.r1215-premium #r920Practice #r1215ReadingsEntry i {display:none!important}
+  body.r1215-premium #r920Practice #r1215ReadingsEntry span {white-space:nowrap!important;word-break:normal!important;overflow-wrap:normal!important}
+  body.r1215-premium #r1215PracticeContext {display:grid;grid-template-columns:1fr auto;gap:2px 12px;margin-bottom:12px!important;padding-bottom:12px!important}
+  body.r1215-premium #r1215ContextKicker {display:none!important}
+  body.r1215-premium #r1215ContextTitle {font-size:20px!important;align-self:center}
+  body.r1215-premium #r1215ContextProgress {text-align:right;font-size:12px!important;margin:2px 0!important;align-self:center}
+  body.r1215-premium #r1215NextCard {grid-column:1/-1;margin:8px 0!important;padding:8px 12px!important;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  body.r1215-premium #r1215NextName {font-size:19px!important}
+  body.r1215-premium #r1215SaveState {grid-column:1/-1;margin-top:4px!important}
+ }
+ @media(max-width:380px) {
+  body.r1215-premium:not(.sukun-tefekkur-mode)>.wrap {padding-inline:8px!important}
+  body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice:not([hidden]) {padding:14px 10px!important}
+  body.r1215-premium:not(.sukun-tefekkur-mode) #r938Panel {padding:12px!important}
+  body.r1215-premium.r616-ui #r616BottomNav button span {font-size:10px!important}
+ }
+ @media(prefers-reduced-transparency:reduce) {
+  body.r1215-premium :is(#r920Practice,#r938Panel,#r616Topbar,#r616BottomNav,.r616Card) {background:#071b2b!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+ }
+ @media(forced-colors:active) {
+  body.r1215-premium :is(#r920Practice,#r938Panel,#r616Topbar,#r616BottomNav,#r1215NextCard,#sukunDiscovery,.r616Card) {background:Canvas!important;color:CanvasText!important;border:1px solid CanvasText!important;box-shadow:none!important;backdrop-filter:none!important}
+  body.r1215-premium :is(#r920Practice,#r616BottomNav,#sukunDiscovery) :is(button,select) {background:ButtonFace!important;color:ButtonText!important;border:1px solid ButtonText!important;border-image:none!important;text-shadow:none!important}
+ }
+ /* State/visibility boundaries outrank this layer's ordinary grid/flex paint.
+    An unavailable saved selection shows only the canonical recovery choices. */
+ body.r1215-premium #r920Practice[hidden],
+ body.r1215-premium #r920Practice [hidden] {display:none!important}
+ body.r1215-premium #r920Practice[data-r1211-state="unavailable"]>:not(#r1211PracticeUnavailable) {
+  display:none!important;
+ }
+ body.r1215-premium #r920Practice[data-r1211-state="unavailable"]>#r1211PracticeUnavailable:not([hidden]) {
+  display:block!important;grid-column:1/-1!important;grid-row:1!important;
+  width:100%!important;min-width:0!important;box-sizing:border-box!important;
+  padding:24px 16px!important;border:1px solid var(--sukun-surface-line)!important;
+  border-radius:16px!important;background:var(--sukun-surface-inset)!important;color:var(--sukun-surface-highlight)!important;
+ }
+ body.r1215-premium #r1211PracticeUnavailable>div {display:flex!important;justify-content:center!important;flex-wrap:wrap!important;gap:12px!important}
+ body.r1215-premium #r1211PracticeUnavailable button:not([hidden]) {min-height:44px!important;padding:10px 18px!important}
+
+}

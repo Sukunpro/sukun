@@ -4,7 +4,7 @@
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict'),crypto=require('node:crypto');
 const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
 const output=process.argv[3]?path.resolve(process.argv[3]):null;
-const core=fs.readFileSync(path.join(root,'nero.html'),'utf8');
+const core=require('../helpers/shipped-shell.cjs').readShippedShell(path.join(root,'nero.html'));
 const runtime=fs.readFileSync(path.join(root,'assets/runtime/reading-audio-r1064.js'),'utf8');
 function block(start,end,optional=false){const a=core.indexOf(start);if(a<0&&optional)return '';assert(a>=0,start);const b=core.indexOf(end,a+start.length);assert(b>a,end);return core.slice(a,b);}
 const wrapper=block('const TTSD={duruk:false, son:null};','/* Ana ses kaydırıcısının');

@@ -3,7 +3,7 @@
 // preparation cancellation, voice-abort and foreground reservation predicate.
 // Native owner/recordings and schedulers are controlled seams. No device claim.
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto');
-const root=path.resolve(process.argv[2]||path.join(__dirname,'../..')),source=path.join(root,'index.html'),html=fs.readFileSync(source,'utf8');
+const root=path.resolve(process.argv[2]||path.join(__dirname,'../..')),source=path.join(root,'index.html'),html=require('../helpers/shipped-shell.cjs').readShippedShell(source);
 const extract=(start,end)=>{const a=html.indexOf(start),b=html.indexOf(end,a);assert(a>=0&&b>a,'production boundary: '+start);return html.slice(a,b);};
 const results=[],flush=async()=>{for(let i=0;i<20;i++)await Promise.resolve();};
 function fixture({native=true,generic=false,hidden=false,mode='esma',starting=false}={}){

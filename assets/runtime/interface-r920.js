@@ -3,7 +3,7 @@
 const $=id=>document.getElementById(id),safe=(f,d=null)=>{try{return f()}catch{return d}},text=(n,v)=>{if(window.I18N?.writeText)return window.I18N.writeText(n,v);if(n&&n.textContent!==String(v))n.textContent=String(v)},attr=(n,k,v)=>{if(window.I18N?.writeAttr&&['title','aria-label','placeholder'].includes(k))return window.I18N.writeAttr(n,k,v);if(n&&n.getAttribute(k)!==String(v))n.setAttribute(k,String(v))};
 // r929: idle UI refreshes must not rewrite attributes under an active pointer.
 const prop=(n,k,v)=>{if(n&&n[k]!==v)n[k]=v},value=(n,v)=>{if(n&&document.activeElement!==n)prop(n,'value',String(v))};
-let root,dialog,raf=0,focusTimer=0,sourceMode='',atlasMode='',atlasIndex=0,lastSnapshot=null,completionKey='',renders=0,focusOrigin=null,focusGeneration=0;
+let root,dialog,raf=0,focusTimer=0,sourceMode='',atlasMode='',atlasIndex=0,atlasQuery='',atlasFilter='all',atlasChoosing=false,lastSnapshot=null,completionKey='',renders=0,focusOrigin=null,focusGeneration=0;
 let wheelNavEnabled=safe(()=>localStorage.getItem('sukun.wheel.navigation')!=='0',true);
 let focusEnabled=safe(()=>localStorage.getItem('sukun.r920.focus')==='1',false);
 const completed=safe(()=>JSON.parse(localStorage.getItem('sukun.r920.completed')||'{}'),{})||{};
@@ -98,8 +98,8 @@ function make(){
  <button id="r920TefExit" type="button" aria-label="Tefekkürden çık" title="Tefekkürden çık" hidden><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 4H5v16h5M9 12h11M16 8l4 4-4 4"/></svg></button>`;
  tab.prepend(root);
  for(const id of ['r959WheelPrevious','r959WheelNext'])$('r925WheelRotor').append($(id));root.addEventListener('focusout',queue,{passive:true});
- dialog=document.createElement('dialog');dialog.id='r920Atlas';dialog.setAttribute('aria-labelledby','r920AtlasTitle');
- dialog.innerHTML='<div class="r920AtlasHead"><h2 id="r920AtlasTitle">Atlas</h2><button id="r920AtlasClose" type="button">Kapat</button></div><p id="r920AtlasCaption"></p><div id="r920AtlasNodes" role="group" aria-label="Duraklar"></div><p class="r920AtlasLegend">✓ Tamamlandı · ● Aktif · Diğer duraklara dokunarak incele</p><article id="r920AtlasDetail"><h3 id="r920AtlasName"></h3><p id="r920AtlasMeaning"></p><dl><div><dt>Ebced</dt><dd id="r920AtlasEbced"></dd></div><div><dt>Seyir durumu</dt><dd id="r920AtlasProgress"></dd></div></dl><p id="r920AtlasScene"></p><small id="r920AtlasNote"></small><button id="r920AtlasChoose" type="button">Bu isme geç</button></article>';
+ dialog=document.createElement('dialog');dialog.id='r920Atlas';dialog.className='r1215Atlas';dialog.setAttribute('aria-labelledby','r920AtlasTitle');
+ dialog.innerHTML='<div class="r920AtlasHead"><h2 id="r920AtlasTitle">Atlas</h2><button id="r920AtlasClose" type="button">Kapat</button></div><p id="r920AtlasCaption"></p><div class="r1215AtlasTools"><label for="r1215AtlasSearch"><span id="r1215AtlasSearchLabel">İsim veya anlam ara</span><input id="r1215AtlasSearch" type="search" autocomplete="off" inputmode="search" placeholder="İsim, anlam veya numara" aria-controls="r920AtlasNodes"></label><label for="r1215AtlasFilter"><span id="r1215AtlasFilterLabel">Durum</span><select id="r1215AtlasFilter" aria-controls="r920AtlasNodes"><option value="all">Tümü</option><option value="remaining">Tamamlanmayanlar</option><option value="completed">Tamamlananlar</option><option value="active">Aktif isim</option></select></label></div><p id="r1215AtlasResults" role="status" aria-live="polite" aria-atomic="true"></p><div class="r1215AtlasBody"><div class="r1215AtlasList"><div id="r920AtlasNodes" role="group" aria-label="Duraklar"></div><div id="r1215AtlasEmpty" hidden><p id="r1215AtlasEmptyText">Bu aramaya uygun isim bulunamadı.</p><button id="r1215AtlasClear" type="button">Aramayı temizle</button></div></div><article id="r920AtlasDetail" aria-labelledby="r920AtlasName"><h3 id="r920AtlasName"></h3><p id="r920AtlasMeaning"></p><dl><div><dt>Ebced</dt><dd id="r920AtlasEbced"></dd></div><div><dt>Seyir durumu</dt><dd id="r920AtlasProgress"></dd></div></dl><p id="r920AtlasScene"></p><small id="r920AtlasNote"></small><button id="r920AtlasChoose" type="button">Bu isme geç</button><p id="r1215AtlasError" role="alert" hidden></p></article></div><p class="r920AtlasLegend">✓ Tamamlandı · ● Aktif · İsim seçimi yalnız ayrıntıyı gösterir.</p>';
  document.body.append(dialog);
  $('r920ModeEsma').onclick=()=>select('esma');$('r920ModeBerhet').onclick=()=>select('berhet');
  $('r1211PracticeEsma').onclick=()=>select('esma',undefined,false);
@@ -147,10 +147,21 @@ function make(){
  for(const id of ['r959WheelPrevious','r959WheelNext'])prop($(id),'hidden',!wheelNavEnabled);
  $('r920Focus').checked=focusEnabled;$('r920Focus').onchange=e=>{focusEnabled=e.target.checked;safe(()=>localStorage.setItem('sukun.r920.focus',focusEnabled?'1':'0'));wake()};
  $('r920RecordingRetry').onclick=()=>{window.SukunRecordingFailure?.retry?.();queue()};
- $('r920AtlasOpen').onclick=()=>{const s=snap();atlasMode=s?.activeMode||'esma';atlasIndex=Number(s?.activeIndex)||0;renderAtlas();dialog.showModal();wake()};
+ $('r920AtlasOpen').onclick=()=>{const s=snap();atlasMode=s?.activeMode||'esma';if(atlasMode==='berhet'&&!allowed())return;atlasIndex=Number(s?.activeIndex)||0;atlasQuery='';atlasFilter='all';value($('r1215AtlasSearch'),'');value($('r1215AtlasFilter'),'all');prop($('r1215AtlasError'),'hidden',true);renderAtlas();if(!dialog.open)dialog.showModal();wake()};
  $('r920AtlasClose').onclick=()=>dialog.close();dialog.addEventListener('close',()=>{$('r920AtlasOpen')?.focus({preventScroll:true})});
  $('r920AtlasNodes').onclick=e=>{const b=e.target.closest('[data-index]');if(b){atlasIndex=Number(b.dataset.index);renderAtlas()}};
- $('r920AtlasChoose').onclick=()=>{select(atlasMode,atlasIndex);dialog.close()};
+ $('r1215AtlasSearch').oninput=e=>{atlasQuery=e.target.value;renderAtlas()};
+ $('r1215AtlasFilter').onchange=e=>{atlasFilter=e.target.value;renderAtlas()};
+ $('r1215AtlasClear').onclick=()=>{atlasQuery='';atlasFilter='all';value($('r1215AtlasSearch'),'');value($('r1215AtlasFilter'),'all');renderAtlas();$('r1215AtlasSearch').focus({preventScroll:true})};
+ // Keep the dialog and its selection until the canonical command succeeds.
+ // A double tap, stale audio preparation or a relock must never close it as success.
+ $('r920AtlasChoose').onclick=async()=>{
+  if(atlasChoosing)return;atlasChoosing=true;const mode=atlasMode,index=atlasIndex;
+  prop($('r920AtlasChoose'),'disabled',true);prop($('r1215AtlasError'),'hidden',true);
+  try{const result=await select(mode,index);if(result?.accepted&&!result?.stale){if(dialog.open)dialog.close()}else{prop($('r1215AtlasError'),'hidden',false);text($('r1215AtlasError'),window.I18N?.lang==='en'?'The name could not be selected. Try again.':'İsim seçilemedi. Yeniden dene.')}}
+  catch(_){prop($('r1215AtlasError'),'hidden',false);text($('r1215AtlasError'),window.I18N?.lang==='en'?'The name could not be selected. Try again.':'İsim seçilemedi. Yeniden dene.')}
+  finally{atlasChoosing=false;prop($('r920AtlasChoose'),'disabled',false)}
+ };
  // Move existing action controls with their listeners intact; do not duplicate their handlers.
  const bar=$('zBar');if(bar)$('r920Actions').append(bar);
  const settings=$('r679ZikirAyarBox');if(settings)$('r920More').before(settings);
@@ -204,11 +215,23 @@ function syncJourneySettings(s){
  const native=$(prefix+'Custom'),control=$('r920RepeatCustom');prop($('r920RepeatCustomLabel'),'hidden',$(prefix+'Mode')?.value!=='custom');if(native)value(control,native.value);
 }
 function wake(){clearTimeout(focusTimer);if(document.body.classList.contains('r920-focus-rest'))document.body.classList.remove('r920-focus-rest');if(focusEnabled&&view()?.phase==='PLAYING')focusTimer=setTimeout(()=>{if(view()?.phase==='PLAYING')document.body.classList.add('r920-focus-rest')},4500)}
+// Search reads the existing catalogue; it never selects a name or changes a count.
+function atlasFold(value){return String(value??'').toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[\u0300-\u036f\u064b-\u065f\u0670]/g,'').replace(/ı/g,'i').replace(/[’'ʻʼ]/g,'').replace(/-/g,' ').replace(/\s+/g,' ').trim()}
+function atlasMatches(query,filter,entry){
+ const status=filter==='completed'?entry.done:filter==='remaining'?!entry.done:filter==='active'?entry.active:true;
+ const needle=atlasFold(query),haystack=atlasFold([entry.index+1,entry.name,entry.meaning,entry.arabic].join(' '));
+ return !!status&&(!needle||needle.split(' ').every(part=>haystack.includes(part)));
+}
 function renderAtlas(){
  if(!dialog)return;if(atlasMode==='berhet'&&!allowed()){if(dialog.open)dialog.close();return}
  const list=items(atlasMode),s=snap();text($('r920AtlasTitle'),atlasMode==='berhet'?'Berhetiyye Atlası':'Esmâ Atlası');text($('r920AtlasCaption'),`${list.length} durak · Bu cihazda gözlenen tamamlanmalar`);
- const nodes=$('r920AtlasNodes');if(nodes.dataset.mode!==atlasMode){nodes.replaceChildren();list.forEach((it,i)=>{const b=document.createElement('button');b.type='button';b.dataset.index=i;b.textContent=i+1;nodes.append(b)});nodes.dataset.mode=atlasMode}
- for(const b of nodes.children){const i=Number(b.dataset.index),done=!!completed[atlasMode+':'+i],active=s?.activeMode===atlasMode&&s?.activeIndex===i;attr(b,'aria-pressed',i===atlasIndex);attr(b,'data-complete',done?'1':'0');attr(b,'data-active',active?'1':'0');attr(b,'aria-label',`${i+1}. ${itemName(atlasMode,i)}${done?', tamamlandı':''}${active?', aktif':''}`)}
+ const english=window.I18N?.lang==='en',nodes=$('r920AtlasNodes');
+ if(nodes.dataset.mode!==atlasMode){nodes.replaceChildren();list.forEach((it,i)=>{const b=document.createElement('button');b.type='button';b.dataset.index=i;b.innerHTML='<span class="r1215AtlasNumber" aria-hidden="true"></span><span class="r1215AtlasName"></span><span class="r1215AtlasMark" aria-hidden="true"></span>';text(b.children[0],i+1);text(b.children[1],itemName(atlasMode,i));nodes.append(b)});nodes.dataset.mode=atlasMode}
+ let matches=0;
+ for(const b of nodes.children){const i=Number(b.dataset.index),it=list[i]||{},done=!!completed[atlasMode+':'+i],active=s?.activeMode===atlasMode&&s?.activeIndex===i,name=itemName(atlasMode,i);attr(b,'aria-pressed',i===atlasIndex);attr(b,'data-complete',done?'1':'0');attr(b,'data-active',active?'1':'0');attr(b,'aria-label',`${i+1}. ${name}${done?(english?', completed':', tamamlandı'):''}${active?(english?', active':', aktif'):''}`);text(b.children[1],name);text(b.children[2],done?'✓':active?'●':'');const match=atlasMatches(atlasQuery,atlasFilter,{index:i,name,meaning:it.m||it.mean||it.serh||it.meaning||it.anlam||'',arabic:it.a||it.ar||'',done,active});prop(b,'hidden',!match);if(match)matches++}
+ text($('r1215AtlasSearchLabel'),english?'Search name or meaning':'İsim veya anlam ara');attr($('r1215AtlasSearch'),'placeholder',english?'Name, meaning or number':'İsim, anlam veya numara');text($('r1215AtlasFilterLabel'),english?'Status':'Durum');
+ for(const option of $('r1215AtlasFilter').options){const labels={all:['Tümü','All'],remaining:['Tamamlanmayanlar','Not completed'],completed:['Tamamlananlar','Completed'],active:['Aktif isim','Active name']};text(option,labels[option.value][english?1:0])}
+ text($('r1215AtlasResults'),english?`${matches} of ${list.length} names`:`${list.length} isimden ${matches} sonuç`);prop($('r1215AtlasEmpty'),'hidden',matches!==0);text($('r1215AtlasEmptyText'),english?'No names match this search.':'Bu aramaya uygun isim bulunamadı.');text($('r1215AtlasClear'),english?'Clear search':'Aramayı temizle');
  const item=list[atlasIndex]||{},scene=atlasMode==='berhet'?scenes()[atlasIndex]:null;
  text($('r920AtlasName'),`${atlasIndex+1}. ${itemName(atlasMode,atlasIndex)}`);text($('r920AtlasMeaning'),item.m||item.mean||item.serh||item.meaning||item.anlam||'Ayrıntılar isim kartında.');
  const eb=safe(()=>typeof zEbcedDegeri==='function'?zEbcedDegeri(item):null);

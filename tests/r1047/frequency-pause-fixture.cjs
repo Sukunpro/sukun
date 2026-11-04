@@ -4,7 +4,7 @@
 const fs=require('fs'),vm=require('vm'),path=require('path'),assert=require('assert'),crypto=require('crypto');
 const input=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
 const source=fs.statSync(input).isDirectory()?path.join(input,'index.html'):input;
-const html=fs.readFileSync(source,'utf8');
+const html=require('../helpers/shipped-shell.cjs').readShippedShell(source);
 const codeFor=id=>{const re=new RegExp('<script\\b[^>]*id="'+id+'"[^>]*>([\\s\\S]*?)<\\/script>'); const m=html.match(re);assert(m,id);return m[1];};
 const between=(start,end,from=0)=>{const s=html.indexOf(start,from);assert(s>=0,start);const e=html.indexOf(end,s+start.length);assert(e>s,end);return html.slice(s,e);};
 const lineFor=s=>html.slice(0,html.indexOf(s)).split('\n').length;

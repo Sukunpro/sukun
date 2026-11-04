@@ -4,7 +4,7 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const path=process.argv[2]||['../index.html','../app/index.html','../../index.html'].map(p=>require('node:path').resolve(__dirname,p)).find(p=>fs.existsSync(p));
 assert(path,'Pass the production index.html path as the first argument');
-const html=fs.readFileSync(path,'utf8');
+const html=require(require('node:path').join(__dirname,'helpers/shipped-shell.cjs')).readShippedShell(path);
 const chunk=(a,b)=>html.slice(html.indexOf(a),html.indexOf(b,html.indexOf(a)));
 const production=chunk('const REC_DB=(function(){','/* r976: short feedback samples');
 const catalog=chunk('const SK_RECORDING_CATALOG=','function skRecordingCatalogNotice()');

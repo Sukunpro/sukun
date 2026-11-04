@@ -2,7 +2,7 @@
 // Exact production restart/navigation. Time delivery, cleanup readiness and
 // endpoint intent snapshots are controlled here; native companion uses real UI APIs.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
-const root=path.resolve(process.argv[2]||path.join(__dirname,'../..')),html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const root=path.resolve(process.argv[2]||path.join(__dirname,'../..')),html=require('../helpers/shipped-shell.cjs').readShippedShell(path.join(root,'index.html'));
 const a=html.indexOf('async function restartDirect(){'),b=html.indexOf('/* Smart-session navigation',a);assert(a>0&&b>a);const source=html.slice(a,b);
 async function flush(){for(let i=0;i<30;i++)await Promise.resolve()}
 function harness(){let serial=0,time=0,intent=1,request=1,paused=false,cleanup=()=>Promise.resolve(true);const timers=new Map(),starts=[],stops=[],listeners=new Map();

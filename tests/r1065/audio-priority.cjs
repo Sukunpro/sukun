@@ -1,7 +1,7 @@
 /* Production policy and reader tests with deterministic SpeechSynthesis/media controls. */
 'use strict';
 const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert');
-const root=path.resolve(__dirname,'../..'),core=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const root=path.resolve(__dirname,'../..'),core=require('../helpers/shipped-shell.cjs').readShippedShell(path.join(root,'index.html'));
 function block(start,end){const i=core.indexOf(start);assert(i>=0,start);const j=core.indexOf(end,i+start.length);assert(j>i,end);return core.slice(i,j);}
 const policy=block('window.SukunReadingPolicy=(()=>{','/* r922: persisted reading preference;');
 const nameTts=block('function sukunNameTtsText(','\nfunction r476CanonicalItem()');

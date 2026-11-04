@@ -1,0 +1,99 @@
+/* Load this layer before legacy saver/gate layers. Only presentation; all
+   visibility and unlocked states continue to come from their current owners. */
+@layer sukun-r1215-cinematic {
+ #r1215Atmosphere {position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;contain:strict}
+ #r1215Atmosphere i {position:absolute;display:block;pointer-events:none}
+ #r1215Atmosphere .r1215LanternLight {inset:0;background:radial-gradient(ellipse 22% 45% at 4% 25%,#e1ad441c,transparent 80%),radial-gradient(ellipse 22% 45% at 97% 27%,#a8d2f714,transparent 80%);opacity:.5}
+ #r1215Atmosphere .r1215WaterLight {inset:72% -4% -4%;background:repeating-linear-gradient(178deg,transparent 0 20px,#c3e8ff0d 22px,transparent 24px 46px);opacity:.28}
+ html[data-r1215-motion="cinematic"] #r1215Atmosphere .r1215LanternLight {animation:r1215-lantern 12s ease-in-out infinite}
+ html[data-r1215-motion="cinematic"] #r1215Atmosphere .r1215WaterLight {animation:r1215-water 20s ease-in-out infinite}
+ html[data-r1215-motion="balanced"] #r1215Atmosphere .r1215WaterLight {display:none}
+ html[data-r1215-motion="saving"] #r1215Atmosphere,
+ html[data-r1215-motion="hidden"] #r1215Atmosphere {display:none}
+ @keyframes r1215-lantern {0%,100%{opacity:.28}50%{opacity:.65}}
+ @keyframes r1215-water {0%,100%{transform:translateY(0);opacity:.18}50%{transform:translateY(7px);opacity:.32}}
+
+ /* Existing miniature art already mirrors the access authority. Balanced
+    keeps its steady light; saving and backgrounded pages stop decoration. */
+ html[data-r1215-motion]:not([data-r1215-motion="cinematic"]) body #sukunDiscovery button[data-discovery="berhet"]::before,
+ html[data-r1215-motion]:not([data-r1215-motion="cinematic"]) body #sukunDiscovery .r1176LockArt {animation:none!important}
+ html[data-r1215-motion="hidden"] body #kandil *,
+ html[data-r1215-motion="hidden"] body #kandil *::before,
+ html[data-r1215-motion="hidden"] body #kandil *::after,
+ html[data-r1215-motion="saving"] body #kandil :is(.kFlame,.kSettingsCog,#r1194Transition)::before,
+ html[data-r1215-motion="saving"] body #kandil :is(.kFlame,.kSettingsCog,#r1194Transition) {animation:none!important;transition:none!important}
+ html[data-r1215-motion="hidden"] body #sukunDiscovery button::before,
+ html[data-r1215-motion="hidden"] body #sukunDiscovery .r1176LockArt {animation:none!important;transition:none!important}
+
+ .r1215Quality {display:grid;grid-template-columns:minmax(0,1fr);gap:8px;min-width:0;grid-column:1/-1;padding:12px 0}
+ .r1215Quality label {font:600 14px/1.4 system-ui,sans-serif;color:#f3e3bd}
+ .r1215Quality select {width:100%;min-width:0;min-height:44px;box-sizing:border-box;padding:10px 12px;border:1px solid #a58b54;border-radius:10px;background:#091f2e;color:#f4ead7;font:500 14px/1.4 system-ui,sans-serif}
+ .r1215QualityHelp {margin:0;font:400 13px/1.5 system-ui,sans-serif;color:#d3dfe4;overflow-wrap:anywhere}
+ html body [data-r1215-replaced] {display:none!important}
+
+ /* One layout owner: logo, clock, date, then a single scrolling information
+    region. Footer controls occupy their own reserved space on every screen. */
+ html body #kandil.r1193Info[data-saver-content] {
+  padding:calc(18px + env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) calc(84px + env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left))!important;
+  gap:8px!important;justify-content:flex-start!important;overflow:hidden!important;
+  background:radial-gradient(ellipse at 50% 15%,#173742 0%,#071923 65%,#041117 100%)!important;
+ }
+ html[data-r1074-theme="berhet"] body #kandil.r1193Info[data-saver-content] {background:radial-gradient(ellipse at 50% 15%,#133c54 0%,#061828 65%,#020e19 100%)!important}
+ html body #kandil.r1193Info[data-saver-content] .kFlame {
+  order:0!important;display:flex!important;flex:0 0 auto!important;position:relative!important;margin:0 auto!important;
+  width:clamp(90px,18vh,160px)!important;height:clamp(72px,14vh,128px)!important;max-height:18vh!important;min-height:0!important;
+ }
+ html[data-r1074-theme="berhet"] body #kandil.r1193Info[data-saver-content] .kFlame {
+  width:clamp(148px,26vh,240px)!important;height:auto!important;aspect-ratio:31/20!important;max-height:20vh!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] #kSaat {order:1!important;position:static!important;flex:0 0 auto!important;font:500 clamp(27px,4.3vh,40px)/1.1 system-ui,sans-serif!important;letter-spacing:.06em!important;color:#f6dfaa!important;margin:0!important}
+ html body #kandil.r1193Info[data-saver-content] #kTarih {order:2!important;position:static!important;font:500 12px/1.5 system-ui,sans-serif!important;letter-spacing:.05em!important;color:#d8dfe2!important;margin:0 0 7px!important}
+ html body #kandil.r1193Info[data-saver-content] #r1193SaverInfo {order:3!important;width:min(760px,100%)!important;flex:1 1 auto!important;overflow:auto!important;overscroll-behavior:contain!important;padding:0 4px 12px!important;scrollbar-gutter:stable!important}
+ html body #kandil.r1193Info[data-saver-content] #r1213SaverContent {position:static!important;margin-bottom:10px!important;background:#061824!important;box-shadow:none!important}
+ html body #kandil.r1193Info[data-saver-content] #r1193PalaceState {font-size:12px!important;margin:4px 0 10px!important;color:#dac595!important}
+ html body #kandil.r1193Info[data-saver-content] #r1193SaverEmpty {margin:8px 0 12px!important;color:#ced9dd!important}
+ html body #kandil.r1193Info[data-saver-content] .r1194Timing {grid-template-columns:repeat(2,minmax(0,1fr))!important;align-items:start!important;gap:10px!important}
+ html body #kandil.r1193Info[data-saver-content] .r1194Fact {height:auto!important;min-width:0!important;padding:14px 16px!important;border:1px solid #9e885c80!important;border-radius:14px!important;background:#0a2230f5!important;box-shadow:inset 0 1px 0 #ecd0940a!important}
+ html[data-r1074-theme="berhet"] body #kandil.r1193Info[data-saver-content] .r1194Fact {background:linear-gradient(145deg,#123c60f5,#061a30fa)!important;border-image:none!important;border-color:#c4a164!important;box-shadow:inset 0 0 0 1px #05182d, inset 0 0 0 2px #d4bb6e22!important}
+ html body #kandil.r1193Info[data-saver-content] .r1194Fact summary {min-height:44px!important;display:flex!important;align-items:center!important;font-size:13px!important;line-height:1.45!important;color:#f2e5c5!important;overflow-wrap:anywhere!important}
+ html body #kandil.r1193Info[data-saver-content] .r1194Fact p {font:400 13px/1.55 system-ui,sans-serif!important;color:#d3dee5!important}
+ html body #kandil.r1193Info[data-saver-content] .r1193SaverNames[data-r1215-cards="1"] {grid-template-columns:1fr!important}
+ html body #kandil.r1193Info[data-saver-content] #r1215ChooseLocation {display:block!important;width:100%!important;min-height:44px!important;height:auto!important;margin-top:10px!important;padding:9px 14px!important;border:1px solid #b49a5e!important;border-image:none!important;border-radius:10px!important;background:#124836!important;color:#fff0ce!important;font:600 14px/1.4 system-ui,sans-serif!important;white-space:normal!important;cursor:pointer!important}
+ html body #kandil.r1193Info[data-saver-content] #r1215ChooseLocation[hidden] {display:none!important}
+ html body #kandil.r1193Info[data-saver-content] #kandilWake {position:fixed!important;bottom:calc(17px + env(safe-area-inset-bottom))!important;left:50%!important;transform:translateX(calc(-50% - 25px))!important;min-height:44px!important;min-width:150px!important;max-width:calc(100vw - 118px)!important;z-index:5!important}
+ html body #kandil.r1193Info[data-saver-content] #kandilSettingsButton {position:fixed!important;top:auto!important;bottom:calc(17px + env(safe-area-inset-bottom))!important;left:calc(50% + 80px)!important;right:auto!important;width:44px!important;height:44px!important;min-height:44px!important;transform:none!important;padding:6px!important;z-index:5!important}
+ html body #kandil.r1193Info[data-saver-content] #kandilSettingsButton svg {width:29px!important;height:29px!important;flex-basis:29px!important}
+ html body #kandil.r1193Info[data-saver-content] #kandilSettingsLabel {position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important}
+ html body #kandil.r1193Info[data-saver-content] #kandilPowerWrap {position:fixed!important;top:auto!important;bottom:calc(72px + env(safe-area-inset-bottom))!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:min(340px,calc(100vw - 40px))!important;max-height:calc(100dvh - 105px)!important;padding:16px!important;overflow-y:auto!important;background:#071d2dfc!important;border:1px solid #b79b5a!important;border-radius:16px!important;z-index:6!important}
+ html body #kandil.r1193Info[data-saver-content] #kandilPowerWrap[hidden] {display:none!important}
+ html body #kandil .r1215Quality :is(label,select,p) {font-size:13px!important;line-height:1.5!important}
+
+ #r1215LocationDialog {box-sizing:border-box;width:min(440px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:24px;border:1px solid #b49b67;border-radius:18px;background:#071e2c;color:#f2e6cd;box-shadow:0 16px 60px #0008}
+ #r1215LocationDialog::backdrop {background:#010b14b8}
+ #r1215LocationDialog h2 {margin:0 0 12px;font:600 25px/1.25 Georgia,serif;color:#f2db9f}
+ #r1215LocationDialog p {font:400 14px/1.6 system-ui,sans-serif;color:#d7e2e8}
+ .r1215LocationActions {display:grid;gap:10px;margin:20px 0}
+ #r1215LocationDialog button {min-height:44px;border:1px solid #b49b67;border-radius:10px;padding:10px 14px;font:600 14px/1.4 system-ui,sans-serif;background:#103a40;color:#fff0ce;cursor:pointer}
+ #r1215LocationClose {width:100%;background:#0c2435!important}
+ :is(#r1215LocationDialog,.r1215Quality) :focus-visible, #r1215ChooseLocation:focus-visible {outline:2px solid #ffe8aa!important;outline-offset:3px!important}
+ @media(max-width:520px) {
+  html body #kandil.r1193Info[data-saver-content] .r1194Timing {grid-template-columns:1fr!important}
+  html body #kandil.r1193Info[data-saver-content] .r1193SaverNames {grid-template-columns:1fr!important}
+ }
+ @media(max-height:600px) {
+  html body #kandil.r1193Info[data-saver-content] {gap:4px!important;padding-top:calc(12px + env(safe-area-inset-top))!important}
+  html body #kandil.r1193Info[data-saver-content] .kFlame {width:76px!important;height:60px!important;max-height:60px!important}
+  html[data-r1074-theme="berhet"] body #kandil.r1193Info[data-saver-content] .kFlame {width:110px!important;height:70px!important;max-height:70px!important}
+  html body #kandil.r1193Info[data-saver-content] #kSaat {font-size:25px!important}
+ }
+ @media(prefers-reduced-motion:reduce) {
+  #r1215Atmosphere {display:none!important}
+  html body #sukunDiscovery button[data-discovery="berhet"]::before,
+  html body #sukunDiscovery .r1176LockArt {animation:none!important;transition:none!important}
+ }
+ @media(forced-colors:active) {
+  #r1215Atmosphere {display:none!important}
+  html body #kandil.r1193Info[data-saver-content],#r1215LocationDialog {background:Canvas!important;color:CanvasText!important}
+  html body #kandil.r1193Info[data-saver-content] :is(.r1194Fact,#kandilPowerWrap),#r1215LocationDialog button {background:Canvas!important;border:1px solid CanvasText!important;border-image:none!important;color:CanvasText!important;box-shadow:none!important}
+ }
+}

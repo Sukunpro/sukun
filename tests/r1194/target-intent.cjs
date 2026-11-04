@@ -1,5 +1,5 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
-const html=fs.readFileSync(process.env.SUKUN_TEST_HTML||'nero.html','utf8');
+const html=require('../helpers/shipped-shell.cjs').readShippedShell(process.env.SUKUN_TEST_HTML||'nero.html');
 function part(a,b){return html.slice(html.indexOf(a),html.indexOf(b,html.indexOf(a)));}
 for(const kind of ['28','99'])for(const owns of [true,false]){
  const prefix=kind==='28'?'bs':'es99',calls=[];let owner=owns,settings={mode:'1'};

@@ -1,6 +1,6 @@
 'use strict';
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
-const html=fs.readFileSync('nero.html','utf8'),ui=fs.readFileSync('assets/runtime/interface-r920.js','utf8');
+const html=require('../helpers/shipped-shell.cjs').readShippedShell('nero.html'),ui=fs.readFileSync('assets/runtime/interface-r920.js','utf8');
 function method(text){const start=text.indexOf('restartAll(){'),open=text.indexOf('{',start);let depth=1,i=open+1;while(depth){if(text[i]==='{')depth++;if(text[i]==='}')depth--;i++;}return text.slice(open+1,i-1)}
 for(const kind of ['28','99'])for(const phase of ['idle','running','paused','completed']){
  const at=kind==='28'?html.indexOf("version:'r549'"):html.indexOf("version:'r553'",html.indexOf('r553-esma99-secret-runtime'));

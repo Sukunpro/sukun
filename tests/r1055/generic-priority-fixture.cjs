@@ -3,7 +3,7 @@
 // catalog and priority lock; only media/TTS and the separate bank are leaves.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
 module.exports=function environment(root){
- const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+ const html=require('../helpers/shipped-shell.cjs').readShippedShell(path.join(root,'index.html'));
  const storageFile=path.join(__dirname,'../recording-storage.cjs'),storage=fs.readFileSync(storageFile,'utf8');
  const boundary=storage.indexOf('const results=[];');assert(boundary>0);
  const exported={exports:{}};

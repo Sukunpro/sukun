@@ -83,7 +83,7 @@ async function test(name,run){try{await run();results.push({name,passed:true})}c
   const r=await work;assert.equal(r.ok,false);assert.equal(r.cancelled,true);assert.equal(h.tts.length,0);assert.equal(h.c.SukunRecordingFailure.snapshot().active,false);
  });
  await test('archive availability and epoch invalidate actual missing/prepared source matches',async()=>{
-  const h=environment(root),html=fs.readFileSync(path.join(root,'index.html'),'utf8'),start=html.indexOf('let _r1007SingleFallback=null,'),end=html.indexOf('function r1007RecordingStatus(',start);assert(start>=0&&end>start);
+  const h=environment(root),html=require('../helpers/shipped-shell.cjs').readShippedShell(path.join(root,'index.html')),start=html.indexOf('let _r1007SingleFallback=null,'),end=html.indexOf('function r1007RecordingStatus(',start);assert(start>=0&&end>start);
   vm.runInContext("const r476CanonicalItem=()=>zItem();const r477FxSignature=()=> 'fx';let _r476Prepared={};"+html.slice(start,end),h.c);
   const seed=()=>vm.runInContext("_r1010MissingRecording={key:zikirKey(),signature:r1010RecordingLookupSignature(),voiceEpoch:SukunVoiceSettings.epoch(),ownerEpoch:SukunTabOwner.snapshot().epoch,ownerIntent:SukunTabOwner.snapshot().intent};_r476Prepared={key:zikirKey(),voiceEpoch:SukunVoiceSettings.epoch(),fxSig:'fx',lookupSignature:r1010RecordingLookupSignature(),recordingKey:'',recordingRevision:0};",h.c);
   h.setGeneric(false);seed();assert.equal(h.c.r1010MissingRecordingMatches(),true);assert.equal(h.c.r1010PreparedRecordingMatches(),true);
