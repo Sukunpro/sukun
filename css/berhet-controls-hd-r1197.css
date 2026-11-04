@@ -1,6 +1,19 @@
 /* r1197: use the horizontal 2170px gemstone masters at their intended
    nine-slice proportions. Keep native sizes, click owners and hidden states. */
 @layer sukun-r1197-control-detail {
+ /* A single centering method avoids the legacy transform/translate rules
+    combining into a right-shifted hidden-player handle. Keep the visual
+    viewport engine's inline top/bottom adjustments intact. */
+ html[data-r1074-theme="berhet"] body.r431-dock-visible.r433-dock-hidden:not(.r441-peek-tab) #r433DockPeek {
+  box-sizing:border-box!important;position:fixed!important;left:0!important;right:0!important;
+  margin-left:auto!important;margin-right:auto!important;transform:none!important;translate:none!important;
+  width:min(300px,calc(100vw - 24px))!important;min-width:0!important;max-width:calc(100vw - 24px)!important;
+ }
+ /* Leave enough scrolling room for controls above the fixed handle. */
+ html[data-r1074-theme="berhet"] body.r920-practice-on.r431-dock-visible.r433-dock-hidden #r920Practice {
+  padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))!important;
+  scroll-margin-bottom:calc(100px + env(safe-area-inset-bottom,0px))!important;
+ }
  @media (forced-colors:none) {
   html[data-r1074-theme="berhet"] body :is(#r920JourneyRestartAll,#bsRestartAll,#r1193Journey28restart,#r883JourneyRemote [data-act="restartAll"]) {
    --r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
