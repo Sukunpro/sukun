@@ -54,7 +54,6 @@
  html body #kandil.r1193Info[data-saver-content] #r1193SaverEmpty {margin:8px 0 12px!important;color:#ced9dd!important}
  html body #kandil.r1193Info[data-saver-content] .r1194Timing {grid-template-columns:repeat(2,minmax(0,1fr))!important;align-items:start!important;gap:10px!important}
  html body #kandil.r1193Info[data-saver-content] .r1194Fact {height:auto!important;min-width:0!important;padding:14px 16px!important;border:1px solid #9e885c80!important;border-radius:14px!important;background:#0a2230f5!important;box-shadow:inset 0 1px 0 #ecd0940a!important}
- html[data-r1074-theme="berhet"] body #kandil.r1193Info[data-saver-content] .r1194Fact {background:linear-gradient(145deg,#123c60f5,#061a30fa)!important;border-image:none!important;border-color:#c4a164!important;box-shadow:inset 0 0 0 1px #05182d, inset 0 0 0 2px #d4bb6e22!important}
  html body #kandil.r1193Info[data-saver-content] .r1194Fact summary {min-height:44px!important;display:flex!important;align-items:center!important;font-size:13px!important;line-height:1.45!important;color:#f2e5c5!important;overflow-wrap:anywhere!important}
  html body #kandil.r1193Info[data-saver-content] .r1194Fact p {font:400 13px/1.55 system-ui,sans-serif!important;color:#d3dee5!important}
  html body #kandil.r1193Info[data-saver-content] .r1193SaverNames[data-r1215-cards="1"] {grid-template-columns:1fr!important}
@@ -76,6 +75,40 @@
  #r1215LocationDialog button {min-height:44px;border:1px solid #b49b67;border-radius:10px;padding:10px 14px;font:600 14px/1.4 system-ui,sans-serif;background:#103a40;color:#fff0ce;cursor:pointer}
  #r1215LocationClose {width:100%;background:#0c2435!important}
  :is(#r1215LocationDialog,.r1215Quality) :focus-visible, #r1215ChooseLocation:focus-visible {outline:2px solid #ffe8aa!important;outline-offset:3px!important}
+ /* r1216: retain the sapphire/gold material inside the early cinematic
+    layer. Layout and hidden-state rules above remain the component owners. */
+ @media(forced-colors:none) {
+  html[data-r1074-theme="berhet"] body #kandil.r1193Info[data-saver-content] .r1194Fact {
+   border:1px solid transparent!important;
+   border-image:var(--sukun-gem-sapphire) 210 540 fill / var(--sukun-frame-wide,12px 28px) / 0 stretch!important;
+   background:none!important;box-shadow:none!important;padding:12px 28px!important;
+   color:var(--sukun-material-ink,#fff0ce)!important;image-rendering:auto!important;
+  }
+  html[data-r1074-theme="berhet"] body #kandil.r1193Info[data-saver-content] #r1213SaverContent {
+   background:none!important;
+  }
+  html[data-r1074-theme="berhet"] body #kandil.r1193Info[data-saver-content] #kandilPowerWrap,
+  html[data-r1074-theme="berhet"] body #r1215LocationDialog {
+   border:1px solid transparent!important;
+   border-image:var(--sukun-gem-sapphire-square) 330 fill / 10px / 0 stretch!important;
+   background:none!important;box-shadow:0 12px 36px #0008!important;
+   color:var(--sukun-material-ink,#fff0ce)!important;image-rendering:auto!important;
+  }
+  html[data-r1074-theme="berhet"] body #kandil.r1193Info[data-saver-content] #r1213SaverContent button,
+  html[data-r1074-theme="berhet"] body #kandil.r1193Info[data-saver-content] #r1215ChooseLocation,
+  html[data-r1074-theme="berhet"] body .r1215Quality select,
+  html[data-r1074-theme="berhet"] body #r1215LocationDialog button {
+   border:1px solid transparent!important;
+   border-image:var(--sukun-gem-sapphire) 210 540 fill / 10px 20px / 0 stretch!important;
+   background:none!important;box-shadow:none!important;padding:10px 24px!important;
+   color:var(--sukun-material-ink,#fff0ce)!important;text-shadow:0 1px 2px #000!important;
+   image-rendering:auto!important;
+  }
+  html[data-r1074-theme="berhet"] body #kandil.r1193Info[data-saver-content] #r1213SaverContent button[aria-pressed="true"],
+  html[data-r1074-theme="berhet"] body #kandil.r1193Info[data-saver-content] #r1215ChooseLocation {
+   border-image-source:var(--sukun-gem-emerald)!important;
+  }
+ }
  @media(max-width:520px) {
   html body #kandil.r1193Info[data-saver-content] .r1194Timing {grid-template-columns:1fr!important}
   html body #kandil.r1193Info[data-saver-content] .r1193SaverNames {grid-template-columns:1fr!important}

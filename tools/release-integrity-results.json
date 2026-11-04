@@ -1,5 +1,5 @@
 {
-  "build": "r1215",
+  "build": "r1216",
   "method": "Complete local release bytes: identity, exact SHA-256 and sizes, HTML SRI, shipped JavaScript syntax, and scoped active external CSS resource validation. Unresolved CSS variables remain explicit; these are static assertions, not device/audio checks.",
   "passed": 1869,
   "total": 1869,
@@ -7,7 +7,7 @@
   "externalScriptsParsed": 81,
   "runtimeEntries": 181,
   "siteFiles": 874,
-  "siteBytes": 453562302,
+  "siteBytes": 453570013,
   "sriEntries": 167,
   "cssAssets": {
     "schema": 1,
@@ -17,7 +17,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/premium-layout-r1215.css",
-        "line": 30,
+        "line": 31,
         "property": "background",
         "variable": "--sukun-surface-glass",
         "chain": []
@@ -25,7 +25,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/premium-layout-r1215.css",
-        "line": 34,
+        "line": 35,
         "property": "background",
         "variable": "--sukun-surface-glass",
         "chain": []
@@ -33,17 +33,9 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/premium-layout-r1215.css",
-        "line": 39,
+        "line": 42,
         "property": "background",
         "variable": "--sukun-surface-glass",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/premium-layout-r1215.css",
-        "line": 48,
-        "property": "background",
-        "variable": "--sukun-surface-active",
         "chain": []
       },
       {
@@ -51,13 +43,21 @@
         "source": "css/premium-layout-r1215.css",
         "line": 53,
         "property": "background",
+        "variable": "--sukun-surface-active",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/premium-layout-r1215.css",
+        "line": 61,
+        "property": "background",
         "variable": "--sukun-surface-glass",
         "chain": []
       },
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/premium-layout-r1215.css",
-        "line": 65,
+        "line": 75,
         "property": "background",
         "variable": "--sukun-surface-active",
         "chain": []
@@ -65,7 +65,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/premium-layout-r1215.css",
-        "line": 74,
+        "line": 85,
         "property": "background",
         "variable": "--sukun-surface-glass",
         "chain": []
@@ -73,7 +73,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/premium-layout-r1215.css",
-        "line": 118,
+        "line": 132,
         "property": "background",
         "variable": "--sukun-surface-inset",
         "chain": []
@@ -81,7 +81,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/premium-layout-r1215.css",
-        "line": 125,
+        "line": 140,
         "property": "background",
         "variable": "--sukun-surface-inset",
         "chain": []
@@ -89,7 +89,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/premium-layout-r1215.css",
-        "line": 139,
+        "line": 165,
         "property": "background",
         "variable": "--sukun-surface-active",
         "chain": []
@@ -97,7 +97,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/premium-layout-r1215.css",
-        "line": 154,
+        "line": 189,
         "property": "background",
         "variable": "--sukun-surface-inset",
         "chain": []
@@ -105,7 +105,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/premium-layout-r1215.css",
-        "line": 162,
+        "line": 202,
         "property": "background",
         "variable": "--sukun-surface-glass",
         "chain": []
@@ -113,7 +113,15 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/premium-layout-r1215.css",
-        "line": 246,
+        "line": 297,
+        "property": "background",
+        "variable": "--sukun-surface-inset",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/premium-layout-r1215.css",
+        "line": 335,
         "property": "background",
         "variable": "--sukun-surface-inset",
         "chain": []
@@ -4214,6 +4222,76 @@
     ],
     "references": [
       {
+        "source": "css/premium-layout-r1215.css",
+        "url": "../assets/berhetiyye-premium/gem-sapphire-r933.webp",
+        "target": "assets/berhetiyye-premium/gem-sapphire-r933.webp",
+        "line": 295,
+        "property": "border-image",
+        "chain": [
+          "--sukun-gem-sapphire-square"
+        ]
+      },
+      {
+        "source": "css/premium-layout-r1215.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "line": 310,
+        "property": "border-image",
+        "chain": [
+          "--sukun-gem-sapphire"
+        ]
+      },
+      {
+        "source": "css/premium-layout-r1215.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "line": 316,
+        "property": "border-image",
+        "chain": [
+          "--sukun-gem-emerald"
+        ]
+      },
+      {
+        "source": "css/cinematic-r1215.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "line": 82,
+        "property": "border-image",
+        "chain": [
+          "--sukun-gem-sapphire"
+        ]
+      },
+      {
+        "source": "css/cinematic-r1215.css",
+        "url": "../assets/berhetiyye-premium/gem-sapphire-r933.webp",
+        "target": "assets/berhetiyye-premium/gem-sapphire-r933.webp",
+        "line": 92,
+        "property": "border-image",
+        "chain": [
+          "--sukun-gem-sapphire-square"
+        ]
+      },
+      {
+        "source": "css/cinematic-r1215.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "line": 101,
+        "property": "border-image",
+        "chain": [
+          "--sukun-gem-sapphire"
+        ]
+      },
+      {
+        "source": "css/cinematic-r1215.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-emerald.webp",
+        "line": 108,
+        "property": "border-image-source",
+        "chain": [
+          "--sukun-gem-emerald"
+        ]
+      },
+      {
         "source": "css/practice-flow-r1213.css",
         "url": "../assets/berhetiyye-premium/r1133/gem-sapphire.webp",
         "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
@@ -5267,11 +5345,11 @@
     },
     "stats": {
       "files": 83,
-      "bytes": 1297568,
-      "declarations": 21904,
+      "bytes": 1303717,
+      "declarations": 21956,
       "customProperties": 193,
-      "checkedReferences": 112,
-      "valueExpansions": 3077
+      "checkedReferences": 119,
+      "valueExpansions": 3096
     }
   },
   "checks": [
@@ -11984,7 +12062,7 @@
       "passed": true
     },
     {
-      "name": "Site file hash and size sukun-build-r1215.json",
+      "name": "Site file hash and size sukun-build-r1216.json",
       "passed": true
     },
     {

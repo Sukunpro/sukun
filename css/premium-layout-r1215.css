@@ -1,4 +1,5 @@
-/* r1215 presentation owner. Load this layer before legacy important layers.
+/* r1215 presentation owner; r1216 separates theme paint from geometry.
+   Load this layer before legacy important layers.
    Geometry is limited to the ordinary shell; Tekke/focus/saver retain owners. */
 @layer sukun-r1215-layout {
  html {
@@ -26,19 +27,20 @@
  body.r1215-premium:not(.r616-ui):not(.sukun-tefekkur-mode)>.wrap {
   margin-inline:auto!important;padding-bottom:calc(40px + env(safe-area-inset-bottom) + var(--sukun-dock-safe,0px))!important;
  }
- body.r1215-premium:not(.r616-ui) .wrap>:is(header,.tabs,.masterBar,#todayCard,#prDashboard,#vakitBox),
- body.r1215-premium:not(.r616-ui) :is(#tab-amb,#tab-frq,#tab-zkr)>.card {
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium:not(.r616-ui) .wrap>:is(header,.tabs,.masterBar,#todayCard,#prDashboard,#vakitBox),
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium:not(.r616-ui) :is(#tab-amb,#tab-frq,#tab-zkr)>.card {
   background:var(--sukun-surface-glass)!important;border-color:var(--sukun-surface-line)!important;
   color:var(--sukun-surface-highlight)!important;box-shadow:inset 0 1px #fff1b90d,0 8px 20px #0002!important;
  }
- body.r1215-premium #r616Topbar {
-  background:var(--sukun-surface-glass)!important;border:1px solid var(--sukun-surface-line)!important;
-  border-radius:20px!important;box-shadow:inset 0 1px #f3e1ae18,0 10px 24px #0003!important;
-  backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium #r616Topbar {
+  background:var(--sukun-surface-glass)!important;border:1px solid var(--sukun-surface-line)!important;border-radius:20px!important;
+  box-shadow:inset 0 1px #f3e1ae18,0 10px 24px #0003!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;
  }
  body.r1215-premium :is(#r616HomeHero,#r616Continue,.r616Stat,.r616Shortcut,#r616SoundHeader) {
-  background:var(--sukun-surface-glass)!important;border:1px solid var(--sukun-surface-line)!important;
-  color:var(--sukun-surface-highlight)!important;border-radius:18px!important;
+  color:var(--sukun-surface-highlight)!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium :is(#r616HomeHero,#r616Continue,.r616Stat,.r616Shortcut,#r616SoundHeader) {
+  background:var(--sukun-surface-glass)!important;border:1px solid var(--sukun-surface-line)!important;border-radius:18px!important;
   box-shadow:inset 0 1px #fff1b90d,0 8px 20px #0002!important;
  }
  body.r1215-premium :is(#r616HomeMeaning,#r616ContinueMeta,.r616Stat span,.r616Lead) {
@@ -46,34 +48,42 @@
  }
  body.r1215-premium #r616HomeHero {padding:24px!important}
  body.r1215-premium #r616HomeStart {
+  color:#f8f4dc!important;min-height:50px!important;font-size:15px!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium #r616HomeStart {
   background:var(--sukun-surface-active)!important;border:1px solid #afcbb199!important;
-  color:#f8f4dc!important;box-shadow:inset 0 1px #dbf9e326,0 4px 12px #00140f88!important;
-  min-height:50px!important;font-size:15px!important;
+  box-shadow:inset 0 1px #dbf9e326,0 4px 12px #00140f88!important;
  }
  body.r1215-premium.r616-ui #r616BottomNav {
-  background:var(--sukun-surface-glass)!important;border:1px solid var(--sukun-surface-line)!important;
-  backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;
-  box-shadow:0 -8px 30px #0005!important;
-  width:min(calc(100% - 16px),710px)!important;max-width:calc(100% - 16px)!important;
-  bottom:0!important;padding:6px 6px calc(6px + env(safe-area-inset-bottom))!important;
+  width:min(calc(100% - 16px),710px)!important;max-width:calc(100% - 16px)!important;bottom:0!important;
+  padding:6px 6px calc(6px + env(safe-area-inset-bottom))!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium.r616-ui #r616BottomNav {
+  background:var(--sukun-surface-glass)!important;border:1px solid var(--sukun-surface-line)!important;backdrop-filter:blur(8px)!important;
+  -webkit-backdrop-filter:blur(8px)!important;box-shadow:0 -8px 30px #0005!important;
  }
  body.r1215-premium.r616-ui #r616BottomNav button {
-  min-height:52px!important;font:600 11px/1.3 system-ui,sans-serif!important;
-  color:var(--sukun-surface-muted)!important;border:1px solid transparent!important;
+  min-height:52px!important;font:600 11px/1.3 system-ui,sans-serif!important;color:var(--sukun-surface-muted)!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium.r616-ui #r616BottomNav button {
+  border:1px solid transparent!important;
  }
  body.r1215-premium.r616-ui #r616BottomNav button span {font-size:11px!important;white-space:normal!important}
  body.r1215-premium.r616-ui #r616BottomNav button.active {
-  background:var(--sukun-surface-active)!important;border:1px solid #85baad88!important;
-  box-shadow:inset 0 1px #d5f4df22!important;color:#ebfff4!important;
+  color:#ebfff4!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium.r616-ui #r616BottomNav button.active {
+  background:var(--sukun-surface-active)!important;border:1px solid #85baad88!important;box-shadow:inset 0 1px #d5f4df22!important;
  }
  /* Existing source and counter nodes keep their handlers and accessible names. */
  body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice:not([hidden]) {
-  position:relative!important;display:flex!important;flex-direction:column!important;
-  width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box!important;
-  margin:16px auto!important;padding:18px 14px!important;gap:14px!important;
+  position:relative!important;display:flex!important;flex-direction:column!important;width:100%!important;max-width:none!important;
+  min-width:0!important;box-sizing:border-box!important;margin:16px auto!important;padding:18px 14px!important;gap:14px!important;
+  overflow:visible!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice:not([hidden]) {
   border:1px solid var(--sukun-surface-line)!important;border-image:none!important;border-radius:24px!important;
   background:var(--sukun-surface-glass)!important;box-shadow:inset 0 1px #dceaf21c,0 16px 42px #0004!important;
-  overflow:visible!important;
  }
  body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice>.r920Modes {
   width:min(100%,420px)!important;max-width:100%!important;margin:0 auto!important;gap:8px!important;
@@ -109,6 +119,7 @@
  body.r1215-premium:not(.sukun-tefekkur-mode) #r920Eyebrow {font-size:10px!important;letter-spacing:1.6px!important;margin:0 0 5px!important;color:var(--sukun-surface-muted)!important}
  body.r1215-premium:not(.sukun-tefekkur-mode) #r920SceneTitle {font:400 14px/1.6 system-ui,sans-serif!important;max-width:440px!important;margin:6px auto!important;color:var(--sukun-surface-muted)!important}
  body.r1215-premium:not(.sukun-tefekkur-mode) #r1064CurrentReadingOpen {font-size:11px!important;min-height:36px!important;padding:6px 12px!important;margin:4px auto!important}
+ html[data-r1074-theme="berhet"] body.r1215-premium:not(.sukun-tefekkur-mode) #r1064CurrentReadingOpen {box-sizing:border-box!important;max-width:100%!important;height:auto!important;min-height:44px!important;padding:12px 36px!important;white-space:normal!important;overflow-wrap:anywhere!important;line-height:1.4!important}
  body.r1215-premium:not(.sukun-tefekkur-mode) #r924WheelFrame {
   width:min(84vw,360px,46svh)!important;max-width:100%!important;margin:6px auto!important;flex:none!important;
  }
@@ -116,42 +127,68 @@
   width:min(100%,330px)!important;margin:4px auto!important;gap:12px!important;
  }
  body.r1215-premium:not(.sukun-tefekkur-mode) #r938Hero .r920Stats>span {
+  color:var(--sukun-surface-muted)!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium:not(.sukun-tefekkur-mode) #r938Hero .r920Stats>span {
   background:var(--sukun-surface-inset)!important;border:1px solid var(--sukun-surface-line)!important;border-image:none!important;
-  border-radius:13px!important;color:var(--sukun-surface-muted)!important;box-shadow:inset 0 1px #fff1b912!important;
+  border-radius:13px!important;box-shadow:inset 0 1px #fff1b912!important;
  }
  body.r1215-premium:not(.sukun-tefekkur-mode) #r938Hero .r920Stats b {font-size:26px!important;color:var(--sukun-surface-highlight)!important}
  body.r1215-premium:not(.sukun-tefekkur-mode) #r938Panel {
-  min-width:0!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;
-  margin:0!important;padding:16px!important;background:var(--sukun-surface-inset)!important;
-  border:1px solid var(--sukun-surface-line)!important;border-image:none!important;border-radius:18px!important;
+  min-width:0!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;margin:0!important;padding:16px!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium:not(.sukun-tefekkur-mode) #r938Panel {
+  background:var(--sukun-surface-inset)!important;border:1px solid var(--sukun-surface-line)!important;border-image:none!important;
+  border-radius:18px!important;
  }
  body.r1215-premium:not(.sukun-tefekkur-mode) #r932WheelControls {
   width:100%!important;min-width:0!important;max-width:none!important;margin:0!important;padding:0!important;gap:10px!important;
   background:none!important;border:0!important;border-image:none!important;box-shadow:none!important;
  }
  body.r1215-premium #r1056ReadingSummary {
-  background:#061623c7!important;border:1px solid #95b1c13d!important;border-radius:12px!important;padding:10px!important;
-  color:var(--sukun-surface-muted)!important;gap:7px!important;
+  padding:10px!important;color:var(--sukun-surface-muted)!important;gap:7px!important;
  }
- body.r1215-premium #r1056ReadingSource {background:#103243!important;color:#e8efdf!important;border:1px solid #8ca6b45c!important;border-image:none!important;border-radius:9px!important}
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium #r1056ReadingSummary {
+  background:#061623c7!important;border:1px solid #95b1c13d!important;border-radius:12px!important;
+ }
+ body.r1215-premium #r1056ReadingSource {
+  color:#e8efdf!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium #r1056ReadingSource {
+  background:#103243!important;border:1px solid #8ca6b45c!important;border-image:none!important;border-radius:9px!important;
+ }
  body.r1215-premium #r968PrimaryActions {display:flex!important;justify-content:center!important;width:100%!important;margin:4px auto!important}
  body.r1215-premium #r968PrimaryActions #r920TefEnter {
   width:100%!important;min-height:48px!important;max-width:340px!important;padding:10px 18px!important;box-sizing:border-box!important;
+  color:#f6f0d6!important;font:600 14px/1.4 system-ui,sans-serif!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium #r968PrimaryActions #r920TefEnter {
   background:var(--sukun-surface-active)!important;border:1px solid #b7c398b3!important;border-image:none!important;border-radius:12px!important;
-  color:#f6f0d6!important;font:600 14px/1.4 system-ui,sans-serif!important;box-shadow:inset 0 1px #e6ffde22!important;
+  box-shadow:inset 0 1px #e6ffde22!important;
  }
  body.r1215-premium #r1215PracticeContext {margin:0 0 14px!important;padding:0 0 12px!important;border-bottom:1px solid var(--sukun-surface-line)!important;min-width:0!important}
  body.r1215-premium #r1215ContextKicker {font:600 10px/1.4 system-ui,sans-serif!important;letter-spacing:1.7px!important;color:#a9bcc7!important;margin:0 0 7px!important}
  body.r1215-premium #r1215ContextTitle {font:400 24px/1.25 Georgia,serif!important;color:var(--sukun-surface-highlight)!important;margin:0!important;overflow-wrap:anywhere!important}
  body.r1215-premium #r1215ContextProgress {font:400 13px/1.5 system-ui,sans-serif!important;color:var(--sukun-surface-muted)!important;margin:8px 0!important}
- body.r1215-premium #r1215NextCard {padding:12px 14px!important;margin:14px 0!important;border:1px solid var(--sukun-surface-line)!important;border-radius:12px!important;background:#03172499!important}
+ body.r1215-premium #r1215NextCard {
+  padding:12px 14px!important;margin:14px 0!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium #r1215NextCard {
+  border:1px solid var(--sukun-surface-line)!important;border-radius:12px!important;background:#03172499!important;
+ }
  body.r1215-premium #r1215NextCard small {display:block!important;color:var(--sukun-surface-muted)!important;font:400 12px/1.6 system-ui,sans-serif!important}
  body.r1215-premium #r1215NextCard strong {display:block!important;color:var(--sukun-surface-highlight)!important;font:400 23px/1.4 Georgia,serif!important;overflow-wrap:anywhere!important}
  body.r1215-premium #r1215SaveState {font:500 12px/1.5 system-ui,sans-serif!important;color:#b5cbc8!important;margin:10px 0 0!important;overflow-wrap:anywhere!important}
  body.r1215-premium #r1215SaveState[data-state="saved"] {color:#96dbc2!important}
  body.r1215-premium #r1215SaveState[data-state="error"] {color:#ffb8b8!important}
  body.r1215-premium #r1215SaveState[data-state="pending"] {color:#f0dca2!important}
- body.r1215-premium #r1215ReadingsEntry {display:flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;color:var(--sukun-surface-highlight)!important;background:var(--sukun-surface-inset)!important;border:1px solid var(--sukun-surface-line)!important;border-radius:12px!important;cursor:pointer!important}
+ body.r1215-premium #r1215ReadingsEntry {
+  display:flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;
+  color:var(--sukun-surface-highlight)!important;cursor:pointer!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium #r1215ReadingsEntry {
+  background:var(--sukun-surface-inset)!important;border:1px solid var(--sukun-surface-line)!important;border-radius:12px!important;
+ }
  body.r1215-premium #r1215ReadingsEntry i {width:19px!important;height:19px!important;display:grid!important;place-items:center!important}
  body.r1215-premium #r1215ReadingsEntry svg {width:19px!important;height:19px!important}
  /* Only redundant navigation disappears; canonical targets and handlers remain. */
@@ -159,8 +196,18 @@
  body.r1215-premium.r616-ui:has(#r616BottomNav) #sukunDiscovery [data-discovery="seyirler"],
  body.r1215-premium.r616-ui:has(#r616BottomNav) #sukunDiscovery [data-discovery="araclar"],
  body.r1215-premium.r616-ui[data-r616-view="zikir"]:has(#r1215ReadingsEntry) #sukunDiscovery [data-discovery="okumalar"] {display:none!important}
- body.r1215-premium .wrap>footer {margin:24px 0 12px!important;padding:14px!important;background:var(--sukun-surface-glass)!important;border:1px solid var(--sukun-surface-line)!important;border-radius:18px!important}
- body.r1215-premium #sukunDiscovery {margin:0!important;padding:14px!important;max-width:100%!important;box-sizing:border-box!important;background:#061a27b8!important;border:1px solid var(--sukun-surface-line)!important;border-radius:14px!important}
+ body.r1215-premium .wrap>footer {
+  margin:24px 0 12px!important;padding:14px!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium .wrap>footer {
+  background:var(--sukun-surface-glass)!important;border:1px solid var(--sukun-surface-line)!important;border-radius:18px!important;
+ }
+ body.r1215-premium #sukunDiscovery {
+  margin:0!important;padding:14px!important;max-width:100%!important;box-sizing:border-box!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium #sukunDiscovery {
+  background:#061a27b8!important;border:1px solid var(--sukun-surface-line)!important;border-radius:14px!important;
+ }
  body.r1215-premium #sukunDiscovery .discoveryGrid {display:flex!important;align-items:center!important;justify-content:center!important;flex-wrap:wrap!important;gap:14px!important;width:100%!important;margin:0!important}
  body.r1215-premium #sukunDiscovery [data-discovery="okumalar"] {flex:1 1 140px!important;width:auto!important;min-height:48px!important}
  body.r1215-premium #sukunDiscovery :is([data-discovery="berhet"],[data-mevlevi-lock]) {flex:0 0 84px!important;width:84px!important;min-width:84px!important;max-width:84px!important;grid-area:auto!important;grid-column:auto!important;grid-row:auto!important}
@@ -178,10 +225,13 @@
    padding-inline:0!important;padding-bottom:calc(48px + var(--sukun-dock-safe,0px))!important;
   }
   body.r1215-premium.r616-ui #r616BottomNav {
-   top:24px!important;bottom:24px!important;left:max(20px,calc((100vw - 1480px)/2 + 20px))!important;right:auto!important;
-   width:176px!important;max-width:176px!important;min-height:0!important;height:auto!important;transform:none!important;
-   display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:stretch!important;gap:10px!important;
-   padding:22px 12px!important;border-radius:22px!important;z-index:1180!important;box-shadow:8px 0 30px #0003!important;
+   top:24px!important;bottom:24px!important;left:max(20px,calc((100vw - 1480px)/2 + 20px))!important;right:auto!important;width:176px!important;
+   max-width:176px!important;min-height:0!important;height:auto!important;transform:none!important;display:flex!important;
+   flex-direction:column!important;justify-content:center!important;align-items:stretch!important;gap:10px!important;padding:22px 12px!important;
+   z-index:1180!important;
+  }
+  html:not([data-r1074-theme="berhet"]) body.r1215-premium.r616-ui #r616BottomNav {
+   border-radius:22px!important;box-shadow:8px 0 30px #0003!important;
   }
   body.r1215-premium.r616-ui #r616BottomNav::before {content:'SÜKÛN';display:block;margin-bottom:26px;text-align:center;font:400 23px/1.4 Georgia,serif;letter-spacing:4px;color:var(--sukun-surface-highlight)}
   body.r1215-premium.r616-ui #r616BottomNav button {flex:none!important;flex-direction:row!important;justify-content:flex-start!important;gap:12px!important;width:100%!important;min-height:54px!important;padding:10px 12px!important;order:0!important}
@@ -232,6 +282,44 @@
   body.r1215-premium :is(#r920Practice,#r938Panel,#r616Topbar,#r616BottomNav,#r1215NextCard,#sukunDiscovery,.r616Card) {background:Canvas!important;color:CanvasText!important;border:1px solid CanvasText!important;box-shadow:none!important;backdrop-filter:none!important}
   body.r1215-premium :is(#r920Practice,#r616BottomNav,#sukunDiscovery) :is(button,select) {background:ButtonFace!important;color:ButtonText!important;border:1px solid ButtonText!important;border-image:none!important;text-shadow:none!important}
  }
+ /* r1216: layout and materials have separate owners. Flat Mevlevî paint
+    above is excluded from the canonical Berhetiyye theme; existing gemstones
+    retain their colors and click targets. Only missing/new panel surfaces are
+    painted here, without changing visibility, position or display. */
+ @media(forced-colors:none) {
+  html[data-r1074-theme="berhet"] body.r1215-premium:not(.sukun-tefekkur-mode) :is(
+   #r616Topbar,#r616HomeHero,#r616Continue,.r616Stat,.r616Shortcut,#r616SoundHeader,
+   #r920Practice,#r938Panel,#r1056ReadingSummary,#r986Total,#sukunDiscovery,
+   #prDashboard .prDashTop,#r1215NextCard,#r1211PracticeUnavailable
+  ) {
+   border:1px solid transparent!important;
+   border-image:var(--sukun-gem-sapphire-square) 330 / 8px / 0 stretch!important;
+   border-radius:10px!important;background:var(--sukun-surface-inset)!important;
+   box-shadow:none!important;color:var(--sukun-material-ink,#fff0ce)!important;
+  }
+  html[data-r1074-theme="berhet"] body.r1215-premium #prDashboard .prDashTop {
+   padding:16px!important;
+  }
+  html[data-r1074-theme="berhet"] body.r1215-premium #r1056ReadingSummary {
+   padding:14px!important;
+  }
+  html[data-r1074-theme="berhet"] body.r1215-premium #r1215NextCard {
+   padding:12px 16px!important;
+  }
+  html[data-r1074-theme="berhet"] body.r1215-premium #r1215ReadingsEntry {
+   border:1px solid transparent!important;
+   border-image:var(--sukun-gem-sapphire) 210 540 fill / 12px 24px / 0 stretch!important;
+   border-radius:10px!important;background:none!important;box-shadow:none!important;
+   color:var(--sukun-material-ink,#fff0ce)!important;text-shadow:0 1px 2px #000!important;
+  }
+  html[data-r1074-theme="berhet"] body.r1215-premium #r1165UpdateCheck {
+   border:1px solid transparent!important;
+   border-image:var(--sukun-gem-emerald) 210 540 fill / 12px 28px / 0 stretch!important;
+   border-radius:10px!important;background:none!important;box-shadow:none!important;
+   padding:12px 30px!important;max-width:min(100%,280px)!important;
+   color:var(--sukun-material-ink,#fff0ce)!important;text-shadow:0 1px 2px #000!important;
+  }
+ }
  /* State/visibility boundaries outrank this layer's ordinary grid/flex paint.
     An unavailable saved selection shows only the canonical recovery choices. */
  body.r1215-premium #r920Practice[hidden],
@@ -240,10 +328,11 @@
   display:none!important;
  }
  body.r1215-premium #r920Practice[data-r1211-state="unavailable"]>#r1211PracticeUnavailable:not([hidden]) {
-  display:block!important;grid-column:1/-1!important;grid-row:1!important;
-  width:100%!important;min-width:0!important;box-sizing:border-box!important;
-  padding:24px 16px!important;border:1px solid var(--sukun-surface-line)!important;
-  border-radius:16px!important;background:var(--sukun-surface-inset)!important;color:var(--sukun-surface-highlight)!important;
+  display:block!important;grid-column:1/-1!important;grid-row:1!important;width:100%!important;min-width:0!important;
+  box-sizing:border-box!important;padding:24px 16px!important;color:var(--sukun-surface-highlight)!important;
+ }
+ html:not([data-r1074-theme="berhet"]) body.r1215-premium #r920Practice[data-r1211-state="unavailable"]>#r1211PracticeUnavailable:not([hidden]) {
+  border:1px solid var(--sukun-surface-line)!important;border-radius:16px!important;background:var(--sukun-surface-inset)!important;
  }
  body.r1215-premium #r1211PracticeUnavailable>div {display:flex!important;justify-content:center!important;flex-wrap:wrap!important;gap:12px!important}
  body.r1215-premium #r1211PracticeUnavailable button:not([hidden]) {min-height:44px!important;padding:10px 18px!important}
