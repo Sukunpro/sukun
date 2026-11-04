@@ -19,3 +19,30 @@ html body #kandil.r1193Info cite{display:block!important;font:400 10px/1.5 syste
 @media(max-width:420px){html body #kandil.r1193Info .r1193SaverNames{grid-template-columns:1fr!important}html body #kandil.r1193Info .r1193SaverLink{padding:9px!important}}
 @media(max-height:600px){html body #kandil.r1193Info{padding-top:32px!important}html body #kandil.r1193Info .kFlame{display:none!important}html body #kandil.r1193Info #r1193SaverInfo{width:min(660px,calc(100% - 100px))!important}}
 }
+
+/* r1212: the timing disclosures share the saver links' sapphire artwork.
+   Join the early layout layer so the generic green facts cannot repaint them. */
+@layer sukun-r1194-layout {
+ @media (forced-colors:none) {
+  html[data-r1074-theme="berhet"] body #kandil.r1193Info #r1194Timing > .r1194Fact {
+   border:1px solid transparent!important;
+   border-image:url('../assets/berhetiyye-premium/r1133/gem-sapphire.webp') 210 540 fill / 12px 28px / 0 stretch!important;
+   background:none!important;box-shadow:none!important;
+   padding:12px 28px!important;image-rendering:auto!important;
+  }
+  html[data-r1074-theme="berhet"] body #kandil.r1193Info #r1194Timing > .r1194Fact summary {
+   color:#fff0ce!important;text-shadow:0 1px 2px #000!important;
+  }
+  html[data-r1074-theme="berhet"] body #kandil.r1193Info #r1194Timing > .r1194Fact p {
+   color:#e4eaf8!important;text-shadow:0 1px 2px #000!important;
+  }
+  /* Keep the existing 44px target, position and animated gear. The square
+     stone preserves the carved gold rim at this small size. */
+  html[data-r1074-theme="berhet"] body #kandil.r1193Info #kandilSettingsButton {
+   border:1px solid transparent!important;
+   border-image:url('../assets/berhetiyye-premium/gem-sapphire-r933.webp') 330 fill / 8px / 0 stretch!important;
+   border-radius:10px!important;background:none!important;box-shadow:none!important;
+   color:#ffe6a8!important;image-rendering:auto!important;
+  }
+ }
+}
