@@ -2,7 +2,7 @@
 // Exercises functions extracted from the candidate's production source. Native
 // target and UI restore use controlled DOM/storage; no browser/device claim.
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
-const path=process.argv[2]||'nero.html',s=fs.readFileSync(path,'utf8');
+const path=process.argv[2]||'nero.html',s=require('../helpers/shipped-shell.cjs').readShippedShell(path);
 function between(a,b){const i=s.indexOf(a);assert(i>=0,`missing ${a}`);const j=s.indexOf(b,i);assert(j>i,`missing ${b}`);return s.slice(i,j)}
 const zik=vm.runInNewContext(between('const ZIKIR={','\n};')+'\n};ZIKIR');
 const api=vm.runInNewContext(between('const EB_MAP=','\nconst EMPH=')+'\n({ebced,zEbcedDegeri})');

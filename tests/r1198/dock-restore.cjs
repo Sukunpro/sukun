@@ -1,5 +1,5 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
-const html=fs.readFileSync('nero.html','utf8');
+const html=require('../helpers/shipped-shell.cjs').readShippedShell('nero.html');
 function script(id){const m=html.match(new RegExp('<script id="'+id+'">([\\s\\S]*?)</script>'));assert(m,id);return m[1]}
 const nodes={},docHandlers={},windowHandlers={},storage={},session={name:'Berhetihin',count:94,target:622};
 class Classes{constructor(...v){this.s=new Set(v)}contains(x){return this.s.has(x)}add(x){this.s.add(x)}remove(x){this.s.delete(x)}toggle(x,force){let yes=force===undefined?!this.s.has(x):!!force;yes?this.s.add(x):this.s.delete(x);return yes}}

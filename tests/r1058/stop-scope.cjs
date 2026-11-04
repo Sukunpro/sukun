@@ -7,7 +7,7 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
 const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
 process.argv[2]=root;
 const {harness,source}=require('../r1047/frequency-pause-fixture.cjs');
-const html=fs.readFileSync(source,'utf8');
+const html=require('../helpers/shipped-shell.cjs').readShippedShell(source);
 const sessionCode=fs.readFileSync(path.join(root,'assets/runtime/session-r919.js'),'utf8');
 const interfaceCode=fs.readFileSync(path.join(root,'assets/runtime/interface-r920.js'),'utf8');
 const wheelsCode=fs.readFileSync(path.join(root,'assets/runtime/wheels-r924.js'),'utf8');

@@ -2,7 +2,8 @@
    existing stores; neither this panel nor the worker removes them. */
 (()=>{'use strict';if(window.SukunOfflineAudioR1213)return;
  const $=id=>document.getElementById(id),build=document.querySelector('meta[name="sukun-build"]')?.content||'',t=(tr,en)=>window.I18N?.lang==='en'?en:tr;
- let busy=false,report=null,error='',operation='',worker=null,selected='yasin';
+ let busy=false,report=null,error='',operation='',worker=null,selected='yasin',operationEpoch=0;
+ const pendingRequests=new Set();
  const packs={yasin:['Yâsîn','Yā Sīn'],short:['Kısa sûreler ve Âyetü’l-Kürsî','Short surahs and Ayat al-Kursi'],ambience:['Açılış ve kapı sesleri','Opening and door sounds']};
  const size=n=>(Math.max(0,Number(n)||0)/1048576).toLocaleString(window.I18N?.lang==='en'?'en-US':'tr-TR',{maximumFractionDigits:1})+' MB';
  function explain(code){const messages={
@@ -23,23 +24,34 @@
   $('r1213AudioStatus').textContent=busy?(operation==='download'?t('Sesler indiriliyor…','Downloading audio…'):t('Saklanan sesler doğrulanıyor…','Verifying saved audio…')):error?explain(error):report?.ready?t('Çevrimdışı hazır.','Ready offline.'):report?t('Eksik sesleri indirmek için Paketi indir düğmesine dokun.','Tap Download package to fetch missing audio.'):'';
  }
  function ask(type,onProgress){return new Promise((resolve,reject)=>{
-  const target=worker||navigator.serviceWorker?.controller;if(!target){reject(Error('audio-update-required'));return}
+  const target=worker||navigator.serviceWorker?.controller,epoch=operationEpoch,packageId=selected;if(!target){reject(Error('audio-update-required'));return}
   const channel=new MessageChannel();let finished=false,timer;
-  const done=(value,fail)=>{if(finished)return;finished=true;clearTimeout(timer);channel.port1.close();fail?reject(Error(fail)):resolve(value)};
+  const invalidate=()=>done(null,'audio-update-required');
+  const done=(value,fail)=>{if(finished)return;finished=true;clearTimeout(timer);pendingRequests.delete(invalidate);channel.port1.onmessage=channel.port1.onmessageerror=null;channel.port1.close();fail?reject(Error(fail)):resolve(value)};
+  pendingRequests.add(invalidate);
   timer=setTimeout(()=>done(null,'audio-timeout'),type==='AUDIO_PACK_DOWNLOAD'?310000:75000);
-  channel.port1.onmessage=e=>{const value=e.data;if(value?.build!==build||value.protocol!==1){done(null,'audio-update-required');return}if(value.type==='progress'){onProgress?.(value);return}done(value,value.ok?null:value.errorCode||'audio-storage')};
+  channel.port1.onmessage=e=>{if(finished)return;if(epoch!==operationEpoch){invalidate();return}const value=e.data;if(value?.build!==build||value.protocol!==1){done(null,'audio-update-required');return}if(value.type==='progress'){onProgress?.(value);return}done(value,value.ok?null:value.errorCode||'audio-storage')};
   channel.port1.onmessageerror=()=>done(null,'audio-storage');
-  try{target.postMessage({type,build,packageId:selected},[channel.port2])}catch(_){done(null,'audio-storage')}
+  try{target.postMessage({type,build,packageId},[channel.port2])}catch(_){done(null,'audio-storage')}
  })}
- async function run(action){if(busy)return;busy=true;error='';operation=action;worker=navigator.serviceWorker?.controller;render();
-  try{const value=await ask(action==='download'?'AUDIO_PACK_DOWNLOAD':'AUDIO_PACK_STATUS',progress=>{report=progress;render()});report=value}catch(e){error=e.message;report=null}finally{busy=false;operation='';worker=null;render()}}
- async function cancel(){if(!busy)return;try{await ask('AUDIO_PACK_CANCEL')}catch(e){error=e.message}render()}
+ async function run(action){if(busy)return;const epoch=++operationEpoch;busy=true;error='';operation=action;worker=navigator.serviceWorker?.controller;render();
+  try{const value=await ask(action==='download'?'AUDIO_PACK_DOWNLOAD':'AUDIO_PACK_STATUS',progress=>{if(epoch===operationEpoch){report=progress;render()}});if(epoch===operationEpoch)report=value}catch(e){if(epoch===operationEpoch){error=e.message;report=null}}finally{if(epoch===operationEpoch){busy=false;operation='';worker=null;render()}}}
+ async function cancel(){if(!busy)return;const epoch=operationEpoch;try{await ask('AUDIO_PACK_CANCEL')}catch(e){if(epoch===operationEpoch)error=e.message}if(epoch===operationEpoch)render()}
+ function controllerChanged(){
+  // r1215: old-worker progress may arrive after activation. It cannot certify
+  // readiness for the new controller or clear its update-required notice.
+  const previous=worker,downloading=busy&&operation==='download';operationEpoch++;
+  for(const invalidate of [...pendingRequests])invalidate();
+  busy=false;operation='';worker=null;report=null;error='audio-update-required';
+  if(downloading)try{previous?.postMessage({type:'AUDIO_PACK_CANCEL',build,packageId:selected})}catch(_){}
+  render();
+ }
  function mount(){if($('r1213AudioPack'))return;const images=$('r1095ImagePack');if(!images)return;
   const field=document.createElement('fieldset');field.id='r1213AudioPack';field.setAttribute('data-noi18n','');field.innerHTML='<legend id="r1213AudioTitle"></legend><p id="r1213AudioNote"></p><select id="r1213AudioSelect" aria-label="Ses paketi"><option value="yasin"></option><option value="short"></option><option value="ambience"></option></select><p id="r1213AudioAmounts"></p><div class="r1213-audio-actions"><button type="button" id="r1213AudioCheck" data-sukun-surface="sapphire"></button><button type="button" id="r1213AudioDownload" data-sukun-surface="sapphire" disabled></button><button type="button" id="r1213AudioCancel" hidden></button></div><p id="r1213AudioStatus" role="status" aria-live="polite"></p>';images.after(field);
   $('r1213AudioCheck').onclick=()=>run('check');$('r1213AudioDownload').onclick=()=>run('download');$('r1213AudioCancel').onclick=cancel;$('r1213AudioSelect').onchange=e=>{if(busy)return;selected=e.target.value;report=null;error='';render()};render();
  }
  for(const event of ['sukun:domhydrate','sukun:languagechange'])window.addEventListener(event,()=>{mount();render()},{passive:true});
- navigator.serviceWorker?.addEventListener('controllerchange',()=>{report=null;error='audio-update-required';render()});
+ navigator.serviceWorker?.addEventListener('controllerchange',controllerChanged);
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{mount();requestAnimationFrame(mount)},{once:true});else{mount();requestAnimationFrame(mount)}
  window.SukunOfflineAudioR1213=Object.freeze({version:'r1213',mount,snapshot:()=>({busy,selected,report,error})});
 })();

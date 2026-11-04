@@ -14,7 +14,13 @@
   const text=(x,n)=>typeof x==='string'&&x.length<=n&&!/[\u0000-\u001f\u007f]/.test(x);
   const hash=s=>{let n=2166136261;for(let i=0;i<s.length;i++){n^=s.charCodeAt(i);n=Math.imul(n,16777619)}return(n>>>0).toString(16).padStart(8,'0')};
   const clone=x=>JSON.parse(JSON.stringify(x));
-  let adapter=null,applying=false,queued=false,sequence=0,last=null,lastRaw=null,lastNotice='' ,writes=0,error='',diverged=false,invalid=false,notice=null,smartBaseline='',smartDraft=false;
+  let adapter=null,applying=false,queued=false,sequence=0,last=null,lastRaw=null,lastNotice='' ,writes=0,error='',diverged=false,invalid=false,notice=null,smartBaseline='',smartDraft=false,saveState='idle',saveReason='',savedAt=0;
+  // r1215: consumers can distinguish a queued save from durable progress.
+  // Keep the existing success-only progressjournal event for older listeners.
+  function saveStatus(state,reason=''){
+    saveState=state;saveReason=reason;
+    safe(()=>window.dispatchEvent(new CustomEvent('sukun:progressjournalstatus',{detail:{version:'r982',saveState,savedAt,reason:saveReason,revision:last?.body.rev||0,error}})));
+  }
   function map(v,pattern,limit){
     if(!obj(v)||Object.keys(v).length>limit)return null;
     const out={};for(const [k,n]of Object.entries(v)){if(!pattern.test(k)||!integer(n))return null;out[k]=n}return out;
@@ -117,7 +123,7 @@
   }
   function read(force=true){
     const raw=safe(()=>localStorage.getItem(KEY));if(!force&&raw===lastRaw)return last;lastRaw=raw;diverged=false;invalid=false;
-    if(!raw){last=null;return null}const record=decode(raw);if(!record){error='journal-invalid';invalid=true;last=null;return null}last=record;return record;
+    if(!raw){last=null;savedAt=0;if(saveState!=='pending')saveStatus('idle','read');return null}const record=decode(raw);if(!record){error='journal-invalid';invalid=true;last=null;saveStatus('error','read');return null}last=record;savedAt=record.body.at;if(diverged)saveStatus('error','legacy-diverged');else if(!['pending','unsaved','error'].includes(saveState)&&!error)saveStatus('saved','read');return record;
   }
   function legacy(key,fallback){
     // Owned runtime state wins while a synchronous count transaction settles.
@@ -146,25 +152,26 @@
   }
   function commit(reason='progress',lease=null,override=null){
     queued=false;sequence++;
-    if(!adapter||applying||(!lease&&!window.SukunTabOwner?.owns?.()))return false;
+    if(!adapter||applying||(!lease&&!window.SukunTabOwner?.owns?.())){if(saveState==='pending')saveStatus('unsaved','ownership-changed');return false;}
     if(lease){lease.assertCurrent();if(!window.SukunTabOwner?.snapshot?.()?.maintenance)return false;}
+    saveStatus('pending',reason);
     try{
       const progress=normalize(override||adapter.capture());if(!progress||adapter.validate?.(progress)===false)throw Error('snapshot-invalid');
-      const oldRaw=safe(()=>localStorage.getItem(KEY)),old=oldRaw?decode(oldRaw,false):null;if((oldRaw&&!old||invalid)&&!lease){error='journal-invalid';show('diverged');return false;}
+      const oldRaw=safe(()=>localStorage.getItem(KEY)),old=oldRaw?decode(oldRaw,false):null;if((oldRaw&&!old||invalid)&&!lease){error='journal-invalid';saveStatus('error',reason);show('diverged');return false;}
       const at=Date.now(),projected=adapter.projectMirrors?.(progress,at)||{},mirrorMap=mirrors();
       for(const[k,v]of Object.entries(projected)){if(!keys.includes(k)||typeof v!=='string'||v.length>4*1024*1024)throw Error('mirror-invalid');mirrorMap[k]=hash(v);}
       const body={v:1,rev:(old?.body.rev||0)+1,at,mirrors:mirrorMap,progress};
       const record={body,sum:hash(JSON.stringify(body))},raw=JSON.stringify(record);if(raw.length>MAX)throw Error('journal-too-large');
-      if(lease)lease.assertCurrent();else if(!window.SukunTabOwner?.owns?.())return false;
+      if(lease)lease.assertCurrent();else if(!window.SukunTabOwner?.owns?.()){saveStatus('unsaved','ownership-changed');return false;}
       for(const[k,v]of Object.entries(projected))localStorage.setItem(k,v);
-      localStorage.setItem(KEY,raw);last=record;lastRaw=raw;writes++;error='';diverged=false;
+      localStorage.setItem(KEY,raw);if(localStorage.getItem(KEY)!==raw)throw Error('journal-write-unverified');last=record;lastRaw=raw;writes++;error='';diverged=false;savedAt=at;saveStatus('saved',reason);
       safe(()=>window.dispatchEvent(new CustomEvent('sukun:progressjournal',{detail:{version:'r982',revision:body.rev,reason}})));return true;
-    }catch(e){error=String(e?.message||e?.name||'storage-error').slice(0,100);show('storage');return false;}
+    }catch(e){error=String(e?.message||e?.name||'storage-error').slice(0,100);saveStatus('error',reason);show('storage');return false;}
   }
   function schedule(reason='progress'){
     if(!adapter||applying||queued||!window.SukunTabOwner?.owns?.())return false;
-    queued=true;const token=sequence,owner=window.SukunTabOwner.snapshot();
-    queueMicrotask(()=>{if(!queued||sequence!==token)return;queued=false;const n=window.SukunTabOwner.snapshot();if(!n.owned||n.epoch!==owner.epoch||n.intent!==owner.intent)return;commit(reason)});return true;
+    queued=true;const token=sequence,owner=window.SukunTabOwner.snapshot();saveStatus('pending',reason);
+    queueMicrotask(()=>{if(!queued||sequence!==token)return;queued=false;const n=window.SukunTabOwner.snapshot();if(!n.owned||n.epoch!==owner.epoch||n.intent!==owner.intent){saveStatus('unsaved','ownership-changed');return;}commit(reason)});return true;
   }
   function notify(key){if(keys.includes(key))schedule('legacy:'+key);}
   function bind(a){adapter=a;baseline(safe(()=>a.capture().smart));read();return true;}
@@ -177,7 +184,7 @@
   }
   function invalidate(lease){
     lease?.assertCurrent?.();if(!lease||!window.SukunTabOwner?.snapshot?.()?.maintenance)throw Error('maintenance-required');
-    sequence++;queued=false;localStorage.removeItem(KEY);last=null;lastRaw=null;diverged=false;invalid=false;error='';smartDraft=false;return true;
+    sequence++;queued=false;localStorage.removeItem(KEY);last=null;lastRaw=null;diverged=false;invalid=false;error='';smartDraft=false;savedAt=0;saveStatus('idle','invalidate');return true;
   }
   function finalizeImport(lease){
     lease?.assertCurrent?.();if(!lease||!window.SukunTabOwner?.snapshot?.()?.maintenance)throw Error('maintenance-required');
@@ -214,7 +221,7 @@
   document.addEventListener('freeze',()=>commit('freeze'),{passive:true});
   window.addEventListener('pagehide',()=>commit('pagehide'),{passive:true});
   window.SukunProgressJournal=Object.freeze({version:'r982',key:KEY,isApplying:()=>applying,stepIdentity,bind,legacy,notify,commit,schedule,rebase,baseline,noteSmart,markSmartDraft:()=>{if(!applying&&!window.SukunTabOwner?.owns?.())smartDraft=true},invalidate,finalizeImport,reconcile,
-    validate:raw=>!!decode(raw,false),snapshot:()=>({version:'r982',revision:last?.body.rev||0,writes,error,diverged,invalid,queued,smartDraft,atomicRecord:true,autoplay:false}),read:()=>{const r=read();return r&&!diverged?clone(r.body.progress):null}});
+    validate:raw=>!!decode(raw,false),snapshot:()=>({version:'r982',revision:last?.body.rev||0,writes,error,diverged,invalid,queued,smartDraft,saveState,savedAt,saveReason,atomicRecord:true,autoplay:false}),read:()=>{const r=read();return r&&!diverged?clone(r.body.progress):null}});
 window.addEventListener('storage',e=>{if(e.key===KEY||keys.includes(e.key)){lastRaw=null;read();if(invalid||diverged)show('diverged')}},{passive:true});
   window.addEventListener('sukun:languagechange',()=>{if(lastNotice&&notice&&!notice.hidden)show(lastNotice)},{passive:true});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{read();if(invalid||diverged)show('diverged')},{once:true});

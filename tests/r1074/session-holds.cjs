@@ -21,8 +21,8 @@ async function test(name,run){
 }
 
 function cueFixture(entry){
- const html=fs.readFileSync(path.join(root,entry),'utf8');
- sourceHashes[entry]=sha256(html);
+ const html=require('../helpers/shipped-shell.cjs').readShippedShell(path.join(root,entry));
+ sourceHashes[entry]=sha256(fs.readFileSync(path.join(root,entry)));
  const start=html.indexOf('function sfx(kind){');
  const end=html.indexOf('\nfunction mrClose(',start);
  assert(start>=0&&end>start,'production sfx boundary in '+entry);

@@ -3,7 +3,8 @@
 const $=id=>document.getElementById(id);
 const FOCUS_KEY='sukun.zikir.quickControls.focus.v1';
 let host,hero,panel,body,toggle,primary,quick,transport,finishRow,restartControls,focusToggle,anchors=[],hiddenStates=new Map(),lastTef=null,open=false,transportId='';
-let focusControlsVisible=true;try{focusControlsVisible=localStorage.getItem(FOCUS_KEY)!=='0'}catch(_){}
+// New installs begin with the wheel alone; an explicit saved preference wins.
+let focusControlsVisible=false;try{focusControlsVisible=localStorage.getItem(FOCUS_KEY)==='1'}catch(_){}
 const english=()=>window.I18N?.lang==='en';
 function write(node,tr,en){const value=english()?en:tr;if(node&&node.textContent!==value)node.textContent=value;}
 function attribute(node,key,value){if(node&&node.getAttribute(key)!==String(value))node.setAttribute(key,String(value));}
@@ -33,10 +34,11 @@ function focusControls(tef=lastTef){
  // r1063: the saved easy-control preference applies on both sides of the
  // focus transition. The toggle must remain available to show them again.
  if(!host)return;const visible=focusControlsVisible;
- if(!visible&&[transport,finishRow,restartControls,$('r1056ReadingSummary')].some(node=>node?.contains(document.activeElement)))focusToggle?.focus({preventScroll:true});
+ if(!visible&&[transport,finishRow].some(node=>node?.contains(document.activeElement)))focusToggle?.focus({preventScroll:true});
  hidden(transport,!visible);hidden(finishRow,!visible);
- hidden(restartControls,!visible||!!$('r920JourneyRestartAll')?.hidden);
- hidden($('r1056ReadingSummary'),!visible);hidden($('r968ManualHint'),!visible);hidden(focusToggle,false);
+ // Context and safe journey actions do not disappear with duplicate transport.
+ hidden(restartControls,!!$('r920JourneyRestartAll')?.hidden);
+ hidden($('r1056ReadingSummary'),false);hidden($('r968ManualHint'),!visible);hidden(focusToggle,false);
  const state=visible?'shown':'hidden';if(host.dataset.r1056FocusControls!==state)host.dataset.r1056FocusControls=state;labels();
 }
 function setFocusControls(value){
@@ -47,8 +49,8 @@ function setFocusControls(value){
 function setOpen(next,focus=false){
  open=!!next;if(!panel)return;
  if(!open&&body.contains(document.activeElement))toggle.focus({preventScroll:true});
- body.hidden=!open;toggle.setAttribute('aria-expanded',String(open));write($('r1056SettingsChevron'),open?'⌄':'⌃',open?'⌄':'⌃');
- panel.dataset.open=String(open);if(focus)toggle.focus({preventScroll:true});
+ hidden(body,!open);attribute(toggle,'aria-expanded',open);write($('r1056SettingsChevron'),open?'⌄':'⌃',open?'⌄':'⌃');
+ if(panel.dataset.open!==String(open))panel.dataset.open=String(open);if(focus)toggle.focus({preventScroll:true});
 }
 function restore(){
  window.SukunCompactUI?.beforeRestore?.(host);
@@ -76,12 +78,12 @@ function build(root){
  if(transport){hiddenStates.set(transport,transport.hidden);move(transport,quick);transport.id='r1056PrimaryControls';quick.insertBefore(transport,quick.children[0]||null)}
  finishRow=document.createElement('div');finishRow.id='r1056FinishRow';quick.append(finishRow);move($('r932EasyStop'),finishRow);
  const hint=$('r968ManualHint');if(hint)hiddenStates.set(hint,hint.hidden);move(hint,quick);
- focusToggle=document.createElement('button');focusToggle.id='r1056FocusControlsToggle';focusToggle.type='button';focusToggle.setAttribute('aria-controls','r1056PrimaryControls r1056FinishRow r1196JourneyRestartControls r1056ReadingSummary r968ManualHint');quick.append(focusToggle,toggle,body);
+ focusToggle=document.createElement('button');focusToggle.id='r1056FocusControlsToggle';focusToggle.type='button';focusToggle.setAttribute('aria-controls','r1056PrimaryControls r1056FinishRow r968ManualHint');quick.append(focusToggle,toggle,body);
  // Easy controls own the wrapper; the session renderer keeps the button's eligibility.
  const restartAll=$('r920JourneyRestartAll');if(restartAll){restartControls=document.createElement('details');restartControls.id='r1196JourneyRestartControls';restartControls.innerHTML='<summary id="r1213JourneyActionsTitle"></summary>';quick.insertBefore(restartControls,focusToggle);move(restartAll,restartControls)}
  for(const node of [shortcuts,picker])move(node,body);
- primary=document.createElement('div');primary.id='r968PrimaryActions';body.append(primary);
- const nav=root.querySelector('.r920Transport');move(nav,body);body.insertBefore(nav,primary);
+ primary=document.createElement('div');primary.id='r968PrimaryActions';quick.insertBefore(primary,focusToggle);
+ const nav=root.querySelector('.r920Transport');move(nav,body);body.prepend(nav);
  move($('r920TefEnter'),primary);
  // Exit belongs to the main focus surface, independently of disclosure.
  move($('r920TefExit'),hero);
@@ -100,9 +102,9 @@ function placeExit(root,tef){
   const remaining=stats.querySelector('#r920Remaining')?.parentElement;
   if(!remaining)return;
   if(exit.parentElement!==stats||exit.nextElementSibling!==remaining)stats.insertBefore(exit,remaining);
-  stats.dataset.r989ExitRow='1';
+  if(stats.dataset.r989ExitRow!=='1')stats.dataset.r989ExitRow='1';
  }else{
-  delete stats.dataset.r989ExitRow;
+  if(stats.dataset.r989ExitRow!==undefined)delete stats.dataset.r989ExitRow;
   if(exit.parentElement!==hero)hero.append(exit);
  }
 }
@@ -114,6 +116,7 @@ function sync(root,tef){
  placeSummary();focusControls(tef);
  placeExit(root,tef);
  window.SukunCompactUI?.sync?.(root,tef);
+ window.SukunPremiumLayout?.sync?.(root,tef);
  // r1213: native controls precede exploration. This is DOM order, so keyboard
  // and screen-reader order agree with the visual order. No duplicated buttons.
  const sections=$('r986Sections'),entry=$('r1082SessionEntry');
@@ -123,5 +126,5 @@ function sync(root,tef){
  const phase=$('r920Phase'),wheel=$('r924WheelFrame');if(phase&&wheel&&phase.parentElement!==wheel)wheel.append(phase);if(root.dataset.phase==='PLAYING'&&!phase.textContent)phase.textContent='Zikir sürüyor';
 }
 window.addEventListener?.('sukun:languagechange',labels,{passive:true});
-window.SukunBerhetLayout=Object.freeze({version:'r1056',revision:'r1213',sync,setFocusControls,snapshot:()=>({active:!!host,open,tef:lastTef,focusControlsVisible})});
+window.SukunBerhetLayout=Object.freeze({version:'r1056',revision:'r1215',sync,setFocusControls,snapshot:()=>({active:!!host,open,tef:lastTef,focusControlsVisible})});
 })();

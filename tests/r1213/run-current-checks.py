@@ -11,6 +11,12 @@ import argparse, concurrent.futures, hashlib, json, re, subprocess, time
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
+    ('r1215-atlas', 'tests/r1215/atlas-contract.cjs'),
+    ('r1215-stability', 'tests/r1215/stability.cjs'),
+    ('r1215-audio-races', 'tests/r1215-audio-races.cjs'),
+    ('r1215-premium-layout', 'tests/r1215/premium-layout.cjs'),
+    ('r1215-cinematic', 'tests/r1215/cinematic.cjs'),
+    ('r1215-home-private', 'tests/r1215/home-private-contract.cjs'),
     ('practice-owner', 'tests/r1211/practice-owner.cjs'),
     ('session-access', 'tests/r1211/session-access.cjs'),
     ('ebced-values-and-restore', 'tests/r1191/ebced-journey-contract.cjs'),
@@ -68,6 +74,7 @@ def main():
         assert int(build[1:]) >= 1213, 'Current acceptance requires the modern r1213+ contract'
     before = source_files()
     commands = [(name, ['node', file]) for name, file in SOURCE_SUITES]
+    commands.append(('shell-consolidation', ['python3', 'tests/r1215/shell-consolidation.py']))
     commands += [(name, ['node', file, str(ROOT), str(out / (name + '.json'))])
                  for name, file in INHERITED_SUITES]
     if args.scope != 'source':
