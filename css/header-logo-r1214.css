@@ -1,0 +1,26 @@
+/* Reserve the full diagonal of the two 70 px rotating squares, including
+   the subtle 1.025 breathing scale. The header keeps its rounded glass clip;
+   only the original Mevlevî mark gets a properly sized layout box. */
+@layer sukun-r1214-header-mark {
+ html:not([data-r1074-theme="berhet"]) body .wrap > header > .shimmer-logo {
+  position:relative!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  box-sizing:border-box!important;
+  width:110px!important;
+  min-width:110px!important;
+  max-width:110px!important;
+  height:110px!important;
+  min-height:110px!important;
+  max-height:110px!important;
+  margin:0!important;
+  padding:0!important;
+  vertical-align:top!important;
+ }
+ /* Keep the decorative glints inside the reserved mark instead of outside
+    the clipped header surface at narrow widths. */
+ html:not([data-r1074-theme="berhet"]) body .wrap > header > .shimmer-logo .spark.s1 {top:4px!important;left:4px!important}
+ html:not([data-r1074-theme="berhet"]) body .wrap > header > .shimmer-logo .spark.s2 {top:12px!important;right:4px!important;left:auto!important}
+ html:not([data-r1074-theme="berhet"]) body .wrap > header > .shimmer-logo .spark.s3 {bottom:4px!important;left:18px!important}
+}

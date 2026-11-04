@@ -732,7 +732,7 @@
             './css/berhet-tekke-actions-r1143.css','./css/berhet-nav-compact-r1145.css','./css/berhet-frequency-fit-r1146.css','./css/berhet-misc-fit-r1146.css','./css/berhet-recordings-r1146.css','./css/berhet-zikir-cards-r1146.css','./css/berhet-reading-modes-r1147.css','./css/berhet-settings-r1148.css','./css/berhet-switches-r1148.css','./css/tefekkur-controls-r1148.css','./css/berhet-hero-r1149.css','./css/berhet-nav-r1149.css','./css/berhet-quick-controls-r1149.css','./css/berhet-session-fit-r1149.css',
             './css/kandil-berhet-r1167.css','./css/neon-controls-r1176.css','./css/mevlevi-lock-r1176.css',
             './css/journey-panels-r1193.css','./css/saver-info-r1193.css','./css/berhet-controls-hd-r1197.css',
-            './css/theme-surfaces-r1213.css','./css/practice-flow-r1213.css','./css/offline-audio-r1213.css']
+            './css/theme-surfaces-r1213.css','./css/practice-flow-r1213.css','./css/offline-audio-r1213.css','./css/header-logo-r1214.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
           if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||currentArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;
