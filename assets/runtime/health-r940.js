@@ -733,7 +733,7 @@
             './css/kandil-berhet-r1167.css','./css/neon-controls-r1176.css','./css/mevlevi-lock-r1176.css',
             './css/journey-panels-r1193.css','./css/saver-info-r1193.css','./css/berhet-controls-hd-r1197.css',
             './css/theme-surfaces-r1213.css','./css/practice-flow-r1213.css','./css/offline-audio-r1213.css','./css/header-logo-r1214.css',
-            './css/premium-layout-r1215.css','./css/cinematic-r1215.css','./css/atlas-r1215.css',
+            './css/premium-layout-r1215.css','./css/cinematic-r1215.css','./css/atlas-r1215.css','./css/atlas-r1217.css',
             './css/legacy-r1215-embFonts.css','./css/legacy-r1215-base-style.css','./css/legacy-r1215-r699-layout-authority.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
           if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||currentArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {

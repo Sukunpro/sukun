@@ -1,0 +1,67 @@
+/* Atlas appearance follows the selected catalogue, independently of the active theme.
+   The existing controls, selection, filters and access policy remain the owners. */
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode="esma"]) {
+ --atlas-surface:#031d1b;--atlas-card:#0b3b30;--atlas-line:#b6cec4a8;
+ --atlas-ink:#fff1d1;--atlas-muted:#c3d8cf;--atlas-accent:#a5e4c5;
+ background:radial-gradient(ellipse at 50% 0%,#12473c,#031a19 66%)!important;
+ border:2px solid #aec8bc!important;border-radius:22px!important;
+ box-shadow:0 24px 90px #000b,inset 0 0 0 2px #4d807133,inset 0 1px #e8fff366!important;
+}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode="berhet"]) {
+ --atlas-surface:#04112f;--atlas-card:#092866;--atlas-line:#d8ad51b8;
+ --atlas-ink:#fff0ca;--atlas-muted:#d0d7e5;--atlas-accent:#9bdcff;
+ background:radial-gradient(ellipse at 50% 0%,#12346b,#030d27 72%)!important;
+ border:2px solid #d3aa52!important;border-radius:22px!important;
+ box-shadow:0 24px 90px #000b,inset 0 0 0 2px #a879263d,inset 0 1px #fff0a666!important;
+}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) .r920AtlasHead h2 {
+ font:600 clamp(24px,4.5vw,34px)/1.15 Georgia,serif!important;
+ color:var(--atlas-ink)!important;overflow-wrap:anywhere!important;
+}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) .r1215AtlasTools :is(input,select) {
+ background:#061d21!important;border-color:var(--atlas-line)!important;border-radius:12px!important;
+}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode="berhet"]) .r1215AtlasTools :is(input,select) {background:#06132d!important}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) #r920AtlasNodes button {
+ min-height:68px!important; border:1px solid var(--atlas-line)!important;
+ border-radius:12px!important;
+ color:var(--atlas-ink)!important;
+ background:linear-gradient(150deg,#2b7b5a 0%,#0b4033 22%,#06251f 58%,#12654b 100%)!important;
+ box-shadow:inset 0 1px 3px #e6fff151, inset 0 -4px 12px #0009,0 3px 9px #0008!important;
+}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode="berhet"]) #r920AtlasNodes button {
+ background:linear-gradient(150deg,#325ac7 0%,#123a91 23%,#081944 58%,#174fb7 100%)!important;
+ box-shadow:inset 0 1px 3px #b8d9ff66,inset 0 -4px 12px #000b,0 3px 9px #0008!important;
+}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) #r920AtlasNodes .r1215AtlasName {
+ font:600 clamp(14px,1.5vw,18px)/1.25 Georgia,serif!important;text-align:center!important;
+}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) #r920AtlasNodes .r1215AtlasNumber {color:var(--atlas-ink)!important;font-weight:700!important}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) #r920AtlasNodes button[aria-pressed="true"] {
+ outline:2px solid #f8d371!important;outline-offset:0!important;border-color:#ffe39a!important;
+ background:linear-gradient(150deg,#52b17b,#0e553d 40%,#073022 75%,#267f53)!important;
+ box-shadow:inset 0 1px 3px #e6fff399,0 0 14px #eac56777!important;
+}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) #r920AtlasNodes button[data-active="1"] {box-shadow:inset 0 -3px var(--atlas-accent),0 3px 9px #0008!important}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) #r920AtlasDetail {
+ background:linear-gradient(145deg,#082e29,#041b19)!important;border-color:var(--atlas-line)!important;
+ box-shadow:inset 0 1px #f5f6d51f!important;
+}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode="berhet"]) #r920AtlasDetail {background:linear-gradient(145deg,#0b2555,#041129)!important}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) #r920AtlasDetail dl>div {background:#00191888!important;border-color:var(--atlas-line)!important}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode="berhet"]) #r920AtlasDetail dl>div {background:#000c2288!important}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) :is(#r920AtlasChoose,#r920AtlasClose,#r1215AtlasClear) {
+ border-color:var(--atlas-line)!important;color:var(--atlas-ink)!important;
+ background:linear-gradient(145deg,#246b4c,#083629 60%,#05271f)!important;
+}
+html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode="berhet"]) :is(#r920AtlasChoose,#r920AtlasClose,#r1215AtlasClear) {background:linear-gradient(145deg,#2856b2,#0c2b70 60%,#07183c)!important}
+@media(max-width:699px){
+ html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) #r920AtlasNodes button{min-height:62px!important}
+ html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) .r1215AtlasTools{grid-template-columns:minmax(0,1fr) minmax(95px,.65fr)}
+}
+@media(forced-colors:active){
+ html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]),
+ html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) #r920AtlasDetail,
+ html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) #r920AtlasNodes button{background:Canvas!important;color:CanvasText!important;border-color:CanvasText!important;box-shadow:none!important}
+ html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) #r920AtlasNodes button[aria-pressed="true"]{outline:2px solid Highlight!important}
+}
