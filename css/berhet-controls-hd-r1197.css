@@ -36,6 +36,26 @@
   html[data-r1074-theme="berhet"] body #r932EasyMinus {
    border-image:url('../assets/berhetiyye-premium/gem-diamond-r933.webp') 330 fill / 10px / 0 stretch!important;
   }
+  /* Notifications uses the same sapphire and emerald states as navigation. */
+  html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button[data-t="ntf"] {
+   --r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-sapphire.webp')!important;
+   --r1160-gem:url('../assets/berhetiyye-premium/r1133/gem-sapphire.webp')!important;
+   --r1176-glow-rgb:113 184 255!important;
+  }
+  html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button[data-t="ntf"].act {
+   --r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
+   --r1160-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
+   --r1204-nav-gem:url('../assets/berhetiyye-premium/gem-emerald-r932.webp')!important;
+   --r1176-glow-rgb:141 242 174!important;
+  }
+  @media (hover:hover) {
+   html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button[data-t="ntf"]:not(:disabled):hover {
+    --r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
+    --r1160-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
+    --r1204-nav-gem:url('../assets/berhetiyye-premium/gem-emerald-r932.webp')!important;
+    --r1176-glow-rgb:141 242 174!important;
+   }
+  }
   /* r1204: compact navigation needs square-cut masters. Compressing the
      horizontal carved ends into 7px erased the frame and facet detail. */
   @media (max-width:720px) {
@@ -45,9 +65,6 @@
     border-image:var(--r1204-nav-gem) 330 fill / clamp(9px,2.3vw,13px) / 0 stretch!important;
     background:none!important;image-rendering:auto!important;
     text-shadow:0 1px 1px #000!important;
-   }
-   html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button[data-t="ntf"] {
-    --r1204-nav-gem:url('../assets/berhetiyye-premium/gem-diamond-r933.webp');
    }
    html[data-r1074-theme="berhet"] body .wrap>nav.tabs>#tekkeTab {
     --r1204-nav-gem:url('../assets/berhetiyye-premium/gem-amethyst-r933.webp');
