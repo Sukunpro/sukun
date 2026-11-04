@@ -1,0 +1,73 @@
+/* Shared material catalogue for practice, saver and new small controls.
+   Load before legacy layers. A material is not a theme or access decision:
+   data-r1074-theme remains the sole visual authority. Existing components
+   consume the asset tokens in their own layout rules; only newly opted-in
+   data-sukun-surface elements use the small painter below. */
+@layer sukun-materials {
+ :root {
+  --sukun-gem-sapphire:url('../assets/berhetiyye-premium/r1133/gem-sapphire.webp');
+  --sukun-gem-emerald:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp');
+  --sukun-gem-ruby:url('../assets/berhetiyye-premium/r1133/gem-ruby.webp');
+  --sukun-gem-silver:url('../assets/berhetiyye-premium/r1133/gem-diamond.webp');
+  --sukun-gem-amethyst:url('../assets/berhetiyye-premium/r1133/gem-amethyst.webp');
+  --sukun-gem-topaz:url('../assets/berhetiyye-premium/r1133/gem-topaz.webp');
+  --sukun-gem-citrine:url('../assets/berhetiyye-premium/r1133/gem-citrine.webp');
+  --sukun-gem-dark:url('../assets/berhetiyye-premium/r1133/gem-black-diamond.webp');
+  --sukun-gem-sapphire-square:url('../assets/berhetiyye-premium/gem-sapphire-r933.webp');
+  --sukun-gem-emerald-square:url('../assets/berhetiyye-premium/gem-emerald-r932.webp');
+  --sukun-gem-ruby-square:url('../assets/berhetiyye-premium/gem-ruby-r933.webp');
+  --sukun-gem-silver-square:url('../assets/berhetiyye-premium/gem-diamond-r933.webp');
+  --sukun-gem-amethyst-square:url('../assets/berhetiyye-premium/gem-amethyst-r933.webp');
+  --sukun-frame-wide:12px 28px;
+  --sukun-frame-compact:10px 24px;
+  --sukun-frame-square:10px;
+  --sukun-material-ink:#fff0ce;
+  --sukun-material-muted:#e4eaf8;
+  --sukun-material-focus:#ffe6a1;
+ }
+
+ /* These declarations deliberately leave dimensions, padding, display and
+    visibility to the component, so a material never opens hidden content. */
+ @media (forced-colors:none) {
+  :where(html[data-r1074-theme="berhet"]) [data-sukun-surface] {
+   --sukun-surface-wide:var(--sukun-gem-sapphire);
+   --sukun-surface-square:var(--sukun-gem-sapphire-square);
+   box-sizing:border-box!important;
+   border:1px solid transparent!important;
+   border-image:var(--sukun-surface-wide) 210 540 fill / var(--sukun-frame-wide) / 0 stretch!important;
+   border-radius:10px!important;
+   background:none!important;box-shadow:none!important;
+   color:var(--sukun-material-ink)!important;
+   text-shadow:0 1px 2px #000!important;image-rendering:auto!important;
+  }
+  :where(html[data-r1074-theme="berhet"]) [data-sukun-surface="emerald"] {
+   --sukun-surface-wide:var(--sukun-gem-emerald);
+   --sukun-surface-square:var(--sukun-gem-emerald-square);
+  }
+  :where(html[data-r1074-theme="berhet"]) [data-sukun-surface="ruby"] {
+   --sukun-surface-wide:var(--sukun-gem-ruby);
+   --sukun-surface-square:var(--sukun-gem-ruby-square);
+  }
+  :where(html[data-r1074-theme="berhet"]) [data-sukun-surface="silver"] {
+   --sukun-surface-wide:var(--sukun-gem-silver);
+   --sukun-surface-square:var(--sukun-gem-silver-square);
+  }
+  :where(html[data-r1074-theme="berhet"]) [data-sukun-surface="amethyst"] {
+   --sukun-surface-wide:var(--sukun-gem-amethyst);
+   --sukun-surface-square:var(--sukun-gem-amethyst-square);
+  }
+  :where(html[data-r1074-theme="berhet"]) [data-sukun-surface][data-sukun-cut="square"] {
+   border-image:var(--sukun-surface-square) 330 fill / var(--sukun-frame-square) / 0 stretch!important;
+  }
+  :where(html[data-r1074-theme="berhet"]) [data-sukun-surface]:focus-visible {
+   outline:2px solid var(--sukun-material-focus)!important;outline-offset:3px!important;
+  }
+ }
+ @media (forced-colors:active) {
+  :where(html[data-r1074-theme="berhet"]) [data-sukun-surface] {
+   border:1px solid ButtonText!important;border-image:none!important;
+   background:ButtonFace!important;color:ButtonText!important;
+   box-shadow:none!important;text-shadow:none!important;
+  }
+ }
+}

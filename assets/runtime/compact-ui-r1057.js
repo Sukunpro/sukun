@@ -10,7 +10,7 @@ const safety={
 };
 function attr(node,key,value){if(node&&node.getAttribute(key)!==String(value))node.setAttribute(key,String(value))}
 function text(node,value){if(node&&node.textContent!==value)node.textContent=value}
-function ownsSummary(node){return !!node&&node.dataset.r1057Compact==='1'&&node.parentElement===$('r920Practice')}
+function ownsSummary(node){return !!node&&node.dataset.r1057Compact==='1'&&[ $('r920Practice'), $('r932WheelControls') ].includes(node.parentElement)}
 function ownsTotal(node){return !!node&&ownsSummary(node.parentElement)&&node.id==='r986Total'}
 function labels(){
  text($('r986TotalLabel'),english()?'Total dhikr':'Toplam zikir');
@@ -60,9 +60,11 @@ function beforeRestore(root){
 }
 function sync(root=$('r920Practice')){
  if(root&&!root.hidden){
-  const summary=$('r1056ReadingSummary'),total=$('r986Total'),hero=$('r938Hero');
+  const summary=$('r1056ReadingSummary'),total=$('r986Total'),hero=$('r938Hero'),quick=$('r932WheelControls'),finish=$('r968ManualHint')||$('r1056FinishRow');
   if(summary&&total&&root.contains(summary)&&root.contains(total)){
-   if(summary.parentElement!==root){if(hero?.parentElement===root)hero.after(summary);else root.append(summary)}
+   if(quick&&root.contains(quick)&&finish?.parentElement===quick){
+    if(summary.parentElement!==quick||summary.previousElementSibling!==finish)finish.after(summary);
+   }else if(summary.parentElement!==root){if(hero?.parentElement===root)hero.after(summary);else root.append(summary)}
    attr(summary,'data-r1057-compact','1');
    if(total.parentElement!==summary)summary.insertBefore(total,summary.children[0]||null);
   }

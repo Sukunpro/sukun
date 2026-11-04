@@ -1,19 +1,35 @@
 {
-  "build": "r1212",
+  "build": "r1213",
   "method": "Complete local release bytes: identity, exact SHA-256 and sizes, HTML SRI, shipped JavaScript syntax, and scoped active external CSS resource validation. Unresolved CSS variables remain explicit; these are static assertions, not device/audio checks.",
-  "passed": 1808,
-  "total": 1808,
-  "inlineScriptsParsed": 349,
-  "externalScriptsParsed": 77,
-  "runtimeEntries": 175,
-  "siteFiles": 860,
-  "siteBytes": 454059950,
-  "sriEntries": 153,
+  "passed": 1831,
+  "total": 1831,
+  "inlineScriptsParsed": 348,
+  "externalScriptsParsed": 79,
+  "runtimeEntries": 172,
+  "siteFiles": 865,
+  "siteBytes": 454099493,
+  "sriEntries": 158,
   "cssAssets": {
     "schema": 1,
     "scope": "Active external CSS and recursive local imports; no inline/generated CSS, computed cascade, remote retrieval or rendering.",
     "errors": [],
     "unresolved": [
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/theme-surfaces-r1213.css",
+        "line": 36,
+        "property": "border-image",
+        "variable": "--sukun-surface-wide",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/theme-surfaces-r1213.css",
+        "line": 59,
+        "property": "border-image",
+        "variable": "--sukun-surface-square",
+        "chain": []
+      },
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/berhet-controls-hd-r1197.css",
@@ -1360,6 +1376,8 @@
       }
     ],
     "files": [
+      "css/theme-surfaces-r1213.css",
+      "css/practice-flow-r1213.css",
       "css/berhet-controls-hd-r1197.css",
       "css/neon-controls-r1176.css",
       "css/mevlevi-lock-r1176.css",
@@ -1430,18 +1448,41 @@
       "assets/berhetiyye-gate/entry-r1080.css",
       "assets/runtime/session-preflight-ui-r1092.css",
       "css/frequency-hub-r1101.css",
+      "css/offline-audio-r1213.css",
       "assets/runtime/recording-panel-r1119.css",
       "css/journey-panels-r1193.css",
       "css/saver-info-r1193.css"
     ],
     "references": [
       {
+        "source": "css/practice-flow-r1213.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
+        "line": 38,
+        "property": "border-image",
+        "chain": [
+          "--sukun-gem-sapphire"
+        ]
+      },
+      {
+        "source": "css/practice-flow-r1213.css",
+        "url": "../assets/berhetiyye-premium/r1133/gem-ruby.webp",
+        "target": "assets/berhetiyye-premium/r1133/gem-ruby.webp",
+        "line": 44,
+        "property": "border-image",
+        "chain": [
+          "--sukun-gem-ruby"
+        ]
+      },
+      {
         "source": "css/berhet-controls-hd-r1197.css",
         "url": "../assets/berhetiyye-premium/gem-sapphire-r933.webp",
         "target": "assets/berhetiyye-premium/gem-sapphire-r933.webp",
         "line": 45,
         "property": "border-image",
-        "chain": []
+        "chain": [
+          "--sukun-gem-sapphire-square"
+        ]
       },
       {
         "source": "css/berhet-controls-hd-r1197.css",
@@ -1449,7 +1490,9 @@
         "target": "assets/berhetiyye-premium/gem-diamond-r933.webp",
         "line": 48,
         "property": "border-image",
-        "chain": []
+        "chain": [
+          "--sukun-gem-silver-square"
+        ]
       },
       {
         "source": "css/berhet-hero-r1149.css",
@@ -1633,7 +1676,9 @@
         "target": "assets/berhetiyye-premium/r1133/gem-black-diamond.webp",
         "line": 70,
         "property": "background",
-        "chain": []
+        "chain": [
+          "--sukun-gem-dark"
+        ]
       },
       {
         "source": "css/berhet-premium-jewels-r1133.css",
@@ -1641,7 +1686,9 @@
         "target": "assets/berhetiyye-premium/r1133/gem-emerald.webp",
         "line": 74,
         "property": "background-image",
-        "chain": []
+        "chain": [
+          "--sukun-gem-emerald"
+        ]
       },
       {
         "source": "css/kandil-preferences-r1108.css",
@@ -2437,7 +2484,9 @@
         "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
         "line": 28,
         "property": "border-image",
-        "chain": []
+        "chain": [
+          "--sukun-gem-sapphire"
+        ]
       },
       {
         "source": "css/saver-info-r1193.css",
@@ -2445,7 +2494,9 @@
         "target": "assets/berhetiyye-premium/gem-sapphire-r933.webp",
         "line": 42,
         "property": "border-image",
-        "chain": []
+        "chain": [
+          "--sukun-gem-sapphire-square"
+        ]
       }
     ],
     "ignored": {
@@ -2456,12 +2507,12 @@
       "empty": 0
     },
     "stats": {
-      "files": 73,
-      "bytes": 624286,
-      "declarations": 12377,
-      "customProperties": 97,
-      "checkedReferences": 110,
-      "valueExpansions": 1554
+      "files": 76,
+      "bytes": 637812,
+      "declarations": 12604,
+      "customProperties": 119,
+      "checkedReferences": 112,
+      "valueExpansions": 1596
     }
   },
   "checks": [
@@ -2750,10 +2801,6 @@
       "passed": true
     },
     {
-      "name": "Runtime SHA-256 assets/audio/sukun-intro-signature-r1037.wav",
-      "passed": true
-    },
-    {
       "name": "Runtime SHA-256 assets/runtime/generic-recordings-r1055.js",
       "passed": true
     },
@@ -2806,30 +2853,6 @@
       "passed": true
     },
     {
-      "name": "Runtime SHA-256 assets/audio/arabic-r1065/yasin.mp3",
-      "passed": true
-    },
-    {
-      "name": "Runtime SHA-256 assets/audio/arabic-r1065/fatiha.mp3",
-      "passed": true
-    },
-    {
-      "name": "Runtime SHA-256 assets/audio/arabic-r1065/ayatul-kursi.mp3",
-      "passed": true
-    },
-    {
-      "name": "Runtime SHA-256 assets/audio/arabic-r1065/ikhlas.mp3",
-      "passed": true
-    },
-    {
-      "name": "Runtime SHA-256 assets/audio/arabic-r1065/falaq.mp3",
-      "passed": true
-    },
-    {
-      "name": "Runtime SHA-256 assets/audio/arabic-r1065/nas.mp3",
-      "passed": true
-    },
-    {
       "name": "Runtime SHA-256 assets/runtime/bundled-arabic-r1065.js",
       "passed": true
     },
@@ -2859,10 +2882,6 @@
     },
     {
       "name": "Runtime SHA-256 assets/berhetiyye-gate/entry-r1080.css",
-      "passed": true
-    },
-    {
-      "name": "Runtime SHA-256 assets/berhetiyye-gate/invitation-tr.mp3",
       "passed": true
     },
     {
@@ -3215,6 +3234,98 @@
     },
     {
       "name": "Runtime SHA-256 css/berhet-controls-hd-r1197.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/theme-surfaces-r1213.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/practice-flow-r1213.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 assets/runtime/update-footer-r1213.js",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/offline-audio-r1213.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 assets/runtime/offline-audio-r1213.js",
+      "passed": true
+    },
+    {
+      "name": "SW and build optional audio agree",
+      "passed": true
+    },
+    {
+      "name": "Optional audio is separate, unique and scoped",
+      "passed": true
+    },
+    {
+      "name": "Optional audio hash and size assets/audio/sukun-intro-signature-r1037.wav",
+      "passed": true
+    },
+    {
+      "name": "Optional audio in inventory assets/audio/sukun-intro-signature-r1037.wav",
+      "passed": true
+    },
+    {
+      "name": "Optional audio hash and size assets/audio/arabic-r1065/yasin.mp3",
+      "passed": true
+    },
+    {
+      "name": "Optional audio in inventory assets/audio/arabic-r1065/yasin.mp3",
+      "passed": true
+    },
+    {
+      "name": "Optional audio hash and size assets/audio/arabic-r1065/fatiha.mp3",
+      "passed": true
+    },
+    {
+      "name": "Optional audio in inventory assets/audio/arabic-r1065/fatiha.mp3",
+      "passed": true
+    },
+    {
+      "name": "Optional audio hash and size assets/audio/arabic-r1065/ayatul-kursi.mp3",
+      "passed": true
+    },
+    {
+      "name": "Optional audio in inventory assets/audio/arabic-r1065/ayatul-kursi.mp3",
+      "passed": true
+    },
+    {
+      "name": "Optional audio hash and size assets/audio/arabic-r1065/ikhlas.mp3",
+      "passed": true
+    },
+    {
+      "name": "Optional audio in inventory assets/audio/arabic-r1065/ikhlas.mp3",
+      "passed": true
+    },
+    {
+      "name": "Optional audio hash and size assets/audio/arabic-r1065/falaq.mp3",
+      "passed": true
+    },
+    {
+      "name": "Optional audio in inventory assets/audio/arabic-r1065/falaq.mp3",
+      "passed": true
+    },
+    {
+      "name": "Optional audio hash and size assets/audio/arabic-r1065/nas.mp3",
+      "passed": true
+    },
+    {
+      "name": "Optional audio in inventory assets/audio/arabic-r1065/nas.mp3",
+      "passed": true
+    },
+    {
+      "name": "Optional audio hash and size assets/berhetiyye-gate/invitation-tr.mp3",
+      "passed": true
+    },
+    {
+      "name": "Optional audio in inventory assets/berhetiyye-gate/invitation-tr.mp3",
       "passed": true
     },
     {
@@ -4578,10 +4689,6 @@
       "passed": true
     },
     {
-      "name": "JavaScript parse sukun-r1165-footer-update",
-      "passed": true
-    },
-    {
       "name": "JavaScript parse sukun-r1177-release-locale",
       "passed": true
     },
@@ -4923,6 +5030,22 @@
     },
     {
       "name": "Runtime JavaScript parses assets/runtime/saver-info-r1193.js",
+      "passed": true
+    },
+    {
+      "name": "Runtime JavaScript parses assets/runtime/update-footer-r1213.js",
+      "passed": true
+    },
+    {
+      "name": "Runtime JavaScript parses assets/runtime/offline-audio-r1213.js",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/theme-surfaces-r1213.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/practice-flow-r1213.css",
       "passed": true
     },
     {
@@ -5483,6 +5606,18 @@
     },
     {
       "name": "HTML SRI js/frequency-hub-r1101.js",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI assets/runtime/update-footer-r1213.js",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/offline-audio-r1213.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI assets/runtime/offline-audio-r1213.js",
       "passed": true
     },
     {
@@ -7642,6 +7777,10 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size assets/runtime/offline-audio-r1213.js",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size assets/runtime/offline-images-ui-r1095.css",
       "passed": true
     },
@@ -7835,6 +7974,10 @@
     },
     {
       "name": "Site file hash and size assets/runtime/tekke-ux-r992.js",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size assets/runtime/update-footer-r1213.js",
       "passed": true
     },
     {
@@ -8778,7 +8921,15 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size css/offline-audio-r1213.css",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size css/player-branding-r1109.css",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size css/practice-flow-r1213.css",
       "passed": true
     },
     {
@@ -8799,6 +8950,10 @@
     },
     {
       "name": "Site file hash and size css/tekke-set-card-r1112.css",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size css/theme-surfaces-r1213.css",
       "passed": true
     },
     {
@@ -8954,7 +9109,7 @@
       "passed": true
     },
     {
-      "name": "Site file hash and size sukun-build-r1212.json",
+      "name": "Site file hash and size sukun-build-r1213.json",
       "passed": true
     },
     {
@@ -9218,10 +9373,6 @@
       "passed": true
     },
     {
-      "name": "Runtime is in site inventory assets/audio/sukun-intro-signature-r1037.wav",
-      "passed": true
-    },
-    {
       "name": "Runtime is in site inventory assets/runtime/generic-recordings-r1055.js",
       "passed": true
     },
@@ -9274,30 +9425,6 @@
       "passed": true
     },
     {
-      "name": "Runtime is in site inventory assets/audio/arabic-r1065/yasin.mp3",
-      "passed": true
-    },
-    {
-      "name": "Runtime is in site inventory assets/audio/arabic-r1065/fatiha.mp3",
-      "passed": true
-    },
-    {
-      "name": "Runtime is in site inventory assets/audio/arabic-r1065/ayatul-kursi.mp3",
-      "passed": true
-    },
-    {
-      "name": "Runtime is in site inventory assets/audio/arabic-r1065/ikhlas.mp3",
-      "passed": true
-    },
-    {
-      "name": "Runtime is in site inventory assets/audio/arabic-r1065/falaq.mp3",
-      "passed": true
-    },
-    {
-      "name": "Runtime is in site inventory assets/audio/arabic-r1065/nas.mp3",
-      "passed": true
-    },
-    {
       "name": "Runtime is in site inventory assets/runtime/bundled-arabic-r1065.js",
       "passed": true
     },
@@ -9327,10 +9454,6 @@
     },
     {
       "name": "Runtime is in site inventory assets/berhetiyye-gate/entry-r1080.css",
-      "passed": true
-    },
-    {
-      "name": "Runtime is in site inventory assets/berhetiyye-gate/invitation-tr.mp3",
       "passed": true
     },
     {
@@ -9683,6 +9806,26 @@
     },
     {
       "name": "Runtime is in site inventory css/berhet-controls-hd-r1197.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/theme-surfaces-r1213.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/practice-flow-r1213.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory assets/runtime/update-footer-r1213.js",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/offline-audio-r1213.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory assets/runtime/offline-audio-r1213.js",
       "passed": true
     },
     {

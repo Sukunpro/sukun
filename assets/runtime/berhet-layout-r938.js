@@ -11,6 +11,7 @@ function hidden(node,value){if(node&&node.hidden!==value)node.hidden=value;}
 function move(node,parent){if(!node)return;const anchor=document.createComment('r938-original');node.before(anchor);anchors.push([node,anchor]);parent.append(node)}
 function labels(){
  write($('r1056SettingsCaption'),'Ayarlar ve görünüm','Settings and appearance');
+ write($('r1213JourneyActionsTitle'),'Seyir işlemleri','Journey actions');
  write(focusToggle,focusControlsVisible?'Kolay kontrolleri gizle':'Kolay kontrolleri göster',focusControlsVisible?'Hide easy controls':'Show easy controls');
  attribute(focusToggle,'aria-expanded',focusControlsVisible);
  attribute(panel,'aria-label',english()?'Dhikr controls':'Zikir kontrolleri');
@@ -26,7 +27,7 @@ function placeSummary(){
  const identity=hero?.querySelector('.r920Identity'),original=anchors.find(([node])=>node===identity)?.[1];
  if(summary.parentElement===hero&&original?.isConnected){const anchor=document.createComment('r938-original');original.after(anchor);anchors.push([summary,anchor]);quick.append(summary)}
  else move(summary,quick);
- quick.insertBefore(summary,transport);
+ const anchor=$('r968ManualHint')||finishRow||transport;if(anchor?.parentElement===quick)anchor.after(summary);
 }
 function focusControls(tef=lastTef){
  // r1063: the saved easy-control preference applies on both sides of the
@@ -77,7 +78,7 @@ function build(root){
  const hint=$('r968ManualHint');if(hint)hiddenStates.set(hint,hint.hidden);move(hint,quick);
  focusToggle=document.createElement('button');focusToggle.id='r1056FocusControlsToggle';focusToggle.type='button';focusToggle.setAttribute('aria-controls','r1056PrimaryControls r1056FinishRow r1196JourneyRestartControls r1056ReadingSummary r968ManualHint');quick.append(focusToggle,toggle,body);
  // Easy controls own the wrapper; the session renderer keeps the button's eligibility.
- const restartAll=$('r920JourneyRestartAll');if(restartAll){restartControls=document.createElement('div');restartControls.id='r1196JourneyRestartControls';quick.insertBefore(restartControls,focusToggle);move(restartAll,restartControls)}
+ const restartAll=$('r920JourneyRestartAll');if(restartAll){restartControls=document.createElement('details');restartControls.id='r1196JourneyRestartControls';restartControls.innerHTML='<summary id="r1213JourneyActionsTitle"></summary>';quick.insertBefore(restartControls,focusToggle);move(restartAll,restartControls)}
  for(const node of [shortcuts,picker])move(node,body);
  primary=document.createElement('div');primary.id='r968PrimaryActions';body.append(primary);
  const nav=root.querySelector('.r920Transport');move(nav,body);body.insertBefore(nav,primary);
@@ -113,9 +114,14 @@ function sync(root,tef){
  placeSummary();focusControls(tef);
  placeExit(root,tef);
  window.SukunCompactUI?.sync?.(root,tef);
+ // r1213: native controls precede exploration. This is DOM order, so keyboard
+ // and screen-reader order agree with the visual order. No duplicated buttons.
+ const sections=$('r986Sections'),entry=$('r1082SessionEntry');
+ if(panel?.parentElement===root&&sections?.parentElement===root&&panel.nextElementSibling!==sections)panel.after(sections);
+ if(sections?.parentElement===root&&entry?.parentElement===root&&sections.nextElementSibling!==entry)sections.after(entry);
  // Native handlers continue to own status and count; this is only an empty-state caption.
  const phase=$('r920Phase'),wheel=$('r924WheelFrame');if(phase&&wheel&&phase.parentElement!==wheel)wheel.append(phase);if(root.dataset.phase==='PLAYING'&&!phase.textContent)phase.textContent='Zikir sürüyor';
 }
 window.addEventListener?.('sukun:languagechange',labels,{passive:true});
-window.SukunBerhetLayout=Object.freeze({version:'r1056',revision:'r1196',sync,setFocusControls,snapshot:()=>({active:!!host,open,tef:lastTef,focusControlsVisible})});
+window.SukunBerhetLayout=Object.freeze({version:'r1056',revision:'r1213',sync,setFocusControls,snapshot:()=>({active:!!host,open,tef:lastTef,focusControlsVisible})});
 })();

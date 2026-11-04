@@ -26,7 +26,7 @@ html body #kandil.r1193Info cite{display:block!important;font:400 10px/1.5 syste
  @media (forced-colors:none) {
   html[data-r1074-theme="berhet"] body #kandil.r1193Info #r1194Timing > .r1194Fact {
    border:1px solid transparent!important;
-   border-image:url('../assets/berhetiyye-premium/r1133/gem-sapphire.webp') 210 540 fill / 12px 28px / 0 stretch!important;
+   border-image:var(--sukun-gem-sapphire) 210 540 fill / 12px 28px / 0 stretch!important;
    background:none!important;box-shadow:none!important;
    padding:12px 28px!important;image-rendering:auto!important;
   }
@@ -40,9 +40,99 @@ html body #kandil.r1193Info cite{display:block!important;font:400 10px/1.5 syste
      stone preserves the carved gold rim at this small size. */
   html[data-r1074-theme="berhet"] body #kandil.r1193Info #kandilSettingsButton {
    border:1px solid transparent!important;
-   border-image:url('../assets/berhetiyye-premium/gem-sapphire-r933.webp') 330 fill / 8px / 0 stretch!important;
+   border-image:var(--sukun-gem-sapphire-square) 330 fill / 8px / 0 stretch!important;
    border-radius:10px!important;background:none!important;box-shadow:none!important;
    color:#ffe6a8!important;image-rendering:auto!important;
   }
+ }
+}
+
+/* The content preference is independent of animation/power quality. Reuse
+   the existing saver layout owner; theme paint belongs to shared surfaces. */
+@layer sukun-r1194-layout {
+ html body #kandil.r1193Info[data-saver-content] {
+  padding-top:calc(24px + env(safe-area-inset-top))!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] #r1213SaverContent {
+  display:flex!important;position:sticky!important;top:0!important;z-index:2!important;
+  width:min(320px,100%)!important;box-sizing:border-box!important;gap:8px!important;
+  margin:0 auto 12px!important;padding:4px!important;background:#061a23f5!important;border-radius:12px!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] #r1213SaverContent button {
+  flex:1 1 0!important;box-sizing:border-box!important;min-width:0!important;min-height:44px!important;
+  height:auto!important;margin:0!important;padding:10px 16px!important;
+  border:1px solid #bda66a!important;border-radius:10px!important;background:#0b2935!important;color:#f8ecd1!important;
+  font:600 14px/1.4 system-ui,sans-serif!important;cursor:pointer!important;white-space:normal!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] #r1213SaverContent button[aria-pressed="true"] {
+  background:#075342!important;box-shadow:inset 0 0 0 1px #d3c08780!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] #r1213SaverContent button:focus-visible {
+  outline:2px solid #ffe6a3!important;outline-offset:3px!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] :is(#kTarih,#r1193PalaceState) {
+  font-size:14px!important;line-height:1.45!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] #r1193SaverInfo {
+  font-size:14px!important;line-height:1.5!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] #r1193SaverInfo button.r1193SaverLink small,
+ html body #kandil.r1193Info[data-saver-content] #r1193SaverInfo button.r1193SaverLink em {
+  font-size:13px!important;line-height:1.4!important;color:#ecdfc2!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] #r1193SaverInfo button.r1193SaverLink span {
+  font-size:14px!important;line-height:1.5!important;color:#f0eadb!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] #r1193SaverInfo button.r1193SaverLink strong {
+  font-size:clamp(20px,3.4vw,26px)!important;line-height:1.3!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] #r1193SaverActive #r1213SaverCount {
+  display:block!important;font:600 clamp(24px,4.8vw,38px)/1.25 Georgia,serif!important;
+  color:#fff1cc!important;margin:4px 0!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] #r1213SaverProgress {
+  display:block!important;appearance:none!important;width:min(360px,90%)!important;height:10px!important;
+  border:1px solid #cfb778!important;border-radius:20px!important;overflow:hidden!important;
+  background:#031a25!important;accent-color:#40c991!important;margin:4px auto 6px!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] #r1213SaverProgress::-webkit-progress-bar {background:#031a25;border-radius:20px}
+ html body #kandil.r1193Info[data-saver-content] #r1213SaverProgress::-webkit-progress-value {background:linear-gradient(90deg,#08744e,#43d5a0);border-radius:20px}
+ html body #kandil.r1193Info[data-saver-content] #r1213SaverProgress::-moz-progress-bar {background:linear-gradient(90deg,#08744e,#43d5a0);border-radius:20px}
+ html body #kandil.r1193Info[data-saver-content] #r1213SaverProgress[hidden] {display:none!important}
+ html body #kandil.r1193Info[data-saver-content] :is(.r1194Fact summary,.r1194Fact p,.r1194Neighbors,#r1194Transition) {
+  font-size:14px!important;line-height:1.5!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] blockquote {
+  font-size:16px!important;line-height:1.6!important;
+ }
+ html body #kandil.r1193Info[data-saver-content] cite {
+  font-size:13px!important;line-height:1.5!important;
+ }
+ html body #kandil.r1193Info[data-saver-content="detailed"] #r1213SaverReflection {display:none!important}
+ html body #kandil.r1193Info[data-saver-content="simple"] :is(#r1194Timing,.r1193SaverNames,#r1194JourneyMeta,#r1194Transition,#r1194Previous,blockquote) {display:none!important}
+ html body #kandil.r1193Info[data-saver-content="simple"] #r1194Neighbors:not([hidden]) {
+  display:block!important;margin:16px 0!important;font-size:16px!important;
+ }
+ html body #kandil.r1193Info[data-saver-content="simple"] #r1213SaverReflection {
+  display:block!important;margin:22px auto 12px!important;padding:0 14px!important;max-width:500px!important;
+ }
+ html body #kandil.r1193Info[data-saver-content="simple"] #r1213SaverReflection small {
+  font:500 13px/1.4 system-ui,sans-serif!important;color:#d8c697!important;
+ }
+ html body #kandil.r1193Info[data-saver-content="simple"] #r1213SaverReflection p {
+  margin:6px 0!important;color:#f5e8cc!important;font:italic 18px/1.6 Georgia,serif!important;
+ }
+ html body #kandil.r1193Info[data-saver-content="simple"] #r1193SaverInfo button#r1193SaverActive strong {
+  font-size:clamp(26px,5vw,38px)!important;
+ }
+ html body #kandil.r1193Info[data-saver-content="simple"] .kFlame {
+  max-height:24vh!important;
+ }
+ @media(max-height:600px) {
+  html body #kandil.r1193Info[data-saver-content] {padding-top:calc(12px + env(safe-area-inset-top))!important}
+  html body #kandil.r1193Info[data-saver-content="simple"] #r1213SaverReflection {margin-top:12px!important}
+ }
+ @media(forced-colors:active) {
+  html body #kandil.r1193Info[data-saver-content] #r1213SaverContent button[aria-pressed="true"] {outline:2px solid Highlight!important}
  }
 }

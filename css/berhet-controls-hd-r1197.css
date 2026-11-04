@@ -17,7 +17,7 @@
  @media (forced-colors:none) {
   /* Selected target mode must remain distinguishable from the inactive gem. */
   html[data-r1074-theme="berhet"] body #tab-zkr :is(#ebBtn,#freeBtn).act {
-   --r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
+   --r1133-gem:var(--sukun-gem-emerald)!important;
    border:1px solid transparent!important;
    border-image:var(--r1133-gem) 210 540 fill / 12px 24px / 0 stretch!important;
    background:none!important;color:#fff7d5!important;
@@ -28,7 +28,7 @@
    content:' ✓'!important;color:#d7ffdf!important;font-weight:800!important;
   }
   html[data-r1074-theme="berhet"] body :is(#r920JourneyRestartAll,#bsRestartAll,#r1193Journey28restart,#r883JourneyRemote [data-act="restartAll"]) {
-   --r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
+   --r1133-gem:var(--sukun-gem-emerald)!important;
    border:1px solid transparent!important;
    border-image:var(--r1133-gem) 210 540 fill / 14px 36px / 0 stretch!important;
    background:none!important;box-shadow:none!important;filter:none!important;
@@ -43,28 +43,28 @@
   }
   /* The narrow +/- controls use square gems instead of squeezed end caps. */
   html[data-r1074-theme="berhet"] body #r932EasyPlus {
-   border-image:url('../assets/berhetiyye-premium/gem-sapphire-r933.webp') 330 fill / 10px / 0 stretch!important;
+   border-image:var(--sukun-gem-sapphire-square) 330 fill / 10px / 0 stretch!important;
   }
   html[data-r1074-theme="berhet"] body #r932EasyMinus {
-   border-image:url('../assets/berhetiyye-premium/gem-diamond-r933.webp') 330 fill / 10px / 0 stretch!important;
+   border-image:var(--sukun-gem-silver-square) 330 fill / 10px / 0 stretch!important;
   }
   /* Notifications uses the same sapphire and emerald states as navigation. */
   html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button[data-t="ntf"] {
-   --r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-sapphire.webp')!important;
-   --r1160-gem:url('../assets/berhetiyye-premium/r1133/gem-sapphire.webp')!important;
+   --r1133-gem:var(--sukun-gem-sapphire)!important;
+   --r1160-gem:var(--sukun-gem-sapphire)!important;
    --r1176-glow-rgb:113 184 255!important;
   }
   html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button[data-t="ntf"].act {
-   --r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
-   --r1160-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
-   --r1204-nav-gem:url('../assets/berhetiyye-premium/gem-emerald-r932.webp')!important;
+   --r1133-gem:var(--sukun-gem-emerald)!important;
+   --r1160-gem:var(--sukun-gem-emerald)!important;
+   --r1204-nav-gem:var(--sukun-gem-emerald-square)!important;
    --r1176-glow-rgb:141 242 174!important;
   }
   @media (hover:hover) {
    html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button[data-t="ntf"]:not(:disabled):hover {
-    --r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
-    --r1160-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
-    --r1204-nav-gem:url('../assets/berhetiyye-premium/gem-emerald-r932.webp')!important;
+    --r1133-gem:var(--sukun-gem-emerald)!important;
+    --r1160-gem:var(--sukun-gem-emerald)!important;
+    --r1204-nav-gem:var(--sukun-gem-emerald-square)!important;
     --r1176-glow-rgb:141 242 174!important;
    }
   }
@@ -72,18 +72,18 @@
      horizontal carved ends into 7px erased the frame and facet detail. */
   @media (max-width:720px) {
    html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button {
-    --r1204-nav-gem:url('../assets/berhetiyye-premium/gem-sapphire-r933.webp');
+    --r1204-nav-gem:var(--sukun-gem-sapphire-square);
     border:1px solid transparent!important;
     border-image:var(--r1204-nav-gem) 330 fill / clamp(9px,2.3vw,13px) / 0 stretch!important;
     background:none!important;image-rendering:auto!important;
     text-shadow:0 1px 1px #000!important;
    }
    html[data-r1074-theme="berhet"] body .wrap>nav.tabs>#tekkeTab {
-    --r1204-nav-gem:url('../assets/berhetiyye-premium/gem-amethyst-r933.webp');
+    --r1204-nav-gem:var(--sukun-gem-amethyst-square);
    }
    html[data-r1074-theme="berhet"] body .wrap>nav.tabs>button.act,
    html[data-r1074-theme="berhet"] body .wrap>nav.tabs>#tekkeTab.act {
-    --r1204-nav-gem:url('../assets/berhetiyye-premium/gem-emerald-r932.webp');
+    --r1204-nav-gem:var(--sukun-gem-emerald-square);
    }
   }
   @media (min-width:721px) {

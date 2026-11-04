@@ -6,6 +6,8 @@ const root=path.resolve(process.argv[2]||'.'),out=path.resolve(process.argv[3]||
 const build=fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),markerPath='sukun-build-'+build+'.json';
 const raw=fs.readFileSync(path.join(root,markerPath)),marker=JSON.parse(raw),source=fs.readFileSync(path.join(root,'assets/runtime/health-r940.js'),'utf8');
 const expectedEntries=marker.runtime.length,entryLimit=192;
+// Optional audio packs are outside mandatory runtime from r1213 onward.
+const expectedMediaBytes=marker.runtime.filter(e=>/\/assets\/audio\/arabic-r1065\/[^/]+\.mp3|\/assets\/berhetiyye-gate\/invitation-tr\.mp3/.test(e.url)).reduce((n,e)=>n+fs.statSync(path.join(root,new URL(e.url,'https://test.invalid/').pathname)).size,0);
 const start=source.indexOf('  async function responseBytes('),end=source.indexOf('  function sampleExplicit()',start);assert(start>0&&end>start);
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex'),results=[];
 async function run(bytes,{header=true,timeout=false}={}){
@@ -25,9 +27,9 @@ async function run(bytes,{header=true,timeout=false}={}){
 }
 async function test(name,fn){try{results.push({name,passed:true,evidence:await fn()})}catch(e){results.push({name,passed:false,error:e.stack})}}
 (async()=>{
- await test('Exact shipped full marker and all mandatory assets verify under unchanged byte/concurrency budgets',async()=>{
+ await test('Exact shipped full marker and all mandatory assets verify under bounded byte/concurrency budgets',async()=>{
   assert(raw.length>32768&&raw.length<65536);assert(expectedEntries>0&&expectedEntries<=entryLimit);
-  const x=await run(raw);assert.equal(x.result.status,'PASS');const e=x.result.evidence;assert.equal(e.expected,expectedEntries);assert.equal(e.matched,expectedEntries);assert.equal(e.configurationErrors,0);assert(e.bytes>0&&e.bytes<=9437184);assert(e.mediaBytes>0&&e.mediaBytes<=33554432);assert(x.maxActive<=2);assert.equal(x.calls.length,expectedEntries+1);return{markerBytes:raw.length,markerSha256:hash(raw),expected:e.expected,coreBytes:e.bytes,mediaBytes:e.mediaBytes,requests:x.calls.length,maxConcurrent:x.maxActive};
+  const x=await run(raw);assert.equal(x.result.status,'PASS');const e=x.result.evidence;assert.equal(e.expected,expectedEntries);assert.equal(e.matched,expectedEntries);assert.equal(e.configurationErrors,0);assert(e.bytes>0&&e.bytes<=12582912);assert.equal(e.mediaBytes,expectedMediaBytes);assert(e.mediaBytes<=33554432);assert(x.maxActive<=2);assert.equal(x.calls.length,expectedEntries+1);return{markerBytes:raw.length,markerSha256:hash(raw),expected:e.expected,coreBytes:e.bytes,mediaBytes:e.mediaBytes,requests:x.calls.length,maxConcurrent:x.maxActive};
  });
  await test('Exact Berhetiyye consistency stylesheet is verified while siblings, nesting and external paths stay rejected',async()=>{
   const name='css/berhet-consistency-r1125.css',entry=marker.runtime.find(e=>new URL(e.url,'https://test.invalid/').pathname.slice(1)===name);assert(entry,'New mandatory stylesheet is present');
@@ -53,6 +55,17 @@ async function test(name,fn){try{results.push({name,passed:true,evidence:await f
    const rejected=await run(Buffer.from(JSON.stringify({...marker,runtime:invalid})));assert.equal(rejected.result.status,'FAIL');assert.equal(rejected.result.evidence.configurationErrors,invalid.length);assert.equal(rejected.calls.length,1);assert.equal(rejected.maxActive,0);
   }
   return {exactPaths:names.length,rejectedVariants:names.length*3};
+ });
+ await test('Exact current branding verifies but remote, nested and sibling artwork stays rejected',async()=>{
+  const name='./assets/branding/sukun-berhet-selected-r1172.png',entry=marker.runtime.find(e=>e.url.split('?')[0]===name);assert(entry);
+  const valid=await run(Buffer.from(JSON.stringify({...marker,runtime:[entry]})));assert.equal(valid.result.status,'PASS');assert.equal(valid.result.evidence.matched,1);
+  const invalid=['./assets/branding/other.png','./nested/assets/branding/sukun-berhet-selected-r1172.png','https://evil.invalid/assets/branding/sukun-berhet-selected-r1172.png'].map(url=>({...entry,url}));
+  const rejected=await run(Buffer.from(JSON.stringify({...marker,runtime:invalid})));assert.equal(rejected.result.status,'FAIL');assert.equal(rejected.result.evidence.configurationErrors,3);assert.equal(rejected.calls.length,1);return{verified:1,rejected:3};
+ });
+ await test('Aggregate core beyond 12 MiB remains incomplete without accepting unchecked bytes',async()=>{
+  const entry=marker.runtime.find(e=>e.url.includes('/branding/sukun-berhet-selected-r1172.png'));assert(entry);
+  const x=await run(Buffer.from(JSON.stringify({...marker,runtime:Array.from({length:10},()=>({...entry}))})));
+  assert.notEqual(x.result.status,'PASS');assert.equal(x.result.evidence.complete,false);assert(x.result.evidence.bytes<=12582912);assert(x.result.evidence.unverified>0);assert(x.result.evidence.files.some(f=>f.status==='TOTAL_SIZE_LIMIT'));return{bytes:x.result.evidence.bytes,unverified:x.result.evidence.unverified};
  });
  const exact=Buffer.concat([raw,Buffer.alloc(65536-raw.length,32)]);
  await test('A valid 65536-byte marker remains bounded and verifies unchanged runtime entries',async()=>{const x=await run(exact);assert.equal(x.result.status,'PASS');assert.equal(x.result.evidence.matched,expectedEntries);return{markerBytes:exact.length,maxConcurrent:x.maxActive}});

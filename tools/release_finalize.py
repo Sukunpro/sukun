@@ -204,7 +204,22 @@ def main():
         build.update(build=new, base=release_base, feature=a.feature, siteBackupManifestUrl=f"./sukun-site-assets-{new}.json")
         if not build.get("sessionVersion", "").endswith("+" + new):
             build["sessionVersion"] = build.get("sessionVersion", old) + "+" + new
-        for entries in (build["runtime"], build.get("artwork", [])):
+        # Sound files are optional offline packs, never activation prerequisites.
+        optional_audio = {local(e["url"]): e for e in build.get("optionalAudio", [])}
+        core = []
+        for entry in build["runtime"]:
+            name = local(entry["url"])
+            if re.search(r"\.(?:mp3|wav|ogg|m4a)$", name, re.I):
+                optional_audio[name] = entry
+            else:
+                core.append(entry)
+        build["runtime"] = core
+        build["optionalAudio"] = list(optional_audio.values())
+        for entry in build["optionalAudio"]:
+            name = local(entry["url"])
+            entry["bytes"] = len(read(name))
+            entry["packageId"] = "yasin" if "/yasin." in name else "short" if "/arabic-" in name else "ambience"
+        for entries in (build["runtime"], build.get("artwork", []), build["optionalAudio"]):
             for entry in entries:
                 entry["url"] = version_url(entry["url"])
                 entry["sha256"] = sha(read(entry["url"]))
@@ -215,6 +230,8 @@ def main():
             if not url or "integrity=" not in tag or re.match(r"(?:[a-z]+:|//|#)", url[1], re.I):
                 continue
             name = local(url[1])
+            if re.search(r"\.(?:mp3|wav|ogg|m4a)$", name, re.I):
+                continue  # Audio preloads stay optional, even when SRI-bearing.
             if name not in runtime_paths:
                 assert re.search(r"[?&]v=" + new + r"\b", url[1]), "New mandatory member needs versioned URL: " + url[1]
                 build["runtime"].append({"url": url[1], "sha256": sha(read(name))})
@@ -231,11 +248,14 @@ def main():
         assert n == 1
         sw, n = re.subn(r"const REQUIRED_RUNTIME = \[[\s\S]*?\];", "const REQUIRED_RUNTIME = " + inline_json(build["runtime"]) + ";", sw)
         assert n == 1
+        sw, n = re.subn(r"const OPTIONAL_AUDIO = \[[\s\S]*?\];", "const OPTIONAL_AUDIO = " + inline_json(build["optionalAudio"]) + ";", sw)
+        assert n == 1
         plan("sw.js", sw)
         paths = {x["path"] for x in previous["files"]}
         paths.discard(f"sukun-build-{old}.json")
         paths.add(f"sukun-build-{new}.json")
         paths.update(local(x["url"]) for x in build["runtime"])
+        paths.update(local(x["url"]) for x in build["optionalAudio"])
         for addition in a.add:
             addition = local(addition)
             file = root / addition

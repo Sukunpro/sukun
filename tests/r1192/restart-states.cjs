@@ -13,7 +13,7 @@ for(const kind of ['28','99'])for(const phase of ['idle','running','paused','com
  assert.deepEqual(calls,phase==='running'||phase==='paused'?['pause','reset','play']:['reset','play']);assert.equal(state._r1074Selection,null);
 }
 const handler=ui.match(/\$\('r920JourneyRestartAll'\)\.onclick=async\(\)=>\{([\s\S]*?)\n \};/)[1];
-const run=new Function('snap','allowed','window','command','wake','queue',`return(async()=>{${handler}})()`);
+const run=new Function('snap','allowed','window','command','wake','queue',`const safe=(fn,fallback)=>{try{return fn()}catch{return fallback}}; ${ui.slice(ui.indexOf('function journeyRestartQuestion('),ui.indexOf('window.SukunTargetInfo='))} return(async()=>{${handler}})()`);
 (async()=>{for(const mode of ['esma','berhet'])for(const journeyKind of ['single',mode==='esma'?'99':'28']){
  let calls=[],confirm=true;const s={activeMode:mode,journeyKind,smartSession:null};const w={I18N:{lang:'tr'},confirm:()=>confirm,toast(){}};
  const command=async(a,o)=>{calls.push([a,o]);return{accepted:true}};

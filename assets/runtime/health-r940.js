@@ -652,11 +652,12 @@
   async function integrityCheck() {
     const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10000);
     const result=[];let total=0,reserved=0,mediaTotal=0,mediaReserved=0,expected=0;
-    // The 9 MiB core allowance includes the shared session UI. Arabic recordings and the
+    // The 12 MiB core allowance includes the measured r1213 core (~10.5 MiB),
+    // including exact listed high-resolution wheel/branding assets. Arabic recordings and the
     // exact short portal invitation share the separate bounded media allowance.
     // Leave bounded room for small releases to add mandatory runtime files.
     // Marker size, file paths, hashes, concurrency and byte budgets stay strict.
-    const maxRuntimeEntries=192,byteBudget=9437184,mediaByteBudget=33554432,waiters=new Set();
+    const maxRuntimeEntries=192,byteBudget=12582912,mediaByteBudget=33554432,waiters=new Set();
     function wakeBudget(){for(const wake of [...waiters])wake();}
     function waitForBudget(){return new Promise((resolve,reject)=>{
       let done=false;
@@ -700,6 +701,9 @@
           const rescuePage=url.pathname===new URL('./rescue.html',location.href).pathname;
           const introArt=['./assets/branding/sukun-frameless-logo-r1029.png','./assets/branding/sukun-intro-pattern-r1029.svg']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
+          const currentArt=['./assets/branding/sukun-berhet-saver-r1167.webp','./assets/branding/sukun-berhet-selected-r1172.png',
+            './assets/branding/tekke-lock-r1177.webp','./assets/scenes/mobile-r918/mevlevi.webp']
+            .some(p=>url.pathname===new URL(p,location.href).pathname);
           const introAudio=url.pathname===new URL('./assets/audio/sukun-intro-signature-r1037.wav',location.href).pathname;
           const bundledArabicAudio=['yasin','fatiha','ayatul-kursi','ikhlas','falaq','nas']
             .some(name=>url.pathname===new URL('./assets/audio/arabic-r1065/'+name+'.mp3',location.href).pathname);
@@ -725,15 +729,18 @@
             './css/button-clarity-r1130.css','./css/berhet-jeweled-controls-r1131.css','./css/berhet-original-stone-r1132.css','./css/berhet-premium-jewels-r1133.css','./css/berhet-responsive-r1135.css','./css/berhet-fit-r1137.css',
             './css/berhet-dock-fit-r1138.css','./css/berhet-panels-r1138.css','./css/berhet-long-headings-r1141.css',
             './css/berhet-disclosures-r1142.css','./css/berhet-headers-r1142.css','./css/berhet-frequency-headings-r1142.css',
-            './css/berhet-tekke-actions-r1143.css','./css/berhet-nav-compact-r1145.css','./css/berhet-frequency-fit-r1146.css','./css/berhet-misc-fit-r1146.css','./css/berhet-recordings-r1146.css','./css/berhet-zikir-cards-r1146.css','./css/berhet-reading-modes-r1147.css','./css/berhet-settings-r1148.css','./css/berhet-switches-r1148.css','./css/tefekkur-controls-r1148.css','./css/berhet-hero-r1149.css','./css/berhet-nav-r1149.css','./css/berhet-quick-controls-r1149.css','./css/berhet-session-fit-r1149.css']
+            './css/berhet-tekke-actions-r1143.css','./css/berhet-nav-compact-r1145.css','./css/berhet-frequency-fit-r1146.css','./css/berhet-misc-fit-r1146.css','./css/berhet-recordings-r1146.css','./css/berhet-zikir-cards-r1146.css','./css/berhet-reading-modes-r1147.css','./css/berhet-settings-r1148.css','./css/berhet-switches-r1148.css','./css/tefekkur-controls-r1148.css','./css/berhet-hero-r1149.css','./css/berhet-nav-r1149.css','./css/berhet-quick-controls-r1149.css','./css/berhet-session-fit-r1149.css',
+            './css/kandil-berhet-r1167.css','./css/neon-controls-r1176.css','./css/mevlevi-lock-r1176.css',
+            './css/journey-panels-r1193.css','./css/saver-info-r1193.css','./css/berhet-controls-hd-r1197.css',
+            './css/theme-surfaces-r1213.css','./css/practice-flow-r1213.css','./css/offline-audio-r1213.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
-          if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
+          if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||currentArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;
           }
           // The invitation is media too. Keep both aggregate budgets unchanged
           // and apply its own smaller per-file cap within the media allowance.
           const isMedia=bundledArabicAudio||portalVoice;
-          const maxFileBytes=bundledArabicAudio?25165824:portalVoice?500000:navigationArt||cabirArt||introArt?2097152:524288;let allowance=0;
+          const maxFileBytes=bundledArabicAudio?25165824:portalVoice?500000:navigationArt||cabirArt||introArt||currentArt?2097152:524288;let allowance=0;
           try {
             allowance=await reserveBytes(maxFileBytes,isMedia);
             let data;

@@ -20,6 +20,10 @@ const runtime=JSON.parse(sw.match(/const REQUIRED_RUNTIME = (\[.*?\]);/s)[1]);
 check('SW and build runtime entries agree',()=>JSON.stringify(runtime)===JSON.stringify(build.runtime));
 check('Runtime paths are unique',()=>new Set(runtime.map(x=>local(x.url))).size===runtime.length);
 for(const x of runtime)check('Runtime SHA-256 '+local(x.url),()=>sha(read(local(x.url)))===x.sha256);
+const optionalAudio=JSON.parse(sw.match(/const OPTIONAL_AUDIO = (\[.*?\]);/s)[1]);
+check('SW and build optional audio agree',()=>JSON.stringify(optionalAudio)===JSON.stringify(build.optionalAudio));
+check('Optional audio is separate, unique and scoped',()=>new Set(optionalAudio.map(x=>local(x.url))).size===optionalAudio.length&&optionalAudio.every(x=>/^assets\/[A-Za-z0-9_./-]+\.(?:mp3|wav|ogg|m4a)$/.test(local(x.url))&&!local(x.url).split('/').includes('..')&&['yasin','short','ambience'].includes(x.packageId)&&!runtime.some(r=>local(r.url)===local(x.url))));
+for(const entry of optionalAudio){check('Optional audio hash and size '+local(entry.url),()=>sha(read(local(entry.url)))===entry.sha256&&read(local(entry.url)).length===entry.bytes);check('Optional audio in inventory '+local(entry.url),()=>site.files.some(f=>f.path===local(entry.url)&&f.sha256===entry.sha256&&f.bytes===entry.bytes));}
 let inline=0;for(const m of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)){const type=m[1].match(/\btype=["']([^"']+)["']/)?.[1];if(/\bsrc=/.test(m[1])||type&&!['text/javascript','application/javascript'].includes(type))continue;const id=m[1].match(/\bid=["']([^"']+)["']/)?.[1]||'inline-'+inline;check('JavaScript parse '+id,()=>new vm.Script(m[2]));inline++;}
 check('Service worker JavaScript parses',()=>new vm.Script(sw));
 let external=0;for(const p of new Set(runtime.map(x=>local(x.url)).filter(p=>p.endsWith('.js')))){check('Runtime JavaScript parses '+p,()=>new vm.Script(read(p).toString()));external++;}

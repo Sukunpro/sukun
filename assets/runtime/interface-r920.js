@@ -60,7 +60,9 @@ function mountSectionAccess(){
  if(nav){
   if(nav.id!=='r986Sections')nav.id='r986Sections';attr(nav,'aria-label','Zikir alt bölümleri');
   for(const [i,button] of [...nav.querySelectorAll('button')].entries()){const id=[...sectionIds][i];if(id){attr(button,'aria-controls',id);attr(button,'aria-expanded',$(id)?.open===true)}}
-  if(nav.parentElement!==root){if(hero)hero.after(nav);else root.append(nav)}
+  const panel=$('r938Panel');
+  if(panel?.parentElement===root){if(nav.parentElement!==root||nav.previousElementSibling!==panel)panel.after(nav)}
+  else if(nav.parentElement!==root){if(hero)hero.after(nav);else root.append(nav)}
  }
  const total=$('totalCnt'),line=total?.closest('.statLine');
  if(line){
@@ -114,7 +116,7 @@ function make(){
  $('r920Previous').onclick=()=>command('previous');$('r920Next').onclick=()=>command('next');$('r920Restart').onclick=()=>{const s=snap();if(s?.activeMode==='berhet'&&s.journeyKind!=='single'&&Number(s.count)>0&&!window.confirm(window.I18N?.t?.('Bu zikrin sayacı sıfırlanacak. Baştan başlamak istiyor musun?')||'Bu zikrin sayacı sıfırlanacak. Baştan başlamak istiyor musun?'))return;command('restart')};$('r920Stop').onclick=()=>command('stop');
  $('r920JourneyRestartAll').onclick=async()=>{
   const s=snap(),kind=['28','99'].includes(s?.journeyKind)?s.journeyKind:s?.activeMode==='berhet'?'28':s?.activeMode==='esma'?'99':null;if((kind==='28'&&!allowed())||!kind||s?.smartSession)return;
-  const english=window.I18N?.lang==='en',question=english?'Restart this entire journey from the first name? Its current progress will be reset. Other journey progress, recordings and settings will be kept.':'Bu seyir ilk isimden yeniden başlasın mı? Bu seyrin ilerlemesi sıfırlanır. Diğer seyir, kayıtlar ve ayarlar korunur.';
+  const english=window.I18N?.lang==='en',question=journeyRestartQuestion(s,kind); /* r1213: exact destination and progress, before any selection command. */
   if(!window.confirm(question))return;
   if(s.journeyKind!==kind){const selected=await command('select',{mode:kind==='28'?'berhet':'esma',journeyKind:kind});if(!selected?.accepted||selected?.stale){window.toast?.(english?'Could not select the journey.':'Seyir seçilemedi.');return;}}
   const result=await command('restart-journey',{journeyKind:kind});
@@ -165,6 +167,37 @@ function writeJourneySetting(suffix,value,event){const s=snap();if(!journeySetti
 // Public Esmâ settings never require private Berhetiyye access.
 function journeyModeAllowed(mode){return mode==='esma'||(mode==='berhet'&&allowed())}
 function journeySettingsAllowed(s){return !!s&&journeyModeAllowed(s.activeMode)&&((s.activeMode==='esma'&&s.journeyKind==='99')||(s.activeMode==='berhet'&&s.journeyKind==='28'))}
+// r1213: describe the active target's owner, never infer Ebced from a number.
+// Saved journey previews use their own native mode control, not the single
+// counter's targetMode. Presentation performs no setting/count mutation.
+function targetInfo(s=view()){
+ const english=window.I18N?.lang==='en';let mode='unknown';
+ if(s?.smartSession){
+  const direct=safe(()=>window.currentZikirState?.snapshot?.(),{})||{};
+  const matching=direct.cat===s.activeMode&&Number(direct.idx)===Number(s.activeIndex);
+  const value=matching?direct.targetMode:s.smartSession.targetMode;
+  mode=value==='duration'?'duration':value==='manual'?'free':'fixed';
+ }else if(s?.journeyKind==='28'||s?.journeyKind==='99'){
+  const value=$((s.journeyKind==='28'?'bs':'es99')+'Mode')?.value;
+  mode=value==='ebced'?'ebced':value==='custom'?'free':value?'fixed':'unknown';
+ }else if(s){
+  const direct=safe(()=>window.currentZikirState?.snapshot?.(),{})||{};
+  const value=direct.cat===s.activeMode&&Number(direct.idx)===Number(s.activeIndex)?direct.targetMode:null;
+  mode=value==='ebced'?'ebced':['manual','free','custom'].includes(value)?'free':value==='fixed'?'fixed':'unknown';
+ }
+ const labels={ebced:['Ebced hedefi','Abjad target'],free:['Serbest hedef','Custom target'],fixed:['Sabit hedef','Fixed target'],duration:['Süre','Duration'],unknown:['Hedef','Target']};
+ return Object.freeze({mode,label:labels[mode][english?1:0]});
+}
+function journeyRestartQuestion(s,kind){
+ const english=window.I18N?.lang==='en',api=kind==='28'?window.SukunBerhetiyyeSeyir:window.SukunEsma99Seyir;
+ const stored=safe(()=>api?.state?.(),{})||{},display=safe(()=>api?.display?.(),{})||{},same=s?.journeyKind===kind;
+ const index=Math.min(Number(kind),Math.max(0,Number(same?s.journeyIndex??s.activeIndex:stored.i??display.index)||0));
+ const count=Math.max(0,Number(same?s.count:stored.rep??display.count)||0),target=Math.max(0,Number(same?s.target:display.target)||0);
+ const name=kind==='28'?'Berhetiyye':'Esmâü’l-Hüsnâ',position=Math.min(Number(kind),index+1);
+ const progress=english?`${position}/${kind} · ${count} / ${target||'∞'} repetitions in this name`:`${position}/${kind} · bu isimde ${count} / ${target||'∞'} tekrar`;
+ return english?`${name} journey (${kind}) will restart from the first name.\nCurrent position: ${progress}.\nOnly this journey's progress will be reset; other journeys, total dhikr, recordings and settings are kept.\nRestart?`:`${name} seyri (${kind}) ilk isimden yeniden başlayacak.\nKaldığın yer: ${progress}.\nYalnız bu seyrin ilerlemesi sıfırlanır; diğer seyirler, toplam zikir, kayıtlar ve ayarlar korunur.\nBaştan başlatılsın mı?`;
+}
+window.SukunTargetInfo=Object.freeze({version:'r1213',describe:targetInfo});
 function syncJourneySettings(s){
  const enabled=journeySettingsAllowed(s),prefix=s.activeMode==='berhet'?'bs':'es99';prop($('r920JourneySettings'),'hidden',!enabled);if(!enabled)return;
  for(const [suffix,id] of [['Mode','r920RepeatMode'],['Gap','r920RepeatGap']]){const native=$(prefix+suffix),control=$(id);if(!native)continue;const key=prefix+':'+Array.from(native.options,o=>o.value+'='+o.textContent).join('|');if(control.dataset.options!==key){control.replaceChildren(...Array.from(native.options,o=>{const option=document.createElement('option');option.value=o.value;option.textContent=o.textContent;return option}));control.dataset.options=key}value(control,native.value)}
@@ -256,7 +289,8 @@ function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view
  const clock=ms=>{const n=Math.max(0,Math.ceil((Number(ms)||0)/1000));return Math.floor(n/60)+':'+String(n%60).padStart(2,'0')};
  const count=Math.max(0,Number(s.count)||0),target=Math.max(0,Number(s.target)||0),pct=timed?Math.max(0,Math.min(100,100*(smartSession.elapsedMs||0)/Math.max(1,(smartSession.elapsedMs||0)+(smartSession.remainingMs||0)))):target?Math.min(100,count/target*100):0;
  text($('r1082CountLabel'),nonReading?(english?'SESSION':'SEANS'):smartActive?(english?'COMPLETED':'TAMAMLANAN'):(english?'REPEAT':'TEKRAR'));
- text($('r1082TargetLabel'),timed?(english?'Duration':'Süre'):(english?'Target':'Hedef'));
+ const targetDescription=targetInfo(s);
+ text($('r1082TargetLabel'),timed?(english?'Duration':'Süre'):targetDescription.label);attr(root,'data-target-mode',timed?'duration':targetDescription.mode);
  attr($('r924WheelFrame'),'data-count-digits',String(count).length);attr(root.querySelector('.r920Stats'),'data-digits',String(Math.max(count,target)).length>5?'large':'normal');text($('r920Count'),nonReading?'—':count);text($('r920Target'),nonReading?'—':timed?clock((smartSession.elapsedMs||0)+(smartSession.remainingMs||0)):target||'∞');text($('r920Remaining'),nonReading?'—':timed?clock(smartSession.remainingMs):target?Math.max(0,target-count):'∞');text($('r920Percent'),nonReading?(smartSession.stepType==='silence'?(english?'Silence':'Sükût'):(english?'Frequency':'Frekans')):timed?(english?'Remaining ':'Kalan ')+clock(smartSession.remainingMs):target?'%'+Math.floor(pct):smartActive?(english?'Until next step':'Sen geçene kadar'):(english?'Free':'Serbest'));
  if($('r924WheelFrame').style.getPropertyValue('--r920-progress')!==String(pct))$('r924WheelFrame').style.setProperty('--r920-progress',pct);attr($('r924WheelFrame'),'data-near',pct>=90?'1':'0');attr($('r920Counter'),'aria-label',nonReading?name:`${name}, ${count} / ${target||'serbest'}. ${journey?'Seyir sayacı':'Bir zikir say'}`);
  const visual=window.SukunR918Visual?.snapshot?.()||{};
@@ -310,7 +344,7 @@ function settleFocus(active){
 // requestAnimationFrame handle survived restoration. No transport command.
 function restorePresentation(){if(document.hidden)return false;if(raf)cancelAnimationFrame(raf);raf=0;render();return !!root?.isConnected&&!root.hidden}
 document.addEventListener('visibilitychange',()=>{if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0;clearTimeout(focusTimer)}else queue()},{passive:true});
-['DOMContentLoaded','pageshow','sukun:sessionchange','sukun:scenechange','sukun:performancechange','sukun:tefekkurchange','sukun:secretaccesschange','sukun:voicesource','sukun:recordingerror','sukun:recordingrecovered'].forEach(event=>addEventListener(event,queue,{passive:true}));
+['DOMContentLoaded','pageshow','sukun:sessionchange','sukun:currentzikirchange','sukun:languagechange','sukun:scenechange','sukun:performancechange','sukun:tefekkurchange','sukun:secretaccesschange','sukun:voicesource','sukun:recordingerror','sukun:recordingrecovered'].forEach(event=>addEventListener(event,queue,{passive:true}));
 addEventListener('sukun:journey-advance',e=>{const mode=e.detail?.owner==='journey28'?'berhet':e.detail?.owner==='journey99'?'esma':null;if(mode)markComplete(mode,Number(e.detail.index)-1);queue()});
 document.addEventListener('pointerdown',()=>{if(root&&!root.hidden)wake()},{passive:true});document.addEventListener('keydown',wake,{passive:true});
 new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});

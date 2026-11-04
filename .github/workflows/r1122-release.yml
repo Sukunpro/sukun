@@ -4,6 +4,7 @@ on:
     branches: [main]
   push:
     branches: [main]
+  workflow_dispatch:
 permissions:
   contents: read
 concurrency:
@@ -12,7 +13,7 @@ concurrency:
 jobs:
   acceptance:
     runs-on: ubuntu-24.04
-    timeout-minutes: 50
+    timeout-minutes: 30
     steps:
       - name: Check out exact candidate commit
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -20,226 +21,37 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           path: candidate
           persist-credentials: false
-      - name: Require supported release identity and runner
+      - name: Validate current identity and required suite
         id: release
         run: |
           python3 - <<'PYCODE'
-          import os
+          import os, re
           from pathlib import Path
-          build = Path('candidate/version.txt').read_text().strip()
-          supported = {
-              'r1122': ('1e4f28d3fcb24ba362a026e4f3308ea20b4121f3', 20),
-              'r1123': ('0060e0a3ce2df94c6dbb7dc5c425080cc1de6cc7', 22),
-              'r1124': ('5869f46eace0d7445d42e82d6d8d9f1e61d5a2c5', 26),
-              'r1125': ('34668e0a8f829630b5ff60e7a9aed0770d38310e', 28),
-              'r1126': ('1ead4017fd3d8159a7224cf749d42cffd2ac21da', 30),
-              'r1127': ('559b7eefcfcd9f8e318acf15fe41a198b77c1323', 30),
-              'r1128': ('a220cdf4353fb919e218ebd86240054a74b3f833', 31),
-              'r1129': ('4a0e0a1356ef00765bc3110c7ea3ec6147028c8a', 33),
-              'r1130': ('65811b9e7b70aaa646d8a4609beb53dbb3b0cb5f', 34),
-              'r1131': ('08701b15d603ee4b8ed1815fc31e67281095db04', 34),
-              'r1132': ('4f9b50e715f5dfd750060d86272bc1d309dcaf93', 34),
-              'r1133': ('c4b9abea48d0d8a473202da4020cdd6427f2794b', 34),
-              'r1135': ('a085549e6844e29b02d9951e12f942d6a22985cb', 34),
-              'r1136': ('e1af7aeec72f84b1b012a600a1b9e0ce617781d4', 34),
-              'r1137': ('7283a4d7dc006cebb3a38df1dcd61ceee7e0c76c', 34),
-              'r1138': ('bd76cbddb86b06204f2ea2a4a04ae5c9f61dcccc', 35),
-              'r1139': ('bb8185d95deb8e1b84aab3aafb3a1c70a1a38861', 36),
-              'r1140': ('e9de4330b2196b38edd02f5dd0ca7c847b93e8c2', 37),
-              'r1141': ('1febda15e22faa4cfcda04ea7ac2617c909a2285', 38),
-              'r1142': ('470d870d7f1b2df4c6e2cce0c2c1b50162ea6889', 39),
-              'r1143': ('ee8056be0a990fecae097ddec5f6a43060d25541', 40),
-              'r1144': ('f506be451ac51499a2ea6900593207beea58a273', 41),
-              'r1145': ('df62463132a9be88e70908a5d135ad8b52d98e55', 42),
-              'r1146': ('c5c19edd7f9aea72dd6bd4adb079bf8f6cca889c', 42),
-              'r1147': ('fbb1da112aa5357ab2bc866e0d6d3fa34ecbfb50', 42),
-              'r1148': ('b0bd3055c45bf194b185530367e556313312fb5e', 42),
-              'r1149': ('f0986e7ae9a12f6f1127c1a81484752ab4e92868', 42),
-          }
-          assert build in supported, 'Unsupported release: never report a version skip as acceptance'
-          upgrade, groups = supported[build]
-          folder = Path('candidate/tests') / build
-          assert (folder / 'run-release-checks.py').is_file(), 'Missing required runner'
-          assert (folder / 'release-upgrade-browser.cjs').is_file(), 'Missing required upgrade suite'
-          if build == 'r1125':
-              assert (folder / 'atlas-private-access.cjs').is_file(), 'Missing required private-access suite'
-          if build in ('r1126', 'r1127', 'r1128', 'r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              delail_folder = Path('candidate/tests/r1128') if build in ('r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149') else folder
-              assert (Path('candidate/tests/r1125') / 'atlas-private-access.cjs').is_file(), 'Missing inherited private-access suite'
-              assert (delail_folder / 'delail-tts-lifecycle.cjs').is_file(), 'Missing required Delail TTS lifecycle suite'
-              assert (delail_folder / 'delail-screen-browser.cjs').is_file(), 'Missing required Delail screen browser suite'
-          if build in ('r1128', 'r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              assert (delail_folder / 'delail-recorded-contract.cjs').is_file(), 'Missing required recorded Delail suite'
-          if build in ('r1129', 'r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              transport_folder = Path('candidate/tests/r1129') if build in ('r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149') else folder
-              assert (transport_folder / 'delail-global-transport.cjs').is_file(), 'Missing global reader transport regression'
-              assert (transport_folder / 'delail-global-native-browser.cjs').is_file(), 'Missing native global reader transport regression'
-          if build in ('r1130', 'r1131', 'r1132', 'r1133', 'r1135', 'r1136', 'r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              assert (folder / ('mobile-layout.cjs' if build in ('r1135', 'r1136') else ('mobile-fit.cjs' if build in ('r1137', 'r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149') else 'button-clarity-browser.cjs'))).is_file(), 'Missing responsive button-quality acceptance'
-          if build in ('r1138', 'r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              assert (folder / 'dock-layout.cjs').is_file(), 'Missing responsive dock-layout acceptance'
-          if build in ('r1139', 'r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              assert (folder / 'dock-page-access.cjs').is_file(), 'Missing dock/page hit-testing acceptance'
-          if build in ('r1140', 'r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              assert (folder / 'details-label.cjs').is_file(), 'Missing details label acceptance'
-          if build in ('r1141', 'r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              assert (folder / 'nefs-access-layout.cjs').is_file(), 'Missing nefs and heading access acceptance'
-          if build in ('r1142', 'r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              assert (folder / 'responsive-headings.cjs').is_file(), 'Missing responsive heading acceptance'
-          if build in ('r1143', 'r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              assert (folder / 'visual-ux.cjs').is_file(), 'Missing visual UX acceptance'
-          if build in ('r1144', 'r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              assert (folder / 'seyir-visual.cjs').is_file(), 'Missing seyir visual acceptance'
-          if build in ('r1145', 'r1146', 'r1147', 'r1148', 'r1149'):
-              assert (folder / 'nav-visual.cjs').is_file(), 'Missing navigation visual acceptance'
+          root = Path('candidate')
+          build = (root / 'version.txt').read_text().strip()
+          assert re.fullmatch(r'r[0-9]+', build) and int(build[1:]) >= 1213, 'Current suite requires r1213+ contract'
+          for name in ['run-current-checks.py', 'release-upgrade-browser.cjs', 'practice-flow.cjs', 'saver-content.cjs', 'update-offline.cjs']:
+              assert (root / 'tests/r1213' / name).is_file(), 'Missing required current suite: ' + name
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
-              output.write(f'build={build}\nupgrade={upgrade}\ngroups={groups}\n')
+              output.write(f'build={build}\n')
           PYCODE
-      - name: Check out immutable r1120 regression reference
+      - name: Check out immutable last pre-migration upgrade reference
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          ref: 7b25996c9d545a3732d758136342da893bba6ed4
-          path: baseline
-          persist-credentials: false
-      - name: Check out immutable previous-release upgrade reference
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-        with:
-          ref: ${{ steps.release.outputs.upgrade }}
+          ref: 8bcbe4c0d902967dc9e6f60d3cfe3a4b4298e755
           path: upgrade-baseline
           persist-credentials: false
-      - name: Install pinned browser test dependency
+      - name: Install pinned native browser test dependency
         run: |
           export NODE_PATH="$RUNNER_TEMP/sukun-browser/node_modules"
           echo "NODE_PATH=$NODE_PATH" >> "$GITHUB_ENV"
           npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
           "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
           echo "CHROMIUM_PATH=$(node -p 'require("playwright").chromium.executablePath()')" >> "$GITHUB_ENV"
-      - name: Capture early r1139 dock access diagnostics (full acceptance still required)
-        if: steps.release.outputs.build == 'r1139'
-        continue-on-error: true
+      - name: Run mandatory current source and native offline acceptance
         working-directory: candidate
-        run: node tests/r1139/dock-page-access.cjs . ../dock-probe/dock-page-access.json
-      - name: Upload early r1139 dock access diagnostics
-        if: always() && steps.release.outputs.build == 'r1139'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: r1139-dock-probe-${{ github.event.pull_request.head.sha || github.sha }}
-          path: dock-probe/*.json
-          if-no-files-found: error
-          retention-days: 30
-      - name: Capture early r1140 details label diagnostics (full acceptance still required)
-        if: steps.release.outputs.build == 'r1140'
-        continue-on-error: true
-        working-directory: candidate
-        run: node tests/r1140/details-label.cjs . ../details-probe/details-label.json
-      - name: Upload early r1140 details label diagnostics
-        if: always() && steps.release.outputs.build == 'r1140'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: r1140-details-probe-${{ github.event.pull_request.head.sha || github.sha }}
-          path: details-probe/*.json
-          if-no-files-found: error
-          retention-days: 30
-      - name: Capture early r1141 nefs layout diagnostics (full acceptance still required)
-        if: steps.release.outputs.build == 'r1141'
-        continue-on-error: true
-        working-directory: candidate
-        run: node tests/r1141/nefs-access-layout.cjs . ../nefs-probe/nefs-access-layout.json
-      - name: Upload early r1141 nefs layout diagnostics
-        if: always() && steps.release.outputs.build == 'r1141'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: r1141-nefs-probe-${{ github.event.pull_request.head.sha || github.sha }}
-          path: nefs-probe/*.json
-          if-no-files-found: error
-          retention-days: 30
-      - name: Capture early r1142 responsive heading diagnostics (full acceptance still required)
-        if: steps.release.outputs.build == 'r1142'
-        continue-on-error: true
-        working-directory: candidate
-        run: node tests/r1142/responsive-headings.cjs . ../headings-probe/responsive-headings.json
-      - name: Upload early r1142 responsive heading diagnostics
-        if: always() && steps.release.outputs.build == 'r1142'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: r1142-headings-probe-${{ github.event.pull_request.head.sha || github.sha }}
-          path: headings-probe/*.json
-          if-no-files-found: error
-          retention-days: 30
-      - name: Capture early r1143 visual UX diagnostics (full acceptance still required)
-        if: steps.release.outputs.build == 'r1143'
-        continue-on-error: true
-        working-directory: candidate
-        run: node tests/r1143/visual-ux.cjs . ../visual-ux-probe/visual-ux.json
-      - name: Upload early r1143 visual UX diagnostics
-        if: always() && steps.release.outputs.build == 'r1143'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: r1143-visual-ux-probe-${{ github.event.pull_request.head.sha || github.sha }}
-          path: |
-            visual-ux-probe/*.json
-            visual-ux-probe/**/*.png
-          if-no-files-found: error
-          retention-days: 30
-      - name: Capture early r1144 seyir visual diagnostics (full acceptance still required)
-        if: steps.release.outputs.build == 'r1144'
-        continue-on-error: true
-        working-directory: candidate
-        run: node tests/r1144/seyir-visual.cjs . ../seyir-probe/seyir-visual.json
-      - name: Upload early r1144 seyir visual diagnostics
-        if: always() && steps.release.outputs.build == 'r1144'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: r1144-seyir-probe-${{ github.event.pull_request.head.sha || github.sha }}
-          path: |
-            seyir-probe/*.json
-            seyir-probe/**/*.png
-          if-no-files-found: error
-          retention-days: 30
-      - name: Capture early r1145 navigation visual diagnostics (full acceptance still required)
-        if: steps.release.outputs.build == 'r1145'
-        continue-on-error: true
-        working-directory: candidate
-        run: node tests/r1145/nav-visual.cjs . ../nav-probe/nav-visual.json
-      - name: Upload early r1145 navigation visual diagnostics
-        if: always() && steps.release.outputs.build == 'r1145'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: r1145-nav-probe-${{ github.event.pull_request.head.sha || github.sha }}
-          path: |
-            nav-probe/*.json
-            nav-probe/**/*.png
-          if-no-files-found: error
-          retention-days: 30
-      - name: Capture early upgrade diagnostics (full acceptance still required)
-        continue-on-error: true
-        working-directory: candidate
-        run: node tests/${{ steps.release.outputs.build }}/release-upgrade-browser.cjs . ../upgrade-baseline ../upgrade-probe/release-upgrade.json
-      - name: Upload early upgrade diagnostics
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: ${{ steps.release.outputs.build }}-upgrade-probe-${{ github.event.pull_request.head.sha || github.sha }}
-          path: upgrade-probe/*.json
-          if-no-files-found: error
-          retention-days: 30
-      - name: Observe immutable r1123 native media baseline (diagnostic, not candidate acceptance)
-        if: steps.release.outputs.build == 'r1124'
-        continue-on-error: true
-        working-directory: candidate
-        run: R1124_BASELINE=1 node tests/r1124/media-wheel-native-browser.cjs ../upgrade-baseline ../native-baseline-probe/media-wheel-native-browser.json
-      - name: Upload immutable native baseline diagnostic JSON
-        if: always() && steps.release.outputs.build == 'r1124'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: r1124-native-baseline-r1123-${{ github.event.pull_request.head.sha || github.sha }}
-          path: native-baseline-probe/*.json
-          if-no-files-found: error
-          retention-days: 30
-      - name: Run all required current-release source-bound groups
-        working-directory: candidate
-        run: python3 tests/${{ steps.release.outputs.build }}/run-release-checks.py --baseline ../baseline --upgrade-baseline ../upgrade-baseline --output ../acceptance
-      - name: Upload synthetic JSON evidence only
+        run: python3 tests/r1213/run-current-checks.py --scope full --upgrade-baseline ../upgrade-baseline --output ../acceptance
+      - name: Upload fresh synthetic acceptance evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
