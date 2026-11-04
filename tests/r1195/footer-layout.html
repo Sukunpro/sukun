@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Footer update stability regression</title>
+<style>body{font:14px system-ui;background:#edf3f1}iframe{height:700px;border:1px solid #888}pre{white-space:pre-wrap;max-height:150px;overflow:auto}</style>
+<h1>Footer update stability</h1><p>Actual application, simulated update states, mobile and desktop widths.</p><pre id="result">Running…</pre><iframe id="app" src="../../nero.html"></iframe>
+<script>
+(async()=>{
+ const frame=document.getElementById('app'),out=document.getElementById('result');
+ await new Promise((resolve,reject)=>{const start=Date.now();const timer=setInterval(()=>{const d=frame.contentDocument;if(d?.readyState!=='loading'&&d?.getElementById('r1165UpdateStatus')){clearInterval(timer);resolve()}else if(Date.now()-start>30000){clearInterval(timer);reject(Error('Application controls did not become ready'))}},100)});
+ await new Promise(resolve=>setTimeout(resolve,2000));
+ const w=frame.contentWindow,d=w.document,results=[];
+ let state={phase:'idle',versionMatch:true};
+ Object.defineProperty(w,'SukunUpdateManager',{configurable:true,value:{snapshot:()=>state,check:async()=>{},activate:async()=>{},cancel:()=>{}}});
+ const paint=()=>new Promise(resolve=>setTimeout(resolve,120));
+ const targets=()=>[...d.querySelectorAll('#sukunDiscovery button,#r1165FooterUpdate')].map(e=>{const r=e.getBoundingClientRect();return [r.x,r.y,r.width,r.height]});
+ const requestedTheme=new URLSearchParams(location.search).get('theme');
+ if(requestedTheme==='esma'){d.querySelector('button[data-c="esma"]')?.click();await paint();}
+ const theme=d.documentElement.dataset.r1074Theme||'default';
+ for(const width of [320,390,700,1280]){
+  frame.style.width=width+'px';
+  state={phase:'idle',versionMatch:true};w.dispatchEvent(new w.CustomEvent('sukun:swstate'));await paint();
+  w.scrollTo({top:d.documentElement.scrollHeight,behavior:"instant"});await paint();const before=targets();let delta=0;const phases=[];
+  for(const phase of ['checking','installing','verifying','saving','activating','error','idle']){
+   state={phase,versionMatch:true,lastError:phase==='error'?'test failure':'',progress:{done:2,total:10}};
+   for(let n=0;n<2;n++){w.dispatchEvent(new w.CustomEvent('sukun:swstate'));await paint();
+    targets().forEach((r,i)=>r.forEach((v,j)=>{delta=Math.max(delta,Math.abs(v-before[i][j]))}));if(n===0)phases.push({phase,scroll:w.scrollY,top:targets()[0][1],footer:d.querySelector('.wrap>footer').getBoundingClientRect().height,documentHeight:d.documentElement.scrollHeight});}
+  }
+  // Exercise the real footer click and its fetch-failure result as well.
+  d.getElementById('r1165UpdateCheck').click();await new Promise(resolve=>setTimeout(resolve,250));await paint();
+  targets().forEach((r,i)=>r.forEach((v,j)=>{delta=Math.max(delta,Math.abs(v-before[i][j]))}));
+  const status=d.getElementById('r1165UpdateStatus'),cs=w.getComputedStyle(status);
+  results.push({width,theme,phases,maxMovementPx:delta,statusHeight:status.getBoundingClientRect().height,statusOverflow:status.scrollHeight>status.clientHeight,pass:delta<1&&cs.display!=='none'});
+  out.textContent=JSON.stringify(results,null,2);
+ }
+ out.dataset.pass=String(results.every(r=>r.pass));
+})().catch(error=>{document.getElementById('result').textContent=error.stack});
+</script></html>

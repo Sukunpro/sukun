@@ -5,7 +5,7 @@ const tr=(a,b)=>en()?b:a;
 const allowed=()=>window.SukunSecretPolicy?.unlocked?.()===true;
 const items=mode=>typeof ZIKIR!=='undefined'?ZIKIR[mode]?.items||[]:[];
 const set=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value};
-let root=null,busy=false;
+let root=null,busy=false,lastJourney=null,lastCycle=null;
 function checkpoint(){
  const s=window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.();
  if(s&&(s.activeMode!=='berhet'||allowed())&&!s.journeyComplete&&s.phase!=='COMPLETED'&&['esma','berhet'].includes(s.activeMode)&&(s.playing||s.paused||s.preparing||s.journey?.active))
@@ -21,7 +21,7 @@ function mount(){
  const saver=$('kandil');if(!saver)return false;
  if(root?.isConnected)return true;
  saver.classList.add('r1193Info');root=document.createElement('section');root.id='r1193SaverInfo';
- root.innerHTML='<p id="r1193PalaceState"></p><button type="button" id="r1193SaverActive" class="r1193SaverLink"><small></small><strong></strong><span></span></button><p id="r1193SaverEmpty"></p><div class="r1193SaverNames"><button type="button" id="r1193SaverEsma" class="r1193SaverLink"><small></small><strong></strong><span></span><em></em></button><button type="button" id="r1193SaverBerhet" class="r1193SaverLink"><small></small><strong></strong><span></span><em></em></button></div><blockquote><p id="r1193SaverQuote"></p><cite id="r1193SaverSource"></cite></blockquote>';
+ root.innerHTML='<p id="r1193PalaceState"></p><button type="button" id="r1193SaverActive" class="r1193SaverLink"><small></small><strong></strong><span></span></button><p id="r1193SaverEmpty"></p><p id="r1194JourneyMeta"></p><p id="r1194Transition" role="status" aria-live="polite"></p><div class="r1194Neighbors" id="r1194Neighbors"><span id="r1194Previous"></span><span id="r1194Next"></span></div><div class="r1194Timing" id="r1194Timing"></div><div class="r1193SaverNames"><button type="button" id="r1193SaverEsma" class="r1193SaverLink"><small></small><strong></strong><span></span><em></em></button><button type="button" id="r1193SaverBerhet" class="r1193SaverLink"><small></small><strong></strong><span></span><em></em></button></div><blockquote><p id="r1193SaverQuote"></p><cite id="r1193SaverSource"></cite></blockquote>';
  saver.querySelector('.kEsma').after(root);
  for(const button of root.querySelectorAll('button'))button.onclick=()=>load(button);
  return true;
@@ -31,11 +31,46 @@ function card(id,mode,index,title,meta,kind='single'){
  b.dataset.mode=mode;b.dataset.index=index;b.dataset.kind=kind;
  set(b.querySelector('small'),title);set(b.querySelector('strong'),(mode==='esma'?'Yâ ':'')+(it.t||it.oku||it.tr));
  set(b.querySelector('span'),meta||it.m||it.mean||it.isaret||'');
+ b.title=[it.m||it.mean||it.isaret,mode==='berhet'?it.serh:'',mode==='berhet'?tr('Berhetiyye · geleneksel şerh ve tefekkür yorumu','Berhetiyye · traditional commentary and reflection'):tr('Esmâü’l-Hüsnâ','Beautiful Names')].filter(Boolean).join(' · ');
  set(b.querySelector('em'),tr('Zikir çarkına yükle →','Load on the dhikr wheel →'));
+}
+function name(mode,index){const it=items(mode)[index];return it?(mode==='esma'?'Yâ ':'')+(it.t||it.oku||it.tr):'';}
+function journeyInfo(active){
+ const row=$('r1194Neighbors'),meta=$('r1194JourneyMeta'),transition=$('r1194Transition');
+ if(!active){row.hidden=true;set(meta,'');set(transition,'');lastJourney=null;lastCycle=null;return;}
+ const journey=['28','99'].includes(active.kind),idx=active.index,total=Number(active.kind);
+ row.hidden=!journey;row.style.display=journey?'':'none';
+ if(journey){
+  set($('r1194Previous'),tr('Önceki: ','Previous: ')+(idx>0?name(active.mode,idx-1):tr('İlk isim','First name')));
+  set($('r1194Next'),tr('Sıradaki: ','Next: ')+(idx+1<total?name(active.mode,idx+1):tr('Seyir tamamlanacak','Journey completion')));
+  set(meta,`${idx+1} / ${total} · ${tr('Tamamlanan isim','Names passed')}: ${idx} · ${tr('Bu isimde devir','Cycles for this name')}: ${active.count>=active.target?1:0} · ${active.count} / ${active.target}`);
+ }else{
+  const z=window.currentZikirState?.snapshot?.()||{},cycles=Math.max(0,Number(z.devir)||0);
+  set(meta,tr('Tamamlanan devir: ','Completed cycles: ')+cycles);
+ }
+ const key=active.mode+':'+active.kind+':'+idx;
+ if(lastJourney&&lastJourney.key!==key&&lastJourney.kind===active.kind&&lastJourney.mode===active.mode){
+  set(transition,`${lastJourney.name} → ${name(active.mode,idx)}`);transition.dataset.pulse=String(transition.dataset.pulse==='1'?'2':'1');
+ }else if(!lastJourney||lastJourney.key!==key){set(transition,tr('Şimdi: ','Now: ')+name(active.mode,idx));transition.dataset.pulse='0';}
+ if(!journey){const z=window.currentZikirState?.snapshot?.()||{},cycle=Number(z.devir)||0;if(lastCycle!==null&&cycle>lastCycle){set(transition,tr('Yeni devir · ','New cycle · ')+name(active.mode,idx));transition.dataset.pulse=String(transition.dataset.pulse==='1'?'2':'1');}lastCycle=cycle;}
+ lastJourney={key,kind:active.kind,mode:active.mode,name:name(active.mode,idx)};
+}
+function meanings(names){return names.map(n=>{const it=items('esma').find(x=>x.t===n);return 'Yâ '+n+(it?.m?' — '+it.m:'')}).join(' · ');}
+function timingInfo(open,now){
+ const host=$('r1194Timing'),data=window.SukunTimingInfo?.snapshot?.(now);if(!host||!data)return;
+ const rows=[];
+ if(data.vakit)rows.push(['vakit',tr('Vaktin zikri','Dhikr of this time')+' · '+data.vakit.label+(data.vakit.name?' · '+data.vakit.name:''),data.vakit.meaning+(data.vakit.esma?' · '+meanings([data.vakit.esma]):'')+' · '+tr('Sükûn vakit rehberi','Sukun time guide')]);
+ else rows.push(['vakit',tr('Vaktin zikri','Dhikr of this time'),tr('Vakit ve saat eşlemesi için uygulamada konumunu seç.','Choose your location in the app to show time-based names.')]);
+ if(data.hour){const h=data.hour,span=[h.start,h.end].map(x=>new Date(x).toLocaleTimeString(en()?'en-GB':'tr-TR',{hour:'2-digit',minute:'2-digit'})).join('–');rows.push(['hour',tr('Saatin esmâsı','Names of the hour')+' · '+h.label+' · '+h.names.map(x=>'Yâ '+x).join(' / '),meanings(h.names)+' · '+span+' · '+tr('Geleneksel saat eşlemesi','Traditional hour association')+(h.note?' · '+h.note:'')]);}
+ rows.push(['day',tr('Günün esmâsı','Names of the day')+' · '+data.day.label+' · '+data.day.names.map(x=>'Yâ '+x).join(' / '),meanings(data.day.names)+' · '+tr('Geleneksel haftalık eşlemeden seçki','Selection from traditional weekday associations')]);
+ if(open&&data.period){const it=data.period.item,m=it.may;rows.push(['period',tr('Ay / dönem zikri','Month / period dhikr')+' · '+it.tr,[it.serh,it.mean,it.menzil,`${m[1]}.${m[0]}–${m[3]}.${m[2]}`,tr('Sabit geleneksel takvim; gerçek Ay konumu hesabı değildir.','Fixed traditional calendar; not an astronomical Moon-position calculation.')].filter(Boolean).join(' · ')]);}
+ const keys=new Set(rows.map(x=>x[0]));for(const child of [...host.children])if(!keys.has(child.dataset.key))child.remove();
+ for(const [key,title,description] of rows){let detail=[...host.children].find(x=>x.dataset.key===key);if(!detail){detail=document.createElement('details');detail.className='r1194Fact';detail.dataset.key=key;detail.append(document.createElement('summary'),document.createElement('p'));host.append(detail);}set(detail.querySelector('summary'),title);detail.querySelector('summary').title=description;set(detail.querySelector('p'),description);}
 }
 function render(){
  if(!mount())return;
  const open=allowed(),s=window.SukunSessionState?.peek?.()||{},active=checkpoint(),now=new Date();
+ journeyInfo(active);timingInfo(open,now);
  const day=Math.floor(Date.UTC(now.getFullYear(),now.getMonth(),now.getDate())/86400000);
  set($('r1193PalaceState'),open?tr('Saray kapısı açık','Palace gate open'):tr('Saray kapısı kapalı','Palace gate closed'));
  $('r1193SaverActive').hidden=!active;set($('r1193SaverEmpty'),active?'':tr('Devam eden bir zikir yok.','No dhikr in progress.'));

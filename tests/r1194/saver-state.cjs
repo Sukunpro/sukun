@@ -1,0 +1,11 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');const h=fs.readFileSync('nero.html','utf8'),s=fs.readFileSync('assets/runtime/saver-info-r1193.js','utf8');
+function between(t,a,b){const i=t.indexOf(a);assert(i>=0);return t.slice(i,t.indexOf(b,i));}
+const ZIKIR=vm.runInNewContext(between(h,'const ZIKIR={','\n};')+'\n};ZIKIR');
+const c={window:{},GEO:null,ZIKIR,berhetUnlocked:()=>true};vm.createContext(c);vm.runInContext(between(h,'const WEEKDAY_ESMA=','let timer=0,lastMinute='),c);
+for(const date of ['2026-01-01','2026-11-04','2026-12-31']){const r=c.window.SukunTimingInfo.snapshot(new Date(date+'T12:00:00'));assert(r.day.names.length);assert(r.period);assert(r.period.item.may);assert.equal(r.hour,null);}
+assert.equal(c.window.SukunTimingInfo.snapshot(new Date('2026-11-04T12:00:00')).period.item.tr,'Beşkeylahin');c.berhetUnlocked=()=>false;assert.equal(c.window.SukunTimingInfo.snapshot(new Date('2026-11-04T12:00:00')).period,null);
+const nodes={};for(const id of ['r1194Neighbors','r1194JourneyMeta','r1194Transition','r1194Previous','r1194Next'])nodes[id]={hidden:false,style:{},dataset:{},textContent:''};
+const v={$:id=>nodes[id],items:mode=>ZIKIR[mode].items,tr:a=>a,set:(node,text)=>node.textContent=text,window:{currentZikirState:{snapshot:()=>({devir:2})}}};vm.createContext(v);vm.runInContext('let lastJourney=null,lastCycle=null;'+between(s,'function name(', 'function meanings(')+'this.draw=journeyInfo',v);
+for(const kind of ['28','99']){const mode=kind==='28'?'berhet':'esma';v.draw(null);v.draw({kind,mode,index:0,count:0,target:298});assert.equal(nodes.r1194Previous.textContent,'Önceki: İlk isim');v.draw({kind,mode,index:1,count:0,target:258});assert(nodes.r1194Transition.textContent.includes(' → '));assert.equal(nodes.r1194Transition.dataset.pulse,'1');v.draw({kind,mode,index:Number(kind)-1,count:0,target:1});assert.equal(nodes.r1194Next.textContent,'Sıradaki: Seyir tamamlanacak');}
+v.draw({kind:'single',mode:'esma',index:0,count:10,target:33});assert.equal(nodes.r1194Neighbors.hidden,true);assert.equal(nodes.r1194JourneyMeta.textContent,'Tamamlanan devir: 2');v.draw(null);assert.equal(nodes.r1194Transition.textContent,'');
+console.log('PASS: actual calendar ranges incl. year boundary, lock privacy, missing location, 28/99 first/next/last, transition caption, single cycles and cleared idle.');

@@ -1,14 +1,14 @@
 {
-  "build": "r1182",
+  "build": "r1195",
   "method": "Complete local release bytes: identity, exact SHA-256 and sizes, HTML SRI, shipped JavaScript syntax, and scoped active external CSS resource validation. Unresolved CSS variables remain explicit; these are static assertions, not device/audio checks.",
-  "passed": 1776,
-  "total": 1776,
-  "inlineScriptsParsed": 344,
-  "externalScriptsParsed": 75,
-  "runtimeEntries": 170,
-  "siteFiles": 850,
-  "siteBytes": 448932307,
-  "sriEntries": 148,
+  "passed": 1799,
+  "total": 1799,
+  "inlineScriptsParsed": 346,
+  "externalScriptsParsed": 77,
+  "runtimeEntries": 174,
+  "siteFiles": 857,
+  "siteBytes": 449200977,
+  "sriEntries": 152,
   "cssAssets": {
     "schema": 1,
     "scope": "Active external CSS and recursive local imports; no inline/generated CSS, computed cascade, remote retrieval or rendering.",
@@ -1405,7 +1405,9 @@
       "assets/berhetiyye-gate/entry-r1080.css",
       "assets/runtime/session-preflight-ui-r1092.css",
       "css/frequency-hub-r1101.css",
-      "assets/runtime/recording-panel-r1119.css"
+      "assets/runtime/recording-panel-r1119.css",
+      "css/journey-panels-r1193.css",
+      "css/saver-info-r1193.css"
     ],
     "references": [
       {
@@ -2405,12 +2407,12 @@
       "empty": 0
     },
     "stats": {
-      "files": 70,
-      "bytes": 610822,
-      "declarations": 12184,
+      "files": 72,
+      "bytes": 615519,
+      "declarations": 12290,
       "customProperties": 96,
       "checkedReferences": 107,
-      "valueExpansions": 1519
+      "valueExpansions": 1531
     }
   },
   "checks": [
@@ -3147,6 +3149,26 @@
       "passed": true
     },
     {
+      "name": "Runtime SHA-256 css/journey-panels-r1193.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 assets/runtime/journey-panels-r1193.js",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/saver-info-r1193.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 assets/runtime/saver-info-r1193.js",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1190-flow-language",
+      "passed": true
+    },
+    {
       "name": "JavaScript parse r768-active-glass-owner-flag",
       "passed": true
     },
@@ -3163,7 +3185,7 @@
       "passed": true
     },
     {
-      "name": "JavaScript parse inline-4",
+      "name": "JavaScript parse inline-5",
       "passed": true
     },
     {
@@ -3175,11 +3197,11 @@
       "passed": true
     },
     {
-      "name": "JavaScript parse inline-7",
+      "name": "JavaScript parse inline-8",
       "passed": true
     },
     {
-      "name": "JavaScript parse inline-8",
+      "name": "JavaScript parse inline-9",
       "passed": true
     },
     {
@@ -3211,11 +3233,11 @@
       "passed": true
     },
     {
-      "name": "JavaScript parse inline-16",
+      "name": "JavaScript parse inline-17",
       "passed": true
     },
     {
-      "name": "JavaScript parse inline-17",
+      "name": "JavaScript parse inline-18",
       "passed": true
     },
     {
@@ -3247,7 +3269,7 @@
       "passed": true
     },
     {
-      "name": "JavaScript parse inline-25",
+      "name": "JavaScript parse inline-26",
       "passed": true
     },
     {
@@ -3475,7 +3497,7 @@
       "passed": true
     },
     {
-      "name": "JavaScript parse inline-82",
+      "name": "JavaScript parse inline-83",
       "passed": true
     },
     {
@@ -3523,7 +3545,7 @@
       "passed": true
     },
     {
-      "name": "JavaScript parse inline-94",
+      "name": "JavaScript parse inline-95",
       "passed": true
     },
     {
@@ -3603,11 +3625,11 @@
       "passed": true
     },
     {
-      "name": "JavaScript parse inline-114",
+      "name": "JavaScript parse inline-115",
       "passed": true
     },
     {
-      "name": "JavaScript parse inline-115",
+      "name": "JavaScript parse inline-116",
       "passed": true
     },
     {
@@ -3691,7 +3713,7 @@
       "passed": true
     },
     {
-      "name": "JavaScript parse inline-136",
+      "name": "JavaScript parse inline-137",
       "passed": true
     },
     {
@@ -4499,6 +4521,10 @@
       "passed": true
     },
     {
+      "name": "JavaScript parse sukun-ux-ambience-locale",
+      "passed": true
+    },
+    {
       "name": "JavaScript parse sukun-r1165-footer-update",
       "passed": true
     },
@@ -4824,6 +4850,14 @@
     },
     {
       "name": "Runtime JavaScript parses assets/runtime/mevlevi-lock-r1176.js",
+      "passed": true
+    },
+    {
+      "name": "Runtime JavaScript parses assets/runtime/journey-panels-r1193.js",
+      "passed": true
+    },
+    {
+      "name": "Runtime JavaScript parses assets/runtime/saver-info-r1193.js",
       "passed": true
     },
     {
@@ -5416,6 +5450,22 @@
     },
     {
       "name": "HTML SRI assets/runtime/frequency-sets-r1120.js",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/journey-panels-r1193.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI assets/runtime/journey-panels-r1193.js",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/saver-info-r1193.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI assets/runtime/saver-info-r1193.js",
       "passed": true
     },
     {
@@ -7479,6 +7529,10 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size assets/runtime/journey-panels-r1193.js",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size assets/runtime/lifecycle-r949.js",
       "passed": true
     },
@@ -7592,6 +7646,10 @@
     },
     {
       "name": "Site file hash and size assets/runtime/recovery-versions-r1019.js",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size assets/runtime/saver-info-r1193.js",
       "passed": true
     },
     {
@@ -8611,6 +8669,10 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size css/journey-panels-r1193.css",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size css/kandil-berhet-r1167.css",
       "passed": true
     },
@@ -8636,6 +8698,10 @@
     },
     {
       "name": "Site file hash and size css/player-branding-r1109.css",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size css/saver-info-r1193.css",
       "passed": true
     },
     {
@@ -8795,7 +8861,19 @@
       "passed": true
     },
     {
-      "name": "Site file hash and size sukun-build-r1182.json",
+      "name": "Site file hash and size sukun-build-r1184.json",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size sukun-build-r1186.json",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size sukun-build-r1187.json",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size sukun-build-r1195.json",
       "passed": true
     },
     {
@@ -9504,6 +9582,22 @@
     },
     {
       "name": "Runtime is in site inventory assets/scenes/mobile-r918/mevlevi.webp",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/journey-panels-r1193.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory assets/runtime/journey-panels-r1193.js",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/saver-info-r1193.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory assets/runtime/saver-info-r1193.js",
       "passed": true
     },
     {
