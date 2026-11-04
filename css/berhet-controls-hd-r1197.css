@@ -15,6 +15,18 @@
   scroll-margin-bottom:calc(100px + env(safe-area-inset-bottom,0px))!important;
  }
  @media (forced-colors:none) {
+  /* Selected target mode must remain distinguishable from the inactive gem. */
+  html[data-r1074-theme="berhet"] body #tab-zkr :is(#ebBtn,#freeBtn).act {
+   --r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
+   border:1px solid transparent!important;
+   border-image:var(--r1133-gem) 210 540 fill / 12px 24px / 0 stretch!important;
+   background:none!important;color:#fff7d5!important;
+   filter:drop-shadow(0 0 4px rgba(108,255,170,.8))!important;
+   font-weight:750!important;
+  }
+  html[data-r1074-theme="berhet"] body #tab-zkr :is(#ebBtn,#freeBtn).act > span:last-child::after {
+   content:' ✓'!important;color:#d7ffdf!important;font-weight:800!important;
+  }
   html[data-r1074-theme="berhet"] body :is(#r920JourneyRestartAll,#bsRestartAll,#r1193Journey28restart,#r883JourneyRemote [data-act="restartAll"]) {
    --r1133-gem:url('../assets/berhetiyye-premium/r1133/gem-emerald.webp')!important;
    border:1px solid transparent!important;

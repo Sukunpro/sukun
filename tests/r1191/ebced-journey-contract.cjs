@@ -19,6 +19,7 @@ vm.createContext(env);vm.runInContext(between('function repeatCount(it){','\nfun
 const calls=env.calls;
 check('every Berhetiyye ebced target follows each actual item',()=>{for(const it of berhet)assert.equal(calls.repeatCount(it),calc(it.ar),it.tr)});
 check('every Esma ebced target follows each actual item',()=>{for(const it of esma)assert.equal(calls.countFor(it),calc(it.a),it.t)});
+check('Yâ Kerîm target is 270 in ebced mode',()=>{const item=esma.find(x=>/ker[iî]m/i.test(x.t));assert(item);assert.equal(calls.countFor(item),270)});
 check('native background targets follow all 127 actual values',()=>{for(const [items,owner] of [[esma,'journey99'],[berhet,'journey28']])for(const item of items)assert.equal(calls.limitFor({owner,item}),calc(item.a||item.ar),item.t||item.tr)});
 check('custom 57 target preserved for both journeys and native',()=>{nodes.bsMode.value=nodes.es99Mode.value='custom';for(const [items,owner,fn] of [[berhet,'journey28',calls.repeatCount],[esma,'journey99',calls.countFor]]){assert.equal(fn(items[0]),57);assert.equal(calls.limitFor({owner,item:items[0]}),57)}});
 check('existing one-repeat mode remains one for both journeys and native',()=>{nodes.bsMode.value=nodes.es99Mode.value='1';for(const [items,owner,fn] of [[berhet,'journey28',calls.repeatCount],[esma,'journey99',calls.countFor]]){assert.equal(fn(items[0]),1);assert.equal(calls.limitFor({owner,item:items[0]}),1)}});
