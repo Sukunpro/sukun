@@ -4,7 +4,7 @@ const src=fs.readFileSync(path.join(root,'assets/runtime/interface-r920.js'),'ut
 const code=src.slice(src.indexOf('function writeJourneySetting('),src.indexOf('function wake()'));assert(code.includes('function syncJourneySettings'));
 for(const [mode,journey,unlocked,permit] of [['esma','99',false,true],['esma','99',true,true],['berhet','28',false,false],['berhet','28',true,true],['esma','single',false,false],['berhet','single',true,false],['esma','28',true,false],['other','99',true,false]]){
  const controls={},events=[];let state={activeMode:mode,journeyKind:journey};
- const el=(id,obj={})=>controls[id]=Object.assign({id,hidden:false,value:'',dataset:{},options:[],replaceChildren(...items){this.options=items}},obj);
+ const el=(id,obj={})=>controls[id]=Object.assign({id,hidden:false,value:'',dataset:{},options:[],setCustomValidity(message){this.validationMessage=message},setAttribute(name,value){this[name]=String(value)},replaceChildren(...items){this.options=items}},obj);
  el('r920JourneySettings');el('r920RepeatMode');el('r920RepeatGap');el('r920RepeatCustom');el('r920RepeatCustomLabel');
  for(const prefix of ['bs','es99']){
   el(prefix+'Mode',{value:'ebced',options:[{value:'1',textContent:'1 kez'},{value:'ebced',textContent:'Ebced'},{value:'custom',textContent:'Özel'}],dispatchEvent:e=>events.push([prefix+'Mode',e.type])});
