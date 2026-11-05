@@ -269,6 +269,48 @@
   body.r1215-premium #r1215NextName {font-size:19px!important}
   body.r1215-premium #r1215SaveState {grid-column:1/-1;margin-top:4px!important}
  }
+ /* r1219: native path controls share one line box. Reserve the painted
+    gemstone ends without changing their artwork or the select's behavior. */
+ @media(max-width:1099px) {
+  body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice :is(#r920AtlasOpen,#r920JourneyMode) {
+   box-sizing:border-box!important;min-height:48px!important;height:48px!important;max-height:none!important;
+   font:600 12px/1.35 system-ui,sans-serif!important;letter-spacing:0!important;
+   padding:10px 12px!important;
+  }
+  body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice #r920JourneyLabel:not([hidden]) {
+   display:flex!important;align-items:stretch!important;min-height:48px!important;height:auto!important;
+  }
+  body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice #r920JourneyMode {
+   width:100%!important;min-width:0!important;text-align:center!important;text-align-last:center!important;
+  }
+  html[data-r1074-theme="berhet"] body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice :is(#r920AtlasOpen,#r920JourneyMode) {
+   padding:12px 24px!important;border-image-width:10px 22px!important;
+  }
+  html[data-r1074-theme="berhet"] body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice .r920Path>:is(#r920AtlasOpen,#r920JourneyLabel) {
+   flex-basis:124px!important;
+  }
+  html[data-r1074-theme="berhet"] body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice #r920JourneyLabel::after {
+   right:12px!important;
+  }
+ }
+ /* Keep the compact counter footprint while allowing longer labels to grow.
+    The previous 12px bevel reached into the first line at y=9px. */
+ html[data-r1074-theme="berhet"] body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice[data-r938-layout="1"] #r938Hero .r920Stats>span {
+  height:auto!important;min-height:64px!important;max-height:none!important;
+  padding:8px 18px!important;border-image-width:8px 16px!important;
+  gap:2px 4px!important;line-height:1.2!important;
+ }
+ html[data-r1074-theme="berhet"] body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice[data-r938-layout="1"] #r938Hero .r920Stats>span>b {
+  font-size:24px!important;line-height:1.1!important;
+ }
+ @media(max-width:700px) {
+  /* The ruby uses the same safe inner area as the other master controls;
+     percentage bevels consumed the Durdur caption on narrow phones. */
+  html[data-r1074-theme="berhet"] body.r1215-premium #dock>#stopAll.dockItem.danger {
+   border-image-width:10px 12px!important;padding:12px 13px!important;
+   min-height:72px!important;height:auto!important;max-height:none!important;
+  }
+ }
  @media(max-width:380px) {
   body.r1215-premium:not(.sukun-tefekkur-mode)>.wrap {padding-inline:8px!important}
   body.r1215-premium:not(.sukun-tefekkur-mode) #r920Practice:not([hidden]) {padding:14px 10px!important}

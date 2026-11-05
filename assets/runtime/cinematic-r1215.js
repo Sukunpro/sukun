@@ -5,13 +5,13 @@
  const modes=['cinematic','balanced','saving'],globalMode={cinematic:'tam',balanced:'dengeli',saving:'pil'};
  const reduced=w.matchMedia('(prefers-reduced-motion: reduce)');
  const tr=(a,b)=>w.I18N?.lang==='en'?b:a;
- let frame=0,lastIdentity=null,lastScene=null,lastView=null,lastQualityPaint='',entryAnimation=null,nameAnimations=[],saverObserver=null,observedSaver=null,saverWasOn=false,applying=false;
+ let frame=0,lastIdentity=null,lastScene=null,lastView=null,lastQualityPaint='',entryAnimation=null,nameAnimations=[],saverObserver=null,observedSaver=null,saverWasOn=false,applying=false,pageSuspended=false;
  const safe=(fn,fallback=null)=>{try{return fn()}catch(_){return fallback}};
  const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value};
  function requested(){const p=safe(()=>w.SukunSceneEngine?.snapshot?.().profile);return modes.includes(p)?p:'balanced'}
  function policy(){
-  const profile=requested(),global=w.SukunPerformance?.mode||d.body?.dataset.perf;
-  return {profile,effective:d.hidden||reduced.matches||global==='pil'||profile==='saving'?'saving':profile,hidden:!!d.hidden,reduced:!!reduced.matches};
+  const profile=requested(),global=w.SukunPerformance?.mode||d.body?.dataset.perf,hidden=!!d.hidden||pageSuspended;
+  return {profile,effective:hidden||reduced.matches||global==='pil'||profile==='saving'?'saving':profile,hidden,reduced:!!reduced.matches};
  }
  function stopTransitions(){entryAnimation?.cancel?.();entryAnimation=null;for(const a of nameAnimations)a.cancel?.();nameAnimations=[]}
  function enter(){
@@ -115,20 +115,25 @@
   if(R.dataset.r1215Quality!==p.profile)R.dataset.r1215Quality=p.profile;
   if(R.dataset.r1215Motion!==motion)R.dataset.r1215Motion=motion;
   if(p.effective==='saving')stopTransitions();
-  if(d.hidden)return;
+  if(p.hidden)return;
   const qualityKey=[p.profile,p.effective,p.reduced,w.I18N?.lang,$('r920Performance')?'practice':'', $('r1215SaverQuality')?'saver':''].join(':');
   if(qualityKey!==lastQualityPaint){lastQualityPaint=qualityKey;mountQuality()}
   watchSaver();if(observedSaver?.classList.contains('on'))saverFacts();nameTransition();
  }
- function queue(){if(d.hidden){if(frame)cancelAnimationFrame(frame);frame=0;sync();return}if(!frame)frame=requestAnimationFrame(sync)}
+ function queue(){if(policy().hidden){if(frame)cancelAnimationFrame(frame);frame=0;sync();return}if(!frame)frame=requestAnimationFrame(sync)}
+ // A cached or frozen page can receive pagehide before visibility changes.
+ // Suspend our own queued work and effects without changing saved quality.
+ function suspend(){pageSuspended=true;queue()}
+ function resume(){pageSuspended=false;queue()}
  function start(){
   if(!$('r1215Atmosphere')){const layer=d.createElement('div');layer.id='r1215Atmosphere';layer.setAttribute('aria-hidden','true');layer.innerHTML='<i class="r1215LanternLight"></i><i class="r1215WaterLight"></i>';d.body.prepend(layer)}
   d.addEventListener('change',event=>{if(['r920Performance','r1215SaverQuality','r1215SettingsQuality'].includes(event.target.id))setQuality(event.target.value)});
-  for(const event of ['sukun:performancechange','sukun:performance','sukun:performance-effective','sukun:selectionthemechange','sukun:secretaccesschange','sukun:languagechange','sukun:domhydrate','pageshow'])w.addEventListener(event,queue,{passive:true});
+  for(const event of ['sukun:performancechange','sukun:performance','sukun:performance-effective','sukun:selectionthemechange','sukun:secretaccesschange','sukun:languagechange','sukun:domhydrate'])w.addEventListener(event,queue,{passive:true});
   w.addEventListener('sukun:scenechange',event=>{const key=event.detail?.sceneId;if(key&&key!==lastScene){const prior=lastScene;lastScene=key;if(prior)enter()}queue()},{passive:true});
   w.addEventListener('sukun:r616viewchange',event=>{const key=event.detail?.view;if(key!==lastView){lastView=key;enter()}queue()},{passive:true});
   w.SukunSessionState?.subscribe?.(queue);
-  d.addEventListener('visibilitychange',queue,{passive:true});w.addEventListener('pagehide',stopTransitions,{passive:true});reduced.addEventListener?.('change',queue);
+  d.addEventListener('visibilitychange',queue,{passive:true});w.addEventListener('pagehide',suspend,{passive:true});w.addEventListener('pageshow',resume,{passive:true});
+  d.addEventListener('freeze',suspend,{passive:true});d.addEventListener('resume',resume,{passive:true});reduced.addEventListener?.('change',queue);
   sync();
  }
  w.SukunCinematic=Object.freeze({version:'r1215',setQuality,openLocation,snapshot:()=>({...policy(),identity:lastIdentity,transitioning:!!entryAnimation})});

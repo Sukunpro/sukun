@@ -51,4 +51,41 @@ let queued=0,callback,on=false;
 const observed={classList:{contains:()=>on}},ob={$:()=>observed,d:{hidden:false},queue:()=>queued++,MutationObserver:class{constructor(fn){callback=fn}observe(){}disconnect(){}}};
 vm.createContext(ob);vm.runInContext('let saverObserver=null,observedSaver=null,saverWasOn=false;'+source.slice(source.indexOf('function watchSaver()'),source.indexOf('function sync()'))+'this.watch=watchSaver;',ob);
 ob.watch();callback();assert.equal(queued,0);on=true;callback();assert.equal(queued,1);callback();assert.equal(queued,1,'peek/hover mutations while on do not enqueue another paint');
-console.log('PASS: preference preservation, motion policy, native owner bridge, session invariance, identity-only transitions, mutation-free repeated paints and bounded saver observer.');
+// Full module lifecycle: pagehide may precede visibilitychange, and frozen
+// pages must not restart motion from already queued selection/view events.
+function lifecycleFixture(){
+ const events=new Map(),frames=new Map(),animations=[],session={activeMode:'esma',activeIndex:0,count:12,target:66,phase:'PAUSED'};
+ let serial=0;
+ const listen=target=>(name,fn)=>{const key=target+':'+name;if(!events.has(key))events.set(key,[]);events.get(key).push(fn)};
+ const animated={animate(){const a={cancelled:false,cancel(){this.cancelled=true}};animations.push(a);return a}};
+ const nodes={r1215Atmosphere:animated,r920NameInfo:animated,r920SceneTitle:animated};
+ const media={matches:false,addEventListener:listen('media')};
+ const document={readyState:'complete',hidden:false,documentElement:{dataset:{}},body:{dataset:{perf:'tam'}},getElementById:id=>nodes[id]||null,addEventListener:listen('document'),querySelector:()=>null};
+ const w={addEventListener:listen('window'),matchMedia:()=>media,SukunPerformance:{mode:'tam'},SukunSceneEngine:{snapshot:()=>({profile:'cinematic'})},SukunSessionState:{peek:()=>session,subscribe:fn=>listen('session')('change',fn)}};
+ const context={window:w,document,localStorage:{getItem:()=> 'cinematic'},MutationObserver:class{observe(){}disconnect(){}},requestAnimationFrame(fn){const id=++serial;frames.set(id,fn);return id},cancelAnimationFrame:id=>frames.delete(id)};
+ vm.createContext(context);vm.runInContext(source,context);
+ return {document,media,frames,animations,session,api:w.SukunCinematic,emit(target,name,detail){for(const fn of events.get(target+':'+name)||[])fn({detail})},flush(){const pending=[...frames.values()];frames.clear();for(const fn of pending)fn()}};
+}
+const life=lifecycleFixture(),savedSession=JSON.stringify(life.session);
+assert.equal(life.document.documentElement.dataset.r1215Motion,'cinematic');
+life.emit('window','sukun:r616viewchange',{view:'zikir'});
+assert.equal(life.api.snapshot().transitioning,true);assert.equal(life.frames.size,1);
+life.emit('window','pagehide');
+assert.equal(life.document.hidden,false,'exercise pagehide before browser visibility notification');
+assert.equal(life.frames.size,0,'pagehide cancels pending paint');
+assert.equal(life.document.documentElement.dataset.r1215Motion,'hidden');
+assert.equal(life.api.snapshot().transitioning,false);assert(life.animations.every(a=>a.cancelled));
+const suspendedAnimations=life.animations.length;
+life.emit('window','sukun:r616viewchange',{view:'atlas'});life.emit('session','change');
+assert.equal(life.frames.size,0);assert.equal(life.animations.length,suspendedAnimations,'suspended page cannot restart effects');
+life.emit('window','pageshow');life.flush();
+assert.equal(life.document.documentElement.dataset.r1215Motion,'cinematic');
+life.emit('window','sukun:r616viewchange',{view:'zikir'});life.emit('document','freeze');
+assert.equal(life.frames.size,0);assert.equal(life.api.snapshot().hidden,true);assert.equal(life.api.snapshot().transitioning,false);
+life.emit('document','visibilitychange');assert.equal(life.api.snapshot().hidden,true,'visibility alone does not undo a frozen lifecycle');
+life.emit('document','resume');life.flush();assert.equal(life.api.snapshot().effective,'cinematic');
+life.emit('window','sukun:r616viewchange',{view:'atlas'});life.media.matches=true;life.emit('media','change');life.flush();
+assert.equal(life.api.snapshot().effective,'saving');assert.equal(life.api.snapshot().transitioning,false);assert.equal(life.api.snapshot().profile,'cinematic');
+life.media.matches=false;life.emit('media','change');life.flush();assert.equal(life.api.snapshot().effective,'cinematic');
+assert.equal(JSON.stringify(life.session),savedSession,'lifecycle and reduced motion preserve the active practice');
+console.log('PASS: preference preservation, motion policy, native owner bridge, session invariance, identity-only transitions, mutation-free repeated paints, bounded saver observer and suspend/resume lifecycle.');
