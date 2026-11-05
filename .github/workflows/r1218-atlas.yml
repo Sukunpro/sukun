@@ -1,0 +1,39 @@
+name: Atlas mobile geometry and interactions
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main, "codex/r1218-atlas"]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: atlas-mobile-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  atlas-mobile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Check out exact candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Install pinned Chromium and Playwright
+        run: |
+          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
+          echo "NODE_PATH=$RUNNER_TEMP/sukun-browser/node_modules" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Check mobile Atlas layout and actions
+        run: |
+          export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          node tests/r1218/atlas-mobile.cjs "$GITHUB_WORKSPACE" "$RUNNER_TEMP/atlas-mobile"
+      - name: Save measurements and screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: atlas-mobile-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/atlas-mobile
+          if-no-files-found: warn
+          retention-days: 30

@@ -65,3 +65,69 @@ html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode="berhet"]) :is(#r920Atl
  html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) #r920AtlasNodes button{background:Canvas!important;color:CanvasText!important;border-color:CanvasText!important;box-shadow:none!important}
  html #r920Atlas.r1215Atlas:has(#r920AtlasNodes[data-mode]) #r920AtlasNodes button[aria-pressed="true"]{outline:2px solid Highlight!important}
 }
+
+/* Layout authority: the atlas must remain legible even when old inline
+   seven-column or Berhetiyye auto-fit rules are present.  These rules do not
+   depend on :has() or on the preceding stylesheet. */
+html body #r920Atlas.r1215Atlas {
+ box-sizing:border-box!important;width:min(96vw,1000px)!important;max-width:1000px!important;
+ height:min(780px,92dvh)!important;max-height:92dvh!important;
+ padding:18px!important;border-image:none!important;overflow:hidden!important;
+}
+html body #r920Atlas.r1215Atlas[open] {display:flex!important;flex-direction:column!important;gap:10px!important}
+html body #r920Atlas.r1215Atlas:not([open]),html body #r920Atlas.r1215Atlas [hidden] {display:none!important}
+html body #r920Atlas.r1215Atlas .r920AtlasHead {display:flex!important;flex:none!important;align-items:center!important;justify-content:space-between!important;gap:8px!important}
+html body #r920Atlas.r1215Atlas .r920AtlasHead h2 {min-width:0!important;margin:0!important;font:600 clamp(22px,4.5vw,32px)/1.15 Georgia,serif!important;overflow-wrap:anywhere!important}
+html body #r920Atlas.r1215Atlas :is(#r920AtlasCaption,#r1215AtlasResults,.r920AtlasLegend) {flex:none!important;margin:0!important;font:400 12px/1.35 system-ui,sans-serif!important}
+html body #r920Atlas.r1215Atlas .r1215AtlasTools {display:grid!important;grid-template-columns:minmax(0,1fr) minmax(120px,.55fr)!important;gap:8px!important;flex:none!important}
+html body #r920Atlas.r1215Atlas .r1215AtlasTools label {display:flex!important;flex-direction:column!important;min-width:0!important;gap:5px!important;font:500 12px/1.3 system-ui,sans-serif!important}
+html body #r920Atlas.r1215Atlas .r1215AtlasTools :is(input,select) {box-sizing:border-box!important;width:100%!important;min-width:0!important;min-height:44px!important;padding:9px 10px!important;font:400 14px/1.3 system-ui,sans-serif!important}
+html body #r920Atlas.r1215Atlas .r1215AtlasBody {display:grid!important;grid-template-columns:minmax(0,1fr) minmax(240px,.85fr)!important;gap:12px!important;flex:1 1 auto!important;min-height:0!important;min-width:0!important}
+html body #r920Atlas.r1215Atlas .r1215AtlasList {min-width:0!important;min-height:0!important;overflow:auto!important;overscroll-behavior:contain!important;scrollbar-gutter:stable!important;padding:3px 6px 3px 3px!important}
+html body #r920Atlas.r1215Atlas #r920AtlasNodes[data-mode] {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;align-content:start!important;gap:8px!important;margin:0!important;min-width:0!important}
+html body #r920Atlas.r1215Atlas #r920AtlasNodes[data-mode] button[data-index] {
+ box-sizing:border-box!important;display:grid!important;grid-template-columns:20px minmax(0,1fr) 14px!important;
+ align-items:center!important;justify-content:stretch!important;gap:4px!important;
+ width:100%!important;min-width:0!important;height:auto!important;min-height:64px!important;aspect-ratio:auto!important;
+ padding:8px!important;white-space:normal!important;overflow:hidden!important;text-align:center!important;
+}
+html body #r920Atlas.r1215Atlas #r920AtlasNodes[data-mode] button[data-index][hidden] {display:none!important}
+html body #r920Atlas.r1215Atlas #r920AtlasNodes[data-mode] .r1215AtlasName {
+ display:block!important;min-width:0!important;max-width:100%!important;
+ overflow-wrap:anywhere!important;word-break:normal!important;white-space:normal!important;
+ font:600 clamp(14px,3.8vw,18px)/1.2 Georgia,serif!important;text-align:center!important;
+}
+html body #r920Atlas.r1215Atlas #r920AtlasNodes[data-mode] .r1215AtlasNumber,
+html body #r920Atlas.r1215Atlas #r920AtlasNodes[data-mode] .r1215AtlasMark {min-width:0!important;font:600 12px/1.2 system-ui,sans-serif!important}
+html body #r920Atlas.r1215Atlas #r920AtlasDetail {box-sizing:border-box!important;display:flex!important;flex-direction:column!important;min-width:0!important;min-height:0!important;overflow:auto!important;overscroll-behavior:contain!important;margin:0!important;padding:14px!important;border:1px solid var(--atlas-line,#b0cbb5)!important;border-radius:14px!important}
+html body #r920Atlas.r1215Atlas #r920AtlasDetail>* {flex-shrink:0!important}
+html body #r920Atlas.r1215Atlas #r920AtlasName {margin:0 0 7px!important;font:600 clamp(19px,4vw,25px)/1.2 Georgia,serif!important;overflow-wrap:anywhere!important}
+html body #r920Atlas.r1215Atlas #r920AtlasMeaning {margin:0 0 9px!important;font:400 14px/1.45 system-ui,sans-serif!important;overflow-wrap:anywhere!important}
+html body #r920Atlas.r1215Atlas #r920AtlasDetail dl {display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:8px!important;margin:8px 0!important}
+html body #r920Atlas.r1215Atlas #r920AtlasDetail dl>div {box-sizing:border-box!important;min-width:0!important;padding:9px!important;border:1px solid var(--atlas-line,#b0cbb5)!important;border-radius:10px!important}
+html body #r920Atlas.r1215Atlas #r920AtlasDetail dd {margin:4px 0 0!important;overflow-wrap:anywhere!important}
+html body #r920Atlas.r1215Atlas #r920AtlasChoose {width:100%!important;min-height:48px!important;margin-top:12px!important;white-space:normal!important}
+html body #r920Atlas.r1215Atlas :is(button,input,select):focus-visible {outline:2px solid #ffe095!important;outline-offset:2px!important}
+@media(max-width:699px){
+ html body #r920Atlas.r1215Atlas {width:calc(100vw - 16px)!important;height:92dvh!important;padding:12px!important;border-radius:18px!important}
+ html body #r920Atlas.r1215Atlas[open] {gap:7px!important}
+ html body #r920Atlas.r1215Atlas .r1215AtlasTools {grid-template-columns:minmax(0,1fr) minmax(90px,.6fr)!important}
+ html body #r920Atlas.r1215Atlas .r1215AtlasBody {grid-template-columns:minmax(0,1fr)!important;grid-template-rows:minmax(80px,1fr) minmax(0,40%)!important;gap:8px!important}
+ html body #r920Atlas.r1215Atlas #r920AtlasNodes[data-mode] button[data-index] {min-height:62px!important}
+ html body #r920Atlas.r1215Atlas #r920AtlasDetail {padding:10px!important}
+ html body #r920Atlas.r1215Atlas #r920AtlasMeaning {order:1!important}
+ html body #r920Atlas.r1215Atlas #r920AtlasChoose {order:2!important;margin-top:6px!important}
+ html body #r920Atlas.r1215Atlas #r1215AtlasError {order:2!important}
+ html body #r920Atlas.r1215Atlas #r920AtlasDetail dl {order:3!important}
+ html body #r920Atlas.r1215Atlas :is(#r920AtlasScene,#r920AtlasNote) {display:none!important}
+}
+@media(max-height:500px){
+ html body #r920Atlas.r1215Atlas {height:auto!important;overflow:auto!important}
+ html body #r920Atlas.r1215Atlas .r1215AtlasBody {flex:none!important;min-height:180px!important}
+ html body #r920Atlas.r1215Atlas .r1215AtlasList {max-height:45dvh!important}
+}
+@media(forced-colors:active){
+ html body #r920Atlas.r1215Atlas,html body #r920Atlas.r1215Atlas #r920AtlasDetail,
+ html body #r920Atlas.r1215Atlas #r920AtlasNodes[data-mode] button[data-index] {background:Canvas!important;color:CanvasText!important;border:1px solid CanvasText!important;box-shadow:none!important}
+ html body #r920Atlas.r1215Atlas #r920AtlasNodes[data-mode] button[data-index][aria-pressed="true"] {outline:2px solid Highlight!important}
+}

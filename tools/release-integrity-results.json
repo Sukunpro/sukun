@@ -1,14 +1,14 @@
 {
-  "build": "r1216",
+  "build": "r1218",
   "method": "Complete local release bytes: identity, exact SHA-256 and sizes, HTML SRI, shipped JavaScript syntax, and scoped active external CSS resource validation. Unresolved CSS variables remain explicit; these are static assertions, not device/audio checks.",
-  "passed": 1869,
-  "total": 1869,
+  "passed": 1873,
+  "total": 1873,
   "inlineScriptsParsed": 348,
   "externalScriptsParsed": 81,
-  "runtimeEntries": 181,
-  "siteFiles": 874,
-  "siteBytes": 453570013,
-  "sriEntries": 167,
+  "runtimeEntries": 182,
+  "siteFiles": 875,
+  "siteBytes": 453584146,
+  "sriEntries": 168,
   "cssAssets": {
     "schema": 1,
     "scope": "Active external CSS and recursive local imports; no inline/generated CSS, computed cascade, remote retrieval or rendering.",
@@ -4218,7 +4218,8 @@
       "assets/runtime/recording-panel-r1119.css",
       "css/journey-panels-r1193.css",
       "css/saver-info-r1193.css",
-      "css/atlas-r1215.css"
+      "css/atlas-r1215.css",
+      "css/atlas-r1217.css"
     ],
     "references": [
       {
@@ -5344,12 +5345,12 @@
       "empty": 0
     },
     "stats": {
-      "files": 83,
-      "bytes": 1303717,
-      "declarations": 21956,
+      "files": 84,
+      "bytes": 1315932,
+      "declarations": 22152,
       "customProperties": 193,
       "checkedReferences": 119,
-      "valueExpansions": 3096
+      "valueExpansions": 3121
     }
   },
   "checks": [
@@ -6127,6 +6128,10 @@
     },
     {
       "name": "Runtime SHA-256 assets/runtime/cinematic-r1215.js",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/atlas-r1217.css",
       "passed": true
     },
     {
@@ -8579,6 +8584,10 @@
     },
     {
       "name": "HTML SRI css/atlas-r1215.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/atlas-r1217.css",
       "passed": true
     },
     {
@@ -11670,6 +11679,10 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size css/atlas-r1217.css",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size css/berhet-consistency-r1125.css",
       "passed": true
     },
@@ -12062,7 +12075,7 @@
       "passed": true
     },
     {
-      "name": "Site file hash and size sukun-build-r1216.json",
+      "name": "Site file hash and size sukun-build-r1218.json",
       "passed": true
     },
     {
@@ -12815,6 +12828,10 @@
     },
     {
       "name": "Runtime is in site inventory assets/runtime/cinematic-r1215.js",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/atlas-r1217.css",
       "passed": true
     },
     {
