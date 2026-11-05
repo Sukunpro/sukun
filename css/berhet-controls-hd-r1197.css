@@ -75,6 +75,9 @@
     --r1204-nav-gem:var(--sukun-gem-sapphire-square);
     border:1px solid transparent!important;
     border-image:var(--r1204-nav-gem) 330 fill / clamp(9px,2.3vw,13px) / 0 stretch!important;
+    /* Nine-slice borders paint inward without reserving layout space. Keep
+       wrapped and enlarged labels inside the square frame, not over its gold. */
+    padding:clamp(9px,2.3vw,13px)!important;
     background:none!important;image-rendering:auto!important;
     text-shadow:0 1px 1px #000!important;
    }
