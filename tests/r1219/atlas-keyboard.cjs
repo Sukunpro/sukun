@@ -16,7 +16,9 @@ const build=fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),results
    const before=await p.evaluate(async mode=>{const result=await SukunSessionState.command('select',{mode,index:0,journeyKind:'single'});if(!result.accepted)throw Error('Cannot select '+mode);return SukunSessionState.snapshot()},mode);
    await p.locator('#r920AtlasOpen').click();await p.waitForFunction(()=>document.querySelector('#r920Atlas').open);
    const cards=p.locator('#r920AtlasNodes button:not([hidden])');assert.equal(await cards.count(),mode==='esma'?99:28);
-   assert.equal(await p.locator('#r920AtlasNodes button[tabindex="0"]').count(),1);
+   // A native button is tabbable with no tabindex attribute. Check the DOM
+   // property used by the browser, including its implicit default value.
+   assert.equal(await cards.evaluateAll(nodes=>nodes.filter(n=>n.tabIndex===0).length),1);
    await p.locator('#r1215AtlasFilter').focus();
    await p.keyboard.press('Tab');
    const initial=await p.evaluate(()=>document.activeElement?.dataset.index);assert.equal(initial,'0');
@@ -27,7 +29,7 @@ const build=fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),results
    await p.keyboard.press('ArrowRight');assert.equal(await p.evaluate(()=>document.activeElement?.dataset.index),'1');
    await p.keyboard.press('Tab');assert.equal(await p.evaluate(()=>document.activeElement?.id),'r920AtlasChoose','one Tab from cards reaches the action');
    const name=(await cards.nth(1).locator('.r1215AtlasName').textContent()).trim();await p.locator('#r1215AtlasSearch').fill(name);
-   assert.equal(await p.locator('#r920AtlasNodes button:not([hidden])[tabindex="0"]').count(),1);
+   assert.equal(await cards.evaluateAll(nodes=>nodes.filter(n=>n.tabIndex===0).length),1);
    const after=await p.evaluate(()=>SukunSessionState.snapshot());for(const field of ['activeMode','activeIndex','count','target','journeyKind'])assert.equal(after[field],before[field],'keyboard preview changed '+field);
    await p.keyboard.press('Escape');assert.equal(await p.locator('#r920Atlas').evaluate(el=>el.open),false);assert.equal(await p.evaluate(()=>document.activeElement?.id),'r920AtlasOpen');
    results.push({name:width+' '+mode+' keyboard and native dialog',passed:true,columns:next.columns});
