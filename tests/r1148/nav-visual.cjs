@@ -132,25 +132,77 @@ async function main() {
     await p.locator(selector).filter({visible: true}).first().tap({timeout: 20000});
     await p.waitForTimeout(180);
   }
-  async function keyboard(p) {
-    const buttons = p.locator(navSelector + ' > button');
-    // Switch from touch to keyboard modality before checking :focus-visible.
-    await p.keyboard.press('Tab');
-    await buttons.first().focus();
-    for (let i = 0; i < 6; i++) {
-      assert(await buttons.nth(i).evaluate(n => document.activeElement === n), 'Navigation tab order changed at ' + i);
-      const focus = await buttons.nth(i).evaluate(n => ({visible: n.matches(':focus-visible'), width: parseFloat(getComputedStyle(n).outlineWidth)}));
-      assert(focus.visible && focus.width >= 2, 'Missing visible keyboard focus at ' + i);
-      if (i < 5) await p.keyboard.press('Tab');
+  async function keyboard(p, evidence) {
+    const tabs = p.locator(navSelector + ' > button[role="tab"]');
+    const keys = await tabs.evaluateAll(nodes => nodes.map(n => n.dataset.t));
+    assert.deepEqual(keys, ['amb', 'frq', 'zkr', 'rx', 'ntf']);
+    evidence.model = 'Five roving tabs plus the separate Tekke button';
+    evidence.steps = [];
+    async function snapshot(step) {
+      const state = await p.locator(navSelector).evaluate(nav => ({
+        focused: document.activeElement?.dataset.t || document.activeElement?.id || document.activeElement?.tagName,
+        tabs: [...nav.querySelectorAll(':scope > button[role="tab"]')].map(n => ({
+          key: n.dataset.t, selected: n.getAttribute('aria-selected'), tabIndex: n.tabIndex,
+          active: n.classList.contains('act'), focused: document.activeElement === n,
+          visibleFocus: n.matches(':focus-visible'), outlineWidth: parseFloat(getComputedStyle(n).outlineWidth),
+          panelVisible: document.getElementById('tab-' + n.dataset.t)?.hidden === false
+        }))
+      }));
+      evidence.steps.push({step, ...state});
+      return state;
     }
-    for (const [key, selector] of [['Enter', '.tab[data-t="frq"]'], ['Space', '.tab[data-t="zkr"]']]) {
+    function roving(state, expected, checkFocus = true) {
+      assert.deepEqual(state.tabs.filter(n => n.tabIndex === 0).map(n => n.key), [expected], 'Expected one selected tab stop ' + JSON.stringify(state));
+      assert.deepEqual(state.tabs.filter(n => n.selected === 'true').map(n => n.key), [expected], 'ARIA selection mismatch ' + JSON.stringify(state));
+      assert.deepEqual(state.tabs.filter(n => n.active).map(n => n.key), [expected], 'Active tab mismatch ' + JSON.stringify(state));
+      for (const tab of state.tabs) assert.equal(tab.tabIndex, tab.key === expected ? 0 : -1, 'Unexpected roving tabindex');
+      const selected = state.tabs.find(n => n.key === expected);
+      assert(selected.panelVisible, 'Selected tab panel is hidden ' + JSON.stringify(state));
+      if (checkFocus) assert(selected.focused && selected.visibleFocus && selected.outlineWidth >= 2,
+        'Missing focused tab or visible keyboard outline ' + JSON.stringify(state));
+    }
+    const before = await snapshot('before-keyboard');
+    const selected = before.tabs.find(n => n.selected === 'true')?.key;
+    roving(before, selected, false);
+    // A tablist has one Tab stop; Left/Right navigate the tabs. The sixth
+    // visual control, Tekke, is a separate native button outside that model.
+    await p.keyboard.press('Tab'); // establish keyboard modality after touch
+    await p.locator(`${navSelector} > button[data-t="${selected}"]`).focus();
+    let index = keys.indexOf(selected);
+    roving(await snapshot('focused-selected-tab'), selected);
+    for (const [key, direction] of [['ArrowRight', 1], ['ArrowLeft', -1]]) {
+      for (let i = 0; i < keys.length; i++) {
+        index = (index + direction + keys.length) % keys.length;
+        const expected = keys[index];
+        await p.waitForFunction(() => !window.SukunInteractionGateR732?.active?.());
+        await p.keyboard.press(key);
+        await p.waitForFunction(expected => {
+          const n = document.querySelector(`.wrap > nav.tabs > button[data-t="${expected}"]`);
+          return document.activeElement === n && n.getAttribute('aria-selected') === 'true';
+        }, expected);
+        roving(await snapshot(key + '-' + i), expected);
+      }
+    }
+    await p.keyboard.press('Tab');
+    const tekke = await p.locator('#tekkeTab').evaluate(n => ({focused: document.activeElement === n,
+      visibleFocus: n.matches(':focus-visible'), outlineWidth: parseFloat(getComputedStyle(n).outlineWidth), tabIndex: n.tabIndex}));
+    evidence.tekke = tekke;
+    assert(tekke.focused && tekke.visibleFocus && tekke.outlineWidth >= 2 && tekke.tabIndex >= 0,
+      'Tab did not reach the separate Tekke action ' + JSON.stringify(tekke));
+    await p.keyboard.press('Shift+Tab');
+    roving(await snapshot('returned-from-tekke'), keys[index]);
+    evidence.activatedWith = [];
+    for (const [key, target] of [['Enter', 'frq'], ['Space', 'zkr']]) {
+      const selector = `${navSelector} > button[data-t="${target}"]`;
       await p.locator(selector).focus();
       await p.keyboard.press(key);
       await p.waitForFunction(sel => document.querySelector(sel)?.classList.contains('act'), selector);
+      roving(await snapshot('activated-' + key), target);
+      evidence.activatedWith.push(key);
     }
-    return {tabStops: 6, activatedWith: ['Enter', 'Space']};
+    evidence.passed = true;
   }
-  async function sectionAnchor(p) {
+  async function sectionAnchor(p, evidence) {
     if (await p.locator('#r938Panel').getAttribute('data-open') !== 'true') await tap(p, '#r938PanelToggle');
     await tap(p, '#r986Sections button[aria-controls="zmgSeyirler"]');
     await p.waitForFunction(() => document.getElementById('zmgSeyirler')?.open);
@@ -161,6 +213,7 @@ async function main() {
       const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
       return {rect: r.toJSON(), nav: nr.toJSON(), viewportHeight: innerHeight, hit: !!hit && (hit === n || n.contains(hit))};
     });
+    Object.assign(evidence, anchor);
     assert(anchor.rect.top >= anchor.nav.bottom - 1 && anchor.rect.bottom <= anchor.viewportHeight + 1 && anchor.hit,
       'Section target obscured after real navigation ' + JSON.stringify(anchor));
     return anchor;
@@ -184,7 +237,7 @@ async function main() {
           await p.waitForFunction(() => document.documentElement.dataset.r1074Theme === 'berhet');
         }
         for (const scale of [1, 1.25]) {
-          const evidence = {};
+          const evidence = {stages: {}};
           try {
             const expectedFonts = await p.evaluate(scale => [...document.querySelectorAll('.wrap > nav.tabs > button > .tbL')].map(n => {
               n.style.removeProperty('font-size');
@@ -204,25 +257,34 @@ async function main() {
             assert(evidence.initial.rows.find(r => r.key === 'ntf')?.badge, '99+ badge not visible');
             evidence.initial.rows.forEach((r, i) => assert(Math.abs(r.fontSize - expectedFonts[i]) < .02, 'Label enlargement was not applied'));
             validate(evidence.initial, language, theme, scale);
+            evidence.stages.initialGeometry = true;
+            evidence.touchNavigation = [];
             for (const selector of ['.tab[data-t="frq"]', '.tab[data-t="zkr"]']) {
               await tap(p, selector);
               assert(await p.locator(selector).evaluate(n => n.classList.contains('act')), 'Touch navigation failed ' + selector);
+              evidence.touchNavigation.push(selector);
             }
-            evidence.keyboard = await keyboard(p);
+            evidence.stages.touchNavigation = true;
+            evidence.keyboard = {};
+            await keyboard(p, evidence.keyboard);
+            evidence.stages.keyboard = true;
             await p.evaluate(() => window.scrollTo({top: 800, behavior: 'instant'}));
             await p.waitForTimeout(400);
             await p.screenshot({path: path.join(shots, `nav-sticky-${stem}.png`)});
             evidence.sticky = await p.evaluate(navigationGeometry);
             validate(evidence.sticky, language, theme, scale);
             assert(['sticky', 'fixed'].includes(evidence.sticky.position), 'Navigation did not become sticky');
+            evidence.stages.stickyGeometry = true;
             if (theme === 'berhet') {
-              evidence.anchor = await sectionAnchor(p);
+              evidence.anchor = {};
+              await sectionAnchor(p, evidence.anchor);
+              evidence.stages.sectionAnchor = true;
               await p.screenshot({path: path.join(shots, `nav-anchor-${stem}.png`)});
             }
             checks.push({name: 'nav-geometry-and-interaction', width, language, theme, scale, passed: true, evidence});
           } catch (error) {
             checks.push({name: 'nav-geometry-and-interaction', width, language, theme, scale, passed: false, evidence, error: error.stack || String(error)});
-            console.error(`[navigation] ${width}px ${language} ${theme} ${scale}: ${error.message}`);
+            console.log(`[navigation] ${width}px ${language} ${theme} ${scale}: ${error.message}`);
           } finally {save();}
         }
       }
