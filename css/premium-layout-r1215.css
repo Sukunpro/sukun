@@ -26,6 +26,13 @@
   --sukun-surface-highlight:var(--sukun-material-ink,#fff0ce);
   --sukun-surface-muted:#d5d2c5;
  }
+ /* Mevlevî panes reveal more of the selected scene while still respecting
+    the user's existing glass and lower-panel opacity controls. */
+ html[data-r1074-theme]:not([data-r1074-theme="berhet"]) {
+  --sukun-pane-glass:linear-gradient(145deg,rgba(13,34,47,calc(var(--sukun-pane-alpha) * .48)),rgba(4,17,29,calc(var(--sukun-pane-alpha) * .58)));
+  --sukun-pane-inset:linear-gradient(160deg,rgba(16,46,64,.33),rgba(8,27,44,.42));
+  --sukun-header-glass:linear-gradient(145deg,rgba(13,34,47,calc(var(--glassA,.82) * .48)),rgba(4,17,29,calc(var(--glassA,.82) * .58)));
+ }
  body.r1215-premium:not(.sukun-tefekkur-mode)>.wrap {
   width:min(100%,740px)!important;max-width:740px!important;box-sizing:border-box!important;
   padding-inline:14px!important;padding-bottom:calc(112px + env(safe-area-inset-bottom) + var(--sukun-dock-safe,0px))!important;
@@ -422,10 +429,14 @@
   html[data-r1074-theme="berhet"] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap>footer>#sukunDiscovery {
    background:linear-gradient(155deg,rgba(11,32,51,.24),rgba(3,15,32,.32))!important;
   }
+  html[data-r1074-theme]:not([data-r1074-theme="berhet"]) body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap>footer>#sukunDiscovery {
+   background:linear-gradient(155deg,rgba(14,38,51,.18),rgba(7,25,35,.25))!important;
+  }
  }
  @media (forced-colors:none) and (prefers-reduced-transparency:reduce) {
   html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap>footer,
   html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap>footer>#sukunDiscovery,
+  html[data-r1074-theme]:not([data-r1074-theme="berhet"]) body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap>footer>#sukunDiscovery,
   html[data-r1074-theme="berhet"] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap>footer>#sukunDiscovery {
    background:#071b2b!important;
   }
