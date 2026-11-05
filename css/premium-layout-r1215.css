@@ -5,8 +5,8 @@
  html {
   /* r1220: tinted large panes; user opacity values remain the source. */
   --sukun-pane-alpha:var(--r1175-lower-alpha,.8);
-  --sukun-pane-glass:linear-gradient(145deg,rgba(13,34,47,calc(var(--sukun-pane-alpha) * .70)),rgba(4,17,29,calc(var(--sukun-pane-alpha) * .82)));
-  --sukun-pane-inset:linear-gradient(160deg,rgba(16,46,64,.52),rgba(8,27,44,.64));
+  --sukun-pane-glass:linear-gradient(145deg,rgba(13,34,47,calc(var(--sukun-pane-alpha) * .62)),rgba(4,17,29,calc(var(--sukun-pane-alpha) * .74)));
+  --sukun-pane-inset:linear-gradient(160deg,rgba(16,46,64,.45),rgba(8,27,44,.55));
   --sukun-header-glass:linear-gradient(145deg,rgba(13,34,47,calc(var(--glassA,.82) * .62)),rgba(4,17,29,calc(var(--glassA,.82) * .74)));
   --sukun-surface-glass:linear-gradient(145deg,rgba(13,34,47,.96),rgba(4,17,29,.94));
   --sukun-surface-inset:linear-gradient(160deg,#102e40f5,#081b2cf5);
@@ -18,8 +18,8 @@
  }
  html[data-r1074-theme="berhet"] {
   --sukun-pane-alpha:var(--glassA,.82);
-  --sukun-pane-glass:linear-gradient(145deg,rgba(11,32,51,calc(var(--sukun-pane-alpha) * .70)),rgba(3,15,32,calc(var(--sukun-pane-alpha) * .82)));
-  --sukun-pane-inset:linear-gradient(150deg,rgba(18,54,83,.52),rgba(6,26,50,.64));
+  --sukun-pane-glass:linear-gradient(145deg,rgba(11,32,51,calc(var(--sukun-pane-alpha) * .62)),rgba(3,15,32,calc(var(--sukun-pane-alpha) * .74)));
+  --sukun-pane-inset:linear-gradient(150deg,rgba(18,54,83,.45),rgba(6,26,50,.55));
   --sukun-surface-glass:linear-gradient(145deg,rgba(11,32,51,.97),rgba(3,15,32,.94));
   --sukun-surface-inset:linear-gradient(150deg,#123653f5,#061a32fa);
   --sukun-surface-line:#c6a96888;
@@ -406,6 +406,28 @@
     --sukun-surface-glass:#071b2b;
     background:#071b2b!important;
    }
+  }
+ }
+
+ /* r1222: the discovery panel is nested inside the footer. Paint both
+    surfaces lightly so their combined opacity reveals the scene. */
+ @media (forced-colors:none) {
+  html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap>footer {
+   background:var(--sukun-pane-glass)!important;
+  }
+  html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap>footer>#sukunDiscovery {
+   background:linear-gradient(155deg,rgba(14,38,51,.24),rgba(7,25,35,.32))!important;
+   text-shadow:0 1px 3px #000d;
+  }
+  html[data-r1074-theme="berhet"] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap>footer>#sukunDiscovery {
+   background:linear-gradient(155deg,rgba(11,32,51,.24),rgba(3,15,32,.32))!important;
+  }
+ }
+ @media (forced-colors:none) and (prefers-reduced-transparency:reduce) {
+  html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap>footer,
+  html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap>footer>#sukunDiscovery,
+  html[data-r1074-theme="berhet"] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap>footer>#sukunDiscovery {
+   background:#071b2b!important;
   }
  }
 
