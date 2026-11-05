@@ -3,6 +3,10 @@
    Geometry is limited to the ordinary shell; Tekke/focus/saver retain owners. */
 @layer sukun-r1215-layout {
  html {
+  /* r1220: tinted large panes; user opacity values remain the source. */
+  --sukun-pane-alpha:var(--r1175-lower-alpha,.8);
+  --sukun-pane-glass:linear-gradient(145deg,rgba(13,34,47,calc(var(--sukun-pane-alpha) * .8)),rgba(4,17,29,calc(var(--sukun-pane-alpha) * .92)));
+  --sukun-header-glass:linear-gradient(145deg,rgba(13,34,47,calc(var(--glassA,.82) * .62)),rgba(4,17,29,calc(var(--glassA,.82) * .74)));
   --sukun-surface-glass:linear-gradient(145deg,rgba(13,34,47,.96),rgba(4,17,29,.94));
   --sukun-surface-inset:linear-gradient(160deg,#102e40f5,#081b2cf5);
   --sukun-surface-line:#b5c5cf66;
@@ -12,6 +16,8 @@
   --sukun-surface-active:linear-gradient(135deg,#176052,#0a4038 55%,#072f32);
  }
  html[data-r1074-theme="berhet"] {
+  --sukun-pane-alpha:var(--glassA,.82);
+  --sukun-pane-glass:linear-gradient(145deg,rgba(11,32,51,calc(var(--sukun-pane-alpha) * .8)),rgba(3,15,32,calc(var(--sukun-pane-alpha) * .92)));
   --sukun-surface-glass:linear-gradient(145deg,rgba(11,32,51,.97),rgba(3,15,32,.94));
   --sukun-surface-inset:linear-gradient(150deg,#123653f5,#061a32fa);
   --sukun-surface-line:#c6a96888;
@@ -378,5 +384,27 @@
  }
  body.r1215-premium #r1211PracticeUnavailable>div {display:flex!important;justify-content:center!important;flex-wrap:wrap!important;gap:12px!important}
  body.r1215-premium #r1211PracticeUnavailable button:not([hidden]) {min-height:44px!important;padding:10px 18px!important}
+
+ /* r1220: only the broad panel paint is transparent. Text, gemstone frames,
+    native controls and their smaller reading surfaces retain full opacity.
+    Do not add backdrop filters to the dashboard or create new stacking roots. */
+ @media(forced-colors:none) {
+  html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap>:is(.tabs,.masterBar,#todayCard,#prDashboard,#vakitBox),
+  html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) :is(#r920Practice,#r616Topbar,#r616HomeHero,#r616Continue,#r616SoundHeader) {
+   background:var(--sukun-pane-glass)!important;
+  }
+  html:not([data-r1074-theme="berhet"]) body.r1215-premium:not(.r616-ui):not(.sukun-tefekkur-mode) .wrap>header {
+   --sukun-surface-glass:var(--sukun-header-glass);
+   background:var(--sukun-header-glass)!important;
+  }
+  @media(prefers-reduced-transparency:reduce) {
+   html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap>:is(header,.tabs,.masterBar,#todayCard,#prDashboard,#vakitBox),
+   html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) :is(#r920Practice,#r616Topbar,#r616HomeHero,#r616Continue,#r616SoundHeader),
+   html:not([data-r1074-theme="berhet"]) body.r1215-premium:not(.r616-ui):not(.sukun-tefekkur-mode) .wrap>header {
+    --sukun-surface-glass:#071b2b;
+    background:#071b2b!important;
+   }
+  }
+ }
 
 }
