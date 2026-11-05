@@ -92,7 +92,7 @@ function make(){
  <div id="r920RecordingError" role="alert" hidden><p>Kendi kaydın açılamadı. Oturum duraklatıldı.</p><button id="r920RecordingRetry" type="button">Kaydı yeniden dene</button></div>
  <div id="r920SceneError" role="status" hidden><span>Sahne açılamadı.</span><button id="r920SceneRetry" type="button">Yeniden dene</button></div>
  <p id="r968ManualHint" role="status" aria-live="polite"></p><div id="r920Actions"></div>
- <details id="r920JourneySettings" hidden><summary>Seyir tekrarları ve ara</summary><label>Her isim<select id="r920RepeatMode"></select></label><label id="r920RepeatCustomLabel" hidden>Özel tekrar<input id="r920RepeatCustom" type="number" min="1" max="9999" inputmode="numeric"></label><label>Ara<select id="r920RepeatGap"></select></label></details>
+ <details id="r920JourneySettings" hidden><summary>Seyir tekrarları ve ara</summary><label>Her isim<select id="r920RepeatMode"></select></label><label id="r920RepeatCustomLabel" hidden>Özel tekrar<input id="r920RepeatCustom" type="number" min="1" max="9999" step="1" inputmode="numeric" aria-describedby="r1225RepeatError"></label><span id="r1225RepeatError" role="status" hidden></span><label>Ara<select id="r920RepeatGap"></select></label></details>
  <details id="r920ViewOptions"><summary>İsim, çark ve görünüm</summary><label>İsim<select id="r920NameSelect"></select></label><div id="r924WheelOptions"><label><span id="r924WheelFamily">Esmâ çarkı</span><select id="r920WheelSelect" aria-describedby="r924WheelStatus"></select></label><p id="r924WheelStatus" role="status"></p><button id="r924WheelRetry" type="button" hidden>Çarkı yeniden yükle</button><details id="r924WheelGalleryDetails"><summary>Çarkları görerek seç</summary><div id="r924WheelGallery" role="group" aria-label="Çark seçenekleri"></div></details></div><div id="r920BerhetOptions"><label>Sahne<select id="r920SceneSelect"><option value="auto">İsme göre otomatik</option><option value="palace">Billur Saray</option><option value="seal">Mühr-ü Süleyman</option><option value="wind">Rüzgâr</option><option value="crystal">Billur Geçit</option><option value="night">Gece Sarayı</option><option value="hudhud">Hüdhüd Yolu</option></select></label></div><div id="r923EsmaOptions"><label>Esmâ sahnesi<select id="r923EsmaSceneSelect" aria-describedby="r923SceneStatus"></select></label><div id="r923ScenePreview"><img id="r923SceneThumb" alt="Seçilen sahnenin önizlemesi" loading="lazy" decoding="async"><div><strong id="r923SceneName"></strong><p id="r923SceneStatus" role="status"></p><button id="r923SceneRetry" type="button" hidden>Sahneyi yeniden yükle</button></div></div><details id="r923SceneNotes"><summary>Sahne hakkında ve kaynaklar</summary><p id="r923SceneNote"></p><div id="r923SceneSources"></div></details></div><label>Görsel kalite<select id="r920Performance"><option value="cinematic">Sinematik</option><option value="balanced">Dengeli</option><option value="saving">Tasarruf</option></select></label><label class="r920FocusLabel"><input id="r925WheelMotion" type="checkbox" checked>Çark dönüşü</label><label class="r920FocusLabel"><input id="r962WheelNavToggle" type="checkbox">Çark içi önceki–sonraki düğmeleri</label><button id="r962OfflineScenes" type="button">Çarkları ve arka planları çevrimdışı kaydet</button><p id="r962OfflineStatus" role="status" aria-live="polite"></p><label class="r920FocusLabel"><input id="r920Focus" type="checkbox">Otomatik odak görünümü</label></details>
  <button id="r920More" type="button" aria-expanded="false">Zikir ayarları, kayıtlar ve diğer araçlar</button>
  <button id="r920TefExit" type="button" aria-label="Tefekkürden çık" title="Tefekkürden çık" hidden><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 4H5v16h5M9 12h11M16 8l4 4-4 4"/></svg></button>`;
@@ -175,7 +175,20 @@ async function select(mode,index,journey){
  const result=await command('select',{mode,index,journeyKind:isJourney?(mode==='berhet'?'28':'99'):'single'});queue();return result;
 }
 function manual(delta){command('adjust',{delta});wake();queue()}
-function writeJourneySetting(suffix,value,event){const s=snap();if(!journeySettingsAllowed(s))return;const native=$((s.activeMode==='berhet'?'bs':'es99')+suffix);if(!native)return;native.value=value;native.dispatchEvent(new Event(event,{bubbles:true}));window.SukunSessionState.refresh('journey-settings');queue()}
+function writeJourneySetting(suffix,value,event){
+ const s=snap();if(!journeySettingsAllowed(s))return;
+ const prefix=s.activeMode==='berhet'?'bs':'es99',native=$(prefix+suffix);if(!native)return;
+ const custom=$('r920RepeatCustom');
+ if(suffix==='Custom'){
+  const n=Number(value),valid=Number.isSafeInteger(n)&&n>=1&&n<=9999;
+  custom?.setCustomValidity(valid?'':'1–9999 arasında tam sayı girin.');custom?.setAttribute('aria-invalid',String(!valid));
+  const error=$('r1225RepeatError');if(error){error.hidden=valid;error.textContent=valid?'':'1–9999 arasında tam sayı girin. Son geçerli hedef korunuyor.';}
+  if(!valid)return; // Editing text is a draft, never a target or journal value.
+ }else if(suffix==='Mode'&&custom){
+  custom.value=$(prefix+'Custom')?.value||'33';custom.setCustomValidity('');custom.setAttribute('aria-invalid','false');const error=$('r1225RepeatError');if(error)error.hidden=true;
+ }
+ native.value=value;native.dispatchEvent(new Event(event,{bubbles:true}));window.SukunSessionState.refresh('journey-settings');queue();
+}
 // Public Esmâ settings never require private Berhetiyye access.
 function journeyModeAllowed(mode){return mode==='esma'||(mode==='berhet'&&allowed())}
 function journeySettingsAllowed(s){return !!s&&journeyModeAllowed(s.activeMode)&&((s.activeMode==='esma'&&s.journeyKind==='99')||(s.activeMode==='berhet'&&s.journeyKind==='28'))}
@@ -213,7 +226,7 @@ window.SukunTargetInfo=Object.freeze({version:'r1213',describe:targetInfo});
 function syncJourneySettings(s){
  const enabled=journeySettingsAllowed(s),prefix=s.activeMode==='berhet'?'bs':'es99';prop($('r920JourneySettings'),'hidden',!enabled);if(!enabled)return;
  for(const [suffix,id] of [['Mode','r920RepeatMode'],['Gap','r920RepeatGap']]){const native=$(prefix+suffix),control=$(id);if(!native)continue;const key=prefix+':'+Array.from(native.options,o=>o.value+'='+o.textContent).join('|');if(control.dataset.options!==key){control.replaceChildren(...Array.from(native.options,o=>{const option=document.createElement('option');option.value=o.value;option.textContent=o.textContent;return option}));control.dataset.options=key}value(control,native.value)}
- const native=$(prefix+'Custom'),control=$('r920RepeatCustom');prop($('r920RepeatCustomLabel'),'hidden',$(prefix+'Mode')?.value!=='custom');if(native)value(control,native.value);
+ const native=$(prefix+'Custom'),control=$('r920RepeatCustom');prop($('r920RepeatCustomLabel'),'hidden',$(prefix+'Mode')?.value!=='custom');if(native){value(control,native.value);if(control&&document.activeElement!==control){control.setCustomValidity('');control.setAttribute('aria-invalid','false');const error=$('r1225RepeatError');if(error)error.hidden=true;}}
 }
 function wake(){clearTimeout(focusTimer);if(document.body.classList.contains('r920-focus-rest'))document.body.classList.remove('r920-focus-rest');if(focusEnabled&&view()?.phase==='PLAYING')focusTimer=setTimeout(()=>{if(view()?.phase==='PLAYING')document.body.classList.add('r920-focus-rest')},4500)}
 // Search reads the existing catalogue; it never selects a name or changes a count.

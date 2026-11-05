@@ -11,6 +11,11 @@ import argparse, concurrent.futures, hashlib, json, re, subprocess, time
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
+    ('r1225-repetition-upgrade', 'tests/r1225/repetition-upgrade.cjs'),
+    ('r1225-recording-races', 'tests/r1225/recording-races.cjs'),
+    ('r1225-repetition-validation', 'tests/r1225/repetition-validation.cjs'),
+    ('r1225-delail-errors', 'tests/r1225/delail-errors.cjs'),
+    ('r1225-modal-lifecycle', 'tests/r1225/modal-lifecycle.cjs'),
     ('r1219-reading-navigation', 'tests/r1219/reading-navigation.cjs'),
     ('r1219-vikaye-continuation', 'tests/r1219/vikaye-continuation.cjs'),
     ('r1219-atlas-keyboard', 'tests/r1219/atlas-keyboard-contract.cjs'),

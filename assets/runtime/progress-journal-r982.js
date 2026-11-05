@@ -31,7 +31,7 @@
   }
   function journey(v,max){
     if(v===null)return null;
-    if(!obj(v)||!integer(v.i,max)||!integer(v.rep)||!integer(v.totalDone)||!text(v.mode,16)||! /^(?:[1-9]\d{0,4}|ebced|custom)$/.test(v.mode)||!integer(v.custom,99999)||!num(v.gap,0,30000)||typeof v.active!=='boolean')throw Error('journey-invalid');
+    if(!obj(v)||!integer(v.i,max)||!integer(v.rep)||!integer(v.totalDone)||!text(v.mode,16)||! /^(?:[1-9]\d{0,4}|ebced|custom)$/.test(v.mode)||(!integer(v.custom,9999)||v.custom<1)||!num(v.gap,0,30000)||typeof v.active!=='boolean')throw Error('journey-invalid');
     return {i:v.i,rep:v.rep,totalDone:v.totalDone,mode:v.mode,custom:v.custom,gap:v.gap,active:v.active};
   }
   function step(v){
@@ -116,7 +116,18 @@
       const record=JSON.parse(raw),body=record?.body;
       if(!obj(body)||body.v!==1||!integer(body.rev)||body.rev<1||!integer(body.at,Number.MAX_SAFE_INTEGER)||body.at>Date.now()+60000||!obj(body.mirrors)||Object.keys(body.mirrors).length!==keys.length||typeof record.sum!=='string'||record.sum!==hash(JSON.stringify(body)))return null;
       for(const k of keys)if(!own(body.mirrors,k)||!(body.mirrors[k]===null||/^[0-9a-f]{8}$/.test(body.mirrors[k])))return null;
-      const progress=normalize(body.progress);if(!progress)return null;
+      // r1225: checksum-valid v1 journals previously allowed custom 0..99999.
+      // Migrate only that former integer domain at read time; never relax the
+      // current write validator or change counters, totals, ownership or mode.
+      let stored=body.progress;
+      if(obj(stored))for(const key of ['journey28','journey99']){
+        const v=stored[key];
+        if(obj(v)&&integer(v.custom,99999)&&(v.custom<1||v.custom>9999)){
+          if(stored===body.progress)stored=clone(stored);
+          stored[key].custom=33;
+        }
+      }
+      const progress=normalize(stored);if(!progress)return null;
       if(checkMirrors){const m=mirrors();diverged=keys.some(k=>m[k]!==body.mirrors[k]);}
       return {body:{v:1,rev:body.rev,at:body.at,mirrors:body.mirrors,progress},sum:record.sum};
     }catch(_){return null}
