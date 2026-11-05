@@ -5,7 +5,8 @@
  html {
   /* r1220: tinted large panes; user opacity values remain the source. */
   --sukun-pane-alpha:var(--r1175-lower-alpha,.8);
-  --sukun-pane-glass:linear-gradient(145deg,rgba(13,34,47,calc(var(--sukun-pane-alpha) * .8)),rgba(4,17,29,calc(var(--sukun-pane-alpha) * .92)));
+  --sukun-pane-glass:linear-gradient(145deg,rgba(13,34,47,calc(var(--sukun-pane-alpha) * .70)),rgba(4,17,29,calc(var(--sukun-pane-alpha) * .82)));
+  --sukun-pane-inset:linear-gradient(160deg,rgba(16,46,64,.52),rgba(8,27,44,.64));
   --sukun-header-glass:linear-gradient(145deg,rgba(13,34,47,calc(var(--glassA,.82) * .62)),rgba(4,17,29,calc(var(--glassA,.82) * .74)));
   --sukun-surface-glass:linear-gradient(145deg,rgba(13,34,47,.96),rgba(4,17,29,.94));
   --sukun-surface-inset:linear-gradient(160deg,#102e40f5,#081b2cf5);
@@ -17,7 +18,8 @@
  }
  html[data-r1074-theme="berhet"] {
   --sukun-pane-alpha:var(--glassA,.82);
-  --sukun-pane-glass:linear-gradient(145deg,rgba(11,32,51,calc(var(--sukun-pane-alpha) * .8)),rgba(3,15,32,calc(var(--sukun-pane-alpha) * .92)));
+  --sukun-pane-glass:linear-gradient(145deg,rgba(11,32,51,calc(var(--sukun-pane-alpha) * .70)),rgba(3,15,32,calc(var(--sukun-pane-alpha) * .82)));
+  --sukun-pane-inset:linear-gradient(150deg,rgba(18,54,83,.52),rgba(6,26,50,.64));
   --sukun-surface-glass:linear-gradient(145deg,rgba(11,32,51,.97),rgba(3,15,32,.94));
   --sukun-surface-inset:linear-gradient(150deg,#123653f5,#061a32fa);
   --sukun-surface-line:#c6a96888;
@@ -404,6 +406,32 @@
     --sukun-surface-glass:#071b2b;
     background:#071b2b!important;
    }
+  }
+ }
+
+ /* r1221: reveal more of the scene through large surfaces. Keep the inner
+    panel lighter because it is already painted over the practice pane.
+    Gemstone borders, controls and full-screen modes retain their own paint. */
+ @media (forced-colors:none) {
+  html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) :is(.r616Stat,.r616Shortcut) {
+   background:var(--sukun-pane-glass)!important;
+  }
+  html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) #r920Practice #r938Panel {
+   background:var(--sukun-pane-inset)!important;
+  }
+  html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) :is(#r616HomeHero,#r616Continue,.r616Stat,.r616Shortcut,#r920Practice) {
+   text-shadow:0 1px 3px #000c;
+  }
+ }
+ @media (forced-colors:none) and (prefers-reduced-transparency:reduce) {
+  html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) :is(#r920Practice,#r616HomeHero,#r616Continue,.r616Stat,.r616Shortcut),
+  html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) #r920Practice #r938Panel {
+   background:#071b2b!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  }
+ }
+ @media (forced-colors:active) {
+  html[data-r1074-theme] body.r1215-premium :is(.r616Stat,.r616Shortcut) {
+   background:Canvas!important;color:CanvasText!important;border:1px solid CanvasText!important;box-shadow:none!important;text-shadow:none!important;
   }
  }
 
