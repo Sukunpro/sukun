@@ -63682,8 +63682,8 @@ function sync(reason='sync'){
  owner=next;
  for(const id of open){const e=$(id);suspend(e,id!==owner);}
  const scrim=$('sheetScrim');if(scrim){
-  scrim.classList.toggle('r602-phantom',!owner||owner==='prSearchOverlay');
-  const useScrim=!!owner&&owner!=='prSearchOverlay';if(scrim.hidden===useScrim)scrim.hidden=!useScrim;
+  scrim.classList.toggle('r602-phantom',!owner||owner==='prSearchOverlay'||owner==='hybridSheet');
+  const useScrim=!!owner&&owner!=='prSearchOverlay'&&owner!=='hybridSheet';if(scrim.hidden===useScrim)scrim.hidden=!useScrim;
  }
  if(B.classList.contains('r725-sheet-active')!==!!owner)B.classList.toggle('r725-sheet-active',!!owner);
  for(const [el,old] of backgroundInert){if(!owner||el.contains($(owner))||el===$('sheetScrim')){el.inert=old;backgroundInert.delete(el)}}
