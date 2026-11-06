@@ -3,7 +3,8 @@
 (()=>{'use strict';
  const w=window,d=document,R=d.documentElement,$=id=>d.getElementById(id);
  const modes=['cinematic','balanced','saving'],globalMode={cinematic:'tam',balanced:'dengeli',saving:'pil'};
- const reduced=w.matchMedia('(prefers-reduced-motion: reduce)');
+ const reducedQuery='(prefers-reduced-motion: reduce)',reduced=w.matchMedia(reducedQuery);
+ let reducedMotion=!!reduced.matches;
  const runtime={readyAtLoad:d.readyState,startAttempts:0,started:false,mediaListener:false,reconciliations:0,startupError:null};
  const tr=(a,b)=>w.I18N?.lang==='en'?b:a;
  let frame=0,lastIdentity=null,lastScene=null,lastView=null,lastQualityPaint='',entryAnimation=null,nameAnimations=[],saverObserver=null,observedSaver=null,saverWasOn=false,applying=false,pageSuspended=false;
@@ -12,7 +13,7 @@
  function requested(){const p=safe(()=>w.SukunSceneEngine?.snapshot?.().profile);return modes.includes(p)?p:'balanced'}
  function policy(){
   const profile=requested(),global=w.SukunPerformance?.mode||d.body?.dataset.perf,hidden=!!d.hidden||pageSuspended;
-  return {profile,effective:hidden||reduced.matches||global==='pil'||profile==='saving'?'saving':profile,hidden,reduced:!!reduced.matches};
+  return {profile,effective:hidden||reducedMotion||global==='pil'||profile==='saving'?'saving':profile,hidden,reduced:reducedMotion};
  }
  function stopTransitions(){entryAnimation?.cancel?.();entryAnimation=null;for(const a of nameAnimations)a.cancel?.();nameAnimations=[]}
  function enter(){
@@ -122,16 +123,16 @@
   watchSaver();if(observedSaver?.classList.contains('on'))saverFacts();nameTransition();
  }
  function queue(){if(policy().hidden){if(frame)cancelAnimationFrame(frame);frame=0;sync();return}if(!frame)frame=requestAnimationFrame(sync)}
- // Accessibility preferences must not wait behind a decorative paint. A
- // queued callback may have been cancelled by another legacy owner while
- // our frame token is still nonzero. Reconcile the native media event now,
- // cancelling our pending work so neither direction can leave stale motion.
- function reconcileMotion(){runtime.reconciliations++;if(frame)cancelAnimationFrame(frame);frame=0;sync()}
+ // Keep policy/snapshot reads separate from the subscribed MQL's getter:
+ // reading that getter can consume a pending native match transition before
+ // its change event is dispatched. The event owns the cached preference.
+ function reconcileMotion(event){reducedMotion=!!event.matches;runtime.reconciliations++;if(frame)cancelAnimationFrame(frame);frame=0;sync()}
+ function refreshReduced(){reducedMotion=!!w.matchMedia(reducedQuery).matches}
 
  // A cached or frozen page can receive pagehide before visibility changes.
  // Suspend our own queued work and effects without changing saved quality.
  function suspend(){pageSuspended=true;queue()}
- function resume(){pageSuspended=false;queue()}
+ function resume(){pageSuspended=false;refreshReduced();queue()}
  function start(){
   runtime.startAttempts++;
   try {
@@ -143,6 +144,8 @@
   w.SukunSessionState?.subscribe?.(queue);
   d.addEventListener('visibilitychange',queue,{passive:true});w.addEventListener('pagehide',suspend,{passive:true});w.addEventListener('pageshow',resume,{passive:true});
   d.addEventListener('freeze',suspend,{passive:true});d.addEventListener('resume',resume,{passive:true});reduced.addEventListener?.('change',reconcileMotion);runtime.mediaListener=typeof reduced.addEventListener==='function';
+  // Cover a preference change between module evaluation and DOM ready.
+  refreshReduced();
   sync();runtime.started=true;
   } catch(error) {runtime.startupError=String(error?.stack||error);throw error}
  }
