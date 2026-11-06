@@ -4,9 +4,13 @@
   width:min(86vw,480px,60vh)!important;height:auto!important;aspect-ratio:1536 / 987!important;
   background:url('../assets/branding/sukun-berhet-saver-r1167.webp') center / contain no-repeat!important;
  }
- /* İnce altın işleme ve dört taş, ekranı kaplamadan mevcut dış kenarı süsler. */
+ /* r1227: both themes share a visible gold perimeter; Berhetiyye adds stones. */
+ html body #kandil::before {
+  position:fixed!important;inset:7px!important;border:2px solid #c89b50!important;border-radius:19px!important;
+  box-shadow:inset 0 0 0 2px #352112,inset 0 0 0 4px #aa783d,inset 0 0 0 5px #f5d89280!important;
+ }
  html[data-r1074-theme="berhet"] body #kandil::before {
-  inset:10px!important;border:2px solid #c89b50!important;border-radius:24px!important;
+  inset:7px!important;border:2px solid #c89b50!important;border-radius:19px!important;
   box-shadow:inset 0 0 0 2px #352112,inset 0 0 0 5px #aa783d,inset 0 0 0 7px #f5d89280,inset 0 0 0 9px #3c2437!important;
   background:
    radial-gradient(circle at 12px 12px,#d8dcff 0 1px,#5f6cec 2px,#14277f 5px,#c89b50 6px,transparent 8px),
@@ -16,11 +20,22 @@
    repeating-linear-gradient(135deg,transparent 0 23px,#dfb76b0c 24px 25px,transparent 26px 48px)!important;
  }
  /* Pil modunda parlak süsleme yerine tek, sönük bir çizgi kalır. */
+ html body #kandil[data-power="saving"]::before {
+  background:none!important;box-shadow:none!important;border-color:#8b704c66!important;
+ }
  html[data-r1074-theme="berhet"] body #kandil[data-power="saving"]::before {
   background:none!important;box-shadow:none!important;border-color:#8b704c66!important;
  }
  @media(max-width:420px) {
   html[data-r1074-theme="berhet"] body #kandil::before {inset:7px!important;border-radius:19px!important}
+ }
+ @media(forced-colors:active) {
+  html body #kandil::before,
+  html body #kandil[data-power="saving"]::before,
+  html[data-r1074-theme="berhet"] body #kandil::before,
+  html[data-r1074-theme="berhet"] body #kandil[data-power="saving"]::before {
+   background:none!important;box-shadow:none!important;border:2px solid CanvasText!important;
+  }
  }
  /* Opacity and animation remain on the existing parent: saver and reduced
     motion keep their original rules and all layers dim together. */

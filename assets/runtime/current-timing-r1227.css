@@ -1,0 +1,11 @@
+/* Stable compact seal: fading copy never moves the name or wheel. */
+#r920Practice #r1227CurrentTiming{position:relative;display:flex;justify-content:center;height:60px;max-width:100%;margin:0 auto;box-sizing:border-box}
+#r920Practice #r1227CurrentTiming[hidden]{display:none!important}
+#r920Practice #r1227TimingSeal{display:inline-flex;align-items:center;justify-content:center;width:44px;min-width:44px;height:44px;min-height:44px;padding:10px;border:0;background:transparent;box-shadow:none;color:#e9cb8e;border-radius:50%;cursor:pointer}
+#r920Practice #r1227TimingSeal svg{width:24px;height:24px;flex:none;fill:#153d34;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+#r920Practice #r1227TimingCaption{position:absolute;top:43px;left:0;right:0;text-align:center;pointer-events:none;opacity:0;transition:opacity 650ms ease;font:500 11px/1.4 system-ui,sans-serif;color:#fff0c4}
+#r920Practice #r1227CurrentTiming[data-reveal="true"] #r1227TimingCaption,#r920Practice #r1227CurrentTiming:hover #r1227TimingCaption,#r920Practice #r1227CurrentTiming:focus-within #r1227TimingCaption{opacity:1}
+#r920Practice #r1227TimingSeal:focus-visible{outline:2px solid #f8d17a;outline-offset:1px}
+html[data-r1074-theme="berhet"] #r920Practice #r1227TimingSeal svg{fill:#172b50}
+@media(prefers-reduced-motion:reduce){#r920Practice #r1227TimingCaption{transition:none}}
+@media(forced-colors:active){#r920Practice #r1227TimingSeal,#r920Practice #r1227TimingCaption{color:CanvasText}#r920Practice #r1227TimingSeal svg{fill:Canvas}}

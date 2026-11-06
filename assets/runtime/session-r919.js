@@ -471,19 +471,38 @@
 
   function command(action, options = {}) {
     action = clean(action).toLowerCase();
-    if (!['start', 'play', 'pause', 'resume', 'stop', 'next', 'previous', 'restart', 'restart-journey', 'retry', 'select', 'adjust'].includes(action))
+    if (!['start', 'play', 'pause', 'resume', 'stop', 'next', 'previous', 'restart', 'restart-journey', 'retry', 'select', 'adjust', 'set-count', 'set-remaining'].includes(action))
       return Promise.resolve({ accepted: false, reason: 'unsupported-action', snapshot: snapshot() });
+    if(typeof options.isCurrent==='function'&&!read(options.isCurrent,false))return Promise.resolve({accepted:false,reason:'cancelled-edit',snapshot:snapshot()});
     const before = snapshot();
     if (options.epoch != null && Number(options.epoch) !== epoch) {
       settleCommandDiagnostic(beginCommandDiagnostic(action,requestId,epoch),false,true,'stale-session');
       return Promise.resolve({ accepted: false, stale: true, reason: 'stale-session', epoch, requestId, snapshot: before });
     }
-    if(action==='adjust'){
+    if((action==='set-count'||action==='set-remaining')&&window.SukunTabOwner&&!window.SukunTabOwner.owns()){
+      // Explicit silent edits use the native exclusive lease and rebase fences,
+      // without priming media. A free idle lease is not another active tab.
+      const expected=options.expected||before,editEpoch=epoch;
+      const current=()=>{const s=snapshot();return epoch===editEpoch&&!document.hidden&&(typeof options.isCurrent!=='function'||read(options.isCurrent,false))&&['activeMode','activeIndex','journeyKind','count','target','phase'].every(k=>s[k]===expected[k]);};
+      return Promise.resolve(window.SukunTabOwner.run('manual',()=>command(action,{...options,expected,epoch:editEpoch}),{prime:false,releaseAfter:true,isCurrent:current})).then(result=>result&&typeof result==='object'?result:freeze({accepted:false,reason:'owner-unavailable',epoch,requestId,snapshot:snapshot()}));
+    }
+    if(action==='adjust'||action==='set-count'||action==='set-remaining'){
       // A correction cannot supersede a queued Start or manufacture a new audio epoch.
       const diagnostic = beginCommandDiagnostic(action,requestId,epoch);
       let value;
-      try { value=window.SukunCountCorrection?.adjust?.(options.delta); }
+      try {
+        const current=snapshot();
+        const expected=options.expected;
+        const same=!expected||['activeMode','activeIndex','journeyKind','count','target','phase'].every(key=>expected[key]===current[key]);
+        value=same&&(action==='set-remaining'?window.SukunCountCorrection?.setRemaining?.(options.value):action==='set-count'?window.SukunCountCorrection?.set?.(options.value):window.SukunCountCorrection?.adjust?.(options.delta));
+      }
       catch (error) { settleCommandDiagnostic(diagnostic,false,false,'command-error'); throw error; }
+      if((action==='set-count'||action==='set-remaining')&&value===true){
+        // Cancel a pending boot restore, then persist through the native memory owner.
+        window.dispatchEvent(new CustomEvent('sukun:sessioncommand',{detail:freeze({action,requestId,epoch})}));
+        read(()=>window.SukunSessionMemory?.save?.());
+        read(()=>window.SukunProgressJournal?.commit?.('manual-correction'));
+      }
       settleCommandDiagnostic(diagnostic,value===true,false);
       return Promise.resolve(freeze({accepted:value===true,epoch,requestId,snapshot:refresh('manual-correction')}));
     }

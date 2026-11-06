@@ -295,7 +295,7 @@ window.addEventListener?.('sukun:languagechange',()=>{if(host?.isConnected){buil
   attr($('r932QuickWheel'),'aria-label',window.I18N?.lang==='en'?'Change wheel. '+wheelTitle:'Çarkı değiştir. '+wheelTitle);attr($('r932QuickScene'),'aria-label','Arka planı değiştir. '+sceneLabel);
   const busy=state?.phase==='PLAYING'||state?.phase==='PREPARING',failed=state?.phase==='ERROR',playLabel=state?.globalPauseBlocked?(window.I18N?.lang==='en'?'Globally paused':'Genel duraklatıldı'):busy?'Duraklat':state?.phase==='PAUSED'?'Devam et':failed?'Yeniden dene':'Başlat';text($('r932EasyPlay'),playLabel);attr($('r932EasyPlay'),'aria-label',state?.globalPauseBlocked?(window.I18N?.lang==='en'?'Use Play on the bottom global player to resume the paused audio session.':'Devam etmek için alttaki genel oynatıcının ▶ düğmesini kullan.'):busy?'Zikri duraklat':state?.phase==='PAUSED'?'Zikre devam et':failed?'Sesi yeniden dene':'Zikri başlat');
   for(const [action,id]of Object.entries(sources)){const button=$('r932Easy'+action[0].toUpperCase()+action.slice(1)),source=$(id);const manual=action==='minus'||action==='plus';const gate=manual?window.SukunCountCorrection?.status?.(action==='minus'?-1:1):null;const disabled=manual?!gate?.allowed:!!source?.disabled;if(button.disabled!==disabled)button.disabled=disabled;if(manual)attr(button,'aria-describedby','r968ManualHint');if(manual)attr(button,'title',gate?.reason|| (action==='minus'?'Bir azalt':'Bir artır'))}
-  updateOptions();
+  updateOptions();window.SukunCountEntry?.render?.();
  }
  window.SukunWheelQuickControls=Object.freeze({version:'r932',connect,render,snapshot:()=>({connected:!!box?.isConnected,openKind,mode:lastMode})});
 })();
@@ -356,4 +356,70 @@ window.addEventListener('sukun:sessionchange',e=>update(e.detail));document.addE
 ['sukun:performancechange','sukun:performance','sukun:performance-effective'].forEach(name=>window.addEventListener(name,()=>{cancel();cancelFlow();lastBeat=0;read()}));
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',read,{once:true});else read();
 window.SukunWheelLight=Object.freeze({version:'r980',snapshot:()=>({setting,motion,saving:saving(),flowAnimations:flowAnimations.filter(a=>a.playState==='running').length,pulses,activeAnimations:animations.filter(a=>a.playState==='running').length,wheel:frame?.dataset.wheelId||null,readOnly:true})});
+})();
+/* r1227: compact silent remaining entry. Native correction owns every write. */
+(()=>{'use strict';
+ const $=id=>document.getElementById(id);
+ let host=null,expected=null,undo=null,undoTimer=0,generation=0,pending=false;
+ const english=()=>window.I18N?.lang==='en';
+ const say=(tr,en)=>english()?en:tr;
+ const snapshot=()=>window.SukunSessionState?.snapshot?.();
+ function clearUndo(){generation++;undo=null;clearTimeout(undoTimer);undoTimer=0;const button=$('r1227CountUndo');if(button){if(document.activeElement===button)($('r920Remaining')?.tabIndex===0?$('r920Remaining'):$('r932EasyPlay'))?.focus({preventScroll:true});button.hidden=true}}
+ function expireUndo(){if(document.activeElement===$('r1227CountUndo')){undoTimer=setTimeout(expireUndo,1000);return}clearUndo()}
+ const same=(a,b)=>a&&b&&['epoch','activeMode','activeIndex','journeyKind','target','count','phase'].every(k=>a[k]===b[k]);
+ function close(focus=false){if(!host)return;generation++;pending=false;expected=null;$('r1227CountSave').disabled=false;$('r1227CountForm').removeAttribute('aria-busy');$('r1227CountForm').hidden=true;$('r920Remaining').setAttribute('aria-expanded','false');if(focus&&!host.hidden)$('r920Remaining').focus({preventScroll:true})}
+ function render(){
+  const parent=$('r932WheelControls'),trigger=$('r920Remaining');if(!parent||!trigger)return;
+  if(!host?.isConnected){
+   host=document.createElement('div');host.id='r1227CountEntry';
+   host.innerHTML='<form id="r1227CountForm" hidden novalidate><label id="r1227CountLabel" for="r1227CountValue"></label><div class="r1227CountRow"><input id="r1227CountValue" type="text" inputmode="numeric" autocomplete="off" pattern="[0-9]*" aria-describedby="r1227CountHelp r1227CountError"><button id="r1227CountSave" type="submit"></button><button id="r1227CountCancel" type="button"></button></div><p id="r1227CountHelp"></p><p id="r1227CountError" role="alert"></p></form><button id="r1227CountUndo" type="button" hidden></button><p id="r1227CountNotice" role="status" aria-live="polite" hidden></p>';
+   parent.insertBefore(host,$('r1056FocusControlsToggle'));
+   trigger.setAttribute('role','button');trigger.setAttribute('aria-controls','r1227CountForm');trigger.setAttribute('aria-expanded','false');
+   trigger.onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&trigger.getAttribute('aria-disabled')!=='true'){e.preventDefault();e.stopPropagation();trigger.click()}};
+   trigger.onclick=()=>{
+    if(trigger.getAttribute('aria-disabled')==='true')return;
+    if(expected){close(true);return}clearUndo();$('r1227CountNotice').hidden=true;
+    const gate=window.SukunCountCorrection?.statusRemaining?.(undefined,true);if(!gate?.allowed)return;
+    expected=snapshot();$('r1227CountValue').value=String(expected.target-expected.count);
+    $('r1227CountValue').removeAttribute('aria-invalid');$('r1227CountError').textContent='';
+    $('r1227CountHelp').textContent=say('1–'+gate.max+' · Hedef değişmez. Son tekrar okumayla tamamlanır.','1–'+gate.max+' · Target stays unchanged. Finish the last repetition by reading.');
+    $('r1227CountForm').hidden=false;$('r920Remaining').setAttribute('aria-expanded','true');$('r1227CountValue').focus({preventScroll:true});$('r1227CountValue').select();
+   };
+   $('r1227CountUndo').onclick=async()=>{
+    const entry=undo;if(!entry||!same(entry.after,snapshot())){clearUndo();return}clearUndo();const token=generation;
+    const isCurrent=()=>token===generation&&!host.hidden&&!document.hidden&&same(entry.after,snapshot());
+    const result=await window.SukunSessionState.command('set-count',{value:entry.before.count,expected:entry.after,epoch:entry.after.epoch,isCurrent}).catch(()=>({accepted:false}));
+    if(token===generation&&!result.accepted){$('r1227CountNotice').hidden=false;$('r1227CountNotice').textContent=say('Geri alınamadı. Sayaç değişmiş veya başka sekmede açık olabilir.','Could not undo. The count may have changed or another tab may own it.')}
+    window.SukunPracticeUI?.refresh?.();if(token===generation&&!host.hidden)trigger.focus({preventScroll:true});
+   };
+   $('r1227CountCancel').onclick=()=>close(true);
+   host.addEventListener('keydown',e=>{if(e.key==='Escape'&&expected){e.preventDefault();e.stopPropagation();close(true)}});
+   $('r1227CountForm').onsubmit=async e=>{
+    e.preventDefault();if(!expected||pending)return;
+    const value=$('r1227CountValue').value,gate=window.SukunCountCorrection.statusRemaining(value,true);
+    if(!gate.allowed){$('r1227CountValue').setAttribute('aria-invalid','true');$('r1227CountError').textContent=english()?'Enter a whole number within the shown range. Pause reading before editing.':gate.reason;return}
+    const previous=expected,token=generation;pending=true;$('r1227CountSave').disabled=true;$('r1227CountForm').setAttribute('aria-busy','true');
+    const isCurrent=()=>token===generation&&expected===previous&&!host.hidden&&!document.hidden;
+    const result=await window.SukunSessionState.command('set-remaining',{value,expected,epoch:expected.epoch,isCurrent}).catch(()=>({accepted:false}));
+    if(!isCurrent())return;pending=false;$('r1227CountSave').disabled=false;$('r1227CountForm').removeAttribute('aria-busy');
+    if(result.accepted){close(true);undo={before:previous,after:result.snapshot};$('r1227CountUndo').hidden=false;undoTimer=setTimeout(expireUndo,12000);window.SukunPracticeUI?.refresh?.()}
+    else{$('r1227CountError').textContent=say('Sayaç veya okuma değişti. Kapatıp yeniden dene.','The count or reading changed. Close and try again.')}
+   };
+  }
+  const controls=window.SukunBerhetLayout?.snapshot?.(),gate=window.SukunCountCorrection?.statusRemaining?.(undefined,true);
+  const hidden=controls?.focusControlsVisible===false;
+  if(hidden&&(host.contains(document.activeElement)||document.activeElement===trigger))$('r1056FocusControlsToggle')?.focus({preventScroll:true});
+  host.hidden=hidden;if(undo&&(hidden||!same(undo.after,snapshot())))clearUndo();
+  if(expected){const s=snapshot();if(hidden||!gate?.allowed||!s||['activeMode','activeIndex','journeyKind','target','phase'].some(k=>s[k]!==expected[k])){const focused=host.contains(document.activeElement);close();if(focused)(gate?.allowed?$('r920Remaining'):$('r932EasyPlay'))?.focus({preventScroll:true})}}
+  trigger.setAttribute('aria-disabled',String(hidden||!gate?.allowed));trigger.tabIndex=hidden||!gate?.allowed?-1:0;
+  trigger.dataset.editable=String(!hidden&&!!gate?.allowed);
+  $('r920Remaining').setAttribute('aria-label',say('Kalan '+trigger.textContent+'. Kalan sayıyı düzenle','Remaining '+trigger.textContent+'. Edit remaining count'));
+  $('r920Remaining').title=gate?.allowed?say('Kalan sayıyı sessizce düzenle','Silently edit remaining count'):english()?'Pause reading before editing the count.':gate?.reason||'';
+  $('r1227CountLabel').textContent=say('Kalan sayı','Remaining count');
+  $('r1227CountUndo').textContent=say('Geri al','Undo');
+  $('r1227CountSave').textContent=say('Kaydet','Save');$('r1227CountCancel').textContent=say('Vazgeç','Cancel');
+ }
+ window.SukunCountEntry=Object.freeze({render,close});
+ window.addEventListener('sukun:sessionchange',render);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden){close();clearUndo()}});
 })();

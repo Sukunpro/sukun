@@ -1,9 +1,9 @@
 /* Behaviour checks for motion policy and the explicit existing-owner bridge. */
 const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync('assets/runtime/cinematic-r1215.js','utf8');
-function fixture(){
+function fixture(reducedMotion=false){
  const calls=[],nodes={},data=new Map([['sukun.performance.r920','cinematic']]);
- const media={matches:false,addEventListener(){}};
+ const media={matches:reducedMotion,addEventListener(){}};
  const session={activeMode:'esma',activeIndex:0,count:128,target:298,phase:'PAUSED'};
  const document={readyState:'loading',hidden:false,documentElement:{dataset:{}},body:{dataset:{perf:'tam'}},getElementById:id=>nodes[id]||null,addEventListener(){},querySelector:()=>null};
  const w={matchMedia:()=>media,SukunPerformance:{mode:'tam',apply(mode){calls.push(['global',mode]);this.mode=mode}},SukunSceneEngine:{snapshot:()=>({profile:data.get('sukun.performance.r920')}),setProfile(value){calls.push(['scene',value]);data.set('sukun.performance.r920',value);return true}},SukunSessionState:{peek:()=>session},toast:message=>calls.push(['toast',message])};
@@ -13,7 +13,7 @@ function fixture(){
 }
 const f=fixture(),before=JSON.stringify(f.session);
 assert.equal(f.api.snapshot().effective,'cinematic');assert.equal(f.calls.length,0,'reading saved quality never rewrites another existing preference');
-f.media.matches=true;assert.equal(f.api.snapshot().effective,'saving');assert.equal(f.api.snapshot().profile,'cinematic','reduced motion does not erase user choice');
+const initiallyReduced=fixture(true);assert.equal(initiallyReduced.api.snapshot().effective,'saving');assert.equal(initiallyReduced.api.snapshot().profile,'cinematic','reduced motion does not erase user choice');
 f.media.matches=false;f.document.hidden=true;assert.equal(f.api.snapshot().effective,'saving');assert.equal(f.api.snapshot().hidden,true);
 f.document.hidden=false;f.w.SukunPerformance.mode='pil';assert.equal(f.api.snapshot().effective,'saving','global battery choice overrides decorative motion');
 f.w.SukunPerformance.mode='tam';f.data.set('sukun.performance.r920','broken');assert.equal(f.api.snapshot().profile,'balanced');
@@ -64,9 +64,10 @@ function lifecycleFixture(){
  const w={addEventListener:listen('window'),matchMedia:()=>media,SukunPerformance:{mode:'tam'},SukunSceneEngine:{snapshot:()=>({profile:'cinematic'})},SukunSessionState:{peek:()=>session,subscribe:fn=>listen('session')('change',fn)}};
  const context={window:w,document,localStorage:{getItem:()=> 'cinematic'},MutationObserver:class{observe(){}disconnect(){}},requestAnimationFrame(fn){const id=++serial;frames.set(id,fn);return id},cancelAnimationFrame:id=>frames.delete(id)};
  vm.createContext(context);vm.runInContext(source,context);
- return {document,media,frames,animations,session,api:w.SukunCinematic,emit(target,name,detail){for(const fn of events.get(target+':'+name)||[])fn({detail})},flush(){const pending=[...frames.values()];frames.clear();for(const fn of pending)fn()}};
+ return {document,media,frames,animations,session,api:w.SukunCinematic,emitNativeMedia(matches){for(const fn of events.get('media:change')||[])fn({matches})},emit(target,name,detail){for(const fn of events.get(target+':'+name)||[])fn(target==='media'&&name==='change'?{matches:media.matches}:{detail})},flush(){const pending=[...frames.values()];frames.clear();for(const fn of pending)fn()}};
 }
 const life=lifecycleFixture(),savedSession=JSON.stringify(life.session);
+assert.equal(life.api.snapshot().runtime.started,true);assert.equal(life.api.snapshot().runtime.mediaListener,true);
 assert.equal(life.document.documentElement.dataset.r1215Motion,'cinematic');
 life.emit('window','sukun:r616viewchange',{view:'zikir'});
 assert.equal(life.api.snapshot().transitioning,true);assert.equal(life.frames.size,1);
@@ -88,4 +89,38 @@ life.emit('window','sukun:r616viewchange',{view:'atlas'});life.media.matches=tru
 assert.equal(life.api.snapshot().effective,'saving');assert.equal(life.api.snapshot().transitioning,false);assert.equal(life.api.snapshot().profile,'cinematic');
 life.media.matches=false;life.emit('media','change');life.flush();assert.equal(life.api.snapshot().effective,'cinematic');
 assert.equal(JSON.stringify(life.session),savedSession,'lifecycle and reduced motion preserve the active practice');
-console.log('PASS: preference preservation, motion policy, native owner bridge, session invariance, identity-only transitions, mutation-free repeated paints, bounded saver observer and suspend/resume lifecycle.');
+// Regression: an unrelated owner can cancel an already queued browser frame
+// without clearing this module's token. Media reconciliation cannot depend on
+// that callback, and both preference directions must update DOM immediately.
+const stalled=lifecycleFixture(),stalledSession=JSON.stringify(stalled.session);
+stalled.emit('window','sukun:r616viewchange',{view:'zikir'});
+assert.equal(stalled.frames.size,1);assert.equal(stalled.api.snapshot().transitioning,true);
+stalled.frames.clear(); // Model lost/cancelled delivery, not a fabricated policy.
+stalled.media.matches=true;stalled.emit('media','change');
+assert.equal(stalled.document.documentElement.dataset.r1215Motion,'saving','reduced motion paints synchronously despite a stale frame token');
+assert.equal(stalled.api.snapshot().transitioning,false,'active decorative animation is cancelled immediately');
+assert(stalled.animations.every(a=>a.cancelled));assert.equal(stalled.frames.size,0);
+stalled.emit('session','change');assert.equal(stalled.frames.size,1,'subsequent ordinary events can queue again');
+stalled.frames.clear();
+stalled.media.matches=false;stalled.emit('media','change');
+assert.equal(stalled.document.documentElement.dataset.r1215Motion,'cinematic','removing reduced motion reconciles synchronously too');
+assert.equal(stalled.api.snapshot().profile,'cinematic','system preference never rewrites saved quality');
+assert.equal(stalled.frames.size,0);assert.equal(stalled.api.snapshot().runtime.reconciliations,2);
+stalled.emit('session','change');assert.equal(stalled.frames.size,1);stalled.flush();
+assert.equal(JSON.stringify(stalled.session),stalledSession,'media reconciliation does not modify count or practice');
+// A subscribed MQL getter may consume a pending browser transition. Neither
+// frequent policy snapshots nor ordinary paints may read it after startup.
+const mediaLife=lifecycleFixture(),mediaSession=JSON.stringify(mediaLife.session);
+let getterReads=0;
+Object.defineProperty(mediaLife.media,'matches',{get(){getterReads++;throw Error('subscribed MQL getter read after initialization')},configurable:true});
+for(const reduced of [true,false,true,false,true,false]){
+ // Simulate eager external inspection before native event delivery.
+ for(let i=0;i<20;i++)mediaLife.api.snapshot();
+ mediaLife.emitNativeMedia(reduced);
+ assert.equal(mediaLife.document.documentElement.dataset.r1215Motion,reduced?'saving':'cinematic','event-owned policy follows every preference transition');
+ for(let i=0;i<20;i++)assert.equal(mediaLife.api.snapshot().reduced,reduced);
+ mediaLife.emit('session','change');mediaLife.flush();
+}
+assert.equal(getterReads,0);assert.equal(mediaLife.api.snapshot().runtime.reconciliations,6);
+assert.equal(JSON.stringify(mediaLife.session),mediaSession);assert.equal(mediaLife.api.snapshot().profile,'cinematic');
+console.log('PASS: preference preservation, motion policy, native owner bridge, session invariance, identity-only transitions, mutation-free repeated paints, bounded saver observer, suspend/resume lifecycle and immediate media reconciliation after lost frame delivery.');

@@ -1,0 +1,32 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const c={window:{},document:{readyState:'loading',addEventListener(){}},Date};vm.createContext(c);vm.runInContext(fs.readFileSync('assets/runtime/current-timing-r1227.js','utf8'),c);
+const match=c.window.SukunCurrentTiming.matches;
+const data={day:{label:'Cuma',names:['Rahmân'],allNames:['Rahmân','Rahîm']},hour:{label:'Ay',names:['Rahmân','Rahîm']},vakit:{label:'Sabah',esma:'Rahîm'},period:{index:2,item:{may:[1,1,1,12]}}};
+const rows=match({activeMode:'esma',activeIndex:1},data,{t:'Rahîm'},false);assert.equal(rows.map(r=>r.key).join(','),'hour,day,vakit');assert.equal(rows[1].label,'Günün zikri');
+assert.equal(match({activeMode:'esma'},data,{t:'Melik'},false).length,0);
+assert.equal(match({activeMode:'berhet',activeIndex:2},data,{tr:'x'},true)[0].key,'period');
+assert.equal(match({activeMode:'berhet',activeIndex:2},data,{tr:'x'},false).length,0);
+assert.equal(match({activeMode:'berhet',activeIndex:1},data,{tr:'x'},true).length,0);
+assert.equal(match({activeMode:'dua'},data,{t:'Rahîm'},true).length,0);
+delete data.day.allNames;assert.equal(match({activeMode:'esma'},data,{t:'Rahmân'},false)[1].label,'Günün seçkisi');
+data.hour=null;assert.equal(match({activeMode:'esma'},data,{t:'Rahmân'},false).map(r=>r.key).join(','),'day');
+assert.equal(match(null,data,null,false).length,0);
+c.window.I18N={lang:'en'};assert.equal(match({activeMode:'esma'},data,{t:'Rahmân'},false)[0].label,'Today’s selection');
+console.log('PASS: native hour/day/vakit/period matches, full weekday and selection fallback, no invented weekly/monthly mapping, locked privacy, unsupported mode, English.');
+// Controlled DOM/clock fixture tests display lifecycle, not native browser layout.
+const nodes={},timers=[],events={};let now=100000,visible=true;
+function node(){return {dataset:{},hidden:false,children:[],attrs:{},set id(v){this._id=v;nodes[v]=this},get id(){return this._id},setAttribute(k,v){this.attrs[k]=v},append(...v){this.children.push(...v)},after(v){this.next=v},getBoundingClientRect(){return {top:visible?10:-100,bottom:visible?70:-40,width:200}},addEventListener(k,f){this[k]=f}};}
+nodes.r920NameInfo=node();
+const d={readyState:'loading',hidden:false,getElementById:id=>nodes[id],createElement:node,createElementNS:node,addEventListener(k,f){events[k]=f}};
+const life={document:d,window:{innerHeight:844,SukunSessionState:{peek:()=>({activeMode:'esma',activeIndex:0})},SukunTimingInfo:{snapshot:()=>({day:{label:'Cuma',allNames:['Rahîm']},hour:{label:'Ay',names:['Rahîm']}})}},ZIKIR:{esma:{items:[{t:'Rahîm'}]}},Date,setTimeout:(fn,ms)=>{timers.push({fn,ms});return timers.length},clearTimeout(){},requestAnimationFrame:fn=>fn()};
+vm.createContext(life);vm.runInContext(fs.readFileSync('assets/runtime/current-timing-r1227.js','utf8'),life);
+const render=life.window.SukunCurrentTiming.render;
+render(new Date(now));assert.equal(nodes.r1227CurrentTiming.dataset.reveal,'true');assert.equal(nodes.r1227TimingCaption.textContent,'Saatin zikri');assert.equal(timers.at(-1).ms,4000);
+timers.at(-1).fn();assert.equal(nodes.r1227CurrentTiming.dataset.reveal,'false');
+render(new Date(now+59000));assert.equal(nodes.r1227CurrentTiming.dataset.reveal,'false');
+render(new Date(now+60000));assert.equal(nodes.r1227TimingCaption.textContent,'Günün zikri');
+timers.at(-1).fn();d.hidden=true;render(new Date(now+120000));assert.equal(nodes.r1227CurrentTiming.dataset.reveal,'false');
+d.hidden=false;visible=false;render(new Date(now+180000));assert.equal(nodes.r1227CurrentTiming.dataset.reveal,'false');
+visible=true;render(new Date(now+240000));assert.equal(nodes.r1227CurrentTiming.dataset.reveal,'true');
+nodes.r1227TimingSeal.click();assert.equal(nodes.r1227TimingCaption.textContent,'Saatin zikri · Günün zikri');
+console.log('PASS: controlled 4-second expiry, 60-second real-match rotation, hidden/offscreen suppression, immediate manual all-match reveal.');

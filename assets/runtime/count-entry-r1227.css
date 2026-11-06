@@ -1,0 +1,26 @@
+/* Compact editor follows the existing easy-controls disclosure and themes. */
+#r920Practice #r1227CountEntry{display:flex!important;flex-wrap:wrap;justify-content:flex-end;gap:6px;min-width:0;margin:0}
+#r920Practice #r1227CountEntry[hidden],#r920Practice #r1227CountForm[hidden]{display:none!important}
+#r920Practice #r1227CountForm{width:100%;padding:10px;box-sizing:border-box;border:1px solid #b8a16b;border-radius:12px;background:rgba(12,39,33,.94);color:#fff2d6}
+html[data-r1074-theme="berhet"] #r920Practice #r1227CountForm{background:rgba(12,26,61,.94);border-color:#d3b36c}
+#r920Practice .r1227CountRow{display:grid;grid-template-columns:minmax(60px,1fr) auto auto;gap:6px;margin-top:6px}
+#r920Practice #r1227CountValue{min-width:0;width:100%;min-height:44px;box-sizing:border-box;font:inherit;font-size:18px;background:#071d22;color:#fff2d6;border:1px solid #b8a16b;border-radius:8px;padding:6px 10px}
+#r920Practice #r1227CountForm p{font:12px/1.5 system-ui,sans-serif;margin:6px 0 0}
+#r920Practice #r1227CountError{color:#ffd1cb}
+#r920Practice #r920Remaining:focus-visible,#r920Practice #r1227CountEntry :focus-visible{outline:3px solid #f8d17a!important;outline-offset:3px!important}
+@media(forced-colors:active){#r920Practice #r1227CountForm,#r920Practice #r1227CountValue{background:Canvas;color:CanvasText;border-color:CanvasText}#r920Practice #r1227CountError{color:CanvasText}}
+/* The existing first geometry layer outranks gemstone/legacy important skins. */
+@layer sukun-r986-access {
+ #r920Practice #r932WheelControls #r1227CountEntry[hidden],#r920Practice #r932WheelControls #r1227CountForm[hidden]{display:none!important}
+ #r920Practice #r932WheelControls #r1227CountForm{min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+ #r920Practice #r932WheelControls .r1227CountRow{display:grid!important;grid-template-columns:minmax(44px,1fr) minmax(44px,auto) minmax(44px,auto)!important;gap:6px!important}
+ #r920Practice #r932WheelControls .r1227CountRow>button{min-width:44px!important;min-height:44px!important;padding:7px 9px!important;box-sizing:border-box!important;white-space:normal!important}
+}
+
+@layer sukun-r986-access {
+ #r920Practice #r920Remaining[role="button"]{display:flex!important;align-items:center!important;justify-content:center!important;min-height:44px!important;min-width:44px!important;box-sizing:border-box!important;touch-action:manipulation!important}
+ #r920Practice #r920Remaining[data-editable="true"]{cursor:pointer!important}
+ #r920Practice #r920Remaining[data-editable="true"]::after{content:"✎";display:inline-block;margin-inline-start:5px;font:14px/1 system-ui,sans-serif;color:var(--sukun-surface-highlight,#d3b36c);pointer-events:none}
+ #r920Practice #r932WheelControls #r1227CountUndo[hidden]{display:none!important}
+ #r920Practice #r932WheelControls #r1227CountUndo{width:auto!important;min-width:44px!important;min-height:44px!important;padding:7px 14px!important}
+}
