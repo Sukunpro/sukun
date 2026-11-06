@@ -67,8 +67,8 @@
   for(const select of [$('r1064ReadingContent'),$('r1064ReadingSource')])if(select)for(const option of select.options)text(option,label(option.dataset.r1064Label));
   attr($('r1064ReadingSelect'),'aria-label',label('choose'));attr($('r1064ReadingContent'),'aria-label',label('content'));attr($('r1064ReadingSource'),'aria-label',label('source'));attr($('r1064YasinVerse'),'aria-label',label('verse'));
  }
- function sources(record){
-  const node=$('r1064ReadingSourceList');if(!node)return;node.replaceChildren();
+ function sources(record,node=$('r1064ReadingSourceList')){
+  if(!node)return;node.replaceChildren();
   const bundle=w.SukunBundledArabicR1065?.descriptor?.(record);const provenance=[...(record?.provenance||[]),...(bundle?[{source:copy('Gömülü kıraat: ','Bundled recitation: ')+bundle.reciter,url:bundle.sourcePage,locator:bundle.chapterVerses,license:bundle.license,licenseUrl:bundle.licenseUrl}]:[])],sourceList=Array.isArray(provenance)?provenance:Object.values(provenance).filter(source=>source&&typeof source==='object');
   for(const source of sourceList){const row=document.createElement('p');const name=(w.I18N?.lang==='en'?(source.nameEn||source.sourceEn):'')||source.source||source.name||'';if(source.url&&/^https:\/\//i.test(source.url)){const link=document.createElement('a');link.href=source.url;link.target='_blank';link.rel='noopener noreferrer';link.textContent=name||source.url;row.append(link)}else row.textContent=name;const details=[(w.I18N?.lang==='en'?source.locatorEn:'')||source.locator,(w.I18N?.lang==='en'?source.licenseEn:'')||(typeof source.license==='string'?source.license:'')].filter(Boolean).join(' · ');if(details)row.append(document.createTextNode(' · '+details));if(source.licenseUrl&&/^https:\/\//i.test(source.licenseUrl)){const link=document.createElement('a');link.href=source.licenseUrl;link.target='_blank';link.rel='noopener noreferrer';link.textContent=copy('Kullanım koşulları','Usage terms');row.append(document.createTextNode(' · '),link)}const note=w.I18N?.lang==='en'?source.noteEn:source.noteTr;if(note)row.append(document.createTextNode(' · '+note));node.append(row)}
   const note=document.createElement('p');note.className='r1064-note';note.textContent=label(record?.status==='verified'?'verified':record?.status==='partial'?'partial':'pending');node.append(note);
@@ -215,8 +215,39 @@
  function open(id){if(/^zikir:berhet:/.test(id)&&!w.SukunSecretPolicy?.unlocked?.())return false;if(!mount())return false;if(item(id)){selected=item(id).id||id;render()}if(contemplating())return modalReader();if(readerDialog?.open)closeReader();host.open=true;safe(()=>w.zMegaReveal?.(host,{reveal:false}));const summary=host.querySelector('summary');if(w.SukunNavigationR1066)w.SukunNavigationR1066.reveal(host,{reason:'reading-explorer',focus:summary,isCurrent:()=>host.open});else{summary?.focus?.({preventScroll:true});host.scrollIntoView?.({behavior:'auto',block:'start'});}return true;}
  function mountShortcuts(){
   for(const [parent,id] of [['niyetBox','reading:niyet'],['hzvBox','reading:vikaye'],['seyBox','reading:seyyid'],['dhBox','reading:salavat:0'],['dlBox','reading:delail:acilis'],['akBox','reading:ayetelkursi']]){const node=$(parent);if(!node||node.querySelector('[data-r1064-open]'))continue;const button=document.createElement('button');button.type='button';button.className='btn r1064-context-open';button.dataset.r1064Open=id;button.dataset.r1064Label='open';button.setAttribute('data-noi18n','');button.onclick=()=>open(id);node.querySelector(':scope > summary')?.after(button);}
-  const identity=$('r920Practice')?.querySelector('.r920Identity');if(identity&&!$('r1064CurrentReadingOpen')){const button=document.createElement('button');button.id='r1064CurrentReadingOpen';button.type='button';button.className='r1064-context-open';button.dataset.r1064Label='current';button.setAttribute('data-noi18n','');button.onclick=()=>{const state=w.SukunSessionState?.snapshot?.(),record=catalog()?.getCurrent?.()||catalog()?.forZikir?.(state?.activeMode,state?.activeIndex);if(record)open(record.id)};identity.append(button)}
+  // The existing accessible active-name button is the single information entry.
+  $('r1064CurrentReadingOpen')?.remove();
+  for(const id of ['r611CurrentZikirName','r920NameInfo']){const trigger=$(id);
+  attr(trigger,'aria-label',copy('Aktif zikrin metnini, anlamını ve kaynaklarını aç','Open active dhikr text, meaning and sources'));
+  attr(trigger,'title',copy('Metin, anlam ve kaynaklar','Text, meaning and sources'));
+  attr(trigger,'aria-haspopup','dialog');attr(trigger,'aria-controls','r642ZikirInfoLayer');}
  }
+ // Read-only content in the existing name dialog. Never change the reader's
+ // selected item, voice settings, counter, active name or playback ownership.
+ function renderActiveInfo(){
+  const layer=$('r642ZikirInfoLayer'),card=$('r642ZikirInfoCard');
+  if(!card||!layer||layer.hidden)return;
+  const state=safe(()=>w.currentZikirState?.snapshot?.());
+  let section=$('r1064ActiveNameText');
+  if(!state||(state.cat==='berhet'&&!w.SukunSecretPolicy?.unlocked?.())||w.SukunSecretPolicy?.secretStep?.({cat:state.cat,name:state.name})){
+   section?.remove();return;
+  }
+  // Resolve the current category, index AND recitation form through the same
+  // catalogue as the former shortcut; do not use the explorer's last selection.
+  const record=safe(()=>catalog()?.getCurrent?.());
+  if(!section){section=document.createElement('section');section.id='r1064ActiveNameText';section.setAttribute('data-noi18n','');section.setAttribute('aria-labelledby','r1064ActiveTextTitle');section.innerHTML='<h3 id="r1064ActiveTextTitle"></h3><p id="r1064ActiveMatch"></p><h4 id="r1064ActiveOriginalLabel"></h4><div id="r1064ActiveOriginal"></div><h4 id="r1064ActiveLatinLabel"></h4><div id="r1064ActiveLatin"></div><h4 id="r1064ActiveMeaningLabel"></h4><div id="r1064ActiveMeaning"></div><p id="r1064ActiveMeaningStatus"></p><details id="r1064ActiveSources"><summary id="r1064ActiveSourcesLabel"></summary><div id="r1064ActiveSourceList"></div></details>';card.querySelector('.r642InfoHead')?.after(section);}
+  text($('r1064ActiveTextTitle'),label('title'));
+  text($('r1064ActiveMatch'),label(record?.status==='verified'?'verified':record?.status==='partial'?'partial':'pending'));
+  text($('r1064ActiveOriginalLabel'),label('arabic'));
+  const original=$('r1064ActiveOriginal'),verified=canArabic(record);
+  text(original,verified?arabicOf(record):label('noArabic'));attr(original,'lang',verified?'ar':w.I18N?.lang==='en'?'en':'tr');attr(original,'dir',verified?'rtl':'ltr');original.classList.toggle('r1064-arabic',verified);
+  text($('r1064ActiveLatinLabel'),label('latin'));text($('r1064ActiveLatin'),record?.latin||label('noLatin'));
+  const meaning=meaningOf(record);text($('r1064ActiveMeaningLabel'),label('meaning'));text($('r1064ActiveMeaning'),meaning||label('noMeaning'));attr($('r1064ActiveMeaning'),'lang',meaning?'tr':w.I18N?.lang==='en'?'en':'tr');
+  text($('r1064ActiveMeaningStatus'),meaning&&!canMeaning(record)?label('meaningPending'):'');
+  text($('r1064ActiveSourcesLabel'),label('sources'));sources(record,$('r1064ActiveSourceList'));
+ }
+ w.addEventListener('sukun:nameinfochange',renderActiveInfo);
+ for(const event of ['sukun:currentzikirchange','sukun:journey-advance','sukun:currentflowchange','sukun:nowplayingchange'])w.addEventListener(event,renderActiveInfo,{passive:true});
  function legacyLabels(){
   // The old Turkish button speaks transliteration, not meaning. Keep the old
   // control and its handler; state the distinction without reclassifying a file.
@@ -226,7 +257,7 @@
   const dl=$('dlBox')?.querySelector('.dlNot');if(dl){dl.setAttribute('data-noi18n','');text(dl,copy('Paketlenmiş Türkçe Delâil metinleri ve kişisel kayıtlar korunur. Kişisel Delâil kayıtları Türkçe anlam içindir. Açılış, sekiz hizb ve kapanışın özgün Arapça karşılıkları aynı nüshayla henüz tam eşleşmedi; kaynak bekleyen bölüm, tam Arapça metin gibi sunulmaz. Metin düzenleme ve yedekleme mevcut araçlarla sürer.','The bundled Turkish Delail texts and personal recordings are preserved. Personal Delail recordings contain the Turkish meaning. The opening, eight hizbs and closing have not yet been fully matched to the same Arabic edition; a section awaiting sources is not presented as complete Arabic text. Existing text editing and backup tools remain available.'))}
  }
  function subscribe(){const current=audio();if(current&&current!==subscribed){subscribed=current;safe(()=>current.subscribe?.(()=>{notice='';renderTransport()}));}}
- function schedule(){if(readerDialog?.open&&(!contemplating()||$('tab-zkr')?.hidden||(/^zikir:berhet:/.test(selected)&&!w.SukunSecretPolicy?.unlocked?.())))closeReader();if(scheduled)return;scheduled=requestAnimationFrame(()=>{scheduled=0;mount()})}
+ function schedule(){if(readerDialog?.open&&(!contemplating()||$('tab-zkr')?.hidden||(/^zikir:berhet:/.test(selected)&&!w.SukunSecretPolicy?.unlocked?.())))closeReader();if(scheduled)return;scheduled=requestAnimationFrame(()=>{scheduled=0;mount();renderActiveInfo()})}
  for(const event of ['sukun:languagechange','sukun:voicesettingschange','sukun:tabchange','sukun:r616viewchange','sukun:secretaccesschange','sukun:readingsourceschange','sukun:readingchange','sukun:tefekkurchange','pageshow'])w.addEventListener(event,schedule,{passive:true});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',schedule,{once:true});else schedule();
  // Legacy view rebuilds can remove or reparent the reading group. Observe only

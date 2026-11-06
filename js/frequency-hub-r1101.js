@@ -45,7 +45,7 @@
    frRetune();syncFreqUI();
    document.querySelectorAll('#modeSeg [data-m]').forEach(b=>b.classList.toggle('act',b.dataset.m===FR.mode));
   });
-  mirror();persist();return true;
+  window.SukunFrequencyR1120?.sync?.();mirror();persist();return true;
  }
  function start(){
   if(held()){notify(T('Genel duraklatma açık. Önce ana kontrollerden Devam et seçin.','Global pause is active. Choose Resume in the main controls first.'));return false;}
@@ -68,7 +68,10 @@
   const a=item.apply,c=a.c??a.hz;
   if(!Number.isFinite(c)||(a.b!=null&&!Number.isFinite(a.b)))return false;
   const values={c};if(a.b!=null)values.b=a.b;
-  if(!apply(values))return false;
+  if(a.binauralProfile){
+   const result=window.SukunFrequencyR1120?.applyBinauralPreset({c,b:a.b},{play:false});
+   if(!result?.ok)return false;
+  }else if(!apply(values))return false;
   // A library activation is an explicit play request. Reuse the common
   // start guard: a playing graph is retuned, and global pause stays held.
   const playing=start(),name=safe(()=>window.I18N?.t?.(item.name),item.name)||item.name;

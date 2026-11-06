@@ -694,6 +694,7 @@
           const entry=entries[cursor++];let url;
           try {url=new URL(entry?.url,location.href);}catch(_) {result.push({path:'[invalid]',status:'INVALID_ENTRY'});continue;}
           const runtime=/\/assets\/runtime\/[A-Za-z0-9_.-]+$/.test(url.pathname);
+          const threeModule=url.pathname===new URL('./assets/vendor/three-r170/three.module.min.js',location.href).pathname;
           const navigationArt=/\/assets\/wheel-navigation-r964\/(?:gold|copper|silver|dark|crystal)\.png$/.test(url.pathname);
           const cabirArt=/\/assets\/scenes\/tekke-r1014\/berhet-billur\.webp$/.test(url.pathname);
           // The release also hashes the recovery page and these exact opening
@@ -736,13 +737,13 @@
             './css/premium-layout-r1215.css','./css/cinematic-r1215.css','./css/atlas-r1215.css','./css/atlas-r1217.css',
             './css/legacy-r1215-embFonts.css','./css/legacy-r1215-base-style.css','./css/legacy-r1215-r699-layout-authority.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
-          if (url.origin!==location.origin||!(runtime||navigationArt||cabirArt||rescuePage||introArt||currentArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
+          if (url.origin!==location.origin||!(runtime||threeModule||navigationArt||cabirArt||rescuePage||introArt||currentArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;
           }
           // The invitation is media too. Keep both aggregate budgets unchanged
           // and apply its own smaller per-file cap within the media allowance.
           const isMedia=bundledArabicAudio||portalVoice;
-          const maxFileBytes=bundledArabicAudio?25165824:portalVoice?500000:navigationArt||cabirArt||introArt||currentArt?2097152:524288;let allowance=0;
+          const maxFileBytes=bundledArabicAudio?25165824:portalVoice?500000:threeModule?716800:navigationArt||cabirArt||introArt||currentArt?2097152:524288;let allowance=0;
           try {
             allowance=await reserveBytes(maxFileBytes,isMedia);
             let data;

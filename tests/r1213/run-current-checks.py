@@ -11,6 +11,18 @@ import argparse, concurrent.futures, hashlib, json, re, subprocess, time
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
+    ('r1230-module-syntax', 'tests/r1230/release-js-syntax.cjs'),
+    ('r1230-cymatics-geometry', 'tests/cymatics3d/geometry.mjs'),
+    ('r1230-cymatics-bridge', 'tests/cymatics3d/bridge.cjs'),
+    ('r1230-cymatics-lifecycle', 'tests/cymatics3d/scene-lifecycle.cjs'),
+    ('r1230-signal-visualizer', 'tests/visualizer/contract.cjs'),
+    ('r1230-binaural-profile', 'tests/binaural-profile/contract.cjs'),
+    ('r1230-frequency-settings', 'tests/frequency-effects/settings.cjs'),
+    ('r1230-frequency-dsp', 'tests/frequency-effects/dsp-contract.cjs'),
+    ('r1230-frequency-engine', 'tests/r1121/frequency-engine-contract.cjs'),
+    ('r1230-frequency-onset', 'tests/r1122/frequency-onset-contract.cjs'),
+    ('r1230-frequency-handoff', 'tests/r1121/frequency-handoff-contract.cjs'),
+    ('r1230-frequency-handoff-historic', 'tests/r1121/frequency-handoff-regressions.cjs'),
     ('r1227-completion-haptics', 'tests/r1227/completion-haptics.cjs'),
     ('r1227-current-timing', 'tests/r1227/current-timing.cjs'),
     ('r1227-direct-count', 'tests/r1227/direct-count.cjs'),

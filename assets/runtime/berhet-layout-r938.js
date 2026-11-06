@@ -101,7 +101,7 @@ function placeExit(root,tef){
  if(row){
   const remaining=stats.querySelector('#r920Remaining')?.parentElement;
   if(!remaining)return;
-  if(exit.parentElement!==stats||exit.nextElementSibling!==remaining)stats.insertBefore(exit,remaining);
+  if(exit.parentElement!==stats||exit.previousElementSibling!==remaining)stats.append(exit);
   if(stats.dataset.r989ExitRow!=='1')stats.dataset.r989ExitRow='1';
  }else{
   if(stats.dataset.r989ExitRow!==undefined)delete stats.dataset.r989ExitRow;

@@ -1,6 +1,7 @@
 'use strict';
 const fs=require('fs'),path=require('path'),crypto=require('crypto'),vm=require('vm'),assert=require('assert/strict');
 const {validateCssResources}=require('./css-assets.cjs');
+const {checkRuntimeSyntax,checkModuleGraph}=require('./release-js-syntax.cjs');
 const root=path.resolve(process.argv[2]||path.join(__dirname,'..')),read=p=>fs.readFileSync(path.join(root,p)),json=p=>JSON.parse(read(p));
 const html=read('index.html').toString(),sw=read('sw.js').toString(),version=read('version.txt').toString().trim(),build=json('sukun-build-'+version+'.json'),site=json('sukun-site-assets-'+version+'.json'),checks=[];
 function check(name,fn){try{assert.notEqual(fn(),false);checks.push({name,passed:true});}catch(e){checks.push({name,passed:false,error:e.message});}}
@@ -26,7 +27,8 @@ check('Optional audio is separate, unique and scoped',()=>new Set(optionalAudio.
 for(const entry of optionalAudio){check('Optional audio hash and size '+local(entry.url),()=>sha(read(local(entry.url)))===entry.sha256&&read(local(entry.url)).length===entry.bytes);check('Optional audio in inventory '+local(entry.url),()=>site.files.some(f=>f.path===local(entry.url)&&f.sha256===entry.sha256&&f.bytes===entry.bytes));}
 let inline=0;for(const m of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)){const type=m[1].match(/\btype=["']([^"']+)["']/)?.[1];if(/\bsrc=/.test(m[1])||type&&!['text/javascript','application/javascript'].includes(type))continue;const id=m[1].match(/\bid=["']([^"']+)["']/)?.[1]||'inline-'+inline;check('JavaScript parse '+id,()=>new vm.Script(m[2]));inline++;}
 check('Service worker JavaScript parses',()=>new vm.Script(sw));
-let external=0;for(const p of new Set(runtime.map(x=>local(x.url)).filter(p=>p.endsWith('.js')))){check('Runtime JavaScript parses '+p,()=>new vm.Script(read(p).toString()));external++;}
+let external=0;for(const p of new Set(runtime.map(x=>local(x.url)).filter(p=>p.endsWith('.js')))){check('Runtime JavaScript parses '+p,()=>checkRuntimeSyntax(p,read(p).toString()));external++;}
+check('3D module graph is explicitly present',()=>checkModuleGraph(runtime.map(x=>local(x.url)),read('assets/runtime/cymatics-3d.js').toString()));
 let sri=0;for(const tag of html.matchAll(/<(?:script|link)\b[^>]*integrity="sha256-[^"]+"[^>]*>/g)){const p=local(tag[0].match(/(?:src|href)="([^"]+)"/)[1]);check('HTML SRI '+p,()=>tag[0].includes('integrity="sha256-'+Buffer.from(sha(read(p)),'hex').toString('base64')+'"'));sri++;}
 check('Site paths are safe and unique',()=>new Set(site.files.map(x=>x.path)).size===site.files.length&&site.files.every(x=>!x.path.startsWith('/')&&!x.path.split('/').some(x=>x==='..'||x==='.')&&!x.path.includes('\\')));
 check('Site-manifest bytes sum matches totalBytes',()=>site.files.reduce((n,x)=>n+x.bytes,0)===site.totalBytes);
