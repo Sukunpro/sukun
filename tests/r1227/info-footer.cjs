@@ -14,11 +14,12 @@ const report={build:fs.readFileSync(path.join(root,'version.txt'),'utf8').trim()
  await p.locator('#mixer .chn').filter({visible:true}).first().screenshot({path:path.join(out,`${width}-${theme}-info.png`)});report.checks.push({name:`${width}-${theme}-info`,passed:true,metrics});
  if(theme==='berhet'){
   for(const id of ['sukun-rescue-link','vaultTrigger']){
-   const control=p.locator('#'+id);const m=await control.evaluate(n=>{const s=getComputedStyle(n),r=n.getBoundingClientRect();return{width:r.width,height:r.height,border:s.borderTopWidth,radius:s.borderTopLeftRadius,star:getComputedStyle(n,'::after').content,shadow:s.boxShadow}});
-   assert(m.width>=44&&m.height>=44,'footer hit target');assert(Math.abs(m.width-m.height)<1,'footer remains circular');assert.equal(m.border,'4px');assert.equal(m.radius,'50%');assert.match(m.star,/✦/);assert.notEqual(m.shadow,'none');
+   const control=p.locator('#'+id);const m=await control.evaluate(n=>{const s=getComputedStyle(n),r=n.getBoundingClientRect();return{width:r.width,height:r.height,border:s.borderTopWidth,radius:s.borderTopLeftRadius,star:getComputedStyle(n,'::after').content,shadow:s.boxShadow,stones:getComputedStyle(n,'::before').backgroundImage}});
+   assert(m.width>=44&&m.height>=44,'footer hit target');assert(Math.abs(m.width-m.height)<1,'footer remains circular');assert.equal(m.border,'4px');assert.equal(m.radius,'50%');assert.match(m.star,/✦/);assert.notEqual(m.shadow,'none');assert.match(m.stones,/footer-jewel-bezel-r1229\.svg/,'eight separate faceted bezel stones');
    await control.focus();assert(await control.evaluate(n=>n===document.activeElement),'footer keyboard focus');
   }
  }
+ await p.evaluate(()=>document.activeElement?.blur());
  const footer=p.locator('.wrap>footer');await footer.scrollIntoViewIfNeeded();await p.evaluate(()=>window.scrollTo({top:document.documentElement.scrollHeight,behavior:'instant'}));await p.waitForTimeout(200);
  const bottom=await footer.evaluate(n=>{const r=n.getBoundingClientRect(),b=getComputedStyle(document.body),w=getComputedStyle(document.querySelector('body>.wrap'));return{rect:r.toJSON(),viewport:innerHeight,bodyPadding:b.paddingBottom,wrapPadding:w.paddingBottom,dock:document.body.classList.contains('r431-dock-visible'),scrollY,scrollHeight:document.documentElement.scrollHeight}});
  assert.equal(bottom.dock,false,'fixture unexpectedly has player');assert.equal(parseFloat(bottom.bodyPadding),0,'legacy 118px body space returned');assert.equal(parseFloat(bottom.wrapPadding),12,'extra wrap bottom reserve remains');assert(bottom.viewport-bottom.rect.bottom<=24,'footer remains too high at page bottom');assert(bottom.rect.bottom<=bottom.viewport+1,'footer below viewport');await p.screenshot({path:path.join(out,`${width}-${theme}-footer.png`)});report.checks.push({name:`${width}-${theme}-footer`,passed:true,metrics:bottom});await f.close();f=null;
