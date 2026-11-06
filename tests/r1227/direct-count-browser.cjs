@@ -4,9 +4,21 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
 const {fixture,hash}=require('../r1064/browser-fixture.cjs');
 const root=path.resolve(process.argv[2]||path.join(__dirname,'../..')),out=path.resolve(process.argv[3]||'/tmp/sukun-direct-count');fs.mkdirSync(out,{recursive:true});
 const sources=Object.fromEntries(['index.html','nero.html','assets/runtime/session-r919.js','assets/runtime/wheels-r924.js','assets/runtime/berhet-layout-r938.js','assets/runtime/tab-owner-r981.js','assets/runtime/count-entry-r1227.css'].map(file=>[file,hash(fs.readFileSync(path.join(root,file)))]));
-const report={build:fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),sources,expectedChecks:8,checks:[]};
+const report={build:fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),sources,expectedChecks:12,checks:[]};
+async function verifyStatsAlignment(p,width,mode,kind,phase){
+ const metrics=await p.locator('#r938Hero .r920Stats').evaluate(n=>{
+  const rectText=t=>{const r=document.createRange();r.selectNodeContents(t);return r.getBoundingClientRect().toJSON()};
+  return [...n.querySelectorAll(':scope>span')].map(card=>{const b=card.querySelector('b'),label=card.querySelector('#r1082TargetLabel')||[...card.childNodes].find(t=>t.nodeType===3&&t.textContent.includes('Kalan'));return{card:card.getBoundingClientRect().toJSON(),label:rectText(label),value:rectText(b.firstChild),hit:b.getBoundingClientRect().toJSON()}});
+ });
+ assert.equal(metrics.length,2);const [target,remaining]=metrics;
+ assert(Math.abs(target.label.top-remaining.label.top)<=1.5,'target/remaining label baselines '+JSON.stringify(metrics));
+ assert(Math.abs(target.value.top-remaining.value.top)<=1.5,'target/remaining numbers aligned '+JSON.stringify(metrics));
+ for(const m of metrics){assert(m.label.top-m.card.top>=10,'label clear of silver bevel');assert(m.card.bottom-m.value.bottom>=8,'number clear of lower bevel');assert(m.hit.height>=44,'44px value row');}
+ if(width===390)await p.locator('#r938Hero .r920Stats').screenshot({path:path.join(out,`${width}-${mode}-${kind}-${phase}-stats.png`)});
+ return metrics;
+}
 (async()=>{let f;const results=report.checks;try{
- for(const width of [320,1200])for(const mode of ['esma','berhet'])for(const kind of ['single',mode==='esma'?'99':'28']){
+ for(const width of [320,390,1200])for(const mode of ['esma','berhet'])for(const kind of ['single',mode==='esma'?'99':'28']){
  f=await fixture(root,{width,height:900,voices:'tr',seed:{'sukun.onboardSeen':'1','sukun.obSeenBuild':JSON.stringify(fs.readFileSync(path.join(root,'version.txt'),'utf8').trim())}});const p=f.page;
  if(await p.locator('#dailyCard').isVisible())await p.locator('#dcClose').click();
  await p.locator('.tab[data-t="zkr"]').first().click();
@@ -24,6 +36,7 @@ const report={build:fs.readFileSync(path.join(root,'version.txt'),'utf8').trim()
  await p.evaluate(()=>SukunTabOwner.retire('remaining-test-idle'));await p.waitForFunction(()=>!SukunTabOwner.snapshot().owned&&!SukunTabOwner.snapshot().releasing);
  const before=await p.evaluate(()=>SukunSessionState.snapshot());
  assert.equal(await p.locator('#r1227CountEdit').count(),0,'no separate edit icon');
+ const statsIdle=await verifyStatsAlignment(p,width,mode,kind,'idle');
  const remainingGeometry=await p.locator('#r920Remaining').evaluate(n=>({rect:n.getBoundingClientRect().toJSON(),pencil:getComputedStyle(n,'::after').content}));assert(remainingGeometry.rect.width>=44&&remainingGeometry.rect.height>=44,'remaining touch target');assert.match(remainingGeometry.pencil,/✎/,'subtle themed pencil marks existing value');const skin=await p.locator('#r920Remaining').evaluate(n=>{const s=getComputedStyle(n);return{border:s.borderImageSource,background:s.backgroundImage,shadow:s.boxShadow}});assert.equal(skin.border,'none');assert.equal(skin.background,'none');assert.equal(skin.shadow,'none');
  await p.locator('#r920Remaining').click();await p.locator('#r1227CountValue').fill('41');await p.keyboard.press('Enter');
  await p.waitForFunction(()=>SukunSessionState.snapshot().count===59&&document.getElementById('r1227CountForm').hidden);
@@ -64,12 +77,14 @@ const report={build:fs.readFileSync(path.join(root,'version.txt'),'utf8').trim()
   await p.locator('#r932EasyPlay').click();
   await p.waitForFunction(kind=>{const s=(kind==='28'?SukunBerhetiyyeSeyir:SukunEsma99Seyir).state();return s.run&&!s.paused&&!!__r1064SpeechFixture.snapshot().active},kind,{timeout:20000});
   const started=await p.evaluate(kind=>({native:(kind==='28'?SukunBerhetiyyeSeyir:SukunEsma99Seyir).state(),count:SukunSessionState.snapshot().count,speech:__r1064SpeechFixture.snapshot()}),kind);
+  const statsRunning=await verifyStatsAlignment(p,width,mode,kind,'running');
   assert.equal(started.native.i,index);assert.equal(started.native.rep,59,'Start retains entered progress before completion');assert.equal(started.count,59);assert.equal(await p.locator('#r1227CountUndo').isVisible(),false,'Start invalidates undo');
   assert.equal(await p.locator('#r920Remaining').isDisabled(),true,'active reading blocks remaining entry');
   assert(await p.evaluate(()=>__r1064SpeechFixture.finish()),'finish one native requested utterance');
   await p.waitForFunction(kind=>(kind==='28'?SukunBerhetiyyeSeyir:SukunEsma99Seyir).state().rep===60,kind,{timeout:15000});
   await p.locator('#r932EasyPlay').click();
   await p.waitForFunction(()=>SukunSessionState.snapshot().phase==='PAUSED');
+  const statsPaused=await verifyStatsAlignment(p,width,mode,kind,'paused');
   const paused=await p.evaluate(kind=>(kind==='28'?SukunBerhetiyyeSeyir:SukunEsma99Seyir).state(),kind);assert.equal(paused.rep,60);assert.equal(paused.i,index);
   await p.locator('#r932EasyPlay').click();
   await p.waitForFunction(kind=>{const s=(kind==='28'?SukunBerhetiyyeSeyir:SukunEsma99Seyir).state();return s.run&&!s.paused&&!!__r1064SpeechFixture.snapshot().active},kind,{timeout:20000});
@@ -78,9 +93,9 @@ const report={build:fs.readFileSync(path.join(root,'version.txt'),'utf8').trim()
   await p.waitForFunction(kind=>(kind==='28'?SukunBerhetiyyeSeyir:SukunEsma99Seyir).state().rep===61,kind,{timeout:15000});
   await p.locator('#r932EasyPlay').click();await p.waitForFunction(()=>SukunSessionState.snapshot().phase==='PAUSED');
   const resumed=await p.evaluate(kind=>(kind==='28'?SukunBerhetiyyeSeyir:SukunEsma99Seyir).state(),kind);assert.equal(resumed.rep,61);assert.equal(resumed.i,index);
-  continuation={started,paused,resumed,completedCounts:[60,61]};
+  continuation={started,paused,resumed,statsRunning,statsPaused,completedCounts:[60,61]};
  }
  const sriErrors=f.consoleErrors.filter(e=>/integrity|digest|\bSRI\b/i.test(String(e)));assert.deepEqual(sriErrors,[],'no integrity failure in finalized native app');
- results.push({width,mode,kind,passed:true,before:{index:before.activeIndex,target:before.target,phase:before.phase},after:{index:after.activeIndex,count:after.count,phase:after.phase},savedCount:kind==='single'?saved.z.count:saved.rep,geometry,remainingGeometry,continuation,sriErrors});await f.close();f=null;
+ results.push({width,mode,kind,passed:true,before:{index:before.activeIndex,target:before.target,phase:before.phase},after:{index:after.activeIndex,count:after.count,phase:after.phase},savedCount:kind==='single'?saved.z.count:saved.rep,geometry,remainingGeometry,statsIdle,continuation,sriErrors});await f.close();f=null;
  }
  }catch(e){console.error(e);results.push({passed:false,error:e.stack,evidence:f?.evidence?.()});process.exitCode=1}finally{if(f)await f.close();report.passed=results.filter(r=>r.passed).length;report.allPassed=report.passed===report.expectedChecks&&!results.some(r=>!r.passed);fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report));if(!report.allPassed)process.exitCode=1}})();
