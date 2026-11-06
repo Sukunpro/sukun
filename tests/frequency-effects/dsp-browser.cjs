@@ -4,7 +4,7 @@ const {chromium}=require('playwright');
 (async()=>{
  const root=path.resolve(__dirname,'../..'),html=fs.readFileSync(path.join(root,'index.html'),'utf8');
  const core=html.slice(html.indexOf('const FR={playing:false'),html.indexOf('const FREQ_PRESETS=['));
- const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
+ const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
  try {
  const page=await browser.newPage();
  const result=await page.evaluate(async(core)=>{
