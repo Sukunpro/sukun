@@ -15,8 +15,9 @@
  html body #r920Practice[data-r938-layout="1"] #r938Hero .r920Stats>span {
   height:auto!important;min-height:92px!important;
  }
- html body #r920Practice #r920Target {
-  display:flex!important;align-items:center!important;justify-content:center!important;
+ html body #r920Practice :is(#r920Target,#r920Remaining) {
+  display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
+  align-items:center!important;justify-content:center!important;align-content:center!important;
   min-height:44px!important;box-sizing:border-box!important;
  }
  /* Leave the original statistic frame and editable value/pencil intact. */
