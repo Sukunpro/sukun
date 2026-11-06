@@ -24,7 +24,7 @@ const report={build:fs.readFileSync(path.join(root,'version.txt'),'utf8').trim()
  await p.evaluate(()=>SukunTabOwner.retire('remaining-test-idle'));await p.waitForFunction(()=>!SukunTabOwner.snapshot().owned&&!SukunTabOwner.snapshot().releasing);
  const before=await p.evaluate(()=>SukunSessionState.snapshot());
  assert.equal(await p.locator('#r1227CountEdit').count(),0,'no separate edit icon');
- const remainingGeometry=await p.locator('#r920Remaining').evaluate(n=>({rect:n.getBoundingClientRect().toJSON(),pencil:getComputedStyle(n,'::after').content}));assert(remainingGeometry.rect.width>=44&&remainingGeometry.rect.height>=44,'remaining touch target');assert.match(remainingGeometry.pencil,/✎/,'subtle themed pencil marks existing value');
+ const remainingGeometry=await p.locator('#r920Remaining').evaluate(n=>({rect:n.getBoundingClientRect().toJSON(),pencil:getComputedStyle(n,'::after').content}));assert(remainingGeometry.rect.width>=44&&remainingGeometry.rect.height>=44,'remaining touch target');assert.match(remainingGeometry.pencil,/✎/,'subtle themed pencil marks existing value');const skin=await p.locator('#r920Remaining').evaluate(n=>{const s=getComputedStyle(n);return{border:s.borderImageSource,background:s.backgroundImage,shadow:s.boxShadow}});assert.equal(skin.border,'none');assert.equal(skin.background,'none');assert.equal(skin.shadow,'none');
  await p.locator('#r920Remaining').click();await p.locator('#r1227CountValue').fill('41');await p.keyboard.press('Enter');
  await p.waitForFunction(()=>SukunSessionState.snapshot().count===59&&document.getElementById('r1227CountForm').hidden);
  assert.equal(await p.locator('#r920Remaining').evaluate(n=>n===document.activeElement),true);
