@@ -12,7 +12,16 @@ let f,p;
 function save(){report.total=report.checks.length;report.passed=report.checks.filter(x=>x.passed).length;report.allPassed=report.total===report.expectedChecks&&report.passed===report.total&&!report.fatal;fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n');}
 async function snapshot(){return p.evaluate(()=>({lock:SukunLockAudio.snapshot(),owner:SukunBackgroundAudioOwner.snapshot(),arbiter:SukunForegroundArbiter.snapshot(),aggregate:SukunAudioSessionRegistry.aggregateSnapshot(),life:AudioLife.snapshot(),transport:SukunR698Transport.snapshot(),session:SukunSessionState.snapshot(),counter:{auto:Z.auto,cat:Z.cat,index:Z.idx,count:Z.count,total:Z.total},frequency:FR.playing,contextState:ctx?.state,mixPaused:MINI.paused,ambience:Object.keys(AMB),speech:window.__r1064SpeechFixture?.log?.length||0,actions:window.__r1124Media?.log?.slice(-15),media:[...document.querySelectorAll('audio')].filter(a=>a.dataset.sukLockKey).map(a=>({native:a instanceof HTMLAudioElement,key:a.dataset.sukLockKey,paused:a.paused,ended:a.ended,time:a.currentTime,ready:a.readyState,source:a.currentSrc===a.src}))}));}
 async function idle(){await p.waitForFunction(()=>!window.SukunInteractionGateR732?.active?.());}
-async function tap(s){await idle();assert(await p.locator(s).isVisible(),'Visible supported control: '+s);await p.locator(s).scrollIntoViewIfNeeded();await p.locator(s).click({timeout:15000});await p.waitForTimeout(80);}
+async function tap(s){
+ await idle();const control=p.locator(s);assert(await control.isVisible(),'Visible supported control: '+s);
+ if(s==='#r920Play'){
+  // The wheel intentionally keeps rotating under pointer focus. Its real
+  // keyboard path holds motion on keydown and activates the same button;
+  // waiting for pointer geometry to become stable would never complete.
+  await control.focus();await control.press('Space');
+ }else{await control.scrollIntoViewIfNeeded();await control.click({timeout:15000});}
+ await p.waitForTimeout(80);
+}
 async function media(action){await p.evaluate(action=>{const fn=window.__r1124Media.handlers[action];if(typeof fn!=='function')throw Error('Missing MediaSession '+action);window.__r1124Media.log.push({action,at:performance.now()});fn({action});},action);}
 async function reset(){await p.evaluate(async()=>{SukunR698Transport.stop('r1124-reset');await SukunR698Transport.whenStopped();await SukunAudioSessionRegistry.stopAll();SukunForegroundArbiter.clearQueue('r1124-reset');SukunRecordingFailure.clearForRetry();});await p.waitForFunction(()=>!SukunR698Transport.snapshot().pendingStop&&!SukunTabOwner.snapshot().releasing&&!SukunTabOwner.snapshot().pending);await p.waitForTimeout(300);}
 async function select(cat){const r=await p.evaluate(async cat=>{const r=await SukunSessionState.command('select',{mode:cat,journeyKind:'single',index:0});Z.tick=Z.vib=false;Z.adv=false;return r;},cat);assert.equal(r.accepted,true,JSON.stringify(r));await idle();}
