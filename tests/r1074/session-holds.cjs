@@ -45,7 +45,7 @@ function cueFixture(entry){
 }
 
 function sessionFixture({kind='28',registry=false,life=false,pending=true}={}){
- const calls={primeGesture:0,markUserPlay:0,whenStopped:0,play:0,resume:0,intent:0};
+ const calls={primeGesture:0,markUserPlay:0,whenStopped:0,play:0,resume:0,intent:0,releaseGlobal:0};
  const gate={registry,life};
  const native={pendingStop:pending,intentEpoch:7};
  const current={cat:kind==='28'?'berhet':'esma',idx:0,count:13,total:145,target:100,auto:false};
@@ -70,6 +70,7 @@ function sessionFixture({kind='28',registry=false,life=false,pending=true}={}){
   SukunJourneyAudioMachine:{intent(){calls.intent++;}},
   SukunDirectZikirTransportR698:{primeGesture(){calls.primeGesture++;return true;}},
   SukunR698Transport:{snapshot:()=>({...native,direct:{auto:false,paused:false,starting:false}}),presentation:()=>({}),
+   resumeGlobalPause(){calls.releaseGlobal++;gate.registry=false;gate.life=false;return{accepted:true,resumedDhikr:false};},
    whenStopped(){calls.whenStopped++;return stopPromise;}},
   AudioLife:{get userPaused(){return gate.life;},_terminalIntent:false,snapshot:()=>({state:gate.life?'paused':'idle'}),
    markUserPlay(){calls.markUserPlay++;gate.life=false;return true;}},
@@ -104,18 +105,28 @@ function sessionFixture({kind='28',registry=false,life=false,pending=true}={}){
  }
  for(const kind of ['28','99']){
   for(const [name,registry,life]of [['registry hold',true,false],['lifecycle hold',false,true],['both global holds',true,true]]){
-   await test(kind+': pending-Stop Start is rejected before gesture priming under '+name,async()=>{
+   await test(kind+': explicit pending-Stop Start releases '+name+' and waits for cleanup',async()=>{
     const h=sessionFixture({kind,registry,life}),before={...h.current};
     const command=h.c.SukunSessionState.command('start');
-    assert.equal(h.calls.primeGesture,0,'a rejected local Start must not unlock the shared graph');
-    assert.equal(h.calls.markUserPlay,0,'a rejected local Start cannot clear lifecycle pause');
+    assert.equal(h.calls.releaseGlobal,1,'explicit continuation releases the previous pause in the user gesture');
+    assert.equal(h.calls.primeGesture,1);assert.equal(h.calls.markUserPlay,1);
+    assert.equal(h.calls.whenStopped,1);assert.equal(h.calls.play,0,'cleanup still owns the stop barrier');
+    assert.equal(h.gate.registry,false);assert.equal(h.gate.life,false);
     h.releaseStop();const result=await command;await flush();
-    assert.equal(result.accepted,false);assert.equal(h.diagnostic().reason,'global-pause');
-    assert.equal(h.calls.play,0);assert.equal(h.calls.resume,0);assert.equal(h.calls.intent,0);
-    assert.equal(h.gate.registry,registry);assert.equal(h.gate.life,life);
-    assert.deepEqual(h.current,before);assert.equal(h.journey.run,false);
+    assert.equal(result.accepted,true);assert.equal(h.calls.play,1);assert.equal(h.calls.resume,0);
+    assert.equal(h.calls.releaseGlobal,1);assert.equal(h.calls.primeGesture,1);assert.equal(h.calls.markUserPlay,1);
+    assert.deepEqual(h.current,before);assert.equal(h.journey.run,true);
    });
   }
+  await test(kind+': failed common resume leaves the existing global hold and audio lock intact',async()=>{
+   const h=sessionFixture({kind,registry:true,life:true}),before={...h.current};
+   h.c.SukunR698Transport.resumeGlobalPause=()=>({accepted:false,resumedDhikr:false});
+   const result=await h.c.SukunSessionState.command('start');
+   assert.equal(result.accepted,false);assert.equal(h.diagnostic().reason,'resume-unavailable');
+   assert.equal(h.calls.primeGesture,0);assert.equal(h.calls.markUserPlay,0);assert.equal(h.calls.whenStopped,0);
+   assert.equal(h.calls.play,0);assert.equal(h.calls.resume,0);assert.equal(h.gate.registry,true);assert.equal(h.gate.life,true);
+   assert.deepEqual(h.current,before);
+  });
   await test(kind+': isolated released Start primes once, waits for Stop, then starts one owner',async()=>{
    const h=sessionFixture({kind}),before={...h.current};
    const command=h.c.SukunSessionState.command('start');
@@ -130,7 +141,7 @@ function sessionFixture({kind='28',registry=false,life=false,pending=true}={}){
    const h=sessionFixture({kind}),command=h.c.SukunSessionState.command('start');
    assert.equal(h.calls.primeGesture,1);h.gate.registry=true;h.gate.life=true;
    h.releaseStop();const result=await command;await flush();
-   assert.equal(result.accepted,false);assert.equal(h.diagnostic().reason,'global-pause');
+   assert.equal(result.accepted,false);assert.equal(h.diagnostic().reason,'superseded-command');
    assert.equal(h.calls.play,0);assert.equal(h.journey.run,false);
    assert.equal(h.gate.registry,true);assert.equal(h.gate.life,true);
   });
