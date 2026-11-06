@@ -136,3 +136,33 @@ html body #kandil.r1193Info cite{display:block!important;font:400 10px/1.5 syste
   html body #kandil.r1193Info[data-saver-content] #r1213SaverContent button[aria-pressed="true"] {outline:2px solid Highlight!important}
  }
 }
+
+/* r1227: the return control belongs to the cinematic saver footer. Paint it
+   in that layout layer so older generic button resets cannot strip its rim.
+   Keep the existing target, focus behaviour and settings-button spacing. */
+@layer sukun-r1215-cinematic {
+ html body #kandil.r1193Info[data-saver-content] #kandilWake {
+  box-sizing:border-box!important;padding:11px 26px!important;
+  border:2px solid #c8a45f!important;border-image:none!important;border-radius:12px!important;
+  background:#102c30!important;box-shadow:inset 0 0 0 2px #e3ca8426!important;
+  color:#fff1d5!important;text-shadow:none!important;
+ }
+ @media(forced-colors:none) {
+  html[data-r1074-theme="berhet"] body #kandil.r1193Info[data-saver-content] #kandilWake {
+   border:1px solid transparent!important;
+   border-image:var(--sukun-gem-sapphire) 210 540 fill / 10px 24px / 0 stretch!important;
+   background:none!important;box-shadow:none!important;
+   color:#fff0ce!important;text-shadow:0 1px 2px #000!important;image-rendering:auto!important;
+  }
+ }
+ html body #kandil.r1193Info[data-saver-content] #kandilWake:focus-visible {
+  outline:2px solid #ffe6a3!important;outline-offset:3px!important;
+ }
+ @media(forced-colors:active) {
+  html body #kandil.r1193Info[data-saver-content] #kandilWake {
+   border:2px solid ButtonText!important;border-image:none!important;background:ButtonFace!important;
+   color:ButtonText!important;box-shadow:none!important;text-shadow:none!important;
+  }
+  html body #kandil.r1193Info[data-saver-content] #kandilWake:focus-visible {outline-color:Highlight!important}
+ }
+}
