@@ -39,7 +39,7 @@ function focusControls(tef=lastTef){
  // Context and safe journey actions do not disappear with duplicate transport.
  hidden(restartControls,!!$('r920JourneyRestartAll')?.hidden);
  hidden($('r1056ReadingSummary'),false);hidden($('r968ManualHint'),!visible);hidden(focusToggle,false);
- const state=visible?'shown':'hidden';if(host.dataset.r1056FocusControls!==state)host.dataset.r1056FocusControls=state;labels();
+ const state=visible?'shown':'hidden';if(host.dataset.r1056FocusControls!==state)host.dataset.r1056FocusControls=state;labels();window.SukunCountEntry?.render?.();
 }
 function setFocusControls(value){
  if(typeof value!=='boolean')return false;if(value===focusControlsVisible)return true;focusControlsVisible=value;

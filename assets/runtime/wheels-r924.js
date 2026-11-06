@@ -295,7 +295,7 @@ window.addEventListener?.('sukun:languagechange',()=>{if(host?.isConnected){buil
   attr($('r932QuickWheel'),'aria-label',window.I18N?.lang==='en'?'Change wheel. '+wheelTitle:'Çarkı değiştir. '+wheelTitle);attr($('r932QuickScene'),'aria-label','Arka planı değiştir. '+sceneLabel);
   const busy=state?.phase==='PLAYING'||state?.phase==='PREPARING',failed=state?.phase==='ERROR',playLabel=state?.globalPauseBlocked?(window.I18N?.lang==='en'?'Globally paused':'Genel duraklatıldı'):busy?'Duraklat':state?.phase==='PAUSED'?'Devam et':failed?'Yeniden dene':'Başlat';text($('r932EasyPlay'),playLabel);attr($('r932EasyPlay'),'aria-label',state?.globalPauseBlocked?(window.I18N?.lang==='en'?'Use Play on the bottom global player to resume the paused audio session.':'Devam etmek için alttaki genel oynatıcının ▶ düğmesini kullan.'):busy?'Zikri duraklat':state?.phase==='PAUSED'?'Zikre devam et':failed?'Sesi yeniden dene':'Zikri başlat');
   for(const [action,id]of Object.entries(sources)){const button=$('r932Easy'+action[0].toUpperCase()+action.slice(1)),source=$(id);const manual=action==='minus'||action==='plus';const gate=manual?window.SukunCountCorrection?.status?.(action==='minus'?-1:1):null;const disabled=manual?!gate?.allowed:!!source?.disabled;if(button.disabled!==disabled)button.disabled=disabled;if(manual)attr(button,'aria-describedby','r968ManualHint');if(manual)attr(button,'title',gate?.reason|| (action==='minus'?'Bir azalt':'Bir artır'))}
-  updateOptions();
+  updateOptions();window.SukunCountEntry?.render?.();
  }
  window.SukunWheelQuickControls=Object.freeze({version:'r932',connect,render,snapshot:()=>({connected:!!box?.isConnected,openKind,mode:lastMode})});
 })();
@@ -356,4 +356,52 @@ window.addEventListener('sukun:sessionchange',e=>update(e.detail));document.addE
 ['sukun:performancechange','sukun:performance','sukun:performance-effective'].forEach(name=>window.addEventListener(name,()=>{cancel();cancelFlow();lastBeat=0;read()}));
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',read,{once:true});else read();
 window.SukunWheelLight=Object.freeze({version:'r980',snapshot:()=>({setting,motion,saving:saving(),flowAnimations:flowAnimations.filter(a=>a.playState==='running').length,pulses,activeAnimations:animations.filter(a=>a.playState==='running').length,wheel:frame?.dataset.wheelId||null,readOnly:true})});
+})();
+/* r1227: compact silent count entry. Native correction owns every write. */
+(()=>{'use strict';
+ const $=id=>document.getElementById(id);
+ let host=null,expected=null;
+ const english=()=>window.I18N?.lang==='en';
+ const say=(tr,en)=>english()?en:tr;
+ const snapshot=()=>window.SukunSessionState?.snapshot?.();
+ function close(focus=false){if(!host)return;expected=null;$('r1227CountForm').hidden=true;$('r1227CountEdit').setAttribute('aria-expanded','false');if(focus&&!host.hidden)$('r1227CountEdit').focus({preventScroll:true})}
+ function render(){
+  const parent=$('r932WheelControls');if(!parent)return;
+  if(!host?.isConnected){
+   host=document.createElement('div');host.id='r1227CountEntry';
+   host.innerHTML='<button id="r1227CountEdit" type="button" aria-controls="r1227CountForm" aria-expanded="false"><span aria-hidden="true">✎</span></button><form id="r1227CountForm" hidden novalidate><label id="r1227CountLabel" for="r1227CountValue"></label><div class="r1227CountRow"><input id="r1227CountValue" type="text" inputmode="numeric" autocomplete="off" pattern="[0-9]*" aria-describedby="r1227CountHelp r1227CountError"><button id="r1227CountSave" type="submit"></button><button id="r1227CountCancel" type="button"></button></div><p id="r1227CountHelp"></p><p id="r1227CountError" role="alert"></p></form>';
+   parent.insertBefore(host,$('r1056FocusControlsToggle'));
+   $('r1227CountEdit').onclick=()=>{
+    if(expected){close(true);return}
+    const gate=window.SukunCountCorrection?.statusSet?.();if(!gate?.allowed)return;
+    expected=snapshot();$('r1227CountValue').value=String(expected.count);
+    $('r1227CountValue').removeAttribute('aria-invalid');$('r1227CountError').textContent='';
+    $('r1227CountHelp').textContent=say('0–'+gate.max+' · Sessiz düzeltme; son tekrar okumayla tamamlanır.','0–'+gate.max+' · Silent correction; finish the last repetition by reading.');
+    $('r1227CountForm').hidden=false;$('r1227CountEdit').setAttribute('aria-expanded','true');$('r1227CountValue').focus({preventScroll:true});$('r1227CountValue').select();
+   };
+   $('r1227CountCancel').onclick=()=>close(true);
+   host.addEventListener('keydown',e=>{if(e.key==='Escape'&&expected){e.preventDefault();e.stopPropagation();close(true)}});
+   $('r1227CountForm').onsubmit=async e=>{
+    e.preventDefault();if(!expected)return;
+    const value=$('r1227CountValue').value,gate=window.SukunCountCorrection.statusSet(value);
+    if(!gate.allowed){$('r1227CountValue').setAttribute('aria-invalid','true');$('r1227CountError').textContent=english()?'Enter a whole number within the shown range. Pause reading before editing.':gate.reason;return}
+    const result=await window.SukunSessionState.command('set-count',{value,expected,epoch:expected.epoch});
+    if(result.accepted){close(true);window.SukunPracticeUI?.refresh?.()}
+    else{$('r1227CountError').textContent=say('Sayaç veya okuma değişti. Kapatıp yeniden dene.','The count or reading changed. Close and try again.')}
+   };
+  }
+  const controls=window.SukunBerhetLayout?.snapshot?.(),gate=window.SukunCountCorrection?.statusSet?.();
+  const hidden=controls?.focusControlsVisible===false;
+  if(hidden&&host.contains(document.activeElement))$('r1056FocusControlsToggle')?.focus({preventScroll:true});
+  host.hidden=hidden;
+  if(expected){const s=snapshot();if(hidden||!gate?.allowed||!s||['activeMode','activeIndex','journeyKind','target','phase'].some(k=>s[k]!==expected[k])){const focused=host.contains(document.activeElement);close();if(focused)(gate?.allowed?$('r1227CountEdit'):$('r932EasyPlay'))?.focus({preventScroll:true})}}
+  $('r1227CountEdit').disabled=!gate?.allowed;
+  $('r1227CountEdit').setAttribute('aria-label',say('Sayıyı düzenle','Edit count'));
+  $('r1227CountEdit').title=gate?.allowed?say('Sayıyı sessizce düzenle','Silently edit count'):english()?'Pause reading before editing the count.':gate?.reason||'';
+  $('r1227CountLabel').textContent=say('Kaldığın sayı','Current count');
+  $('r1227CountSave').textContent=say('Kaydet','Save');$('r1227CountCancel').textContent=say('Vazgeç','Cancel');
+ }
+ window.SukunCountEntry=Object.freeze({render,close});
+ window.addEventListener('sukun:sessionchange',render);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)close()});
 })();

@@ -7,19 +7,49 @@ const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
 const output=path.resolve(process.argv[3]||'/tmp/sukun-r1227-saver');
 fs.mkdirSync(output,{recursive:true});
 const build=fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),results=[];
-async function check(name,fn){try{const evidence=await fn();results.push({name,passed:true,evidence});console.log('PASS '+name)}catch(e){results.push({name,passed:false,error:e.stack});console.error('FAIL '+name+': '+e.message)}}
+async function check(name,fn){try{const evidence=await fn();results.push({name,passed:true,evidence});console.log('PASS '+name)}catch(e){results.push({name,passed:false,error:e.stack,diagnostics:e.diagnostics,cleanup:e.cleanup});console.error('FAIL '+name+': '+e.message)}}
 async function open(p){await p.waitForFunction(()=>!window.SukunInteractionGateR732?.active?.());await p.waitForFunction(()=>window.SukunKandil.snapshot().on||window.SukunKandil.show());await p.waitForTimeout(150)}
 // emulateMedia resolves when the browser accepts emulation, not when the app's
 // matchMedia change listener has run its queued requestAnimationFrame(sync).
 // Wait for the native policy's DOM output, never mutate it or suppress motion.
 async function media(p,options){
+ await p.evaluate(()=>{
+  if(window.__r1227MediaEvidence)return;
+  const log=window.__r1227MediaEvidence={events:[],queries:[]};
+  const add=value=>{log.events.push({at:performance.now(),...value});if(log.events.length>24)log.events.shift()};
+  for(const query of ['(prefers-reduced-motion: reduce)','(forced-colors: active)']){
+   const mq=matchMedia(query);log.queries.push(mq);mq.addEventListener('change',event=>add({event:'media',query,matches:event.matches}));
+  }
+  log.observer=new MutationObserver(()=>add({event:'motion',motion:document.documentElement.dataset.r1215Motion}));
+  log.observer.observe(document.documentElement,{attributes:true,attributeFilter:['data-r1215-motion']});
+ });
  await p.emulateMedia(options);
- await p.waitForFunction(options=>{
+ try {await p.waitForFunction(options=>{
   if(options.reducedMotion&&matchMedia('(prefers-reduced-motion: reduce)').matches!==(options.reducedMotion==='reduce'))return false;
   if(options.forcedColors&&matchMedia('(forced-colors: active)').matches!==(options.forcedColors==='active'))return false;
   const policy=SukunCinematic.snapshot();
   return document.documentElement.dataset.r1215Motion===(policy.hidden?'hidden':policy.effective)&&policy.reduced===matchMedia('(prefers-reduced-motion: reduce)').matches;
- },options);
+ },options,{polling:100});
+ } catch(error) {
+  error.diagnostics=await p.evaluate(options=>({
+   requested:options,policy:SukunCinematic.snapshot(),renderedMotion:document.documentElement.dataset.r1215Motion,
+   renderedQuality:document.documentElement.dataset.r1215Quality,power:document.getElementById('kandil').dataset.power,
+   reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,forced:matchMedia('(forced-colors: active)').matches,
+   cachedQueries:window.__r1227MediaEvidence.queries.map(q=>({query:q.media,matches:q.matches})),
+   events:window.__r1227MediaEvidence.events,visibility:document.visibilityState,
+   flame:getComputedStyle(document.querySelector('#kandil .kFlame')).animationName,
+   performanceMode:window.SukunPerformance?.mode,performanceBody:document.body.dataset.perf,
+   raf:Function.prototype.toString.call(requestAnimationFrame).slice(0,200)
+  }),options);
+  console.error('MEDIA DIAGNOSTICS '+JSON.stringify(error.diagnostics));throw error;
+ }
+}
+// Do not let a cleanup timeout replace the assertion / first wait that failed.
+async function visualScenario(p,fn){
+ let failure;
+ try {await resetVisuals(p);return await fn()}
+ catch(error){failure=error;throw error}
+ finally {try{await resetVisuals(p)}catch(cleanup){if(failure)failure.cleanup={error:cleanup.stack,diagnostics:cleanup.diagnostics};else throw cleanup}}
 }
 async function quality(p,value){
  assert(await p.evaluate(value=>SukunCinematic.setQuality(value),value),'native quality change accepted');
@@ -58,26 +88,21 @@ function layout(m,width,height){const b=m.button.rect;assert(b.width>=44&&b.heig
     assert.notEqual(m.button.outline,'none','keyboard focus visible');
     await p.locator('#kandil').screenshot({path:path.join(output,`${width}-${theme}-${content}.png`)});return m;
    });
-   await check(`${width} ${theme} reduced motion and saving`,async()=>{
-    try {
-     await resetVisuals(p);
+   await check(`${width} ${theme} reduced motion and saving`,()=>visualScenario(p,async()=>{
      await media(p,{reducedMotion:'reduce'});
      const reduced=await geometry(p);assert.equal(reduced.flameAnimation,'none');assert.equal(reduced.frame.animation,'none');
      // Test the saving owner independently of the reduced-motion preference.
      await media(p,{reducedMotion:'no-preference'});await quality(p,'saving');
      const saving=await geometry(p);assert.equal(saving.frame.shadow,'none');assert.equal(saving.frame.background,'none');assert.equal(saving.flameAnimation,'none');layout(saving,width,height);
      return {reduced,saving};
-    } finally {await resetVisuals(p)}
-   });
-   await check(`${width} ${theme} forced colors`,async()=>{
-    try {
+   }));
+   await check(`${width} ${theme} forced colors`,()=>visualScenario(p,async()=>{
      // Own this prerequisite even if an earlier assertion failed.
-     await resetVisuals(p);await quality(p,'saving');await media(p,{forcedColors:'active'});
+     await quality(p,'saving');await media(p,{forcedColors:'active'});
      assert.equal(await p.locator('#kandil').getAttribute('data-power'),'saving','exercise combined forced-colors and saving');
      const m=await geometry(p);const canvasText=await p.evaluate(()=>{const probe=document.createElement('span');probe.style.color='CanvasText';document.body.append(probe);const color=getComputedStyle(probe).color;probe.remove();return color});
      assert.equal(m.frame.color,canvasText,'saving frame uses opaque system CanvasText in forced colors');assert.equal(m.button.source,'none');assert.equal(m.frame.shadow,'none');assert.equal(m.frame.background,'none');assert.equal(m.button.border,'2px');return m;
-    } finally {await resetVisuals(p)}
-   });
+   }));
    for(const action of ['click','Enter','Space'])await check(`${width} ${theme} return ${action}`,async()=>{
     await open(p);const before=await p.evaluate(()=>{const s=SukunSessionState.snapshot();return {mode:s.activeMode,index:s.activeIndex,count:s.count}});
     if(action==='click')await p.locator('#kandilWake').click();else{await p.locator('#kandilWake').focus();await p.keyboard.press(action)}

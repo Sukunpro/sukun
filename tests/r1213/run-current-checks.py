@@ -11,6 +11,7 @@ import argparse, concurrent.futures, hashlib, json, re, subprocess, time
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
+    ('r1227-direct-count', 'tests/r1227/direct-count.cjs'),
     ('r1225-repetition-upgrade', 'tests/r1225/repetition-upgrade.cjs'),
     ('r1225-recording-races', 'tests/r1225/recording-races.cjs'),
     ('r1225-repetition-validation', 'tests/r1225/repetition-validation.cjs'),

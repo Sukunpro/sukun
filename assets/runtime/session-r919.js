@@ -471,19 +471,30 @@
 
   function command(action, options = {}) {
     action = clean(action).toLowerCase();
-    if (!['start', 'play', 'pause', 'resume', 'stop', 'next', 'previous', 'restart', 'restart-journey', 'retry', 'select', 'adjust'].includes(action))
+    if (!['start', 'play', 'pause', 'resume', 'stop', 'next', 'previous', 'restart', 'restart-journey', 'retry', 'select', 'adjust', 'set-count'].includes(action))
       return Promise.resolve({ accepted: false, reason: 'unsupported-action', snapshot: snapshot() });
     const before = snapshot();
     if (options.epoch != null && Number(options.epoch) !== epoch) {
       settleCommandDiagnostic(beginCommandDiagnostic(action,requestId,epoch),false,true,'stale-session');
       return Promise.resolve({ accepted: false, stale: true, reason: 'stale-session', epoch, requestId, snapshot: before });
     }
-    if(action==='adjust'){
+    if(action==='adjust'||action==='set-count'){
       // A correction cannot supersede a queued Start or manufacture a new audio epoch.
       const diagnostic = beginCommandDiagnostic(action,requestId,epoch);
       let value;
-      try { value=window.SukunCountCorrection?.adjust?.(options.delta); }
+      try {
+        const current=snapshot();
+        const expected=options.expected;
+        const same=!expected||['activeMode','activeIndex','journeyKind','count','target','phase'].every(key=>expected[key]===current[key]);
+        value=same&&(action==='set-count'?window.SukunCountCorrection?.set?.(options.value):window.SukunCountCorrection?.adjust?.(options.delta));
+      }
       catch (error) { settleCommandDiagnostic(diagnostic,false,false,'command-error'); throw error; }
+      if(action==='set-count'&&value===true){
+        // Cancel a pending boot restore, then persist through the native memory owner.
+        window.dispatchEvent(new CustomEvent('sukun:sessioncommand',{detail:freeze({action,requestId,epoch})}));
+        read(()=>window.SukunSessionMemory?.save?.());
+        read(()=>window.SukunProgressJournal?.commit?.('manual-correction'));
+      }
       settleCommandDiagnostic(diagnostic,value===true,false);
       return Promise.resolve(freeze({accepted:value===true,epoch,requestId,snapshot:refresh('manual-correction')}));
     }
