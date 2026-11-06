@@ -6,7 +6,7 @@ const {fixture,hash}=require('../r1064/browser-fixture.cjs');
 const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
 const output=path.resolve(process.argv[3]||'/tmp/sukun-r1227-saver');
 fs.mkdirSync(output,{recursive:true});
-const build=fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),results=[];
+const build=fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),results=[],browserEvidence=[];
 async function check(name,fn){try{const evidence=await fn();results.push({name,passed:true,evidence});console.log('PASS '+name)}catch(e){results.push({name,passed:false,error:e.stack,diagnostics:e.diagnostics,cleanup:e.cleanup});console.error('FAIL '+name+': '+e.message)}}
 async function open(p){await p.waitForFunction(()=>!window.SukunInteractionGateR732?.active?.());await p.waitForFunction(()=>window.SukunKandil.snapshot().on||window.SukunKandil.show());await p.waitForTimeout(150)}
 // emulateMedia resolves when the browser accepts emulation, not when the app's
@@ -32,7 +32,7 @@ async function media(p,options){
  },options,{polling:100});
  } catch(error) {
   error.diagnostics=await p.evaluate(options=>({
-   requested:options,policy:SukunCinematic.snapshot(),renderedMotion:document.documentElement.dataset.r1215Motion,
+   requested:options,atmosphere:!!document.getElementById('r1215Atmosphere'),policy:SukunCinematic.snapshot(),renderedMotion:document.documentElement.dataset.r1215Motion,
    renderedQuality:document.documentElement.dataset.r1215Quality,power:document.getElementById('kandil').dataset.power,
    reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,forced:matchMedia('(forced-colors: active)').matches,
    cachedQueries:window.__r1227MediaEvidence.queries.map(q=>({query:q.media,matches:q.matches})),
@@ -69,6 +69,10 @@ function layout(m,width,height){const b=m.button.rect;assert(b.width>=44&&b.heig
  for(const [width,height] of [[320,740],[393,852],[1280,800]]){
   f=await fixture(root,{width,height,voices:'tr',seed:{'sukun.theme':'"feyz"','sukun.obDone':'1','sukun.onboardSeen':'1','sukun.r920.focus':'0','sukun.obSeenBuild':JSON.stringify(build)}});const p=f.page;
   await p.waitForFunction(()=>window.SukunCinematic&&window.SukunSaverInfo&&window.SukunKandil);
+  const boot=await p.evaluate(()=>({policy:SukunCinematic.snapshot(),atmosphere:!!document.getElementById('r1215Atmosphere'),readyState:document.readyState}));
+  console.log('CINEMATIC BOOT '+JSON.stringify(boot));
+  assert.equal(boot.policy.runtime?.started,true,'cinematic native startup must finish before manual quality changes: '+JSON.stringify(boot));
+  assert.equal(boot.policy.runtime?.mediaListener,true,'native media listener registered');assert.equal(boot.atmosphere,true,'native atmosphere mounted');
   if(await p.locator('#dailyCard').isVisible())await p.locator('#dcClose').click();
   await p.waitForFunction(()=>!window.SukunInteractionGateR732?.active?.());
   await p.locator('.tab[data-t="zkr"]').first().click();
@@ -111,6 +115,6 @@ function layout(m,width,height){const b=m.button.rect;assert(b.width>=44&&b.heig
    });
   }
   assert(!f.consoleErrors.some(x=>/integrity|digest/i.test(x)),'SRI prevents stylesheet load');
-  await f.close();f=null;
+  browserEvidence.push({width,...f.evidence()});await f.close();f=null;
  }
- }catch(e){results.push({name:'fixture',passed:false,error:e.stack})}finally{if(f)await f.close().catch(()=>{});const report={build,sourceSha256:hash(fs.readFileSync(path.join(root,'nero.html'))),passed:results.filter(r=>r.passed).length,total:results.length,results,limitations:['Headless Chromium; physical device and OS font scaling are not covered.']};fs.writeFileSync(path.join(output,'report.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({passed:report.passed,total:report.total,output}));if(report.total!==42||report.passed!==report.total)process.exitCode=1}})();
+ }catch(e){results.push({name:'fixture',passed:false,error:e.stack})}finally{if(f){browserEvidence.push(f.evidence());await f.close().catch(()=>{})}const report={build,browserEvidence,sourceSha256:hash(fs.readFileSync(path.join(root,'nero.html'))),passed:results.filter(r=>r.passed).length,total:results.length,results,limitations:['Headless Chromium; physical device and OS font scaling are not covered.']};fs.writeFileSync(path.join(output,'report.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({passed:report.passed,total:report.total,output}));if(report.total!==42||report.passed!==report.total)process.exitCode=1}})();

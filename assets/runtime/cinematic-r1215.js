@@ -4,6 +4,7 @@
  const w=window,d=document,R=d.documentElement,$=id=>d.getElementById(id);
  const modes=['cinematic','balanced','saving'],globalMode={cinematic:'tam',balanced:'dengeli',saving:'pil'};
  const reduced=w.matchMedia('(prefers-reduced-motion: reduce)');
+ const runtime={readyAtLoad:d.readyState,startAttempts:0,started:false,mediaListener:false,reconciliations:0,startupError:null};
  const tr=(a,b)=>w.I18N?.lang==='en'?b:a;
  let frame=0,lastIdentity=null,lastScene=null,lastView=null,lastQualityPaint='',entryAnimation=null,nameAnimations=[],saverObserver=null,observedSaver=null,saverWasOn=false,applying=false,pageSuspended=false;
  const safe=(fn,fallback=null)=>{try{return fn()}catch(_){return fallback}};
@@ -125,13 +126,15 @@
  // queued callback may have been cancelled by another legacy owner while
  // our frame token is still nonzero. Reconcile the native media event now,
  // cancelling our pending work so neither direction can leave stale motion.
- function reconcileMotion(){if(frame)cancelAnimationFrame(frame);frame=0;sync()}
+ function reconcileMotion(){runtime.reconciliations++;if(frame)cancelAnimationFrame(frame);frame=0;sync()}
 
  // A cached or frozen page can receive pagehide before visibility changes.
  // Suspend our own queued work and effects without changing saved quality.
  function suspend(){pageSuspended=true;queue()}
  function resume(){pageSuspended=false;queue()}
  function start(){
+  runtime.startAttempts++;
+  try {
   if(!$('r1215Atmosphere')){const layer=d.createElement('div');layer.id='r1215Atmosphere';layer.setAttribute('aria-hidden','true');layer.innerHTML='<i class="r1215LanternLight"></i><i class="r1215WaterLight"></i>';d.body.prepend(layer)}
   d.addEventListener('change',event=>{if(['r920Performance','r1215SaverQuality','r1215SettingsQuality'].includes(event.target.id))setQuality(event.target.value)});
   for(const event of ['sukun:performancechange','sukun:performance','sukun:performance-effective','sukun:selectionthemechange','sukun:secretaccesschange','sukun:languagechange','sukun:domhydrate'])w.addEventListener(event,queue,{passive:true});
@@ -139,9 +142,10 @@
   w.addEventListener('sukun:r616viewchange',event=>{const key=event.detail?.view;if(key!==lastView){lastView=key;enter()}queue()},{passive:true});
   w.SukunSessionState?.subscribe?.(queue);
   d.addEventListener('visibilitychange',queue,{passive:true});w.addEventListener('pagehide',suspend,{passive:true});w.addEventListener('pageshow',resume,{passive:true});
-  d.addEventListener('freeze',suspend,{passive:true});d.addEventListener('resume',resume,{passive:true});reduced.addEventListener?.('change',reconcileMotion);
-  sync();
+  d.addEventListener('freeze',suspend,{passive:true});d.addEventListener('resume',resume,{passive:true});reduced.addEventListener?.('change',reconcileMotion);runtime.mediaListener=typeof reduced.addEventListener==='function';
+  sync();runtime.started=true;
+  } catch(error) {runtime.startupError=String(error?.stack||error);throw error}
  }
- w.SukunCinematic=Object.freeze({version:'r1215',setQuality,openLocation,snapshot:()=>({...policy(),identity:lastIdentity,transitioning:!!entryAnimation})});
+ w.SukunCinematic=Object.freeze({version:'r1215',setQuality,openLocation,snapshot:()=>({...policy(),identity:lastIdentity,transitioning:!!entryAnimation,runtime:{...runtime}})});
  if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();

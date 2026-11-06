@@ -67,6 +67,7 @@ function lifecycleFixture(){
  return {document,media,frames,animations,session,api:w.SukunCinematic,emit(target,name,detail){for(const fn of events.get(target+':'+name)||[])fn({detail})},flush(){const pending=[...frames.values()];frames.clear();for(const fn of pending)fn()}};
 }
 const life=lifecycleFixture(),savedSession=JSON.stringify(life.session);
+assert.equal(life.api.snapshot().runtime.started,true);assert.equal(life.api.snapshot().runtime.mediaListener,true);
 assert.equal(life.document.documentElement.dataset.r1215Motion,'cinematic');
 life.emit('window','sukun:r616viewchange',{view:'zikir'});
 assert.equal(life.api.snapshot().transitioning,true);assert.equal(life.frames.size,1);
@@ -104,7 +105,7 @@ stalled.frames.clear();
 stalled.media.matches=false;stalled.emit('media','change');
 assert.equal(stalled.document.documentElement.dataset.r1215Motion,'cinematic','removing reduced motion reconciles synchronously too');
 assert.equal(stalled.api.snapshot().profile,'cinematic','system preference never rewrites saved quality');
-assert.equal(stalled.frames.size,0);
+assert.equal(stalled.frames.size,0);assert.equal(stalled.api.snapshot().runtime.reconciliations,2);
 stalled.emit('session','change');assert.equal(stalled.frames.size,1);stalled.flush();
 assert.equal(JSON.stringify(stalled.session),stalledSession,'media reconciliation does not modify count or practice');
 console.log('PASS: preference preservation, motion policy, native owner bridge, session invariance, identity-only transitions, mutation-free repeated paints, bounded saver observer, suspend/resume lifecycle and immediate media reconciliation after lost frame delivery.');
