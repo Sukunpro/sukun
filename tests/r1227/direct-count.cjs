@@ -39,4 +39,30 @@ for(const block of ['owner','hidden','busy','smart','pending','transition','cano
 });
 test('target one and free-count bounds',()=>{const f=fixture();f.c.s.target=1;assert.equal(f.c.SukunCountCorrection.set(1),false);assert.equal(f.c.SukunCountCorrection.set(0),true);f.c.s.target=0;assert.equal(f.c.SukunCountCorrection.set(999999999),true);assert.equal(f.c.SukunCountCorrection.set(1000000000),false)});
 for(const kind of ['99','28'])test('reject wrong selected owner '+kind,()=>{const f=fixture(kind);f.c.s.journeyKind='single';assert.equal(f.c[kind==='28'?'SukunBerhetiyyeSeyir':'SukunEsma99Seyir'].setCount(59),false);assert.equal(f.st.rep,2)});
-console.log(JSON.stringify({passed}));
+for(const kind of ['single','99','28'])for(const phase of ['IDLE','PAUSED'])test(`remaining 41 means count59, target100 unchanged: ${kind} ${phase}`,()=>{
+ const f=fixture(kind,phase),a=f.c.SukunCountCorrection;assert.equal(a.setRemaining('41'),true);assert.equal(f.c.Z.count,59);assert.equal(f.c.Z.target,100);assert.equal(f.c.Z.total,79);
+ assert.equal(a.setRemaining(1),true);assert.equal(f.c.Z.count,99);assert.equal(a.setRemaining(0),false);assert.equal(a.setRemaining(101),false);assert.equal(a.setRemaining(100),true);assert.equal(f.c.Z.count,0);
+});
+for(const value of ['', ' ', '-1','1.5','1e2',NaN,Infinity,null,undefined,{},0,101])test('invalid remaining '+String(value),()=>{const f=fixture(),before=JSON.stringify(f.c.Z);assert.equal(f.c.SukunCountCorrection.setRemaining(value),false);assert.equal(JSON.stringify(f.c.Z),before)});
+test('free-count remaining is not editable',()=>{const f=fixture();f.c.s.target=0;assert.equal(f.c.SukunCountCorrection.statusRemaining(undefined,true).allowed,false);assert.equal(f.c.SukunCountCorrection.setRemaining(41),false)});
+test('admission does not bypass strict setter ownership',()=>{const f=fixture();f.owner(false);assert.equal(f.c.SukunCountCorrection.statusRemaining('41',true).allowed,true);assert.equal(f.c.SukunCountCorrection.setRemaining('41'),false);assert.equal(f.c.Z.count,2)});
+// Execute the shipped session edit boundary against the real native lease owner.
+process.env.SUKUN_AUDIO_SOURCE=root;
+const {origin}=require('../helpers/tab-owner-origin.cjs');
+const sessionSource=fs.readFileSync(path.join(root,'assets/runtime/session-r919.js'),'utf8');
+const commandStart=sessionSource.indexOf('  function command(action, options = {}) {');
+const commandSource=sessionSource.slice(commandStart,sessionSource.indexOf("    const isStart =",commandStart))+'\n  }';
+function commandFixture(tab){
+ const f=fixture(),c=f.c;c.SukunTabOwner=tab.owner;c.epoch=4;c.requestId=1;c.clean=x=>String(x||'');c.snapshot=()=>({...c.SukunSessionState.snapshot(),epoch:c.epoch});c.refresh=c.snapshot;c.freeze=Object.freeze;c.read=(fn,d=null)=>{try{return fn()??d}catch{return d}};
+ c.beginCommandDiagnostic=()=>({});c.settleCommandDiagnostic=()=>{};c.dispatchEvent=()=>{};c.CustomEvent=class{constructor(type,init){this.type=type;this.detail=init.detail}};
+ vm.runInContext(commandSource,c);return f;
+}
+(async()=>{
+ async function checked(name,fn){await fn();passed++;console.log('PASS '+name)}
+ await checked('unowned idle remaining Save silently acquires exclusive native lease',async()=>{const w=origin(),t=w.tab(),f=commandFixture(t);const result=f.c.command('set-remaining',{value:'41'});await w.flush();assert.equal((await result).accepted,true);assert.equal(f.c.Z.count,59);assert.equal(t.calls.prime,0);assert.equal(t.calls.rebase,1)});
+ await checked('other active tab denies remaining Save without mutation or audio prime',async()=>{const w=origin(),a=w.tab(),b=w.tab();const claim=a.owner.acquire();await w.flush();assert(await claim);a.busy=true;const f=commandFixture(b),result=f.c.command('set-remaining',{value:'41'});await w.flush();assert.equal((await result).accepted,false);assert.equal(f.c.Z.count,2);assert.equal(b.calls.prime,0);assert.equal(a.owner.owns(),true)});
+ await checked('Cancel during native lease acquisition cannot commit later',async()=>{const w=origin({allowLocks:false}),t=w.tab(),f=commandFixture(t);let live=true;const result=f.c.command('set-remaining',{value:'41',isCurrent:()=>live});await w.flush();live=false;w.unpauseLocks();await w.flush();assert.equal((await result).accepted,false);assert.equal(f.c.Z.count,2);assert.equal(t.calls.prime,0)});
+ await checked('real count progress during admission invalidates queued edit',async()=>{const w=origin({allowLocks:false}),t=w.tab(),f=commandFixture(t);const result=f.c.command('set-remaining',{value:'41',expected:f.c.snapshot()});await w.flush();f.c.Z.count=3;w.unpauseLocks();await w.flush();assert.equal((await result).accepted,false);assert.equal(f.c.Z.count,3)});
+ await checked('normal owner run still primes by default',async()=>{const w=origin(),t=w.tab(),result=t.owner.run('manual',()=>true,{releaseAfter:true});await w.flush();assert.equal(await result,true);assert.equal(t.calls.prime,1)});
+ console.log(JSON.stringify({passed}));
+})().catch(e=>{console.error(e);process.exitCode=1});

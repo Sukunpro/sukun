@@ -203,7 +203,7 @@
       const closing=closingPromise;
       if(!closing)return warn('preparing');
       releaseWaiter={};ownReleaseWaiters.add(releaseWaiter);
-      prime();primed=true;
+      if(opt.prime!==false)prime();primed=true;
       const waitingGeneration=generation,waitingSelection=key();
       warn('preparing');
       const released=await new Promise(resolve=>{
@@ -226,7 +226,7 @@
         if(held&&!maintenanceActive&&epoch===lease)retire(kind+'-settled');
       }
     }
-    if(!primed)prime();const token=generation,selected=key();
+    if(!primed&&opt.prime!==false)prime();const token=generation,selected=key();
     if(!await acquire(kind)||token!==generation||selected!==grantedBefore||key()!==grantedAfter||opt.keepSelection&&selected!==key()||typeof opt.isCurrent==='function'&&!opt.isCurrent()){
       if(held&&claimGeneration===token)retire('cancelled-acquire');return false;
     }

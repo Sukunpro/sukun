@@ -121,6 +121,12 @@
   watchSaver();if(observedSaver?.classList.contains('on'))saverFacts();nameTransition();
  }
  function queue(){if(policy().hidden){if(frame)cancelAnimationFrame(frame);frame=0;sync();return}if(!frame)frame=requestAnimationFrame(sync)}
+ // Accessibility preferences must not wait behind a decorative paint. A
+ // queued callback may have been cancelled by another legacy owner while
+ // our frame token is still nonzero. Reconcile the native media event now,
+ // cancelling our pending work so neither direction can leave stale motion.
+ function reconcileMotion(){if(frame)cancelAnimationFrame(frame);frame=0;sync()}
+
  // A cached or frozen page can receive pagehide before visibility changes.
  // Suspend our own queued work and effects without changing saved quality.
  function suspend(){pageSuspended=true;queue()}
@@ -133,7 +139,7 @@
   w.addEventListener('sukun:r616viewchange',event=>{const key=event.detail?.view;if(key!==lastView){lastView=key;enter()}queue()},{passive:true});
   w.SukunSessionState?.subscribe?.(queue);
   d.addEventListener('visibilitychange',queue,{passive:true});w.addEventListener('pagehide',suspend,{passive:true});w.addEventListener('pageshow',resume,{passive:true});
-  d.addEventListener('freeze',suspend,{passive:true});d.addEventListener('resume',resume,{passive:true});reduced.addEventListener?.('change',queue);
+  d.addEventListener('freeze',suspend,{passive:true});d.addEventListener('resume',resume,{passive:true});reduced.addEventListener?.('change',reconcileMotion);
   sync();
  }
  w.SukunCinematic=Object.freeze({version:'r1215',setQuality,openLocation,snapshot:()=>({...policy(),identity:lastIdentity,transitioning:!!entryAnimation})});

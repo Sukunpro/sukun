@@ -88,4 +88,23 @@ life.emit('window','sukun:r616viewchange',{view:'atlas'});life.media.matches=tru
 assert.equal(life.api.snapshot().effective,'saving');assert.equal(life.api.snapshot().transitioning,false);assert.equal(life.api.snapshot().profile,'cinematic');
 life.media.matches=false;life.emit('media','change');life.flush();assert.equal(life.api.snapshot().effective,'cinematic');
 assert.equal(JSON.stringify(life.session),savedSession,'lifecycle and reduced motion preserve the active practice');
-console.log('PASS: preference preservation, motion policy, native owner bridge, session invariance, identity-only transitions, mutation-free repeated paints, bounded saver observer and suspend/resume lifecycle.');
+// Regression: an unrelated owner can cancel an already queued browser frame
+// without clearing this module's token. Media reconciliation cannot depend on
+// that callback, and both preference directions must update DOM immediately.
+const stalled=lifecycleFixture(),stalledSession=JSON.stringify(stalled.session);
+stalled.emit('window','sukun:r616viewchange',{view:'zikir'});
+assert.equal(stalled.frames.size,1);assert.equal(stalled.api.snapshot().transitioning,true);
+stalled.frames.clear(); // Model lost/cancelled delivery, not a fabricated policy.
+stalled.media.matches=true;stalled.emit('media','change');
+assert.equal(stalled.document.documentElement.dataset.r1215Motion,'saving','reduced motion paints synchronously despite a stale frame token');
+assert.equal(stalled.api.snapshot().transitioning,false,'active decorative animation is cancelled immediately');
+assert(stalled.animations.every(a=>a.cancelled));assert.equal(stalled.frames.size,0);
+stalled.emit('session','change');assert.equal(stalled.frames.size,1,'subsequent ordinary events can queue again');
+stalled.frames.clear();
+stalled.media.matches=false;stalled.emit('media','change');
+assert.equal(stalled.document.documentElement.dataset.r1215Motion,'cinematic','removing reduced motion reconciles synchronously too');
+assert.equal(stalled.api.snapshot().profile,'cinematic','system preference never rewrites saved quality');
+assert.equal(stalled.frames.size,0);
+stalled.emit('session','change');assert.equal(stalled.frames.size,1);stalled.flush();
+assert.equal(JSON.stringify(stalled.session),stalledSession,'media reconciliation does not modify count or practice');
+console.log('PASS: preference preservation, motion policy, native owner bridge, session invariance, identity-only transitions, mutation-free repeated paints, bounded saver observer, suspend/resume lifecycle and immediate media reconciliation after lost frame delivery.');

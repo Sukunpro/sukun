@@ -1,7 +1,7 @@
 {
   "build": "r1227",
   "base": "r1226",
-  "feature": "balanced-controls-saver-silent-count",
+  "feature": "balanced-controls-remaining-timing",
   "sessionVersion": "r919+r949+r973+r982+r983+r984+r985+r986+r987+r988+r989+r990+r991+r992+r993+r994+r995+r996+r997+r998+r999+r1000+r1001+r1002+r1003+r1004+r1005+r1006+r1007+r1008+r1009+r1010+r1011+r1012+r1013+r1014+r1015+r1016+r1017+r1018+r1019+r1020+r1021+r1022+r1023+r1024+r1025+r1026+r1027+r1028+r1029+r1030+r1031+r1032+r1033+r1034+r1035+r1036+r1037+r1038+r1039+r1040+r1041+r1042+r1043+r1044+r1045+r1046+r1047+r1048+r1049+r1050+r1051+r1052+r1053+r1054+r1055+r1056+r1057+r1058+r1059+r1060+r1061+r1062+r1063+r1064+r1065+r1066+r1067+r1068+r1069+r1070+r1071+r1072+r1073+r1074+r1075+r1076+r1077+r1078+r1079+r1080+r1081+r1082+r1083+r1084+r1085+r1086+r1087+r1088+r1089+r1090+r1091+r1092+r1093+r1094+r1095+r1096+r1097+r1098+r1099+r1100+r1101+r1102+r1103+r1104+r1105+r1106+r1107+r1108+r1109+r1110+r1111+r1112+r1113+r1114+r1115+r1116+r1117+r1118+r1119+r1120+r1121+r1122+r1123+r1124+r1125+r1126+r1127+r1128+r1129+r1130+r1131+r1132+r1133+r1135+r1136+r1137+r1138+r1139+r1140+r1141+r1142+r1143+r1144+r1145+r1146+r1147+r1148+r1149+r1150+r1151+r1152+r1153+r1154+r1155+r1156+r1157+r1158+r1159+r1160+r1161+r1162+r1163+r1164+r1165+r1166+r1167+r1168+r1169+r1170+r1172+r1173+r1174+r1175+r1176+r1177+r1178+r1179+r1180+r1181+r1182+r1183+r1184+r1185+r1186+r1187+r1188+r1189+r1190+r1191+r1192+r1193+r1194+r1195+r1196+r1197+r1198+r1199+r1200+r1201+r1202+r1203+r1204+r1205+r1206+r1207+r1208+r1209+r1210+r1211+r1212+r1213+r1214+r1215+r1216+r1217+r1218+r1219+r1220+r1221+r1222+r1223+r1224+r1225+r1226+r1227",
   "uiVersion": "r979",
   "dockVersion": "r929",
@@ -41,7 +41,7 @@
     },
     {
       "url": "./assets/runtime/session-r919.js?v=r1227",
-      "sha256": "cf62bdf8e24d2dd1406976ae0803dd4a77c06f8338b2683f9edf011c0a4a1f16"
+      "sha256": "872d3c71a5879ebd70b6dbf645d6536fce8722daa10c20878ab72e30b39e1dbb"
     },
     {
       "url": "./assets/runtime/dock-r920.js?v=r1227",
@@ -49,7 +49,7 @@
     },
     {
       "url": "./assets/runtime/wheels-r924.js?v=r1227",
-      "sha256": "15f183bfa7a55a90e1afa3b0642793217cbee1bc0a63d8dbe098d0663d7d4dc5"
+      "sha256": "762fe513bacc60fd15983cc55bad5403211eed1517fd839f9b13272e9b11d8f4"
     },
     {
       "url": "./assets/runtime/berhet-layout-r938.js?v=r1227",
@@ -141,7 +141,7 @@
     },
     {
       "url": "./assets/runtime/tab-owner-r981.js?v=r1227",
-      "sha256": "ae4a47f834bf8e1869d35518d27b67dc4395b31227626a0318674cc1f17b2e0b"
+      "sha256": "66b2a1b98b554894665c2a6122e4aa910e0fa4c5a43270de44ab0662069252fa"
     },
     {
       "url": "./assets/runtime/cadence-r981.css?v=r1227",
@@ -729,7 +729,7 @@
     },
     {
       "url": "./assets/runtime/cinematic-r1215.js?v=r1227",
-      "sha256": "fe4ff8e0ef82352ad59cc4303ed1c0e2e0198b0ce89fddf080fce4f36b3d4f96"
+      "sha256": "f44d6f84f0ee3d312a5ef63b47deefb15bb930f9e10b07549a89d49757edc8a2"
     },
     {
       "url": "./css/atlas-r1217.css?v=r1227",
@@ -737,7 +737,15 @@
     },
     {
       "url": "./assets/runtime/count-entry-r1227.css?v=r1227",
-      "sha256": "88900f8519d47e777c5dc32561866d00518099f1f69945e3888b9976220f6bc0"
+      "sha256": "a9d58cec7f3e1fcb505e0c2fda2d83d62f2f9ae31255b8629aa4a598db48c0b1"
+    },
+    {
+      "url": "./assets/runtime/current-timing-r1227.css?v=r1227",
+      "sha256": "7921074550cf71022123250c8c3d0756660aa262b33590d9e8e4aa61a62205dd"
+    },
+    {
+      "url": "./assets/runtime/current-timing-r1227.js?v=r1227",
+      "sha256": "9abd9629acbd64a1c0da258e9b5db03dfc8440d95c3233a6f54623ab424a2a12"
     }
   ],
   "wheelAssets": [
@@ -842,7 +850,7 @@
   "maxPersonalRestorePoints": 5,
   "shell": {
     "url": "./nero.html",
-    "sha256": "cf2989e03dbfcb2cb2a4cd6a947fc0307eb0937baaa85d04cbd0e70db348a0df"
+    "sha256": "e0e8b3dd4d9d40cba59c3bb43f1a4e2c3a7fffb2fed3b09d26a13ace42d2a6dd"
   },
   "recordingSalvageRevision": "r1020",
   "blockedRollbackBuilds": [
@@ -1344,9 +1352,14 @@
   "physicalDeviceAcceptance": "not-run",
   "vikayeOriginalContent": "requires-verified-source-and-rights",
   "sourceBase": "7e1536645880f91839e6b9c0ffaa20971790c647",
-  "candidatePurpose": "balanced-controls-saver-frames-and-silent-count-entry",
+  "candidatePurpose": "balanced-controls-saver-remaining-editor-and-native-timing",
   "compactInfoRevision": "r1227",
   "footerSpacingRevision": "r1227",
   "saverFrameRevision": "r1227",
-  "silentCountEntryRevision": "r1227"
+  "silentCountEntryRevision": "r1227",
+  "silentRemainingEntryRevision": "r1227",
+  "currentTimingBadgeRevision": "r1227",
+  "completionHapticsRevision": "r1227",
+  "mediaPreferenceReconciliationRevision": "r1227",
+  "timingSourceScope": "Existing native hour/day/vakit and fixed Berhetiyye calendar ranges; no invented weekly or full-month assignment"
 }
