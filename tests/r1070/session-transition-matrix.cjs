@@ -67,23 +67,32 @@ async function main(){
   const request=await select(to);const selected=await state();assert.equal(selected.b.run,false);assert.equal(selected.e.run,false);assert.equal(selected.direct.auto,false);assert.equal(selected.terkip.active,false);assert.equal(selected.arb.queue.filter(x=>['auto-zikir','journey28','journey99'].includes(x.type)).length,0,'explicit selection cannot leave an old automatic resume queued');
   const after=await start(to);assertOne(after,to);assert.equal(after.speech.log.length,0,'personal mode must not fall back to speech');return{before:{mode:from,owner:before.arb.owner,z:before.z},selectionEpoch:request.epoch,after:{mode:to,owner:after.arb.owner,z:after.z,native:after.native}};
  });
- for(const kind of ['28','99','single','terkip'])await test(`${kind} local Pause holds owner and queued Listen; global Resume cannot release local hold`,async()=>{
+ for(const kind of ['28','99','single','terkip'])await test(`${kind} raw registry Resume preserves local owner and queued Listen until explicit continuation`,async()=>{
   await reset();await select(kind);await start(kind);
   assert.equal(await p.evaluate(()=>SukunR698Transport.pauseDhikr('matrix-local')),true);
   const before=await state();assertOne(before,kind);assert.equal(before.session.paused,true);
   const q=await p.evaluate(()=>{const ok=SukunForegroundArbiter.enqueueCaptured({cat:'esma',idx:1,item:ZIKIR.esma.items[1],kind:'single',source:'matrix-paused-owner'});return ok?SukunForegroundArbiter.snapshot().queue.find(x=>x.source==='matrix-paused-owner')?.id:null});assert(q);
   await p.evaluate(()=>SukunAudioSessionRegistry.resumeAll());await p.waitForTimeout(350);
-  const held=await state();assert.equal(held.session.paused,true,'global Resume must not release an independent local Pause');assert.equal(held.z.total,before.z.total);assert.equal(held.arb.owner.id,before.arb.owner.id);assert(held.arb.queue.some(x=>x.id===q));assert.equal(held.native.filter(x=>!x.paused&&!x.ended&&x.ready>=2).length,0);
+  const held=await state();assert.equal(held.session.paused,true,'raw registry Resume must not release an uncaptured local Pause');assert.equal(held.z.total,before.z.total);assert.equal(held.arb.owner.id,before.arb.owner.id);assert(held.arb.queue.some(x=>x.id===q));assert.equal(held.native.filter(x=>!x.paused&&!x.ended&&x.ready>=2).length,0);
   assert.equal(await p.evaluate(()=>SukunR698Transport.resumeDhikr('matrix-local')),true);await p.waitForFunction(()=>!__matrixState().session.paused&&__matrixState().native.some(x=>!x.paused&&!x.ended&&x.ready>=2),null,{timeout:15000});
   const resumed=await state();assertOne(resumed,kind);assert.equal(resumed.z.total,before.z.total,'Resume itself never credits a repetition');return{owner:before.arb.owner,queueId:q,heldTotal:held.z.total,resumedTotal:resumed.z.total};
  });
- for(const kind of ['28','99','single','terkip'])await test(`${kind} local/global Pause scopes retain only captured providers`,async()=>{
+ for(const kind of ['28','99','single','terkip'])await test(`${kind} dock and wheel resume local/global holds once while retaining the foreground owner`,async()=>{
   await reset();await select(kind);await start(kind);await p.evaluate(()=>SukunAudioSessionRegistry.play('matrix-background'));
   const playing=await state();assert.equal(playing.bg.state,'playing');
   await p.evaluate(()=>SukunR698Transport.pauseDhikr('matrix-scope'));const local=await state();assert.equal(local.bg.state,'playing');assert.equal(local.aggregate.paused,false);
+  assert.equal(await p.evaluate(()=>SukunR698Transport.playPause('dock')),true);
+  await p.waitForFunction(()=>!__matrixState().session.paused&&__matrixState().native.some(x=>!x.paused&&!x.ended&&x.ready>=2),null,{timeout:15000});
+  const dock=await state();assertOne(dock,kind);assert.equal(dock.bg.state,'playing');assert.equal(dock.bg.pauses,local.bg.pauses,'dock continuation must not pause a running background');assert.equal(dock.bg.resumes,local.bg.resumes,'dock continuation must not restart an uncaptured background');assert.equal(dock.arb.owner.id,local.arb.owner.id);assert.equal(dock.z.total,local.z.total,'dock Resume itself never credits a repetition');
+  await p.evaluate(()=>SukunR698Transport.pauseDhikr('matrix-local-before-global'));const beforeGlobal=await state();
   await p.evaluate(()=>SukunAudioSessionRegistry.pauseAll('ui:matrix-global'));const global=await state();assert.equal(global.bg.state,'paused');assert.equal(global.aggregate.paused,true);assert(global.aggregate.providerIds.includes('matrix-background'));
-  assert.equal(await p.evaluate(()=>SukunR698Transport.resumeDhikr('matrix-forbidden-local-resume')),false);assert.equal((await state()).session.paused,true);
-  await p.evaluate(()=>SukunAudioSessionRegistry.resumeAll());const restored=await state();assert.equal(restored.bg.state,'playing');assert.equal(restored.session.paused,true,'captured global Resume must leave independently locally paused dhikr held');return{playing:playing.bg,local:local.bg,global:global.bg,restored:restored.bg};
+  const request=await p.evaluate(()=>SukunSessionState.command('resume'));assert.equal(request.accepted,true,JSON.stringify(request));
+  await p.waitForFunction(()=>!__matrixState().aggregate.paused&&!__matrixState().session.paused&&__matrixState().native.some(x=>!x.paused&&!x.ended&&x.ready>=2),null,{timeout:15000});
+  const restored=await state();assertOne(restored,kind);assert.equal(restored.bg.state,'playing');assert.equal(restored.bg.resumes,global.bg.resumes+1,'captured background resumes exactly once');assert.equal(restored.arb.owner.id,beforeGlobal.arb.owner.id);assert.equal(restored.z.total,beforeGlobal.z.total,'wheel Resume itself never credits a repetition');
+  await p.evaluate(()=>SukunAudioSessionRegistry.pauseAll('ui:matrix-captured-owner'));const captured=await state();assert.equal(captured.aggregate.paused,true);
+  const capturedRequest=await p.evaluate(()=>SukunSessionState.command('resume'));assert.equal(capturedRequest.accepted,true,JSON.stringify(capturedRequest));
+  await p.waitForFunction(()=>!__matrixState().aggregate.paused&&!__matrixState().session.paused&&__matrixState().native.some(x=>!x.paused&&!x.ended&&x.ready>=2),null,{timeout:15000});
+  const capturedResumed=await state();assertOne(capturedResumed,kind);assert.equal(capturedResumed.native.filter(x=>!x.paused&&!x.ended&&x.ready>=2).length,1,'captured owner must not get a duplicate native continuation');assert.equal(capturedResumed.bg.resumes,captured.bg.resumes+1);if(captured.arb.owner?.id)assert.equal(capturedResumed.arb.owner.id,captured.arb.owner.id);assert.equal(capturedResumed.z.total,captured.z.total);return{playing:playing.bg,local:local.bg,dock,global,restored,captured,capturedResumed};
  });
  for(const kind of ['28','99','single','terkip'])await test(`${kind} rapid Stop → Start → Pause fences stale restart and repeat credit`,async()=>{
   await reset();await select(kind);await start(kind);const before=await state();

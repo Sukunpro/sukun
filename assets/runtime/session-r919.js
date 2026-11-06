@@ -349,7 +349,11 @@
       if (!choice || !['28','99'].includes(options.journeyKind) || choice.kind !== options.journeyKind || before.journeyKind !== choice.kind || before.smartSession) return reject('selection-unavailable');
       if (choice.kind === '28' && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
       if (window.SukunVoiceSettings?.checkReady?.() === false || before.recordingSource === 'USER_RECORDING_FAILED') return reject('voice-not-ready');
-      if (read(() => registry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent) return reject('global-pause');
+      // A deliberate restart retires the old capture instead of briefly
+      // resuming the old journey before restarting its first name.
+      if (read(() => registry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent) {
+        if (registry?.releasePauseGate?.('r919-restart-journey') !== true) return reject('resume-unavailable');
+      }
       return choice.api.restartAll?.() ?? reject('selection-unavailable');
     }
     if (action === 'play' || action === 'start' || action === 'resume') {
@@ -357,11 +361,15 @@
       if (before.playing || before.preparing) return true;
       if (before.recordingSource === 'USER_RECORDING_FAILED') return reject('recording-unavailable');
       if (choice?.kind === '28' && !before.smartSession?.terminal && !read(() => window.SukunSecretPolicy?.unlocked(), false)) return reject('locked');
-      // This command is an explicit Start/Resume. Release its matching pause
-      // intent before entering the provider; lifecycle recovery never uses it.
-      // A global Pause remains authoritative. Local Resume never replays its
-      // captured ambient/frequency providers or clears their global hold.
-      if (read(() => registry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent) return reject('global-pause');
+      // Explicit Play from either surface shares the existing transport owner.
+      // Captured providers resume through the registry exactly once; passive
+      // lifecycle recovery still respects native pause/terminal guards.
+      if ((before.presentationOnly || pendingSmart || before.smartSession?.terminal) &&
+          (read(() => registry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent)) {
+        const resumed = direct?.resumeGlobalPause?.('r919-command');
+        if (!resumed?.accepted) return reject('resume-unavailable');
+        if (resumed.resumedDhikr) return resumed.work || true;
+      }
       // The completed wheel still represents the queue. Its Start replays
       // that owner; it must not start the last item with an old direct target.
       if(pendingSmart||before.smartSession?.terminal)return pc?.play?.('smart-session') ?? false;
@@ -507,7 +515,14 @@
       return Promise.resolve(freeze({accepted:value===true,epoch,requestId,snapshot:refresh('manual-correction')}));
     }
     const isStart = ['start', 'play', 'resume', 'retry', 'restart-journey'].includes(action);
-    if (isStart && action !== 'restart-journey' && pendingStart?.epoch === epoch) return pendingStart.promise;
+    if (isStart && action !== 'restart-journey' && pendingStart?.epoch === epoch) {
+      // A Pause/Stop from the other surface can supersede this request
+      // without passing through the session command boundary.
+      const held = read(() => window.SukunAudioSessionRegistry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused || window.AudioLife?._terminalIntent;
+      const nativeEpoch = read(() => window.SukunR698Transport?.snapshot()?.intentEpoch, null);
+      if (!held && pendingStart.nativeEpoch === nativeEpoch) return pendingStart.promise;
+      pendingStart = null;
+    }
     // Pause supersedes a queued Start. An immediate Resume must get a fresh
     // request, while both requests still wait for the native stop barrier.
     if (action === 'pause' && pendingStart) {
@@ -521,8 +536,6 @@
     const diagnostic = beginCommandDiagnostic(action,id,token);
     const reject = reason => {
       diagnostic.reason = reason;
-      // Explain the existing scope boundary; never release unrelated captured audio.
-      if (reason === 'global-pause') read(() => window.toast?.(window.I18N?.lang === 'en' ? 'Use Play on the bottom global player to resume the paused audio session.' : 'Devam etmek için alttaki genel oynatıcının ▶ düğmesini kullan.'));
       return false;
     };
     commandFailure = null;
@@ -537,19 +550,20 @@
         // The native Stop owns its asynchronous cleanup. Starting a new journey
         // before this barrier settles lets old cleanup terminate the new voice.
         const globallyHeld = read(() => window.SukunAudioSessionRegistry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused && !window.AudioLife?._terminalIntent;
-        if (!globallyHeld) {
+        if (globallyHeld && !window.SukunR698Transport?.resumeGlobalPause?.('r919-pending-start')?.accepted) result = reject('resume-unavailable');
+        else {
           read(() => window.SukunDirectZikirTransportR698?.primeGesture?.());
           read(() => window.AudioLife?.markUserPlay?.('local:r919-pending-start'));
+          const barrier = window.SukunR698Transport?.whenStopped?.();
+          const nativeEpoch = read(() => window.SukunR698Transport?.snapshot()?.intentEpoch, null);
+          result = barrier ? Promise.resolve(barrier).then(ok => {
+            if (token !== epoch || id !== requestId || nativeEpoch !== read(() => window.SukunR698Transport?.snapshot()?.intentEpoch, null)) return reject('superseded-command');
+            if (ok === false) return reject('stop-not-complete');
+            if (read(() => window.SukunAudioSessionRegistry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused) return reject('superseded-command');
+            if (window.AudioLife?._terminalIntent) return reject('superseded-command');
+            return route(action, before, reject, options);
+          }) : reject('stop-wait-unavailable');
         }
-        const barrier = window.SukunR698Transport?.whenStopped?.();
-        const nativeEpoch = read(() => window.SukunR698Transport?.snapshot()?.intentEpoch, null);
-        result = barrier ? Promise.resolve(barrier).then(ok => {
-          if (token !== epoch || id !== requestId || nativeEpoch !== read(() => window.SukunR698Transport?.snapshot()?.intentEpoch, null)) return reject('superseded-command');
-          if (ok === false) return reject('stop-not-complete');
-          if (read(() => window.SukunAudioSessionRegistry?.aggregateSnapshot()?.paused, false) || window.AudioLife?.userPaused) return reject('global-pause');
-          if (window.AudioLife?._terminalIntent) return reject('superseded-command');
-          return route(action, before, reject, options);
-        }) : reject('stop-wait-unavailable');
       } else result = action === 'select' ? select(options, token, id, reject) : route(action, before, reject, options);
     }
     catch (error) { result = Promise.reject(error); }
@@ -566,7 +580,7 @@
       if (token === epoch) commandFailure = clean(error?.message || 'İşlem tamamlanamadı');
       return freeze({ accepted: false, stale: token !== epoch, requestId: id, epoch: token, snapshot: refresh('command-error') });
     }).finally(() => { if (pendingStart?.id === id) { pendingStart = null; schedule('command-settled'); } });
-    if (isStart) pendingStart = { id, epoch: token, promise, waitingStop };
+    if (isStart) pendingStart = { id, epoch: token, promise, waitingStop, nativeEpoch:read(() => window.SukunR698Transport?.snapshot()?.intentEpoch, null) };
     schedule('command-pending');
     return promise;
   }

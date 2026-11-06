@@ -60,6 +60,10 @@ SOURCE_SUITES = [
 # Retain transport and audio invariants that remain relevant to the current
 # native owners. Retired r1149 visual-selector suites are not called current UI.
 INHERITED_SUITES = [
+    ('r1231-cross-control-pause', 'tests/r1062/dhikr-pause-scope.cjs'),
+    ('r1231-smart-dock-resume', 'tests/r1088/dock-resume.cjs'),
+    ('r1231-pending-stop-holds', 'tests/r1074/session-holds.cjs'),
+    ('r1231-resume-labels', 'tests/r1124/global-pause-feedback.cjs'),
     ('dhikr-lifecycle', 'tests/r1121/dhikr-lifecycle-contract.cjs'),
     ('dhikr-source', 'tests/r1121/dhikr-source-regressions.cjs'),
     ('navigation-routing', 'tests/r1122/dhikr-navigation-route-contract.cjs'),
@@ -71,6 +75,8 @@ INHERITED_SUITES = [
 # Keep new audio/graphics native evidence in the mandatory full release gate.
 # These suites run sequentially, apart from the parallel source contracts.
 NATIVE_BROWSER_SUITES = [
+    ('r1231-media-wheel-native', 'tests/r1124/media-wheel-native-browser.cjs'),
+    ('r1231-session-transitions-native', 'tests/r1070/session-transition-matrix.cjs'),
     ('r1230-cymatics-native', 'tests/cymatics3d/browser.cjs'),
     ('r1230-signal-visualizer-native', 'tests/visualizer/browser.cjs'),
     ('r1230-frequency-dsp-native', 'tests/frequency-effects/dsp-browser.cjs'),
@@ -117,7 +123,7 @@ def main():
         baseline = args.upgrade_baseline.resolve()
         baseline_build = (baseline / 'version.txt').read_text().strip()
         assert re.fullmatch(r'r\d+', baseline_build) and int(baseline_build[1:]) < int(build[1:])
-        commands += [(name, ['node', file]) for name, file in NATIVE_BROWSER_SUITES]
+        commands += [(name, ['node', file, str(ROOT), str(out / (name + '.json'))]) for name, file in NATIVE_BROWSER_SUITES]
         commands += [('native-upgrade-offline', ['node', 'tests/r1213/release-upgrade-browser.cjs', str(ROOT), str(baseline), str(out / 'native-upgrade-offline.json')])]
     for name, command in commands:
         assert (ROOT / command[1]).is_file(), 'Missing required suite: ' + command[1]
@@ -133,7 +139,7 @@ def main():
         started = time.monotonic()
         try:
             result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True,
-                                    timeout=600 if name == 'native-upgrade-offline' else 180)
+                                    timeout=600 if name in NATIVE_BROWSER_NAMES else 180)
             code, stdout, stderr = result.returncode, result.stdout, result.stderr
         except subprocess.TimeoutExpired as error:
             code, stdout, stderr = 'timeout', str(error.stdout or ''), str(error.stderr or '')
@@ -144,6 +150,13 @@ def main():
             try:
                 evidence = json.loads(evidence_path.read_text())
                 assert evidence['expectedChecks'] == evidence['passed'] == 8 and not evidence.get('fatal')
+            except (OSError, ValueError, KeyError, AssertionError) as error:
+                row['exitCode'] = 'invalid-evidence'
+                row['evidenceError'] = str(error)
+        if name.startswith('r1231-') and name in NATIVE_BROWSER_NAMES and code == 0:
+            try:
+                evidence = json.loads(evidence_path.read_text())
+                assert evidence.get('allPassed') is True and evidence.get('total', 0) > 0 and not evidence.get('fatal')
             except (OSError, ValueError, KeyError, AssertionError) as error:
                 row['exitCode'] = 'invalid-evidence'
                 row['evidenceError'] = str(error)
