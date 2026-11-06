@@ -11,6 +11,18 @@ import argparse, concurrent.futures, hashlib, json, re, subprocess, time
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
+    ('r1230-module-syntax', 'tests/r1230/release-js-syntax.cjs'),
+    ('r1230-cymatics-geometry', 'tests/cymatics3d/geometry.mjs'),
+    ('r1230-cymatics-bridge', 'tests/cymatics3d/bridge.cjs'),
+    ('r1230-cymatics-lifecycle', 'tests/cymatics3d/scene-lifecycle.cjs'),
+    ('r1230-signal-visualizer', 'tests/visualizer/contract.cjs'),
+    ('r1230-binaural-profile', 'tests/binaural-profile/contract.cjs'),
+    ('r1230-frequency-settings', 'tests/frequency-effects/settings.cjs'),
+    ('r1230-frequency-dsp', 'tests/frequency-effects/dsp-contract.cjs'),
+    ('r1230-frequency-engine', 'tests/r1121/frequency-engine-contract.cjs'),
+    ('r1230-frequency-onset', 'tests/r1122/frequency-onset-contract.cjs'),
+    ('r1230-frequency-handoff', 'tests/r1121/frequency-handoff-contract.cjs'),
+    ('r1230-frequency-handoff-historic', 'tests/r1121/frequency-handoff-regressions.cjs'),
     ('r1227-completion-haptics', 'tests/r1227/completion-haptics.cjs'),
     ('r1227-current-timing', 'tests/r1227/current-timing.cjs'),
     ('r1227-direct-count', 'tests/r1227/direct-count.cjs'),
@@ -56,6 +68,15 @@ INHERITED_SUITES = [
     ('delail-tts', 'tests/r1128/delail-tts-lifecycle.cjs'),
 ]
 
+# Keep new audio/graphics native evidence in the mandatory full release gate.
+# These suites run sequentially, apart from the parallel source contracts.
+NATIVE_BROWSER_SUITES = [
+    ('r1230-cymatics-native', 'tests/cymatics3d/browser.cjs'),
+    ('r1230-signal-visualizer-native', 'tests/visualizer/browser.cjs'),
+    ('r1230-frequency-dsp-native', 'tests/frequency-effects/dsp-browser.cjs'),
+]
+NATIVE_BROWSER_NAMES = {name for name, _ in NATIVE_BROWSER_SUITES} | {'native-upgrade-offline'}
+
 def digest(file):
     return hashlib.sha256(file.read_bytes()).hexdigest()
 
@@ -96,6 +117,7 @@ def main():
         baseline = args.upgrade_baseline.resolve()
         baseline_build = (baseline / 'version.txt').read_text().strip()
         assert re.fullmatch(r'r\d+', baseline_build) and int(baseline_build[1:]) < int(build[1:])
+        commands += [(name, ['node', file]) for name, file in NATIVE_BROWSER_SUITES]
         commands += [('native-upgrade-offline', ['node', 'tests/r1213/release-upgrade-browser.cjs', str(ROOT), str(baseline), str(out / 'native-upgrade-offline.json')])]
     for name, command in commands:
         assert (ROOT / command[1]).is_file(), 'Missing required suite: ' + command[1]
@@ -130,12 +152,12 @@ def main():
             print(row['stdout'][-3000:] + row['stderr'][-3000:], flush=True)
         return row
 
-    # Keep native update timing independent of concurrent verification workloads.
-    ordinary = [item for item in commands if item[0] != 'native-upgrade-offline']
+    # Keep native audio/graphics and update timing independent of concurrent workloads.
+    ordinary = [item for item in commands if item[0] not in NATIVE_BROWSER_NAMES]
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
         report['checks'] = list(pool.map(execute, ordinary))
     for item in commands:
-        if item[0] == 'native-upgrade-offline':
+        if item[0] in NATIVE_BROWSER_NAMES:
             report['checks'].append(execute(item))
     report['passed'] = sum(row['exitCode'] == 0 for row in report['checks'])
     report['total'] = len(commands)

@@ -1,0 +1,33 @@
+const {chromium}=require('playwright');
+const fs=require('fs'),path=require('path'),assert=require('assert/strict');
+const root=path.resolve(__dirname,'../..');
+(async()=>{
+ const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH||"/usr/bin/chromium"});const page=await browser.newPage({viewport:{width:320,height:800}});let checks=0;
+ await page.setContent('<meta name="viewport" content="width=device-width,initial-scale=1"><div id="frequencyWorkbenchR1120"></div>');
+ await page.addStyleTag({content:fs.readFileSync(path.join(root,'assets/runtime/frequency-workbench-r1120.css'),'utf8')});
+ await page.evaluate(()=>{
+ window.FR={c:180,b:7.83,mode:'bin',vol:.5,pink:false,harmonik:0,harmSeri:'dogal',uzam:false,uzamHiz:22,wave:'sine',balL:1,balR:1,noise:'off',noiseVol:0,filterOn:false,lpf:2000,hpf:80,levelProfile:'legacy',fm:false,am:false,rm:false,pwm:false};window.FR2={on:false,c:180,b:7.83};window.MINI={paused:false};window.I18N={lang:'tr'};
+ for(const n of ['saveSettings','stopJourney','frCancelPendingStart','frHoldRamp','syncFreqUI','frRebuild','fr2Stop','fr2Start','pinkOn','pinkOff','frApplyGains'])window[n]=()=>{};
+ });
+ for(const f of ['frequency-workbench-r1120.js','frequency-sets-r1120.js'])await page.addScriptTag({content:fs.readFileSync(path.join(root,'assets/runtime',f),'utf8')});
+ const ok=(v,msg)=>{assert(v,msg);checks++};
+ ok(await page.locator('#fr1120-pwm').isDisabled(),'PWM disabled for sine');
+ ok(await page.locator('#fr1120-wave option').count()===4,'four native waveform options');
+ ok((await page.locator('#fr1120-wave option').allTextContents()).every(t=>/^[∿△⊓⩘]/u.test(t)),'all waveform options have icons');
+ await page.locator('#fr1120-wave').selectOption('square');await page.locator('#fr1120-pwm').check();
+ ok(await page.evaluate(()=>FR.pwm),'PWM square enabled');
+ await page.locator('#fr1120-wave').selectOption('triangle');ok(await page.evaluate(()=>!FR.pwm),'switching waveform clears PWM');
+ await page.locator('#fr1120-fm').check();ok(await page.evaluate(()=>FR.fm),'FM updates state');
+ await page.locator('#fr1120-wave-help summary').focus();await page.keyboard.press('Enter');
+ ok(await page.locator('#fr1120-wave-help').getAttribute('open')!==null,'keyboard opens information');await page.keyboard.press('Escape');
+ ok(await page.locator('#fr1120-wave-help').getAttribute('open')===null,'Escape dismisses information');
+ await page.locator('#fr1120-wave-help summary').click();ok(await page.locator('#fr1120-wave-help p').count()===4,'all four explanations present');
+ ok(await page.evaluate(()=>document.documentElement.scrollWidth<=320),'no narrow-screen horizontal overflow');
+ ok(await page.evaluate(()=>{const old=SukunFrequencyR1120.capture();for(const k of ['fm','am','rm','pwm'])delete old[k];const result=SukunFrequencySetsR1120.validateSettings(old);return result.ok&&!result.value.fm&&!result.value.pwm;}),'legacy sets default effects off');
+ ok(await page.evaluate(()=>{const s=SukunFrequencyR1120.capture();s.rm=true;return SukunFrequencySetsR1120.validateSettings(s).value.rm;}),'new sets preserve effects');
+ ok(await page.evaluate(()=>!SukunFrequencySetsR1120.validateSettings({...SukunFrequencyR1120.capture(),fm:'yes'}).ok),'invalid effect settings rejected');
+ ok(await page.evaluate(()=>{const old=SukunFrequencyR1120.capture();delete old.fm;return !SukunFrequencyR1120.validate(old).fm;}),'legacy apply clears active FM');
+ await page.evaluate(()=>{I18N.lang='en';dispatchEvent(new CustomEvent('sukun:languagechange'));});
+ ok((await page.locator('#fr1120-wave-help').textContent()).includes('Waveform differences'),'English help localizes');
+ await page.screenshot({path:path.join(__dirname,'ui-320.png'),fullPage:true});await browser.close();console.log(JSON.stringify({passed:checks,scope:'Isolated native Chromium UI, not full application or device audio'}));
+})().catch(e=>{console.error(e);process.exit(1)});

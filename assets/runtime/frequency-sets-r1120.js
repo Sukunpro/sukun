@@ -14,6 +14,7 @@
     {key:'b',label:['Vuruş (Hz)','Beat (Hz)'],min:.5,max:40,step:.01},
     {key:'mode',label:['Mod','Mode'],options:[['bin','Binaural','Binaural'],['mono','Monaural','Monaural'],['iso','İzokronik','Isochronic'],['mix','Karma','Mixed']]},
     {key:'wave',label:['Dalga biçimi','Waveform'],options:[['sine','Sinüs','Sine'],['square','Kare','Square'],['sawtooth','Testere','Sawtooth'],['triangle','Üçgen','Triangle']]},
+    ...['fm','am','rm','pwm'].map((key,i)=>({key,label:[['Vibrato (FM)','Tremolo (AM)','Halka modülasyonu (RM)','PWM (yalnız kare)'][i],['Vibrato (FM)','Tremolo (AM)','Ring modulation (RM)','PWM (square only)'][i]],boolean:true,optional:true})),
     {key:'vol',label:['Frekans seviyesi (%)','Frequency level (%)'],min:0,max:1,step:.01,scale:100},
     {key:'levelProfile',label:['Seviye profili','Level profile'],options:[['legacy','Mevcut seviye','Existing level'],['balanced','Daha belirgin (isteğe bağlı)','More present (optional)']]},
     {key:'balL',label:['Sol kanal (%)','Left channel (%)'],min:0,max:1,step:.01,scale:100},
@@ -41,7 +42,8 @@
     if (!isObject(settings) || !isObject(settings.secondary)) return {ok:false,field:'settings'};
     const normalized = {};
     for (const field of fields) {
-      const value = valueAt(settings, field.key);
+      const raw = valueAt(settings, field.key);
+      const value = field.optional && raw === undefined ? false : raw;
       const valid = field.boolean ? typeof value === 'boolean'
         : field.options ? field.options.some(option => option[0] === value)
         : typeof value === 'number' && Number.isFinite(value) && value >= field.min && value <= field.max && (!field.integer || Number.isInteger(value));
@@ -51,6 +53,7 @@
     // Do not silently discard fields written by a newer app version.
     const keys = new Set(fields.filter(field => !field.key.includes('.')).map(field => field.key).concat('secondary'));
     if (Object.keys(settings).some(key => !keys.has(key)) || Object.keys(settings.secondary).some(key => !['on','c','b'].includes(key))) return {ok:false,field:'unknown'};
+    if(normalized.wave!=='square')normalized.pwm=false;
     return {ok:true,value:normalized};
   }
   function validateRecord(record) {
@@ -290,6 +293,8 @@
       }
       input.id = 'r1120SetField-'+field.key.replace('.','-'); wrap.append(label,input); grid.append(wrap); ui.inputs.set(field.key,input);
     }
+    const syncPwm=()=>{const pwm=ui.inputs.get('pwm');pwm.disabled=ui.inputs.get('wave').value!=='square';if(pwm.disabled)pwm.checked=false;};
+    ui.inputs.get('wave').addEventListener('change',syncPwm);syncPwm();
     details.append(grid); form.append(details);
     const actions = element('div','r1120-set-actions');
     ui.save = element('button','btn r1120-set-button',tr('Seti kaydet','Save set')); ui.save.type = 'submit'; ui.save.disabled = state.readOnly || state.busy;
