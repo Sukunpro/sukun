@@ -12,7 +12,10 @@ await page.evaluate(async()=>{NS.ctx=new AudioContext();await NS.ctx.resume();NS
 await page.locator('#signalView').selectOption('waveform');await page.waitForTimeout(250);
 let result=await page.evaluate(()=>{SPEC.draw();const a=SPEC.readTimeDomain();return {min:Math.min(...a),max:Math.max(...a),label:document.getElementById('signalAxis').textContent}});
 ok(result.max>.2&&result.min<-.2,'native analyser has real oscillator samples');ok(result.label.startsWith('20 ms'),'20 ms actual time axis');
-await page.locator('#signalWindow').selectOption('5');await page.evaluate(()=>SPEC.draw());ok((await page.locator('#signalAxis').textContent()).startsWith('5 ms'),'5 ms mode');
+await page.locator('#signalWindow').selectOption('5');
+result=await page.evaluate(()=>{SPEC.draw();return {selected:SPEC.windowMs,label:document.getElementById('signalAxis').textContent,sampleRate:NS.ctx.sampleRate}});
+// The displayed window is rounded to a whole sample: 5 ms at 44.1 kHz is 221 samples (5.01 ms).
+ok(result.selected===5&&/^\d+(?:\.\d+)? ms(?:\s|$)/.test(result.label)&&Math.abs(parseFloat(result.label)-5)<=1000/result.sampleRate,'5 ms mode within one audio sample');
 await page.evaluate(()=>gain.gain.value=0);await page.waitForTimeout(300);result=await page.evaluate(()=>{SPEC.draw();return {peak:Math.max(...SPEC.readTimeDomain().map(Math.abs)),status:document.getElementById('specLive').dataset.st}});ok(result.peak<.0001&&result.status==='0-tr','native zero input produces silent trace');
 await page.locator('#signalView').selectOption('spectrum');await page.evaluate(()=>SPEC.draw());ok(await page.locator('#signalWindow').isHidden(),'FFT view keeps time selector hidden');
 await page.evaluate(()=>{I18N.lang='en';dispatchEvent(new Event('sukun:languagechange'));});ok((await page.locator('#signalTitle').textContent()).includes('Actual audio'),'English controls');
