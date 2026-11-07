@@ -1250,7 +1250,7 @@ window.SukunR875=Object.freeze({version:V,sync:clean});
      document.getElementById("esmaList"),document.getElementById("berhetiyyeList"),document.getElementById("esmaulHusna")].filter(Boolean);
    scopes.forEach(scope=>{
      scope.querySelectorAll(".nameRail,.name-rail,.esmaRail,.esma-rail,.chips,.chipRow,.chip-row,.tabs,[role='tablist']").forEach(rail=>{
-       rail.dataset.RECOVERY-NOSWRail="1";
+       rail.dataset.recoveryNoswRail="1";
        const selected=rail.querySelector('[aria-selected="true"],.active,.selected,[data-active="true"]');
        if(selected) requestAnimationFrame(()=>selected.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"}));
      });

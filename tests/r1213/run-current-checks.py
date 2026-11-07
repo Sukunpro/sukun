@@ -11,6 +11,10 @@ import argparse, concurrent.futures, hashlib, json, re, subprocess, time
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
+    ('r1233-audit-regressions', 'tests/r1233/audit-regressions.cjs'),
+    ('r1233-ui-source', 'tests/r1233/ui-source.cjs'),
+    ('r1233-integrity-network', 'tests/r1233/integrity-network.cjs'),
+    ('r1233-collector-state', 'tests/r1233/collector-state.cjs'),
     ('r1230-module-syntax', 'tests/r1230/release-js-syntax.cjs'),
     ('r1230-cymatics-geometry', 'tests/cymatics3d/geometry.mjs'),
     ('r1230-cymatics-bridge', 'tests/cymatics3d/bridge.cjs'),

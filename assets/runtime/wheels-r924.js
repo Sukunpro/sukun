@@ -413,8 +413,9 @@ window.SukunWheelLight=Object.freeze({version:'r980',snapshot:()=>({setting,moti
   if(expected){const s=snapshot();if(hidden||!gate?.allowed||!s||['activeMode','activeIndex','journeyKind','target','phase'].some(k=>s[k]!==expected[k])){const focused=host.contains(document.activeElement);close();if(focused)(gate?.allowed?$('r920Remaining'):$('r932EasyPlay'))?.focus({preventScroll:true})}}
   trigger.setAttribute('aria-disabled',String(hidden||!gate?.allowed));trigger.tabIndex=hidden||!gate?.allowed?-1:0;
   trigger.dataset.editable=String(!hidden&&!!gate?.allowed);
-  $('r920Remaining').setAttribute('aria-label',say('Kalan '+trigger.textContent+'. Kalan sayıyı düzenle','Remaining '+trigger.textContent+'. Edit remaining count'));
-  $('r920Remaining').title=gate?.allowed?say('Kalan sayıyı sessizce düzenle','Silently edit remaining count'):english()?'Pause reading before editing the count.':gate?.reason||'';
+  const editHelp=hidden?say('Kalan sayıyı düzenlemek için Kolay kontrolleri göster.','Show easy controls to edit the remaining count.'):gate?.allowed?say('Kalan sayıyı sessizce düzenle','Silently edit remaining count'):english()?'Pause reading before editing the count.':gate?.reason||'';
+  $('r920Remaining').setAttribute('aria-label',say('Kalan '+trigger.textContent,'Remaining '+trigger.textContent)+'. '+editHelp);
+  $('r920Remaining').title=editHelp;
   $('r1227CountLabel').textContent=say('Kalan sayı','Remaining count');
   $('r1227CountUndo').textContent=say('Geri al','Undo');
   $('r1227CountSave').textContent=say('Kaydet','Save');$('r1227CountCancel').textContent=say('Vazgeç','Cancel');
