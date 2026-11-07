@@ -652,6 +652,21 @@
   async function integrityCheck() {
     const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10000);
     const result=[];let total=0,reserved=0,mediaTotal=0,mediaReserved=0,expected=0;
+    const workerAtStart=navigator.serviceWorker?.controller || null,offlineAtStart=navigator.onLine===false;
+    const runtimeRoot=new URL('./assets/runtime/',location.href).pathname;
+    const navigationRoot=new URL('./assets/wheel-navigation-r964/',location.href).pathname;
+    const seenPaths=new Set();
+    function networkEvidence() {
+      const controllerChanged=(navigator.serviceWorker?.controller || null)!==workerAtStart;
+      return {offlineAtStart,offlineAtEnd:navigator.onLine===false,controllerChanged,
+        scope:controllerChanged?'controller-changed-during-check':workerAtStart?'served-through-current-service-worker':'served-without-service-worker',
+        networkAccess:'not-proven'};
+    }
+    function finish(extra={}) {
+      // A matching hash verifies returned bytes, not a fresh network download,
+      // permanent offline storage, or a single controller across an update.
+      return integrityResult(result,expected,total,{mediaBytes:mediaTotal,verifiedBytes:total+mediaTotal,...networkEvidence(),...extra});
+    }
     // The 12 MiB core allowance includes the measured r1213 core (~10.5 MiB),
     // including exact listed high-resolution wheel/branding assets. Arabic recordings and the
     // exact short portal invitation share the separate bounded media allowance.
@@ -682,20 +697,20 @@
       const markerURL=new URL('./sukun-build-'+build+'.json',location.href);
       const bytes=await fetchBytes(markerURL.href,65536,controller);
       let marker;try {marker=JSON.parse(new TextDecoder().decode(bytes));} catch(_) {
-        return status('RUNTIME_INTEGRITY','FAIL','Sürüm dosya listesi geçersiz',{reason:'MARKER_INVALID_JSON',checkedAt:now(),scope:'served-through-current-service-worker',configurationErrors:1},'İndirilen sürüm listesi okunamadı. Tam sürüm paketini birlikte yükleyin.');
+        return status('RUNTIME_INTEGRITY','FAIL','Sürüm dosya listesi geçersiz',{reason:'MARKER_INVALID_JSON',checkedAt:now(),...networkEvidence(),configurationErrors:1},'İndirilen sürüm listesi okunamadı. Tam sürüm paketini birlikte yükleyin.');
       }
-      if (marker.build!==build||!Array.isArray(marker.runtime)||marker.runtime.length>maxRuntimeEntries)
-        return status('RUNTIME_INTEGRITY','FAIL','Sürüm dosya listesi geçersiz',{reason:'MARKER_INVALID',checkedAt:now(),scope:'served-through-current-service-worker',configurationErrors:1},'İndirilen dosya listesi bu sürümün yapısına uymuyor. Raporu saklayın.');
+      if (!marker||typeof marker!=='object'||Array.isArray(marker)||marker.build!==build||!Array.isArray(marker.runtime)||marker.runtime.length===0||marker.runtime.length>maxRuntimeEntries)
+        return status('RUNTIME_INTEGRITY','FAIL','Sürüm dosya listesi geçersiz',{reason:'MARKER_INVALID',checkedAt:now(),...networkEvidence(),configurationErrors:1},'İndirilen dosya listesi bu sürümün yapısına uymuyor. Raporu saklayın.');
       expected=marker.runtime.length;
-      if (!crypto?.subtle) return integrityResult([],expected,0,{reason:'CRYPTO_UNAVAILABLE'});
+      if (!crypto?.subtle) return finish({reason:'CRYPTO_UNAVAILABLE'});
       const entries=marker.runtime.slice();let cursor=0;
       async function worker() {
         while (cursor<entries.length) {
           const entry=entries[cursor++];let url;
           try {url=new URL(entry?.url,location.href);}catch(_) {result.push({path:'[invalid]',status:'INVALID_ENTRY'});continue;}
-          const runtime=/\/assets\/runtime\/[A-Za-z0-9_.-]+$/.test(url.pathname);
+          const runtime=url.pathname.startsWith(runtimeRoot)&&/^[A-Za-z0-9_.-]+$/.test(url.pathname.slice(runtimeRoot.length));
           const threeModule=url.pathname===new URL('./assets/vendor/three-r170/three.module.min.js',location.href).pathname;
-          const navigationArt=/\/assets\/wheel-navigation-r964\/(?:gold|copper|silver|dark|crystal)\.png$/.test(url.pathname);
+          const navigationArt=url.pathname.startsWith(navigationRoot)&&/^(?:gold|copper|silver|dark|crystal)\.png$/.test(url.pathname.slice(navigationRoot.length));
           const cabirArt=/\/assets\/scenes\/tekke-r1014\/berhet-billur\.webp$/.test(url.pathname);
           // The release also hashes the recovery page and these exact opening
           // assets. Permit their app-relative paths, not arbitrary HTML/art/audio.
@@ -738,9 +753,10 @@
             './css/legacy-r1215-embFonts.css','./css/legacy-r1215-base-style.css','./css/legacy-r1215-r699-layout-authority.css',
             './css/visual-polish-r1232.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
-          if (url.origin!==location.origin||!(runtime||threeModule||navigationArt||cabirArt||rescuePage||introArt||currentArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
+          if (url.origin!==location.origin||url.username||url.password||seenPaths.has(url.pathname)||!(runtime||threeModule||navigationArt||cabirArt||rescuePage||introArt||currentArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;
           }
+          seenPaths.add(url.pathname);
           // The invitation is media too. Keep both aggregate budgets unchanged
           // and apply its own smaller per-file cap within the media allowance.
           const isMedia=bundledArabicAudio||portalVoice;
@@ -762,12 +778,12 @@
 
         }
       }
-      await Promise.all([worker(),worker()]);return integrityResult(result,expected,total,{mediaBytes:mediaTotal,verifiedBytes:total+mediaTotal});
-    } catch(error) {return integrityResult(result,expected,total,{mediaBytes:mediaTotal,verifiedBytes:total+mediaTotal,reason:token(error?.message||error?.name||'FETCH_ERROR')});}
+      await Promise.all([worker(),worker()]);return finish();
+    } catch(error) {return finish({reason:token(error?.name==='AbortError'?'TIMEOUT':error?.message||error?.name||'FETCH_ERROR')});}
     finally {clearTimeout(timer);}
   }
   async function serverVersionCheck() {
-    if (navigator.onLine===false) return status('SERVER_VERSION','NOT_MEASURED','Sunucudaki güncelleme bilgisi',{reason:'OFFLINE'},'İnternet bağlantısı gerekir; yerel kontrol kullanılabilir.');
+    if (navigator.onLine===false) return status('SERVER_VERSION','NOT_MEASURED','Sunucudaki güncelleme bilgisi',{reason:'OFFLINE',checkedAt:now()},'İnternet bağlantısı gerekir; yerel kontrol kullanılabilir.');
     const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),6000);
     try {
       const url=new URL('./sukun-latest.json',location.href);

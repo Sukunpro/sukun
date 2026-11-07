@@ -4,7 +4,7 @@
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const root=path.resolve(process.argv[2]||'.'),out=path.resolve(process.argv[3]||path.join(root,'tests/r1120/evidence/health-marker-bytes.json'));
 const build=fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),markerPath='sukun-build-'+build+'.json';
-const raw=fs.readFileSync(path.join(root,markerPath)),marker=JSON.parse(raw),source=fs.readFileSync(path.join(root,'assets/runtime/health-r940.js'),'utf8');
+const raw=fs.readFileSync(path.join(root,markerPath)),marker=JSON.parse(raw),source=fs.readFileSync(process.env.SUKUN_HEALTH_COLLECTOR||path.join(root,'assets/runtime/health-r940.js'),'utf8');
 const expectedEntries=marker.runtime.length,entryLimit=192;
 // Optional audio packs are outside mandatory runtime from r1213 onward.
 const expectedMediaBytes=marker.runtime.filter(e=>/\/assets\/audio\/arabic-r1065\/[^/]+\.mp3|\/assets\/berhetiyye-gate\/invitation-tr\.mp3/.test(e.url)).reduce((n,e)=>n+fs.statSync(path.join(root,new URL(e.url,'https://test.invalid/').pathname)).size,0);
@@ -20,7 +20,7 @@ async function run(bytes,{header=true,timeout=false,assetBodies={}}={}){
    const body=header?bytes:new ReadableStream({start(controller){for(let i=0;i<bytes.length;i+=1024)controller.enqueue(new Uint8Array(bytes.subarray(i,i+1024)));controller.close();}});
    return new Response(body,{headers:header?{'content-length':String(bytes.length)}:{}});
   }
-  assert(marker.runtime.some(e=>new URL(e.url,'https://test.invalid/').pathname.slice(1)===name),'Unlisted request '+name);
+  assert(marker.runtime.some(e=>new URL(e.url,'https://test.invalid/').pathname.slice(1)===name)||Object.hasOwn(assetBodies,name),'Unlisted request '+name);
   active++;maxActive=Math.max(active,maxActive);try{await new Promise(r=>setImmediate(r));const body=assetBodies[name]||fs.readFileSync(path.join(root,name));return new Response(body,{headers:{'content-length':String(body.length)}})}finally{active--}
  };
  vm.runInNewContext(source.slice(start,end),c);return{result:await c.integrityCheck(),calls,maxActive};
@@ -73,25 +73,25 @@ async function test(name,fn){try{results.push({name,passed:true,evidence:await f
    const variants=['./nested/'+name.slice(2),'https://evil.invalid/sukun/'+name.slice(2),'./css/unlisted-r1215.css'].map(url=>({...entry,url}));const rejected=await run(Buffer.from(JSON.stringify({...marker,runtime:variants})));assert.equal(rejected.result.evidence.configurationErrors,3);assert.equal(rejected.calls.length,1);
   }return{exactPaths:names.length,rejectedVariants:names.length*3};
  });
- await test('Aggregate core beyond 12 MiB remains incomplete without accepting unchecked bytes',async()=>{
-  const entry=marker.runtime.find(e=>e.url.includes('/branding/sukun-berhet-selected-r1172.png'));assert(entry);
-  const x=await run(Buffer.from(JSON.stringify({...marker,runtime:Array.from({length:10},()=>({...entry}))})));
-  assert.notEqual(x.result.status,'PASS');assert.equal(x.result.evidence.complete,false);assert(x.result.evidence.bytes<=12582912);assert(x.result.evidence.unverified>0);assert(x.result.evidence.files.some(f=>f.status==='TOTAL_SIZE_LIMIT'));return{bytes:x.result.evidence.bytes,unverified:x.result.evidence.unverified};
+ await test('Aggregate core beyond 12 MiB stays bounded with unique valid paths',async()=>{
+  const body=Buffer.alloc(524288,32),assetBodies={},runtime=Array.from({length:25},(_,i)=>{const name='assets/runtime/budget-fixture-'+i+'.js';assetBodies[name]=body;return{url:'./'+name,sha256:hash(body)}});
+  const x=await run(Buffer.from(JSON.stringify({...marker,runtime})),{assetBodies});
+  assert.equal(x.result.status,'NOT_MEASURED');assert.equal(x.result.evidence.complete,false);assert(x.result.evidence.bytes<=12582912);assert(x.result.evidence.unverified>0);assert(x.result.evidence.files.some(f=>f.status==='TOTAL_SIZE_LIMIT'));return{bytes:x.result.evidence.bytes,unverified:x.result.evidence.unverified};
  });
  const exact=Buffer.concat([raw,Buffer.alloc(65536-raw.length,32)]);
  await test('A valid 65536-byte marker remains bounded and verifies unchanged runtime entries',async()=>{const x=await run(exact);assert.equal(x.result.status,'PASS');assert.equal(x.result.evidence.matched,expectedEntries);return{markerBytes:exact.length,maxConcurrent:x.maxActive}});
  for(const header of [true,false])await test('65537-byte '+(header?'declared':'streamed')+' marker is rejected before any asset request',async()=>{const bytes=Buffer.concat([exact,Buffer.from(' ')]),x=await run(bytes,{header});assert.equal(x.result.status,'NOT_MEASURED');assert.equal(x.result.evidence.reason,'SIZE_LIMIT');assert.equal(x.calls.length,1);assert.equal(x.maxActive,0);return{markerBytes:bytes.length,reason:x.result.evidence.reason,requests:x.calls.length}});
- await test('The bounded 192-entry limit still verifies actual source bytes and SHA-256 values',async()=>{
-  // Repeated real entries isolate the count boundary; no invented asset or hash
-  // can turn a failed source verification into a successful result.
+ await test('The bounded 192-entry limit verifies unique fixture paths with actual source bytes',async()=>{
   const entry=marker.runtime.filter(e=>/\/assets\/runtime\//.test(e.url)).sort((a,b)=>fs.statSync(path.join(root,new URL(a.url,'https://test.invalid/').pathname)).size-fs.statSync(path.join(root,new URL(b.url,'https://test.invalid/').pathname)).size)[0];
-  assert(entry);const value={...marker,runtime:[...marker.runtime,...Array.from({length:entryLimit-expectedEntries},()=>({...entry}))]},bytes=Buffer.from(JSON.stringify(value));assert(bytes.length<=65536);
-  const x=await run(bytes);assert.equal(x.result.status,'PASS');assert.equal(x.result.evidence.expected,entryLimit);assert.equal(x.result.evidence.matched,entryLimit);assert.equal(x.calls.length,entryLimit+1);assert(x.maxActive<=2);return{entries:value.runtime.length,requests:x.calls.length,maxConcurrent:x.maxActive};
+  const body=fs.readFileSync(path.join(root,new URL(entry.url,'https://test.invalid/').pathname)),assetBodies={};
+  const extra=Array.from({length:entryLimit-expectedEntries},(_,i)=>{const name='assets/runtime/capacity-fixture-'+i+'.js';assetBodies[name]=body;return{url:'./'+name,sha256:hash(body)}});
+  const value={...marker,runtime:[...marker.runtime,...extra]},bytes=Buffer.from(JSON.stringify(value));assert(bytes.length<=65536);
+  const x=await run(bytes,{assetBodies});assert.equal(x.result.status,'PASS');assert.equal(x.result.evidence.expected,entryLimit);assert.equal(x.result.evidence.matched,entryLimit);assert.equal(x.calls.length,entryLimit+1);assert(x.maxActive<=2);return{entries:value.runtime.length,requests:x.calls.length,maxConcurrent:x.maxActive};
  });
  await test('A 193-entry marker fails closed before any asset download',async()=>{const value={...marker,runtime:Array.from({length:entryLimit+1},(_,i)=>({...marker.runtime[i%expectedEntries]}))},bytes=Buffer.from(JSON.stringify(value));assert(bytes.length<=65536);const x=await run(bytes);assert.equal(x.result.status,'FAIL');assert.equal(x.result.evidence.reason,'MARKER_INVALID');assert.equal(x.calls.length,1);assert.equal(x.maxActive,0);return{entries:value.runtime.length,requests:x.calls.length,reason:x.result.evidence.reason}});
  await test('An admitted real runtime path with an incorrect hash remains a verification failure',async()=>{const entry=marker.runtime.find(e=>/\/assets\/runtime\//.test(e.url));assert(entry);const x=await run(Buffer.from(JSON.stringify({...marker,runtime:[{...entry,sha256:'0'.repeat(64)}]})));assert.equal(x.result.status,'FAIL');assert.equal(x.result.evidence.mismatched,1);assert.equal(x.result.evidence.matched,0);assert.equal(x.calls.length,2);return{mismatched:x.result.evidence.mismatched,requests:x.calls.length};});
  await test('Malformed full-marker JSON remains a configuration failure without asset fetches',async()=>{const x=await run(Buffer.from('{bad'));assert.equal(x.result.status,'FAIL');assert.equal(x.result.evidence.reason,'MARKER_INVALID_JSON');assert.equal(x.calls.length,1);return x.result.evidence});
- await test('Marker fetch still passes the abort signal and times out without asset fetches',async()=>{const x=await run(raw,{timeout:true});assert.equal(x.result.status,'NOT_MEASURED');assert.equal(x.calls.length,1);assert.equal(x.result.evidence.reason,'Aborted');return x.result.evidence});
+ await test('Marker fetch still passes the abort signal and times out without asset fetches',async()=>{const x=await run(raw,{timeout:true});assert.equal(x.result.status,'NOT_MEASURED');assert.equal(x.calls.length,1);assert.equal(x.result.evidence.reason,'TIMEOUT');return x.result.evidence});
 
  await test('Exact three module: path allowlist and size limit',async()=>{
   const name='assets/vendor/three-r170/three.module.min.js', entry=marker.runtime.find(e=>e.url.split('?')[0]==='./'+name);assert(entry);
