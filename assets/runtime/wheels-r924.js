@@ -364,10 +364,11 @@ window.SukunWheelLight=Object.freeze({version:'r980',snapshot:()=>({setting,moti
  const english=()=>window.I18N?.lang==='en';
  const say=(tr,en)=>english()?en:tr;
  const snapshot=()=>window.SukunSessionState?.snapshot?.();
- function clearUndo(){generation++;undo=null;clearTimeout(undoTimer);undoTimer=0;const button=$('r1227CountUndo');if(button){if(document.activeElement===button)($('r920Remaining')?.tabIndex===0?$('r920Remaining'):$('r932EasyPlay'))?.focus({preventScroll:true});button.hidden=true}}
+ function clearUndo(){generation++;undo=null;clearTimeout(undoTimer);undoTimer=0;const button=$('r1227CountUndo');if(button){if(document.activeElement===button)(window.SukunLowerStats?.hidden?.()?$('r1236StatsSelect'):$('r920Remaining')?.tabIndex===0?$('r920Remaining'):$('r932EasyPlay'))?.focus({preventScroll:true});button.hidden=true}}
  function expireUndo(){if(document.activeElement===$('r1227CountUndo')){undoTimer=setTimeout(expireUndo,1000);return}clearUndo()}
+ const editFocus=()=>window.SukunLowerStats?.hidden?.()?$('r1236StatsSelect'):$('r920Remaining');
  const same=(a,b)=>a&&b&&['epoch','activeMode','activeIndex','journeyKind','target','count','phase'].every(k=>a[k]===b[k]);
- function close(focus=false){if(!host)return;generation++;pending=false;expected=null;$('r1227CountSave').disabled=false;$('r1227CountForm').removeAttribute('aria-busy');$('r1227CountForm').hidden=true;$('r920Remaining').setAttribute('aria-expanded','false');if(focus&&!host.hidden)$('r920Remaining').focus({preventScroll:true})}
+ function close(focus=false){if(!host)return;generation++;pending=false;expected=null;$('r1227CountSave').disabled=false;$('r1227CountForm').removeAttribute('aria-busy');$('r1227CountForm').hidden=true;$('r920Remaining').setAttribute('aria-expanded','false');if(focus&&!host.hidden)editFocus()?.focus({preventScroll:true})}
  function render(){
   const parent=$('r932WheelControls'),trigger=$('r920Remaining');if(!parent||!trigger)return;
   if(!host?.isConnected){
@@ -390,7 +391,7 @@ window.SukunWheelLight=Object.freeze({version:'r980',snapshot:()=>({setting,moti
     const isCurrent=()=>token===generation&&!host.hidden&&!document.hidden&&same(entry.after,snapshot());
     const result=await window.SukunSessionState.command('set-count',{value:entry.before.count,expected:entry.after,epoch:entry.after.epoch,isCurrent}).catch(()=>({accepted:false}));
     if(token===generation&&!result.accepted){$('r1227CountNotice').hidden=false;$('r1227CountNotice').textContent=say('Geri alınamadı. Sayaç değişmiş veya başka sekmede açık olabilir.','Could not undo. The count may have changed or another tab may own it.')}
-    window.SukunPracticeUI?.refresh?.();if(token===generation&&!host.hidden)trigger.focus({preventScroll:true});
+    window.SukunPracticeUI?.refresh?.();if(token===generation&&!host.hidden)editFocus()?.focus({preventScroll:true});
    };
    $('r1227CountCancel').onclick=()=>close(true);
    host.addEventListener('keydown',e=>{if(e.key==='Escape'&&expected){e.preventDefault();e.stopPropagation();close(true)}});
@@ -407,10 +408,10 @@ window.SukunWheelLight=Object.freeze({version:'r980',snapshot:()=>({setting,moti
    };
   }
   const controls=window.SukunBerhetLayout?.snapshot?.(),gate=window.SukunCountCorrection?.statusRemaining?.(undefined,true);
-  const hidden=controls?.focusControlsVisible===false;
-  if(hidden&&(host.contains(document.activeElement)||document.activeElement===trigger))$('r1056FocusControlsToggle')?.focus({preventScroll:true});
+  const hidden=controls?.focusControlsVisible===false||!!window.SukunLowerStats?.hidden?.();
+  if(hidden&&(host.contains(document.activeElement)||document.activeElement===trigger))(window.SukunLowerStats?.hidden?.()?$('r1236StatsSelect'):$('r1056FocusControlsToggle'))?.focus({preventScroll:true});
   host.hidden=hidden;if(undo&&(hidden||!same(undo.after,snapshot())))clearUndo();
-  if(expected){const s=snapshot();if(hidden||!gate?.allowed||!s||['activeMode','activeIndex','journeyKind','target','phase'].some(k=>s[k]!==expected[k])){const focused=host.contains(document.activeElement);close();if(focused)(gate?.allowed?$('r920Remaining'):$('r932EasyPlay'))?.focus({preventScroll:true})}}
+  if(expected){const s=snapshot();if(hidden||!gate?.allowed||!s||['activeMode','activeIndex','journeyKind','target','phase'].some(k=>s[k]!==expected[k])){const focused=host.contains(document.activeElement);close();if(focused)(gate?.allowed?editFocus():$('r932EasyPlay'))?.focus({preventScroll:true})}}
   trigger.setAttribute('aria-disabled',String(hidden||!gate?.allowed));trigger.tabIndex=hidden||!gate?.allowed?-1:0;
   trigger.dataset.editable=String(!hidden&&!!gate?.allowed);
   const editHelp=hidden?say('Kalan sayıyı düzenlemek için Kolay kontrolleri göster.','Show easy controls to edit the remaining count.'):gate?.allowed?say('Kalan sayıyı sessizce düzenle','Silently edit remaining count'):english()?'Pause reading before editing the count.':gate?.reason||'';

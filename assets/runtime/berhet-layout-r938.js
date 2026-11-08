@@ -53,6 +53,7 @@ function setOpen(next,focus=false){
  if(panel.dataset.open!==String(open))panel.dataset.open=String(open);if(focus)toggle.focus({preventScroll:true});
 }
 function restore(){
+ window.SukunLowerStats?.beforeRestore?.(host);
  window.SukunCompactUI?.beforeRestore?.(host);
  if(host)delete host.querySelector('.r920Stats')?.dataset.r989ExitRow;
  for(const [node,anchor]of anchors.reverse()){if(anchor.isConnected)anchor.replaceWith(node)}anchors=[];
@@ -115,6 +116,7 @@ function sync(root,tef){
  if(lastTef!==tef){lastTef=tef;setOpen(false)}
  placeSummary();focusControls(tef);
  placeExit(root,tef);
+ window.SukunLowerStats?.sync?.(root,tef);
  window.SukunCompactUI?.sync?.(root,tef);
  window.SukunPremiumLayout?.sync?.(root,tef);
  // r1213: native controls precede exploration. This is DOM order, so keyboard
