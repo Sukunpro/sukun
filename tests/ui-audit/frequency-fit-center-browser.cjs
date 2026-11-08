@@ -14,6 +14,10 @@ function fits(rows,gutter=0){assert(rows.length);for(const r of rows){assert(r.b
 (async()=>{try{for(width of [320,393,1280]){
  f=await fixture(root,{width,height:900,seed:{'sukun.theme':'"berhet"','sukun.ui.shellMode':'classic','sukun.onboardSeen':'1','sukun.obDone':'1','sukun.obSeenBuild':JSON.stringify(report.build),'sukun.r920.focus':'0'}});p=f.page;report.browser=f.browser.version();
  if(await p.locator('#dailyCard').isVisible())await p.keyboard.press('Escape');await p.locator('#dailyCard').waitFor({state:'hidden'});
+ // Berhet decoration is owned by the selected practice, not sukun.theme.
+ assert.equal(await p.evaluate(()=>KLT_AC('LABELLED-r1235-disposable-fit-profile')),true);
+ assert.equal((await p.evaluate(()=>SukunSessionState.command('select',{mode:'berhet',index:8,journeyKind:'single'}))).accepted,true);
+ await p.waitForFunction(()=>document.documentElement.dataset.r1074Theme==='berhet');
  await p.waitForFunction(()=>!window.SukunInteractionGateR732?.active?.());await p.locator('.tab[data-t="frq"]').click();await p.waitForTimeout(250);
  await check('six navigation labels fit their existing frames',async()=>{const rows=await textGeometry('.wrap>nav.tabs:not([hidden])>button>.tbL');assert.equal(rows.length,6);fits(rows);await p.locator('.wrap>nav.tabs').screenshot({path:path.join(out,width+'-navigation.png')});return rows});
  const work=p.locator('#frequencyWorkbenchR1120 .fr1120-workbench');if(!await work.evaluate(n=>n.open))await work.locator(':scope>summary').click();
