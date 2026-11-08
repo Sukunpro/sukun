@@ -9,7 +9,32 @@ const sources=Object.fromEntries(['index.html','nero.html','css/visual-polish-r1
 const report={build:fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),sources,testSha256:hash(fs.readFileSync(__filename)),startedAt:new Date().toISOString(),checks:[],fixtures:[],limitations:['Headless CSS viewports, not physical-device, screen-reader or audio acceptance.','Wheel target variants use shipped input handler and gallery API, not replacement rendering.','Screenshots require visual review. Transparency baseline comparison is not performed; source-contract tests cover paint changes separately.']};
 let f,p,tag='';
 function save(){report.total=report.checks.length;report.passed=report.checks.filter(x=>x.passed).length;report.allPassed=report.total===25&&report.passed===report.total&&!report.fatal;fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n')}
-async function check(name,fn){try{report.checks.push({name:tag+' '+name,passed:true,evidence:await fn()})}catch(e){report.checks.push({name:tag+' '+name,passed:false,error:e.stack||String(e)});await p.screenshot({path:path.join(out,tag+'-failure-'+report.checks.length+'.png')}).catch(error=>{report.checks.at(-1).screenshotError=String(error)})}save();console.log(JSON.stringify(report.checks.at(-1)))}
+async function focusDiagnostics(){return p.evaluate(()=>{
+ const describe=n=>{if(!n)return null;const s=getComputedStyle(n);return{tag:n.tagName,id:n.id,className:n.className,hidden:n.hidden,inert:n.inert,inertAncestor:n.closest('[inert]')?.id||null,tabIndex:n.tabIndex,display:s.display,visibility:s.visibility,rect:n.getBoundingClientRect().toJSON(),ariaHidden:n.getAttribute('aria-hidden')}};
+ const active=document.activeElement;
+ return{active:describe(active),activeAncestors:active?[...function*(n){for(;n;n=n.parentElement)yield describe(n)}(active)]:[],tour:describe(document.getElementById('onboardCard')),dialog:describe(document.querySelector('#onboardCard .obInner')),skip:describe(document.getElementById('obSkip')),next:describe(document.getElementById('obNext')),search:describe(document.getElementById('prSearchOverlay')),sheetTop:window.SukunSheetAuthority?.top?.(),bodyClass:document.body.className,focusEvents:window.__kfFocusEvents||[],viewport:{width:innerWidth,height:innerHeight}};
+})}
+async function cleanupTour(){
+ // Use shipped closing paths, never mutate hidden/inert/focus to make tests pass.
+ await p.evaluate(()=>{searchClose(false);obClose();});
+ await p.locator('#prSearchOverlay').waitFor({state:'hidden'});
+ await p.locator('#onboardCard').waitFor({state:'hidden'});
+ await p.setViewportSize({width:Number(tag),height:900});
+}
+async function check(name,fn){
+ let row;
+ try{row={name:tag+' '+name,passed:true,evidence:await fn()}}
+ catch(e){row={name:tag+' '+name,passed:false,error:e.stack||String(e)};
+  try{row.focusDiagnostics=await focusDiagnostics()}catch(error){row.diagnosticsError=String(error)}
+  try{await p.screenshot({path:path.join(out,tag+'-failure-'+(report.checks.length+1)+'.png')})}catch(error){row.screenshotError=String(error)}
+ }finally{
+  if(name.startsWith('onboarding ')||name.startsWith('500x265 ')){
+   try{await cleanupTour();if(row)row.cleanup={passed:true}}
+   catch(error){if(row){row.passed=false;row.cleanup={passed:false,error:error.stack||String(error)}}else throw error}
+  }
+ }
+ report.checks.push(row);save();console.log(JSON.stringify(row));
+}
 async function tap(s){await p.waitForFunction(()=>!window.SukunInteractionGateR732?.active?.());await p.locator(s).filter({visible:true}).first().click()}
 async function tab(name){await tap('.tab[data-t="'+name+'"]');await p.waitForTimeout(200)}
 async function shot(name,s){await p.locator(s).screenshot({path:path.join(out,tag+'-'+name+'.png'),timeout:15000})}
@@ -18,6 +43,7 @@ function inside(rows,width,min=0){assert(rows.length,'No visible matched control
 (async()=>{try{
 for(const width of [320,375,500,1280]){
  tag=String(width);f=await fixture(root,{width,height:900,seed:{'sukun.theme':'"feyz"','sukun.ui.shellMode':'classic','sukun.onboardSeen':'1','sukun.obDone':'1','sukun.obSeenBuild':JSON.stringify(report.build),'sukun.r920.focus':'0'}});p=f.page;report.browser=f.browser.version();
+ await p.evaluate(()=>{window.__kfFocusEvents=[];document.addEventListener('focusin',e=>{window.__kfFocusEvents.push({at:performance.now(),id:e.target.id,tag:e.target.tagName,className:e.target.className});if(window.__kfFocusEvents.length>60)window.__kfFocusEvents.shift()},true)});
  if(await p.locator('#dailyCard').isVisible())await p.keyboard.press('Escape');await p.locator('#dailyCard').waitFor({state:'hidden'});
  await check('frequency order and native Enter Space pressed semantics',async()=>{
   await tab('frq');const ids=['carNum','beatNum','frVol','frToggle','bandChips','frequencyAdvancedR1120','frequencyWorkbenchR1120'];
