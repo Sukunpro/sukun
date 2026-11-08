@@ -138,7 +138,7 @@
   border-image:none!important;border-radius:7px!important;box-shadow:none!important;cursor:pointer!important;
   touch-action:manipulation!important;white-space:normal!important;transform:none!important;
  }
- html body #tab-frq #bandChips .frequencyShortcut {flex:1 1 44px!important}
+ html body #tab-frq #bandChips .frequencyShortcut {flex:1 0 64px!important;min-width:64px!important;white-space:nowrap!important}
  html body #tab-frq .frequencyShortcut::before,html body #tab-frq .frequencyShortcut::after {content:none!important}
  html body #tab-frq .frequencyShortcut[aria-pressed="true"] {color:var(--goldh)!important;border-color:var(--line2)!important;background:color-mix(in srgb,var(--gold) 10%,transparent)!important}
  html body #tab-frq :is(.frequencyShortcut,#carNum,#beatNum,#frVol,#frToggle):focus-visible {outline:2px solid var(--sukun-material-focus,#ffe6a1)!important;outline-offset:3px!important}

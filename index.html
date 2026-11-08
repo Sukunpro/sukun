@@ -8,7 +8,7 @@
 <html class="sukun-jewel-r798" lang="tr">
 <head>
 <meta charset="utf-8"/>
-<link rel="stylesheet" href="./css/visual-polish-r1232.css?v=r1234" integrity="sha256-kwvk93We/CH6EgNnw4R5rtoPcydmv862Bd/1w4YiY2M="/>
+<link rel="stylesheet" href="./css/visual-polish-r1232.css?v=r1234" integrity="sha256-fLJhKImfAZXqtIO+93WjWUYl/OUu0lQ2kWwdWp5NN4E="/>
 <style id="sukun-r1228-footer-gems">
 @layer sukun-r1228-footer-gems {
  /* Equal label/value rows keep Kalan level with Ebced hedefi in every phase.
@@ -6056,7 +6056,17 @@ function obOpen(onlyNew){
   const oc=$('#onboardCard');
   if(!oc.contains(document.activeElement))OB_RETURN=document.activeElement;
   oc.hidden=false;
-  requestAnimationFrame(()=>{if(epoch===OB_EPOCH&&!oc.hidden){oc.classList.add('ob-active');obFocus()}});
+  requestAnimationFrame(()=>{
+    if(epoch!==OB_EPOCH||oc.hidden)return;
+    oc.classList.add('ob-active');
+    const prior=document.activeElement;
+    obFocus();
+    // Visibility can still be hidden at the start of its CSS transition.
+    // Retry once after paint, without taking focus from a newer owner.
+    requestAnimationFrame(()=>{
+      if(epoch===OB_EPOCH&&!oc.hidden&&!oc.contains(document.activeElement)&&document.activeElement===prior)obFocus();
+    });
+  });
 }
 function obInit(){
   $('#obNext').onclick=obNext;

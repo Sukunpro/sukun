@@ -15,11 +15,19 @@ async function focusDiagnostics(){return p.evaluate(()=>{
  return{active:describe(active),activeAncestors:active?[...function*(n){for(;n;n=n.parentElement)yield describe(n)}(active)]:[],tour:describe(document.getElementById('onboardCard')),dialog:describe(document.querySelector('#onboardCard .obInner')),skip:describe(document.getElementById('obSkip')),next:describe(document.getElementById('obNext')),search:describe(document.getElementById('prSearchOverlay')),sheetTop:window.SukunSheetAuthority?.top?.(),bodyClass:document.body.className,focusEvents:window.__kfFocusEvents||[],viewport:{width:innerWidth,height:innerHeight}};
 })}
 async function cleanupTour(){
- // Use shipped closing paths, never mutate hidden/inert/focus to make tests pass.
- await p.evaluate(()=>{searchClose(false);obClose();});
- await p.locator('#prSearchOverlay').waitFor({state:'hidden'});
- await p.locator('#onboardCard').waitFor({state:'hidden'});
- await p.setViewportSize({width:Number(tag),height:900});
+ // Search helpers are closure-local. Use the shipped public sheet API instead.
+ // Each cleanup stage runs even if an earlier stage failed; keep every error.
+ const errors=[];
+ try{
+  await p.evaluate(()=>{const overlay=document.getElementById('prSearchOverlay');if(overlay&&!overlay.hidden){if(typeof window.SukunSheetAuthority?.close!=='function')throw Error('Missing public sheet close API');window.SukunSheetAuthority.close('prSearchOverlay',{returnFocus:false});}});
+  await p.locator('#prSearchOverlay').waitFor({state:'hidden'});
+ }catch(error){errors.push('search cleanup: '+(error.stack||error))}
+ finally{
+  try{await p.evaluate(()=>obClose());await p.locator('#onboardCard').waitFor({state:'hidden'});}
+  catch(error){errors.push('tour cleanup: '+(error.stack||error))}
+  finally{try{await p.setViewportSize({width:Number(tag),height:900});}catch(error){errors.push('viewport cleanup: '+(error.stack||error))}}
+ }
+ if(errors.length)throw Error(errors.join('\n'));
 }
 async function check(name,fn){
  let row;
@@ -51,7 +59,10 @@ for(const width of [320,375,500,1280]){
   const before=await p.evaluate(()=>({carrier:FR.c,volume:FR.vol,playing:FR.playing}));
   for(const [band,key,value] of [['delta','Enter',2.5],['alpha','Space',10]]){const b=p.locator('#bandChips button[data-b="'+band+'"]');await b.focus();await b.press(key);await p.waitForFunction(v=>FR.b===v,value);assert.equal(await b.getAttribute('aria-pressed'),'true');assert.equal(await p.locator('#bandChips button[aria-pressed="true"]').count(),1)}
   assert.deepEqual(await p.evaluate(()=>({carrier:FR.c,volume:FR.vol,playing:FR.playing})),before);
-  const rows=await geometry('#bandChips button,#beatChips button,#carChips button');inside(rows,width,44);assert(rows.every(r=>r.rect.width>=43));await shot('frequency','#tab-frq');return rows;
+  const rows=await geometry('#bandChips button,#beatChips button,#carChips button');inside(rows,width,44);assert(rows.every(r=>r.rect.width>=43));
+  const bandLines=await p.locator('#bandChips button').evaluateAll(buttons=>buttons.map(button=>{const range=document.createRange();range.selectNodeContents(button);const rects=[...range.getClientRects()].filter(r=>r.width>0&&r.height>0).map(r=>r.toJSON());return{text:button.textContent,button:button.getBoundingClientRect().toJSON(),rects}}));
+  assert.equal(bandLines.length,5);for(const band of bandLines){assert(band.rects.length>0,'missing band label '+band.text);assert(band.rects.every(r=>Math.abs(r.top-band.rects[0].top)<1),'band label split across lines '+JSON.stringify(band));assert(band.rects.every(r=>r.left>=band.button.left&&r.right<=band.button.right),'band label clips button '+JSON.stringify(band));}
+  await shot('frequency','#tab-frq');return{controls:rows,bandLines};
  });
  await check('search grouping separate labels Turkish ASCII and keyboard',async()=>{
   await p.keyboard.press('Control+k');await p.locator('#prSearchInput').waitFor({state:'visible'});assert.deepEqual(await p.locator('.prSearchGroupTitle').allTextContents(),['İçerikler','Araçlar ve işlemler']);assert(await p.locator('.prResult b').count()>0);assert(await p.locator('.prResult .prResultDescription').count()>0);
