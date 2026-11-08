@@ -11,6 +11,9 @@ import argparse, concurrent.futures, hashlib, json, re, subprocess, time
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
+    ('r1234-klasik-feyz', 'tests/ui-audit/klasik-feyz-accessibility.cjs'),
+    ('r1234-onboarding', 'tests/ui-audit/onboarding-accessibility.cjs'),
+    ('r1234-search-readability', 'tests/ui-audit/search-readability.cjs'),
     ('r1233-audit-regressions', 'tests/r1233/audit-regressions.cjs'),
     ('r1233-ui-source', 'tests/r1233/ui-source.cjs'),
     ('r1233-integrity-network', 'tests/r1233/integrity-network.cjs'),

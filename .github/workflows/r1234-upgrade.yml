@@ -1,0 +1,70 @@
+name: r1234 immediate-previous upgrade recovery
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  upgrade-r1233:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out exact candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: candidate
+          persist-credentials: false
+      - name: Check out verified r1233 predecessor
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: dee2137983d34e8c5458cf8df4aa0064ce7e9865
+          path: previous
+          persist-credentials: false
+      - name: Install pinned native browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
+          echo "NODE_PATH=$RUNNER_TEMP/sukun-browser/node_modules" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify current offline rollback and return with synthetic data
+        working-directory: candidate
+        run: |
+          export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          node tests/r1213/release-upgrade-browser.cjs "$PWD" ../previous ../r1234-upgrade/evidence.json
+      - name: Upload exact-byte upgrade evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1234-upgrade-${{ github.event.pull_request.head.sha || github.sha }}
+          path: r1234-upgrade
+          if-no-files-found: error
+          retention-days: 30
+
+  klasik-feyz:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out exact candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Install pinned native browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
+          echo "NODE_PATH=$RUNNER_TEMP/sukun-browser/node_modules" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify Klasik Feyz keyboard and responsive behavior
+        run: |
+          export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          node tests/ui-audit/klasik-feyz-browser.cjs "$PWD" "$RUNNER_TEMP/klasik-feyz-browser"
+      - name: Upload exact-source browser evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1234-klasik-feyz-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/klasik-feyz-browser
+          if-no-files-found: error
+          retention-days: 30
