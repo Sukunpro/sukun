@@ -751,7 +751,7 @@
             './css/theme-surfaces-r1213.css','./css/practice-flow-r1213.css','./css/offline-audio-r1213.css','./css/header-logo-r1214.css',
             './css/premium-layout-r1215.css','./css/cinematic-r1215.css','./css/atlas-r1215.css','./css/atlas-r1217.css',
             './css/legacy-r1215-embFonts.css','./css/legacy-r1215-base-style.css','./css/legacy-r1215-r699-layout-authority.css',
-            './css/visual-polish-r1232.css']
+            './css/visual-polish-r1232.css','./css/lower-stats-r1236.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
           if (url.origin!==location.origin||url.username||url.password||seenPaths.has(url.pathname)||!(runtime||threeModule||navigationArt||cabirArt||rescuePage||introArt||currentArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;

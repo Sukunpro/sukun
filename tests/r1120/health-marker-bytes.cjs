@@ -73,6 +73,12 @@ async function test(name,fn){try{results.push({name,passed:true,evidence:await f
    const variants=['./nested/'+name.slice(2),'https://evil.invalid/sukun/'+name.slice(2),'./css/unlisted-r1215.css'].map(url=>({...entry,url}));const rejected=await run(Buffer.from(JSON.stringify({...marker,runtime:variants})));assert.equal(rejected.result.evidence.configurationErrors,3);assert.equal(rejected.calls.length,1);
   }return{exactPaths:names.length,rejectedVariants:names.length*3};
  });
+ await test('Exact lower-stat stylesheet verifies while remote, nested and sibling paths are rejected',async()=>{
+  const name='./css/lower-stats-r1236.css',entry=marker.runtime.find(e=>e.url.split('?')[0]===name);assert(entry);
+  const valid=await run(Buffer.from(JSON.stringify({...marker,runtime:[entry]})));assert.equal(valid.result.status,'PASS');assert.equal(valid.result.evidence.matched,1);
+  const variants=['./nested/css/lower-stats-r1236.css','https://evil.invalid/sukun/css/lower-stats-r1236.css','./css/lower-stats-other.css'].map(url=>({...entry,url}));
+  const rejected=await run(Buffer.from(JSON.stringify({...marker,runtime:variants})));assert.equal(rejected.result.status,'FAIL');assert.equal(rejected.result.evidence.configurationErrors,3);assert.equal(rejected.calls.length,1);return{exactPaths:1,rejectedVariants:3};
+ });
  await test('Aggregate core beyond 12 MiB stays bounded with unique valid paths',async()=>{
   const body=Buffer.alloc(524288,32),assetBodies={},runtime=Array.from({length:25},(_,i)=>{const name='assets/runtime/budget-fixture-'+i+'.js';assetBodies[name]=body;return{url:'./'+name,sha256:hash(body)}});
   const x=await run(Buffer.from(JSON.stringify({...marker,runtime})),{assetBodies});
