@@ -1,0 +1,71 @@
+name: r1235 immediate-previous upgrade recovery
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  upgrade-r1234:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out exact candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: candidate
+          persist-credentials: false
+      - name: Check out verified r1234 predecessor
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ed81326583f408b518b32cc115fc35316a35cf41
+          path: previous
+          persist-credentials: false
+      - name: Install pinned native browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
+          echo "NODE_PATH=$RUNNER_TEMP/sukun-browser/node_modules" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify current offline rollback and return with synthetic data
+        working-directory: candidate
+        run: |
+          export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          node tests/r1213/release-upgrade-browser.cjs "$PWD" ../previous ../r1235-upgrade/evidence.json
+      - name: Upload exact-byte upgrade evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1235-upgrade-${{ github.event.pull_request.head.sha || github.sha }}
+          path: r1235-upgrade
+          if-no-files-found: error
+          retention-days: 30
+
+  frequency-fit-center:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out exact candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Install pinned native browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
+          echo "NODE_PATH=$RUNNER_TEMP/sukun-browser/node_modules" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify frequency fit and native controls
+        run: |
+          export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          node tests/ui-audit/frequency-fit-center.cjs "$PWD"
+          node tests/ui-audit/frequency-fit-center-browser.cjs "$PWD" "$RUNNER_TEMP/frequency-fit-center"
+      - name: Upload exact-source browser evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1235-frequency-fit-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/frequency-fit-center
+          if-no-files-found: error
+          retention-days: 30
