@@ -15,10 +15,14 @@ const report={sources,expectedCases:2,results:[],limitations:['Device touch and 
   await p.locator('#run').waitFor({state:'visible'});await p.waitForFunction(()=>!document.getElementById('run').disabled,null,{timeout:20000});
   await p.locator('#run').click();await p.waitForFunction(()=>{try{return typeof JSON.parse(document.getElementById('result').textContent).allPassed==='boolean'}catch{return false}},null,{timeout:45000});
   const result=JSON.parse(await p.locator('#result').textContent());report.results.push(result);
+  const range=p.frameLocator('#app').locator('#r1237StatsSize');await range.press('Home');assert.equal(await range.inputValue(),'0');await range.press('ArrowRight');assert.equal(await range.inputValue(),'1');await range.press('End');assert.equal(await range.inputValue(),'100');
+  const bounds=await range.boundingBox();assert(bounds&&bounds.width>=44);await p.mouse.move(bounds.x+8,bounds.y+bounds.height/2);await p.mouse.down();await p.mouse.move(bounds.x+bounds.width-8,bounds.y+bounds.height/2,{steps:12});await p.mouse.up();assert(Number(await range.inputValue())>=90,'native pointer drag updates size');
+  result.nativeKeyboardAndDrag=true;
   await p.screenshot({path:path.join(out,mode+'-compact.png'),fullPage:true});
   assert.equal(result.allPassed,true,JSON.stringify(result.results.filter(r=>!r.passed)));
-  assert.equal(result.results.length,91,'complete expected assertion set');
+  assert.equal(result.results.length,159,'complete expected assertion set');
   assert.deepEqual(f.consoleErrors.filter(e=>/integrity|digest|\bSRI\b/i.test(String(e))),[],'no SRI failure');
+  const app=p.frames().find(frame=>/\/nero\.html/.test(frame.url()));assert(app);await app.evaluate(()=>{SukunLowerStats.setSize(37);SukunLowerStats.setVisible(false)});await app.goto(app.url(),{waitUntil:'load'});await app.waitForFunction(()=>window.SukunLowerStats?.snapshot?.().size===37&&SukunLowerStats.snapshot().visible===false);result.reloadPreferenceRetained=true;
   await f.close();f=null;
  }
 }catch(error){report.error=error.stack;process.exitCode=1}finally{

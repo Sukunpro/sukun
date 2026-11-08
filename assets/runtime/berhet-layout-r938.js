@@ -39,7 +39,7 @@ function focusControls(tef=lastTef){
  // Context and safe journey actions do not disappear with duplicate transport.
  hidden(restartControls,!!$('r920JourneyRestartAll')?.hidden);
  hidden($('r1056ReadingSummary'),false);hidden($('r968ManualHint'),!visible);hidden(focusToggle,false);
- const state=visible?'shown':'hidden';if(host.dataset.r1056FocusControls!==state)host.dataset.r1056FocusControls=state;labels();window.SukunCountEntry?.render?.();
+ const state=visible?'shown':'hidden';if(host.dataset.r1056FocusControls!==state)host.dataset.r1056FocusControls=state;labels();window.SukunLowerStats?.syncControls?.(visible);window.SukunCountEntry?.render?.();
 }
 function setFocusControls(value){
  if(typeof value!=='boolean')return false;if(value===focusControlsVisible)return true;focusControlsVisible=value;
@@ -79,7 +79,7 @@ function build(root){
  if(transport){hiddenStates.set(transport,transport.hidden);move(transport,quick);transport.id='r1056PrimaryControls';quick.insertBefore(transport,quick.children[0]||null)}
  finishRow=document.createElement('div');finishRow.id='r1056FinishRow';quick.append(finishRow);move($('r932EasyStop'),finishRow);
  const hint=$('r968ManualHint');if(hint)hiddenStates.set(hint,hint.hidden);move(hint,quick);
- focusToggle=document.createElement('button');focusToggle.id='r1056FocusControlsToggle';focusToggle.type='button';focusToggle.setAttribute('aria-controls','r1056PrimaryControls r1056FinishRow r968ManualHint');quick.append(focusToggle,toggle,body);
+ focusToggle=document.createElement('button');focusToggle.id='r1056FocusControlsToggle';focusToggle.type='button';focusToggle.setAttribute('aria-controls','r1056PrimaryControls r1056FinishRow r968ManualHint r1237StatsControls');quick.append(focusToggle,toggle,body);
  // Easy controls own the wrapper; the session renderer keeps the button's eligibility.
  const restartAll=$('r920JourneyRestartAll');if(restartAll){restartControls=document.createElement('details');restartControls.id='r1196JourneyRestartControls';restartControls.innerHTML='<summary id="r1213JourneyActionsTitle"></summary>';quick.insertBefore(restartControls,focusToggle);move(restartAll,restartControls)}
  for(const node of [shortcuts,picker])move(node,body);
@@ -102,7 +102,7 @@ function placeExit(root,tef){
  if(row){
   const remaining=stats.querySelector('#r920Remaining')?.parentElement;
   if(!remaining)return;
-  if(exit.parentElement!==stats||exit.previousElementSibling!==remaining)stats.append(exit);
+  if(exit.parentElement!==stats||exit!==stats.children[stats.children.length-1])stats.append(exit);
   if(stats.dataset.r989ExitRow!=='1')stats.dataset.r989ExitRow='1';
  }else{
   if(stats.dataset.r989ExitRow!==undefined)delete stats.dataset.r989ExitRow;
