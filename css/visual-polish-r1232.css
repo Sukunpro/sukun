@@ -1,6 +1,47 @@
 /* r1232 candidate: presentation only. Declare this layer before legacy layers
    so the limited important overrides do not require changing native owners. */
 @layer sukun-r1232-polish {
+ /* Frequency help uses the same gemstone artwork as before. Keep its
+    native text inside the carved ends and centre it without clipping or
+    shrinking long / enlarged labels. Equal side gutters also reserve
+    space for the independent disclosure arrow. */
+ html[data-r1074-theme="berhet"] body #frequencyWorkbenchR1120 :is(.fr1120-workbench,.fr1120-help)>summary {
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  position:relative!important;box-sizing:border-box!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  min-height:56px!important;height:auto!important;max-height:none!important;
+  padding:14px 42px!important;border-image-width:12px 30px!important;
+  text-align:center!important;white-space:normal!important;
+  overflow-wrap:break-word!important;word-break:normal!important;
+  line-height:1.45!important;letter-spacing:0!important;list-style:none!important;
+ }
+ html[data-r1074-theme="berhet"] body #frequencyWorkbenchR1120 :is(.fr1120-workbench,.fr1120-help)>summary::-webkit-details-marker {display:none!important}
+ html[data-r1074-theme="berhet"] body #frequencyWorkbenchR1120 :is(.fr1120-workbench,.fr1120-help)>summary::after {
+  position:absolute!important;inset:auto 29px auto auto!important;top:50%!important;
+  width:12px!important;height:12px!important;margin:0!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  line-height:1!important;transform:translateY(-50%)!important;pointer-events:none!important;
+ }
+ html[data-r1074-theme="berhet"] body #frequencyWorkbenchR1120 :is(.fr1120-workbench,.fr1120-help)[open]>summary::after {transform:translateY(-50%) rotate(180deg)!important}
+ html[data-r1074-theme="berhet"] body #frequencyWorkbenchR1120 :is(#fr1120-wave,#fr1120-noise) {
+  text-align:center!important;text-align-last:center!important;
+  padding-inline:32px!important;
+ }
+ html[data-r1074-theme="berhet"] body #frequencyWorkbenchR1120 :is(#fr1120-wave,#fr1120-noise)>option {text-align:start!important;text-align-last:auto!important}
+
+ /* Keep all six navigation actions and their existing icons. The former
+    9px side padding left most of a narrow gem unusable by its label. */
+ @media (max-width:720px) {
+  html[data-r1074-theme="berhet"] body .wrap>nav.tabs:not([hidden])>button {
+   padding-inline:3px!important;border-image-width:9px 4px!important;
+  }
+  html[data-r1074-theme="berhet"] body .wrap>nav.tabs:not([hidden])>button>.tbL {
+   font-size:clamp(9px,2.3vw,12px)!important;line-height:1.35!important;letter-spacing:-.02em!important;
+   text-align:center!important;text-wrap:balance!important;
+   white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;
+  }
+ }
+
  /* The checkbox remains a native, labelled 44px control. Only its painted
     face is 18px; labels, keyboard input, disabled and checked state survive. */
  html body #frequencyWorkbenchR1120 .fr1120-row:has(>input[type="checkbox"]) {

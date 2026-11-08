@@ -1,0 +1,22 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
+const read=name=>fs.readFileSync(path.join(root,name),'utf8');
+const css=read('css/visual-polish-r1232.css'),html=read('nero.html'),runtime=read('assets/runtime/frequency-workbench-r1120.js');
+const checks=[];
+function check(name,fn){try{fn();checks.push({name,passed:true})}catch(error){checks.push({name,passed:false,error:error.message})}}
+const heading=css.match(/#frequencyWorkbenchR1120 :is\(\.fr1120-workbench,\.fr1120-help\)>summary \{([^}]+)\}/)?.[1]||'';
+check('Heading layout is restricted to Berhet and frequency tools',()=>assert(css.includes('html[data-r1074-theme="berhet"] body #frequencyWorkbenchR1120 :is(.fr1120-workbench,.fr1120-help)>summary')));
+check('Labels are centred in both axes',()=>assert(['align-items:center','justify-content:center','text-align:center'].every(s=>heading.includes(s))));
+check('Equal 42px gutters keep text inside the 30px bevels',()=>assert(heading.includes('padding:14px 42px')&&heading.includes('border-image-width:12px 30px')));
+check('Multiline and enlarged text expands naturally',()=>assert(['height:auto','max-height:none','white-space:normal','overflow-wrap:break-word','word-break:normal'].every(s=>heading.includes(s))));
+check('Disclosure hit target is at least 44px',()=>assert(heading.includes('min-height:56px')));
+check('Chevron has its own reserved lane and vertical centre',()=>assert(css.includes('inset:auto 29px auto auto')&&css.includes('top:50%')&&css.includes('translateY(-50%) rotate(180deg)')));
+check('Wave/noise values retain native selects with centred values',()=>assert(css.includes(':is(#fr1120-wave,#fr1120-noise)')&&css.includes('text-align-last:center')));
+check('Six existing tabs remain owned by their current navigation code',()=>assert(!css.slice(0,css.indexOf('The checkbox remains')).includes('grid-template-columns')));
+check('Compact labels do not shrink below existing 9px floor',()=>assert(css.includes('font-size:clamp(9px,2.3vw,12px)')&&css.includes('text-wrap:balance')));
+check('Native help Escape handler and controls remain intact',()=>assert(runtime.includes("event.key==='Escape'&&panel.open")&&runtime.includes("input=document.createElement('select')")&&runtime.includes("panel.className='fr1120-help'")));
+check('Entrypoints stay byte-identical',()=>assert.equal(read('index.html'),html));
+check('CSS SRI matches exact candidate bytes',()=>{const sri=crypto.createHash('sha256').update(css).digest('base64');const link=html.match(/<link\s+[^>]*href="\.\/css\/visual-polish-r1232\.css(?:\?[^"]*)?"[^>]*>/)?.[0]||'';assert(link.includes('integrity="sha256-'+sri+'"'))});
+console.log(JSON.stringify({method:'Source contracts only; browser geometry and native interaction evidence are separate.',passed:checks.filter(x=>x.passed).length,total:checks.length,checks},null,2));
+if(checks.some(x=>!x.passed))process.exitCode=1;
