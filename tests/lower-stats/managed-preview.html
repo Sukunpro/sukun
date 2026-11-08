@@ -49,6 +49,10 @@ try{
    const geometry={viewport,display,cards,exit:box('#r920TefExit'),selector:box('#r1236StatsSelect'),overflow:d.documentElement.scrollWidth};
    check('Responsive '+viewport+' '+display,display==='hidden'?cards.every(c=>!c.visible):cards.every(c=>c.visible&&c.box.left>=0&&c.box.right<=viewport+1&&c.box.height>=44&&c.box.height<92),geometry);
    check('Responsive controls '+viewport+' '+display,geometry.exit.height>=44&&geometry.selector.height>=44&&geometry.selector.left>=0&&geometry.selector.right<=viewport+1&&geometry.overflow<=viewport+1,geometry);
+   if(display!=='hidden'){
+    const measured=[...d.querySelectorAll('.r920Stats>span')].map(card=>{const rect=card.getBoundingClientRect(),style=w.getComputedStyle(card),raw=style.borderImageWidth.split(' ').map(parseFloat),inset=style.borderImageSource==='none'?[0,0,0,0]:raw.length===1?[raw[0],raw[0],raw[0],raw[0]]:raw.length===2?[raw[0],raw[1],raw[0],raw[1]]:raw;const text=[];const walker=d.createTreeWalker(card,w.NodeFilter.SHOW_TEXT);while(walker.nextNode()){if(!walker.currentNode.textContent.trim())continue;const range=d.createRange();range.selectNodeContents(walker.currentNode);for(const r of range.getClientRects())if(r.width&&r.height)text.push(r.toJSON())}return{rect:rect.toJSON(),inset,text}});
+    check('Text within carved frame '+viewport+' '+display,measured.every(g=>g.text.every(t=>t.left>=g.rect.left+g.inset[3]-1&&t.right<=g.rect.right-g.inset[1]+1&&t.top>=g.rect.top+g.inset[0]-1&&t.bottom<=g.rect.bottom-g.inset[2]+1)),measured);
+   }
    check('Responsive counts retained '+viewport+' '+display,JSON.stringify(counts())===stable);
   }
  }

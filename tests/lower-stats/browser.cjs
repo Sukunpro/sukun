@@ -17,7 +17,7 @@ const report={sources,expectedCases:2,results:[],limitations:['Device touch and 
   const result=JSON.parse(await p.locator('#result').textContent());report.results.push(result);
   await p.screenshot({path:path.join(out,mode+'-compact.png'),fullPage:true});
   assert.equal(result.allPassed,true,JSON.stringify(result.results.filter(r=>!r.passed)));
-  assert.equal(result.results.length,81,'complete expected assertion set');
+  assert.equal(result.results.length,91,'complete expected assertion set');
   assert.deepEqual(f.consoleErrors.filter(e=>/integrity|digest|\bSRI\b/i.test(String(e))),[],'no SRI failure');
   await f.close();f=null;
  }

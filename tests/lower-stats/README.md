@@ -8,7 +8,7 @@ Run:
 
 - `node tests/lower-stats/contract.cjs`: 13 production-module/source assertions.
 - `node tests/r1227/direct-count.cjs`: existing 62 native correction/ownership assertions.
-- `node tests/lower-stats/browser.cjs "$PWD" /tmp/sukun-lower-stats`: two theme cases, 81 checks each, using the native browser fixture. Requires Playwright and its supported Chromium executable (`CHROMIUM_PATH`).
+- `node tests/lower-stats/browser.cjs "$PWD" /tmp/sukun-lower-stats`: two theme cases, 91 checks each, using the native browser fixture. Requires Playwright and its supported Chromium executable (`CHROMIUM_PATH`).
 
 The browser harness is also suitable for the managed Sites preview. Serve this repository unchanged and open `tests/lower-stats/managed-preview.html?w=393&mode=berhet&theme=berhet`, then run the visible checks button. Repeat with `mode=esma&theme=esma`. It tests 320, 393, 500, 720 and 1280px in all three display modes, native Save/Undo, keyboard Enter/Escape, invalid/cancelled edits, hidden focus, easy-controls eligibility, repeated entry/exit, persistence writes and unchanged counts/wheel markup. The 99,999 single-reading maximum is selected through the native target handler and checked at 320px in Normal and Küçük. It uses a labelled disposable unlocked test profile; never point it at a user's live application origin.
 
