@@ -5,7 +5,7 @@
  const VERSION='r1101',$=id=>document.getElementById(id);
  const safe=(fn,fallback=null)=>{try{return fn()}catch(_){return fallback}};
  const T=(tr,en)=>window.I18N?.lang==='en'?en:tr;
- const TOOLS={overview:['Öneriler','Suggestions','panel-main'],library:['Kütüphane','Library','panel-lib'],sweep:['Tarama','Sweep','panel-main'],breath:['Nefes','Breathing','panel-breath'],cymatics:['Kimatik','Cymatics','panel-cym'],guided:['Rehberli oturum','Guided session','panel-med']};
+ const TOOLS={overview:['Öneriler','Suggestions','panel-main'],library:['Kütüphane','Library','panel-lib'],sweep:['Tarama','Sweep','panel-main'],breath:['Nefes','Breathing','panel-breath'],guided:['Rehberli oturum','Guided session','panel-med']};
  let host=null,native=null,initializing=false,initialized=false,selectedTool='overview',expanded=false,poll=0,renderKey='';
  let libraryNoticeKey='';
  let sweep=null,sweepTick=0,frequencyTimer=null,timerTick=0;
@@ -22,7 +22,7 @@
   // A library message describes this exact playback state. Native Stop,
   // global Pause/Resume and manual tuning must not leave a stale claim.
   if(libraryNoticeKey&&libraryNoticeKey!==libraryStateKey(f,paused))notify('');
-  if(initialized){safe(()=>native?.frequencyHubSync?.(f));const tag=$('cymHzTag');if(tag)tag.textContent=f.c.toFixed(1)+' Hz';}
+  if(initialized)safe(()=>native?.frequencyHubSync?.(f));
   const key=[f.playing,paused,f.c.toFixed(1),f.b.toFixed(2),f.mode,window.I18N?.lang,sweep?.active,frequencyTimer?.end].join('|');
   if(key!==renderKey){renderKey=key;const state=$('r1101FrequencyState');if(state)state.textContent=(paused?T('Duraklatıldı','Paused'):f.playing?T('Çalıyor','Playing'):T('Hazır','Ready'))+' · '+f.c.toFixed(1)+' Hz / '+f.b.toFixed(2)+' Hz';}
   paintSweep();paintTimer();
@@ -155,7 +155,7 @@
   if($('sweepStopBtn'))$('sweepStopBtn').hidden=!sweep?.active;
   const status=$('r1101SweepStatus');if(status)status.textContent=sweep?.active?T('Tarama sürüyor · ','Sweeping · ')+frequency().c.toFixed(1)+' Hz':T('Tek frekans motorunu kullanır; ambiyans ve zikir değişmez.','Uses the main frequency engine; ambience and dhikr are preserved.');
  }
- function cymToggle(hz){
+ function toggleFrequency(hz){
   const value=+hz;if(!Number.isFinite(value))return false;
   const f=frequency(),same=Math.abs(f.c-value)<.1;
   if(same&&f.playing){stop();return false}
@@ -212,20 +212,38 @@
    const legacy=$('panel-main');if(legacy){legacy.hidden=true;legacy.inert=true;legacy.setAttribute('aria-hidden','true')}
    const libNote=$('panel-lib')?.querySelector('.libNote');text(libNote,'Bir sete dokununca ana frekans ayarlanır ve çalmaya başlar. Çalıyorsa aynı ses akışı seçilen sete geçer. Genel duraklatma açıkken yalnız ayarlar uygulanır. Çok aşamalı yolculuklar başlatma alanına yönlendirir.','Tap a set to apply it and play the main frequency. While playing, the same audio stream switches to the selected set. During global pause, only settings are applied. Multi-stage journeys open their start area.');
    ns.querySelector('#tabNav')?.addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(!b)return;const tool=Object.keys(TOOLS).find(k=>TOOLS[k][2]===b.dataset.tab);if(tool)displayTool(tool)});
-   $('cymNum')?.addEventListener('change',e=>{const c=+e.target.value;if(Number.isFinite(c))apply({c})});
-   for(const id of ['cymPrev','cymNext'])$(id)?.addEventListener('click',()=>{const c=+$('cymNum')?.value;if(Number.isFinite(c))apply({c})});
    $('fadeDuration')?.addEventListener('input',e=>{if(frequencyTimer){frequencyTimer.fade=Math.min(300,Math.max(5,+e.target.value||60));armTimer();safe(()=>frApplyGains(.3))}});
    for(const [key,tool]of Object.entries(TOOLS)){const panel=$(key==='overview'?'r1101FrequencyOverview':key==='sweep'?'r1101FrequencySweep':tool[2]);if(panel){panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby','r1101FrequencyTab-'+key)}}
    // Give native suggestion cards their existing keyboard action, with no copies.
    ns.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const el=e.target.closest('.ai-result-preset');if(el){e.preventDefault();el.click()}});
    new MutationObserver(()=>{ns.querySelectorAll('.ai-result-preset').forEach(el=>{el.tabIndex=0;el.setAttribute('role','button')})}).observe($('aiResponse'),{childList:true,subtree:true});
+   const H=window.SukunFrequencyR1120;
+   const explain=(parent,id,tr,en,entries,controls=[])=>H?.describe(controls,H.addHelp(parent,id,tr,en,entries));
+   explain($('spectrumCanvas')?.closest('.card'),'fr1120-signal-help','Spektrum ve dalga şekli','Spectrum and waveform',[
+    ['Spektrum, sesin hangi frekanslarda yoğunlaştığını gösterir. Dalga şekli, seçilen 5, 20 veya 50 milisaniyelik aralıkta sinyalin zaman içindeki değişimini gösterir; aralık sesi değiştirmez.','Spectrum shows where the sound is concentrated across frequencies. Waveform shows how the signal changes over a 5, 20 or 50 millisecond window; this window does not change the sound.']],['signalView','signalWindow']);
+   explain($('aiInput')?.closest('.card'),'fr1120-suggestions-help','Öneriler nasıl seçilir?','How are suggestions selected?',[
+    ['Yazdığın kelimeler cihazdaki hazır eşleştirme kurallarıyla karşılaştırılır. Bu bir ruh hâli ölçümü, tanı veya tedavi önerisi değildir; adlar ve açıklamalar belirli bir sonuç garanti etmez.','Your words are matched against preset rules on the device. This is not a mood measurement, diagnosis or treatment recommendation; names and descriptions do not guarantee an outcome.'],
+    ['Bir öneri kartı ana frekans ayarlarını hazırlar. Ses kapalıysa Frekansı Başlat düğmesini kullan; zaten çalıyorsa yeni ayar duyulur. Tam tefekkür düzeni düğmesi ayrı düzen aracını açar.','A suggestion card prepares the main frequency settings. If audio is stopped, use Start frequency; if already playing, you hear the new settings. The full contemplation routine button opens the separate routine tool.']],['aiInput','aiSendBtn']);
+   explain($('timerDisplay')?.closest('.card'),'fr1120-timer-help','Süre ve sönümleme','Timer and fade-out',[
+    ['Dakika düğmesi bir süre hazırlar; ses kapalıysa sayım Frekansı Başlat ile başlar. Sönümleme, sürenin son bölümünde frekans sesinin kaç saniyede kısılacağını belirler; toplam dinleme süresine eklenmez.','A minutes button sets a timer; if audio is stopped, counting starts with Start frequency. Fade-out sets how many seconds the frequency sound takes to fade at the end; it does not add to the total listening time.'],
+    ['İptal yalnız süre sınırını kaldırır ve sesi durdurmaz. Frekansı Durdur ise sesi ve zamanlayıcıyı kapatır.','Cancel removes only the time limit; it does not stop the sound. Stop frequency stops both the sound and timer.']],['fadeDuration','timerCancelBtn']);
+   explain(sweepCard,'fr1120-sweep-help','Tarama ayarları','Sweep settings',[
+    ['Başlangıç ve bitiş Hz değerleri ana taşıyıcıyı, süre geçişin saniyesini belirler. Vuruş değeri aynı kalır. Doğrusal eşit sürede eşit Hz; logaritmik eşit sürede eşit oranlı perde değişimi yapar.','Start and end Hz set the main carrier range; duration sets transition time in seconds. The beat stays unchanged. Linear changes by equal Hz per time step; logarithmic changes pitch by equal ratios.'],
+    ['Döngü, her geçiş bitince başlangıca dönüp tekrarlar. Taramayı durdur, tonu son değerinde bırakır. Sesi tamamen kapatmak için Frekansı Durdur düğmesini kullan. Elle yeni taşıyıcı seçmek taramayı bitirir.','Loop returns to the start and repeats after each pass. Stop sweep leaves the tone at its last value. Use Stop frequency to stop the sound entirely. Choosing a new carrier manually ends the sweep.']],['sweepStart','sweepEnd','sweepDur','sweepLoop','sweepScaleGroup','sweepGo','sweepStopBtn']);
+   explain($('panel-breath')?.querySelector('.card'),'fr1120-breath-help','Nefes rehberi nasıl kullanılır?','How to use the breathing guide',[
+    ['Kartlardaki saniyeler al, tut ve ver fazlarının sırasını gösterir. Başlat görsel döngüyü çalıştırır; sesli faz yönlendirmesi açıksa cihaz sesi faz adlarını okur. Durdur nefes rehberini bitirir; ana frekansı kapatmaz.','The seconds on each card show the sequence of inhale, hold and exhale phases. Start runs the visual cycle; with spoken guidance enabled, the device voice reads phase names. Stop ends the breathing guide, not the main frequency.'],
+    ['Rahat bir ritim seç; nefesini zorlamadan izle. Baş dönmesi veya rahatsızlık olursa bırakıp normal nefese dön.','Choose a comfortable pace and do not force your breathing. If dizzy or uncomfortable, stop and return to normal breathing.']],['breathStartBtn','breathStopBtn','breathVoiceToggle']);
+   explain($('panel-med'),'fr1120-guided-help','Rehberli oturum kontrolleri','Guided session controls',[
+    ['Bir senaryo seçmek metni açar; oynat cihazın konuşma sesiyle okumayı başlatır. Önceki ve sonraki düğmeleri adımı değiştirir. Duraklat sesi keser; yeniden oynat mevcut adımı baştan okur. Çıkış senaryo listesine döner.','Selecting a script opens its text; Play reads it with the device speech voice. Previous and Next change the step. Pause stops speech; Play again restarts the current step. Exit returns to the script list.'],
+    ['Anlatım sesi cihazda bulunan seslerden seçilir; hız yalnız okumayı değiştirir. Görsel desen seçimi ses frekansını değiştirmez. Bu rehber kişisel bir deneyim sunar; belirli bir sonuç garanti etmez.','Choose from speech voices available on the device; speed changes narration only. Visual pattern selection does not change audio frequency. This guide offers a personal experience, with no guaranteed outcome.']],['medPrevBtn','medNextBtn','medPlayBtn','medExitBtn','medVoiceSelect','medRate']);
+   H?.localizeHelp();
    initialized=true;safe(()=>window.icoHydrate?.());localize();mirror();return native;
   }finally{initializing=false}
  }
  function displayTool(tool){
   if(!TOOLS[tool])tool='overview';selectedTool=tool;
   if(!initialized)return;
-  for(const [id,key] of [['r1101FrequencyOverview','overview'],['r1101FrequencySweep','sweep'],['panel-lib','library'],['panel-breath','breath'],['panel-cym','cymatics'],['panel-med','guided']]){
+  for(const [id,key] of [['r1101FrequencyOverview','overview'],['r1101FrequencySweep','sweep'],['panel-lib','library'],['panel-breath','breath'],['panel-med','guided']]){
    const p=$(id);if(p){p.hidden=key!==tool;p.classList.toggle('active',key===tool)}
   }
   if($('panel-main'))$('panel-main').hidden=true;
@@ -257,6 +275,7 @@
  }
  function localize(){
   if(!host)return;
+  window.SukunFrequencyR1120?.localizeHelp?.();
   host.querySelectorAll('[data-fr-tr]').forEach(el=>{el.textContent=T(el.dataset.frTr,el.dataset.frEn)});
   host.setAttribute('aria-label',T('Frekans araçları','Frequency tools'));
   for(const [key,t] of Object.entries(TOOLS)){const b=host.querySelector('[data-fr-tool="'+key+'"]');if(b)b.textContent=T(t[0],t[1])}
@@ -297,7 +316,7 @@
   window.addEventListener('pagehide',()=>{if(sweep)stopSweep(false)},{passive:true});
   mirror();
  }
- const controller=Object.freeze({open,close,toggle,stop,start,applyPreset,applyLibrary,startFromControls(){if(!initializing)fromControls();return start()},retuneFromControls:fromControls,startSweep,stopSweep,resumeSweepAfterRebuild,cymToggle,setTimer,cancelTimer,armTimer,timerRemaining,state:frequency,canStartCoach:()=>!held(),coachSpeechAllowed});
+ const controller=Object.freeze({open,close,toggle,stop,start,applyPreset,applyLibrary,startFromControls(){if(!initializing)fromControls();return start()},retuneFromControls:fromControls,startSweep,stopSweep,resumeSweepAfterRebuild,toggleFrequency,setTimer,cancelTimer,armTimer,timerRemaining,state:frequency,canStartCoach:()=>!held(),coachSpeechAllowed});
  window.SukunFrequencyHubR1101=Object.freeze({version:VERSION,open,close,controller,snapshot:()=>({version:VERSION,initialized,selectedTool,expanded,mounted:!!$('ns')?.closest('#tab-frq'),frequency:frequency(),sweep:sweep?{active:!!sweep.active,from:sweep.from,to:sweep.to,duration:sweep.duration,loop:sweep.loop}: {active:false},timer:frequencyTimer?{remaining:timerRemaining()*1000}:null,native:safe(()=>native?.frequencyHubSnapshot?.()),duplicateControllers:document.querySelectorAll('#frToggle').length})});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();

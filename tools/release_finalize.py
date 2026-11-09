@@ -95,6 +95,7 @@ def main():
     p.add_argument("--metadata", type=Path, help="JSON object of extra build-marker revision fields")
     p.add_argument("--update-shell", action="store_true", help="Explicitly permit index/nero release identity, notes, locale and SRI updates")
     p.add_argument("--add", action="append", default=[], help="Explicit new deployment file or directory; directory contents are included recursively")
+    p.add_argument("--remove", action="append", default=[], help="Explicit retired deployment file; omit it from the new graph without deleting storage or historic manifests")
     p.add_argument("--zip", type=Path, help="Deployment-only ZIP outside the repo")
     p.add_argument("--package-only", action="store_true", help="Verify and ZIP the finalized inventory without modifying repo")
     a = p.parse_args()
@@ -105,6 +106,9 @@ def main():
     date = datetime.date.fromisoformat(a.date)
     if a.zip and a.zip.resolve().is_relative_to(root):
         raise ValueError("ZIP must be written outside the production repository")
+    assert all(re.fullmatch(r"[A-Za-z0-9_./-]+", name) and local(name) == name for name in a.remove), "Removal requires exact safe relative file paths, without URL, glob or directory syntax"
+    removed = {local(name) for name in a.remove}
+    assert not (a.package_only and removed), "Package-only cannot change deployment membership"
     planned = {}
 
     def read(name):
@@ -125,6 +129,13 @@ def main():
         assert previous["build"] == old
         build = readjson(f"sukun-build-{old}.json")
         assert build["build"] == old
+        previous_paths = {entry["path"] for entry in previous["files"]}
+        assert removed <= previous_paths, "Removed files must be in the previous deployment"
+        protected = {"index.html", "nero.html", "sw.js", "version.txt", "manifest.webmanifest", "surumler.json", "sukun-latest.json", f"sukun-build-{old}.json"}
+        assert not (removed & protected), "Cannot remove release identity or shell files"
+        for field in ("runtime", "artwork", "optionalAudio"):
+            if field in build:
+                build[field] = [entry for entry in build[field] if local(entry["url"]) not in removed]
         notes = readjson("surumler.json")
         note = json.loads(a.notes.read_text(encoding="utf-8")) if a.notes else None
         if note:
@@ -252,6 +263,7 @@ def main():
         assert n == 1
         plan("sw.js", sw)
         paths = {x["path"] for x in previous["files"]}
+        paths.difference_update(removed)
         paths.discard(f"sukun-build-{old}.json")
         paths.add(f"sukun-build-{new}.json")
         paths.update(local(x["url"]) for x in build["runtime"])
@@ -264,6 +276,7 @@ def main():
             else:
                 assert file.is_file(), "Missing explicitly added file: " + addition
                 paths.add(addition)
+        assert not (paths & removed), "Removed file is still required or explicitly added"
         inventory = {"schema": 1, "build": new, "files": []}
         for name in sorted(paths):
             data = read(name)

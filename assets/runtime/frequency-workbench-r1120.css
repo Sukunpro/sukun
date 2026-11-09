@@ -10,10 +10,20 @@
 @media(max-width:350px){#frequencyWorkbenchR1120 .fr1120-row{grid-template-columns:minmax(76px,1fr) minmax(75px,1.2fr) auto;gap:5px}}
 
 /* Touch and keyboard accessible inline information balloons, never hover-only. */
-#frequencyWorkbenchR1120 .fr1120-help{margin:8px 0;padding:0 10px;border:1px solid #7b6e50;border-radius:10px;background:#152235;overflow-wrap:anywhere}
-#frequencyWorkbenchR1120 .fr1120-help summary{min-height:44px;box-sizing:border-box;display:list-item;padding:12px 0;font-size:13px}
-#frequencyWorkbenchR1120 .fr1120-help p{font-size:13px;line-height:1.6;color:#eef2f7}
+#tab-frq .fr1120-help{margin:8px 0;padding:0 10px;border:1px solid #7b6e50;border-radius:10px;background:#152235;overflow-wrap:anywhere}
+#tab-frq .fr1120-help summary{min-height:44px;box-sizing:border-box;display:list-item;padding:12px 0;font-size:13px}
+#tab-frq .fr1120-help p{font-size:13px;line-height:1.6;color:#eef2f7}
 #frequencyWorkbenchR1120 .fr1120-row label{min-height:44px;display:flex;align-items:center;cursor:pointer;overflow-wrap:anywhere}
 #frequencyWorkbenchR1120 select{min-height:44px}
 #frequencyWorkbenchR1120 input[type=checkbox]{width:44px;height:44px;accent-color:#d1b56e}
 #frequencyWorkbenchR1120 input:disabled{opacity:.45;cursor:not-allowed}
+
+/* The same inline disclosure serves the frequency tools and harmonics. */
+#tab-frq .fr1120-help{min-width:0;max-width:100%;box-sizing:border-box}
+#tab-frq .fr1120-help summary{color:#f1dcaa;cursor:pointer;white-space:normal;font-weight:700;line-height:1.5;overflow-wrap:anywhere}
+#tab-frq .fr1120-help summary:focus-visible{outline:2px solid #ead7a1;outline-offset:3px}
+@media(forced-colors:active){#tab-frq .fr1120-help{background:Canvas!important;border-color:CanvasText!important}#tab-frq .fr1120-help :is(summary,p){color:CanvasText!important;-webkit-text-fill-color:currentColor!important}#tab-frq .fr1120-help summary:focus-visible{outline-color:Highlight}}
+
+body.helpOn #tab-frq button.qb{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:24px;min-height:24px;width:24px;height:24px;padding:0}
+#tab-frq button.qb:focus-visible{outline:2px solid var(--goldh,#ead7a1);outline-offset:3px}
+#qBubble[hidden]{display:none!important}

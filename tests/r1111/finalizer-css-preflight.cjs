@@ -30,7 +30,7 @@ function fixture(name,{assetExists=false,assetInventoried=false,conditionalFirst
  write('index.html',html);write('nero.html',html);write('version.txt','r9000\n');write('surumler.json',json(notesBefore));write('manifest.webmanifest',json({version:'r9000',start_url:'./nero.html?v=r9000'}));write('sukun-latest.json',json({latest:'r9000',build:'r9000',v:'r9000',date:'2026-10-17'}));
  const runtimeRows=[{url:'./css/main.css?v=r9000',sha256:sha(css)},{url:'./assets/runtime/player.js?v=r9000',sha256:sha(runtime)}];
  write('sukun-build-r9000.json',json({build:'r9000',runtime:runtimeRows,artwork:[],shell:{url:'./nero.html?v=r9000',sha256:sha(html)},sessionVersion:'r9000',automaticDataRecovery:false,exactDataRestoreEnabled:false,blockedRollbackBuilds:['r1019'],siteBackupManifestUrl:'./sukun-site-assets-r9000.json'}));
- write('sw.js',"const SURUM = 'r9000';\nconst CACHE = 'sukun-r9000-fixture-20261017-v1';\nconst CACHE_META = './sukun-cache-meta-r9000.json';\nconst BUILD_MARKER = './sukun-build-r9000.json';\nconst REQUIRED_RUNTIME = "+JSON.stringify(runtimeRows)+";\n");
+ write('sw.js',"const SURUM = 'r9000';\nconst CACHE = 'sukun-r9000-fixture-20261017-v1';\nconst CACHE_META = './sukun-cache-meta-r9000.json';\nconst BUILD_MARKER = './sukun-build-r9000.json';\nconst REQUIRED_RUNTIME = "+JSON.stringify(runtimeRows)+";\nconst OPTIONAL_AUDIO = [];\n");
  const files=snapshot(site).filter(x=>x.type==='file'&&(x.path!=='assets/tone.png'||assetInventoried)).map(({path:local,sha256,bytes})=>({path:local,sha256,bytes}));
  write('sukun-site-assets-r9000.json',json({schema:1,build:'r9000',files,totalBytes:files.reduce((n,x)=>n+x.bytes,0)}));
  fs.writeFileSync(notes,json({v:'r9001',t:'2026-10-18',b:['Scoped CSS preflight fixture.']}));

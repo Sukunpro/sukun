@@ -11,7 +11,7 @@ for(const mode of ['esma','berhet']){
  assert.equal(f.$('r1056PrimaryControls').hidden,true);
  assert(visible(tef),'contemplation entry outside closed settings');
  assert(visible(f.$('r1056ReadingSource')),'audio source survives minimal controls');
- assert(visible(restart),'journey actions survive minimal controls');
+ assert(!visible(restart),'restart follows the single easy-control disclosure');
  assert.equal(f.$('r920Play'),play,'native transport identity retained');
  f.window.SukunBerhetLayout.setFocusControls(true);f.$('r932EasyPlay').click();
  assert.equal(f.commands.length,1,'native delegated quick play has exactly one command');

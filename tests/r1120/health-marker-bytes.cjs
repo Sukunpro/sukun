@@ -99,16 +99,16 @@ async function test(name,fn){try{results.push({name,passed:true,evidence:await f
  await test('Malformed full-marker JSON remains a configuration failure without asset fetches',async()=>{const x=await run(Buffer.from('{bad'));assert.equal(x.result.status,'FAIL');assert.equal(x.result.evidence.reason,'MARKER_INVALID_JSON');assert.equal(x.calls.length,1);return x.result.evidence});
  await test('Marker fetch still passes the abort signal and times out without asset fetches',async()=>{const x=await run(raw,{timeout:true});assert.equal(x.result.status,'NOT_MEASURED');assert.equal(x.calls.length,1);assert.equal(x.result.evidence.reason,'TIMEOUT');return x.result.evidence});
 
- await test('Exact three module: path allowlist and size limit',async()=>{
-  const name='assets/vendor/three-r170/three.module.min.js', entry=marker.runtime.find(e=>e.url.split('?')[0]==='./'+name);assert(entry);
-  const valid=await run(Buffer.from(JSON.stringify({...marker,runtime:[entry]})));assert.equal(valid.result.status,'PASS');assert.equal(valid.result.evidence.matched,1);
-  for (const url of ['./assets/vendor/three-r170/other.js','./nested/assets/vendor/three-r170/three.module.min.js','https://evil.invalid/sukun/'+name]) {
-    const bad=await run(Buffer.from(JSON.stringify({...marker,runtime:[{...entry,url}]})));assert.equal(bad.result.status,'FAIL');assert.equal(bad.result.evidence.configurationErrors,1);assert.equal(bad.calls.length,1);
+ await test('Retired Three.js dependency and sibling, nested or external variants fail before fetch',async()=>{
+  const name='assets/vendor/three-r170/three.module.min.js';
+  assert(!marker.runtime.some(e=>e.url.split('?')[0]==='./'+name));
+  const urls=['./'+name,'./assets/vendor/three-r170/other.js','./nested/'+name,'https://evil.invalid/sukun/'+name];
+  for(const url of urls){
+   const rejected=await run(Buffer.from(JSON.stringify({...marker,runtime:[{url,sha256:'0'.repeat(64)}]})));
+   assert.equal(rejected.result.status,'FAIL');assert.equal(rejected.result.evidence.configurationErrors,1);assert.equal(rejected.calls.length,1);assert.equal(rejected.maxActive,0);
   }
-  const boundary=Buffer.alloc(716800,32),at=await run(Buffer.from(JSON.stringify({...marker,runtime:[{...entry,sha256:hash(boundary)}]})),{assetBodies:{[name]:boundary}});assert.equal(at.result.status,'PASS');assert.equal(at.result.evidence.matched,1);
-  const body=Buffer.alloc(716801,32),over=await run(Buffer.from(JSON.stringify({...marker,runtime:[{...entry,sha256:hash(body)}]})),{assetBodies:{[name]:body}});
-  assert.equal(over.result.status,'NOT_MEASURED');assert.equal(over.result.evidence.files[0].status,'SIZE_LIMIT');assert.equal(over.result.evidence.matched,0);
-  return {validBytes:691648,cap:716800,invalidPaths:3,oversize:716801};
+  assert(!source.includes('716800'),'Retired vendor size exception must not remain');
+  return {invalidPaths:urls.length,assetRequests:0,ordinaryRuntimeLimit:524288};
  });
  const report={build,method:'Actual shipped integrity reader in VM with exact full build-marker and asset bytes over controlled same-origin Fetch responses. Header and streaming size boundaries plus abort; no compact marker substitution, browser or user storage.',scriptSha256:hash(fs.readFileSync(__filename)),sourceFiles:{'assets/runtime/health-r940.js':hash(Buffer.from(source)),[markerPath]:hash(raw)},sourceSha256:hash(fs.readFileSync(path.join(root,'index.html'))),passed:results.filter(x=>x.passed).length,total:results.length,results};fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));if(report.passed!==report.total)process.exitCode=1;
 })();

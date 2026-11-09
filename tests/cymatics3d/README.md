@@ -1,3 +1,5 @@
+> Historical feature tests. Cymatics has been removed by user request. These suites and their prior evidence describe the retired implementation, not current acceptance. Current replacement: `tests/cymatics-removal/README.md`.
+
 # Cymatics signal response
 
 This is an illustrative, audio-reactive model, not a calibrated physical Chladni experiment. There is no universal salt pattern for a frequency without plate dimensions, shape, material, mounting and excitation conditions. Both languages now state this explicitly.
