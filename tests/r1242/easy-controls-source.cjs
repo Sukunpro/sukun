@@ -1,0 +1,13 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'../..'),css=fs.readFileSync(path.join(root,'css/premium-layout-r1215.css'),'utf8');
+const selector='html:not([data-r1074-theme="berhet"]) body.r1215-premium #r1056FocusControlsToggle';
+assert(css.includes(selector+' {border:1px solid #bda773!important;background:#082c35dc!important;'));
+assert(!/(?:^|\n)\s*body\.r1215-premium #r1056FocusControlsToggle\s*\{[^}]*\bborder:/.test(css));
+assert(css.lastIndexOf('@media(forced-colors:none)',css.indexOf(selector))>css.indexOf('/* r1241:'));
+const gems=fs.readFileSync(path.join(root,'css/berhet-premium-jewels-r1133.css'),'utf8');
+assert(/:is\([^)]*#r1056FocusControlsToggle[^)]*\)\s*\{\s*--r1133-material:diamond!important;--r1133-gem:var\(--sukun-gem-silver\)!important;/.test(gems));
+const sizes=fs.readFileSync(path.join(root,'css/visual-polish-r1232.css'),'utf8');
+assert(/:is\(#r920TefEnter,#r1056FocusControlsToggle,#r938PanelToggle\)\s*\{[^}]*min-height:44px!important/.test(sizes));
+assert.equal(fs.readFileSync(path.join(root,'index.html'),'utf8'),fs.readFileSync(path.join(root,'nero.html'),'utf8'));
+console.log('PASS r1242 theme-scoped surface, forced-color scope, native gemstone ownership, 44px target and identical shells');

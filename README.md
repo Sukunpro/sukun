@@ -4,6 +4,12 @@ Zikir, Esmâü’l-Hüsnâ, Berhetiyye ve sûre takibi için web uygulaması.
 
 [Uygulamayı aç](https://sukunpro.github.io/sukun/) · [Sürüm kimliği](version.txt) · [Sürüm notları](surumler.json)
 
+## r1242 — Berhetiyye kolay kontroller görünümü
+
+r1241 okunurluk kuralı Berhetiyye dışındaki temalarla sınırlandı. Böylece “Kolay kontrolleri göster/gizle” düğmesi mevcut gümüş taşlı çerçevesini yeniden kullanır. Düğmenin eylemi, sayaçlar, sesler ve tefekkür yerleşimi değişmez.
+
+[Regresyon testleri](tests/r1242/) mobil/masaüstü, Türkçe/İngilizce, normal/tefekkür görünümü, tema geçişi, klavye, yüksek kontrast ve tercihin yenilemede korunmasını kapsar. Geçerli kabul, bu commit üzerinde çalışan Actions sonuçlarıdır. Fiziksel telefon veya duyulan ses testi değildir.
+
 ## r1241 — gezinme, okunurluk ve güvenli kayıt
 
 Okumalar açıldığında başlık ve etkin menü artık okunan bölümü izler. İlerleme olmayan ilk açılış ile yarım kalan seyir ayrılır. Mevcut temalar ve cam görünümü korunur; metin arkasındaki yüzey koyulaştırılır, bulanıklık artırılmaz. Okuma sırası ve çark kontrolleri Türkçe ve İngilizce açıklanır.
