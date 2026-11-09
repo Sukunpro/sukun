@@ -24525,7 +24525,7 @@ function qPos(){
   const left=clamp(r.left+r.width/2-bw/2,10,Math.max(10,vw-10-bw));
   const below=(r.bottom+bh+14<=vh);
   const top=below?r.bottom+10:r.top-bh-10;
-  b.style.left=left+'px'; b.style.top=Math.max(8,top)+'px';
+  b.style.left=left+'px'; b.style.top=clamp(top,8,Math.max(8,vh-bh-8))+'px';
   b.classList.toggle('below',below); b.classList.toggle('above',!below);
   const ax=clamp(r.left+r.width/2-left-5.5,12,Math.max(12,bw-22));
   const ar=$('#qArrow'); if(ar)ar.style.left=ax+'px';
@@ -24545,7 +24545,9 @@ document.addEventListener('click',e=>{
   if(qOpenKey&&!e.target.closest('#qBubble'))qClose();
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&qOpenKey){e.preventDefault();qClose(true);}});
-addEventListener('scroll',()=>{if(qOpenKey)qClose();},{passive:true});
+// Focus may still be smooth-scrolling after Enter opens help. Follow its anchor;
+// only an explicit dismissal (Escape, outside click or the same question) closes it.
+addEventListener('scroll',()=>{if(qOpenKey)qPos();},{passive:true});
 addEventListener('resize',()=>{if(qOpenKey)qPos();});
 function helpApply(on){
   HELP.on=on; S.set('sukun.help',on);

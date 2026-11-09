@@ -32,5 +32,6 @@ check('Question popup opens once, switches language live and Escape restores foc
 check('Beat control does not create a second helper button',()=>assert(html.includes("if(el.id==='beatSld'&&el.labels?.[0]?.querySelector('.qb[data-h=\"beat\"]'))return;")));
 check('New help is UI-only and does not instantiate audio or persistence',()=>{const helper=runtime.slice(runtime.indexOf(' function help('),runtime.indexOf(' function sync('));assert(!/AudioContext|saveSettings|frStart|frRebuild|localStorage/.test(helper));assert(runtime.includes("panel.setAttribute('data-i18n-owned','true')"))});
 check('Production mount links connected controls, places help and preserves repeated/language flows',()=>require('./mount-fixture.cjs').verifyMount(runtime));
-console.log(JSON.stringify({scope:'Production help owners in controlled DOM; no native browser or device claim',expectedChecks:21,total:checks.length,passed:checks.filter(x=>x.passed).length,checks},null,2));
-if(checks.length!==21||checks.some(x=>!x.passed))process.exitCode=1;
+check('Question help survives native focus-scroll ordering and language changes without audio or storage writes',()=>require('./popup-fixture.cjs').verifyPopup(html));
+console.log(JSON.stringify({scope:'Production help owners in controlled DOM; no native browser or device claim',expectedChecks:22,total:checks.length,passed:checks.filter(x=>x.passed).length,checks},null,2));
+if(checks.length!==22||checks.some(x=>!x.passed))process.exitCode=1;
