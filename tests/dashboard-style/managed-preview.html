@@ -1,0 +1,28 @@
+<!doctype html><meta charset="utf-8"><title>Sükûn dashboard transition QA</title>
+<style>body{margin:0;background:#ddd;font:14px system-ui}header{padding:8px}iframe{display:block;border:0;margin:0 auto;background:#111}pre{max-height:100px;overflow:auto;white-space:pre-wrap;font:11px monospace}</style>
+<header>Dashboard QA <a href="?before=1">Before r1237</a> · <a href="?">Candidate r1238</a> · <button id="run" disabled>Run dashboard checks</button></header><pre id="result">Loading</pre><iframe id="app" width="393" height="850"></iframe>
+<script>
+const params=new URLSearchParams(location.search),before=params.has('before'),frame=document.querySelector('iframe'),result=document.querySelector('#result'),button=document.querySelector('#run');
+for(const[k,v]of Object.entries({'sukun.ui.shellMode':'classic','sukun.shell.r716':'1','sukun.onboardSeen':'1','sukun.obDone':'1','sukun.obSeenBuild':JSON.stringify(before?'r1237':'r1238'),'sukun.r920.focus':'0','sukun.perf':'"tam"'}))localStorage.setItem(k,v);
+const wait=ms=>new Promise(r=>setTimeout(r,ms));const properties=['background','backdropFilter','webkitBackdropFilter','color','webkitTextFillColor','fontFamily','fontSize','fontWeight','borderColor','borderImageSource','boxShadow'];
+const selectors=['#prDashboard','.prDashTitle','.prEyebrow','.prMetric b','.prMetric small','.prNowText b','.prNowText small','.prDashTop','.prMetric','#prPerfBtn','#prState','#prSearchOpen'];
+function styles(){const w=frame.contentWindow,d=w.document;return Object.fromEntries(selectors.map(s=>{const c=w.getComputedStyle(d.querySelector(s));return[s,Object.fromEntries(properties.map(k=>[k,c[k]]))]}))}
+let doc;async function prepare(){const w=frame.contentWindow,d=w.document;if(!w.SukunSessionState||!w.SukunPerformance||doc===d)return;doc=d;await wait(2500);try{w.obClose?.();d.querySelector('#dcClose')?.click();d.querySelector('.tab[data-t="amb"]').click();result.textContent='Ready '+(before?'before':'candidate');button.disabled=false}catch(e){result.textContent=e.stack}}
+frame.onload=prepare;frame.src=(before?'/before':'')+'/nero.html';setInterval(prepare,1000);
+button.onclick=async()=>{button.disabled=true;const w=frame.contentWindow,d=w.document,checks=[],snapshots=[];const check=(name,passed,detail)=>{checks.push({name,passed,detail});result.textContent=JSON.stringify({running:true,checks},null,2)};const select=async tab=>{d.querySelector('.tab[data-t="'+tab+'"]').click();await wait(180)};
+try{
+ for(const theme of ['esma','berhet']){
+  if(theme==='berhet')w.KLT_AC('LABELLED-dashboard-disposable-profile');
+  await w.SukunTabOwner.run('manual',async()=>w.SukunSessionState.command('select',{mode:theme,index:0,journeyKind:'single'}),{prime:false,releaseAfter:true});
+  for(const width of [320,393,720,1280]){frame.width=width;await wait(120);
+   for(const perf of ['tam','dengeli','pil']){w.SukunPerformance.apply(perf);await select('amb');const ref=styles();snapshots.push({theme,width,perf,tab:'amb',styles:ref});
+    for(const tab of ['frq','amb','frq','amb']){await select(tab);const current=styles();check('Stable '+theme+' '+width+' '+perf+' '+tab,JSON.stringify(current)===JSON.stringify(ref));check('Clear '+theme+' '+width+' '+perf+' '+tab,current['#prDashboard'].backdropFilter==='none'&&current['#prDashboard'].webkitBackdropFilter==='none');if(width===393&&perf==='tam')snapshots.push({theme,width,perf,tab,styles:current});}
+    check('Visible dashboard '+theme+' '+width+' '+perf,d.querySelector('#prDashboard').getClientRects().length>0);
+    const help=d.querySelector('#r1042PerfHelp');help.open=true;await select('frq');check('Disclosure retained '+theme+' '+width+' '+perf,help.open);help.open=false;
+   }
+  }
+ }
+ frame.width=393;w.SukunPerformance.apply('tam');await select('amb');d.querySelector('#prDashboard').scrollIntoView({block:'start'});
+ result.textContent=JSON.stringify({done:true,before,passed:checks.filter(c=>c.passed).length,total:checks.length,checks,snapshots},null,2);result.dataset.done='true';
+}catch(e){result.textContent=JSON.stringify({fatal:e.stack,checks,snapshots},null,2)}finally{button.disabled=false}}
+</script>

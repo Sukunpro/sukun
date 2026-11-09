@@ -11,6 +11,7 @@ import argparse, concurrent.futures, hashlib, json, re, subprocess, time
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
+    ('dashboard-tab-style', 'tests/dashboard-style/contract.cjs'),
     ('r1237-lower-statistics', 'tests/lower-stats/contract.cjs'),
     ('r1235-frequency-fit-center', 'tests/ui-audit/frequency-fit-center.cjs'),
     ('r1234-klasik-feyz', 'tests/ui-audit/klasik-feyz-accessibility.cjs'),
@@ -84,6 +85,7 @@ INHERITED_SUITES = [
 # Keep new audio/graphics native evidence in the mandatory full release gate.
 # These suites run sequentially, apart from the parallel source contracts.
 NATIVE_BROWSER_SUITES = [
+    ('dashboard-tab-style-native', 'tests/dashboard-style/browser.cjs'),
     ('r1231-media-wheel-native', 'tests/r1124/media-wheel-native-browser.cjs'),
     ('r1231-session-transitions-native', 'tests/r1070/session-transition-matrix.cjs'),
     ('r1230-cymatics-native', 'tests/cymatics3d/browser.cjs'),
