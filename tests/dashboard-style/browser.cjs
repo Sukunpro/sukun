@@ -16,8 +16,8 @@ let f;
   await p.locator('#run').click();
   await p.locator('#result[data-done="true"]').waitFor({timeout:180000});
   const result=JSON.parse(await p.locator('#result').textContent());
-  assert.equal(result.total,240);assert.equal(result.passed,result.total,JSON.stringify(result.checks.filter(c=>!c.passed)));
   report.runs.push({media,...result});
+  assert.equal(result.total,240);assert.equal(result.passed,result.total,JSON.stringify(result.checks.filter(c=>!c.passed)));
  }
  report.evidence=f.evidence();assert.deepEqual(report.evidence.pageErrors,[]);
  for(const [name,row]of Object.entries(report.evidence.served))assert.equal(hash(fs.readFileSync(path.join(root,name))),row.sha256);
