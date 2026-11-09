@@ -18,9 +18,22 @@ const check=(value,message)=>{assert(value,message);checks++;};
  const page=async()=>{const p=await context.newPage();p.on('dialog',d=>d.accept());await p.goto(url);await p.evaluate(s=>{window.I18N={lang:'en'};window.calls=[];window.SukunFrequencyR1120={capture:()=>s,apply:async(...args)=>{calls.push(args);return {ok:true,playing:false};}};},settings);return p;};
  const a=await page(),b=await page(),gate=await page();
  await a.evaluate(({KEY,original})=>{localStorage.setItem(KEY,JSON.stringify({version:2,sets:[original]}));localStorage.setItem('sukun.myfreq','legacy untouched');},{KEY,original});
- await Promise.all([a,b].map(p=>p.addScriptTag({content:source})));
+ await Promise.all([a,b].map(async(p)=>{
+   await p.evaluate(KEY=>{
+    window.storageTrace=[];
+    const note=(kind,extra={})=>storageTrace.push({kind,time:Date.now(),...extra});
+    const get=Storage.prototype.getItem,set=Storage.prototype.setItem;
+    Storage.prototype.getItem=function(key){const value=get.call(this,key);if(key===KEY)note('read',{value});return value;};
+    Storage.prototype.setItem=function(key,value){if(key===KEY)note('write',{value});return set.call(this,key,value);};
+    const request=navigator.locks.request.bind(navigator.locks);
+    navigator.locks.request=(name,options,callback)=>{note('lock-request',{name});return request(name,options,lock=>{note('lock-acquired',{name});const result=callback(lock);note('lock-release',{name});return result;});};
+    addEventListener('storage',event=>{if(event.key===KEY)note('storage-event',{old:event.oldValue,value:event.newValue});});
+   },KEY);
+   await p.addScriptTag({content:source});
+ }));
  const snap=p=>p.evaluate(()=>SukunFrequencySetsR1120.snapshot());
  const store=()=>a.evaluate(KEY=>JSON.parse(localStorage.getItem(KEY)),KEY);
+ const diagnostics=()=>Promise.all([a,b].map(p=>p.evaluate(KEY=>({raw:localStorage.getItem(KEY),snapshot:SukunFrequencySetsR1120.snapshot(),status:document.querySelector('#r1120SetStatus').textContent,draftName:document.querySelector('#r1120Setname')?.value,trace:storageTrace}),KEY)));
  const create=async(p,name)=>{await p.locator('#r1120SetCreate').click();await p.locator('#r1120Setname').fill(name);};
  const submit=p=>p.locator('form').evaluate(f=>f.requestSubmit());
  const settled=p=>p.waitForFunction(()=>!document.querySelector('#r1120SetCreate').disabled);
@@ -32,7 +45,9 @@ const check=(value,message)=>{assert(value,message);checks++;};
  check((await store()).sets.length===1,'queued writers do not write outside exclusive lock');
  check(await a.getByRole('button',{name:'Cancel',exact:true}).isDisabled(),'draft cannot be cancelled during queued save');
  await release();await Promise.all([settled(a),settled(b)]);
- check((await store()).sets.map(s=>s.name).sort().join('|')==='Added A|Added B|Original','simultaneous independent additions both survive');
+ const added=await store();
+ if(added.sets.map(s=>s.name).sort().join('|')!=='Added A|Added B|Original')console.error('CONCURRENCY_DIAGNOSTICS',JSON.stringify(await diagnostics(),null,2));
+ check(added.sets.map(s=>s.name).sort().join('|')==='Added A|Added B|Original','simultaneous independent additions both survive; actual='+JSON.stringify(added));
  // Both drafts capture the same base. Only one may replace that record.
  for(const p of [a,b]){await p.getByRole('button',{name:'Edit: Original',exact:true}).click();await p.locator('#r1120Setname').fill(p===a?'Winner A':'Winner B');}
  await hold();await Promise.all([submit(a),submit(b)]);await release();await Promise.all([settled(a),settled(b)]);

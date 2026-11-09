@@ -41,7 +41,8 @@ jobs:
           export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
           node tests/r1241/navigation-ui.cjs
           node tests/r1241/frequency-set-controlled.cjs
-          node tests/r1241/frequency-set-concurrency.cjs | tee ../r1241-evidence/frequency-concurrency.log
+          set -o pipefail
+          node tests/r1241/frequency-set-concurrency.cjs 2>&1 | tee ../r1241-evidence/frequency-concurrency.log
           node tests/r1241/navigation-browser.cjs "$PWD" ../r1241-evidence/navigation
       - name: Verify immediate-previous offline update and rollback
         working-directory: candidate
