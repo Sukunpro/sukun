@@ -6,7 +6,7 @@ const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),
 const {chromium}=require('playwright');
 const mime={'.html':'text/html; charset=utf-8','.js':'application/javascript','.json':'application/json','.css':'text/css','.webmanifest':'application/manifest+json','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.mp3':'audio/mpeg','.wav':'audio/wav','.woff2':'font/woff2'};
 const hash=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
-async function fixture(root,{width=390,height=844,voices='both',seed={},hasTouch=false}={}){
+async function fixture(root,{width=390,height=844,voices='both',seed={},hasTouch=false,webgl=false}={}){
  root=path.resolve(root);const served=new Map(),errors=[],consoleErrors=[],failed=[],external=[],serverRejectedRequests=[];let networkAvailable=true;
  const server=http.createServer((req,res)=>{
   // Context offline emulation may leave service-worker target fetches online.
@@ -20,7 +20,7 @@ async function fixture(root,{width=390,height=844,voices='both',seed={},hasTouch
   });
  });await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve)});
  const origin='http://127.0.0.1:'+server.address().port;
- const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/tmp/sukun-browser/chromium',headless:true,args:['--no-sandbox','--autoplay-policy=no-user-gesture-required','--disable-gpu']});
+ let browser;try{browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/tmp/sukun-browser/chromium',headless:true,args:['--no-sandbox','--autoplay-policy=no-user-gesture-required',...(webgl?['--use-angle=swiftshader','--enable-unsafe-swiftshader']:['--disable-gpu'])]});}catch(error){await new Promise(resolve=>server.close(resolve));throw error;}
  const context=await browser.newContext({viewport:{width,height},locale:'tr-TR',serviceWorkers:'block',hasTouch});
  await context.route('**/*',route=>{const url=route.request().url();if(url.startsWith(origin+'/')||/^(data|blob):/.test(url))return route.continue();external.push(url);return route.abort()});
  await context.addInitScript(({voices,seed})=>{

@@ -1,0 +1,15 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const root=path.resolve(process.argv[2]||path.join(__dirname,'../..')),read=name=>fs.readFileSync(path.join(root,name),'utf8');
+const js=read('assets/runtime/interface-r920.js'),css=read('css/tefekkur-help.css'),html=read('index.html');let passed=0;
+function check(name,fn){fn();passed++;console.log('PASS '+name)}
+check('Public aliases are byte identical',()=>assert.equal(read('nero.html'),html));
+check('Single original exit owns one passive decorative hint',()=>{assert.equal((js.match(/id="r920TefExit"/g)||[]).length,1);assert.equal((js.match(/id="r920TefExitHint"/g)||[]).length,1);assert.match(js,/id="r920TefExitHint" aria-hidden="true"/);assert.match(css,/pointer-events:none!important/)});
+check('Native exit uses existing help binder exactly once',()=>{assert.equal((js.match(/window\.dockTipBagla\?\.\(\$\('r920TefExit'\)\)/g)||[]).length,1);assert.match(js,/\$\('r920TefExit'\)\.onclick=\(\)=>\{window\.dockTipGizle\?\.\(\);window\.SUKUN_TEFEKKUR\?\.exit\?\.\(\);wake\(\);queue\(\)\}/)});
+check('Hint has Turkish and English labels',()=>{assert.match(js,/Click to leave reflection/);assert.match(js,/Tefekkürden çıkmak için tıkla/);assert.match(js,/'Leave reflection':'Tefekkürden çık'/)});
+check('Periodic visibility animates only opacity, never layout or native controls',()=>{assert.match(css,/animation:sukun-tefekkur-hint 14s ease-in-out infinite/);const k=css.slice(css.indexOf('@keyframes'));assert.match(k,/opacity:0/);assert.match(k,/opacity:1/);assert(!/width|height|transform|display|visibility/.test(k))});
+check('Reduced motion leaves static readable help and focus stays visible',()=>{assert.match(css,/@media\(prefers-reduced-motion:reduce\)[\s\S]*#r920TefExitHint \{animation:none!important;opacity:1!important\}/);assert.match(css,/#r920TefExit:focus-visible \{outline:3px/)});
+check('Berhet source uses multiline centered padded text without changing data owner',()=>{assert.match(css,/html\[data-r1074-theme="berhet"\] body #r920Practice #r1056ReadingSource/);assert.match(css,/padding:15px 36px!important;white-space:normal!important;overflow-wrap:anywhere!important/);assert.match(css,/text-align:center!important/);assert.match(js,/text\(source,sourceLabel\);attr\(source,'data-source-origin',origin\)/)});
+check('New stylesheet loads before competing important layers with valid SRI',()=>{const link=html.match(/<link[^>]*tefekkur-help\.css[^>]*>/)?.[0];assert(link);assert(html.indexOf(link)<html.indexOf('lower-stats-r1236.css'));assert(link.includes('sha256-'+crypto.createHash('sha256').update(css).digest('base64')))});
+check('Modified interface runtime has valid SRI',()=>{const script=html.match(/<script[^>]*interface-r920\.js[^>]*>/)?.[0];assert(script.includes('sha256-'+crypto.createHash('sha256').update(js).digest('base64')))});
+console.log(JSON.stringify({passed,total:9,scope:'Source and dependency contracts only; rendered behavior has separate browser evidence.'}));
