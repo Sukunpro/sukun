@@ -45,3 +45,5 @@ The source test expects exactly 21 checks. A connected-tree DOM fixture also exe
 Local native execution is blocked by this environment's socket restriction before Chromium can launch. An escalation attempt encountered the same runtime restriction. The test is prepared but has **not passed** here. A browser file-URL preview is also unsupported. Run the mandatory CI browser gate before release, then inspect the screenshots/layout. No physical Android, screen-reader or audible-audio result is claimed.
 
 Metadata must be regenerated for the integration release; source edits invalidate the old build marker and manifest hashes. This source patch does not publish, merge or deploy anything.
+
+The popup-language native check records open key, visibility, expanded state, text, focus, position and capture/bubble/microtask traces on success or failure. It requires the popup to remain open in both languages, rather than passing on stale hidden text. Diagnostic observers do not replace production handlers, wait away the event race or reopen a dismissed popup. The native check count remains 56.

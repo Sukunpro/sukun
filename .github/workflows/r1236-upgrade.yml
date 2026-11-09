@@ -7,6 +7,37 @@ on:
 permissions:
   contents: read
 jobs:
+  frequency-help-and-removal:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out exact candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Install pinned native browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
+          echo "NODE_PATH=$RUNNER_TEMP/sukun-browser/node_modules" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify native frequency help and feature removal
+        run: |
+          export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          mkdir -p "$RUNNER_TEMP/frequency-feature-evidence"
+          status=0
+          timeout 6m node tests/frequency-help/browser.cjs "$PWD" "$RUNNER_TEMP/frequency-feature-evidence/help.json" || status=1
+          timeout 6m node tests/cymatics-removal/browser.cjs "$PWD" "$RUNNER_TEMP/frequency-feature-evidence/removal.json" || status=1
+          exit "$status"
+      - name: Upload focused exact-source browser evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: r1240-frequency-features-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/frequency-feature-evidence
+          if-no-files-found: error
+          retention-days: 30
+
   upgrade-r1239:
     runs-on: ubuntu-24.04
     timeout-minutes: 20

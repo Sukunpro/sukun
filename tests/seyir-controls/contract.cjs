@@ -1,5 +1,5 @@
 'use strict';
-const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const {fixture}=require('../r1056/ui-controls-fixture.cjs');
 const root=path.resolve(__dirname,'../..'),read=name=>fs.readFileSync(path.join(root,name),'utf8');let passed=0;
 function test(name,fn){fn();passed++;console.log('PASS '+name)}
@@ -25,6 +25,17 @@ test('terminal and non-reading smart steps have accurate localized help without 
  }
  const session=read('assets/runtime/session-r919.js');assert.match(session,/if\(pendingSmart\|\|before.smartSession\?\.terminal\)return pc\?\.play\?\.\('smart-session'\)/);assert.match(session,/if\(action==='restart'&&before.smartSession\?\.terminal\)return route\('play',before,reject\)/);
 });
+test('the native unified owner retains the exact bilingual finish icon and label',()=>{
+ const html=read('nero.html'),unified=html.match(/<script id="r390-unified-playback">([\s\S]*?)<\/script>/)?.[1];assert(unified,'Native unified playback owner missing');
+ const f=fixture(root,{preference:'1'}),stop=f.$('r932EasyStop');
+ f.document.querySelectorAll=selector=>selector==='[data-action="stop"]'?[stop]:[];f.document.addEventListener=()=>{};f.document.readyState='loading';f.context.navigator={};f.context.setTimeout=()=>{};
+ vm.runInContext(unified,f.context);f.window.SukunUnifiedPlayback.sync();f.sync('berhet');
+ assert.equal(stop.textContent,'■ Bitir');assert.equal(stop.getAttribute('aria-label'),'Zikri bitir');assert.equal(stop.dataset.sukunAction,'finish');assert.equal(f.commands.length,0);
+ const start=html.indexOf('const I18N = {'),end=html.indexOf('window.I18N=I18N;',start)+'window.I18N=I18N;'.length;assert(start>=0&&end>start);
+ const locale={};locale.window=locale;vm.createContext(locale);vm.runInContext(html.slice(start,end),locale);
+ for(const [lang,expected]of [['tr','■ Bitir'],['en','■ End']]){locale.I18N.lang=lang;assert.equal(locale.I18N.t(stop.textContent),expected)}
+ const browser=read('tests/seyir-controls/browser.cjs');assert.match(browser,/id:'r932EasyStop',label:lang==='en'\?'■ End':'■ Bitir'/);
+});
 test('native evidence rejects missing cases, hashes, browser errors and changed files',()=>{
  const {expectedChecks,expectedNames,sourcePaths,testPaths,complete}=require('./evidence.cjs');assert.equal(expectedChecks,31);assert.equal(expectedNames.length,31);
  const digest='a'.repeat(64),sources=Object.fromEntries(sourcePaths.map(n=>[n,digest])),testSources=Object.fromEntries(testPaths.map(n=>[n,digest]));
@@ -34,4 +45,4 @@ test('native evidence rejects missing cases, hashes, browser errors and changed 
  const mutate=[r=>r.results.pop(),r=>r.results[1].name=r.results[0].name,r=>r.results[0].name='unexpected case',r=>r.results[0].passed=false,r=>r.results[0]=null,r=>r.total=28,r=>r.passed=28,r=>r.expectedChecks=20,r=>r.browserExecuted=false,r=>r.sourceUnchanged=false,r=>r.testUnchanged=false,r=>r.servedHashesValid=false,r=>r.fatal='fixture failed',r=>delete r.testSources,r=>delete r.testSources[testPaths[0]],r=>r.testSources[testPaths[0]]='invalid',r=>delete r.sources[sourcePaths[0]],r=>r.browserEvidence=[],r=>r.browserEvidence[0]=null,r=>r.browserEvidence[0].pageErrors.push('Uncaught error'),r=>r.browserEvidence[0].consoleErrors.push('Failed to find a valid digest in integrity attribute'),r=>r.browserEvidence[0].consoleErrors.push('TypeError: broken handler'),r=>delete r.browserEvidence[0].served['nero.html'],r=>r.browserEvidence[0].served['nero.html'].sha256='b'.repeat(64)];
  for(const change of mutate){const r=JSON.parse(JSON.stringify(valid));change(r);assert.equal(complete(r),false,String(change));}assert.equal(complete(null),false);
 });
-console.log(JSON.stringify({passed,total:8,scope:'Current production layout, original quick delegates, controlled endpoints and fail-closed native evidence contract. No native browser execution implied.'}));
+console.log(JSON.stringify({passed,total:9,scope:'Current production layout, original quick delegates, controlled endpoints and fail-closed native evidence contract. No native browser execution implied.'}));
