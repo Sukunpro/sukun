@@ -10,4 +10,5 @@ assert(/:is\([^)]*#r1056FocusControlsToggle[^)]*\)\s*\{\s*--r1133-material:diamo
 const sizes=fs.readFileSync(path.join(root,'css/visual-polish-r1232.css'),'utf8');
 assert(/:is\(#r920TefEnter,#r1056FocusControlsToggle,#r938PanelToggle\)\s*\{[^}]*min-height:44px!important/.test(sizes));
 assert.equal(fs.readFileSync(path.join(root,'index.html'),'utf8'),fs.readFileSync(path.join(root,'nero.html'),'utf8'));
+assert(sizes.includes('[data-r1242-eye="true"]'));assert(sizes.includes('width:24px!important;height:24px!important'));assert(sizes.includes(':is(#r938PanelToggle,#r938PanelBody,#r1056ReadingSummary) {display:none'));
 console.log('PASS r1242 theme-scoped surface, forced-color scope, native gemstone ownership, 44px target and identical shells');

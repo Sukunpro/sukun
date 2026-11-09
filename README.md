@@ -4,11 +4,13 @@ Zikir, Esmâü’l-Hüsnâ, Berhetiyye ve sûre takibi için web uygulaması.
 
 [Uygulamayı aç](https://sukunpro.github.io/sukun/) · [Sürüm kimliği](version.txt) · [Sürüm notları](surumler.json)
 
-## r1242 — Berhetiyye kolay kontroller görünümü
+## r1242 — kompakt kontroller ve sakin tefekkür
 
-r1241 okunurluk kuralı Berhetiyye dışındaki temalarla sınırlandı. Böylece “Kolay kontrolleri göster/gizle” düğmesi mevcut gümüş taşlı çerçevesini yeniden kullanır. Düğmenin eylemi, sayaçlar, sesler ve tefekkür yerleşimi değişmez.
+Berhetiyye'nin taşlı görünümü korunur. Kolay kontroller gizlenince 24px göz simgesi ve 44px dokunma alanı kalır. Başlat/Duraklat, Bitir ve Seyri baştan başlat düğmeleri içerik genişliğine küçülür.
 
-[Regresyon testleri](tests/r1242/) mobil/masaüstü, Türkçe/İngilizce, normal/tefekkür görünümü, tema geçişi, klavye, yüksek kontrast ve tercihin yenilemede korunmasını kapsar. Geçerli kabul, bu commit üzerinde çalışan Actions sonuçlarıdır. Fiziksel telefon veya duyulan ses testi değildir.
+Tefekkürde gerçek zikir başladıktan 10 saniye sonra Ayarlar ve görünüm ile toplam zikir/ses kaynağı/tempo çubuğu gizlenir. Zikir sürerken yaklaşık her 10 dakikada 5 saniye görünür. Gözle geri açıldığında veya kullanıcı ayarları düzenlerken açık kalır. Duraklatma, bitiş, seçim değişikliği ve tefekkürden çıkış süreyi temizleyip görünümü geri getirir; yeniden başlatma yeni süre başlatır. Normal zikir ekranında otomatik gizleme yoktur.
+
+[Regresyon testleri](tests/r1242/) kontrollü saatle zamanlayıcı yaşam döngüsünü; native Chromium ile mobil/masaüstü, Türkçe/İngilizce, normal/tefekkür, göz, klavye, yüksek kontrast, gerçek oynatma ve yeniden yüklemeyi kapsar. Geçerli kabul, bu commit üzerinde çalışan Actions sonuçlarıdır. Fiziksel telefon veya duyulan ses testi değildir.
 
 ## r1241 — gezinme, okunurluk ve güvenli kayıt
 

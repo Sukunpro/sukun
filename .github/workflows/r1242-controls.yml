@@ -23,7 +23,9 @@ jobs:
       - name: Verify source and native theme behavior
         run: |
           export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          node tests/r1242/capture-mockup.cjs "$PWD" "$RUNNER_TEMP/r1242-evidence/mockup"
           node tests/r1242/easy-controls-source.cjs
+          node tests/r1242/settings-auto-hide.cjs
           node tests/r1242/easy-controls-browser.cjs "$PWD" "$RUNNER_TEMP/r1242-evidence"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
