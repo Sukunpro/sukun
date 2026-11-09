@@ -71,13 +71,14 @@
   }
   const state = {host:null,sets:[],raw:null,readOnly:false,storageProblem:'',selectedId:null,draft:null,busy:false,message:null};
   const ui = {};
+  const canLock = () => typeof window.navigator?.locks?.request === 'function';
+  const LOCK = KEY + '.write';
   function storageRead() {
     let raw;
     try { raw = window.localStorage.getItem(KEY); }
     catch (_) { state.readOnly = true; state.storageProblem = 'read'; return false; }
     state.raw = raw; state.readOnly = false; state.storageProblem = ''; state.sets = [];
-    if (raw === null) return true;
-    try {
+    if (raw !== null) try {
       const data = JSON.parse(raw);
       if (!isObject(data) || data.version !== 2 || !Array.isArray(data.sets) || Object.keys(data).some(key => !['version','sets'].includes(key))) throw new Error('format');
       const ids = new Set();
@@ -88,6 +89,7 @@
       }
       if (data.sets.length > LIMIT) { state.readOnly = true; state.storageProblem = 'limit'; }
     } catch (_) { state.readOnly = true; state.storageProblem = 'format'; }
+    if (!state.readOnly && !canLock()) { state.readOnly = true; state.storageProblem = 'locking'; }
     return !state.readOnly;
   }
   const messages = {
@@ -99,7 +101,7 @@
     cancelled:['Düzenleme iptal edildi. Kayıtlı set ve çalma ayarları değiştirilmedi.','Edit cancelled. The saved set and playback settings were not changed.'],
     captured:['Şu anki frekans ayarları taslağa alındı. Kaydetmeden önce inceleyebilirsin.','Current frequency settings copied to the draft. Review them before saving.'],
     capacity:['En fazla 100 set saklanabilir. Önce istemediğin bir seti sil; hiçbir set otomatik silinmez.','Up to 100 sets can be stored. Delete an unwanted set first; no set is removed automatically.'],
-    conflict:['Setler başka bir sekmede değişti. Liste yenilendi; taslağın korunuyor. İşlemi yeniden dene.','Sets changed in another tab. The list was refreshed and your draft was kept. Try again.'],
+    conflict:['Bu set başka bir sekmede değişti veya silindi. Taslağın korunuyor; güncel kaydı inceleyip düzenlemeyi yeniden aç.','This set changed or was deleted in another tab. Your draft was kept; review the current record and reopen editing.'],
     write:['Kaydedilemedi. Tarayıcı depolama alanını veya iznini denetle. Önceki setler korundu.','Could not save. Check browser storage space or permission. Previous sets were preserved.'],
     verify:['Yazma sonucu doğrulanamadı. Kaydedildiği varsayılmadı; listeyi yeniden oku.','The write could not be verified. It is not assumed saved; reload the list.'],
     unavailable:['Frekans ayarları şu anda hazır değil. Biraz sonra yeniden dene.','Frequency settings are not ready. Try again shortly.'],
@@ -120,18 +122,37 @@
       : tr(...(messages[code] || messages.unavailable));
     ui.status.dataset.kind = ['saved','deleted','loaded','played','cancelled','captured','reloaded'].includes(code) ? 'ok' : 'notice';
   }
-  function persist(candidate) {
-    if (state.readOnly) { paintStorage(); return false; }
-    if (candidate.length > LIMIT) { notify('capacity'); return false; }
-    if (candidate.some(record => !validateRecord(record).ok)) { notify('invalid'); return false; }
-    let current;
-    try { current = window.localStorage.getItem(KEY); } catch (_) { notify('write'); return false; }
-    if (current !== state.raw) { storageRead(); renderList(); paintStorage(); notify('conflict'); return false; }
-    const raw = JSON.stringify({version:2,sets:candidate});
-    try { window.localStorage.setItem(KEY,raw); } catch (_) { notify('write'); return false; }
-    try { if (window.localStorage.getItem(KEY) !== raw) throw new Error('verification'); }
-    catch (_) { state.readOnly = true; state.storageProblem = 'verify'; paintStorage(); notify('verify'); return false; }
-    state.raw = raw; state.sets = candidate; return true;
+  // Every current-version writer uses this origin-wide exclusive lock. Rebase
+  // independent mutations inside it; never replace storage with a stale list.
+  async function persist(operation) {
+    if (state.readOnly || !canLock()) { paintStorage(); return false; }
+    try {
+      return await window.navigator.locks.request(LOCK, {mode:'exclusive'}, () => {
+        if (!storageRead()) { renderList(); paintStorage(); return false; }
+        const current = state.sets.find(item => item.id === operation.id);
+        if (operation.base === null ? !!current : !current || JSON.stringify(current) !== operation.base) {
+          renderList(); paintStorage(); notify('conflict'); return false;
+        }
+        const candidate = operation.record
+          ? current ? state.sets.map(item => item.id === operation.id ? operation.record : item) : state.sets.concat(operation.record)
+          : state.sets.filter(item => item.id !== operation.id);
+        if (candidate.length > LIMIT) { notify('capacity'); return false; }
+        if (candidate.some(record => !validateRecord(record).ok)) { notify('invalid'); return false; }
+        const raw = JSON.stringify({version:2,sets:candidate});
+        try { window.localStorage.setItem(KEY,raw); } catch (_) { notify('write'); return false; }
+        try { if (window.localStorage.getItem(KEY) !== raw) throw new Error('verification'); }
+        catch (_) { state.readOnly = true; state.storageProblem = 'verify'; paintStorage(); notify('verify'); return false; }
+        state.raw = raw; state.sets = candidate; return true;
+      });
+    } catch (_) { notify('write'); return false; }
+  }
+  function paintBusy() {
+    // A queued save must not consume a different draft or discard typed changes.
+    if (ui.form) for (const control of ui.form.querySelectorAll('input,select,textarea,button')) {
+      control.disabled = state.busy || (control === ui.save && state.readOnly);
+    }
+    if (ui.inputs?.get('pwm') && !state.busy) ui.inputs.get('pwm').disabled = ui.inputs.get('wave').value !== 'square';
+    renderList(); paintStorage();
   }
   function element(tag, className, text) {
     const node = document.createElement(tag);
@@ -166,7 +187,9 @@
   function paintStorage() {
     if (!ui.storage) return;
     ui.storage.hidden = !state.readOnly;
-    const text = state.storageProblem === 'limit'
+    const text = state.storageProblem === 'locking'
+      ? tr('Bu ortam güvenli sekmeler arası kaydetmeyi desteklemiyor. Kayıtların korunuyor ve yüklenebilir; düzenlemek için güncel bir tarayıcıda HTTPS üzerinden aç.','This environment does not support safe cross-tab saving. Your sets are preserved and can be loaded; open over HTTPS in an up-to-date browser to edit.')
+      : state.storageProblem === 'limit'
       ? tr('Depoda 100’den fazla set var. Hiçbiri kesilmedi veya silinmedi; korumak için yazma kapalı.','The store contains more than 100 sets. None were truncated or deleted; writes are disabled to preserve them.')
       : state.storageProblem === 'read'
       ? tr('Tarayıcı depolaması okunamadı. Kayıtların boş olduğu varsayılmadı; yazma kapalı.','Browser storage could not be read. Existing sets are not assumed empty; writes are disabled.')
@@ -190,10 +213,14 @@
     } catch (_) { notify('apply'); }
     finally { state.busy = false; renderList(); paintStorage(); refreshSelection(); }
   }
-  function remove(record) {
+  async function remove(record) {
     if (state.busy || state.readOnly) return;
     if (!window.confirm(tr('“','“') + record.name + tr('” seti silinsin mi? Bu işlem yalnız bu kayıtlı seti siler.','” will be deleted. Delete only this saved set?'))) return;
-    if (!persist(state.sets.filter(item => item.id !== record.id))) return;
+    state.busy = true; paintBusy();
+    let saved;
+    try { saved = await persist({id:record.id,base:JSON.stringify(record),record:null}); }
+    finally { state.busy = false; paintBusy(); }
+    if (!saved) return;
     if (state.draft?.id === record.id) closeDraft(false);
     if (state.selectedId === record.id) state.selectedId = null;
     renderList(); refreshSelection(); notify('deleted');
@@ -246,6 +273,7 @@
     state.draft.expanded = ui.details.open;
   }
   function closeDraft(message = true) {
+    if (state.busy) return;
     state.draft = null; ui.editor.replaceChildren(); ui.editor.hidden = true;
     ui.form = ui.name = ui.description = ui.save = ui.details = null; ui.inputs = null;
     if (message) notify('cancelled');
@@ -272,6 +300,7 @@
     }
     form.append(element('p','r1120-set-hint',tr('Bu taslak mikrofon kullanmaz. Kaydetmek veya iptal etmek çalma ayarlarını değiştirmez.','This draft does not use the microphone. Saving or cancelling does not change playback settings.')));
     const captureButton = button(tr('Şu anki ayarları taslağa al','Use current settings in draft'),()=>{
+      if (state.busy) return;
       const settings = capture(); if (!settings) return;
       preserveDraft(); state.draft.settings = settings; renderDraft(); notify('captured');
     }); form.append(captureButton);
@@ -303,8 +332,9 @@
     actions.append(ui.save,button(tr('İptal','Cancel'),()=>closeDraft())); form.append(actions);
     form.addEventListener('submit',event=>{event.preventDefault();saveDraft();});
     ui.editor.append(form);
+    paintBusy();
   }
-  function saveDraft() {
+  async function saveDraft() {
     if (!state.draft || state.readOnly || state.busy) return;
     const input = readDraftFields(), name = input.name.trim();
     if (!name || input.name.length > NAME_LIMIT) { notify('name'); ui.name.focus(); return; }
@@ -314,15 +344,19 @@
     const now = Date.now(), old = state.sets.find(record=>record.id===state.draft.id);
     if (state.draft.kind === 'edit' && (!old || JSON.stringify(old) !== state.draft.baseRecord)) { notify('conflict'); return; }
     const id = old?.id || ('set_' + now.toString(36) + '_' + Math.random().toString(36).slice(2,12));
-    const record = {id,name,description:input.description,settings:checked.value,createdAt:old?.createdAt ?? now,updatedAt:now};
-    const candidate = old ? state.sets.map(item=>item.id===id?record:item) : state.sets.concat(record);
-    if (!persist(candidate)) return;
+    const record = {id,name,description:input.description,settings:checked.value,createdAt:old?.createdAt ?? now,updatedAt:old ? Math.max(now,old.updatedAt+1) : now};
+    const base = state.draft.kind === 'edit' ? state.draft.baseRecord : null;
+    state.busy = true; paintBusy();
+    let saved;
+    try { saved = await persist({id,base,record}); }
+    finally { state.busy = false; paintBusy(); }
+    if (!saved) return;
     state.selectedId = id; closeDraft(false); renderList(); notify('saved');
   }
   function translate() {
     if (!ui.heading) return;
     ui.heading.textContent = tr('Kendi frekans setlerim','My frequency sets');
-    ui.intro.textContent = tr('Mevcut frekans, harmonik ve katman ayarlarını mikrofon kullanmadan sakla. Setler bu tarayıcıda kalır. Çakışmayı önlemek için setleri aynı anda birden fazla sekmede düzenleme.','Save current frequency, harmonic and layer settings without using the microphone. Sets stay in this browser. To avoid conflicts, do not edit sets in multiple tabs at the same time.');
+    ui.intro.textContent = tr('Mevcut frekans, harmonik ve katman ayarlarını mikrofon kullanmadan sakla. Setler bu tarayıcıda kalır. Sekmeler arası kayıtlar güvenle birleştirilir; aynı setin eski düzenlemesi yeni kaydı ezmez. Güncellemeden önce açılmış eski sekmeleri önce yenile.','Save current frequency, harmonic and layer settings without using the microphone. Sets stay in this browser. Changes across tabs are safely merged; stale edits cannot overwrite a newer set. Reload tabs opened before this update first.');
     ui.newButton.textContent = tr('+ Şu anki ayarlardan set oluştur','+ Create set from current settings');
     ui.empty.textContent = tr('Henüz el ile oluşturulmuş set yok. Frekans dursa bile yukarıdaki düğmeyle ilk setini kaydedebilirsin.','No manual sets yet. Save your first set with the button above, even while playback is stopped.');
     ui.help.textContent = tr('Yükle yalnız ayarları uygular. Yükle ve çal açık bir başlatma isteğidir; genel duraklatmayı kaldırmaz.','Load applies settings only. Load & play explicitly requests playback; it does not release global pause.');
@@ -347,7 +381,7 @@
   window.SukunFrequencySetsR1120 = Object.freeze({version:'r1120',storageKey:KEY,mount,refreshSelection,validateSettings,validateRecord,snapshot:()=>({sets:copy(state.sets),selectedId:state.selectedId,readOnly:state.readOnly,storageProblem:state.storageProblem,draftOpen:!!state.draft})});
   window.addEventListener('sukun:frequencychange',refreshSelection);
   window.addEventListener('sukun:languagechange',()=>{preserveDraft();translate();if(state.draft)renderDraft();});
-  window.addEventListener('storage',event=>{if(event.key===KEY || event.key===null){storageRead();renderList();paintStorage();if(state.draft)notify('conflict');}});
+  window.addEventListener('storage',event=>{if(event.key===KEY || event.key===null){storageRead();renderList();paintStorage();if(state.draft?.kind==='edit' && JSON.stringify(state.sets.find(item=>item.id===state.draft.id))!==state.draft.baseRecord)notify('conflict');}});
   // Old controls may mutate lexical FR without emitting an event. Observe their
   // user events after their handlers, rather than replacing any existing owner.
   document.addEventListener('input',event=>{if(!state.host?.contains(event.target))Promise.resolve().then(refreshSelection);});

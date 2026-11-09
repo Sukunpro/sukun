@@ -4,6 +4,16 @@ Zikir, Esmâü’l-Hüsnâ, Berhetiyye ve sûre takibi için web uygulaması.
 
 [Uygulamayı aç](https://sukunpro.github.io/sukun/) · [Sürüm kimliği](version.txt) · [Sürüm notları](surumler.json)
 
+## r1241 — gezinme, okunurluk ve güvenli kayıt
+
+Okumalar açıldığında başlık ve etkin menü artık okunan bölümü izler. İlerleme olmayan ilk açılış ile yarım kalan seyir ayrılır. Mevcut temalar ve cam görünümü korunur; metin arkasındaki yüzey koyulaştırılır, bulanıklık artırılmaz. Okuma sırası ve çark kontrolleri Türkçe ve İngilizce açıklanır.
+
+Frekans setleri, aynı kaynağa ait güncel sekmelerin ortak Web Locks kilidi altında güncellenir. Farklı kayıtların değişiklikleri birleştirilir; aynı kayıt üzerindeki bayat düzenleme veya silme işlemi reddedilir ve taslak korunur. Eski sürüm açık sekmelerini yenileyin. Kilit desteği olmayan ortamlarda kayıtlar okunabilir/yüklenebilir, yazma kapalıdır. Kişisel ses kayıtları ve kayıtlı set biçimi değiştirilmez.
+
+Güncel kanıt, bu commit için çalışan **Required current-release source-bound checks** ve **r1241 usability, concurrent saves and measured startup** Actions sonuçlarıdır. Tarihsel test dosyaları yeni yayının başarılı olduğunu göstermez. Yeni testler [tests/r1241](tests/r1241/), tekrarlanabilir başlangıç ölçümü [tests/performance](tests/performance/) altındadır. Ölçümler Linux Chromium/yerel HTTP içindir; gerçek telefon açılış süresi veya INP değildir.
+
+[Fiziksel cihaz kabul matrisi](docs/r1241-audio-offline-acceptance.md): Android/iPhone ekran kilidi, telefon araması, Bluetooth ve duyulan ses testleri henüz tamamlanmış sayılmaz. Otomatik tarayıcı testlerinin ve test ortamı sınırlarının kapsamı burada açıkça ayrılır. Canlı sürümü yukarıdaki sürüm kimliğinden kontrol edin.
+
 ## r1120 — frekans araçları ve kişisel setler
 
 Frekans bölümünde dalga tipi, sol/sağ kanal seviyesi, ek gürültü, filtreler ve oktav düğmeleri ortak ses motoruna bağlıdır. Harmonikler, 3B ses ve mevcut bant/Hz kısayolları Mini/Midi/Pro görünümlerinde erişilebilir. “Şu anki ayarlardan set oluştur” ile mikrofonsuz bir ayarı adlandırıp kaydedebilir; düzenleyebilir, yükleyebilir, çoğaltabilir veya onayla silebilirsin. Eski kişisel/mikrofon kayıtları ayrı tutulur.
@@ -12,7 +22,7 @@ Mevcut ses seviyesi varsayılan olarak korunur. “Daha belirgin” profili yaln
 
 Süreli/değişken frekanslar canlı ses yolunu kullanır; ekran kilidinde süreklilik cihaz desteğine bağlıdır. Genel duraklatma, süre bitişi ve yeni ayarın eski yolculuğu/taramayı devralması ayrı test edilir. Eski hızlı flaş yerine ses frekansından bağımsız sabit ışık vardır; varsayılan kapalıdır ve kayıt yüklenince kendiliğinden açılmaz.
 
-Set depolaması görülen çakışmaları reddeder, ancak eşzamanlı iki sekme yazması atomik değildir. Setleri aynı anda birden fazla sekmede düzenleme. Bozuk/yeni biçimli veri korunur ve yazma kapatılır.
+r1120 tarihsel notu: bu sürümde eşzamanlı iki sekme yazması atomik değildi. r1241 güncel sekmeler için bu yolu ortak kilit ve kayıt bazlı çakışma denetimiyle değiştirir. Bozuk/yeni biçimli verinin korunması devam eder.
 
 [Doğrulama kaydı](tests/r1120/verification.json), [test kapsamı](tests/r1120/README.md) ve [bağımsız kaynak incelemesi](tests/r1120/review.json) kesin kaynak/test hash’lerini ve kabul sınırlarını içerir. Fiziksel Android/PWA, Bluetooth, ekran kilidi ve duyulan ses testleri ayrıca açık kalır. Canlı sürüm için yukarıdaki sürüm kimliği bağlantısını kullan; tarihsel test belgeleri yayın durumunun kanıtı değildir.
 

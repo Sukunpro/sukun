@@ -27,6 +27,12 @@ function help(node,tr,en){
  window.dockTipBagla?.(node);
 }
 function actionHelp(){
+ const hint=$('r1241ControlHint');write(hint,'Çarktan başlat veya duraklat. Diğer işlemler için kolay kontrolleri aç.','Start or pause with the wheel. Open easy controls for more actions.');
+ help($('r932QuickWheel'),'Çarkın görünümünü değiştirir; sayımı etkilemez.','Change the wheel appearance without changing the count.');
+ help($('r932QuickScene'),'Arka plan sahnesini seçer; okumayı değiştirmez.','Choose the background scene without changing the reading.');
+ help($('r920Minus'),'Sayacı bir azaltır; okuma sürerken kullanılamaz.','Decrease the count by one; unavailable while reading.');
+ help($('r920Plus'),'Sayacı bir artırır; okuma sürerken kullanılamaz.','Increase the count by one; unavailable while reading.');
+
  const s=window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.()||{},busy=['PLAYING','PREPARING'].includes(s.phase),resume=s.globalPauseBlocked||s.phase==='PAUSED';
  const terminal=!!s.smartSession?.terminal,nonReading=!!s.smartSession&&!s.smartSession.reading;
  // A terminal queue is replayed by the native smart-session owner. It is not
@@ -89,7 +95,7 @@ function restore(){
  for(const [node,anchor]of anchors.reverse()){if(anchor.isConnected)anchor.replaceWith(node)}anchors=[];
  for(const [node,hidden]of hiddenStates)node.hidden=hidden;hiddenStates.clear();
  if(transport)transport.id=transportId;
- body?.remove();toggle?.remove();primary?.remove();finishRow?.remove();focusToggle?.remove();hero?.remove();panel?.remove();
+ body?.remove();toggle?.remove();primary?.remove();finishRow?.remove();$('r1241ControlHint')?.remove();focusToggle?.remove();hero?.remove();panel?.remove();
  if(host){delete host.dataset.r938Layout;delete host.dataset.r1056FocusControls}
  host=hero=panel=body=toggle=quick=transport=finishRow=focusToggle=primary=null;lastTef=null;
 }
@@ -104,6 +110,7 @@ function build(root){
  quick=$('r932WheelControls');move(quick,panel);
  toggle=document.createElement('button');toggle.id='r938PanelToggle';toggle.type='button';toggle.setAttribute('aria-controls','r938PanelBody');toggle.innerHTML='<span id="r1056SettingsCaption"></span><span id="r1056SettingsChevron" aria-hidden="true">⌃</span>';
  body=document.createElement('div');body.id='r938PanelBody';body.setAttribute('role','region');
+ const controlHint=document.createElement('p');controlHint.id='r1241ControlHint';quick.append(controlHint);
  const shortcuts=quick.querySelector('.r932VisualShortcuts');
  const picker=$('r932QuickPicker');transport=quick.querySelector('.r932EasyTransport');transportId=transport?.id||'';
  if(transport){hiddenStates.set(transport,transport.hidden);move(transport,quick);transport.id='r1056PrimaryControls';quick.insertBefore(transport,quick.children[0]||null)}
