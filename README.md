@@ -4,6 +4,14 @@ Zikir, Esmâü’l-Hüsnâ, Berhetiyye ve sûre takibi için web uygulaması.
 
 [Uygulamayı aç](https://sukunpro.github.io/sukun/) · [Sürüm kimliği](version.txt) · [Sürüm notları](surumler.json)
 
+## r1242 — kompakt kontroller ve sakin tefekkür
+
+Berhetiyye'nin taşlı görünümü korunur. Kolay kontroller gizlenince 24px göz simgesi ve 44px dokunma alanı kalır. Başlat/Duraklat, Bitir ve Seyri baştan başlat düğmeleri içerik genişliğine küçülür.
+
+Tefekkürde gerçek zikir başladıktan 10 saniye sonra Ayarlar ve görünüm ile toplam zikir/ses kaynağı/tempo çubuğu gizlenir. Zikir sürerken yaklaşık her 10 dakikada 5 saniye görünür. Gözle geri açıldığında veya kullanıcı ayarları düzenlerken açık kalır. Duraklatma, bitiş, seçim değişikliği ve tefekkürden çıkış süreyi temizleyip görünümü geri getirir; yeniden başlatma yeni süre başlatır. Normal zikir ekranında otomatik gizleme yoktur.
+
+[Regresyon testleri](tests/r1242/) kontrollü saatle zamanlayıcı yaşam döngüsünü; native Chromium ile mobil/masaüstü, Türkçe/İngilizce, normal/tefekkür, göz, klavye, yüksek kontrast, gerçek oynatma ve yeniden yüklemeyi kapsar. Geçerli kabul, bu commit üzerinde çalışan Actions sonuçlarıdır. Fiziksel telefon veya duyulan ses testi değildir.
+
 ## r1241 — gezinme, okunurluk ve güvenli kayıt
 
 Okumalar açıldığında başlık ve etkin menü artık okunan bölümü izler. İlerleme olmayan ilk açılış ile yarım kalan seyir ayrılır. Mevcut temalar ve cam görünümü korunur; metin arkasındaki yüzey koyulaştırılır, bulanıklık artırılmaz. Okuma sırası ve çark kontrolleri Türkçe ve İngilizce açıklanır.

@@ -528,7 +528,9 @@
   html[data-r1074-theme] body.r1215-premium #r616Continue :is(small,#r616ContinueMeta),
   html[data-r1074-theme] body.r1215-premium #r1215PracticeContext :is(p,small) {color:#e1dbc9!important;font-size:13px!important;line-height:1.55!important}
   html[data-r1074-theme] body.r1215-premium #r616ContinueTitle {color:#fff3d6!important;font-size:16px!important;line-height:1.5!important}
-  body.r1215-premium #r1056FocusControlsToggle {border:1px solid #bda773!important;background:#082c35dc!important;color:#fff0cd!important;font-size:13px!important;min-height:44px!important}
+  /* Berhetiyye owns its gemstone border-image. A generic border shorthand
+     resets that artwork even when no border-image override is written. */
+  html:not([data-r1074-theme="berhet"]) body.r1215-premium #r1056FocusControlsToggle {border:1px solid #bda773!important;background:#082c35dc!important;color:#fff0cd!important;font-size:13px!important;min-height:44px!important}
   body.r1215-premium #r1215ReadingsEntry.active {color:#ffe4a3!important;background:#173d3e!important;box-shadow:inset 3px 0 #d7bc7d!important}
  }
  body.r1215-premium #r1241ControlHint {font-size:12px!important;line-height:1.5!important;color:inherit!important;margin:6px 0!important;text-align:center!important}

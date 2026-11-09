@@ -4,6 +4,8 @@ const $=id=>document.getElementById(id);
 const FOCUS_KEY='sukun.zikir.quickControls.focus.v1';
 let host,hero,panel,body,toggle,primary,quick,transport,finishRow,focusToggle,anchors=[],hiddenStates=new Map(),lastTef=null,open=false,transportId='';
 // New installs begin with the wheel alone; an explicit saved preference wins.
+let settingsAutoHidden=false,settingsHideTimer=null,settingsPlaybackStretch='',settingsRevealHeld=false;
+const SETTINGS_HIDE_DELAY=10000,SETTINGS_PULSE_INTERVAL=600000,SETTINGS_PULSE_DURATION=5000;
 let focusControlsVisible=false;try{focusControlsVisible=localStorage.getItem(FOCUS_KEY)==='1'}catch(_){}
 const english=()=>window.I18N?.lang==='en';
 function write(node,tr,en){const value=english()?en:tr;if(node&&node.textContent!==value)node.textContent=value;}
@@ -12,7 +14,9 @@ function hidden(node,value){if(node&&node.hidden!==value)node.hidden=value;}
 function move(node,parent){if(!node)return;const anchor=document.createComment('r938-original');node.before(anchor);anchors.push([node,anchor]);parent.append(node)}
 function labels(){
  write($('r1056SettingsCaption'),'Ayarlar ve görünüm','Settings and appearance');
- write(focusToggle,focusControlsVisible?'Kolay kontrolleri gizle':'Kolay kontrolleri göster',focusControlsVisible?'Hide easy controls':'Show easy controls');
+ write($('r1242FocusControlsLabel'),focusControlsVisible?'Kolay kontrolleri gizle':'Kolay kontrolleri göster',focusControlsVisible?'Hide easy controls':'Show easy controls');
+ attribute(focusToggle,'aria-label',settingsAutoHidden?(english()?'Show settings, reading information and controls':'Ayarları, okuma bilgilerini ve kontrolleri göster'):(english()?(focusControlsVisible?'Hide easy controls':'Show easy controls'):(focusControlsVisible?'Kolay kontrolleri gizle':'Kolay kontrolleri göster')));
+ attribute(focusToggle,'data-r1242-eye',!focusControlsVisible||settingsAutoHidden);
  attribute(focusToggle,'aria-expanded',focusControlsVisible);
  attribute(panel,'aria-label',english()?'Dhikr controls':'Zikir kontrolleri');
  attribute(body,'aria-label',english()?'Dhikr settings and appearance':'Zikir ayarları ve görünüm');
@@ -54,7 +58,8 @@ function actionHelp(){
  attribute($('r932EasyStop'),'aria-label',english()?(terminal?'Close session result':s.smartSession?'Finish session':'End dhikr'):(terminal?'Seans sonucunu kapat':s.smartSession?'Seansı bitir':'Zikri bitir'));
  help($('r932EasyStop'),terminal?'Seans sonucunu kapatır; seansı yeniden başlatmaz.':s.smartSession?'Etkin seansı bitirir; ilk adımdan yeniden başlatmaz.':'Etkin okumayı bitirir. Seyri ilk isme döndürmez.',terminal?'Close the session result without restarting the session.':s.smartSession?'Finish the active session without restarting it from the first step.':'Finish the current reading without returning the journey to its first name.');
  help($('r920Restart'),terminal?'Sona eren seansı ilk adımından yeniden başlatır.':s.smartSession?'Seansın geçerli adımını yeniden başlatır.':'Yalnız seçili ismin sayımını sıfırlayıp yeniden başlatır. Tüm seyri başa almaz.',terminal?'Restart the ended session from its first step.':s.smartSession?'Restart the current session step.':'Reset and restart only the selected name, not the whole journey.');
- help(focusToggle,focusControlsVisible?'Başlat, baştan başlat ve bitir kontrollerini gizler. Tefekkürde alttaki Hedef/Kalan kartları da gizlenir; çarkın bilgileri ve çıkış düğmesi kalır.':'Kolay kontrolleri ve tefekkürde alttaki Hedef/Kalan kartlarını gösterir. Boyutları görünüme göre otomatik ayarlanır.',focusControlsVisible?'Hide the start, restart and finish controls. In reflection, also hide the lower target/remaining cards; wheel information and the exit remain.':'Show easy controls and the lower target/remaining cards in reflection. Their size adapts automatically.');
+ if(settingsAutoHidden)help(focusToggle,'Ayarları, görünümü ve okuma bilgi çubuğunu yeniden gösterir. Gizli kolay kontrolleri de açar.','Show settings, appearance and the reading information bar again, and reveal hidden easy controls.');
+ else help(focusToggle,focusControlsVisible?'Başlat, baştan başlat ve bitir kontrollerini gizler. Tefekkürde alttaki Hedef/Kalan kartları da gizlenir; çarkın bilgileri ve çıkış düğmesi kalır.':'Kolay kontrolleri ve tefekkürde alttaki Hedef/Kalan kartlarını gösterir. Boyutları görünüme göre otomatik ayarlanır.',focusControlsVisible?'Hide the start, restart and finish controls. In reflection, also hide the lower target/remaining cards; wheel information and the exit remain.':'Show easy controls and the lower target/remaining cards in reflection. Their size adapts automatically.');
 }
 function placeSummary(){
  const summary=$('r1056ReadingSummary');if(!summary||!quick||!transport||quick.contains(summary))return;
@@ -82,13 +87,71 @@ function setFocusControls(value){
  try{localStorage.setItem(FOCUS_KEY,value?'1':'0')}catch(_){}
  focusControls();return true;
 }
+// Presentation-only inactivity state. The native session remains the playback owner.
+function settingsPlaybackKey(tef){
+ if(!host||!tef)return '';
+ const s=window.SukunSessionState?.peek?.()||window.SukunSessionState?.snapshot?.()||{};
+ if(s.paused||s.globalPauseBlocked||s.smartSession?.terminal)return '';
+ const key=JSON.stringify([s.activeMode,s.activeIndex,s.journey?.kind??s.journeyKind]);
+ // The session may prepare another clip after playback has started. Keep that
+ // stretch's clock/hold, but never start a countdown from initial preparation.
+ return s.phase==='PLAYING'||s.phase==='PREPARING'&&settingsPlaybackStretch===key?key:'';
+}
+function cancelSettingsHide(){
+ if(settingsHideTimer!==null)clearTimeout(settingsHideTimer);settingsHideTimer=null;
+}
+function setSettingsAutoHidden(value){
+ const changed=settingsAutoHidden!==value;settingsAutoHidden=value;
+ if(host&&host.dataset.r1242SettingsHidden!==String(value))host.dataset.r1242SettingsHidden=String(value);
+ if(changed)labels();
+}
+function resetSettingsAutoHide(){
+ cancelSettingsHide();settingsPlaybackStretch='';settingsRevealHeld=false;setSettingsAutoHidden(false);
+}
+function revealSettings(){
+ cancelSettingsHide();settingsRevealHeld=!!settingsPlaybackStretch;setSettingsAutoHidden(false);
+}
+function settingsBeingEdited(){
+ return open||body?.contains(document.activeElement)||$('r1056ReadingSummary')?.contains(document.activeElement);
+}
+function scheduleSettingsVisibility(key,delay,show){
+ const owner=host;
+ settingsHideTimer=setTimeout(()=>{
+  settingsHideTimer=null;
+  if(host!==owner||settingsPlaybackKey(lastTef)!==key){syncSettingsAutoHide(lastTef);return}
+  if(settingsBeingEdited()){revealSettings();return}
+  if(settingsRevealHeld)return;
+  if(!show&&document.activeElement===toggle)focusToggle?.focus({preventScroll:true});
+  setSettingsAutoHidden(!show);
+  // Pulse starts remain ten minutes apart; the five seconds are part of that interval.
+  scheduleSettingsVisibility(key,show?SETTINGS_PULSE_DURATION:SETTINGS_PULSE_INTERVAL-SETTINGS_PULSE_DURATION,!show);
+ },delay);
+}
+function syncSettingsAutoHide(tef){
+ const key=settingsPlaybackKey(tef);
+ if(key!==settingsPlaybackStretch){resetSettingsAutoHide();settingsPlaybackStretch=key}
+ if(!key)return;
+ // Never remove a settings surface or reading bar that the user is editing.
+ if(settingsBeingEdited()){revealSettings();return}
+ if(settingsAutoHidden||settingsRevealHeld||settingsHideTimer!==null)return;
+ const owner=host;
+ settingsHideTimer=setTimeout(()=>{
+  settingsHideTimer=null;
+  if(host!==owner||settingsPlaybackKey(lastTef)!==key){syncSettingsAutoHide(lastTef);return}
+  if(settingsBeingEdited()){revealSettings();return}
+  if(document.activeElement===toggle)focusToggle?.focus({preventScroll:true});
+  setSettingsAutoHidden(true);
+  scheduleSettingsVisibility(key,SETTINGS_PULSE_INTERVAL,true);
+ },SETTINGS_HIDE_DELAY);
+}
 function setOpen(next,focus=false){
- open=!!next;if(!panel)return;
+ open=!!next;if(!panel)return;if(open)revealSettings();
  if(!open&&body.contains(document.activeElement))toggle.focus({preventScroll:true});
  hidden(body,!open);attribute(toggle,'aria-expanded',open);write($('r1056SettingsChevron'),open?'⌄':'⌃',open?'⌄':'⌃');
  if(panel.dataset.open!==String(open))panel.dataset.open=String(open);if(focus)toggle.focus({preventScroll:true});
 }
 function restore(){
+ resetSettingsAutoHide();
  window.SukunLowerStats?.beforeRestore?.(host);
  window.SukunCompactUI?.beforeRestore?.(host);
  if(host)delete host.querySelector('.r920Stats')?.dataset.r989ExitRow;
@@ -96,11 +159,11 @@ function restore(){
  for(const [node,hidden]of hiddenStates)node.hidden=hidden;hiddenStates.clear();
  if(transport)transport.id=transportId;
  body?.remove();toggle?.remove();primary?.remove();finishRow?.remove();$('r1241ControlHint')?.remove();focusToggle?.remove();hero?.remove();panel?.remove();
- if(host){delete host.dataset.r938Layout;delete host.dataset.r1056FocusControls}
+ if(host){delete host.dataset.r938Layout;delete host.dataset.r1056FocusControls;delete host.dataset.r1242SettingsHidden}
  host=hero=panel=body=toggle=quick=transport=finishRow=focusToggle=primary=null;lastTef=null;
 }
 function build(root){
- host=root;host.dataset.r938Layout='1';
+ host=root;host.dataset.r938Layout='1';host.dataset.r1242SettingsHidden='false';
  hero=document.createElement('div');hero.id='r938Hero';
  const wheel=$('r924WheelFrame');wheel.before(hero);
  for(const node of [root.querySelector('.r920Identity'),wheel,root.querySelector('.r920Stats'),$('r920RecordingError'),$('r920SceneError')])move(node,hero);
@@ -116,7 +179,7 @@ function build(root){
  if(transport){hiddenStates.set(transport,transport.hidden);move(transport,quick);transport.id='r1056PrimaryControls';quick.insertBefore(transport,quick.children[0]||null)}
  finishRow=document.createElement('div');finishRow.id='r1056FinishRow';quick.append(finishRow);move($('r932EasyStop'),finishRow);
  const hint=$('r968ManualHint');if(hint)hiddenStates.set(hint,hint.hidden);move(hint,quick);
- focusToggle=document.createElement('button');focusToggle.id='r1056FocusControlsToggle';focusToggle.type='button';focusToggle.setAttribute('aria-controls','r1056PrimaryControls r1056FinishRow r968ManualHint r920Target r920Remaining');quick.append(focusToggle,toggle,body);
+ focusToggle=document.createElement('button');focusToggle.id='r1056FocusControlsToggle';focusToggle.type='button';focusToggle.setAttribute('aria-controls','r1056PrimaryControls r1056FinishRow r968ManualHint r920Target r920Remaining');focusToggle.innerHTML='<span id="r1242FocusControlsLabel"></span><svg class="r1242ControlsEye" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>';quick.append(focusToggle,toggle,body);
  // Easy controls own the wrapper; the session renderer keeps the button's eligibility.
  const restartAll=$('r920JourneyRestartAll');if(restartAll){move(restartAll,finishRow);finishRow.prepend(restartAll)}
  for(const node of [shortcuts,picker])move(node,body);
@@ -127,7 +190,7 @@ function build(root){
  move($('r920TefExit'),hero);
  for(const node of [$('r920Actions'),$('r920JourneySettings'),$('r679ZikirAyarBox'),$('r920ViewOptions'),$('r920More')])move(node,body);
 
- focusToggle.onclick=()=>setFocusControls(!focusControlsVisible);
+ focusToggle.onclick=()=>{if(settingsAutoHidden||(!focusControlsVisible&&settingsPlaybackStretch)){revealSettings();if(!focusControlsVisible)setFocusControls(true);return}setFocusControls(!focusControlsVisible)};
  toggle.onclick=()=>setOpen(!open);
  panel.addEventListener('keydown',e=>{if(e.key==='Escape'&&open&&!e.defaultPrevented){e.preventDefault();setOpen(false,true)}});
  placeSummary();labels();
@@ -151,6 +214,7 @@ function sync(root,tef){
  if(!root.querySelector('#r932WheelControls'))return;
  if(!host)build(root);
  if(lastTef!==tef){lastTef=tef;setOpen(false)}
+ syncSettingsAutoHide(tef);
  placeSummary();focusControls(tef);
  placeExit(root,tef);
  window.SukunLowerStats?.sync?.(root,tef);
@@ -165,5 +229,5 @@ function sync(root,tef){
  const phase=$('r920Phase'),wheel=$('r924WheelFrame');if(phase&&wheel&&phase.parentElement!==wheel)wheel.append(phase);if(root.dataset.phase==='PLAYING'&&!phase.textContent)phase.textContent='Zikir sürüyor';
 }
 window.addEventListener?.('sukun:languagechange',labels,{passive:true});
-window.SukunBerhetLayout=Object.freeze({version:'r1056',revision:'r1215',sync,setFocusControls,snapshot:()=>({active:!!host,open,tef:lastTef,focusControlsVisible})});
+window.SukunBerhetLayout=Object.freeze({version:'r1056',revision:'r1242',sync,setFocusControls,snapshot:()=>({active:!!host,open,tef:lastTef,focusControlsVisible,settingsAutoHidden,settingsRevealHeld,settingsHidePending:settingsHideTimer!==null})});
 })();
