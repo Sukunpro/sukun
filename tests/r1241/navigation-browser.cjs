@@ -27,6 +27,10 @@ const root=path.resolve(process.argv[2]||path.join(__dirname,'../..')),out=path.
    for(const id of ['r932EasyPlay','r920JourneyRestartAll','r932EasyStop','r1056FocusControlsToggle'])assert.equal(await p.locator('#'+id).count(),1);
   }
   const fit=await p.evaluate(()=>({viewport:innerWidth,scroll:document.documentElement.scrollWidth,hint:document.getElementById('r1241ControlHint')?.textContent,context:getComputedStyle(document.getElementById('r1215PracticeContext')).backgroundImage}));assert(fit.scroll<=fit.viewport+1,JSON.stringify(fit));assert(fit.hint);assert.match(fit.context,/linear-gradient/);
+  fit.sessionTitle=await p.evaluate(()=>{
+   const title=document.getElementById('r1215ContextTitle'),node=title.firstChild,words=[...node.textContent.matchAll(/\S+/g)];
+   return {text:title.textContent,brokenWord:words.some(word=>{const range=document.createRange();range.setStart(node,word.index);range.setEnd(node,word.index+word[0].length);return new Set([...range.getClientRects()].map(rect=>Math.round(rect.top))).size>1;})};
+  });assert(!fit.sessionTitle.brokenWord,JSON.stringify(fit.sessionTitle));
   await p.screenshot({path:path.join(out,`practice-${width}-${lang}.png`)});
   await p.locator('#r616SettingsBtn').click();await p.waitForTimeout(150);assert.match(await p.locator('#r635ArbiterPanel').innerText(),lang==='tr'?/Okuma sırası/:/Reading queue/);assert(!/foreground|arbitration/i.test(await p.locator('#r635ArbiterPanel').innerText()));await p.locator('#r616ToolsClose').click();
   checks.push({width,lang,passed:true,fit});
