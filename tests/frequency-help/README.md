@@ -26,7 +26,7 @@ Source-only candidate based on r1239 / 51a2977. Not published or approved for re
 - Frequency timer: existing ownership/pause/lock note retained; new fade-duration, stopped-playback, Cancel vs Stop explanation.
 - Sweep: new explanation of carrier range, duration, linear/log scale, unchanged beat, loop and stop behavior.
 - Library: existing bilingual tap/play/pause behavior note retained.
-- Cymatics: existing bilingual model, measurement limitations, quality, silence and reduced-motion descriptions retained. No duplicate help added.
+- Retired Cymatics navigation is absent. Remaining library, breathing, guided session, sweep and overview navigation preserves settings and playback.
 - Breathing: existing rhythm-card descriptions retained; new control/voice guide and comfort caution.
 - Guided session: existing script descriptions retained; new playback, step, pause/restart, exit, voice, rate and visual-style explanation. This does not translate or replace the spoken script itself.
 

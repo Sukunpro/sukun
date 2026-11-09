@@ -9,7 +9,7 @@ const testSources=Object.fromEntries(testPaths.map(name=>[name,hash(fs.readFileS
 let f,browserExecuted=false,fatal=null,servedHashesValid=false;
 const unchanged=files=>Object.entries(files).every(([name,digest])=>fs.existsSync(path.join(root,name))&&hash(fs.readFileSync(path.join(root,name)))===digest);
 const session=app=>app.evaluate(()=>{const s=window.SukunSessionState.snapshot();return{mode:s.activeMode,index:s.activeIndex,count:s.count,target:s.target,journey:s.journeyKind,phase:s.phase,globalPauseBlocked:s.globalPauseBlocked,reflection:window.SUKUN_TEFEKKUR.active()}});
-async function check(name,fn){try{const evidence=await fn();results.push({name,passed:true,evidence});console.log('PASS '+name)}catch(error){results.push({name,passed:false,error:error.stack});throw error}}
+async function check(name,fn){try{const evidence=await fn();results.push({name,passed:true,evidence});console.log('PASS '+name)}catch(error){results.push({name,passed:false,error:error.stack,evidence:error.evidence});throw error}}
 (async()=>{try{
  f=await fixture(root,{width:1440,height:1100});browserExecuted=true;const p=f.page;
  for(const mode of ['berhet','esma']){
@@ -41,8 +41,44 @@ async function check(name,fn){try{const evidence=await fn();results.push({name,p
     {id:'r932EasyStop',label:lang==='en'?'Finish':'Bitir',name:lang==='en'?'End dhikr':'Zikri bitir',help:lang==='en'?'Finish the current reading without returning the journey to its first name.':'Etkin okumayı bitirir. Seyri ilk isme döndürmez.'},
     {id:'r1056FocusControlsToggle',label:lang==='en'?'Hide easy controls':'Kolay kontrolleri gizle',name:lang==='en'?'Hide easy controls':'Kolay kontrolleri gizle',help:lang==='en'?'Hide the start, restart and finish controls. In reflection, also hide the lower target/remaining cards; wheel information and the exit remain.':'Başlat, baştan başlat ve bitir kontrollerini gizler. Tefekkürde alttaki Hedef/Kalan kartları da gizlenir; çarkın bilgileri ve çıkış düğmesi kalır.'}
    ];
-   await check(mode+' '+lang+' labels and native hover explanations',async()=>{const observations=[];for(const item of cases){const button=app.locator('#'+item.id);await button.waitFor({state:'visible'});await app.waitForFunction(({id,label,name})=>{const e=document.getElementById(id);return e.textContent.trim()===label&&(e.getAttribute('aria-label')||e.textContent.trim())===name},item);assert.equal((await button.innerText()).trim(),item.label);await button.hover();await app.locator('#dockTip').waitFor({state:'visible'});const tip=app.locator('#dockTip .r998TipText'),text=await tip.innerText();assert.equal(text,item.help);observations.push({id:item.id,label:await button.innerText(),accessibleName:await button.getAttribute('aria-label')||item.label,explanation:text});await p.mouse.move(1,1);await app.locator('#dockTip').waitFor({state:'hidden'})}assert.deepEqual(await session(app),before,'hover and language-specific help must not command the session');return{language:lang,observations,before,after:await session(app)}});
-   await check(mode+' '+lang+' native keyboard explanations preserve reading',async()=>{const observations=[];for(const item of cases){const button=app.locator('#'+item.id);await button.focus();await p.keyboard.press('Shift+Tab');await p.keyboard.press('Tab');await app.locator('#dockTip').waitFor({state:'visible'});assert.equal(await app.evaluate(()=>document.activeElement.id),item.id);const text=await app.locator('#dockTip .r998TipText').innerText();assert.equal(text,item.help);await p.keyboard.press('Escape');await app.locator('#dockTip').waitFor({state:'hidden'});assert.equal(await app.evaluate(()=>document.activeElement.id),item.id);assert.deepEqual(await session(app),before,'Tab/Escape changes focus/help only');observations.push({id:item.id,explanation:text,focusAfterEscape:item.id})}return{language:lang,observations,before,after:await session(app)}});
+   const diagnose=async trace=>{
+    const evidence={language:lang,before,stage:trace.stage,expected:trace.item,completedItems:trace.observations};
+    try{evidence.actual=await app.evaluate(ids=>{
+     const state=s=>s?{phase:s.phase,globalPauseBlocked:s.globalPauseBlocked,activeMode:s.activeMode,activeIndex:s.activeIndex,count:s.count,journeyKind:s.journeyKind,smartSession:s.smartSession?{terminal:s.smartSession.terminal,reading:s.smartSession.reading,stepType:s.smartSession.stepType}:null}:null;
+     const control=id=>{const e=document.getElementById(id);if(!e)return{id,missing:true};const style=getComputedStyle(e);return{id,copies:document.querySelectorAll('#'+id).length,text:e.textContent,innerText:e.innerText,ariaLabel:e.getAttribute('aria-label'),ariaLabelledby:e.getAttribute('aria-labelledby'),title:e.getAttribute('title'),tip:e.getAttribute('data-tip'),disabled:e.disabled,hidden:e.hidden,visible:!!e.getClientRects().length&&style.visibility!=='hidden',i18nSource:e['__o_aria-label'],i18nRendered:e['__i18nRendered_aria-label'],html:e.outerHTML}};
+     return{language:window.I18N?.lang,documentLanguage:document.documentElement.lang,phase:state(window.SukunSessionState?.snapshot?.()),peek:state(window.SukunSessionState?.peek?.()),focus:document.activeElement?.id,controls:ids.map(control),tooltip:document.querySelector('#dockTip .r998TipText')?.textContent||null};
+    },cases.map(item=>item.id));}catch(error){evidence.diagnosticError=error.stack||String(error)}
+    return evidence;
+   };
+   await check(mode+' '+lang+' labels and native hover explanations',async()=>{
+    const trace={stage:'setup',item:null,observations:[]};
+    try{
+     for(const item of cases){
+      trace.item=item;const button=app.locator('#'+item.id);trace.stage='wait-visible';await button.waitFor({state:'visible'});
+      trace.stage='wait-localized-label-and-name';await app.waitForFunction(({id,label,name})=>{const e=document.getElementById(id);return e.textContent.trim()===label&&(e.getAttribute('aria-label')||e.textContent.trim())===name},item);
+      trace.stage='assert-visible-label';assert.equal((await button.innerText()).trim(),item.label);
+      trace.stage='native-hover';await button.hover();trace.stage='wait-hover-help';await app.locator('#dockTip').waitFor({state:'visible'});
+      trace.stage='assert-hover-explanation';const text=await app.locator('#dockTip .r998TipText').innerText();assert.equal(text,item.help);
+      trace.observations.push({id:item.id,label:await button.innerText(),accessibleName:await button.getAttribute('aria-label')||item.label,explanation:text});
+      trace.stage='dismiss-hover-help';await p.mouse.move(1,1);await app.locator('#dockTip').waitFor({state:'hidden'});
+     }
+     trace.stage='assert-session-unchanged';assert.deepEqual(await session(app),before,'hover and language-specific help must not command the session');
+     return{language:lang,observations:trace.observations,before,after:await session(app)};
+    }catch(error){error.evidence=await diagnose(trace);throw error}
+   });
+   await check(mode+' '+lang+' native keyboard explanations preserve reading',async()=>{
+    const trace={stage:'setup',item:null,observations:[]};
+    try{
+     for(const item of cases){
+      trace.item=item;const button=app.locator('#'+item.id);trace.stage='native-focus-tab';await button.focus();await p.keyboard.press('Shift+Tab');await p.keyboard.press('Tab');
+      trace.stage='wait-keyboard-help';await app.locator('#dockTip').waitFor({state:'visible'});assert.equal(await app.evaluate(()=>document.activeElement.id),item.id);
+      trace.stage='assert-keyboard-explanation';const text=await app.locator('#dockTip .r998TipText').innerText();assert.equal(text,item.help);
+      trace.stage='escape-dismissal';await p.keyboard.press('Escape');await app.locator('#dockTip').waitFor({state:'hidden'});assert.equal(await app.evaluate(()=>document.activeElement.id),item.id);
+      trace.stage='assert-session-unchanged';assert.deepEqual(await session(app),before,'Tab/Escape changes focus/help only');trace.observations.push({id:item.id,explanation:text,focusAfterEscape:item.id});
+     }
+     return{language:lang,observations:trace.observations,before,after:await session(app)};
+    }catch(error){error.evidence=await diagnose(trace);throw error}
+   });
   }
   await app.evaluate(()=>{window.I18N.set('tr');window.SukunWheelQuickControls.render();window.SukunPracticeUI.refresh()});
   await check(mode+' hiding focused restart keeps one usable show button',async()=>{await app.locator('#r920JourneyRestartAll').focus();await app.evaluate(()=>window.SukunBerhetLayout.setFocusControls(false));assert.equal(await app.evaluate(()=>document.activeElement.id),'r1056FocusControlsToggle');await p.keyboard.press('Enter');await app.locator('#r920JourneyRestartAll').waitFor({state:'visible'});assert.equal(await app.locator('#r1056FocusControlsToggle').getAttribute('aria-expanded'),'true')});

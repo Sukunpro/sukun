@@ -709,7 +709,6 @@
           const entry=entries[cursor++];let url;
           try {url=new URL(entry?.url,location.href);}catch(_) {result.push({path:'[invalid]',status:'INVALID_ENTRY'});continue;}
           const runtime=url.pathname.startsWith(runtimeRoot)&&/^[A-Za-z0-9_.-]+$/.test(url.pathname.slice(runtimeRoot.length));
-          const threeModule=url.pathname===new URL('./assets/vendor/three-r170/three.module.min.js',location.href).pathname;
           const navigationArt=url.pathname.startsWith(navigationRoot)&&/^(?:gold|copper|silver|dark|crystal)\.png$/.test(url.pathname.slice(navigationRoot.length));
           const cabirArt=/\/assets\/scenes\/tekke-r1014\/berhet-billur\.webp$/.test(url.pathname);
           // The release also hashes the recovery page and these exact opening
@@ -753,14 +752,14 @@
             './css/legacy-r1215-embFonts.css','./css/legacy-r1215-base-style.css','./css/legacy-r1215-r699-layout-authority.css',
             './css/visual-polish-r1232.css','./css/lower-stats-r1236.css','./css/tefekkur-help.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
-          if (url.origin!==location.origin||url.username||url.password||seenPaths.has(url.pathname)||!(runtime||threeModule||navigationArt||cabirArt||rescuePage||introArt||currentArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
+          if (url.origin!==location.origin||url.username||url.password||seenPaths.has(url.pathname)||!(runtime||navigationArt||cabirArt||rescuePage||introArt||currentArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;
           }
           seenPaths.add(url.pathname);
           // The invitation is media too. Keep both aggregate budgets unchanged
           // and apply its own smaller per-file cap within the media allowance.
           const isMedia=bundledArabicAudio||portalVoice;
-          const maxFileBytes=bundledArabicAudio?25165824:portalVoice?500000:threeModule?716800:navigationArt||cabirArt||introArt||currentArt?2097152:524288;let allowance=0;
+          const maxFileBytes=bundledArabicAudio?25165824:portalVoice?500000:navigationArt||cabirArt||introArt||currentArt?2097152:524288;let allowance=0;
           try {
             allowance=await reserveBytes(maxFileBytes,isMedia);
             let data;

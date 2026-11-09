@@ -5,7 +5,7 @@
  const VERSION='r1101',$=id=>document.getElementById(id);
  const safe=(fn,fallback=null)=>{try{return fn()}catch(_){return fallback}};
  const T=(tr,en)=>window.I18N?.lang==='en'?en:tr;
- const TOOLS={overview:['Öneriler','Suggestions','panel-main'],library:['Kütüphane','Library','panel-lib'],sweep:['Tarama','Sweep','panel-main'],breath:['Nefes','Breathing','panel-breath'],cymatics:['Kimatik','Cymatics','panel-cym'],guided:['Rehberli oturum','Guided session','panel-med']};
+ const TOOLS={overview:['Öneriler','Suggestions','panel-main'],library:['Kütüphane','Library','panel-lib'],sweep:['Tarama','Sweep','panel-main'],breath:['Nefes','Breathing','panel-breath'],guided:['Rehberli oturum','Guided session','panel-med']};
  let host=null,native=null,initializing=false,initialized=false,selectedTool='overview',expanded=false,poll=0,renderKey='';
  let libraryNoticeKey='';
  let sweep=null,sweepTick=0,frequencyTimer=null,timerTick=0;
@@ -22,7 +22,7 @@
   // A library message describes this exact playback state. Native Stop,
   // global Pause/Resume and manual tuning must not leave a stale claim.
   if(libraryNoticeKey&&libraryNoticeKey!==libraryStateKey(f,paused))notify('');
-  if(initialized){safe(()=>native?.frequencyHubSync?.(f));const tag=$('cymHzTag');if(tag)tag.textContent=f.c.toFixed(1)+' Hz';}
+  if(initialized)safe(()=>native?.frequencyHubSync?.(f));
   const key=[f.playing,paused,f.c.toFixed(1),f.b.toFixed(2),f.mode,window.I18N?.lang,sweep?.active,frequencyTimer?.end].join('|');
   if(key!==renderKey){renderKey=key;const state=$('r1101FrequencyState');if(state)state.textContent=(paused?T('Duraklatıldı','Paused'):f.playing?T('Çalıyor','Playing'):T('Hazır','Ready'))+' · '+f.c.toFixed(1)+' Hz / '+f.b.toFixed(2)+' Hz';}
   paintSweep();paintTimer();
@@ -155,7 +155,7 @@
   if($('sweepStopBtn'))$('sweepStopBtn').hidden=!sweep?.active;
   const status=$('r1101SweepStatus');if(status)status.textContent=sweep?.active?T('Tarama sürüyor · ','Sweeping · ')+frequency().c.toFixed(1)+' Hz':T('Tek frekans motorunu kullanır; ambiyans ve zikir değişmez.','Uses the main frequency engine; ambience and dhikr are preserved.');
  }
- function cymToggle(hz){
+ function toggleFrequency(hz){
   const value=+hz;if(!Number.isFinite(value))return false;
   const f=frequency(),same=Math.abs(f.c-value)<.1;
   if(same&&f.playing){stop();return false}
@@ -212,8 +212,6 @@
    const legacy=$('panel-main');if(legacy){legacy.hidden=true;legacy.inert=true;legacy.setAttribute('aria-hidden','true')}
    const libNote=$('panel-lib')?.querySelector('.libNote');text(libNote,'Bir sete dokununca ana frekans ayarlanır ve çalmaya başlar. Çalıyorsa aynı ses akışı seçilen sete geçer. Genel duraklatma açıkken yalnız ayarlar uygulanır. Çok aşamalı yolculuklar başlatma alanına yönlendirir.','Tap a set to apply it and play the main frequency. While playing, the same audio stream switches to the selected set. During global pause, only settings are applied. Multi-stage journeys open their start area.');
    ns.querySelector('#tabNav')?.addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(!b)return;const tool=Object.keys(TOOLS).find(k=>TOOLS[k][2]===b.dataset.tab);if(tool)displayTool(tool)});
-   $('cymNum')?.addEventListener('change',e=>{const c=+e.target.value;if(Number.isFinite(c))apply({c})});
-   for(const id of ['cymPrev','cymNext'])$(id)?.addEventListener('click',()=>{const c=+$('cymNum')?.value;if(Number.isFinite(c))apply({c})});
    $('fadeDuration')?.addEventListener('input',e=>{if(frequencyTimer){frequencyTimer.fade=Math.min(300,Math.max(5,+e.target.value||60));armTimer();safe(()=>frApplyGains(.3))}});
    for(const [key,tool]of Object.entries(TOOLS)){const panel=$(key==='overview'?'r1101FrequencyOverview':key==='sweep'?'r1101FrequencySweep':tool[2]);if(panel){panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby','r1101FrequencyTab-'+key)}}
    // Give native suggestion cards their existing keyboard action, with no copies.
@@ -245,7 +243,7 @@
  function displayTool(tool){
   if(!TOOLS[tool])tool='overview';selectedTool=tool;
   if(!initialized)return;
-  for(const [id,key] of [['r1101FrequencyOverview','overview'],['r1101FrequencySweep','sweep'],['panel-lib','library'],['panel-breath','breath'],['panel-cym','cymatics'],['panel-med','guided']]){
+  for(const [id,key] of [['r1101FrequencyOverview','overview'],['r1101FrequencySweep','sweep'],['panel-lib','library'],['panel-breath','breath'],['panel-med','guided']]){
    const p=$(id);if(p){p.hidden=key!==tool;p.classList.toggle('active',key===tool)}
   }
   if($('panel-main'))$('panel-main').hidden=true;
@@ -318,7 +316,7 @@
   window.addEventListener('pagehide',()=>{if(sweep)stopSweep(false)},{passive:true});
   mirror();
  }
- const controller=Object.freeze({open,close,toggle,stop,start,applyPreset,applyLibrary,startFromControls(){if(!initializing)fromControls();return start()},retuneFromControls:fromControls,startSweep,stopSweep,resumeSweepAfterRebuild,cymToggle,setTimer,cancelTimer,armTimer,timerRemaining,state:frequency,canStartCoach:()=>!held(),coachSpeechAllowed});
+ const controller=Object.freeze({open,close,toggle,stop,start,applyPreset,applyLibrary,startFromControls(){if(!initializing)fromControls();return start()},retuneFromControls:fromControls,startSweep,stopSweep,resumeSweepAfterRebuild,toggleFrequency,setTimer,cancelTimer,armTimer,timerRemaining,state:frequency,canStartCoach:()=>!held(),coachSpeechAllowed});
  window.SukunFrequencyHubR1101=Object.freeze({version:VERSION,open,close,controller,snapshot:()=>({version:VERSION,initialized,selectedTool,expanded,mounted:!!$('ns')?.closest('#tab-frq'),frequency:frequency(),sweep:sweep?{active:!!sweep.active,from:sweep.from,to:sweep.to,duration:sweep.duration,loop:sweep.loop}: {active:false},timer:frequencyTimer?{remaining:timerRemaining()*1000}:null,native:safe(()=>native?.frequencyHubSnapshot?.()),duplicateControllers:document.querySelectorAll('#frToggle').length})});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();

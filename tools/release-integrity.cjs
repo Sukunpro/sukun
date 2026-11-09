@@ -28,7 +28,7 @@ for(const entry of optionalAudio){check('Optional audio hash and size '+local(en
 let inline=0;for(const m of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)){const type=m[1].match(/\btype=["']([^"']+)["']/)?.[1];if(/\bsrc=/.test(m[1])||type&&!['text/javascript','application/javascript'].includes(type))continue;const id=m[1].match(/\bid=["']([^"']+)["']/)?.[1]||'inline-'+inline;check('JavaScript parse '+id,()=>new vm.Script(m[2]));inline++;}
 check('Service worker JavaScript parses',()=>new vm.Script(sw));
 let external=0;for(const p of new Set(runtime.map(x=>local(x.url)).filter(p=>p.endsWith('.js')))){check('Runtime JavaScript parses '+p,()=>checkRuntimeSyntax(p,read(p).toString()));external++;}
-check('3D module graph is explicitly present',()=>checkModuleGraph(runtime.map(x=>local(x.url)),read('assets/runtime/cymatics-3d.js').toString()));
+check('Retired 3D module graph is absent',()=>checkModuleGraph(runtime.map(x=>local(x.url))));
 let sri=0;for(const tag of html.matchAll(/<(?:script|link)\b[^>]*integrity="sha256-[^"]+"[^>]*>/g)){const p=local(tag[0].match(/(?:src|href)="([^"]+)"/)[1]);check('HTML SRI '+p,()=>tag[0].includes('integrity="sha256-'+Buffer.from(sha(read(p)),'hex').toString('base64')+'"'));sri++;}
 check('Site paths are safe and unique',()=>new Set(site.files.map(x=>x.path)).size===site.files.length&&site.files.every(x=>!x.path.startsWith('/')&&!x.path.split('/').some(x=>x==='..'||x==='.')&&!x.path.includes('\\')));
 check('Site-manifest bytes sum matches totalBytes',()=>site.files.reduce((n,x)=>n+x.bytes,0)===site.totalBytes);

@@ -27,10 +27,10 @@ SOURCE_SUITES = [
     ('r1233-integrity-network', 'tests/r1233/integrity-network.cjs'),
     ('r1233-collector-state', 'tests/r1233/collector-state.cjs'),
     ('r1230-module-syntax', 'tests/r1230/release-js-syntax.cjs'),
-    ('cymatics-signal-response', 'tests/cymatics3d/response.cjs'),
-    ('r1230-cymatics-geometry', 'tests/cymatics3d/geometry.mjs'),
-    ('r1230-cymatics-bridge', 'tests/cymatics3d/bridge.cjs'),
-    ('r1230-cymatics-lifecycle', 'tests/cymatics3d/scene-lifecycle.cjs'),
+    # Retired feature contracts are replaced by removal/owner and packaging checks.
+    ('cymatics-removal', 'tests/cymatics-removal/contract.cjs'),
+    ('cymatics-removal-finalizer', 'tests/cymatics-removal/finalizer.cjs'),
+    ('cymatics-removal-native-shape', 'tests/cymatics-removal/browser-source.cjs'),
     ('r1230-signal-visualizer', 'tests/visualizer/contract.cjs'),
     ('r1230-binaural-profile', 'tests/binaural-profile/contract.cjs'),
     ('r1230-frequency-settings', 'tests/frequency-effects/settings.cjs'),
@@ -99,9 +99,7 @@ NATIVE_BROWSER_SUITES = [
     ('dashboard-tab-style-native', 'tests/dashboard-style/browser.cjs'),
     ('r1231-media-wheel-native', 'tests/r1124/media-wheel-native-browser.cjs'),
     ('r1231-session-transitions-native', 'tests/r1070/session-transition-matrix.cjs'),
-    ('cymatics-full-app-native', 'tests/cymatics3d/full-app-browser.cjs'),
-    ('cymatics-signal-native', 'tests/cymatics3d/response-browser.cjs'),
-    ('r1230-cymatics-native', 'tests/cymatics3d/browser.cjs'),
+    ('cymatics-removal-native', 'tests/cymatics-removal/browser.cjs'),
     ('r1230-signal-visualizer-native', 'tests/visualizer/browser.cjs'),
     ('r1230-frequency-dsp-native', 'tests/frequency-effects/dsp-browser.cjs'),
 ]
@@ -177,14 +175,14 @@ def main():
             except (OSError, ValueError, KeyError, AssertionError) as error:
                 row['exitCode'] = 'invalid-evidence'
                 row['evidenceError'] = str(error)
-        if name in {'cymatics-full-app-native', 'cymatics-signal-native'} and code == 0:
+        if name == 'cymatics-removal-native' and code == 0:
             try:
                 evidence = json.loads(evidence_path.read_text())
-                expected = 14 if name == 'cymatics-full-app-native' else 38
+                expected = 18
                 assert evidence['expectedChecks'] == evidence['total'] == evidence['passed'] == expected
                 assert evidence.get('browserExecuted') is True and evidence.get('allPassed') is True
                 assert evidence.get('sourceUnchanged') is True and evidence.get('testUnchanged') is True
-                assert not evidence.get('fatal')
+                assert evidence.get('servedHashesValid') is True and not evidence.get('fatal')
             except (OSError, ValueError, KeyError, AssertionError) as error:
                 row['exitCode'] = 'invalid-evidence'
                 row['evidenceError'] = str(error)
