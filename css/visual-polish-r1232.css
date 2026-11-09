@@ -209,6 +209,112 @@
  html body #r920Practice #r924WheelFrame[data-r1057-center="wide"][data-context-digits]:not([data-context-digits="0"]) #r920Percent {display:none!important}
 }
 
+/* Neutral wrappers keep the pre-existing inline controls in other themes. */
+#ns .frequency-select-field {display:contents}
+
+/* Frequency screenshot repair: reserve the actual nine-slice interior, not
+   a percentage of a growing card. Presentation never owns hidden/audio state. */
+@layer sukun-r1232-polish {
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns :is(.breath-mode-grid,.med-script-grid) {
+  display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))!important;
+  align-items:stretch!important;gap:12px!important;min-width:0!important;
+ }
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns :is(.breath-mode-card,.med-script-card,.libRow) {
+  box-sizing:border-box!important;min-width:0!important;max-width:100%!important;
+  height:auto!important;max-height:none!important;padding:20px 38px!important;
+  display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+  gap:6px!important;text-align:center!important;white-space:normal!important;
+  overflow:visible!important;overflow-wrap:break-word!important;word-break:normal!important;
+  transform:none!important;
+ }
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns :is(.breath-mode-card,.med-script-card) {min-height:144px!important}
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns .libRow {min-height:84px!important}
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns :is(.breath-mode-name,.breath-mode-pattern,.breath-mode-desc,.med-script-info,.med-script-name,.med-script-meta,.med-script-desc,.libRowT,.libRowS) {
+  position:static!important;inset:auto!important;box-sizing:border-box!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;height:auto!important;max-height:none!important;
+  margin:0!important;padding:0!important;flex:none!important;text-align:center!important;
+  white-space:normal!important;overflow:visible!important;overflow-wrap:break-word!important;word-break:normal!important;
+  line-height:1.5!important;letter-spacing:normal!important;
+ }
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns :is(.breath-mode-name,.med-script-name,.libRowT) {font:650 .875rem/1.5 system-ui,sans-serif!important}
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns :is(.breath-mode-pattern,.breath-mode-desc,.med-script-meta,.med-script-desc,.libRowS) {font-size:.8125rem!important}
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns .med-script-info {display:grid!important;gap:4px!important}
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns .med-script-icon {font-size:1.5rem!important;line-height:1.2!important}
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns .libRowT {display:block!important}
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns :is(.libSrc,.libJT) {
+  position:static!important;float:none!important;display:inline-block!important;
+  max-width:100%!important;margin:3px 4px!important;vertical-align:middle!important;white-space:normal!important;
+ }
+ /* Each native select has its own label, full row and equal end-cap reserve.
+    The hidden time-window field stays out of the grid in FFT mode. */
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns .frequency-select-controls {
+  display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))!important;
+  align-items:start!important;gap:12px!important;margin:12px 0!important;min-width:0!important;
+ }
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns .frequency-select-field {display:grid!important;gap:5px!important;min-width:0!important}
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns .frequency-select-field:has(>select[hidden]) {display:none!important}
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns .frequency-select-field>label {font:600 .8125rem/1.4 system-ui,sans-serif!important;text-align:center!important}
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns .frequency-select-field>select {
+  box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:100%!important;
+  min-height:52px!important;height:auto!important;padding:12px 30px!important;
+  font:500 .8125rem/1.5 system-ui,sans-serif!important;letter-spacing:normal!important;
+  text-align:center!important;text-align-last:center!important;text-overflow:clip!important;
+ }
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns .frequency-select-field>select>option {text-align:start!important;text-align-last:auto!important}
+ /* Routine chips are outside the frequency tab and retain separate delete
+    targets. Wrapping prevents a long user name hiding Save off-screen. */
+ html[data-r1074-theme="berhet"] body #rutRow {flex-wrap:wrap!important;gap:8px!important;overflow:visible!important}
+ html[data-r1074-theme="berhet"] body #rutRow>.rut {
+  box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;
+  flex:0 1 auto!important;min-width:0!important;max-width:100%!important;min-height:52px!important;
+  height:auto!important;padding:12px 30px!important;gap:8px!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;text-align:center!important;
+ }
+ html[data-r1074-theme="berhet"] body #rutRow>.rut>b {min-width:0!important;white-space:normal!important;line-height:1.5!important}
+ html[data-r1074-theme="berhet"] body #rutRow>.rut>.rx {flex:0 0 44px!important;min-width:44px!important;min-height:44px!important;display:grid!important;place-items:center!important}
+ @media(forced-colors:none) {
+  html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns :is(.breath-mode-card,.med-script-card,.libRow),
+  html[data-r1074-theme="berhet"] body #rutRow>.rut {
+   --r1133-gem:var(--sukun-gem-sapphire)!important;
+   border:1px solid transparent!important;border-radius:12px!important;
+   border-image:var(--r1133-gem) 210 540 fill / 14px 34px / 0 stretch!important;
+   background:none!important;box-shadow:none!important;color:#fff2d6!important;
+   text-shadow:0 1px 1px #000!important;filter:none!important;
+  }
+  html[data-r1074-theme="berhet"] body #rutRow>.rut {border-image-width:10px 24px!important}
+  html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns :is(.breath-mode-card.active,.med-script-card.active,[aria-pressed="true"].breath-mode-card) {
+   --r1133-gem:var(--sukun-gem-emerald)!important;outline:2px solid #c6e8c0!important;outline-offset:2px!important;
+  }
+  html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns :is(.breath-mode-name,.breath-mode-pattern,.breath-mode-desc,.med-script-name,.med-script-meta,.med-script-desc,.libRowT,.libRowS,.libSrc,.libJT),
+  html[data-r1074-theme="berhet"] body #rutRow>.rut>:is(b,.rx) {color:#fff2d6!important;-webkit-text-fill-color:currentColor!important;opacity:1!important}
+  html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns .frequency-select-field>select {border-image-width:10px 24px!important}
+  /* Square-cut masters suit short Hz/band controls without pinching text. */
+  html[data-r1074-theme="berhet"] body #tab-frq .frequencyShortcut {
+   border:1px solid transparent!important;
+   border-image:var(--sukun-gem-sapphire-square) 330 fill / 9px / 0 stretch!important;
+   background:none!important;color:#fff2d6!important;padding:11px 14px!important;
+   text-shadow:0 1px 1px #000!important;
+  }
+  html[data-r1074-theme="berhet"] body #tab-frq .frequencyShortcut[aria-pressed="true"] {
+   border-image-source:var(--sukun-gem-emerald-square)!important;
+   background:none!important;color:#fff8dc!important;outline:2px solid #c6e8c0!important;outline-offset:1px!important;
+  }
+ }
+ html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns :is(.breath-mode-card,.med-script-card,.libRow,select):focus-visible {
+  outline:2px solid var(--sukun-material-focus,#ffe6a1)!important;outline-offset:3px!important;
+ }
+ @media(forced-colors:active) {
+  html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns :is(.breath-mode-card,.med-script-card,.libRow,select),
+  html[data-r1074-theme="berhet"] body #rutRow>.rut {
+   border:1px solid ButtonText!important;border-image:none!important;background:ButtonFace!important;
+   color:ButtonText!important;text-shadow:none!important;forced-color-adjust:auto!important;
+  }
+  html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns :is(.breath-mode-card,.med-script-card,.libRow) *,
+  html[data-r1074-theme="berhet"] body #rutRow>.rut>:is(b,.rx) {color:ButtonText!important;-webkit-text-fill-color:currentColor!important;text-shadow:none!important}
+  html[data-r1074-theme="berhet"] body #r1101FrequencyHub #ns :is(.breath-mode-card.active,.med-script-card.active,:focus-visible) {outline:2px solid Highlight!important;outline-offset:3px!important}
+ }
+}
+
 /* Supplementary Klasik + Feyz candidate: text and layout only. */
 @layer sukun-r1232-polish {
  html body #prSearchResults .prSearchGroupTitle {margin:12px 11px 5px!important;font:650 12px/1.4 system-ui,sans-serif!important;letter-spacing:.02em!important;color:var(--mut)!important}

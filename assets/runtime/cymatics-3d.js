@@ -3,15 +3,17 @@ import * as THREE from '../vendor/three-r170/three.module.min.js';
 
 export function normalizedInput(value={}) {
   const number=(n,fallback,min,max)=>Number.isFinite(Number(n))?Math.min(max,Math.max(min,Number(n))):fallback;
-  return {n:number(value.n,3,1,16),m:number(value.m,4,1,16),level:number(value.level,0,0,1),reduced:!!value.reduced,quality:value.quality==='medium'?'medium':'low'};
+  const n=number(value.n,3,1,22),m=number(value.m,4,1,22);
+  return {n,m,nextN:number(value.nextN,n,1,22),nextM:number(value.nextM,m,1,22),mix:number(value.mix,0,0,1),level:number(value.level,0,0,1),reduced:!!value.reduced,quality:value.quality==='medium'?'medium':'low'};
 }
 export function fillPositions(array,input,phase=0) {
   const s=normalizedInput(input), count=array.length/3;
-  const energy=s.reduced?0:s.level;
+  const energy=s.reduced?0:Math.min(1,s.level*10); // Visual gain only; audio level is never changed.
   for(let i=0;i<count;i++) {
     const y=1-2*(i+.5)/count, theta=i*Math.PI*(3-Math.sqrt(5)), latitude=Math.acos(y);
     // Chladni-inspired nodal field mapped onto a sphere; never label as a physical reconstruction.
-    const field=Math.cos(s.n*theta)*Math.cos(s.m*latitude)-Math.cos(s.m*theta)*Math.cos(s.n*latitude);
+    const mode=(n,m)=>Math.cos(n*theta)*Math.cos(m*latitude)-Math.cos(m*theta)*Math.cos(n*latitude);
+    const field=(1-s.mix)*mode(s.n,s.m)+s.mix*mode(s.nextN,s.nextM);
     const radius=1+Math.abs(field)*.10+energy*.16*Math.sin(phase+field*3);
     const ring=Math.sqrt(Math.max(0,1-y*y));
     array[i*3]=Math.cos(theta)*ring*radius;array[i*3+1]=y*radius;array[i*3+2]=Math.sin(theta)*ring*radius;
@@ -50,7 +52,7 @@ export function createCymaticView({host,getInput,onContextLost}) {
   function frame(now=performance.now(),force=false){
     if(disposed||!active||document.hidden)return;
     const input=normalizedInput(getInput());
-    const signature=[input.n,input.m,input.quality,input.reduced,input.level===0].join('|');
+    const signature=[input.n,input.m,input.nextN,input.nextM,input.mix,input.quality,input.reduced,input.level===0].join('|');
     if(!force&&signature===lastSignature&&(input.reduced||input.level===0))return;
     if(!force&&now-last<1000/30)return;
     const delta=Math.min(.05,Math.max(0,(now-last)/1000));last=now;

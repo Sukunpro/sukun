@@ -11,6 +11,8 @@ import argparse, concurrent.futures, hashlib, json, re, subprocess, time
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
+    ('frequency-screenshot-fit', 'tests/frequency-screenshot-fit/contract.cjs'),
+    ('saver-mouse-idle', 'tests/screensaver-mouse/contract.cjs'),
     ('dashboard-tab-style', 'tests/dashboard-style/contract.cjs'),
     ('r1237-lower-statistics', 'tests/lower-stats/contract.cjs'),
     ('r1235-frequency-fit-center', 'tests/ui-audit/frequency-fit-center.cjs'),
@@ -22,6 +24,7 @@ SOURCE_SUITES = [
     ('r1233-integrity-network', 'tests/r1233/integrity-network.cjs'),
     ('r1233-collector-state', 'tests/r1233/collector-state.cjs'),
     ('r1230-module-syntax', 'tests/r1230/release-js-syntax.cjs'),
+    ('cymatics-signal-response', 'tests/cymatics3d/response.cjs'),
     ('r1230-cymatics-geometry', 'tests/cymatics3d/geometry.mjs'),
     ('r1230-cymatics-bridge', 'tests/cymatics3d/bridge.cjs'),
     ('r1230-cymatics-lifecycle', 'tests/cymatics3d/scene-lifecycle.cjs'),
@@ -85,9 +88,13 @@ INHERITED_SUITES = [
 # Keep new audio/graphics native evidence in the mandatory full release gate.
 # These suites run sequentially, apart from the parallel source contracts.
 NATIVE_BROWSER_SUITES = [
+    ('frequency-screenshot-fit-native', 'tests/frequency-screenshot-fit/browser.cjs'),
+    ('saver-mouse-idle-native', 'tests/screensaver-mouse/browser.cjs'),
     ('dashboard-tab-style-native', 'tests/dashboard-style/browser.cjs'),
     ('r1231-media-wheel-native', 'tests/r1124/media-wheel-native-browser.cjs'),
     ('r1231-session-transitions-native', 'tests/r1070/session-transition-matrix.cjs'),
+    ('cymatics-full-app-native', 'tests/cymatics3d/full-app-browser.cjs'),
+    ('cymatics-signal-native', 'tests/cymatics3d/response-browser.cjs'),
     ('r1230-cymatics-native', 'tests/cymatics3d/browser.cjs'),
     ('r1230-signal-visualizer-native', 'tests/visualizer/browser.cjs'),
     ('r1230-frequency-dsp-native', 'tests/frequency-effects/dsp-browser.cjs'),
@@ -164,7 +171,18 @@ def main():
             except (OSError, ValueError, KeyError, AssertionError) as error:
                 row['exitCode'] = 'invalid-evidence'
                 row['evidenceError'] = str(error)
-        if name.startswith('r1231-') and name in NATIVE_BROWSER_NAMES and code == 0:
+        if name in {'cymatics-full-app-native', 'cymatics-signal-native'} and code == 0:
+            try:
+                evidence = json.loads(evidence_path.read_text())
+                expected = 14 if name == 'cymatics-full-app-native' else 38
+                assert evidence['expectedChecks'] == evidence['total'] == evidence['passed'] == expected
+                assert evidence.get('browserExecuted') is True and evidence.get('allPassed') is True
+                assert evidence.get('sourceUnchanged') is True and evidence.get('testUnchanged') is True
+                assert not evidence.get('fatal')
+            except (OSError, ValueError, KeyError, AssertionError) as error:
+                row['exitCode'] = 'invalid-evidence'
+                row['evidenceError'] = str(error)
+        if (name.startswith('r1231-') or name == 'frequency-screenshot-fit-native') and name in NATIVE_BROWSER_NAMES and code == 0:
             try:
                 evidence = json.loads(evidence_path.read_text())
                 assert evidence.get('allPassed') is True and evidence.get('total', 0) > 0 and not evidence.get('fatal')
