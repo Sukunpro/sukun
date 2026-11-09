@@ -1,16 +1,10 @@
-# Lower target and remaining indicators
+# Automatic lower target and remaining indicators
 
-r1237 replaces the old three-choice menu with a native size range and a separate centered eye. The same black-diamond/gold frames remain. Only duplicate lower cards change; the full wheel renderer and count/audio owners remain unchanged.
+Lower duplicate cards size themselves for ordinary and reflection views. There is no size slider or separate eye. In reflection, their visibility follows the existing easy-controls toggle; the original wheel information and exit remain available. Historical v1/v2 manual preferences are ignored and left intact for rollback. No new preference is written.
 
-The v2 per-device preference stores independent size (0–100) and visibility. It migrates v1 Normal to size50, Küçük to size0, and Gizli to hidden at size50, leaving v1 intact for rollback. Preferences affect cards only in tefekkür. The eye and slider belong to easy controls: hiding easy controls removes both from layout and keyboard focus; showing them restores the saved state. With cards hidden, the size row disappears while the centered eye and exit stay reachable whenever easy controls are shown.
+- `node tests/lower-stats/contract.cjs`: 13 current production/source checks, including focus, storage independence, teardown and unchanged complete wheel renderer hash.
+- `node tests/seyir-controls/contract.cjs`: 8 layout/ownership, smart-step help and evidence-contract checks in Turkish and English for both modes.
+- `node tests/r1227/direct-count.cjs`: unchanged native count-correction ownership.
+- `CHROMIUM_PATH=/path/to/chromium node tests/seyir-controls/browser.cjs "$PWD" /tmp/sukun-seyir-controls/report.json`: 31 focused native cases covering both modes at 320, 393, 720 and 1280 CSS pixels, Turkish/English labels, all four actions’ native hover and Tab/Escape explanations, disclosure and whole-journey reset confirmation/cancel. Reports retain all served-source hashes, page/SRI errors and four test/fixture hashes. Missing or duplicate cases, changed sources/tests, unavailable browser evidence and runtime/SRI errors fail closed.
 
-Run:
-- `node tests/lower-stats/contract.cjs`: 28 production-module/source assertions, including migration, invalid/denied storage, cross-tab focus, teardown and unchanged wheel hash.
-- `node tests/r1227/direct-count.cjs`: existing 62 native correction/ownership assertions.
-- `node tests/lower-stats/browser.cjs "$PWD" /tmp/sukun-lower-stats`: two themes, 159 assertions each, plus native keyboard, pointer drag and reload persistence. Requires Playwright and supported Chromium (`CHROMIUM_PATH`).
-
-The browser harness covers 320/393/500/720/1280px at minimum, middle, maximum and hidden settings; text inside all four frame edges; 44px controls; centered eye before exit; Save/Undo/Cancel/invalid input/Enter/Escape; hide/show focus; repeated tefekkür transitions; unchanged counts and wheel markup; native 99999 maximum target. It uses labelled synthetic state only. Do not use it against a user's production origin.
-
-Managed preview may use a disposable shell copy with service-worker capability disabled, matching CI's serviceWorkers:block. All runtime assets remain byte-identical. This is focused UI evidence, not upgrade/offline or physical-device acceptance. CI runs the original shell and separate exact-predecessor upgrade checks.
-
-The original native-editor fixture settles its first ownership rebase before the edit snapshot and waits for completed form/Undo state. No counter, audio or ownership behavior is substituted. Existing audio CI remains unchanged, including its documented startup/seek measurement race.
+Focused checks do not replace full release, upgrade, offline, physical-device or audible-output acceptance.

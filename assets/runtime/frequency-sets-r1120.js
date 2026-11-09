@@ -292,6 +292,8 @@
         else { const scale = field.scale || 1; input.min = field.min*scale; input.max = field.max*scale; input.step = field.step*scale; input.inputMode = 'decimal'; const value = valueAt(draft.settings,field.key); input.value = Number.isFinite(value) ? String(value*scale) : ''; input.required = true; }
       }
       input.id = 'r1120SetField-'+field.key.replace('.','-'); wrap.append(label,input); grid.append(wrap); ui.inputs.set(field.key,input);
+      const helpKey={c:'binaural',b:'binaural',mode:'binaural',wave:'wave',fm:'effects',am:'effects',rm:'effects',pwm:'effects',vol:'level',levelProfile:'level',balL:'channels',balR:'channels',harmonik:'harmonics',harmSeri:'harmonics',noise:'noise',noiseVol:'noise',filterOn:'filters',lpf:'filters',hpf:'filters'}[field.key];
+      if(helpKey){const help=document.getElementById('fr1120-'+helpKey+'-help');if(help)input.setAttribute('aria-describedby',[...help.querySelectorAll('p[id]')].map(p=>p.id).join(' '));}
     }
     const syncPwm=()=>{const pwm=ui.inputs.get('pwm');pwm.disabled=ui.inputs.get('wave').value!=='square';if(pwm.disabled)pwm.checked=false;};
     ui.inputs.get('wave').addEventListener('change',syncPwm);syncPwm();

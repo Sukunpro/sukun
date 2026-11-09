@@ -1,10 +1,6 @@
 /* r986: accessible sections and totals live outside the collapsed control panel.
    This first important layer owns geometry; gemstone paint is mode-scoped. */
 @layer sukun-r986-access {
-#r920Practice[data-r938-layout="1"] #r1196JourneyRestartControls{
- width:min(100%,340px)!important;max-width:100%!important;min-width:0!important;align-self:center!important;justify-self:center!important;
-}
-#r920Practice[data-r938-layout="1"] #r1196JourneyRestartControls[hidden]{display:none!important}
 /* r1056: everyday actions stay outside the settings disclosure. The same
    quick-control ancestor retains its native delegated click owner. */
 #r920Practice[data-r938-layout="1"] #r932WheelControls .r932VisualShortcuts{
@@ -27,14 +23,16 @@
  display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;
 }
 #r920Practice[data-r938-layout="1"] #r1056FinishRow{
- display:flex!important;justify-content:center!important;width:min(100%,340px)!important;min-width:0!important;
+ display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:6px!important;justify-items:center!important;width:min(100%,340px)!important;min-width:0!important;
  max-width:100%!important;box-sizing:border-box!important;margin-inline:auto!important;align-self:center!important;justify-self:center!important;
 }
-#r920Practice[data-r938-layout="1"] #r1056FinishRow #r932EasyStop{
- grid-column:auto!important;grid-row:auto!important;width:min(100%,180px)!important;max-width:180px!important;
- min-height:44px!important;font-size:12px!important;box-sizing:border-box!important;margin-inline:auto!important;
+#r920Practice[data-r938-layout="1"] #r1056FinishRow :is(#r932EasyStop,#r920JourneyRestartAll){
+ grid-column:auto!important;grid-row:auto!important;width:100%!important;max-width:340px!important;
+ min-height:48px!important;height:auto!important;padding:12px 30px!important;font-size:12px!important;line-height:1.4!important;white-space:normal!important;overflow-wrap:anywhere!important;box-sizing:border-box!important;margin-inline:auto!important;
  display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;
 }
+#r920Practice[data-r938-layout="1"] #r1056FinishRow :is(#r932EasyStop,#r920JourneyRestartAll)[hidden]{display:none!important}
+#r920Practice[data-r938-layout="1"] #r1056FinishRow>button:focus-visible{outline:3px solid #ffe1a0!important;outline-offset:3px!important}
 #r920Practice[data-r938-layout="1"] #r932WheelControls #r1056FocusControlsToggle:not([hidden]){
  display:flex!important;justify-content:center!important;align-items:center!important;min-height:44px!important;
  width:min(100%,260px)!important;align-self:center!important;padding:8px 12px!important;

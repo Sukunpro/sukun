@@ -11,6 +11,8 @@ import argparse, concurrent.futures, hashlib, json, re, subprocess, time
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
+    ('frequency-help', 'tests/frequency-help/contract.cjs'),
+    ('seyir-controls', 'tests/seyir-controls/contract.cjs'),
     ('tefekkur-help', 'tests/tefekkur-help/contract.cjs'),
     ('frequency-screenshot-fit', 'tests/frequency-screenshot-fit/contract.cjs'),
     ('saver-mouse-idle', 'tests/screensaver-mouse/contract.cjs'),
@@ -89,6 +91,8 @@ INHERITED_SUITES = [
 # Keep new audio/graphics native evidence in the mandatory full release gate.
 # These suites run sequentially, apart from the parallel source contracts.
 NATIVE_BROWSER_SUITES = [
+    ('frequency-help-native', 'tests/frequency-help/browser.cjs'),
+    ('seyir-controls-native', 'tests/seyir-controls/browser.cjs'),
     ('tefekkur-help-native', 'tests/tefekkur-help/browser.cjs'),
     ('frequency-screenshot-fit-native', 'tests/frequency-screenshot-fit/browser.cjs'),
     ('saver-mouse-idle-native', 'tests/screensaver-mouse/browser.cjs'),
@@ -178,6 +182,26 @@ def main():
                 evidence = json.loads(evidence_path.read_text())
                 expected = 14 if name == 'cymatics-full-app-native' else 38
                 assert evidence['expectedChecks'] == evidence['total'] == evidence['passed'] == expected
+                assert evidence.get('browserExecuted') is True and evidence.get('allPassed') is True
+                assert evidence.get('sourceUnchanged') is True and evidence.get('testUnchanged') is True
+                assert not evidence.get('fatal')
+            except (OSError, ValueError, KeyError, AssertionError) as error:
+                row['exitCode'] = 'invalid-evidence'
+                row['evidenceError'] = str(error)
+        if name == 'seyir-controls-native' and code == 0:
+            try:
+                evidence = json.loads(evidence_path.read_text())
+                assert evidence['expectedChecks'] == evidence['total'] == evidence['passed'] == 31
+                assert evidence.get('browserExecuted') is True and evidence.get('allPassed') is True
+                assert evidence.get('sourceUnchanged') is True and evidence.get('testUnchanged') is True
+                assert evidence.get('servedHashesValid') is True and not evidence.get('fatal')
+            except (OSError, ValueError, KeyError, AssertionError) as error:
+                row['exitCode'] = 'invalid-evidence'
+                row['evidenceError'] = str(error)
+        if name == 'frequency-help-native' and code == 0:
+            try:
+                evidence = json.loads(evidence_path.read_text())
+                assert evidence['expectedChecks'] == evidence['total'] == evidence['passed'] == 56
                 assert evidence.get('browserExecuted') is True and evidence.get('allPassed') is True
                 assert evidence.get('sourceUnchanged') is True and evidence.get('testUnchanged') is True
                 assert not evidence.get('fatal')
