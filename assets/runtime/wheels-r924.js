@@ -364,9 +364,9 @@ window.SukunWheelLight=Object.freeze({version:'r980',snapshot:()=>({setting,moti
  const english=()=>window.I18N?.lang==='en';
  const say=(tr,en)=>english()?en:tr;
  const snapshot=()=>window.SukunSessionState?.snapshot?.();
- function clearUndo(){generation++;undo=null;clearTimeout(undoTimer);undoTimer=0;const button=$('r1227CountUndo');if(button){if(document.activeElement===button)(window.SukunLowerStats?.hidden?.()?$('r1236StatsSelect'):$('r920Remaining')?.tabIndex===0?$('r920Remaining'):$('r932EasyPlay'))?.focus({preventScroll:true});button.hidden=true}}
+ function clearUndo(){generation++;undo=null;clearTimeout(undoTimer);undoTimer=0;const button=$('r1227CountUndo');if(button){if(document.activeElement===button)(window.SukunLowerStats?.hidden?.()?window.SukunLowerStats?.focusTarget?.():$('r920Remaining')?.tabIndex===0?$('r920Remaining'):$('r932EasyPlay'))?.focus({preventScroll:true});button.hidden=true}}
  function expireUndo(){if(document.activeElement===$('r1227CountUndo')){undoTimer=setTimeout(expireUndo,1000);return}clearUndo()}
- const editFocus=()=>window.SukunLowerStats?.hidden?.()?$('r1236StatsSelect'):$('r920Remaining');
+ const editFocus=()=>window.SukunLowerStats?.hidden?.()?window.SukunLowerStats?.focusTarget?.():$('r920Remaining');
  const same=(a,b)=>a&&b&&['epoch','activeMode','activeIndex','journeyKind','target','count','phase'].every(k=>a[k]===b[k]);
  function close(focus=false){if(!host)return;generation++;pending=false;expected=null;$('r1227CountSave').disabled=false;$('r1227CountForm').removeAttribute('aria-busy');$('r1227CountForm').hidden=true;$('r920Remaining').setAttribute('aria-expanded','false');if(focus&&!host.hidden)editFocus()?.focus({preventScroll:true})}
  function render(){
@@ -409,7 +409,7 @@ window.SukunWheelLight=Object.freeze({version:'r980',snapshot:()=>({setting,moti
   }
   const controls=window.SukunBerhetLayout?.snapshot?.(),gate=window.SukunCountCorrection?.statusRemaining?.(undefined,true);
   const hidden=controls?.focusControlsVisible===false||!!window.SukunLowerStats?.hidden?.();
-  if(hidden&&(host.contains(document.activeElement)||document.activeElement===trigger))(window.SukunLowerStats?.hidden?.()?$('r1236StatsSelect'):$('r1056FocusControlsToggle'))?.focus({preventScroll:true});
+  if(hidden&&(host.contains(document.activeElement)||document.activeElement===trigger))(window.SukunLowerStats?.hidden?.()?window.SukunLowerStats?.focusTarget?.():$('r1056FocusControlsToggle'))?.focus({preventScroll:true});
   host.hidden=hidden;if(undo&&(hidden||!same(undo.after,snapshot())))clearUndo();
   if(expected){const s=snapshot();if(hidden||!gate?.allowed||!s||['activeMode','activeIndex','journeyKind','target','phase'].some(k=>s[k]!==expected[k])){const focused=host.contains(document.activeElement);close();if(focused)(gate?.allowed?editFocus():$('r932EasyPlay'))?.focus({preventScroll:true})}}
   trigger.setAttribute('aria-disabled',String(hidden||!gate?.allowed));trigger.tabIndex=hidden||!gate?.allowed?-1:0;
