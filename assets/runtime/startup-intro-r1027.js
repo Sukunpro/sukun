@@ -254,6 +254,28 @@
       },function(){if(!stopped){diagnostic('audioDecodeState','failed');stop('asset_failed');}});
     }catch(_){diagnostic('audioDecodeState','failed');stop('asset_failed');}
   }
+  // Reuse the shell's verified preload, including its release query. Keeping
+  // the old literal as fallback preserves standalone/historical shell behavior.
+  // No audio ownership, timing, decoding or content verification changes here.
+  function introAssetURL(integrity){
+    var fallback='./assets/audio/sukun-intro-signature-r1037.wav?v=r1184';
+    try{
+      var expected=new URL(fallback,window.location.href);
+      var links=document.querySelectorAll('link[rel="preload"][as="fetch"]');
+      for(var i=0;i<links.length;i++){
+        var link=links[i];
+        if(link.getAttribute('integrity')!==integrity||
+           link.getAttribute('crossorigin')!=='anonymous'||
+           link.getAttribute('type')!=='audio/wav')continue;
+        var candidate=new URL(link.href,window.location.href);
+        if(candidate.origin!==expected.origin||candidate.pathname!==expected.pathname||
+           candidate.username||candidate.password||candidate.hash||
+           !/^\?v=r\d+$/.test(candidate.search))continue;
+        return candidate.href;
+      }
+    }catch(_){}
+    return fallback;
+  }
   function loadAsset(){
     if(stopped)return;
     diagnostic('audioAssetState','loading');diagnostic('audioDecodeState','not_started');
@@ -262,7 +284,7 @@
       assetController=typeof window.AbortController==='function'?new window.AbortController():null;
       var options={cache:'force-cache',credentials:'same-origin',integrity:'sha256-GecAJ60xJdEWWgn9tSnIeIEEjChmCU6I4aFp5B995Fc='};
       if(assetController)options.signal=assetController.signal;
-      window.fetch('./assets/audio/sukun-intro-signature-r1037.wav?v=r1184',options).then(function(response){
+      window.fetch(introAssetURL(options.integrity),options).then(function(response){
         if(stopped)return null;
         if(!response||!response.ok)throw Error('asset');
         return response.arrayBuffer();

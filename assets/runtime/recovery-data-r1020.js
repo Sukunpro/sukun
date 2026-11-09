@@ -39,12 +39,17 @@
     const out = Object.create(null);
     for (let i = 0; i < localStorage.length; i++) {
       const k = localStorage.key(i);
-      if (allowedKey(k) && k !== 'sukun.sessions.v2' && k !== 'sukun.session.favorites.v1') out[k] = localStorage.getItem(k);
+      if (allowedKey(k) && k !== 'sukun.sessions.v2' && k !== 'sukun.session.favorites.v1' && k !== 'sukun.frequencySets.v2') out[k] = localStorage.getItem(k);
     }
     let saved;
     try { const api = window.SukunSavedSessionsR1088; if (typeof api?.exportSnapshot !== 'function') throw new Error('unavailable'); saved = await api.exportSnapshot(); }
     catch (_) { throw err('saved-templates-unavailable', 'Seans kayıtları doğrulanamadı; eksik yedek oluşturulmadı. Yeniden dene.', 'Saved templates could not be verified; no incomplete backup was created. Please retry.'); }
     out['sukun.sessions.v2'] = JSON.stringify(saved.rows); out['sukun.session.favorites.v1'] = JSON.stringify(saved.favs);
+    try {
+      const api = window.SukunFrequencySetsR1120;
+      if (typeof api?.exportPayload !== 'function') throw new Error('unavailable');
+      out['sukun.frequencySets.v2'] = JSON.stringify(await api.exportPayload());
+    } catch (_) { throw err('frequency-sets-unavailable', 'Frekans setleri doğrulanamadı; eksik yedek oluşturulmadı. Yeniden dene.', 'Frequency sets could not be verified; no incomplete backup was created. Please retry.'); }
     validateLS(out); return out;
   }
   function assertion(lease, abortable = true) {

@@ -28,6 +28,14 @@ Raporları aynı makinede ve tarayıcı sürümünde karşılaştırın. Üç ko
 | Native upgrade/offline | `tests/r1213/release-upgrade-browser.cjs` | CI'da 8/8 gereklidir. r1240→r1241 yükseltme, çevrimdışı runtime hash, rollback ve kişisel veri/kayıt korunması. Yerel native sonuç mevcut değildir. |
 | Nihai sürüm | `tests/r1213/run-current-checks.py --scope full` | Final kaynaklar dondurulduktan sonra yeniden çalıştırılır. Focused veya baseline pass, r1241 full acceptance yerine geçmez. |
 
+## Ölçümün ilk turu ve sınırlar
+
+r1241 adayının ilk CI turunda (86f661e, 2026-11-09) aynı Linux koşucusunda üç yeni bağlamla r1240 ve aday ölçüldü. Medyan DCL 3255→3291 ms, load 4963→4638 ms, long-task toplamı 3625→3325 ms ve tıklama→iki kare 98.9→83.4 ms oldu. DCL iyileşmedi; bu küçük örneklemden genel hızlanma sonucu çıkarılmaz. Sunucu `no-store`, loopback ve sıkıştırmasızdır; ölçülen yaklaşık 17 MB aktarım üretim ağı/cache davranışı değildir.
+
+Aynı giriş sesinin preload ve fetch istekleri farklı sürüm sorgularıyla 288044 byte olarak iki kez gözlendi. Sonraki düzeltme doğrulanmış preload URL'sini yeniden kullanır. Son adayın yeni ölçümü Actions artefaktındadır; önceki adayın sonuçları yeni commit için başarı kanıtı değildir. Ses sahibi, süre, decode ve içerik hash denetimi korunur.
+
+r1241 frekans-seti yarışı gerçek ayrı Chromium sekmelerinde test edilir. İlk Web Locks + localStorage denemesi native testte kayıp güncelleme verdi; bu nedenle son tasarım aynı IndexedDB readwrite işleminde güncel kaydı okuyup değiştirir. Kontrol edilen/fake IndexedDB testleri native sonucun yerine geçmez.
+
 ## Fiziksel cihaz kabul matrisi: tamamı BEKLİYOR
 
 Her satırı Android Chrome + kurulu PWA, iPhone Safari + ana ekrana eklenmiş uygulamada ayrı çalıştırın. Cihaz/OS/tarayıcı sürümü, build, kaynak türü, beklenen ve gerçek davranış, süre ve gerektiğinde ekran kaydı ekleyin. Kişisel kayıt içeriklerini rapora yüklemeyin.

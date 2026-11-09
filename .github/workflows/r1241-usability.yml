@@ -25,7 +25,7 @@ jobs:
           persist-credentials: false
       - name: Install pinned native browser
         run: |
-          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
+          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0 fake-indexeddb@6.2.4
           echo "NODE_PATH=$RUNNER_TEMP/sukun-browser/node_modules" >> "$GITHUB_ENV"
           "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
       - name: Measure immutable baseline and candidate startup
@@ -40,6 +40,7 @@ jobs:
         run: |
           export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
           node tests/r1241/navigation-ui.cjs
+          node tests/r1241/intro-preload.cjs
           node tests/r1241/frequency-set-controlled.cjs
           set -o pipefail
           node tests/r1241/frequency-set-concurrency.cjs 2>&1 | tee ../r1241-evidence/frequency-concurrency.log

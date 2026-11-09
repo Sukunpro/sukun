@@ -8,7 +8,11 @@ Zikir, Esmâü’l-Hüsnâ, Berhetiyye ve sûre takibi için web uygulaması.
 
 Okumalar açıldığında başlık ve etkin menü artık okunan bölümü izler. İlerleme olmayan ilk açılış ile yarım kalan seyir ayrılır. Mevcut temalar ve cam görünümü korunur; metin arkasındaki yüzey koyulaştırılır, bulanıklık artırılmaz. Okuma sırası ve çark kontrolleri Türkçe ve İngilizce açıklanır.
 
-Frekans setleri, aynı kaynağa ait güncel sekmelerin ortak Web Locks kilidi altında güncellenir. Farklı kayıtların değişiklikleri birleştirilir; aynı kayıt üzerindeki bayat düzenleme veya silme işlemi reddedilir ve taslak korunur. Eski sürüm açık sekmelerini yenileyin. Kilit desteği olmayan ortamlarda kayıtlar okunabilir/yüklenebilir, yazma kapalıdır. Kişisel ses kayıtları ve kayıtlı set biçimi değiştirilmez.
+Frekans setleri tek bir IndexedDB işlemi içinde okunup güncellenir. Farklı kayıtların değişiklikleri birleştirilir; aynı kayıt üzerindeki bayat düzenleme veya silme işlemi reddedilir ve taslak korunur. Eski localStorage kopyasına dokunulmaz. Güncel yedekler yeni asıl depoyu kullanır; depoya erişilemiyorsa eksik yedek üretilmez. Kişisel ses kayıtlarının deposu değiştirilmez.
+
+Eski sürüm açık sekmelerini yenileyin. Eski sürüm ayrı kopyayı değiştirirse iki kopya da korunur ve çakışma çözülene kadar yazma kapanır. “Çakışan kopyaları indir” iki kopyayı karşılaştırma dosyası olarak alır; bu işlem hiçbir kaydı değiştirmez veya otomatik uzlaştırmaz. r1240 veya daha eski sürüme geri dönüldüğünde yalnız geçiş öncesi frekans setleri görünür; r1241’de eklenenler silinmez, güncel sürüme dönünce tekrar erişilir. Atomik depo desteklenmiyorsa okunabilir eski kayıtlar korunur ve yazma kapalıdır.
+
+Ölçümde giriş sesinin preload ve fetch adreslerindeki sürüm farkı bulundu. Doğrulanmış aynı kaynak adresi yeniden kullanılır; sesin zamanlaması, sahipliği ve içerik hash kontrolü değişmez. Üç koşuluk headless ölçümler genel hızlanma veya telefon performansı garantisi değildir.
 
 Güncel kanıt, bu commit için çalışan **Required current-release source-bound checks** ve **r1241 usability, concurrent saves and measured startup** Actions sonuçlarıdır. Tarihsel test dosyaları yeni yayının başarılı olduğunu göstermez. Yeni testler [tests/r1241](tests/r1241/), tekrarlanabilir başlangıç ölçümü [tests/performance](tests/performance/) altındadır. Ölçümler Linux Chromium/yerel HTTP içindir; gerçek telefon açılış süresi veya INP değildir.
 
@@ -22,7 +26,7 @@ Mevcut ses seviyesi varsayılan olarak korunur. “Daha belirgin” profili yaln
 
 Süreli/değişken frekanslar canlı ses yolunu kullanır; ekran kilidinde süreklilik cihaz desteğine bağlıdır. Genel duraklatma, süre bitişi ve yeni ayarın eski yolculuğu/taramayı devralması ayrı test edilir. Eski hızlı flaş yerine ses frekansından bağımsız sabit ışık vardır; varsayılan kapalıdır ve kayıt yüklenince kendiliğinden açılmaz.
 
-r1120 tarihsel notu: bu sürümde eşzamanlı iki sekme yazması atomik değildi. r1241 güncel sekmeler için bu yolu ortak kilit ve kayıt bazlı çakışma denetimiyle değiştirir. Bozuk/yeni biçimli verinin korunması devam eder.
+r1120 tarihsel notu: bu sürümde eşzamanlı iki sekme yazması atomik değildi. r1241 güncel sekmeler için bu yolu atomik IndexedDB işlemi ve kayıt bazlı revizyon denetimiyle değiştirir. Bozuk/yeni biçimli verinin korunması devam eder.
 
 [Doğrulama kaydı](tests/r1120/verification.json), [test kapsamı](tests/r1120/README.md) ve [bağımsız kaynak incelemesi](tests/r1120/review.json) kesin kaynak/test hash’lerini ve kabul sınırlarını içerir. Fiziksel Android/PWA, Bluetooth, ekran kilidi ve duyulan ses testleri ayrıca açık kalır. Canlı sürüm için yukarıdaki sürüm kimliği bağlantısını kullan; tarihsel test belgeleri yayın durumunun kanıtı değildir.
 
