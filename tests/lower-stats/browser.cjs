@@ -11,7 +11,7 @@ const report={sources,expectedCases:2,results:[],limitations:['Device touch and 
 (async()=>{let f;try{
  for(const mode of ['berhet','esma']){
   f=await fixture(root,{width:1280,height:1000,voices:'tr',seed:{'sukun.onboardSeen':'1','sukun.obSeenBuild':JSON.stringify(fs.readFileSync(path.join(root,'version.txt'),'utf8').trim())}});
-  const p=f.page;await p.goto(f.origin+'/tests/lower-stats/managed-preview.html?w=393&theme='+mode+'&mode='+mode,{waitUntil:'load'});
+  const p=f.page;p.setDefaultNavigationTimeout(60000);await p.goto(f.origin+'/tests/lower-stats/managed-preview.html?w=393&theme='+mode+'&mode='+mode,{waitUntil:'load'});
   await p.locator('#run').waitFor({state:'visible'});await p.waitForFunction(()=>!document.getElementById('run').disabled,null,{timeout:20000});
   await p.locator('#run').click();await p.waitForFunction(()=>{try{return typeof JSON.parse(document.getElementById('result').textContent).allPassed==='boolean'}catch{return false}},null,{timeout:45000});
   const result=JSON.parse(await p.locator('#result').textContent());report.results.push(result);

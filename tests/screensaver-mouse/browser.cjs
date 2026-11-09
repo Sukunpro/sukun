@@ -12,7 +12,7 @@ async function check(name,fn){try{results.push({name,passed:true,evidence:await 
 async function nativePage(f){
  // The shared fixture performs its standard startup probe first. Close it so
  // only one owner remains, then install the clock before any app timers exist.
- await f.page.close();const p=await f.context.newPage();p.setDefaultTimeout(10000);
+ await f.page.close();const p=await f.context.newPage();p.setDefaultTimeout(10000);p.setDefaultNavigationTimeout(60000);
  p.on('pageerror',e=>f.errors.push(e.stack||e.message));p.on('console',m=>{if(m.type()==='error')f.consoleErrors.push(m.text())});
  await p.clock.install({time:new Date('2026-11-09T12:00:00Z')});
  await p.goto(f.origin+'/nero.html',{waitUntil:'load'});

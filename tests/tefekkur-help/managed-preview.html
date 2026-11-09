@@ -1,0 +1,43 @@
+<!doctype html><meta charset="utf-8"><title>Sükûn reflection help QA</title>
+<style>body{margin:0;background:#ddd;font:14px system-ui}header{padding:8px}iframe{display:block;border:0;margin:0 auto;background:#111}pre{max-height:100px;overflow:auto;white-space:pre-wrap;font:12px/1.35 monospace;margin:8px}</style>
+<header>Reflection help QA <button id="run" disabled>Run help checks</button></header><pre id="result">Loading</pre><iframe id="app" height="850" width="393"></iframe>
+<script>
+const frame=document.querySelector('#app'),output=document.querySelector('#result'),run=document.querySelector('#run'),params=new URLSearchParams(location.search),mode=params.get('mode')||'berhet';
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+for(const [key,value]of Object.entries({'sukun.theme':JSON.stringify(mode),'sukun.ui.shellMode':'classic','sukun.obDone':'1','sukun.onboardSeen':'1','sukun.r920.focus':'0'}))localStorage.setItem(key,value);
+let prepared=null;
+async function prepare(){const w=frame.contentWindow,d=w.document;if(prepared===d)return;prepared=d;try{
+ await wait(2500);w.obClose?.();d.getElementById('dcClose')?.click();w.KLT_AC('LABELLED-reflection-help-disposable-profile');
+ await w.SukunTabOwner.run('manual',async()=>{const selected=await w.SukunSessionState.command('select',{mode,index:9,journeyKind:mode==='berhet'?'28':'99'});if(!selected.accepted)throw Error('Fixture selection rejected');w.SukunSessionMemory.save();w.SukunProgressJournal.commit('reflection-help-fixture')},{prime:false,releaseAfter:true});
+ d.querySelector('.tab[data-t=zkr]').click();await wait(700);run.disabled=false;output.textContent='Ready';
+}catch(error){output.textContent=error.stack}}
+frame.onload=()=>{if(frame.contentWindow.SukunBerhetLayout)prepare()};
+const poll=setInterval(()=>{if(frame.contentWindow.SukunBerhetLayout&&frame.contentWindow.SukunSessionState&&prepared!==frame.contentDocument)prepare()},100);
+fetch('../../version.txt').then(r=>r.text()).then(version=>{localStorage.setItem('sukun.obSeenBuild',JSON.stringify(version.trim()));frame.src='../../nero.html'});
+run.onclick=async()=>{const w=frame.contentWindow,d=w.document,results=[];
+const check=(name,pass,evidence)=>{results.push({name,passed:!!pass,evidence});output.textContent=JSON.stringify({running:true,results},null,2);if(!pass)throw Error(name+' '+JSON.stringify(evidence))};
+const box=id=>d.getElementById(id).getBoundingClientRect().toJSON(),counts=()=>{const s=w.SukunSessionState.snapshot();return{activeMode:s.activeMode,activeIndex:s.activeIndex,count:s.count,target:s.target,playing:s.playing,paused:s.paused}};
+try{
+ if(d.body.classList.contains('sukun-tefekkur-mode'))d.getElementById('r920TefExit').click();
+ const before=counts();d.getElementById('r920TefEnter').click();await wait(350);
+ const exit=d.getElementById('r920TefExit'),hint=d.getElementById('r920TefExitHint');
+ check('Single native exit and passive hint',d.querySelectorAll('#r920TefExit').length===1&&hint.parentElement===exit&&hint.getAttribute('aria-hidden')==='true'&&w.getComputedStyle(hint).pointerEvents==='none');
+ check('Turkish accessible name and hint',exit.getAttribute('aria-label')==='Tefekkürden çık'&&exit.dataset.tip==='Tefekkürden çıkmak için tıkla'&&hint.textContent===exit.dataset.tip);
+ const anim=hint.getAnimations().find(a=>a.animationName==='sukun-tefekkur-hint');
+ if(w.matchMedia('(prefers-reduced-motion: reduce)').matches)check('Reduced motion leaves a static visible hint',!anim&&Number(w.getComputedStyle(hint).opacity)===1);
+ else{check('Periodic hint has a slow CSS animation',!!anim&&anim.effect.getTiming().duration===14000);anim.pause();const samples=[];for(const t of [1000,7500,13999]){anim.currentTime=t;await wait(40);samples.push(Number(w.getComputedStyle(hint).opacity))}check('Hint fades out and returns',samples[0]>.95&&samples[1]<.05&&samples[2]>.95,samples);anim.play()}
+ for(const width of [320,393,500,720,1280]){
+  frame.width=width;await wait(130);
+  for(const visible of [true,false]){w.SukunLowerStats.setVisible(visible);w.SukunBerhetLayout.setFocusControls(false);await wait(80);const a=box('r920TefExit'),b=box('r920TefExitHint'),hero=box('r938Hero');check('Centered passive hint at '+width+' cards '+visible,a.height>=44&&a.width>=44&&Math.abs(a.left+a.width/2-b.left-b.width/2)<1&&b.top>=a.bottom&&b.bottom<=hero.bottom+1&&b.left>=0&&b.right<=width+1&&d.documentElement.scrollWidth<=width+1,{exit:a,hint:b,hero})}
+  if(mode==='berhet')for(const label of ['Ses kaynağı: Kendi kaydın','Ses kaynağı: Jenerik kayıt','Ses kaynağı: Cihaz sesi','Sound source: Your recording']){
+   const button=d.getElementById('r1056ReadingSource');button.textContent=label;const rect=button.getBoundingClientRect(),style=w.getComputedStyle(button),range=d.createRange();range.selectNodeContents(button);const lines=[...range.getClientRects()].map(x=>x.toJSON()),inset=style.borderImageWidth.split(' ').map(parseFloat),h=inset[1]||inset[0],v=inset[0];
+   check('Source text fits centered inside frame '+width+' '+label,style.textAlign==='center'&&lines.every(t=>t.left>=rect.left+h-1&&t.right<=rect.right-h+1&&t.top>=rect.top+v-1&&t.bottom<=rect.bottom-v+1)&&button.scrollWidth<=button.clientWidth+1,{rect:rect.toJSON(),lines,inset});
+  }
+ }
+ frame.width=393;await wait(100);w.SukunLowerStats.setVisible(true);w.SukunBerhetLayout.setFocusControls(true);
+ const source=d.getElementById('r1056ReadingSource');source.click();check('Source disclosure still opens',source.getAttribute('aria-expanded')==='true'&&!d.getElementById('r1056ReadingExplanation').hidden);source.click();check('Source disclosure closes',source.getAttribute('aria-expanded')==='false'&&d.getElementById('r1056ReadingExplanation').hidden);
+ for(let i=0;i<3;i++){exit.click();await wait(160);check('Exit action '+i,!d.body.classList.contains('sukun-tefekkur-mode')&&exit.hidden);d.getElementById('r920TefEnter').click();await wait(160);check('Reentry has one hint '+i,d.body.classList.contains('sukun-tefekkur-mode')&&d.querySelectorAll('#r920TefExitHint').length===1)}
+ check('Hints leave selection, counts and playback unchanged',JSON.stringify(counts())===JSON.stringify(before),{before,after:counts()});
+ exit.scrollIntoView({block:'center'});output.textContent=JSON.stringify({allPassed:true,mode,results},null,2);
+}catch(error){output.textContent=JSON.stringify({allPassed:false,mode,error:error.stack,results},null,2)}};
+</script>

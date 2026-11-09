@@ -91,8 +91,11 @@ async function main(){
   const restored=await state();assertOne(restored,kind);assert.equal(restored.bg.state,'playing');assert.equal(restored.bg.resumes,global.bg.resumes+1,'captured background resumes exactly once');assert.equal(restored.arb.owner.id,beforeGlobal.arb.owner.id);assert.equal(restored.z.total,beforeGlobal.z.total,'wheel Resume itself never credits a repetition');
   await p.evaluate(()=>SukunAudioSessionRegistry.pauseAll('ui:matrix-captured-owner'));const captured=await state();assert.equal(captured.aggregate.paused,true);
   const capturedRequest=await p.evaluate(()=>SukunSessionState.command('resume'));assert.equal(capturedRequest.accepted,true,JSON.stringify(capturedRequest));
-  await p.waitForFunction(()=>!__matrixState().aggregate.paused&&!__matrixState().session.paused&&__matrixState().native.some(x=>!x.paused&&!x.ended&&x.ready>=2),null,{timeout:15000});
-  const capturedResumed=await state();assertOne(capturedResumed,kind);assert.equal(capturedResumed.native.filter(x=>!x.paused&&!x.ended&&x.ready>=2).length,1,'captured owner must not get a duplicate native continuation');assert.equal(capturedResumed.bg.resumes,captured.bg.resumes+1);if(captured.arb.owner?.id)assert.equal(capturedResumed.arb.owner.id,captured.arb.owner.id);assert.equal(capturedResumed.z.total,captured.z.total);return{playing:playing.bg,local:local.bg,dock,global,restored,captured,capturedResumed};
+  // Freeze the same observation that satisfied the native-resume predicate.
+  // A separate round trip can land in the next media source handoff and see
+  // zero active elements although the awaited continuation already occurred.
+  const capturedHandle=await p.waitForFunction(()=>{const s=__matrixState();return !s.aggregate.paused&&!s.session.paused&&s.native.some(x=>!x.paused&&!x.ended&&x.ready>=2)?JSON.stringify(s):false},null,{timeout:15000});
+  const capturedResumed=JSON.parse(await capturedHandle.jsonValue());await capturedHandle.dispose();assertOne(capturedResumed,kind);assert.equal(capturedResumed.native.filter(x=>!x.paused&&!x.ended&&x.ready>=2).length,1,'captured owner must not get a duplicate native continuation');assert.equal(capturedResumed.bg.resumes,captured.bg.resumes+1);if(captured.arb.owner?.id)assert.equal(capturedResumed.arb.owner.id,captured.arb.owner.id);assert.equal(capturedResumed.z.total,captured.z.total);return{playing:playing.bg,local:local.bg,dock,global,restored,captured,capturedResumed};
  });
  for(const kind of ['28','99','single','terkip'])await test(`${kind} rapid Stop → Start → Pause fences stale restart and repeat credit`,async()=>{
   await reset();await select(kind);await start(kind);const before=await state();
