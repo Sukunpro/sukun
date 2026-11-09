@@ -36,6 +36,31 @@ test('the native unified owner retains the exact bilingual finish icon and label
  for(const [lang,expected]of [['tr','■ Bitir'],['en','■ End']]){locale.I18N.lang=lang;assert.equal(locale.I18N.t(stop.textContent),expected)}
  const browser=read('tests/seyir-controls/browser.cjs');assert.match(browser,/id:'r932EasyStop',label:lang==='en'\?'■ End':'■ Bitir'/);
 });
+test('native media count excludes only the real silent identities, never markers or user recordings',()=>{
+ const html=read('nero.html'),browser=read('tests/seyir-controls/browser.cjs');
+ const slice=(start,end)=>{const a=html.indexOf(start),b=html.indexOf(end,a+start.length);assert(a>=0&&b>a);return html.slice(a,b)};
+ const anchor=slice('const SesCapa=window.SesCapa=','function makeIR(dur,decay){'),carriers=slice('function r476SilentWav(){','function r476Prime(){');
+ const predicates=browser.split('\n').filter(line=>line.trim().startsWith('const certifiedSilent=')||line.trim().startsWith('const countedMedia='));assert.equal(predicates.length,2);assert.match(browser,/const audio=allAudio\.filter\(countedMedia\)/);
+ const literal=anchor.match(/const silentAnchorSource='([^']+)'/)[1],pcm=Buffer.from(literal.split(',')[1],'base64');
+ assert.equal(require('node:crypto').createHash('sha256').update(literal).digest('hex'),'109257adda3ec247f7f998f413f6ce1c957fb0924349e6c4bbbef5076a72e0df');
+ assert.equal(pcm.toString('ascii',0,4),'RIFF');assert.equal(pcm.toString('ascii',8,12),'WAVE');assert.equal(pcm.readUInt16LE(20),1);assert.equal(pcm.readUInt16LE(22),1);assert.equal(pcm.readUInt32LE(24),8000);assert.equal(pcm.readUInt16LE(34),8);assert.equal(pcm.readUInt32LE(40),1600);assert.equal(pcm.length,1644);assert(pcm.subarray(44).every(x=>x===128));
+ const media=[],element=()=>({dataset:{},style:{},src:'',currentSrc:'',srcObject:null,paused:true,ended:false,readyState:4,networkState:1,volume:1,muted:false,setAttribute(){},addEventListener(){},play(){this.currentSrc=this.src;this.paused=false;return Promise.resolve()},pause(){this.paused=true}});
+ const c={window:{},navigator:{},Blob,ArrayBuffer,DataView,URL:{createObjectURL:()=> 'blob:https://sukun.test/exact-lock-zero'},document:{createElement:()=>element(),body:{appendChild:a=>media.push(a)}}};vm.createContext(c);
+ vm.runInContext('let _r476LockAudio=null,_r476SilentUrl="";'+anchor+carriers+predicates.join('\n')+';window.testCount=countedMedia;window.SesCapa.ensure();r476Audio().play();',c);
+ const count=items=>items.filter(c.window.testCount).length;assert.equal(media.length,2);assert.equal(count(media),0);
+ const recording=element();recording.src=recording.currentSrc='blob:https://sukun.test/generated-personal-recording';recording.paused=false;recording._sukunRecordingKey='berhet:0';
+ assert.equal(count([...media,recording]),1,'One real recording alongside both exact zero carriers');
+ for(const marker of ['sukSilentAnchor','sukSilentCarrier'])for(const volume of [1,0]){const copy={...recording,dataset:{[marker]:'1'},volume,muted:volume===0};assert.equal(count([...media,copy]),1,'A marker, muted state or zero volume cannot certify a user recording')}
+ for(const original of media){
+  const clone={...original,dataset:{...original.dataset}};assert.equal(count([...media,clone]),1,'Even identical bytes and flags on a foreign element are counted');
+  const saved={src:original.src,currentSrc:original.currentSrc,srcObject:original.srcObject,dataset:{...original.dataset}};
+  for(const mutate of [a=>a.src=a.currentSrc=recording.src,a=>a.currentSrc=recording.src,a=>a.srcObject={},a=>a.dataset={},a=>{for(const k of Object.keys(a.dataset))a.dataset[k]=true}]){mutate(original);assert.equal(count(media),1,'Changed real carrier loses its certificate');Object.assign(original,{...saved,dataset:{...saved.dataset}})}
+ }
+ const api=c.window.SukunSilentCarrierIdentity;
+ for(const invalid of [undefined,{isSilent(){throw Error('unavailable')}},{isSilent:()=>1}]){c.window.SukunSilentCarrierIdentity=invalid;assert.equal(count([...media,recording]),3,'Unknown or non-boolean certification fails closed')}
+ c.window.SukunSilentCarrierIdentity=api;assert.equal(count([...media,recording]),1);
+ recording.paused=true;assert.equal(count([...media,recording]),0);recording.paused=false;recording.ended=true;assert.equal(count([...media,recording]),0);
+});
 test('native evidence rejects missing cases, hashes, browser errors and changed files',()=>{
  const {expectedChecks,expectedNames,sourcePaths,testPaths,complete}=require('./evidence.cjs');assert.equal(expectedChecks,31);assert.equal(expectedNames.length,31);
  const digest='a'.repeat(64),sources=Object.fromEntries(sourcePaths.map(n=>[n,digest])),testSources=Object.fromEntries(testPaths.map(n=>[n,digest]));
@@ -45,4 +70,4 @@ test('native evidence rejects missing cases, hashes, browser errors and changed 
  const mutate=[r=>r.results.pop(),r=>r.results[1].name=r.results[0].name,r=>r.results[0].name='unexpected case',r=>r.results[0].passed=false,r=>r.results[0]=null,r=>r.total=28,r=>r.passed=28,r=>r.expectedChecks=20,r=>r.browserExecuted=false,r=>r.sourceUnchanged=false,r=>r.testUnchanged=false,r=>r.servedHashesValid=false,r=>r.fatal='fixture failed',r=>delete r.testSources,r=>delete r.testSources[testPaths[0]],r=>r.testSources[testPaths[0]]='invalid',r=>delete r.sources[sourcePaths[0]],r=>r.browserEvidence=[],r=>r.browserEvidence[0]=null,r=>r.browserEvidence[0].pageErrors.push('Uncaught error'),r=>r.browserEvidence[0].consoleErrors.push('Failed to find a valid digest in integrity attribute'),r=>r.browserEvidence[0].consoleErrors.push('TypeError: broken handler'),r=>delete r.browserEvidence[0].served['nero.html'],r=>r.browserEvidence[0].served['nero.html'].sha256='b'.repeat(64)];
  for(const change of mutate){const r=JSON.parse(JSON.stringify(valid));change(r);assert.equal(complete(r),false,String(change));}assert.equal(complete(null),false);
 });
-console.log(JSON.stringify({passed,total:9,scope:'Current production layout, original quick delegates, controlled endpoints and fail-closed native evidence contract. No native browser execution implied.'}));
+console.log(JSON.stringify({passed,total:10,scope:'Current production layout, original quick delegates, controlled endpoints and fail-closed native evidence contract. No native browser execution implied.'}));
