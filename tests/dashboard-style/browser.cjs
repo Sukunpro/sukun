@@ -11,7 +11,8 @@ let f;
  const p=f.page,session=await f.context.newCDPSession(p);
  for(const media of ['normal','forced-colors','reduced-transparency']){
   await session.send('Emulation.setEmulatedMedia',{features:media==='normal'?[]:[{name:media==='forced-colors'?'forced-colors':'prefers-reduced-transparency',value:media==='forced-colors'?'active':'reduce'}]});
-  await p.goto(f.origin+'/tests/dashboard-style/managed-preview.html',{waitUntil:'load'});
+  // Match the fixture's bounded 60-second load budget for the exact large application.
+  await p.goto(f.origin+'/tests/dashboard-style/managed-preview.html',{waitUntil:'load',timeout:60000});
   await p.locator('#run:not([disabled])').waitFor({timeout:30000});
   await p.locator('#run').click();
   await p.locator('#result[data-done="true"]').waitFor({timeout:180000});
