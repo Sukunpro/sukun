@@ -38819,7 +38819,7 @@ function cymSeed(){
   CYM.ready = true;
 }
 /* One optional view of the existing cymatics panel. No additional audio owner. */
-const CYM3D={mode:'2d',quality:'low',instance:null,token:0,active:false,resumeOnShow:false,bound:false,loading:false,error:'',media:null,module:null,
+const CYM3D={mode:'2d',quality:'low',instance:null,token:0,active:false,resumeOnShow:false,bound:false,loading:false,error:'',media:null,module:null,motionTimer:null,motionReduced:null,
  t(tr,en){return window.I18N?.lang==='en'?en:tr;},
  reduced(){return !!this.media?.matches;},
  visible(){const panel=document.getElementById('panel-cym'),ns=document.getElementById('ns'),tab=document.getElementById('tab-frq'),tools=document.getElementById('r1101FrequencyTools');return (!tools||!tools.hidden)&& !document.hidden&&!!panel&&!panel.hidden&&panel.classList.contains('active')&&!!ns&&!ns.hidden&&!!tab&&!tab.hidden;},
@@ -38842,7 +38842,7 @@ const CYM3D={mode:'2d',quality:'low',instance:null,token:0,active:false,resumeOn
   this.media=window.matchMedia?.('(prefers-reduced-motion: reduce)');
   document.getElementById('cymView')?.addEventListener('change',e=>this.choose(e.target.value));
   document.getElementById('cymQuality')?.addEventListener('change',e=>{this.quality=e.target.value==='medium'?'medium':'low';this.instance?.refresh();});
-  this.media?.addEventListener?.('change',()=>{if(this.mode==='2d')this.show2D();else {this.schedule();this.instance?.refresh();}this.localize();});
+  this.media?.addEventListener?.('change',()=>this.syncMotion());
   window.addEventListener('sukun:languagechange',()=>this.localize());
   window.addEventListener('pagehide',()=>this.pause(true));
   window.addEventListener('pageshow',()=>{
@@ -38858,6 +38858,21 @@ const CYM3D={mode:'2d',quality:'low',instance:null,token:0,active:false,resumeOn
  },
  updateBadge(level){this.level=level;const badge=document.getElementById('cymLive');if(badge){badge.textContent=this.reduced()?this.t('◌ sabit görünüm','◌ static view'):level>=.0001?this.t('◉ girişte sinyal var','◉ input signal present'):this.t('◌ canlı girişte sinyal yok','◌ no live input signal');badge.classList.toggle('on',!this.reduced()&&level>=.0001);}},
  input(){SPEC.updateSignalRoute();const level=cymLiveLevel();this.updateBadge(level);return {n:CYM.n,m:CYM.m,nextN:CYM.nextN,nextM:CYM.nextM,mix:CYM.mix,level,quality:this.quality,reduced:this.reduced()};},
+ syncMotion(){
+  if(!this.active||!this.visible())return;
+  const reduced=this.reduced();if(this.motionReduced===reduced)return;
+  this.motionReduced=reduced;
+  if(this.mode==='2d')this.show2D();else {this.schedule();this.instance?.refresh();}
+  this.localize();
+ },
+ watchMotion(){
+  // A media query can update without delivering its change event. Once static
+  // views release their CIZ jobs, no frame remains to notice motion was restored.
+  // Reconcile only while this panel is visible; this is not a render/audio loop.
+  if(this.motionTimer!=null||!this.active||!this.visible())return;
+  const check=()=>{this.motionTimer=null;if(!this.active)return;if(!this.visible()){this.pause();return;}this.syncMotion();this.motionTimer=setTimeout(check,500);};
+  this.motionTimer=setTimeout(check,500);
+ },
  schedule(){
   CIZ.cikar('cym3d');
   if(this.active&&this.mode==='3d'&&this.instance&&!this.reduced())CIZ.ekle('cym3d',()=>this.instance?.frame(),{el:this.instance.canvas});
@@ -38887,8 +38902,8 @@ const CYM3D={mode:'2d',quality:'low',instance:null,token:0,active:false,resumeOn
    this.loading=false;this.instance.enter();this.schedule();this.localize();
   }catch(_){if(request===this.token)this.fallback();}
  },
- enter(){this.bind();if(!this.visible())return;this.active=true;if(this.mode==='3d')this.choose('3d');else this.show2D();},
- pause(forPageHide=false){this.resumeOnShow=!!forPageHide&&this.active;this.active=false;this.token++;this.loading=false;CIZ.cikar('cym3d');CIZ.cikar('cym');this.instance?.pause();},
+ enter(){this.bind();if(!this.visible())return;this.active=true;this.motionReduced=this.reduced();this.watchMotion();if(this.mode==='3d')this.choose('3d');else this.show2D();},
+ pause(forPageHide=false){this.resumeOnShow=!!forPageHide&&this.active;this.active=false;clearTimeout(this.motionTimer);this.motionTimer=null;this.token++;this.loading=false;CIZ.cikar('cym3d');CIZ.cikar('cym');this.instance?.pause();},
  refresh(){this.instance?.refresh();if(this.active&&this.mode==='2d'&&this.reduced())cymTick();},
  snapshot(){return {mode:this.mode,quality:this.quality,active:this.active,loading:this.loading,reduced:this.reduced(),error:this.error,scene:this.instance?.snapshot()||null};}
 };

@@ -7,12 +7,12 @@ let checks=0;const ok=(v,m)=>{assert(v,m);checks++};
 function fixture(){
  const element=()=>({hidden:false,textContent:'',value:'',style:{},options:[{},{}],listeners:{},classList:{toggle(){},contains(){return true;}},addEventListener(k,f){this.listeners[k]=f;},setAttribute(){}});
  const elements=Object.fromEntries(['cymView','cymQuality','cymViewLabel','cymQualityLabel','cym3dNote','cym3dStatus','cymCanvas','cym3dHost','cymLive','panel-cym','ns','tab-frq'].map(k=>[k,element()]));
- const jobs=new Map();let resolve,reject,loads=0,created=0,disposed=0,enters=0,pauses=0,refreshes=0;let options;
+ const jobs=new Map(),timers=new Map();let timerId=0;let resolve,reject,loads=0,created=0,disposed=0,enters=0,pauses=0,refreshes=0;let options;
  const media={matches:false,addEventListener(_,fn){this.listener=fn;}};
  const instance={canvas:element(),enter(){enters++;},pause(){pauses++;},refresh(){refreshes++;},dispose(){disposed++;},frame(){},snapshot(){return {active:true}}};
  const module={createCymaticView(o){created++;options=o;return instance}};
- const events={};const sandbox={window:{I18N:{lang:'tr'},matchMedia:()=>media,addEventListener(n,fn){events[n]=fn;}},document:{getElementById:id=>elements[id],addEventListener(n,fn){events[n]=fn;}},CIZ:{cikar:k=>jobs.delete(k),ekle:(k,f)=>{jobs.set(k,f);return k;}},SPEC:{updateSignalRoute(){}},CYM:{n:3,m:4,ready:true,canvas:elements.cymCanvas},cymLiveLevel:()=>.1,cymResize(){},cymSeed(){},cymTick(){},load3D:()=>{loads++;return new Promise((a,b)=>{resolve=a;reject=b;})}};
- sandbox.MutationObserver=class {constructor(fn){events.mutation=fn;}observe(){}};vm.createContext(sandbox);vm.runInContext(code,sandbox);return {c:sandbox.window.SukunCymatics3D,events,e:elements,jobs,media,instance,module,resolve:()=>resolve(module),reject:()=>reject(Error('missing module')),counts:()=>({loads,created,disposed,enters,pauses,refreshes}),contextLost:()=>options.onContextLost(),sandbox};
+ const events={};const sandbox={setTimeout(fn,delay){const id=++timerId;timers.set(id,{fn,delay});return id;},clearTimeout(id){timers.delete(id);},window:{I18N:{lang:'tr'},matchMedia:()=>media,addEventListener(n,fn){events[n]=fn;}},document:{getElementById:id=>elements[id],addEventListener(n,fn){events[n]=fn;}},CIZ:{cikar:k=>jobs.delete(k),ekle:(k,f)=>{jobs.set(k,f);return k;}},SPEC:{updateSignalRoute(){}},CYM:{n:3,m:4,ready:true,canvas:elements.cymCanvas},cymLiveLevel:()=>.1,cymResize(){},cymSeed(){},cymTick(){},load3D:()=>{loads++;return new Promise((a,b)=>{resolve=a;reject=b;})}};
+ sandbox.MutationObserver=class {constructor(fn){events.mutation=fn;}observe(){}};vm.createContext(sandbox);vm.runInContext(code,sandbox);return {c:sandbox.window.SukunCymatics3D,events,e:elements,jobs,timers,poll(){const batch=[...timers];timers.clear();for(const[,timer]of batch){assert.equal(timer.delay,500);timer.fn();}},media,instance,module,resolve:()=>resolve(module),reject:()=>reject(Error('missing module')),counts:()=>({loads,created,disposed,enters,pauses,refreshes}),contextLost:()=>options.onContextLost(),sandbox};
 }
 (async()=>{
  let f=fixture();f.c.enter();ok(f.counts().loads===0,'2D default never loads Three');ok(f.jobs.has('cym'),'2D uses existing scheduler');
@@ -23,6 +23,21 @@ function fixture(){
  f.c.enter();await new Promise(r=>setImmediate(r));f.contextLost();ok(f.c.mode==='2d'&&f.counts().disposed===1,'context loss disposes scene and returns 2D');ok(f.e.cym3dStatus.textContent.includes('2B'),'fallback disclosed');
  f=fixture();await f.c.choose('3d');ok(f.counts().loads===0,'hidden panel cannot start dependency load');f.c.enter();f.resolve();await new Promise(r=>setImmediate(r));ok(f.counts().created===1,'deferred selection enters normally');
  f=fixture();f.c.enter();f.media.matches=true;f.media.listener();ok(!f.jobs.has('cym'),'reduced-motion change stops 2D fallback animation');f.media.matches=false;f.media.listener();ok(f.jobs.has('cym'),'restoring motion resumes active 2D');
+ // Reproduce CI: matches changes back to false but the native change event is
+ // absent. The product's own timer, not a snapshot/input read, must restore it.
+ for(const mode of ['2d','3d']){
+  f=fixture();f.c.enter();if(mode==='3d'){pending=f.c.choose('3d');f.resolve();await pending;}
+  ok(f.timers.size===1,'one visible-panel preference watcher for '+mode);
+  f.media.matches=true;f.media.listener();ok(!f.jobs.has('cym')&&!f.jobs.has('cym3d'),'native reduce event stops '+mode+' jobs');
+  const still=f.counts().refreshes;for(let i=0;i<5;i++)f.poll();ok(!f.jobs.size&&f.counts().refreshes===still,'unchanged reduced preference schedules/paints nothing in '+mode);
+  f.media.matches=false;f.poll();ok(f.jobs.has(mode==='3d'?'cym3d':'cym'),'missing restore event recovered independently in '+mode);
+  const job=f.jobs.get(mode==='3d'?'cym3d':'cym'),refreshes=f.counts().refreshes;
+  for(let i=0;i<5;i++)f.poll();ok(f.timers.size===1&&f.jobs.get(mode==='3d'?'cym3d':'cym')===job&&f.counts().refreshes===refreshes,'steady preference does not replace jobs or duplicate timers in '+mode);
+  f.media.matches=true;f.poll();ok(!f.jobs.size,'missing reduce event also stops '+mode+' jobs');
+  f.c.pause();ok(f.timers.size===0,'pause cancels preference watcher in '+mode);f.media.matches=false;f.poll();ok(!f.jobs.size&&!f.c.active,'late timer cannot resurrect paused '+mode);
+  f.c.enter();await new Promise(r=>setImmediate(r));ok(f.timers.size===1&&f.jobs.has(mode==='3d'?'cym3d':'cym'),'visible reentry restores one watcher and latest motion in '+mode);
+  f.e.ns.hidden=true;f.poll();ok(f.timers.size===0&&!f.c.active&&!f.jobs.size,'hidden panel stops polling and render jobs in '+mode);
+ }
  f=fixture();f.c.enter();pending=f.c.choose('3d');f.c.pause();f.resolve();await pending;ok(f.counts().created===0&&!f.jobs.has('cym3d'),'navigation during load cannot resurrect renderer');
  f=fixture();f.c.enter();pending=f.c.choose('3d');await f.c.choose('2d');f.resolve();await pending;ok(f.counts().created===0&&f.c.mode==='2d','cancel during import keeps 2D');
  f=fixture();f.c.enter();pending=f.c.choose('3d');f.reject();await pending;ok(f.c.mode==='2d'&&f.jobs.has('cym'),'module failure preserves working 2D');
