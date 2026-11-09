@@ -515,3 +515,26 @@
   margin-bottom:0!important;
  }
 }
+
+/* r1241: local contrast without blurring the architectural scene. */
+@layer sukun-r1215-layout {
+ @media(forced-colors:none) {
+  html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) #r616Continue .r616ContinueText,
+  html[data-r1074-theme] body.r1215-premium:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) #r1215PracticeContext {
+   background:linear-gradient(115deg,#061d27d9,#082d31b8)!important;
+   border-radius:12px!important;padding:14px!important;color:#f4ead5!important;
+   text-shadow:0 1px 2px #000!important;
+  }
+  html[data-r1074-theme] body.r1215-premium #r616Continue :is(small,#r616ContinueMeta),
+  html[data-r1074-theme] body.r1215-premium #r1215PracticeContext :is(p,small) {color:#e1dbc9!important;font-size:13px!important;line-height:1.55!important}
+  html[data-r1074-theme] body.r1215-premium #r616ContinueTitle {color:#fff3d6!important;font-size:16px!important;line-height:1.5!important}
+  body.r1215-premium #r1056FocusControlsToggle {border:1px solid #bda773!important;background:#082c35dc!important;color:#fff0cd!important;font-size:13px!important;min-height:44px!important}
+  body.r1215-premium #r1215ReadingsEntry.active {color:#ffe4a3!important;background:#173d3e!important;box-shadow:inset 3px 0 #d7bc7d!important}
+ }
+ body.r1215-premium #r1241ControlHint {font-size:12px!important;line-height:1.5!important;color:inherit!important;margin:6px 0!important;text-align:center!important}
+ @media(max-width:520px) {
+  body.r1215-premium #r1215PracticeContext {grid-template-columns:minmax(0,1fr)!important;gap:4px!important;text-align:center!important}
+  body.r1215-premium #r1215PracticeContext>* {grid-column:1!important;min-width:0!important;max-width:100%!important}
+  body.r1215-premium :is(#r1215ContextTitle,#r1215ContextProgress,#r1215SaveState) {text-align:center!important;overflow-wrap:normal!important;word-break:normal!important}
+ }
+}

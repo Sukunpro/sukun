@@ -3,7 +3,18 @@
 (()=>{'use strict';
  const $=id=>document.getElementById(id),english=()=>window.I18N?.lang==='en';
  const desktop=matchMedia('(min-width:1100px)');
- let readingButton,context,frame=0;
+ let readingButton,context,frame=0,readingActive=false;
+ function syncReadingNavigation(){
+  const active=readingActive&&document.body.dataset.r616View==='zikir'&&$('zmgOkumalar')?.open;
+  readingButton?.classList.toggle('active',!!active);
+  if(readingButton){if(active){if(readingButton.getAttribute('aria-current')!=='page')readingButton.setAttribute('aria-current','page')}else if(readingButton.getAttribute('aria-current')!=null)readingButton.removeAttribute('aria-current');}
+  const zikir=$('r616BottomNav')?.querySelector('[data-r616-view="zikir"]');
+  if(zikir&&document.body.dataset.r616View==='zikir'){zikir.classList.toggle('active',!active);if(active){if(zikir.getAttribute('aria-current')!=null)zikir.removeAttribute('aria-current')}else if(zikir.getAttribute('aria-current')!=='page')zikir.setAttribute('aria-current','page');}
+  if(document.body.dataset.r616View==='zikir')text($('r616ViewName'),(active?(english()?'Readings':'Okumalar'):(english()?'Dhikr':'Zikir'))+' · '+(document.querySelector('meta[name="sukun-build"]')?.content||''));
+ }
+ window.addEventListener('sukun:practicesectionchange',e=>{readingActive=e.detail?.id==='zmgOkumalar';queue()});
+ window.addEventListener('sukun:r616viewchange',()=>{readingActive=false;queue()});
+ document.addEventListener('toggle',e=>{if(e.target.id==='zmgOkumalar'){readingActive=!!e.target.open&&document.body.dataset.r616View==='zikir';queue()}},true);
  const text=(node,value)=>{if(node&&node.textContent!==String(value))node.textContent=String(value)};
  function readings(event){window.SukunDiscoveryR1158?.open?.('okumalar',event.currentTarget)}
  function ensureNavigation(root){
@@ -42,7 +53,7 @@
   const title=kind==='saved'&&state.savedAt?new Date(state.savedAt).toLocaleString(en?'en-GB':'tr-TR'):'';if(node.title!==title)node.title=title;
  }
  function sync(root=$('r920Practice'),tef=!!window.SUKUN_TEFEKKUR?.active?.()){
-  ensureNavigation(root);
+  ensureNavigation(root);syncReadingNavigation();
   if(!root||root.hidden||root.dataset.r1211State==='unavailable'||!makeContext(root))return;
   if(context.hidden!==!!tef)context.hidden=!!tef;
   const s=window.SukunSessionState?.peek?.();if(!s)return;

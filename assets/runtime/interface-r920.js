@@ -36,6 +36,7 @@ function openSection(id,options={}){
  showExtras(true);wake();
  for(const node of chain.reverse())if(node.tagName==='DETAILS')node.open=true;
  const nav=$('r986Sections');if(nav)for(const button of nav.querySelectorAll('button')){const current=button.getAttribute('aria-controls')===id;button.classList.toggle('active',current);attr(button,'aria-expanded',$(button.getAttribute('aria-controls'))?.open===true)}
+ window.dispatchEvent(new CustomEvent('sukun:practicesectionchange',{detail:{id}}));
  // A nested destination expands this group without a competing parent reveal.
  if(options.reveal===false)return true;
  const navigation=window.SukunViewportPolicy?.captureNavigation?.();

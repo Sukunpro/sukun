@@ -12,7 +12,10 @@ const sections=practice.slice(practice.indexOf('const sectionIds=new Set('),prac
 assert(discovery&&navigation&&sections.includes('function openSection('),'production boundaries exist');
 
 function setup(desktop=true){
- const f=fixture(app),timers=[],frames=[],routes=[],reveals=[];
+ const f=fixture(app),timers=[],frames=[],routes=[],reveals=[],sectionEvents=[];
+ class CustomEvent extends f.Event {constructor(type,options={}){super(type,options);this.detail=options.detail??null}}
+ f.context.CustomEvent=CustomEvent;f.window.CustomEvent=CustomEvent;
+ f.window.addEventListener('sukun:practicesectionchange',event=>sectionEvents.push(event.detail.id));
  const proto=Object.getPrototypeOf(f.root),matches=proto.matches,query=proto.querySelector;
  proto.matches=function(selector){
   const attr=selector.match(/^\[([\w-]+)\]$/);if(attr)return this.getAttribute(attr[1])!==null;
@@ -46,7 +49,7 @@ function setup(desktop=true){
  f.window.SukunPremiumLayout.sync();
  const entry=f.$('r1215ReadingsEntry');assert(entry);
  const flush=()=>{for(let turns=0;timers.length||frames.length;turns++){assert(turns<100,'bounded timers');while(timers.length)timers.shift()();while(frames.length)frames.shift()()}};
- return {...f,entry,nav,home,journey,tools,readings,summary,tab,pathNode,media,routes,reveals,flush,newInput:()=>interaction++};
+ return {...f,entry,nav,home,journey,tools,readings,summary,tab,pathNode,media,routes,reveals,sectionEvents,flush,newInput:()=>interaction++};
 }
 
 for(const desktop of [true,false]){
@@ -58,6 +61,8 @@ for(const desktop of [true,false]){
  assert.equal(f.document.activeElement,f.summary,'reader heading receives focus');
  assert.deepEqual(f.routes,['zikir'],'one activation has exactly one route owner');
  assert.deepEqual(f.reveals,['zmgOkumalar']);
+ assert.deepEqual(f.sectionEvents,['zmgOkumalar'],'successful reveal publishes the section identity');
+ assert.equal(f.entry.getAttribute('aria-current'),'page','readings owns active navigation');
  assert(f.document.body.classList.contains('r920-details-open'));
  f.home.click();f.flush();assert.equal(f.tab.hidden,true,'ordinary sidebar navigation still works');
  f.entry.click();f.flush();assert.equal(f.tab.hidden,false,'repeated reading entry works');
@@ -65,6 +70,7 @@ for(const desktop of [true,false]){
 }
 {
  const f=setup();f.entry.click();f.home.click();f.flush();
+ assert.deepEqual(f.sectionEvents,[],'cancelled reveal publishes no section identity');
  assert.equal(f.tab.hidden,true);assert.equal(f.readings.open,false);assert.deepEqual(f.reveals,[],'new navigation cancels pending reveal');
 }
 {

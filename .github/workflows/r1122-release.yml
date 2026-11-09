@@ -45,7 +45,7 @@ jobs:
         run: |
           export NODE_PATH="$RUNNER_TEMP/sukun-browser/node_modules"
           echo "NODE_PATH=$NODE_PATH" >> "$GITHUB_ENV"
-          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
+          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0 fake-indexeddb@6.2.4
           "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
           echo "CHROMIUM_PATH=$(node -p 'require("playwright").chromium.executablePath()')" >> "$GITHUB_ENV"
       - name: Run mandatory current source and native offline acceptance
