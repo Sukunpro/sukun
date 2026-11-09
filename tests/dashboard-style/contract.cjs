@@ -1,0 +1,17 @@
+'use strict';
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const root=require('node:path').resolve(__dirname,'../..');
+const css=fs.readFileSync(root+'/assets/runtime/personal-centre-glass-r1118.css','utf8');
+const clarity=fs.readFileSync(root+'/assets/runtime/surface-clarity-r1118.css','utf8');
+assert(css.includes('@layer sukun-r933-controls'),'Preserve existing theme/contrast precedence');
+assert(!css.includes(':has('),'Shared dashboard paint must not depend on the active tab');
+assert.equal((css.match(/html body\.r716-shell \.wrap>#prDashboard/g)||[]).length,5);
+const panel=css.match(/html body\.r716-shell \.wrap>#prDashboard\{([^}]+)\}/)[1];
+for(const prop of ['backdrop-filter:none!important','-webkit-backdrop-filter:none!important'])assert(panel.includes(prop),prop);
+for(const color of ['#f4ead1','#d8e4df'])assert(css.includes('color:'+color+'!important'));
+assert(css.includes('@media(prefers-reduced-transparency:reduce)'));
+assert(!/(?:display|visibility|font-family|font-size|font-weight|position)\s*:/.test(css),'Do not change visibility, geometry, or typography');
+assert(!clarity.includes('#prDashboard'),'Dashboard no-blur has one unconditional owner');
+assert(clarity.includes('html body.r716-shell:has(#tab-amb:not([hidden])) .wrap>:is(#todayCard,#vakitBox)'),'Keep neighboring cards scoped');
+assert.equal(fs.readFileSync(root+'/index.html','utf8'),fs.readFileSync(root+'/nero.html','utf8'));
+console.log('PASS dashboard tab-independent paint, no-blur, readable colors, reduced transparency, layout/theme ownership, adjacent-card scope, shell equality');

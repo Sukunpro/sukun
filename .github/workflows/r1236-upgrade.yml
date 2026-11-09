@@ -1,4 +1,4 @@
-name: r1237 statistics and immediate-previous upgrade recovery
+name: r1238 statistics and immediate-previous upgrade recovery
 on:
   pull_request:
     branches: [main]
@@ -7,7 +7,7 @@ on:
 permissions:
   contents: read
 jobs:
-  upgrade-r1236:
+  upgrade-r1237:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -17,10 +17,10 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           path: candidate
           persist-credentials: false
-      - name: Check out verified r1236 predecessor
+      - name: Check out verified r1237 predecessor
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          ref: b762fd3b29f433064563bb66b61165c2a6c6f16f
+          ref: c825233b45b955dc259e53755df84d879469a106
           path: previous
           persist-credentials: false
       - name: Install pinned native browser
@@ -32,13 +32,13 @@ jobs:
         working-directory: candidate
         run: |
           export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
-          node tests/r1213/release-upgrade-browser.cjs "$PWD" ../previous ../r1237-upgrade/evidence.json
+          node tests/r1213/release-upgrade-browser.cjs "$PWD" ../previous ../r1238-upgrade/evidence.json
       - name: Upload exact-byte upgrade evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: r1237-upgrade-${{ github.event.pull_request.head.sha || github.sha }}
-          path: r1237-upgrade
+          name: r1238-upgrade-${{ github.event.pull_request.head.sha || github.sha }}
+          path: r1238-upgrade
           if-no-files-found: error
           retention-days: 30
 
@@ -65,7 +65,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: r1237-lower-statistics-${{ github.event.pull_request.head.sha || github.sha }}
+          name: r1238-lower-statistics-${{ github.event.pull_request.head.sha || github.sha }}
           path: ${{ runner.temp }}/lower-statistics
           if-no-files-found: error
           retention-days: 30
