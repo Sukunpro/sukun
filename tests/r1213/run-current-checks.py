@@ -103,11 +103,11 @@ INHERITED_SUITES = [
 # These suites run sequentially, apart from the parallel source contracts.
 NATIVE_BROWSER_SUITES = [
     ('source-heading-native', 'tests/source-heading/browser.cjs'),
+    ('tefekkur-glass-native', 'tests/tefekkur-glass/browser.cjs'),
     ('wheel-heading-native', 'tests/wheel-select/browser.cjs'),
     ('frequency-help-native', 'tests/frequency-help/browser.cjs'),
     ('seyir-controls-native', 'tests/seyir-controls/browser.cjs'),
     ('tefekkur-help-native', 'tests/tefekkur-help/browser.cjs'),
-    ('tefekkur-glass-native', 'tests/tefekkur-glass/browser.cjs'),
     ('frequency-screenshot-fit-native', 'tests/frequency-screenshot-fit/browser.cjs'),
     ('saver-mouse-idle-native', 'tests/screensaver-mouse/browser.cjs'),
     ('dashboard-tab-style-native', 'tests/dashboard-style/browser.cjs'),
@@ -315,9 +315,9 @@ def main():
         if item[0] in NATIVE_BROWSER_NAMES:
             row = execute(item)
             report['checks'].append(row)
-            # Do not spend the full native matrix on a candidate whose new
-            # narrow-screen heading gate already failed. Acceptance stays false.
-            if item[0] == 'source-heading-native' and row['exitCode'] != 0:
+            # New visual gates run first and fail closed before expensive audio
+            # and upgrade suites. A stopped run can never claim full acceptance.
+            if item[0] in {'source-heading-native', 'tefekkur-glass-native', 'wheel-heading-native'} and row['exitCode'] != 0:
                 break
     report['passed'] = sum(row['exitCode'] == 0 for row in report['checks'])
     report['total'] = len(commands)

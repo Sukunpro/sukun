@@ -17,7 +17,7 @@ The source patch was integrated onto r1243 main commit `92a2e5e236a40d5da05c92a6
 
 ## Verification for this candidate
 
-Managed Chromium: Berhet 44/44 and Esma 44/44, plus the existing reflection-help managed suite passed. At the tested widths the eye is 12px higher and the eye-to-help offset is 34px smaller than the baseline. Both glass labels were visually inspected. Source contracts 13/13, lower-stat contracts 13/13 and direct-count assertions 62/62 passed. Existing r1242 timer and easy-control source checks passed.
+The earlier managed preview passed 44/44 checks per theme. A subsequent byte-for-byte native CI run found that the 720px layout moved the eye 12px upward but only 16px closer to the help, below the required 20px proximity improvement. The relative offset is now -28px rather than -20px; the native minimums and 44×44px target assertions are unchanged. Current publication requires the rerun to pass every width and theme. The source-bound report from the final commit is the acceptance record; earlier preview numbers are not reused as final evidence.
 
 The standalone Chromium process cannot launch in this environment because process sockets are restricted. The managed tests ran instead. The new standalone wrapper's forced-color, reduced-motion emulation and native keyboard checks are prepared for CI, not claimed run here. Physical devices, audible playback, screen readers, offline upgrade and full native release acceptance remain outside this local verification.
 
