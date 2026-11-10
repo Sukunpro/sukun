@@ -1,0 +1,35 @@
+<!doctype html><meta charset="utf-8"><title>Sükûn glass help QA</title>
+<style>body{margin:0;background:#ddd;font:14px system-ui}header{padding:8px}iframe{display:block;border:0;margin:0 auto}pre{max-height:110px;overflow:auto;white-space:pre-wrap;font:12px/1.35 monospace;margin:8px}</style>
+<header>Glass help QA <button id="run" disabled>Run glass checks</button></header><pre id="result">Loading</pre><iframe id="app" height="1100" width="393"></iframe>
+<script>
+const frame=document.querySelector('#app'),output=document.querySelector('#result'),run=document.querySelector('#run'),mode=new URLSearchParams(location.search).get('mode')||'berhet',wait=ms=>new Promise(r=>setTimeout(r,ms));
+for(const [k,v]of Object.entries({'sukun.theme':JSON.stringify(mode),'sukun.ui.shellMode':'classic','sukun.obDone':'1','sukun.onboardSeen':'1','sukun.r920.focus':'0'}))localStorage.setItem(k,v);
+let prepared;
+async function prepare(){const w=frame.contentWindow,d=w.document;if(prepared===d)return;prepared=d;try{await wait(2500);w.obClose?.();d.getElementById('dcClose')?.click();w.KLT_AC('LABELLED-glass-help-disposable-profile');await w.SukunTabOwner.run('manual',async()=>{const s=await w.SukunSessionState.command('select',{mode,index:9,journeyKind:mode==='berhet'?'28':'99'});if(!s.accepted)throw Error('Selection rejected')},{prime:false,releaseAfter:true});d.querySelector('.tab[data-t=zkr]').click();await wait(500);run.disabled=false;output.textContent='Ready'}catch(e){output.textContent=e.stack}}
+frame.onload=prepare;frame.src='../../nero.html';
+run.onclick=async()=>{run.disabled=true;const w=frame.contentWindow,d=w.document,res=[],$=id=>d.getElementById(id),style=id=>w.getComputedStyle($(id)),box=id=>$(id).getBoundingClientRect(),snap=()=>{const s=w.SukunSessionState.snapshot();return JSON.stringify({mode:s.activeMode,index:s.activeIndex,count:s.count,target:s.target,playing:s.playing,paused:s.paused})},check=(name,passed,evidence)=>{res.push({name,passed:!!passed,evidence});if(!passed)throw Error(name+' '+JSON.stringify(evidence))};
+const link=d.querySelector('link[href*="tefekkur-help.css"]'),href=link.href,sri=link.integrity;
+async function sheet(url,integrity){await new Promise((resolve,reject)=>{link.onload=resolve;link.onerror=()=>reject(Error('CSS load failed'));link.integrity=integrity;link.href=url});await wait(100)}
+try{
+ const before=snap();$('r920TefEnter').click();await wait(200);w.SukunBerhetLayout.setFocusControls(false);
+ for(const width of [320,393,720,1280])for(const lang of ['tr','en']){
+  frame.width=width;w.I18N.set(lang);await wait(150);
+  const hint=box('r1241ControlHint'),eye=box('r1056FocusControlsToggle'),exit=box('r920TefExit'),upper=box('r920TefExitHint');
+  check('No clipping and 44px eye '+width+' '+lang,hint.left>=0&&hint.right<=width&&eye.width===44&&eye.height===44&&eye.top>=hint.bottom+4&&d.documentElement.scrollWidth<=width+1&&exit.height>=44&&upper.bottom<=box('r938Hero').bottom+1,{hint:hint.toJSON(),eye:eye.toJSON(),upper:upper.toJSON()});
+  check('Both hints use translucent light glass '+width+' '+lang,['r920TefExitHint','r1241ControlHint'].every(id=>style(id).backgroundImage.includes('255, 255, 255, 0.18')&&style(id).backgroundColor==='rgba(0, 0, 0, 0)'&&style(id).backdropFilter.includes('blur(6px)')));
+  const afterOffset=eye.top-hint.top;
+  await sheet(new URL('baseline.css',location.href).href,'');const baselineEyeTop=box('r1056FocusControlsToggle').top,baselineOffset=baselineEyeTop-box('r1241ControlHint').top;
+  await sheet(href,sri);const eyeTopNow=box('r1056FocusControlsToggle').top,offset=eyeTopNow-box('r1241ControlHint').top;
+  check('Eye moves upward and closer to help '+width+' '+lang,offset<=baselineOffset-20&&baselineEyeTop-eyeTopNow>=10&&Math.abs(offset-afterOffset)<2,{baselineOffset,offset,closerBy:baselineOffset-offset,actualLift:baselineEyeTop-eyeTopNow});
+ }
+ for(const id of ['r920TefExitHint','r1241ControlHint']){
+  const a=$(id).getAnimations().find(a=>a.animationName==='sukun-tefekkur-hint');check('14s opacity cycle '+id,!!a&&a.effect.getTiming().duration===14000);a.pause();const samples=[],eyeTop=box('r1056FocusControlsToggle').top;
+  for(const t of [1000,7500,13999]){a.currentTime=t;await wait(30);samples.push(Number(style(id).opacity));check('No layout movement while fading '+id+' '+t,Math.abs(eyeTop-box('r1056FocusControlsToggle').top)<.5)}
+  check('Fade and return '+id,samples[0]>.95&&samples[1]<.05&&samples[2]>.95,samples);a.play();
+ }
+ for(let i=0;i<3;i++){$('r1056FocusControlsToggle').click();await wait(80);check('Eye opens original controls '+i,$('r1056FocusControlsToggle').getAttribute('aria-expanded')==='true'&&!$('r1056PrimaryControls').hidden);$('r1056FocusControlsToggle').click();await wait(80);check('Original controls hide again '+i,$('r1056FocusControlsToggle').getAttribute('aria-expanded')==='false');$('r920TefExit').click();await wait(100);check('Exit keeps lower help static '+i,!d.body.classList.contains('sukun-tefekkur-mode')&&style('r1241ControlHint').animationName==='none');$('r920TefEnter').click();await wait(100)}
+ check('Selection, count and transport unchanged',snap()===before);
+ frame.width=393;w.I18N.set('tr');await wait(120);$('r1056FocusControlsToggle').scrollIntoView({block:'center'});output.textContent=JSON.stringify({allPassed:true,mode,total:res.length,results:res,limitations:['Disposable local profile, CSS animation time sampling, no physical-device/audio acceptance.','Baseline comparison changes only the help stylesheet; playback auto-hide owner is covered separately.']},null,2);
+}catch(e){output.textContent=JSON.stringify({allPassed:false,mode,error:e.stack,results:res},null,2)}finally{if(link.href!==href)await sheet(href,sri);run.disabled=false}
+};
+</script>

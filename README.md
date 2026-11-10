@@ -4,6 +4,16 @@ Zikir, Esmâü’l-Hüsnâ, Berhetiyye ve sûre takibi için web uygulaması.
 
 [Uygulamayı aç](https://sukunpro.github.io/sukun/) · [Sürüm kimliği](version.txt) · [Sürüm notları](surumler.json)
 
+## r1244 — camsı tefekkür yazıları ve ortalı çark seçimi
+
+Tefekkürde iki yardım yazısı açık, şeffaf cam yüzeyde gösterilir. Çarkın altındaki açıklama da çıkış yardımı gibi 14 saniyelik döngüde yavaşça kaybolup geri gelir. Normal zikir ekranında sabit kalır. Hareket azaltma tercihinde iki yazı da sabittir; klavye odağında ilgili açıklama görünür kalır.
+
+Göz simgesi yukarı alındı ve açıklamaya uzaklığı azaltıldı. 24px simge, 44×44px dokunma alanı ve mevcut kontrol işlevi korundu. Sayaç, ses ve kişisel kayıtların işleyişi değiştirilmedi.
+
+“Çarkları görerek seç” başlığı dar ve geniş ekranlarda mevcut çerçevesinin içinde yatay ve dikey ortalandı. Çark görselleri ve seçim davranışı korunur. [Çark başlığı kontrolleri](tests/wheel-select/) iki tema, Türkçe/İngilizce, 320–1280px ve geniş ekranda ölçek değişimini kapsar.
+
+[Kontroller](tests/tefekkur-glass/): iki temada Türkçe/İngilizce, 320–1280px yerleşim, kaybolma döngüsü, tekrarlı aç/kapat ve tefekkürden çıkış. Geçerli yayın kabulü, bu commit üzerinde tamamlanan zorunlu Actions sonuçlarıdır; fiziksel telefon ve duyulan ses kabulü ayrıca yapılır.
+
 ## r1242 — kompakt kontroller ve sakin tefekkür
 
 Berhetiyye'nin taşlı görünümü korunur. Kolay kontroller gizlenince 24px göz simgesi ve 44px dokunma alanı kalır. Başlat/Duraklat, Bitir ve Seyri baştan başlat düğmeleri içerik genişliğine küçülür.
