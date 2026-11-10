@@ -1,0 +1,18 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
+const root=path.resolve(__dirname,'../..'),html=fs.readFileSync(path.join(root,'index.html'),'utf8'),css=fs.readFileSync(path.join(root,'css/berhet-hero-r1149.css'),'utf8');
+assert.equal(html,fs.readFileSync(path.join(root,'nero.html'),'utf8'),'Entry aliases agree');
+const block=css.slice(css.indexOf('/* Keep the wheel-gallery heading centered'),css.indexOf('/* Berhetiyye: preserve the original transparent'));
+const desktop=block.slice(0,block.indexOf('@media (max-width: 480px)'));
+for(const declaration of ['display:grid!important','place-items:center!important','padding:14px 44px!important','text-align:center!important','white-space:normal!important','overflow-wrap:anywhere!important','min-height:48px!important','border-image-width:12px 38px!important'])assert(desktop.includes(declaration),'All-width heading rule: '+declaration);
+assert(desktop.includes('summary::-webkit-details-marker {display:none!important}'));
+assert(desktop.includes('[open]>summary::after'));
+assert(desktop.includes('color:currentColor!important'),'Disclosure keeps forced-color contrast');
+assert(!desktop.includes('background:'),'Existing frame art retained');
+const ui=fs.readFileSync(path.join(root,'assets/runtime/interface-r920.js'),'utf8');
+assert(ui.includes('<details id="r924WheelGalleryDetails"><summary>Çarkları görerek seç</summary>'),'Native details/summary retained');
+assert(html.includes('"Çarkları görerek seç": "Choose a wheel visually"'),'Both labels retained');
+const build=fs.readFileSync(path.join(root,'version.txt'),'utf8').trim();
+const sri='sha256-'+crypto.createHash('sha256').update(css).digest('base64');
+assert(html.includes('href="./css/berhet-hero-r1149.css?v='+build+'" integrity="'+sri+'"'),'Updated CSS integrity');
+console.log('PASS wheel heading all-width centering, native disclosure, safe frame insets and SRI');

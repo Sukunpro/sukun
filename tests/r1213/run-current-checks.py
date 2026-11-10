@@ -8,11 +8,14 @@ evidence fail closed. Evidence is generated in this invocation, never reused.
 """
 from pathlib import Path
 import argparse, concurrent.futures, hashlib, json, re, subprocess, time
+from html.parser import HTMLParser
+from urllib.parse import urljoin, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
     ('ai-router-contract', 'tests/ai-router/contract.cjs'),
     ('source-heading-contract', 'tests/source-heading/contract.cjs'),
+    ('wheel-heading-contract', 'tests/wheel-select/contract.cjs'),
     ('r1242-easy-controls-source', 'tests/r1242/easy-controls-source.cjs'),
     ('r1242-settings-auto-hide', 'tests/r1242/settings-auto-hide.cjs'),
     ('r1241-navigation-ui', 'tests/r1241/navigation-ui.cjs'),
@@ -100,9 +103,11 @@ INHERITED_SUITES = [
 # These suites run sequentially, apart from the parallel source contracts.
 NATIVE_BROWSER_SUITES = [
     ('source-heading-native', 'tests/source-heading/browser.cjs'),
+    ('wheel-heading-native', 'tests/wheel-select/browser.cjs'),
     ('frequency-help-native', 'tests/frequency-help/browser.cjs'),
     ('seyir-controls-native', 'tests/seyir-controls/browser.cjs'),
     ('tefekkur-help-native', 'tests/tefekkur-help/browser.cjs'),
+    ('tefekkur-glass-native', 'tests/tefekkur-glass/browser.cjs'),
     ('frequency-screenshot-fit-native', 'tests/frequency-screenshot-fit/browser.cjs'),
     ('saver-mouse-idle-native', 'tests/screensaver-mouse/browser.cjs'),
     ('dashboard-tab-style-native', 'tests/dashboard-style/browser.cjs'),
@@ -122,9 +127,59 @@ def source_files():
              'manifest.webmanifest', 'sukun-latest.json', 'surumler.json']}
     for folder in ['assets/runtime', 'css', 'js', 'tests', '.github/workflows']:
         paths.update(p for p in (ROOT / folder).rglob('*') if p.is_file() and
-                     p.suffix in ['.js', '.cjs', '.css', '.py', '.yml', '.json'] and
+                     p.suffix in ['.js', '.cjs', '.css', '.py', '.yml', '.json', '.html'] and
                      'evidence' not in p.parts and '__pycache__' not in p.parts)
     return {str(p.relative_to(ROOT)): digest(p) for p in sorted(paths) if p.exists()}
+
+
+def visual_required_sources(suite):
+    required = {'nero.html', f'tests/{suite}/managed-preview.html'}
+    class Assets(HTMLParser):
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if tag != 'script' and not (tag == 'link' and attrs.get('rel') == 'stylesheet'):
+                return
+            url = attrs.get('src' if tag == 'script' else 'href', '')
+            if url and not urlsplit(url).scheme and not url.startswith('//'):
+                required.add(urlsplit(urljoin('http://fixture/nero.html', url)).path.lstrip('/'))
+    Assets().feed((ROOT / 'nero.html').read_text())
+    if suite == 'tefekkur-glass':
+        required.add(f'tests/{suite}/baseline.css')
+    return required
+
+
+def validate_visual_evidence(evidence, suite):
+    assert isinstance(evidence, dict)
+    count = 2 if suite == 'wheel-select' else 4
+    assert all(type(evidence[key]) is int and evidence[key] == count for key in ['expectedChecks', 'total', 'passed'])
+    assert all(evidence.get(key) is True for key in ['allPassed', 'browserExecuted', 'sourceUnchanged', 'servedHashesValid'])
+    assert not evidence.get('error') and not evidence.get('fatal')
+    required = visual_required_sources(suite)
+    expected = required | {'index.html', f'tests/{suite}/browser.cjs', 'tests/r1064/browser-fixture.cjs', 'tests/r1213/visual-evidence.cjs'}
+    assert set(evidence['sources']) == expected
+    assert evidence['sources'] == {name: digest(ROOT / name) for name in expected}
+    assert set(evidence['requiredSources']) == required and len(evidence['requiredSources']) == len(required)
+    browsers = [evidence['evidence']] if suite == 'wheel-select' else evidence['browserEvidence']
+    assert len(browsers) == (1 if suite == 'wheel-select' else 2)
+    for browser in browsers:
+        assert browser['pageErrors'] == []
+        assert not any(re.search(r'integrity|digest|\bSRI\b|Content Security Policy', error, re.I) for error in browser['consoleErrors'])
+        assert all(browser['served'][name]['sha256'] == evidence['sources'][name] for name in required)
+    if suite == 'wheel-select':
+        matrices = evidence['reports']
+        assert all(r['keyboardCycles'] == 3 and r['forcedColors'] is True for r in matrices)
+        matrix_count = 71
+    else:
+        assert len(evidence['results']) == 4
+        matrices = [r['report'] for r in evidence['results'] if 'report' in r]
+        accessibility = [r for r in evidence['results'] if 'report' not in r]
+        assert len(accessibility) == 2 and {r['mode'] for r in accessibility} == {'berhet', 'esma'}
+        assert all(all(r.get(key) is True for key in ['reducedMotion', 'forcedColors', 'keyboardFocus']) for r in accessibility)
+        matrix_count = 44
+    assert len(matrices) == 2 and {r['mode'] for r in matrices} == {'berhet', 'esma'}
+    assert all(r.get('allPassed') is True and not r.get('error') and r['total'] == len(r['results']) == matrix_count and
+               all(check.get('passed') is True for check in r['results']) for r in matrices)
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -144,6 +199,7 @@ def main():
     before = source_files()
     commands = [(name, ['node', file]) for name, file in SOURCE_SUITES]
     commands.append(('shell-consolidation', ['python3', 'tests/r1215/shell-consolidation.py']))
+    commands.append(('visual-evidence-negative', ['python3', 'tests/r1213/visual-evidence-test.py']))
     commands += [(name, ['node', file, str(ROOT), str(out / (name + '.json'))])
                  for name, file in INHERITED_SUITES]
     if args.scope != 'source':
@@ -184,6 +240,13 @@ def main():
                 assert evidence.get('browserExecuted') is True and evidence.get('allPassed') is True
                 assert len(evidence['results']) == 16 and not evidence.get('error')
             except (OSError, ValueError, KeyError, AssertionError) as error:
+                row['exitCode'] = 'invalid-evidence'
+                row['evidenceError'] = str(error)
+        if name in {'wheel-heading-native', 'tefekkur-glass-native'} and code == 0:
+            try:
+                evidence = json.loads(evidence_path.read_text())
+                validate_visual_evidence(evidence, 'wheel-select' if name == 'wheel-heading-native' else 'tefekkur-glass')
+            except (OSError, ValueError, KeyError, AssertionError, TypeError, AttributeError) as error:
                 row['exitCode'] = 'invalid-evidence'
                 row['evidenceError'] = str(error)
         if name == 'native-upgrade-offline' and code == 0:
