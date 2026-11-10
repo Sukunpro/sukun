@@ -145,8 +145,6 @@ def visual_required_sources(suite):
             if url and not urlsplit(url).scheme and not url.startswith('//'):
                 required.add(urlsplit(urljoin('http://fixture/nero.html', url)).path.lstrip('/'))
     Assets().feed((ROOT / 'nero.html').read_text())
-    if suite == 'tefekkur-glass':
-        required.add(f'tests/{suite}/baseline.css')
     return required
 
 
@@ -182,7 +180,7 @@ def validate_visual_evidence(evidence, suite):
         accessibility = [r for r in evidence['results'] if 'report' not in r]
         assert len(accessibility) == 2 and {r['mode'] for r in accessibility} == {'berhet', 'esma'}
         assert all(all(r.get(key) is True for key in ['reducedMotion', 'forcedColors', 'keyboardFocus']) for r in accessibility)
-        matrix_count = 44
+        matrix_count = 68
     assert len(matrices) == 2 and {r['mode'] for r in matrices} == {'berhet', 'esma'}
     assert all(r.get('allPassed') is True and not r.get('error') and r['total'] == len(r['results']) == matrix_count and
                all(check.get('passed') is True for check in r['results']) for r in matrices)
