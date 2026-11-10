@@ -1,0 +1,16 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const {fixture}=require('../r1064/browser-fixture.cjs');
+const root=path.resolve(process.argv[2]||path.join(__dirname,'../..')),reportFile=path.resolve(process.argv[3]||'/tmp/sukun-arrangement.json'),bound=require('../r1213/visual-evidence.cjs').binding(root,'arrangement-fit');
+const reports=[];let f;
+(async()=>{try{
+ f=await fixture(root,{width:1365,height:1050,seed:{'sukun.ui.shellMode':'classic','sukun.obDone':'1','sukun.onboardSeen':'1','sukun.r920.focus':'0'}});const p=f.page;
+ for(const mode of ['berhet','esma']){
+  const url=new URL('/tests/arrangement-fit/managed-preview.html',f.origin);url.searchParams.set('mode',mode);await p.goto(url.href);await p.waitForFunction(()=>!document.querySelector('#run').disabled,null,{timeout:180000});await p.locator('#run').click();await p.waitForFunction(()=>document.querySelector('#result').textContent.includes('"allPassed"'),null,{timeout:180000});
+  const result=JSON.parse(await p.locator('#result').textContent());assert.equal(result.allPassed,true,JSON.stringify(result));assert.equal(result.mode,mode);assert.equal(result.cases,36);assert(result.results.every(x=>x.ok&&x.rows.every(r=>r.ok)));for(const [name,hash]of Object.entries(result.sourceHashes))assert.equal(hash,bound.sources[name]);
+  const app=p.frameLocator('#app');await app.locator('#rxGo').press('Tab');const focused=await app.locator(':focus').getAttribute('data-rx');assert.equal(focused,'freq');await app.locator('[data-rx="freq"]').press('Space');assert.equal(await app.locator('[data-rx="freq"]').evaluate(el=>el.classList.contains('rxDone')),true);await app.locator('[data-rx="freq"]').evaluate(el=>el.classList.remove('rxDone'));await app.locator('[data-rx="freq"]').press('Enter');assert.equal(await app.locator('[data-rx="freq"]').evaluate(el=>el.classList.contains('rxDone')),true);
+  await p.emulateMedia({forcedColors:'active'});for(const target of ['.rxUse','.rxItem','#rxGo']){const styles=await app.locator(target).first().evaluate(el=>{const s=getComputedStyle(el);return{border:s.borderImageSource,fg:s.color,bg:s.backgroundColor}});assert.equal(styles.border,'none');assert.notEqual(styles.fg,styles.bg)}await p.emulateMedia({forcedColors:'none'});
+  reports.push({...result,nativeKeyboard:true,forcedColors:true});
+ }
+ bound.verify(f);assert(bound.unchanged());fs.mkdirSync(path.dirname(reportFile),{recursive:true});fs.writeFileSync(reportFile,JSON.stringify({allPassed:true,browserExecuted:true,passed:2,total:2,expectedChecks:2,sourceUnchanged:true,sources:bound.sources,requiredSources:bound.required,servedHashesValid:true,reports,evidence:f.evidence()},null,2));console.log('PASS arrangement 72 theme/language/size cases plus native keyboard and forced colors');
+}finally{await f?.close()}})().catch(e=>{fs.mkdirSync(path.dirname(reportFile),{recursive:true});fs.writeFileSync(reportFile,JSON.stringify({allPassed:false,browserExecuted:!!f,passed:reports.length,total:2,expectedChecks:2,error:e.stack,reports},null,2));console.error(e);process.exitCode=1});

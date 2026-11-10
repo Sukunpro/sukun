@@ -1,0 +1,67 @@
+/* Arrangement screenshot fixes. Load first: important layout must outrank
+ * legacy gemstone paint. Artwork, text, callbacks, storage and audio stay intact. */
+@layer sukun-arrangement-fit {
+ html body #tab-rx :is(.rxCard,.rxHead>div,.rxAIBox,.rxAIText,.r330Step>div) {
+  box-sizing:border-box!important;min-width:0!important;max-width:100%!important;
+  overflow-wrap:anywhere!important;
+ }
+ html body #tab-rx :is(.rxGrid,.rxActions) {
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  align-items:stretch!important;gap:12px!important;min-width:0!important;
+ }
+ html body #tab-rx .rxItem {
+  display:flex!important;flex-direction:column!important;align-items:center!important;
+  justify-content:center!important;gap:7px!important;box-sizing:border-box!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  height:auto!important;min-height:112px!important;max-height:none!important;
+  padding:18px 28px!important;border-image-width:14px 22px!important;
+  text-align:center!important;white-space:normal!important;overflow-wrap:anywhere!important;
+ }
+ html body #tab-rx .rxItem>* {
+  box-sizing:border-box!important;min-width:0!important;max-width:100%!important;
+  margin-inline:0!important;white-space:normal!important;overflow-wrap:anywhere!important;
+ }
+ html body #tab-rx .rxAmbWrap {justify-content:center!important}
+ html body #tab-rx .rxAmbChip {max-width:100%!important;box-sizing:border-box!important}
+ html body #tab-rx .rxApply {margin-top:auto!important;padding-top:4px!important}
+ html body #tab-rx :is(.rxUse,.rxActions>.btn,#rxGo) {
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  box-sizing:border-box!important;min-width:0!important;max-width:100%!important;
+  min-height:48px!important;height:auto!important;max-height:none!important;
+  padding:13px 32px!important;border-image-width:11px 26px!important;
+  font:600 13px/1.45 system-ui,sans-serif!important;letter-spacing:0!important;
+  text-align:center!important;white-space:normal!important;overflow-wrap:anywhere!important;
+  gap:6px!important;
+ }
+ html body #tab-rx .rxUse {width:100%!important;margin:10px 0 0!important}
+ html body #tab-rx .rxActions>.btn {width:100%!important;margin:0!important}
+ html body #tab-rx .rxActions>.btn:last-child:nth-child(odd) {grid-column:1/-1!important}
+ html body #tab-rx .rxUse:focus-visible {outline:2px solid var(--goldh,#ffe6a1)!important;outline-offset:3px!important}
+ html body #tab-rx .rxInputRow {align-items:stretch!important}
+ html body #tab-rx #rxInput {min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+ html body #tab-rx #rxChips {
+  display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr))!important;
+  align-items:stretch!important;gap:8px!important;
+ }
+ html body #tab-rx #rxChips .rxChip {
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  min-height:44px!important;height:auto!important;box-sizing:border-box!important;
+  text-align:center!important;white-space:normal!important;overflow-wrap:anywhere!important;
+ }
+ html body #tab-rx :is(.r320PlanGrid>div,.r330Step) {min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+ html body #tab-rx .r330Step {grid-template-columns:28px minmax(0,1fr)!important}
+ html[data-r1074-theme="berhet"] body #tab-rx :is(.rxItem .rxK,.rxItem small,.rxItem .rxApply) {color:#efe5ce!important}
+ @media(max-width:480px) {
+  html body #tab-rx :is(.rxGrid,.rxActions,.rxInputRow) {display:grid!important;grid-template-columns:minmax(0,1fr)!important}
+  html body #tab-rx .rxInputRow>* {width:100%!important}
+  html body #tab-rx .rxItem {min-height:104px!important}
+ }
+ @media(forced-colors:active) {
+  html body #tab-rx :is(.rxUse,.rxItem,.rxChip,.rxActions>.btn,#rxGo) {
+   border:1px solid ButtonText!important;border-image:none!important;background:ButtonFace!important;
+   color:ButtonText!important;text-shadow:none!important;
+  }
+  html body #tab-rx :is(.rxItem .rxK,.rxItem small,.rxItem .rxApply) {color:ButtonText!important}
+ }
+}
