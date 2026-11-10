@@ -11,6 +11,8 @@ import argparse, concurrent.futures, hashlib, json, re, subprocess, time
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
+    ('ai-router-contract', 'tests/ai-router/contract.cjs'),
+    ('source-heading-contract', 'tests/source-heading/contract.cjs'),
     ('r1242-easy-controls-source', 'tests/r1242/easy-controls-source.cjs'),
     ('r1242-settings-auto-hide', 'tests/r1242/settings-auto-hide.cjs'),
     ('r1241-navigation-ui', 'tests/r1241/navigation-ui.cjs'),
@@ -97,6 +99,7 @@ INHERITED_SUITES = [
 # Keep new audio/graphics native evidence in the mandatory full release gate.
 # These suites run sequentially, apart from the parallel source contracts.
 NATIVE_BROWSER_SUITES = [
+    ('source-heading-native', 'tests/source-heading/browser.cjs'),
     ('frequency-help-native', 'tests/frequency-help/browser.cjs'),
     ('seyir-controls-native', 'tests/seyir-controls/browser.cjs'),
     ('tefekkur-help-native', 'tests/tefekkur-help/browser.cjs'),
@@ -174,6 +177,15 @@ def main():
         row = {'name': name, 'command': command, 'exitCode': code, 'seconds': round(time.monotonic() - started, 3),
                'stdout': stdout[-20000:], 'stderr': stderr[-12000:]}
         evidence_path = out / (name + '.json')
+        if name == 'source-heading-native' and code == 0:
+            try:
+                evidence = json.loads(evidence_path.read_text())
+                assert evidence['expectedChecks'] == evidence['total'] == evidence['passed'] == 16
+                assert evidence.get('browserExecuted') is True and evidence.get('allPassed') is True
+                assert len(evidence['results']) == 16 and not evidence.get('error')
+            except (OSError, ValueError, KeyError, AssertionError) as error:
+                row['exitCode'] = 'invalid-evidence'
+                row['evidenceError'] = str(error)
         if name == 'native-upgrade-offline' and code == 0:
             try:
                 evidence = json.loads(evidence_path.read_text())
@@ -238,7 +250,12 @@ def main():
         report['checks'] = list(pool.map(execute, ordinary))
     for item in commands:
         if item[0] in NATIVE_BROWSER_NAMES:
-            report['checks'].append(execute(item))
+            row = execute(item)
+            report['checks'].append(row)
+            # Do not spend the full native matrix on a candidate whose new
+            # narrow-screen heading gate already failed. Acceptance stays false.
+            if item[0] == 'source-heading-native' and row['exitCode'] != 0:
+                break
     report['passed'] = sum(row['exitCode'] == 0 for row in report['checks'])
     report['total'] = len(commands)
     report['sourceUnchanged'] = before == source_files()

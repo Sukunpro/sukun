@@ -1,0 +1,16 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'../..');const html=fs.readFileSync(path.join(root,'nero.html'),'utf8');
+assert.equal(fs.readFileSync(path.join(root,'index.html'),'utf8'),html,'Entry points match');
+const block=html.match(/<style id="r644-active-name-centering-style">([\s\S]*?)<\/style>/)[1];
+const target='#r1064ActiveSources>summary#r1064ActiveSourcesLabel';
+const rule=block.match(/#r1064ActiveSources>summary#r1064ActiveSourcesLabel\{([^}]*)\}/)[1];
+for(const declaration of ['display:grid','place-items:center','text-align:center','white-space:normal','overflow-wrap:anywhere','padding:14px 44px!important','min-height:48px'])assert(rule.includes(declaration),declaration);
+assert(block.includes(target+'::-webkit-details-marker{display:none}'));
+assert(block.includes('#r1064ActiveSources[open]>summary#r1064ActiveSourcesLabel::after'));
+assert(block.includes('border-image-width:12px 38px!important'));
+const runtime=fs.readFileSync(path.join(root,'assets/runtime/reading-ui-r1064.js'),'utf8');
+assert(runtime.includes('<details id="r1064ActiveSources"><summary id="r1064ActiveSourcesLabel"></summary>'),'Native disclosure remains');
+assert(runtime.includes("sources:['Kaynaklar ve eşleşme durumu','Sources and matching status']"),'Both labels remain');
+for(const id of ['r1064ActiveOriginal','r1064ActiveLatin','r1064ActiveMeaning'])assert(!block.includes('#'+id+'{text-align:center'),'Reading body untouched');
+console.log('PASS scoped source heading layout contract');
