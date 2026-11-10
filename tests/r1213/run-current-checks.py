@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
     ('ai-router-contract', 'tests/ai-router/contract.cjs'),
     ('source-heading-contract', 'tests/source-heading/contract.cjs'),
+    ('arrangement-fit-contract', 'tests/arrangement-fit/contract.cjs'),
     ('wheel-heading-contract', 'tests/wheel-select/contract.cjs'),
     ('r1242-easy-controls-source', 'tests/r1242/easy-controls-source.cjs'),
     ('r1242-settings-auto-hide', 'tests/r1242/settings-auto-hide.cjs'),
@@ -104,6 +105,7 @@ INHERITED_SUITES = [
 NATIVE_BROWSER_SUITES = [
     ('source-heading-native', 'tests/source-heading/browser.cjs'),
     ('tefekkur-glass-native', 'tests/tefekkur-glass/browser.cjs'),
+    ('arrangement-fit-native', 'tests/arrangement-fit/browser.cjs'),
     ('wheel-heading-native', 'tests/wheel-select/browser.cjs'),
     ('frequency-help-native', 'tests/frequency-help/browser.cjs'),
     ('seyir-controls-native', 'tests/seyir-controls/browser.cjs'),
@@ -150,7 +152,7 @@ def visual_required_sources(suite):
 
 def validate_visual_evidence(evidence, suite):
     assert isinstance(evidence, dict)
-    count = 2 if suite == 'wheel-select' else 4
+    count = 4 if suite == 'tefekkur-glass' else 2
     assert all(type(evidence[key]) is int and evidence[key] == count for key in ['expectedChecks', 'total', 'passed'])
     assert all(evidence.get(key) is True for key in ['allPassed', 'browserExecuted', 'sourceUnchanged', 'servedHashesValid'])
     assert not evidence.get('error') and not evidence.get('fatal')
@@ -159,12 +161,17 @@ def validate_visual_evidence(evidence, suite):
     assert set(evidence['sources']) == expected
     assert evidence['sources'] == {name: digest(ROOT / name) for name in expected}
     assert set(evidence['requiredSources']) == required and len(evidence['requiredSources']) == len(required)
-    browsers = [evidence['evidence']] if suite == 'wheel-select' else evidence['browserEvidence']
-    assert len(browsers) == (1 if suite == 'wheel-select' else 2)
+    browsers = evidence['browserEvidence'] if suite == 'tefekkur-glass' else [evidence['evidence']]
+    assert len(browsers) == (2 if suite == 'tefekkur-glass' else 1)
     for browser in browsers:
         assert browser['pageErrors'] == []
         assert not any(re.search(r'integrity|digest|\bSRI\b|Content Security Policy', error, re.I) for error in browser['consoleErrors'])
         assert all(browser['served'][name]['sha256'] == evidence['sources'][name] for name in required)
+    if suite == 'arrangement-fit':
+        matrices = evidence['reports']
+        assert len(matrices) == 2 and {r['mode'] for r in matrices} == {'berhet', 'esma'}
+        assert all(r.get('allPassed') is True and not r.get('error') and r['cases'] == len(r['results']) == 36 and r['nativeKeyboard'] is True and r['forcedColors'] is True and r['keyboardCycles'] == 3 and r['stateUnchanged'] is True and r['content']['explanations'] == 3 and r['content']['actions'] == 4 and r['content']['planCells'] == 6 and r['content']['steps'] == 5 and bool(r['content']['longZikir']) and all(c['ok'] is True and len(c['rows']) >= 40 and all(x['ok'] is True and not x['bad'] for x in c['rows']) for c in r['results']) for r in matrices)
+        return
     if suite == 'wheel-select':
         matrices = evidence['reports']
         assert all(r['keyboardCycles'] == 3 and r['forcedColors'] is True for r in matrices)
@@ -242,10 +249,10 @@ def main():
             except (OSError, ValueError, KeyError, AssertionError) as error:
                 row['exitCode'] = 'invalid-evidence'
                 row['evidenceError'] = str(error)
-        if name in {'wheel-heading-native', 'tefekkur-glass-native'} and code == 0:
+        if name in {'arrangement-fit-native', 'wheel-heading-native', 'tefekkur-glass-native'} and code == 0:
             try:
                 evidence = json.loads(evidence_path.read_text())
-                validate_visual_evidence(evidence, 'wheel-select' if name == 'wheel-heading-native' else 'tefekkur-glass')
+                validate_visual_evidence(evidence, {'arrangement-fit-native':'arrangement-fit','wheel-heading-native':'wheel-select','tefekkur-glass-native':'tefekkur-glass'}[name])
             except (OSError, ValueError, KeyError, AssertionError, TypeError, AttributeError) as error:
                 row['exitCode'] = 'invalid-evidence'
                 row['evidenceError'] = str(error)
@@ -317,7 +324,7 @@ def main():
             report['checks'].append(row)
             # New visual gates run first and fail closed before expensive audio
             # and upgrade suites. A stopped run can never claim full acceptance.
-            if item[0] in {'source-heading-native', 'tefekkur-glass-native', 'wheel-heading-native'} and row['exitCode'] != 0:
+            if item[0] in {'source-heading-native', 'arrangement-fit-native', 'tefekkur-glass-native', 'wheel-heading-native'} and row['exitCode'] != 0:
                 break
     report['passed'] = sum(row['exitCode'] == 0 for row in report['checks'])
     report['total'] = len(commands)

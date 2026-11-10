@@ -7,23 +7,26 @@ spec = importlib.util.spec_from_file_location('current_checks', Path(__file__).w
 runner = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(runner)
 checks = 0
-for suite in ['wheel-select', 'tefekkur-glass']:
+for suite in ['wheel-select', 'tefekkur-glass', 'arrangement-fit']:
     bound = json.loads(subprocess.check_output(['node', '-e', "const b=require('./tests/r1213/visual-evidence.cjs').binding(process.cwd(),process.argv[1]);console.log(JSON.stringify({sources:b.sources,requiredSources:b.required}))", suite], cwd=runner.ROOT, text=True))
-    count = 2 if suite == 'wheel-select' else 4
+    count = 4 if suite == 'tefekkur-glass' else 2
     matrix_count = 71 if suite == 'wheel-select' else 44
     browser = {'pageErrors': [], 'consoleErrors': [], 'served': {name: {'sha256': bound['sources'][name]} for name in bound['requiredSources']}}
     matrices = [{'mode': mode, 'allPassed': True, 'total': matrix_count, 'results': [{'passed': True} for _ in range(matrix_count)], 'keyboardCycles': 3, 'forcedColors': True} for mode in ['berhet', 'esma']]
     good = dict(bound, allPassed=True, browserExecuted=True, sourceUnchanged=True, servedHashesValid=True, expectedChecks=count, passed=count, total=count)
-    if suite == 'wheel-select':
+    if suite == 'arrangement-fit':
+        matrices = [{'mode': mode, 'allPassed': True, 'cases': 36, 'keyboardCycles': 3, 'stateUnchanged': True, 'content': {'explanations': 3, 'actions': 4, 'planCells': 6, 'steps': 5, 'longZikir': 'synthetic long name'}, 'nativeKeyboard': True, 'forcedColors': True, 'results': [{'ok': True, 'rows': [{'ok': True, 'bad': []} for _ in range(40)]} for _ in range(36)]} for mode in ['berhet', 'esma']]
+        good.update(reports=matrices, evidence=browser)
+    elif suite == 'wheel-select':
         good.update(reports=matrices, evidence=browser)
     else:
         good.update(results=[{'mode': r['mode'], 'report': r} for r in matrices] + [{'mode': mode, 'reducedMotion': True, 'forcedColors': True, 'keyboardFocus': True} for mode in ['berhet', 'esma']], browserEvidence=[browser, copy.deepcopy(browser)])
     runner.validate_visual_evidence(good, suite)
     checks += 1
     def browser_of(e):
-        return e['evidence'] if suite == 'wheel-select' else e['browserEvidence'][0]
+        return e['evidence'] if suite != 'tefekkur-glass' else e['browserEvidence'][0]
     def matrix_of(e):
-        return e['reports'][0] if suite == 'wheel-select' else e['results'][0]['report']
+        return e['reports'][0] if suite != 'tefekkur-glass' else e['results'][0]['report']
     mutations = [
         lambda e: e.pop('sources'),
         lambda e: e.update(allPassed=False),
@@ -40,10 +43,12 @@ for suite in ['wheel-select', 'tefekkur-glass']:
         lambda e: browser_of(e)['consoleErrors'].append('Content Security Policy violation'),
         lambda e: matrix_of(e).update(mode='unknown'),
         lambda e: matrix_of(e)['results'].pop(),
-        lambda e: matrix_of(e)['results'][0].update(passed=False),
+        lambda e: matrix_of(e)['results'][0].update(**({'ok': False} if suite == 'arrangement-fit' else {'passed': False})),
         lambda e: matrix_of(e).update(error='failed'),
     ]
-    if suite == 'wheel-select':
+    if suite == 'arrangement-fit':
+        mutations += [lambda e: matrix_of(e).update(keyboardCycles=0), lambda e: matrix_of(e).update(stateUnchanged=False), lambda e: matrix_of(e)['content'].update(explanations=0), lambda e: matrix_of(e)['content'].update(longZikir=''), lambda e: matrix_of(e).update(nativeKeyboard=False), lambda e: matrix_of(e).update(forcedColors=False), lambda e: matrix_of(e).update(cases=35), lambda e: matrix_of(e)['results'][0]['rows'].pop(), lambda e: matrix_of(e)['results'][0]['rows'][0].update(ok=False), lambda e: matrix_of(e)['results'][0]['rows'][0]['bad'].append({'overflow': True}), lambda e: e.update(reports=[])]
+    elif suite == 'wheel-select':
         mutations += [lambda e: e['reports'][0].update(keyboardCycles=0), lambda e: e['reports'][0].update(forcedColors=False), lambda e: e.update(reports=[])]
     else:
         mutations += [lambda e: e.update(browserEvidence=[]), lambda e: e['results'][2].update(keyboardFocus=False), lambda e: e['results'][2].update(mode='unknown')]
