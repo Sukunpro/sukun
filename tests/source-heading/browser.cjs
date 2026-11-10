@@ -16,7 +16,7 @@ const results=[];let f;
    assert.equal(result.display,'grid');assert.equal(result.textAlign,'center');assert.equal(result.paddingLeft,result.paddingRight,'Source label padding must remain symmetric');assert.equal(result.native,'DETAILS');assert(Math.abs(result.rect.x+result.rect.width/2-result.text.x-result.text.width/2)<1,'Text not centered '+JSON.stringify(result));assert(result.scroll<=result.client+1);assert(result.text.left>=result.rect.left+38&&result.text.right<=result.rect.right-38);assert(result.text.top>=result.rect.top+12&&result.text.bottom<=result.rect.bottom-12);
    for(let i=0;i<3;i++){await summary.press('Enter');assert.equal(await p.locator('#r1064ActiveSources').evaluate(el=>el.open),true);await summary.press('Space');assert.equal(await p.locator('#r1064ActiveSources').evaluate(el=>el.open),false)}
    results.push({mode,width,lang,...result});if(width===393&&lang==='tr')await p.locator('#r642ZikirInfoCard').screenshot({path:path.join(out,mode+'.png')});
-   await p.locator('#r642InfoClose').click();assert.equal(await p.locator('#r642ZikirInfoLayer').isVisible(),false);
+   await p.locator('#r642InfoClose').click();await p.locator('#r642ZikirInfoLayer').waitFor({state:'hidden',timeout:2000});assert.equal(await p.locator('#r642ZikirInfoLayer').isVisible(),false);
   }
  }
  assert.deepEqual(f.errors,[]);assert(!f.consoleErrors.some(x=>/integrity|digest|Content Security Policy/i.test(x)));
