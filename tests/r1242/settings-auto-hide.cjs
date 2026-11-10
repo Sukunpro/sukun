@@ -43,9 +43,9 @@ restart();tick(10000);tick(600000);document.activeElement=nodes.r1056ReadingSumm
 // Focus is never left on a disclosure that the timeout hides.
 restart();document.activeElement=toggle;tick(10000);hidden(true);assert.equal(document.activeElement,eye);
 // The accessible name and eye presentation are separate from easy-controls state.
-api.setControls(true);assert.equal(eye.attrs['aria-expanded'],'true');assert.equal(eye.attrs['data-r1242-eye'],'true');assert.match(eye.attrs['aria-label'],/Ayarları/);api.reveal();assert.equal(eye.attrs['data-r1242-eye'],'false');window.I18N.lang='en';api.labels();assert.equal(eye.attrs['aria-label'],'Hide easy controls');api.setControls(false);assert.equal(eye.attrs['aria-label'],'Show easy controls');assert.equal(eye.attrs['data-r1242-eye'],'true');
+api.setControls(true);assert.equal(eye.attrs['aria-expanded'],'true');assert.equal(eye.attrs['data-r1242-eye'],'true');assert.match(eye.attrs['aria-label'],/Kontrolleri göster/);assert.equal(eye.attrs['data-layer-action'],'show');assert.equal(nodes.r1242FocusControlsLabel.textContent,'Kontrolleri göster');api.reveal();assert.equal(eye.attrs['data-r1242-eye'],'false');assert.equal(eye.attrs['data-layer-action'],'hide');assert.equal(nodes.r1242FocusControlsLabel.textContent,'Kontrolleri gizle');window.I18N.lang='en';api.labels();assert.equal(eye.attrs['aria-label'],'Hide controls');api.setControls(false);assert.equal(eye.attrs['aria-label'],'Show controls');assert.equal(eye.attrs['data-r1242-eye'],'true');
 // Restore is the existing layout teardown and must leave no pending callbacks.
 restart();assert.equal(timers.size,1);api.restore();assert.equal(timers.size,0);assert.equal(host.dataset.r1242SettingsHidden,undefined);tick(1200000);assert.equal(snap().active,false);
 assert.equal(window.SukunBerhetLayout.version,'r1056');assert.equal(window.SukunBerhetLayout.revision,'r1242');
-assert.match(source,/id="r1242FocusControlsLabel"/);assert.match(source,/class="r1242ControlsEye" aria-hidden="true"/);
+assert.match(source,/id="r1242FocusControlsLabel"/);assert.match(source,/class="rControlsLayers" aria-hidden="true"/);
 console.log('PASS r1242 initial 10s hide, 10min/5s periodic visibility, selection/pause/end/exit reset, manual reveal/edit protection, accessible eye and teardown');

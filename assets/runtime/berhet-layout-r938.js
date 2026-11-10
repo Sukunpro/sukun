@@ -14,8 +14,10 @@ function hidden(node,value){if(node&&node.hidden!==value)node.hidden=value;}
 function move(node,parent){if(!node)return;const anchor=document.createComment('r938-original');node.before(anchor);anchors.push([node,anchor]);parent.append(node)}
 function labels(){
  write($('r1056SettingsCaption'),'Ayarlar ve görünüm','Settings and appearance');
- write($('r1242FocusControlsLabel'),focusControlsVisible?'Kolay kontrolleri gizle':'Kolay kontrolleri göster',focusControlsVisible?'Hide easy controls':'Show easy controls');
- attribute(focusToggle,'aria-label',settingsAutoHidden?(english()?'Show settings, reading information and controls':'Ayarları, okuma bilgilerini ve kontrolleri göster'):(english()?(focusControlsVisible?'Hide easy controls':'Show easy controls'):(focusControlsVisible?'Kolay kontrolleri gizle':'Kolay kontrolleri göster')));
+ const layerAction=focusControlsVisible&&!settingsAutoHidden?'hide':'show';
+ write($('r1242FocusControlsLabel'),layerAction==='hide'?'Kontrolleri gizle':'Kontrolleri göster',layerAction==='hide'?'Hide controls':'Show controls');
+ attribute(focusToggle,'data-layer-action',layerAction);
+ attribute(focusToggle,'aria-label',settingsAutoHidden?(english()?'Show controls, settings and reading information':'Kontrolleri göster, ayarları ve okuma bilgilerini de aç'):(english()?(focusControlsVisible?'Hide controls':'Show controls'):(focusControlsVisible?'Kontrolleri gizle':'Kontrolleri göster')));
  attribute(focusToggle,'data-r1242-eye',!focusControlsVisible||settingsAutoHidden);
  attribute(focusToggle,'aria-expanded',focusControlsVisible);
  attribute(panel,'aria-label',english()?'Dhikr controls':'Zikir kontrolleri');
@@ -179,7 +181,7 @@ function build(root){
  if(transport){hiddenStates.set(transport,transport.hidden);move(transport,quick);transport.id='r1056PrimaryControls';quick.insertBefore(transport,quick.children[0]||null)}
  finishRow=document.createElement('div');finishRow.id='r1056FinishRow';quick.append(finishRow);move($('r932EasyStop'),finishRow);
  const hint=$('r968ManualHint');if(hint)hiddenStates.set(hint,hint.hidden);move(hint,quick);
- focusToggle=document.createElement('button');focusToggle.id='r1056FocusControlsToggle';focusToggle.type='button';focusToggle.setAttribute('aria-controls','r1056PrimaryControls r1056FinishRow r968ManualHint r920Target r920Remaining');focusToggle.innerHTML='<span id="r1242FocusControlsLabel"></span><svg class="r1242ControlsEye" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>';quick.append(focusToggle,toggle,body);
+ focusToggle=document.createElement('button');focusToggle.id='r1056FocusControlsToggle';focusToggle.type='button';focusToggle.setAttribute('aria-controls','r1056PrimaryControls r1056FinishRow r968ManualHint r920Target r920Remaining');focusToggle.innerHTML='<svg class="rControlsLayers" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m3 8 9-5 9 5-9 5-9-5Zm0 8 9 5 9-5-4-2.2M7 13.8 3 16"/><path class="rControlsLayersSlash" d="M3 21 21 3"/></svg><span id="r1242FocusControlsLabel"></span>';quick.append(focusToggle,toggle,body);
  // Easy controls own the wrapper; the session renderer keeps the button's eligibility.
  const restartAll=$('r920JourneyRestartAll');if(restartAll){move(restartAll,finishRow);finishRow.prepend(restartAll)}
  for(const node of [shortcuts,picker])move(node,body);
@@ -202,11 +204,13 @@ function placeExit(root,tef){
  if(row){
   const remaining=stats.querySelector('#r920Remaining')?.parentElement;
   if(!remaining)return;
-  if(exit.parentElement!==stats||exit!==stats.children[stats.children.length-1])stats.append(exit);
+  // The original toggle remains outside the groups it hides, directly after exit.
+  if(exit.parentElement!==stats||exit.nextElementSibling!==focusToggle)stats.append(exit,focusToggle);
   if(stats.dataset.r989ExitRow!=='1')stats.dataset.r989ExitRow='1';
  }else{
   if(stats.dataset.r989ExitRow!==undefined)delete stats.dataset.r989ExitRow;
   if(exit.parentElement!==hero)hero.append(exit);
+  if(focusToggle?.parentElement!==quick)quick.insertBefore(focusToggle,toggle);
  }
 }
 function sync(root,tef){

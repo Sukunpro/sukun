@@ -10,7 +10,7 @@ checks = 0
 for suite in ['wheel-select', 'tefekkur-glass', 'arrangement-fit']:
     bound = json.loads(subprocess.check_output(['node', '-e', "const b=require('./tests/r1213/visual-evidence.cjs').binding(process.cwd(),process.argv[1]);console.log(JSON.stringify({sources:b.sources,requiredSources:b.required}))", suite], cwd=runner.ROOT, text=True))
     count = 4 if suite == 'tefekkur-glass' else 2
-    matrix_count = 71 if suite == 'wheel-select' else 44
+    matrix_count = 71 if suite == 'wheel-select' else 68
     browser = {'pageErrors': [], 'consoleErrors': [], 'served': {name: {'sha256': bound['sources'][name]} for name in bound['requiredSources']}}
     matrices = [{'mode': mode, 'allPassed': True, 'total': matrix_count, 'results': [{'passed': True} for _ in range(matrix_count)], 'keyboardCycles': 3, 'forcedColors': True} for mode in ['berhet', 'esma']]
     good = dict(bound, allPassed=True, browserExecuted=True, sourceUnchanged=True, servedHashesValid=True, expectedChecks=count, passed=count, total=count)

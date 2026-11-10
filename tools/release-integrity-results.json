@@ -1,14 +1,14 @@
 {
-  "build": "r1237",
+  "build": "r1246",
   "method": "Complete local release bytes: identity, exact SHA-256 and sizes, HTML SRI, shipped JavaScript syntax, and scoped active external CSS resource validation. Unresolved CSS variables remain explicit; these are static assertions, not device/audio checks.",
-  "passed": 1914,
-  "total": 1914,
-  "inlineScriptsParsed": 350,
-  "externalScriptsParsed": 85,
+  "passed": 1916,
+  "total": 1916,
+  "inlineScriptsParsed": 355,
+  "externalScriptsParsed": 83,
   "runtimeEntries": 190,
-  "siteFiles": 887,
-  "siteBytes": 454526904,
-  "sriEntries": 174,
+  "siteFiles": 884,
+  "siteBytes": 453884497,
+  "sriEntries": 176,
   "cssAssets": {
     "schema": 1,
     "scope": "Active external CSS and recursive local imports; no inline/generated CSS, computed cascade, remote retrieval or rendering.",
@@ -17,9 +17,17 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/visual-polish-r1232.css",
-        "line": 184,
+        "line": 209,
         "property": "background",
         "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/visual-polish-r1232.css",
+        "line": 304,
+        "property": "border-image",
+        "variable": "--r1133-gem",
         "chain": []
       },
       {
@@ -265,7 +273,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/berhet-hero-r1149.css",
-        "line": 857,
+        "line": 861,
         "property": "background-image",
         "variable": "--r1175-top-alpha",
         "chain": []
@@ -273,7 +281,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/berhet-hero-r1149.css",
-        "line": 860,
+        "line": 864,
         "property": "background-image",
         "variable": "--r1175-top-alpha",
         "chain": []
@@ -281,7 +289,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/berhet-hero-r1149.css",
-        "line": 863,
+        "line": 867,
         "property": "background",
         "variable": "--r1175-lower-alpha",
         "chain": []
@@ -289,7 +297,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/berhet-hero-r1149.css",
-        "line": 866,
+        "line": 870,
         "property": "background",
         "variable": "--yuzeyK",
         "chain": []
@@ -297,7 +305,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/berhet-hero-r1149.css",
-        "line": 866,
+        "line": 870,
         "property": "background",
         "variable": "--r1175-lower-alpha",
         "chain": []
@@ -305,7 +313,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/berhet-hero-r1149.css",
-        "line": 871,
+        "line": 875,
         "property": "background",
         "variable": "--yuzeyK",
         "chain": []
@@ -313,7 +321,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/berhet-hero-r1149.css",
-        "line": 871,
+        "line": 875,
         "property": "background",
         "variable": "--r1175-lower-alpha",
         "chain": []
@@ -761,7 +769,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "assets/runtime/berhet-layout-r938.css",
-        "line": 294,
+        "line": 292,
         "property": "border-image",
         "variable": "--r933-summary-art",
         "chain": []
@@ -769,7 +777,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "assets/runtime/berhet-layout-r938.css",
-        "line": 295,
+        "line": 293,
         "property": "background",
         "variable": "--r933-summary-face",
         "chain": []
@@ -777,7 +785,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "assets/runtime/berhet-layout-r938.css",
-        "line": 367,
+        "line": 365,
         "property": "background",
         "variable": "--r933-control-art",
         "chain": []
@@ -785,7 +793,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "assets/runtime/berhet-layout-r938.css",
-        "line": 367,
+        "line": 365,
         "property": "background",
         "variable": "--r933-control-dark",
         "chain": []
@@ -1105,7 +1113,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 376,
+        "line": 363,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -1113,7 +1121,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 376,
+        "line": 363,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1121,7 +1129,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 379,
+        "line": 366,
         "property": "background",
         "variable": "--emerald",
         "chain": []
@@ -1129,7 +1137,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 382,
+        "line": 369,
         "property": "background",
         "variable": "--emerald",
         "chain": []
@@ -1137,7 +1145,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 382,
+        "line": 369,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -1145,7 +1153,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 384,
+        "line": 371,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1153,7 +1161,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 408,
+        "line": 395,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1161,7 +1169,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 438,
+        "line": 425,
         "property": "background",
         "variable": "--sayfaK",
         "chain": []
@@ -1169,7 +1177,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 443,
+        "line": 430,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1177,7 +1185,15 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 452,
+        "line": 439,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 445,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1191,9 +1207,25 @@
         "chain": []
       },
       {
+        "code": "UNKNOWN_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 480,
+        "property": "background",
+        "variable": "--bc",
+        "chain": []
+      },
+      {
+        "code": "UNKNOWN_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 490,
+        "property": "background",
+        "variable": "--bc",
+        "chain": []
+      },
+      {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 471,
+        "line": 513,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1201,15 +1233,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 493,
-        "property": "background",
-        "variable": "--bc",
-        "chain": []
-      },
-      {
-        "code": "UNKNOWN_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 503,
+        "line": 523,
         "property": "background",
         "variable": "--bc",
         "chain": []
@@ -1217,23 +1241,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 526,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "UNKNOWN_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 536,
-        "property": "background",
-        "variable": "--bc",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 552,
+        "line": 539,
         "property": "background",
         "variable": "--ok",
         "chain": []
@@ -1241,7 +1249,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 562,
+        "line": 549,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1249,7 +1257,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 574,
+        "line": 561,
         "property": "background",
         "variable": "--girdiK",
         "chain": []
@@ -1257,7 +1265,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 577,
+        "line": 564,
         "property": "background",
         "variable": "--uyari",
         "chain": []
@@ -1265,7 +1273,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 594,
+        "line": 581,
         "property": "background",
         "variable": "--danger",
         "chain": []
@@ -1273,7 +1281,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 607,
+        "line": 594,
         "property": "background",
         "variable": "--ic",
         "chain": []
@@ -1281,6 +1289,22 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
+        "line": 601,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 601,
+        "property": "background",
+        "variable": "--goldh",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
         "line": 614,
         "property": "background",
         "variable": "--gold",
@@ -1297,23 +1321,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 627,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 627,
-        "property": "background",
-        "variable": "--goldh",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 651,
+        "line": 638,
         "property": "background",
         "variable": "--bilgi",
         "chain": []
@@ -1321,7 +1329,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 654,
+        "line": 641,
         "property": "background",
         "variable": "--ok",
         "chain": []
@@ -1329,7 +1337,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 657,
+        "line": 644,
         "property": "background",
         "variable": "--ok",
         "chain": []
@@ -1337,7 +1345,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 674,
+        "line": 661,
         "property": "background",
         "variable": "--uyari",
         "chain": []
@@ -1345,7 +1353,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 679,
+        "line": 666,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1353,7 +1361,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 684,
+        "line": 671,
         "property": "background",
         "variable": "--ok",
         "chain": []
@@ -1361,7 +1369,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 685,
+        "line": 672,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1369,7 +1377,23 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 689,
+        "line": 676,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 711,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 720,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1379,21 +1403,13 @@
         "source": "css/legacy-r1215-base-style.css",
         "line": 724,
         "property": "background",
-        "variable": "--gold",
+        "variable": "--sayfaK",
         "chain": []
       },
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 733,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 737,
+        "line": 760,
         "property": "background",
         "variable": "--sayfaK",
         "chain": []
@@ -1401,7 +1417,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 773,
+        "line": 776,
         "property": "background",
         "variable": "--sayfaK",
         "chain": []
@@ -1409,15 +1425,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 789,
-        "property": "background",
-        "variable": "--sayfaK",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 832,
+        "line": 819,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1425,7 +1433,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 832,
+        "line": 819,
         "property": "background",
         "variable": "--bg",
         "chain": []
@@ -1433,7 +1441,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 861,
+        "line": 848,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1441,7 +1449,31 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 864,
+        "line": 851,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 868,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 868,
+        "property": "background",
+        "variable": "--bg",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 874,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1450,30 +1482,6 @@
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
         "line": 881,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 881,
-        "property": "background",
-        "variable": "--bg",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 887,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 894,
         "property": "background",
         "variable": "--sayfaK",
         "chain": []
@@ -1481,7 +1489,7 @@
       {
         "code": "REGISTERED_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 903,
+        "line": 890,
         "property": "background",
         "variable": "--isikAci",
         "chain": []
@@ -1489,6 +1497,22 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
+        "line": 890,
+        "property": "background",
+        "variable": "--goldh",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 890,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
         "line": 903,
         "property": "background",
         "variable": "--goldh",
@@ -1505,15 +1529,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 916,
-        "property": "background",
-        "variable": "--goldh",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 916,
+        "line": 911,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1521,7 +1537,15 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 924,
+        "line": 934,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 940,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1537,7 +1561,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 953,
+        "line": 950,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1545,17 +1569,25 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 960,
+        "line": 952,
         "property": "background",
-        "variable": "--gold",
+        "variable": "--girdiK",
         "chain": []
       },
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 963,
+        "line": 955,
         "property": "background",
-        "variable": "--gold",
+        "variable": "--vurguK",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 955,
+        "property": "background",
+        "variable": "--girdiK",
         "chain": []
       },
       {
@@ -1563,13 +1595,21 @@
         "source": "css/legacy-r1215-base-style.css",
         "line": 965,
         "property": "background",
-        "variable": "--girdiK",
+        "variable": "--gold",
         "chain": []
       },
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 968,
+        "line": 969,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 989,
         "property": "background",
         "variable": "--vurguK",
         "chain": []
@@ -1577,7 +1617,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 968,
+        "line": 995,
         "property": "background",
         "variable": "--girdiK",
         "chain": []
@@ -1585,7 +1625,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 978,
+        "line": 1022,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1593,15 +1633,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 982,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1002,
+        "line": 1026,
         "property": "background",
         "variable": "--vurguK",
         "chain": []
@@ -1609,15 +1641,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1008,
-        "property": "background",
-        "variable": "--girdiK",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1035,
+        "line": 1079,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1625,23 +1649,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1039,
-        "property": "background",
-        "variable": "--vurguK",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1092,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1092,
+        "line": 1079,
         "property": "background",
         "variable": "--sayfa2K",
         "chain": []
@@ -1649,7 +1657,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1133,
+        "line": 1120,
         "property": "background",
         "variable": "--uyari",
         "chain": []
@@ -1657,7 +1665,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1138,
+        "line": 1125,
         "property": "background",
         "variable": "--girdiK",
         "chain": []
@@ -1665,7 +1673,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1164,
+        "line": 1151,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1673,7 +1681,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1188,
+        "line": 1175,
         "property": "background",
         "variable": "--panel",
         "chain": []
@@ -1681,7 +1689,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1196,
+        "line": 1183,
         "property": "filter",
         "variable": "--gold",
         "chain": []
@@ -1689,7 +1697,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1208,
+        "line": 1195,
         "property": "filter",
         "variable": "--danger",
         "chain": []
@@ -1697,7 +1705,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1210,
+        "line": 1197,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1705,7 +1713,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1216,
+        "line": 1203,
         "property": "background",
         "variable": "--sayfaK",
         "chain": []
@@ -1713,7 +1721,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1216,
+        "line": 1203,
         "property": "background",
         "variable": "--yuzeyK",
         "chain": []
@@ -1721,7 +1729,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1253,
+        "line": 1240,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -1729,7 +1737,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1257,
+        "line": 1244,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -1737,7 +1745,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1261,
+        "line": 1248,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -1745,7 +1753,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1261,
+        "line": 1248,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1753,7 +1761,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1277,
+        "line": 1264,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1761,7 +1769,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1277,
+        "line": 1264,
         "property": "background",
         "variable": "--bg",
         "chain": []
@@ -1769,7 +1777,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1292,
+        "line": 1279,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1777,9 +1785,33 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1304,
+        "line": 1291,
         "property": "background",
         "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 1298,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 1308,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 1311,
+        "property": "background",
+        "variable": "--goldh",
         "chain": []
       },
       {
@@ -1793,7 +1825,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1321,
+        "line": 1320,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1801,7 +1833,15 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1324,
+        "line": 1327,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 1327,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -1809,7 +1849,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1324,
+        "line": 1342,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1817,39 +1857,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1333,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1340,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1340,
-        "property": "background",
-        "variable": "--goldh",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1355,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1366,
+        "line": 1353,
         "property": "background",
         "variable": "--uyaribg",
         "chain": []
@@ -1857,7 +1865,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1369,
+        "line": 1356,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1865,7 +1873,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1373,
+        "line": 1360,
         "property": "background",
         "variable": "--ok",
         "chain": []
@@ -1873,7 +1881,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1391,
+        "line": 1378,
         "property": "background",
         "variable": "--sayfaK",
         "chain": []
@@ -1881,7 +1889,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1391,
+        "line": 1378,
         "property": "background",
         "variable": "--sayfa2K",
         "chain": []
@@ -1889,7 +1897,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1407,
+        "line": 1394,
         "property": "background",
         "variable": "--yuzeyK",
         "chain": []
@@ -1897,7 +1905,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1411,
+        "line": 1398,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1905,7 +1913,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1412,
+        "line": 1399,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1913,7 +1921,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1416,
+        "line": 1403,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1921,7 +1929,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1416,
+        "line": 1403,
         "property": "background",
         "variable": "--val",
         "chain": []
@@ -1929,7 +1937,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1417,
+        "line": 1404,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -1937,7 +1945,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1417,
+        "line": 1404,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1945,7 +1953,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1419,
+        "line": 1406,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1953,7 +1961,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1420,
+        "line": 1407,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -1961,7 +1969,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1420,
+        "line": 1407,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1969,7 +1977,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1485,
+        "line": 1472,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1977,7 +1985,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1496,
+        "line": 1483,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -1985,7 +1993,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1499,
+        "line": 1486,
         "property": "background",
         "variable": "--line",
         "chain": []
@@ -1993,7 +2001,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1522,
+        "line": 1509,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2001,7 +2009,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1546,
+        "line": 1533,
         "property": "background",
         "variable": "--panel",
         "chain": []
@@ -2009,7 +2017,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1560,
+        "line": 1547,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2017,7 +2025,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1577,
+        "line": 1564,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2025,7 +2033,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1586,
+        "line": 1573,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2033,7 +2041,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1591,
+        "line": 1578,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2041,7 +2049,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1596,
+        "line": 1583,
         "property": "background",
         "variable": "--panel",
         "chain": []
@@ -2049,7 +2057,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1605,
+        "line": 1592,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2057,7 +2065,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1613,
+        "line": 1600,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2065,7 +2073,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1623,
+        "line": 1610,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2073,7 +2081,15 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1627,
+        "line": 1614,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 1620,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2089,7 +2105,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1646,
+        "line": 1658,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2097,7 +2113,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1671,
+        "line": 1666,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2105,7 +2121,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1679,
+        "line": 1683,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2113,17 +2129,17 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1696,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1699,
+        "line": 1686,
         "property": "background",
         "variable": "--girdiK",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 1691,
+        "property": "background",
+        "variable": "--gold",
         "chain": []
       },
       {
@@ -2137,15 +2153,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1717,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1725,
+        "line": 1712,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -2153,7 +2161,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1725,
+        "line": 1712,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2161,7 +2169,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1729,
+        "line": 1716,
         "property": "background",
         "variable": "--girdiK",
         "chain": []
@@ -2169,7 +2177,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1733,
+        "line": 1720,
         "property": "background",
         "variable": "--sayfaK",
         "chain": []
@@ -2177,7 +2185,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1737,
+        "line": 1724,
         "property": "background",
         "variable": "--sayfaK",
         "chain": []
@@ -2185,7 +2193,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1737,
+        "line": 1724,
         "property": "background",
         "variable": "--sayfa2K",
         "chain": []
@@ -2193,7 +2201,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1748,
+        "line": 1735,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -2201,7 +2209,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1748,
+        "line": 1735,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2209,7 +2217,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1750,
+        "line": 1737,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2217,7 +2225,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1760,
+        "line": 1747,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2225,7 +2233,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1767,
+        "line": 1754,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2233,7 +2241,23 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1767,
+        "line": 1754,
+        "property": "background",
+        "variable": "--goldh",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 1757,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 1758,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -2257,23 +2281,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1783,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1784,
-        "property": "background",
-        "variable": "--goldh",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1807,
+        "line": 1794,
         "property": "background",
         "variable": "--girdiK",
         "chain": []
@@ -2281,7 +2289,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1831,
+        "line": 1818,
         "property": "background",
         "variable": "--girdiK",
         "chain": []
@@ -2289,7 +2297,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1842,
+        "line": 1829,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2297,7 +2305,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1849,
+        "line": 1836,
         "property": "background",
         "variable": "--sayfaK",
         "chain": []
@@ -2305,7 +2313,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1849,
+        "line": 1836,
         "property": "background",
         "variable": "--sayfa2K",
         "chain": []
@@ -2313,7 +2321,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1854,
+        "line": 1841,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2321,7 +2329,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1865,
+        "line": 1852,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -2329,9 +2337,41 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1866,
+        "line": 1853,
         "property": "background",
         "variable": "--goldh",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 1861,
+        "property": "background",
+        "variable": "--goldh",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 1863,
+        "property": "background",
+        "variable": "--goldh",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 1868,
+        "property": "background",
+        "variable": "--goldh",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 1873,
+        "property": "background",
+        "variable": "--ivory",
         "chain": []
       },
       {
@@ -2343,41 +2383,33 @@
         "chain": []
       },
       {
-        "code": "AMBIGUOUS_VARIABLE",
+        "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1876,
+        "line": 1899,
         "property": "background",
-        "variable": "--goldh",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1881,
-        "property": "background",
-        "variable": "--goldh",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1886,
-        "property": "background",
-        "variable": "--ivory",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1887,
-        "property": "background",
-        "variable": "--goldh",
+        "variable": "--kc",
         "chain": []
       },
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1912,
+        "line": 1910,
+        "property": "background",
+        "variable": "--kc",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 1913,
+        "property": "background",
+        "variable": "--recbg",
+        "chain": []
+      },
+      {
+        "code": "UNKNOWN_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 1914,
         "property": "background",
         "variable": "--kc",
         "chain": []
@@ -2395,37 +2427,13 @@
         "source": "css/legacy-r1215-base-style.css",
         "line": 1926,
         "property": "background",
-        "variable": "--recbg",
-        "chain": []
-      },
-      {
-        "code": "UNKNOWN_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1927,
-        "property": "background",
-        "variable": "--kc",
-        "chain": []
-      },
-      {
-        "code": "UNKNOWN_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1936,
-        "property": "background",
-        "variable": "--kc",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 1939,
-        "property": "background",
         "variable": "--rec",
         "chain": []
       },
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1947,
+        "line": 1934,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2433,7 +2441,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1953,
+        "line": 1940,
         "property": "background",
         "variable": "--rec",
         "chain": []
@@ -2441,7 +2449,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1955,
+        "line": 1942,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2449,7 +2457,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1959,
+        "line": 1946,
         "property": "background",
         "variable": "--kc",
         "chain": []
@@ -2457,7 +2465,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1962,
+        "line": 1949,
         "property": "background",
         "variable": "--sayfaK",
         "chain": []
@@ -2465,7 +2473,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1962,
+        "line": 1949,
         "property": "background",
         "variable": "--sayfa2K",
         "chain": []
@@ -2473,7 +2481,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1979,
+        "line": 1966,
         "property": "background",
         "variable": "--kc",
         "chain": []
@@ -2481,7 +2489,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1983,
+        "line": 1970,
         "property": "background",
         "variable": "--kc",
         "chain": []
@@ -2489,7 +2497,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1986,
+        "line": 1973,
         "property": "background",
         "variable": "--kc",
         "chain": []
@@ -2497,7 +2505,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1994,
+        "line": 1981,
         "property": "background",
         "variable": "--kc",
         "chain": []
@@ -2505,7 +2513,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 1998,
+        "line": 1985,
         "property": "background",
         "variable": "--kc",
         "chain": []
@@ -2513,7 +2521,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2000,
+        "line": 1987,
         "property": "background",
         "variable": "--kc",
         "chain": []
@@ -2521,7 +2529,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2004,
+        "line": 1991,
         "property": "background",
         "variable": "--kc",
         "chain": []
@@ -2529,7 +2537,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2007,
+        "line": 1994,
         "property": "background",
         "variable": "--rec",
         "chain": []
@@ -2537,7 +2545,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2011,
+        "line": 1998,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2545,7 +2553,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2014,
+        "line": 2001,
         "property": "background",
         "variable": "--kc",
         "chain": []
@@ -2553,7 +2561,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2021,
+        "line": 2008,
         "property": "background",
         "variable": "--panel",
         "chain": []
@@ -2561,7 +2569,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2034,
+        "line": 2021,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2569,7 +2577,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2035,
+        "line": 2022,
         "property": "background",
         "variable": "--recbg",
         "chain": []
@@ -2577,9 +2585,33 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2036,
+        "line": 2023,
         "property": "background",
         "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2025,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2026,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2034,
+        "property": "background",
+        "variable": "--rec",
         "chain": []
       },
       {
@@ -2587,21 +2619,21 @@
         "source": "css/legacy-r1215-base-style.css",
         "line": 2038,
         "property": "background",
-        "variable": "--gold",
+        "variable": "--goldh",
         "chain": []
       },
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2039,
+        "line": 2041,
         "property": "background",
-        "variable": "--gold",
+        "variable": "--recbg",
         "chain": []
       },
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2047,
+        "line": 2045,
         "property": "background",
         "variable": "--rec",
         "chain": []
@@ -2611,37 +2643,13 @@
         "source": "css/legacy-r1215-base-style.css",
         "line": 2051,
         "property": "background",
-        "variable": "--goldh",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2054,
-        "property": "background",
-        "variable": "--recbg",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2058,
-        "property": "background",
-        "variable": "--rec",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2064,
-        "property": "background",
         "variable": "--sayfaK",
         "chain": []
       },
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2068,
+        "line": 2055,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -2649,7 +2657,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2080,
+        "line": 2067,
         "property": "background",
         "variable": "--girdiK",
         "chain": []
@@ -2657,7 +2665,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2084,
+        "line": 2071,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2665,7 +2673,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2085,
+        "line": 2072,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2673,7 +2681,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2089,
+        "line": 2076,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2681,7 +2689,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2091,
+        "line": 2078,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2689,7 +2697,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2094,
+        "line": 2081,
         "property": "background",
         "variable": "--vurguK",
         "chain": []
@@ -2697,9 +2705,33 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2094,
+        "line": 2081,
         "property": "background",
         "variable": "--yuzeyK",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2097,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2107,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2107,
+        "property": "background",
+        "variable": "--goldh",
         "chain": []
       },
       {
@@ -2713,15 +2745,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2120,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2120,
+        "line": 2111,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -2729,7 +2753,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2123,
+        "line": 2116,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2737,15 +2761,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2124,
-        "property": "background",
-        "variable": "--goldh",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2129,
+        "line": 2122,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2753,15 +2769,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2135,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2144,
+        "line": 2131,
         "property": "background",
         "variable": "--panel",
         "chain": []
@@ -2769,7 +2777,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2156,
+        "line": 2143,
         "property": "background",
         "variable": "--line2",
         "chain": []
@@ -2777,6 +2785,38 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
+        "line": 2143,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2151,
+        "property": "background",
+        "variable": "--goldh",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2151,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2151,
+        "property": "background",
+        "variable": "--val",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
         "line": 2156,
         "property": "background",
         "variable": "--gold",
@@ -2785,25 +2825,9 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2164,
+        "line": 2169,
         "property": "background",
         "variable": "--goldh",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2164,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2164,
-        "property": "background",
-        "variable": "--val",
         "chain": []
       },
       {
@@ -2817,15 +2841,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2182,
-        "property": "background",
-        "variable": "--goldh",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2182,
+        "line": 2171,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2833,7 +2849,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2184,
+        "line": 2194,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2841,15 +2857,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2207,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2222,
+        "line": 2209,
         "property": "background",
         "variable": "--bg",
         "chain": []
@@ -2857,7 +2865,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2264,
+        "line": 2251,
         "property": "background",
         "variable": "--bg",
         "chain": []
@@ -2865,7 +2873,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2269,
+        "line": 2256,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2873,7 +2881,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2274,
+        "line": 2261,
         "property": "background",
         "variable": "--panel",
         "chain": []
@@ -2881,7 +2889,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2296,
+        "line": 2283,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2889,7 +2897,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2296,
+        "line": 2283,
         "property": "background",
         "variable": "--panel",
         "chain": []
@@ -2897,7 +2905,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2308,
+        "line": 2295,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2905,7 +2913,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2313,
+        "line": 2300,
         "property": "background",
         "variable": "--yuzeyK",
         "chain": []
@@ -2913,7 +2921,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2313,
+        "line": 2300,
         "property": "background",
         "variable": "--glassA",
         "chain": []
@@ -2921,7 +2929,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2323,
+        "line": 2310,
         "property": "background",
         "variable": "--line2",
         "chain": []
@@ -2929,7 +2937,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2323,
+        "line": 2310,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2937,7 +2945,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2327,
+        "line": 2314,
         "property": "background",
         "variable": "--yuzeyK",
         "chain": []
@@ -2945,7 +2953,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2327,
+        "line": 2314,
         "property": "background",
         "variable": "--glassA",
         "chain": []
@@ -2953,7 +2961,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2332,
+        "line": 2319,
         "property": "filter",
         "variable": "--gold",
         "chain": []
@@ -2961,7 +2969,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2350,
+        "line": 2337,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2969,7 +2977,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2353,
+        "line": 2340,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -2977,7 +2985,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2386,
+        "line": 2373,
         "property": "filter",
         "variable": "--gold",
         "chain": []
@@ -2985,7 +2993,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2386,
+        "line": 2373,
         "property": "filter",
         "variable": "--goldh",
         "chain": []
@@ -2993,7 +3001,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2390,
+        "line": 2377,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -3001,7 +3009,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2390,
+        "line": 2377,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3009,7 +3017,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2417,
+        "line": 2404,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -3017,7 +3025,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2432,
+        "line": 2419,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3025,7 +3033,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2444,
+        "line": 2431,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -3033,7 +3041,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2444,
+        "line": 2431,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3041,7 +3049,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2484,
+        "line": 2471,
         "property": "background",
         "variable": "--vurguK",
         "chain": []
@@ -3049,7 +3057,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2484,
+        "line": 2471,
         "property": "background",
         "variable": "--yuzeyK",
         "chain": []
@@ -3057,7 +3065,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2493,
+        "line": 2480,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3065,7 +3073,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2502,
+        "line": 2489,
         "property": "background",
         "variable": "--vurguK",
         "chain": []
@@ -3073,9 +3081,17 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2502,
+        "line": 2489,
         "property": "background",
         "variable": "--yuzeyK",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2495,
+        "property": "background",
+        "variable": "--goldh",
         "chain": []
       },
       {
@@ -3087,11 +3103,11 @@
         "chain": []
       },
       {
-        "code": "AMBIGUOUS_VARIABLE",
+        "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2521,
+        "line": 2517,
         "property": "background",
-        "variable": "--goldh",
+        "variable": "--mc",
         "chain": []
       },
       {
@@ -3099,21 +3115,13 @@
         "source": "css/legacy-r1215-base-style.css",
         "line": 2530,
         "property": "background",
-        "variable": "--mc",
-        "chain": []
-      },
-      {
-        "code": "UNKNOWN_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2543,
-        "property": "background",
         "variable": "--sc",
         "chain": []
       },
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2550,
+        "line": 2537,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3121,7 +3129,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2552,
+        "line": 2539,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3129,7 +3137,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2567,
+        "line": 2554,
         "property": "background",
         "variable": "--sc",
         "chain": []
@@ -3137,7 +3145,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2586,
+        "line": 2573,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3145,7 +3153,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2590,
+        "line": 2577,
         "property": "background",
         "variable": "--sc",
         "chain": []
@@ -3153,7 +3161,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2592,
+        "line": 2579,
         "property": "background",
         "variable": "--sc",
         "chain": []
@@ -3161,7 +3169,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2601,
+        "line": 2588,
         "property": "filter",
         "variable": "--mc",
         "chain": []
@@ -3169,7 +3177,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2609,
+        "line": 2596,
         "property": "background",
         "variable": "--girdiK",
         "chain": []
@@ -3177,7 +3185,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2611,
+        "line": 2598,
         "property": "background",
         "variable": "--vurguK",
         "chain": []
@@ -3185,7 +3193,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2611,
+        "line": 2598,
         "property": "background",
         "variable": "--yuzeyK",
         "chain": []
@@ -3193,7 +3201,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2613,
+        "line": 2600,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3201,7 +3209,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2613,
+        "line": 2600,
         "property": "background",
         "variable": "--mc",
         "chain": []
@@ -3209,7 +3217,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2619,
+        "line": 2606,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3217,7 +3225,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2628,
+        "line": 2615,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3225,7 +3233,7 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2628,
+        "line": 2615,
         "property": "background",
         "variable": "--mc",
         "chain": []
@@ -3233,9 +3241,25 @@
       {
         "code": "UNKNOWN_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2630,
+        "line": 2617,
         "property": "background",
         "variable": "--mc",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2621,
+        "property": "background",
+        "variable": "--goldh",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2627,
+        "property": "background",
+        "variable": "--goldh",
         "chain": []
       },
       {
@@ -3249,23 +3273,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2640,
-        "property": "background",
-        "variable": "--goldh",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2647,
-        "property": "background",
-        "variable": "--goldh",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2647,
+        "line": 2634,
         "property": "background",
         "variable": "--yuzeyK",
         "chain": []
@@ -3273,7 +3281,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2656,
+        "line": 2643,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3281,7 +3289,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2659,
+        "line": 2646,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3289,7 +3297,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2662,
+        "line": 2649,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3297,7 +3305,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2666,
+        "line": 2653,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3305,7 +3313,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2674,
+        "line": 2661,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3313,7 +3321,47 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2674,
+        "line": 2661,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2701,
+        "property": "background",
+        "variable": "--sayfaK",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2701,
+        "property": "background",
+        "variable": "--sayfa2K",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2707,
+        "property": "background",
+        "variable": "--yuzeyK",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2710,
+        "property": "background",
+        "variable": "--goldh",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2710,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -3323,29 +3371,13 @@
         "source": "css/legacy-r1215-base-style.css",
         "line": 2714,
         "property": "background",
-        "variable": "--sayfaK",
+        "variable": "--dim",
         "chain": []
       },
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2714,
-        "property": "background",
-        "variable": "--sayfa2K",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2720,
-        "property": "background",
-        "variable": "--yuzeyK",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2723,
+        "line": 2715,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3353,7 +3385,23 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2723,
+        "line": 2716,
+        "property": "filter",
+        "variable": "--goldh",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2721,
+        "property": "background",
+        "variable": "--gold",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2722,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -3363,53 +3411,13 @@
         "source": "css/legacy-r1215-base-style.css",
         "line": 2727,
         "property": "background",
-        "variable": "--dim",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2728,
-        "property": "background",
-        "variable": "--goldh",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2729,
-        "property": "filter",
-        "variable": "--goldh",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2734,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2735,
-        "property": "background",
-        "variable": "--gold",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2740,
-        "property": "background",
         "variable": "--sayfaK",
         "chain": []
       },
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2740,
+        "line": 2727,
         "property": "background",
         "variable": "--sayfa2K",
         "chain": []
@@ -3417,7 +3425,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2749,
+        "line": 2736,
         "property": "background",
         "variable": "--yuzeyK",
         "chain": []
@@ -3425,7 +3433,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2753,
+        "line": 2740,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3433,7 +3441,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2753,
+        "line": 2740,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -3441,7 +3449,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2768,
+        "line": 2755,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -3449,7 +3457,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2768,
+        "line": 2755,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3457,7 +3465,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2811,
+        "line": 2798,
         "property": "filter",
         "variable": "--gold",
         "chain": []
@@ -3465,7 +3473,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2859,
+        "line": 2846,
         "property": "background",
         "variable": "--goldh",
         "chain": []
@@ -3473,7 +3481,7 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2859,
+        "line": 2846,
         "property": "background",
         "variable": "--gold",
         "chain": []
@@ -3481,7 +3489,39 @@
       {
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
-        "line": 2940,
+        "line": 2927,
+        "property": "background",
+        "variable": "--girdiK",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2928,
+        "property": "background",
+        "variable": "--girdiK",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2934,
+        "property": "background",
+        "variable": "--line2",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2935,
+        "property": "background",
+        "variable": "--line2",
+        "chain": []
+      },
+      {
+        "code": "AMBIGUOUS_VARIABLE",
+        "source": "css/legacy-r1215-base-style.css",
+        "line": 2937,
         "property": "background",
         "variable": "--girdiK",
         "chain": []
@@ -3490,38 +3530,6 @@
         "code": "AMBIGUOUS_VARIABLE",
         "source": "css/legacy-r1215-base-style.css",
         "line": 2941,
-        "property": "background",
-        "variable": "--girdiK",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2947,
-        "property": "background",
-        "variable": "--line2",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2948,
-        "property": "background",
-        "variable": "--line2",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2950,
-        "property": "background",
-        "variable": "--girdiK",
-        "chain": []
-      },
-      {
-        "code": "AMBIGUOUS_VARIABLE",
-        "source": "css/legacy-r1215-base-style.css",
-        "line": 2954,
         "property": "background",
         "variable": "--girdiK",
         "chain": []
@@ -4200,6 +4208,8 @@
       }
     ],
     "files": [
+      "css/arrangement-fit.css",
+      "css/tefekkur-help.css",
       "css/lower-stats-r1236.css",
       "css/visual-polish-r1232.css",
       "css/premium-layout-r1215.css",
@@ -4294,10 +4304,30 @@
         "source": "css/lower-stats-r1236.css",
         "url": "../assets/berhetiyye-premium/r1133/gem-black-diamond.webp",
         "target": "assets/berhetiyye-premium/r1133/gem-black-diamond.webp",
-        "line": 58,
+        "line": 23,
         "property": "border-image",
         "chain": [
           "--sukun-gem-dark"
+        ]
+      },
+      {
+        "source": "css/visual-polish-r1232.css",
+        "url": "../assets/berhetiyye-premium/gem-sapphire-r933.webp",
+        "target": "assets/berhetiyye-premium/gem-sapphire-r933.webp",
+        "line": 318,
+        "property": "border-image",
+        "chain": [
+          "--sukun-gem-sapphire-square"
+        ]
+      },
+      {
+        "source": "css/visual-polish-r1232.css",
+        "url": "../assets/berhetiyye-premium/gem-emerald-r932.webp",
+        "target": "assets/berhetiyye-premium/gem-emerald-r932.webp",
+        "line": 323,
+        "property": "border-image-source",
+        "chain": [
+          "--sukun-gem-emerald-square"
         ]
       },
       {
@@ -4384,20 +4414,10 @@
         "source": "css/practice-flow-r1213.css",
         "url": "../assets/berhetiyye-premium/r1133/gem-sapphire.webp",
         "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
-        "line": 38,
+        "line": 30,
         "property": "border-image",
         "chain": [
           "--sukun-gem-sapphire"
-        ]
-      },
-      {
-        "source": "css/practice-flow-r1213.css",
-        "url": "../assets/berhetiyye-premium/r1133/gem-ruby.webp",
-        "target": "assets/berhetiyye-premium/r1133/gem-ruby.webp",
-        "line": 44,
-        "property": "border-image",
-        "chain": [
-          "--sukun-gem-ruby"
         ]
       },
       {
@@ -4456,7 +4476,7 @@
         "source": "css/berhet-hero-r1149.css",
         "url": "../assets/branding/sukun-frameless-logo-r1029.png",
         "target": "assets/branding/sukun-frameless-logo-r1029.png",
-        "line": 341,
+        "line": 345,
         "property": "background",
         "chain": []
       },
@@ -4464,7 +4484,7 @@
         "source": "css/berhet-hero-r1149.css",
         "url": "../assets/berhetiyye-premium/r1133/gem-sapphire.webp",
         "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
-        "line": 394,
+        "line": 398,
         "property": "border-image",
         "chain": []
       },
@@ -4472,7 +4492,7 @@
         "source": "css/berhet-hero-r1149.css",
         "url": "../assets/berhetiyye-premium/r1133/gem-emerald.webp",
         "target": "assets/berhetiyye-premium/r1133/gem-emerald.webp",
-        "line": 397,
+        "line": 401,
         "property": "border-image-source",
         "chain": []
       },
@@ -4480,7 +4500,7 @@
         "source": "css/berhet-hero-r1149.css",
         "url": "../assets/berhetiyye-premium/r1133/gem-sapphire.webp",
         "target": "assets/berhetiyye-premium/r1133/gem-sapphire.webp",
-        "line": 512,
+        "line": 516,
         "property": "border-image",
         "chain": []
       },
@@ -4488,7 +4508,7 @@
         "source": "css/berhet-hero-r1149.css",
         "url": "../assets/berhetiyye-premium/r1133/gem-emerald.webp",
         "target": "assets/berhetiyye-premium/r1133/gem-emerald.webp",
-        "line": 519,
+        "line": 523,
         "property": "border-image-source",
         "chain": []
       },
@@ -4496,7 +4516,7 @@
         "source": "css/berhet-hero-r1149.css",
         "url": "../assets/berhetiyye-gate/portal.webp",
         "target": "assets/berhetiyye-gate/portal.webp",
-        "line": 580,
+        "line": 584,
         "property": "background",
         "chain": []
       },
@@ -4504,7 +4524,7 @@
         "source": "css/berhet-hero-r1149.css",
         "url": "../assets/berhetiyye-premium/r1131/frame-gold.svg",
         "target": "assets/berhetiyye-premium/r1131/frame-gold.svg",
-        "line": 730,
+        "line": 734,
         "property": "border-image",
         "chain": []
       },
@@ -4512,7 +4532,7 @@
         "source": "css/berhet-hero-r1149.css",
         "url": "../assets/branding/sukun-frameless-logo-r1029.png",
         "target": "assets/branding/sukun-frameless-logo-r1029.png",
-        "line": 748,
+        "line": 752,
         "property": "background",
         "chain": []
       },
@@ -4520,7 +4540,7 @@
         "source": "css/berhet-hero-r1149.css",
         "url": "../assets/branding/sukun-berhet-selected-r1172.png",
         "target": "assets/branding/sukun-berhet-selected-r1172.png",
-        "line": 767,
+        "line": 771,
         "property": "background",
         "chain": []
       },
@@ -4528,7 +4548,7 @@
         "source": "css/berhet-hero-r1149.css",
         "url": "../assets/branding/sukun-berhet-selected-r1172.png",
         "target": "assets/branding/sukun-berhet-selected-r1172.png",
-        "line": 788,
+        "line": 792,
         "property": "background",
         "chain": []
       },
@@ -4696,7 +4716,7 @@
         "source": "assets/runtime/berhet-layout-r938.css",
         "url": "../berhetiyye-premium/gem-amethyst-r933.webp",
         "target": "assets/berhetiyye-premium/gem-amethyst-r933.webp",
-        "line": 110,
+        "line": 108,
         "property": "background",
         "chain": [
           "--r933-gem-amethyst"
@@ -4706,7 +4726,7 @@
         "source": "assets/runtime/berhet-layout-r938.css",
         "url": "../berhetiyye-premium/panel-emerald-r932.webp",
         "target": "assets/berhetiyye-premium/panel-emerald-r932.webp",
-        "line": 197,
+        "line": 195,
         "property": "border-image",
         "chain": [
           "--r933-panel-frame"
@@ -4716,7 +4736,7 @@
         "source": "assets/runtime/berhet-layout-r938.css",
         "url": "../berhetiyye-premium/gem-sapphire-r933.webp",
         "target": "assets/berhetiyye-premium/gem-sapphire-r933.webp",
-        "line": 205,
+        "line": 203,
         "property": "border-image",
         "chain": [
           "--r933-gem-sapphire"
@@ -4726,7 +4746,7 @@
         "source": "assets/runtime/berhet-layout-r938.css",
         "url": "../berhetiyye-premium/gem-emerald-r932.webp",
         "target": "assets/berhetiyye-premium/gem-emerald-r932.webp",
-        "line": 208,
+        "line": 206,
         "property": "border-image-source",
         "chain": [
           "--r933-gem-emerald"
@@ -4736,7 +4756,7 @@
         "source": "assets/runtime/berhet-layout-r938.css",
         "url": "../berhetiyye-premium/panel-emerald-r932.webp",
         "target": "assets/berhetiyye-premium/panel-emerald-r932.webp",
-        "line": 226,
+        "line": 224,
         "property": "border-image",
         "chain": [
           "--r933-panel-frame"
@@ -5443,12 +5463,12 @@
       "empty": 0
     },
     "stats": {
-      "files": 88,
-      "bytes": 1371943,
-      "declarations": 23160,
+      "files": 90,
+      "bytes": 1389272,
+      "declarations": 23429,
       "customProperties": 197,
-      "checkedReferences": 122,
-      "valueExpansions": 3257
+      "checkedReferences": 123,
+      "valueExpansions": 3249
     }
   },
   "checks": [
@@ -6245,14 +6265,6 @@
       "passed": true
     },
     {
-      "name": "Runtime SHA-256 assets/runtime/cymatics-3d.js",
-      "passed": true
-    },
-    {
-      "name": "Runtime SHA-256 assets/vendor/three-r170/three.module.min.js",
-      "passed": true
-    },
-    {
       "name": "Runtime SHA-256 css/visual-polish-r1232.css",
       "passed": true
     },
@@ -6262,6 +6274,14 @@
     },
     {
       "name": "Runtime SHA-256 assets/runtime/lower-stats-r1236.js",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/tefekkur-help.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime SHA-256 css/arrangement-fit.css",
       "passed": true
     },
     {
@@ -7721,6 +7741,26 @@
       "passed": true
     },
     {
+      "name": "JavaScript parse sukun-r1241-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1242-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1244-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1245-release-locale",
+      "passed": true
+    },
+    {
+      "name": "JavaScript parse sukun-r1246-release-locale",
+      "passed": true
+    },
+    {
       "name": "JavaScript parse sukun-r1018-locale-notes",
       "passed": true
     },
@@ -8069,19 +8109,19 @@
       "passed": true
     },
     {
-      "name": "Runtime JavaScript parses assets/runtime/cymatics-3d.js",
-      "passed": true
-    },
-    {
-      "name": "Runtime JavaScript parses assets/vendor/three-r170/three.module.min.js",
-      "passed": true
-    },
-    {
       "name": "Runtime JavaScript parses assets/runtime/lower-stats-r1236.js",
       "passed": true
     },
     {
-      "name": "3D module graph is explicitly present",
+      "name": "Retired 3D module graph is absent",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/arrangement-fit.css",
+      "passed": true
+    },
+    {
+      "name": "HTML SRI css/tefekkur-help.css",
       "passed": true
     },
     {
@@ -10813,10 +10853,6 @@
       "passed": true
     },
     {
-      "name": "Site file hash and size assets/runtime/cymatics-3d.js",
-      "passed": true
-    },
-    {
       "name": "Site file hash and size assets/runtime/delail-recorded-r1128.js",
       "passed": true
     },
@@ -11661,22 +11697,6 @@
       "passed": true
     },
     {
-      "name": "Site file hash and size assets/vendor/three-r170/LICENSE",
-      "passed": true
-    },
-    {
-      "name": "Site file hash and size assets/vendor/three-r170/PROVENANCE.json",
-      "passed": true
-    },
-    {
-      "name": "Site file hash and size assets/vendor/three-r170/package.json",
-      "passed": true
-    },
-    {
-      "name": "Site file hash and size assets/vendor/three-r170/three.module.min.js",
-      "passed": true
-    },
-    {
       "name": "Site file hash and size assets/wheel-navigation-r964/copper.png",
       "passed": true
     },
@@ -11894,6 +11914,10 @@
     },
     {
       "name": "Site file hash and size css/ambience-readable-r1104.css",
+      "passed": true
+    },
+    {
+      "name": "Site file hash and size css/arrangement-fit.css",
       "passed": true
     },
     {
@@ -12141,6 +12165,10 @@
       "passed": true
     },
     {
+      "name": "Site file hash and size css/tefekkur-help.css",
+      "passed": true
+    },
+    {
       "name": "Site file hash and size css/tekke-set-card-r1112.css",
       "passed": true
     },
@@ -12305,7 +12333,7 @@
       "passed": true
     },
     {
-      "name": "Site file hash and size sukun-build-r1237.json",
+      "name": "Site file hash and size sukun-build-r1246.json",
       "passed": true
     },
     {
@@ -13077,14 +13105,6 @@
       "passed": true
     },
     {
-      "name": "Runtime is in site inventory assets/runtime/cymatics-3d.js",
-      "passed": true
-    },
-    {
-      "name": "Runtime is in site inventory assets/vendor/three-r170/three.module.min.js",
-      "passed": true
-    },
-    {
       "name": "Runtime is in site inventory css/visual-polish-r1232.css",
       "passed": true
     },
@@ -13094,6 +13114,14 @@
     },
     {
       "name": "Runtime is in site inventory assets/runtime/lower-stats-r1236.js",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/tefekkur-help.css",
+      "passed": true
+    },
+    {
+      "name": "Runtime is in site inventory css/arrangement-fit.css",
       "passed": true
     },
     {

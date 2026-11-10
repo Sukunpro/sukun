@@ -12,7 +12,6 @@ function binding(root,suite){
   if(!url||/^(?:[a-z]+:|\/\/)/i.test(url))continue;
   required.add(new URL(url,'http://fixture/nero.html').pathname.slice(1));
  }
- if(suite==='tefekkur-glass')required.add(`tests/${suite}/baseline.css`);
  const files=new Set([...required,'index.html',`tests/${suite}/browser.cjs`,'tests/r1064/browser-fixture.cjs','tests/r1213/visual-evidence.cjs']);
  const sources=Object.fromEntries([...files].sort().map(name=>[name,hash(fs.readFileSync(path.join(root,name)))]));
  return {sources,required:[...required].sort(),unchanged:()=>Object.entries(sources).every(([name,digest])=>hash(fs.readFileSync(path.join(root,name)))===digest),verify(f){
