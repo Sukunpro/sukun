@@ -5,7 +5,7 @@
 const frame=document.querySelector('#app'),out=document.querySelector('#result'),run=document.querySelector('#run'),show=document.querySelector('#show'),mode=new URLSearchParams(location.search).get('mode')||'berhet',wait=ms=>new Promise(r=>setTimeout(r,ms));
 for(const[k,v]of Object.entries({'sukun.theme':JSON.stringify(mode),'sukun.ui.shellMode':'classic','sukun.obDone':'1','sukun.onboardSeen':'1','sukun.r920.focus':'0','sukun.kandil.idle':'"off"','sukun.aiConsent.r310':'1'}))localStorage.setItem(k,v);
 let longZikir='';
-const fixtureText='This is a synthetic layout response. No personal information or online provider is used. '+('A calm reflection with a long explanation. ').repeat(12);
+const fixtureText='This is a synthetic layout response. No personal information or online provider is used. '+('A calm reflection with a long explanation. ').repeat(12).trim();
 async function populate(w,d){
  longZikir=(w.SukunAIPlan.inventory().zik.find(x=>/Evvel/i.test(x.name))||w.SukunAIPlan.inventory().zik.slice().sort((a,b)=>b.name.length-a.name.length)[0]||{}).name||'';
  d.getElementById('rxInput').value='Synthetic layout fixture';d.getElementById('rxGo').click();

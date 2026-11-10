@@ -7,6 +7,6 @@ assert(html.indexOf('arrangement-fit.css')<html.indexOf('tefekkur-help.css'));
 for(const token of ['@layer sukun-arrangement-fit','@media(max-width:480px)','grid-template-columns:minmax(0,1fr)','border-image-width:14px 22px','padding:18px 28px','padding:13px 32px','white-space:normal','overflow-wrap:anywhere','@media(forced-colors:active)','min-height:44px','.r330Step'])assert(css.includes(token),token);
 assert(!/overflow\s*:\s*hidden|text-overflow\s*:\s*ellipsis/.test(css),'Never hide content to pass overflow checks');
 const fixture=fs.readFileSync(path.join(__dirname,'managed-preview.html'),'utf8');for(const m of fixture.matchAll(/<script>([\s\S]*?)<\/script>/g))new vm.Script(m[1]);
-assert(fixture.includes('Wrong canonical theme'));assert(fixture.includes('sourceHashes'));
+assert(fixture.includes('.repeat(12).trim()'),'Synthetic explanation must match renderer trimming');assert(fixture.includes('Wrong canonical theme')); assert(fixture.includes('sourceHashes'));
 assert(fs.readFileSync(path.join(root,'assets/runtime/health-r940.js'),'utf8').includes("'./css/arrangement-fit.css'"),'Exact new stylesheet is admitted by health integrity');
 console.log('PASS arrangement insets, reflow, visible content, both entrypoints, canonical theme check and CSS SRI');
