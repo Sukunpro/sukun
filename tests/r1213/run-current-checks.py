@@ -250,7 +250,12 @@ def main():
         report['checks'] = list(pool.map(execute, ordinary))
     for item in commands:
         if item[0] in NATIVE_BROWSER_NAMES:
-            report['checks'].append(execute(item))
+            row = execute(item)
+            report['checks'].append(row)
+            # Do not spend the full native matrix on a candidate whose new
+            # narrow-screen heading gate already failed. Acceptance stays false.
+            if item[0] == 'source-heading-native' and row['exitCode'] != 0:
+                break
     report['passed'] = sum(row['exitCode'] == 0 for row in report['checks'])
     report['total'] = len(commands)
     report['sourceUnchanged'] = before == source_files()

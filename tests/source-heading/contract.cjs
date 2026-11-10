@@ -5,7 +5,7 @@ assert.equal(fs.readFileSync(path.join(root,'index.html'),'utf8'),html,'Entry po
 const block=html.match(/<style id="r644-active-name-centering-style">([\s\S]*?)<\/style>/)[1];
 const target='#r1064ActiveSources>summary#r1064ActiveSourcesLabel';
 const rule=block.match(/#r1064ActiveSources>summary#r1064ActiveSourcesLabel\{([^}]*)\}/)[1];
-for(const declaration of ['display:grid','place-items:center','text-align:center','white-space:normal','overflow-wrap:anywhere','padding:14px 44px','min-height:48px'])assert(rule.includes(declaration),declaration);
+for(const declaration of ['display:grid','place-items:center','text-align:center','white-space:normal','overflow-wrap:anywhere','padding:14px 44px!important','min-height:48px'])assert(rule.includes(declaration),declaration);
 assert(block.includes(target+'::-webkit-details-marker{display:none}'));
 assert(block.includes('#r1064ActiveSources[open]>summary#r1064ActiveSourcesLabel::after'));
 assert(block.includes('border-image-width:12px 38px!important'));
