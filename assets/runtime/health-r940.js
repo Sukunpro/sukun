@@ -44,6 +44,7 @@
   ['currentTime','duration','mediaSpanSeconds','unitSeconds','repeatCycles','playbackRate','volume','muted','loop','mediaProgressSeconds','appliedCycles','lastPauseReason','lastPauseAt'].forEach(key=>historicKeys.add(key));
   ['sessionCommand','action','accepted','stale','outcome'].forEach(key=>historicKeys.add(key));
   ['lease','lockTransitionAgeMs','lockRecoveryPending','lockRecoveryAttempted','lockRecoveryReason','backgroundRecoveryKind','loopSeekAgeMs','loopSeekWindowMs','loopPauseRecoveries'].forEach(key=>historicKeys.add(key));
+  ['seeking','dormant','sourceMatches','lastPhysicalProgressAgeMs'].forEach(key=>historicKeys.add(key));
   historicKeys.add('lastContext');
   const COMMAND_ACTIONS = new Set(['start','play','pause','resume','stop','next','previous','restart','retry','select','adjust']);
   const COMMAND_REASONS = new Set(['pending','accepted','global-pause','voice-not-ready','recording-unavailable','locked','stale-session','superseded-command','transport-not-accepted','command-error','stop-not-complete','stop-wait-unavailable','selection-unavailable']);
@@ -405,6 +406,25 @@
     for (const [key,max] of [['readyState',4],['networkState',3],['mediaErrorCode',4]])
       if (Number.isInteger(data[key]) && data[key] >= 0 && data[key] <= max) result[key] = data[key];
     return {...result,...compactMediaEvidence(data)};
+  }
+  function journeyWatchdogEvent(e) {
+    const d=e.detail;
+    // The resolver emits this only before retiring its current attempt. A
+    // generic retired-caller pause remains normal cancellation, not a failure.
+    if (!d || typeof d!=='object' || Array.isArray(d) || d.reason!=='resolver-timeout' ||
+      !['journey28','journey99'].includes(d.owner) || !Number.isInteger(d.index) ||
+      d.index<0 || d.index>=(d.owner==='journey28'?28:99)) return;
+    const data={owner:d.owner,index:d.index,reason:'resolver-timeout',hidden:document.hidden};
+    // Never retain recording identifiers, source URLs, raw errors or user text.
+    for (const key of ['paused','ended','seeking','loop','active','dormant','frozen','sourceMatches'])
+      if (typeof d[key]==='boolean') data[key]=d[key];
+    for (const key of ['currentTime','duration','lastPhysicalProgressAgeMs'])
+      if (typeof d[key]==='number' && Number.isFinite(d[key]) && d[key]>=0 && d[key]<=1e15) data[key]=d[key];
+    for (const key of ['readyState','mediaErrorCode'])
+      if (Number.isInteger(d[key]) && d[key]>=0 && d[key]<=4) data[key]=d[key];
+    record('journey-watchdog',data);
+    issue('JOURNEY_WATCHDOG_TIMEOUT','WARN','Zikir kaydı zaman aşımı nedeniyle durduruldu',data,
+      'Seyir denetimi mevcut ses denemesini sonlandırdı. Önceki medya ilerlemesi, hazırlık ve görünürlük olaylarıyla birlikte inceleyin.');
   }
   function backgroundOwnerEvent(e) {
     const d=e.detail;
@@ -989,6 +1009,7 @@
   window.addEventListener('sukun:sessioncommand', e => commandEvent(e,false), {passive:true});
   window.addEventListener('sukun:sessioncommandresult', e => commandEvent(e,true), {passive:true});
   window.addEventListener('sukun:backgroundownerchange', backgroundOwnerEvent, {passive:true});
+  window.addEventListener('sukun:journey-watchdog-timeout', journeyWatchdogEvent, {passive:true});
   window.addEventListener('sukun:airesult', e => { const d=e.detail||{}; record('ai-request', {provider:token(d.provider),model:token(d.model),code:token(d.code),http:finite(d.http),durationMs:finite(d.durationMs)}); }, {passive:true});
   window.addEventListener('sukun:audiotruthchange', e => {
     const next = compactTruth(e.detail);

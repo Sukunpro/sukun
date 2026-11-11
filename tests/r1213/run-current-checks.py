@@ -13,6 +13,8 @@ from urllib.parse import urljoin, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
+    ('r1248-journey-loop-order', 'tests/r1248/journey-loop-order.cjs'),
+    ('r1248-startup-progress', 'tests/r1248/startup-progress.cjs'),
     ('ai-router-contract', 'tests/ai-router/contract.cjs'),
     ('source-heading-contract', 'tests/source-heading/contract.cjs'),
     ('arrangement-fit-contract', 'tests/arrangement-fit/contract.cjs'),

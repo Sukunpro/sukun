@@ -1,0 +1,18 @@
+{
+  "v": "r1248",
+  "t": "11 Kasım 2026",
+  "b": [
+    "Berhetiyye ve Esma seyrinde ses döngüsü başa sararken oluşan kısa hazırlık beklemesi, yakın zamanda ilerlemiş kaydı artık yanlışlıkla durdurmaz.",
+    "Bekleme payı yalnızca gerçek ses ilerlemesiyle yenilenir; gerçek takılma, kaynak değişikliği, Duraklat ve Durdur kontrolleri korunur.",
+    "Seyrin zaman aşımı nedeniyle uygulama tarafından durdurulması, sağlık raporunda ayrı bir olay olarak saklanır.",
+    "Sesin başladığına ilişkin bildirim gecikse bile aynı kaydın gerçekten ilerlediği doğrulanırsa başlangıç zaman aşımı sesi durdurmaz.",
+    "Berhetiyye ve Esma seyrinde aynı ses döngüsüne ait olayların farklı sırayla gelmesi artık tamamlanmış tekrarın kaybolmasına yol açmaz."
+  ],
+  "translations": {
+    "Berhetiyye ve Esma seyrinde ses döngüsü başa sararken oluşan kısa hazırlık beklemesi, yakın zamanda ilerlemiş kaydı artık yanlışlıkla durdurmaz.": "A brief buffering interval at a native loop boundary no longer prematurely stops a recently advancing Berhetiyye or Esma journey recording.",
+    "Bekleme payı yalnızca gerçek ses ilerlemesiyle yenilenir; gerçek takılma, kaynak değişikliği, Duraklat ve Durdur kontrolleri korunur.": "Only observed media progress renews the bounded grace period; genuine stall detection, source changes, Pause and Stop remain effective.",
+    "Seyrin zaman aşımı nedeniyle uygulama tarafından durdurulması, sağlık raporunda ayrı bir olay olarak saklanır.": "The health report retains a distinct event when the application stops a journey after its playback deadline expires.",
+    "Sesin başladığına ilişkin bildirim gecikse bile aynı kaydın gerçekten ilerlediği doğrulanırsa başlangıç zaman aşımı sesi durdurmaz.": "When playback-start notifications are delayed, verified progress from the same recording prevents the startup timeout from stopping it.",
+    "Berhetiyye ve Esma seyrinde aynı ses döngüsüne ait olayların farklı sırayla gelmesi artık tamamlanmış tekrarın kaybolmasına yol açmaz.": "Different event ordering at the same native loop boundary no longer loses a completed repetition in Berhetiyye and Esma journeys."
+  }
+}

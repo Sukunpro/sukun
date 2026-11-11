@@ -10,7 +10,7 @@
  let lease=null,seq=0,visibility=0,frozen=false,departed=false;
  const START_TIMEOUT=8000,LOCK_RECOVERY_WINDOW=1500,LOCK_RECOVERY_DELAY=120,LOOP_SEEK_WINDOW=500,RECOVERY_DELIVERY_TIMEOUT=8000;
  const metrics={claims:0,playAttempts:0,rejections:0,suppressed:0,staleCompletions:0,pauseRecoveries:0,loopPauseRecoveries:0,pauseRecoveryFailures:0};
- function snapshot(){const a=lease?.audio;return{version:'r949',revision:'r1247',lease:lease?.id||0,owner:lease?.owner||'',active:!!lease,phase:lease?.phase||'IDLE',blocked:!!lease?.blocked,preparing:!!lease?.pending,hidden:document.hidden,frozen,departed,playing:!!(lease&&!lease.blocked&&a&&!a.paused&&!a.ended&&a.readyState>=2),paused:!!a?.paused,ended:!!a?.ended,readyState:a?.readyState||0,error:lease?.error||'',visibilityEpoch:visibility,lockTransitionAgeMs:lease?.lockTransitionAt==null?null:Math.max(0,Date.now()-lease.lockTransitionAt),lockRecoveryWindowMs:LOCK_RECOVERY_WINDOW,lockRecoveryEligible:canRecover(lease),lockRecoveryPending:!!lease?.recoveryTimer,lockRecoveryAttempted:!!lease?.recoveryUsed,lockRecoveryReason:lease?.recoveryReason||'',backgroundRecoveryKind:lease?.recoveryKind||'',loopSeekAgeMs:lease?.loopSeekAt==null?null:Math.max(0,Date.now()-lease.loopSeekAt),loopSeekWindowMs:LOOP_SEEK_WINDOW,...metrics};}
+ function snapshot(){const a=lease?.audio;return{version:'r949',revision:'r1248',lease:lease?.id||0,owner:lease?.owner||'',active:!!lease,phase:lease?.phase||'IDLE',blocked:!!lease?.blocked,preparing:!!lease?.pending,hidden:document.hidden,frozen,departed,playing:!!(lease&&!lease.blocked&&a&&!a.paused&&!a.ended&&a.readyState>=2),paused:!!a?.paused,ended:!!a?.ended,readyState:a?.readyState||0,error:lease?.error||'',visibilityEpoch:visibility,lockTransitionAgeMs:lease?.lockTransitionAt==null?null:Math.max(0,Date.now()-lease.lockTransitionAt),lockRecoveryWindowMs:LOCK_RECOVERY_WINDOW,lockRecoveryEligible:canRecover(lease),lockRecoveryPending:!!lease?.recoveryTimer,lockRecoveryAttempted:!!lease?.recoveryUsed,lockRecoveryReason:lease?.recoveryReason||'',backgroundRecoveryKind:lease?.recoveryKind||'',loopSeekAgeMs:lease?.loopSeekAt==null?null:Math.max(0,Date.now()-lease.loopSeekAt),loopSeekWindowMs:LOOP_SEEK_WINDOW,...metrics};}
  function emit(reason){window.dispatchEvent(new CustomEvent('sukun:backgroundownerchange',{detail:{...snapshot(),reason}}));}
  function cancelRecovery(l){if(l?.recoveryTimer){clearTimeout(l.recoveryTimer);l.recoveryTimer=0;}if(l)l.recoveryEvidence=null;}
  function authorityCurrent(l){
@@ -46,6 +46,18 @@
   l.accepted=true;l.appPauseAt=l.audio._sukunAppPauseAt;l.nativeEpoch=l.audio._sukunLockEpoch;try{l.foreground=foreground()}catch(_){l.foreground=null;}l.confirmedSrc=String(l.audio.src||'');l.confirmedCurrentSrc=String(l.audio.currentSrc||l.audio.src||'');l.confirmedSrcObject=l.audio.srcObject;
  }
  function sameSource(l){return l&&l.confirmedSrc===String(l.audio.src||'')&&l.confirmedCurrentSrc===String(l.audio.currentSrc||l.audio.src||'')&&l.confirmedSrcObject===l.audio.srcObject;}
+ function startupProgressCurrent(l,e){
+  const a=l?.audio;
+  // A queued playing event/play Promise may lag behind an already moving
+  // native clock. The timeout must not pause that exact live attempt.
+  // Seeking is not playback evidence, even if its event has since completed.
+  return !!(lease===l&&a&&!frozen&&!departed&&l.authority===e.authority&&authorityCurrent(l)&&
+   !held({audio:a,foreground:e.foreground})&&l.startupSeekSerial===e.seekSerial&&
+   String(a.src||'')===e.src&&String(a.currentSrc||a.src||'')===e.currentSrc&&a.srcObject===e.srcObject&&
+   a._sukunAppPauseAt===e.appPauseAt&&a._sukunLockEpoch===e.nativeEpoch&&
+   !a.paused&&!a.ended&&!a.seeking&&!a.error&&a.readyState>=2&&
+   Number.isFinite(e.currentTime)&&Number.isFinite(Number(a.currentTime))&&Number(a.currentTime)>e.currentTime+.025);
+ }
  function recoveryKind(l){
   if(!l)return '';
   const at=Date.now(),age=l.lockTransitionAt==null?Infinity:at-l.lockTransitionAt;
@@ -96,7 +108,7 @@
   }
   const old=lease;detach(old);lease=null;
   if(old?.audio&&old.audio!==a){try{old.audio.pause()}catch(_){}}
-  const l=lease={id:++seq,owner,audio:a,source,authority:authority||null,recoveryRetired:false,visibility,phase:'PREPARING',attempted:false,blocked:false,error:'',pending:null,events:[],accepted:false,lockTransitionAt:null,lockVisibility:-1,recoveryTimer:0,recoveryEvidence:null,recoveryUsed:false,recoveryPermit:false,recoveryReason:'',recoveryKind:'',loopSeekAt:null,loopSeekVisibility:-1,lastMediaTime:null,pauseFromPlaying:false,pauseAt:null,pauseSerial:0};metrics.claims++;
+  const l=lease={id:++seq,owner,audio:a,source,authority:authority||null,recoveryRetired:false,visibility,phase:'PREPARING',attempted:false,blocked:false,error:'',pending:null,events:[],accepted:false,lockTransitionAt:null,lockVisibility:-1,recoveryTimer:0,recoveryEvidence:null,recoveryUsed:false,recoveryPermit:false,recoveryReason:'',recoveryKind:'',loopSeekAt:null,loopSeekVisibility:-1,lastMediaTime:null,pauseFromPlaying:false,pauseAt:null,pauseSerial:0,startupSeekSerial:0};metrics.claims++;
   for(const name of ['playing','pause','ended','error','timeupdate','seeking']){
    const fn=()=>{if(lease!==l)return;
     if(name==='timeupdate'){
@@ -106,6 +118,7 @@
      return;
     }
     if(name==='seeking'){
+     l.startupSeekSerial++;
      // Native loop wrap can briefly pause after seeking to the beginning on
      // Android. A seek alone is not authority: require this live caller, the
      // same accepted loop, and actual prior media progress in this source.
@@ -145,7 +158,13 @@
    emit('play-settled');
   };
   l.pending=task;l.finishPlay=finish;l.cancelPlay=()=>finish(false);
-  timer=setTimeout(()=>finish(false,Object.assign(new Error('Native playback did not start'),{name:'PlaybackStartTimeout'})),START_TIMEOUT);
+  let startupForeground=null;try{startupForeground=foreground()}catch(_){}
+  const startup={src:String(l.audio.src||''),currentSrc:String(l.audio.currentSrc||l.audio.src||''),srcObject:l.audio.srcObject,
+   currentTime:Number(l.audio.currentTime),authority:l.authority,seekSerial:l.startupSeekSerial,appPauseAt:l.audio._sukunAppPauseAt,nativeEpoch:l.audio._sukunLockEpoch,foreground:startupForeground};
+  timer=setTimeout(()=>{
+   if(startupProgressCurrent(l,startup)){finish(true);return;}
+   finish(false,Object.assign(new Error('Native playback did not start'),{name:'PlaybackStartTimeout'}));
+  },START_TIMEOUT);
   let result;try{result=l.audio.play()}catch(e){result=Promise.reject(e)}
   Promise.resolve(result).then(()=>{if(done){metrics.staleCompletions++;return;}finish(true)},error=>{if(done){metrics.staleCompletions++;return;}finish(false,error)});
   emit('play-request');return task;
