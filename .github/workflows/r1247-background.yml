@@ -1,0 +1,47 @@
+name: r1247 background audio continuity
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  background-continuity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Check interruption, recovery and release contracts
+        run: |
+          mkdir -p "$RUNNER_TEMP/r1247-evidence"
+          node tests/r1247/background-owner.cjs > "$RUNNER_TEMP/r1247-evidence/background-owner.json"
+          node tests/r1247/journey-interruption.cjs > "$RUNNER_TEMP/r1247-evidence/journey-interruption.json"
+          node tests/r1247/terminal-interruption.cjs > "$RUNNER_TEMP/r1247-evidence/terminal-interruption.json"
+          node tests/r1247/health-interruption.cjs > "$RUNNER_TEMP/r1247-evidence/health-interruption.json"
+          node tests/r1247/recovery-owner-integration.cjs > "$RUNNER_TEMP/r1247-evidence/recovery-owner-integration.json"
+          node tests/r1247/watchdog-progress.cjs > "$RUNNER_TEMP/r1247-evidence/watchdog-progress.json"
+          node tests/r1043/background-interruption.cjs > "$RUNNER_TEMP/r1247-evidence/lock-transition.json"
+          node tests/r1044/native-recovery-authority.cjs > "$RUNNER_TEMP/r1247-evidence/recovery-authority.json"
+          node tests/r1121/dhikr-lifecycle-contract.cjs > "$RUNNER_TEMP/r1247-evidence/journey-lifecycle.json"
+          node tools/release-integrity.cjs > "$RUNNER_TEMP/r1247-evidence/integrity-summary.json"
+      - name: Install pinned browser for native media regression
+        run: |
+          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
+          echo "NODE_PATH=$RUNNER_TEMP/sukun-browser/node_modules" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Check complete app journey controls and media ownership
+        run: |
+          export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          node tests/r1121/dhikr-lifecycle-browser.cjs "$PWD" "$RUNNER_TEMP/r1247-evidence/native-journey.json"
+          node tests/r1247/native-recovery-browser.cjs "$PWD" "$RUNNER_TEMP/r1247-evidence/native-recovery.json"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: r1247-background-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/r1247-evidence
+          if-no-files-found: error
+          retention-days: 30

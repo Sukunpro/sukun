@@ -43,6 +43,7 @@
   ['tabOwner','revision','method','protection','owned','maintenance','blocked','recoveryRequired','failureStage','lockFallbackError','requestFailures'].forEach(key=>historicKeys.add(key));
   ['currentTime','duration','mediaSpanSeconds','unitSeconds','repeatCycles','playbackRate','volume','muted','loop','mediaProgressSeconds','appliedCycles','lastPauseReason','lastPauseAt'].forEach(key=>historicKeys.add(key));
   ['sessionCommand','action','accepted','stale','outcome'].forEach(key=>historicKeys.add(key));
+  ['lease','lockTransitionAgeMs','lockRecoveryPending','lockRecoveryAttempted','lockRecoveryReason','backgroundRecoveryKind','loopSeekAgeMs','loopSeekWindowMs','loopPauseRecoveries'].forEach(key=>historicKeys.add(key));
   historicKeys.add('lastContext');
   const COMMAND_ACTIONS = new Set(['start','play','pause','resume','stop','next','previous','restart','retry','select','adjust']);
   const COMMAND_REASONS = new Set(['pending','accepted','global-pause','voice-not-ready','recording-unavailable','locked','stale-session','superseded-command','transport-not-accepted','command-error','stop-not-complete','stop-wait-unavailable','selection-unavailable']);
@@ -330,12 +331,16 @@
   function cancelTimer() { if (activeTimer) clearTimeout(activeTimer); activeTimer = 0; visibilityEpoch++; }
   function sessionEvent(e) {
     const next = compactSession(e.detail); if (!next) return;
+    const sourceFailed = next.source === 'ERROR' && session?.source !== 'ERROR';
     if (!session || ['phase','epoch','mode','index'].some(k => session[k] !== next[k])) {
       sessionChangedAt = now(); progressAt = now(); record('session', next);
     } else if (session.count !== next.count) { progressAt = now(); if (now() - (events[events.length - 1]?.at || 0) > 4000) record('progress', { count: next.count, epoch: next.epoch }); }
     session = next;
     if (next.dualJourney) issue('DUAL_JOURNEY', 'FAIL', 'İki seyir aynı anda etkin', { journey: next.journey, owner: next.owner }, 'Seyir sahipliği ve önceki oturumun Stop tamamlanma bariyerini inceleyin.');
     if (next.phase === 'ERROR') issue('SESSION_ERROR', 'FAIL', 'Oturum hata durumuna geçti', { source: next.source, epoch: next.epoch }, 'Önceki resource, promise ve ses olayı kayıtlarıyla hata anını eşleştirin.');
+    else if (sourceFailed) issue('SESSION_AUDIO_ERROR', 'WARN', 'Zikir ses kaynağı hata bildirdi',
+      {source:next.source,phase:next.phase,owner:next.owner,epoch:next.epoch,index:next.index,count:next.count,reason:next.reason},
+      'Ses hatası sonrasında oturum beklemeye veya boşta duruma geçebilir. Bu geçmiş kaydı, kesinti anındaki ses ve görünürlük olaylarıyla birlikte inceleyin.');
     if (['PLAYING','PREPARING','INTERRUPTED'].includes(next.phase)) arm(); else cancelTimer();
   }
   function commandEvent(e, settled) {
@@ -371,7 +376,7 @@
     persist(kind);
     if (!document.hidden && kind !== 'pagehide' && kind !== 'freeze') arm();
   }
-  const AUDIO_ERRORS = new Set(['AbortError','NotAllowedError','NotSupportedError','InvalidStateError','NetworkError','EncodingError','SecurityError','TimeoutError','TypeError','Error']);
+  const AUDIO_ERRORS = new Set(['AbortError','NotAllowedError','NotSupportedError','InvalidStateError','NetworkError','EncodingError','SecurityError','TimeoutError','TypeError','Error','MediaError','PlaybackStartTimeout']);
   const AUDIO_STAGES = new Set(['native-play','started','restored','released','prepare','eligibility','source-attach','handoff','resume']);
   function compactMediaEvidence(data) {
     // Media properties are observations, not proof that sound reached a speaker.
@@ -400,6 +405,31 @@
     for (const [key,max] of [['readyState',4],['networkState',3],['mediaErrorCode',4]])
       if (Number.isInteger(data[key]) && data[key] >= 0 && data[key] <= max) result[key] = data[key];
     return {...result,...compactMediaEvidence(data)};
+  }
+  function backgroundOwnerEvent(e) {
+    const d=e.detail;
+    if (!d || d.active !== true || !['single','journey'].includes(d.owner)) return;
+    const recovery = /^(?:lock-transition|loop-boundary)-(?:pause|recovery-request|recovered|recovery-incomplete|recovery-rejected|recovery-cancelled)$/.test(d.reason);
+    if (!['INTERRUPTED','BLOCKED'].includes(d.phase) && !recovery) return;
+    // Retain a strict metadata allowlist: native sources, custom error strings,
+    // recording identities and user text never enter the interruption history.
+    const reason = ['pause','error','play-settled'].includes(d.reason) || recovery ? d.reason : 'other';
+    const recoveryReason = /^(?:lock-transition|loop-boundary)-(?:pause|recovery-request|recovered|recovery-incomplete|recovery-rejected|recovery-cancelled)$/.test(d.lockRecoveryReason) ||
+      ['retired-caller','user-or-owner-hold','pause-outside-lock-window','user-pause','app-pause','pagehide-hold'].includes(d.lockRecoveryReason) ? d.lockRecoveryReason : 'unknown';
+    const data = {owner:d.owner,phase:['PLAYING','PREPARING','INTERRUPTED','BLOCKED'].includes(d.phase)?d.phase:'unknown',reason,
+      hidden:document.hidden,paused:bool(d.paused),ended:bool(d.ended),playing:bool(d.playing),
+      lease:Number.isSafeInteger(d.lease)&&d.lease>=0?d.lease:null,
+      readyState:Number.isInteger(d.readyState)&&d.readyState>=0&&d.readyState<=4?d.readyState:null,
+      errorName:d.error?(AUDIO_ERRORS.has(d.error)?d.error:'OtherError'):'',
+      lockRecoveryPending:bool(d.lockRecoveryPending),lockRecoveryAttempted:bool(d.lockRecoveryAttempted),lockRecoveryReason:recoveryReason,
+      backgroundRecoveryKind:['lock-transition','loop-boundary'].includes(d.backgroundRecoveryKind)?d.backgroundRecoveryKind:''};
+    for (const key of ['lockTransitionAgeMs','loopSeekAgeMs','loopSeekWindowMs','loopPauseRecoveries']) if (typeof d[key]==='number'&&Number.isFinite(d[key])&&d[key]>=0&&d[key]<=1e15) data[key]=d[key];
+    record('background-owner',data);
+    const intentional = ['retired-caller','user-or-owner-hold','user-pause','app-pause','pagehide-hold'].includes(recoveryReason);
+    const interruption = document.hidden && d.phase==='INTERRUPTED' && reason==='pause' && !d.lockRecoveryPending && !intentional;
+    const failed = d.phase==='BLOCKED' && ['error','play-settled'].includes(reason) || /-recovery-(?:incomplete|rejected)$/.test(reason);
+    if (interruption || failed) issue('BACKGROUND_NATIVE_INTERRUPTION','WARN','Yerel zikir oynatıcısında kesinti gözlendi',data,
+      'Bu kayıt medya kesintisini gösterir; kulaklık, ses odağı veya işletim sistemi nedenini tek başına belirlemez. Sonraki toparlanma ve kullanıcı komutlarıyla birlikte inceleyin.');
   }
   function passiveDiagnostic(e) {
     const kind = token(e.detail?.kind || 'runtime'), isBackground = ['background-play','background-handoff','background-tts'].includes(kind);
@@ -958,6 +988,7 @@
   window.addEventListener('sukun:sessionchange', sessionEvent, {passive:true});
   window.addEventListener('sukun:sessioncommand', e => commandEvent(e,false), {passive:true});
   window.addEventListener('sukun:sessioncommandresult', e => commandEvent(e,true), {passive:true});
+  window.addEventListener('sukun:backgroundownerchange', backgroundOwnerEvent, {passive:true});
   window.addEventListener('sukun:airesult', e => { const d=e.detail||{}; record('ai-request', {provider:token(d.provider),model:token(d.model),code:token(d.code),http:finite(d.http),durationMs:finite(d.durationMs)}); }, {passive:true});
   window.addEventListener('sukun:audiotruthchange', e => {
     const next = compactTruth(e.detail);

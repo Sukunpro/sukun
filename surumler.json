@@ -1,5 +1,16 @@
 [
   {
+    "v": "r1247",
+    "t": "11 Kasım 2026",
+    "b": [
+      "Berhetiyye ve Esma seyrinde ekran kilidi sonrası yerel ses döngüsü geçişindeki beklenmedik duraklama için aynı kaynakta tek, kontrollü toparlama eklendi.",
+      "Arka planda geciken medya olayları artık ilerleyen ses kaydını yanlışlıkla zaman aşımına düşürmez; toparlama sürerken seyir bekçisi aynı denemeyi kesmez.",
+      "Arka plan zamanlayıcısı geciktiğinde uygun ses toparlaması hemen iptal edilmez; gecikme sırasında Duraklat, Durdur veya kaynak değişikliği olursa yeniden oynatma engellenir.",
+      "Geçici ses kesintisi seyri tamamlanmış sayıp kapatmaz. İsim ve tekrar sayısı korunur; kullanıcı duraklatma ve durdurma komutları önceliklidir.",
+      "Sağlık raporu ses kesintilerini ve başarısız toparlanmaları oturum sonradan boşta olsa da geçmişte saklar."
+    ]
+  },
+  {
     "v": "r1246",
     "t": "Tefekkürde ince katman kontrolü",
     "b": [
