@@ -76,6 +76,8 @@
     TTS_CAPABILITY:['Cihazın metin seslendirmesi','Cihazın metin okuma özelliği gözlendi; kendi ses kayıtlarınızdan bağımsızdır.','Ses listesi alınamıyorsa cihaz bu özelliği desteklemiyor veya liste henüz yüklenmemiş olabilir.']
   };
   const HISTORY = {
+    SESSION_AUDIO_ERROR:'Zikir sesinde bir hata kaydedildi; seyir daha sonra beklemeye veya boşta duruma geçmiş olabilir.',
+    BACKGROUND_NATIVE_INTERRUPTION:'Yerel oynatıcıda bir ses kesintisi kaydedildi. Bu kayıt, kulaklık veya işletim sistemi nedenini tek başına belirlemez.',
     PREVIOUS_UNCLOSED_SESSION:'Önceki etkin oturumun kapanışı gözlenmedi; bu tek başına çökme kanıtı değildir.',
     VISIBLE_EVENT_LOOP_LAG:'Uygulama açıkken bir yanıt gecikmesi kaydedildi.',
     PREPARATION_OVER_30S:'Bir ses hazırlığı 30 saniyeyi aştı.', NO_COUNTER_PROGRESS_60S:'Bir sayımda bir süre ilerleme gözlenmedi; uzun bir kayıt sırasında bu normal olabilir.',
@@ -88,6 +90,8 @@
     RUNTIME_IDB_BLOCKED:'Uygulamanın kayıt alanına erişimi bir süre bekledi.', RUNTIME_RECORDING:'Ses kaydıyla ilgili bir uyarı alındı.',
     RUNTIME_BACKGROUND_PLAY:'Arka planda ses çalmayla ilgili bir uyarı alındı.', RUNTIME_BACKGROUND_TTS:'Arka planda metin seslendirmeyle ilgili bir uyarı alındı.'
   };
+  EN[HISTORY.SESSION_AUDIO_ERROR]='A dhikr audio error was recorded; the journey may subsequently have entered a paused or idle state.';
+  EN[HISTORY.BACKGROUND_NATIVE_INTERRUPTION]='An interruption was recorded in the native audio player. This record alone does not identify a headphone or operating-system cause.';
   const AI_ERRORS = {
     MISSING_KEY:'AI açıklaması için bir API anahtarı ekleyin. Yerel özetiniz hazır.',
     AUTH:'AI sağlayıcısı anahtarı kabul etmedi. AI ayarlarında anahtarı kontrol edin.',

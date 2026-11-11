@@ -2,15 +2,17 @@
  * r1043: one bounded recovery for an accepted native source paused during
  * the screen-lock transition. Later OS focus interruptions remain held.
  * r1044: recovery belongs to the live caller attempt, not just its retained URL.
+ * r1247: a witnessed native loop seek may recover once after a late pause;
+ * unrelated OS focus interruptions still wait for an explicit resume.
  * No heartbeat or automatic play on freeze. Rejections consume the lease. */
 (()=>{'use strict';
  if(window.SukunBackgroundAudioOwner)return;
  let lease=null,seq=0,visibility=0,frozen=false,departed=false;
- const START_TIMEOUT=8000,LOCK_RECOVERY_WINDOW=1500,LOCK_RECOVERY_DELAY=120;
- const metrics={claims:0,playAttempts:0,rejections:0,suppressed:0,staleCompletions:0,pauseRecoveries:0,pauseRecoveryFailures:0};
- function snapshot(){const a=lease?.audio;return{version:'r949',revision:'r1044',lease:lease?.id||0,owner:lease?.owner||'',active:!!lease,phase:lease?.phase||'IDLE',blocked:!!lease?.blocked,preparing:!!lease?.pending,hidden:document.hidden,frozen,departed,playing:!!(lease&&!lease.blocked&&a&&!a.paused&&!a.ended&&a.readyState>=2),paused:!!a?.paused,ended:!!a?.ended,readyState:a?.readyState||0,error:lease?.error||'',visibilityEpoch:visibility,lockTransitionAgeMs:lease?.lockTransitionAt==null?null:Math.max(0,Date.now()-lease.lockTransitionAt),lockRecoveryWindowMs:LOCK_RECOVERY_WINDOW,lockRecoveryEligible:canRecover(lease),lockRecoveryPending:!!lease?.recoveryTimer,lockRecoveryAttempted:!!lease?.recoveryUsed,lockRecoveryReason:lease?.recoveryReason||'',...metrics};}
+ const START_TIMEOUT=8000,LOCK_RECOVERY_WINDOW=1500,LOCK_RECOVERY_DELAY=120,LOOP_SEEK_WINDOW=500,RECOVERY_DELIVERY_TIMEOUT=8000;
+ const metrics={claims:0,playAttempts:0,rejections:0,suppressed:0,staleCompletions:0,pauseRecoveries:0,loopPauseRecoveries:0,pauseRecoveryFailures:0};
+ function snapshot(){const a=lease?.audio;return{version:'r949',revision:'r1247',lease:lease?.id||0,owner:lease?.owner||'',active:!!lease,phase:lease?.phase||'IDLE',blocked:!!lease?.blocked,preparing:!!lease?.pending,hidden:document.hidden,frozen,departed,playing:!!(lease&&!lease.blocked&&a&&!a.paused&&!a.ended&&a.readyState>=2),paused:!!a?.paused,ended:!!a?.ended,readyState:a?.readyState||0,error:lease?.error||'',visibilityEpoch:visibility,lockTransitionAgeMs:lease?.lockTransitionAt==null?null:Math.max(0,Date.now()-lease.lockTransitionAt),lockRecoveryWindowMs:LOCK_RECOVERY_WINDOW,lockRecoveryEligible:canRecover(lease),lockRecoveryPending:!!lease?.recoveryTimer,lockRecoveryAttempted:!!lease?.recoveryUsed,lockRecoveryReason:lease?.recoveryReason||'',backgroundRecoveryKind:lease?.recoveryKind||'',loopSeekAgeMs:lease?.loopSeekAt==null?null:Math.max(0,Date.now()-lease.loopSeekAt),loopSeekWindowMs:LOOP_SEEK_WINDOW,...metrics};}
  function emit(reason){window.dispatchEvent(new CustomEvent('sukun:backgroundownerchange',{detail:{...snapshot(),reason}}));}
- function cancelRecovery(l){if(l?.recoveryTimer){clearTimeout(l.recoveryTimer);l.recoveryTimer=0;}}
+ function cancelRecovery(l){if(l?.recoveryTimer){clearTimeout(l.recoveryTimer);l.recoveryTimer=0;}if(l)l.recoveryEvidence=null;}
  function authorityCurrent(l){
   // Journey elements are pooled across words and remain referenced after stop.
   // Transport reclaims the same lease without replacing this caller's guard.
@@ -37,47 +39,85 @@
  }
  function holdRecovery(a,reason='app-pause',id,authority){
   const l=lease;if(!l||l.audio!==a||id!=null&&(l.id!==id||l.authority!==authority))return false;
-  cancelRecovery(l);l.recoveryRetired=true;l.lockTransitionAt=null;l.lockVisibility=-1;l.recoveryReason=reason;return true;
+  cancelRecovery(l);l.recoveryRetired=true;l.lockTransitionAt=null;l.lockVisibility=-1;l.loopSeekAt=null;l.recoveryReason=reason;return true;
  }
  function rememberPlaying(l){
   if(!l||l.audio.paused||l.audio.ended||l.audio.readyState<2)return;
   l.accepted=true;l.appPauseAt=l.audio._sukunAppPauseAt;l.nativeEpoch=l.audio._sukunLockEpoch;try{l.foreground=foreground()}catch(_){l.foreground=null;}l.confirmedSrc=String(l.audio.src||'');l.confirmedCurrentSrc=String(l.audio.currentSrc||l.audio.src||'');l.confirmedSrcObject=l.audio.srcObject;
  }
  function sameSource(l){return l&&l.confirmedSrc===String(l.audio.src||'')&&l.confirmedCurrentSrc===String(l.audio.currentSrc||l.audio.src||'')&&l.confirmedSrcObject===l.audio.srcObject;}
+ function recoveryKind(l){
+  if(!l)return '';
+  const at=Date.now(),age=l.lockTransitionAt==null?Infinity:at-l.lockTransitionAt;
+  if(l.lockVisibility===visibility&&age>=0&&age<=LOCK_RECOVERY_WINDOW)return 'lock-transition';
+  const seekAge=l.loopSeekAt==null?Infinity:at-l.loopSeekAt;
+  if(l.loopSeekVisibility===visibility&&seekAge>=0&&seekAge<=LOOP_SEEK_WINDOW&&l.audio.loop&&Number(l.audio.currentTime)<.075)return 'loop-boundary';
+  return '';
+ }
+ function pendingRecoveryCurrent(l){
+  const e=l?.recoveryEvidence;if(!e)return false;
+  const age=Date.now()-e.at;
+  // Pause/seek proximity identifies the interruption when it arrives. A
+  // background timer may be delivered later; retain that exact evidence,
+  // while every caller/source/intent check still runs before native play.
+  return age>=0&&age<=RECOVERY_DELIVERY_TIMEOUT&&e.visibility===visibility&&
+   e.pauseSerial===l.pauseSerial&&e.kind===l.recoveryKind&&
+   (e.kind==='lock-transition'?e.lockTransitionAt===l.lockTransitionAt&&recoveryKind(l)==='lock-transition':
+    e.kind==='loop-boundary'&&e.loopSeekAt===l.loopSeekAt&&l.audio.loop&&Number(l.audio.currentTime)<.075);
+ }
  function canRecover(l){
   if(!l||lease!==l||!document.hidden||frozen||departed||l.blocked||l.pending||!l.accepted||l.recoveryUsed||l.phase!=='INTERRUPTED'||l.recoveryRetired||!authorityCurrent(l)||held(l))return false;
-  const a=l.audio,age=l.lockTransitionAt==null?Infinity:Date.now()-l.lockTransitionAt;
-  return l.lockVisibility===visibility&&age>=0&&age<=LOCK_RECOVERY_WINDOW&&sameSource(l)&&a._sukunAppPauseAt===l.appPauseAt&&a._sukunLockEpoch===l.nativeEpoch&&a.paused&&!a.ended&&!a.error&&a.readyState>=2&&!a.muted&&Number(a.volume)>0;
+  const a=l.audio;
+  return (l.recoveryEvidence?pendingRecoveryCurrent(l):!!recoveryKind(l))&&sameSource(l)&&a._sukunAppPauseAt===l.appPauseAt&&a._sukunLockEpoch===l.nativeEpoch&&a.paused&&!a.ended&&!a.error&&a.readyState>=2&&!a.muted&&Number(a.volume)>0;
  }
  function scheduleRecovery(l){
   if(!canRecover(l)){if(l)l.recoveryReason=!authorityCurrent(l)||l.recoveryRetired?'retired-caller':held(l)?'user-or-owner-hold':'pause-outside-lock-window';return;}
   if(l.recoveryTimer)return;
-  l.recoveryReason='lock-transition-pause';
+  l.recoveryKind=recoveryKind(l);l.recoveryReason=l.recoveryKind+'-pause';
+  l.recoveryEvidence={at:Date.now(),visibility,pauseSerial:l.pauseSerial,kind:l.recoveryKind,lockTransitionAt:l.lockTransitionAt,loopSeekAt:l.loopSeekAt};
   l.recoveryTimer=setTimeout(()=>{
    l.recoveryTimer=0;
-   if(!canRecover(l)){l.recoveryReason='lock-transition-recovery-cancelled';emit(l.recoveryReason);return;}
-   l.recoveryUsed=true;l.recoveryPermit=true;metrics.pauseRecoveries++;l.recoveryReason='lock-transition-recovery-request';
+   if(!canRecover(l)){l.recoveryEvidence=null;l.recoveryReason=l.recoveryKind+'-recovery-cancelled';emit(l.recoveryReason);return;}
+   l.recoveryEvidence=null;
+   l.recoveryUsed=true;l.recoveryPermit=true;metrics.pauseRecoveries++;if(l.recoveryKind==='loop-boundary')metrics.loopPauseRecoveries++;l.recoveryReason=l.recoveryKind+'-recovery-request';
    const task=play(l.id);l.recoveryPermit=false;
    Promise.resolve(task).then(ok=>{
-    if(lease!==l)return;l.recoveryReason=ok?'lock-transition-recovered':'lock-transition-recovery-incomplete';if(!ok)metrics.pauseRecoveryFailures++;emit(l.recoveryReason);
-   },()=>{if(lease!==l)return;metrics.pauseRecoveryFailures++;l.recoveryReason='lock-transition-recovery-rejected';emit(l.recoveryReason);});
+    if(lease!==l)return;l.recoveryReason=l.recoveryKind+(ok?'-recovered':'-recovery-incomplete');if(!ok)metrics.pauseRecoveryFailures++;emit(l.recoveryReason);
+   },()=>{if(lease!==l)return;metrics.pauseRecoveryFailures++;l.recoveryReason=l.recoveryKind+'-recovery-rejected';emit(l.recoveryReason);});
   },LOCK_RECOVERY_DELAY);
  }
  function detach(l){cancelRecovery(l);l?.cancelPlay?.();for(const [name,fn]of l?.events||[])l.audio.removeEventListener(name,fn);}
  function claim(owner,a,source,authority){
   if(lease?.owner===owner&&lease.audio===a&&lease.source===source){
    if(authority&&lease.authority!==authority){
-    cancelRecovery(lease);lease.authority=authority;lease.accepted=false;lease.recoveryRetired=false;lease.lockTransitionAt=null;lease.lockVisibility=-1;
+    cancelRecovery(lease);lease.authority=authority;lease.accepted=false;lease.recoveryRetired=false;lease.lockTransitionAt=null;lease.lockVisibility=-1;lease.loopSeekAt=null;lease.loopSeekVisibility=-1;lease.lastMediaTime=null;
    }
    return lease.id;
   }
   const old=lease;detach(old);lease=null;
   if(old?.audio&&old.audio!==a){try{old.audio.pause()}catch(_){}}
-  const l=lease={id:++seq,owner,audio:a,source,authority:authority||null,recoveryRetired:false,visibility,phase:'PREPARING',attempted:false,blocked:false,error:'',pending:null,events:[],accepted:false,lockTransitionAt:null,lockVisibility:-1,recoveryTimer:0,recoveryUsed:false,recoveryPermit:false,recoveryReason:'',pauseFromPlaying:false,pauseAt:null};metrics.claims++;
-  for(const name of ['playing','pause','ended','error']){
+  const l=lease={id:++seq,owner,audio:a,source,authority:authority||null,recoveryRetired:false,visibility,phase:'PREPARING',attempted:false,blocked:false,error:'',pending:null,events:[],accepted:false,lockTransitionAt:null,lockVisibility:-1,recoveryTimer:0,recoveryEvidence:null,recoveryUsed:false,recoveryPermit:false,recoveryReason:'',recoveryKind:'',loopSeekAt:null,loopSeekVisibility:-1,lastMediaTime:null,pauseFromPlaying:false,pauseAt:null,pauseSerial:0};metrics.claims++;
+  for(const name of ['playing','pause','ended','error','timeupdate','seeking']){
    const fn=()=>{if(lease!==l)return;
+    if(name==='timeupdate'){
+     // A wrap's timeupdate may precede its seeking event. Keep the last
+     // non-boundary position until seeking consumes that evidence.
+     if(l.phase==='PLAYING'&&!a.paused&&!a.ended&&sameSource(l)&&Number(a.currentTime)>.075)l.lastMediaTime=Number(a.currentTime);
+     return;
+    }
+    if(name==='seeking'){
+     // Native loop wrap can briefly pause after seeking to the beginning on
+     // Android. A seek alone is not authority: require this live caller, the
+     // same accepted loop, and actual prior media progress in this source.
+     const cur=Number(a.currentTime),previous=l.lastMediaTime;
+     l.loopSeekAt=null;l.loopSeekVisibility=-1;
+     if(document.hidden&&l.phase==='PLAYING'&&l.accepted&&!l.recoveryRetired&&authorityCurrent(l)&&!held(l)&&sameSource(l)&&a.loop&&!a.ended&&!a.error&&Number.isFinite(cur)&&cur>=0&&cur<.075&&previous!=null&&previous>cur+.075){
+      l.loopSeekAt=Date.now();l.loopSeekVisibility=visibility;
+     }
+     l.lastMediaTime=Number.isFinite(cur)?cur:null;return;
+    }
     if(name==='playing'&&!l.blocked){cancelRecovery(l);l.phase='PLAYING';if(authorityCurrent(l))l.recoveryRetired=false;rememberPlaying(l);if(!l.audio.paused&&!l.audio.ended)l.finishPlay?.(true);}
-    if(name==='pause'&&!l.pending&&!l.blocked&&l.phase!=='PAUSED'){l.pauseFromPlaying=l.phase==='PLAYING';l.pauseAt=Date.now();l.phase='INTERRUPTED';scheduleRecovery(l);}
+    if(name==='pause'&&!l.pending&&!l.blocked&&l.phase!=='PAUSED'){l.pauseSerial++;l.pauseFromPlaying=l.phase==='PLAYING';l.pauseAt=Date.now();l.phase='INTERRUPTED';scheduleRecovery(l);}
     if(name==='ended'){cancelRecovery(l);l.phase='ENDED';}
     if(name==='error'){cancelRecovery(l);l.phase='BLOCKED';l.blocked=true;l.error='MediaError';l.finishPlay?.(false,Object.assign(new Error('Native media error'),{name:'MediaError'}));}
     emit(name);
@@ -110,10 +150,10 @@
   Promise.resolve(result).then(()=>{if(done){metrics.staleCompletions++;return;}finish(true)},error=>{if(done){metrics.staleCompletions++;return;}finish(false,error)});
   emit('play-request');return task;
  }
- function userPause(id){if(lease?.id!==id||lease.blocked)return false;cancelRecovery(lease);lease.cancelPlay?.();lease.phase='PAUSED';lease.attempted=false;lease.recoveryReason='user-pause';emit('user-pause');return true;}
+ function userPause(id){if(lease?.id!==id||lease.blocked)return false;cancelRecovery(lease);lease.cancelPlay?.();lease.phase='PAUSED';lease.attempted=false;lease.loopSeekAt=null;lease.recoveryReason='user-pause';emit('user-pause');return true;}
  function release(owner,reason='release'){if(!lease||owner&&lease.owner!==owner)return false;detach(lease);lease=null;emit(reason);return true;}
  document.addEventListener('visibilitychange',()=>{
-  visibility++;const l=lease;if(l)cancelRecovery(l);
+  visibility++;const l=lease;if(l){cancelRecovery(l);l.loopSeekAt=null;l.loopSeekVisibility=-1;}
   if(document.hidden&&l&&!l.blocked&&!frozen&&!departed&&l.accepted&&!l.recoveryRetired&&authorityCurrent(l)&&sameSource(l)&&!held(l)){
    // A native pause can arrive just before visibilitychange. Only this
    // adjacent previously-playing pause joins the same lock transition.
@@ -122,9 +162,9 @@
   }
   if(l&&!l.blocked&&!l.audio.paused&&!l.audio.ended){l.visibility=visibility;emit('visibility-continue');}else if(!document.hidden){release(null,'visible-handoff');}
  },{passive:true});
- document.addEventListener('freeze',()=>{frozen=true;cancelRecovery(lease);emit('freeze');},{passive:true});
+ document.addEventListener('freeze',()=>{frozen=true;cancelRecovery(lease);if(lease)lease.loopSeekAt=null;emit('freeze');},{passive:true});
  document.addEventListener('resume',()=>{frozen=false;emit('resume');},{passive:true});
- window.addEventListener('pagehide',()=>{departed=true;cancelRecovery(lease);if(lease){lease.lockTransitionAt=null;lease.lockVisibility=-1;lease.recoveryReason='pagehide-hold';}emit('pagehide');},{passive:true});
+ window.addEventListener('pagehide',()=>{departed=true;cancelRecovery(lease);if(lease){lease.lockTransitionAt=null;lease.lockVisibility=-1;lease.loopSeekAt=null;lease.recoveryReason='pagehide-hold';}emit('pagehide');},{passive:true});
  window.addEventListener('pageshow',()=>{departed=false;emit('pageshow');},{passive:true});
  window.SukunBackgroundAudioOwner=Object.freeze({version:'r949',claim,allowed,play,userPause,holdRecovery,release,snapshot});
 })();
