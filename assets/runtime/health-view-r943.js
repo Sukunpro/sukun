@@ -76,6 +76,7 @@
     TTS_CAPABILITY:['Cihazın metin seslendirmesi','Cihazın metin okuma özelliği gözlendi; kendi ses kayıtlarınızdan bağımsızdır.','Ses listesi alınamıyorsa cihaz bu özelliği desteklemiyor veya liste henüz yüklenmemiş olabilir.']
   };
   const HISTORY = {
+    JOURNEY_WATCHDOG_TIMEOUT:'Seyir denetimi, ses denemesini zaman aşımı nedeniyle durdurdu. Bu kayıt, uygulamanın verdiği durdurma kararını gösterir; önceki medya olaylarıyla birlikte incelenmelidir.',
     SESSION_AUDIO_ERROR:'Zikir sesinde bir hata kaydedildi; seyir daha sonra beklemeye veya boşta duruma geçmiş olabilir.',
     BACKGROUND_NATIVE_INTERRUPTION:'Yerel oynatıcıda bir ses kesintisi kaydedildi. Bu kayıt, kulaklık veya işletim sistemi nedenini tek başına belirlemez.',
     PREVIOUS_UNCLOSED_SESSION:'Önceki etkin oturumun kapanışı gözlenmedi; bu tek başına çökme kanıtı değildir.',
@@ -91,6 +92,7 @@
     RUNTIME_BACKGROUND_PLAY:'Arka planda ses çalmayla ilgili bir uyarı alındı.', RUNTIME_BACKGROUND_TTS:'Arka planda metin seslendirmeyle ilgili bir uyarı alındı.'
   };
   EN[HISTORY.SESSION_AUDIO_ERROR]='A dhikr audio error was recorded; the journey may subsequently have entered a paused or idle state.';
+  EN[HISTORY.JOURNEY_WATCHDOG_TIMEOUT]='The journey watchdog stopped an audio attempt after its deadline expired. This records an app-initiated stop and should be examined alongside earlier media events.';
   EN[HISTORY.BACKGROUND_NATIVE_INTERRUPTION]='An interruption was recorded in the native audio player. This record alone does not identify a headphone or operating-system cause.';
   const AI_ERRORS = {
     MISSING_KEY:'AI açıklaması için bir API anahtarı ekleyin. Yerel özetiniz hazır.',

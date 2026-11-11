@@ -18,6 +18,8 @@ jobs:
       - name: Check interruption, recovery and release contracts
         run: |
           mkdir -p "$RUNNER_TEMP/r1247-evidence"
+          node tests/r1248/journey-loop-order.cjs > "$RUNNER_TEMP/r1247-evidence/journey-loop-order.json"
+          node tests/r1248/startup-progress.cjs > "$RUNNER_TEMP/r1247-evidence/startup-progress.json"
           node tests/r1247/background-owner.cjs > "$RUNNER_TEMP/r1247-evidence/background-owner.json"
           node tests/r1247/journey-interruption.cjs > "$RUNNER_TEMP/r1247-evidence/journey-interruption.json"
           node tests/r1247/terminal-interruption.cjs > "$RUNNER_TEMP/r1247-evidence/terminal-interruption.json"
