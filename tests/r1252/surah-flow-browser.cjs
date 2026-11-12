@@ -39,12 +39,6 @@ async function playing(key){await p.waitForFunction(key=>window.__surahMedia.som
   await check(key+' chosen full-surah step is added by the existing visible Akış button',async()=>{const step=await p.evaluate(()=>R170.Player.queue[0]);assert.equal(step.cat,'sure');assert.equal(step.idx,idx);assert.equal(step.reps,2);return step});
   await start();await playing(key);
   await check(key+' native bundled source starts without a credited repetition',async()=>{const x=await p.evaluate(key=>{const a=__surahMedia.find(a=>a._sukunRecordingKey==='bundled:r1065:'+key&&!a.paused);return{duration:a.duration,completed:+R170.Player._r982CompletedReps||0,source:a._sukunRecordingKey,time:a.currentTime}},key);assert(Math.abs(x.duration-seconds)<.25);assert.equal(x.completed,0);return x});
-  await check(key+' two complete native readings credit in order without early completion',async()=>{
-   await p.waitForFunction(key=>__surahTrace.filter(e=>e.key==='bundled:r1065:'+key&&e.type==='ended').length===2,key,{timeout:Math.ceil(seconds*2*1000+120000)});
-   const events=await p.evaluate(key=>__surahTrace.filter(e=>e.key==='bundled:r1065:'+key),key),ends=events.filter(e=>e.type==='ended'),starts=events.filter(e=>e.type==='playing');
-   assert.equal(ends.length,2);assert(ends.every(e=>e.trusted&&e.time>=e.duration-.1));assert(starts.length>=2);assert(starts[1].at>ends[0].at);assert.equal(starts[1].completed,1);
-   await p.waitForFunction(()=>!R170.Player.playing);return{starts,ends};
-  });
   // New run, pause before the first complete reading and cancel while paused.
   await select(idx,2);await start();await playing(key);
   await p.evaluate(()=>PlaybackController.pause('smart-session'));
@@ -59,8 +53,18 @@ async function playing(key){await p.waitForFunction(key=>window.__surahMedia.som
    // Negative liveness assertion requires an observation window beyond retry/gap timers.
    await p.waitForTimeout(1200);
    const x=await p.evaluate(()=>({token:R170.Player.token,plays:__surahTrace.filter(e=>e.type==='playing').length,playing:R170.Player.playing,completed:+R170.Player._r982CompletedReps||0}));
+   console.log('stop-observation',JSON.stringify({key,stamp,after:x,events:await p.evaluate(()=>__surahTrace.slice(-15))}));
    assert.equal(x.token,stamp.token);assert.equal(x.plays,stamp.plays);assert.equal(x.playing,false);assert.equal(x.completed,0);return x;
   });
+  // Complete playback runs after short lifecycle checks, so failures report promptly.
+  await select(idx,2);await start();await playing(key);
+  await check(key+' two complete native readings credit in order without early completion',async()=>{
+   await p.waitForFunction(key=>__surahTrace.filter(e=>e.key==='bundled:r1065:'+key&&e.type==='ended').length===2,key,{timeout:Math.ceil(seconds*2*1000+120000)});
+   const events=await p.evaluate(key=>__surahTrace.filter(e=>e.key==='bundled:r1065:'+key),key),ends=events.filter(e=>e.type==='ended'),starts=events.filter(e=>e.type==='playing');
+   assert.equal(ends.length,2);assert(ends.every(e=>e.trusted&&e.time>=e.duration-.1));assert(starts.length>=2);assert(starts[1].at>ends[0].at);assert.equal(starts[1].completed,1);
+   await p.waitForFunction(()=>!R170.Player.playing);return{starts,ends};
+  });
+
  }
  assert.equal(f.errors.length,0,f.errors.join('\n'));assert(!f.consoleErrors.some(x=>/integrity|syntaxerror|referenceerror|typeerror/i.test(x)),f.consoleErrors.join('\n'));
  report.evidence=f.evidence();
