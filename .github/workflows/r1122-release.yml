@@ -48,6 +48,12 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0 fake-indexeddb@6.2.4
           "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
           echo "CHROMIUM_PATH=$(node -p 'require("playwright").chromium.executablePath()')" >> "$GITHUB_ENV"
+      - name: Verify verse content selection
+        working-directory: candidate
+        run: node tests/r1250/verse-content.cjs
+      - name: Verify Abese and Tarik reading controls and native recitation
+        working-directory: candidate
+        run: node tests/r1250/readings.cjs . ../r1250-acceptance/readings.json
       - name: Run mandatory current source and native offline acceptance
         working-directory: candidate
         run: python3 tests/r1213/run-current-checks.py --scope full --upgrade-baseline ../upgrade-baseline --output ../acceptance
@@ -56,6 +62,8 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: ${{ steps.release.outputs.build }}-acceptance-${{ github.event.pull_request.head.sha || github.sha }}
-          path: acceptance
+          path: |
+            acceptance
+            r1250-acceptance
           if-no-files-found: error
           retention-days: 30

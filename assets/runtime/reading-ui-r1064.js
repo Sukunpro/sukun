@@ -45,7 +45,7 @@
   'recording-content-unknown':['Kaydın özgün metne mi anlama mı ait olduğu belirsiz; bu açık seçimde kullanılmadı.','It is unknown whether this recording contains the original text or meaning; it was not used for this explicit choice.']
  };
  reasons['arabic-audio-unavailable']=['Gömülü Arapça kayıt bulunamadı. Otomatik dinle ile mevcut kayıtlarını veya isteğe bağlı Arapça cihaz sesini seç.','No bundled Arabic recording is available. Use Listen automatically for existing recordings, or choose the optional Arabic device voice.'];
- reasons['bundled-seek-unavailable']=['Gömülü Yâsîn tam sûre kaydıdır. Âyet seçerek dinlemek için Arapça cihaz sesi seç.','Bundled Ya Sin is a complete surah recording. Choose Arabic device speech to listen by verse.'];
+ reasons['bundled-seek-unavailable']=['Gömülü kıraat tam sûre kaydıdır. Âyet seçerek dinlemek için Arapça cihaz sesi seç.','Bundled recitation is a complete surah recording. Choose Arabic device speech to listen by verse.'];
  reasons['text-unavailable']=['Bu içerik için uygun okuma metni bulunamadı.','No suitable reading text is available for this content.'];
  function message(reason){if(reason==='recording-required'){const source=settings()?.getMode?.();return source==='personal'?copy(...reasons['personal-recording-unavailable']):source==='generic'?copy(...reasons['generic-recording-unavailable']):copy('Seçilen içerikle eşleşen ses kaydı kullanılamıyor. Başka kaynak seç.','No usable recording matches the selected content. Choose another source.')}return reasons[reason]?copy(...reasons[reason]):label('unavailable')}
  function item(id=selected){return safe(()=>catalog()?.get?.(id))}
@@ -84,7 +84,7 @@
   text($('r1064ReadingMatch'),label(record?.status==='verified'?'verified':record?.status==='partial'?'partial':'pending'));
   val($('r1064ReadingContent'),settings()?.getContent?.()||'legacy');val($('r1064ReadingSource'),settings()?.getMode?.()||'auto');val($('r1064ReadingSelect'),selected);
   if($('r1064ArabicListen'))$('r1064ArabicListen').disabled=!canArabic(record);if($('r1064MeaningListen'))$('r1064MeaningListen').disabled=!canMeaning(record);
-  sources(record);renderTransport();renderYasin();legacyLabels();lastLanguage=w.I18N?.lang||'tr';
+  sources(record);renderTransport();renderYasin();renderExtraSurahs();legacyLabels();lastLanguage=w.I18N?.lang||'tr';
  }
  function renderTransport(){
   const state=safe(()=>audio()?.snapshot?.(),{})||{};const phase=String(state.phase||state.status||'').toLowerCase();
@@ -95,7 +95,7 @@
   text($('r1064ReadingStatus'),status);text($('r1064YasinStatus'),status);
   // r1068: the manual text/start selection belongs to the user. Playback paints
   // its own current-verse frame without rewriting a native picker's value.
-  renderYasinFollow(state);
+  renderYasinFollow(state);renderExtraSurahs();
  }
  function yasinFollow(state){
   const phase=String(state.phase||state.status||'').toLowerCase(),active=state.id==='reading:yasin'&&['playing','paused'].includes(phase);
@@ -157,7 +157,47 @@
     for(const [suffix,action] of [['Pause','pause'],['Resume','resume'],['Stop','stop']])$('r1064Reading'+suffix).onclick=()=>transport(action);
    }}
   if(!readerDialog?.open&&host.parentElement!==body)body.prepend(host);
-  mountYasin(body);mountShortcuts();readerState();subscribe();render();return true;
+  mountYasin(body);mountExtraSurahs(body);mountShortcuts();readerState();subscribe();render();return true;
+ }
+
+ const extraSurahs=new Map();
+ function mountExtraSurahs(body){
+  for(const key of ['abese','tarik']){
+   if(extraSurahs.get(key)?.isConnected)continue;
+   const record=item('reading:'+key);if(!record?.verses?.length)continue;
+   const box=document.createElement('details');box.id='surah-'+key;box.className='jEd r1064-reading';box.setAttribute('data-noi18n','');
+   const summary=document.createElement('summary'),content=document.createElement('div');content.className='r1064-content';box.append(summary,content);
+   const note=document.createElement('p');note.className='r1064-note';content.append(note);
+   const choices=document.createElement('button');choices.type='button';choices.onclick=()=>open(record.id);content.append(choices);
+   const field=document.createElement('label');field.className='r1064-field';const caption=document.createElement('span'),select=document.createElement('select');field.append(caption,select);content.append(field);
+   for(const verse of record.verses){const option=document.createElement('option');option.value=String(verse.number);option.textContent=String(verse.number);select.append(option)}
+   const actions=document.createElement('div');actions.className='r1064-actions';content.append(actions);const controls={};
+   const button=(key,fn)=>{const b=document.createElement('button');b.type='button';b.onclick=fn;controls[key]=b;actions.append(b);return b};
+   button('arabicListen',()=>void play(record.id,'arabic',{startVerse:settings()?.getMode?.()==='auto'?1:Number(select.value)||1}));
+   button('meaningListen',()=>void play(record.id,'meaning',{startVerse:Number(select.value)||1}));
+   for(const action of ['pause','resume','stop'])button(action,()=>{if(audio()?.snapshot?.().id===record.id)transport(action)});
+   const status=document.createElement('p');status.setAttribute('role','status');status.setAttribute('aria-live','polite');content.append(status);
+   const basmala=document.createElement('div');basmala.className='r1064-arabic';basmala.lang='ar';basmala.dir='rtl';basmala.textContent=record.basmala||'';content.append(basmala);
+   const rows=new Map();for(const verse of record.verses){const row=document.createElement('article');row.className='r1064-verse';row.id='surah-'+key+'-verse-'+verse.number;const number=document.createElement('span');number.className='r1064-verse-number';number.textContent=verse.number;row.append(number);
+    for(const [cls,lang,dir,value] of [['r1064-arabic','ar','rtl',verse.arabic],['r1064-latin','tr','ltr',verse.latin],['r1064-verse-meaning','tr','ltr',verse.meaning]]){if(value){const el=document.createElement('div');el.className=cls;el.lang=lang;el.dir=dir;el.textContent=value;row.append(el)}}content.append(row);rows.set(verse.number,row)}
+   select.onchange=()=>{const row=rows.get(Number(select.value));if(box.open)row?.scrollIntoView?.({block:'nearest',behavior:'instant'})};
+   const source=document.createElement('details'),sourceTitle=document.createElement('summary'),sourceBody=document.createElement('div');source.append(sourceTitle,sourceBody);content.append(source);
+   box._surah={record,summary,note,choices,caption,select,controls,status,rows,sourceTitle,sourceBody};extraSurahs.set(key,box);body.append(box);
+  }
+ }
+ function renderExtraSurahs(){
+  const state=audio()?.snapshot?.()||{},phase=String(state.phase||'').toLowerCase();
+  for(const box of extraSurahs.values()){
+   const x=box._surah,r=x.record,active=state.id===r.id;
+   x.summary.textContent=copy(r.title,r.titleEn)+' · '+r.verses.length+' '+copy('âyet','verses');
+   x.note.textContent=label('complete')+' '+copy('Latin harfli okunuş yardımcıdır; tecvidli kıraatin yerini tutmaz.','Transliteration is a reading aid, not a substitute for tajwid recitation.');
+   x.choices.textContent=label('listeningChoices');x.caption.textContent=label('verse');x.select.setAttribute('aria-label',label('verse')+' · '+copy(r.title,r.titleEn));
+   for(const [key,b] of Object.entries(x.controls))b.textContent=label(key);
+   x.controls.pause.disabled=!active||phase!=='playing';x.controls.resume.disabled=!active||phase!=='paused';x.controls.stop.disabled=!active||!['preparing','playing','paused'].includes(phase);
+   x.controls.meaningListen.disabled=!canMeaning(r);x.status.textContent=active?(notice?message(notice):label(phase==='ended'?'finished':phase==='idle'?'ready':phase)):label('ready');
+   for(const [number,row] of x.rows){const current=active&&state.sourceKind==='tts'&&state.verseSync==='tts'&&state.verse===number;row.classList.toggle('r1067-current-verse',current);if(current)row.setAttribute('aria-current','true');else row.removeAttribute('aria-current')}
+   x.sourceTitle.textContent=label('sources');sources(r,x.sourceBody);
+  }
  }
  function yasinRecord(){return item('reading:yasin')}
  function yasinData(){const record=yasinRecord(),data=w.SukunYasinDataR1064||w.SUKUN_YASIN_R1064||w.SUKUN_YASIN_DATA_R1064;return {record,verses:record?.verses||data?.verses||[],basmala:record?.basmala||data?.basmala||''}}
