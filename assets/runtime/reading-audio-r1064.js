@@ -40,10 +40,10 @@
  function makeQueue(entry,opt,plan){
   const yasin=entry.id==='reading:yasin'?w.SukunYasinDataR1064:entry;
   const verses=entry.verses||entry.yasin?.verses||yasin?.verses;
-  if(Array.isArray(verses)&&verses.length){
+  if(Array.isArray(verses)&&verses.length&&!(state.content==='legacy'&&!verses.every(v=>v.latin))){
    const start=Math.max(1,Math.min(verses.length,Number(opt.startVerse)||1)),selected=opt.onlyVerse?verses.filter(v=>Number(v.number||v.no)===start):verses.filter(v=>Number(v.number||v.no)>=start),out=[];
-   if(start===1&&!opt.onlyVerse){const bs=state.content==='arabic'?(yasin?.basmalaTts||yasin?.basmala||entry.basmala?.arabic):(yasin?.basmalaMeaning||entry.basmala?.meaning);if(bs)ttsBol(bs,190).forEach(text=>out.push({text,verse:0}));}
-   for(const verse of selected){const text=String(state.content==='arabic'?(verse.arabicTts||verse.arabic||verse.text||verse.ar||''):(verse.meaning||verse.translation||verse.tr||'')).trim();if(!text)return null;for(const part of ttsBol(text,190))out.push({text:part,verse:Number(verse.number||verse.no)});}
+   if(start===1&&!opt.onlyVerse){const bs=state.content==='arabic'?(yasin?.basmalaTts||yasin?.basmala||entry.basmala?.arabic):state.content==='meaning'?(yasin?.basmalaMeaning||entry.basmala?.meaning):(yasin?.basmalaLatin||entry.basmalaLatin);if(bs)ttsBol(bs,190).forEach(text=>out.push({text,verse:0}));}
+   for(const verse of selected){const text=String(state.content==='arabic'?(verse.arabicTts||verse.arabic||verse.text||verse.ar||''):state.content==='meaning'?(verse.meaning||verse.translation||verse.tr||''):(verse.latin||'')).trim();if(!text)return null;for(const part of ttsBol(text,190))out.push({text:part,verse:Number(verse.number||verse.no)});}
    return out;
   }
   return ttsBol(plan.text,190).map(text=>({text,verse:0}));

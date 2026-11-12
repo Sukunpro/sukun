@@ -45,7 +45,7 @@
   'recording-content-unknown':['Kaydın özgün metne mi anlama mı ait olduğu belirsiz; bu açık seçimde kullanılmadı.','It is unknown whether this recording contains the original text or meaning; it was not used for this explicit choice.']
  };
  reasons['arabic-audio-unavailable']=['Gömülü Arapça kayıt bulunamadı. Otomatik dinle ile mevcut kayıtlarını veya isteğe bağlı Arapça cihaz sesini seç.','No bundled Arabic recording is available. Use Listen automatically for existing recordings, or choose the optional Arabic device voice.'];
- reasons['bundled-seek-unavailable']=['Gömülü Yâsîn tam sûre kaydıdır. Âyet seçerek dinlemek için Arapça cihaz sesi seç.','Bundled Ya Sin is a complete surah recording. Choose Arabic device speech to listen by verse.'];
+ reasons['bundled-seek-unavailable']=['Gömülü kıraat tam sûre kaydıdır. Âyet seçerek dinlemek için Arapça cihaz sesi seç.','Bundled recitation is a complete surah recording. Choose Arabic device speech to listen by verse.'];
  reasons['text-unavailable']=['Bu içerik için uygun okuma metni bulunamadı.','No suitable reading text is available for this content.'];
  function message(reason){if(reason==='recording-required'){const source=settings()?.getMode?.();return source==='personal'?copy(...reasons['personal-recording-unavailable']):source==='generic'?copy(...reasons['generic-recording-unavailable']):copy('Seçilen içerikle eşleşen ses kaydı kullanılamıyor. Başka kaynak seç.','No usable recording matches the selected content. Choose another source.')}return reasons[reason]?copy(...reasons[reason]):label('unavailable')}
  function item(id=selected){return safe(()=>catalog()?.get?.(id))}
