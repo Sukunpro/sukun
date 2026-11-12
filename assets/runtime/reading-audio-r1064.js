@@ -41,7 +41,7 @@
   const yasin=entry.id==='reading:yasin'?w.SukunYasinDataR1064:entry;
   const verses=entry.verses||entry.yasin?.verses||yasin?.verses;
   if(Array.isArray(verses)&&verses.length){
-   const start=Math.max(1,Math.min(83,Number(opt.startVerse)||1)),selected=opt.onlyVerse?verses.filter(v=>Number(v.number||v.no)===start):verses.filter(v=>Number(v.number||v.no)>=start),out=[];
+   const start=Math.max(1,Math.min(verses.length,Number(opt.startVerse)||1)),selected=opt.onlyVerse?verses.filter(v=>Number(v.number||v.no)===start):verses.filter(v=>Number(v.number||v.no)>=start),out=[];
    if(start===1&&!opt.onlyVerse){const bs=state.content==='arabic'?(yasin?.basmalaTts||yasin?.basmala||entry.basmala?.arabic):(yasin?.basmalaMeaning||entry.basmala?.meaning);if(bs)ttsBol(bs,190).forEach(text=>out.push({text,verse:0}));}
    for(const verse of selected){const text=String(state.content==='arabic'?(verse.arabicTts||verse.arabic||verse.text||verse.ar||''):(verse.meaning||verse.translation||verse.tr||'')).trim();if(!text)return null;for(const part of ttsBol(text,190))out.push({text:part,verse:Number(verse.number||verse.no)});}
    return out;
@@ -240,9 +240,9 @@
  }
  function navigate(delta,repeat=false){
   if(!currentEntry||!currentOptions)return false;
-  if(state.sourceKind==='bundled'&&currentEntry.id==='reading:yasin')return w.SukunReadingPolicy.unavailable('bundled-seek-unavailable');
+  if(state.sourceKind==='bundled'&&Array.isArray(currentEntry.verses))return w.SukunReadingPolicy.unavailable('bundled-seek-unavailable');
   const verse=state.verse||Number(currentOptions.startVerse)||1;
-  if(Array.isArray(currentEntry.verses)||currentEntry.id==='reading:yasin'){const target=Math.max(1,Math.min(83,repeat?verse:verse+delta));const wasPaused=state.phase==='paused';const promise=play({...currentOptions,id:currentEntry.id,startVerse:target,onlyVerse:repeat?true:currentOptions.onlyVerse});if(wasPaused)pause();return promise;}
+  if(Array.isArray(currentEntry.verses)||currentEntry.id==='reading:yasin'){const target=Math.max(1,Math.min(currentEntry.verses?.length||83,repeat?verse:verse+delta));const wasPaused=state.phase==='paused';const promise=play({...currentOptions,id:currentEntry.id,startVerse:target,onlyVerse:repeat?true:currentOptions.onlyVerse});if(wasPaused)pause();return promise;}
   // For non-verse texts Replay begins the same original, never another variant.
   return play({...currentOptions,id:currentEntry.id});
  }
