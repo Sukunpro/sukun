@@ -369,3 +369,245 @@
   html body #prSearchResults :is(.prSearchGroupTitle,.prResultDescription,.prResultSection),html body #rxInputLabelUX {color:CanvasText!important}
  }
 }
+
+/* Presentation-only candidate. Append to css/visual-polish-r1232.css.
+   Reuse its earliest layer: !important in a later/new layer would lose
+   to the legacy Berhetiyye theme. No display overrides on hidden items. */
+@layer sukun-r1232-polish {
+  html body.r1215-premium .wrap > footer #sukunDiscovery .discoveryGrid {
+    box-sizing:border-box!important;
+    width:min(100%,560px)!important;max-width:100%!important;
+    margin-inline:auto!important;
+  }
+  html body #sukunDiscovery .discoveryGrid button {
+    box-sizing:border-box!important;text-align:center!important;
+    justify-content:center!important;align-items:center!important;
+    white-space:normal!important;overflow-wrap:break-word!important;
+  }
+  html body #tab-amb #mixer .preAccHead {
+    box-sizing:border-box!important;
+    width:min(100%,440px)!important;max-width:100%!important;
+    margin-inline:auto!important;min-height:48px!important;height:auto!important;
+    display:grid!important;grid-template-columns:24px minmax(0,1fr) 24px!important;
+    gap:8px!important;padding:14px 28px!important;text-align:center!important;
+  }
+  html body #tab-amb #mixer .preAccHead .preAccT {
+    grid-column:2!important;grid-row:1!important;min-width:0!important;
+    text-align:center!important;white-space:normal!important;
+    overflow-wrap:break-word!important;line-height:1.4!important;
+  }
+  html body #tab-amb #mixer .preAccHead .preAccN {
+    grid-column:1!important;grid-row:1!important;justify-self:center!important;
+    position:static!important;margin:0!important;
+  }
+  html body #tab-amb #mixer .preAccHead .preAccChev {
+    grid-column:3!important;grid-row:1!important;justify-self:center!important;
+    position:static!important;margin:0!important;
+  }
+  html body :is(#frToggle,#r1082SessionEntry) {
+    box-sizing:border-box!important;width:fit-content!important;
+    min-width:44px!important;max-width:min(100%,440px)!important;
+    min-height:48px!important;height:auto!important;
+    flex:0 1 auto!important;align-self:center!important;justify-self:center!important;
+    margin-inline:auto!important;padding:14px 32px!important;
+    text-align:center!important;justify-content:center!important;align-items:center!important;
+    white-space:normal!important;overflow-wrap:break-word!important;line-height:1.45!important;
+  }
+  html body #frequencyAdvancedR1120 > summary {
+    box-sizing:border-box!important;width:min(100%,440px)!important;
+    max-width:100%!important;min-height:48px!important;height:auto!important;
+    margin-inline:auto!important;padding:14px 32px!important;
+    text-align:center!important;white-space:normal!important;
+    overflow-wrap:break-word!important;line-height:1.45!important;
+  }
+}
+/* Establish a block formatting box for auto margins without overriding the
+   existing !important focus-mode/hidden display rules. */
+html body #r1082SessionEntry { display:block; }
+
+/* Additional supplied frequency screenshots: same owner IDs, no new controls. */
+@layer sukun-r1232-polish {
+ html[data-r1074-theme="berhet"] body #frequencyWorkbenchR1120 :is(.fr1120-workbench,.fr1120-help)>summary {
+   width:min(100%,520px)!important;margin-inline:auto!important;
+ }
+ html body #frequencyWorkbenchR1120 select {
+   box-sizing:border-box!important;min-width:0!important;max-width:100%!important;
+   text-align:center!important;text-align-last:center!important;padding-inline:32px!important;
+ }
+ html body #frequencyWorkbenchR1120 .fr1120-octaves {
+   justify-content:center!important;flex-wrap:wrap!important;gap:12px!important;
+ }
+ html body #tab-frq :is(#fr1120-octDown,#fr1120-octUp,#expBtn,#impBtn) {
+   box-sizing:border-box!important;flex:0 1 220px!important;width:fit-content!important;
+   max-width:100%!important;min-width:44px!important;min-height:48px!important;height:auto!important;
+   padding:14px 30px!important;text-align:center!important;white-space:normal!important;
+   overflow-wrap:break-word!important;line-height:1.45!important;
+ }
+ html body #tab-frq .zBtns:has(>#expBtn) {justify-content:center!important;flex-wrap:wrap!important;gap:12px!important}
+ html body #tab-frq :is(#r1107PresetsBox,#jEd,#fr2Box,#pitBox)>summary {
+   box-sizing:border-box!important;width:min(100%,560px)!important;max-width:100%!important;
+   min-height:48px!important;height:auto!important;margin-inline:auto!important;
+   padding:14px 40px!important;text-align:center!important;white-space:normal!important;
+   overflow-wrap:break-word!important;line-height:1.45!important;
+ }
+ html body #r1107PresetsSummary #r1106PresetsTitle {
+   margin:0!important;padding:0!important;min-width:0!important;max-width:100%!important;
+   text-align:center!important;white-space:normal!important;line-height:1.45!important;
+ }
+ html body #presets .preAccHead {
+   box-sizing:border-box!important;width:min(100%,520px)!important;margin-inline:auto!important;
+   display:grid!important;grid-template-columns:28px minmax(0,1fr) 28px!important;
+   gap:8px!important;padding:14px 28px!important;min-height:48px!important;height:auto!important;
+   max-width:100%!important;text-align:center!important;
+ }
+ html body #presets .preAccHead .preAccT {
+   grid-column:2!important;grid-row:1!important;min-width:0!important;
+   text-align:center!important;white-space:normal!important;overflow-wrap:break-word!important;line-height:1.45!important;
+ }
+ html body #presets .preAccHead .preAccN {grid-column:1!important;grid-row:1!important;position:static!important;margin:0!important;justify-self:center!important}
+ html body #presets .preAccHead .preAccChev {grid-column:3!important;grid-row:1!important;position:static!important;margin:0!important;justify-self:center!important}
+ html body #presets .preGrid2 {
+   display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))!important;
+   gap:14px!important;max-width:960px!important;margin-inline:auto!important;
+ }
+ html body #presets .pre {
+   box-sizing:border-box!important;display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+   justify-items:center!important;align-content:center!important;gap:5px!important;
+   width:100%!important;min-width:0!important;max-width:100%!important;
+   min-height:116px!important;height:auto!important;max-height:none!important;
+   padding:20px 32px!important;text-align:center!important;
+   white-space:normal!important;overflow-wrap:break-word!important;line-height:1.45!important;
+ }
+ html body #presets .pre :is(.pIc,b,small) {
+   position:static!important;inset:auto!important;transform:none!important;
+   width:auto!important;max-width:100%!important;min-width:0!important;
+   margin:0!important;text-align:center!important;white-space:normal!important;
+   overflow-wrap:break-word!important;line-height:1.45!important;
+ }
+ html body #presets .pre b {font-size:14px!important}
+ html body #presets .pre small {font-size:12px!important;color:inherit!important;opacity:.9!important}
+ /* Native open state stays authoritative, but a stale JS pixel max-height
+    must not clip cards after fonts, translations or viewport width change. */
+ html body #presets .preAcc.open > .preAccBody {max-height:none!important;height:auto!important}
+}
+@layer sukun-r1232-polish {
+ html body #presets .preFilter {justify-content:center!important;flex-wrap:wrap!important;gap:10px!important}
+ html body #presets .preFilter>button {
+   box-sizing:border-box!important;flex:0 1 auto!important;min-width:44px!important;max-width:100%!important;
+   min-height:44px!important;height:auto!important;padding:12px 26px!important;
+   text-align:center!important;white-space:normal!important;overflow-wrap:break-word!important;line-height:1.45!important;
+ }
+}
+
+/* Presentation-only supplement. Append to visual-polish-r1232.css.
+   Existing IDs, listeners, hidden states, theme artwork and data stay intact. */
+@layer sukun-r1232-polish {
+ /* Gem ends need real content gutters; text cannot occupy the bevel. */
+ html body #tk[data-tk-ux="r992"] #panel .pSec .pT {
+  display:flex!important;flex-wrap:wrap!important;align-items:center!important;justify-content:center!important;
+  gap:4px 10px!important;box-sizing:border-box!important;text-align:center!important;
+  min-height:52px!important;height:auto!important;max-height:none!important;
+  padding:12px 30px!important;line-height:1.5!important;letter-spacing:.04em!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;min-width:0!important;
+ }
+ html body #tk[data-tk-ux="r992"] #panel .pSec .pT small {float:none!important;margin:0!important;line-height:1.5!important}
+ html body #tk[data-tk-ux="r992"] #panel .imgeGrid {grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+ html body #tk[data-tk-ux="r992"] #panel .imgeKart {min-width:0!important;align-items:stretch!important}
+ html body #tk[data-tk-ux="r992"] #panel .imgeKartAna {
+  display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+  min-width:0!important;min-height:88px!important;height:auto!important;max-height:none!important;
+  padding:15px 24px!important;gap:5px!important;box-sizing:border-box!important;
+  white-space:normal!important;text-align:center!important;overflow-wrap:anywhere!important;
+ }
+ html body #tk[data-tk-ux="r992"] #panel .imgeKartAna :is(b,small) {
+  display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;
+  margin:0!important;padding:0!important;text-align:center!important;white-space:normal!important;
+  overflow-wrap:anywhere!important;line-height:1.5!important;
+ }
+ html body #tk[data-tk-ux="r992"] #panel .imgeKartAna b {font-size:14px!important}
+ html body #tk[data-tk-ux="r992"] #panel .imgeKartAna small {font-size:12px!important}
+ html body #tk[data-tk-ux="r992"] #panel .imgeKartMic {flex:0 0 44px!important;width:44px!important;min-width:44px!important;align-self:center!important;min-height:44px!important}
+ html body #tk[data-tk-ux="r992"] .r992PurposeBtn {
+  display:grid!important;grid-template-columns:28px minmax(0,1fr) 28px!important;
+  align-items:center!important;gap:8px!important;text-align:center!important;padding:18px 28px!important;
+  min-height:100px!important;height:auto!important;max-height:none!important;box-sizing:border-box!important;
+ }
+ html body #tk[data-tk-ux="r992"] .r992PurposeBtn :is(strong,small) {white-space:normal!important;overflow-wrap:anywhere!important;text-align:center!important;line-height:1.4!important}
+ html body #tk[data-tk-ux="r992"] .r992PurposeSymbol {width:28px!important;font-size:24px!important}
+ html body #tk[data-tk-ux="r992"] .r992PurposeCheck {margin:0!important;justify-self:center!important}
+ html body #tk[data-tk-ux="r992"] #panel .btnRow {display:flex!important;flex-wrap:wrap!important;justify-content:center!important;gap:10px!important}
+ html body #tk[data-tk-ux="r992"] #panel .btnRow>.btn,
+ html body #tk[data-tk-ux="r992"] #r992PanelFooter button {
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  flex:0 1 auto!important;width:auto!important;max-width:100%!important;min-width:0!important;
+  min-height:48px!important;height:auto!important;padding:12px 26px!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;text-align:center!important;line-height:1.4!important;
+ }
+ html body #tk[data-tk-ux="r992"] #r992PanelFooter {text-align:center!important}
+ html body #tk[data-tk-ux="r992"] #panel .r1178MihrabLock {justify-content:center!important;flex-wrap:wrap!important}
+ html body #tk[data-tk-ux="r992"] #panel .r1178MihrabLock [data-mevlevi-lock] {
+  width:max-content!important;max-width:100%!important;min-width:130px!important;
+  padding:10px 24px!important;gap:10px!important;box-sizing:border-box!important;
+ }
+ /* Paragraphs retain reading alignment, headings and actions are centred. */
+ html body #tk[data-tk-ux="r992"] #panel .pD {line-height:1.65!important;overflow-wrap:anywhere!important}
+ html body #todayCard .tcTop {justify-content:center!important;text-align:center!important}
+ html body #todayCard .tcRow {justify-content:center!important;flex-wrap:wrap!important}
+ html body #todayCard .tcRow>button:not([hidden]) {
+  flex:0 1 auto!important;width:auto!important;max-width:100%!important;
+  padding:12px 30px!important;min-height:48px!important;height:auto!important;
+  white-space:normal!important;text-align:center!important;line-height:1.4!important;
+ }
+ html body #vakitBox>summary {display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;gap:8px!important;padding:14px 36px!important;white-space:normal!important;line-height:1.5!important}
+ html body #rutRow {justify-content:center!important;flex-wrap:wrap!important}
+ html body #tab-ntf .r554NotifyCopy {text-align:center!important;min-width:0!important}
+ html body #tab-ntf .r554NotifyTools {justify-content:center!important}
+ html body #tab-ntf .r554NotifyFilters {max-width:680px!important;margin-inline:auto!important}
+ html body #tab-ntf :is(.r554NotifyFilters,.r554NotifyTools) button:not([hidden]) {
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  min-height:48px!important;height:auto!important;padding:12px 24px!important;
+  text-align:center!important;white-space:normal!important;overflow-wrap:anywhere!important;line-height:1.4!important;
+ }
+ html body #sukunBerhetGate .sbg-gate-top>.sbg-back {
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:auto!important;min-width:0!important;max-width:100%!important;min-height:48px!important;
+  height:auto!important;padding:12px 28px!important;line-height:1.4!important;
+  text-align:center!important;white-space:normal!important;overflow-wrap:anywhere!important;box-sizing:border-box!important;
+ }
+ html body #tab-ntf #r607CenterMaint {display:flex!important;justify-content:center!important;flex-wrap:wrap!important;gap:10px!important}
+ html body #tab-ntf #r607CenterMaint .r607MaintBtn {flex:0 1 auto!important;width:auto!important;max-width:100%!important;min-height:48px!important;padding:12px 28px!important;text-align:center!important;white-space:normal!important;line-height:1.4!important}
+ html body #tab-rx .rxHead {justify-content:center!important;text-align:center!important}
+ html body #tab-rx>details>summary {display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;text-align:center!important;padding:14px 36px!important;white-space:normal!important;line-height:1.5!important}
+ @media(max-width:560px) {
+  html body #tk[data-tk-ux="r992"] #panel .imgeGrid {grid-template-columns:minmax(0,1fr)!important}
+  html body #tab-ntf .r554NotifyFilters {grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  html body #tk[data-tk-ux="r992"] .r992PurposeBtn {padding-inline:20px!important}
+ }
+ html body #tk[data-tk-ux="r992"] :is(.pT,.imgeGrid,.imgeKart,.imgeKartAna,.imgeKartMic,.r992PurposeBtn,.btnRow,[data-mevlevi-lock])[hidden],
+ html body #tab-ntf :is(.r554NotifyFilters,.r554NotifyTools,#r607CenterMaint,button)[hidden],
+ html body #todayCard :is(.tcTop,.tcRow,button)[hidden],
+ html body #sukunBerhetGate .sbg-back[hidden] {display:none!important}
+}
+
+/* r1251: reading headers use the same safe inset in old and new surah cards. */
+@layer sukun-r1232-polish {
+ html body #zmgOkumalar :is(#dhBox,#dlBox,#akBox,#surah-abese,#surah-tarik)>summary {
+  box-sizing:border-box!important;display:block!important;position:relative!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  height:auto!important;min-height:64px!important;padding:24px 42px!important;
+  text-align:center!important;white-space:normal!important;overflow-wrap:break-word!important;
+  font-size:clamp(14px,3.8vw,18px)!important;line-height:1.5!important;
+ }
+ html body #zmgOkumalar :is(#dhBox,#dlBox,#akBox)>summary>.ico {
+  display:inline-block!important;position:static!important;vertical-align:middle!important;
+  margin:0 6px 0 0!important;transform:none!important;
+ }
+ html body #zmgOkumalar :is(#dhBox,#dlBox,#akBox,#surah-abese,#surah-tarik)>summary::after {
+  position:absolute!important;right:20px!important;top:50%!important;transform:translateY(-50%)!important;
+ }
+ html body #zmgOkumalar :is(#dhBox,#dlBox,#akBox)>summary>.bozet {
+  display:table!important;position:static!important;margin:8px auto 0!important;
+  max-width:100%!important;white-space:normal!important;text-align:center!important;
+  color:inherit!important;opacity:1!important;font-size:12px!important;line-height:1.4!important;
+ }
+}
