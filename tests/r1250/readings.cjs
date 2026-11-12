@@ -15,9 +15,9 @@ const report={checks:[],limitations:['Controlled device speech; no physical phon
    },{key});assert.equal(result.count,n);assert.equal(result.rows,n);assert.equal(result.bundle,key);assert.equal(result.key,'dua:'+key);assert(result.arabic&&result.latin&&result.meaning);assert(!result.buttons.includes('undefined'));
    report.checks.push({name:width+' '+key+' complete reader mounted',passed:true});
    await p.evaluate(async key=>{await SukunVoiceSettings.setMode('auto');window.__newPlay=SukunReadingAudioR1064.play({id:'reading:'+key,content:'arabic',source:'auto'});},key);
-   await p.waitForFunction(key=>{const s=SukunReadingAudioR1064.snapshot();return s.id==='reading:'+key&&s.sourceKind==='bundled'&&s.phase==='playing'},key,{timeout:30000});
-   await p.evaluate(()=>SukunReadingAudioR1064.pause());await p.waitForFunction(()=>SukunReadingAudioR1064.snapshot().phase==='paused');
-   await p.evaluate(()=>SukunReadingAudioR1064.resume());await p.waitForFunction(()=>SukunReadingAudioR1064.snapshot().phase==='playing');
+   await p.waitForFunction(key=>{const s=SukunReadingAudioR1064.snapshot();return s.id==='reading:'+key&&s.sourceKind==='bundled'&&s.phase==='playing'&&window.__sukJourneyNative?.a?.currentTime>.15&&!__sukJourneyNative.a.paused},key,{timeout:30000});
+   assert.equal(await p.evaluate(()=>SukunReadingAudioR1064.pause()),true);await p.waitForFunction(()=>SukunReadingAudioR1064.snapshot().phase==='paused'&&__sukJourneyNative.a.paused);await p.waitForTimeout(220);
+   assert.equal(await p.evaluate(()=>SukunReadingAudioR1064.resume()),true);await p.waitForFunction(()=>SukunReadingAudioR1064.snapshot().phase==='playing');
    await p.evaluate(()=>SukunReadingAudioR1064.stop());
    report.checks.push({name:width+' '+key+' native bundled play pause resume stop',passed:true});
   }
@@ -27,5 +27,5 @@ const report={checks:[],limitations:['Controlled device speech; no physical phon
   assert.equal(f.errors.length,0,f.errors.join('\n'));assert(!f.consoleErrors.some(x=>/integrity|syntaxerror|referenceerror|typeerror/i.test(x)),f.consoleErrors.join('\n'));
   await f.close();f=null;
  }
-}catch(e){report.checks.push({name:'new reading browser acceptance',passed:false,error:e.stack});process.exitCode=1}
+}catch(e){report.checks.push({name:'new reading browser acceptance',passed:false,error:e.stack,state:await f?.page.evaluate(()=>({reader:SukunReadingAudioR1064.snapshot(),native:window.__sukJourneyNative?{paused:__sukJourneyNative.a.paused,time:__sukJourneyNative.a.currentTime}:null,life:{paused:AudioLife.userPaused,terminal:AudioLife._terminalIntent},aggregate:SukunAudioSessionRegistry.aggregateSnapshot()})).catch(()=>null)});process.exitCode=1}
 finally{if(f)await f.close();report.total=report.checks.length;report.passed=report.checks.filter(x=>x.passed).length;fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,JSON.stringify(report,null,2));console.log(JSON.stringify(report));}})();
