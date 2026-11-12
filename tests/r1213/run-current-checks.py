@@ -13,6 +13,7 @@ from urllib.parse import urljoin, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
+    ('r1249-buzurk-source', 'tests/r1249/buzurk-source.cjs'),
     ('r1248-journey-loop-order', 'tests/r1248/journey-loop-order.cjs'),
     ('r1248-startup-progress', 'tests/r1248/startup-progress.cjs'),
     ('ai-router-contract', 'tests/ai-router/contract.cjs'),
@@ -105,6 +106,7 @@ INHERITED_SUITES = [
 # Keep new audio/graphics native evidence in the mandatory full release gate.
 # These suites run sequentially, apart from the parallel source contracts.
 NATIVE_BROWSER_SUITES = [
+    ('r1249-buzurk-native', 'tests/r1249/buzurk-browser.cjs'),
     ('source-heading-native', 'tests/source-heading/browser.cjs'),
     ('tefekkur-glass-native', 'tests/tefekkur-glass/browser.cjs'),
     ('arrangement-fit-native', 'tests/arrangement-fit/browser.cjs'),
