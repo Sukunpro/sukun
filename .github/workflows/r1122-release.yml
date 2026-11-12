@@ -51,6 +51,9 @@ jobs:
       - name: Run mandatory current source and native offline acceptance
         working-directory: candidate
         run: python3 tests/r1213/run-current-checks.py --scope full --upgrade-baseline ../upgrade-baseline --output ../acceptance
+      - name: Verify Abese and Tarik reading controls and native recitation
+        working-directory: candidate
+        run: node tests/r1250/readings.cjs . ../acceptance/r1250-readings.json
       - name: Upload fresh synthetic acceptance evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
