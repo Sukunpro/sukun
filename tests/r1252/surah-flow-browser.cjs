@@ -49,12 +49,13 @@ async function playing(key){await p.waitForFunction(key=>window.__surahMedia.som
   await p.evaluate(()=>PlaybackController.stop('smart-session'));
   await p.waitForFunction(()=>!R170.Player.playing&&!R170.Player.paused);
   await check(key+' stop cancels the owner; no stale next-repeat start',async()=>{
-   const stamp=await p.evaluate(()=>({token:R170.Player.token,plays:__surahTrace.filter(e=>e.type==='playing').length}));
+   const stamp=await p.evaluate(()=>({token:R170.Player.token,plays:__surahTrace.filter(e=>e.type==='playing'&&e.key.startsWith('bundled:r1065:')).length}));
+   // Count actual bundled recitation, not the independent silent keepalive carrier.
    // Negative liveness assertion requires an observation window beyond retry/gap timers.
    await p.waitForTimeout(1200);
-   const x=await p.evaluate(()=>({token:R170.Player.token,plays:__surahTrace.filter(e=>e.type==='playing').length,playing:R170.Player.playing,completed:+R170.Player._r982CompletedReps||0}));
+   const x=await p.evaluate(()=>({token:R170.Player.token,plays:__surahTrace.filter(e=>e.type==='playing'&&e.key.startsWith('bundled:r1065:')).length,playing:R170.Player.playing,completed:+R170.Player._r982CompletedReps||0,activeSurahs:__surahMedia.filter(a=>String(a._sukunRecordingKey||'').startsWith('bundled:r1065:')&&!a.paused&&!a.ended).length}));
    console.log('stop-observation',JSON.stringify({key,stamp,after:x,events:await p.evaluate(()=>__surahTrace.slice(-15))}));
-   assert.equal(x.token,stamp.token);assert.equal(x.plays,stamp.plays);assert.equal(x.playing,false);assert.equal(x.completed,0);return x;
+   assert.equal(x.token,stamp.token);assert.equal(x.plays,stamp.plays);assert.equal(x.playing,false);assert.equal(x.completed,0);assert.equal(x.activeSurahs,0);return x;
   });
   // Complete playback runs after short lifecycle checks, so failures report promptly.
   await select(idx,2);await start();await playing(key);
