@@ -5,7 +5,7 @@ const root=path.resolve(process.argv[2]||'.'),out=path.resolve(process.argv[3]||
 fs.mkdirSync(path.dirname(out),{recursive:true});
 const report={checks:[],limitations:['Synthetic disposable Chromium profile. No physical Android or audible recitation certification.']};let f;
 (async()=>{try{
- for(const width of [320,390,1440]){
+ for(const width of [320,390,768,1440,1920]){
   f=await fixture(root,{width,height:1000,seed:{'sukun.onboardSeen':'1','sukun.obDone':'1','sukun.obSeenBuild':'"r1252"','sukun.r920.focus':'0'}});const p=f.page;
   await p.emulateMedia({reducedMotion:'reduce'});
   await p.evaluate(()=>{window.obClose?.();document.getElementById('dcClose')?.click();KLT_AC('LABELLED-r1252-reader-disposable')});
@@ -29,6 +29,12 @@ const report={checks:[],limitations:['Synthetic disposable Chromium profile. No 
    await box.locator('.r1064-verse').first().scrollIntoViewIfNeeded();await p.screenshot({path:path.join(path.dirname(out),`${width}-${key}.png`)});
    report.checks.push({name:`${width} ${key} complete Arabic/meal default, toggles, language, remount, containment`,passed:true});await box.evaluate(e=>e.open=false);
   }
+  for(const lang of ['tr','en']){
+   await p.evaluate(l=>I18N.set(l),lang);
+   const evidence=await require('./reading-inner-summary-test.cjs')(p);
+   for(const key of ['abese','tarik']){const caption=p.locator('#surah-'+key+' .r1064-content details>summary');await caption.scrollIntoViewIfNeeded();await caption.screenshot({path:path.join(path.dirname(out),`${width}-${lang}-${key}-sources.png`)})}
+   report.checks.push({name:`${width} ${lang} source captions fit jewel frame`,passed:true,evidence});
+  }
   assert.deepEqual(f.errors,[]);assert(!f.consoleErrors.some(x=>/integrity|syntaxerror|referenceerror|typeerror/i.test(x)),f.consoleErrors.join('\n'));await f.close();f=null;
  }
-}catch(e){report.fatal=e.stack;process.exitCode=1}finally{if(f)await f.close();report.total=report.checks.length;report.allPassed=!report.fatal&&report.total===6;fs.writeFileSync(out,JSON.stringify(report,null,2));console.log(JSON.stringify(report))}})();
+}catch(e){report.fatal=e.stack;process.exitCode=1}finally{if(f)await f.close();report.total=report.checks.length;report.allPassed=!report.fatal&&report.total===20;fs.writeFileSync(out,JSON.stringify(report,null,2));console.log(JSON.stringify(report))}})();
