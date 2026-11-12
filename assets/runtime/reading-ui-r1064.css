@@ -43,3 +43,10 @@
 #r1100ReadingDialog>#r1064ReadingExplorer{margin:0;max-height:none;opacity:1;filter:none;pointer-events:auto}
 #r1100ReadingDialog>#r1064ReadingExplorer>summary{display:none}
 @media(max-width:580px){.r1064-reading .r1064-settings{grid-template-columns:minmax(0,1fr)}.r1064-reading .r1064-actions button{flex:1 1 110px}.r1064-reading .r1064-content{gap:10px}.r1064-reading .r1064-arabic{font-size:26px;line-height:2}}
+
+/* Extra full-surah readers share Ya Sin's Arabic + optional translation layout. */
+.r1064-reading .r1064-verses{display:grid;gap:12px;min-width:0}
+.r1064-reading .r1064-verse-options{display:grid;gap:8px;min-width:0}
+:is(#surah-abese,#surah-tarik) .r1064-verse{box-sizing:border-box;padding-inline:12px}
+:is(#surah-abese,#surah-tarik) .r1067-current-verse{outline:2px solid #61dfce;outline-offset:-2px;border-radius:8px;background-color:rgba(58,191,170,.09);box-shadow:inset 0 0 0 1px rgba(97,223,206,.2)}
+:is(#surah-abese,#surah-tarik) .r1064-verse [hidden]{display:none!important}
