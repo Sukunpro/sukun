@@ -1,0 +1,40 @@
+name: r1252 surah reader and flow acceptance
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: r1252-surah-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  surah-acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Install pinned browser test dependency
+        run: |
+          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0
+          echo "NODE_PATH=$RUNNER_TEMP/sukun-browser/node_modules" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Source integrity and unit checks
+        run: |
+          node tools/release-integrity.cjs .
+          node tests/r1250/verse-content.cjs
+          node tests/r1252/readers-unit.cjs
+      - name: Real reader rendering and full-surah playback
+        run: |
+          export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          node tests/r1252/reader-browser.cjs "$PWD" "$RUNNER_TEMP/r1252-evidence/reader/report.json"
+          node tests/r1252/surah-flow-browser.cjs "$PWD" "$RUNNER_TEMP/r1252-evidence/flow/report.json"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: r1252-surah-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/r1252-evidence
+          if-no-files-found: error
+          retention-days: 30

@@ -126,7 +126,7 @@
    })();genericReads.set(identity,promise);return promise;
   }
   async function bundle(step,item,permissions){
-   if(step.cat!=='koruma'||permissions.source!=='auto'||permissions.content==='meaning')return null;
+   if(!['koruma','sure'].includes(step.cat)||permissions.source!=='auto'||permissions.content==='meaning')return null;
    const entry=w.SukunReadingSourcesR1064?.forZikir?.(step.cat,Number(step.idx),'nida');
    const descriptor=entry&&w.SukunBundledArabicR1065?.descriptor?.(entry);if(!descriptor)return null;
    if(!w.SukunPreflightCacheR1092?.inspect)return result('bundled','unknown','cache-unverified');

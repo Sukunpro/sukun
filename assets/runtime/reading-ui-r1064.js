@@ -178,11 +178,20 @@
    for(const action of ['pause','resume','stop'])button(action,()=>{if(audio()?.snapshot?.().id===record.id)transport(action)});
    const status=document.createElement('p');status.setAttribute('role','status');status.setAttribute('aria-live','polite');content.append(status);
    const basmala=document.createElement('div');basmala.className='r1064-arabic';basmala.lang='ar';basmala.dir='rtl';basmala.textContent=record.basmala||'';content.append(basmala);
-   const rows=new Map();for(const verse of record.verses){const row=document.createElement('article');row.className='r1064-verse';row.id='surah-'+key+'-verse-'+verse.number;const number=document.createElement('span');number.className='r1064-verse-number';number.textContent=verse.number;row.append(number);
-    for(const [cls,lang,dir,value] of [['r1064-arabic','ar','rtl',verse.arabic],['r1064-latin','tr','ltr',verse.latin],['r1064-verse-meaning','tr','ltr',verse.meaning]]){if(value){const el=document.createElement('div');el.className=cls;el.lang=lang;el.dir=dir;el.textContent=value;row.append(el)}}content.append(row);rows.set(verse.number,row)}
+   const visibility=document.createElement('div');visibility.className='r1064-verse-options';content.append(visibility);
+   const toggles={};
+   for(const [name,checked] of [['meaning',true],['latin',false]]){
+    const label=document.createElement('label');label.className='r1064-check';
+    const input=document.createElement('input');input.type='checkbox';input.checked=checked;input.id='surah-'+key+'-show-'+name;
+    const caption=document.createElement('span');label.append(input,caption);visibility.append(label);toggles[name]={input,caption};
+    input.onchange=()=>renderExtraSurahs();
+   }
+   const verses=document.createElement('div');verses.className='r1064-verses';verses.id='surah-'+key+'-verses';content.append(verses);
+   const rows=new Map();for(const verse of record.verses){const row=document.createElement('article');row.className='r1064-verse';row.id='surah-'+key+'-verse-'+verse.number;const number=document.createElement('span');number.className='r1064-verse-number';number.textContent=verse.number;number.setAttribute('aria-hidden','true');row.append(number);
+    for(const [cls,lang,dir,value] of [['r1064-arabic','ar','rtl',verse.arabic],['r1064-latin','tr','ltr',verse.latin],['r1064-verse-meaning','tr','ltr',verse.meaning]]){if(value){const el=document.createElement(cls==='r1064-verse-meaning'?'p':'div');el.className=cls;el.lang=lang;el.dir=dir;el.textContent=value;row.append(el)}}verses.append(row);rows.set(verse.number,row)}
    select.onchange=()=>{const row=rows.get(Number(select.value));if(box.open)row?.scrollIntoView?.({block:'nearest',behavior:'instant'})};
    const source=document.createElement('details'),sourceTitle=document.createElement('summary'),sourceBody=document.createElement('div');source.append(sourceTitle,sourceBody);content.append(source);
-   box._surah={record,summary,note,choices,caption,select,controls,status,rows,sourceTitle,sourceBody};extraSurahs.set(key,box);body.append(box);
+   box._surah={record,summary,note,choices,caption,select,controls,status,rows,toggles,sourceTitle,sourceBody};extraSurahs.set(key,box);body.append(box);
   }
  }
  function renderExtraSurahs(){
@@ -191,6 +200,8 @@
    const x=box._surah,r=x.record,active=state.id===r.id;
    x.summary.textContent=copy(r.title,r.titleEn)+' · '+r.verses.length+' '+copy('âyet','verses');
    x.note.textContent=label('complete')+' '+copy('Latin harfli okunuş yardımcıdır; tecvidli kıraatin yerini tutmaz.','Transliteration is a reading aid, not a substitute for tajwid recitation.');
+   x.toggles.meaning.caption.textContent=label('allMeaning');x.toggles.latin.caption.textContent=copy('Latin harfli okunuşu göster','Show Latin transliteration');
+   for(const row of x.rows.values()){const meaning=row.querySelector('.r1064-verse-meaning'),latin=row.querySelector('.r1064-latin');if(meaning)meaning.hidden=!x.toggles.meaning.input.checked;if(latin)latin.hidden=!x.toggles.latin.input.checked}
    x.choices.textContent=label('listeningChoices');x.caption.textContent=label('verse');x.select.setAttribute('aria-label',label('verse')+' · '+copy(r.title,r.titleEn));
    for(const [key,b] of Object.entries(x.controls))b.textContent=label(key);
    x.controls.pause.disabled=!active||phase!=='playing';x.controls.resume.disabled=!active||phase!=='paused';x.controls.stop.disabled=!active||!['preparing','playing','paused'].includes(phase);

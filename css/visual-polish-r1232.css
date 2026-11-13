@@ -618,3 +618,21 @@ html body #r1082SessionEntry { display:block; }
  }
  html body #tab-amb #mixer .preAccHead .preAccT {justify-self:stretch!important;justify-content:center!important;width:100%!important}
 }
+/* Reading subpanels: source/meaning/transliteration captions need the same
+   safe jewel inset as outer headings. Scoped to reader content, not verses. */
+@layer sukun-r1232-polish {
+ html body .r1064-reading .r1064-content details>summary {
+  box-sizing:border-box!important;display:block!important;position:relative!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  height:auto!important;min-height:64px!important;max-height:none!important;
+  padding:24px 42px!important;margin-inline:auto!important;
+  text-align:center!important;white-space:normal!important;
+  overflow-wrap:anywhere!important;word-break:normal!important;
+  font-size:clamp(14px,3.8vw,18px)!important;line-height:1.5!important;
+ }
+ html body .r1064-reading .r1064-content details>summary::after {
+  position:absolute!important;right:20px!important;left:auto!important;
+  top:50%!important;bottom:auto!important;transform:translateY(-50%)!important;
+ }
+ html body .r1064-reading .r1064-content details[hidden] {display:none!important}
+}
