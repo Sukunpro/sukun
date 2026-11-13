@@ -15,7 +15,9 @@ async function select(idx,reps){
   SukunSmartSessionUIR1082.open({reveal:false});
   R170.Player.set([],'Sûre kabul testi');SukunSessionEditor.render();
  },{idx,reps});
- await waitIdle();await p.locator('#r170CurrentAdd').click();
+ await waitIdle();
+ console.log('flow-visibility',JSON.stringify(await p.evaluate(()=>{const rows=[];for(let n=document.getElementById('r170CurrentAdd');n;n=n.parentElement){const s=getComputedStyle(n),r=n.getBoundingClientRect();rows.push({id:n.id,tag:n.tagName,hidden:n.hidden,open:n.open,class:n.className,display:s.display,visibility:s.visibility,width:r.width,height:r.height})}return{rows,body:document.body.className,tab:document.querySelector('.tab.act')?.outerHTML,locked:window.SukunSecretPolicy?.unlocked?.()}})));
+ await p.locator('#r170CurrentAdd').click();
  await p.waitForFunction(idx=>R170.Player.queue.length===1&&R170.Player.queue[0].cat==='sure'&&R170.Player.queue[0].idx===idx,idx);
  await p.evaluate(reps=>{R170.Player.queue[0].reps=reps;R170.Player.queue[0].gap=300;R170.Player.queue[0].repeatMode='fixed';R170.Player.save();SukunSessionEditor.render();window.__surahTrace.length=0},reps);
 }
