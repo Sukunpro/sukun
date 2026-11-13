@@ -130,7 +130,7 @@
   try{
    for(let i=0;i<s.set.adimlar.length;i++){
     let timer;const cancelled=new Promise(resolve=>{s.waitCancel=()=>resolve(null);});const timeout=new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('recording-load-timeout')),10000);});
-    try{blobs.push(await Promise.race([Promise.resolve().then(()=>options.load(key,i)).catch(error=>{throw Object.assign(Error('recording-unavailable'),{cause:error});}),timeout,cancelled]));}finally{clearTimeout(timer);s.waitCancel=null;}
+    try{blobs.push(await Promise.race([Promise.resolve().then(()=>(options.loadForPlayback||options.load)(key,i,()=>active(s))).catch(error=>{throw Object.assign(Error('recording-unavailable'),{cause:error});}),timeout,cancelled]));}finally{clearTimeout(timer);s.waitCancel=null;}
     if(!active(s))return false;
    }
    if(blobs.every(Boolean)&&window.SukunTekkeSequence){
