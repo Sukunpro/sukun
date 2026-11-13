@@ -7,7 +7,7 @@
  const labels={
   title:['Jenerik zikir kayıtları','Generic dhikr recordings'],
   use:['Jenerik kayıtları kullan','Use generic recordings'],
-  explain:['Paket arşivinden kategorileri seç, indir ve uygulamadan önce değişiklik planını incele. Otomatik seçimde önce kendi kaydın, sonra uygun etkin jenerik kayıt, ardından uygun cihaz sesi kullanılır.','Choose categories from the included archive, download them, and review the change plan before applying it. Automatic selection uses your recording first, then a matching enabled generic recording, then a suitable device voice.'],
+  explain:['Paket kayıtları gerektiğinde indirilir; çevrimdışı kullanım için kategorileri önceden indir. Otomatik seçimde önce kendi kaydın, sonra uygun etkin jenerik kayıt, ardından uygun cihaz sesi kullanılır.','Choose categories from the included archive, download them, and review the change plan before applying it. Automatic selection uses your recording first, then a matching enabled generic recording, then a suitable device voice.'],
   mode:['Arşiv otomatik seçimde veya “Yalnız jenerik kayıt” seçiminde kullanılabilir. Açık özgün/anlam seçiminde içeriği ve dili eşleşmelidir. Arapça veya Türkçe cihaz sesi seçimini değiştirmez.','The archive can be used in automatic mode or “Generic recording only” mode. For an explicit original/meaning choice, its content and language must match. It does not override an Arabic or Turkish device-voice choice.'],
   safe:['Arşiv kişisel kayıtlarından ayrı tutulur; onları, ayarlarını veya sayacı geri yüklemez. Değişiklikleri uygulamak için önce Bitir’e dokun. Kullanımı açmak veya kapatmak, sürmekte olan okumayı duraklatabilir.','The archive is kept separately from personal recordings; it does not restore them, settings or counts. Tap Finish before applying changes. Enabling or disabling it may pause a current reading.'],
   bundled:['Paket arşivini seç ve indir','Choose and download included recordings'],
@@ -21,12 +21,12 @@
   if(!host)return;const s=bank()?.snapshot?.()||{},working=busy||s.busy;
   for(const key of ['title','use','explain','mode','safe','bundled','file','download','cancel'])text($('r1055Generic'+key[0].toUpperCase()+key.slice(1)),copy(...labels[key]));
   const input=$('r1055GenericInput');input?.setAttribute('aria-label',copy(...labels.fileLabel));
-  const toggle=$('r1055GenericToggle');if(toggle){toggle.disabled=working||!s.count;toggle.classList.toggle('on',!!s.enabled);toggle.setAttribute('aria-checked',String(!!s.enabled));toggle.setAttribute('aria-label',copy(...labels.use));}
+  const toggle=$('r1055GenericToggle');if(toggle){toggle.disabled=working||!(s.count||s.includedCount);toggle.classList.toggle('on',!!s.enabled);toggle.setAttribute('aria-checked',String(!!s.enabled));toggle.setAttribute('aria-label',copy(...labels.use));}
   for(const id of ['Bundled','File'])if($('r1055Generic'+id))$('r1055Generic'+id).disabled=working;
   if($('r1055GenericDownload'))$('r1055GenericDownload').disabled=working||!s.count;
   if($('r1055GenericCancel'))$('r1055GenericCancel').hidden=!s.busy;
   const canCount=w.SukunSecretPolicy?.unlocked?.()===true;
-  const summary=s.count?copy((canCount?s.count+' kayıt':'Arşiv yüklü')+' · '+(s.enabled?'kullanım açık':'kullanım kapalı'),(canCount?s.count+' recordings':'Archive loaded')+' · '+(s.enabled?'enabled':'disabled')):copy('Henüz ses arşivi yüklenmedi; kullanım kapalı.','No voice archive is loaded; playback is disabled.');
+  const summary=s.count?copy((canCount?s.count+' kayıt':'Arşiv yüklü')+' · '+(s.enabled?'kullanım açık':'kullanım kapalı'),(canCount?s.count+' recordings':'Archive loaded')+' · '+(s.enabled?'enabled':'disabled')):s.includedCount?copy('Paket kayıtları · '+(s.enabled?'kullanım açık':'kullanım kapalı')+'. Sesler gerektiğinde indirilir; çevrimdışı kullanım için önceden indir.','Included recordings · '+(s.enabled?'enabled':'disabled')+'. Clips download on demand; download in advance for offline use.'):copy('Henüz ses arşivi yüklenmedi; kullanım kapalı.','No voice archive is loaded; playback is disabled.');
   text($('r1055GenericSummary'),summary);
   const status=notice==='failed'?copy('Arşiv işlemi tamamlanamadı. Durumu kontrol edip yeniden dene.','The archive operation did not finish. Check its status and retry.'):notice==='exported'?copy('Ses arşivi indirildi; yalnız ses kayıtlarını içerir.','The voice archive was downloaded; it contains recordings only.'):s.message||'';
   text($('r1055GenericStatus'),status);

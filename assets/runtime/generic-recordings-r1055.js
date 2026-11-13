@@ -15,6 +15,7 @@
   'archive-limit':['Ses arşivi boyut veya kayıt sayısı sınırını aşıyor. Daha küçük ses JSON parçalarını seç.','The voice archive exceeds the size or recording count limit. Select smaller voice JSON parts.'],
   'archive-storage':['Genel ses arşivi deposu okunamadı veya yazılamadı. Kişisel kayıtların değiştirilmedi.','The general voice archive storage could not be read or written. Personal recordings were not changed.'],
   'archive-timeout':['Genel ses arşivi işlemi süre sınırını aştı. Durumu kontrol edip yeniden dene.','The general voice archive operation timed out. Check its status and try again.'],
+  'archive-network':['Hazır ses indirilemedi. İnternet bağlantısını kontrol et veya sesleri önceden indir.','The included recording could not be downloaded. Check your connection or download recordings in advance.'],
   'archive-cancelled':['Genel ses arşivi işlemi iptal edildi.','The general voice archive operation was cancelled.'],
   'archive-busy':['Başka bir genel ses arşivi işlemi sürüyor.','Another general voice archive operation is running.'],
   'archive-lock':['Arşiv yüklemek için etkin sesi ve mikrofon kaydını bitir; uygulamanın hazırlanmasını bekleyip yeniden dene.','Finish active audio and microphone recording before loading an archive; wait for the app to finish preparing and retry.'],
@@ -26,7 +27,7 @@
  const ownError=err=>typeof err?.code==='string'&&Object.prototype.hasOwnProperty.call(messages,err.code);
  const safeError=err=>ownError(err)?err.code:err?.name==='AbortError'?'archive-cancelled':'archive-storage';
  function message(){return errorCode?(messages[errorCode]||messages['archive-storage'])[en()?1:0]:status==='loaded'?(en()?'General voice archive loaded. Enable it to use recordings where your own voice is missing.':'Genel ses arşivi yüklendi. Kendi kaydın bulunmayan okumalar için kullanımı açabilirsin.'):status==='exported'?(en()?'General voice archive export is ready.':'Genel ses arşivi dışa aktarımı hazır.'):(en()?'In automatic mode, your own recordings have priority. The archive is optional.':'Otomatik seçimde kendi kayıtların önceliklidir. Arşiv kullanımı isteğe bağlıdır.');}
- const snapshot=()=>Object.freeze({version:VERSION,enabled,ready:!!bank,count:bank?.records.length||0,bytes:bank?.bytes||0,bankId:bank?.bankId||'',epoch,busy:!!operation,status,errorCode,message:message()});
+ const snapshot=()=>Object.freeze({version:VERSION,enabled,ready:!!bank,count:bank?.records.length||0,includedCount:w.SukunIncludedRecordings?.count||0,bytes:bank?.bytes||0,bankId:bank?.bankId||'',epoch,busy:!!operation,status,errorCode,message:message()});
  function emit(reason='status'){try{w.dispatchEvent(new CustomEvent(reason==='status'?'sukun:genericrecordingsstatus':'sukun:genericrecordingschange',{detail:reason==='status'?snapshot():{reason,epoch,snapshot:snapshot()}}))}catch(_){};}
  function state(value,err=''){status=value;errorCode=err;emit();}
  function check(opt={}){if(opt.signal?.aborted||opt.isCurrent&&opt.isCurrent()!==true)throw fail('archive-cancelled');}
@@ -111,8 +112,8 @@
   }catch(error){if(currentEpoch===epoch){readyError=error;bank=null;hydrated=true;epoch++;state('failed',safeError(error));emit('ready')}return snapshot()}
  }
  const ready=()=>bootPromise||(bootPromise=hydrate());
- function hasKnown(keys){return !!(enabled&&bank&&Array.from(keys||[]).some(key=>bank.keys.has(key)&&allowed(key)));}
- function signature(keys){return !enabled?'archive:off':`archive:${epoch}:${bank?.bankId||'missing'}:`+Array.from(keys||[]).filter(key=>bank?.keys.has(key)&&allowed(key)).join(',');}
+ function hasKnown(keys){return !!(enabled&&(bank&&Array.from(keys||[]).some(key=>bank.keys.has(key)&&allowed(key))||w.SukunIncludedRecordings?.hasKnown?.(keys)));}
+ function signature(keys){return !enabled?'archive:off':`archive:${epoch}:${bank?.bankId||'missing'}:included:${w.SukunIncludedRecordings?.bankId||'missing'}:`+Array.from(keys||[]).filter(key=>(bank?.keys.has(key)||w.SukunIncludedRecordings?.hasKnown?.([key]))&&allowed(key)).join(',');}
  async function readGeneric(keys,opt={}){
   if(!enabled)return null;await ready();check(opt);if(!enabled)return null;
   if(readyError)throw readyError;
@@ -127,9 +128,9 @@
  async function find(keys,opt={}){
   if(!enabled)return null;check(opt);if(!Array.from(keys||[]).length)return null;
   const controller=new AbortController(),abort=()=>controller.abort();opt.signal?.addEventListener?.('abort',abort,{once:true});
-  const guard={...opt,signal:controller.signal},budget=Math.max(1,Math.min(TIMEOUT,Number(opt.timeoutMs)||TIMEOUT));let timer;
+  let captured=null;const guard={...opt,signal:controller.signal,isCurrent:()=>enabled&&(captured===null||epoch===captured)&&(!opt.isCurrent||opt.isCurrent()===true)},budget=Math.max(1,Math.min(TIMEOUT,Number(opt.timeoutMs)||TIMEOUT));let timer;
   const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(fail('archive-timeout'))},budget);});
-  try{return await Promise.race([readGeneric(keys,guard),deadline]);}
+  try{return await Promise.race([(async()=>{await ready();check(guard);captured=epoch;const stored=await readGeneric(keys,guard);check(guard);if(stored){const meta=bank?.records.find(row=>row.key===stored.canonicalKey);if(!w.SukunIncludedRecordings?.supersedes?.(stored.canonicalKey,meta?.sha256))return stored;try{const fresh=await w.SukunIncludedRecordings.find([stored.canonicalKey],guard);check(guard);if(fresh)return {...fresh,genericEpoch:captured};}catch(error){check(guard);if(error?.code!=='archive-network')throw error;}return stored;}const item=await w.SukunIncludedRecordings?.find?.(keys,guard);check(guard);return item?{...item,genericEpoch:captured}:null;})(),deadline]);}
   catch(error){if(error?.name!=='AbortError')state('failed',safeError(error));throw error;}
   finally{clearTimeout(timer);opt.signal?.removeEventListener?.('abort',abort);}
  }
@@ -141,7 +142,7 @@
   if(!hydrated)return{state:'unknown',reason:'archive-preparing'};
   if(readyError)return{state:'unavailable',reason:'archive-storage-unavailable'};
   const selected=Array.from(keys||[]).find(key=>bank?.keys.has(key)&&allowed(key));
-  if(!selected)return{state:'missing',reason:'archive-recording-missing'};
+  if(!selected)return w.SukunIncludedRecordings?.hasKnown?.(keys)?{state:'unknown',reason:'included-recording-not-verified-offline'}:{state:'missing',reason:'archive-recording-missing'};
   const captured=epoch,record=bank.records.find(item=>item.key===selected);
   const controller=new AbortController(),abort=()=>controller.abort();opt.signal?.addEventListener?.('abort',abort,{once:true});
   const current=()=>enabled&&epoch===captured&&!controller.signal.aborted&&(!opt.isCurrent||opt.isCurrent()===true);
@@ -396,7 +397,7 @@
  }
  async function setEnabled(value){
   if(typeof value!=='boolean')throw fail('archive-invalid');if(operation)throw fail('archive-busy');await ready();if(operation)throw fail('archive-busy');
-  if(value&&(!bank||readyError)){state('failed',readyError?safeError(readyError):'archive-empty');throw readyError||fail('archive-empty');}
+  if(value&&((!bank&&!w.SukunIncludedRecordings?.count)||readyError)){state('failed',readyError?safeError(readyError):'archive-empty');throw readyError||fail('archive-empty');}
   if(enabled===value)return snapshot();
   const captured=epoch,task={controller:new AbortController()};operation=task;
   const apply=()=>{
@@ -432,7 +433,7 @@
   check(guard);const blob=new Blob([JSON.stringify({app:'SUKUN_GENERIC_RECORDINGS',schema:1,bankSha256:original.bankId,records})],{type:'application/json'});
   state('exported');return{blob,filename:'SUKUN_GENEL_SES_ARSIVI.json',count:records.length,bytes:original.bytes};
  }
- try{enabled=w.localStorage.getItem(PREF)==='true'}catch(_){enabled=false}
+ try{const saved=w.localStorage.getItem(PREF);enabled=saved==='true'||saved===null&&!!w.SukunIncludedRecordings?.count}catch(_){enabled=false}
  w.addEventListener?.('storage',event=>{
   if(event.key===PREF){enabled=event.newValue==='true';epoch++;emit(enabled?'enabled':'disabled');}
   if(event.key===RECEIPT){epoch++;bank=null;bootPromise=null;hydrated=false;emit('refresh');void ready();}
