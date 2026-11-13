@@ -26,7 +26,14 @@ function change(index,key,value){const player=P(),step=player?.queue?.[index];if
 function open({reveal=true}={}){
  const hub=$('r170SessionHub');if(!hub)return false;
  if(focus())window.SUKUN_TEFEKKUR?.exit?.();
- const tab=document.querySelector('.tab[data-t="zkr"]');if(tab&&!tab.classList.contains('act'))tab.click();
+ // Friendly Journeys retains the legacy zkr active tab while hiding its panel.
+ // Route through the visible shell owner, not just the legacy active marker.
+ const friendly=window.SukunFriendlyUI;
+ if(document.body.classList.contains('r616-ui')&&friendly?.go&&friendly.current?.()!=='zikir')friendly.go('zikir');
+ const tab=document.querySelector('.tab[data-t="zkr"]');
+ if(tab&&(!tab.classList.contains('act')||$('tab-zkr')?.hidden))tab.click();
+ // Materialize the current category placement before opening its ancestors.
+ window.SukunR767?.categorySync?.();
  // Existing practice presentation owns visibility. Open its tools before the
  // nested flow section; opening only the inner details is immediately folded.
  window.SukunPracticeUI?.openSection?.('zmgAraclar',{reveal:false});
