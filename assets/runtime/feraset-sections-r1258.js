@@ -55,6 +55,7 @@ async function start(i=0){
   if(!current())return false;
   try{w.SukunAudioSessionRegistry?.releasePauseGate?.('feraset-start');w.AudioLife?.markUserPlay?.('feraset-start');ac();}catch(_){}
   okuyucularDurdur('feraset');
+  try{miniClearPause();}catch(_){}
   state.attempt=duaRecBegin('feraset',()=>stop());
   const attempt=state.attempt,valid=()=>current()&&state.attempt===attempt&&attempt.current();
   valid.rebindUserIntent=(from,to)=>current()&&state.attempt===attempt&&typeof attempt.current.rebindUserIntent==='function'&&attempt.current.rebindUserIntent(from,to);
@@ -90,6 +91,7 @@ async function record(i){
  stop();
  if(!navigator.mediaDevices?.getUserMedia||!w.MediaRecorder){state.message=tr('Bu tarayıcı ses kaydını desteklemiyor.','Recording is unavailable in this browser.');render();return false;}
  if(state.has[i]&&!w.confirm(tr('Bu bölümün mevcut kaydı yeni kayıt başarıyla saklandığında değiştirilsin mi?','Replace this section only after the new recording is saved successfully?')))return false;
+ try{w.SukunAudioSessionRegistry?.stopAll?.('feraset-record');okuyucularDurdur('feraset');}catch(_){}
  const capture=recCaptureBegin(state,i,'active',render);if(!capture)return;
  const revision=REC_DB.revision?.(key(i));let started=false;
  try{
