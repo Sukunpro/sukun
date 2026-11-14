@@ -19,7 +19,17 @@ async function nativePage(f){
  await p.waitForFunction(()=>window.SukunKandil&&window.SukunSessionState);
  await p.waitForTimeout(2500);
  if(await p.locator('#obSkip').isVisible())await p.locator('#obSkip').click();
- if(await p.locator('#dailyCard').isVisible())await p.locator('#dcClose').click();
+ await p.waitForFunction(()=>!window.SukunInteractionGateR732?.active?.());
+ const dailyCard=p.locator('#dailyCard');
+ if(await dailyCard.isVisible()){
+  try{await p.locator('#dcClose').click()}
+  catch(error){
+   // Startup may dismiss this optional card while the native click waits.
+   // A card that remains visible, or any non-timeout error, still fails setup.
+   if(error.name!=='TimeoutError'||await dailyCard.isVisible())throw error;
+  }
+ }
+ await dailyCard.waitFor({state:'hidden'});
  await p.waitForFunction(()=>!window.SukunInteractionGateR732?.active?.());
  await p.evaluate(()=>{
   window.__saverMouseEvents=[];
