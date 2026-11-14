@@ -88,10 +88,15 @@
    const bundled=await w.SukunBundledArabicR1065?.find?.(entry,opt,current);
    if(!current())return null;if(bundled)return bundled;
   }
-  // The user's automatic priority is Arabic > generic > personal. Explicit
-  // source-only and original/meaning admission remain independent gates.
+  // These prayer cards accept user-created full/section recordings. In
+  // legacy Auto, prefer those after bundled Arabic, before a general clip.
+  // Explicit Arabic/meaning and source-only permissions remain unchanged.
+  const personalFirst=opt.source==='auto'&&opt.content==='legacy'&&/^reading:(?:seyyid|salavat)(?::|$)/.test(entry.id);
+  if(personalFirst&&permissions.personal){
+   for(const key of keys){const blob=await REC_DB.get(key,{isCurrent:current});if(!current())return null;if(blob)return{blob,key,generic:false};}
+  }
   if(permissions.generic&&keys.length){const recording=await w.SukunGenericRecordings?.find?.(keys,{isCurrent:current});if(!current())return null;if(recording)return recording;}
-  if(permissions.personal){
+  if(permissions.personal&&!personalFirst){
    for(const key of keys){const blob=await REC_DB.get(key,{isCurrent:current});if(!current())return null;if(blob)return{blob,key,generic:false};}
   }
   return null;
