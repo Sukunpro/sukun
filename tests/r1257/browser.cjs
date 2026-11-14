@@ -55,6 +55,7 @@ async function playback(p,width){
 }
 async function prayer(p,width){
  await openPanel(p,'ferasetBox');
+ await p.evaluate(()=>{const full=document.querySelector('.feraset-full-text');if(full)full.open=true});
  const view=await p.locator('#ferasetText').evaluate(el=>({text:el.textContent,client:el.clientWidth,scroll:el.scrollWidth,rect:el.getBoundingClientRect().toJSON(),wrap:getComputedStyle(el).whiteSpace}));
  assert(view.text.includes('[Ahzâb 33/43]'));assert(view.text.includes('هُوَ الَّذِي يُصَلِّي عَلَيْكُمْ'));
  assert(view.text.includes('Hüvellezî yusallî aleyküm ve melâiketühû'));
