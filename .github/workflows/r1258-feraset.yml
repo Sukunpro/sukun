@@ -1,0 +1,48 @@
+name: r1258 Feraset sections and recording safety
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: r1258-feraset-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  recordings:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Install pinned browser and storage test dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/sukun-browser" --no-audit --no-fund playwright@1.57.0 fake-indexeddb@6.2.4
+          echo "NODE_PATH=$RUNNER_TEMP/sukun-browser/node_modules" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/sukun-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify release and complete prayer text
+        run: |
+          node tools/release-integrity.cjs .
+          python3 tests/r1257/feraset_content.py
+          node tests/r1258/feraset-sections.cjs
+      - name: Verify recording and transfer behavior
+        run: |
+          for test in tests/r1257/personal-audio*.cjs tests/r1257/transfer*.cjs; do node "$test"; done
+          node tests/prayer_recording_faults.cjs
+          node tests/r1225/recording-races.cjs
+          for test in tests/r1256/*.cjs; do node "$test"; done
+      - name: Native playback and cross-device file transfer
+        run: |
+          export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          node tests/r1258/browser.cjs
+          node tests/r1257/browser.cjs "$PWD" "$RUNNER_TEMP/r1257-evidence/report.json"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: r1257-recordings-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/r1257-evidence
+          if-no-files-found: error
+          retention-days: 30

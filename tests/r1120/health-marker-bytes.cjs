@@ -5,7 +5,7 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),cryp
 const root=path.resolve(process.argv[2]||'.'),out=path.resolve(process.argv[3]||path.join(root,'tests/r1120/evidence/health-marker-bytes.json'));
 const build=fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),markerPath='sukun-build-'+build+'.json';
 const raw=fs.readFileSync(path.join(root,markerPath)),marker=JSON.parse(raw),source=fs.readFileSync(process.env.SUKUN_HEALTH_COLLECTOR||path.join(root,'assets/runtime/health-r940.js'),'utf8');
-const expectedEntries=marker.runtime.length,entryLimit=192;
+const expectedEntries=marker.runtime.length,entryLimit=194;
 // Optional audio packs are outside mandatory runtime from r1213 onward.
 const expectedMediaBytes=marker.runtime.filter(e=>/\/assets\/audio\/arabic-r1065\/[^/]+\.mp3|\/assets\/berhetiyye-gate\/invitation-tr\.mp3/.test(e.url)).reduce((n,e)=>n+fs.statSync(path.join(root,new URL(e.url,'https://test.invalid/').pathname)).size,0);
 const start=source.indexOf('  async function responseBytes('),end=source.indexOf('  function sampleExplicit()',start);assert(start>0&&end>start);
@@ -87,14 +87,14 @@ async function test(name,fn){try{results.push({name,passed:true,evidence:await f
  const exact=Buffer.concat([raw,Buffer.alloc(65536-raw.length,32)]);
  await test('A valid 65536-byte marker remains bounded and verifies unchanged runtime entries',async()=>{const x=await run(exact);assert.equal(x.result.status,'PASS');assert.equal(x.result.evidence.matched,expectedEntries);return{markerBytes:exact.length,maxConcurrent:x.maxActive}});
  for(const header of [true,false])await test('65537-byte '+(header?'declared':'streamed')+' marker is rejected before any asset request',async()=>{const bytes=Buffer.concat([exact,Buffer.from(' ')]),x=await run(bytes,{header});assert.equal(x.result.status,'NOT_MEASURED');assert.equal(x.result.evidence.reason,'SIZE_LIMIT');assert.equal(x.calls.length,1);assert.equal(x.maxActive,0);return{markerBytes:bytes.length,reason:x.result.evidence.reason,requests:x.calls.length}});
- await test('The bounded 192-entry limit verifies unique fixture paths with actual source bytes',async()=>{
+ await test('The bounded 194-entry limit verifies unique fixture paths with actual source bytes',async()=>{
   const entry=marker.runtime.filter(e=>/\/assets\/runtime\//.test(e.url)).sort((a,b)=>fs.statSync(path.join(root,new URL(a.url,'https://test.invalid/').pathname)).size-fs.statSync(path.join(root,new URL(b.url,'https://test.invalid/').pathname)).size)[0];
   const body=fs.readFileSync(path.join(root,new URL(entry.url,'https://test.invalid/').pathname)),assetBodies={};
   const extra=Array.from({length:entryLimit-expectedEntries},(_,i)=>{const name='assets/runtime/capacity-fixture-'+i+'.js';assetBodies[name]=body;return{url:'./'+name,sha256:hash(body)}});
   const value={...marker,runtime:[...marker.runtime,...extra]},bytes=Buffer.from(JSON.stringify(value));assert(bytes.length<=65536);
   const x=await run(bytes,{assetBodies});assert.equal(x.result.status,'PASS');assert.equal(x.result.evidence.expected,entryLimit);assert.equal(x.result.evidence.matched,entryLimit);assert.equal(x.calls.length,entryLimit+1);assert(x.maxActive<=2);return{entries:value.runtime.length,requests:x.calls.length,maxConcurrent:x.maxActive};
  });
- await test('A 193-entry marker fails closed before any asset download',async()=>{const value={...marker,runtime:Array.from({length:entryLimit+1},(_,i)=>({...marker.runtime[i%expectedEntries]}))},bytes=Buffer.from(JSON.stringify(value));assert(bytes.length<=65536);const x=await run(bytes);assert.equal(x.result.status,'FAIL');assert.equal(x.result.evidence.reason,'MARKER_INVALID');assert.equal(x.calls.length,1);assert.equal(x.maxActive,0);return{entries:value.runtime.length,requests:x.calls.length,reason:x.result.evidence.reason}});
+ await test('A 195-entry marker fails closed before any asset download',async()=>{const value={...marker,runtime:Array.from({length:entryLimit+1},(_,i)=>({...marker.runtime[i%expectedEntries]}))},bytes=Buffer.from(JSON.stringify(value));assert(bytes.length<=65536);const x=await run(bytes);assert.equal(x.result.status,'FAIL');assert.equal(x.result.evidence.reason,'MARKER_INVALID');assert.equal(x.calls.length,1);assert.equal(x.maxActive,0);return{entries:value.runtime.length,requests:x.calls.length,reason:x.result.evidence.reason}});
  await test('An admitted real runtime path with an incorrect hash remains a verification failure',async()=>{const entry=marker.runtime.find(e=>/\/assets\/runtime\//.test(e.url));assert(entry);const x=await run(Buffer.from(JSON.stringify({...marker,runtime:[{...entry,sha256:'0'.repeat(64)}]})));assert.equal(x.result.status,'FAIL');assert.equal(x.result.evidence.mismatched,1);assert.equal(x.result.evidence.matched,0);assert.equal(x.calls.length,2);return{mismatched:x.result.evidence.mismatched,requests:x.calls.length};});
  await test('Malformed full-marker JSON remains a configuration failure without asset fetches',async()=>{const x=await run(Buffer.from('{bad'));assert.equal(x.result.status,'FAIL');assert.equal(x.result.evidence.reason,'MARKER_INVALID_JSON');assert.equal(x.calls.length,1);return x.result.evidence});
  await test('Marker fetch still passes the abort signal and times out without asset fetches',async()=>{const x=await run(raw,{timeout:true});assert.equal(x.result.status,'NOT_MEASURED');assert.equal(x.calls.length,1);assert.equal(x.result.evidence.reason,'TIMEOUT');return x.result.evidence});
@@ -109,6 +109,14 @@ async function test(name,fn){try{results.push({name,passed:true,evidence:await f
   }
   assert(!source.includes('716800'),'Retired vendor size exception must not remain');
   return {invalidPaths:urls.length,assetRequests:0,ordinaryRuntimeLimit:524288};
+ });
+
+ await test('Feraset exact CSS is allowed; sibling nested and foreign variants fail closed',async()=>{
+  const entry=marker.runtime.find(e=>e.url.split('?')[0]==='./css/feraset-sections-r1258.css');assert(entry);
+  const good=await run(Buffer.from(JSON.stringify({...marker,runtime:[entry]})));assert.equal(good.result.status,'PASS');
+  for(const url of ['./css/feraset-sections-other.css','./nested/css/feraset-sections-r1258.css','https://evil.invalid/sukun/css/feraset-sections-r1258.css']){
+   const bad=await run(Buffer.from(JSON.stringify({...marker,runtime:[{...entry,url}]})));assert.equal(bad.result.status,'FAIL');assert.equal(bad.calls.length,1);
+  }return {valid:1,invalid:3};
  });
  const report={build,method:'Actual shipped integrity reader in VM with exact full build-marker and asset bytes over controlled same-origin Fetch responses. Header and streaming size boundaries plus abort; no compact marker substitution, browser or user storage.',scriptSha256:hash(fs.readFileSync(__filename)),sourceFiles:{'assets/runtime/health-r940.js':hash(Buffer.from(source)),[markerPath]:hash(raw)},sourceSha256:hash(fs.readFileSync(path.join(root,'index.html'))),passed:results.filter(x=>x.passed).length,total:results.length,results};fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));if(report.passed!==report.total)process.exitCode=1;
 })();

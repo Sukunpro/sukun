@@ -722,7 +722,7 @@
     // exact short portal invitation share the separate bounded media allowance.
     // Leave bounded room for small releases to add mandatory runtime files.
     // Marker size, file paths, hashes, concurrency and byte budgets stay strict.
-    const maxRuntimeEntries=192,byteBudget=12582912,mediaByteBudget=33554432,waiters=new Set();
+    const maxRuntimeEntries=194,byteBudget=12582912,mediaByteBudget=33554432,waiters=new Set();
     function wakeBudget(){for(const wake of [...waiters])wake();}
     function waitForBudget(){return new Promise((resolve,reject)=>{
       let done=false;
@@ -800,7 +800,7 @@
             './css/theme-surfaces-r1213.css','./css/practice-flow-r1213.css','./css/offline-audio-r1213.css','./css/header-logo-r1214.css',
             './css/premium-layout-r1215.css','./css/cinematic-r1215.css','./css/atlas-r1215.css','./css/atlas-r1217.css',
             './css/legacy-r1215-embFonts.css','./css/legacy-r1215-base-style.css','./css/legacy-r1215-r699-layout-authority.css',
-            './css/visual-polish-r1232.css','./css/lower-stats-r1236.css','./css/tefekkur-help.css','./css/arrangement-fit.css']
+            './css/visual-polish-r1232.css','./css/lower-stats-r1236.css','./css/tefekkur-help.css','./css/arrangement-fit.css','./css/feraset-sections-r1258.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
           if (url.origin!==location.origin||url.username||url.password||seenPaths.has(url.pathname)||!(runtime||navigationArt||cabirArt||rescuePage||introArt||currentArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;
