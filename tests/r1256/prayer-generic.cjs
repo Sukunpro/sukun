@@ -3,7 +3,7 @@ const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/st
 const html=fs.readFileSync('nero.html','utf8');
 function fn(n){const s=html.search(new RegExp('(?:async )?function '+n+'\\(')),e=html.indexOf('\n}',s);assert(s>=0&&e>s,n);return html.slice(s,e+2)}
 const own=new Blob(['own'],{type:'audio/webm'}),ready=new Blob(['ready'],{type:'audio/webm'}),played=[],nodes={};let stopped=false,fail=false,personal=new Map();
-const c={Blob,DUAREC:{defs:{ak:{key:'dua:ak'}},has:{},blobCache:{},readError:{}},SVK:{has:{}},DH:{},SALAVAT_KISIM:[{ad:'a',p:[0]},{ad:'b',p:[1]}],svkKey:i=>'dua:salavat:'+i,
+const c={Blob,REC_DB:{revision:()=>0},DUAREC:{defs:{ak:{key:'dua:ak'}},has:{},blobCache:{},readError:{}},SVK:{has:{}},DH:{},SALAVAT_KISIM:[{ad:'a',p:[0]},{ad:'b',p:[1]}],svkKey:i=>'dua:salavat:'+i,
  duaRecReadState:async(_s,i,key)=>({ok:true,blob:personal.get(key)||null}),duaRecBegin:()=>({current:()=>!stopped}),duaRecCancel:()=>{stopped=true},
  duaRecSyncUI:()=>{},playRecording:async(blob,label,opt)=>{played.push({blob,label,opt});return true},skRecordingCatalogWarning:()=> 'storage error',duaRecFailure:()=> 'playback error',
  $:k=>nodes[k]||(nodes[k]={textContent:'',innerHTML:''}),LOG:{push:()=>{}},dhHi:()=>{}};
