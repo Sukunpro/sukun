@@ -6,7 +6,7 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED = '8ad1e9db66b240e965e74c8a1305b79414e26bf93b3bd5f2f50e74432f5cf662'
+EXPECTED = '5ca36793c7db83ddac3ca946637f535a317fc3f9e6862d24f5faf82c0229e11f'
 rendered = []
 for page in ('index.html', 'nero.html'):
     html = (ROOT / page).read_text(encoding='utf-8')

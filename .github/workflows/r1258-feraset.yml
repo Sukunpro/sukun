@@ -28,6 +28,7 @@ jobs:
           node tools/release-integrity.cjs .
           python3 tests/r1257/feraset_content.py
           node tests/r1258/feraset-sections.cjs
+          node tests/recording-replacement-approval.cjs
       - name: Verify recording and transfer behavior
         run: |
           for test in tests/r1257/personal-audio*.cjs tests/r1257/transfer*.cjs; do node "$test"; done
