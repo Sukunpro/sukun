@@ -12,9 +12,12 @@
   if(zikir&&document.body.dataset.r616View==='zikir'){zikir.classList.toggle('active',!active);if(active){if(zikir.getAttribute('aria-current')!=null)zikir.removeAttribute('aria-current')}else if(zikir.getAttribute('aria-current')!=='page')zikir.setAttribute('aria-current','page');}
   if(document.body.dataset.r616View==='zikir')text($('r616ViewName'),(active?(english()?'Readings':'Okumalar'):(english()?'Dhikr':'Zikir'))+' · '+(document.querySelector('meta[name="sukun-build"]')?.content||''));
  }
- window.addEventListener('sukun:practicesectionchange',e=>{readingActive=e.detail?.id==='zmgOkumalar';queue()});
- window.addEventListener('sukun:r616viewchange',()=>{readingActive=false;queue()});
- document.addEventListener('toggle',e=>{if(e.target.id==='zmgOkumalar'){readingActive=!!e.target.open&&document.body.dataset.r616View==='zikir';queue()}},true);
+ // Navigation identity is immediate, even while a layout frame is pending or hidden.
+ // The expensive presentation refresh remains coalesced; closing a disclosure
+ // must not leave two page identities until that refresh finally runs.
+ window.addEventListener('sukun:practicesectionchange',e=>{readingActive=e.detail?.id==='zmgOkumalar';syncReadingNavigation();queue()});
+ window.addEventListener('sukun:r616viewchange',()=>{readingActive=false;syncReadingNavigation();queue()});
+ document.addEventListener('toggle',e=>{if(e.target.id==='zmgOkumalar'){readingActive=!!e.target.open&&document.body.dataset.r616View==='zikir';syncReadingNavigation();queue()}},true);
  const text=(node,value)=>{if(node&&node.textContent!==String(value))node.textContent=String(value)};
  function readings(event){window.SukunDiscoveryR1158?.open?.('okumalar',event.currentTarget)}
  function ensureNavigation(root){

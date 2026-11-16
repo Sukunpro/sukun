@@ -23,6 +23,7 @@ SOURCE_SUITES = [
     ('r1242-easy-controls-source', 'tests/r1242/easy-controls-source.cjs'),
     ('r1242-settings-auto-hide', 'tests/r1242/settings-auto-hide.cjs'),
     ('r1241-navigation-ui', 'tests/r1241/navigation-ui.cjs'),
+    ('r1241-navigation-state', 'tests/r1241/navigation-state.cjs'),
     ('r1241-intro-preload', 'tests/r1241/intro-preload.cjs'),
     ('r1241-frequency-set-backup', 'tests/r1241/frequency-set-backup.cjs'),
     ('r1241-frequency-save-lock', 'tests/r1241/frequency-set-controlled.cjs'),
