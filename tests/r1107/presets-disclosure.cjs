@@ -43,7 +43,7 @@ function fixture(html,{saved=null,readFails=false,writeFails=false,loading=true}
  const closer=slice(html,'/* ═══ r544 — AÇILIŞTA BÜTÜN AKORDİYONLAR KAPALI','</script>');vm.runInContext(closer,c,{filename:'shipped-startup-closer.js'});
  const renderCode=slice(html,'const PRESET_CATS=[','/* Eski PRESET_INFO');vm.runInContext(renderCode,c,{filename:'shipped-presets-renderer.js'});
  vm.runInContext(slice(html,'function myFreqRender(){',"$('#pitSave').onclick"),c,{filename:'shipped-own-presets-renderer.js'});
- const helpHandler=slice(html,"document.addEventListener('click',e=>{\n  const badge=e.target.closest('.qb');","addEventListener('scroll',()=>{if(qOpenKey)qClose();}");vm.runInContext(helpHandler,c,{filename:'shipped-help-delegate.js'});
+ const helpHandler=slice(html,"document.addEventListener('click',e=>{\n  const badge=e.target.closest('.qb');","document.addEventListener('keydown'");vm.runInContext(helpHandler,c,{filename:'shipped-help-delegate.js'});
  return{document,box,summary,host,help,ordinary,diagDetails,storage,writes,reads,timers,audioCalls,appWrites,helpCalls,c,originalFR,render:()=>c.renderPresets(),flush:()=>document.flushToggles(),startup(){document.dispatchEvent(new Event('DOMContentLoaded'));for(const timer of timers){assert.equal(timer.ms,1200);timer.fn();}document.flushToggles();},click(target){const e={target,defaultPrevented:false,propagationStopped:false,preventDefault(){this.defaultPrevented=true;},stopPropagation(){this.propagationStopped=true;}};for(const fn of docClicks){fn(e);if(e.propagationStopped)break;}return e;},get syncCalls(){return syncCalls;}};
 }
 

@@ -7,7 +7,7 @@
  function capture(){const value={};fields.forEach(k=>value[k]=FR[k]);value.secondary={on:!!FR2.on,c:FR2.c,b:FR2.b};return value;}
  function validate(x){
   if(!x||typeof x!=='object')throw Error('Invalid frequency settings');const v=capture();for(const k of ['fm','am','rm','pwm'])v[k]=false;
-  const ranges={c:[20,18000],b:[.5,40],vol:[0,1],harmonik:[0,4],uzamHiz:[6,60],balL:[0,1],balR:[0,1],noiseVol:[0,1],lpf:[200,8000],hpf:[20,2000]};
+  const ranges={c:[20,18000],b:[x.b===0&&(x.mode||v.mode)==='bin'?0:.5,40],vol:[0,1],harmonik:[0,4],uzamHiz:[6,60],balL:[0,1],balR:[0,1],noiseVol:[0,1],lpf:[200,8000],hpf:[20,2000]};
   for(const [k,[min,max]]of Object.entries(ranges))if(k in x){const n=x[k];if(typeof n!=='number'||!Number.isFinite(n)||n<min||n>max||k==='harmonik'&&!Number.isInteger(n))throw Error('Invalid '+k);v[k]=n;}
   for(const [k,allowed]of Object.entries({mode:['bin','mono','iso','mix'],harmSeri:['dogal','tek','oktav'],wave:['sine','square','sawtooth','triangle'],noise:['off','white','pink','brown'],levelProfile:['legacy','balanced']}))if(k in x){if(!allowed.includes(x[k]))throw Error('Invalid '+k);v[k]=x[k];}
   for(const k of ['pink','uzam','filterOn','fm','am','rm','pwm'])if(k in x){if(typeof x[k]!=='boolean')throw Error('Invalid '+k);v[k]=x[k];}
@@ -30,13 +30,24 @@
   }catch(e){return {ok:false,error:String(e.message||e)};}
  }
  let binauralStatusSettings=null;
- // Fixed Astral presets use the existing graph with explicit, inspectable settings.
- function applyBinauralPreset(p,{play=true}={}){
-  if(!p||p.journey||!Number.isFinite(p.c)||!Number.isFinite(p.b))return {ok:false,error:'Invalid binaural preset'};
+ // Both profiles use the same clean signal path. A zero beat gives both ears the exact carrier.
+ function applyStereoSine(p,play){
   const result=apply({c:p.c,b:p.b,mode:'bin',wave:'sine',balL:1,balR:1,
    uzam:false,harmonik:0,filterOn:false,fm:false,am:false,rm:false,pwm:false,
    pink:false,noise:'off',noiseVol:0,secondary:{on:false,c:FR2.c,b:FR2.b}},{play});
   if(result.ok)fr2Stop();
+  return result;
+ }
+ function applyReferencePitch(id){
+  const preset=FREQ_PRESETS.find(item=>item.id===id&&item.cat==='diapason');
+  if(!preset)return {ok:false,error:'Unknown reference pitch'};
+  const result=applyStereoSine(preset,true);
+  window.dispatchEvent(new CustomEvent('sukun:referencepitch',{detail:{id,ok:result.ok}}));
+  return result;
+ }
+ function applyBinauralPreset(p,{play=true}={}){
+  if(!p||p.journey||!Number.isFinite(p.c)||!Number.isFinite(p.b))return {ok:false,error:'Invalid binaural preset'};
+  const result=applyStereoSine(p,play);
   binauralStatusSettings=result.ok?JSON.stringify(capture()):null;
   const note=$('binauralPresetStatus');
   if(note){note.dataset.binauralResult=result.ok?(result.paused?'paused':'applied'):'failed';paintBinauralStatus();}
@@ -135,6 +146,6 @@
   $('tab-frq')?.addEventListener('click',()=>{setTimeout(sync,0)},{passive:true});
   $('tab-frq')?.addEventListener('input',()=>{setTimeout(sync,0)},{passive:true});$('masterVol')?.addEventListener('input',sync,{passive:true});
  }
- window.SukunFrequencyR1120=Object.freeze({version:'r1120',capture,validate,apply,applyBinauralPreset,held,sync,mount,addHelp:help,describe,localizeHelp});
+ window.SukunFrequencyR1120=Object.freeze({version:'r1120',capture,validate,apply,applyBinauralPreset,applyReferencePitch,held,sync,mount,addHelp:help,describe,localizeHelp});
  window.addEventListener('sukun:languagechange',localize);if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();

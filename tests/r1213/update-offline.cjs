@@ -44,6 +44,23 @@ function fixture(){
   state={phase:'installing',progress:{done:1,total:2}};listeners['sukun:swstate']();assert.match(nodes.r1165UpdateStatus.textContent,/50%/);assert.equal(nodes.r1165UpdateCheck.disabled,true);
   state={phase:'waiting',hasWaiting:true};listeners['sukun:swstate']();assert.match(nodes.r1165UpdateLabel.textContent,/uygula/);
   state={phase:'error',lastError:'failed'};listeners['sukun:swstate']();assert.equal(nodes.r1165UpdateLabel.textContent,'Yeniden dene');assert.equal(nodes.r1165UpdateCheck.disabled,false);
+  const html=fs.readFileSync(path.join(root,'nero.html'),'utf8');
+  const marker=html.indexOf('/* r921: controller');
+  assert.notEqual(marker,-1);
+  const start=html.indexOf('(function(){',marker),end=html.indexOf('</script>',start);
+  const swListeners={};
+  const registration={controller:{},addEventListener:(name,fn)=>{swListeners[name]=fn}};
+  const env={
+    window:{},document:{querySelector:()=>({content:build}),querySelectorAll:()=>[],addEventListener(){}},
+    navigator:{serviceWorker:registration},location:{protocol:'https:'},
+    addEventListener(){},dispatchEvent(){},CustomEvent:class{},setTimeout,clearTimeout
+  };
+  vm.runInNewContext(html.slice(start,end),env);
+  for(const [lastError,expected] of [['cache write:./marker.json',true],['fetch failed | cache metadata write failed',true],['fetch failed',false]]){
+   swListeners.message({source:registration.controller,data:{type:'SUKUN_SW_STATUS',phase:'install-error',error:lastError}});
+   state=env.window.SukunUpdateManager.snapshot();assert.equal(state.cacheWriteFailed,expected);
+   listeners['sukun:swstate']();assert.equal(nodes.r1165UpdateStatus.textContent.includes('çevrimdışı kullanım için kaydedemedi'),expected);
+  }
  });
  await check('Pruning preserves older media caches without reading or copying sound bytes',async()=>{const f=fixture(),old=await f.caches.open('sukun-r1205-retired');await old.put('./assets/audio/delail/h1.mp3',new Response('old'));const abandoned=await f.caches.open('sukun-r1204-retired');await abandoned.put('./old.css',new Response('old'));f.run('recoveryVersions=async()=>({versions:[]})');await f.run('recoveryPrune()');assert(f.stores.has('sukun-r1205-retired'));assert(!f.stores.has('sukun-r1204-retired'));assert.equal(f.calls.length,0);assert.equal(f.stores.has('sukun-audio-retained-v1'),false)});
  console.log(JSON.stringify({passed:tests.length,total:tests.length,build,method:'Full worker in Node VM; controlled network and CacheStorage; synthetic core/audio fixtures'}));
