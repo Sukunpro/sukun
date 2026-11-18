@@ -80,10 +80,17 @@ async function setup(page, mode) {
     });
   }, {mode, tone:wav(2.3, 330).toString('base64')});
   await command(page, 'select', {mode:'berhet', journeyKind:'single', index:16});
-  await page.evaluate(() => { Z.count = 49; Z.target = 154; Z.total = 49; zUI(); });
+  // Tab ownership restores the lifetime total from storage when Start acquires the session.
+  await page.evaluate(() => { Z.count = 49; Z.target = 154; zUI(); });
+  assert.equal(await page.evaluate(() => S.get('sukun.total', 0)), 49, 'Saved repetitions before Start');
   await page.waitForFunction(() => !SukunTabOwner.snapshot().pending && !SukunTabOwner.snapshot().releasing);
   await command(page, 'start');
   await page.waitForFunction(() => lockTest.jobs > 0);
+  if (mode === 'unavailable') {
+    const started = await state(page);
+    assert.equal(started.count, 49, 'Starting count before either lock source completes');
+    assert.equal(started.total, 49, 'Starting total after ownership is acquired');
+  }
 }
 
 async function deadline(page) {
@@ -92,7 +99,7 @@ async function deadline(page) {
 }
 
 async function run(name, scenario, mode) {
-  const f = await fixture(root, {width:384, height:691, seed:{'sukun.kilitAcik':'true'}});
+  const f = await fixture(root, {width:384, height:691, seed:{'sukun.kilitAcik':'true', 'sukun.total':'49'}});
   try {
     await setup(f.page, mode);
     const evidence = await scenario(f.page);
