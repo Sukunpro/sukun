@@ -57,7 +57,20 @@ async function verifyStatsAlignment(p,width,mode,kind,phase){
   assert.equal(await p.locator('#r1227CountValue').getAttribute('aria-invalid'),'true');assert.equal(await p.evaluate(()=>SukunSessionState.snapshot().count),59);await p.keyboard.press('Escape');
  }
  await p.locator('#r920Remaining').click();await p.locator('#r1227CountValue').fill('1');await p.locator('#r1227CountCancel').click();assert.equal(await p.evaluate(()=>SukunSessionState.snapshot().count),59);
- await p.locator('#r920Remaining').click();await p.locator('#r1227CountValue').fill('1');await p.evaluate(()=>SukunBerhetLayout.setFocusControls(false));assert.equal(await p.locator('#r1227CountEntry').isVisible(),false);assert.equal(await p.locator('#r920Remaining').isVisible(),true,'remaining stays readable');assert.equal(await p.locator('#r920Remaining').getAttribute('aria-disabled'),'true');await p.evaluate(()=>SukunBerhetLayout.setFocusControls(true));assert.equal(await p.locator('#r1227CountForm').isVisible(),false);
+ await p.locator('#r920Remaining').click();
+ await p.locator('#r1227CountValue').fill('1');
+ await p.evaluate(()=>SukunBerhetLayout.setFocusControls(false));
+ const remaining=p.locator('#r920Remaining');
+ assert.equal(await p.locator('#r1227CountEntry').isVisible(),false);
+ assert.equal(await remaining.isVisible(),true);
+ assert.equal(await remaining.getAttribute('aria-disabled'),'true');
+ assert.deepEqual(await remaining.evaluate(n=>({
+  opacity:getComputedStyle(n).opacity,
+  pencil:getComputedStyle(n,'::after').content.includes('✎'),
+  value:n.textContent
+ })),{opacity:'1',pencil:false,value:'41'},'read-only count keeps its normal contrast without the edit pencil');
+ await p.evaluate(()=>SukunBerhetLayout.setFocusControls(true));
+ assert.equal(await p.locator('#r1227CountForm').isVisible(),false);
  assert.deepEqual(await p.evaluate(()=>window.__countSounds),[],'direct entry never requests speech/media');
  const stale=await p.evaluate(expected=>SukunSessionState.command('set-count',{value:'7',expected}),before);assert.equal(stale.accepted,false,'old editor cannot overwrite a newer count');
  const after=await p.evaluate(()=>SukunSessionState.snapshot());assert.equal(after.activeIndex,before.activeIndex);assert.equal(after.journeyKind,before.journeyKind);assert.equal(after.phase,'IDLE');

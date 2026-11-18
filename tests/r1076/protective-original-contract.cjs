@@ -68,7 +68,8 @@ async function preparation(options={}){
  c._r949PrepareTask=task;const promise=c.r949PrepareCore(task);await h.flush();
  return{...h,task,promise,fx,settled};
 }
-(async()=>{
+module.exports={fixture,cut,deferred};
+if(require.main===module)(async()=>{
  for(const index of [3,4])for(const hidden of [false,true])await test(`koruma:${index} complete original admits ${hidden?'hidden':'visible'} without inventing FX or a 40ms gap`,async()=>{
   const h=fixture({index,hidden});assert.equal(await h.begin(),true);
   assert.equal(h.a.plays,1);assert.equal(h.claims.length,1);assert.equal(h.a.loop,true);assert.equal(h.a.src,'blob:verified-original');
@@ -133,9 +134,12 @@ async function preparation(options={}){
  await test('hidden preparation with unknown probe can commit an original candidate for native verification',async()=>{
   const h=await preparation({duration:0,hidden:true});await h.advance(3001);assert.equal(h.task.fallbackUsed,true);assert.deepEqual(h.settled,[true]);assert.equal(h.c._r476Prepared.durationMs,0);assert.equal(h.holds.length,0);h.fx.resolve(null);await h.promise;
  });
- for(const options of [{cat:'esma'},{cat:'berhet'},{duration:.5,tempo:1}])await test('hidden original deadline keeps the old rejection guard for '+JSON.stringify(options),async()=>{
+ for(const options of [{cat:'esma'},{cat:'berhet'},{duration:.5,tempo:1}])await test('hidden original deadline waits for a cadence-safe source for '+JSON.stringify(options),async()=>{
   const h=await preparation({...options,hidden:true});await h.advance(3001);
-  assert.equal(h.task.cancelled,true);assert.equal(h.holds[0]?.code,'native-format-unavailable');assert.deepEqual(h.settled,[false]);h.fx.resolve(null);await h.promise;
+  assert.equal(h.task.cancelled,false);assert.equal(h.task.controller.signal.aborted,false);assert.equal(h.holds.length,0);
+  assert.equal(h.c._r476Hidden,null);assert.equal(h.a.plays||0,0);assert.deepEqual(h.settled,[]);
+  h.fx.resolve(null);await h.promise;h.c._r949PrepareTask=null;
+  assert.equal(await h.begin(),false);assert.equal(h.holds[0]?.code,'native-format-unavailable');assert.equal(h.a.plays||0,0);
  });
  await test('hidden journey cannot acquire the protective single-original deadline',async()=>{
   const h=await preparation({hidden:true});h.c.SukunR698Transport.hasJourney=()=>true;await h.advance(3001);

@@ -28,6 +28,8 @@ jobs:
           node tests/r1247/watchdog-progress.cjs > "$RUNNER_TEMP/r1247-evidence/watchdog-progress.json"
           node tests/r1043/background-interruption.cjs > "$RUNNER_TEMP/r1247-evidence/lock-transition.json"
           node tests/r1044/native-recovery-authority.cjs > "$RUNNER_TEMP/r1247-evidence/recovery-authority.json"
+          node tests/r1076/protective-original-contract.cjs > "$RUNNER_TEMP/r1247-evidence/original-recording.json"
+          node tests/r1261/single-lock-contract.cjs > "$RUNNER_TEMP/r1247-evidence/single-lock-contract.json"
           node tests/r1121/dhikr-lifecycle-contract.cjs > "$RUNNER_TEMP/r1247-evidence/journey-lifecycle.json"
           node tools/release-integrity.cjs > "$RUNNER_TEMP/r1247-evidence/integrity-summary.json"
       - name: Install pinned browser for native media regression
@@ -40,6 +42,17 @@ jobs:
           export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
           node tests/r1121/dhikr-lifecycle-browser.cjs "$PWD" "$RUNNER_TEMP/r1247-evidence/native-journey.json"
           node tests/r1247/native-recovery-browser.cjs "$PWD" "$RUNNER_TEMP/r1247-evidence/native-recovery.json"
+          node tests/r1261/single-lock-browser.cjs "$PWD" "$RUNNER_TEMP/r1247-evidence/single-recording-lock.json"
+      - name: Check out r1260 for the recording upgrade test
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: c5eab58706329680d55a6ea6165404a2ea2455fe
+          path: previous-r1260
+          persist-credentials: false
+      - name: Verify upgrade, offline recovery and retained recording from r1260
+        run: |
+          export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          node tests/r1213/release-upgrade-browser.cjs "$PWD" previous-r1260 "$RUNNER_TEMP/r1247-evidence/upgrade-from-r1260.json"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
