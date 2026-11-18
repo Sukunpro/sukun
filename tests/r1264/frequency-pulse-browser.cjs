@@ -145,6 +145,12 @@ async function run(width,height) {
     if(width>1000) await p.goto(app.origin+'/index.html',{waitUntil:'load'});
     await p.emulateMedia({reducedMotion:'no-preference'});
     await ready(p);
+    for(const density of ['mini','midi','pro']){
+      await p.evaluate(mode=>applyUI(mode),density);
+      assert(await p.locator(toggle).isVisible(), 'Missing rhythm control in '+density);
+      assert(await p.locator('#aveTgl').isVisible(), 'Missing steady control in '+density);
+    }
+    await p.evaluate(()=>applyUI('midi'));
     assert.equal(await p.locator(toggle).getAttribute('aria-pressed'),'false');
     await idleLayer(p);
     await clickLight(p,toggle,false);
