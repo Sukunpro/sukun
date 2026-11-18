@@ -19,10 +19,12 @@ class Element extends EventTarget {
 }
 
 function fixture(){
-  const ids=['frequencyPulseToggle','frequencyPulseGlow','frequencyPulseStatus','frequencyPulseLabel','masterVol'];
+  const ids=['frequencyPulseToggle','frequencyPulseGlow','frequencyPulseStatus','frequencyPulseLabel','masterVol','sukunBackgroundMixAudio'];
   const elements=Object.fromEntries(ids.map(id=>[id,new Element()]));
   const button=elements.frequencyPulseToggle,glow=elements.frequencyPulseGlow,master=elements.masterVol;
   master.value='0.5';glow.hidden=true;
+  const native=elements.sukunBackgroundMixAudio;
+  Object.assign(native,{volume:.5,paused:false,muted:false,ended:false,error:null});
   const window=new EventTarget(),document=new EventTarget(),motion=new EventTarget();
   let job=null, consent=false; motion.matches=false;
   window.CIZ={ekle(id,draw,options){job={id,draw,options};},cikar(){job=null;}};
@@ -30,8 +32,8 @@ function fixture(){
   const FR={playing:true,c:256,b:8,vol:.5,balL:1,balR:1},ctx={state:'running'},MINI={paused:false};
   window.AudioLife={userPaused:false};window.I18N={lang:'tr'};
   const $=id=>elements[id],T=(tr,en)=>window.I18N.lang==='en'?en:tr;
-  vm.runInNewContext(owner+'\nmountFrequencyPulse();',{window,document,FR,ctx,MINI,AVE:{int:.18},$,T,frRampPosition:()=>({b:FR._ramp.beat})});
-  return {window,document,motion,button,glow,master,FR,ctx,MINI,status:elements.frequencyPulseStatus,
+  vm.runInNewContext(owner+'\nmountFrequencyPulse();',{window,document,FR,ctx,MINI,AVE:{int:.18},$,T,frLiveOnly:()=>!!FR._liveOnly,frRampPosition:()=>({b:FR._ramp.beat})});
+  return {window,document,motion,button,glow,master,native,FR,ctx,MINI,status:elements.frequencyPulseStatus,
     enter(value=true){consent=value;button.dispatchEvent(new Event('click'));},
     tick(time){if(job?.options.active())job.draw(time);},
     hasJob:()=>!!job,
@@ -86,4 +88,22 @@ test('long scheduling gaps do not introduce an abrupt full-range jump',()=>{
   const f=fixture();f.enter();f.tick(0);const first=Number(f.glow.style.opacity);
   f.tick(100000);const second=Number(f.glow.style.opacity);
   assert(second>=first&&second-first<.15);
+});
+
+test('unmuting an accepted native loop uses live media volume without another handoff event',()=>{
+  const f=fixture();f.ctx.state='suspended';f.master.value='0';f.native.volume=0;
+  f.window.SukunBackgroundMix={snapshot:()=>({mutedLive:true,playing:true,currentSelectionPrepared:true,native:{waiting:false},volume:0})};
+  f.enter();f.tick(0);assert(f.glow.hidden);
+  f.master.value='.5';f.tick(100);assert(f.glow.hidden,'Native source is still silent');
+  f.native.volume=.5;f.tick(250);assert(!f.glow.hidden,'Cached zero volume must not suppress the unmuted native output');
+  f.native.muted=true;f.tick(300);assert(f.glow.hidden);
+});
+
+test('ambience-only background playback cannot authorize or suppress the live frequency',()=>{
+  const f=fixture();f.FR._liveOnly=true;f.enter();
+  f.emit('sukun:backgroundmix',{mutedLive:true,playing:false,currentSelectionPrepared:false,native:{waiting:true},volume:0});
+  f.tick(0);assert(!f.glow.hidden,'The unrelated ambience handoff cannot suppress the live tone');
+  f.ctx.state='suspended';
+  f.emit('sukun:backgroundmix',{mutedLive:true,playing:true,currentSelectionPrepared:true,native:{waiting:false},volume:.5});
+  f.tick(150);assert(f.glow.hidden,'An audible ambience must not light a suspended frequency');
 });

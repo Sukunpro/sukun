@@ -165,7 +165,15 @@ async function run(width,height) {
       window.__r1264AudioProbe={nodes:[FR.oL,FR.oR], settings:SukunFrequencyR1120.capture(),
         frequencies:[FR.oL.frequency.value,FR.oR.frequency.value], master:document.getElementById('masterVol').value};
     });
+    await p.waitForFunction(()=>{
+      const mix=SukunBackgroundMix.snapshot();
+      return mix.ready && mix.mutedLive && mix.playing && mix.currentSelectionPrepared;
+    },null,{timeout:30000});
+    await p.evaluate(()=>{const m=document.getElementById('masterVol');m.value='0';m.dispatchEvent(new Event('input',{bubbles:true}));});
+    await p.waitForFunction(()=>document.getElementById('sukunBackgroundMixAudio').volume===0);
     await clickLight(p,toggle,true);
+    await idleLayer(p);
+    await p.evaluate(()=>{const m=document.getElementById('masterVol');m.value=window.__r1264AudioProbe.master;m.dispatchEvent(new Event('input',{bubbles:true}));});
     profile.cycles.push(await measure(p,.5));
     profile.renderedEdges=await renderedEdges(p,profile.cycles[0]);
     const audioUnchanged=await p.evaluate(()=>{

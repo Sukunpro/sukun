@@ -100,7 +100,7 @@
   const status=$('frequencyPulseStatus'),label=$('frequencyPulseLabel'),masterVolume=$('masterVol');
   const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
   const job='frequency-pulse-r1264';
-  let armed=false,aggregatePaused=false,mix=null,previousTime=null,phase=0,statusKey='',nextLabelUpdate=0;
+  let armed=false,aggregatePaused=false,mix=null,nativeAudio=null,previousTime=null,phase=0,statusKey='',nextLabelUpdate=0;
 
   function describe(state,rate=0,group=0){
    const locale=window.I18N?.lang==='en'?'en':'tr';
@@ -124,10 +124,13 @@
    describe(motion.matches?'reduced':armed?'waiting':'off');
   }
   function draw(time){
-   // The background owner publishes its native handoff state. Reading its
-   // cached event here avoids probing or serializing the graph every frame.
-   const playing=mix?.mutedLive
-    ? mix.playing&&mix.currentSelectionPrepared&&!mix.native?.waiting&&mix.volume>0
+   // A native ambience-only loop can coexist with a live frequency journey.
+   // Use the same route rule as the audio adapter. The element's current
+   // volume follows master-volume input even when no new mix event is sent.
+   const nativeOwnsFrequency=mix?.mutedLive&&!frLiveOnly();
+   const playing=nativeOwnsFrequency
+    ? mix.playing&&mix.currentSelectionPrepared&&!mix.native?.waiting&&nativeAudio&&
+      !nativeAudio.paused&&!nativeAudio.muted&&!nativeAudio.ended&&!nativeAudio.error&&nativeAudio.volume>0
     : ctx?.state==='running';
    if(!armed||motion.matches||document.hidden||!FR.playing||!playing||aggregatePaused||MINI.paused||
       window.AudioLife?.userPaused&&!window.AudioLife?._terminalIntent||!(FR.vol>0)||!(Number(masterVolume.value)>0)||
@@ -164,11 +167,15 @@
    if(motion.matches)return;
    armed=true;
    aggregatePaused=!!window.SukunAudioSessionRegistry?.aggregateSnapshot?.()?.paused;
-   mix=window.SukunBackgroundMix?.snapshot?.();
+   rememberMix(window.SukunBackgroundMix?.snapshot?.());
    rest();
    window.CIZ.ekle(job,draw,{active:()=>armed&&(FR.playing||!glow.hidden)});
   });
-  window.addEventListener('sukun:backgroundmix',event=>{if(armed)mix=event.detail;});
+  function rememberMix(state){
+   mix=state;
+   nativeAudio=mix?.mutedLive?$('sukunBackgroundMixAudio'):null;
+  }
+  window.addEventListener('sukun:backgroundmix',event=>{if(armed)rememberMix(event.detail);});
   window.addEventListener('sukun:audioaggregatechange',event=>{
    aggregatePaused=!!event.detail?.paused;
    if(armed&&aggregatePaused)rest();
