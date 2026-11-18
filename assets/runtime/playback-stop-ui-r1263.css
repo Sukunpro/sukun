@@ -1,0 +1,60 @@
+@layer sukun-r920-contract {
+  html body #r588DockShell #r1263StopReasonButton {
+    display: inline-flex !important;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 44px;
+    max-width: 100%;
+    margin: 0;
+    padding: 4px 12px;
+    border: 1px solid #829d94;
+    border-radius: 10px;
+    background: #122c30;
+    color: #e9e8d6;
+    font: 600 12px/1.25 system-ui, sans-serif;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  /* Keep the Mini grip, transport, expand action and existing 68px height.
+     The help control has its own lane beside the group of transport buttons. */
+  html body.r920-dock.r588-mode-mini #r588DockShell #r1263StopReasonButton {
+    position: absolute !important;
+    top: 12px !important;
+    right: 158px !important;
+    width: 32px !important;
+    min-width: 32px !important;
+    height: 44px !important;
+    padding: 0 !important;
+    z-index: 1;
+    font-size: 16px;
+  }
+  html body.r920-dock.r588-mode-mini #r588DockShell #r1263StopReasonButton span { display: none !important; }
+  html body.r920-dock.r588-mode-mini #r588DockShell #r1263StopReasonButton::before { content: '?'; }
+  html body.r920-dock.r588-mode-mini #r588DockShell :is(.r588Main,.r588Stats) { right: 194px !important; }
+}
+#r1263StopReasonDialog {
+  box-sizing: border-box;
+  width: min(24rem, calc(100vw - 2rem));
+  max-height: calc(100% - 2rem);
+  margin: auto;
+  padding: 20px;
+  overflow: auto;
+  border: 1px solid #8e9e87;
+  border-radius: 16px;
+  color: #f2efe3;
+  background: #11272d;
+  text-align: start;
+  font: 400 15px/1.55 system-ui, sans-serif;
+  overflow-wrap: anywhere;
+}
+#r1263StopReasonDialog::backdrop { background: rgb(3 12 16 / 62%); }
+#r1263StopReasonDialog h2 { margin: 0 0 12px; color: #f2dfaa; font: 650 19px/1.35 system-ui, sans-serif; }
+#r1263StopReasonMessage { margin: 8px 0; }
+#r1263StopReasonMeta { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 8px 0; color: #bdd2cd; font-size: 13px; }
+#r1263StopReasonMeta[hidden] { display: none; }
+#r1263StopReasonClose {
+  box-sizing: border-box; min-height: 44px; margin-top: 10px; padding: 6px 16px;
+  border: 1px solid #9aa999; border-radius: 10px; color: inherit; background: #263f43; font: inherit; cursor: pointer;
+}
+:is(#r1263StopReasonButton,#r1263StopReasonNotifications,#r1263StopReasonClose):focus-visible { outline: 2px solid #ebcf87; outline-offset: 2px; }

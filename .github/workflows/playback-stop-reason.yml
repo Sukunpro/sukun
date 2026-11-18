@@ -1,0 +1,38 @@
+name: Playback stop explanations
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: playback-stop-reason-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  playback-stop-reason:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Check stop receipts and stale observations
+        run: node tests/r1263/playback-stop-reason.cjs
+      - name: Install Chromium for player integration tests
+        run: |
+          npm install --prefix "$RUNNER_TEMP/playback-stop-browser" --no-audit --no-fund playwright@1.57.0
+          echo "NODE_PATH=$RUNNER_TEMP/playback-stop-browser/node_modules" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/playback-stop-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify desktop and mobile player explanations
+        run: |
+          export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          node tests/r1263/playback-stop-browser.cjs . "$RUNNER_TEMP/stop-reason.json"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: playback-stop-reason-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/stop-reason.json
+          if-no-files-found: warn
+          retention-days: 30
