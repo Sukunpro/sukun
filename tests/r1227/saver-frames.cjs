@@ -85,6 +85,12 @@ function layout(m,width,height){const b=m.button.rect;assert(b.width>=44&&b.heig
    await open(p);
    for(const content of ['simple','detailed'])await check(`${width} ${theme} ${content} frames`,async()=>{
     await p.locator(content==='simple'?'#r1213SaverSimple':'#r1213SaverDetailed').click();
+    if(content==='detailed'){
+     const card=p.locator(theme==='esma'?'#r1193SaverEsma':'#r1193SaverBerhet');
+     const name=await card.locator('strong').innerText(),action=await card.locator('em').innerText();
+     assert(name&&action,'the visible name and action are populated');
+     assert.equal(await card.and(p.getByRole('button',{name:name+' '+action,exact:true})).count(),1,'the accessible name follows this card');
+    }
     await p.keyboard.press('Tab');await p.locator('#kandilWake').focus();const m=await geometry(p);layout(m,width,height);
     assert.notEqual(m.frame.shadow,'none','gold rim visible');
     if(theme==='berhet'){assert(m.button.source.includes('gem-sapphire'),'sapphire artwork survives cascade');assert(m.frame.background.includes('radial-gradient'),'four gemstone corners survive')}

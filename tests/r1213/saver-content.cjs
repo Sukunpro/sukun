@@ -10,11 +10,11 @@ function fixture(saved,throws=false){
  const data={esma:[{t:'Rahmân',m:'Rahmeti bütün varlığı kuşatan'}],berhet:[{tr:'Berhetîhin',mean:'Tenzih, arınma ve iç temizlik',serh:'Geleneksel tefekkür yorumu'}]};
  const c={nodes,root:node(),$:(id)=>nodes[id],tr:a=>a,set:(e,v)=>{if(e)e.textContent=v},items:m=>data[m],allowed:()=>c.access,
   access:true,localStorage:{getItem(){if(throws)throw Error('private mode');return saved},setItem(k,v){if(throws)throw Error('quota');writes.push([k,v])}},
-  window:{},document:{querySelector:()=>null},Date,Math,Number,mount:()=>true,journeyInfo:()=>{},timingInfo:()=>{}};
+  window:{},document:{querySelector:()=>null},Date,Math,Number,busy:false,requestAnimationFrame(){},mount:()=>true,journeyInfo:()=>{},timingInfo:()=>{}};
  c.window.SukunSessionState={peek:()=>c.session};
  c.window.SukunTargetInfo={describe:s=>({label:s.journeyKind==='28'?'Ebced hedefi':'Serbest hedef'})};
  vm.createContext(c);
- vm.runInContext(between('const CONTENT_KEY=','function checkpoint(')+between('function checkpoint(','function mount(')+between('function card(','function name(')+between('function render()','async function load(')+'this.test={setContent,contentUI,progressInfo,checkpoint,render,content:()=>contentMode};',c);
+ vm.runInContext(between('const CONTENT_KEY=','function checkpoint(')+between('function checkpoint(','function mount(')+between('function card(','function name(')+between('function render()','window.SukunSaverInfo=')+'this.test={setContent,contentUI,progressInfo,checkpoint,render,load,content:()=>contentMode};',c);
  return {c,nodes,writes};
 }
 const f=fixture(null);assert.equal(f.c.test.content(),'detailed','upgrade preserves detailed information by default');
@@ -36,3 +36,54 @@ f.c.session.target=0;f.c.test.render();assert.equal(f.nodes.r1213SaverProgress.h
 f.c.session={...session,count:900};f.c.test.render();assert.equal(f.nodes.r1213SaverProgress.value,622,'bar clamps while actual count remains visible');assert.equal(f.nodes.r1213SaverCount.textContent,'900 / 622');
 f.c.access=false;f.c.test.render();assert.equal(f.nodes.r1193SaverActive.hidden,true,'private checkpoint is hidden when gate closes');assert.equal(f.nodes.r1193SaverBerhet.hidden,true);assert.equal(f.nodes.r1213SaverReflection.querySelector('p').textContent,'Kalbin yöneldiği iyilik, küçük bir adımla başlar.','private reflection must not remain visible');
 console.log('PASS: saver content persistence, invalid/storage-denied fallback, accessible toggle state, independent quality, Ebced/Serbest labels, progress bounds, session preservation and gate privacy.');
+
+async function checkSavedJourney(mode,kind,api){
+ const {c,nodes}=fixture(null),actions=[];
+ const saved={i:0,rep:12};
+ c.window[api]={state:()=>saved,display:()=>({index:saved.i,count:saved.rep,target:33})};
+ c.session={activeMode:mode,activeIndex:0,journeyKind:'single',phase:'IDLE',count:0};
+ const session=c.window.SukunSessionState;
+ session.snapshot=()=>c.session;
+ const card=nodes.r1193SaverActive;
+ c.test.render();
+ assert.equal(card.querySelector('small').textContent,'Kaldığın yer');
+ assert.equal(card.dataset.kind,kind);
+ assert.equal(nodes.r1213SaverCount.textContent,'12 / 33');
+ c.window.SukunKandil={hide:()=>actions.push('hide')};
+ c.document.querySelector=selector=>selector.includes('[role="tab"]')?{click:()=>actions.push('navigate')}:null;
+ session.command=(action,options)=>{
+  actions.push(action);
+  assert.equal(action,'select');
+  assert.deepEqual({...options},{mode,journeyKind:kind},'leave index to the saved journey, which owns its repeat count');
+  c.session.journeyKind=kind;c.session.count=saved.rep;
+  return {accepted:true};
+ };
+ assert.equal(await c.test.load(card),true);
+ assert.deepEqual(actions,['select','hide','navigate']);
+ assert.equal(c.session.count,12);
+
+ c.session.phase='PAUSED';c.session.paused=true;
+ c.test.render();
+ for(const current of [card,mode==='esma'?nodes.r1193SaverEsma:nodes.r1193SaverBerhet]){
+  actions.length=0;
+  assert.equal(await c.test.load(current),true);
+  assert.deepEqual(actions,['hide','navigate'],'return to an active wheel leaves its transport alone');
+ }
+ c.session.phase='IDLE';c.session.paused=false;c.session.journeyKind='single';c.test.render();
+ for(const result of [{accepted:false},{accepted:true,stale:true}]){
+  actions.length=0;
+  session.command=()=>{actions.push('select');return result};
+  assert.equal(await c.test.load(card),false);
+  assert.deepEqual(actions,['select'],'failed or superseded selection keeps the saver open');
+ }
+ if(mode==='berhet'){
+  c.access=false;actions.length=0;
+  assert.equal(await c.test.load(card),false);
+  assert.deepEqual(actions,[],'gate closing after render blocks the private shortcut');
+ }
+}
+(async()=>{
+ await checkSavedJourney('esma','99','SukunEsma99Seyir');
+ await checkSavedJourney('berhet','28','SukunBerhetiyyeSeyir');
+ console.log('PASS: saved 99 and 28 journeys open silently at the saved count, active returns, name suggestions, rejected selections and gate closure.');
+})().catch(error=>{console.error(error);process.exitCode=1});
