@@ -34,6 +34,30 @@ async function run(width, height, entry) {
     await p.locator('#r170Now').waitFor({state:'visible'});
     for (const mode of ['mini','midi','max']) {
       await p.evaluate(mode => SukunDockSize.set(mode, true), mode);
+      if (width >= 1000 && mode === 'max') {
+        // Keep the pointer at its previous position across the desktop reflow.
+        // A hover popup can appear over the new control without another click.
+        await p.locator(button).scrollIntoViewIfNeeded();
+        const popup = p.locator('#r1061ActiveLayersPopup');
+        if (!await popup.isVisible()) {
+          const opened = await p.evaluate(() => {
+            const anchor = Array.from(document.querySelectorAll('#r588DockShell [data-r1061-layers="true"]')).find(n => n.getClientRects().length);
+            return !!anchor && SukunActiveLayers.show(anchor);
+          });
+          assert(opened, 'A playing frequency must expose the active-layers list');
+        }
+        const targets = await p.evaluate(async () => {
+          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+          return ['r1263StopReasonButton','r1061ActiveLayersClose'].map(id => {
+            const node = document.getElementById(id);
+            const r = node.getBoundingClientRect();
+            const hit = document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);
+            return {id, hit:hit?.id, reachable:node.contains(hit)};
+          });
+        });
+        assert(targets.every(t => t.reachable), JSON.stringify(targets));
+        row.activeLayersAndHelp = targets;
+      }
       await p.locator(button).click({timeout:10000});
       assert(await p.locator(dialog).isVisible(), mode + ' detail dialog');
       const empty = await p.locator(message).innerText();
