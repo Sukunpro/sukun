@@ -771,9 +771,9 @@
     // The 12 MiB core allowance includes the measured r1213 core (~10.5 MiB),
     // including exact listed high-resolution wheel/branding assets. Arabic recordings and the
     // exact short portal invitation share the separate bounded media allowance.
-    // Leave bounded room for small releases to add mandatory runtime files.
+    // r1263 declares 197 mandatory assets; reject longer lists before downloading.
     // Marker size, file paths, hashes, concurrency and byte budgets stay strict.
-    const maxRuntimeEntries=194,byteBudget=12582912,mediaByteBudget=33554432,waiters=new Set();
+    const maxRuntimeEntries=197,byteBudget=12582912,mediaByteBudget=33554432,waiters=new Set();
     function wakeBudget(){for(const wake of [...waiters])wake();}
     function waitForBudget(){return new Promise((resolve,reject)=>{
       let done=false;

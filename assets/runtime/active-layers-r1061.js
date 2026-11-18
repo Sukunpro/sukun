@@ -79,8 +79,28 @@
   const popup=$('r1061ActiveLayersPopup');if(!opened||!popup||!visible(anchor)){hide(false);return;}
   const vv=window.visualViewport,x=vv?.offsetLeft||0,y=vv?.offsetTop||0,w=vv?.width||innerWidth,h=vv?.height||innerHeight,a=anchor.getBoundingClientRect();
   popup.style.width=Math.min(360,Math.max(120,w-16))+'px';popup.style.maxHeight=Math.max(80,Math.min(480,h*.65,h-16))+'px';
-  const rect=popup.getBoundingClientRect();const left=Math.max(x+8,Math.min(a.left,x+w-rect.width-8));
-  const above=a.top-rect.height-8,below=a.bottom+8;const top=above>=y+8?above:below+rect.height<=y+h-8?below:Math.max(y+8,y+h-rect.height-8);
+  const rect=popup.getBoundingClientRect();
+  let left=Math.max(x+8,Math.min(a.left,x+w-rect.width-8));
+  const above=a.top-rect.height-8,below=a.bottom+8;
+  let top=above>=y+8?above:below+rect.height<=y+h-8?below:Math.max(y+8,y+h-rect.height-8);
+  // In Max the hover list and the adjacent stop explanation are independently
+  // actionable. Keep both hit targets available while the pointer enters the list.
+  const help=$('r1263StopReasonButton')?.getBoundingClientRect();
+  if(help?.width&&help.height&&left<help.right&&left+rect.width>help.left&&top<help.bottom&&top+rect.height>help.top){
+   const lower=Math.max(a.bottom,help.bottom)+8;
+   const upper=Math.min(a.top,help.top)-8;
+   if(lower+rect.height<=y+h-8)top=lower;
+   else if(upper-rect.height>=y+8)top=upper-rect.height;
+   else if(help.right+8+rect.width<=x+w-8)left=help.right+8;
+   else if(help.left-8-rect.width>=x+8)left=help.left-8-rect.width;
+   else{
+    // In a short, narrow viewport keep the existing list scrollable in the
+    // larger free strip above or below the explanation button.
+    const spaceAbove=help.top-8-(y+8),spaceBelow=y+h-8-(help.bottom+8);
+    if(spaceAbove>=spaceBelow){popup.style.maxHeight=Math.max(0,spaceAbove)+'px';top=y+8;}
+    else{popup.style.maxHeight=Math.max(0,spaceBelow)+'px';top=help.bottom+8;}
+   }
+  }
   popup.style.left=Math.round(left)+'px';popup.style.top=Math.round(top)+'px';
  }
  function fill(s){

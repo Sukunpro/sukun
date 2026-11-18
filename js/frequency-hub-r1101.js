@@ -190,7 +190,12 @@
  function updateTimer(){
   if(!frequencyTimer)return;
   if(frequency().playing&&frequencyTimer.end==null){armTimer();safe(()=>frApplyGains(.3));}
-  if(frequencyTimer.end!=null&&timerRemaining()<=0){stop();notify(T('Frekans süresi tamamlandı.','Frequency timer finished.'));return;}
+  if(frequencyTimer.end!=null&&timerRemaining()<=0){
+   const wasPlaying=frequency().playing;
+   stop();
+   if(wasPlaying&&!frequency().playing)safe(()=>window.dispatchEvent(new CustomEvent('sukun:playbackstopped',{detail:{code:'sleep-timer',scope:'frequency'}})));
+   notify(T('Frekans süresi tamamlandı.','Frequency timer finished.'));return;
+  }
   paintTimer();
  }
  function paintTimer(){
