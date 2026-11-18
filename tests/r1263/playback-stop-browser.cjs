@@ -43,6 +43,16 @@ async function run(width, height, entry) {
       assert(box.x >= -1 && box.x+box.width <= width+1, 'Detail dialog overflows horizontally');
       await p.locator(close).click();
       assert.equal(await p.locator(dialog).isVisible(), false);
+      const overlap = await p.locator(button).evaluate(trigger => {
+        const rect = trigger.getBoundingClientRect();
+        const controls = ['r588Play','r588Stop'].map(id => document.getElementById(id));
+        return controls.filter(Boolean).some(control => {
+          const r = control.getBoundingClientRect();
+          return Math.min(rect.right,r.right)-Math.max(rect.left,r.left)>1 &&
+            Math.min(rect.bottom,r.bottom)-Math.max(rect.top,r.top)>1;
+        });
+      });
+      assert(!overlap, mode+' explanation covers a transport control');
       row.modes.push(mode);
     }
 
@@ -61,6 +71,13 @@ async function run(width, height, entry) {
       // Advance only the selected ten-minute deadline in this disposable profile.
       await p.locator('#r588Play').click();
       await p.waitForFunction(() => FR.playing && !SukunAudioSessionRegistry.aggregateSnapshot().paused);
+      const started = await p.evaluate(async () => {
+        const selection = await SukunSessionState.command('select', {mode:'esma', journeyKind:'single', index:0});
+        if (!selection.accepted) return false;
+        return (await SukunSessionState.command('start')).accepted;
+      });
+      assert(started, 'Timer scenario requires an accepted dhikr');
+      await p.waitForFunction(() => SukunSessionState.snapshot().phase === 'PLAYING');
       await p.evaluate(() => {
         const select = document.getElementById('sleepTimer');
         select.value = '10';
@@ -70,6 +87,8 @@ async function run(width, height, entry) {
       await p.waitForFunction(() => !FR.playing && SukunPlaybackStopReason.snapshot()?.code === 'sleep-timer', null, {timeout:35000});
       row.sleepExpiry = await snapshot();
       assert.equal(row.sleepExpiry.scope, 'all');
+      await p.waitForFunction(() => SukunSessionState.snapshot().phase === 'IDLE');
+      assert.deepEqual(await snapshot(), row.sleepExpiry, 'Dhikr teardown overwrote the timer receipt');
     }
 
     // This event is emitted only after the media owner validates an unplanned
@@ -84,6 +103,17 @@ async function run(width, height, entry) {
     await p.waitForFunction(() => window.SukunPlaybackStopReason);
     assert.deepEqual(await snapshot(), unknown, 'Last interruption must survive reload in the same tab');
     row.lastAfterReload = unknown;
+    await p.waitForFunction(() => !window.SukunInteractionGateR732?.active?.());
+    await p.evaluate(() => {window.obClose?.(); document.getElementById('dcClose')?.click();});
+    await p.locator('.tab[data-t="ntf"]').click();
+    await p.locator('#r1263StopReasonNotifications').click();
+    assert.match(await p.locator(message).innerText(), /Nedeni belirlenemedi/);
+    await p.evaluate(() => I18N.set('en'));
+    await p.waitForFunction(() => document.getElementById('r1263StopReasonMessage')?.textContent.includes('cause is unknown'));
+    assert.match(await p.locator('#r1263StopReasonScope').innerText(), /recording/i);
+    await p.keyboard.press('Escape');
+    await p.waitForFunction(() => !document.getElementById('r1263StopReasonDialog').open);
+    await p.waitForFunction(() => document.activeElement.id === 'r1263StopReasonNotifications');
     assert.deepEqual(app.errors, []);
     row.ok = true;
   } finally { await app.close(); }

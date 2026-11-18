@@ -108,3 +108,48 @@ test('rejected and superseded session pause commands do not attribute a stop', (
   f.emit('sukun:sessioncommandresult', { ...command, requestId:8, accepted:true, stale:false });
   assert.equal(f.record(), null);
 });
+
+test('a previously active session pause is scoped to dhikr and a later idle stop is a no-op', () => {
+  const f = fixture();
+  const accepted = { accepted:true, stale:false, outcome:'accepted' };
+  const pause = { action:'pause', requestId:5, epoch:2 };
+  f.emit('sukun:sessioncommand', pause);
+  f.emit('sukun:sessioncommandresult', { ...pause, ...accepted });
+  assert.equal(f.record().code, 'user-paused');
+  assert.equal(f.record().scope, 'zikir');
+  const before = f.record();
+  f.state.phase = 'IDLE';
+  const stop = {action:'stop', requestId:6, epoch:3};
+  f.emit('sukun:sessioncommand', stop);
+  f.emit('sukun:sessioncommandresult', { ...stop, ...accepted });
+  assert.deepEqual(f.record(), before);
+});
+
+test('a global timer receipt keeps precedence over its delayed subordinate stop', () => {
+  const f = fixture();
+  const stop = {action:'stop', requestId:8, epoch:6};
+  f.emit('sukun:sessioncommand', stop);
+  f.stop({code:'sleep-timer', scope:'all'});
+  f.emit('sukun:sessioncommandresult', {...stop, accepted:true, stale:false, outcome:'accepted'});
+  assert.equal(f.record().code, 'sleep-timer');
+  assert.equal(f.record().scope, 'all');
+});
+
+test('only a valid in-range journey timeout reports a watchdog stop', () => {
+  const f = fixture();
+  const receipt = {owner:'journey28', index:27, reason:'resolver-timeout'};
+  for (const invalid of [{owner:'single'}, {reason:'buffering'}, {index:28}]) {
+    f.emit('sukun:journey-watchdog-timeout', {...receipt, ...invalid});
+    assert.equal(f.record(), null);
+  }
+  f.emit('sukun:journey-watchdog-timeout', receipt);
+  assert.equal(f.record().code, 'watchdog');
+  assert.equal(f.record().scope, 'journey');
+});
+
+test('corrupt session data is ignored and the next valid stop remains available', () => {
+  const f = fixture(new Map([['sukun.playback-stop.r1263','{broken']]));
+  assert.equal(f.record(), null);
+  f.stop({code:'user-stopped', scope:'frequency'});
+  assert.equal(f.record().scope, 'frequency');
+});
