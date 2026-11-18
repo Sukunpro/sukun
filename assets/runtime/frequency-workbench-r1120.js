@@ -92,8 +92,106 @@
   window.SukunFrequencySetsR1120?.refreshSelection?.();
  }
  function localize(){localizeHelp();paintBinauralStatus();const description=$('binauralProductDescription');if(description)description.textContent=T('Binaural seslerle odaklanma ve meditatif deneyimi desteklemeyi amaçlar.','Aims to support focus and a meditative experience with binaural sounds.');const intro=$('binauralPresetIntro');if(intro)intro.textContent=T('Astral & Derin Zihin kategorisindeki sabit presetler binaural sinüs, eşit sol/sağ kanal uygular; uzamsal ses, harmonikler, efektler, frekans filtreleri, gürültü ve ikinci katmanı kapatır. Ses düzeyi korunur. Yolculuk presetleri farklıdır.','Fixed Astral & Deep Mind presets apply binaural sine tones and equal left/right channels; spatial audio, harmonics, effects, frequency filters, noise and the second layer are turned off. Volume is preserved. Journey presets are different.');if($('frequencyLightLabelR1120'))$('frequencyLightLabelR1120').textContent=T('◉ Sabit ışık geri bildirimi — yanıp sönmez','◉ Steady light feedback — no flashing');if($('frequencyLightWarningR1120'))$('frequencyLightWarningR1120').textContent=T('ışık hassasiyeti uyarısı','photosensitivity notice');$('aveTgl')?.setAttribute('aria-label',T('Sabit ışık geri bildirimi','Steady light feedback'));const host=$('frequencyWorkbenchR1120');if(!host)return;host.querySelectorAll('[data-fr-tr]').forEach(e=>e.textContent=T(e.dataset.frTr,e.dataset.frEn));for(const [k,list]of Object.entries(selectFields)){const el=$('fr1120-'+k);if(el)list.forEach((v,i)=>el.options[i].textContent=T(v[1],v[2]));}const summary=$('frequencyAdvancedR1120')?.querySelector('summary');if(summary)summary.textContent=T('Harmonikler ve 3B ses','Harmonics and 3D sound');sync();}
+ // The visual follows the main frequency transport. It never starts audio,
+ // changes the beat or restores consent from a saved set.
+ function mountFrequencyPulse(){
+  const toggle=$('frequencyPulseToggle'),glow=$('frequencyPulseGlow');
+  if(!toggle||!glow||!window.CIZ)return;
+  const status=$('frequencyPulseStatus'),label=$('frequencyPulseLabel'),masterVolume=$('masterVol');
+  const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const job='frequency-pulse-r1264';
+  let armed=false,aggregatePaused=false,mix=null,nativeAudio=null,previousTime=null,phase=0,statusKey='',nextLabelUpdate=0;
+
+  function describe(state,rate=0,group=0){
+   const locale=window.I18N?.lang==='en'?'en':'tr';
+   const rateText=String(Number(rate.toFixed(3))).replace('.',locale==='tr'?',':'.');
+   const key=[locale,state,rateText,group].join('|');
+   if(key===statusKey)return;
+   statusKey=key;
+   label.textContent=T('Ritimli ışık','Rhythmic light');
+   toggle.textContent=armed?T('Açık','On'):T('Kapalı','Off');
+   toggle.setAttribute('aria-pressed',String(armed));
+   toggle.disabled=motion.matches;
+   if(state==='reduced')status.textContent=T('Cihazda “Hareketi azalt” açık. Işık ritmi kapalı.','Reduce motion is on. Rhythmic light is off.');
+   else if(state==='off')status.textContent=T('Frekans çalarken ekran kenarları yavaşça aydınlanır.','The screen edges gently brighten during frequency playback.');
+   else if(state==='waiting')status.textContent=T('Frekans sesi bekleniyor.','Waiting for frequency playback.');
+   else if(!group)status.textContent=T('Vuruşsuz ton · ışık ritmi 0,5 Hz (2 saniyede bir).','Tone without a beat · light pulse 0.5 Hz (once every 2 seconds).');
+   else status.textContent=T('Işık ritmi '+rateText+' Hz · '+group+' vuruş süresinde bir döngü.','Light pulse '+rateText+' Hz · one cycle spans '+group+(group===1?' beat.':' beats.'));
+  }
+  function rest(){
+   previousTime=null;phase=0;nextLabelUpdate=0;
+   if(!glow.hidden){glow.hidden=true;glow.style.opacity='0';delete glow.dataset.rateHz;}
+   describe(motion.matches?'reduced':armed?'waiting':'off');
+  }
+  function draw(time){
+   // A native ambience-only loop can coexist with a live frequency journey.
+   // Use the same route rule as the audio adapter. The element's current
+   // volume follows master-volume input even when no new mix event is sent.
+   const nativeOwnsFrequency=mix?.mutedLive&&!frLiveOnly();
+   const playing=nativeOwnsFrequency
+    ? mix.playing&&mix.currentSelectionPrepared&&!mix.native?.waiting&&nativeAudio&&
+      !nativeAudio.paused&&!nativeAudio.muted&&!nativeAudio.ended&&!nativeAudio.error&&nativeAudio.volume>0
+    : ctx?.state==='running';
+   if(!armed||motion.matches||document.hidden||!FR.playing||!playing||aggregatePaused||MINI.paused||
+      window.AudioLife?.userPaused&&!window.AudioLife?._terminalIntent||!(FR.vol>0)||!(Number(masterVolume.value)>0)||
+      (FR.balL===0&&FR.balR===0)){rest();return;}
+   const beat=FR._ramp?frRampPosition().b:FR.b;
+   if(!Number.isFinite(beat)||beat<0){rest();return;}
+   // Group whole beats in powers of two. Never turn the audible carrier into
+   // a flash rate. A pure reference tone has no beat and gets its own slow cycle.
+   const group=beat>0?2**Math.max(0,Math.ceil(Math.log2(beat))):0;
+   const rate=group?beat/group:.5;
+   if(previousTime!==null){
+    // Preserve phase when the beat changes; a stalled tab skips no bright peak.
+    const elapsed=Math.min(.2,Math.max(0,(time-previousTime)/1000));
+    phase=(phase+elapsed*rate)%1;
+   }
+   previousTime=time;
+   const strength=.2+Math.max(.05,Math.min(.5,AVE.int))*.65;
+   glow.style.opacity=(strength*(1-Math.cos(phase*2*Math.PI))/2).toFixed(3);
+   glow.hidden=false;
+   if(time>=nextLabelUpdate){
+    glow.dataset.rateHz=String(Number(rate.toFixed(6)));
+    describe('playing',rate,group);nextLabelUpdate=time+250;
+   }
+  }
+  function disarm(){
+   armed=false;window.CIZ.cikar(job);rest();
+  }
+  toggle.addEventListener('click',()=>{
+   if(armed){disarm();return;}
+   if(motion.matches||!window.confirm(T(
+    'Frekans çalarken ekran kenarları en fazla saniyede bir kez aydınlanıp söner. Işığa duyarlıysan kapalı bırak. Ritimli ışık açılsın mı?',
+    'During frequency playback the screen edges brighten and fade up to once per second. Leave this off if you are sensitive to light. Enable rhythmic light?'
+   )))return;
+   if(motion.matches)return;
+   armed=true;
+   aggregatePaused=!!window.SukunAudioSessionRegistry?.aggregateSnapshot?.()?.paused;
+   rememberMix(window.SukunBackgroundMix?.snapshot?.());
+   rest();
+   window.CIZ.ekle(job,draw,{active:()=>armed&&(FR.playing||!glow.hidden)});
+  });
+  function rememberMix(state){
+   mix=state;
+   nativeAudio=mix?.mutedLive?$('sukunBackgroundMixAudio'):null;
+  }
+  window.addEventListener('sukun:backgroundmix',event=>{if(armed)rememberMix(event.detail);});
+  window.addEventListener('sukun:audioaggregatechange',event=>{
+   aggregatePaused=!!event.detail?.paused;
+   if(armed&&aggregatePaused)rest();
+  });
+  window.addEventListener('sukun:languagechange',()=>{
+   if(glow.hidden)rest();else nextLabelUpdate=0;
+  });
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)rest();});
+  document.addEventListener('freeze',rest);
+  window.addEventListener('pagehide',disarm);
+  motion.addEventListener('change',disarm);
+  rest();
+ }
  function mount(){
   const host=$('frequencyWorkbenchR1120');if(!host||host.firstElementChild)return;
+  mountFrequencyPulse();
   const details=document.createElement('details');details.className='jEd fr1120-workbench';details.open=true;details.setAttribute('data-hep-acik','');const summary=document.createElement('summary');summary.dataset.frTr='Ses araçları';summary.dataset.frEn='Sound tools';details.append(summary);
   help(details,'fr1120-binaural-help','Taşıyıcı ve binaural ne yapar?','What do carrier and binaural do?',[
    ['Taşıyıcı duyduğun perdeyi ayarlar. Binauralde örneğin 100 Hz taşıyıcı ve 4 Hz vuruş, sola 98 Hz ve sağa 102 Hz gönderir. 4 Hz doğrudan çalınan bir bas tonu değildir.','The carrier sets audible pitch. In binaural mode, a 100 Hz carrier with a 4 Hz beat sends 98 Hz left and 102 Hz right. 4 Hz is not a directly played bass tone.'],

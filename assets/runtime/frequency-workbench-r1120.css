@@ -27,3 +27,19 @@
 body.helpOn #tab-frq button.qb{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:24px;min-height:24px;width:24px;height:24px;padding:0}
 #tab-frq button.qb:focus-visible{outline:2px solid var(--goldh,#ead7a1);outline-offset:3px}
 #qBubble[hidden]{display:none!important}
+
+#tab-frq #frequencyPulseRow { align-items:center; gap:12px; }
+#frequencyPulseRow>div { min-width:0; }
+#frequencyPulseStatus { display:block; margin-top:3px; font-size:.79rem; line-height:1.35; color:var(--soft,currentColor); }
+#tab-frq #frequencyPulseToggle { flex:0 0 auto; min-height:44px; width:auto; min-width:64px; padding:6px 10px; }
+#tab-frq #frequencyPulseToggle[aria-pressed="true"] { border-color:var(--goldh,#dfc785); }
+#frequencyPulseToggle:focus-visible { outline:2px solid var(--goldh,#dfc785); outline-offset:2px; }
+#frequencyPulseGlow { position:fixed; inset:0; z-index:801; pointer-events:none; opacity:0; }
+#frequencyPulseGlow::before,#frequencyPulseGlow::after {
+  content:""; position:absolute; top:34%; height:min(34vh,240px); width:clamp(32px,8vw,110px);
+  background:radial-gradient(ellipse at 0 50%,#bde0c8 0%,rgba(135,196,174,.65) 36%,transparent 72%);
+}
+#frequencyPulseGlow::before { left:0; }
+#frequencyPulseGlow::after { right:0; transform:scaleX(-1); }
+#frequencyPulseGlow[hidden] { display:none!important; }
+@media (prefers-reduced-motion: reduce) { #frequencyPulseGlow { display:none!important; } }

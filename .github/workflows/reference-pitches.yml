@@ -34,6 +34,11 @@ jobs:
       - name: Measure four reference pitches and inject diagnostic faults
         working-directory: candidate
         run: node tests/r1262/reference-pitches-browser.cjs . ../evidence/reference-pitches.json
+      - name: Verify opt-in light timing, pixels, playback independence and accessibility
+        working-directory: candidate
+        run: |
+          node tests/r1264/frequency-pulse-contract.cjs
+          node tests/r1264/frequency-pulse-browser.cjs . ../evidence/frequency-pulse.json
       - name: Verify upgrade from r1261 and offline recovery
         working-directory: candidate
         run: node tests/r1213/release-upgrade-browser.cjs . ../r1261 ../evidence/upgrade-from-r1261.json
