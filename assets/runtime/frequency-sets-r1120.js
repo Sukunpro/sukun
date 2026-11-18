@@ -11,7 +11,7 @@
   const isObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
   const fields = [
     {key:'c',label:['Taşıyıcı (Hz)','Carrier (Hz)'],min:20,max:18000,step:.1},
-    {key:'b',label:['Vuruş (Hz)','Beat (Hz)'],min:.5,max:40,step:.01},
+    {key:'b',label:['Vuruş (Hz)','Beat (Hz)'],min:0,max:40,step:.01},
     {key:'mode',label:['Mod','Mode'],options:[['bin','Binaural','Binaural'],['mono','Monaural','Monaural'],['iso','İzokronik','Isochronic'],['mix','Karma','Mixed']]},
     {key:'wave',label:['Dalga biçimi','Waveform'],options:[['sine','Sinüs','Sine'],['square','Kare','Square'],['sawtooth','Testere','Sawtooth'],['triangle','Üçgen','Triangle']]},
     ...['fm','am','rm','pwm'].map((key,i)=>({key,label:[['Vibrato (FM)','Tremolo (AM)','Halka modülasyonu (RM)','PWM (yalnız kare)'][i],['Vibrato (FM)','Tremolo (AM)','Ring modulation (RM)','PWM (square only)'][i]],boolean:true,optional:true})),
@@ -53,6 +53,7 @@
     // Do not silently discard fields written by a newer app version.
     const keys = new Set(fields.filter(field => !field.key.includes('.')).map(field => field.key).concat('secondary'));
     if (Object.keys(settings).some(key => !keys.has(key)) || Object.keys(settings.secondary).some(key => !['on','c','b'].includes(key))) return {ok:false,field:'unknown'};
+    if(normalized.b < .5 && !(normalized.b === 0 && normalized.mode === 'bin')) return {ok:false,field:'b'};
     if(normalized.wave!=='square')normalized.pwm=false;
     return {ok:true,value:normalized};
   }

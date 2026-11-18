@@ -155,7 +155,7 @@
       left.connect(gl); right.connect(gr); gl.connect(merge, 0, 0); gr.connect(merge, 0, 1); merge.connect(out); out.connect(bus); left.start(0); right.start(0);
     }
     if (!config?.playing || !(finite(config.vol, .5) > 0)) return;
-    const vol = clamp(finite(config.vol, .5), 0, 1), mode = String(config.mode || 'bin'), beat = clamp(finite(config.b, 7.83), .01, 100);
+    const vol = clamp(finite(config.vol, .5), 0, 1), mode = String(config.mode || 'bin'), beat = config.b === 0 && mode === 'bin' ? 0 : clamp(finite(config.b, 7.83), .01, 100);
     const carrier = finite(config.c, 180), nyquist = c.sampleRate / 2;
     if (carrier - beat / 2 < 1 || carrier + beat / 2 >= nyquist) throw failure('frequency-range', 'The selected stereo carrier exceeds the offline sample rate.');
     if (!['bin', 'mono', 'iso', 'mix'].includes(mode)) throw failure('frequency-mode', 'Unknown background frequency mode.');

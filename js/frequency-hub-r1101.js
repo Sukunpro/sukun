@@ -37,9 +37,9 @@
   cancelRamps();
   safe(()=>{
    if(Number.isFinite(+values.c))FR.c=Math.min(18000,Math.max(20,+values.c));
-   if(Number.isFinite(+values.b))FR.b=Math.min(40,Math.max(.5,+values.b));
+   if(Number.isFinite(+values.b))FR.b=+values.b===0&&(values.mode||FR.mode)==='bin'?0:Math.min(40,Math.max(.5,+values.b));
    if(['bin','iso','mono','mix'].includes(values.mode)&&FR.mode!==values.mode){
-    const on=FR.playing;if(on)frStop();FR.mode=values.mode;if(on&&!wasHeld&&!held())$('frToggle')?.click();
+    const on=FR.playing;if(on)frStop();FR.mode=values.mode;if(FR.mode!=='bin'&&FR.b===0)FR.b=7.83;if(on&&!wasHeld&&!held())$('frToggle')?.click();
    }
    if(typeof values.pink==='boolean'&&FR.pink!==values.pink)$('pinkTgl')?.click();
    frRetune();syncFreqUI();
@@ -68,13 +68,17 @@
   const a=item.apply,c=a.c??a.hz;
   if(!Number.isFinite(c)||(a.b!=null&&!Number.isFinite(a.b)))return false;
   const values={c};if(a.b!=null)values.b=a.b;
-  if(a.binauralProfile){
+  let reference;
+  if(a.referenceId){
+   reference=window.SukunFrequencyR1120?.applyReferencePitch(a.referenceId);
+   if(!reference?.ok)return false;
+  }else if(a.binauralProfile){
    const result=window.SukunFrequencyR1120?.applyBinauralPreset({c,b:a.b},{play:false});
    if(!result?.ok)return false;
   }else if(!apply(values))return false;
   // A library activation is an explicit play request. Reuse the common
   // start guard: a playing graph is retuned, and global pause stays held.
-  const playing=start(),name=safe(()=>window.I18N?.t?.(item.name),item.name)||item.name;
+  const playing=reference?reference.playing:start(),name=safe(()=>window.I18N?.t?.(item.name),item.name)||item.name;
   notify(name+(playing?T(' çalıyor.',' is playing.'):held()?T(' uygulandı. Genel duraklatma açık; ana kontrollerden Devam et seçin.',' applied. Global pause is active; choose Resume in the main controls.'):T(' uygulandı. Çalma başlatılamadı; Frekansı Başlat düğmesini kullanın.',' applied. Playback could not start; use Start frequency.')));
   libraryNoticeKey=libraryStateKey();
   mirror();return playing;

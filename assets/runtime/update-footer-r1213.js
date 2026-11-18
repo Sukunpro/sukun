@@ -10,7 +10,12 @@
  function describe(s){
   let caption=t('Güncellemeyi kontrol et','Check for updates'),message='',working=busy||preparing(s);
   const p=s?.progress,progress=p&&p.total>0?' '+Math.min(100,Math.floor(p.done/p.total*100))+'%':'';
-  if(s?.lastError||s?.phase==='error'){working=false;caption=t('Yeniden dene','Retry');message=t('Güncelleme tamamlanamadı. Mevcut sürüm korunuyor; bağlantı varken yeniden dene.','The update could not finish. Your current version is kept; retry while connected.')}
+  if(s?.lastError||s?.phase==='error'){
+   working=false;caption=t('Yeniden dene','Retry');
+   message=s.cacheWriteFailed
+    ?t('Tarayıcı güncellemeyi çevrimdışı kullanım için kaydedemedi. Yeniden dene.','Your browser could not save the update for offline use. Try again.')
+    :t('Güncelleme tamamlanamadı. Yeniden dene.','The update could not finish. Try again.');
+  }
   else if(s?.updateQueued){working=false;caption=s.reloadPending?t('Güncelleme bekliyor','Update pending'):t('Beklemeyi iptal et','Cancel waiting');message=t('Hazır güncelleme, oturum bitince uygulanacak.','The ready update will apply when the session ends.')}
   else if(preparing(s)){
    const phase=s.phase;caption=phase==='saving'?t('Oturum kaydediliyor…','Saving session…'):phase==='activating'?t('Güncelleme uygulanıyor…','Applying update…'):phase==='checking'?t('Kontrol ediliyor…','Checking…'):t('Güncelleme indiriliyor…','Downloading update…');

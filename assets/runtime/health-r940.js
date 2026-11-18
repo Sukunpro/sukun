@@ -16,7 +16,8 @@
   const DEVICE_FIELDS = ['foregroundSound','lockedSound','tempoStable','effectsPreserved','nameTransition','manualCount','manualFeedback','manualVoice','voiceRate','terkipOpen','virdOpen','navigationControls','privateGate'];
   const DEVICE_ANSWERS = new Set(['NOT_TRIED','AS_EXPECTED','ISSUE']);
   let previous = null, previousScope = 'none', lastSampleEpoch = 0, eventWindowAt = born, eventWindowCount = 0;
-  let sessionCommand = null;
+  let sessionCommand = null, referenceSelection = null;
+  const referencePitches = Object.freeze({fork128:128, fork1361:136.1, fork256:256, fork384:384});
   let visibleLagMs = 0, lastIncidentAt = 0, lastPresentationSave = 0, mounted = null, dialog = null, priorFocus = null, tts = null, taps = null, checkpointTrimmed = 0;
   const safe = (fn, fallback = null) => { try { return fn() ?? fallback; } catch (_) { return fallback; } };
   const finite = x => Number.isFinite(Number(x)) ? Number(x) : null;
@@ -45,6 +46,7 @@
   ['sessionCommand','action','accepted','stale','outcome'].forEach(key=>historicKeys.add(key));
   ['lease','lockTransitionAgeMs','lockRecoveryPending','lockRecoveryAttempted','lockRecoveryReason','backgroundRecoveryKind','loopSeekAgeMs','loopSeekWindowMs','loopPauseRecoveries'].forEach(key=>historicKeys.add(key));
   ['seeking','dormant','sourceMatches','lastPhysicalProgressAgeMs'].forEach(key=>historicKeys.add(key));
+  ['expectedHz','carrierHz','beatHz','leftHz','rightHz','missingHz','duplicateHz','invalidHz','mismatchedSettings','matched','expected'].forEach(key=>historicKeys.add(key));
   historicKeys.add('lastContext');
   const COMMAND_ACTIONS = new Set(['start','play','pause','resume','stop','next','previous','restart','retry','select','adjust']);
   const COMMAND_REASONS = new Set(['pending','accepted','global-pause','voice-not-ready','recording-unavailable','locked','stale-session','superseded-command','transport-not-accepted','command-error','stop-not-complete','stop-wait-unavailable','selection-unavailable']);
@@ -95,13 +97,60 @@
     const names=['AbortError','NotAllowedError','NotSupportedError','InvalidStateError','NetworkError','SecurityError','TypeError','TimeoutError','Error'];
     const errorName=failed ? names.find(name=>new RegExp('\\b'+name+'\\b').test(text)) || 'UnknownError' : '';
     const http=text.match(/\b(?:HTTP[_ :]*|status(?: code)?[: =]*)([45]\d\d)\b/i), errorHttp=http?Number(http[1]):null;
-    const errorCode=!failed?'':errorHttp?'HTTP_'+errorHttp:/timeout|timed out|süre.*dol|zaman.*aş/i.test(text)?'TIMEOUT':/dosyaları.*tamamlanamadı|incomplete|cache.*refresh/i.test(text)?'UPDATE_INCOMPLETE':/activation|aktivasyon/i.test(text)?'ACTIVATION_FAILED':/network|fetch|connection|bağlantı/i.test(text)?'NETWORK_OR_FETCH':'UNCLASSIFIED';
-    const errorStage=!failed?'':/activation|aktivasyon/i.test(text)?'activation':/update|güncelle/i.test(text)?'update':/register|registration|kurul/i.test(text)?'registration':'unknown';
+    const errorCode=!failed?'':s.cacheWriteFailed===true?'CACHE_WRITE_FAILED':errorHttp?'HTTP_'+errorHttp:/timeout|timed out|süre.*dol|zaman.*aş/i.test(text)?'TIMEOUT':/dosyaları.*tamamlanamadı|incomplete|cache.*refresh/i.test(text)?'UPDATE_INCOMPLETE':/activation|aktivasyon/i.test(text)?'ACTIVATION_FAILED':/network|fetch|connection|bağlantı/i.test(text)?'NETWORK_OR_FETCH':'UNCLASSIFIED';
+    const errorStage=!failed?'':s.cacheWriteFailed===true?'cache-write':/activation|aktivasyon/i.test(text)?'activation':/update|güncelle/i.test(text)?'update':/register|registration|kurul/i.test(text)?'registration':'unknown';
     const url=text.match(/https?:\/\/[^\s'"<>]+/i);
     return { app: token(s?.appVersion || build), controller: token(s?.controllerVersion || s?.v),
       waiting: token(s?.waitingVersion), phase: token(s?.phase), hasController: bool(s?.hasController),
       complete: s?.controllerComplete ?? s?.complete ?? null, error:failed,
       errorName,errorCode,errorHttp,errorStage,errorAsset:url?path(url[0]):null,lastChange:finite(s?.lastChange) };
+  }
+  function referenceCatalogue() {
+    const code='REFERENCE_PITCH_CATALOG', title='Diyapazon hazır ayarları';
+    if (typeof FREQ_PRESETS==='undefined' || !Array.isArray(FREQ_PRESETS))
+      return status(code,'NOT_MEASURED',title,{reason:'catalog-unavailable'});
+    const missingHz=[], duplicateHz=[], invalidHz=[];
+    for (const [id,hz] of Object.entries(referencePitches)) {
+      const matches=FREQ_PRESETS.filter(item=>item?.id===id);
+      if (!matches.length) missingHz.push(hz);
+      else if (matches.length>1) duplicateHz.push(hz);
+      else if (matches[0].c!==hz || matches[0].b!==0 || matches[0].cat!=='diapason' || matches[0].journey) invalidHz.push(hz);
+    }
+    const expected=Object.keys(referencePitches).length, matched=expected-missingHz.length-duplicateHz.length-invalidHz.length;
+    return status(code,matched===expected?'PASS':'FAIL',title,{expected,matched,missingHz,duplicateHz,invalidHz});
+  }
+  // Observe the named selection at its owning action boundary. A subsequent
+  // manual retune, session change or pause must not be diagnosed as a failed preset.
+  function referencePitchResult(id,ok) {
+    const expectedHz=referencePitches[id], code='REFERENCE_PITCH_SELECTION', title='Son diyapazon seçimi';
+    const evidence={at:now(),expectedHz};
+    const result=(level,reason)=>status(code,level,title,{...evidence,reason});
+    if (!ok) return result('FAIL','apply-rejected');
+    if (typeof FR==='undefined' || typeof FR2==='undefined') return result('NOT_MEASURED','engine-unavailable');
+    const expected={c:expectedHz,b:0,mode:'bin',wave:'sine',harmonik:0,uzam:false,filterOn:false,
+      fm:false,am:false,rm:false,pwm:false,pink:false,noise:'off',balL:1,balR:1};
+    evidence.mismatchedSettings=Object.keys(expected).filter(key=>FR[key]!==expected[key]);
+    if (FR2.on!==false) evidence.mismatchedSettings.push('secondary');
+    Object.assign(evidence,{carrierHz:Number.isFinite(FR.c)?FR.c:null,beatHz:Number.isFinite(FR.b)?FR.b:null});
+    if (evidence.mismatchedSettings.length) return result('FAIL','settings-mismatch');
+    if (!FR.playing || document.hidden || typeof ctx==='undefined' || ctx?.state!=='running' ||
+        window.SukunFrequencyR1120?.held?.()) return result('OBSERVED','settings-only');
+    const measured=node=>Number.isFinite(node?.frequency?.value)?node.frequency.value:null;
+    evidence.leftHz=measured(FR.oL); evidence.rightHz=measured(FR.oR);
+    // AudioParam values are float32; the tolerance still distinguishes 136.1 from 136.
+    const matches=(node,hz)=>hz!==null && Math.abs(hz-expectedHz)<0.01 && node?.type==='sine';
+    return matches(FR.oL,evidence.leftHz) && matches(FR.oR,evidence.rightHz) && !FR.gate && !FR.iso
+      ? result('PASS','oscillators-match') : result('FAIL','oscillator-mismatch');
+  }
+  function recordReferenceFault(row) {
+    if (row.status==='FAIL') issue(row.code,'FAIL',row.title,row.evidence,'Diyapazon ayarını tekrar seçip sağlık raporunu kontrol edin.');
+  }
+  function referencePitchEvent(event) {
+    const d=event.detail;
+    if (!d || typeof d.id!=='string' || !Object.hasOwn(referencePitches,d.id) || typeof d.ok!=='boolean') return;
+    referenceSelection=referencePitchResult(d.id,d.ok);
+    record('reference-pitch',referenceSelection.evidence);
+    recordReferenceFault(referenceSelection);
   }
   function compactLock(s) { return { active: bool(s?.active), playing: bool(s?.playing), owner: token(s?.owner),
     frozen: bool(s?.frozen), reason: token(s?.lastReason), ...numeric(s, ['cycleMs','mediaProgressMs','lastProgressAgeMs','stalls','overshootCycles','applied','index']) }; }
@@ -537,7 +586,7 @@
       status('DEVICE_AUDIO', 'NOT_MEASURED', 'Fiziksel hoparlör ve ekran kilidi doğrulaması', { reason: 'Tarayıcı olayları işitilebilir sesi veya işletim sistemi süreç sonlandırmasını ispatlamaz' }),
       status('PERSISTENCE', storageError ? 'WARN' : lastSaved ? 'PASS' : 'NOT_MEASURED', 'Son durum kaydı', { lastSaved, error: storageError, trimmedRecords:checkpointTrimmed })];
     if(sw)out.push(status('SW_OPERATION',sw.error || sw.phase==='error'?'WARN':'OBSERVED','Çevrimdışı motorun son işlemi',sw,
-      sw.error || sw.phase==='error'?'Çevrimdışı motorun bir işlemi tamamlanamadı. Sayfa ve çalışan sürüm eşleşiyorsa ve temel dosyalar tamamsa bu, mevcut önbelleğin bozuk olduğunu göstermez. Bağlantı uygun olduğunda güncelleme denetimini yeniden deneyin; kayıtlarınızı silmeyin.':''));
+      sw.errorCode==='CACHE_WRITE_FAILED'?'Tarayıcı güncelleme dosyalarını çevrimdışı kullanım için kaydedemedi. Güncellemeyi yeniden deneyin.':sw.error || sw.phase==='error'?'Çevrimdışı motorun bir işlemi tamamlanamadı. Sayfa ve çalışan sürüm eşleşiyorsa ve temel dosyalar tamamsa bu, mevcut önbelleğin bozuk olduğunu göstermez. Bağlantı uygun olduğunda güncelleme denetimini yeniden deneyin; kayıtlarınızı silmeyin.':''));
     if(recordingPreparation)out.push(status('AUDIO_PREPARATION',recordingPreparation.audio?.decodeBlocked?'WARN':'OBSERVED','Kendi kayıt hazırlığı',recordingPreparation,
       'Hazırlık aşaması ve bekleyen ses çözümlemesi gözlenir. Ekran açıkken efekt hazırlığı uzarsa özgün kayıt kullanılır; bu rapor duyulan sesi ölçmez.'));
     if(recordingContinuity)out.push(status('RECORDING_CONTINUITY',recordingContinuity.status==='different'?'WARN':['same','baseline'].includes(recordingContinuity.status)?'OBSERVED':'NOT_MEASURED',
@@ -654,6 +703,8 @@
     // observers, collect a new timing sample, scan layout, or change playback.
     const cachedInput={taps:cachedTapSnapshot(),latency:cachedLatencySnapshot()}, voiceExpectation=voiceExpectationSnapshot(),recordingPreparation=recordingPreparationSnapshot(),recordingContinuity=recordingContinuitySnapshot(),recordingInspection=recordingInspectionSnapshot();
     const result = currentChecks(cachedInput,voiceExpectation,recordingPreparation,recordingContinuity,recordingInspection);
+    result.push(referenceCatalogue());
+    if (referenceSelection) result.push(referenceSelection);
     const introAudio=introAudioSnapshot();
     if(introAudio)result.push(status('INTRO_AUDIO',introAudio.outcome==='unknown'?'NOT_MEASURED':'OBSERVED','Açılış sesi gözlemi',introAudio));
     return { schema: SCHEMA, version: VERSION, build, generatedAt: new Date().toISOString(), boot,
@@ -1037,6 +1088,9 @@
     record('tempo-change', data);
     if (document.hidden) issue('TEMPO_CHANGED_HIDDEN','WARN','Ekran gizliyken tempo değişti',data,'Kaynak alanı değişimi yapan denetimi gösterir. Restore/name-change beklenen olabilir; touch/dock ise olay sırasını inceleyin.','correlation');
   }, {passive:true});
+  // A catalogue is static at boot; actual oscillators are inspected only on a user selection.
+  recordReferenceFault(referenceCatalogue());
+  window.addEventListener('sukun:referencepitch',referencePitchEvent,{passive:true});
   window.addEventListener('sukun:qualityerror', e => {
     const data = {code:token(e.detail?.code || 'QUALITY_DECODE_FAILED'),bytes:finite(e.detail?.bytes)};
     record('quality-error',data);
