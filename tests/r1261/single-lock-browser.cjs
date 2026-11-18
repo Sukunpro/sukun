@@ -23,19 +23,27 @@ async function visibility(page, hidden) {
   }, hidden);
 }
 
-async function state(page) {
-  return page.evaluate(() => {
-    const a = document.getElementById('r476LockZikirAudio');
-    const monitor = window.lockTest;
-    return {
-      key:zikirKey(), count:Z.count, target:Z.target, total:Z.total, auto:Z.auto,
-      hidden:document.hidden, phase:SukunSessionState.snapshot().phase,
-      failure:SukunRecordingFailure.get().code || '', holds:monitor.holds,
-      stages:monitor.stages, jobs:monitor.jobs, aborted:monitor.aborted,
-      native:SukunLockAudio.snapshot(), playing:!!(a && !a.paused && !a.ended),
-      time:a?.currentTime || 0, src:a?.currentSrc || '', speech:__r1064SpeechFixture.log.length
-    };
-  });
+function playbackState(requireAccepted = false) {
+  const a = document.getElementById('r476LockZikirAudio');
+  const monitor = window.lockTest;
+  const native = SukunLockAudio.snapshot();
+  const failure = SukunRecordingFailure.get();
+  // Loading the packed media and seeking to the foreground phase can briefly
+  // change readyState. Record the admitted source and its clock in one sample.
+  if (requireAccepted && !failure.active &&
+      (!native.active || native.preparing || !native.playing || !(native.mediaProgressSeconds > 0))) return null;
+  return {
+    key:zikirKey(), count:Z.count, target:Z.target, total:Z.total, auto:Z.auto,
+    hidden:document.hidden, phase:SukunSessionState.snapshot().phase,
+    failure:failure.code || '', holds:monitor.holds,
+    stages:monitor.stages, jobs:monitor.jobs, aborted:monitor.aborted,
+    native, playing:!!(a && !a.paused && !a.ended),
+    time:a?.currentTime || 0, src:a?.currentSrc || '', speech:__r1064SpeechFixture.log.length
+  };
+}
+
+function state(page) {
+  return page.evaluate(playbackState);
 }
 
 async function setup(page, mode) {
@@ -106,7 +114,7 @@ async function run(name, scenario, mode) {
     assert.deepEqual(f.errors, []);
     results.push({name, passed:true, evidence});
   } catch (error) {
-    results.push({name, passed:false, error:String(error.message), state:await state(f.page).catch(() => null)});
+    results.push({name, passed:false, error:String(error.message), stack:error.stack, state:await state(f.page).catch(() => null)});
   } finally {
     await f.close();
   }
@@ -119,12 +127,13 @@ async function assertCarry(page) {
   assert.equal(before.target, 154);
   assert(before.count >= 49);
   await page.evaluate(() => lockTest.release());
-  await page.waitForFunction(() => SukunLockAudio.snapshot().playing || SukunRecordingFailure.get().active, null, {timeout:18000});
-  const start = await state(page);
+  const admission = await page.waitForFunction(playbackState, true, {timeout:18000});
+  const start = await admission.jsonValue();
+  await admission.dispose();
   assert.equal(start.failure, '', 'Playable recording was treated as unavailable');
-  assert.equal(start.native.recordingOrigin, 'personal');
+  assert.equal(start.native.recordingOrigin, 'personal', 'Accepted lock source must be the personal recording');
   assert(start.native.repeatCycles > 1, 'Lock playback must use the cadence-preserving packed file');
-  assert.equal(start.native.playing, true);
+  assert.equal(start.native.playing, true, 'Accepted packed source must be playing while hidden');
   assert.equal(start.aborted, 0, 'A foreground deadline cancelled the pending lock source');
   assert.equal(start.jobs, 1, 'Each start should prepare one lock source');
   assert(start.count >= before.count && start.count <= before.count + 1, 'Handoff changed already earned repetitions');
@@ -139,7 +148,7 @@ async function assertCarry(page) {
   const visible = await state(page);
   assert.equal(visible.src, start.src, 'Unlock should keep the same native media source');
   assert.equal(visible.failure, '');
-  assert.equal(visible.playing, true);
+  assert.equal(visible.playing, true, 'The same recording must still be playing after unlock');
   await command(page, 'stop');
   return {beforeCount:before.count, startCount:start.count, hiddenCount:hidden.count,
     nativeFrom:start.time, hiddenTime:hidden.time, visibleTime:visible.time, unitSeconds:hidden.native.unitSeconds, jobs:start.jobs};
