@@ -5,8 +5,8 @@ if(window.SukunCompactUI)return;
 const $=id=>document.getElementById(id),english=()=>window.I18N?.lang==='en';
 let warningText=null,observer=null;
 const safety={
- tr:'🎧 Binaural mod için kulaklık gerekir • Yanıp sönen ışığa duyarlılık veya epilepsi öyküsü varsa fotik uyarımı kullanmayın • Rahatsızlıkta hemen durun • Araç kullanırken dinlemeyin.',
- en:'🎧 Headphones are required for binaural mode • Do not use photic stimulation if you have photosensitivity or a history of epilepsy • Stop immediately if you feel discomfort • Do not listen while driving.'
+ tr:'🎧 Binaural mod için kulaklık gerekir • Işığa duyarlılık veya epilepsi öyküsü varsa ışık geri bildirimini kapalı tutun • Rahatsızlıkta hemen durun • Araç kullanırken dinlemeyin.',
+ en:'🎧 Headphones are required for binaural mode • Keep light feedback off if you are sensitive to light or have a history of epilepsy • Stop immediately if you feel discomfort • Do not listen while driving.'
 };
 function attr(node,key,value){if(node&&node.getAttribute(key)!==String(value))node.setAttribute(key,String(value))}
 function text(node,value){if(node&&node.textContent!==value)node.textContent=value}
