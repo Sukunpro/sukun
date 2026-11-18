@@ -56,8 +56,18 @@ function mount(){
  if(root?.isConnected)return true;
  saver.classList.add('r1193Info');root=document.createElement('section');root.id='r1193SaverInfo';
  root.innerHTML='<div id="r1213SaverContent" role="group"><button type="button" id="r1213SaverSimple" aria-pressed="false" data-sukun-surface="sapphire">Sade</button><button type="button" id="r1213SaverDetailed" aria-pressed="true" data-sukun-surface="emerald">Bilgili ✓</button></div><p id="r1193PalaceState"></p><button type="button" id="r1193SaverActive" class="r1193SaverLink"><small></small><strong></strong><span></span><b id="r1213SaverCount"></b><progress id="r1213SaverProgress" max="1" value="0"></progress><em></em></button><p id="r1193SaverEmpty"></p><p id="r1194JourneyMeta"></p><p id="r1194Transition" role="status" aria-live="polite"></p><div class="r1194Neighbors" id="r1194Neighbors"><span id="r1194Previous"></span><span id="r1194Next"></span></div><div class="r1194Timing" id="r1194Timing"></div><div class="r1193SaverNames"><button type="button" id="r1193SaverEsma" class="r1193SaverLink"><small></small><strong></strong><span></span><em></em></button><button type="button" id="r1193SaverBerhet" class="r1193SaverLink"><small></small><strong></strong><span></span><em></em></button></div><div id="r1213SaverReflection"><small></small><p></p></div><blockquote><p id="r1193SaverQuote"></p><cite id="r1193SaverSource"></cite></blockquote>';
+ for(const button of root.querySelectorAll('.r1193SaverLink')){
+  // Use the live name and action even when the card is populated after mounting.
+  const name=button.querySelector('strong'),action=button.querySelector('em');
+  name.id=button.id+'Name';
+  action.id=button.id+'Action';
+  button.setAttribute('aria-labelledby',name.id+' '+action.id);
+  const details=[...button.querySelectorAll('small,span,b')];
+  for(const [index,detail] of details.entries())if(!detail.id)detail.id=button.id+'Detail'+index;
+  button.setAttribute('aria-describedby',details.map(detail=>detail.id).join(' '));
+  button.onclick=()=>load(button);
+ }
  saver.querySelector('.kEsma').after(root);
- for(const button of root.querySelectorAll('.r1193SaverLink'))button.onclick=()=>load(button);
  $('r1213SaverSimple').onclick=event=>{event.stopPropagation();setContent('simple')};
  $('r1213SaverDetailed').onclick=event=>{event.stopPropagation();setContent('detailed')};
  contentUI();
@@ -136,9 +146,10 @@ async function load(button){
  busy=true;
  try{
   const session=window.SukunSessionState,s=session?.snapshot?.();
-  const same=s?.activeMode===mode&&s.activeIndex===index;
-  // Returning to the current name is navigation, never a restart or pause.
-  if(!same){
+  const sameName=s?.activeMode===mode&&s.activeIndex===index;
+  // A saved journey owns its count even when the single wheel shows the same name.
+  // A single-name shortcut can still return to a matching active wheel without interruption.
+  if(!sameName||(kind!=='single'&&s.journeyKind!==kind)){
    const options={mode,journeyKind:kind};if(kind==='single')options.index=index;
    const result=await session?.command?.('select',options);
    if(!result?.accepted||result?.stale){window.toast?.(tr('İsim yüklenemedi. Oturumunu kontrol et.','Could not load the name. Check the current session.'));return false;}

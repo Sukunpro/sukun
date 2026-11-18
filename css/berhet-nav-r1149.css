@@ -160,6 +160,12 @@
   white-space:normal!important;overflow-wrap:break-word!important;
   text-shadow:0 1px 3px #000b!important;
  }
+ /* Keep scrolling text from showing through the sticky title in Classic/Feyz. */
+ body.r617-mode-classic.r716-shell .tabs .sukunCenterHeading>#sukunCenterTitle {
+  background-color:#10232b;
+  border-radius:4px;
+  padding-inline:.6em;
+ }
  html body .wrap>nav.tabs>.sukunCenterHeading>span:first-child,
  html body .wrap>nav.tabs>.sukunCenterHeading>span:last-child {
   color:#c49a53!important;font-size:.8em!important;flex:none!important;
