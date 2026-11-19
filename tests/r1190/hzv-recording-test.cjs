@@ -1,6 +1,7 @@
 const fs=require('fs'), vm=require('vm'), assert=require('assert');
 const src=fs.readFileSync(process.argv[2] || 'nero.html','utf8');
-const extract=src.slice(src.indexOf('let HZV_REC=null,HZV_REC_I=-1'),src.indexOf('async function hzvKayitSil(i){'));
+const helpers=src.slice(src.indexOf('async function sukunOpenMicrophone('),src.indexOf('let ctx=null'));
+const extract=helpers+src.slice(src.indexOf('let HZV_REC=null,HZV_REC_I=-1'),src.indexOf('async function hzvKayitSil(i){'));
 const elements={b:{textContent:''},audio:{pause(){}},save:{disabled:false},cancel:{disabled:false},status:{textContent:''}};
 const panel={hidden:true,set innerHTML(v){this._html=v;elements.save.disabled=false;elements.cancel.disabled=false},querySelector(q){return q==='b'?elements.b:q==='audio'?elements.audio:q.includes('save')?elements.save:q.includes('cancel')?elements.cancel:elements.status},replaceChildren(){},scrollIntoView(){}};
 let timeoutFn; let old=new Blob(['old'],{type:'audio/webm'}),saved=[],current=old,alerts=[],rec;

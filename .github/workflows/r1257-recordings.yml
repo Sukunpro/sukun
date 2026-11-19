@@ -37,6 +37,9 @@ jobs:
         run: |
           export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
           node tests/r1257/browser.cjs "$PWD" "$RUNNER_TEMP/r1257-evidence/report.json"
+          node tests/r1267/hizb-navigation.cjs
+          node tests/r1267/hizb-microphone.cjs
+          node tests/r1267/ambient-capture.cjs "$PWD"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
