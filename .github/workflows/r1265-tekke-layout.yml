@@ -8,6 +8,7 @@ on:
       - 'assets/runtime/tekke-*.css'
       - 'assets/runtime/tekke-*.js'
       - 'tests/r1265/**'
+      - 'tests/r1266/**'
       - '.github/workflows/r1265-tekke-layout.yml'
 permissions:
   contents: read
@@ -44,6 +45,7 @@ jobs:
           node tools/release-integrity.cjs .
           node tests/r1265/tekke-layout.cjs "$GITHUB_WORKSPACE/baseline" "$RUNNER_TEMP/tekke-evidence/before" --baseline
           node tests/r1265/tekke-layout.cjs "$PWD" "$RUNNER_TEMP/tekke-evidence/after"
+          node tests/r1266/tekke-transport.cjs
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:

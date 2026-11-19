@@ -7,6 +7,7 @@
  copy=(tr,en)=>english()?en:tr;
  let root=null,api=null,chosen=safe(()=>JSON.parse(localStorage.getItem('tekke.purpose')),'dhikr'),
  collapsed=safe(()=>JSON.parse(localStorage.getItem('tekke.set.collapsed'))) !== false,
+ transportFolded=safe(()=>localStorage.getItem('tekke.transport.folded'))==='true',
  tab='session',viewportHeight=0,viewportWidth=0,viewportOrientation='',viewportStyle='',overlay=null,overlayFocus=null,blocked=[],sceneFrame=null,huSize=0;
  if(!['dhikr','set','quiet'].includes(chosen))chosen='dhikr';
  const $=s=>root?.querySelector(s),all=s=>root?[...root.querySelectorAll(s)]:[];
@@ -79,6 +80,41 @@
   // the transport, avoiding an always-on overlay across the breathing scene.
   if(transport){const details=document.createElement('details');details.className='r1158TekkeDiscovery r1158TekkeDiscoveryScene';const summary=document.createElement('summary');summary.dataset.tkCopy='✦ Keşif Kapıları ✦|✦ Discovery Gates ✦';details.append(summary,discoveryEntries());transport.append(details);}
  }
+ function updateTransportDisclosure(transport,title){
+  transport.dataset.folded=String(transportFolded);
+  title.setAttribute('aria-expanded',String(!transportFolded));
+  const action=transportFolded?copy('Kontrolleri aç','Show controls'):copy('Kontrolleri daralt','Collapse controls');
+  title.title=action;
+  title.setAttribute('aria-label',title.firstElementChild.textContent+' · '+action);
+ }
+ function bindTransportDisclosure(transport,title){
+  let start=null,ignoreClick=false;
+  function fold(next){
+   if(transportFolded===next)return;
+   transportFolded=next;
+   save('tekke.transport.folded',next);
+   updateTransportDisclosure(transport,title);
+   transport.scrollTop=0;
+  }
+  title.addEventListener('pointerdown',event=>{
+   if(!event.isPrimary||event.button!==0)return;
+   start={id:event.pointerId,x:event.clientX,y:event.clientY};
+   ignoreClick=false;
+   title.setPointerCapture(event.pointerId);
+  });
+  title.addEventListener('pointerup',event=>{
+   if(!start||event.pointerId!==start.id)return;
+   const dx=event.clientX-start.x,dy=event.clientY-start.y;
+   start=null;
+   ignoreClick=Math.max(Math.abs(dx),Math.abs(dy))>12;
+   if(Math.abs(dy)>=28&&Math.abs(dy)>Math.abs(dx))fold(dy>0);
+  });
+  title.addEventListener('lostpointercapture',()=>{start=null;});
+  title.addEventListener('click',event=>{
+   if(!ignoreClick||event.detail===0)fold(!transportFolded);
+   ignoreClick=false;
+  });
+ }
  function mount(){
   root=document.getElementById('tk');if(!root?.firstElementChild||root.dataset.tkUx==='r992')return;
   root.dataset.tkUx='r992';
@@ -98,15 +134,19 @@
   const badge=document.createElement('p');badge.id='r992SessionBadge';badge.setAttribute('role','status');$('#top').after(badge);
   const stage=section('r992ReflectionGuide','r992ReflectionGuide'),caption=document.createElement('p');caption.id='r992ReflectionCaption';stage.append(caption,button('','expand','r992StepButton'));stage.lastElementChild.id='r992StepButton';$('#stage').append(stage);
   const transport=section('r992Transport','r992Transport');transport.setAttribute('aria-label',copy('Tekke oynatma kontrolleri','Tekke playback controls'));
-  const title=document.createElement('div');title.id='r992TransportTitle';title.className='r992TransportTitle';
+  const title=document.createElement('button');title.type='button';title.id='r992TransportTitle';title.className='r992TransportTitle';
+  const titleText=document.createElement('span');titleText.className='r992TransportLabel';title.append(titleText);
   const controls=document.createElement('div');controls.className='r992TransportControls';
   const pause=button('','toggle','r992PauseBtn');pause.id='r992Pause';
   const end=button('','finish','r992EndBtn');end.dataset.tkCopy='□ Bitir|□ Finish';end.id='r992Finish';
-  const volume=document.createElement('label');volume.className='r992TransportVolume';const span=document.createElement('span');span.dataset.tkCopy='Ses|Volume';const range=document.createElement('input');range.type='range';range.min='0';range.max='1';range.step='.01';range.id='r992Volume';const output=document.createElement('output');output.id='r992VolumeValue';volume.append(span,range,output);
+  const volume=document.createElement('label');volume.className='r992TransportVolume';volume.id='r992TransportVolume';const span=document.createElement('span');span.dataset.tkCopy='Ses|Volume';const range=document.createElement('input');range.type='range';range.min='0';range.max='1';range.step='.01';range.id='r992Volume';const output=document.createElement('output');output.id='r992VolumeValue';volume.append(span,range,output);
   range.addEventListener('input',()=>{const master=$('#vMaster');master.value=range.value;master.dispatchEvent(new Event('input',{bubbles:true}));render();});
   const note=document.createElement('p');note.id='r992NavigationHint';note.dataset.tkCopy='Ana sayfaya dönmek akışı durdurmaz.|Returning to Home keeps the session going.';
   controls.append(pause,end,volume);transport.append(title,controls,note);root.append(transport);
   mountDiscovery(transport);
+  transport.querySelector('.r1158TekkeDiscoveryScene').id='r992TransportDiscovery';
+  title.setAttribute('aria-controls','r992Finish r992TransportVolume r992NavigationHint r992TransportDiscovery');
+  bindTransportDisclosure(transport,title);
   const home=section('r992HomeSession','r992HomeSession');home.hidden=true;
   const homeTitle=document.createElement('strong');homeTitle.id='r992HomeTitle';const homeNotice=document.createElement('p');homeNotice.id='r992HomeNotice';
   const returnBtn=button('','return','r992SettingsBtn');returnBtn.dataset.tkCopy='Tekke’ye dön|Return to Tekke';home.append(homeTitle,homeNotice,returnBtn);
@@ -238,7 +278,13 @@
   const start=$('#gBtn');if(start){start.textContent=chosen==='set'?copy('Seti başlat','Start set')+(v.selection?' · '+(window.I18N?.t?.(v.selection.title)||v.selection.title):''):chosen==='quiet'?copy('Sessiz tefekküre başla','Begin quiet reflection'):copy('Zikir ve nefese başla','Start dhikr and breathing');start.disabled=chosen==='set'&&!v.selected;}
   const phaseText=st.phase==='paused'?copy('Duraklatıldı','Paused'):st.phase==='preparing'?copy('Hazırlanıyor','Preparing'):st.active?copy('Devam ediyor','In progress'):st.phase==='ended'?copy('Tamamlandı','Completed'):st.phase==='error'?copy('Ses kullanılamadı','Audio unavailable'):copy('Hazır','Ready');
   const badge=$('#r992SessionBadge');if(badge){badge.hidden=!entered;badge.textContent=label(st.purpose)+' · '+phaseText;}
-  const transport=$('#r992Transport');if(transport){transport.hidden=!entered||root.classList.contains('ayarModu');$('#r992TransportTitle').textContent=label(st.purpose);const pause=$('#r992Pause');pause.textContent=!st.active?copy(st.phase==='error'?'▶ Tekrar başlat':'▶ Başlat',st.phase==='error'?'▶ Retry':'▶ Start'):st.phase==='paused'?copy('▶ Devam et','▶ Resume'):copy('Ⅱ Duraklat','Ⅱ Pause');pause.disabled=st.phase==='preparing'||(!st.active&&st.purpose==='set'&&!v.selected);pause.setAttribute('aria-label',pause.textContent+' · '+label(st.purpose));}
+  const transport=$('#r992Transport');if(transport){
+   transport.hidden=!entered||root.classList.contains('ayarModu');
+   const title=$('#r992TransportTitle');
+   title.firstElementChild.textContent=label(st.purpose);
+   updateTransportDisclosure(transport,title);
+   const pause=$('#r992Pause');pause.textContent=!st.active?copy(st.phase==='error'?'▶ Tekrar başlat':'▶ Başlat',st.phase==='error'?'▶ Retry':'▶ Start'):st.phase==='paused'?copy('▶ Devam et','▶ Resume'):copy('Ⅱ Duraklat','Ⅱ Pause');pause.disabled=st.phase==='preparing'||(!st.active&&st.purpose==='set'&&!v.selected);pause.setAttribute('aria-label',pause.textContent+' · '+label(st.purpose));
+  }
   const vol=$('#r992Volume');if(vol){vol.value=String(st.volume??.75);vol.disabled=st.purpose==='quiet';vol.setAttribute('aria-label',copy('Tekke ana ses düzeyi','Tekke master volume'));vol.title=copy('Kayıt sesini hemen değiştirir. Cihaz sesinde bir sonraki okumada uygulanır.','Recording volume changes immediately. Device speech uses it on the next reading.');$('#r992VolumeValue').textContent=Math.round((st.volume??.75)*100)+'%';}
   const reflection=$('#r992ReflectionGuide');if(reflection){reflection.hidden=!entered||st.purpose==='dhikr'||st.purpose==='set'&&!collapsed;$('#r992ReflectionCaption').textContent=st.purpose==='quiet'?copy('Mekân ve sükûnet','Space and stillness'):copy('Dinle ve tefekkür et','Listen and reflect');const step=$('#r992StepButton');step.hidden=st.purpose!=='set'||!v.visible;step.textContent=copy(collapsed?'Adım metnini göster':'Adım metnini daralt',collapsed?'Show step text':'Collapse step text');step.setAttribute('aria-expanded',String(!collapsed));step.setAttribute('aria-controls','r992SetStepText');}
   const panelNotice=$('#r992PanelNotice');if(panelNotice)panelNotice.textContent=st.active&&st.phase!=='paused'?copy('Akış devam ediyor.','The session continues.'):st.phase==='paused'?copy('Akış duraklatıldı.','The session is paused.'):copy('Ayarların kaydedilir.','Your settings are saved.');
