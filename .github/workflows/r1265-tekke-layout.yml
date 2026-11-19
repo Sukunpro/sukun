@@ -1,0 +1,53 @@
+name: Tekke entrance and session layout
+on:
+  push:
+    branches: [candidate/r1265-tekke-layout]
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/runtime/tekke-*.css'
+      - 'assets/runtime/tekke-*.js'
+      - 'tests/r1265/**'
+      - '.github/workflows/r1265-tekke-layout.yml'
+permissions:
+  contents: read
+concurrency:
+  group: tekke-layout-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: false
+jobs:
+  compare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    defaults:
+      run:
+        working-directory: candidate
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: candidate
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: e4d0263a29ceaba52bf46614b560dbf545d3eb84
+          path: baseline
+          persist-credentials: false
+      - name: Prepare Chromium
+        run: |
+          npm install --prefix "$RUNNER_TEMP/tekke-browser" --no-audit --no-fund playwright@1.57.0
+          echo "NODE_PATH=$RUNNER_TEMP/tekke-browser/node_modules" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/tekke-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify release and compare rendered layouts
+        run: |
+          export CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          mkdir -p "$RUNNER_TEMP/tekke-evidence"/{before,after}
+          node tools/release-integrity.cjs .
+          node tests/r1265/tekke-layout.cjs "$GITHUB_WORKSPACE/baseline" "$RUNNER_TEMP/tekke-evidence/before" --baseline
+          node tests/r1265/tekke-layout.cjs "$PWD" "$RUNNER_TEMP/tekke-evidence/after"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: tekke-layout-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/tekke-evidence
+          if-no-files-found: warn
+          retention-days: 14
