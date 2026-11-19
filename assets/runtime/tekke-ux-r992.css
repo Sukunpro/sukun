@@ -214,7 +214,13 @@ html body #tk[data-tk-ux="r992"] #hu{
  direction:rtl;unicode-bidi:isolate;text-align:center;letter-spacing:0;
  font-size:calc(var(--tkux-hu-size,min(64vw,30svh,240px)) * .52);line-height:1.4;
 }
-html body #tk[data-tk-ux="r992"] #phase{bottom:6px;font-size:10px;line-height:1.4;letter-spacing:.16em}
+html body #tk[data-tk-ux="r992"] #phase{
+ position:static;align-self:center;max-width:100%;padding:3px 12px;
+ border-radius:12px;background:#071c28e8;color:#f4e4bd;
+ font:600 13px/1.5 system-ui,sans-serif;letter-spacing:.1em;overflow-wrap:anywhere;
+ pointer-events:auto;touch-action:pan-y;
+}
+html body #tk[data-tk-ux="r992"] #phase b{color:inherit}
 html body #tk[data-tk-ux="r992"] #bArcBg{stroke:color-mix(in srgb,var(--ink) 18%,transparent)}
 html body #tk[data-tk-ux="r992"] #r990TekkeSetCard[data-preview="0"],
 html body #tk[data-tk-ux="r992"] #r992ReflectionGuide{flex:none}
@@ -258,9 +264,15 @@ html body #tk[data-tk-ux="r992"] :is(#top,#stage,#r992SessionBadge,#r992Transpor
  grid-column:1;min-width:0;box-sizing:border-box;
 }
 html body.r821-tekke-open #tk[data-tk-ux="r992"][data-tk-entered="0"] #gate:not(.bye){
+ position:relative!important;inset:auto!important;grid-column:1;grid-row:2 / 5;
+ height:auto!important;min-height:0;padding-top:16px!important;scroll-padding-top:16px!important;
  min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
  align-items:center!important;flex-direction:column!important;
 }
+/* The root supplies the entrance artwork. Session effects and the outgoing
+   menu must never paint together, even on the first frame after Start. */
+html body #tk[data-tk-ux="r992"][data-tk-entered="0"] > #stage,
+html body #tk[data-tk-ux="r992"] > #gate.bye{display:none!important}
 html body.r821-tekke-open #tk[data-tk-ux="r992"][data-tk-entered="0"] #gate>*{
  flex:none!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
 }
