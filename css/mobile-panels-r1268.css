@@ -1,0 +1,144 @@
+/* The minimum widths here come from the rendered words, including at a larger
+   Android text scale. Allow complete controls to move before breaking a label. */
+@layer sukun-mobile-panels-r1268 {
+ @media (max-width: 1099px) {
+  body.r617-mode-classic:not(.sukun-tefekkur-mode):not(.sukun-focus-mode) .wrap > nav.tabs:not([hidden]) {
+   display:flex!important;
+   flex-wrap:wrap!important;
+   gap:4px!important;
+  }
+  body.r617-mode-classic .wrap > nav.tabs > button {
+   flex:1 1 27%!important;
+   width:auto!important;
+   min-width:min-content!important;
+   max-width:100%!important;
+   min-height:48px!important;
+   height:auto!important;
+   max-height:none!important;
+   padding:5px 8px!important;
+  }
+  body.r617-mode-classic .wrap > nav.tabs > button > .tbL {
+   flex:none!important;
+   width:auto!important;
+   max-width:100%!important;
+   height:auto!important;
+   max-height:none!important;
+   font-size:.8125rem!important;
+   line-height:1.3!important;
+   white-space:normal!important;
+   word-break:normal!important;
+   overflow-wrap:normal!important;
+   overflow:visible!important;
+   -webkit-line-clamp:unset!important;
+  }
+
+  /* A growing first track fits the actual emoji. Its top edge stays beside
+     the channel name even when the description wraps over several lines. */
+  #tab-amb #mixer .chn > .chTop {
+   grid-template-columns:max-content minmax(0,1fr) 44px 44px!important;
+   column-gap:6px!important;
+  }
+  #tab-amb #mixer .chn > .chTop > .chIc {
+   align-self:start!important;
+   justify-self:start!important;
+   width:max-content!important;
+   max-width:none!important;
+   line-height:1.25!important;
+  }
+  #tab-amb #mixer .chn > .chTop > .chName {
+   min-width:0!important;
+   overflow:visible!important;
+  }
+
+  body.r616-ui #r616Topbar {
+   position:relative!important;
+   top:auto!important;
+   height:auto!important;
+   max-height:none!important;
+  }
+  body.r616-ui #r616Topbar .r616BrandText > :is(b,small) {
+   height:auto!important;
+   white-space:normal!important;
+   overflow:visible!important;
+   line-height:1.25!important;
+  }
+  body.r617-mode-simple #r616Home :is(.r616Stats,.r616HomeShortcuts) {
+   display:flex!important;
+   flex-wrap:wrap!important;
+   gap:8px!important;
+  }
+  #r616Home .r616Stat {
+   flex:1 1 0!important;
+   min-width:min-content!important;
+   max-width:100%!important;
+   height:auto!important;
+   padding:10px 8px!important;
+  }
+  #r616Home .r616Stat > :is(b,span), #r616Home .r616Shortcut span {
+   overflow-wrap:normal!important;
+   word-break:normal!important;
+   line-height:1.35!important;
+  }
+  #r616Home .r616Stat > b {white-space:nowrap!important}
+  #r616Home .r616Stat > span {letter-spacing:normal!important}
+  #r616Home .r616Shortcut {
+   flex:1 1 42%!important;
+   min-width:min-content!important;
+   max-width:100%!important;
+   height:auto!important;
+   padding:10px!important;
+  }
+  #r616Continue {
+   grid-template-columns:auto minmax(0,1fr)!important;
+   align-items:start!important;
+   gap:8px!important;
+   padding:12px!important;
+  }
+  #r616Continue .r616ContinueText {padding:8px!important}
+  #r616Continue #r616ContinueTitle {
+   white-space:normal!important;
+   overflow:visible!important;
+   text-overflow:clip!important;
+   overflow-wrap:break-word!important;
+  }
+  #r616Continue #r616ContinueBtn {
+   grid-column:2!important;
+   justify-self:start!important;
+   max-width:100%!important;
+   height:auto!important;
+  }
+  #r616HomeHero .r616HeroTop {flex-wrap:wrap!important}
+  /* The bottom bar stays one row high beside the timed player. When a user's
+     text needs more space, every tab remains reachable by swipe or keyboard. */
+  body.r616-ui #r616BottomNav {
+   grid-template-columns:none!important;
+   grid-auto-flow:column!important;
+   grid-auto-columns:minmax(max-content,1fr)!important;
+   justify-content:start!important;
+   overflow-x:auto!important;
+   overflow-y:hidden!important;
+  }
+  body.r616-ui #r616BottomNav > button {
+   width:auto!important;
+   min-width:44px!important;
+   max-width:none!important;
+   padding-inline:4px!important;
+  }
+  body.r616-ui #r616BottomNav > button > span {
+   width:auto!important;
+   max-width:none!important;
+   white-space:nowrap!important;
+   font-size:.8125rem!important;
+   line-height:1.25!important;
+  }
+ }
+ @media (min-width:600px) and (max-width:1099px) {
+  body.r617-mode-classic .wrap > nav.tabs > button {flex-basis:13%!important}
+ }
+ @media (max-height:520px) and (max-width:900px) {
+  body.r617-mode-classic .wrap > nav.tabs {
+   position:relative!important;
+   top:auto!important;
+  }
+ }
+}

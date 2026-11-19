@@ -1,0 +1,73 @@
+/* The frame and its actions stay on screen while the step itself scrolls. */
+@layer sukun-r1232-polish {
+  html body div#onboardCard {
+    --ob-gutter: clamp(8px, 3vmin, 24px);
+    box-sizing: border-box;
+    padding: max(var(--ob-gutter), env(safe-area-inset-top))
+             max(var(--ob-gutter), env(safe-area-inset-right))
+             max(var(--ob-gutter), env(safe-area-inset-bottom))
+             max(var(--ob-gutter), env(safe-area-inset-left)) !important;
+  }
+
+  html body #onboardCard > .obInner[role="dialog"] {
+    max-width: 28rem !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+  }
+}
+
+html body #onboardCard > .obInner {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: clamp(12px, 3vmin, 24px);
+}
+
+#onboardCard .obContent {
+  min-height: 0;
+  min-width: 0;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  overscroll-behavior: contain;
+  padding: 4px;
+}
+
+#onboardCard .obContent:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+  border-radius: 6px;
+}
+
+#onboardCard .obDots {
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+#onboardCard .obText {
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: start;
+}
+
+#onboardCard .obTitle {
+  font-size: 1.375rem;
+}
+
+#onboardCard .obBtns {
+  flex: none;
+  gap: 8px;
+  margin-top: clamp(8px, 2vmin, 16px);
+}
+
+#onboardCard .obBtns button {
+  min-width: 0;
+  padding: 8px 12px;
+  line-height: 1.25;
+  font-size: 1rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (max-height: 420px) {
+  #onboardCard .obGlyph { display: none; }
+}
