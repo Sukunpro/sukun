@@ -17,6 +17,11 @@
    max-height:none!important;
    padding:5px 8px!important;
   }
+  /* The jewel paints a 9px bottom bevel. Reserve that space instead of
+     shrinking the label or forcing the six actions back onto one row. */
+  html[data-r1074-theme="berhet"] body.r617-mode-classic .wrap > nav.tabs > button {
+   padding-bottom:9px!important;
+  }
   body.r617-mode-classic .wrap > nav.tabs > button > .tbL {
    flex:none!important;
    width:auto!important;

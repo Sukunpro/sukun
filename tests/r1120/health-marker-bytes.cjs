@@ -5,7 +5,7 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),cryp
 const root=path.resolve(process.argv[2]||'.'),out=path.resolve(process.argv[3]||path.join(root,'tests/r1120/evidence/health-marker-bytes.json'));
 const build=fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),markerPath='sukun-build-'+build+'.json';
 const raw=fs.readFileSync(path.join(root,markerPath)),marker=JSON.parse(raw),source=fs.readFileSync(process.env.SUKUN_HEALTH_COLLECTOR||path.join(root,'assets/runtime/health-r940.js'),'utf8');
-const expectedEntries=marker.runtime.length,entryLimit=197;
+const expectedEntries=marker.runtime.length,entryLimit=200;
 // Optional audio packs are outside mandatory runtime from r1213 onward.
 const expectedMediaBytes=marker.runtime.filter(e=>/\/assets\/audio\/arabic-r1065\/[^/]+\.mp3|\/assets\/berhetiyye-gate\/invitation-tr\.mp3/.test(e.url)).reduce((n,e)=>n+fs.statSync(path.join(root,new URL(e.url,'https://test.invalid/').pathname)).size,0);
 const start=source.indexOf('  async function responseBytes('),end=source.indexOf('  function sampleExplicit()',start);assert(start>0&&end>start);
@@ -55,6 +55,17 @@ async function test(name,fn){try{results.push({name,passed:true,evidence:await f
    const rejected=await run(Buffer.from(JSON.stringify({...marker,runtime:invalid})));assert.equal(rejected.result.status,'FAIL');assert.equal(rejected.result.evidence.configurationErrors,invalid.length);assert.equal(rejected.calls.length,1);assert.equal(rejected.maxActive,0);
   }
   return {exactPaths:names.length,rejectedVariants:names.length*3};
+ });
+ await test('Exact mobile layout assets verify without broadening CSS trust',async()=>{
+  const names=['mobile-panels','mobile-tekke','mobile-tour'].map(n=>'css/'+n+'-r1268.css');
+  if(!marker.runtime.some(e=>e.url.split('?')[0]==='./'+names[0]))return {notApplicable:build};
+  const entries=names.map(n=>marker.runtime.find(e=>e.url.split('?')[0]==='./'+n));assert(entries.every(Boolean));
+  const valid=await run(Buffer.from(JSON.stringify({...marker,runtime:entries})));
+  assert.equal(valid.result.status,'PASS');assert.equal(valid.result.evidence.matched,names.length);assert.equal(valid.calls.length,names.length+1);
+  const invalid=['./css/mobile-lookalike-r1268.css','./nested/'+names[0],'https://evil.invalid/sukun/'+names[0]].map(url=>({...entries[0],url}));
+  const rejected=await run(Buffer.from(JSON.stringify({...marker,runtime:invalid})));
+  assert.equal(rejected.result.status,'FAIL');assert.equal(rejected.result.evidence.configurationErrors,invalid.length);assert.equal(rejected.calls.length,1);
+  return {verified:valid.result.evidence.matched,rejected:rejected.result.evidence.configurationErrors};
  });
  await test('Exact current branding verifies but remote, nested and sibling artwork stays rejected',async()=>{
   const name='./assets/branding/sukun-berhet-selected-r1172.png',entry=marker.runtime.find(e=>e.url.split('?')[0]===name);assert(entry);

@@ -1,7 +1,7 @@
 'use strict';
 // Current production navigation, real locale switching, touch and keyboard.
-// r1160 replaced the historical 3x2 rail with six buttons in one row and
-// intentionally wrapping labels. r1204 uses square-cut gems on mobile.
+// r1268 lets complete controls wrap before breaking labels. The number of
+// rows can grow with the locale and text size. r1204 square-cut gems remain.
 // 125% enlarges labels only; it is not OS accessibility zoom.
 const fs = require('node:fs'), path = require('node:path'), assert = require('node:assert/strict');
 const {chromium} = require('playwright');
@@ -69,14 +69,19 @@ function validate(g, language, theme, scale = 1) {
   assert(g.viewport.scrollWidth <= g.viewport.width + 1, 'Page horizontal overflow ' + JSON.stringify(g));
   assert(g.nav.left >= -1 && g.nav.right <= g.viewport.width + 1 && g.nav.top >= -1 && g.nav.bottom <= g.viewport.height + 1,
     'Navigation not fully visible ' + JSON.stringify(g));
-  const spread = prop => Math.max(...rows.map(x => x.rect[prop])) - Math.min(...rows.map(x => x.rect[prop]));
-  assert(spread('top') <= 1 && spread('height') <= 1 && spread('width') <= 1,
-    'Expected one row of six equal controls ' + JSON.stringify(g));
+  if (g.viewport.width < 600) assert(rows.some(x => x.rect.top > rows[0].rect.top + 1),
+    'Narrow navigation must wrap complete controls ' + JSON.stringify(g));
+  for (let index = 1; index < rows.length; index++) {
+    const r = rows[index].rect, previous = rows[index - 1].rect;
+    assert(Math.abs(r.top - previous.top) <= 1 ? r.left >= previous.right - 1 :
+      r.top >= previous.bottom - 1 && Math.abs(r.left - rows[0].rect.left) <= 1,
+      'Navigation must preserve row-major reading order ' + JSON.stringify(g));
+  }
   for (const row of rows) {
     const r = row.rect, i = row.inset;
     assert(!row.disabled && row.hit, 'Unreachable nav button ' + JSON.stringify(row));
     assert(r.width >= 44 && r.height >= 44, 'Touch target too small ' + JSON.stringify(row));
-    assert(row.fontSize >= 9 * scale - .02, 'Navigation label was reduced below the current minimum ' + JSON.stringify(row));
+    assert(row.fontSize >= 13 * scale - .02, 'Navigation label was reduced below the current minimum ' + JSON.stringify(row));
     assert(r.left >= g.nav.left - 1 && r.right <= g.nav.right + 1 && r.top >= g.nav.top - 1 && r.bottom <= g.nav.bottom + 1,
       'Button outside navigation rail ' + JSON.stringify(row));
     if (theme === 'berhet') {
