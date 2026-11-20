@@ -49,17 +49,19 @@ async function wholeQuickLabels(){
  });
  await check(width,'navigation',async()=>{
   await p.screenshot({path:path.join(dir,`${width}-hero-and-nav.png`)});
-  // The r1160 design has six equal targets in one full-width row. Keep the
-  // strict actual-frame text bounds: the layout update is not a bevel waiver.
+  // r1268 lets complete targets wrap as their labels need more room. Keep
+  // strict actual-frame text bounds: responsive rows are not a bevel waiver.
   const rows=await frames('.wrap > nav.tabs > button',6);assert.equal(rows.length,6);
   const nav=await p.locator('.wrap>nav.tabs').evaluate(n=>({rect:n.getBoundingClientRect().toJSON(),scroll:[n.scrollWidth,n.clientWidth],labels:[...n.querySelectorAll(':scope>button')].map(b=>{const r=b.getBoundingClientRect(),ic=b.querySelector('.tbIc,.tbRub')?.getBoundingClientRect();return{r:r.toJSON(),icon:ic?.toJSON()}})}));
   assert(nav.rect.left>=-1&&nav.rect.right<=width+1,'Navigation outside viewport');
   assert(nav.scroll[0]<=nav.scroll[1]+1,'Navigation scrolls horizontally');
   const first=nav.labels[0].r;
+  assert(nav.labels.some(b=>b.r.top>first.top+1),'Narrow navigation must wrap complete controls');
   for(const [i,b] of nav.labels.entries()){
    assert(b.r.width>=44&&b.r.height>=44,'Navigation target too small');
-   assert(Math.abs(b.r.top-first.top)<=1&&Math.abs(b.r.height-first.height)<=1&&Math.abs(b.r.width-first.width)<=1,'Navigation must have six equal targets in one row');
-   assert(!i||b.r.left>=nav.labels[i-1].r.right-1,'Navigation targets overlap');
+   if(i){const previous=nav.labels[i-1].r;
+    assert(Math.abs(b.r.top-previous.top)<=1?b.r.left>=previous.right-1:b.r.top>=previous.bottom-1&&Math.abs(b.r.left-first.left)<=1,'Navigation must preserve non-overlapping row order');
+   }
    assert(b.r.left>=nav.rect.left-1&&b.r.right<=nav.rect.right+1,'Navigation target outside rail');
    assert(b.icon&&Math.abs((b.icon.left+b.icon.right-b.r.left-b.r.right)/2)<3,'Navigation icon off center');
    assert(rows[i].lines.length,'Navigation label missing');

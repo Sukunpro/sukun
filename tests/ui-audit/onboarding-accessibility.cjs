@@ -15,8 +15,8 @@ function fixture(){
  }}
  body=element('body');document.body=body;document.activeElement=body;
  const oc=element('onboardCard',body);oc.hidden=true;
- const card=element('card',oc),skip=element('obSkip',card),next=element('obNext',card),opener=element('opener',body),nav=element('nav',body),log=element('logBtn',body);
- const map={'#onboardCard':oc,'#onboardCard .obInner':card,'#obSkip':skip,'#obNext':next,'#r616BottomNav button.active':nav,'#logBtn':log};
+ const card=element('card',oc),content=element('obContent',card),skip=element('obSkip',card),next=element('obNext',card),opener=element('opener',body),nav=element('nav',body),log=element('logBtn',body);
+ const map={'#onboardCard':oc,'#onboardCard .obInner':card,'#obContent':content,'#obSkip':skip,'#obNext':next,'#r616BottomNav button.active':nav,'#logBtn':log};
  for(const id of ['obTitle','obText','obDots','obGlyph'])map['#'+id]=element(id,card);
  const steps=[{title:'First',text:'First description',glyph:'',since:'test'},{title:'Second',text:'Second description',glyph:''}];
  const context={document,window:{SukunKandil:{hide(){},arm(){}}},OB_STEPS:steps,OB_BUILD:'test',$:s=>map[s],S:{get:(key,def)=>values.has(key)?values.get(key):def,set:(key,value)=>values.set(key,value)},
@@ -24,7 +24,7 @@ function fixture(){
  vm.createContext(context);vm.runInContext(source,context);
  const run=expr=>vm.runInContext(expr,context),flush=queue=>{for(const fn of queue.splice(0))fn()};
  function key(key,shiftKey=false){const e={key,shiftKey,prevented:false,stopped:false,preventDefault(){this.prevented=true},stopImmediatePropagation(){this.stopped=true}};context.obKeyboard(e);return e}
- return {context,document,body,oc,card,skip,next,opener,nav,log,map,events,timers,frames,observers,values,focuses,run,key,flush};
+ return {context,document,body,oc,card,content,skip,next,opener,nav,log,map,events,timers,frames,observers,values,focuses,run,key,flush};
 }
 let passed=0;const rows=[];function test(name,fn){try{fn();passed++;rows.push({name,passed:true})}catch(error){rows.push({name,passed:false,error:error.stack})}}
 test('dialog has a name, description, focusable container, and semantic heading',()=>{assert.match(html,/<div class="obInner" role="dialog" aria-modal="true" aria-labelledby="obTitle" aria-describedby="obText" tabindex="-1">/);assert.match(html,/<div class="obTitle" id="obTitle" role="heading" aria-level="2">/);assert.match(html,/id="obDots" aria-hidden="true"/)});
@@ -34,16 +34,32 @@ test('next-frame retry preserves focus already inside or taken by a newer owner'
 test('next-frame retry respects inert ancestors and does not poll a suppressed tour',()=>{for(const suppression of ['oc','body','visibility']){const f=fixture();f.oc.visibility='hidden';f.context.obOpen();f.flush(f.frames);f.oc.visibility='visible';if(suppression==='visibility')f.oc.visibility='hidden';else f[suppression].inert=true;const before=f.focuses.length;f.flush(f.frames);assert.equal(f.document.activeElement,f.body);assert.equal(f.focuses.length,before);assert.equal(f.frames.length,0)}});
 test('closing or reopening invalidates the previous opening focus retry',()=>{for(const reopen of [false,true]){const f=fixture();f.oc.visibility='hidden';f.context.obOpen();f.flush(f.frames);const oldRetry=f.frames.shift();f.context.obClose();if(reopen)f.context.obOpen();f.oc.visibility='visible';const before=f.focuses.length;oldRetry();assert.equal(f.focuses.length,before);if(reopen){f.flush(f.frames);assert.equal(f.document.activeElement,f.card)}}});
 test('Tab and Shift+Tab stay within the two native actions',()=>{const f=fixture();f.context.obOpen();f.flush(f.frames);assert(f.key('Tab').prevented);assert.equal(f.document.activeElement,f.skip);f.next.focus();assert(f.key('Tab').prevented);assert.equal(f.document.activeElement,f.skip);assert(f.key('Tab',true).prevented);assert.equal(f.document.activeElement,f.next);f.card.focus();assert(f.key('Tab',true).prevented);assert.equal(f.document.activeElement,f.next);f.skip.focus();assert(!f.key('Tab').prevented)});
+test('overflowing step is focusable in the modal keyboard loop',()=>{
+ const f=fixture();f.content.clientHeight=100;f.content.scrollHeight=340;
+ f.context.obOpen();f.flush(f.frames);
+ assert(f.key('Tab').prevented);assert.equal(f.document.activeElement,f.content);
+ assert(f.key('Tab',true).prevented);assert.equal(f.document.activeElement,f.next);
+ assert(f.key('Tab').prevented);assert.equal(f.document.activeElement,f.content);
+});
 test('outside keyboard focus is brought back into the modal',()=>{const f=fixture();f.context.obInit();f.flush(f.frames);f.opener.focus();f.events.focusin[0]({target:f.opener});assert.equal(f.document.activeElement,f.card);f.next.focus();f.events.focusin[0]({target:f.next});assert.equal(f.document.activeElement,f.next)});
 test('Escape uses the existing close and seen-state flow, then restores opener',()=>{const f=fixture();f.opener.focus();f.context.obOpen();f.flush(f.frames);const e=f.key('Escape');assert(e.prevented&&e.stopped);assert.equal(f.values.get('sukun.onboardSeen'),1);assert.equal(f.values.get('sukun.obSeenBuild'),'test');assert(!f.oc.classList.contains('ob-active'));f.flush(f.timers);assert(f.oc.hidden);assert.equal(f.document.activeElement,f.opener)});
 test('a hidden or visually suppressed tour does not intercept keyboard input',()=>{const f=fixture();assert(!f.key('Tab').prevented);assert(!f.key('Escape').prevented);f.context.obOpen();f.oc.visibility='hidden';f.flush(f.frames);assert.equal(f.document.activeElement,f.body);assert(!f.key('Escape').prevented);f.oc.visibility='visible';f.oc.rects=false;assert(!f.key('Tab').prevented)});
 test('an inert tour or ancestor yields focus and keys to the newer modal, then resumes',()=>{for(const ancestor of ['oc','body']){const f=fixture();f.context.obInit();f.flush(f.frames);f[ancestor].inert=true;f.document.activeElement=f.opener;const before=f.focuses.length;assert.equal(f.oc.getClientRects().length,1,'inert does not hide layout');assert.equal(f.context.obVisible(),false);assert(!f.key('Tab').prevented);assert(!f.key('Tab',true).prevented);assert(!f.key('Escape').prevented);f.events.focusin[0]({target:f.opener});f.observers[0].fn();assert.equal(f.focuses.length,before);assert.equal(f.document.activeElement,f.opener);assert(f.oc.classList.contains('ob-active'));assert.equal(f.values.get('sukun.onboardSeen'),undefined);f[ancestor].inert=false;f.events.focusin[0]({target:f.opener});assert.equal(f.document.activeElement,f.card);assert(f.key('Tab').prevented);assert.equal(f.document.activeElement,f.skip);}});
 test('opening-animation class release focuses the now-visible card',()=>{const f=fixture();f.oc.visibility='hidden';f.context.obInit();f.flush(f.frames);assert.equal(f.document.activeElement,f.body);f.oc.visibility='visible';f.observers[0].fn();assert.equal(f.document.activeElement,f.card);assert.deepEqual(Array.from(f.observers[0].options.attributeFilter),['class'])});
-test('advance resets scroll and announces the new dialog content through focus',()=>{const f=fixture();f.context.obOpen();f.flush(f.frames);f.next.focus();f.card.scrollTop=123;f.context.obNext();assert.equal(f.map['#obTitle'].textContent,'Second');assert.equal(f.card.scrollTop,0);assert.equal(f.document.activeElement,f.card);assert.equal(f.next.textContent,'Başla ✦')});
+test('advance resets scroll and announces the new dialog content through focus',()=>{const f=fixture();f.context.obOpen();f.flush(f.frames);f.next.focus();f.card.scrollTop=123;f.content.scrollTop=80;f.context.obNext();assert.equal(f.content.scrollTop,0);assert.equal(f.map['#obTitle'].textContent,'Second');assert.equal(f.card.scrollTop,0);assert.equal(f.document.activeElement,f.card);assert.equal(f.next.textContent,'Başla ✦')});
 test('completion closes normally and fallback return avoids the closed journal',()=>{const f=fixture();f.opener.hidden=true;f.document.activeElement=f.opener;f.context.obOpen();f.flush(f.frames);f.context.obNext();f.context.obNext();f.flush(f.timers);assert(f.oc.hidden);assert.equal(f.document.activeElement,f.nav)});
 test('close followed by immediate reopen cannot be hidden by the stale timer',()=>{const f=fixture();f.opener.focus();f.context.obOpen();f.flush(f.frames);f.context.obClose();f.context.obOpen();f.flush(f.frames);f.flush(f.timers);assert(!f.oc.hidden);assert(f.oc.classList.contains('ob-active'));assert.equal(f.document.activeElement,f.card);f.context.obClose();f.flush(f.timers);assert.equal(f.document.activeElement,f.opener)});
 test('a newer focus taken during closing is not stolen',()=>{const f=fixture();f.context.obOpen();f.flush(f.frames);f.context.obClose();f.opener.focus();f.flush(f.timers);assert.equal(f.document.activeElement,f.opener)});
 test('repeated initialization installs one keyboard handler and class observer',()=>{const f=fixture();f.values.set('sukun.onboardSeen',1);f.values.set('sukun.obSeenBuild','test');f.context.obInit();f.context.obInit();assert.equal(f.events.keydown.length,1);assert.equal(f.events.focusin.length,1);assert.equal(f.observers.length,1)});
-test('card scroll is viewport-bounded; dots wrap and both actions meet 44px',()=>{const css=fs.readFileSync(path.join(root,'css/visual-polish-r1232.css'),'utf8');assert.match(css,/max-height:calc\(100dvh - 48px\)!important/);assert.match(css,/overflow-y:auto!important;overscroll-behavior:contain/);assert.match(css,/\.obDots \{flex-wrap:wrap!important\}/);assert.match(css,/\.obSkip,\.obNext\) \{min-height:44px!important\}/)});
-test('both entry documents remain identical and the changed stylesheet SRI matches',()=>{assert.equal(html,fs.readFileSync(path.join(root,'index.html'),'utf8'));const hash=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'css/visual-polish-r1232.css'))).digest('base64');assert(html.includes('integrity="sha256-'+hash+'"'))});
+test('content is keyboard-scrollable within the dialog and its actions are outside the scroller',()=>{
+ assert.match(html,/class="obContent" id="obContent" role="region" aria-labelledby="obTitle" tabindex="0"/);
+ assert.match(html,/<div class="obText" id="obText"><\/div>\s*<\/div>\s*<div class="obBtns">/);
+});
+test('entry documents are identical and the tour stylesheets match their SRI',()=>{
+ assert.equal(html,fs.readFileSync(path.join(root,'index.html'),'utf8'));
+ for(const file of ['visual-polish-r1232.css','mobile-tour-r1268.css']){
+  const hash=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'css',file))).digest('base64');
+  assert(html.includes('integrity="sha256-'+hash+'"'));
+ }
+});
 const result={scope:'Exact production onboarding functions with controlled DOM, focus and clocks; CSS source contracts. Not pixel, assistive-technology, physical-device, or full-release acceptance.',passed,total:rows.length,rows};console.log(JSON.stringify(result,null,2));if(passed!==rows.length)process.exitCode=1;

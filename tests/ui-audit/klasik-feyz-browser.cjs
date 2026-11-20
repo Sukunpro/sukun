@@ -5,7 +5,7 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
 const {fixture,hash}=require('../r1064/browser-fixture.cjs');
 const root=path.resolve(process.argv[2]||path.join(__dirname,'../..'));
 const out=path.resolve(process.argv[3]||'/tmp/klasik-feyz-browser');fs.mkdirSync(out,{recursive:true});
-const sources=Object.fromEntries(['index.html','nero.html','css/visual-polish-r1232.css','assets/runtime/interface-r920.js','assets/runtime/wheels-r924.js'].map(n=>[n,hash(fs.readFileSync(path.join(root,n)))]));
+const sources=Object.fromEntries(['index.html','nero.html','css/visual-polish-r1232.css','css/mobile-tour-r1268.css','assets/runtime/interface-r920.js','assets/runtime/wheels-r924.js'].map(n=>[n,hash(fs.readFileSync(path.join(root,n)))]));
 const report={build:fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),sources,testSha256:hash(fs.readFileSync(__filename)),startedAt:new Date().toISOString(),checks:[],fixtures:[],limitations:['Headless CSS viewports, not physical-device, screen-reader or audio acceptance.','Wheel target variants use shipped input handler and gallery API, not replacement rendering.','Screenshots require visual review. Transparency baseline comparison is not performed; source-contract tests cover paint changes separately.']};
 let f,p,tag='';
 function save(){report.total=report.checks.length;report.passed=report.checks.filter(x=>x.passed).length;report.allPassed=report.total===25&&report.passed===report.total&&!report.fatal;fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n')}
@@ -86,8 +86,31 @@ for(const width of [320,375,500,1280]){
    const state=await p.locator('#r924WheelFrame').evaluate(n=>({geometry:n.dataset.r1057Center,targetHidden:document.getElementById('wheelTargetUX').hidden,targetDisplay:getComputedStyle(document.getElementById('wheelTargetUX')).display,percentDisplay:getComputedStyle(document.getElementById('r920Percent')).display}));assert.equal(state.geometry,wheel===wide?'wide':'narrow');assert.equal(state.targetHidden,target>9999);if(wheel===narrow||target>9999)assert.equal(state.targetDisplay,'none');else assert.notEqual(state.targetDisplay,'none');inside(await geometry('#r920Count'),width);evidence.push({wheel:wheel.id,target,...state});await shot('wheel-'+wheel.id+'-'+target,'#r924WheelFrame');
   }return evidence;
  });
- if(width===500)await check('500x265 onboarding scroll to actions',async()=>{
-  await p.setViewportSize({width:500,height:265});await p.evaluate(()=>obOpen());await p.waitForTimeout(300);const dimensions=await p.locator('#onboardCard .obInner').evaluate(n=>({height:n.getBoundingClientRect().height,client:n.clientHeight,scroll:n.scrollHeight,overflow:getComputedStyle(n).overflowY}));assert(dimensions.height<=218);assert(dimensions.scroll>dimensions.client);assert.equal(dimensions.overflow,'auto');await p.locator('#obNext').scrollIntoViewIfNeeded();await shot('onboarding-short','#onboardCard');assert(await p.locator('#obNext').isVisible());await p.keyboard.press('Escape');await p.setViewportSize({width,height:900});return dimensions;
+ if(width===500)await check('500x265 onboarding keeps actions visible while reading',async()=>{
+  await p.setViewportSize({width:500,height:265});
+  await p.evaluate(()=>obOpen());
+  await p.locator('#obNext').waitFor({state:'visible'});
+  // The fourth step is the longer Tekke introduction photographed on the phone.
+  for(let i=0;i<3;i++)await p.locator('#obNext').click();
+  assert.match(await p.locator('#obTitle').innerText(),/Tekke/);
+  const content=p.locator('#obContent'),next=p.locator('#obNext');
+  const before=await next.boundingBox();
+  assert(before.y>=0 && before.y+before.height<=265 && before.height>=44);
+  const dimensions=await content.evaluate(n=>{
+   const card=n.closest('.obInner');
+   return {height:card.clientHeight,outerScroll:card.scrollHeight,client:n.clientHeight,scroll:n.scrollHeight};
+  });
+  assert(dimensions.scroll>dimensions.client && dimensions.client>30);
+  assert.equal(dimensions.outerScroll,dimensions.height);
+  await content.evaluate(n=>{n.scrollTop=n.scrollHeight});
+  assert(await content.evaluate(n=>n.querySelector('#obText').getBoundingClientRect().bottom<=n.getBoundingClientRect().bottom+1));
+  assert.deepEqual(await next.boundingBox(),before);
+  await shot('onboarding-short','#onboardCard');
+  await next.click();
+  assert.equal(await content.evaluate(n=>n.scrollTop),0);
+  await p.keyboard.press('Escape');
+  await p.setViewportSize({width,height:900});
+  return dimensions;
  });
  await check('exact served bytes and runtime errors',async()=>{const e=f.evidence();for(const[name,expected] of Object.entries(sources))assert.equal(hash(fs.readFileSync(path.join(root,name))),expected,'source mutated '+name);for(const[name,row] of Object.entries(e.served))assert.equal(row.sha256,hash(fs.readFileSync(path.join(root,name))),'served mismatch '+name);assert.deepEqual(e.pageErrors,[]);assert(!e.consoleErrors.some(x=>/integrity|digest|syntaxerror|referenceerror|typeerror/i.test(x)),e.consoleErrors.join('\n'));return{served:Object.keys(e.served).length}});
  report.fixtures.push({width,...f.evidence()});await f.close();f=null;save();

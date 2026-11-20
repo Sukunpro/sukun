@@ -6,7 +6,7 @@ const root=path.resolve(process.argv[2]||path.join(__dirname,'../..')),file=path
 const source=fs.readFileSync(file,'utf8'),start=source.indexOf('  async function responseBytes('),end=source.indexOf('  function sampleExplicit()',start);
 assert(start>0&&end>start);const production=source.slice(start,end),hash=x=>crypto.createHash('sha256').update(x).digest('hex');
 const build=fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),href='https://fixture.invalid/sukun/nero.html',bytes=Buffer.from('synthetic runtime fixture'),baseEntry={url:'./assets/runtime/fixture.js?v=r1232',sha256:hash(bytes)};
-const entryLimit=197;
+const entryLimit=200;
 const rows=[];
 async function test(name,fn){try{const evidence=await fn();rows.push({name,passed:true,evidence});}catch(error){rows.push({name,passed:false,error:String(error)});}}
 async function fixture({entries=[baseEntry],raw,online=true,missing=false,corrupt=false,controlled=true,changed=false,timeout=false,latest=build,fresh=true,failServer=false,body=bytes,full=false,controllerError=false}={}){
