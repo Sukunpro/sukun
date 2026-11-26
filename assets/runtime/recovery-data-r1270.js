@@ -516,6 +516,17 @@
     if (!lastMessage) lastMessage = text('Önce Kurtarma Merkezi işlemini tamamla veya uygulamayı yeniden aç.', 'Finish the Recovery Centre operation or reload the app first.');
     if (operation || !openEmergency()) render();
   }, true);
+  function journalDayName(raw) {
+    const iso = /^(\d{4})-(\d\d)-(\d\d)$/.exec(raw);
+    // Parse ISO dates as local calendar days, including west of UTC.
+    const date = new Date(iso ? raw + 'T12:00:00' : raw);
+    if (!Number.isFinite(date.getTime())) return null;
+    const name = date.toDateString();
+    if (!iso) return name === raw ? name : null;
+    if (date.getFullYear() !== Number(iso[1]) || date.getMonth() + 1 !== Number(iso[2]) || date.getDate() !== Number(iso[3])) return null;
+    return name;
+  }
+
   // Each journal is one localStorage key. Planning a single replacement keeps
   // section imports atomic under a storage quota error or interrupted tab.
   function planJournal(key, incoming, current) {
@@ -527,23 +538,29 @@
     const before = entries(current), source = entries(incoming);
     if (!before || !source || before.length > limits[key] || source.length > limits[key]) throw invalid();
     const byId = new Map(), result = daily ? Object.create(null) : [];
-    let added = 0, kept = 0, privateSkipped = 0;
-    for (const [id, row] of before) {
+    const sourceDays = new Map();
+    let added = 0, kept = 0, privateSkipped = 0, normalized = false;
+    for (const [rawId, row] of before) {
+      const id = daily ? journalDayName(rawId) : rawId;
+      // Refuse to overwrite a second existing record for the same day.
+      if (daily && (!id || byId.has(id))) throw invalid();
       if (!object(row) || (!daily && !Number.isSafeInteger(id))) throw invalid();
+      if (id !== rawId) normalized = true;
       if (daily) result[id] = row; else result.push(row);
       byId.set(id, true);
     }
     const validTime = t => Number.isSafeInteger(t) && t > 0 && t <= Date.now() + 86400000;
-    for (const [id, row] of source) {
+    for (const [rawId, row] of source) {
+      const id = daily ? journalDayName(rawId) : rawId;
       if (!object(row) || (!daily && !validTime(id))) throw invalid();
       let clean;
       if (daily) {
-        const day = new Date(id);
-        if (!Number.isFinite(day.getTime()) || (day.toDateString() !== id && !/^\d{4}-\d\d-\d\d$/.test(id)) ||
-            !Number.isInteger(row.i) || row.i < 0 || row.i > 6 || !Array.isArray(row.sel) || row.sel.length > 100 ||
+        if (!id || !Number.isInteger(row.i) || row.i < 0 || row.i > 6 || !Array.isArray(row.sel) || row.sel.length > 100 ||
             !row.sel.every(i => Number.isInteger(i) && i >= 0) || (row.t != null && !validTime(Number(row.t)))) throw invalid();
-        clean = muhTemizle({[id]: {...row, t: row.t ?? day.getTime()}})[id];
+        clean = muhTemizle({[id]: {...row, t: row.t ?? new Date(id).getTime()}})[id];
         if (!clean || clean.sel.length !== new Set(row.sel).size) throw invalid();
+        if (sourceDays.has(id) && JSON.stringify(sourceDays.get(id)) !== JSON.stringify(clean)) throw invalid();
+        sourceDays.set(id,clean);
       } else if (key === 'sukun.log') {
         const policy = window.SukunSecretPolicy;
         if (typeof policy?.secretLog !== 'function') throw invalid();
@@ -564,7 +581,7 @@
     }
     if (before.length + added > limits[key]) throw err('journal-capacity', 'Birleşik kayıt sayısı defterin sınırını aşıyor. İki kopyayı da sakla.', 'The combined records exceed the journal capacity. Keep both copies.');
     if (!daily && added) result.sort((a,b) => key === 'sukun.maneviGunluk' ? b.t-a.t : a.t-b.t);
-    return {result, added, kept, privateSkipped};
+    return {result, added, kept, privateSkipped, normalized};
   }
 
   async function importJournal(file, key) {
@@ -572,21 +589,27 @@
       if (!(file instanceof Blob) || !file.size || file.size > LIMIT.file) throw err('file-invalid', 'Yedek dosyası boş veya çok büyük.', 'The backup file is empty or too large.');
       const data = JSON.parse(await file.text());
       assertion(lease);
-      if (!object(data) || data.app !== 'SUKUN' || ![undefined,1,2].includes(data.fmt) || !object(data.ls))
+      // r820's simple backup exported settings as top-level strings. A mixed
+      // envelope must never use that path to skip native recovery validation.
+      const flat = object(data) && data._app === 'SÜKÛN' && data._v === 1 &&
+        ['app','fmt','ls','idb','recovery'].every(field => !own(data,field));
+      const modern = object(data) && !own(data,'_app') && data.app === 'SUKUN' && [undefined,1,2].includes(data.fmt) && object(data.ls);
+      if (!flat && !modern)
         throw err('format-unsupported', 'Bir Sükûn JSON yedeği seç.', 'Choose a Sükûn JSON backup.');
       if (own(data,'recovery')) {
         if (!window.SukunRecordingSalvage?.validateNativeJSON) throw err('verifier-unavailable', 'Yedek doğrulayıcı hazır değil.', 'The backup verifier is unavailable.');
         await window.SukunRecordingSalvage.validateNativeJSON(data,{assertCurrent:() => assertion(lease)});
       }
-      if (!own(data.ls,key)) throw err('section-missing', 'Seçilen defter bu dosyada bulunmuyor.', 'This file does not contain the selected journal.');
-      const raw = data.ls[key];
+      const settings = flat ? data : data.ls;
+      if (!own(settings,key)) throw err('section-missing', 'Seçilen defter bu dosyada bulunmuyor.', 'This file does not contain the selected journal.');
+      const raw = settings[key];
       if (typeof raw !== 'string' || raw.length > LIMIT.setting) throw err('settings-invalid', 'Defter verisi geçersiz.', 'Invalid journal data.');
       const incoming = JSON.parse(raw);
       await singleClient(lease);
       const existing = localStorage.getItem(key);
       const plan = planJournal(key, incoming, existing === null ? (key === 'sukun.muhasebe' ? {} : []) : JSON.parse(existing));
       assertion(lease);
-      if (plan.added) {
+      if (plan.added || plan.normalized) {
         localStorage.setItem(key, JSON.stringify(plan.result));
         window.dispatchEvent(new CustomEvent('sukun:journal-restored', {detail:{key}}));
       }

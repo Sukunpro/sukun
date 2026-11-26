@@ -23,7 +23,7 @@ const serve = http.createServer(async (req, res) => {
   let browser;
   try {
     browser = await chromium.launch({executablePath:process.env.CHROMIUM_PATH, args:['--no-sandbox','--disable-dev-shm-usage']});
-    const context = await browser.newContext({viewport:{width:360,height:760},serviceWorkers:'block'});
+    const context = await browser.newContext({viewport:{width:360,height:760},timezoneId:'America/Los_Angeles',serviceWorkers:'block'});
     await context.route('**/*', route => route.request().url().startsWith(origin+'/') ? route.continue() : route.abort());
     const p = await context.newPage();
     await p.goto(origin, {waitUntil:'domcontentloaded'});
@@ -95,6 +95,50 @@ const serve = http.createServer(async (req, res) => {
     for(const k of ['unsupported','malformed','forged','tampered','held','denied','quotaRejected','same','overCap','capKept','corruptExport','emptyStore']) assert.equal(run[k],true,k);
     assert.equal(run.verified.kept,1);
     assert.equal(run.privateExport,false); assert.deepEqual(run.keys,['sukunCustomAmb','sukunRec']);
+    // The r820 "Tam yedek indir" button serialized each localStorage value at
+    // the top level with _app, _v and _t metadata.
+    const oldLog = {t:1700000000200, dur:40, detail:'Legacy journal'};
+    const flat = {_app:'SÜKÛN',_v:1,_t:'2023-11-14T22:13:20.200Z','sukun.log':JSON.stringify([oldLog]),
+      'sukun.kilitPin':'"from-file"','sukun.maneviGunluk':JSON.stringify([{t:oldLog.t,not:'Other section'}])};
+    await p.locator('#bakJournalType').evaluate(el=>{el.value='sukun.log';});
+    await p.locator('#bakJournalFile').setInputFiles({name:'sukun-yedek-20231114.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(flat))});
+    await p.waitForFunction(() => !SukunRecoveryData.status().busy && JSON.parse(localStorage.getItem('sukun.log'))?.some(row=>row.detail==='Legacy journal'));
+    const legacyResult = await p.evaluate(async flat => {
+      const file = value => new File([JSON.stringify(value)],'backup.json');
+      const load = (value,key='sukun.log') => SukunRecoveryData.importJournal(file(value),key);
+      async function rejected(value,key) {try {await load(value,key);return false;} catch {return true;}}
+      const invalidEnvelopes = [{...flat,_v:999},{...flat,app:'SUKUN'},{...flat,fmt:2},{...flat,ls:{}},
+        {...flat,idb:{}},{...flat,recovery:null},{...flat,app:'SUKUN',ls:{},fmt:2,recovery:{}}];
+      let rejectedCount=0;
+      for(const value of invalidEnvelopes) if(await rejected(value)) rejectedCount++;
+      const retry = await load(flat);
+      const key = 'sukun.muhasebe', iso = '2024-02-29', day = new Date(2024,1,29).toDateString();
+      const row = {i:0,sel:[],t:1700000000200}, other = {...row,i:1};
+      const backup = days => ({...flat,[key]:JSON.stringify(days)});
+      localStorage.removeItem(key);
+      await load(backup({[iso]:row}),key);
+      const canonical = JSON.parse(localStorage.getItem(key));
+      const duplicate = await load(backup({[day]:other}),key);
+      const beforeInvalid = localStorage.getItem(key);
+      const invalidDay = await rejected(backup({'2025-02-30':row}),key);
+      const conflictInFile = await rejected(backup({[iso]:row,[day]:other}),key);
+      const retained = beforeInvalid === localStorage.getItem(key);
+      localStorage.setItem(key,JSON.stringify({[iso]:row}));
+      await load(backup({[day]:other}),key);
+      const normalized = JSON.parse(localStorage.getItem(key));
+      const ambiguous = JSON.stringify({[iso]:row,[day]:other});
+      localStorage.setItem(key,ambiguous);
+      const ambiguousRejected = await rejected(backup({[day]:row}),key);
+      const ambiguousPreserved = localStorage.getItem(key) === ambiguous;
+      localStorage.removeItem(key);
+      return {rows:JSON.parse(localStorage.getItem('sukun.log')), pin:localStorage.getItem('sukun.kilitPin'),
+        note:localStorage.getItem('sukun.maneviGunluk'),retry,allRejected:rejectedCount===invalidEnvelopes.length,canonical,
+        duplicate,invalidDay,conflictInFile,retained,normalized,ambiguousRejected,ambiguousPreserved,expected:{[day]:row}};
+    },flat);
+    assert.deepEqual(legacyResult.rows,[oldLog]); assert.equal(legacyResult.pin,'"synthetic-hash"'); assert.equal(legacyResult.note,null);
+    assert.equal(legacyResult.retry.kept,1); assert.equal(legacyResult.duplicate.kept,1);
+    assert.deepEqual(legacyResult.canonical,legacyResult.expected); assert.deepEqual(legacyResult.normalized,legacyResult.expected);
+    for(const key of ['allRejected','invalidDay','conflictInFile','retained','ambiguousRejected','ambiguousPreserved']) assert.equal(legacyResult[key],true,key);
     // Use the file input binding used by the journal restore button.
     const note = {t:1700000000000, alan:'Nefs', konu:'Not', not:'Deneme'};
     const daily = Object.fromEntries(Array.from({length:91}, (_,i) => {
