@@ -6,8 +6,17 @@ const frame=document.querySelector('#app'),output=document.querySelector('#resul
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 for(const [key,value]of Object.entries({'sukun.theme':JSON.stringify(mode),'sukun.ui.shellMode':'classic','sukun.obDone':'1','sukun.onboardSeen':'1','sukun.r920.focus':'0'}))localStorage.setItem(key,value);
 let prepared=null;
+async function waitForRecovery(w){
+ const deadline=Date.now()+20000;
+ for(;;){
+  const status=w.SukunRecoveryData?.status?.();
+  if(status?.pending===false&&status.busy===false&&status.reloadRequired===false&&!status.error)return;
+  if(status?.error||status?.reloadRequired||Date.now()>=deadline)throw Error('Recovery storage not ready: '+JSON.stringify(status??null));
+  await wait(50);
+ }
+}
 async function prepare(){const w=frame.contentWindow,d=w.document;if(prepared===d)return;prepared=d;try{
- await wait(2500);w.obClose?.();d.getElementById('dcClose')?.click();w.KLT_AC('LABELLED-reflection-help-disposable-profile');
+ await wait(2500);await waitForRecovery(w);w.obClose?.();d.getElementById('dcClose')?.click();w.KLT_AC('LABELLED-reflection-help-disposable-profile');
  await w.SukunTabOwner.run('manual',async()=>{const selected=await w.SukunSessionState.command('select',{mode,index:9,journeyKind:mode==='berhet'?'28':'99'});if(!selected.accepted)throw Error('Fixture selection rejected');w.SukunSessionMemory.save();w.SukunProgressJournal.commit('reflection-help-fixture')},{prime:false,releaseAfter:true});
  d.querySelector('.tab[data-t=zkr]').click();await wait(700);run.disabled=false;output.textContent='Ready';
 }catch(error){output.textContent=error.stack}}
