@@ -152,5 +152,61 @@ test('AI planning sends the public inventory and keeps personal entries and adap
  assert.equal(prompts.length,2);
  for(const prompt of prompts){assert.match(prompt,/Okyanus/);assert.match(prompt,/Selâm/);assert.match(prompt,/Public terkip/);assert.doesNotMatch(prompt,/PRIVATE_/);}
 });
+test('Unusable frequency responses cannot become a verified or default AI plan',async()=>{
+ const c=vm.createContext({AMBIENT_DEFS:[],ZIKIR:{},document:{querySelector:()=>null},window:{}});
+ const plan=source.slice(source.indexOf('const SukunAIPlan='),source.indexOf('window.SukunAIPlan=SukunAIPlan;')+'window.SukunAIPlan=SukunAIPlan;'.length);
+ vm.runInContext(plan,c);
+ const api=c.window.SukunAIPlan;
+ for(const invalid of [null,[],{}, {error:'unavailable'}, {carrier_hz:null,beat_hz:6}, {carrier_hz:180,beat_hz:' '}, {carrier_hz:true,beat_hz:6}, {carrier_hz:'abc',beat_hz:6}]){
+  c.window.SukunAIRouter={complete:async()=>({text:JSON.stringify(invalid)})};
+  await assert.rejects(api.generate('Synthetic'),/frekans/);
+  assert.equal(api.last,null);
+ }
+ const verified=api.validate({carrier:'240',vurus:8,minutes:12});
+ assert.equal(verified.carrier,240);assert.equal(verified.beat,8);assert.equal(verified.minutes,12);
+ const good={type:'frequency',carrier_hz:240,beat_hz:8},silence={type:'silence',duration_min:2};
+ const session=api.validateSession({steps:[{type:'frequency'},good,silence]});
+ assert.equal(session.steps.length,2);assert.equal(session.steps[0].carrier,240);assert.equal(session.warnings.length,1);
+ assert.throws(()=>api.validateSession({steps:[{type:'frequency'},silence]}));
+});
+test('An offline adaptive session uses the local queue action with and without a configured key',async()=>{
+ const engine=source.match(/<script id="r340-adaptive-engine">([\s\S]*?)<\/script>/)[1];
+ for(const hasKey of [true,false]){
+  const before=[{type:'silence',ms:60000},{type:'frequency',c:180,b:10,ms:120000,mode:'bin'}];
+  let items=before, settings=0, posts=0;
+  const c=vm.createContext({
+   navigator:{onLine:false},document:{readyState:'loading',addEventListener(){},getElementById:()=>null},
+   window:{GlobalQueue:{getState:()=>({items,index:0,title:'Synthetic'}),replaceRemaining:next=>{items=[items[0],...next];return true}},
+    SukunAIRouter:{hasSelectedKey:()=>hasKey,openSettings:()=>settings++,complete:async()=>{posts++;throw Error('Offline')}}}
+  });
+  vm.runInContext(engine,c);assert.equal(await c.window.SukunAdaptiveSession.adaptText('Daha sakin'),true);
+  assert.equal(settings,0);assert.equal(posts,0);assert.equal(items[0],before[0]);assert.equal(items[1].b,7.8);
+ }
+});
+test('Keep, unknown and ambiguous feedback preserves the exact session; action labels match in TR/EN',async()=>{
+ const engine=source.match(/<script id="r340-adaptive-engine">([\s\S]*?)<\/script>/)[1];
+ const queue=[{type:'silence',ms:5000},{type:'frequency',c:180,b:10,ms:10000,mode:'bin'}];
+ const w={writes:0,posts:0,settings:0};
+ const c=vm.createContext({document:{readyState:'loading',addEventListener(){},getElementById:()=>null},navigator:{onLine:false},
+  window:{GlobalQueue:{getState:()=>({items:queue,index:0}),replaceRemaining:()=>{w.writes++;return true}},
+   SukunAIRouter:{hasSelectedKey:()=>true,openSettings:()=>w.settings++,complete:async()=>{w.posts++;return {text:'{"action":"keep","duration_scale":0.6}'}}}}});
+ vm.runInContext(engine,c);const api=c.window.SukunAdaptiveSession;
+ for(const query of ['Aynen kalsın','HİÇBİR ŞEYİ DEĞİŞTİRME','No change','Do not change anything']){
+  assert.equal(await api.adaptText(query),true,query);
+ }
+ for(const query of ['Merhaba','Yoğun değil','Uykum gelmiyor','Daha sakin istemiyorum','I am not sleepy','too intense and scattered']){
+  assert.equal(await api.adaptText(query),false,query);
+ }
+ assert.equal(w.writes,0);assert.equal(w.posts,0);assert.equal(w.settings,0);assert.equal(api.lastAction,null);
+ for(const [query,kind] of [['Too intense','intense'],['ÇOK YOĞUN','intense'],['UyKuM GeLiYoR','sleepy'],['I feel scattered','scattered'],['Daha sakin','calmer']]){
+  assert.equal(await api.adaptText(query),true);
+  assert.equal(api.lastAction.kind,kind,query);
+ }
+ c.navigator.onLine=true;
+ await api.adaptText('Aynen kalsın');assert.equal(w.posts,0);
+ await api.adaptText('Synthetic provider test');
+ assert.equal(w.posts,1);assert.equal(w.writes,5);
+ assert.deepEqual(JSON.parse(JSON.stringify(api.validateAI({action:'keep',duration_scale:0.6,beat_scale:1.25},queue).out)),queue);
+});
 test('All classic inline JavaScript bodies compile',()=>{let n=0;const re=/<script\b([^>]*)>([\s\S]*?)<\/script>/gi;for(const m of source.matchAll(re)){if(/\bsrc\s*=/.test(m[1])||(/type\s*=\s*["']([^"']+)["']/i.test(m[1])&&!/type\s*=\s*["'](?:text|application)\/javascript["']/i.test(m[1])))continue;if(!m[2].trim())continue;new vm.Script(m[2],{filename:'inline-'+(++n)+'.js'});}assert(n>100);console.log('  Compiled '+n+' inline script bodies');});
 (async()=>{let pass=0;for(const[name,fn]of tests){try{await fn();pass++;console.log('PASS '+name)}catch(e){console.error('FAIL '+name,e);process.exitCode=1;}}console.log(JSON.stringify({passed:pass,total:tests.length,actualProviderCalls:0,credentials:'synthetic only',file}));})();

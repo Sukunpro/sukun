@@ -224,13 +224,15 @@
    SITE_HASH_UNAVAILABLE:['Dosya bütünlüğü bu tarayıcıda doğrulanamıyor. HTTPS ile güncel Chrome kullan.','This browser cannot verify file integrity. Use an up-to-date Chrome over HTTPS.'],
    SITE_BUSY:['Önce etkin zikri, kaydı veya veri işlemini tamamla; ardından yeniden dene.','Finish active dhikr, recording or data operations, then retry.'],
    SITE_DOWNLOAD_PENDING:['Önce başlatılan ZIP indirmesini tamamla. Yeni tam site yedeği kısa süre sonra açılır.','Finish the ZIP download already started. A new full site backup will be available shortly.'],
+   SITE_SAVED:['Tam site ZIP yedeği seçtiğin konuma kaydedildi.','The full site ZIP backup was saved to the selected location.'],
+   SITE_SAVE_FAILED:['ZIP dosyası seçilen konuma kaydedilemedi. Boş alanı kontrol edip yeniden dene.','The ZIP could not be saved to the selected location. Check free space and try again.'],
    SITE_FAILED:['Tam site yedeği tamamlanamadı. Kayıtların değiştirilmedi; eksik ZIP indirilmedi.','Full site backup could not finish. Recordings were not changed; no incomplete ZIP was downloaded.'],
    SITE_DONE:['Tam site ZIP’i doğrulandı ve indirme başlatıldı. İndirme tamamlanınca dosyayı sakla.','Full site ZIP verified and download started. Keep the file after the download completes.']
   };
   return tr(...(texts[code]||texts.SITE_FAILED));
  }
  function setStatus(code,file='',detail=null){last={code,file,detail};render();}
- function cancel(){if(!task)return false;task.controller.abort();return true;}
+ function cancel(){if(!task||task.phase==='saving')return false;task.controller.abort();return true;}
  function download(blob,filename){
   const url=URL.createObjectURL(blob),link=document.createElement('a');downloadPending=true;link.href=url;link.download=filename;link.style.display='none';document.body.append(link);
   // Keep the link valid for Android's download handoff, but do not permit a
@@ -243,8 +245,9 @@
   if(!build()){setStatus('SITE_UNSUPPORTED_BUILD');return {ok:false,error:'SITE_UNSUPPORTED_BUILD'};}
   if(!w.crypto?.subtle){setStatus('SITE_HASH_UNAVAILABLE');return {ok:false,error:'SITE_HASH_UNAVAILABLE'};}
   const t={release:releasePaths(build()),controller:new AbortController(),phase:'preparing',done:0,total:0,lease:null};task=t;render();
+  const access=accessFence();
   const work=async lease=>{
-   const access=accessFence();try{
+   try{
    t.lease=lease;check(t);
    const release=t.release,markerBytes=await readFile(t,release.marker);
    const marker=parseJson(markerBytes);validateMarker(marker,release);
@@ -276,14 +279,33 @@
    entries.push(await unverifiedEntry(t,'recovery/OKU_README.txt',new Blob([readme(created,release)],{type:'text/plain;charset=utf-8'})));
    const blob=zipStore(t,entries,created);check(t);access.assert();
    const filename='SUKUN_'+release.build+'_TAM_SITE_YEDEGI_'+created.toISOString().slice(0,19).replace(/[-:]/g,'').replace('T','_')+'.zip';
-   if(options.download!==false){check(t);download(blob,filename);setStatus('SITE_DONE');}
    return {ok:true,blob,filename,files:entries.length,bytes:blob.size};
-   }finally{access.close();}
+   }catch(error){
+    check(t);
+    throw error;
+   }finally{
+    // The tab owner releases its lease and emits a change after this callback.
+    // Final release must not turn a genuine file error into a cancellation.
+    t.lease=null;
+   }
   };
   try{
    if(!w.SukunTabOwner?.maintenance)throw fail('SITE_BUSY');
    const result=await w.SukunTabOwner.maintenance('portable-site-backup',work);
    if(result===false){setStatus('SITE_BUSY');return {ok:false,error:'SITE_BUSY'};}
+   check(t);access.assert();
+   if(options.download!==false){
+    if(typeof w.SukunAndroidSaveFile==='function'){
+     t.phase='saving';render();
+     let saved;
+     try{saved=await w.SukunAndroidSaveFile(result.blob,result.filename);}
+     catch(_){throw fail('SITE_SAVE_FAILED');}
+     if(saved!==true)throw fail('SITE_CANCELLED');
+     setStatus('SITE_SAVED');
+    }else{
+     download(result.blob,result.filename);setStatus('SITE_DONE');
+    }
+   }
    return result;
   }catch(error){
    const cancelled=t.controller.signal.aborted||t.lease&&!t.lease.current();
@@ -293,17 +315,17 @@
    const detail=!cancelled&&typeof error?.tr==='string'&&typeof error?.en==='string'?{tr:error.tr.slice(0,700),en:error.en.slice(0,700)}:null;
    setStatus(code,error?.file||'',detail);return {ok:false,error:code,file:error?.file||''};
   }
-  finally{if(task===t)task=null;render();}
+  finally{access.close();if(task===t)task=null;render();}
  }
  function render(){
   const box=document.getElementById('r1020SiteBackup');if(!box)return;
   box.querySelector('[data-site-title]').textContent=tr('Tüm siteyi yedekle','Back up the whole site');
   box.querySelector('[data-site-note]').textContent=tr('Uygulama dosyaları ve özel seslerin aynı ZIP’e alınır. Eksik veya uyuşmayan dosyada işlem durur. Site sürümü değiştirilmez. Büyük yedek birkaç dakika sürebilir. Google yazı tipleri ve yapay zekâ gibi dış hizmetler internet gerektirir; çevrimdışında gömülü veya sistem yazı tipleri kullanılır.','Application files and private recordings go into one ZIP. Any missing or mismatched file stops the export. The site version stays unchanged. A large backup can take several minutes. External services such as Google Fonts and AI require internet; offline, embedded or system fonts are used.');
   const start=box.querySelector('[data-site-start]');start.textContent=tr('↓ Tam site ZIP yedeğini indir','↓ Download full site ZIP backup');start.disabled=!!task||downloadPending||!build();
-  const stop=box.querySelector('[data-site-cancel]');stop.textContent=tr('İptal et','Cancel');stop.hidden=!task;
+  const stop=box.querySelector('[data-site-cancel]');stop.textContent=tr('İptal et','Cancel');stop.hidden=!task||task.phase==='saving';
   const status=box.querySelector('[data-site-status]');
   if(task){
-   status.textContent=task.phase==='assets'?tr('Site dosyaları doğrulanıyor: '+task.done+' / '+task.total,'Verifying site files: '+task.done+' / '+task.total):task.phase==='personal'?tr('Kendi seslerin ve ayarların okunuyor…','Reading your recordings and settings…'):task.phase==='packaging'?tr('Doğrulanmış dosyalar ZIP’e hazırlanıyor…','Preparing verified files as a ZIP…'):tr('Güvenli yedekleme hazırlanıyor…','Preparing a safe backup…');
+   status.textContent=task.phase==='saving'?tr('Android dosya kaydını bekliyor…','Waiting for Android to finish saving…'):task.phase==='assets'?tr('Site dosyaları doğrulanıyor: '+task.done+' / '+task.total,'Verifying site files: '+task.done+' / '+task.total):task.phase==='personal'?tr('Kendi seslerin ve ayarların okunuyor…','Reading your recordings and settings…'):task.phase==='packaging'?tr('Doğrulanmış dosyalar ZIP’e hazırlanıyor…','Preparing verified files as a ZIP…'):tr('Güvenli yedekleme hazırlanıyor…','Preparing a safe backup…');
   }else status.textContent=(!build()?describe('SITE_UNSUPPORTED_BUILD'):last.detail?tr(last.detail.tr,last.detail.en):describe(last.code))+(last.file?' ('+last.file+')':'');
   const progress=box.querySelector('progress');progress.hidden=!task||task.phase!=='assets';progress.max=task?.total||1;progress.value=task?.done||0;
  }

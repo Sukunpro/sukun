@@ -162,6 +162,9 @@
    else if(a==='toggle'){const st=state();if(!st.active)factory()?.startPurpose?.(st.purpose);else if(st.phase==='paused')factory()?.resume?.();else factory()?.pause?.();render();}
    else if(a==='finish')factory()?.finish?.();
   });
+  root.addEventListener('keydown',e=>{
+   if(e.key==='Tab'&&!e.defaultPrevented&&!overlay&&!document.body.classList.contains('r436-tekke-player-open'))trapFocus(e,root);
+  });
   $('#panel').addEventListener('keydown',e=>trapFocus(e,$('#panel'),()=>factory()?.closeSettings?.()));
   $('#panelBtn').title=copy('Mihrap ayarlarını açar; akışı durdurmaz.','Open Mihrab settings; the session continues.');
   $('#backSukun').title=copy('SÜKÛN’a dön; akış devam eder.','Return to Home; the session continues.');
@@ -195,9 +198,9 @@
   const focus=overlayFocus;overlayFocus=null;safe(()=>{if(focus?.isConnected!==false&&!root.hidden)focus?.focus({preventScroll:true});});scheduleSceneFit();
  }
  function trapFocus(e,box,close){
-  if(e.key==='Escape'){e.preventDefault();e.stopPropagation();close();return;}
+  if(e.key==='Escape'&&close){e.preventDefault();e.stopPropagation();close();return;}
   if(e.key!=='Tab')return;
-  const items=[...box.querySelectorAll('button,input,select,textarea,a[href],[tabindex]')].filter(n=>!n.disabled&&n.tabIndex!==-1&&!n.closest('[hidden],[inert],[aria-hidden="true"]')&&safe(()=>getComputedStyle(n).display!=='none',true)&&safe(()=>n.getClientRects().length>0,true));
+  const items=[...box.querySelectorAll('button,input,select,textarea,a[href],summary,[tabindex]')].filter(n=>!n.disabled&&n.tabIndex!==-1&&!n.closest('[hidden],[inert],[aria-hidden="true"]')&&safe(()=>getComputedStyle(n).visibility==='visible',true)&&safe(()=>n.getClientRects().length>0,true));
   const first=items[0],last=items.at(-1);if(!first){e.preventDefault();box.focus();return;}
   if(e.shiftKey&&(document.activeElement===first||!box.contains(document.activeElement))){e.preventDefault();last.focus();}
   else if(!e.shiftKey&&(document.activeElement===last||!box.contains(document.activeElement))){e.preventDefault();first.focus();}
@@ -267,6 +270,7 @@
   root.dataset.tkPurpose=entered?st.purpose:chosen;
   root.dataset.tkSessionPhase=st.phase;
   root.dataset.tkEntered=entered?'1':'0';
+  if(overlay!=='help')$('#panel').inert=!$('#panel').classList.contains('open');
   fitViewport();
   $('#r992GateSettings').hidden=!!entered;
   const mihrab=$('#panelBtn');mihrab.textContent=copy('⚙ Mihrap','⚙ Mihrab');mihrab.setAttribute('aria-label',copy('Mihrap ayarlarını aç','Open Mihrab settings'));
@@ -305,7 +309,11 @@
   pause:()=>window.Tekke?.pause?.(),resume:()=>window.Tekke?.resume?.(),play:()=>window.Tekke?.resume?.(),stop:()=>window.Tekke?.stop?.('registry-stop'),
   getVolume:()=>state().volume??.75,setVolume:v=>{const n=$('#vMaster');if(n){n.value=String(Math.max(0,Math.min(1,Number(v)||0)));n.dispatchEvent(new Event('input',{bubbles:true}));render();}}}));
  window.addEventListener('tekke:opened',()=>{mount();render();});
- window.addEventListener('tekke:started',()=>{mount();render();});
+ window.addEventListener('tekke:started',()=>{
+  mount();render();
+  if(root?.hidden||overlay||root.dataset.tkEntered!=='1')return;
+  if(document.activeElement===document.body||$('#gate')?.contains(document.activeElement))$('#r992TransportTitle')?.focus({preventScroll:true});
+ });
  window.addEventListener('tekke:closed',render);
  window.addEventListener('languagechange',render);window.addEventListener('sukun:language',render);window.addEventListener('sukun:languagechange',render);
  if(window.SukunTekkeSet){window.SukunTekkeSet.subscribe(()=>{mount();render();});}

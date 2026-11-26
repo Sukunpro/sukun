@@ -21,7 +21,12 @@ function fixture(){
  async function cachedBytes(key){return Buffer.from(await(await(await caches.open(cacheName)).match(key)).arrayBuffer());}
  return {c,run,caches,store,writes,deletions,files,network,clients,build,cacheName,required,absolute,markerKey,shellKey,seed,message,lifecycle,mutateMarker,cachedBytes,offline(){online=false;},claims:()=>claims,activations:()=>activations};
 }
-async function admissionRejected(h){const meta=await h.run('prepareShell()');assert.equal(meta.complete,false,'staged prepare must reject an invalid executable graph');assert.equal(await h.run('currentComplete()'),false);assert(!h.writes.some(w=>w.name===h.cacheName&&!w.url.includes('sukun-cache-meta-')),'no graph bytes may be committed on invalid admission');}
+async function rejectedPreparation(h){
+ const meta=await h.run('prepareShell()');
+ assert.equal(meta.complete,false,'preparation must reject the invalid executable graph');
+ assert.equal(await h.run('currentComplete()'),false);
+ return meta;
+}
 (async()=>{
  await test('Healthy network installation and offline readiness agree',async()=>{const h=fixture();assert.equal((await h.run('prepareShell()')).complete,true);assert.equal(await h.run('currentComplete()'),true);h.offline();assert.equal((await h.message({type:'STATUS'})).complete,true);});
  for(const [name,edit] of [
@@ -31,8 +36,30 @@ async function admissionRejected(h){const meta=await h.run('prepareShell()');ass
   ['changed member digest',m=>m.runtime[0].sha256='0'.repeat(64)],
   ['cross-origin member',m=>m.runtime[0].url='https://other.invalid/runtime.js?v='+m.build],
   ['conflicting build identity',m=>m.v='r1']
- ])await test('Admission rejects same-build marker '+name,async()=>{const h=fixture();await h.mutateMarker(edit);await admissionRejected(h);});
- await test('Shell with a matching declared digest but invalid executable SRI is not admitted',async()=>{const h=fixture(),url=h.absolute(h.shellKey),html=h.files.get(url).toString().replace(/integrity=(["'])sha256-[^"']+\1/,'integrity="sha256-'+Buffer.alloc(32).toString('base64')+'"');assert.notEqual(html,h.files.get(url).toString(),'fixture changes an actual executable integrity token');h.files.set(url,html);await h.mutateMarker(m=>m.shell.sha256=sha(html));await admissionRejected(h);});
+ ])await test('Admission rejects same-build marker '+name,async()=>{
+  const h=fixture();await h.mutateMarker(edit);await rejectedPreparation(h);
+  assert(!h.writes.some(w=>w.name===h.cacheName&&!w.url.includes('sukun-cache-meta-')),'invalid inventory must be rejected before staging graph bytes');
+ });
+ await test('Shell with a matching declared digest but invalid executable SRI is not admitted',async()=>{
+  const h=fixture(),url=h.absolute(h.shellKey),original=h.files.get(url).toString();
+  const html=original.replace(/integrity=(["'])sha256-[^"']+\1/,'integrity="sha256-'+Buffer.alloc(32).toString('base64')+'"');
+  assert.notEqual(html,original,'fixture changes an actual executable integrity token');
+  h.files.set(url,html);await h.mutateMarker(m=>m.shell.sha256=sha(html));
+  const meta=await rejectedPreparation(h),cache=await h.caches.open(h.cacheName);
+  assert.equal(meta.shell,false);
+  assert(!h.writes.some(w=>w.name===h.cacheName&&w.url===url),'invalid HTML must never be staged');
+  assert.equal(await cache.match(h.shellKey),undefined);
+  // Individually verified files may survive for a later retry. They cannot
+  // create a recovery proof or expose the incomplete shell for navigation.
+  for(const entry of h.required){
+   const response=await cache.match(entry.url);
+   if(response)assert.equal(sha(Buffer.from(await response.arrayBuffer())),entry.sha256);
+  }
+  assert.equal(await h.run('recoveryReadProof(CACHE)'),null);
+  assert.equal(await h.run('bestCachedShell()'),null);
+  const reply=await h.message({type:'SKIP_WAITING'});
+  assert.equal(reply.ok,false);assert.equal(h.activations(),0);
+ });
  await test('Invalid same-build marker cannot trigger SKIP_WAITING',async()=>{const h=fixture();await h.mutateMarker(m=>m.runtime.pop());const reply=await h.message({type:'SKIP_WAITING'});assert.equal(reply.ok,false);assert.equal(reply.complete,false);assert.equal(h.activations(),0);});
  await test('Invalid same-build marker cannot install',async()=>{const h=fixture();await h.mutateMarker(m=>m.runtime.pop());await assert.rejects(h.lifecycle('install'));assert.equal(h.claims(),0);});
  await test('Invalid same-build marker cannot claim clients on activation',async()=>{const h=fixture();await h.mutateMarker(m=>m.runtime.pop());await assert.rejects(h.lifecycle('activate'));assert.equal(h.claims(),0);});

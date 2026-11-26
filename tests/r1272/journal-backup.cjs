@@ -172,6 +172,27 @@ const serve = http.createServer(async (req, res) => {
     const downloaded = JSON.parse(await fs.readFile(await download.path(),'utf8'));
     assert.equal(downloaded.app,'SUKUN');
     for(const [key, records] of fixtures) assert.deepEqual(JSON.parse(downloaded.ls[key]),records);
+    // The composer supports two to eight names; a saved composition must
+    // never block an unrelated journal backup.
+    await p.locator('#trkBox').evaluate(panel => { panel.open = true; });
+    await p.waitForFunction(() => document.querySelectorAll('#trkSec .trkAd').length >= 8);
+    p.on('dialog', dialog => dialog.accept('Test terkibi'));
+    for (let index = 0; index < 8; index++) {
+      await p.locator('#trkSec .trkAd').nth(index).evaluate(choice => choice.click());
+      if (index < 4) continue;
+      await p.locator('#trkKaydet').evaluate(button => button.click());
+      for (const selector of ['#bakExportBtn', '#bakSettingsExportBtn']) {
+        const [file] = await Promise.all([
+          p.waitForEvent('download'), p.locator(selector).evaluate(button => button.click())
+        ]);
+        const saved = JSON.parse(await fs.readFile(await file.path(), 'utf8')).ls;
+        assert.equal(JSON.parse(saved['sukun.terkip.kayitli'])[0].sec.length, index + 1);
+        assert.deepEqual(JSON.parse(saved['sukun.maneviGunluk']), [note]);
+      }
+    }
+    const rejectsInvalid = await p.evaluate(() => [[0], [0,0], [0,99], Array.from({length:9}, (_,i) => i)].every(sec =>
+      skYedekDeger('sukun.terkip.kayitli', JSON.stringify([{ad:'test',sec,t:1600000000000}])) === null));
+    assert.equal(rejectsInvalid, true);
     const saveResult = await p.evaluate(async () => {
       const last = () => localStorage.getItem('sukun.lastBackup');
       const requested = localStorage.getItem('sukun.lastBackupRequested');
