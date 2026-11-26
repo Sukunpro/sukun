@@ -21,7 +21,12 @@ function fixture(build=current,edit){
 function harness(f,opts={}){
  const calls=[],personalCalls=[],writes=[],urls=[],lease={current:()=>true};let api;
  const document={readyState:'loading',documentElement:{lang:'en'},querySelector:()=>({content:opts.meta===undefined?f.build:opts.meta}),querySelectorAll:()=>opts.deps||[],getElementById:()=>null,addEventListener(){},createElement:()=>({style:{},click(){writes.push('download')},remove(){}}),body:{append(){}}};
- const w={SUKUN_BUILD:opts.windowBuild===undefined?f.build:opts.windowBuild,location:{href:'https://example.invalid/sukun/nero.html',origin:'https://example.invalid'},I18N:{lang:'en'},crypto:crypto.webcrypto,addEventListener(){},SukunTabOwner:{maintenance:async(_,work)=>opts.noLease?false:work(lease)},SukunRecoveryData:{capturePortable:async o=>{personalCalls.push(o);return opts.personal?opts.personal({api,lease}):{file:new Blob(['{"syntheticRecording":"AQID"}'],{type:'application/json'})};}},fetch:async(url,options)=>{
+ const w={SUKUN_BUILD:opts.windowBuild===undefined?f.build:opts.windowBuild,location:{href:'https://example.invalid/sukun/nero.html',origin:'https://example.invalid'},I18N:{lang:'en'},crypto:crypto.webcrypto,addEventListener(){},SukunTabOwner:{maintenance:async(_,work)=>{
+  if(opts.noLease)return false;
+  lease.current=()=>true;
+  try{return await work(lease);}
+  finally{lease.current=()=>false;}
+ }},SukunRecoveryData:{capturePortable:async o=>{personalCalls.push(o);return opts.personal?opts.personal({api,lease}):{file:new Blob(['{"syntheticRecording":"AQID"}'],{type:'application/json'})};}},fetch:async(url,options)=>{
   const u=new URL(url),p=u.pathname.slice('/sukun/'.length);calls.push({path:p,url,options});
   assert.equal(u.origin,'https://example.invalid');assert.equal(u.searchParams.get('v'),f.build);assert.equal(options.redirect,'error');assert.equal(options.credentials,'same-origin');
   if(opts.fetch){const result=await opts.fetch({path:p,options,api,lease,files:f.files});if(result!==undefined)return result;}
@@ -77,7 +82,26 @@ function updateManifest(f,fn){fn(f.manifest);f.files.set('sukun-site-assets-'+f.
  await test('maintenance denied does not access storage or fetch',async()=>{const h=await errorCase(fixture(),{noLease:true},'SITE_BUSY',0);assert.equal(h.calls.length,0);});
  await test('personal capture failure does not produce partial ZIP',()=>errorCase(fixture(),{personal:()=>({ok:false})},'SITE_PERSONAL_UNAVAILABLE',1));
  await test('double export blocked until first download Blob released',async()=>{const h=harness(fixture());assert((await h.api.exportSite()).ok);assert.equal(h.writes.length,1);assert.equal((await h.api.exportSite()).error,'SITE_DOWNLOAD_PENDING');assert.equal(h.writes.length,1);h.timers.forEach(f=>f());assert.equal(h.api.snapshot().downloadPending,false);});
+ await test('Android ZIP save stays pending through the picker and reports its final result',async()=>{
+  const h=harness(fixture());
+  let finish;
+  h.w.SukunAndroidSaveFile=(blob,filename)=>{
+   assert(blob.size>0);assert(filename.endsWith('.zip'));assert.equal(h.lease.current(),false);
+   return new Promise(resolve=>{finish=resolve;});
+  };
+  const running=h.api.exportSite();
+  while(!finish && h.api.snapshot().busy)await new Promise(resolve=>setTimeout(resolve,0));
+  assert.equal(h.api.snapshot().phase,'saving');assert.equal(h.api.cancel(),false);
+  assert.equal((await h.api.exportSite()).error,'SITE_BUSY');
+  finish(false);assert.equal((await running).error,'SITE_CANCELLED');
+  assert.equal(h.api.snapshot().code,'SITE_CANCELLED');
+  h.w.SukunAndroidSaveFile=async()=>{throw Error('synthetic write failure');};
+  assert.equal((await h.api.exportSite()).error,'SITE_SAVE_FAILED');
+  h.w.SukunAndroidSaveFile=async()=>true;
+  assert.equal((await h.api.exportSite()).ok,true);assert.equal(h.api.snapshot().code,'SITE_SAVED');
+  assert.equal(h.writes.length,0);assert.equal(h.urls.length,0);
+ });
  await test('optional Google font stylesheet remains permissible',async()=>{const h=harness(fixture(),{deps:[{tagName:'LINK',getAttribute:k=>({rel:'stylesheet',href:'https://fonts.googleapis.com/css2?family=Amiri'}[k])}]});assert((await h.api.exportSite({download:false})).ok);});
  await test('external executable dependency rejected',()=>errorCase(fixture(),{deps:[{tagName:'SCRIPT',getAttribute:k=>k==='src'?'https://evil.invalid/x.js':null}]},'SITE_EXTERNAL_DEPENDENCY',0));
- fs.writeFileSync(path.join(__dirname,'site-backup-results.json'),JSON.stringify({sourceRoot:root,sourceSha256:sha(source),method:'Exact production exporter with synthetic release inventory and controlled VM endpoints; no real user data or browser',passed:count,results},null,2));console.log(`${count}/${count} passed`);
+ fs.writeFileSync(process.argv[3]||path.join(__dirname,'site-backup-results.json'),JSON.stringify({sourceRoot:root,sourceSha256:sha(source),method:'Exact production exporter with synthetic release inventory and controlled VM endpoints; no real user data or browser',passed:count,results},null,2));console.log(`${count}/${count} passed`);
 })().catch(e=>{console.error(e);process.exitCode=1;});

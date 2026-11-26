@@ -13,6 +13,8 @@ from urllib.parse import urljoin, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_SUITES = [
+    ('voice-ring-capture', 'tests/r1274/voice-ring.cjs'),
+    ('health-report', 'tests/r1272/health.cjs'),
     ('r1249-buzurk-source', 'tests/r1249/buzurk-source.cjs'),
     ('r1248-journey-loop-order', 'tests/r1248/journey-loop-order.cjs'),
     ('r1248-startup-progress', 'tests/r1248/startup-progress.cjs'),
@@ -107,6 +109,9 @@ INHERITED_SUITES = [
 # Keep new audio/graphics native evidence in the mandatory full release gate.
 # These suites run sequentially, apart from the parallel source contracts.
 NATIVE_BROWSER_SUITES = [
+    ('journal-backup-native', 'tests/r1272/journal-backup.cjs'),
+    ('short-voice-recording-native', 'tests/r1274/short-voice-browser.cjs'),
+    ('tekke-keyboard-native', 'tests/r1274/tekke-keyboard.cjs'),
     ('r1249-buzurk-native', 'tests/r1249/buzurk-browser.cjs'),
     ('source-heading-native', 'tests/source-heading/browser.cjs'),
     ('tefekkur-glass-native', 'tests/tefekkur-glass/browser.cjs'),
@@ -208,6 +213,7 @@ def main():
         assert int(build[1:]) >= 1213, 'Current acceptance requires the modern r1213+ contract'
     before = source_files()
     commands = [(name, ['node', file]) for name, file in SOURCE_SUITES]
+    commands.append(('site-zip-backup', ['node', 'tests/r1027/site-backup-regression.cjs', str(ROOT), str(out / 'site-zip-backup.json')]))
     commands.append(('shell-consolidation', ['python3', 'tests/r1215/shell-consolidation.py']))
     commands.append(('visual-evidence-negative', ['python3', 'tests/r1213/visual-evidence-test.py']))
     commands += [(name, ['node', file, str(ROOT), str(out / (name + '.json'))])
