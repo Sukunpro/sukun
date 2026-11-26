@@ -852,7 +852,7 @@
             './css/premium-layout-r1215.css','./css/cinematic-r1215.css','./css/atlas-r1215.css','./css/atlas-r1217.css',
             './css/legacy-r1215-embFonts.css','./css/legacy-r1215-base-style.css','./css/legacy-r1215-r699-layout-authority.css',
             './css/visual-polish-r1232.css','./css/lower-stats-r1236.css','./css/tefekkur-help.css','./css/arrangement-fit.css','./css/feraset-sections-r1258.css',
-            './css/mobile-panels-r1268.css','./css/mobile-tekke-r1268.css','./css/mobile-tour-r1268.css']
+            './css/mobile-panels-r1268.css','./css/mobile-tekke-r1268.css','./css/mobile-tekke-r1270.css','./css/mobile-tour-r1268.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
           if (url.origin!==location.origin||url.username||url.password||seenPaths.has(url.pathname)||!(runtime||navigationArt||cabirArt||rescuePage||introArt||currentArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;

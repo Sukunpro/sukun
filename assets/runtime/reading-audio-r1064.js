@@ -123,7 +123,7 @@
     if(patch.verse!==state.verse||patch.verseSync!==state.verseSync)change(patch,'native-verse');else state={...state,...patch};
    }:undefined;
    for(;;){
-    let r;try{r=await playRecording(recording.blob,'reading-r1064:'+entry.id,{detail:true,resume:false,recordingKey:recording.key,title:state.title,reason:sourceLabel(state.sourceKind),backgroundNative:true,generic:!!recording.generic,bundled:!!recording.bundled,preserveOriginal:!!recording.preserveOriginal,isCurrent:current,onProgress});}catch(_){r={ok:false,reason:'recording-failed'};}
+    let r;try{r=await playRecording(recording.blob,'reading-r1064:'+entry.id,{detail:true,resume:false,recordingKey:recording.key,title:state.title,reason:sourceLabel(state.sourceKind),backgroundNative:true,releaseFailedLease:true,generic:!!recording.generic,bundled:!!recording.bundled,preserveOriginal:!!recording.preserveOriginal,isCurrent:current,onProgress});}catch(_){r={ok:false,reason:'recording-failed'};}
     if(!current())return{ok:false,cancelled:true,reason:'stale-sequence'};
     const completed=r===true||r?.ok;
     if(state.phase==='paused'){
@@ -133,7 +133,7 @@
      if(!completed)continue;
     }
     if(completed){change({phase:'ended',progress:100},'recording-end');return{ok:true,source:'recording',origin:state.sourceKind,reason:'ended'};}
-    return failure('recording-required');
+    return failure('recording-playback-failed');
    }
   }
   // Arabic device speech is an explicit option, never a dependency of Auto.
