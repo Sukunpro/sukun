@@ -1,10 +1,10 @@
-# SÜKÛN r941 — AI bağlantıları
+# SÜKÛN r1272 — AI bağlantıları
 
 ## Sağlık testinin tam yeri
 
 **Üstteki dişli → Ayarlar ve araçlar → Sistem sağlığı → Sağlık denetimini çalıştır.**
 
-Alttaki **Araçlar** düğmesi de aynı menüyü açar. Bu görünür giriş r940 ve sonraki sürümlerdedir; eski r939 ekranda görünmeyebilir. Önce toplu paketi yükleyip **Uygulama r941 / SW r941** eşleşmesini doğrulayın.
+Alttaki **Araçlar** düğmesi de aynı menüyü açar. Web sürümünde uygulamanın ve çevrimdışı önbelleği yöneten servisin sürümünü burada görebilirsiniz.
 
 Sorun olduğu anda **Sorun şimdi oldu**, ardından **JSON Rapor** düğmesine dokunun. AI bağlantı hataları da aynı rapora sağlayıcı, model, hata kodu, süre ve kota bekleme bilgisiyle eklenir. Sağlık testi AI isteği göndermez ve API kotası harcamaz.
 
@@ -13,9 +13,9 @@ Sorun olduğu anda **Sorun şimdi oldu**, ardından **JSON Rapor** düğmesine d
 **Üstteki dişli → Ayarlar ve araçlar → AI bağlantıları.**
 
 1. İstediğiniz sağlayıcının hesap bağlantısını açıp kendi API anahtarınızı alın.
-2. Anahtarı ilgili alana yapıştırın. Sağlayıcı seçimi **Otomatik** ise yalnız anahtar eklediğiniz uygun bağlantılar sırayla denenir. Bir sağlayıcı seçerseniz yalnız o kullanılır.
-3. **Bağlantıları kaydet → Seçili bağlantıyı test et.** Otomatik seçimde yalnız sıradaki uygun sağlayıcı test edilir; bütün hesaplar arka arkaya taranmaz.
-4. Ayarları kapatıp AI isteğinizi yeniden başlatın. Kaydetmek özel metni otomatik yeniden göndermez.
+2. Anahtarı ilgili alana yapıştırın. **Otomatik** seçim bir OpenRouter anahtarı ister ve yalnız ücretsiz modelleri kullanır. Başka bir sağlayıcı kullanmak için adını listeden seçin.
+3. **Bağlantıları kaydet → Seçili bağlantıyı test et.** Otomatik seçimde OpenRouter test edilir.
+4. Ayarları kapatıp AI isteğinizi başlatın. Bağlantı testi sabit bir örnek metin gönderir. Uygulama, kişisel bir istek göndermeden önce her seferinde sağlayıcıyı gösterip onayınızı ister.
 
 Anahtar eksik veya reddedilmişse ayarlar açılır. Kota ve ağ hataları ayrı gösterilir; bunlarda geçerli anahtarı değiştirmeniz istenmez. API anahtarını sohbette veya ekran görüntüsünde paylaşmayın.
 
@@ -23,9 +23,9 @@ Anahtar eksik veya reddedilmişse ayarlar açılır. Kota ve ağ hataları ayrı
 
 | Sağlayıcı | Modeller | Kullanım koşulu |
 |---|---|---|
-| OpenRouter | `openrouter/free`: hizmette o anda kullanılabilen ücretsiz model havuzu | Anahtar ve kota var; ücretli modele otomatik geçiş yok |
+| OpenRouter | Ling 3.2 Flash (free), ücretsiz model havuzu ve ERNIE 5.5 Flash Preview (free) | Anahtar ve kota var; ücretli modele otomatik geçiş yok |
 | Groq | GPT-OSS 120B / 20B | Açık ağırlıklı modeller; ücretsiz plan kotası veya hesabınızdaki ücretli koşullar |
-| Gemini | Flash-Lite / Flash | Ücretsiz katman hesabınıza ve model erişimine bağlı |
+| Gemini | Gemini 4 Hydrogen, 3.8 Flash, 3.5 Flash-Lite, 3.6 Flash | Ücretsiz katman hesabınıza ve model erişimine bağlı |
 | Kimi / Moonshot | Kimi K2.6 / K3 | Ücretli API, bakiye ve hesap erişimi gerekir |
 | Anthropic | Claude Sonnet 5 | Mevcut ücretli bağlantı korunur |
 | NVIDIA | Nemotron 3 Super / Kimi K3 | Geliştirici denemesi; yalnız elle seçilir; kendi aracı servisinizi kurmanız gerekir |
@@ -52,9 +52,15 @@ Bir AI işlemi aynı anda yalnız tek istek zinciri açar. İstek başına gövd
 
 ## Doğrulama ve kaynaklar
 
-Sağlayıcı protokolleri ve hata akışları sahte HTTP yanıtlarıyla test edilmiştir. Gerçek API anahtarıyla canlı yanıt, bu paketin mobil tarayıcıda görünümü ve fiziksel ekran kilidi davranışı doğrulanmış sayılmaz. Canlı siteye otomatik dağıtım yapılmadı.
+Mobil Chromium’da bağlantı ayarlarını açma, anahtar kaydetme ve örnek yanıta ulaşma akışı denendi. Testte sağlayıcı yanıtı taklit edildi. Ücretsiz model listesi ve tarayıcı bağlantı izinleri sağlayıcıların canlı uç noktalarında kontrol edildi.
 
-27 Eylül 2026 tarihinde kontrol edilen resmî kaynaklar:
+26 Kasım 2026 tarihinde doğrulanan yeni model bağlantıları:
+
+- [Ling 3.2 Flash ücretsiz sürüm](https://openrouter.ai/inclusionai/ling-3.2-flash:free)
+- [ERNIE 5.5 Flash Preview ücretsiz sürüm](https://openrouter.ai/baidu/ernie-5.5-flash-preview:free)
+- [Gemini 4 Hydrogen](https://aistudio.google.com/docs/whats-new-gemini-4-hydrogen)
+
+Diğer sağlayıcı belgeleri:
 
 - [OpenRouter ücretsiz yönlendirici](https://openrouter.ai/docs/guides/routing/routers/free-router)
 - [OpenRouter sınırları](https://openrouter.ai/docs/api_reference/limits)

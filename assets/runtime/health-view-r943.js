@@ -292,6 +292,13 @@
     }
     if(code==='RECORDING_CONTINUITY')return continuityView(e).detail;
     if(code==='RECORDING_INSPECTION')return inspectionView(e).detail;
+    if(code==='SW_RESPONSE'&&e.reason==='CHANNEL_UNAVAILABLE')return T('Çevrimdışı motorla iletişim kurulamadı.','Could not communicate with the offline engine.');
+    if(code==='SW_RESPONSE'&&e.reason==='CHECK_FAILED')return T('Çevrimdışı motor önbellek denetimini tamamlayamadı.','The offline engine could not finish checking its cache.');
+    if(code==='PERSISTENCE'&&e.error&&e.stores){
+      if(e.stores.device)return T('Son durum cihaza kaydedildi. Sekmeye özel kopya yazılamadı.','The last status was saved on the device. Its tab-specific copy could not be saved.');
+      if(e.stores.session)return T('Son durum bu sekmeye kaydedildi. Cihazda kalıcı kopya yazılamadı.','The last status was saved in this tab. Its device copy could not be saved.');
+      return T('Son durum kaydedilemedi.','The last status could not be saved.');
+    }
     if(code==='SW_OPERATION'&&e.errorCode==='CACHE_WRITE_FAILED')return T('Tarayıcı güncellemeyi çevrimdışı kullanım için kaydedemedi.','The browser could not save the update for offline use.');
     if(code==='SW_OPERATION')return e.error || e.phase==='error'?T('Çevrimdışı motorun bir işlemi tamamlanamadı. Bu, çalışan önbelleğin bozuk olduğu anlamına gelmez. Ayrıntısı teknik raporda bulunur.','An offline engine operation did not complete. This does not mean the running cache is corrupted. The technical report contains details.'):T('Çevrimdışı motorun son işlemi gözlendi. Bu gözlem yeni bir ağ testi değildir.','The latest offline engine operation was observed. This observation is not a new network test.');
     if(code==='PRESENTATION') {
@@ -547,7 +554,8 @@
     if(navigator.onLine===false){state.feedback=T('AI için internet bağlantısı gerekir. Yerel açıklama hazır.');render(panel,state.report);return false;}
     const router=window.SukunAIRouter;
     if(typeof router?.complete!=='function'){state.feedback=T('AI bağlantı modülü hazır değil. Yerel özet kullanılabilir.');render(panel,state.report);return false;}
-    if(router.hasAnyKey?.()!==true){state.feedback=T(AI_ERRORS.MISSING_KEY);router.openSettings?.(state.feedback);render(panel,state.report);return false;}
+    const configured = typeof router.hasSelectedKey==='function' ? router.hasSelectedKey() : router.hasAnyKey?.();
+    if(configured!==true){state.feedback=T(AI_ERRORS.MISSING_KEY);router.openSettings?.(state.feedback);render(panel,state.report);return false;}
     const latest=state.api.read();if(reportKey(latest)!==state.preview.key){invalidate(state);state.feedback=T('Sonuçlar değişti. Gönderilecek özeti yeniden aç.');navigate(panel,state,'explain');return false;}
     const preview=state.preview,job={controller:new AbortController(),key:preview.key,cancelled:false,timer:0,reject:null};
     state.job=job;state.answer='';state.provider='';state.feedback=T('Kısa teknik özet açıklanıyor. Bu işlem testleri yeniden çalıştırmaz.');state.revision++;render(panel,latest);

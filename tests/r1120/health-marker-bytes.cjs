@@ -57,9 +57,15 @@ async function test(name,fn){try{results.push({name,passed:true,evidence:await f
   return {exactPaths:names.length,rejectedVariants:names.length*3};
  });
  await test('Exact mobile layout assets verify without broadening CSS trust',async()=>{
-  const names=['mobile-panels','mobile-tekke','mobile-tour'].map(n=>'css/'+n+'-r1268.css');
-  if(!marker.runtime.some(e=>e.url.split('?')[0]==='./'+names[0]))return {notApplicable:build};
-  const entries=names.map(n=>marker.runtime.find(e=>e.url.split('?')[0]==='./'+n));assert(entries.every(Boolean));
+  const revision=Number(build.slice(1));
+  if(revision<1268)return {notApplicable:build};
+  const tekke=revision>=1270?'css/mobile-tekke-r1270.css':'css/mobile-tekke-r1268.css';
+  const names=['css/mobile-panels-r1268.css',tekke,'css/mobile-tour-r1268.css'];
+  const entries=names.map(name=>{
+   const entry=marker.runtime.find(e=>e.url.split('?')[0]==='./'+name);
+   assert(entry,'Mandatory mobile stylesheet is present: '+name);
+   return entry;
+  });
   const valid=await run(Buffer.from(JSON.stringify({...marker,runtime:entries})));
   assert.equal(valid.result.status,'PASS');assert.equal(valid.result.evidence.matched,names.length);assert.equal(valid.calls.length,names.length+1);
   const invalid=['./css/mobile-lookalike-r1268.css','./nested/'+names[0],'https://evil.invalid/sukun/'+names[0]].map(url=>({...entries[0],url}));

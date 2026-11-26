@@ -42,6 +42,7 @@
   'generic-recording-unavailable':['Seçilen içerikle eşleşen jenerik kayıt bulunamadı. Başka ses kaynağı seç.','No generic recording matches the selected content. Choose another audio source.'],
   'source-language-mismatch':['Bu ses kaynağı seçilen içerikle aynı dilde değil. Uygun cihaz sesi veya kayıt seç.','This audio source does not match the selected content language. Choose a suitable device voice or recording.'],
   'recording-content-mismatch':['Bu kayıt seçilen özgün metne veya anlama ait değil; kullanılmadı.','This recording does not contain the selected original text or meaning and was not used.'],
+  'recording-playback-failed':['Ses kaydı oynatılamadı. Dinleme düğmesine tekrar dokun.','The recording could not play. Tap Listen again.'],
   'recording-content-unknown':['Kaydın özgün metne mi anlama mı ait olduğu belirsiz; bu açık seçimde kullanılmadı.','It is unknown whether this recording contains the original text or meaning; it was not used for this explicit choice.']
  };
  reasons['arabic-audio-unavailable']=['Gömülü Arapça kayıt bulunamadı. Otomatik dinle ile mevcut kayıtlarını veya isteğe bağlı Arapça cihaz sesini seç.','No bundled Arabic recording is available. Use Listen automatically for existing recordings, or choose the optional Arabic device voice.'];

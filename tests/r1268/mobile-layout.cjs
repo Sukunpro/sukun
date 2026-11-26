@@ -98,6 +98,8 @@ async function checkWords(page, selector, minLabels) {
       typeof document.getElementById('obSkip').onclick === 'function' && !window.SukunInteractionGateR732?.active());
     await page.locator('#obSkip').tap();
     await page.locator('#onboardCard').waitFor({state: 'hidden'});
+    assert.ok(await page.locator('.wrap > nav.tabs .tab.act').evaluate(tab => tab === document.activeElement),
+      'Closing the first tour returns keyboard focus to the active Classic tab');
     await page.locator('.wrap > nav.tabs [data-t="amb"]').click();
     const water = page.locator('#mixer [data-ambacc="su"]');
     if (!await water.evaluate(el => el.classList.contains('open'))) await water.locator('.preAccHead').click();
@@ -126,7 +128,23 @@ async function checkWords(page, selector, minLabels) {
     await page.reload({waitUntil: 'domcontentloaded'});
     await checkMode(page, 'simple', 'simple');
     await changeLayout(page, 'classic');
-    console.log('PASS: clean Classic/Feyz, saved layout round trip, 360/320 px labels at 100% and 200%, mixer icon and tab access');
+    await page.evaluate(() => window.SukunDiscoveryR1158.open('araclar'));
+    const backup = page.locator('#bakBox');
+    if (!await backup.evaluate(box => box.open)) await backup.locator('summary').click();
+    for (const width of [320, 360, 412]) {
+      await page.setViewportSize({width, height: 740});
+      await page.locator('#bakJournalImport').scrollIntoViewIfNeeded();
+      assert.ok(await backup.evaluate(box => {
+        const outer = box.getBoundingClientRect();
+        return box.scrollWidth <= box.clientWidth + 1 &&
+          [...box.querySelectorAll('.bakRow :is(label, select, button)')].every(control => {
+            const rect = control.getBoundingClientRect();
+            const targetFits = control.tagName === 'LABEL' || rect.height >= 44;
+            return targetFits && rect.width > 0 && rect.left >= outer.left - 1 && rect.right <= outer.right + 1;
+          });
+      }), 'Every backup control fits the ' + width + 'px viewport');
+    }
+    console.log('PASS: Classic/Feyz, 320–412px journal controls, first-tour focus, saved layout, 200% labels, mixer icon and tabs');
   } finally {
     await browser.close();
   }
