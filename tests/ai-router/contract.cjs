@@ -183,6 +183,32 @@ test('An offline adaptive session uses the local queue action with and without a
   assert.equal(settings,0);assert.equal(posts,0);assert.equal(items[0],before[0]);assert.equal(items[1].b,7.8);
  }
 });
+test('Online adaptation sends user feedback and bounded step settings without personal labels or identifiers',async()=>{
+ const engine=source.match(/<script id="r340-adaptive-engine">([\s\S]*?)<\/script>/)[1];
+ const feedback='Kalan bölümü koşullarıma göre uyarla.';
+ const items=[
+  {type:'silence',ms:60000},
+  {type:'frequency',b:7.8,ms:120000,label:'PRIVATE_FREQUENCY'},
+  {type:'ambience',ids:['PRIVATE_AUDIO_ID'],label:'PRIVATE_AUDIO_NAME'},
+  {type:'zikir',cat:'terkip',idx:3,label:'PRIVATE_TERKIP_NAME',reps:33},
+  {type:'zikir',cat:'berhet',idx:0,label:'PRIVATE_VAULT',reps:99},
+  {type:'PRIVATE_UNKNOWN_TYPE',label:'PRIVATE_TEXT'},
+  {type:'breath',breathId:'PRIVATE_BREATH',ms:'PRIVATE_DURATION'},
+  {type:'frequency',b:9999,ms:99999999}
+ ];
+ for(const unlocked of [false,true]){
+  let request;
+  const c=vm.createContext({document:{readyState:'loading',addEventListener(){},getElementById:()=>null},navigator:{onLine:true},
+   window:{GlobalQueue:{getState:()=>({items,index:0})},SukunSecretPolicy:{unlocked:()=>unlocked,containsSecretText:text=>text==='PRIVATE_VAULT'},
+    SukunAIRouter:{hasSelectedKey:()=>true,complete:async value=>{request=value;return {text:'{"action":"keep"}'}}}}});
+  vm.runInContext(engine,c);
+  assert.equal(await c.window.SukunAdaptiveSession.adaptText(feedback),true);
+  assert.ok(request.user.includes(feedback));
+  assert.doesNotMatch(request.user,/PRIVATE_|berhet/);
+  const summary=request.user.split('Kalan seans:\n')[1].split('\nJSON:')[0].split('\n').map(line=>JSON.parse(line));
+  assert.deepEqual(summary,[{type:'frequency',duration_min:2,beat_hz:7.8},{type:'ambience'},{type:'zikir',reps:33},{type:'breath'},{type:'frequency'}]);
+ }
+});
 test('Keep, unknown and ambiguous feedback preserves the exact session; action labels match in TR/EN',async()=>{
  const engine=source.match(/<script id="r340-adaptive-engine">([\s\S]*?)<\/script>/)[1];
  const queue=[{type:'silence',ms:5000},{type:'frequency',c:180,b:10,ms:10000,mode:'bin'}];
