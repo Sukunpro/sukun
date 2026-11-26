@@ -516,13 +516,113 @@
     if (!lastMessage) lastMessage = text('Önce Kurtarma Merkezi işlemini tamamla veya uygulamayı yeniden aç.', 'Finish the Recovery Centre operation or reload the app first.');
     if (operation || !openEmergency()) render();
   }, true);
+  // Each journal is one localStorage key. Planning a single replacement keeps
+  // section imports atomic under a storage quota error or interrupted tab.
+  function planJournal(key, incoming, current) {
+    const limits = {'sukun.log':100, 'sukun.muhasebe':91, 'sukun.maneviGunluk':300, 'tekke.defter':400};
+    const invalid = () => err('journal-data-invalid', 'Defter kayıtları doğrulanamadı. Dosyayı ve cihazdaki kayıtları kontrol et.', 'Journal entries could not be verified. Check the file and the journal on this device.');
+    if (!own(limits, key)) throw invalid();
+    const daily = key === 'sukun.muhasebe';
+    const entries = value => daily ? object(value) && Object.entries(value) : Array.isArray(value) && value.map(row => [Number(row?.t), row]);
+    const before = entries(current), source = entries(incoming);
+    if (!before || !source || before.length > limits[key] || source.length > limits[key]) throw invalid();
+    const byId = new Map(), result = daily ? Object.create(null) : [];
+    let added = 0, kept = 0, privateSkipped = 0;
+    for (const [id, row] of before) {
+      if (!object(row) || (!daily && !Number.isSafeInteger(id))) throw invalid();
+      if (daily) result[id] = row; else result.push(row);
+      byId.set(id, true);
+    }
+    const validTime = t => Number.isSafeInteger(t) && t > 0 && t <= Date.now() + 86400000;
+    for (const [id, row] of source) {
+      if (!object(row) || (!daily && !validTime(id))) throw invalid();
+      let clean;
+      if (daily) {
+        const day = new Date(id);
+        if (!Number.isFinite(day.getTime()) || (day.toDateString() !== id && !/^\d{4}-\d\d-\d\d$/.test(id)) ||
+            !Number.isInteger(row.i) || row.i < 0 || row.i > 6 || !Array.isArray(row.sel) || row.sel.length > 100 ||
+            !row.sel.every(i => Number.isInteger(i) && i >= 0) || (row.t != null && !validTime(Number(row.t)))) throw invalid();
+        clean = muhTemizle({[id]: {...row, t: row.t ?? day.getTime()}})[id];
+        if (!clean || clean.sel.length !== new Set(row.sel).size) throw invalid();
+      } else if (key === 'sukun.log') {
+        const policy = window.SukunSecretPolicy;
+        if (typeof policy?.secretLog !== 'function') throw invalid();
+        if (policy.secretLog(row)) { privateSkipped++; continue; }
+        clean = logTemizle([row], 1)[0];
+      } else if (key === 'tekke.defter') {
+        clean = tekkeDefterTemizle([row], 1)[0];
+      } else {
+        if (typeof row.not !== 'string' || !row.not.trim() || row.not.length > 4000 ||
+            (row.alan != null && (typeof row.alan !== 'string' || row.alan.length > 80)) ||
+            (row.konu != null && (typeof row.konu !== 'string' || row.konu.length > 120))) throw invalid();
+        clean = {t:id, alan:row.alan || '', konu:row.konu || '', not:row.not};
+      }
+      if (!clean) throw invalid();
+      if (byId.has(id)) { kept++; continue; }
+      byId.set(id, true); added++;
+      if (daily) result[id] = clean; else result.push(clean);
+    }
+    if (before.length + added > limits[key]) throw err('journal-capacity', 'Birleşik kayıt sayısı defterin sınırını aşıyor. İki kopyayı da sakla.', 'The combined records exceed the journal capacity. Keep both copies.');
+    if (!daily && added) result.sort((a,b) => key === 'sukun.maneviGunluk' ? b.t-a.t : a.t-b.t);
+    return {result, added, kept, privateSkipped};
+  }
+
+  async function importJournal(file, key) {
+    return maintenance('import-journal', async lease => {
+      if (!(file instanceof Blob) || !file.size || file.size > LIMIT.file) throw err('file-invalid', 'Yedek dosyası boş veya çok büyük.', 'The backup file is empty or too large.');
+      const data = JSON.parse(await file.text());
+      assertion(lease);
+      if (!object(data) || data.app !== 'SUKUN' || ![undefined,1,2].includes(data.fmt) || !object(data.ls))
+        throw err('format-unsupported', 'Bir Sükûn JSON yedeği seç.', 'Choose a Sükûn JSON backup.');
+      if (own(data,'recovery')) {
+        if (!window.SukunRecordingSalvage?.validateNativeJSON) throw err('verifier-unavailable', 'Yedek doğrulayıcı hazır değil.', 'The backup verifier is unavailable.');
+        await window.SukunRecordingSalvage.validateNativeJSON(data,{assertCurrent:() => assertion(lease)});
+      }
+      if (!own(data.ls,key)) throw err('section-missing', 'Seçilen defter bu dosyada bulunmuyor.', 'This file does not contain the selected journal.');
+      const raw = data.ls[key];
+      if (typeof raw !== 'string' || raw.length > LIMIT.setting) throw err('settings-invalid', 'Defter verisi geçersiz.', 'Invalid journal data.');
+      const incoming = JSON.parse(raw);
+      await singleClient(lease);
+      const existing = localStorage.getItem(key);
+      const plan = planJournal(key, incoming, existing === null ? (key === 'sukun.muhasebe' ? {} : []) : JSON.parse(existing));
+      assertion(lease);
+      if (plan.added) {
+        localStorage.setItem(key, JSON.stringify(plan.result));
+        window.dispatchEvent(new CustomEvent('sukun:journal-restored', {detail:{key}}));
+      }
+      return {added:plan.added, kept:plan.kept, privateSkipped:plan.privateSkipped};
+    });
+  }
+
+  function bindJournalImport() {
+    const button = document.getElementById('bakJournalImport'), picker = document.getElementById('bakJournalFile');
+    if (!button || !picker) return;
+    const status = document.getElementById('bakJournalResult'), select = document.getElementById('bakJournalType');
+    button.onclick = () => picker.click();
+    picker.onchange = async () => {
+      const file = picker.files?.[0]; picker.value = '';
+      if (!file) return;
+      button.disabled = true;
+      status.textContent = text('Defter okunuyor…', 'Reading journal…');
+      try {
+        const r = await importJournal(file, select.value);
+        status.textContent = text('Eklenen kayıt: '+r.added+' · Mevcut: '+r.kept+' · Kilitli: '+r.privateSkipped,
+          'Added: '+r.added+' · Already present: '+r.kept+' · Locked: '+r.privateSkipped);
+        if (typeof bakStatRender === 'function') bakStatRender();
+      } catch (e) {
+        status.textContent = text('Defter yüklenemedi. ', 'Journal import failed. ') + message(e);
+      } finally { button.disabled = false; }
+    };
+  }
+
   const api = {
-    version: 'r1020', create, list, restore, undo, export: exportPersonal, import: importPersonal, recoverPending, rescuePending: recoverPending, ackPending, pendingInfo, capturePortable,
+    version: 'r1020', create, list, restore, undo, export: exportPersonal, import: importPersonal, recoverPending, rescuePending: recoverPending, ackPending, pendingInfo, capturePortable, importJournal,
     hasPending: () => pending || needsReload, cancel: () => { if (operation) operation.cancelled = true; render(); },
     status: () => ({ version: 'r1020', pending, busy: !!operation, operation: operation?.kind || null, reloadRequired: needsReload, error: readyError, maxPoints: MAX_POINTS, automaticReplay: false, exactRestoreEnabled: false }), mount, open: openEmergency
   };
   window.SukunRecoveryData = Object.freeze(api);
   const boot = async () => {
+    bindJournalImport();
     mount();
     try {
       const journal = await getMeta('journal');

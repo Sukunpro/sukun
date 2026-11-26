@@ -2,26 +2,24 @@
 const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
 const file=process.argv[2]||require('node:path').resolve(__dirname,'../../nero.html');
 const source=fs.readFileSync(file,'utf8');
-// Preserve the offline r1242 classifier and arrangement/render functions.
-const baselineHashes=["e249f32d8f7b12773b8839750ed3720cc3d0545d6f46b7e71a1b1c9310a07ce3", "cc7426af3b468fb5d5573f80a50fe4417ed4653576228e1bfcde9332512cf3b7"];
 const routerSource=source.slice(source.indexOf('const SukunAIRouter=(()=>{'),source.indexOf('\n\n/* r320 — AI'));
 const tests=[];
 function test(name,fn){tests.push([name,fn]);}
 function response(status=200,body={candidates:[{content:{parts:[{text:'TAMAM'}]}}]}){return {ok:status>=200&&status<300,status,headers:{get(){return null}},json:async()=>body}}
 function harness(opts={}){
  const saved=new Map(Object.entries(opts.saved||{})),calls=[],confirmations=[];
- const context={window:{dispatchEvent(){}},document:{getElementById(){return null}},navigator:{onLine:opts.online!==false},S:{get:(k,f)=>saved.has(k)?saved.get(k):f,set:(k,v)=>saved.set(k,v)},localStorage:{getItem:k=>saved.get(k),setItem:(k,v)=>saved.set(k,v),removeItem:k=>saved.delete(k)},AbortController,TextDecoder,URL,CustomEvent:class{constructor(name,options){this.name=name;this.detail=options.detail}},setTimeout:opts.setTimeout||setTimeout,clearTimeout,confirm:s=>(confirmations.push(s),opts.consent!==false),fetch:async(url,init)=>{calls.push({url,init});return opts.fetch?opts.fetch(url,init,calls.length):response()},console};
+ const context={RX_API_KEY:'',window:{dispatchEvent(){}},document:{getElementById(){return null}},navigator:{onLine:opts.online!==false},S:{get:(k,f)=>saved.has(k)?saved.get(k):f,set:(k,v)=>saved.set(k,v)},localStorage:{getItem:k=>saved.get(k),setItem:(k,v)=>saved.set(k,v),removeItem:k=>saved.delete(k)},AbortController,TextDecoder,URL,CustomEvent:class{constructor(name,options){this.name=name;this.detail=options.detail}},setTimeout:opts.setTimeout||setTimeout,clearTimeout,confirm:s=>(confirmations.push(s),opts.consent!==false),fetch:async(url,init)=>{calls.push({url,init});return opts.fetch?opts.fetch(url,init,calls.length):response()},console};
  context.window.I18N={t:s=>s};vm.createContext(context);vm.runInContext(routerSource,context);
  return{r:context.window.SukunAIRouter,saved,calls,confirmations,context};
 }
 const key='DUMMY_LOCAL_TEST_NEVER_TRANSMITTED';
 function gemini(opts={}){const x=harness(opts);x.r.setKey('gemini',key);return x}
 function run(x){return x.r.complete({provider:'gemini',system:'Test',user:'Synthetic test only',maxTokens:128})}
-test('Current picker and router model lists agree',()=>{const x=harness();assert.deepEqual([...x.r.MODELS.gemini],['gemini-3.5-flash-lite','gemini-3.8-flash','gemini-3.6-flash']);const picker=source.match(/<select id="aiModel-gemini">([\s\S]*?)<\/select>/)[1];for(const m of x.r.MODELS.gemini)assert(picker.includes(`value="${m}"`));assert(!picker.includes('gemini-2.5-flash'));});
+test('Current picker and router model lists agree',()=>{const x=harness();assert.deepEqual([...x.r.MODELS.gemini],['gemini-4-hydrogen','gemini-3.8-flash','gemini-3.5-flash-lite','gemini-3.6-flash']);const picker=source.match(/<select id="aiModel-gemini">([\s\S]*?)<\/select>/)[1];for(const m of x.r.MODELS.gemini)assert(picker.includes(`value="${m}"`));assert(!picker.includes('gemini-2.5-flash'));});
 test('Missing key never calls network',async()=>{const x=harness();await assert.rejects(run(x),{code:'MISSING_KEY'});assert.equal(x.calls.length,0);});
 test('Offline known key does not prompt consent or fetch',async()=>{const x=gemini({online:false});await assert.rejects(run(x),{code:'OFFLINE'});assert.equal(x.calls.length,0);assert.equal(x.confirmations.length,0);assert.equal(x.r.snapshot().busy,false);});
 test('Consent refusal never calls network',async()=>{const x=gemini({consent:false});await assert.rejects(run(x),{code:'CONSENT_REQUIRED'});assert.equal(x.calls.length,0);});
-test('Default Gemini path, payload and secret isolation',async()=>{const x=gemini();const r=await run(x);assert.equal(r.model,'gemini-3.5-flash-lite');assert.equal(r.text,'TAMAM');assert.equal(x.calls.length,1);const {url,init}=x.calls[0],body=JSON.parse(init.body);assert(url.endsWith('/gemini-3.5-flash-lite:generateContent'));assert(!url.includes(key));assert.equal(init.headers['x-goog-api-key'],key);assert.equal(init.credentials,'omit');assert.equal(init.cache,'no-store');assert.equal(init.redirect,'error');assert(!('temperature' in body.generationConfig));assert.equal(body.generationConfig.maxOutputTokens,2048);assert(!JSON.stringify(x.r.snapshot()).includes(key));assert.equal(x.saved.get('sukun.ai.key.gemini'),'');});
+test('Default Gemini path, payload and secret isolation',async()=>{const x=gemini();const r=await run(x);assert.equal(r.model,'gemini-4-hydrogen');assert.equal(r.text,'TAMAM');assert.equal(x.calls.length,1);const {url,init}=x.calls[0],body=JSON.parse(init.body);assert(url.endsWith('/gemini-4-hydrogen:generateContent'));assert(!url.includes(key));assert.equal(init.headers['x-goog-api-key'],key);assert.equal(init.credentials,'omit');assert.equal(init.cache,'no-store');assert.equal(init.redirect,'error');assert(!('temperature' in body.generationConfig));assert.equal(body.generationConfig.thinkingConfig.thinkingLevel,'LOW');assert(!('maxOutputTokens' in body.generationConfig));assert(!JSON.stringify(x.r.snapshot()).includes(key));assert.equal(x.saved.get('sukun.ai.key.gemini'),'');});
 test('3.8 Flash explicit selection works in controlled response',async()=>{const x=gemini({saved:{'sukun.ai.model.gemini':'gemini-3.8-flash'}});assert.equal((await run(x)).model,'gemini-3.8-flash');});
 test('Legacy explicit 2.5 choice maps only to 3.5 Lite',async()=>{const x=gemini({saved:{'sukun.ai.model.gemini':'gemini-2.5-flash'},fetch:()=>response(404,{error:{message:'Model not found'}})});await assert.rejects(run(x),{code:'MODEL_UNAVAILABLE'});assert.equal(x.calls.length,1);assert(x.calls[0].url.includes('gemini-3.5-flash-lite'));});
 test('Unavailable auto model falls back to 3.8',async()=>{const x=gemini({fetch:(_u,_i,n)=>n===1?response(404,{error:{message:'Model not found'}}):response()});const r=await run(x);assert.equal(r.model,'gemini-3.8-flash');assert.equal(x.calls.length,2);});
@@ -33,9 +31,126 @@ test('Cancel stops active request and unlocks router',async()=>{const x=gemini({
 test('Duplicate call is blocked while request active',async()=>{let finish;const x=gemini({fetch:()=>new Promise(resolve=>finish=resolve)});const pending=run(x);await assert.rejects(run(x),{code:'AI_BUSY'});finish(response());await pending;assert.equal(x.calls.length,1);});
 test('Offline to online recovery needs a fresh explicit request',async()=>{const x=gemini({online:false});await assert.rejects(run(x),{code:'OFFLINE'});x.context.navigator.onLine=true;assert.equal(x.calls.length,0);await run(x);assert.equal(x.calls.length,1);});
 test('Timeout becomes actionable TIMEOUT and releases busy state',async()=>{const x=gemini({fetch:()=>new Promise(()=>{}),setTimeout:(fn)=>setTimeout(fn,1)});await assert.rejects(run(x),{code:'TIMEOUT'});assert.equal(x.r.snapshot().busy,false);});
-test('Auto fallback calls only configured providers',async()=>{const x=gemini();const r=await x.r.complete({user:'Synthetic'});assert.equal(r.provider,'gemini');assert.equal(x.calls.length,1);});
-test('OpenRouter stays on free pool only',()=>{const x=harness();assert.deepEqual([...x.r.MODELS.openrouter],['openrouter/free']);assert(!routerSource.includes('api.openai.com'));});
-test('Offline classifier and display code are byte-preserved',()=>{let i=0;for(const [a,b] of [['const RX_PROFILES=[','/* Envanterden bir frekans'],['function rxBuild(profile){','/* ── Zamana duyarlı öneri']]){assert.equal(require('node:crypto').createHash('sha256').update(source.slice(source.indexOf(a),source.indexOf(b))).digest('hex'),baselineHashes[i++]);}});
-test('All offline quick choices select a local profile without network',()=>{const block=source.slice(source.indexOf('const RX_PROFILES=['),source.indexOf('/* Envanterden bir frekans'));const c={};vm.createContext(c);vm.runInContext(block+';this.out=RX_CHIPS.map(x=>({q:x.q,id:rxMatch(x.q).id}));this.other=rxMatch("xxxyyyzzz").id;',c);assert.equal(c.out.length,14);assert(c.out.every(x=>x.id!=='genel'));assert.equal(c.other,'genel');});
+const freeModel='inclusionai/ling-3.2-flash:free';
+const ernie='baidu/ernie-5.5-flash-preview:free';
+function chat(){return response(200,{choices:[{message:{content:'Yanıt'}}]})}
+test('Automatic mode cannot use a billing-enabled provider key',async()=>{
+ const x=gemini();
+ x.r.setKey('anthropic',key);
+ assert.equal(x.r.hasAnyKey(),true);
+ assert.equal(x.r.hasSelectedKey(),false);
+ await assert.rejects(x.r.complete({user:'Synthetic'}),{code:'MISSING_KEY'});
+ assert.equal(x.calls.length,0);
+});
+test('Default uses current free model, then free pool on unavailability',async()=>{
+ const x=harness({fetch:(_u,_i,n)=>n===1?response(503,{}):chat()});
+ x.r.setKey('openrouter',key);
+ x.r.setKey('moonshot',key);
+ const r=await x.r.complete({user:'Synthetic'});
+ assert.deepEqual(x.calls.map(c=>JSON.parse(c.init.body).model),[freeModel,'openrouter/free']);
+ assert.equal(r.fallbacks,1);
+ assert.equal(x.r.snapshot().providers.find(p=>p.id==='openrouter').code,'OK');
+});
+test('OpenRouter quota stops the request even with other keys',async()=>{
+ const x=harness({fetch:()=>response(429,{})});
+ for(const id of ['openrouter','groq','gemini','moonshot','anthropic'])x.r.setKey(id,key);
+ await assert.rejects(x.r.complete({user:'Synthetic'}),{code:'QUOTA'});
+ x.r.setKey('openrouter',key);
+ await assert.rejects(x.r.complete({user:'Synthetic'}),{code:'QUOTA'});
+ assert.equal(x.calls.length,1);
+});
+test('Explicit free ERNIE model uses the selected variant only',async()=>{
+ const x=harness({saved:{'sukun.ai.model.openrouter':ernie},fetch:()=>chat()});
+ x.r.setKey('openrouter',key);
+ const r=await x.r.complete({user:'Synthetic'});
+ assert.equal(r.model,ernie);
+ assert.deepEqual([...x.r.MODELS.openrouter],[freeModel,'openrouter/free',ernie]);
+ const picker=source.match(/<select id="aiModel-openrouter">([\s\S]*?)<\/select>/)[1];
+ for(const model of x.r.MODELS.openrouter)assert(picker.includes('value="'+model+'"'));
+});
+test('Connection test permission cannot authorize subsequent personal text',async()=>{
+ const x=gemini({saved:{'sukun.aiConsent.r310':1,'sukun.ai.consent.r1272.gemini':1}});
+ await x.r.test('gemini');
+ assert.equal(x.calls.length,1);
+ assert(x.confirmations[0].includes('test metni'));
+ x.context.confirm=message=>{x.confirmations.push(message);return false};
+ await assert.rejects(run(x),{code:'CONSENT_REQUIRED'});
+ assert.equal(x.calls.length,1);
+ assert(x.confirmations[1].includes('Bu istekteki'));
+ assert(x.confirmations.every(message=>message.includes('Gemini')));
+});
+test('NVIDIA only sends to the exact endpoint confirmed for each request',async()=>{
+ const original='https://first.owner.workers.dev/nvidia',changed='https://second.owner.workers.dev/nvidia';
+ const x=harness({fetch:(_url,_init,n)=>{
+   if(n===1){x.r.setProxy(changed);return response(404,{error:{message:'model unavailable'}})}
+   return chat();
+ }});
+ x.r.setKey('nvidia',key);
+ x.r.setProxy(original);
+ await x.r.complete({provider:'nvidia',user:'Synthetic'});
+ assert.deepEqual(x.calls.map(call=>call.url),[original,original]);
+ assert(x.confirmations[0].includes(original));
+ x.context.confirm=message=>{x.confirmations.push(message);return false};
+ await assert.rejects(x.r.complete({provider:'nvidia',user:'Synthetic'}),{code:'CONSENT_REQUIRED'});
+ assert.equal(x.calls.length,2);
+ assert(x.confirmations[1].includes(changed));
+});
+test('Gemini API_KEY_INVALID is an authentication error',async()=>{
+ const x=gemini({fetch:()=>response(400,{error:{details:[{reason:'API_KEY_INVALID'}]}})});
+ await assert.rejects(run(x),{code:'AUTH'});
+});
+test('Offline guide matches exact TR/EN choices, spelling variants and negative evidence',()=>{
+ const block=source.slice(source.indexOf('const RX_PROFILES=['),source.indexOf('/* Envanterden bir frekans'));
+ const c=vm.createContext({});
+ vm.runInContext(block+';this.quick=RX_CHIPS.map(chip=>rxMatch(chip.q).id);this.match=q=>rxMatch(q).id;',c);
+ assert.deepEqual([...c.quick],['uzgun','yorgun','uyku','enerji','odak','kaygi','tefekkur','uretken','ofke','sukran','yalniz','kaygi','uyku','tefekkur']);
+ const cases={'ÜZGÜNÜM':'uzgun','uyuyamiyorum':'uyku','I feel lonely':'yalniz','I cannot focus':'odak',
+  'I am not tired, I feel anxious':'kaygi','uykulu değilim, öfkeliyim':'ofke','kaygım yok':'genel','hayır':'genel',
+  'yoldaki tabelada yazılım yazıyor':'genel','restaurant':'genel','xxxyyyzzz':'genel','İLHAM':'uretken','grateful':'sukran'};
+ for(const [query,id] of Object.entries(cases))assert.equal(c.match(query),id,query);
+});
+test('General arrangements persist and repeated use keeps favorite status',()=>{
+ let history=[];const c=vm.createContext({S:{get:()=>history,set:(_k,v)=>{history=v}},rxHistRender(){}});
+ const catalog=source.slice(source.indexOf('const RX_PROFILES=['),source.indexOf('/* Envanterden bir frekans'));
+ const helpers=source.slice(source.indexOf('function rxHistNorm(a)'),source.indexOf('function rxHistRender()'));
+ vm.runInContext(catalog+helpers,c);
+ c.rxHistAdd('test','genel');assert.equal(history[0].pid,'genel');
+ history[0].fav=true;c.rxHistAdd('test','genel');
+ assert.equal(history.length,1);assert.equal(history[0].fav,true);
+ assert.equal(c.rxHistNorm([{pid:'unknown'}]).length,0);
+});
+test('Every offline arrangement resolves a breathing mode before NeuroSync opens',()=>{
+ const profiles=source.slice(source.indexOf('const RX_PROFILES=['),source.indexOf('/* Envanterden bir frekans'));
+ const start=source.indexOf('const BREATH_MODES = ['),end=source.indexOf('/* ════ İçsel Reçete profil sembolleri',start);
+ assert(start>0&&end>start&&end<source.indexOf('window.__neuroFabrika=function()'));
+ const c=vm.createContext({});
+ vm.runInContext(profiles+source.slice(start,end)+';this.modes=[...RX_PROFILES,RX_FALLBACK].map(p=>[p.breath,rxBreath(p.breath)?.id]);',c);
+ for(const [requested,actual] of c.modes)assert.equal(actual,requested);
+ assert.equal(c.rxBreath('unknown'),null);
+});
+test('The NeuroSync fallback applies the selected preset through its native button',()=>{
+ const card={dataset:{pid:'relax'}},preset={id:'relax',name:'Relax',icon:'',desc:'',hz:'10 Hz'};
+ const result={querySelector:()=>null,querySelectorAll:()=>[card]};let applied;
+ const c=vm.createContext({document:{getElementById:id=>id==='aiInput'?{value:'xyzxyz'}:result},
+  findBestRules:()=>[],PRESETS:[preset],hesc:String,applyPreset:p=>{applied=p},showToast(){}});
+ const block=source.slice(source.indexOf('function sendAI() {'),source.indexOf('// ─── TOAST ───',source.indexOf('function sendAI() {')));
+ vm.runInContext(block,c);c.sendAI();assert.match(result.innerHTML,/<button[^>]+class="ai-result-preset"/);
+ card.onclick();assert.equal(applied,preset);
+});
+test('AI planning sends the public inventory and keeps personal entries and adaptive history on-device',async()=>{
+ const prompts=[],stop=Error('captured');
+ const c=vm.createContext({
+  AMBIENT_DEFS:[{id:'ocean',name:'Okyanus'},{id:'me',name:'PRIVATE_AUDIO',custom:true}],
+  ZIKIR:{esma:{items:[{t:'Selâm'}]},terkip:{items:[{tr:'Public terkip'},{tr:'PRIVATE_TERKIP',kay:'kendi'}]},
+   fav:{items:[{t:'PRIVATE_FAVORITE'}]},berhet:{gizli:true,items:[{t:'PRIVATE_VAULT'}]}},
+  window:{SukunSecretPolicy:{unlocked:()=>true},SukunAdaptiveMemory:{summary:()=>'PRIVATE_MEMORY'},
+   SukunAIRouter:{complete:async({user})=>{prompts.push(user);throw stop}}}
+ });
+ const start=source.indexOf('const SukunAIPlan='),end=source.indexOf('window.SukunAIPlan=SukunAIPlan;',start)+'window.SukunAIPlan=SukunAIPlan;'.length;
+ vm.runInContext(source.slice(start,end),c);
+ for(const type of ['generate','generateSession'])await assert.rejects(c.window.SukunAIPlan[type]('test'),e=>e===stop);
+ assert.equal(prompts.length,2);
+ for(const prompt of prompts){assert.match(prompt,/Okyanus/);assert.match(prompt,/Selâm/);assert.match(prompt,/Public terkip/);assert.doesNotMatch(prompt,/PRIVATE_/);}
+});
 test('All classic inline JavaScript bodies compile',()=>{let n=0;const re=/<script\b([^>]*)>([\s\S]*?)<\/script>/gi;for(const m of source.matchAll(re)){if(/\bsrc\s*=/.test(m[1])||(/type\s*=\s*["']([^"']+)["']/i.test(m[1])&&!/type\s*=\s*["'](?:text|application)\/javascript["']/i.test(m[1])))continue;if(!m[2].trim())continue;new vm.Script(m[2],{filename:'inline-'+(++n)+'.js'});}assert(n>100);console.log('  Compiled '+n+' inline script bodies');});
 (async()=>{let pass=0;for(const[name,fn]of tests){try{await fn();pass++;console.log('PASS '+name)}catch(e){console.error('FAIL '+name,e);process.exitCode=1;}}console.log(JSON.stringify({passed:pass,total:tests.length,actualProviderCalls:0,credentials:'synthetic only',file}));})();

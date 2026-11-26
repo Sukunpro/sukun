@@ -20,7 +20,9 @@
   const referencePitches = Object.freeze({fork128:128, fork1361:136.1, fork256:256, fork384:384});
   let visibleLagMs = 0, lastIncidentAt = 0, lastPresentationSave = 0, mounted = null, dialog = null, priorFocus = null, tts = null, taps = null, checkpointTrimmed = 0;
   const safe = (fn, fallback = null) => { try { return fn() ?? fallback; } catch (_) { return fallback; } };
-  const finite = x => Number.isFinite(Number(x)) ? Number(x) : null;
+  const finite = x => (typeof x === 'number' || (typeof x === 'string' && x.trim() !== '')) && Number.isFinite(Number(x)) ? Number(x) : null;
+  const WORKER_STATUS_WAIT_MS = 15000; // The worker itself allows 12 seconds to hash its cached assets.
+  let checkpointStores = {session:false, device:false};
   const token = (x, max = 80) => String(x ?? '').replace(/[^A-Za-z0-9_.:+/-]/g, '').slice(0, max);
   const bool = x => x === true;
   const now = () => Date.now();
@@ -331,20 +333,30 @@
     }
     checkpointTrimmed = trimmed;
     if (new TextEncoder().encode(data).length > MAX_BYTES) { storageError = 'CheckpointTooLarge'; return; }
-    try { sessionStorage.setItem(KEY, data); localStorage.setItem(KEY, data); lastSaved = now(); storageError = ''; }
-    catch (error) { storageError = token(error?.name || 'StorageError'); }
+    storageError = '';
+    const write = store => {
+      try { window[store].setItem(KEY, data); return true; }
+      catch (error) { storageError = token(error?.name || 'StorageError'); return false; }
+    };
+    checkpointStores = {session:write('sessionStorage'), device:write('localStorage')};
+    if (checkpointStores.session || checkpointStores.device) lastSaved = now();
   }
   function loadPrevious() {
-    let raw = safe(() => sessionStorage.getItem(KEY)); previousScope = raw ? 'same-tab' : 'last-device-tab-unknown';
-    if (!raw) raw = safe(() => localStorage.getItem(KEY));
-    if (!raw || raw.length > MAX_BYTES) return;
-    const old = safe(() => JSON.parse(raw));
-    if (old?.schema !== SCHEMA || !Number.isFinite(old.at) || now() - old.at > 172800000 || old.at > now() + 60000) return;
+    function from(store) {
+      const raw = safe(() => window[store].getItem(KEY));
+      if (typeof raw !== 'string' || raw.length > MAX_BYTES) return null;
+      const item = safe(() => JSON.parse(raw));
+      return item?.schema === SCHEMA && Number.isFinite(item.at) && now() - item.at <= 172800000 && item.at <= now() + 60000 ? item : null;
+    }
+    const sameTab = from('sessionStorage'), old = sameTab || from('localStorage');
+    if (!old) return;
+    previousScope = sameTab ? 'same-tab' : 'last-device-tab-unknown';
+    const priorIncidents = Array.isArray(old.incidents) ? old.incidents.slice(-8).filter(x => x && typeof x.code === 'string') : [];
     previous = { at: old.at, build: token(old.build), reason: token(old.reason), closed: bool(old.closed), hidden: bool(old.hidden),
       session: old.session ? { phase: token(old.session.phase), count: finite(old.session.count), index: finite(old.session.index), mode: token(old.session.mode) } : null,
       sessionCommand:compactSessionCommand(old.sessionCommand),
-      incidentCodes: (Array.isArray(old.incidents) ? old.incidents : []).slice(-8).map(x => token(x.code)),
-      incidents: historic((Array.isArray(old.incidents) ? old.incidents : []).slice(-8)),
+      incidentCodes: priorIncidents.map(x => token(x.code)),
+      incidents: historic(priorIncidents),
       events: historic((Array.isArray(old.events) ? old.events : []).slice(-18)), background:historic(old.background), browserLifecycle:historic(old.browserLifecycle), presentation:compactPresentation(old.presentation), deviceCheck: compactDeviceCheck(old.deviceCheck) };
     if (!old.closed && /PLAYING|PREPARING|INTERRUPTED/.test(previous.session?.phase || ''))
       issue('PREVIOUS_UNCLOSED_SESSION', 'WARN', 'Önceki etkin oturumun kapanışı gözlenmedi',
@@ -584,7 +596,7 @@
       status('TEMPO_RANGE', tempo?.value == null ? 'NOT_MEASURED' : tempo.value >= .6 && tempo.value <= 6 ? 'PASS' : 'FAIL', 'Tempo yetkisi', tempo || {}),
       audioConsistency(voiceExpectation),
       status('DEVICE_AUDIO', 'NOT_MEASURED', 'Fiziksel hoparlör ve ekran kilidi doğrulaması', { reason: 'Tarayıcı olayları işitilebilir sesi veya işletim sistemi süreç sonlandırmasını ispatlamaz' }),
-      status('PERSISTENCE', storageError ? 'WARN' : lastSaved ? 'PASS' : 'NOT_MEASURED', 'Son durum kaydı', { lastSaved, error: storageError, trimmedRecords:checkpointTrimmed })];
+      status('PERSISTENCE', storageError ? 'WARN' : lastSaved ? 'PASS' : 'NOT_MEASURED', 'Son durum kaydı', { lastSaved, error: storageError, stores:checkpointStores, trimmedRecords:checkpointTrimmed })];
     if(sw)out.push(status('SW_OPERATION',sw.error || sw.phase==='error'?'WARN':'OBSERVED','Çevrimdışı motorun son işlemi',sw,
       sw.errorCode==='CACHE_WRITE_FAILED'?'Tarayıcı güncelleme dosyalarını çevrimdışı kullanım için kaydedemedi. Güncellemeyi yeniden deneyin.':sw.error || sw.phase==='error'?'Çevrimdışı motorun bir işlemi tamamlanamadı. Sayfa ve çalışan sürüm eşleşiyorsa ve temel dosyalar tamamsa bu, mevcut önbelleğin bozuk olduğunu göstermez. Bağlantı uygun olduğunda güncelleme denetimini yeniden deneyin; kayıtlarınızı silmeyin.':''));
     if(recordingPreparation)out.push(status('AUDIO_PREPARATION',recordingPreparation.audio?.decodeBlocked?'WARN':'OBSERVED','Kendi kayıt hazırlığı',recordingPreparation,
@@ -724,10 +736,12 @@
   function askWorker(worker) {
     if (!worker) return Promise.resolve(null);
     return new Promise(resolve => {
+      if (typeof MessageChannel !== 'function') { resolve({ unavailable:true }); return; }
       const channel = new MessageChannel(); let done = false;
       const finish = value => { if (done) return; done = true; clearTimeout(timer); channel.port1.close(); channel.port2.close(); resolve(value); };
-      const timer = setTimeout(() => finish({ timeout: true }), 2500);
-      channel.port1.onmessage = e => finish({ version: token(e.data?.v), complete: e.data?.complete ?? null, error: !!e.data?.error });
+      const timer = setTimeout(() => finish({ timeout: true }), WORKER_STATUS_WAIT_MS);
+      channel.port1.onmessage = e => finish({ version: token(e.data?.v), complete: !e.data?.checkFailed && typeof e.data?.complete === 'boolean' ? e.data.complete : null, checkFailed: e.data?.checkFailed === true });
+      channel.port1.onmessageerror = () => finish({ unavailable:true });
       try { worker.postMessage({ type: 'STATUS' }, [channel.port2]); } catch (_) { finish({ unavailable: true }); }
     });
   }
@@ -938,10 +952,15 @@
         // A reply belongs to the worker that answered, never to its successor.
         if (deep && navigator.serviceWorker?.controller === controller) {
           sw = { ...(sw || {}), app: build, hasController: !!controller, controller: answer?.version || '', complete: answer?.complete ?? null };
-          if (answer?.timeout) checks.push(status('SW_RESPONSE','WARN','Service Worker yanıt süresi',{timeoutMs:2500},'SW denetimi yanıt vermedi; eski sürüm veya yoğun iş yükünü inceleyin.'));
+          if (answer?.timeout || answer?.unavailable || answer?.checkFailed) {
+            const reason = answer.timeout ? 'TIMEOUT' : answer.checkFailed ? 'CHECK_FAILED' : 'CHANNEL_UNAVAILABLE';
+            checks.push(status('SW_RESPONSE','WARN','Çevrimdışı motorun denetimi',{reason,timeoutMs:WORKER_STATUS_WAIT_MS},'Çevrimdışı motorun denetimi tamamlanamadı. Biraz bekleyip yeniden deneyin.'));
+          }
         }
         if (navigator.storage?.estimate) {
-          try { const x = await bounded(navigator.storage.estimate()); checks.push(status('STORAGE_QUOTA',x.quota && x.usage/x.quota > .85 ? 'WARN' : 'OBSERVED','Depolama kullanım tahmini', {usage:finite(x.usage),quota:finite(x.quota)},'Alan daralıyorsa önce kullanıcı kayıtlarını yedekleyin; tanılama verileri silmez.')); }
+          try { const x = await bounded(navigator.storage.estimate()), usage=finite(x?.usage), quota=finite(x?.quota);
+            const measured = usage !== null && usage >= 0 && quota > 0;
+            checks.push(status('STORAGE_QUOTA',!measured?'NOT_MEASURED':usage/quota>.85?'WARN':'OBSERVED','Depolama kullanım tahmini', {usage,quota},'Alan daralıyorsa önce kullanıcı kayıtlarını yedekleyin; tanılama verileri silmez.')); }
           catch (_) { checks.push(status('STORAGE_QUOTA','NOT_MEASURED','Depolama kullanım tahmini',{reason:'unavailable-or-timeout'})); }
         }
         if (deep) checks.push(await integrityCheck());

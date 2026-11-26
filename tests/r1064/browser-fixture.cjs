@@ -41,9 +41,13 @@ async function fixture(root,{width=390,height=844,voices='both',seed={},hasTouch
   HTMLMediaElement.prototype.play=function(...args){mediaLog.push({op:'play',...mediaIdentity(this),at:Date.now()});return originalPlay.apply(this,args)};
   HTMLMediaElement.prototype.pause=function(...args){mediaLog.push({op:'pause',...mediaIdentity(this),at:Date.now()});return originalPause.apply(this,args)};
  },{voices,seed});
- const page=await context.newPage();page.setDefaultTimeout(10000);page.on('pageerror',e=>errors.push(e.stack||e.message));page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text())});
+ const page=await context.newPage();
+ page.setDefaultTimeout(10000);
+ // Cold-cache reloads serve the same full bundle as the initial navigation.
+ page.setDefaultNavigationTimeout(60000);
+ page.on('pageerror',e=>errors.push(e.stack||e.message));page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text())});
  page.on('requestfailed',r=>{if(r.url().startsWith(origin))failed.push({url:r.url(),error:r.failure()?.errorText})});
- await page.goto(origin+'/nero.html',{waitUntil:'load',timeout:60000});
+ await page.goto(origin+'/nero.html',{waitUntil:'load'});
  try{await page.waitForFunction(()=>!!window.SukunVoiceSettings&&!!window.SukunVoiceResolver&&!!window.SukunSessionState,null,{timeout:15000})}
  catch(error){const state=await page.evaluate(()=>({ready:document.readyState,voice:!!window.SukunVoiceSettings,resolver:!!window.SukunVoiceResolver,session:!!window.SukunSessionState}));await context.close();await browser.close();await new Promise(resolve=>server.close(resolve));throw Error(error.message+'; '+JSON.stringify({state,errors,consoleErrors,failed}))}
  await page.waitForTimeout(2200);

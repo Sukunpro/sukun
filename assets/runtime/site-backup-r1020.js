@@ -35,11 +35,11 @@
  }
  function validateManifest(value,release){
   if(value?.schema!==1||value.build!==release.build||!Array.isArray(value.files)||!value.files.length||value.files.length>MAX_FILES)throw fail('SITE_MANIFEST_INVALID');
-  let total=0,largest=0;const paths=new Set();
+  let total=0;const paths=new Set();
   for(const entry of value.files){
    safePath(entry?.path);
    if(paths.has(entry.path)||[release.manifest,release.personal,'recovery/OKU_README.txt'].includes(entry.path)||!Number.isSafeInteger(entry.bytes)||entry.bytes<0||entry.bytes>FILE_LIMIT||!/^[a-f0-9]{64}$/.test(entry.sha256||''))throw fail('SITE_MANIFEST_INVALID');
-   paths.add(entry.path);total+=entry.bytes;largest=Math.max(largest,entry.bytes);
+   paths.add(entry.path);total+=entry.bytes;
   }
   if(!Number.isSafeInteger(total)||total!==value.totalBytes||total>LIMIT)throw fail('SITE_MEMORY_LIMIT');
   for(const required of ['index.html','nero.html','sw.js','manifest.webmanifest',release.marker,COMPONENT,'sukun-latest.json','LICENSE'])if(!paths.has(required))throw fail('SITE_MANIFEST_INCOMPLETE',required);
@@ -58,7 +58,17 @@
    const path=decodeURIComponent(url.pathname.slice(base().pathname.length));
    if(!paths.has(path))throw fail('SITE_MANIFEST_INCOMPLETE',path);
   }
-  return {value,total,largest};
+  // Files are fetched, verified and appended sequentially. Blob parts already
+  // retained coexist with temporary buffers for the current file only.
+  // The marker is verified first and kept until the ZIP is assembled.
+  const markerBytes=value.files.find(file=>file.path===release.marker).bytes;
+  let retained=markerBytes,peak=4*markerBytes;
+  for(const file of value.files){
+   if(file.path===release.marker)continue;
+   peak=Math.max(peak,retained+4*file.bytes);
+   retained+=file.bytes;
+  }
+  return {value,workingBytes:peak+8*1024*1024};
  }
  function parseJson(bytes){try{return JSON.parse(new TextDecoder().decode(bytes));}catch(_){throw fail('SITE_MANIFEST_INVALID');}}
  function validateMarker(marker,release){
@@ -243,7 +253,7 @@
    // Verify the already-read marker against the inventory before reading personal data.
    const markerEntry=await hashedEntry(t,release.marker,markerBytes,inventory.value.files.find(f=>f.path===release.marker).sha256);
    if(markerEntry.bytes!==inventory.value.files.find(f=>f.path===release.marker).bytes)throw fail('SITE_ASSET_SIZE',release.marker);
-   if(inventory.total+inventory.largest*3+8*1024*1024>LIMIT)throw fail('SITE_MEMORY_LIMIT');
+   if(inventory.workingBytes>LIMIT)throw fail('SITE_MEMORY_LIMIT');
    if(typeof w.SukunRecoveryData?.capturePortable!=='function')throw fail('SITE_PERSONAL_UNAVAILABLE');
    t.phase='personal';render();
    let personal=await w.SukunRecoveryData.capturePortable({lease,signal:t.controller.signal,download:false});check(t);
@@ -251,7 +261,7 @@
    const personalBlob=personal.file instanceof Blob?personal.file:personal instanceof Blob?personal:new Blob([JSON.stringify(personal.data||personal)],{type:'application/json'});personal=null;
    // Blob-part STORE output references native Blob backing. Allow for personal
    // JSON strings/parse objects, a hash/copy of the largest file, and headers.
-   const estimate=inventory.total+inventory.largest*3+personalBlob.size*4+8*1024*1024;
+   const estimate=inventory.workingBytes+personalBlob.size*4;
    if(!Number.isSafeInteger(estimate)||estimate>LIMIT)throw fail('SITE_MEMORY_LIMIT');
    const created=new Date(),entries=[];t.total=manifest.files.length;t.phase='assets';render();
    entries.push(await unverifiedEntry(t,release.personal,personalBlob));
