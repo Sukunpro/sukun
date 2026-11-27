@@ -77344,7 +77344,9 @@ header,.tabs,.masterBar,.todayCard,#prDashboard,.card,.box,.jEd,.r174Cites,.r168
   border:1px solid rgba(102,255,225,.16)!important;
   box-shadow:0 10px 24px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.05)!important;
 }
-.btn:hover,.tcGo:hover,.dockItem:hover,.prSearchBtn:hover{transform:translateY(-1px)}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover,.tcGo:hover,.dockItem:hover,.prSearchBtn:hover{transform:translateY(-1px)}
+}
 .btn.primary,.tcGo,.zCounterActions button.pri,#tapBtn,
 #playCurrentBtn{background:linear-gradient(90deg,rgba(34,205,173,.82),rgba(33,112,232,.82))!important;color:#f5fffd!important}
 .btn.alt,.dockItem.danger,#tfExitBtn{background:linear-gradient(90deg,rgba(123,78,218,.82),rgba(173,88,226,.82))!important;color:#fff!important}
