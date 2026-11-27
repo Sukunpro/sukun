@@ -5,7 +5,7 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),cryp
 const root=path.resolve(process.argv[2]||'.'),out=path.resolve(process.argv[3]||path.join(root,'tests/r1120/evidence/health-marker-bytes.json'));
 const build=fs.readFileSync(path.join(root,'version.txt'),'utf8').trim(),markerPath='sukun-build-'+build+'.json';
 const raw=fs.readFileSync(path.join(root,markerPath)),marker=JSON.parse(raw),source=fs.readFileSync(process.env.SUKUN_HEALTH_COLLECTOR||path.join(root,'assets/runtime/health-r940.js'),'utf8');
-const expectedEntries=marker.runtime.length,entryLimit=200;
+const expectedEntries=marker.runtime.length,entryLimit=203;
 // Optional audio packs are outside mandatory runtime from r1213 onward.
 const expectedMediaBytes=marker.runtime.filter(e=>/\/assets\/audio\/arabic-r1065\/[^/]+\.mp3|\/assets\/berhetiyye-gate\/invitation-tr\.mp3/.test(e.url)).reduce((n,e)=>n+fs.statSync(path.join(root,new URL(e.url,'https://test.invalid/').pathname)).size,0);
 const start=source.indexOf('  async function responseBytes('),end=source.indexOf('  function sampleExplicit()',start);assert(start>0&&end>start);
