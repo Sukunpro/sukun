@@ -1,0 +1,145 @@
+name: Android AAB (Play paketi)
+
+# Depodaki web sürümünden (version.txt) çevrimdışı Android paketini üretir.
+# Yükleme anahtarı depo gizli ayarlarında tanımlıysa paketi imzalar; değilse
+# imzasız paketi çıktı olarak bırakır. Ayrıntı: android/README.md
+on:
+  workflow_dispatch:
+    inputs:
+      sira:
+        description: "Aynı web sürümü için kaçıncı paket (1 → sürüm kodu …001)"
+        required: false
+        default: "1"
+  push:
+    branches: ["android/**"]
+    paths: ["android/**", ".github/workflows/android-aab.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-aab-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  aab:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      SEQ: ${{ inputs.sira || '1' }}
+      HAS_UPLOAD_KEY: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_BASE64 != '' }}
+      # Play Console'da kayıtlı yükleme sertifikası (Sukun Play Upload, 27 Kasım 2026 sıfırlaması).
+      # Anahtar sıfırlanırsa depo değişkeni ANDROID_UPLOAD_CERT_SHA256 ile değiştirilir.
+      EXPECTED_CERT: ${{ vars.ANDROID_UPLOAD_CERT_SHA256 || 'DB:6F:6D:07:04:AE:C6:02:1E:47:9F:80:1E:16:D8:B6:00:DE:C8:D2:FD:C6:29:0D:09:D5:6B:C1:7C:45:2F:F5' }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+
+      - name: Derleme araçlarını hazırla
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "JAVA_HOME=$JAVA_HOME_21_X64" >> "$GITHUB_ENV"
+          echo "$JAVA_HOME_21_X64/bin" >> "$GITHUB_PATH"
+          SDKROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          SDKMANAGER="$SDKROOT/cmdline-tools/latest/bin/sdkmanager"
+          (yes || true) | "$SDKMANAGER" --licenses > /dev/null
+          "$SDKMANAGER" "platforms;android-36" "build-tools;36.0.0" > /dev/null
+          curl -fsSL --retry 3 -o "$RUNNER_TEMP/bundletool.jar" \
+            https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar
+          echo "a099cfa1543f55593bc2ed16a70a7c67fe54b1747bb7301f37fdfd6d91028e29  $RUNNER_TEMP/bundletool.jar" | sha256sum -c -
+          {
+            echo "SDK=$SDKROOT/platforms/android-36"
+            echo "BUILDTOOLS=$SDKROOT/build-tools/36.0.0"
+            echo "BUNDLETOOL=$RUNNER_TEMP/bundletool.jar"
+          } >> "$GITHUB_ENV"
+
+      - name: İmzasız paketi derle ve denetle
+        id: build
+        shell: bash
+        run: bash android/ci/build.sh
+
+      - name: Yükleme anahtarıyla imzala
+        id: sign
+        if: env.HAS_UPLOAD_KEY == 'true'
+        shell: bash
+        env:
+          KS_B64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_BASE64 }}
+          KS_PASS: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD }}
+          KEY_PASS: ${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD || secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD }}
+          KS_ALIAS: ${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}
+          UNSIGNED: ${{ steps.build.outputs.unsigned }}
+          RELEASE: ${{ steps.build.outputs.release }}
+          CODE: ${{ steps.build.outputs.code }}
+        run: |
+          set -euo pipefail
+          umask 077
+          KS="$RUNNER_TEMP/upload-keystore"
+          trap 'rm -f "$KS"' EXIT
+          # Telefondan kopyalanan metne satır sonu veya boşluk karışabilir; base64 bunları içermez.
+          if ! printf '%s' "$KS_B64" | tr -d ' \t\r\n' | base64 -d > "$KS" 2>/dev/null; then
+            echo "::error::ANDROID_UPLOAD_KEYSTORE_BASE64 çözülemedi. Metnin tamamı kopyalanmamış ya da araya başka karakter karışmış olabilir; ayarı yeniden yapıştır."
+            exit 1
+          fi
+          if ! keytool -list -keystore "$KS" -storepass:env KS_PASS -alias "$KS_ALIAS" > /dev/null 2>&1; then
+            echo "::error::Anahtar deposu açılamadı. ANDROID_UPLOAD_KEYSTORE_PASSWORD şifresini ve ANDROID_UPLOAD_KEY_ALIAS adını (sukun-upload) kontrol et."
+            exit 1
+          fi
+          SIGNED="android/build/Sukun-$RELEASE-$CODE.aab"
+          jarsigner -keystore "$KS" -storepass:env KS_PASS -keypass:env KEY_PASS \
+            -sigalg SHA256withRSA -digestalg SHA-256 -signedjar "$SIGNED" "$UNSIGNED" "$KS_ALIAS" > /dev/null
+          jarsigner -verify "$SIGNED" > /dev/null
+          java -jar "$BUNDLETOOL" validate --bundle="$SIGNED" > /dev/null
+          ACTUAL="$(unzip -p "$SIGNED" 'META-INF/*.RSA' | openssl pkcs7 -inform DER -print_certs \
+            | openssl x509 -noout -fingerprint -sha256 | cut -d= -f2)"
+          echo "İmza sertifikası SHA-256: $ACTUAL"
+          if [[ "$ACTUAL" == "$EXPECTED_CERT" ]]; then
+            echo "cert=eslesiyor" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::İmza sertifikası beklenenle aynı değil. Play Console bu paketi reddeder; anahtar sıfırlandıysa ANDROID_UPLOAD_CERT_SHA256 değişkenini güncelle."
+            echo "cert=farkli" >> "$GITHUB_OUTPUT"
+          fi
+          rm -f "$UNSIGNED"
+          echo "signed=$SIGNED" >> "$GITHUB_OUTPUT"
+          sha256sum "$SIGNED"
+
+      - name: Özet
+        if: always() && steps.build.outputs.code != ''
+        shell: bash
+        env:
+          RELEASE: ${{ steps.build.outputs.release }}
+          CODE: ${{ steps.build.outputs.code }}
+          SIGNED: ${{ steps.sign.outputs.signed }}
+          CERT: ${{ steps.sign.outputs.cert }}
+        run: |
+          {
+            echo "### Sükûn Android · $RELEASE · sürüm kodu $CODE"
+            if [[ -n "$SIGNED" ]]; then
+              echo "- Paket yükleme anahtarıyla **imzalandı** (sertifika: ${CERT:-bilinmiyor})."
+              echo "- Çıktıdaki \`.aab\` dosyası Play Console'a yüklenebilir."
+            else
+              echo "- Paket **imzasız**. Play Console'a yüklenmeden önce yükleme anahtarıyla imzalanmalı."
+              echo "- Anahtarı depo gizli ayarlarına eklemek için \`android/README.md\` dosyasına bak."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: İmzalı paketi yükle
+        if: steps.sign.outputs.signed != ''
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Sukun-${{ steps.build.outputs.release }}-${{ steps.build.outputs.code }}-imzali
+          path: ${{ steps.sign.outputs.signed }}
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+      - name: İmzasız paketi yükle
+        if: steps.sign.outputs.signed == '' && steps.build.outputs.unsigned != ''
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Sukun-${{ steps.build.outputs.release }}-${{ steps.build.outputs.code }}-imzasiz
+          path: ${{ steps.build.outputs.unsigned }}
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
