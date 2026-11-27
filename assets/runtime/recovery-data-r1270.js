@@ -641,7 +641,7 @@
   const api = {
     version: 'r1020', create, list, restore, undo, export: exportPersonal, import: importPersonal, recoverPending, rescuePending: recoverPending, ackPending, pendingInfo, capturePortable, importJournal,
     hasPending: () => pending || needsReload, cancel: () => { if (operation) operation.cancelled = true; render(); },
-    status: () => ({ version: 'r1020', pending, busy: !!operation, operation: operation?.kind || null, reloadRequired: needsReload, error: readyError, maxPoints: MAX_POINTS, automaticReplay: false, exactRestoreEnabled: false }), mount, open: openEmergency
+    status: () => ({ version: 'r1020', checking: checkingJournal, pending, busy: !!operation, operation: operation?.kind || null, reloadRequired: needsReload, error: readyError, maxPoints: MAX_POINTS, automaticReplay: false, exactRestoreEnabled: false }), mount, open: openEmergency
   };
   window.SukunRecoveryData = Object.freeze(api);
   const boot = async () => {

@@ -487,12 +487,13 @@
       settleCommandDiagnostic(beginCommandDiagnostic(action,requestId,epoch),false,true,'stale-session');
       return Promise.resolve({ accepted: false, stale: true, reason: 'stale-session', epoch, requestId, snapshot: before });
     }
-    if((action==='set-count'||action==='set-remaining')&&window.SukunTabOwner&&!window.SukunTabOwner.owns()){
-      // Explicit silent edits use the native exclusive lease and rebase fences,
-      // without priming media. A free idle lease is not another active tab.
+    const wheelAdjustment=action==='adjust'&&(options.expected||typeof options.onCommit==='function');
+    if((action==='set-count'||action==='set-remaining'||wheelAdjustment)&&window.SukunTabOwner&&!window.SukunTabOwner.owns()){
+      // Fence the selected count across lease acquisition. A voiced +1 can prime audio.
       const expected=options.expected||before,editEpoch=epoch;
       const current=()=>{const s=snapshot();return epoch===editEpoch&&!document.hidden&&(typeof options.isCurrent!=='function'||read(options.isCurrent,false))&&['activeMode','activeIndex','journeyKind','count','target','phase'].every(k=>s[k]===expected[k]);};
-      return Promise.resolve(window.SukunTabOwner.run('manual',()=>command(action,{...options,expected,epoch:editEpoch}),{prime:false,releaseAfter:true,isCurrent:current})).then(result=>result&&typeof result==='object'?result:freeze({accepted:false,reason:'owner-unavailable',epoch,requestId,snapshot:snapshot()}));
+      const prime=!!(wheelAdjustment&&options.delta===1&&window.SukunManualVoice?.enabled?.());
+      return Promise.resolve(window.SukunTabOwner.run('manual',()=>command(action,{...options,expected,epoch:editEpoch}),{prime,releaseAfter:true,isCurrent:current})).then(result=>result&&typeof result==='object'?result:freeze({accepted:false,reason:'owner-unavailable',epoch,requestId,snapshot:snapshot()}));
     }
     if(action==='adjust'||action==='set-count'||action==='set-remaining'){
       // A correction cannot supersede a queued Start or manufacture a new audio epoch.
@@ -502,7 +503,7 @@
         const current=snapshot();
         const expected=options.expected;
         const same=!expected||['activeMode','activeIndex','journeyKind','count','target','phase'].every(key=>expected[key]===current[key]);
-        value=same&&(action==='set-remaining'?window.SukunCountCorrection?.setRemaining?.(options.value):action==='set-count'?window.SukunCountCorrection?.set?.(options.value):window.SukunCountCorrection?.adjust?.(options.delta));
+        value=same&&(action==='set-remaining'?window.SukunCountCorrection?.setRemaining?.(options.value):action==='set-count'?window.SukunCountCorrection?.set?.(options.value):window.SukunCountCorrection?.adjust?.(options.delta,typeof options.onCommit==='function'?()=>options.onCommit(refresh('manual-credit')):undefined));
       }
       catch (error) { settleCommandDiagnostic(diagnostic,false,false,'command-error'); throw error; }
       if((action==='set-count'||action==='set-remaining')&&value===true){

@@ -80,6 +80,139 @@ function mountSectionAccess(){
 }
 function persist(){safe(()=>localStorage.setItem('sukun.r920.completed',JSON.stringify(completed)))}
 function markComplete(mode,i){if(!['esma','berhet'].includes(mode)||i<0||i>=items(mode).length)return;const key=mode+':'+i;if(!completed[key]){completed[key]=Date.now();persist();if(dialog?.open)renderAtlas()}}
+// Keep the wheel's status beside its transport. The mixer controls below
+// delegate to their original owners; navigation and rendering never start audio.
+const wheelCopy=(tr,en)=>window.I18N?.lang==='en'?en:tr;
+const wheelAudioUI=(()=>{
+ let actionPending=false,lastManual=null,sourceNotice='',noticeFor='';
+ const currentKey=s=>s?[s.activeMode,s.activeIndex,s.journeyKind,s.epoch,safe(()=>Z.form,'')].join('|'):'';
+ const ambienceIds=()=>safe(()=>Object.keys(AMB),[]);
+ const isCurrent=(s,key)=>!!s&&currentKey(s)===key&&(s.activeMode!=='berhet'||allowed());
+ function recording(s){
+  const voice=window.SukunVoiceSettings?.getMode?.(),failure=window.SukunRecordingFailure?.get?.();
+  const failed=!!(failure?.active&&failure.cat===s.activeMode&&failure.index===s.activeIndex);
+  const silent=window.SukunR698VoiceIntent?.snapshot?.().explicitOff;
+  if(silent||(!failed&&voice!=='personal'))return null;
+  const item=items(s.activeMode)[s.activeIndex];if(!item)return null;
+  const opt={cat:s.activeMode,index:s.activeIndex,journey:s.journeyKind!=='single'};
+  const keys=window.SukunRecordingPriorityLock?.candidates?.(s.activeMode,s.activeIndex,item,opt)||[];
+  const absent=voice==='personal'&&keys.length>0&&safe(()=>SK_RECORDING_CATALOG.verified&&!SK_RECORDING_CATALOG.pending&&!SK_RECORDING_CATALOG.error&&!keys.some(k=>RECKEYS.has(k)),false);
+  if(!failed&&!absent)return null;
+  const canUse=voice!=='generic'&&s.recordingOrigin!=='generic'&&window.SukunReadingPolicy?.permissions?.(item,{...opt,source:'generic'}).generic===true&&window.SukunGenericRecordings?.hasKnown?.(keys);
+  return {keys,failed,canUse:!!canUse};
+ }
+ function pickAmbience(){
+  const select=$('r1275Ambience'),saved=select.value,active=ambienceIds();
+  const options=Array.from(document.querySelectorAll('#mixer button[data-sw]'),button=>({id:button.dataset.sw,name:button.closest('.chn')?.querySelector('.chName b')?.textContent.trim()})).filter(x=>x.name);
+  select.replaceChildren(new Option(wheelCopy('Ambiyans seç','Choose ambience'),''),
+   ...options.map(x=>new Option(x.name,x.id)));
+  select.value=options.some(x=>x.id===saved)?saved:(active.find(id=>options.some(x=>x.id===id))||'');
+ }
+ function silentJourney(s){
+  return !!(s&&['99','28'].includes(s.journeyKind)&&!s.smartSession&&!s.globalPauseBlocked&&
+   ['IDLE','PAUSED','INTERRUPTED','ERROR'].includes(s.phase)&&window.SukunR698VoiceIntent?.snapshot?.().explicitOff);
+ }
+ function showVoiceOptions(){
+  const details=$('r1275AudioDetails');
+  details.open=true;
+  $('r1275EnableVoice').focus({preventScroll:true});
+ }
+ function bind(){
+  $('r1275AudioDetails').ontoggle=()=>{if($('r1275AudioDetails').open)pickAmbience();queue()};
+  $('r1275LayerPlay').onclick=()=>{
+   if(!silentJourney(snap()))return $('r920Play')?.click();
+   if(window.SukunCountCorrection?.status?.(1)?.allowed)return manual(1);
+   showVoiceOptions();
+  };
+  $('r1275EnableVoice').onclick=async()=>{
+   const key=currentKey(snap()),settings=window.SukunVoiceSettings;
+   const current=()=>isCurrent(snap(),key)&&document.visibilityState!=='hidden';
+   if(actionPending||!settings||!current()||!window.SukunR698VoiceIntent?.snapshot?.().explicitOff)return;
+   actionPending=true;queue();
+   try{
+    if(settings.getMode()==='auto'){
+     await settings.edit(()=>{if(current()&&!SPK.on)$('optSpeak')?.click()});
+    }else{
+     await settings.setMode('auto',{isCurrent:current});
+    }
+    if(current()&&!window.SukunR698VoiceIntent?.snapshot?.().explicitOff){
+     sourceNotice=wheelCopy('Otomatik ses seçimi açık. Sayacın korundu.','Automatic voice selection is on. Your count is kept.');noticeFor=key;
+     $('r1275LayerPlay').focus({preventScroll:true});
+    }
+   }finally{actionPending=false;queue()}
+  };
+  $('r1275Ambience').onchange=queue;
+  $('r1275AmbienceAction').onclick=()=>{const select=$('r1275Ambience'),id=select.value;if(!id){select.focus();return}
+   document.querySelector('#mixer button[data-sw="'+CSS.escape(id)+'"]')?.click();queue()};
+  $('r1275FrequencyAction').onclick=()=>{$('frToggle')?.click();queue()};
+  $('r1275Undo').onclick=()=>{const s=snap();if(!sameManual(s))return;const expected=lastManual;lastManual=null;command('adjust',{delta:-1,expected,epoch:expected.epoch});queue()};
+  $('r1275ReadyVoice').onclick=async()=>{
+   const s=snap(),data=s&&recording(s),key=currentKey(s),archive=window.SukunGenericRecordings;
+   if(!data?.canUse||actionPending)return;
+   const mode=window.SukunVoiceSettings.getMode(),revision=window.SukunVoiceSettings.snapshot().revision;
+   const current=()=>isCurrent(snap(),key)&&document.visibilityState!=='hidden'&&window.SukunVoiceSettings.snapshot().revision===revision&&window.SukunVoiceSettings.getMode()===mode;
+   actionPending=true;sourceNotice='';queue();
+   try{
+    const rec=await archive.find(data.keys,{isCurrent:current,timeoutMs:3500});
+    if(!current())return;
+    if(!rec?.blob?.size||rec.genericEpoch!==archive.epoch()){sourceNotice=wheelCopy('Hazır kayıt şu anda açılamadı.','The recorded voice is currently unavailable.');noticeFor=key;return}
+    const stillSelected=()=>isCurrent(snap(),key)&&document.visibilityState!=='hidden'&&archive.epoch()===rec.genericEpoch;
+    if(await window.SukunVoiceSettings.setMode('generic',{isCurrent:stillSelected})&&stillSelected()&&window.SukunVoiceSettings.getMode()==='generic'){
+     $('r1275LayerPlay').focus({preventScroll:true});
+     sourceNotice=wheelCopy('Hazır kayıt seçildi. Sayacın korundu.','Recorded voice selected. Your count is kept.');noticeFor=key;
+    }
+   }catch(_){if(current()){sourceNotice=wheelCopy('Hazır kayıt şu anda açılamadı.','The recorded voice is currently unavailable.');noticeFor=key}}
+   finally{actionPending=false;queue()}
+  };
+  $('r1275Silent').onclick=async()=>{
+   const s=snap(),key=currentKey(s);if(!s||actionPending||!recording(s))return;
+   actionPending=true;
+   try{
+    await window.SukunVoiceSettings.edit(()=>{
+     if(!isCurrent(snap(),key))return;
+     SPK.on=false;window.SukunR698VoiceIntent.explicit(false);$('optSpeak')?.classList.remove('on');
+     if(window.SukunManualVoice?.enabled?.())window.SukunManualVoice.set(false);
+     if(window.SukunRecordingFailure?.matches?.(s.activeMode,s.activeIndex))window.SukunRecordingFailure.clearForRetry();
+     window.SukunVoiceSource?.set?.('idle','', '');
+     $('r1275LayerPlay').focus({preventScroll:true});
+     sourceNotice=wheelCopy('Sesli okuyuş kapalı. Sayacın korundu.','Recitation is off. Your count is kept.');noticeFor=key;
+    });
+   }finally{actionPending=false;queue()}
+  };
+ }
+ function sameManual(s){return !!(s&&lastManual&&currentKey(s)===currentKey(lastManual)&&s.count===lastManual.count&&s.target===lastManual.target&&s.phase===lastManual.phase&&window.SukunCountCorrection?.status?.(-1)?.allowed)}
+ function manualChange(before,after){
+  lastManual=before&&after&&currentKey(before)===currentKey(after)&&after.count===before.count+1&&after.phase===before.phase?after:null;
+  queue();
+ }
+ function render(s,action){
+  const c=wheelCopy,active=ambienceIds(),mainFrequency=safe(()=>!!FR.playing,false),secondary=safe(()=>!!FR2.E,false),running=s.phase==='PLAYING'||s.phase==='PREPARING';
+  const source=window.SukunAudioSourceText?.label?.(s),off=window.SukunR698VoiceIntent?.snapshot?.().explicitOff;
+  const blocked=recording(s);
+  const voice=off?c('Zikir sesi kapalı','Recitation off'):blocked?c('Kayıt kullanılamıyor','Recording unavailable'):s.phase==='PAUSED'?c('Zikir duraklatıldı','Dhikr paused'):s.phase==='PREPARING'?c('Ses hazırlanıyor','Preparing audio'):running&&s.sourceOrigin!=='none'?source:!running&&window.SukunR698VoiceIntent?.enabled?.()?c('Okuyuşa hazır','Ready to recite'):c('Zikir sesi kapalı','Recitation off');
+  const background=[active.length?c('Ambiyans açık','Ambience on'):null,mainFrequency||secondary?c('Frekans açık','Frequency on'):null].filter(Boolean);
+  const silent=silentJourney(s);
+  const silentAction=window.SukunCountCorrection?.status?.(1)?.allowed?c('Elle say +1','Count manually +1'):c('Ses seç','Choose sound');
+  text($('r1275LayerPlay'),silent?silentAction:s.globalPauseBlocked?c('Genel duraklatmadan sürdür','Resume from global pause'):action);
+  text($('r1275EnableVoice'),c('Otomatik ses seçimini aç','Enable automatic voice selection'));
+  prop($('r1275EnableVoice'),'hidden',!off);prop($('r1275EnableVoice'),'disabled',actionPending);
+  text($('r1275LayerState'),[voice,...background].filter(Boolean).join(' · '));
+  text($('r1275SoundsLabel'),c('Sesler','Sounds'));
+  text($('r1275SourceInfo'),source||c('Ses kapalı','Audio off'));
+  text($('r1275AmbienceLabel'),c('Ambiyans','Ambience'));
+  text($('r1275AmbienceAction'),active.includes($('r1275Ambience').value)?c('Ambiyansı kapat','Turn ambience off'):c('Ambiyansı aç','Turn ambience on'));
+  prop($('r1275AmbienceAction'),'disabled',!$('r1275Ambience').value);
+  text($('r1275FrequencyAction'),mainFrequency?c('Ana frekansı kapat','Turn primary frequency off'):c('Ana frekansı aç','Turn primary frequency on'));
+  text($('r1275ReadyVoice'),c('Hazır kaydı kullan','Use recorded voice'));text($('r1275Silent'),c('Sesli okuyuşu kapat','Turn recitation off'));
+  text($('r1275Issue'),blocked?.failed?c('Seçili kayıt açılamadı.','The selected recording could not be opened.'):c('Bu zikir için kişisel kayıt bulunamadı.','No personal recording was found for this dhikr.'));
+  prop($('r1275Recovery'),'hidden',!blocked);prop($('r1275ReadyVoice'),'hidden',!blocked?.canUse);prop($('r1275ReadyVoice'),'disabled',actionPending);prop($('r1275Silent'),'disabled',actionPending);
+  if(noticeFor!==currentKey(s))sourceNotice='';text($('r1275Notice'),sourceNotice);prop($('r1275Notice'),'hidden',!sourceNotice);
+  if(lastManual&&!sameManual(s))lastManual=null;
+  prop($('r1275Undo'),'hidden',!lastManual);text($('r1275Undo'),c('Son sayımı geri al','Undo last count'));
+ }
+ return {bind,manualChange,render,silentJourney,showVoiceOptions};
+})();
+
 function make(){
  if(root?.isConnected)return true;const tab=$('tab-zkr');if(!tab||!window.SukunSessionState)return false;
  root=document.createElement('section');root.id='r920Practice';root.setAttribute('aria-label','Zikir ve seyir');
@@ -87,6 +220,7 @@ function make(){
  <div class="r920Path"><button id="r920AtlasOpen" type="button">Atlas</button><label id="r920JourneyLabel"><span>Okuyuş</span><select id="r920JourneyMode" aria-label="Tekil zikir veya seyir"><option value="single">Tekil zikir</option><option value="journey">Seyir</option></select></label><button id="r920TefEnter" type="button"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M12 18V5a3 3 0 0 0-5.8-1 4.3 4.3 0 0 0-3.2 6.9 4.5 4.5 0 0 0 1.2 7.7 4 4 0 0 0 7.8 1.2 4 4 0 0 0 7.8-1.2 4.5 4.5 0 0 0 1.2-7.7 4.3 4.3 0 0 0-3.2-6.9A3 3 0 0 0 12 5"/><path d="M8 7c0 1.5-1 2.5-2.5 2.5M8.2 14.2C6.7 14 6 13 6 12m2 6c.4-1.5 1.6-2.4 4-2.4M16 7c0 1.5 1 2.5 2.5 2.5m-2.7 4.7C17.3 14 18 13 18 12m-2 6c-.4-1.5-1.6-2.4-4-2.4"/></svg><span>Tefekküre geç</span></button></div>
  <div class="r920Identity"><p id="r920Eyebrow"></p><button id="r920NameInfo" type="button" aria-label="Aktif ismin açıklaması"><span id="r920Arabic" lang="ar" dir="rtl"></span><span id="r920ActiveName"></span></button><p id="r920SceneTitle"></p><p id="r920VoiceSource" role="status"></p></div>
  <div id="r924WheelFrame" data-wheel-state="loading"><div id="r1029WheelClip"><div id="r925WheelRotor"><img id="r920Wheel" alt="" aria-hidden="true" decoding="async"><button id="r920Minus" class="r924Gem" type="button" aria-label="Bir azalt"><span class="r925GemLabel">−1</span></button><button id="r920Plus" class="r924Gem" type="button" aria-label="Bir artır"><span class="r925GemLabel">+1</span></button><button id="r920Stop" class="r924Gem" type="button"><span class="r925GemLabel r927GemAction"><span aria-hidden="true" class="r927GemIcon">■</span><span class="r927GemCaption">Bitir</span></span></button><button id="r920Play" class="r924Gem" type="button"><span id="r925PlayLabel" class="r925GemLabel r927GemAction"><span id="r927PlayIcon" class="r927GemIcon" aria-hidden="true">▶</span><span id="r927PlayCaption" class="r927GemCaption">Başlat</span></span></button></div></div><svg class="r920Progress" viewBox="0 0 300 300" aria-hidden="true"><defs><filter id="r921EsmaMatte" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  10 10 10 0 0"/></filter></defs><circle cx="150" cy="150" r="75" class="r920Track"></circle><circle cx="150" cy="150" r="75" class="r920Arc" pathLength="100"></circle><circle cx="150" cy="150" r="75" class="r959LightCore" pathLength="100"></circle></svg><button id="r920Counter" type="button" aria-label="Bir zikir say"><span class="r920CounterCore"><small id="r1082CountLabel">TEKRAR</small><span class="wheelCountUX"><strong id="r920Count">0</strong><span id="wheelTargetUX" hidden aria-hidden="true"></span></span><span id="r920Percent">%0</span><span id="wheelRemainingUX" hidden aria-hidden="true"></span></span></button><button id="r959WheelPrevious" class="r959WheelNav" type="button" aria-label="Önceki zikre geç" title="Önceki zikre geç"><svg class="r925GemLabel r962NavGlyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 5v14M18 5L9 12l9 7Z"/></svg></button><button id="r959WheelNext" class="r959WheelNav" type="button" aria-label="Sonraki zikre geç" title="Sonraki zikre geç"><svg class="r925GemLabel r962NavGlyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17 5v14M6 5l9 7-9 7Z"/></svg></button><div id="r920Phase" role="status" aria-live="polite" aria-atomic="true"></div></div>
+ <div id="r1275WheelAudio" data-noi18n><div class="r1275Transport"><button id="r1275LayerPlay" type="button"></button><details id="r1275AudioDetails"><summary><span id="r1275SoundsLabel">Sesler</span></summary><div id="r1275AudioOptions"><p id="r1275SourceInfo"></p><button id="r1275EnableVoice" type="button" hidden></button><label for="r1275Ambience" id="r1275AmbienceLabel">Ambiyans</label><select id="r1275Ambience"></select><button id="r1275AmbienceAction" type="button"></button><button id="r1275FrequencyAction" type="button"></button></div></details></div><p id="r1275LayerState"></p><div id="r1275Recovery" hidden><p id="r1275Issue"></p><button id="r1275ReadyVoice" type="button" hidden></button><button id="r1275Silent" type="button"></button></div><p id="r1275Notice" role="status" hidden></p><button id="r1275Undo" type="button" hidden></button></div>
  <div class="r920Stats"><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><i id="r1082TargetLabel" style="font-style:normal">Hedef</i> <b id="r920Target"></b></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3v4l5 5-5 5v4m10-18v4l-5 5 5 5v4"/></svg>Kalan <b id="r920Remaining"></b></span></div>
 
  <div class="r920Transport"><button id="r920Previous" type="button">Önceki</button><button id="r920Restart" type="button">Baştan başla</button><button id="r920Next" type="button">Sonraki</button><button id="r920JourneyRestartAll" type="button" style="grid-column:1/-1" hidden>Tüm seyri ilk isimden başlat</button></div>
@@ -97,7 +231,7 @@ function make(){
  <details id="r920ViewOptions"><summary>İsim, çark ve görünüm</summary><label>İsim<select id="r920NameSelect"></select></label><div id="r924WheelOptions"><label><span id="r924WheelFamily">Esmâ çarkı</span><select id="r920WheelSelect" aria-describedby="r924WheelStatus"></select></label><p id="r924WheelStatus" role="status"></p><button id="r924WheelRetry" type="button" hidden>Çarkı yeniden yükle</button><details id="r924WheelGalleryDetails"><summary>Çarkları görerek seç</summary><div id="r924WheelGallery" role="group" aria-label="Çark seçenekleri"></div></details></div><div id="r920BerhetOptions"><label>Sahne<select id="r920SceneSelect"><option value="auto">İsme göre otomatik</option><option value="palace">Billur Saray</option><option value="seal">Mühr-ü Süleyman</option><option value="wind">Rüzgâr</option><option value="crystal">Billur Geçit</option><option value="night">Gece Sarayı</option><option value="hudhud">Hüdhüd Yolu</option></select></label></div><div id="r923EsmaOptions"><label>Esmâ sahnesi<select id="r923EsmaSceneSelect" aria-describedby="r923SceneStatus"></select></label><div id="r923ScenePreview"><img id="r923SceneThumb" alt="Seçilen sahnenin önizlemesi" loading="lazy" decoding="async"><div><strong id="r923SceneName"></strong><p id="r923SceneStatus" role="status"></p><button id="r923SceneRetry" type="button" hidden>Sahneyi yeniden yükle</button></div></div><details id="r923SceneNotes"><summary>Sahne hakkında ve kaynaklar</summary><p id="r923SceneNote"></p><div id="r923SceneSources"></div></details></div><label>Görsel kalite<select id="r920Performance"><option value="cinematic">Sinematik</option><option value="balanced">Dengeli</option><option value="saving">Tasarruf</option></select></label><label class="r920FocusLabel"><input id="r925WheelMotion" type="checkbox" checked>Çark dönüşü</label><label class="r920FocusLabel"><input id="r962WheelNavToggle" type="checkbox">Çark içi önceki–sonraki düğmeleri</label><button id="r962OfflineScenes" type="button">Çarkları ve arka planları çevrimdışı kaydet</button><p id="r962OfflineStatus" role="status" aria-live="polite"></p><label class="r920FocusLabel"><input id="r920Focus" type="checkbox">Otomatik odak görünümü</label></details>
  <button id="r920More" type="button" aria-expanded="false">Zikir ayarları, kayıtlar ve diğer araçlar</button>
  <button id="r920TefExit" type="button" aria-label="Tefekkürden çık" data-tip="Tefekkürden çıkmak için tıkla" hidden><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 4H5v16h5M9 12h11M16 8l4 4-4 4"/></svg><span id="r920TefExitHint" aria-hidden="true">Tefekkürden çıkmak için tıkla</span></button>`;
- tab.prepend(root);
+ tab.prepend(root);wheelAudioUI.bind();
  for(const id of ['r959WheelPrevious','r959WheelNext'])$('r925WheelRotor').append($(id));root.addEventListener('focusout',queue,{passive:true});
  dialog=document.createElement('dialog');dialog.id='r920Atlas';dialog.className='r1215Atlas';dialog.setAttribute('aria-labelledby','r920AtlasTitle');
  dialog.innerHTML='<div class="r920AtlasHead"><h2 id="r920AtlasTitle">Atlas</h2><button id="r920AtlasClose" type="button">Kapat</button></div><p id="r920AtlasCaption"></p><div class="r1215AtlasTools"><label for="r1215AtlasSearch"><span id="r1215AtlasSearchLabel">İsim veya anlam ara</span><input id="r1215AtlasSearch" type="search" autocomplete="off" inputmode="search" placeholder="İsim, anlam veya numara" aria-controls="r920AtlasNodes"></label><label for="r1215AtlasFilter"><span id="r1215AtlasFilterLabel">Durum</span><select id="r1215AtlasFilter" aria-controls="r920AtlasNodes"><option value="all">Tümü</option><option value="remaining">Tamamlanmayanlar</option><option value="completed">Tamamlananlar</option><option value="active">Aktif isim</option></select></label></div><p id="r1215AtlasResults" role="status" aria-live="polite" aria-atomic="true"></p><div class="r1215AtlasBody"><div class="r1215AtlasList"><div id="r920AtlasNodes" role="group" aria-label="Duraklar" aria-describedby="r1219AtlasKeyboardHint"></div><div id="r1215AtlasEmpty" hidden><p id="r1215AtlasEmptyText">Bu aramaya uygun isim bulunamadı.</p><button id="r1215AtlasClear" type="button">Aramayı temizle</button></div></div><article id="r920AtlasDetail" aria-labelledby="r920AtlasName"><h3 id="r920AtlasName"></h3><p id="r920AtlasMeaning"></p><dl><div><dt>Ebced</dt><dd id="r920AtlasEbced"></dd></div><div><dt>Seyir durumu</dt><dd id="r920AtlasProgress"></dd></div></dl><p id="r920AtlasScene"></p><small id="r920AtlasNote"></small><button id="r920AtlasChoose" type="button">Bu isme geç</button><p id="r1215AtlasError" role="alert" hidden></p></article></div><p class="r920AtlasLegend">✓ Tamamlandı · ● Aktif · İsim seçimi yalnız ayrıntıyı gösterir. <span id="r1219AtlasKeyboardHint">Ok tuşlarıyla gez; Tab ile ayrıntıya geç.</span></p>';
@@ -112,7 +246,7 @@ function make(){
  $('r920RepeatGap').onchange=e=>writeJourneySetting('Gap',e.target.value,'change');
  $('r920NameSelect').onchange=e=>select(snap()?.activeMode||'esma',Number(e.target.value));
  $('r920Counter').onclick=()=>manual(1);$('r920Plus').onclick=()=>manual(1);$('r920Minus').onclick=()=>manual(-1);
- $('r920Play').onclick=()=>{wake();const s=snap();command(s?.phase==='PLAYING'||s?.phase==='PREPARING'?'pause':s?.phase==='PAUSED'?'resume':'start')};
+ $('r920Play').onclick=()=>{wake();const s=snap();if(wheelAudioUI.silentJourney(s))return wheelAudioUI.showVoiceOptions();command(s?.phase==='PLAYING'||s?.phase==='PREPARING'?'pause':s?.phase==='PAUSED'?'resume':'start')};
  $('r959WheelPrevious').onclick=()=>{const source=$('r920Previous');if(source&&!source.disabled)source.click()};$('r959WheelNext').onclick=()=>{const source=$('r920Next');if(source&&!source.disabled)source.click()};
  $('r920Previous').onclick=()=>command('previous');$('r920Next').onclick=()=>command('next');$('r920Restart').onclick=()=>{const s=snap();if(s?.activeMode==='berhet'&&s.journeyKind!=='single'&&Number(s.count)>0&&!window.confirm(window.I18N?.t?.('Bu zikrin sayacı sıfırlanacak. Baştan başlamak istiyor musun?')||'Bu zikrin sayacı sıfırlanacak. Baştan başlamak istiyor musun?'))return;command('restart')};$('r920Stop').onclick=()=>command('stop');
  $('r920JourneyRestartAll').onclick=async()=>{
@@ -176,7 +310,12 @@ async function select(mode,index,journey){
  const s=snap(),isJourney=['esma','berhet'].includes(mode)&&(journey??(s?.journeyKind&&s.journeyKind!=='single'));
  const result=await command('select',{mode,index,journeyKind:isJourney?(mode==='berhet'?'28':'99'):'single'});queue();return result;
 }
-function manual(delta){command('adjust',{delta});wake();queue()}
+function manual(delta){
+ const before=snap();if(!before)return;
+ wheelAudioUI.manualChange(null,null);
+ const onCommit=delta===1?after=>wheelAudioUI.manualChange(before,after):undefined;
+ command('adjust',{delta,expected:before,epoch:before.epoch,onCommit});wake();queue();
+}
 function writeJourneySetting(suffix,value,event){
  const s=snap();if(!journeySettingsAllowed(s))return;
  const prefix=s.activeMode==='berhet'?'bs':'es99',native=$(prefix+suffix);if(!native)return;
@@ -368,6 +507,11 @@ function render(){raf=0;if(document.hidden)return;if(!make())return;const s=view
  window.SukunWheelMotion?.render?.(s);
  const busy=s.phase==='PLAYING'||s.phase==='PREPARING',globalHeld=!!s.globalPauseBlocked,resumable=globalHeld||s.phase==='PAUSED';text($('r927PlayIcon'),busy?'Ⅱ':'▶');text($('r927PlayCaption'),busy?(english?'Pause':'Duraklat'):resumable?(english?'Continue':'Devam'):s.phase==='ERROR'?(english?'Retry':'Yeniden dene'):smartSession?.terminal?(english?'Restart':'Yeniden başlat'):(english?'Start':'Başlat'));
  const actionNames={r920Play:busy?(english?'Pause dhikr':'Zikri duraklat'):resumable?(english?'Continue dhikr':'Zikre devam et'):s.phase==='ERROR'?(english?'Retry audio':'Sesi yeniden dene'):smartSession?.terminal?(english?'Restart session':'Seansı yeniden başlat'):(english?'Start dhikr':'Zikri başlat'),r920Stop:'Zikri bitir',r920Minus:'Bir azalt',r920Plus:'Bir artır'};
+ if(wheelAudioUI.silentJourney(s)){
+  actionNames.r920Play=wheelCopy('Ses seç','Choose sound');
+  text($('r927PlayCaption'),actionNames.r920Play);
+ }
+ wheelAudioUI.render(s,actionNames.r920Play);
  for(const [id,label]of Object.entries(actionNames)){attr($(id),'aria-label',label);attr($(id),'title',label)}
  for(const [button,source] of [['r959WheelPrevious','r920Previous'],['r959WheelNext','r920Next']])prop($(button),'disabled',!!$(source)?.disabled);
  const labels={PREPARING:'Ses hazırlanıyor',PAUSED:'Duraklatıldı',COMPLETING:'Tamamlanıyor',COMPLETED:smartSession?(smartSession.result?.status==='ended'?'Seans sona erdi':'Seans tamamlandı'):'Seyir tamamlandı',INTERRUPTED:'Ses kesintisi',RECOVERING:'Ses yeniden hazırlanıyor',ERROR:'Ses açılamadı'};text($('r920Phase'),globalHeld?(english?'Paused':'Duraklatıldı'):labels[s.phase]||(s.phase==='PLAYING'?(nonReading?(smartSession.stepType==='silence'?'Sükût sürüyor':'Frekans sürüyor'):'Zikir sürüyor'):''));
@@ -414,7 +558,7 @@ function settleFocus(active){
 // requestAnimationFrame handle survived restoration. No transport command.
 function restorePresentation(){if(document.hidden)return false;if(raf)cancelAnimationFrame(raf);raf=0;render();return !!root?.isConnected&&!root.hidden}
 document.addEventListener('visibilitychange',()=>{if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0;clearTimeout(focusTimer)}else queue()},{passive:true});
-['DOMContentLoaded','pageshow','sukun:sessionchange','sukun:currentzikirchange','sukun:languagechange','sukun:scenechange','sukun:performancechange','sukun:tefekkurchange','sukun:secretaccesschange','sukun:voicesource','sukun:recordingerror','sukun:recordingrecovered'].forEach(event=>addEventListener(event,queue,{passive:true}));
+['DOMContentLoaded','pageshow','sukun:sessionchange','sukun:currentzikirchange','sukun:languagechange','sukun:scenechange','sukun:performancechange','sukun:tefekkurchange','sukun:secretaccesschange','sukun:voicesource','sukun:voicesettingschange','sukun:backgroundmix','sukun:genericrecordingschange','sukun:genericrecordingsstatus','sukun:recordingcatalogchange','sukun:recordingerror','sukun:recordingrecovered'].forEach(event=>addEventListener(event,queue,{passive:true}));
 addEventListener('sukun:journey-advance',e=>{const mode=e.detail?.owner==='journey28'?'berhet':e.detail?.owner==='journey99'?'esma':null;if(mode)markComplete(mode,Number(e.detail.index)-1);queue()});
 document.addEventListener('pointerdown',()=>{if(root&&!root.hidden)wake()},{passive:true});document.addEventListener('keydown',wake,{passive:true});
 new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});

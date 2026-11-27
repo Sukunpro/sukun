@@ -168,7 +168,7 @@ function build(root){
  host=root;host.dataset.r938Layout='1';host.dataset.r1242SettingsHidden='false';
  hero=document.createElement('div');hero.id='r938Hero';
  const wheel=$('r924WheelFrame');wheel.before(hero);
- for(const node of [root.querySelector('.r920Identity'),wheel,root.querySelector('.r920Stats'),$('r920RecordingError'),$('r920SceneError')])move(node,hero);
+ for(const node of [root.querySelector('.r920Identity'),wheel,$('r1275WheelAudio'),root.querySelector('.r920Stats'),$('r920RecordingError'),$('r920SceneError')])move(node,hero);
  panel=document.createElement('section');panel.id='r938Panel';panel.setAttribute('aria-label','Zikir kontrolleri');hero.after(panel);
  // r1056: the existing delegate stays above both daily controls and settings.
  // Moving its original buttons keeps one click owner and all native gates.
