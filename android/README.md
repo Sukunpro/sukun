@@ -32,6 +32,10 @@ konmaz; **Settings → Secrets and variables → Actions** altında şu gizli ay
 | `ANDROID_UPLOAD_KEY_ALIAS` | Anahtarın takma adı |
 | `ANDROID_UPLOAD_KEY_PASSWORD` | Anahtarın şifresi (depo şifresiyle aynıysa boş bırakılabilir) |
 
+İlk yükleme anahtarı kaybolduğu için 27 Kasım 2026'da Play Console'dan sıfırlama istendi. Yeni anahtar
+`sukun-upload` takma adıyla üretildi (SHA-256 `DB:6F:6D:…:2F:F5`). Google sıfırlamayı onaylayıp yeni
+anahtarın geçerlilik tarihini bildirmeden Console bu anahtarla imzalanan paketleri kabul etmez.
+
 Bunlar tanımlı değilse akış imzasız paket üretir. İmzadan sonra sertifikanın SHA-256 parmak izi,
 Console'da kayıtlı yükleme sertifikasıyla karşılaştırılır; farklıysa akış uyarı verir. Yükleme
 anahtarı Console'dan sıfırlanırsa yeni parmak izi `ANDROID_UPLOAD_CERT_SHA256` depo değişkenine
