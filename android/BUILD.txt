@@ -1,0 +1,19 @@
+Sükûn Android, r1278 / 1278001
+Offline Google Play distribution. Java, resources and packaging changes are provided under GPL v3. See LICENSE. The web source and original media are under assets/sukun in each generated device APK and base/assets/sukun in the App Bundle.
+
+Web source: Sükûn r1278, https://github.com/Sukunpro/sukun. Use the checkout whose release manifest matches the source r1278 inventory. The bundled native source and Play-specific overlays are included in base/assets/android-source.zip.
+
+Extract this source archive to an empty directory. For a new staging run, use the r1278 candidate checkout and its sukun-site-assets-r1278.json. To reproduce the staged site from a release, extract base/assets/sukun from its bundle into build/site and start at aapt2 in the commands below. In either case, set REPO to the r1278 candidate checkout. Prerequisites: Python 3.11+, OpenJDK 21, Android SDK Platform 36, Build Tools 36, and Google bundletool 1.18.3 (https://github.com/google/bundletool/releases/tag/1.18.3). Define REPO, SDK (platform android-36 directory), BUILDTOOLS (build-tools 36 directory), and BUNDLETOOL (path to the jar).
+
+mkdir -p build
+python3 pack.py stage "$REPO"
+python3 policy-content/apply.py build/site
+"$BUILDTOOLS/aapt2" compile --dir res -o build/compiled.zip
+"$BUILDTOOLS/aapt2" link --proto-format -o build/linked.apk -I "$SDK/android.jar" --manifest AndroidManifest.xml build/compiled.zip
+python3 compile.py src "$SDK/android.jar" "$BUILDTOOLS/lib/d8.jar" build/classes.dex --min-api 26
+python3 pack.py module "$REPO"
+java -jar "$BUNDLETOOL" build-bundle --modules=build/base.zip --config=bundle-config.json --output=build/unsigned.aab
+jarsigner -keystore "$UPLOAD_KEYSTORE" -sigalg SHA256withRSA -digestalg SHA-256 -signedjar Sukun.aab build/unsigned.aab "$UPLOAD_ALIAS"
+java -jar "$BUNDLETOOL" validate --bundle=Sukun.aab
+
+Use your own signing identity for independent builds. Upload credentials and private app signing material are supplied separately by the publisher. Google Play must sign generated APKs using the original app signing certificate to deliver compatible updates to existing installations.
