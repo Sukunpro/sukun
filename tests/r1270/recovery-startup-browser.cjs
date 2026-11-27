@@ -66,6 +66,8 @@ async function openApp(browser, state, { width = 360, height = 760, lang } = {})
   }, { state, recoveryDb, lang });
 
   const page = await context.newPage();
+  // A cold WebView fixture transfers the full offline shell through Playwright routes.
+  page.setDefaultNavigationTimeout(120000);
   if (state === 'journal') {
     await page.goto(origin + base + 'fixture.html');
     await page.evaluate(dbName => new Promise((resolve, reject) => {

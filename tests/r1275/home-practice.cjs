@@ -8,7 +8,6 @@ const root = path.resolve(process.argv[2] || path.join(__dirname, '../..'));
 const seen = { 'sukun.obDone': '1', 'sukun.onboardSeen': '1' };
 
 async function ready(page) {
-  console.log('Mobile home startup', await page.evaluate(() => ({ recovery:window.SukunRecoveryData?.status(), practice:!!window.SukunHomePractice, ui:!!window.SukunPracticeUI, gate:window.SukunInteractionGateR732?.active(), tab:document.querySelector('.tab.act')?.dataset.t, hidden:document.querySelector('#tab-amb')?.hidden, action:document.querySelector('#prDGo')?.innerText })));
   await page.waitForFunction(() => {
     const recovery = window.SukunRecoveryData?.status();
     return recovery && !recovery.pending && !recovery.busy && !recovery.reloadRequired &&
@@ -57,7 +56,6 @@ async function savedJourney() {
   const progress = { i: 0, rep: 12, totalDone: 12, mode: 'custom', custom: 33, gap: 900 };
   const f = await fixture(root, { width: 393, height: 796, hasTouch: true, seed: {
     ...seen, 'sukun.esma99.seyir.state': JSON.stringify(progress),
-    'sukun.berhet.seyir.state': JSON.stringify({ i: 28, rep: 0, totalDone: 28, mode: '1' }),
     'sukun.home.practiceOrder.v1': '28,99'
   } });
   try {
@@ -66,6 +64,11 @@ async function savedJourney() {
     console.log('Loaded saved-journey mobile home');
     // With both journeys eligible, the earlier incomplete one wins over a more recent completion.
     assert.equal(await p.evaluate(() => KLT_AC('disposable-home-practice-test')), true);
+    await p.evaluate(() => {
+      // Model an already-completed private engine in this disposable profile.
+      Object.assign(window.BERHET_SEYIR, { i: 28, rep: 0, totalDone: 28 });
+      SukunHomePractice.refresh();
+    });
     assert.equal(await p.evaluate(() => SukunBerhetiyyeSeyir.state().i), 28);
     await p.waitForFunction(() => document.querySelector('#r1275HomeCount').textContent.includes('12 / 33'));
     assert.match(await p.locator('#prDNow').innerText(), /99 Esmâ.*Rahm[aâ]n/i);
