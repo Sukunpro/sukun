@@ -6,9 +6,10 @@ await p.waitForFunction(()=>!window.SukunInteractionGateR732?.active?.());
 console.log(await p.evaluate(()=>[SukunLayoutModes.current(),SukunShellSkin.getAppearance()]));
 for(const width of [320,360,393,412]){
 await p.setViewportSize({width,height:800});await p.evaluate(()=>document.documentElement.style.setProperty('font-size','125%','important'));
-for(const [tab,ids] of [['amb',['karisimBox']],['zkr',['ydkBox','maneviGunluk','dlBox','dhBox','ferasetBox','r1064ReadingExplorer']]]){
+for(const [tab,ids] of [['amb',['karisimBox']],['zkr',['bakBox','ydkBox','maneviGunluk','dlBox','dhBox','ferasetBox','r1064ReadingExplorer']]]){
 await p.locator('.tab[data-t='+tab+']').click();
 for(const id of ids){const result=await p.evaluate(id=>{
+ if(id==='bakBox') window.SukunDiscoveryR1158.open('araclar');
  if(id!=='karisimBox'){
  if(!document.body.classList.contains('r920-details-open'))document.getElementById('r920More')?.click();
  window.zNavGo?.(id);
