@@ -1,0 +1,19 @@
+/* Let labels take additional rows inside the decorative frame. */
+@layer sukun-mobile-controls {
+ @media (max-width: 700px) {
+  html body :is(#karisimBox,#ydkBox,#maneviGunluk,#r1128DelailRecorded,#dlBox,#dhBox,#tvBox,#ferasetBox,#r1064ReadingExplorer,#r1277Suggestions) :is(button:not(.ico):not(.sw),select,textarea,input[type=text]) {
+   box-sizing:border-box!important; min-inline-size:0!important; max-inline-size:100%!important;
+   block-size:auto!important; max-block-size:none!important; min-block-size:2.75rem!important;
+   padding:.65em 1em!important; white-space:normal!important; overflow-wrap:anywhere!important;
+   font-family:system-ui,sans-serif!important; font-size:.9375rem!important; line-height:1.4!important;
+   letter-spacing:normal!important;
+  }
+  html body :is(#karisimBox,#ydkBox,#maneviGunluk,#r1128DelailRecorded,#dlBox,#dhBox,#tvBox,#ferasetBox,#r1064ReadingExplorer,#r1277Suggestions) :is(.btnRow,.tvBar,.zBtns,.r1128-delail-actions) {
+   display:flex!important; flex-wrap:wrap!important; gap:.5rem!important; align-items:stretch!important;
+  }
+  html body :is(#ydkBox,#maneviGunluk,#r1128DelailRecorded,#dlBox,#dhBox,#tvBox,#ferasetBox,#r1064ReadingExplorer) select {width:100%!important}
+  html body #maneviGunluk textarea {width:100%!important; min-height:6em!important}
+  html body #tk .r992PurposeBtn :is(strong,small) {font-family:system-ui,sans-serif!important;letter-spacing:normal!important}
+  html body #tk #gate [data-tk-action^="purpose-"] {min-width:0!important; max-width:100%!important;height:auto!important;white-space:normal!important;line-height:1.4!important}
+ }
+}
