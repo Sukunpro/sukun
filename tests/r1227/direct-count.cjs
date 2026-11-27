@@ -31,11 +31,30 @@ for(const kind of ['single','99','28'])for(const phase of ['IDLE','PAUSED'])test
 for(const invalid of ['', ' ', '-1','1.5','1e2','Infinity','NaN','0x10',NaN,Infinity,null,undefined,{},1.2,-1])test('reject '+String(invalid),()=>{const f=fixture(),before=JSON.stringify(f.c.Z);assert.equal(f.c.SukunCountCorrection.set(invalid),false);assert.equal(JSON.stringify(f.c.Z),before);assert.deepEqual(f.stats,[])});
 for(const phase of ['PLAYING','PREPARING','ERROR'])test('block '+phase,()=>{const f=fixture('single',phase);assert.equal(f.c.SukunCountCorrection.set(59),false)});
 for(const block of ['owner','hidden','busy','smart','pending','transition','canonical','complete','locked','hold'])test('block '+block,()=>{
- const f=fixture(block==='canonical'||block==='complete'||block==='locked'||block==='hold'?'99':'single','PAUSED');
+ const kind=block==='locked'?'28':['canonical','complete','hold'].includes(block)?'99':'single';
+ const f=fixture(kind,'PAUSED');
  if(block==='owner')f.owner(false);if(block==='hidden')f.c.document.hidden=true;if(block==='busy')f.busy(true);if(block==='smart')f.c.s.smartSession={};
  if(block==='pending')f.c.SukunR698Transport={snapshot:()=>({pendingStart:true})};if(block==='transition')f.c.SukunZikirTransaction={snapshot:()=>({active:{phase:'pending'}})};
  if(block==='canonical')f.c.s.canonical.index=1;if(block==='complete')f.c.s.journeyComplete=true;if(block==='locked')f.c.SukunSecretPolicy.unlocked=()=>false;if(block==='hold')f.st.systemHold=true;
  assert.equal(f.c.SukunCountCorrection.set(59),false);assert.equal(f.c.Z.count,2);
+});
+for (const phase of ['IDLE','PAUSED']) test('public 99 manual controls on a locked profile '+phase,()=>{
+ const f=fixture('99',phase);f.c.SukunSecretPolicy.unlocked=()=>false;f.c.s.journey={selected:'99'};
+ assert.equal(f.c.SukunCountCorrection.status(1).allowed,true);
+ assert.equal(f.c.SukunCountCorrection.commit(f.st,'esma',100,()=>{},()=>{},1),true);
+ assert.equal(f.st.rep,3);assert.equal(f.st.paused,phase==='PAUSED');assert.equal(f.st.run,false);
+ assert.equal(f.c.SukunCountCorrection.set(8),true);
+});
+test('idle 99 preview without selected journey cannot count',()=>{
+ const f=fixture('99');f.c.s.journey={selected:'single'};
+ assert.equal(f.c.SukunCountCorrection.status(1).allowed,false);
+ assert.equal(f.c.SukunCountCorrection.commit(f.st,'esma',100,()=>{},()=>{},1),false);
+});
+test('private 28 manual count and correction require unlock even when paused',()=>{
+ const f=fixture('28','PAUSED');f.c.SukunSecretPolicy.unlocked=()=>false;
+ assert.equal(f.c.SukunCountCorrection.status(1).allowed,false);
+ assert.equal(f.c.SukunCountCorrection.commit(f.st,'berhet',100,()=>{},()=>{},1),false);
+ assert.equal(f.st.rep,2);
 });
 test('target one and free-count bounds',()=>{const f=fixture();f.c.s.target=1;assert.equal(f.c.SukunCountCorrection.set(1),false);assert.equal(f.c.SukunCountCorrection.set(0),true);f.c.s.target=0;assert.equal(f.c.SukunCountCorrection.set(999999999),true);assert.equal(f.c.SukunCountCorrection.set(1000000000),false)});
 for(const kind of ['99','28'])test('reject wrong selected owner '+kind,()=>{const f=fixture(kind);f.c.s.journeyKind='single';assert.equal(f.c[kind==='28'?'SukunBerhetiyyeSeyir':'SukunEsma99Seyir'].setCount(59),false);assert.equal(f.st.rep,2)});
@@ -63,6 +82,20 @@ function commandFixture(tab){
  await checked('other active tab denies remaining Save without mutation or audio prime',async()=>{const w=origin(),a=w.tab(),b=w.tab();const claim=a.owner.acquire();await w.flush();assert(await claim);a.busy=true;const f=commandFixture(b),result=f.c.command('set-remaining',{value:'41'});await w.flush();assert.equal((await result).accepted,false);assert.equal(f.c.Z.count,2);assert.equal(b.calls.prime,0);assert.equal(a.owner.owns(),true)});
  await checked('Cancel during native lease acquisition cannot commit later',async()=>{const w=origin({allowLocks:false}),t=w.tab(),f=commandFixture(t);let live=true;const result=f.c.command('set-remaining',{value:'41',isCurrent:()=>live});await w.flush();live=false;w.unpauseLocks();await w.flush();assert.equal((await result).accepted,false);assert.equal(f.c.Z.count,2);assert.equal(t.calls.prime,0)});
  await checked('real count progress during admission invalidates queued edit',async()=>{const w=origin({allowLocks:false}),t=w.tab(),f=commandFixture(t);const result=f.c.command('set-remaining',{value:'41',expected:f.c.snapshot()});await w.flush();f.c.Z.count=3;w.unpauseLocks();await w.flush();assert.equal((await result).accepted,false);assert.equal(f.c.Z.count,3)});
+ await checked('unowned wheel tap acquires a lease before its single credit receipt',async()=>{
+  const w=origin(),t=w.tab(),f=commandFixture(t),receipts=[];
+  f.c.SukunManualVoice.enabled=()=>false;
+  f.c.SukunCountCorrection={adjust(delta,onCommit){assert.equal(t.owner.owns(),true);f.c.Z.count+=delta;onCommit();return true}};
+  const result=f.c.command('adjust',{delta:1,expected:f.c.snapshot(),onCommit:after=>receipts.push(after.count)});
+  assert.equal(f.c.Z.count,2);await w.flush();assert.equal((await result).accepted,true);
+  assert.deepEqual(receipts,[3]);assert.equal(t.calls.prime,0);
+ });
+ await checked('a count changed before queued wheel undo cannot be reversed',async()=>{
+  const w=origin({allowLocks:false}),t=w.tab(),f=commandFixture(t);
+  f.c.SukunCountCorrection={adjust(){throw Error('stale adjustment ran')}};
+  const result=f.c.command('adjust',{delta:-1,expected:f.c.snapshot()});await w.flush();
+  f.c.Z.count=4;w.unpauseLocks();await w.flush();assert.equal((await result).accepted,false);assert.equal(f.c.Z.count,4);
+ });
  await checked('normal owner run still primes by default',async()=>{const w=origin(),t=w.tab(),result=t.owner.run('manual',()=>true,{releaseAfter:true});await w.flush();assert.equal(await result,true);assert.equal(t.calls.prime,1)});
  console.log(JSON.stringify({passed}));
 })().catch(e=>{console.error(e);process.exitCode=1});

@@ -121,3 +121,42 @@ html body.sukun-tefekkur-mode #r920Practice[data-r938-layout="1"][data-r1056-foc
  }
 }
 }
+
+@layer sukun-r1057-compact {
+html body #r920Practice #r1275WheelAudio{
+ position:relative!important;display:block!important;align-self:center!important;
+ width:min(100%,360px)!important;max-width:100%!important;box-sizing:border-box!important;
+ margin:2px auto 4px!important;padding:5px 9px!important;color:#f9f2da!important;
+ background:linear-gradient(125deg,#102e2df5,#0d2025f5)!important;
+ border:1px solid #a796626b!important;border-radius:13px!important;text-align:start!important;
+ font:500 14px/1.4 system-ui,sans-serif!important;
+}
+html body #r920Practice #r1275WheelAudio .r1275Transport{
+ display:grid!important;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)!important;align-items:start!important;gap:7px!important;
+}
+html body #r920Practice #r1275WheelAudio :is(button,summary,select){
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ box-sizing:border-box!important;min-inline-size:0!important;min-height:44px!important;width:100%!important;
+ padding:5px 7px!important;border:1px solid #8da99a80!important;border-radius:9px!important;
+ background:#153b39!important;color:#f5edde!important;box-shadow:none!important;
+ font:600 13px/1.2 system-ui,sans-serif!important;white-space:normal!important;text-align:center!important;cursor:pointer!important;
+}
+html body #r920Practice #r1275WheelAudio #r1275LayerPlay{background:#e8d19e!important;color:#1b2e27!important;border-color:#e8d19e!important}
+html body #r920Practice #r1275WheelAudio :is(button,select,summary):focus-visible{outline:3px solid #72e7d8!important;outline-offset:2px!important}
+html body #r920Practice #r1275WheelAudio details{display:block!important;min-width:0!important;margin:0!important;padding:0!important;border:0!important;background:none!important}
+html body #r920Practice #r1275WheelAudio summary{list-style:none!important;gap:6px!important}
+html body #r920Practice #r1275WheelAudio summary::after{content:'⌄'!important;position:static!important;transform:none!important}
+html body #r920Practice #r1275WheelAudio details[open] summary::after{content:'⌃'!important}
+html body #r920Practice #r1275WheelAudio .r1275Transport:has(details[open]){grid-template-columns:1fr!important}
+html body #r920Practice #r1275WheelAudio #r1275AudioOptions{
+ display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:5px!important;
+ padding-top:6px!important;
+}
+html body #r920Practice #r1275WheelAudio #r1275AudioOptions :is(p,label,select){grid-column:1/-1!important}
+html body #r920Practice #r1275WheelAudio p,html body #r920Practice #r1275AmbienceLabel{
+ display:block!important;margin:3px 0!important;padding:0!important;min-height:0!important;color:#ece9d9!important;font:500 12px/1.4 system-ui,sans-serif!important;text-align:center!important;
+}
+html body #r920Practice #r1275WheelAudio #r1275Recovery{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(134px,100%),1fr))!important;gap:5px!important}
+html body #r920Practice #r1275WheelAudio #r1275Issue{grid-column:1/-1!important;color:#ffdfab!important}
+html body #r920Practice #r1275WheelAudio [hidden]{display:none!important}
+}

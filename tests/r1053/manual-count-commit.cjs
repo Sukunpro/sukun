@@ -80,5 +80,20 @@ const results=[];async function test(name,fn){try{await fn();results.push({name,
   if(failure==='selection')f.c.Z.idx=1;if(failure==='hidden')f.document.hidden=true;
   complete({ok:failure!=='failed'});await f.flush();await f.zero();assert.equal(f.c.Z.count,2);assert.equal(f.steps().length,0);
  });
+ for (const outcome of ['completed','failed','owner lost','hidden','other credit','epoch changed','target changed']) await test('wheel undo receipt for voiced tap: '+outcome,async()=>{
+  const f=fixture(),c=f.c,original=c.SukunSessionState.snapshot;
+  let epoch=3,target=30; c.SukunSessionState.snapshot=()=>({...original(),epoch,target});
+  const complete=f.voice(),receipts=[];
+  assert.equal(c.SukunCountCorrection.adjust(1,()=>receipts.push(c.Z.count)),true);
+  await f.flush();assert.deepEqual(receipts,[]);assert.equal(c.Z.count,2);
+  if(outcome==='hidden')f.document.hidden=true;
+  if(outcome==='owner lost')f.owner(false);
+  if(outcome==='other credit')c.Z.count++;
+  if(outcome==='epoch changed')epoch++;
+  if(outcome==='target changed')target++;
+  complete({ok:outcome!=='failed'});await f.flush();await f.zero();
+  assert.deepEqual(receipts,outcome==='completed'?[3]:[]);
+  assert.equal(c.Z.count,['completed','other credit'].includes(outcome)?3:2);
+ });
  const report={method:'Production human feedback, counter/correction and manual-voice owners with controlled result/DOM endpoints; no browser compositor or audible device claim.',passed:results.filter(r=>r.passed).length,total:results.length,results};console.log(JSON.stringify(report,null,2));if(report.passed!==report.total)process.exitCode=1;
 })().catch(e=>{console.error(e);process.exitCode=1});

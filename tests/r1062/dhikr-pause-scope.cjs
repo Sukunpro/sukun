@@ -83,8 +83,9 @@ async function fresh({kind='single',mode='esma',phase='playing',hidden=false,amb
  c.fixtureNodes={r920Play:wheelNode,r932EasyPlay:easyNode};
  const command=code.interface.match(/function command\(action,options\)\{[^\n]+\}/)?.[0];
  const binding=code.interface.split('\n').find(s=>s.includes("$('r920Play').onclick="));assert(command&&binding,'actual wheel Pause/Resume handler');
+ const wheelAudio=code.interface.includes('const wheelCopy=')?extract(code.interface,'const wheelCopy=','\nfunction make(){'):'';
  const easyHandler=extract(code.wheels,"box.addEventListener('click',event=>{","});render();");
- h.run(`(()=>{const $=id=>fixtureNodes[id],queue=()=>{},wake=()=>{},snap=()=>window.SukunSessionState.snapshot();${command};${binding};const sources={play:'r920Play'},box={addEventListener(type,fn){window.fixtureEasyPlay=fn;}};${easyHandler}});})();`,'actual-wheel-easy-pause');
+ h.run(`(()=>{const $=id=>fixtureNodes[id],queue=()=>{},wake=()=>{},snap=()=>window.SukunSessionState.snapshot();${wheelAudio};${command};${binding};const sources={play:'r920Play'},box={addEventListener(type,fn){window.fixtureEasyPlay=fn;}};${easyHandler}});})();`,'actual-wheel-easy-pause');
  for(let i=0;i<ambiences;i++){const def={id:'amb'+i,name:'Synthetic ambience '+i,icon:'♪',cal:1,build(){}};c.AMBIENT_DEFS.push(def);c.chVol[def.id]=.3+i*.1;c.chOn(def);}
  if(frequencies){c.frStart();c.fixtureFR2.on=true;c.fixtureFR2.c=136.1;c.fixtureFR2.b=6;c.fr2Start();}
  await h.advance(1600);await flush();await h.advance(1600);await flush();

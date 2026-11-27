@@ -3,11 +3,12 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('nod
 const root=path.resolve(__dirname,'../..'),html=fs.readFileSync(path.join(root,'nero.html'),'utf8');
 const source=html.slice(html.indexOf('let OB_I=0, OB_LIST=OB_STEPS'),html.indexOf('\nfunction dailyShow(',html.indexOf('let OB_I=0, OB_LIST=OB_STEPS')));
 new vm.Script(source);
-function fixture(){
+function fixture(firstVisit=false){
  const events={},timers=[],frames=[],observers=[],values=new Map(),focuses=[];let body;
  const document={activeElement:null,addEventListener:(name,fn)=>(events[name]??=[]).push(fn)};
  function element(id,parent=null){const classes=new Set();return {id,parent,hidden:false,disabled:false,isConnected:true,dataset:{},textContent:'',innerHTML:'',scrollTop:47,visibility:'visible',rects:true,
   classList:{add:x=>classes.add(x),remove:x=>classes.delete(x),contains:x=>classes.has(x)},
+  toggleAttribute(name,force){this[name]=!!force},
   contains(n){for(;n;n=n.parent)if(n===this)return true;return false},
   closest(selector='[hidden],[inert]'){for(let n=this;n;n=n.parent)if((selector.includes('[hidden]')&&n.hidden)||(selector.includes('[inert]')&&n.inert))return n;return null},
   getClientRects(){return this.rects&&!this.closest('[hidden]')?[{}]:[]},
@@ -18,8 +19,9 @@ function fixture(){
  const card=element('card',oc),content=element('obContent',card),skip=element('obSkip',card),next=element('obNext',card),opener=element('opener',body),nav=element('nav',body),log=element('logBtn',body);
  const map={'#onboardCard':oc,'#onboardCard .obInner':card,'#obContent':content,'#obSkip':skip,'#obNext':next,'#r616BottomNav button.active':nav,'#logBtn':log};
  for(const id of ['obTitle','obText','obDots','obGlyph'])map['#'+id]=element(id,card);
+ if(firstVisit){const choices=element('obChoices',content);map['#obChoices']=choices;for(const id of ['obDhikr','obReading'])map['#'+id]=element(id,choices)}
  const steps=[{title:'First',text:'First description',glyph:'',since:'test'},{title:'Second',text:'Second description',glyph:''}];
- const context={document,window:{SukunKandil:{hide(){},arm(){}}},OB_STEPS:steps,OB_BUILD:'test',$:s=>map[s],S:{get:(key,def)=>values.has(key)?values.get(key):def,set:(key,value)=>values.set(key,value)},
+ const context={document,window:{SukunKandil:{hide(){},arm(){}},SukunRecoveryData:{status:()=>({checking:false})},SukunPracticeUI:{},SukunReadingUIR1064:{},addEventListener(){}},OB_STEPS:steps,OB_BUILD:'test',$:s=>map[s],S:{get:(key,def)=>values.has(key)?values.get(key):def,set:(key,value)=>values.set(key,value)},
   hesc:s=>s,getComputedStyle:n=>({visibility:n.visibility}),requestAnimationFrame:fn=>frames.push(fn),setTimeout:fn=>timers.push(fn),MutationObserver:class{constructor(fn){this.fn=fn;observers.push(this)}observe(target,options){this.target=target;this.options=options}}};
  vm.createContext(context);vm.runInContext(source,context);
  const run=expr=>vm.runInContext(expr,context),flush=queue=>{for(const fn of queue.splice(0))fn()};
@@ -51,9 +53,16 @@ test('completion closes normally and fallback return avoids the closed journal',
 test('close followed by immediate reopen cannot be hidden by the stale timer',()=>{const f=fixture();f.opener.focus();f.context.obOpen();f.flush(f.frames);f.context.obClose();f.context.obOpen();f.flush(f.frames);f.flush(f.timers);assert(!f.oc.hidden);assert(f.oc.classList.contains('ob-active'));assert.equal(f.document.activeElement,f.card);f.context.obClose();f.flush(f.timers);assert.equal(f.document.activeElement,f.opener)});
 test('a newer focus taken during closing is not stolen',()=>{const f=fixture();f.context.obOpen();f.flush(f.frames);f.context.obClose();f.opener.focus();f.flush(f.timers);assert.equal(f.document.activeElement,f.opener)});
 test('repeated initialization installs one keyboard handler and class observer',()=>{const f=fixture();f.values.set('sukun.onboardSeen',1);f.values.set('sukun.obSeenBuild','test');f.context.obInit();f.context.obInit();assert.equal(f.events.keydown.length,1);assert.equal(f.events.focusin.length,1);assert.equal(f.observers.length,1)});
+test('first-visit keyboard loop includes both entry choices and the guided tour',()=>{
+ const f=fixture(true);f.context.obInit();f.flush(f.frames);
+ assert.equal(f.skip.textContent,'Keşfet');assert.equal(f.next.textContent,'Tanıtım turu');
+ assert(f.key('Tab').prevented);assert.equal(f.document.activeElement,f.map['#obDhikr']);
+ f.next.focus();assert(f.key('Tab').prevented);assert.equal(f.document.activeElement,f.map['#obDhikr']);
+ assert(f.key('Tab',true).prevented);assert.equal(f.document.activeElement,f.next);
+});
 test('content is keyboard-scrollable within the dialog and its actions are outside the scroller',()=>{
  assert.match(html,/class="obContent" id="obContent" role="region" aria-labelledby="obTitle" tabindex="0"/);
- assert.match(html,/<div class="obText" id="obText"><\/div>\s*<\/div>\s*<div class="obBtns">/);
+ assert.match(html,/<div class="obText" id="obText"><\/div>\s*<div id="obChoices" hidden>[\s\S]*?id="obDhikr"[\s\S]*?id="obReading"[\s\S]*?<\/div>\s*<\/div>\s*<div class="obBtns">/);
 });
 test('entry documents are identical and the tour stylesheets match their SRI',()=>{
  assert.equal(html,fs.readFileSync(path.join(root,'index.html'),'utf8'));

@@ -11,13 +11,13 @@ const origin = 'https://appassets.androidplatform.net';
 const base = '/sukun/';
 const recoveryDb = 'sukunRecoveryDataR1019';
 
-async function openApp(browser, state) {
+async function openApp(browser, state, { width = 360, height = 760, lang } = {}) {
   const context = await browser.newContext({
-    viewport: { width: 360, height: 760 },
+    viewport: { width, height },
     deviceScaleFactor: 2.5,
     hasTouch: true,
     isMobile: true,
-    locale: 'tr-TR',
+    locale: lang === 'en' ? 'en-GB' : 'tr-TR',
     serviceWorkers: 'block',
     userAgent: 'Mozilla/5.0 (Linux; Android 13; 2107113SR; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/' + browser.version() + ' Mobile Safari/537.36'
   });
@@ -32,7 +32,8 @@ async function openApp(browser, state) {
     return stat?.isFile() ? route.fulfill({ path: file }) : route.fulfill({ status: 404, body: '' });
   });
 
-  await context.addInitScript(({ state, recoveryDb }) => {
+  await context.addInitScript(({ state, recoveryDb, lang }) => {
+    if (lang) localStorage.setItem('sukun.lang', JSON.stringify(lang));
     if (state === 'checking') {
       const setTimer = window.setTimeout;
       window.setTimeout = (callback, delay, ...args) => {
@@ -62,9 +63,11 @@ async function openApp(browser, state) {
       };
       return pending;
     };
-  }, { state, recoveryDb });
+  }, { state, recoveryDb, lang });
 
   const page = await context.newPage();
+  // A cold WebView fixture transfers the full offline shell through Playwright routes.
+  page.setDefaultNavigationTimeout(120000);
   if (state === 'journal') {
     await page.goto(origin + base + 'fixture.html');
     await page.evaluate(dbName => new Promise((resolve, reject) => {
@@ -94,6 +97,10 @@ async function checkStartup(browser) {
   try {
     await page.waitForFunction(() => typeof window.finishJournalCheck === 'function');
     assert.equal(await page.evaluate(() => SukunRecoveryData.hasPending()), true);
+    assert.equal(await page.locator('#obDhikr').isDisabled(), true);
+    assert.equal(await page.locator('#obReading').isDisabled(), true);
+    assert.match(await page.locator('#obText').textContent(), /kayıtlar kontrol ediliyor/);
+    assert.equal(await page.locator('#obSkip').isEnabled(), true);
     const title = await page.locator('#obTitle').textContent();
     await page.locator('#obNext').tap();
     assert.notEqual(await page.locator('#obTitle').textContent(), title);
@@ -136,7 +143,9 @@ async function checkBlockedTap(browser, state) {
   }
 }
 
-(async () => {
+module.exports = { openApp };
+
+if (require.main === module) (async () => {
   assertRecoverySafety(await fs.readFile(path.join(root, 'assets/runtime/recovery-data-r1270.js'), 'utf8'));
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH, headless: true, args: ['--disable-gpu'] });
   try {

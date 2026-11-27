@@ -59,6 +59,11 @@ function fixture(app, {language='tr', preference=null}={}) {
   // retain our controlled final command boundary while executing that API.
   vm.runInContext(fs.readFileSync(path.join(app,'assets/runtime/session-r919.js'),'utf8'),context);
   const native=fs.readFileSync(path.join(app,'assets/runtime/interface-r920.js'),'utf8');
+  const audioStart=native.indexOf('const wheelCopy=');
+  if(audioStart>=0){
+    const end=native.indexOf('\nfunction make(){',audioStart);assert(end>audioStart,'wheel audio helpers');
+    vm.runInContext(native.slice(audioStart,end),context);
+  }
   const play=native.split('\n').find(line=>line.includes("$('r920Play').onclick=")),stop=native.match(/\$\('r920Stop'\)\.onclick=\(\)=>command\('stop'\);/),adjust=native.split('\n').find(line=>line.includes("$('r920Plus').onclick="));assert(play&&stop&&adjust,'native command boundaries');vm.runInContext(play+'\n'+stop[0]+'\n'+adjust,context);
   const summaryStart=native.indexOf('function readingSummary(s){'),summaryEnd=native.indexOf('\nfunction render(){',summaryStart);assert(summaryStart>=0&&summaryEnd>summaryStart,'reading-summary production boundary');vm.runInContext(native.slice(summaryStart,summaryEnd),context);
   const dock=fs.readFileSync(path.join(app,'assets/runtime/dock-r920.js'),'utf8'),dockStart=dock.indexOf(' function miniPresentation(mode){'),dockEnd=dock.indexOf('\n function mount(){',dockStart);assert(dockStart>=0&&dockEnd>dockStart,'mini-dock production boundary');vm.runInContext(dock.slice(dockStart,dockEnd),context);

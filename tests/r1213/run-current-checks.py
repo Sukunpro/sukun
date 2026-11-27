@@ -109,6 +109,10 @@ INHERITED_SUITES = [
 # Keep new audio/graphics native evidence in the mandatory full release gate.
 # These suites run sequentially, apart from the parallel source contracts.
 NATIVE_BROWSER_SUITES = [
+    ('mobile-practice-home', 'tests/r1275/home-practice.cjs'),
+    ('wheel-audio-status', 'tests/r1275/wheel.cjs'),
+    ('first-visit-choices', 'tests/r1275/onboarding.cjs'),
+    ('first-visit-pending-recovery', 'tests/r1270/recovery-startup-browser.cjs'),
     ('journal-backup-native', 'tests/r1272/journal-backup.cjs'),
     ('short-voice-recording-native', 'tests/r1274/short-voice-browser.cjs'),
     ('tekke-keyboard-native', 'tests/r1274/tekke-keyboard.cjs'),
