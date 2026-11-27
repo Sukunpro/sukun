@@ -86,7 +86,52 @@ const wheelCopy=(tr,en)=>window.I18N?.lang==='en'?en:tr;
 const wheelAudioUI=(()=>{
  let actionPending=false,lastManual=null,sourceNotice='',noticeFor='';
  const currentKey=s=>s?[s.activeMode,s.activeIndex,s.journeyKind,s.epoch,safe(()=>Z.form,'')].join('|'):'';
- const ambienceIds=()=>safe(()=>Object.keys(AMB),[]);
+ const ambienceIds=()=>safe(()=>Object.keys(AMB).filter(id=>id!==PREVIEW.id),[]);
+ let lastPreset=null;
+ function rememberPreset(name,custom=false,savedSet=false){
+  if(!name)return;
+  lastPreset={name,custom,c:FR.c,b:FR.b,mode:FR.mode,
+   settings:savedSet?JSON.stringify(window.SukunFrequencyR1120.capture()):null};
+  queue();
+ }
+ function validatePreset(){
+  if(lastPreset&&(lastPreset.c!==FR.c||lastPreset.b!==FR.b||lastPreset.mode!==FR.mode||
+   (lastPreset.settings&&lastPreset.settings!==JSON.stringify(window.SukunFrequencyR1120.capture()))))lastPreset=null;
+ }
+ function activeAmbiences(ids){
+  const list=$('r1276ActiveAmbiences'),previous=[...list.children];
+  const focused=previous.indexOf(document.activeElement);
+  for(const button of previous)if(!ids.includes(button.dataset.stopAmbience))button.remove();
+  for(const id of ids){
+   const channel=AMB[id].def;
+   let button=previous.find(node=>node.dataset.stopAmbience===id);
+   if(!button){
+    button=document.createElement('button');button.type='button';button.dataset.stopAmbience=id;
+    const name=document.createElement('span'),close=document.createElement('span');
+    close.textContent='×';close.setAttribute('aria-hidden','true');button.append(name,close);list.append(button);
+   }
+   const name=channel.custom?channel.name:(window.I18N?.t?.(channel.name)||channel.name);
+   text(button.firstElementChild,name);attr(button,'aria-label',wheelCopy(name+' ambiyansını kapat','Turn off '+name+' ambience'));
+  }
+  attr(list,'aria-label',wheelCopy('Açık ambiyanslar','Active ambiences'));prop(list,'hidden',!ids.length);
+  if(focused>=0&&!previous[focused].isConnected){
+   const next=list.children[Math.min(focused,list.children.length-1)]||$('r1275AudioDetails').querySelector('summary');
+   next.focus({preventScroll:true});
+  }
+ }
+ const hzFormats={tr:new Intl.NumberFormat('tr-TR',{maximumFractionDigits:2}),en:new Intl.NumberFormat('en',{maximumFractionDigits:2})};
+ function frequencyStatus(){
+  const line=$('r1276MainFrequency'),visible=safe(()=>FR.playing||$('r1275AudioDetails').open,false);
+  prop(line,'hidden',!visible);if(!visible)return;
+  const c=wheelCopy,t=s=>window.I18N?.t?.(s)||s;
+  validatePreset();
+  const position=FR.playing&&FR._ramp?frRampPosition():FR;
+  const fmt=hzFormats[window.I18N?.lang==='en'?'en':'tr'];
+  const mode={bin:'Binaural',iso:c('İzokronik','Isochronic'),mono:'Monaural',mix:c('Karma','Mixed')}[FR.mode];
+  const name=(jActive&&$('jName')?.textContent)||(lastPreset&&(lastPreset.custom?lastPreset.name:t(lastPreset.name)))||t(bandOf(position.b)[1]);
+  const label=FR.playing?c('Ana frekans','Primary frequency'):c('Seçili ana frekans','Selected primary frequency');
+  text(line,[label,name,mode,fmt.format(position.c)+' Hz '+c('taşıyıcı','carrier'),fmt.format(position.b)+' Hz '+c('vuruş','beat')].filter(Boolean).join(' · '));
+ }
  const isCurrent=(s,key)=>!!s&&currentKey(s)===key&&(s.activeMode!=='berhet'||allowed());
  function recording(s){
   const voice=window.SukunVoiceSettings?.getMode?.(),failure=window.SukunRecordingFailure?.get?.();
@@ -118,6 +163,37 @@ const wheelAudioUI=(()=>{
   $('r1275EnableVoice').focus({preventScroll:true});
  }
  function bind(){
+  window.addEventListener('sukun:frequencyselection',e=>{
+   rememberPreset(e.detail?.name,e.detail?.custom,e.detail?.savedSet);
+  });
+  window.addEventListener('sukun:referencepitch',e=>{
+   if(e.detail?.ok)rememberPreset(FREQ_PRESETS.find(p=>p.id===e.detail.id)?.name);
+  });
+  document.addEventListener('click',e=>{
+   const selected=e.target.closest?.('#presets button.pre.act');
+   if(!selected||e.target.closest('[data-mx]'))return;
+   const custom=selected.hasAttribute('data-my');
+   const preset=custom?MYFREQ[Number(selected.dataset.my)]:FREQ_PRESETS[Number(selected.dataset.p)];
+   if(preset&&!preset.journey)rememberPreset(preset.name,custom);
+  });
+  $('r1276ActiveAmbiences').onclick=e=>{
+   const button=e.target.closest('button[data-stop-ambience]'),id=button?.dataset.stopAmbience;
+   if(id&&ambienceIds().includes(id)){
+    // Delegate to the mixer's stop-only control. A stale second tap can never restart a channel.
+    $('calanSerit')?.querySelector('[data-kapat="'+CSS.escape(id)+'"]')?.click();queue();
+   }
+  };
+  // Mixer refreshes also originate in session presets, timers and custom channel edits.
+  // Observe their native readouts so a hidden player is never the source of truth.
+  const mixObserver=new MutationObserver(()=>{
+   if(!document.hidden&&!root.hidden&&!$('tab-zkr').hidden)activeAmbiences(ambienceIds());
+  });
+  if($('calanSerit'))mixObserver.observe($('calanSerit'),{childList:true});
+  const tuningObserver=new MutationObserver(()=>{
+   validatePreset();
+   if(!document.hidden&&!root.hidden&&!$('tab-zkr').hidden)frequencyStatus();
+  });
+  for(const node of [$('beatVal'),$('jInfo')])if(node)tuningObserver.observe(node,{childList:true});
   $('r1275AudioDetails').ontoggle=()=>{if($('r1275AudioDetails').open)pickAmbience();queue()};
   $('r1275LayerPlay').onclick=()=>{
    if(!silentJourney(snap()))return $('r920Play')?.click();
@@ -190,13 +266,14 @@ const wheelAudioUI=(()=>{
   const source=window.SukunAudioSourceText?.label?.(s),off=window.SukunR698VoiceIntent?.snapshot?.().explicitOff;
   const blocked=recording(s);
   const voice=off?c('Zikir sesi kapalı','Recitation off'):blocked?c('Kayıt kullanılamıyor','Recording unavailable'):s.phase==='PAUSED'?c('Zikir duraklatıldı','Dhikr paused'):s.phase==='PREPARING'?c('Ses hazırlanıyor','Preparing audio'):running&&s.sourceOrigin!=='none'?source:!running&&window.SukunR698VoiceIntent?.enabled?.()?c('Okuyuşa hazır','Ready to recite'):c('Zikir sesi kapalı','Recitation off');
-  const background=[active.length?c('Ambiyans açık','Ambience on'):null,mainFrequency||secondary?c('Frekans açık','Frequency on'):null].filter(Boolean);
+  const background=secondary?c('İkinci frekans açık','Secondary frequency on'):'';
+  activeAmbiences(active);frequencyStatus();
   const silent=silentJourney(s);
   const silentAction=window.SukunCountCorrection?.status?.(1)?.allowed?c('Elle say +1','Count manually +1'):c('Ses seç','Choose sound');
   text($('r1275LayerPlay'),silent?silentAction:s.globalPauseBlocked?c('Genel duraklatmadan sürdür','Resume from global pause'):action);
   text($('r1275EnableVoice'),c('Otomatik ses seçimini aç','Enable automatic voice selection'));
   prop($('r1275EnableVoice'),'hidden',!off);prop($('r1275EnableVoice'),'disabled',actionPending);
-  text($('r1275LayerState'),[voice,...background].filter(Boolean).join(' · '));
+  text($('r1275LayerState'),[voice,background].filter(Boolean).join(' · '));
   text($('r1275SoundsLabel'),c('Sesler','Sounds'));
   text($('r1275SourceInfo'),source||c('Ses kapalı','Audio off'));
   text($('r1275AmbienceLabel'),c('Ambiyans','Ambience'));
@@ -220,7 +297,7 @@ function make(){
  <div class="r920Path"><button id="r920AtlasOpen" type="button">Atlas</button><label id="r920JourneyLabel"><span>Okuyuş</span><select id="r920JourneyMode" aria-label="Tekil zikir veya seyir"><option value="single">Tekil zikir</option><option value="journey">Seyir</option></select></label><button id="r920TefEnter" type="button"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M12 18V5a3 3 0 0 0-5.8-1 4.3 4.3 0 0 0-3.2 6.9 4.5 4.5 0 0 0 1.2 7.7 4 4 0 0 0 7.8 1.2 4 4 0 0 0 7.8-1.2 4.5 4.5 0 0 0 1.2-7.7 4.3 4.3 0 0 0-3.2-6.9A3 3 0 0 0 12 5"/><path d="M8 7c0 1.5-1 2.5-2.5 2.5M8.2 14.2C6.7 14 6 13 6 12m2 6c.4-1.5 1.6-2.4 4-2.4M16 7c0 1.5 1 2.5 2.5 2.5m-2.7 4.7C17.3 14 18 13 18 12m-2 6c-.4-1.5-1.6-2.4-4-2.4"/></svg><span>Tefekküre geç</span></button></div>
  <div class="r920Identity"><p id="r920Eyebrow"></p><button id="r920NameInfo" type="button" aria-label="Aktif ismin açıklaması"><span id="r920Arabic" lang="ar" dir="rtl"></span><span id="r920ActiveName"></span></button><p id="r920SceneTitle"></p><p id="r920VoiceSource" role="status"></p></div>
  <div id="r924WheelFrame" data-wheel-state="loading"><div id="r1029WheelClip"><div id="r925WheelRotor"><img id="r920Wheel" alt="" aria-hidden="true" decoding="async"><button id="r920Minus" class="r924Gem" type="button" aria-label="Bir azalt"><span class="r925GemLabel">−1</span></button><button id="r920Plus" class="r924Gem" type="button" aria-label="Bir artır"><span class="r925GemLabel">+1</span></button><button id="r920Stop" class="r924Gem" type="button"><span class="r925GemLabel r927GemAction"><span aria-hidden="true" class="r927GemIcon">■</span><span class="r927GemCaption">Bitir</span></span></button><button id="r920Play" class="r924Gem" type="button"><span id="r925PlayLabel" class="r925GemLabel r927GemAction"><span id="r927PlayIcon" class="r927GemIcon" aria-hidden="true">▶</span><span id="r927PlayCaption" class="r927GemCaption">Başlat</span></span></button></div></div><svg class="r920Progress" viewBox="0 0 300 300" aria-hidden="true"><defs><filter id="r921EsmaMatte" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  10 10 10 0 0"/></filter></defs><circle cx="150" cy="150" r="75" class="r920Track"></circle><circle cx="150" cy="150" r="75" class="r920Arc" pathLength="100"></circle><circle cx="150" cy="150" r="75" class="r959LightCore" pathLength="100"></circle></svg><button id="r920Counter" type="button" aria-label="Bir zikir say"><span class="r920CounterCore"><small id="r1082CountLabel">TEKRAR</small><span class="wheelCountUX"><strong id="r920Count">0</strong><span id="wheelTargetUX" hidden aria-hidden="true"></span></span><span id="r920Percent">%0</span><span id="wheelRemainingUX" hidden aria-hidden="true"></span></span></button><button id="r959WheelPrevious" class="r959WheelNav" type="button" aria-label="Önceki zikre geç" title="Önceki zikre geç"><svg class="r925GemLabel r962NavGlyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 5v14M18 5L9 12l9 7Z"/></svg></button><button id="r959WheelNext" class="r959WheelNav" type="button" aria-label="Sonraki zikre geç" title="Sonraki zikre geç"><svg class="r925GemLabel r962NavGlyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17 5v14M6 5l9 7-9 7Z"/></svg></button><div id="r920Phase" role="status" aria-live="polite" aria-atomic="true"></div></div>
- <div id="r1275WheelAudio" data-noi18n><div class="r1275Transport"><button id="r1275LayerPlay" type="button"></button><details id="r1275AudioDetails"><summary><span id="r1275SoundsLabel">Sesler</span></summary><div id="r1275AudioOptions"><p id="r1275SourceInfo"></p><button id="r1275EnableVoice" type="button" hidden></button><label for="r1275Ambience" id="r1275AmbienceLabel">Ambiyans</label><select id="r1275Ambience"></select><button id="r1275AmbienceAction" type="button"></button><button id="r1275FrequencyAction" type="button"></button></div></details></div><p id="r1275LayerState"></p><div id="r1275Recovery" hidden><p id="r1275Issue"></p><button id="r1275ReadyVoice" type="button" hidden></button><button id="r1275Silent" type="button"></button></div><p id="r1275Notice" role="status" hidden></p><button id="r1275Undo" type="button" hidden></button></div>
+ <div id="r1275WheelAudio" data-noi18n><div class="r1275Transport"><button id="r1275LayerPlay" type="button"></button><details id="r1275AudioDetails"><summary><span id="r1275SoundsLabel">Sesler</span></summary><div id="r1275AudioOptions"><p id="r1275SourceInfo"></p><button id="r1275EnableVoice" type="button" hidden></button><label for="r1275Ambience" id="r1275AmbienceLabel">Ambiyans</label><select id="r1275Ambience"></select><button id="r1275AmbienceAction" type="button"></button><button id="r1275FrequencyAction" type="button"></button></div></details></div><p id="r1275LayerState"></p><div id="r1276ActiveAmbiences" role="group" hidden></div><p id="r1276MainFrequency" hidden></p><div id="r1275Recovery" hidden><p id="r1275Issue"></p><button id="r1275ReadyVoice" type="button" hidden></button><button id="r1275Silent" type="button"></button></div><p id="r1275Notice" role="status" hidden></p><button id="r1275Undo" type="button" hidden></button></div>
  <div class="r920Stats"><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><i id="r1082TargetLabel" style="font-style:normal">Hedef</i> <b id="r920Target"></b></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3v4l5 5-5 5v4m10-18v4l-5 5 5 5v4"/></svg>Kalan <b id="r920Remaining"></b></span></div>
 
  <div class="r920Transport"><button id="r920Previous" type="button">Önceki</button><button id="r920Restart" type="button">Baştan başla</button><button id="r920Next" type="button">Sonraki</button><button id="r920JourneyRestartAll" type="button" style="grid-column:1/-1" hidden>Tüm seyri ilk isimden başlat</button></div>
@@ -558,7 +635,7 @@ function settleFocus(active){
 // requestAnimationFrame handle survived restoration. No transport command.
 function restorePresentation(){if(document.hidden)return false;if(raf)cancelAnimationFrame(raf);raf=0;render();return !!root?.isConnected&&!root.hidden}
 document.addEventListener('visibilitychange',()=>{if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0;clearTimeout(focusTimer)}else queue()},{passive:true});
-['DOMContentLoaded','pageshow','sukun:sessionchange','sukun:currentzikirchange','sukun:languagechange','sukun:scenechange','sukun:performancechange','sukun:tefekkurchange','sukun:secretaccesschange','sukun:voicesource','sukun:voicesettingschange','sukun:backgroundmix','sukun:genericrecordingschange','sukun:genericrecordingsstatus','sukun:recordingcatalogchange','sukun:recordingerror','sukun:recordingrecovered'].forEach(event=>addEventListener(event,queue,{passive:true}));
+['DOMContentLoaded','pageshow','sukun:sessionchange','sukun:currentzikirchange','sukun:languagechange','sukun:scenechange','sukun:performancechange','sukun:tefekkurchange','sukun:secretaccesschange','sukun:voicesource','sukun:voicesettingschange','sukun:backgroundmix','sukun:frequencychange','sukun:tabchange','sukun:genericrecordingschange','sukun:genericrecordingsstatus','sukun:recordingcatalogchange','sukun:recordingerror','sukun:recordingrecovered'].forEach(event=>addEventListener(event,queue,{passive:true}));
 addEventListener('sukun:journey-advance',e=>{const mode=e.detail?.owner==='journey28'?'berhet':e.detail?.owner==='journey99'?'esma':null;if(mode)markComplete(mode,Number(e.detail.index)-1);queue()});
 document.addEventListener('pointerdown',()=>{if(root&&!root.hidden)wake()},{passive:true});document.addEventListener('keydown',wake,{passive:true});
 new MutationObserver(queue).observe(document.body,{attributes:true,attributeFilter:['class']});

@@ -111,6 +111,9 @@ INHERITED_SUITES = [
 NATIVE_BROWSER_SUITES = [
     ('mobile-practice-home', 'tests/r1275/home-practice.cjs'),
     ('wheel-audio-status', 'tests/r1275/wheel.cjs'),
+    ('player-control-layout', 'tests/r1276/player-layout.cjs'),
+    ('wheel-sound-mixer', 'tests/r1276/wheel-mix.cjs'),
+    ('wheel-sound-layout', 'tests/r1276/wheel-visual.cjs'),
     ('first-visit-choices', 'tests/r1275/onboarding.cjs'),
     ('first-visit-pending-recovery', 'tests/r1270/recovery-startup-browser.cjs'),
     ('journal-backup-native', 'tests/r1272/journal-backup.cjs'),

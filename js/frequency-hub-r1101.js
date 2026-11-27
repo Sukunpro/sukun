@@ -60,6 +60,7 @@
  function applyPreset(p){
   if(initializing||!p)return false;
   apply({c:p.carrier,b:p.beat,pink:p.noise==='pink'});
+  window.dispatchEvent(new CustomEvent('sukun:frequencyselection',{detail:{name:p.name}}));
   notify(T('Ayarlar hazır: ','Settings ready: ')+(safe(()=>window.I18N?.t?.(p.name),p.name)||p.name)+T('. Sesi ana Frekansı Başlat düğmesinden açabilirsiniz.','. Use the main Start frequency button to play.'));
   open('overview',{navigate:false});return true;
  }
@@ -80,6 +81,7 @@
   // start guard: a playing graph is retuned, and global pause stays held.
   const playing=reference?reference.playing:start(),name=safe(()=>window.I18N?.t?.(item.name),item.name)||item.name;
   notify(name+(playing?T(' çalıyor.',' is playing.'):held()?T(' uygulandı. Genel duraklatma açık; ana kontrollerden Devam et seçin.',' applied. Global pause is active; choose Resume in the main controls.'):T(' uygulandı. Çalma başlatılamadı; Frekansı Başlat düğmesini kullanın.',' applied. Playback could not start; use Start frequency.')));
+  window.dispatchEvent(new CustomEvent('sukun:frequencyselection',{detail:{name:item.name}}));
   libraryNoticeKey=libraryStateKey();
   mirror();return playing;
  }
