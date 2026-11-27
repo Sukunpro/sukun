@@ -1,20 +1,26 @@
 @layer sukun-r920-contract {
   html body #r588DockShell #r1263StopReasonButton {
     display: inline-flex !important;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    min-height: 44px;
-    max-width: 100%;
-    margin: 0;
-    padding: 4px 12px;
-    border: 1px solid #829d94;
-    border-radius: 10px;
-    background: #122c30;
-    color: #e9e8d6;
-    font: 600 12px/1.25 system-ui, sans-serif;
+    justify-content: center !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    min-height: 44px !important;
+    max-inline-size: 100% !important;
+    margin: 0 !important;
+    padding: 4px 12px !important;
+    border: 1px solid #829d94 !important;
+    border-radius: 10px !important;
+    background: #122c30 !important;
+    color: #e9e8d6 !important;
+    font: 600 12px/1.4 system-ui, sans-serif !important;
+    text-align: center !important;
     cursor: pointer;
     touch-action: manipulation;
+  }
+  html body #r588DockShell #r1263StopReasonButton > span {
+    min-inline-size: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
   /* Keep the Mini grip, transport, expand action and existing 68px height.
      The help control has its own lane beside the group of transport buttons. */
@@ -27,7 +33,7 @@
     height: 44px !important;
     padding: 0 !important;
     z-index: 1;
-    font-size: 16px;
+    font-size: 16px !important;
   }
   html body.r920-dock.r588-mode-mini #r588DockShell #r1263StopReasonButton span { display: none !important; }
   html body.r920-dock.r588-mode-mini #r588DockShell #r1263StopReasonButton::before { content: '?'; }

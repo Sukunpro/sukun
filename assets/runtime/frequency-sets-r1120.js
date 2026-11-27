@@ -324,6 +324,7 @@
       const result = await bridge().apply(copy(valid.value.settings),{play:play === true});
       if (!result || result.ok !== true) throw new Error('apply');
       state.selectedId = record.id;
+      window.dispatchEvent(new CustomEvent('sukun:frequencyselection',{detail:{name:record.name,custom:true,savedSet:true}}));
       notify(play && result.paused ? 'held' : play && result.playing ? 'played' : 'loaded');
     } catch (_) { notify('apply'); }
     finally { state.busy = false; renderList(); paintStorage(); refreshSelection(); }
