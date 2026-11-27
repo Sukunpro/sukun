@@ -785,9 +785,9 @@
     // The 12 MiB core allowance includes the measured r1213 core (~10.5 MiB),
     // including exact listed high-resolution wheel/branding assets. Arabic recordings and the
     // exact short portal invitation share the separate bounded media allowance.
-    // r1268 and r1269 declare 200 mandatory assets; reject longer lists before downloading.
+    // r1277 declares 203 mandatory assets; reject longer lists before downloading.
     // Marker size, file paths, hashes, concurrency and byte budgets stay strict.
-    const maxRuntimeEntries=200,byteBudget=12582912,mediaByteBudget=33554432,waiters=new Set();
+    const maxRuntimeEntries=203,byteBudget=12582912,mediaByteBudget=33554432,waiters=new Set();
     function wakeBudget(){for(const wake of [...waiters])wake();}
     function waitForBudget(){return new Promise((resolve,reject)=>{
       let done=false;
@@ -866,7 +866,7 @@
             './css/premium-layout-r1215.css','./css/cinematic-r1215.css','./css/atlas-r1215.css','./css/atlas-r1217.css',
             './css/legacy-r1215-embFonts.css','./css/legacy-r1215-base-style.css','./css/legacy-r1215-r699-layout-authority.css',
             './css/visual-polish-r1232.css','./css/lower-stats-r1236.css','./css/tefekkur-help.css','./css/arrangement-fit.css','./css/feraset-sections-r1258.css',
-            './css/mobile-panels-r1268.css','./css/mobile-tekke-r1268.css','./css/mobile-tekke-r1270.css','./css/mobile-tour-r1268.css']
+            './css/mobile-panels-r1268.css','./css/mobile-tekke-r1268.css','./css/mobile-tekke-r1270.css','./css/mobile-tour-r1268.css','./css/mobile-controls-r1277.css']
             .some(p=>url.pathname===new URL(p,location.href).pathname);
           if (url.origin!==location.origin||url.username||url.password||seenPaths.has(url.pathname)||!(runtime||navigationArt||cabirArt||rescuePage||introArt||currentArt||introAudio||bundledArabicAudio||portalRuntime||portalVoice||sharedRuntime)||!/^[a-f0-9]{64}$/.test(entry?.sha256||'')) {
             result.push({path:path(url.href),status:'INVALID_ENTRY'});continue;
