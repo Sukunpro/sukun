@@ -48,7 +48,7 @@
       button.onclick = () => openRoute(key);
       return button;
     }));
-    byId('r1277Delivery').textContent = !('PushManager' in window && 'serviceWorker' in navigator)
+    byId('r1277Delivery').textContent = location.hostname === 'appassets.androidplatform.net' || !('PushManager' in window && 'serviceWorker' in navigator)
       ? (en ? 'This environment does not support web push.' : 'Bu ortam web push bildirimlerini desteklemiyor.')
       : (en ? 'Remote notifications are waiting for a sender connection.' : 'Uzaktan bildirim için gönderici bağlantısı bekleniyor.');
   }

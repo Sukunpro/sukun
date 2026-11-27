@@ -17,3 +17,16 @@
   html body #tk #gate [data-tk-action^="purpose-"] {min-width:0!important; max-width:100%!important;height:auto!important;white-space:normal!important;line-height:1.4!important}
  }
 }
+@layer sukun-mobile-controls {
+ @media (max-width:700px) {
+  html body #ydkBox .r168MediaFilters {display:flex!important; flex-wrap:wrap!important; gap:.4rem!important}
+  html body #ydkBox .r168MediaFilters button {flex:1 1 5rem!important}
+  html body #maneviGunluk textarea {field-sizing:content; min-block-size:8lh!important; max-block-size:none!important}
+  html body :is(#ydkBox,#maneviGunluk,#dlBox,#dhBox,#tvBox,#ferasetBox,#r1064ReadingExplorer) select {
+   appearance:base-select!important; field-sizing:content; align-items:center; overflow-wrap:anywhere!important;
+  }
+  html body :is(#ydkBox,#maneviGunluk,#dlBox,#dhBox,#tvBox,#ferasetBox,#r1064ReadingExplorer) select::picker(select) {
+   appearance:base-select; background:var(--bg,#142326);color:var(--txt,#f4eedf); max-width:calc(100vw - 2rem);
+  }
+ }
+}

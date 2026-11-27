@@ -3,6 +3,7 @@
   // Supply only the publisher's HTTPS registration URL and PUBLIC VAPID key.
   const endpoint = document.querySelector('meta[name="sukun-push-endpoint"]')?.content;
   const key = document.querySelector('meta[name="sukun-push-public-key"]')?.content;
+  if (location.hostname === 'appassets.androidplatform.net') return;
   const supported = 'Notification' in window && 'serviceWorker' in navigator;
   if (supported) {
     const pref = 'sukun.device.alerts';
