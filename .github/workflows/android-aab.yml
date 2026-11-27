@@ -77,7 +77,15 @@ jobs:
           umask 077
           KS="$RUNNER_TEMP/upload-keystore"
           trap 'rm -f "$KS"' EXIT
-          printf '%s' "$KS_B64" | base64 -d > "$KS"
+          # Telefondan kopyalanan metne satır sonu veya boşluk karışabilir; base64 bunları içermez.
+          if ! printf '%s' "$KS_B64" | tr -d ' \t\r\n' | base64 -d > "$KS" 2>/dev/null; then
+            echo "::error::ANDROID_UPLOAD_KEYSTORE_BASE64 çözülemedi. Metnin tamamı kopyalanmamış ya da araya başka karakter karışmış olabilir; ayarı yeniden yapıştır."
+            exit 1
+          fi
+          if ! keytool -list -keystore "$KS" -storepass:env KS_PASS -alias "$KS_ALIAS" > /dev/null 2>&1; then
+            echo "::error::Anahtar deposu açılamadı. ANDROID_UPLOAD_KEYSTORE_PASSWORD şifresini ve ANDROID_UPLOAD_KEY_ALIAS adını (sukun-upload) kontrol et."
+            exit 1
+          fi
           SIGNED="android/build/Sukun-$RELEASE-$CODE.aab"
           jarsigner -keystore "$KS" -storepass:env KS_PASS -keypass:env KEY_PASS \
             -sigalg SHA256withRSA -digestalg SHA-256 -signedjar "$SIGNED" "$UNSIGNED" "$KS_ALIAS" > /dev/null
